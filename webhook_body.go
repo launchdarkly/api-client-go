@@ -10,7 +10,13 @@
 
 package swagger
 
-type Links struct {
+type WebhookBody struct {
 
-	Self Link `json:"self,omitempty"`
+	Url string `json:"url"`
+
+	Secret string `json:"secret,omitempty"`
+
+	Sign bool `json:"sign"`
+
+	On bool `json:"on"`
 }

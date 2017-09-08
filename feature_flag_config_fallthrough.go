@@ -10,7 +10,9 @@
 
 package swagger
 
-type Links struct {
+type FeatureFlagConfigFallthrough struct {
 
-	Self Link `json:"self,omitempty"`
+	Variation int32 `json:"variation,omitempty"`
+
+	Rollout Rollout `json:"rollout,omitempty"`
 }

@@ -17,38 +17,42 @@ import (
 	"fmt"
 )
 
-type WebhooksApi struct {
+type UsersApi struct {
 	Configuration *Configuration
 }
 
-func NewWebhooksApi() *WebhooksApi {
+func NewUsersApi() *UsersApi {
 	configuration := NewConfiguration()
-	return &WebhooksApi{
+	return &UsersApi{
 		Configuration: configuration,
 	}
 }
 
-func NewWebhooksApiWithBasePath(basePath string) *WebhooksApi {
+func NewUsersApiWithBasePath(basePath string) *UsersApi {
 	configuration := NewConfiguration()
 	configuration.BasePath = basePath
 
-	return &WebhooksApi{
+	return &UsersApi{
 		Configuration: configuration,
 	}
 }
 
 /**
- * Delete a webhook by ID
+ * Delete a user by ID
  *
- * @param resourceId The resource ID
+ * @param projectKey The project key
+ * @param environmentKey The environment key
+ * @param userKey The user&#39;s key
  * @return void
  */
-func (a WebhooksApi) DeleteWebhook(resourceId string) (*APIResponse, error) {
+func (a UsersApi) DeleteUser(projectKey string, environmentKey string, userKey string) (*APIResponse, error) {
 
 	var localVarHttpMethod = strings.ToUpper("Delete")
 	// create path and map variables
-	localVarPath := a.Configuration.BasePath + "/webhooks/{resourceId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"resourceId"+"}", fmt.Sprintf("%v", resourceId), -1)
+	localVarPath := a.Configuration.BasePath + "/users/{projectKey}/{environmentKey}/{userKey}"
+	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", fmt.Sprintf("%v", projectKey), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"environmentKey"+"}", fmt.Sprintf("%v", environmentKey), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"userKey"+"}", fmt.Sprintf("%v", userKey), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -86,7 +90,7 @@ func (a WebhooksApi) DeleteWebhook(resourceId string) (*APIResponse, error) {
 
 	var localVarURL, _ = url.Parse(localVarPath)
 	localVarURL.RawQuery = localVarQueryParams.Encode()
-	var localVarAPIResponse = &APIResponse{Operation: "DeleteWebhook", Method: localVarHttpMethod, RequestURL: localVarURL.String()}
+	var localVarAPIResponse = &APIResponse{Operation: "DeleteUser", Method: localVarHttpMethod, RequestURL: localVarURL.String()}
 	if localVarHttpResponse != nil {
 		localVarAPIResponse.Response = localVarHttpResponse.RawResponse
 		localVarAPIResponse.Payload = localVarHttpResponse.Body()
@@ -99,17 +103,23 @@ func (a WebhooksApi) DeleteWebhook(resourceId string) (*APIResponse, error) {
 }
 
 /**
- * Get a webhook by ID
+ * Search users in LaunchDarkly based on their last active date, or a search query.
  *
- * @param resourceId The resource ID
- * @return *Webhook
+ * @param projectKey The project key
+ * @param environmentKey The environment key
+ * @param q Search query
+ * @param limit Pagination limit
+ * @param offset Specifies the first item to return in the collection
+ * @param after A unix epoch time in milliseconds specifying the maximum last time a user requested a feature flag
+ * @return *Users
  */
-func (a WebhooksApi) GetWebhook(resourceId string) (*Webhook, *APIResponse, error) {
+func (a UsersApi) GetSearchUsers(projectKey string, environmentKey string, q string, limit float32, offset float32, after float32) (*Users, *APIResponse, error) {
 
 	var localVarHttpMethod = strings.ToUpper("Get")
 	// create path and map variables
-	localVarPath := a.Configuration.BasePath + "/webhooks/{resourceId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"resourceId"+"}", fmt.Sprintf("%v", resourceId), -1)
+	localVarPath := a.Configuration.BasePath + "/user-search/{projectKey}/{environmentKey}"
+	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", fmt.Sprintf("%v", projectKey), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"environmentKey"+"}", fmt.Sprintf("%v", environmentKey), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -124,6 +134,10 @@ func (a WebhooksApi) GetWebhook(resourceId string) (*Webhook, *APIResponse, erro
 	for key := range a.Configuration.DefaultHeader {
 		localVarHeaderParams[key] = a.Configuration.DefaultHeader[key]
 	}
+	localVarQueryParams.Add("q", a.Configuration.APIClient.ParameterToString(q, ""))
+	localVarQueryParams.Add("limit", a.Configuration.APIClient.ParameterToString(limit, ""))
+	localVarQueryParams.Add("offset", a.Configuration.APIClient.ParameterToString(offset, ""))
+	localVarQueryParams.Add("after", a.Configuration.APIClient.ParameterToString(after, ""))
 
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{ "application/json",  }
@@ -143,12 +157,12 @@ func (a WebhooksApi) GetWebhook(resourceId string) (*Webhook, *APIResponse, erro
 	if localVarHttpHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
-	var successPayload = new(Webhook)
+	var successPayload = new(Users)
 	localVarHttpResponse, err := a.Configuration.APIClient.CallAPI(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 
 	var localVarURL, _ = url.Parse(localVarPath)
 	localVarURL.RawQuery = localVarQueryParams.Encode()
-	var localVarAPIResponse = &APIResponse{Operation: "GetWebhook", Method: localVarHttpMethod, RequestURL: localVarURL.String()}
+	var localVarAPIResponse = &APIResponse{Operation: "GetSearchUsers", Method: localVarHttpMethod, RequestURL: localVarURL.String()}
 	if localVarHttpResponse != nil {
 		localVarAPIResponse.Response = localVarHttpResponse.RawResponse
 		localVarAPIResponse.Payload = localVarHttpResponse.Body()
@@ -162,15 +176,21 @@ func (a WebhooksApi) GetWebhook(resourceId string) (*Webhook, *APIResponse, erro
 }
 
 /**
- * Fetch a list of all webhooks
+ * Get a user by key.
  *
- * @return *Webhooks
+ * @param projectKey The project key
+ * @param environmentKey The environment key
+ * @param userKey The user&#39;s key
+ * @return *User
  */
-func (a WebhooksApi) GetWebhooks() (*Webhooks, *APIResponse, error) {
+func (a UsersApi) GetUser(projectKey string, environmentKey string, userKey string) (*User, *APIResponse, error) {
 
 	var localVarHttpMethod = strings.ToUpper("Get")
 	// create path and map variables
-	localVarPath := a.Configuration.BasePath + "/webhooks"
+	localVarPath := a.Configuration.BasePath + "/users/{projectKey}/{environmentKey}/{userKey}"
+	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", fmt.Sprintf("%v", projectKey), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"environmentKey"+"}", fmt.Sprintf("%v", environmentKey), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"userKey"+"}", fmt.Sprintf("%v", userKey), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -204,12 +224,12 @@ func (a WebhooksApi) GetWebhooks() (*Webhooks, *APIResponse, error) {
 	if localVarHttpHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
-	var successPayload = new(Webhooks)
+	var successPayload = new(User)
 	localVarHttpResponse, err := a.Configuration.APIClient.CallAPI(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 
 	var localVarURL, _ = url.Parse(localVarPath)
 	localVarURL.RawQuery = localVarQueryParams.Encode()
-	var localVarAPIResponse = &APIResponse{Operation: "GetWebhooks", Method: localVarHttpMethod, RequestURL: localVarURL.String()}
+	var localVarAPIResponse = &APIResponse{Operation: "GetUser", Method: localVarHttpMethod, RequestURL: localVarURL.String()}
 	if localVarHttpResponse != nil {
 		localVarAPIResponse.Response = localVarHttpResponse.RawResponse
 		localVarAPIResponse.Payload = localVarHttpResponse.Body()
@@ -223,18 +243,20 @@ func (a WebhooksApi) GetWebhooks() (*Webhooks, *APIResponse, error) {
 }
 
 /**
- * Modify a webhook by ID
+ * List all users in the environment.
  *
- * @param resourceId The resource ID
- * @param patchDelta http://jsonpatch.com/
- * @return *Webhook
+ * @param projectKey The project key
+ * @param environmentKey The environment key
+ * @param limit Pagination limit
+ * @return *Users
  */
-func (a WebhooksApi) PatchWebhook(resourceId string, patchDelta []PatchDelta) (*Webhook, *APIResponse, error) {
+func (a UsersApi) GetUsers(projectKey string, environmentKey string, limit float32) (*Users, *APIResponse, error) {
 
-	var localVarHttpMethod = strings.ToUpper("Patch")
+	var localVarHttpMethod = strings.ToUpper("Get")
 	// create path and map variables
-	localVarPath := a.Configuration.BasePath + "/webhooks/{resourceId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"resourceId"+"}", fmt.Sprintf("%v", resourceId), -1)
+	localVarPath := a.Configuration.BasePath + "/users/{projectKey}/{environmentKey}"
+	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", fmt.Sprintf("%v", projectKey), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"environmentKey"+"}", fmt.Sprintf("%v", environmentKey), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -249,6 +271,7 @@ func (a WebhooksApi) PatchWebhook(resourceId string, patchDelta []PatchDelta) (*
 	for key := range a.Configuration.DefaultHeader {
 		localVarHeaderParams[key] = a.Configuration.DefaultHeader[key]
 	}
+	localVarQueryParams.Add("limit", a.Configuration.APIClient.ParameterToString(limit, ""))
 
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{ "application/json",  }
@@ -268,14 +291,12 @@ func (a WebhooksApi) PatchWebhook(resourceId string, patchDelta []PatchDelta) (*
 	if localVarHttpHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
-	// body params
-	localVarPostBody = &patchDelta
-	var successPayload = new(Webhook)
+	var successPayload = new(Users)
 	localVarHttpResponse, err := a.Configuration.APIClient.CallAPI(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 
 	var localVarURL, _ = url.Parse(localVarPath)
 	localVarURL.RawQuery = localVarQueryParams.Encode()
-	var localVarAPIResponse = &APIResponse{Operation: "PatchWebhook", Method: localVarHttpMethod, RequestURL: localVarURL.String()}
+	var localVarAPIResponse = &APIResponse{Operation: "GetUsers", Method: localVarHttpMethod, RequestURL: localVarURL.String()}
 	if localVarHttpResponse != nil {
 		localVarAPIResponse.Response = localVarHttpResponse.RawResponse
 		localVarAPIResponse.Payload = localVarHttpResponse.Body()
@@ -286,67 +307,5 @@ func (a WebhooksApi) PatchWebhook(resourceId string, patchDelta []PatchDelta) (*
 	}
 	err = json.Unmarshal(localVarHttpResponse.Body(), &successPayload)
 	return successPayload, localVarAPIResponse, err
-}
-
-/**
- * Create a webhook
- *
- * @param webhookBody New webhook
- * @return void
- */
-func (a WebhooksApi) PostWebhook(webhookBody WebhookBody) (*APIResponse, error) {
-
-	var localVarHttpMethod = strings.ToUpper("Post")
-	// create path and map variables
-	localVarPath := a.Configuration.BasePath + "/webhooks"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := make(map[string]string)
-	var localVarPostBody interface{}
-	var localVarFileName string
-	var localVarFileBytes []byte
-	// authentication '(Token)' required
-	// set key with prefix in header
-	localVarHeaderParams["Authorization"] = a.Configuration.GetAPIKeyWithPrefix("Authorization")
-	// add default headers if any
-	for key := range a.Configuration.DefaultHeader {
-		localVarHeaderParams[key] = a.Configuration.DefaultHeader[key]
-	}
-
-	// to determine the Content-Type header
-	localVarHttpContentTypes := []string{ "application/json",  }
-
-	// set Content-Type header
-	localVarHttpContentType := a.Configuration.APIClient.SelectHeaderContentType(localVarHttpContentTypes)
-	if localVarHttpContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHttpContentType
-	}
-	// to determine the Accept header
-	localVarHttpHeaderAccepts := []string{
-		"application/json",
-		}
-
-	// set Accept header
-	localVarHttpHeaderAccept := a.Configuration.APIClient.SelectHeaderAccept(localVarHttpHeaderAccepts)
-	if localVarHttpHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
-	}
-	// body params
-	localVarPostBody = &webhookBody
-	localVarHttpResponse, err := a.Configuration.APIClient.CallAPI(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
-
-	var localVarURL, _ = url.Parse(localVarPath)
-	localVarURL.RawQuery = localVarQueryParams.Encode()
-	var localVarAPIResponse = &APIResponse{Operation: "PostWebhook", Method: localVarHttpMethod, RequestURL: localVarURL.String()}
-	if localVarHttpResponse != nil {
-		localVarAPIResponse.Response = localVarHttpResponse.RawResponse
-		localVarAPIResponse.Payload = localVarHttpResponse.Body()
-	}
-
-	if err != nil {
-		return localVarAPIResponse, err
-	}
-	return localVarAPIResponse, err
 }
 

@@ -1,27 +1,27 @@
-# \WebhooksApi
+# \ProjectsApi
 
 All URIs are relative to *https://app.launchdarkly.com/api/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteWebhook**](WebhooksApi.md#DeleteWebhook) | **Delete** /webhooks/{resourceId} | Delete a webhook by ID
-[**GetWebhook**](WebhooksApi.md#GetWebhook) | **Get** /webhooks/{resourceId} | Get a webhook by ID
-[**GetWebhooks**](WebhooksApi.md#GetWebhooks) | **Get** /webhooks | Fetch a list of all webhooks
-[**PatchWebhook**](WebhooksApi.md#PatchWebhook) | **Patch** /webhooks/{resourceId} | Modify a webhook by ID
-[**PostWebhook**](WebhooksApi.md#PostWebhook) | **Post** /webhooks | Create a webhook
+[**DeleteProject**](ProjectsApi.md#DeleteProject) | **Delete** /projects/{projectKey} | Delete a project by ID
+[**GetProject**](ProjectsApi.md#GetProject) | **Get** /projects/{projectKey} | Get a project by key.
+[**GetProjects**](ProjectsApi.md#GetProjects) | **Get** /projects | Returns a list of all projects in the account.
+[**PatchProject**](ProjectsApi.md#PatchProject) | **Patch** /projects/{projectKey} | Modify a project by ID
+[**PostProject**](ProjectsApi.md#PostProject) | **Post** /projects | Create a project
 
 
-# **DeleteWebhook**
-> DeleteWebhook($resourceId)
+# **DeleteProject**
+> DeleteProject($projectKey)
 
-Delete a webhook by ID
+Delete a project by ID
 
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **resourceId** | **string**| The resource ID | 
+ **projectKey** | **string**| The project key | 
 
 ### Return type
 
@@ -38,21 +38,21 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **GetWebhook**
-> Webhook GetWebhook($resourceId)
+# **GetProject**
+> Project GetProject($projectKey)
 
-Get a webhook by ID
+Get a project by key.
 
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **resourceId** | **string**| The resource ID | 
+ **projectKey** | **string**| The project key | 
 
 ### Return type
 
-[**Webhook**](Webhook.md)
+[**Project**](Project.md)
 
 ### Authorization
 
@@ -65,10 +65,10 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **GetWebhooks**
-> Webhooks GetWebhooks()
+# **GetProjects**
+> Projects GetProjects()
 
-Fetch a list of all webhooks
+Returns a list of all projects in the account.
 
 
 ### Parameters
@@ -76,7 +76,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**Webhooks**](Webhooks.md)
+[**Projects**](Projects.md)
 
 ### Authorization
 
@@ -89,22 +89,22 @@ This endpoint does not need any parameter.
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **PatchWebhook**
-> Webhook PatchWebhook($resourceId, $patchDelta)
+# **PatchProject**
+> PatchProject($projectKey, $patchDelta)
 
-Modify a webhook by ID
+Modify a project by ID
 
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **resourceId** | **string**| The resource ID | 
+ **projectKey** | **string**| The project key | 
  **patchDelta** | [**[]PatchDelta**](patchDelta.md)| http://jsonpatch.com/ | 
 
 ### Return type
 
-[**Webhook**](Webhook.md)
+void (empty response body)
 
 ### Authorization
 
@@ -117,17 +117,17 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **PostWebhook**
-> PostWebhook($webhookBody)
+# **PostProject**
+> PostProject($projectBody)
 
-Create a webhook
+Create a project
 
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **webhookBody** | [**WebhookBody**](WebhookBody.md)| New webhook | 
+ **projectBody** | [**ProjectBody**](ProjectBody.md)| New project | 
 
 ### Return type
 

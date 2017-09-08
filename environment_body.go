@@ -10,7 +10,14 @@
 
 package swagger
 
-type Links struct {
+type EnvironmentBody struct {
 
-	Self Link `json:"self,omitempty"`
+	Name string `json:"name"`
+
+	Key string `json:"key"`
+
+	// A color swatch (as an RGB hex value with no leading '#', e.g. C8C8C8)
+	Color string `json:"color"`
+
+	DefaultTtl float32 `json:"defaultTtl,omitempty"`
 }

@@ -10,7 +10,9 @@
 
 package swagger
 
-type Links struct {
+type Target struct {
 
-	Self Link `json:"self,omitempty"`
+	Values []string `json:"values,omitempty"`
+
+	Variation int32 `json:"variation,omitempty"`
 }

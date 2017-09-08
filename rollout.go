@@ -10,7 +10,7 @@
 
 package swagger
 
-type Links struct {
+type Rollout struct {
 
-	Self Link `json:"self,omitempty"`
+	Variations []WeightedVariation `json:"variations,omitempty"`
 }

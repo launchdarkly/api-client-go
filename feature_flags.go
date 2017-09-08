@@ -10,7 +10,9 @@
 
 package swagger
 
-type Links struct {
+type FeatureFlags struct {
 
-	Self Link `json:"self,omitempty"`
+	Links Links `json:"_links,omitempty"`
+
+	Items []FeatureFlag `json:"items,omitempty"`
 }

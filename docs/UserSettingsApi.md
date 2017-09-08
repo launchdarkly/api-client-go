@@ -1,0 +1,101 @@
+# \UserSettingsApi
+
+All URIs are relative to *https://app.launchdarkly.com/api/v2*
+
+Method | HTTP request | Description
+------------- | ------------- | -------------
+[**GetUserFlagSetting**](UserSettingsApi.md#GetUserFlagSetting) | **Get** /users/{projectKey}/{environmentKey}/{userKey}/flags/{featureFlagKey} | Get a user by key.
+[**GetUserFlagSettings**](UserSettingsApi.md#GetUserFlagSettings) | **Get** /users/{projectKey}/{environmentKey}/{userKey}/flags | Lists the current flag settings for a given user.
+[**PutFlagSetting**](UserSettingsApi.md#PutFlagSetting) | **Put** /users/{projectKey}/{environmentKey}/{userKey}/flags/{featureFlagKey} | Specifically enable or disable a feature flag for a user based on their key.
+
+
+# **GetUserFlagSetting**
+> UserFlagSetting GetUserFlagSetting($projectKey, $environmentKey, $userKey, $featureFlagKey)
+
+Get a user by key.
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **projectKey** | **string**| The project key | 
+ **environmentKey** | **string**| The environment key | 
+ **userKey** | **string**| The user&#39;s key | 
+ **featureFlagKey** | **string**| The feature flags key | 
+
+### Return type
+
+[**UserFlagSetting**](UserFlagSetting.md)
+
+### Authorization
+
+[Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **GetUserFlagSettings**
+> UserFlagSettings GetUserFlagSettings($projectKey, $environmentKey, $userKey)
+
+Lists the current flag settings for a given user.
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **projectKey** | **string**| The project key | 
+ **environmentKey** | **string**| The environment key | 
+ **userKey** | **string**| The user&#39;s key | 
+
+### Return type
+
+[**UserFlagSettings**](UserFlagSettings.md)
+
+### Authorization
+
+[Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **PutFlagSetting**
+> PutFlagSetting($projectKey, $environmentKey, $userKey, $featureFlagKey, $userSettingsBody)
+
+Specifically enable or disable a feature flag for a user based on their key.
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **projectKey** | **string**| The project key | 
+ **environmentKey** | **string**| The environment key | 
+ **userKey** | **string**| The user&#39;s key | 
+ **featureFlagKey** | **string**| The feature flags key | 
+ **userSettingsBody** | [**UserSettingsBody**](UserSettingsBody.md)|  | 
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+[Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+

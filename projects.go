@@ -10,7 +10,15 @@
 
 package swagger
 
-type Links struct {
+type Projects struct {
 
-	Self Link `json:"self,omitempty"`
+	Links Links `json:"_links,omitempty"`
+
+	Id string `json:"_id,omitempty"`
+
+	Key string `json:"key,omitempty"`
+
+	Name string `json:"name,omitempty"`
+
+	Items []Project `json:"items,omitempty"`
 }

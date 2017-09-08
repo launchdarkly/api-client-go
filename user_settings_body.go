@@ -10,7 +10,8 @@
 
 package swagger
 
-type Links struct {
+type UserSettingsBody struct {
 
-	Self Link `json:"self,omitempty"`
+	// The variation value to set for the user. Must match the variation type of the flag.
+	Setting bool `json:"setting,omitempty"`
 }

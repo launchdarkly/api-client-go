@@ -10,7 +10,13 @@
 
 package swagger
 
-type Links struct {
+type Clause struct {
 
-	Self Link `json:"self,omitempty"`
+	Attribute string `json:"attribute,omitempty"`
+
+	Op string `json:"op,omitempty"`
+
+	Values []string `json:"values,omitempty"`
+
+	Negate bool `json:"negate,omitempty"`
 }

@@ -17,38 +17,38 @@ import (
 	"fmt"
 )
 
-type WebhooksApi struct {
+type ProjectsApi struct {
 	Configuration *Configuration
 }
 
-func NewWebhooksApi() *WebhooksApi {
+func NewProjectsApi() *ProjectsApi {
 	configuration := NewConfiguration()
-	return &WebhooksApi{
+	return &ProjectsApi{
 		Configuration: configuration,
 	}
 }
 
-func NewWebhooksApiWithBasePath(basePath string) *WebhooksApi {
+func NewProjectsApiWithBasePath(basePath string) *ProjectsApi {
 	configuration := NewConfiguration()
 	configuration.BasePath = basePath
 
-	return &WebhooksApi{
+	return &ProjectsApi{
 		Configuration: configuration,
 	}
 }
 
 /**
- * Delete a webhook by ID
+ * Delete a project by ID
  *
- * @param resourceId The resource ID
+ * @param projectKey The project key
  * @return void
  */
-func (a WebhooksApi) DeleteWebhook(resourceId string) (*APIResponse, error) {
+func (a ProjectsApi) DeleteProject(projectKey string) (*APIResponse, error) {
 
 	var localVarHttpMethod = strings.ToUpper("Delete")
 	// create path and map variables
-	localVarPath := a.Configuration.BasePath + "/webhooks/{resourceId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"resourceId"+"}", fmt.Sprintf("%v", resourceId), -1)
+	localVarPath := a.Configuration.BasePath + "/projects/{projectKey}"
+	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", fmt.Sprintf("%v", projectKey), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -86,7 +86,7 @@ func (a WebhooksApi) DeleteWebhook(resourceId string) (*APIResponse, error) {
 
 	var localVarURL, _ = url.Parse(localVarPath)
 	localVarURL.RawQuery = localVarQueryParams.Encode()
-	var localVarAPIResponse = &APIResponse{Operation: "DeleteWebhook", Method: localVarHttpMethod, RequestURL: localVarURL.String()}
+	var localVarAPIResponse = &APIResponse{Operation: "DeleteProject", Method: localVarHttpMethod, RequestURL: localVarURL.String()}
 	if localVarHttpResponse != nil {
 		localVarAPIResponse.Response = localVarHttpResponse.RawResponse
 		localVarAPIResponse.Payload = localVarHttpResponse.Body()
@@ -99,17 +99,17 @@ func (a WebhooksApi) DeleteWebhook(resourceId string) (*APIResponse, error) {
 }
 
 /**
- * Get a webhook by ID
+ * Get a project by key.
  *
- * @param resourceId The resource ID
- * @return *Webhook
+ * @param projectKey The project key
+ * @return *Project
  */
-func (a WebhooksApi) GetWebhook(resourceId string) (*Webhook, *APIResponse, error) {
+func (a ProjectsApi) GetProject(projectKey string) (*Project, *APIResponse, error) {
 
 	var localVarHttpMethod = strings.ToUpper("Get")
 	// create path and map variables
-	localVarPath := a.Configuration.BasePath + "/webhooks/{resourceId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"resourceId"+"}", fmt.Sprintf("%v", resourceId), -1)
+	localVarPath := a.Configuration.BasePath + "/projects/{projectKey}"
+	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", fmt.Sprintf("%v", projectKey), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -143,12 +143,12 @@ func (a WebhooksApi) GetWebhook(resourceId string) (*Webhook, *APIResponse, erro
 	if localVarHttpHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
-	var successPayload = new(Webhook)
+	var successPayload = new(Project)
 	localVarHttpResponse, err := a.Configuration.APIClient.CallAPI(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 
 	var localVarURL, _ = url.Parse(localVarPath)
 	localVarURL.RawQuery = localVarQueryParams.Encode()
-	var localVarAPIResponse = &APIResponse{Operation: "GetWebhook", Method: localVarHttpMethod, RequestURL: localVarURL.String()}
+	var localVarAPIResponse = &APIResponse{Operation: "GetProject", Method: localVarHttpMethod, RequestURL: localVarURL.String()}
 	if localVarHttpResponse != nil {
 		localVarAPIResponse.Response = localVarHttpResponse.RawResponse
 		localVarAPIResponse.Payload = localVarHttpResponse.Body()
@@ -162,15 +162,15 @@ func (a WebhooksApi) GetWebhook(resourceId string) (*Webhook, *APIResponse, erro
 }
 
 /**
- * Fetch a list of all webhooks
+ * Returns a list of all projects in the account.
  *
- * @return *Webhooks
+ * @return *Projects
  */
-func (a WebhooksApi) GetWebhooks() (*Webhooks, *APIResponse, error) {
+func (a ProjectsApi) GetProjects() (*Projects, *APIResponse, error) {
 
 	var localVarHttpMethod = strings.ToUpper("Get")
 	// create path and map variables
-	localVarPath := a.Configuration.BasePath + "/webhooks"
+	localVarPath := a.Configuration.BasePath + "/projects"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -204,12 +204,12 @@ func (a WebhooksApi) GetWebhooks() (*Webhooks, *APIResponse, error) {
 	if localVarHttpHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
-	var successPayload = new(Webhooks)
+	var successPayload = new(Projects)
 	localVarHttpResponse, err := a.Configuration.APIClient.CallAPI(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 
 	var localVarURL, _ = url.Parse(localVarPath)
 	localVarURL.RawQuery = localVarQueryParams.Encode()
-	var localVarAPIResponse = &APIResponse{Operation: "GetWebhooks", Method: localVarHttpMethod, RequestURL: localVarURL.String()}
+	var localVarAPIResponse = &APIResponse{Operation: "GetProjects", Method: localVarHttpMethod, RequestURL: localVarURL.String()}
 	if localVarHttpResponse != nil {
 		localVarAPIResponse.Response = localVarHttpResponse.RawResponse
 		localVarAPIResponse.Payload = localVarHttpResponse.Body()
@@ -223,18 +223,18 @@ func (a WebhooksApi) GetWebhooks() (*Webhooks, *APIResponse, error) {
 }
 
 /**
- * Modify a webhook by ID
+ * Modify a project by ID
  *
- * @param resourceId The resource ID
+ * @param projectKey The project key
  * @param patchDelta http://jsonpatch.com/
- * @return *Webhook
+ * @return void
  */
-func (a WebhooksApi) PatchWebhook(resourceId string, patchDelta []PatchDelta) (*Webhook, *APIResponse, error) {
+func (a ProjectsApi) PatchProject(projectKey string, patchDelta []PatchDelta) (*APIResponse, error) {
 
 	var localVarHttpMethod = strings.ToUpper("Patch")
 	// create path and map variables
-	localVarPath := a.Configuration.BasePath + "/webhooks/{resourceId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"resourceId"+"}", fmt.Sprintf("%v", resourceId), -1)
+	localVarPath := a.Configuration.BasePath + "/projects/{projectKey}"
+	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", fmt.Sprintf("%v", projectKey), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -270,35 +270,33 @@ func (a WebhooksApi) PatchWebhook(resourceId string, patchDelta []PatchDelta) (*
 	}
 	// body params
 	localVarPostBody = &patchDelta
-	var successPayload = new(Webhook)
 	localVarHttpResponse, err := a.Configuration.APIClient.CallAPI(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 
 	var localVarURL, _ = url.Parse(localVarPath)
 	localVarURL.RawQuery = localVarQueryParams.Encode()
-	var localVarAPIResponse = &APIResponse{Operation: "PatchWebhook", Method: localVarHttpMethod, RequestURL: localVarURL.String()}
+	var localVarAPIResponse = &APIResponse{Operation: "PatchProject", Method: localVarHttpMethod, RequestURL: localVarURL.String()}
 	if localVarHttpResponse != nil {
 		localVarAPIResponse.Response = localVarHttpResponse.RawResponse
 		localVarAPIResponse.Payload = localVarHttpResponse.Body()
 	}
 
 	if err != nil {
-		return successPayload, localVarAPIResponse, err
+		return localVarAPIResponse, err
 	}
-	err = json.Unmarshal(localVarHttpResponse.Body(), &successPayload)
-	return successPayload, localVarAPIResponse, err
+	return localVarAPIResponse, err
 }
 
 /**
- * Create a webhook
+ * Create a project
  *
- * @param webhookBody New webhook
+ * @param projectBody New project
  * @return void
  */
-func (a WebhooksApi) PostWebhook(webhookBody WebhookBody) (*APIResponse, error) {
+func (a ProjectsApi) PostProject(projectBody ProjectBody) (*APIResponse, error) {
 
 	var localVarHttpMethod = strings.ToUpper("Post")
 	// create path and map variables
-	localVarPath := a.Configuration.BasePath + "/webhooks"
+	localVarPath := a.Configuration.BasePath + "/projects"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -333,12 +331,12 @@ func (a WebhooksApi) PostWebhook(webhookBody WebhookBody) (*APIResponse, error) 
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	localVarPostBody = &webhookBody
+	localVarPostBody = &projectBody
 	localVarHttpResponse, err := a.Configuration.APIClient.CallAPI(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 
 	var localVarURL, _ = url.Parse(localVarPath)
 	localVarURL.RawQuery = localVarQueryParams.Encode()
-	var localVarAPIResponse = &APIResponse{Operation: "PostWebhook", Method: localVarHttpMethod, RequestURL: localVarURL.String()}
+	var localVarAPIResponse = &APIResponse{Operation: "PostProject", Method: localVarHttpMethod, RequestURL: localVarURL.String()}
 	if localVarHttpResponse != nil {
 		localVarAPIResponse.Response = localVarHttpResponse.RawResponse
 		localVarAPIResponse.Payload = localVarHttpResponse.Body()

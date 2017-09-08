@@ -10,7 +10,11 @@
 
 package swagger
 
-type Links struct {
+type Users struct {
 
-	Self Link `json:"self,omitempty"`
+	Links Links `json:"_links,omitempty"`
+
+	TotalCount float32 `json:"totalCount,omitempty"`
+
+	Items []User `json:"items,omitempty"`
 }

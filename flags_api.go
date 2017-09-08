@@ -17,38 +17,40 @@ import (
 	"fmt"
 )
 
-type WebhooksApi struct {
+type FlagsApi struct {
 	Configuration *Configuration
 }
 
-func NewWebhooksApi() *WebhooksApi {
+func NewFlagsApi() *FlagsApi {
 	configuration := NewConfiguration()
-	return &WebhooksApi{
+	return &FlagsApi{
 		Configuration: configuration,
 	}
 }
 
-func NewWebhooksApiWithBasePath(basePath string) *WebhooksApi {
+func NewFlagsApiWithBasePath(basePath string) *FlagsApi {
 	configuration := NewConfiguration()
 	configuration.BasePath = basePath
 
-	return &WebhooksApi{
+	return &FlagsApi{
 		Configuration: configuration,
 	}
 }
 
 /**
- * Delete a webhook by ID
+ * Delete a feature flag by ID
  *
- * @param resourceId The resource ID
+ * @param projectKey The project key
+ * @param featureFlagKey The feature flags key
  * @return void
  */
-func (a WebhooksApi) DeleteWebhook(resourceId string) (*APIResponse, error) {
+func (a FlagsApi) DeleteFeatureFlag(projectKey string, featureFlagKey string) (*APIResponse, error) {
 
 	var localVarHttpMethod = strings.ToUpper("Delete")
 	// create path and map variables
-	localVarPath := a.Configuration.BasePath + "/webhooks/{resourceId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"resourceId"+"}", fmt.Sprintf("%v", resourceId), -1)
+	localVarPath := a.Configuration.BasePath + "/flags/{projectKey}/{featureFlagKey}"
+	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", fmt.Sprintf("%v", projectKey), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"featureFlagKey"+"}", fmt.Sprintf("%v", featureFlagKey), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -86,7 +88,7 @@ func (a WebhooksApi) DeleteWebhook(resourceId string) (*APIResponse, error) {
 
 	var localVarURL, _ = url.Parse(localVarPath)
 	localVarURL.RawQuery = localVarQueryParams.Encode()
-	var localVarAPIResponse = &APIResponse{Operation: "DeleteWebhook", Method: localVarHttpMethod, RequestURL: localVarURL.String()}
+	var localVarAPIResponse = &APIResponse{Operation: "DeleteFeatureFlag", Method: localVarHttpMethod, RequestURL: localVarURL.String()}
 	if localVarHttpResponse != nil {
 		localVarAPIResponse.Response = localVarHttpResponse.RawResponse
 		localVarAPIResponse.Payload = localVarHttpResponse.Body()
@@ -99,17 +101,86 @@ func (a WebhooksApi) DeleteWebhook(resourceId string) (*APIResponse, error) {
 }
 
 /**
- * Get a webhook by ID
+ * Get a single feature flag by key.
  *
- * @param resourceId The resource ID
- * @return *Webhook
+ * @param projectKey The project key
+ * @param featureFlagKey The feature flags key
+ * @param environmentKeyQuery The environment key
+ * @return *FeatureFlag
  */
-func (a WebhooksApi) GetWebhook(resourceId string) (*Webhook, *APIResponse, error) {
+func (a FlagsApi) GetFeatureFlag(projectKey string, featureFlagKey string, environmentKeyQuery string) (*FeatureFlag, *APIResponse, error) {
 
 	var localVarHttpMethod = strings.ToUpper("Get")
 	// create path and map variables
-	localVarPath := a.Configuration.BasePath + "/webhooks/{resourceId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"resourceId"+"}", fmt.Sprintf("%v", resourceId), -1)
+	localVarPath := a.Configuration.BasePath + "/flags/{projectKey}/{featureFlagKey}"
+	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", fmt.Sprintf("%v", projectKey), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"featureFlagKey"+"}", fmt.Sprintf("%v", featureFlagKey), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := make(map[string]string)
+	var localVarPostBody interface{}
+	var localVarFileName string
+	var localVarFileBytes []byte
+	// authentication '(Token)' required
+	// set key with prefix in header
+	localVarHeaderParams["Authorization"] = a.Configuration.GetAPIKeyWithPrefix("Authorization")
+	// add default headers if any
+	for key := range a.Configuration.DefaultHeader {
+		localVarHeaderParams[key] = a.Configuration.DefaultHeader[key]
+	}
+	localVarQueryParams.Add("environmentKeyQuery", a.Configuration.APIClient.ParameterToString(environmentKeyQuery, ""))
+
+	// to determine the Content-Type header
+	localVarHttpContentTypes := []string{ "application/json",  }
+
+	// set Content-Type header
+	localVarHttpContentType := a.Configuration.APIClient.SelectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	}
+	// to determine the Accept header
+	localVarHttpHeaderAccepts := []string{
+		"application/json",
+		}
+
+	// set Accept header
+	localVarHttpHeaderAccept := a.Configuration.APIClient.SelectHeaderAccept(localVarHttpHeaderAccepts)
+	if localVarHttpHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
+	}
+	var successPayload = new(FeatureFlag)
+	localVarHttpResponse, err := a.Configuration.APIClient.CallAPI(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+
+	var localVarURL, _ = url.Parse(localVarPath)
+	localVarURL.RawQuery = localVarQueryParams.Encode()
+	var localVarAPIResponse = &APIResponse{Operation: "GetFeatureFlag", Method: localVarHttpMethod, RequestURL: localVarURL.String()}
+	if localVarHttpResponse != nil {
+		localVarAPIResponse.Response = localVarHttpResponse.RawResponse
+		localVarAPIResponse.Payload = localVarHttpResponse.Body()
+	}
+
+	if err != nil {
+		return successPayload, localVarAPIResponse, err
+	}
+	err = json.Unmarshal(localVarHttpResponse.Body(), &successPayload)
+	return successPayload, localVarAPIResponse, err
+}
+
+/**
+ * Get a list of statuses for all feature flags
+ *
+ * @param projectKey The project key
+ * @param environmentKey The environment key
+ * @return *FeatureFlagStatuses
+ */
+func (a FlagsApi) GetFeatureFlagStatus(projectKey string, environmentKey string) (*FeatureFlagStatuses, *APIResponse, error) {
+
+	var localVarHttpMethod = strings.ToUpper("Get")
+	// create path and map variables
+	localVarPath := a.Configuration.BasePath + "/flag-statuses/{projectKey}/{environmentKey}"
+	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", fmt.Sprintf("%v", projectKey), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"environmentKey"+"}", fmt.Sprintf("%v", environmentKey), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -143,12 +214,12 @@ func (a WebhooksApi) GetWebhook(resourceId string) (*Webhook, *APIResponse, erro
 	if localVarHttpHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
-	var successPayload = new(Webhook)
+	var successPayload = new(FeatureFlagStatuses)
 	localVarHttpResponse, err := a.Configuration.APIClient.CallAPI(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 
 	var localVarURL, _ = url.Parse(localVarPath)
 	localVarURL.RawQuery = localVarQueryParams.Encode()
-	var localVarAPIResponse = &APIResponse{Operation: "GetWebhook", Method: localVarHttpMethod, RequestURL: localVarURL.String()}
+	var localVarAPIResponse = &APIResponse{Operation: "GetFeatureFlagStatus", Method: localVarHttpMethod, RequestURL: localVarURL.String()}
 	if localVarHttpResponse != nil {
 		localVarAPIResponse.Response = localVarHttpResponse.RawResponse
 		localVarAPIResponse.Payload = localVarHttpResponse.Body()
@@ -162,15 +233,21 @@ func (a WebhooksApi) GetWebhook(resourceId string) (*Webhook, *APIResponse, erro
 }
 
 /**
- * Fetch a list of all webhooks
+ * Get a list of statuses for all feature flags
  *
- * @return *Webhooks
+ * @param projectKey The project key
+ * @param environmentKey The environment key
+ * @param featureFlagKey The feature flags key
+ * @return *FeatureFlagStatus
  */
-func (a WebhooksApi) GetWebhooks() (*Webhooks, *APIResponse, error) {
+func (a FlagsApi) GetFeatureFlagStatuses(projectKey string, environmentKey string, featureFlagKey string) (*FeatureFlagStatus, *APIResponse, error) {
 
 	var localVarHttpMethod = strings.ToUpper("Get")
 	// create path and map variables
-	localVarPath := a.Configuration.BasePath + "/webhooks"
+	localVarPath := a.Configuration.BasePath + "/flag-statuses/{projectKey}/{environmentKey}/{featureFlagKey}"
+	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", fmt.Sprintf("%v", projectKey), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"environmentKey"+"}", fmt.Sprintf("%v", environmentKey), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"featureFlagKey"+"}", fmt.Sprintf("%v", featureFlagKey), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -204,12 +281,12 @@ func (a WebhooksApi) GetWebhooks() (*Webhooks, *APIResponse, error) {
 	if localVarHttpHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
-	var successPayload = new(Webhooks)
+	var successPayload = new(FeatureFlagStatus)
 	localVarHttpResponse, err := a.Configuration.APIClient.CallAPI(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 
 	var localVarURL, _ = url.Parse(localVarPath)
 	localVarURL.RawQuery = localVarQueryParams.Encode()
-	var localVarAPIResponse = &APIResponse{Operation: "GetWebhooks", Method: localVarHttpMethod, RequestURL: localVarURL.String()}
+	var localVarAPIResponse = &APIResponse{Operation: "GetFeatureFlagStatuses", Method: localVarHttpMethod, RequestURL: localVarURL.String()}
 	if localVarHttpResponse != nil {
 		localVarAPIResponse.Response = localVarHttpResponse.RawResponse
 		localVarAPIResponse.Payload = localVarHttpResponse.Body()
@@ -223,18 +300,87 @@ func (a WebhooksApi) GetWebhooks() (*Webhooks, *APIResponse, error) {
 }
 
 /**
- * Modify a webhook by ID
+ * Get a list of all features in the given project.
  *
- * @param resourceId The resource ID
+ * @param projectKey The project key
+ * @param environmentKeyQuery The environment key
+ * @param tag Filter by tag
+ * @return *FeatureFlags
+ */
+func (a FlagsApi) GetFeatureFlags(projectKey string, environmentKeyQuery string, tag string) (*FeatureFlags, *APIResponse, error) {
+
+	var localVarHttpMethod = strings.ToUpper("Get")
+	// create path and map variables
+	localVarPath := a.Configuration.BasePath + "/flags/{projectKey}"
+	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", fmt.Sprintf("%v", projectKey), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := make(map[string]string)
+	var localVarPostBody interface{}
+	var localVarFileName string
+	var localVarFileBytes []byte
+	// authentication '(Token)' required
+	// set key with prefix in header
+	localVarHeaderParams["Authorization"] = a.Configuration.GetAPIKeyWithPrefix("Authorization")
+	// add default headers if any
+	for key := range a.Configuration.DefaultHeader {
+		localVarHeaderParams[key] = a.Configuration.DefaultHeader[key]
+	}
+	localVarQueryParams.Add("environmentKeyQuery", a.Configuration.APIClient.ParameterToString(environmentKeyQuery, ""))
+	localVarQueryParams.Add("tag", a.Configuration.APIClient.ParameterToString(tag, ""))
+
+	// to determine the Content-Type header
+	localVarHttpContentTypes := []string{ "application/json",  }
+
+	// set Content-Type header
+	localVarHttpContentType := a.Configuration.APIClient.SelectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	}
+	// to determine the Accept header
+	localVarHttpHeaderAccepts := []string{
+		"application/json",
+		}
+
+	// set Accept header
+	localVarHttpHeaderAccept := a.Configuration.APIClient.SelectHeaderAccept(localVarHttpHeaderAccepts)
+	if localVarHttpHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
+	}
+	var successPayload = new(FeatureFlags)
+	localVarHttpResponse, err := a.Configuration.APIClient.CallAPI(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+
+	var localVarURL, _ = url.Parse(localVarPath)
+	localVarURL.RawQuery = localVarQueryParams.Encode()
+	var localVarAPIResponse = &APIResponse{Operation: "GetFeatureFlags", Method: localVarHttpMethod, RequestURL: localVarURL.String()}
+	if localVarHttpResponse != nil {
+		localVarAPIResponse.Response = localVarHttpResponse.RawResponse
+		localVarAPIResponse.Payload = localVarHttpResponse.Body()
+	}
+
+	if err != nil {
+		return successPayload, localVarAPIResponse, err
+	}
+	err = json.Unmarshal(localVarHttpResponse.Body(), &successPayload)
+	return successPayload, localVarAPIResponse, err
+}
+
+/**
+ * Modify a feature flag by ID
+ *
+ * @param projectKey The project key
+ * @param featureFlagKey The feature flags key
  * @param patchDelta http://jsonpatch.com/
- * @return *Webhook
+ * @return *FeatureFlag
  */
-func (a WebhooksApi) PatchWebhook(resourceId string, patchDelta []PatchDelta) (*Webhook, *APIResponse, error) {
+func (a FlagsApi) PatchFeatureFlag(projectKey string, featureFlagKey string, patchDelta []PatchDelta) (*FeatureFlag, *APIResponse, error) {
 
 	var localVarHttpMethod = strings.ToUpper("Patch")
 	// create path and map variables
-	localVarPath := a.Configuration.BasePath + "/webhooks/{resourceId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"resourceId"+"}", fmt.Sprintf("%v", resourceId), -1)
+	localVarPath := a.Configuration.BasePath + "/flags/{projectKey}/{featureFlagKey}"
+	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", fmt.Sprintf("%v", projectKey), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"featureFlagKey"+"}", fmt.Sprintf("%v", featureFlagKey), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -270,12 +416,12 @@ func (a WebhooksApi) PatchWebhook(resourceId string, patchDelta []PatchDelta) (*
 	}
 	// body params
 	localVarPostBody = &patchDelta
-	var successPayload = new(Webhook)
+	var successPayload = new(FeatureFlag)
 	localVarHttpResponse, err := a.Configuration.APIClient.CallAPI(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 
 	var localVarURL, _ = url.Parse(localVarPath)
 	localVarURL.RawQuery = localVarQueryParams.Encode()
-	var localVarAPIResponse = &APIResponse{Operation: "PatchWebhook", Method: localVarHttpMethod, RequestURL: localVarURL.String()}
+	var localVarAPIResponse = &APIResponse{Operation: "PatchFeatureFlag", Method: localVarHttpMethod, RequestURL: localVarURL.String()}
 	if localVarHttpResponse != nil {
 		localVarAPIResponse.Response = localVarHttpResponse.RawResponse
 		localVarAPIResponse.Payload = localVarHttpResponse.Body()
@@ -289,16 +435,20 @@ func (a WebhooksApi) PatchWebhook(resourceId string, patchDelta []PatchDelta) (*
 }
 
 /**
- * Create a webhook
+ * Create a feature flag
  *
- * @param webhookBody New webhook
+ * @param projectKey The project key
+ * @param featureFlagKey The feature flags key
+ * @param featureFlagBody Create a new feature flag
  * @return void
  */
-func (a WebhooksApi) PostWebhook(webhookBody WebhookBody) (*APIResponse, error) {
+func (a FlagsApi) PostFeatureFlag(projectKey string, featureFlagKey string, featureFlagBody FeatureFlagBody) (*APIResponse, error) {
 
 	var localVarHttpMethod = strings.ToUpper("Post")
 	// create path and map variables
-	localVarPath := a.Configuration.BasePath + "/webhooks"
+	localVarPath := a.Configuration.BasePath + "/flags/{projectKey}/{featureFlagKey}"
+	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", fmt.Sprintf("%v", projectKey), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"featureFlagKey"+"}", fmt.Sprintf("%v", featureFlagKey), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -333,12 +483,12 @@ func (a WebhooksApi) PostWebhook(webhookBody WebhookBody) (*APIResponse, error) 
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	localVarPostBody = &webhookBody
+	localVarPostBody = &featureFlagBody
 	localVarHttpResponse, err := a.Configuration.APIClient.CallAPI(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 
 	var localVarURL, _ = url.Parse(localVarPath)
 	localVarURL.RawQuery = localVarQueryParams.Encode()
-	var localVarAPIResponse = &APIResponse{Operation: "PostWebhook", Method: localVarHttpMethod, RequestURL: localVarURL.String()}
+	var localVarAPIResponse = &APIResponse{Operation: "PostFeatureFlag", Method: localVarHttpMethod, RequestURL: localVarURL.String()}
 	if localVarHttpResponse != nil {
 		localVarAPIResponse.Response = localVarHttpResponse.RawResponse
 		localVarAPIResponse.Payload = localVarHttpResponse.Body()

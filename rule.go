@@ -10,7 +10,11 @@
 
 package swagger
 
-type Links struct {
+type Rule struct {
 
-	Self Link `json:"self,omitempty"`
+	Variation int32 `json:"variation,omitempty"`
+
+	Rollout Rollout `json:"rollout,omitempty"`
+
+	Clauses []Clause `json:"clauses,omitempty"`
 }

@@ -10,7 +10,9 @@
 
 package swagger
 
-type Links struct {
+type ProjectBody struct {
 
-	Self Link `json:"self,omitempty"`
+	Name string `json:"name"`
+
+	Key string `json:"key"`
 }

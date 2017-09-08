@@ -10,7 +10,11 @@
 
 package swagger
 
-type Links struct {
+type UserFlagSetting struct {
 
-	Self Link `json:"self,omitempty"`
+	Links Links `json:"_links,omitempty"`
+
+	Value bool `json:"_value,omitempty"`
+
+	Setting bool `json:"setting,omitempty"`
 }

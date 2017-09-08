@@ -10,7 +10,11 @@
 
 package swagger
 
-type Links struct {
+type AuditLogEntryTarget struct {
 
-	Self Link `json:"self,omitempty"`
+	Links Links `json:"_links,omitempty"`
+
+	Name string `json:"name,omitempty"`
+
+	Resources []string `json:"resources,omitempty"`
 }

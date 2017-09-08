@@ -10,7 +10,15 @@
 
 package swagger
 
-type Links struct {
+type User struct {
 
-	Self Link `json:"self,omitempty"`
+	LastPing string `json:"lastPing,omitempty"`
+
+	EnvironmentId string `json:"environmentId,omitempty"`
+
+	OwnerId string `json:"ownerId,omitempty"`
+
+	User interface{} `json:"user,omitempty"`
+
+	Avatar string `json:"avatar,omitempty"`
 }

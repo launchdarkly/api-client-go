@@ -1,27 +1,27 @@
-# \WebhooksApi
+# \EnvironmentsApi
 
 All URIs are relative to *https://app.launchdarkly.com/api/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteWebhook**](WebhooksApi.md#DeleteWebhook) | **Delete** /webhooks/{resourceId} | Delete a webhook by ID
-[**GetWebhook**](WebhooksApi.md#GetWebhook) | **Get** /webhooks/{resourceId} | Get a webhook by ID
-[**GetWebhooks**](WebhooksApi.md#GetWebhooks) | **Get** /webhooks | Fetch a list of all webhooks
-[**PatchWebhook**](WebhooksApi.md#PatchWebhook) | **Patch** /webhooks/{resourceId} | Modify a webhook by ID
-[**PostWebhook**](WebhooksApi.md#PostWebhook) | **Post** /webhooks | Create a webhook
+[**DeleteEnvironment**](EnvironmentsApi.md#DeleteEnvironment) | **Delete** /environments/{projectKey}/{environmentKey} | Delete an environment by ID
+[**GetEnvironment**](EnvironmentsApi.md#GetEnvironment) | **Get** /environments/{projectKey}/{environmentKey} | Get an environment by key.
+[**PatchEnvironment**](EnvironmentsApi.md#PatchEnvironment) | **Patch** /environments/{projectKey}/{environmentKey} | Modify an environment by ID
+[**PostEnvironment**](EnvironmentsApi.md#PostEnvironment) | **Post** /environments/{projectKey} | Create an environment
 
 
-# **DeleteWebhook**
-> DeleteWebhook($resourceId)
+# **DeleteEnvironment**
+> DeleteEnvironment($projectKey, $environmentKey)
 
-Delete a webhook by ID
+Delete an environment by ID
 
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **resourceId** | **string**| The resource ID | 
+ **projectKey** | **string**| The project key | 
+ **environmentKey** | **string**| The environment key | 
 
 ### Return type
 
@@ -38,21 +38,22 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **GetWebhook**
-> Webhook GetWebhook($resourceId)
+# **GetEnvironment**
+> Environment GetEnvironment($projectKey, $environmentKey)
 
-Get a webhook by ID
+Get an environment by key.
 
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **resourceId** | **string**| The resource ID | 
+ **projectKey** | **string**| The project key | 
+ **environmentKey** | **string**| The environment key | 
 
 ### Return type
 
-[**Webhook**](Webhook.md)
+[**Environment**](Environment.md)
 
 ### Authorization
 
@@ -65,46 +66,23 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **GetWebhooks**
-> Webhooks GetWebhooks()
+# **PatchEnvironment**
+> PatchEnvironment($projectKey, $environmentKey, $patchDelta)
 
-Fetch a list of all webhooks
-
-
-### Parameters
-This endpoint does not need any parameter.
-
-### Return type
-
-[**Webhooks**](Webhooks.md)
-
-### Authorization
-
-[Token](../README.md#Token)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **PatchWebhook**
-> Webhook PatchWebhook($resourceId, $patchDelta)
-
-Modify a webhook by ID
+Modify an environment by ID
 
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **resourceId** | **string**| The resource ID | 
+ **projectKey** | **string**| The project key | 
+ **environmentKey** | **string**| The environment key | 
  **patchDelta** | [**[]PatchDelta**](patchDelta.md)| http://jsonpatch.com/ | 
 
 ### Return type
 
-[**Webhook**](Webhook.md)
+void (empty response body)
 
 ### Authorization
 
@@ -117,17 +95,18 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **PostWebhook**
-> PostWebhook($webhookBody)
+# **PostEnvironment**
+> PostEnvironment($projectKey, $environmentBody)
 
-Create a webhook
+Create an environment
 
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **webhookBody** | [**WebhookBody**](WebhookBody.md)| New webhook | 
+ **projectKey** | **string**| The project key | 
+ **environmentBody** | [**EnvironmentBody**](EnvironmentBody.md)| New environment | 
 
 ### Return type
 

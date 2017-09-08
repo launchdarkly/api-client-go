@@ -10,7 +10,9 @@
 
 package swagger
 
-type Links struct {
+type WeightedVariation struct {
 
-	Self Link `json:"self,omitempty"`
+	Variation int32 `json:"variation,omitempty"`
+
+	Weight int32 `json:"weight,omitempty"`
 }

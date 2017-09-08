@@ -10,7 +10,11 @@
 
 package swagger
 
-type Links struct {
+type Variation struct {
 
-	Self Link `json:"self,omitempty"`
+	Name string `json:"name,omitempty"`
+
+	Description string `json:"description,omitempty"`
+
+	Value interface{} `json:"value"`
 }
