@@ -40,8 +40,8 @@ func NewFlagsApiWithBasePath(basePath string) *FlagsApi {
 /**
  * Delete a feature flag by ID
  *
- * @param projectKey The project key
- * @param featureFlagKey The feature flags key
+ * @param projectKey The project key, used to tie the flags together under one project so they can be managed together.
+ * @param featureFlagKey The feature flag&#39;s key. The key identifies the flag in your code.
  * @return void
  */
 func (a FlagsApi) DeleteFeatureFlag(projectKey string, featureFlagKey string) (*APIResponse, error) {
@@ -103,8 +103,8 @@ func (a FlagsApi) DeleteFeatureFlag(projectKey string, featureFlagKey string) (*
 /**
  * Get a single feature flag by key.
  *
- * @param projectKey The project key
- * @param featureFlagKey The feature flags key
+ * @param projectKey The project key, used to tie the flags together under one project so they can be managed together.
+ * @param featureFlagKey The feature flag&#39;s key. The key identifies the flag in your code.
  * @param environmentKeyQuery The environment key
  * @return *FeatureFlag
  */
@@ -170,7 +170,7 @@ func (a FlagsApi) GetFeatureFlag(projectKey string, featureFlagKey string, envir
 /**
  * Get a list of statuses for all feature flags
  *
- * @param projectKey The project key
+ * @param projectKey The project key, used to tie the flags together under one project so they can be managed together.
  * @param environmentKey The environment key
  * @return *FeatureFlagStatuses
  */
@@ -235,9 +235,9 @@ func (a FlagsApi) GetFeatureFlagStatus(projectKey string, environmentKey string)
 /**
  * Get a list of statuses for all feature flags
  *
- * @param projectKey The project key
+ * @param projectKey The project key, used to tie the flags together under one project so they can be managed together.
  * @param environmentKey The environment key
- * @param featureFlagKey The feature flags key
+ * @param featureFlagKey The feature flag&#39;s key. The key identifies the flag in your code.
  * @return *FeatureFlagStatus
  */
 func (a FlagsApi) GetFeatureFlagStatuses(projectKey string, environmentKey string, featureFlagKey string) (*FeatureFlagStatus, *APIResponse, error) {
@@ -302,9 +302,9 @@ func (a FlagsApi) GetFeatureFlagStatuses(projectKey string, environmentKey strin
 /**
  * Get a list of all features in the given project.
  *
- * @param projectKey The project key
+ * @param projectKey The project key, used to tie the flags together under one project so they can be managed together.
  * @param environmentKeyQuery The environment key
- * @param tag Filter by tag
+ * @param tag Filter by tag. A tag can be used to group flags across projects.
  * @return *FeatureFlags
  */
 func (a FlagsApi) GetFeatureFlags(projectKey string, environmentKeyQuery string, tag string) (*FeatureFlags, *APIResponse, error) {
@@ -369,8 +369,8 @@ func (a FlagsApi) GetFeatureFlags(projectKey string, environmentKeyQuery string,
 /**
  * Modify a feature flag by ID
  *
- * @param projectKey The project key
- * @param featureFlagKey The feature flags key
+ * @param projectKey The project key, used to tie the flags together under one project so they can be managed together.
+ * @param featureFlagKey The feature flag&#39;s key. The key identifies the flag in your code.
  * @param patchDelta http://jsonpatch.com/
  * @return *FeatureFlag
  */
@@ -437,18 +437,16 @@ func (a FlagsApi) PatchFeatureFlag(projectKey string, featureFlagKey string, pat
 /**
  * Create a feature flag
  *
- * @param projectKey The project key
- * @param featureFlagKey The feature flags key
+ * @param projectKey The project key, used to tie the flags together under one project so they can be managed together.
  * @param featureFlagBody Create a new feature flag
  * @return void
  */
-func (a FlagsApi) PostFeatureFlag(projectKey string, featureFlagKey string, featureFlagBody FeatureFlagBody) (*APIResponse, error) {
+func (a FlagsApi) PostFeatureFlag(projectKey string, featureFlagBody FeatureFlagBody) (*APIResponse, error) {
 
 	var localVarHttpMethod = strings.ToUpper("Post")
 	// create path and map variables
-	localVarPath := a.Configuration.BasePath + "/flags/{projectKey}/{featureFlagKey}"
+	localVarPath := a.Configuration.BasePath + "/flags/{projectKey}"
 	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", fmt.Sprintf("%v", projectKey), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"featureFlagKey"+"}", fmt.Sprintf("%v", featureFlagKey), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

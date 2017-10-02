@@ -40,7 +40,7 @@ func NewUsersApiWithBasePath(basePath string) *UsersApi {
 /**
  * Delete a user by ID
  *
- * @param projectKey The project key
+ * @param projectKey The project key, used to tie the flags together under one project so they can be managed together.
  * @param environmentKey The environment key
  * @param userKey The user&#39;s key
  * @return void
@@ -105,7 +105,7 @@ func (a UsersApi) DeleteUser(projectKey string, environmentKey string, userKey s
 /**
  * Search users in LaunchDarkly based on their last active date, or a search query.
  *
- * @param projectKey The project key
+ * @param projectKey The project key, used to tie the flags together under one project so they can be managed together.
  * @param environmentKey The environment key
  * @param q Search query
  * @param limit Pagination limit
@@ -178,7 +178,7 @@ func (a UsersApi) GetSearchUsers(projectKey string, environmentKey string, q str
 /**
  * Get a user by key.
  *
- * @param projectKey The project key
+ * @param projectKey The project key, used to tie the flags together under one project so they can be managed together.
  * @param environmentKey The environment key
  * @param userKey The user&#39;s key
  * @return *User
@@ -245,7 +245,7 @@ func (a UsersApi) GetUser(projectKey string, environmentKey string, userKey stri
 /**
  * List all users in the environment.
  *
- * @param projectKey The project key
+ * @param projectKey The project key, used to tie the flags together under one project so they can be managed together.
  * @param environmentKey The environment key
  * @param limit Pagination limit
  * @return *Users

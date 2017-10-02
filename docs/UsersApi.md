@@ -20,7 +20,7 @@ Delete a user by ID
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **projectKey** | **string**| The project key | 
+ **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
  **environmentKey** | **string**| The environment key | 
  **userKey** | **string**| The user&#39;s key | 
 
@@ -49,7 +49,7 @@ Search users in LaunchDarkly based on their last active date, or a search query.
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **projectKey** | **string**| The project key | 
+ **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
  **environmentKey** | **string**| The environment key | 
  **q** | **string**| Search query | [optional] 
  **limit** | **float32**| Pagination limit | [optional] 
@@ -81,7 +81,7 @@ Get a user by key.
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **projectKey** | **string**| The project key | 
+ **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
  **environmentKey** | **string**| The environment key | 
  **userKey** | **string**| The user&#39;s key | 
 
@@ -110,7 +110,7 @@ List all users in the environment.
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **projectKey** | **string**| The project key | 
+ **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
  **environmentKey** | **string**| The environment key | 
  **limit** | **float32**| Pagination limit | [optional] 
 

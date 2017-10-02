@@ -40,7 +40,7 @@ func NewEnvironmentsApiWithBasePath(basePath string) *EnvironmentsApi {
 /**
  * Delete an environment by ID
  *
- * @param projectKey The project key
+ * @param projectKey The project key, used to tie the flags together under one project so they can be managed together.
  * @param environmentKey The environment key
  * @return void
  */
@@ -103,7 +103,7 @@ func (a EnvironmentsApi) DeleteEnvironment(projectKey string, environmentKey str
 /**
  * Get an environment by key.
  *
- * @param projectKey The project key
+ * @param projectKey The project key, used to tie the flags together under one project so they can be managed together.
  * @param environmentKey The environment key
  * @return *Environment
  */
@@ -168,7 +168,7 @@ func (a EnvironmentsApi) GetEnvironment(projectKey string, environmentKey string
 /**
  * Modify an environment by ID
  *
- * @param projectKey The project key
+ * @param projectKey The project key, used to tie the flags together under one project so they can be managed together.
  * @param environmentKey The environment key
  * @param patchDelta http://jsonpatch.com/
  * @return void
@@ -234,7 +234,7 @@ func (a EnvironmentsApi) PatchEnvironment(projectKey string, environmentKey stri
 /**
  * Create an environment
  *
- * @param projectKey The project key
+ * @param projectKey The project key, used to tie the flags together under one project so they can be managed together.
  * @param environmentBody New environment
  * @return void
  */

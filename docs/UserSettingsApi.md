@@ -19,10 +19,10 @@ Get a user by key.
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **projectKey** | **string**| The project key | 
+ **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
  **environmentKey** | **string**| The environment key | 
  **userKey** | **string**| The user&#39;s key | 
- **featureFlagKey** | **string**| The feature flags key | 
+ **featureFlagKey** | **string**| The feature flag&#39;s key. The key identifies the flag in your code. | 
 
 ### Return type
 
@@ -49,7 +49,7 @@ Lists the current flag settings for a given user.
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **projectKey** | **string**| The project key | 
+ **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
  **environmentKey** | **string**| The environment key | 
  **userKey** | **string**| The user&#39;s key | 
 
@@ -78,10 +78,10 @@ Specifically enable or disable a feature flag for a user based on their key.
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **projectKey** | **string**| The project key | 
+ **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
  **environmentKey** | **string**| The environment key | 
  **userKey** | **string**| The user&#39;s key | 
- **featureFlagKey** | **string**| The feature flags key | 
+ **featureFlagKey** | **string**| The feature flag&#39;s key. The key identifies the flag in your code. | 
  **userSettingsBody** | [**UserSettingsBody**](UserSettingsBody.md)|  | 
 
 ### Return type

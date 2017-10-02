@@ -10,7 +10,7 @@ Method | HTTP request | Description
 [**GetFeatureFlagStatuses**](FlagsApi.md#GetFeatureFlagStatuses) | **Get** /flag-statuses/{projectKey}/{environmentKey}/{featureFlagKey} | Get a list of statuses for all feature flags
 [**GetFeatureFlags**](FlagsApi.md#GetFeatureFlags) | **Get** /flags/{projectKey} | Get a list of all features in the given project.
 [**PatchFeatureFlag**](FlagsApi.md#PatchFeatureFlag) | **Patch** /flags/{projectKey}/{featureFlagKey} | Modify a feature flag by ID
-[**PostFeatureFlag**](FlagsApi.md#PostFeatureFlag) | **Post** /flags/{projectKey}/{featureFlagKey} | Create a feature flag
+[**PostFeatureFlag**](FlagsApi.md#PostFeatureFlag) | **Post** /flags/{projectKey} | Create a feature flag
 
 
 # **DeleteFeatureFlag**
@@ -23,8 +23,8 @@ Delete a feature flag by ID
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **projectKey** | **string**| The project key | 
- **featureFlagKey** | **string**| The feature flags key | 
+ **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
+ **featureFlagKey** | **string**| The feature flag&#39;s key. The key identifies the flag in your code. | 
 
 ### Return type
 
@@ -51,8 +51,8 @@ Get a single feature flag by key.
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **projectKey** | **string**| The project key | 
- **featureFlagKey** | **string**| The feature flags key | 
+ **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
+ **featureFlagKey** | **string**| The feature flag&#39;s key. The key identifies the flag in your code. | 
  **environmentKeyQuery** | **string**| The environment key | [optional] 
 
 ### Return type
@@ -80,7 +80,7 @@ Get a list of statuses for all feature flags
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **projectKey** | **string**| The project key | 
+ **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
  **environmentKey** | **string**| The environment key | 
 
 ### Return type
@@ -108,9 +108,9 @@ Get a list of statuses for all feature flags
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **projectKey** | **string**| The project key | 
+ **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
  **environmentKey** | **string**| The environment key | 
- **featureFlagKey** | **string**| The feature flags key | 
+ **featureFlagKey** | **string**| The feature flag&#39;s key. The key identifies the flag in your code. | 
 
 ### Return type
 
@@ -137,9 +137,9 @@ Get a list of all features in the given project.
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **projectKey** | **string**| The project key | 
+ **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
  **environmentKeyQuery** | **string**| The environment key | [optional] 
- **tag** | **string**| Filter by tag | [optional] 
+ **tag** | **string**| Filter by tag. A tag can be used to group flags across projects. | [optional] 
 
 ### Return type
 
@@ -166,8 +166,8 @@ Modify a feature flag by ID
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **projectKey** | **string**| The project key | 
- **featureFlagKey** | **string**| The feature flags key | 
+ **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
+ **featureFlagKey** | **string**| The feature flag&#39;s key. The key identifies the flag in your code. | 
  **patchDelta** | [**[]PatchDelta**](patchDelta.md)| http://jsonpatch.com/ | 
 
 ### Return type
@@ -186,7 +186,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **PostFeatureFlag**
-> PostFeatureFlag($projectKey, $featureFlagKey, $featureFlagBody)
+> PostFeatureFlag($projectKey, $featureFlagBody)
 
 Create a feature flag
 
@@ -195,8 +195,7 @@ Create a feature flag
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **projectKey** | **string**| The project key | 
- **featureFlagKey** | **string**| The feature flags key | 
+ **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
  **featureFlagBody** | [**FeatureFlagBody**](FeatureFlagBody.md)| Create a new feature flag | 
 
 ### Return type

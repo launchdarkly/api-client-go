@@ -34,7 +34,7 @@ Class | Method | HTTP request | Description
 *FlagsApi* | [**GetFeatureFlagStatuses**](docs/FlagsApi.md#getfeatureflagstatuses) | **Get** /flag-statuses/{projectKey}/{environmentKey}/{featureFlagKey} | Get a list of statuses for all feature flags
 *FlagsApi* | [**GetFeatureFlags**](docs/FlagsApi.md#getfeatureflags) | **Get** /flags/{projectKey} | Get a list of all features in the given project.
 *FlagsApi* | [**PatchFeatureFlag**](docs/FlagsApi.md#patchfeatureflag) | **Patch** /flags/{projectKey}/{featureFlagKey} | Modify a feature flag by ID
-*FlagsApi* | [**PostFeatureFlag**](docs/FlagsApi.md#postfeatureflag) | **Post** /flags/{projectKey}/{featureFlagKey} | Create a feature flag
+*FlagsApi* | [**PostFeatureFlag**](docs/FlagsApi.md#postfeatureflag) | **Post** /flags/{projectKey} | Create a feature flag
 *ProjectsApi* | [**DeleteProject**](docs/ProjectsApi.md#deleteproject) | **Delete** /projects/{projectKey} | Delete a project by ID
 *ProjectsApi* | [**GetProject**](docs/ProjectsApi.md#getproject) | **Get** /projects/{projectKey} | Get a project by key.
 *ProjectsApi* | [**GetProjects**](docs/ProjectsApi.md#getprojects) | **Get** /projects | Returns a list of all projects in the account.

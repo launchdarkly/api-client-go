@@ -20,7 +20,7 @@ Delete an environment by ID
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **projectKey** | **string**| The project key | 
+ **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
  **environmentKey** | **string**| The environment key | 
 
 ### Return type
@@ -48,7 +48,7 @@ Get an environment by key.
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **projectKey** | **string**| The project key | 
+ **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
  **environmentKey** | **string**| The environment key | 
 
 ### Return type
@@ -76,7 +76,7 @@ Modify an environment by ID
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **projectKey** | **string**| The project key | 
+ **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
  **environmentKey** | **string**| The environment key | 
  **patchDelta** | [**[]PatchDelta**](patchDelta.md)| http://jsonpatch.com/ | 
 
@@ -105,7 +105,7 @@ Create an environment
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **projectKey** | **string**| The project key | 
+ **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
  **environmentBody** | [**EnvironmentBody**](EnvironmentBody.md)| New environment | 
 
 ### Return type

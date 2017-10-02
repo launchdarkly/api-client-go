@@ -21,7 +21,7 @@ Delete a project by ID
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **projectKey** | **string**| The project key | 
+ **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
 
 ### Return type
 
@@ -48,7 +48,7 @@ Get a project by key.
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **projectKey** | **string**| The project key | 
+ **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
 
 ### Return type
 
@@ -99,7 +99,7 @@ Modify a project by ID
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **projectKey** | **string**| The project key | 
+ **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
  **patchDelta** | [**[]PatchDelta**](patchDelta.md)| http://jsonpatch.com/ | 
 
 ### Return type

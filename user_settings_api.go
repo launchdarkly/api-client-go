@@ -40,10 +40,10 @@ func NewUserSettingsApiWithBasePath(basePath string) *UserSettingsApi {
 /**
  * Get a user by key.
  *
- * @param projectKey The project key
+ * @param projectKey The project key, used to tie the flags together under one project so they can be managed together.
  * @param environmentKey The environment key
  * @param userKey The user&#39;s key
- * @param featureFlagKey The feature flags key
+ * @param featureFlagKey The feature flag&#39;s key. The key identifies the flag in your code.
  * @return *UserFlagSetting
  */
 func (a UserSettingsApi) GetUserFlagSetting(projectKey string, environmentKey string, userKey string, featureFlagKey string) (*UserFlagSetting, *APIResponse, error) {
@@ -109,7 +109,7 @@ func (a UserSettingsApi) GetUserFlagSetting(projectKey string, environmentKey st
 /**
  * Lists the current flag settings for a given user.
  *
- * @param projectKey The project key
+ * @param projectKey The project key, used to tie the flags together under one project so they can be managed together.
  * @param environmentKey The environment key
  * @param userKey The user&#39;s key
  * @return *UserFlagSettings
@@ -176,10 +176,10 @@ func (a UserSettingsApi) GetUserFlagSettings(projectKey string, environmentKey s
 /**
  * Specifically enable or disable a feature flag for a user based on their key.
  *
- * @param projectKey The project key
+ * @param projectKey The project key, used to tie the flags together under one project so they can be managed together.
  * @param environmentKey The environment key
  * @param userKey The user&#39;s key
- * @param featureFlagKey The feature flags key
+ * @param featureFlagKey The feature flag&#39;s key. The key identifies the flag in your code.
  * @param userSettingsBody 
  * @return void
  */

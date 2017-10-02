@@ -40,7 +40,7 @@ func NewProjectsApiWithBasePath(basePath string) *ProjectsApi {
 /**
  * Delete a project by ID
  *
- * @param projectKey The project key
+ * @param projectKey The project key, used to tie the flags together under one project so they can be managed together.
  * @return void
  */
 func (a ProjectsApi) DeleteProject(projectKey string) (*APIResponse, error) {
@@ -101,7 +101,7 @@ func (a ProjectsApi) DeleteProject(projectKey string) (*APIResponse, error) {
 /**
  * Get a project by key.
  *
- * @param projectKey The project key
+ * @param projectKey The project key, used to tie the flags together under one project so they can be managed together.
  * @return *Project
  */
 func (a ProjectsApi) GetProject(projectKey string) (*Project, *APIResponse, error) {
@@ -225,7 +225,7 @@ func (a ProjectsApi) GetProjects() (*Projects, *APIResponse, error) {
 /**
  * Modify a project by ID
  *
- * @param projectKey The project key
+ * @param projectKey The project key, used to tie the flags together under one project so they can be managed together.
  * @param patchDelta http://jsonpatch.com/
  * @return void
  */
