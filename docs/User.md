@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**LastPing** | **string** |  | [optional] [default to null]
+**LastPing** | **int64** |  | [optional] [default to null]
 **EnvironmentId** | **string** |  | [optional] [default to null]
 **OwnerId** | **string** |  | [optional] [default to null]
 **User** | [**interface{}**](interface{}.md) |  | [optional] [default to null]

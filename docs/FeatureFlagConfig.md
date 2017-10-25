@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Archived** | **bool** |  | [optional] [default to null]
 **Salt** | **string** |  | [optional] [default to null]
 **Sel** | **string** |  | [optional] [default to null]
-**LastModified** | **int32** |  | [optional] [default to null]
+**LastModified** | **int64** |  | [optional] [default to null]
 **Version** | **int32** |  | [optional] [default to null]
 **Targets** | [**[]Target**](Target.md) |  | [optional] [default to null]
 **Rules** | [**[]Rule**](Rule.md) |  | [optional] [default to null]

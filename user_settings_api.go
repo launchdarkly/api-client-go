@@ -107,7 +107,7 @@ func (a UserSettingsApi) GetUserFlagSetting(projectKey string, environmentKey st
 }
 
 /**
- * Lists the current flag settings for a given user.
+ * Fetch a single flag setting for a user by key.
  *
  * @param projectKey The project key, used to tie the flags together under one project so they can be managed together.
  * @param environmentKey The environment key

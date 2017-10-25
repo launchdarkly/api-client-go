@@ -103,7 +103,7 @@ func (a UsersApi) DeleteUser(projectKey string, environmentKey string, userKey s
 }
 
 /**
- * Search users in LaunchDarkly based on their last active date, or a search query.
+ * Search users in LaunchDarkly based on their last active date, or a search query. It should not be used to enumerate all users in LaunchDarkly-- use the List users API resource.
  *
  * @param projectKey The project key, used to tie the flags together under one project so they can be managed together.
  * @param environmentKey The environment key
@@ -113,7 +113,7 @@ func (a UsersApi) DeleteUser(projectKey string, environmentKey string, userKey s
  * @param after A unix epoch time in milliseconds specifying the maximum last time a user requested a feature flag
  * @return *Users
  */
-func (a UsersApi) GetSearchUsers(projectKey string, environmentKey string, q string, limit float32, offset float32, after float32) (*Users, *APIResponse, error) {
+func (a UsersApi) GetSearchUsers(projectKey string, environmentKey string, q string, limit float32, offset float32, after int64) (*Users, *APIResponse, error) {
 
 	var localVarHttpMethod = strings.ToUpper("Get")
 	// create path and map variables
@@ -243,7 +243,7 @@ func (a UsersApi) GetUser(projectKey string, environmentKey string, userKey stri
 }
 
 /**
- * List all users in the environment.
+ * List all users in the environment. Includes the total count of users. In each page, there will be up to &#39;limit&#39; users returned (default 20). This is useful for exporting all users in the system for further analysis. Paginated collections will include a next link containing a URL with the next set of elements in the collection.
  *
  * @param projectKey The project key, used to tie the flags together under one project so they can be managed together.
  * @param environmentKey The environment key

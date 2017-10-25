@@ -5,7 +5,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Links** | [**Links**](Links.md) |  | [optional] [default to null]
 **Id** | **string** |  | [optional] [default to null]
-**Date** | **float32** |  | [optional] [default to null]
+**Date** | **int64** |  | [optional] [default to null]
 **Kind** | **string** |  | [optional] [default to null]
 **Name** | **string** |  | [optional] [default to null]
 **Description** | **string** |  | [optional] [default to null]

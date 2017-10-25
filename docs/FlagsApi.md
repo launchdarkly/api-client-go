@@ -9,7 +9,7 @@ Method | HTTP request | Description
 [**GetFeatureFlagStatus**](FlagsApi.md#GetFeatureFlagStatus) | **Get** /flag-statuses/{projectKey}/{environmentKey} | Get a list of statuses for all feature flags
 [**GetFeatureFlagStatuses**](FlagsApi.md#GetFeatureFlagStatuses) | **Get** /flag-statuses/{projectKey}/{environmentKey}/{featureFlagKey} | Get a list of statuses for all feature flags
 [**GetFeatureFlags**](FlagsApi.md#GetFeatureFlags) | **Get** /flags/{projectKey} | Get a list of all features in the given project.
-[**PatchFeatureFlag**](FlagsApi.md#PatchFeatureFlag) | **Patch** /flags/{projectKey}/{featureFlagKey} | Modify a feature flag by ID
+[**PatchFeatureFlag**](FlagsApi.md#PatchFeatureFlag) | **Patch** /flags/{projectKey}/{featureFlagKey} | Perform a partial update to a feature.
 [**PostFeatureFlag**](FlagsApi.md#PostFeatureFlag) | **Post** /flags/{projectKey} | Creates a new feature flag.
 
 
@@ -159,7 +159,7 @@ Name | Type | Description  | Notes
 # **PatchFeatureFlag**
 > FeatureFlag PatchFeatureFlag($projectKey, $featureFlagKey, $patchDelta)
 
-Modify a feature flag by ID
+Perform a partial update to a feature.
 
 
 ### Parameters

@@ -12,7 +12,7 @@ package swagger
 
 type User struct {
 
-	LastPing string `json:"lastPing,omitempty"`
+	LastPing int64 `json:"lastPing,omitempty"`
 
 	EnvironmentId string `json:"environmentId,omitempty"`
 

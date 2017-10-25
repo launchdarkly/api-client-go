@@ -18,7 +18,7 @@ type FeatureFlag struct {
 
 	Kind string `json:"kind,omitempty"`
 
-	CreationDate float32 `json:"creationDate,omitempty"`
+	CreationDate int64 `json:"creationDate,omitempty"`
 
 	IncludeInSnippet bool `json:"includeInSnippet,omitempty"`
 

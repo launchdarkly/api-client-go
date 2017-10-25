@@ -101,7 +101,7 @@ func (a EnvironmentsApi) DeleteEnvironment(projectKey string, environmentKey str
 }
 
 /**
- * Get an environment by key.
+ * Get an environment given a project and key.
  *
  * @param projectKey The project key, used to tie the flags together under one project so they can be managed together.
  * @param environmentKey The environment key
@@ -232,7 +232,7 @@ func (a EnvironmentsApi) PatchEnvironment(projectKey string, environmentKey stri
 }
 
 /**
- * Create an environment
+ * Create a new environment in a specified project with a given name, key, and swatch color.
  *
  * @param projectKey The project key, used to tie the flags together under one project so they can be managed together.
  * @param environmentBody New environment

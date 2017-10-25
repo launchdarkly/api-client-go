@@ -30,15 +30,15 @@ Class | Method | HTTP request | Description
 *AuditLogApi* | [**GetAuditLogEntries**](docs/AuditLogApi.md#getauditlogentries) | **Get** /auditlog | Fetch a list of all audit log entries
 *AuditLogApi* | [**GetAuditLogEntry**](docs/AuditLogApi.md#getauditlogentry) | **Get** /auditlog/{resourceId} | Get an audit log entry by ID
 *EnvironmentsApi* | [**DeleteEnvironment**](docs/EnvironmentsApi.md#deleteenvironment) | **Delete** /environments/{projectKey}/{environmentKey} | Delete an environment by ID
-*EnvironmentsApi* | [**GetEnvironment**](docs/EnvironmentsApi.md#getenvironment) | **Get** /environments/{projectKey}/{environmentKey} | Get an environment by key.
+*EnvironmentsApi* | [**GetEnvironment**](docs/EnvironmentsApi.md#getenvironment) | **Get** /environments/{projectKey}/{environmentKey} | Get an environment given a project and key.
 *EnvironmentsApi* | [**PatchEnvironment**](docs/EnvironmentsApi.md#patchenvironment) | **Patch** /environments/{projectKey}/{environmentKey} | Modify an environment by ID
-*EnvironmentsApi* | [**PostEnvironment**](docs/EnvironmentsApi.md#postenvironment) | **Post** /environments/{projectKey} | Create an environment
+*EnvironmentsApi* | [**PostEnvironment**](docs/EnvironmentsApi.md#postenvironment) | **Post** /environments/{projectKey} | Create a new environment in a specified project with a given name, key, and swatch color.
 *FlagsApi* | [**DeleteFeatureFlag**](docs/FlagsApi.md#deletefeatureflag) | **Delete** /flags/{projectKey}/{featureFlagKey} | Delete a feature flag by ID
 *FlagsApi* | [**GetFeatureFlag**](docs/FlagsApi.md#getfeatureflag) | **Get** /flags/{projectKey}/{featureFlagKey} | Get a single feature flag by key.
 *FlagsApi* | [**GetFeatureFlagStatus**](docs/FlagsApi.md#getfeatureflagstatus) | **Get** /flag-statuses/{projectKey}/{environmentKey} | Get a list of statuses for all feature flags
 *FlagsApi* | [**GetFeatureFlagStatuses**](docs/FlagsApi.md#getfeatureflagstatuses) | **Get** /flag-statuses/{projectKey}/{environmentKey}/{featureFlagKey} | Get a list of statuses for all feature flags
 *FlagsApi* | [**GetFeatureFlags**](docs/FlagsApi.md#getfeatureflags) | **Get** /flags/{projectKey} | Get a list of all features in the given project.
-*FlagsApi* | [**PatchFeatureFlag**](docs/FlagsApi.md#patchfeatureflag) | **Patch** /flags/{projectKey}/{featureFlagKey} | Modify a feature flag by ID
+*FlagsApi* | [**PatchFeatureFlag**](docs/FlagsApi.md#patchfeatureflag) | **Patch** /flags/{projectKey}/{featureFlagKey} | Perform a partial update to a feature.
 *FlagsApi* | [**PostFeatureFlag**](docs/FlagsApi.md#postfeatureflag) | **Post** /flags/{projectKey} | Creates a new feature flag.
 *ProjectsApi* | [**DeleteProject**](docs/ProjectsApi.md#deleteproject) | **Delete** /projects/{projectKey} | Delete a project by ID
 *ProjectsApi* | [**GetProject**](docs/ProjectsApi.md#getproject) | **Get** /projects/{projectKey} | Fetch a single project by key.
@@ -47,12 +47,12 @@ Class | Method | HTTP request | Description
 *ProjectsApi* | [**PostProject**](docs/ProjectsApi.md#postproject) | **Post** /projects | Create a project
 *RootApi* | [**GetRoot**](docs/RootApi.md#getroot) | **Get** / | Get the root resource
 *UserSettingsApi* | [**GetUserFlagSetting**](docs/UserSettingsApi.md#getuserflagsetting) | **Get** /users/{projectKey}/{environmentKey}/{userKey}/flags/{featureFlagKey} | Get a user by key.
-*UserSettingsApi* | [**GetUserFlagSettings**](docs/UserSettingsApi.md#getuserflagsettings) | **Get** /users/{projectKey}/{environmentKey}/{userKey}/flags | Lists the current flag settings for a given user.
+*UserSettingsApi* | [**GetUserFlagSettings**](docs/UserSettingsApi.md#getuserflagsettings) | **Get** /users/{projectKey}/{environmentKey}/{userKey}/flags | Fetch a single flag setting for a user by key.
 *UserSettingsApi* | [**PutFlagSetting**](docs/UserSettingsApi.md#putflagsetting) | **Put** /users/{projectKey}/{environmentKey}/{userKey}/flags/{featureFlagKey} | Specifically enable or disable a feature flag for a user based on their key.
 *UsersApi* | [**DeleteUser**](docs/UsersApi.md#deleteuser) | **Delete** /users/{projectKey}/{environmentKey}/{userKey} | Delete a user by ID
-*UsersApi* | [**GetSearchUsers**](docs/UsersApi.md#getsearchusers) | **Get** /user-search/{projectKey}/{environmentKey} | Search users in LaunchDarkly based on their last active date, or a search query.
+*UsersApi* | [**GetSearchUsers**](docs/UsersApi.md#getsearchusers) | **Get** /user-search/{projectKey}/{environmentKey} | Search users in LaunchDarkly based on their last active date, or a search query. It should not be used to enumerate all users in LaunchDarkly-- use the List users API resource.
 *UsersApi* | [**GetUser**](docs/UsersApi.md#getuser) | **Get** /users/{projectKey}/{environmentKey}/{userKey} | Get a user by key.
-*UsersApi* | [**GetUsers**](docs/UsersApi.md#getusers) | **Get** /users/{projectKey}/{environmentKey} | List all users in the environment.
+*UsersApi* | [**GetUsers**](docs/UsersApi.md#getusers) | **Get** /users/{projectKey}/{environmentKey} | List all users in the environment. Includes the total count of users. In each page, there will be up to &#39;limit&#39; users returned (default 20). This is useful for exporting all users in the system for further analysis. Paginated collections will include a next link containing a URL with the next set of elements in the collection.
 *WebhooksApi* | [**DeleteWebhook**](docs/WebhooksApi.md#deletewebhook) | **Delete** /webhooks/{resourceId} | Delete a webhook by ID
 *WebhooksApi* | [**GetWebhook**](docs/WebhooksApi.md#getwebhook) | **Get** /webhooks/{resourceId} | Get a webhook by ID
 *WebhooksApi* | [**GetWebhooks**](docs/WebhooksApi.md#getwebhooks) | **Get** /webhooks | Fetch a list of all webhooks

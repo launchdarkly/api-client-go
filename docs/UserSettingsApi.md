@@ -5,7 +5,7 @@ All URIs are relative to *https://app.launchdarkly.com/api/v2*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**GetUserFlagSetting**](UserSettingsApi.md#GetUserFlagSetting) | **Get** /users/{projectKey}/{environmentKey}/{userKey}/flags/{featureFlagKey} | Get a user by key.
-[**GetUserFlagSettings**](UserSettingsApi.md#GetUserFlagSettings) | **Get** /users/{projectKey}/{environmentKey}/{userKey}/flags | Lists the current flag settings for a given user.
+[**GetUserFlagSettings**](UserSettingsApi.md#GetUserFlagSettings) | **Get** /users/{projectKey}/{environmentKey}/{userKey}/flags | Fetch a single flag setting for a user by key.
 [**PutFlagSetting**](UserSettingsApi.md#PutFlagSetting) | **Put** /users/{projectKey}/{environmentKey}/{userKey}/flags/{featureFlagKey} | Specifically enable or disable a feature flag for a user based on their key.
 
 
@@ -42,7 +42,7 @@ Name | Type | Description  | Notes
 # **GetUserFlagSettings**
 > UserFlagSettings GetUserFlagSettings($projectKey, $environmentKey, $userKey)
 
-Lists the current flag settings for a given user.
+Fetch a single flag setting for a user by key.
 
 
 ### Parameters

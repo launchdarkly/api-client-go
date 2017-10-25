@@ -16,7 +16,7 @@ type FeatureFlagStatus struct {
 
 	Name string `json:"name,omitempty"`
 
-	LastRequested string `json:"lastRequested,omitempty"`
+	LastRequested int64 `json:"lastRequested,omitempty"`
 
 	Default_ bool `json:"default,omitempty"`
 }

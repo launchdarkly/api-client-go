@@ -20,7 +20,7 @@ type FeatureFlagConfig struct {
 
 	Sel string `json:"sel,omitempty"`
 
-	LastModified int32 `json:"lastModified,omitempty"`
+	LastModified int64 `json:"lastModified,omitempty"`
 
 	Version int32 `json:"version,omitempty"`
 

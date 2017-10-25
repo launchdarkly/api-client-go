@@ -5,9 +5,9 @@ All URIs are relative to *https://app.launchdarkly.com/api/v2*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**DeleteEnvironment**](EnvironmentsApi.md#DeleteEnvironment) | **Delete** /environments/{projectKey}/{environmentKey} | Delete an environment by ID
-[**GetEnvironment**](EnvironmentsApi.md#GetEnvironment) | **Get** /environments/{projectKey}/{environmentKey} | Get an environment by key.
+[**GetEnvironment**](EnvironmentsApi.md#GetEnvironment) | **Get** /environments/{projectKey}/{environmentKey} | Get an environment given a project and key.
 [**PatchEnvironment**](EnvironmentsApi.md#PatchEnvironment) | **Patch** /environments/{projectKey}/{environmentKey} | Modify an environment by ID
-[**PostEnvironment**](EnvironmentsApi.md#PostEnvironment) | **Post** /environments/{projectKey} | Create an environment
+[**PostEnvironment**](EnvironmentsApi.md#PostEnvironment) | **Post** /environments/{projectKey} | Create a new environment in a specified project with a given name, key, and swatch color.
 
 
 # **DeleteEnvironment**
@@ -41,7 +41,7 @@ void (empty response body)
 # **GetEnvironment**
 > Environment GetEnvironment($projectKey, $environmentKey)
 
-Get an environment by key.
+Get an environment given a project and key.
 
 
 ### Parameters
@@ -98,7 +98,7 @@ void (empty response body)
 # **PostEnvironment**
 > PostEnvironment($projectKey, $environmentBody)
 
-Create an environment
+Create a new environment in a specified project with a given name, key, and swatch color.
 
 
 ### Parameters

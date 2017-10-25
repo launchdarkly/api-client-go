@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 **Key** | **string** |  | [optional] [default to null]
 **Name** | **string** |  | [optional] [default to null]
 **Kind** | **string** |  | [optional] [default to null]
-**CreationDate** | **float32** |  | [optional] [default to null]
+**CreationDate** | **int64** |  | [optional] [default to null]
 **IncludeInSnippet** | **bool** |  | [optional] [default to null]
 **Temporary** | **bool** |  | [optional] [default to null]
 **MaintainerId** | **string** |  | [optional] [default to null]

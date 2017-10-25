@@ -16,7 +16,7 @@ type AuditLogEntry struct {
 
 	Id string `json:"_id,omitempty"`
 
-	Date float32 `json:"date,omitempty"`
+	Date int64 `json:"date,omitempty"`
 
 	Kind string `json:"kind,omitempty"`
 
