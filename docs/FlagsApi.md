@@ -10,7 +10,7 @@ Method | HTTP request | Description
 [**GetFeatureFlagStatuses**](FlagsApi.md#GetFeatureFlagStatuses) | **Get** /flag-statuses/{projectKey}/{environmentKey}/{featureFlagKey} | Get a list of statuses for all feature flags
 [**GetFeatureFlags**](FlagsApi.md#GetFeatureFlags) | **Get** /flags/{projectKey} | Get a list of all features in the given project.
 [**PatchFeatureFlag**](FlagsApi.md#PatchFeatureFlag) | **Patch** /flags/{projectKey}/{featureFlagKey} | Modify a feature flag by ID
-[**PostFeatureFlag**](FlagsApi.md#PostFeatureFlag) | **Post** /flags/{projectKey} | Create a feature flag
+[**PostFeatureFlag**](FlagsApi.md#PostFeatureFlag) | **Post** /flags/{projectKey} | Creates a new feature flag.
 
 
 # **DeleteFeatureFlag**
@@ -188,7 +188,7 @@ Name | Type | Description  | Notes
 # **PostFeatureFlag**
 > PostFeatureFlag($projectKey, $featureFlagBody)
 
-Create a feature flag
+Creates a new feature flag.
 
 
 ### Parameters

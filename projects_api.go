@@ -99,7 +99,7 @@ func (a ProjectsApi) DeleteProject(projectKey string) (*APIResponse, error) {
 }
 
 /**
- * Get a project by key.
+ * Fetch a single project by key.
  *
  * @param projectKey The project key, used to tie the flags together under one project so they can be managed together.
  * @return *Project

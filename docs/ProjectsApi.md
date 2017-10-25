@@ -5,7 +5,7 @@ All URIs are relative to *https://app.launchdarkly.com/api/v2*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**DeleteProject**](ProjectsApi.md#DeleteProject) | **Delete** /projects/{projectKey} | Delete a project by ID
-[**GetProject**](ProjectsApi.md#GetProject) | **Get** /projects/{projectKey} | Get a project by key.
+[**GetProject**](ProjectsApi.md#GetProject) | **Get** /projects/{projectKey} | Fetch a single project by key.
 [**GetProjects**](ProjectsApi.md#GetProjects) | **Get** /projects | Returns a list of all projects in the account.
 [**PatchProject**](ProjectsApi.md#PatchProject) | **Patch** /projects/{projectKey} | Modify a project by ID
 [**PostProject**](ProjectsApi.md#PostProject) | **Post** /projects | Create a project
@@ -41,7 +41,7 @@ void (empty response body)
 # **GetProject**
 > Project GetProject($projectKey)
 
-Get a project by key.
+Fetch a single project by key.
 
 
 ### Parameters

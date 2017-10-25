@@ -435,7 +435,7 @@ func (a FlagsApi) PatchFeatureFlag(projectKey string, featureFlagKey string, pat
 }
 
 /**
- * Create a feature flag
+ * Creates a new feature flag.
  *
  * @param projectKey The project key, used to tie the flags together under one project so they can be managed together.
  * @param featureFlagBody Create a new feature flag

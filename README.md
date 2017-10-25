@@ -1,3 +1,8 @@
+This repository contains a client library for LaunchDarkly's REST API. This client was automatically
+generated from our [OpenAPI specification](https://github.com/launchdarkly/ld-openapi).
+
+This REST API is for custom integrations, data export, or automating your feature flag workflows. *DO NOT* use this client library to add feature flags to your web or mobile application. To integrate feature flags with your application, please see the [SDK documentation](https://docs.launchdarkly.com/v2.0/docs)
+
 # Go API client for swagger
 
 Build custom integrations with the LaunchDarkly REST API
@@ -22,8 +27,8 @@ All URIs are relative to *https://app.launchdarkly.com/api/v2*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*AuditLogApi* | [**GetAuditLogEntries**](docs/AuditLogApi.md#getauditlogentries) | **Get** /auditlog | Fetch a list of all webhooks
-*AuditLogApi* | [**GetAuditLogEntry**](docs/AuditLogApi.md#getauditlogentry) | **Get** /auditlog/{resourceId} | Get a webhook by ID
+*AuditLogApi* | [**GetAuditLogEntries**](docs/AuditLogApi.md#getauditlogentries) | **Get** /auditlog | Fetch a list of all audit log entries
+*AuditLogApi* | [**GetAuditLogEntry**](docs/AuditLogApi.md#getauditlogentry) | **Get** /auditlog/{resourceId} | Get an audit log entry by ID
 *EnvironmentsApi* | [**DeleteEnvironment**](docs/EnvironmentsApi.md#deleteenvironment) | **Delete** /environments/{projectKey}/{environmentKey} | Delete an environment by ID
 *EnvironmentsApi* | [**GetEnvironment**](docs/EnvironmentsApi.md#getenvironment) | **Get** /environments/{projectKey}/{environmentKey} | Get an environment by key.
 *EnvironmentsApi* | [**PatchEnvironment**](docs/EnvironmentsApi.md#patchenvironment) | **Patch** /environments/{projectKey}/{environmentKey} | Modify an environment by ID
@@ -34,9 +39,9 @@ Class | Method | HTTP request | Description
 *FlagsApi* | [**GetFeatureFlagStatuses**](docs/FlagsApi.md#getfeatureflagstatuses) | **Get** /flag-statuses/{projectKey}/{environmentKey}/{featureFlagKey} | Get a list of statuses for all feature flags
 *FlagsApi* | [**GetFeatureFlags**](docs/FlagsApi.md#getfeatureflags) | **Get** /flags/{projectKey} | Get a list of all features in the given project.
 *FlagsApi* | [**PatchFeatureFlag**](docs/FlagsApi.md#patchfeatureflag) | **Patch** /flags/{projectKey}/{featureFlagKey} | Modify a feature flag by ID
-*FlagsApi* | [**PostFeatureFlag**](docs/FlagsApi.md#postfeatureflag) | **Post** /flags/{projectKey} | Create a feature flag
+*FlagsApi* | [**PostFeatureFlag**](docs/FlagsApi.md#postfeatureflag) | **Post** /flags/{projectKey} | Creates a new feature flag.
 *ProjectsApi* | [**DeleteProject**](docs/ProjectsApi.md#deleteproject) | **Delete** /projects/{projectKey} | Delete a project by ID
-*ProjectsApi* | [**GetProject**](docs/ProjectsApi.md#getproject) | **Get** /projects/{projectKey} | Get a project by key.
+*ProjectsApi* | [**GetProject**](docs/ProjectsApi.md#getproject) | **Get** /projects/{projectKey} | Fetch a single project by key.
 *ProjectsApi* | [**GetProjects**](docs/ProjectsApi.md#getprojects) | **Get** /projects | Returns a list of all projects in the account.
 *ProjectsApi* | [**PatchProject**](docs/ProjectsApi.md#patchproject) | **Patch** /projects/{projectKey} | Modify a project by ID
 *ProjectsApi* | [**PostProject**](docs/ProjectsApi.md#postproject) | **Post** /projects | Create a project

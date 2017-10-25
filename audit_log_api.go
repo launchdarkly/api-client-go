@@ -38,7 +38,7 @@ func NewAuditLogApiWithBasePath(basePath string) *AuditLogApi {
 }
 
 /**
- * Fetch a list of all webhooks
+ * Fetch a list of all audit log entries
  *
  * @return *AuditLogEntries
  */
@@ -99,7 +99,7 @@ func (a AuditLogApi) GetAuditLogEntries() (*AuditLogEntries, *APIResponse, error
 }
 
 /**
- * Get a webhook by ID
+ * Get an audit log entry by ID
  *
  * @param resourceId The resource ID
  * @return *AuditLogEntry

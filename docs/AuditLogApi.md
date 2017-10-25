@@ -4,14 +4,14 @@ All URIs are relative to *https://app.launchdarkly.com/api/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetAuditLogEntries**](AuditLogApi.md#GetAuditLogEntries) | **Get** /auditlog | Fetch a list of all webhooks
-[**GetAuditLogEntry**](AuditLogApi.md#GetAuditLogEntry) | **Get** /auditlog/{resourceId} | Get a webhook by ID
+[**GetAuditLogEntries**](AuditLogApi.md#GetAuditLogEntries) | **Get** /auditlog | Fetch a list of all audit log entries
+[**GetAuditLogEntry**](AuditLogApi.md#GetAuditLogEntry) | **Get** /auditlog/{resourceId} | Get an audit log entry by ID
 
 
 # **GetAuditLogEntries**
 > AuditLogEntries GetAuditLogEntries()
 
-Fetch a list of all webhooks
+Fetch a list of all audit log entries
 
 
 ### Parameters
@@ -35,7 +35,7 @@ This endpoint does not need any parameter.
 # **GetAuditLogEntry**
 > AuditLogEntry GetAuditLogEntry($resourceId)
 
-Get a webhook by ID
+Get an audit log entry by ID
 
 
 ### Parameters
