@@ -115,6 +115,7 @@ Class | Method | HTTP request | Description
  - [User](docs/User.md)
  - [UserFlagSetting](docs/UserFlagSetting.md)
  - [UserFlagSettings](docs/UserFlagSettings.md)
+ - [UserRecord](docs/UserRecord.md)
  - [UserSettingsBody](docs/UserSettingsBody.md)
  - [Users](docs/Users.md)
  - [Variation](docs/Variation.md)

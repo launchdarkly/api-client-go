@@ -12,14 +12,25 @@ package ldapi
 
 type User struct {
 
-	LastPing string `json:"lastPing,omitempty"`
+	Key string `json:"key,omitempty"`
 
-	EnvironmentId string `json:"environmentId,omitempty"`
+	Secondary string `json:"secondary,omitempty"`
 
-	// The unique resource id.
-	OwnerId string `json:"ownerId,omitempty"`
+	Ip string `json:"ip,omitempty"`
 
-	User *interface{} `json:"user,omitempty"`
+	Country string `json:"country,omitempty"`
+
+	Email string `json:"email,omitempty"`
+
+	FirstName string `json:"firstName,omitempty"`
+
+	LastName string `json:"lastName,omitempty"`
 
 	Avatar string `json:"avatar,omitempty"`
+
+	Name string `json:"name,omitempty"`
+
+	Anonymous bool `json:"anonymous,omitempty"`
+
+	Custom *interface{} `json:"custom,omitempty"`
 }

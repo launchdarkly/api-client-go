@@ -16,5 +16,5 @@ type Users struct {
 
 	TotalCount float32 `json:"totalCount,omitempty"`
 
-	Items []User `json:"items,omitempty"`
+	Items []UserRecord `json:"items,omitempty"`
 }

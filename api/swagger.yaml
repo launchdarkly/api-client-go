@@ -2198,6 +2198,49 @@ definitions:
   User:
     type: "object"
     properties:
+      key:
+        type: "string"
+        example: "a00bea"
+      secondary:
+        type: "string"
+      ip:
+        type: "string"
+      country:
+        type: "string"
+      email:
+        type: "string"
+      firstName:
+        type: "string"
+      lastName:
+        type: "string"
+      avatar:
+        type: "string"
+      name:
+        type: "string"
+        example: "Bob Loblaw"
+      anonymous:
+        type: "boolean"
+      custom:
+        type: "object"
+        example:
+          company: "example.com"
+        properties: {}
+    example:
+      secondary: "secondary"
+      country: "country"
+      firstName: "firstName"
+      lastName: "lastName"
+      ip: "ip"
+      custom:
+        company: "example.com"
+      name: "Bob Loblaw"
+      anonymous: true
+      avatar: "avatar"
+      key: "a00bea"
+      email: "email"
+  UserRecord:
+    type: "object"
+    properties:
       lastPing:
         type: "string"
         format: "int64"
@@ -2210,13 +2253,7 @@ definitions:
         example: "5a580a01b4ff89217bdf9dc1"
         description: "The unique resource id."
       user:
-        type: "object"
-        example:
-          key: "a00bea"
-          name: "Bob Loblaw"
-          custom:
-            company: "example.com"
-        properties: {}
+        $ref: "#/definitions/User"
       avatar:
         type: "string"
         example: "https://s3.amazonaws.com/uifaces/faces/twitter/shylockjoy/73.jpg"
@@ -2226,10 +2263,18 @@ definitions:
       avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/shylockjoy/73.jpg"
       ownerId: "5a580a01b4ff89217bdf9dc1"
       user:
-        key: "a00bea"
-        name: "Bob Loblaw"
+        secondary: "secondary"
+        country: "country"
+        firstName: "firstName"
+        lastName: "lastName"
+        ip: "ip"
         custom:
           company: "example.com"
+        name: "Bob Loblaw"
+        anonymous: true
+        avatar: "avatar"
+        key: "a00bea"
+        email: "email"
   Users:
     type: "object"
     properties:
@@ -2241,7 +2286,7 @@ definitions:
       items:
         type: "array"
         items:
-          $ref: "#/definitions/User"
+          $ref: "#/definitions/UserRecord"
     example:
       _links:
         self:
@@ -2254,19 +2299,35 @@ definitions:
         avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/shylockjoy/73.jpg"
         ownerId: "5a580a01b4ff89217bdf9dc1"
         user:
-          key: "a00bea"
-          name: "Bob Loblaw"
+          secondary: "secondary"
+          country: "country"
+          firstName: "firstName"
+          lastName: "lastName"
+          ip: "ip"
           custom:
             company: "example.com"
+          name: "Bob Loblaw"
+          anonymous: true
+          avatar: "avatar"
+          key: "a00bea"
+          email: "email"
       - environmentId: "54ac2d97de674204ddd61096"
         lastPing: "2015-03-03T02:37:22.492Z"
         avatar: "https://s3.amazonaws.com/uifaces/faces/twitter/shylockjoy/73.jpg"
         ownerId: "5a580a01b4ff89217bdf9dc1"
         user:
-          key: "a00bea"
-          name: "Bob Loblaw"
+          secondary: "secondary"
+          country: "country"
+          firstName: "firstName"
+          lastName: "lastName"
+          ip: "ip"
           custom:
             company: "example.com"
+          name: "Bob Loblaw"
+          anonymous: true
+          avatar: "avatar"
+          key: "a00bea"
+          email: "email"
   AuditLogEntry:
     type: "object"
     properties:
