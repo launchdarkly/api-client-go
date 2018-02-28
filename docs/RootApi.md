@@ -4,16 +4,16 @@ All URIs are relative to *https://app.launchdarkly.com/api/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetRoot**](RootApi.md#GetRoot) | **Get** / | Get the root resource
+[**GetRoot**](RootApi.md#GetRoot) | **Get** / | 
 
 
 # **GetRoot**
-> Links GetRoot()
-
-Get the root resource
+> Links GetRoot(ctx, )
 
 
-### Parameters
+You can issue a GET request to the root resource to find all of the resource categories supported by the API.
+
+### Required Parameters
 This endpoint does not need any parameter.
 
 ### Return type

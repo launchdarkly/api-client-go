@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Links** | [**Links**](Links.md) |  | [optional] [default to null]
+**Links** | [***Links**](Links.md) |  | [optional] [default to null]
 **TotalCount** | **float32** |  | [optional] [default to null]
 **Items** | [**[]User**](User.md) |  | [optional] [default to null]
 

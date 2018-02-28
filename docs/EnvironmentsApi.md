@@ -4,28 +4,27 @@ All URIs are relative to *https://app.launchdarkly.com/api/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteEnvironment**](EnvironmentsApi.md#DeleteEnvironment) | **Delete** /environments/{projectKey}/{environmentKey} | Delete an environment by ID
-[**GetEnvironment**](EnvironmentsApi.md#GetEnvironment) | **Get** /environments/{projectKey}/{environmentKey} | Get an environment given a project and key.
-[**PatchEnvironment**](EnvironmentsApi.md#PatchEnvironment) | **Patch** /environments/{projectKey}/{environmentKey} | Modify an environment by ID
-[**PostEnvironment**](EnvironmentsApi.md#PostEnvironment) | **Post** /environments/{projectKey} | Create a new environment in a specified project with a given name, key, and swatch color.
+[**DeleteEnvironment**](EnvironmentsApi.md#DeleteEnvironment) | **Delete** /projects/{projectKey}/environments/{environmentKey} | Delete an environment in a specific project.
+[**GetEnvironment**](EnvironmentsApi.md#GetEnvironment) | **Get** /projects/{projectKey}/environments/{environmentKey} | Get an environment given a project and key.
+[**PatchEnvironment**](EnvironmentsApi.md#PatchEnvironment) | **Patch** /projects/{projectKey}/environments/{environmentKey} | Modify an environment by ID.
+[**PostEnvironment**](EnvironmentsApi.md#PostEnvironment) | **Post** /projects/{projectKey}/environments | Create a new environment in a specified project with a given name, key, and swatch color.
 
 
 # **DeleteEnvironment**
-> DeleteEnvironment($projectKey, $environmentKey)
+> DeleteEnvironment(ctx, projectKey, environmentKey)
+Delete an environment in a specific project.
 
-Delete an environment by ID
-
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
- **environmentKey** | **string**| The environment key | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
+  **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 
@@ -39,17 +38,16 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetEnvironment**
-> Environment GetEnvironment($projectKey, $environmentKey)
-
+> Environment GetEnvironment(ctx, projectKey, environmentKey)
 Get an environment given a project and key.
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
- **environmentKey** | **string**| The environment key | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
+  **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
 
 ### Return type
 
@@ -67,22 +65,21 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **PatchEnvironment**
-> PatchEnvironment($projectKey, $environmentKey, $patchDelta)
+> Environment PatchEnvironment(ctx, projectKey, environmentKey, patchDelta)
+Modify an environment by ID.
 
-Modify an environment by ID
-
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
- **environmentKey** | **string**| The environment key | 
- **patchDelta** | [**[]PatchDelta**](patchDelta.md)| http://jsonpatch.com/ | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
+  **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
+  **patchDelta** | [**[]PatchDelta**](patchDelta.md)| Requires a JSON Patch representation of the desired changes to the project. &#39;http://jsonpatch.com/&#39; | 
 
 ### Return type
 
-void (empty response body)
+[**Environment**](Environment.md)
 
 ### Authorization
 
@@ -96,21 +93,20 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **PostEnvironment**
-> PostEnvironment($projectKey, $environmentBody)
-
+> PostEnvironment(ctx, projectKey, environmentBody)
 Create a new environment in a specified project with a given name, key, and swatch color.
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
- **environmentBody** | [**EnvironmentBody**](EnvironmentBody.md)| New environment | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
+  **environmentBody** | [**EnvironmentBody**](EnvironmentBody.md)| New environment. | 
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 

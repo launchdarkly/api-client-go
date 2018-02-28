@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Links** | [**Links**](Links.md) |  | [optional] [default to null]
+**Links** | [***Links**](Links.md) |  | [optional] [default to null]
 **Name** | **string** |  | [optional] [default to null]
 **Resources** | **[]string** |  | [optional] [default to null]
 

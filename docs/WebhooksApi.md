@@ -4,28 +4,27 @@ All URIs are relative to *https://app.launchdarkly.com/api/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteWebhook**](WebhooksApi.md#DeleteWebhook) | **Delete** /webhooks/{resourceId} | Delete a webhook by ID
-[**GetWebhook**](WebhooksApi.md#GetWebhook) | **Get** /webhooks/{resourceId} | Get a webhook by ID
-[**GetWebhooks**](WebhooksApi.md#GetWebhooks) | **Get** /webhooks | Fetch a list of all webhooks
-[**PatchWebhook**](WebhooksApi.md#PatchWebhook) | **Patch** /webhooks/{resourceId} | Modify a webhook by ID
-[**PostWebhook**](WebhooksApi.md#PostWebhook) | **Post** /webhooks | Create a webhook
+[**DeleteWebhook**](WebhooksApi.md#DeleteWebhook) | **Delete** /webhooks/{resourceId} | Delete a webhook by ID.
+[**GetWebhook**](WebhooksApi.md#GetWebhook) | **Get** /webhooks/{resourceId} | Get a webhook by ID.
+[**GetWebhooks**](WebhooksApi.md#GetWebhooks) | **Get** /webhooks | Fetch a list of all webhooks.
+[**PatchWebhook**](WebhooksApi.md#PatchWebhook) | **Patch** /webhooks/{resourceId} | Modify a webhook by ID.
+[**PostWebhook**](WebhooksApi.md#PostWebhook) | **Post** /webhooks | Create a webhook.
 
 
 # **DeleteWebhook**
-> DeleteWebhook($resourceId)
+> DeleteWebhook(ctx, resourceId)
+Delete a webhook by ID.
 
-Delete a webhook by ID
-
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **resourceId** | **string**| The resource ID | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **resourceId** | **string**| The resource ID. | 
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 
@@ -39,16 +38,15 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetWebhook**
-> Webhook GetWebhook($resourceId)
+> Webhook GetWebhook(ctx, resourceId)
+Get a webhook by ID.
 
-Get a webhook by ID
-
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **resourceId** | **string**| The resource ID | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **resourceId** | **string**| The resource ID. | 
 
 ### Return type
 
@@ -66,12 +64,10 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetWebhooks**
-> Webhooks GetWebhooks()
+> Webhooks GetWebhooks(ctx, )
+Fetch a list of all webhooks.
 
-Fetch a list of all webhooks
-
-
-### Parameters
+### Required Parameters
 This endpoint does not need any parameter.
 
 ### Return type
@@ -90,17 +86,16 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **PatchWebhook**
-> Webhook PatchWebhook($resourceId, $patchDelta)
+> Webhook PatchWebhook(ctx, resourceId, patchDelta)
+Modify a webhook by ID.
 
-Modify a webhook by ID
-
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **resourceId** | **string**| The resource ID | 
- **patchDelta** | [**[]PatchDelta**](patchDelta.md)| http://jsonpatch.com/ | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **resourceId** | **string**| The resource ID. | 
+  **patchDelta** | [**[]PatchDelta**](patchDelta.md)| Requires a JSON Patch representation of the desired changes to the project. &#39;http://jsonpatch.com/&#39; | 
 
 ### Return type
 
@@ -118,20 +113,19 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **PostWebhook**
-> PostWebhook($webhookBody)
+> PostWebhook(ctx, webhookBody)
+Create a webhook.
 
-Create a webhook
-
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **webhookBody** | [**WebhookBody**](WebhookBody.md)| New webhook | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **webhookBody** | [**WebhookBody**](WebhookBody.md)| New webhook. | 
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 

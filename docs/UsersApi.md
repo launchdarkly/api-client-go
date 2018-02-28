@@ -4,29 +4,28 @@ All URIs are relative to *https://app.launchdarkly.com/api/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteUser**](UsersApi.md#DeleteUser) | **Delete** /users/{projectKey}/{environmentKey}/{userKey} | Delete a user by ID
+[**DeleteUser**](UsersApi.md#DeleteUser) | **Delete** /users/{projectKey}/{environmentKey}/{userKey} | Delete a user by ID.
 [**GetSearchUsers**](UsersApi.md#GetSearchUsers) | **Get** /user-search/{projectKey}/{environmentKey} | Search users in LaunchDarkly based on their last active date, or a search query. It should not be used to enumerate all users in LaunchDarkly-- use the List users API resource.
 [**GetUser**](UsersApi.md#GetUser) | **Get** /users/{projectKey}/{environmentKey}/{userKey} | Get a user by key.
 [**GetUsers**](UsersApi.md#GetUsers) | **Get** /users/{projectKey}/{environmentKey} | List all users in the environment. Includes the total count of users. In each page, there will be up to &#39;limit&#39; users returned (default 20). This is useful for exporting all users in the system for further analysis. Paginated collections will include a next link containing a URL with the next set of elements in the collection.
 
 
 # **DeleteUser**
-> DeleteUser($projectKey, $environmentKey, $userKey)
+> DeleteUser(ctx, projectKey, environmentKey, userKey)
+Delete a user by ID.
 
-Delete a user by ID
-
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
- **environmentKey** | **string**| The environment key | 
- **userKey** | **string**| The user&#39;s key | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
+  **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
+  **userKey** | **string**| The user&#39;s key. | 
 
 ### Return type
 
-void (empty response body)
+ (empty response body)
 
 ### Authorization
 
@@ -40,21 +39,29 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetSearchUsers**
-> Users GetSearchUsers($projectKey, $environmentKey, $q, $limit, $offset, $after)
-
+> Users GetSearchUsers(ctx, projectKey, environmentKey, optional)
 Search users in LaunchDarkly based on their last active date, or a search query. It should not be used to enumerate all users in LaunchDarkly-- use the List users API resource.
 
+### Required Parameters
 
-### Parameters
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
+  **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
+ **optional** | **map[string]interface{}** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a map[string]interface{}.
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
- **environmentKey** | **string**| The environment key | 
- **q** | **string**| Search query | [optional] 
- **limit** | **float32**| Pagination limit | [optional] 
- **offset** | **float32**| Specifies the first item to return in the collection | [optional] 
- **after** | **int64**| A unix epoch time in milliseconds specifying the maximum last time a user requested a feature flag | [optional] 
+ **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
+ **q** | **string**| Search query. | 
+ **limit** | **float32**| Pagination limit. | 
+ **offset** | **float32**| Specifies the first item to return in the collection. | 
+ **after** | **float32**| A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries returned will have occured after this timestamp. | 
 
 ### Return type
 
@@ -72,18 +79,17 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetUser**
-> User GetUser($projectKey, $environmentKey, $userKey)
-
+> User GetUser(ctx, projectKey, environmentKey, userKey)
 Get a user by key.
 
-
-### Parameters
+### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
- **environmentKey** | **string**| The environment key | 
- **userKey** | **string**| The user&#39;s key | 
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
+  **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
+  **userKey** | **string**| The user&#39;s key. | 
 
 ### Return type
 
@@ -101,18 +107,26 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **GetUsers**
-> Users GetUsers($projectKey, $environmentKey, $limit)
-
+> Users GetUsers(ctx, projectKey, environmentKey, optional)
 List all users in the environment. Includes the total count of users. In each page, there will be up to 'limit' users returned (default 20). This is useful for exporting all users in the system for further analysis. Paginated collections will include a next link containing a URL with the next set of elements in the collection.
 
+### Required Parameters
 
-### Parameters
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+  **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
+  **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
+ **optional** | **map[string]interface{}** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a map[string]interface{}.
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
- **environmentKey** | **string**| The environment key | 
- **limit** | **float32**| Pagination limit | [optional] 
+ **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
+ **limit** | **float32**| Pagination limit. | 
 
 ### Return type
 

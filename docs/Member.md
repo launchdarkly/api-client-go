@@ -3,9 +3,9 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Links** | [**Links**](Links.md) |  | [optional] [default to null]
-**Id** | **string** |  | [optional] [default to null]
-**Role** | **string** |  | [optional] [default to null]
+**Links** | [***Links**](Links.md) |  | [optional] [default to null]
+**Id** | **string** | The unique resource id. | [optional] [default to null]
+**Role** | [***Role**](Role.md) |  | [optional] [default to null]
 **Email** | **string** |  | [optional] [default to null]
 **PendingInvite** | **bool** |  | [optional] [default to null]
 **IsBeta** | **bool** |  | [optional] [default to null]
