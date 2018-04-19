@@ -1,11 +1,10 @@
-# PatchDelta
+# Prerequisite
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Op** | **string** |  | [default to null]
-**Path** | **string** |  | [default to null]
-**Value** | [***interface{}**](interface{}.md) |  | [default to null]
+**Key** | **string** |  | [optional] [default to null]
+**Variation** | **int32** |  | [optional] [default to null]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

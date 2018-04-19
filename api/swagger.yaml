@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Build custom integrations with the LaunchDarkly REST API"
-  version: "2.0.0"
+  version: "2.0.1"
   title: "LaunchDarkly REST API"
   termsOfService: "https://launchdarkly.com/terms"
   contact:
@@ -125,7 +125,7 @@ paths:
         schema:
           type: "array"
           items:
-            $ref: "#/definitions/patchDelta"
+            $ref: "#/definitions/PatchOperation"
         x-exportParamName: "PatchDelta"
       responses:
         200:
@@ -256,7 +256,7 @@ paths:
         schema:
           type: "array"
           items:
-            $ref: "#/definitions/patchDelta"
+            $ref: "#/definitions/PatchOperation"
         x-exportParamName: "PatchDelta"
       responses:
         200:
@@ -426,9 +426,9 @@ paths:
       - in: "body"
         name: "patchComment"
         description: "Requires a JSON Patch representation of the desired changes\
-          \ to the project. 'http://jsonpatch.com/' Feature flag patches also support\
-          \ JSON Merge Patch format. 'https://tools.ietf.org/html/rfc7386' The addition\
-          \ of comments is also supported."
+          \ to the project, and an optional comment. 'http://jsonpatch.com/' Feature\
+          \ flag patches also support JSON Merge Patch format. 'https://tools.ietf.org/html/rfc7386'\
+          \ The addition of comments is also supported."
         required: true
         schema:
           $ref: "#/definitions/patchComment"
@@ -511,6 +511,199 @@ paths:
             $ref: "#/definitions/FeatureFlagStatus"
         401:
           description: "Invalid access token."
+  /segments/{projectKey}/{environmentKey}:
+    get:
+      tags:
+      - "User segments"
+      summary: "Get a list of all user segments in the given project."
+      operationId: "getUserSegments"
+      parameters:
+      - name: "projectKey"
+        in: "path"
+        description: "The project key, used to tie the flags together under one project\
+          \ so they can be managed together."
+        required: true
+        type: "string"
+        x-exportParamName: "ProjectKey"
+      - name: "environmentKey"
+        in: "path"
+        description: "The environment key, used to tie together flag configuration\
+          \ and users under one environment so they can be managed together."
+        required: true
+        type: "string"
+        x-exportParamName: "EnvironmentKey"
+      - name: "tag"
+        in: "query"
+        description: "Filter by tag. A tag can be used to group flags across projects."
+        required: false
+        type: "string"
+        x-exportParamName: "Tag"
+      responses:
+        200:
+          description: "Segments response."
+          schema:
+            $ref: "#/definitions/UserSegments"
+        401:
+          description: "Invalid access token."
+    post:
+      tags:
+      - "User segments"
+      summary: "Creates a new user segment."
+      operationId: "postUserSegment"
+      parameters:
+      - name: "projectKey"
+        in: "path"
+        description: "The project key, used to tie the flags together under one project\
+          \ so they can be managed together."
+        required: true
+        type: "string"
+        x-exportParamName: "ProjectKey"
+      - name: "environmentKey"
+        in: "path"
+        description: "The environment key, used to tie together flag configuration\
+          \ and users under one environment so they can be managed together."
+        required: true
+        type: "string"
+        x-exportParamName: "EnvironmentKey"
+      - in: "body"
+        name: "userSegmentBody"
+        description: "Create a new user segment."
+        required: true
+        schema:
+          $ref: "#/definitions/userSegmentBody"
+        x-exportParamName: "UserSegmentBody"
+      responses:
+        201:
+          description: "Resource created."
+        400:
+          description: "Invalid request body."
+        401:
+          description: "Invalid access token."
+        409:
+          description: "Status conflict."
+  /segments/{projectKey}/{environmentKey}/{userSegmentKey}:
+    get:
+      tags:
+      - "User segments"
+      summary: "Get a single user segment by key."
+      operationId: "getUserSegment"
+      parameters:
+      - name: "projectKey"
+        in: "path"
+        description: "The project key, used to tie the flags together under one project\
+          \ so they can be managed together."
+        required: true
+        type: "string"
+        x-exportParamName: "ProjectKey"
+      - name: "environmentKey"
+        in: "path"
+        description: "The environment key, used to tie together flag configuration\
+          \ and users under one environment so they can be managed together."
+        required: true
+        type: "string"
+        x-exportParamName: "EnvironmentKey"
+      - name: "userSegmentKey"
+        in: "path"
+        description: "The user segment's key. The key identifies the user segment\
+          \ in your code."
+        required: true
+        type: "string"
+        x-exportParamName: "UserSegmentKey"
+      responses:
+        200:
+          description: "User segment response."
+          schema:
+            $ref: "#/definitions/UserSegment"
+        401:
+          description: "Invalid access token."
+        404:
+          description: "Invalid resource specifier."
+    delete:
+      tags:
+      - "User segments"
+      summary: "Delete a user segment."
+      operationId: "deleteUserSegment"
+      parameters:
+      - name: "projectKey"
+        in: "path"
+        description: "The project key, used to tie the flags together under one project\
+          \ so they can be managed together."
+        required: true
+        type: "string"
+        x-exportParamName: "ProjectKey"
+      - name: "environmentKey"
+        in: "path"
+        description: "The environment key, used to tie together flag configuration\
+          \ and users under one environment so they can be managed together."
+        required: true
+        type: "string"
+        x-exportParamName: "EnvironmentKey"
+      - name: "userSegmentKey"
+        in: "path"
+        description: "The user segment's key. The key identifies the user segment\
+          \ in your code."
+        required: true
+        type: "string"
+        x-exportParamName: "UserSegmentKey"
+      responses:
+        204:
+          description: "Action completed successfully."
+        401:
+          description: "Invalid access token."
+        404:
+          description: "Invalid resource specifier."
+    patch:
+      tags:
+      - "User segments"
+      summary: "Perform a partial update to a user segment."
+      operationId: "patchUserSegment"
+      parameters:
+      - name: "projectKey"
+        in: "path"
+        description: "The project key, used to tie the flags together under one project\
+          \ so they can be managed together."
+        required: true
+        type: "string"
+        x-exportParamName: "ProjectKey"
+      - name: "environmentKey"
+        in: "path"
+        description: "The environment key, used to tie together flag configuration\
+          \ and users under one environment so they can be managed together."
+        required: true
+        type: "string"
+        x-exportParamName: "EnvironmentKey"
+      - name: "userSegmentKey"
+        in: "path"
+        description: "The user segment's key. The key identifies the user segment\
+          \ in your code."
+        required: true
+        type: "string"
+        x-exportParamName: "UserSegmentKey"
+      - in: "body"
+        name: "PatchOnly"
+        description: "Requires a JSON Patch representation of the desired changes\
+          \ to the project. 'http://jsonpatch.com/' Feature flag patches also support\
+          \ JSON Merge Patch format. 'https://tools.ietf.org/html/rfc7386' The addition\
+          \ of comments is also supported."
+        required: true
+        schema:
+          type: "array"
+          items:
+            $ref: "#/definitions/PatchOperation"
+        x-exportParamName: "PatchOnly"
+      responses:
+        200:
+          description: "User segment response."
+          schema:
+            $ref: "#/definitions/UserSegment"
+        400:
+          description: "Invalid request body."
+        401:
+          description: "Invalid access token."
+        404:
+          description: "Invalid resource specifier."
+        409:
+          description: "Status conflict."
   /users/{projectKey}/{environmentKey}:
     get:
       tags:
@@ -540,8 +733,20 @@ paths:
         in: "query"
         description: "Pagination limit."
         required: false
-        type: "number"
+        type: "integer"
         x-exportParamName: "Limit"
+      - name: "h"
+        in: "query"
+        description: "This parameter is required when following \"next\" links."
+        required: false
+        type: "string"
+        x-exportParamName: "H"
+      - name: "scrollId"
+        in: "query"
+        description: "This parameter is required when following \"next\" links."
+        required: false
+        type: "string"
+        x-exportParamName: "ScrollId"
       responses:
         200:
           description: "Users response."
@@ -582,13 +787,13 @@ paths:
         in: "query"
         description: "Pagination limit."
         required: false
-        type: "number"
+        type: "integer"
         x-exportParamName: "Limit"
       - name: "offset"
         in: "query"
         description: "Specifies the first item to return in the collection."
         required: false
-        type: "number"
+        type: "integer"
         x-exportParamName: "Offset"
       - name: "after"
         in: "query"
@@ -975,7 +1180,7 @@ paths:
         schema:
           type: "array"
           items:
-            $ref: "#/definitions/patchDelta"
+            $ref: "#/definitions/PatchOperation"
         x-exportParamName: "PatchDelta"
       responses:
         200:
@@ -1087,7 +1292,7 @@ paths:
         schema:
           type: "array"
           items:
-            $ref: "#/definitions/patchDelta"
+            $ref: "#/definitions/PatchOperation"
         x-exportParamName: "PatchDelta"
       responses:
         200:
@@ -1201,7 +1406,7 @@ paths:
         schema:
           type: "array"
           items:
-            $ref: "#/definitions/patchDelta"
+            $ref: "#/definitions/PatchOperation"
         x-exportParamName: "PatchDelta"
       responses:
         200:
@@ -1255,7 +1460,12 @@ definitions:
     properties:
       self:
         $ref: "#/definitions/Link"
+      next:
+        $ref: "#/definitions/Link"
     example:
+      next:
+        href: "/api/v2/endpoint"
+        type: "application/json"
       self:
         href: "/api/v2/endpoint"
         type: "application/json"
@@ -1282,6 +1492,10 @@ definitions:
         type: "boolean"
         example: true
         description: "Whether this webhook is enabled or not."
+      name:
+        type: "string"
+        example: "Example hook"
+        description: "The name of the webhook."
       tags:
         type: "array"
         description: "Tags assigned to this webhook."
@@ -1290,9 +1504,13 @@ definitions:
           example: "[]"
     example:
       _links:
+        next:
+          href: "/api/v2/endpoint"
+          type: "application/json"
         self:
           href: "/api/v2/endpoint"
           type: "application/json"
+      name: "Example hook"
       _id: "5a580a01b4ff89217bdf9dc1"
       secret: "frobozz"
       url: "https://example.com/example"
@@ -1311,14 +1529,21 @@ definitions:
           $ref: "#/definitions/Webhook"
     example:
       _links:
+        next:
+          href: "/api/v2/endpoint"
+          type: "application/json"
         self:
           href: "/api/v2/endpoint"
           type: "application/json"
       items:
       - _links:
+          next:
+            href: "/api/v2/endpoint"
+            type: "application/json"
           self:
             href: "/api/v2/endpoint"
             type: "application/json"
+        name: "Example hook"
         _id: "5a580a01b4ff89217bdf9dc1"
         secret: "frobozz"
         url: "https://example.com/example"
@@ -1327,9 +1552,13 @@ definitions:
         - "[]"
         - "[]"
       - _links:
+          next:
+            href: "/api/v2/endpoint"
+            type: "application/json"
           self:
             href: "/api/v2/endpoint"
             type: "application/json"
+        name: "Example hook"
         _id: "5a580a01b4ff89217bdf9dc1"
         secret: "frobozz"
         url: "https://example.com/example"
@@ -1342,10 +1571,10 @@ definitions:
     properties:
       key:
         type: "string"
-        example: "bob@example.com"
+        example: "test-feature"
       name:
         type: "string"
-        example: "test-feature"
+        example: "Test Feature"
         description: "Name of the feature flag."
       description:
         type: "string"
@@ -1397,6 +1626,9 @@ definitions:
       _maintainer:
         role: {}
         _links:
+          next:
+            href: "/api/v2/endpoint"
+            type: "application/json"
           self:
             href: "/api/v2/endpoint"
             type: "application/json"
@@ -1408,11 +1640,19 @@ definitions:
         - "5a580a01b4ff89217bdf9dc1"
         - "5a580a01b4ff89217bdf9dc1"
       _links:
+        next:
+          href: "/api/v2/endpoint"
+          type: "application/json"
         self:
           href: "/api/v2/endpoint"
           type: "application/json"
       environments:
         key:
+          prerequisites:
+          - key: "key"
+            variation: 7
+          - key: "key"
+            variation: 7
           archived: true
           salt: "YWx0ZXJuYXRlLnBhZ2U="
           rules:
@@ -1466,6 +1706,7 @@ definitions:
               - weight: 5
                 variation: 1
             variation: 5
+          offVariation: 2
           version: 65
           targets:
           - values:
@@ -1484,8 +1725,8 @@ definitions:
       includeInSnippet: false
       maintainerId: "561c579cd8fd5c2704000001"
       variations: "[ { \"value\": \"a\" }, { \"value\": \"b\" } ]"
-      name: "test-feature"
-      key: "bob@example.com"
+      name: "Test Feature"
+      key: "test-feature"
   FeatureFlags:
     type: "object"
     properties:
@@ -1497,6 +1738,9 @@ definitions:
           $ref: "#/definitions/FeatureFlag"
     example:
       _links:
+        next:
+          href: "/api/v2/endpoint"
+          type: "application/json"
         self:
           href: "/api/v2/endpoint"
           type: "application/json"
@@ -1505,6 +1749,9 @@ definitions:
         _maintainer:
           role: {}
           _links:
+            next:
+              href: "/api/v2/endpoint"
+              type: "application/json"
             self:
               href: "/api/v2/endpoint"
               type: "application/json"
@@ -1516,11 +1763,19 @@ definitions:
           - "5a580a01b4ff89217bdf9dc1"
           - "5a580a01b4ff89217bdf9dc1"
         _links:
+          next:
+            href: "/api/v2/endpoint"
+            type: "application/json"
           self:
             href: "/api/v2/endpoint"
             type: "application/json"
         environments:
           key:
+            prerequisites:
+            - key: "key"
+              variation: 7
+            - key: "key"
+              variation: 7
             archived: true
             salt: "YWx0ZXJuYXRlLnBhZ2U="
             rules:
@@ -1574,6 +1829,7 @@ definitions:
                 - weight: 5
                   variation: 1
               variation: 5
+            offVariation: 2
             version: 65
             targets:
             - values:
@@ -1592,12 +1848,15 @@ definitions:
         includeInSnippet: false
         maintainerId: "561c579cd8fd5c2704000001"
         variations: "[ { \"value\": \"a\" }, { \"value\": \"b\" } ]"
-        name: "test-feature"
-        key: "bob@example.com"
+        name: "Test Feature"
+        key: "test-feature"
       - temporary: false
         _maintainer:
           role: {}
           _links:
+            next:
+              href: "/api/v2/endpoint"
+              type: "application/json"
             self:
               href: "/api/v2/endpoint"
               type: "application/json"
@@ -1609,11 +1868,19 @@ definitions:
           - "5a580a01b4ff89217bdf9dc1"
           - "5a580a01b4ff89217bdf9dc1"
         _links:
+          next:
+            href: "/api/v2/endpoint"
+            type: "application/json"
           self:
             href: "/api/v2/endpoint"
             type: "application/json"
         environments:
           key:
+            prerequisites:
+            - key: "key"
+              variation: 7
+            - key: "key"
+              variation: 7
             archived: true
             salt: "YWx0ZXJuYXRlLnBhZ2U="
             rules:
@@ -1667,6 +1934,7 @@ definitions:
                 - weight: 5
                   variation: 1
               variation: 5
+            offVariation: 2
             version: 65
             targets:
             - values:
@@ -1685,8 +1953,8 @@ definitions:
         includeInSnippet: false
         maintainerId: "561c579cd8fd5c2704000001"
         variations: "[ { \"value\": \"a\" }, { \"value\": \"b\" } ]"
-        name: "test-feature"
-        key: "bob@example.com"
+        name: "Test Feature"
+        key: "test-feature"
   Member:
     type: "object"
     properties:
@@ -1714,6 +1982,9 @@ definitions:
     example:
       role: {}
       _links:
+        next:
+          href: "/api/v2/endpoint"
+          type: "application/json"
         self:
           href: "/api/v2/endpoint"
           type: "application/json"
@@ -1733,12 +2004,18 @@ definitions:
         $ref: "#/definitions/Member"
     example:
       _links:
+        next:
+          href: "/api/v2/endpoint"
+          type: "application/json"
         self:
           href: "/api/v2/endpoint"
           type: "application/json"
       items:
         role: {}
         _links:
+          next:
+            href: "/api/v2/endpoint"
+            type: "application/json"
           self:
             href: "/api/v2/endpoint"
             type: "application/json"
@@ -1778,8 +2055,19 @@ definitions:
         items:
           $ref: "#/definitions/Rule"
       fallthrough:
-        $ref: "#/definitions/FeatureFlagConfig_fallthrough"
+        $ref: "#/definitions/Fallthrough"
+      offVariation:
+        type: "integer"
+      prerequisites:
+        type: "array"
+        items:
+          $ref: "#/definitions/Prerequisite"
     example:
+      prerequisites:
+      - key: "key"
+        variation: 7
+      - key: "key"
+        variation: 7
       archived: true
       salt: "YWx0ZXJuYXRlLnBhZ2U="
       rules:
@@ -1833,6 +2121,7 @@ definitions:
           - weight: 5
             variation: 1
         variation: 5
+      offVariation: 2
       version: 65
       targets:
       - values:
@@ -1891,6 +2180,21 @@ definitions:
         - "Top Customers"
         attribute: "groups"
       variation: 6
+  Fallthrough:
+    type: "object"
+    properties:
+      variation:
+        type: "integer"
+      rollout:
+        $ref: "#/definitions/Rollout"
+    example:
+      rollout:
+        variations:
+        - weight: 5
+          variation: 1
+        - weight: 5
+          variation: 1
+      variation: 5
   Rollout:
     type: "object"
     properties:
@@ -1952,6 +2256,16 @@ definitions:
       value:
         type: "object"
         properties: {}
+  Prerequisite:
+    type: "object"
+    properties:
+      key:
+        type: "string"
+      variation:
+        type: "integer"
+    example:
+      key: "key"
+      variation: 7
   FeatureFlagStatus:
     type: "object"
     properties:
@@ -1981,6 +2295,9 @@ definitions:
       lastRequested: "2016-08-16T21:10:11.886Z"
       default: true
       _links:
+        next:
+          href: "/api/v2/endpoint"
+          type: "application/json"
         self:
           href: "/api/v2/endpoint"
           type: "application/json"
@@ -1996,6 +2313,9 @@ definitions:
           $ref: "#/definitions/FeatureFlagStatus"
     example:
       _links:
+        next:
+          href: "/api/v2/endpoint"
+          type: "application/json"
         self:
           href: "/api/v2/endpoint"
           type: "application/json"
@@ -2003,6 +2323,9 @@ definitions:
       - lastRequested: "2016-08-16T21:10:11.886Z"
         default: true
         _links:
+          next:
+            href: "/api/v2/endpoint"
+            type: "application/json"
           self:
             href: "/api/v2/endpoint"
             type: "application/json"
@@ -2010,10 +2333,266 @@ definitions:
       - lastRequested: "2016-08-16T21:10:11.886Z"
         default: true
         _links:
+          next:
+            href: "/api/v2/endpoint"
+            type: "application/json"
           self:
             href: "/api/v2/endpoint"
             type: "application/json"
         name: "new"
+  UserSegment:
+    type: "object"
+    required:
+    - "creationDate"
+    - "key"
+    - "name"
+    properties:
+      key:
+        type: "string"
+        example: "beta-testers"
+        description: "Unique identifier for the user segment."
+      name:
+        type: "string"
+        example: "Beta Testers"
+        description: "Name of the user segment."
+      description:
+        type: "string"
+        example: "Users in this segment can access beta features."
+        description: "Description of the user segment."
+      tags:
+        type: "array"
+        description: "An array of tags for this user segment."
+        items:
+          type: "string"
+      creationDate:
+        type: "number"
+        format: "int64"
+        example: 1.44365223259E12
+        description: "A unix epoch time in milliseconds specifying the creation time\
+          \ of this flag."
+      included:
+        type: "array"
+        description: "An array of user keys that are included in this segment."
+        items:
+          type: "string"
+      excluded:
+        type: "array"
+        description: "An array of user keys that should not be included in this segment,\
+          \ unless they are also listed in \"included\"."
+        items:
+          type: "string"
+      rules:
+        type: "array"
+        description: "An array of rules that can cause a user to be included in this\
+          \ segment."
+        items:
+          $ref: "#/definitions/UserSegmentRule"
+      version:
+        type: "integer"
+      _links:
+        $ref: "#/definitions/Links"
+    example:
+      excluded:
+      - "excluded"
+      - "excluded"
+      _links:
+        next:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+        self:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+      name: "Beta Testers"
+      description: "Users in this segment can access beta features."
+      rules:
+      - clauses:
+        - op: "in"
+          negate: true
+          values:
+          - "Top Customers"
+          - "Top Customers"
+          attribute: "groups"
+        - op: "in"
+          negate: true
+          values:
+          - "Top Customers"
+          - "Top Customers"
+          attribute: "groups"
+        weight: 0
+        bucketBy: "bucketBy"
+      - clauses:
+        - op: "in"
+          negate: true
+          values:
+          - "Top Customers"
+          - "Top Customers"
+          attribute: "groups"
+        - op: "in"
+          negate: true
+          values:
+          - "Top Customers"
+          - "Top Customers"
+          attribute: "groups"
+        weight: 0
+        bucketBy: "bucketBy"
+      creationDate: 1.44365223259E12
+      included:
+      - "included"
+      - "included"
+      version: 6
+      key: "beta-testers"
+      tags:
+      - "tags"
+      - "tags"
+  UserSegmentRule:
+    type: "object"
+    properties:
+      clauses:
+        type: "array"
+        items:
+          $ref: "#/definitions/Clause"
+      weight:
+        type: "integer"
+      bucketBy:
+        type: "string"
+    example:
+      clauses:
+      - op: "in"
+        negate: true
+        values:
+        - "Top Customers"
+        - "Top Customers"
+        attribute: "groups"
+      - op: "in"
+        negate: true
+        values:
+        - "Top Customers"
+        - "Top Customers"
+        attribute: "groups"
+      weight: 0
+      bucketBy: "bucketBy"
+  UserSegments:
+    type: "object"
+    properties:
+      _links:
+        $ref: "#/definitions/Links"
+      items:
+        type: "array"
+        items:
+          $ref: "#/definitions/UserSegment"
+    example:
+      _links:
+        next:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+        self:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+      items:
+      - excluded:
+        - "excluded"
+        - "excluded"
+        _links:
+          next:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+          self:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+        name: "Beta Testers"
+        description: "Users in this segment can access beta features."
+        rules:
+        - clauses:
+          - op: "in"
+            negate: true
+            values:
+            - "Top Customers"
+            - "Top Customers"
+            attribute: "groups"
+          - op: "in"
+            negate: true
+            values:
+            - "Top Customers"
+            - "Top Customers"
+            attribute: "groups"
+          weight: 0
+          bucketBy: "bucketBy"
+        - clauses:
+          - op: "in"
+            negate: true
+            values:
+            - "Top Customers"
+            - "Top Customers"
+            attribute: "groups"
+          - op: "in"
+            negate: true
+            values:
+            - "Top Customers"
+            - "Top Customers"
+            attribute: "groups"
+          weight: 0
+          bucketBy: "bucketBy"
+        creationDate: 1.44365223259E12
+        included:
+        - "included"
+        - "included"
+        version: 6
+        key: "beta-testers"
+        tags:
+        - "tags"
+        - "tags"
+      - excluded:
+        - "excluded"
+        - "excluded"
+        _links:
+          next:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+          self:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+        name: "Beta Testers"
+        description: "Users in this segment can access beta features."
+        rules:
+        - clauses:
+          - op: "in"
+            negate: true
+            values:
+            - "Top Customers"
+            - "Top Customers"
+            attribute: "groups"
+          - op: "in"
+            negate: true
+            values:
+            - "Top Customers"
+            - "Top Customers"
+            attribute: "groups"
+          weight: 0
+          bucketBy: "bucketBy"
+        - clauses:
+          - op: "in"
+            negate: true
+            values:
+            - "Top Customers"
+            - "Top Customers"
+            attribute: "groups"
+          - op: "in"
+            negate: true
+            values:
+            - "Top Customers"
+            - "Top Customers"
+            attribute: "groups"
+          weight: 0
+          bucketBy: "bucketBy"
+        creationDate: 1.44365223259E12
+        included:
+        - "included"
+        - "included"
+        version: 6
+        key: "beta-testers"
+        tags:
+        - "tags"
+        - "tags"
   Project:
     type: "object"
     properties:
@@ -2035,6 +2614,9 @@ definitions:
           $ref: "#/definitions/Environment"
     example:
       _links:
+        next:
+          href: "/api/v2/endpoint"
+          type: "application/json"
         self:
           href: "/api/v2/endpoint"
           type: "application/json"
@@ -2042,6 +2624,9 @@ definitions:
       - apiKey: "XXX"
         color: "417505"
         _links:
+          next:
+            href: "/api/v2/endpoint"
+            type: "application/json"
           self:
             href: "/api/v2/endpoint"
             type: "application/json"
@@ -2054,6 +2639,9 @@ definitions:
       - apiKey: "XXX"
         color: "417505"
         _links:
+          next:
+            href: "/api/v2/endpoint"
+            type: "application/json"
           self:
             href: "/api/v2/endpoint"
             type: "application/json"
@@ -2077,11 +2665,17 @@ definitions:
           $ref: "#/definitions/Project"
     example:
       _links:
+        next:
+          href: "/api/v2/endpoint"
+          type: "application/json"
         self:
           href: "/api/v2/endpoint"
           type: "application/json"
       items:
       - _links:
+          next:
+            href: "/api/v2/endpoint"
+            type: "application/json"
           self:
             href: "/api/v2/endpoint"
             type: "application/json"
@@ -2089,6 +2683,9 @@ definitions:
         - apiKey: "XXX"
           color: "417505"
           _links:
+            next:
+              href: "/api/v2/endpoint"
+              type: "application/json"
             self:
               href: "/api/v2/endpoint"
               type: "application/json"
@@ -2101,6 +2698,9 @@ definitions:
         - apiKey: "XXX"
           color: "417505"
           _links:
+            next:
+              href: "/api/v2/endpoint"
+              type: "application/json"
             self:
               href: "/api/v2/endpoint"
               type: "application/json"
@@ -2114,6 +2714,9 @@ definitions:
         _id: "5a580a01b4ff89217bdf9dc1"
         key: "zentasks"
       - _links:
+          next:
+            href: "/api/v2/endpoint"
+            type: "application/json"
           self:
             href: "/api/v2/endpoint"
             type: "application/json"
@@ -2121,6 +2724,9 @@ definitions:
         - apiKey: "XXX"
           color: "417505"
           _links:
+            next:
+              href: "/api/v2/endpoint"
+              type: "application/json"
             self:
               href: "/api/v2/endpoint"
               type: "application/json"
@@ -2133,6 +2739,9 @@ definitions:
         - apiKey: "XXX"
           color: "417505"
           _links:
+            next:
+              href: "/api/v2/endpoint"
+              type: "application/json"
             self:
               href: "/api/v2/endpoint"
               type: "application/json"
@@ -2186,6 +2795,9 @@ definitions:
       apiKey: "XXX"
       color: "417505"
       _links:
+        next:
+          href: "/api/v2/endpoint"
+          type: "application/json"
         self:
           href: "/api/v2/endpoint"
           type: "application/json"
@@ -2289,6 +2901,9 @@ definitions:
           $ref: "#/definitions/UserRecord"
     example:
       _links:
+        next:
+          href: "/api/v2/endpoint"
+          type: "application/json"
         self:
           href: "/api/v2/endpoint"
           type: "application/json"
@@ -2371,6 +2986,9 @@ definitions:
       date: 1472243938774
       titleVerb: "changed the name of"
       _links:
+        next:
+          href: "/api/v2/endpoint"
+          type: "application/json"
         self:
           href: "/api/v2/endpoint"
           type: "application/json"
@@ -2379,6 +2997,9 @@ definitions:
       member:
         role: {}
         _links:
+          next:
+            href: "/api/v2/endpoint"
+            type: "application/json"
           self:
             href: "/api/v2/endpoint"
             type: "application/json"
@@ -2397,6 +3018,9 @@ definitions:
         \ [Testing](https://app.launchdarkly.com/settings#/projects)"
       target:
         _links:
+          next:
+            href: "/api/v2/endpoint"
+            type: "application/json"
           self:
             href: "/api/v2/endpoint"
             type: "application/json"
@@ -2415,6 +3039,9 @@ definitions:
           $ref: "#/definitions/AuditLogEntry"
     example:
       _links:
+        next:
+          href: "/api/v2/endpoint"
+          type: "application/json"
         self:
           href: "/api/v2/endpoint"
           type: "application/json"
@@ -2422,6 +3049,9 @@ definitions:
       - date: 1472243938774
         titleVerb: "changed the name of"
         _links:
+          next:
+            href: "/api/v2/endpoint"
+            type: "application/json"
           self:
             href: "/api/v2/endpoint"
             type: "application/json"
@@ -2430,6 +3060,9 @@ definitions:
         member:
           role: {}
           _links:
+            next:
+              href: "/api/v2/endpoint"
+              type: "application/json"
             self:
               href: "/api/v2/endpoint"
               type: "application/json"
@@ -2448,6 +3081,9 @@ definitions:
           \ of [Testing](https://app.launchdarkly.com/settings#/projects)"
         target:
           _links:
+            next:
+              href: "/api/v2/endpoint"
+              type: "application/json"
             self:
               href: "/api/v2/endpoint"
               type: "application/json"
@@ -2458,6 +3094,9 @@ definitions:
       - date: 1472243938774
         titleVerb: "changed the name of"
         _links:
+          next:
+            href: "/api/v2/endpoint"
+            type: "application/json"
           self:
             href: "/api/v2/endpoint"
             type: "application/json"
@@ -2466,6 +3105,9 @@ definitions:
         member:
           role: {}
           _links:
+            next:
+              href: "/api/v2/endpoint"
+              type: "application/json"
             self:
               href: "/api/v2/endpoint"
               type: "application/json"
@@ -2484,6 +3126,9 @@ definitions:
           \ of [Testing](https://app.launchdarkly.com/settings#/projects)"
         target:
           _links:
+            next:
+              href: "/api/v2/endpoint"
+              type: "application/json"
             self:
               href: "/api/v2/endpoint"
               type: "application/json"
@@ -2512,6 +3157,9 @@ definitions:
           \ variation."
     example:
       _links:
+        next:
+          href: "/api/v2/endpoint"
+          type: "application/json"
         self:
           href: "/api/v2/endpoint"
           type: "application/json"
@@ -2542,6 +3190,9 @@ definitions:
         properties: {}
     example:
       _links:
+        next:
+          href: "/api/v2/endpoint"
+          type: "application/json"
         self:
           href: "/api/v2/endpoint"
           type: "application/json"
@@ -2636,6 +3287,9 @@ definitions:
           $ref: "#/definitions/Policy"
     example:
       _links:
+        next:
+          href: "/api/v2/endpoint"
+          type: "application/json"
         self:
           href: "/api/v2/endpoint"
           type: "application/json"
@@ -2659,11 +3313,17 @@ definitions:
         $ref: "#/definitions/CustomRole"
     example:
       _links:
+        next:
+          href: "/api/v2/endpoint"
+          type: "application/json"
         self:
           href: "/api/v2/endpoint"
           type: "application/json"
       items:
         _links:
+          next:
+            href: "/api/v2/endpoint"
+            type: "application/json"
           self:
             href: "/api/v2/endpoint"
             type: "application/json"
@@ -2697,19 +3357,8 @@ definitions:
     type: "string"
     description: "The unique resource id."
     example: "5a580a01b4ff89217bdf9dc1"
-  projectBody:
+  PatchOperation:
     type: "object"
-    required:
-    - "key"
-    - "name"
-    properties:
-      name:
-        type: "string"
-        example: "New Project"
-      key:
-        type: "string"
-        example: "new-project"
-  patchDelta:
     required:
     - "op"
     - "path"
@@ -2724,6 +3373,18 @@ definitions:
       value:
         type: "object"
         properties: {}
+  projectBody:
+    type: "object"
+    required:
+    - "key"
+    - "name"
+    properties:
+      name:
+        type: "string"
+        example: "New Project"
+      key:
+        type: "string"
+        example: "new-project"
   environmentBody:
     type: "object"
     required:
@@ -2783,22 +3444,6 @@ definitions:
         type: "boolean"
         description: "Whether or not this flag should be made available to the client-side\
           \ JavaScript SDK."
-  flagsprojectKeyfeatureFlagKey_patch:
-    required:
-    - "op"
-    - "path"
-    - "value"
-    properties:
-      op:
-        type: "string"
-        example: "replace"
-      path:
-        type: "string"
-        example: "/description"
-      value:
-        type: "object"
-        example: "The new description"
-        properties: {}
   patchComment:
     type: "object"
     properties:
@@ -2808,7 +3453,32 @@ definitions:
       patch:
         type: "array"
         items:
-          $ref: "#/definitions/flagsprojectKeyfeatureFlagKey_patch"
+          $ref: "#/definitions/PatchOperation"
+  userSegmentBody:
+    type: "object"
+    required:
+    - "key"
+    - "name"
+    properties:
+      name:
+        type: "string"
+        example: "new segment"
+        description: "A human-friendly name for the user segment."
+      key:
+        type: "string"
+        example: "new-segment"
+        description: "A unique key that will be used to reference the user segment\
+          \ in feature flags."
+      description:
+        type: "string"
+        example: "Users in this segment will have access to beta features."
+        description: "A description for the user segment."
+      tags:
+        type: "array"
+        description: "Tags for the user segment."
+        items:
+          type: "string"
+          example: "[]"
   userSettingsBody:
     type: "object"
     properties:
@@ -2840,6 +3510,10 @@ definitions:
         type: "boolean"
         example: true
         description: "Whether this webhook is enabled or not."
+      name:
+        type: "string"
+        example: "Example hook"
+        description: "The name of the webhook."
   customRoleBody:
     type: "object"
     required:
@@ -2882,20 +3556,6 @@ definitions:
           $ref: "#/definitions/CustomRoleKeyOrId"
       inlineRole:
         $ref: "#/definitions/Statements"
-  FeatureFlagConfig_fallthrough:
-    properties:
-      variation:
-        type: "integer"
-      rollout:
-        $ref: "#/definitions/Rollout"
-    example:
-      rollout:
-        variations:
-        - weight: 5
-          variation: 1
-        - weight: 5
-          variation: 1
-      variation: 5
   AuditLogEntry_target:
     properties:
       _links:
@@ -2910,6 +3570,9 @@ definitions:
           example: "proj/alexis:env/test"
     example:
       _links:
+        next:
+          href: "/api/v2/endpoint"
+          type: "application/json"
         self:
           href: "/api/v2/endpoint"
           type: "application/json"
@@ -2941,6 +3604,14 @@ parameters:
     schema:
       $ref: "#/definitions/featureFlagBody"
     x-exportParamName: "FeatureFlagBody"
+  UserSegmentPostRequest:
+    in: "body"
+    name: "userSegmentBody"
+    description: "Create a new user segment."
+    required: true
+    schema:
+      $ref: "#/definitions/userSegmentBody"
+    x-exportParamName: "UserSegmentBody"
   ProjectPostRequest:
     in: "body"
     name: "projectBody"
@@ -2990,6 +3661,14 @@ parameters:
     required: true
     type: "string"
     x-exportParamName: "FeatureFlagKey"
+  UserSegmentKey:
+    name: "userSegmentKey"
+    in: "path"
+    description: "The user segment's key. The key identifies the user segment in your\
+      \ code."
+    required: true
+    type: "string"
+    x-exportParamName: "UserSegmentKey"
   UserKey:
     name: "userKey"
     in: "path"
@@ -3009,7 +3688,7 @@ parameters:
     in: "query"
     description: "Pagination limit."
     required: false
-    type: "number"
+    type: "integer"
     x-exportParamName: "Limit"
   Query:
     name: "q"
@@ -3018,12 +3697,26 @@ parameters:
     required: false
     type: "string"
     x-exportParamName: "Q"
+  HMAC:
+    name: "h"
+    in: "query"
+    description: "This parameter is required when following \"next\" links."
+    required: false
+    type: "string"
+    x-exportParamName: "H"
+  ScrollId:
+    name: "scrollId"
+    in: "query"
+    description: "This parameter is required when following \"next\" links."
+    required: false
+    type: "string"
+    x-exportParamName: "ScrollId"
   Offset:
     name: "offset"
     in: "query"
     description: "Specifies the first item to return in the collection."
     required: false
-    type: "number"
+    type: "integer"
     x-exportParamName: "Offset"
   After:
     name: "after"
@@ -3043,7 +3736,7 @@ parameters:
     schema:
       type: "array"
       items:
-        $ref: "#/definitions/patchDelta"
+        $ref: "#/definitions/PatchOperation"
     x-exportParamName: "PatchDelta"
   UserSettingsPutRequest:
     in: "body"
@@ -3121,13 +3814,26 @@ parameters:
     in: "body"
     name: "patchComment"
     description: "Requires a JSON Patch representation of the desired changes to the\
+      \ project, and an optional comment. 'http://jsonpatch.com/' Feature flag patches\
+      \ also support JSON Merge Patch format. 'https://tools.ietf.org/html/rfc7386'\
+      \ The addition of comments is also supported."
+    required: true
+    schema:
+      $ref: "#/definitions/patchComment"
+    x-exportParamName: "PatchComment"
+  PatchOnly:
+    in: "body"
+    name: "PatchOnly"
+    description: "Requires a JSON Patch representation of the desired changes to the\
       \ project. 'http://jsonpatch.com/' Feature flag patches also support JSON Merge\
       \ Patch format. 'https://tools.ietf.org/html/rfc7386' The addition of comments\
       \ is also supported."
     required: true
     schema:
-      $ref: "#/definitions/patchComment"
-    x-exportParamName: "PatchComment"
+      type: "array"
+      items:
+        $ref: "#/definitions/PatchOperation"
+    x-exportParamName: "PatchOnly"
 responses:
   CustomRole200:
     description: "Custom role response."
@@ -3161,6 +3867,10 @@ responses:
     description: "Invalid resource specifier."
   Standard409:
     description: "Status conflict."
+  UserSegment200:
+    description: "User segment response."
+    schema:
+      $ref: "#/definitions/UserSegment"
   Webhooks200:
     description: "Webhook response."
     schema:

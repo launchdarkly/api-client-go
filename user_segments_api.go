@@ -25,14 +25,16 @@ var (
 	_ context.Context
 )
 
-type ProjectsApiService service
+type UserSegmentsApiService service
 
 
-/* ProjectsApiService Delete a project by key. Caution-- deleting a project will delete all associated environments and feature flags. You cannot delete the last project in an account.
+/* UserSegmentsApiService Delete a user segment.
  * @param ctx context.Context for authentication, logging, tracing, etc.
  @param projectKey The project key, used to tie the flags together under one project so they can be managed together.
+ @param environmentKey The environment key, used to tie together flag configuration and users under one environment so they can be managed together.
+ @param userSegmentKey The user segment&#39;s key. The key identifies the user segment in your code.
  @return */
-func (a *ProjectsApiService) DeleteProject(ctx context.Context, projectKey string) ( *http.Response, error) {
+func (a *UserSegmentsApiService) DeleteUserSegment(ctx context.Context, projectKey string, environmentKey string, userSegmentKey string) ( *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Delete")
 		localVarPostBody interface{}
@@ -41,8 +43,10 @@ func (a *ProjectsApiService) DeleteProject(ctx context.Context, projectKey strin
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/projects/{projectKey}"
+	localVarPath := a.client.cfg.BasePath + "/segments/{projectKey}/{environmentKey}/{userSegmentKey}"
 	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", fmt.Sprintf("%v", projectKey), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"environmentKey"+"}", fmt.Sprintf("%v", environmentKey), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"userSegmentKey"+"}", fmt.Sprintf("%v", userSegmentKey), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -98,22 +102,26 @@ func (a *ProjectsApiService) DeleteProject(ctx context.Context, projectKey strin
 	return localVarHttpResponse, err
 }
 
-/* ProjectsApiService Fetch a single project by key.
+/* UserSegmentsApiService Get a single user segment by key.
  * @param ctx context.Context for authentication, logging, tracing, etc.
  @param projectKey The project key, used to tie the flags together under one project so they can be managed together.
- @return Project*/
-func (a *ProjectsApiService) GetProject(ctx context.Context, projectKey string) (Project,  *http.Response, error) {
+ @param environmentKey The environment key, used to tie together flag configuration and users under one environment so they can be managed together.
+ @param userSegmentKey The user segment&#39;s key. The key identifies the user segment in your code.
+ @return UserSegment*/
+func (a *UserSegmentsApiService) GetUserSegment(ctx context.Context, projectKey string, environmentKey string, userSegmentKey string) (UserSegment,  *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody interface{}
 		localVarFileName string
 		localVarFileBytes []byte
-	 	successPayload  Project
+	 	successPayload  UserSegment
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/projects/{projectKey}"
+	localVarPath := a.client.cfg.BasePath + "/segments/{projectKey}/{environmentKey}/{userSegmentKey}"
 	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", fmt.Sprintf("%v", projectKey), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"environmentKey"+"}", fmt.Sprintf("%v", environmentKey), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"userSegmentKey"+"}", fmt.Sprintf("%v", userSegmentKey), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -174,26 +182,38 @@ func (a *ProjectsApiService) GetProject(ctx context.Context, projectKey string) 
 	return successPayload, localVarHttpResponse, err
 }
 
-/* ProjectsApiService Returns a list of all projects in the account.
+/* UserSegmentsApiService Get a list of all user segments in the given project.
  * @param ctx context.Context for authentication, logging, tracing, etc.
- @return Projects*/
-func (a *ProjectsApiService) GetProjects(ctx context.Context) (Projects,  *http.Response, error) {
+ @param projectKey The project key, used to tie the flags together under one project so they can be managed together.
+ @param environmentKey The environment key, used to tie together flag configuration and users under one environment so they can be managed together.
+ @param optional (nil or map[string]interface{}) with one or more of:
+     @param "tag" (string) Filter by tag. A tag can be used to group flags across projects.
+ @return UserSegments*/
+func (a *UserSegmentsApiService) GetUserSegments(ctx context.Context, projectKey string, environmentKey string, localVarOptionals map[string]interface{}) (UserSegments,  *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody interface{}
 		localVarFileName string
 		localVarFileBytes []byte
-	 	successPayload  Projects
+	 	successPayload  UserSegments
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/projects"
+	localVarPath := a.client.cfg.BasePath + "/segments/{projectKey}/{environmentKey}"
+	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", fmt.Sprintf("%v", projectKey), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"environmentKey"+"}", fmt.Sprintf("%v", environmentKey), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if err := typeCheckParameter(localVarOptionals["tag"], "string", "tag"); err != nil {
+		return successPayload, nil, err
+	}
 
+	if localVarTempParam, localVarOk := localVarOptionals["tag"].(string); localVarOk {
+		localVarQueryParams.Add("tag", parameterToString(localVarTempParam, ""))
+	}
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{ "application/json",  }
 
@@ -248,23 +268,27 @@ func (a *ProjectsApiService) GetProjects(ctx context.Context) (Projects,  *http.
 	return successPayload, localVarHttpResponse, err
 }
 
-/* ProjectsApiService Modify a project by ID.
+/* UserSegmentsApiService Perform a partial update to a user segment.
  * @param ctx context.Context for authentication, logging, tracing, etc.
  @param projectKey The project key, used to tie the flags together under one project so they can be managed together.
- @param patchDelta Requires a JSON Patch representation of the desired changes to the project. &#39;http://jsonpatch.com/&#39;
- @return Project*/
-func (a *ProjectsApiService) PatchProject(ctx context.Context, projectKey string, patchDelta []PatchOperation) (Project,  *http.Response, error) {
+ @param environmentKey The environment key, used to tie together flag configuration and users under one environment so they can be managed together.
+ @param userSegmentKey The user segment&#39;s key. The key identifies the user segment in your code.
+ @param patchOnly Requires a JSON Patch representation of the desired changes to the project. &#39;http://jsonpatch.com/&#39; Feature flag patches also support JSON Merge Patch format. &#39;https://tools.ietf.org/html/rfc7386&#39; The addition of comments is also supported.
+ @return UserSegment*/
+func (a *UserSegmentsApiService) PatchUserSegment(ctx context.Context, projectKey string, environmentKey string, userSegmentKey string, patchOnly []PatchOperation) (UserSegment,  *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Patch")
 		localVarPostBody interface{}
 		localVarFileName string
 		localVarFileBytes []byte
-	 	successPayload  Project
+	 	successPayload  UserSegment
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/projects/{projectKey}"
+	localVarPath := a.client.cfg.BasePath + "/segments/{projectKey}/{environmentKey}/{userSegmentKey}"
 	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", fmt.Sprintf("%v", projectKey), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"environmentKey"+"}", fmt.Sprintf("%v", environmentKey), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"userSegmentKey"+"}", fmt.Sprintf("%v", userSegmentKey), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -291,7 +315,7 @@ func (a *ProjectsApiService) PatchProject(ctx context.Context, projectKey string
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	localVarPostBody = &patchDelta
+	localVarPostBody = &patchOnly
 	if ctx != nil {
 		// API Key Authentication
 		if auth, ok := ctx.Value(ContextAPIKey).(APIKey); ok {
@@ -327,11 +351,13 @@ func (a *ProjectsApiService) PatchProject(ctx context.Context, projectKey string
 	return successPayload, localVarHttpResponse, err
 }
 
-/* ProjectsApiService Create a new project with the given key and name.
+/* UserSegmentsApiService Creates a new user segment.
  * @param ctx context.Context for authentication, logging, tracing, etc.
- @param projectBody Project keys must be unique within an account.
+ @param projectKey The project key, used to tie the flags together under one project so they can be managed together.
+ @param environmentKey The environment key, used to tie together flag configuration and users under one environment so they can be managed together.
+ @param userSegmentBody Create a new user segment.
  @return */
-func (a *ProjectsApiService) PostProject(ctx context.Context, projectBody ProjectBody) ( *http.Response, error) {
+func (a *UserSegmentsApiService) PostUserSegment(ctx context.Context, projectKey string, environmentKey string, userSegmentBody UserSegmentBody) ( *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Post")
 		localVarPostBody interface{}
@@ -340,7 +366,9 @@ func (a *ProjectsApiService) PostProject(ctx context.Context, projectBody Projec
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/projects"
+	localVarPath := a.client.cfg.BasePath + "/segments/{projectKey}/{environmentKey}"
+	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", fmt.Sprintf("%v", projectKey), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"environmentKey"+"}", fmt.Sprintf("%v", environmentKey), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -367,7 +395,7 @@ func (a *ProjectsApiService) PostProject(ctx context.Context, projectBody Projec
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
 	}
 	// body params
-	localVarPostBody = &projectBody
+	localVarPostBody = &userSegmentBody
 	if ctx != nil {
 		// API Key Authentication
 		if auth, ok := ctx.Value(ContextAPIKey).(APIKey); ok {

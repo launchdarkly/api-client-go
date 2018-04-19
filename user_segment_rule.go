@@ -10,5 +10,11 @@
 
 package ldapi
 
-type Actions struct {
+type UserSegmentRule struct {
+
+	Clauses []Clause `json:"clauses,omitempty"`
+
+	Weight int32 `json:"weight,omitempty"`
+
+	BucketBy string `json:"bucketBy,omitempty"`
 }

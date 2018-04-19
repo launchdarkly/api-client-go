@@ -10,5 +10,9 @@
 
 package ldapi
 
-type Actions struct {
+type UserSegments struct {
+
+	Links *Links `json:"_links,omitempty"`
+
+	Items []UserSegment `json:"items,omitempty"`
 }
