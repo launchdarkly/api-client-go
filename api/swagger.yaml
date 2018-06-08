@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Build custom integrations with the LaunchDarkly REST API"
-  version: "2.0.1"
+  version: "2.0.2"
   title: "LaunchDarkly REST API"
   termsOfService: "https://launchdarkly.com/terms"
   contact:
@@ -1698,6 +1698,7 @@ definitions:
             variation: 6
           sel: "45501b9314dc4641841af774cb038b96"
           lastModified: 1469326565348
+          trackEvents: false
           fallthrough:
             rollout:
               variations:
@@ -1821,6 +1822,7 @@ definitions:
               variation: 6
             sel: "45501b9314dc4641841af774cb038b96"
             lastModified: 1469326565348
+            trackEvents: false
             fallthrough:
               rollout:
                 variations:
@@ -1926,6 +1928,7 @@ definitions:
               variation: 6
             sel: "45501b9314dc4641841af774cb038b96"
             lastModified: 1469326565348
+            trackEvents: false
             fallthrough:
               rollout:
                 variations:
@@ -2062,6 +2065,10 @@ definitions:
         type: "array"
         items:
           $ref: "#/definitions/Prerequisite"
+      trackEvents:
+        type: "boolean"
+        example: false
+        description: "Set to true to send detailed event information for this flag."
     example:
       prerequisites:
       - key: "key"
@@ -2113,6 +2120,7 @@ definitions:
         variation: 6
       sel: "45501b9314dc4641841af774cb038b96"
       lastModified: 1469326565348
+      trackEvents: false
       fallthrough:
         rollout:
           variations:
@@ -2635,6 +2643,7 @@ definitions:
         _id: "5a580a01b4ff89217bdf9dc1"
         mobileKey: "XXX"
         secureMode: false
+        defaultTrackEvents: false
         key: "production"
       - apiKey: "XXX"
         color: "417505"
@@ -2650,6 +2659,7 @@ definitions:
         _id: "5a580a01b4ff89217bdf9dc1"
         mobileKey: "XXX"
         secureMode: false
+        defaultTrackEvents: false
         key: "production"
       name: "Zentasks"
       _id: "5a580a01b4ff89217bdf9dc1"
@@ -2694,6 +2704,7 @@ definitions:
           _id: "5a580a01b4ff89217bdf9dc1"
           mobileKey: "XXX"
           secureMode: false
+          defaultTrackEvents: false
           key: "production"
         - apiKey: "XXX"
           color: "417505"
@@ -2709,6 +2720,7 @@ definitions:
           _id: "5a580a01b4ff89217bdf9dc1"
           mobileKey: "XXX"
           secureMode: false
+          defaultTrackEvents: false
           key: "production"
         name: "Zentasks"
         _id: "5a580a01b4ff89217bdf9dc1"
@@ -2735,6 +2747,7 @@ definitions:
           _id: "5a580a01b4ff89217bdf9dc1"
           mobileKey: "XXX"
           secureMode: false
+          defaultTrackEvents: false
           key: "production"
         - apiKey: "XXX"
           color: "417505"
@@ -2750,6 +2763,7 @@ definitions:
           _id: "5a580a01b4ff89217bdf9dc1"
           mobileKey: "XXX"
           secureMode: false
+          defaultTrackEvents: false
           key: "production"
         name: "Zentasks"
         _id: "5a580a01b4ff89217bdf9dc1"
@@ -2791,6 +2805,10 @@ definitions:
         type: "boolean"
         example: false
         description: "Determines if this environment is in safe mode."
+      defaultTrackEvents:
+        type: "boolean"
+        example: false
+        description: "Set to true to send detailed event information for new flags."
     example:
       apiKey: "XXX"
       color: "417505"
@@ -2806,6 +2824,7 @@ definitions:
       _id: "5a580a01b4ff89217bdf9dc1"
       mobileKey: "XXX"
       secureMode: false
+      defaultTrackEvents: false
       key: "production"
   User:
     type: "object"

@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **Fallthrough_** | [***ModelFallthrough**](Fallthrough.md) |  | [optional] [default to null]
 **OffVariation** | **int32** |  | [optional] [default to null]
 **Prerequisites** | [**[]Prerequisite**](Prerequisite.md) |  | [optional] [default to null]
+**TrackEvents** | **bool** | Set to true to send detailed event information for this flag. | [optional] [default to null]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
