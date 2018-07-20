@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Build custom integrations with the LaunchDarkly REST API"
-  version: "2.0.3"
+  version: "2.0.4"
   title: "LaunchDarkly REST API"
   termsOfService: "https://launchdarkly.com/terms"
   contact:
@@ -2298,10 +2298,11 @@ definitions:
         type: "string"
         example: "2016-08-16T21:10:11.886Z"
       default:
-        type: "boolean"
+        type: "object"
+        properties: {}
     example:
       lastRequested: "2016-08-16T21:10:11.886Z"
-      default: true
+      default: "{}"
       _links:
         next:
           href: "/api/v2/endpoint"
@@ -2329,7 +2330,7 @@ definitions:
           type: "application/json"
       items:
       - lastRequested: "2016-08-16T21:10:11.886Z"
-        default: true
+        default: "{}"
         _links:
           next:
             href: "/api/v2/endpoint"
@@ -2339,7 +2340,7 @@ definitions:
             type: "application/json"
         name: "new"
       - lastRequested: "2016-08-16T21:10:11.886Z"
-        default: true
+        default: "{}"
         _links:
           next:
             href: "/api/v2/endpoint"
