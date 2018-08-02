@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Build custom integrations with the LaunchDarkly REST API"
-  version: "2.0.4"
+  version: "2.0.6"
   title: "LaunchDarkly REST API"
   termsOfService: "https://launchdarkly.com/terms"
   contact:
@@ -2621,6 +2621,11 @@ definitions:
         type: "array"
         items:
           $ref: "#/definitions/Environment"
+      tags:
+        type: "array"
+        description: "An array of tags for this project."
+        items:
+          type: "string"
     example:
       _links:
         next:
@@ -2646,6 +2651,9 @@ definitions:
         secureMode: false
         defaultTrackEvents: false
         key: "production"
+        tags:
+        - "tags"
+        - "tags"
       - apiKey: "XXX"
         color: "417505"
         _links:
@@ -2662,9 +2670,15 @@ definitions:
         secureMode: false
         defaultTrackEvents: false
         key: "production"
+        tags:
+        - "tags"
+        - "tags"
       name: "Zentasks"
       _id: "5a580a01b4ff89217bdf9dc1"
       key: "zentasks"
+      tags:
+      - "tags"
+      - "tags"
   Projects:
     type: "object"
     properties:
@@ -2707,6 +2721,9 @@ definitions:
           secureMode: false
           defaultTrackEvents: false
           key: "production"
+          tags:
+          - "tags"
+          - "tags"
         - apiKey: "XXX"
           color: "417505"
           _links:
@@ -2723,9 +2740,15 @@ definitions:
           secureMode: false
           defaultTrackEvents: false
           key: "production"
+          tags:
+          - "tags"
+          - "tags"
         name: "Zentasks"
         _id: "5a580a01b4ff89217bdf9dc1"
         key: "zentasks"
+        tags:
+        - "tags"
+        - "tags"
       - _links:
           next:
             href: "/api/v2/endpoint"
@@ -2750,6 +2773,9 @@ definitions:
           secureMode: false
           defaultTrackEvents: false
           key: "production"
+          tags:
+          - "tags"
+          - "tags"
         - apiKey: "XXX"
           color: "417505"
           _links:
@@ -2766,9 +2792,15 @@ definitions:
           secureMode: false
           defaultTrackEvents: false
           key: "production"
+          tags:
+          - "tags"
+          - "tags"
         name: "Zentasks"
         _id: "5a580a01b4ff89217bdf9dc1"
         key: "zentasks"
+        tags:
+        - "tags"
+        - "tags"
   Environment:
     type: "object"
     properties:
@@ -2810,6 +2842,11 @@ definitions:
         type: "boolean"
         example: false
         description: "Set to true to send detailed event information for new flags."
+      tags:
+        type: "array"
+        description: "An array of tags for this environment."
+        items:
+          type: "string"
     example:
       apiKey: "XXX"
       color: "417505"
@@ -2827,6 +2864,9 @@ definitions:
       secureMode: false
       defaultTrackEvents: false
       key: "production"
+      tags:
+      - "tags"
+      - "tags"
   User:
     type: "object"
     properties:
@@ -3446,6 +3486,10 @@ definitions:
         example: "new-test-flag"
         description: "A unique key that will be used to reference the flag in your\
           \ code."
+      description:
+        type: "string"
+        example: "This flag controls whether test feature is turned on or not."
+        description: "A description of the feature flag."
       variations:
         type: "array"
         description: "An array of possible variations for the flag."
