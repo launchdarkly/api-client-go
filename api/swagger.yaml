@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Build custom integrations with the LaunchDarkly REST API"
-  version: "2.0.6"
+  version: "2.0.9"
   title: "LaunchDarkly REST API"
   termsOfService: "https://launchdarkly.com/terms"
   contact:
@@ -1613,6 +1613,8 @@ definitions:
         description: "The variations for this feature flag."
         items:
           $ref: "#/definitions/Variation"
+      customProperties:
+        $ref: "#/definitions/CustomProperties"
       _links:
         $ref: "#/definitions/Links"
       _maintainer:
@@ -1648,12 +1650,6 @@ definitions:
           type: "application/json"
       environments:
         key:
-          prerequisites:
-          - key: "key"
-            variation: 7
-          - key: "key"
-            variation: 7
-          archived: true
           salt: "YWx0ZXJuYXRlLnBhZ2U="
           rules:
           - rollout:
@@ -1675,6 +1671,7 @@ definitions:
               - "Top Customers"
               - "Top Customers"
               attribute: "groups"
+            _id: "_id"
             variation: 6
           - rollout:
               variations:
@@ -1695,7 +1692,25 @@ definitions:
               - "Top Customers"
               - "Top Customers"
               attribute: "groups"
+            _id: "_id"
             variation: 6
+          version: 65
+          targets:
+          - values:
+            - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
+            - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
+            variation: 0
+          - values:
+            - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
+            - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
+            variation: 0
+          prerequisites:
+          - key: "key"
+            variation: 7
+          - key: "key"
+            variation: 7
+          archived: true
+          goalIds: "[\"d7239405bd89c930e885aa76\", \"405bc930e88d7239d895aa76\"]"
           sel: "45501b9314dc4641841af774cb038b96"
           lastModified: 1469326565348
           trackEvents: false
@@ -1708,16 +1723,6 @@ definitions:
                 variation: 1
             variation: 5
           offVariation: 2
-          version: 65
-          targets:
-          - values:
-            - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
-            - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
-            variation: 0
-          - values:
-            - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
-            - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
-            variation: 0
           on: true
       kind: "boolean"
       description: "This flag controls whether test feature is turned on or not."
@@ -1725,6 +1730,9 @@ definitions:
       tags: "[]"
       includeInSnippet: false
       maintainerId: "561c579cd8fd5c2704000001"
+      customProperties: "{ \"bugs\": { \"name\": \"Issue tracker ids\", \"value\"\
+        : [\"123\", \"456\"] }, \"deprecated\": { \"name\": \"Deprecated Date\", \"\
+        value\": [] } }"
       variations: "[ { \"value\": \"a\" }, { \"value\": \"b\" } ]"
       name: "Test Feature"
       key: "test-feature"
@@ -1772,12 +1780,6 @@ definitions:
             type: "application/json"
         environments:
           key:
-            prerequisites:
-            - key: "key"
-              variation: 7
-            - key: "key"
-              variation: 7
-            archived: true
             salt: "YWx0ZXJuYXRlLnBhZ2U="
             rules:
             - rollout:
@@ -1799,6 +1801,7 @@ definitions:
                 - "Top Customers"
                 - "Top Customers"
                 attribute: "groups"
+              _id: "_id"
               variation: 6
             - rollout:
                 variations:
@@ -1819,7 +1822,25 @@ definitions:
                 - "Top Customers"
                 - "Top Customers"
                 attribute: "groups"
+              _id: "_id"
               variation: 6
+            version: 65
+            targets:
+            - values:
+              - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
+              - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
+              variation: 0
+            - values:
+              - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
+              - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
+              variation: 0
+            prerequisites:
+            - key: "key"
+              variation: 7
+            - key: "key"
+              variation: 7
+            archived: true
+            goalIds: "[\"d7239405bd89c930e885aa76\", \"405bc930e88d7239d895aa76\"]"
             sel: "45501b9314dc4641841af774cb038b96"
             lastModified: 1469326565348
             trackEvents: false
@@ -1832,16 +1853,6 @@ definitions:
                   variation: 1
               variation: 5
             offVariation: 2
-            version: 65
-            targets:
-            - values:
-              - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
-              - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
-              variation: 0
-            - values:
-              - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
-              - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
-              variation: 0
             on: true
         kind: "boolean"
         description: "This flag controls whether test feature is turned on or not."
@@ -1849,6 +1860,9 @@ definitions:
         tags: "[]"
         includeInSnippet: false
         maintainerId: "561c579cd8fd5c2704000001"
+        customProperties: "{ \"bugs\": { \"name\": \"Issue tracker ids\", \"value\"\
+          : [\"123\", \"456\"] }, \"deprecated\": { \"name\": \"Deprecated Date\"\
+          , \"value\": [] } }"
         variations: "[ { \"value\": \"a\" }, { \"value\": \"b\" } ]"
         name: "Test Feature"
         key: "test-feature"
@@ -1878,12 +1892,6 @@ definitions:
             type: "application/json"
         environments:
           key:
-            prerequisites:
-            - key: "key"
-              variation: 7
-            - key: "key"
-              variation: 7
-            archived: true
             salt: "YWx0ZXJuYXRlLnBhZ2U="
             rules:
             - rollout:
@@ -1905,6 +1913,7 @@ definitions:
                 - "Top Customers"
                 - "Top Customers"
                 attribute: "groups"
+              _id: "_id"
               variation: 6
             - rollout:
                 variations:
@@ -1925,7 +1934,25 @@ definitions:
                 - "Top Customers"
                 - "Top Customers"
                 attribute: "groups"
+              _id: "_id"
               variation: 6
+            version: 65
+            targets:
+            - values:
+              - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
+              - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
+              variation: 0
+            - values:
+              - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
+              - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
+              variation: 0
+            prerequisites:
+            - key: "key"
+              variation: 7
+            - key: "key"
+              variation: 7
+            archived: true
+            goalIds: "[\"d7239405bd89c930e885aa76\", \"405bc930e88d7239d895aa76\"]"
             sel: "45501b9314dc4641841af774cb038b96"
             lastModified: 1469326565348
             trackEvents: false
@@ -1938,16 +1965,6 @@ definitions:
                   variation: 1
               variation: 5
             offVariation: 2
-            version: 65
-            targets:
-            - values:
-              - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
-              - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
-              variation: 0
-            - values:
-              - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
-              - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
-              variation: 0
             on: true
         kind: "boolean"
         description: "This flag controls whether test feature is turned on or not."
@@ -1955,6 +1972,9 @@ definitions:
         tags: "[]"
         includeInSnippet: false
         maintainerId: "561c579cd8fd5c2704000001"
+        customProperties: "{ \"bugs\": { \"name\": \"Issue tracker ids\", \"value\"\
+          : [\"123\", \"456\"] }, \"deprecated\": { \"name\": \"Deprecated Date\"\
+          , \"value\": [] } }"
         variations: "[ { \"value\": \"a\" }, { \"value\": \"b\" } ]"
         name: "Test Feature"
         key: "test-feature"
@@ -2053,6 +2073,11 @@ definitions:
         type: "array"
         items:
           $ref: "#/definitions/Target"
+      goalIds:
+        type: "array"
+        example: "[\"d7239405bd89c930e885aa76\", \"405bc930e88d7239d895aa76\"]"
+        items:
+          type: "string"
       rules:
         type: "array"
         items:
@@ -2070,12 +2095,6 @@ definitions:
         example: false
         description: "Set to true to send detailed event information for this flag."
     example:
-      prerequisites:
-      - key: "key"
-        variation: 7
-      - key: "key"
-        variation: 7
-      archived: true
       salt: "YWx0ZXJuYXRlLnBhZ2U="
       rules:
       - rollout:
@@ -2097,6 +2116,7 @@ definitions:
           - "Top Customers"
           - "Top Customers"
           attribute: "groups"
+        _id: "_id"
         variation: 6
       - rollout:
           variations:
@@ -2117,7 +2137,25 @@ definitions:
           - "Top Customers"
           - "Top Customers"
           attribute: "groups"
+        _id: "_id"
         variation: 6
+      version: 65
+      targets:
+      - values:
+        - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
+        - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
+        variation: 0
+      - values:
+        - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
+        - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
+        variation: 0
+      prerequisites:
+      - key: "key"
+        variation: 7
+      - key: "key"
+        variation: 7
+      archived: true
+      goalIds: "[\"d7239405bd89c930e885aa76\", \"405bc930e88d7239d895aa76\"]"
       sel: "45501b9314dc4641841af774cb038b96"
       lastModified: 1469326565348
       trackEvents: false
@@ -2130,16 +2168,6 @@ definitions:
             variation: 1
         variation: 5
       offVariation: 2
-      version: 65
-      targets:
-      - values:
-        - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
-        - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
-        variation: 0
-      - values:
-        - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
-        - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
-        variation: 0
       on: true
   Target:
     type: "object"
@@ -2159,6 +2187,8 @@ definitions:
   Rule:
     type: "object"
     properties:
+      _id:
+        type: "string"
       variation:
         type: "integer"
       rollout:
@@ -2187,6 +2217,7 @@ definitions:
         - "Top Customers"
         - "Top Customers"
         attribute: "groups"
+      _id: "_id"
       variation: 6
   Fallthrough:
     type: "object"
@@ -3247,7 +3278,8 @@ definitions:
                 type: "application/json"
             _value: "false,"
             setting: null
-        properties: {}
+        additionalProperties:
+          $ref: "#/definitions/UserFlagSetting"
     example:
       _links:
         next:
@@ -3433,6 +3465,30 @@ definitions:
       value:
         type: "object"
         properties: {}
+  CustomProperties:
+    type: "object"
+    description: "A mapping of keys to CustomProperty entries."
+    example: "{ \"bugs\": { \"name\": \"Issue tracker ids\", \"value\": [\"123\",\
+      \ \"456\"] }, \"deprecated\": { \"name\": \"Deprecated Date\", \"value\": []\
+      \ } }"
+  CustomProperty:
+    type: "object"
+    required:
+    - "name"
+    properties:
+      name:
+        type: "string"
+        example: "My property"
+        description: "The name of the property."
+      value:
+        $ref: "#/definitions/CustomPropertyValues"
+    description: "A name and value describing a custom property."
+  CustomPropertyValues:
+    type: "array"
+    description: "Values for this property."
+    items:
+      type: "string"
+    example: "[\"Value 1\", \"Value 2\"]"
   projectBody:
     type: "object"
     required:

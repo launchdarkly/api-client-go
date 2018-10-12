@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **LastModified** | **int64** |  | [optional] [default to null]
 **Version** | **int32** |  | [optional] [default to null]
 **Targets** | [**[]Target**](Target.md) |  | [optional] [default to null]
+**GoalIds** | **[]string** |  | [optional] [default to null]
 **Rules** | [**[]Rule**](Rule.md) |  | [optional] [default to null]
 **Fallthrough_** | [***ModelFallthrough**](Fallthrough.md) |  | [optional] [default to null]
 **OffVariation** | **int32** |  | [optional] [default to null]

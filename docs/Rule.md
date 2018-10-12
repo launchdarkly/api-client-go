@@ -3,6 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Id** | **string** |  | [optional] [default to null]
 **Variation** | **int32** |  | [optional] [default to null]
 **Rollout** | [***Rollout**](Rollout.md) |  | [optional] [default to null]
 **Clauses** | [**[]Clause**](Clause.md) |  | [optional] [default to null]

@@ -10,9 +10,6 @@
 
 package ldapi
 
-type ModelFallthrough struct {
-
-	Variation int32 `json:"variation,omitempty"`
-
-	Rollout *Rollout `json:"rollout,omitempty"`
+// Values for this property.
+type CustomPropertyValues struct {
 }
