@@ -1501,7 +1501,7 @@ definitions:
         description: "Tags assigned to this webhook."
         items:
           type: "string"
-          example: "[]"
+          example: ""
     example:
       _links:
         next:
@@ -1516,8 +1516,8 @@ definitions:
       url: "https://example.com/example"
       on: true
       tags:
-      - "[]"
-      - "[]"
+      - ""
+      - ""
   Webhooks:
     type: "object"
     properties:
@@ -1549,8 +1549,8 @@ definitions:
         url: "https://example.com/example"
         on: true
         tags:
-        - "[]"
-        - "[]"
+        - ""
+        - ""
       - _links:
           next:
             href: "/api/v2/endpoint"
@@ -1564,8 +1564,8 @@ definitions:
         url: "https://example.com/example"
         on: true
         tags:
-        - "[]"
-        - "[]"
+        - ""
+        - ""
   FeatureFlag:
     type: "object"
     properties:
@@ -1603,13 +1603,15 @@ definitions:
         description: "The ID of the member that should maintain this flag."
       tags:
         type: "array"
-        example: "[]"
+        example: []
         description: "An array of tags for this feature flag."
         items:
           type: "string"
       variations:
         type: "array"
-        example: "[ { \"value\": \"a\" }, { \"value\": \"b\" } ]"
+        example:
+        - value: "a"
+        - value: "b"
         description: "The variations for this feature flag."
         items:
           $ref: "#/definitions/Variation"
@@ -1710,7 +1712,9 @@ definitions:
           - key: "key"
             variation: 7
           archived: true
-          goalIds: "[\"d7239405bd89c930e885aa76\", \"405bc930e88d7239d895aa76\"]"
+          goalIds:
+          - "d7239405bd89c930e885aa76"
+          - "405bc930e88d7239d895aa76"
           sel: "45501b9314dc4641841af774cb038b96"
           lastModified: 1469326565348
           trackEvents: false
@@ -1727,13 +1731,21 @@ definitions:
       kind: "boolean"
       description: "This flag controls whether test feature is turned on or not."
       creationDate: 1.44365223259E12
-      tags: "[]"
+      tags: []
       includeInSnippet: false
       maintainerId: "561c579cd8fd5c2704000001"
-      customProperties: "{ \"bugs\": { \"name\": \"Issue tracker ids\", \"value\"\
-        : [\"123\", \"456\"] }, \"deprecated\": { \"name\": \"Deprecated Date\", \"\
-        value\": [] } }"
-      variations: "[ { \"value\": \"a\" }, { \"value\": \"b\" } ]"
+      customProperties:
+        bugs:
+          name: "Issue tracker ids"
+          value:
+          - "123"
+          - "456"
+        deprecated:
+          name: "Deprecated Date"
+          value: []
+      variations:
+      - value: "a"
+      - value: "b"
       name: "Test Feature"
       key: "test-feature"
   FeatureFlags:
@@ -1840,7 +1852,9 @@ definitions:
             - key: "key"
               variation: 7
             archived: true
-            goalIds: "[\"d7239405bd89c930e885aa76\", \"405bc930e88d7239d895aa76\"]"
+            goalIds:
+            - "d7239405bd89c930e885aa76"
+            - "405bc930e88d7239d895aa76"
             sel: "45501b9314dc4641841af774cb038b96"
             lastModified: 1469326565348
             trackEvents: false
@@ -1857,13 +1871,21 @@ definitions:
         kind: "boolean"
         description: "This flag controls whether test feature is turned on or not."
         creationDate: 1.44365223259E12
-        tags: "[]"
+        tags: []
         includeInSnippet: false
         maintainerId: "561c579cd8fd5c2704000001"
-        customProperties: "{ \"bugs\": { \"name\": \"Issue tracker ids\", \"value\"\
-          : [\"123\", \"456\"] }, \"deprecated\": { \"name\": \"Deprecated Date\"\
-          , \"value\": [] } }"
-        variations: "[ { \"value\": \"a\" }, { \"value\": \"b\" } ]"
+        customProperties:
+          bugs:
+            name: "Issue tracker ids"
+            value:
+            - "123"
+            - "456"
+          deprecated:
+            name: "Deprecated Date"
+            value: []
+        variations:
+        - value: "a"
+        - value: "b"
         name: "Test Feature"
         key: "test-feature"
       - temporary: false
@@ -1952,7 +1974,9 @@ definitions:
             - key: "key"
               variation: 7
             archived: true
-            goalIds: "[\"d7239405bd89c930e885aa76\", \"405bc930e88d7239d895aa76\"]"
+            goalIds:
+            - "d7239405bd89c930e885aa76"
+            - "405bc930e88d7239d895aa76"
             sel: "45501b9314dc4641841af774cb038b96"
             lastModified: 1469326565348
             trackEvents: false
@@ -1969,13 +1993,21 @@ definitions:
         kind: "boolean"
         description: "This flag controls whether test feature is turned on or not."
         creationDate: 1.44365223259E12
-        tags: "[]"
+        tags: []
         includeInSnippet: false
         maintainerId: "561c579cd8fd5c2704000001"
-        customProperties: "{ \"bugs\": { \"name\": \"Issue tracker ids\", \"value\"\
-          : [\"123\", \"456\"] }, \"deprecated\": { \"name\": \"Deprecated Date\"\
-          , \"value\": [] } }"
-        variations: "[ { \"value\": \"a\" }, { \"value\": \"b\" } ]"
+        customProperties:
+          bugs:
+            name: "Issue tracker ids"
+            value:
+            - "123"
+            - "456"
+          deprecated:
+            name: "Deprecated Date"
+            value: []
+        variations:
+        - value: "a"
+        - value: "b"
         name: "Test Feature"
         key: "test-feature"
   Member:
@@ -2075,7 +2107,9 @@ definitions:
           $ref: "#/definitions/Target"
       goalIds:
         type: "array"
-        example: "[\"d7239405bd89c930e885aa76\", \"405bc930e88d7239d895aa76\"]"
+        example:
+        - "d7239405bd89c930e885aa76"
+        - "405bc930e88d7239d895aa76"
         items:
           type: "string"
       rules:
@@ -2155,7 +2189,9 @@ definitions:
       - key: "key"
         variation: 7
       archived: true
-      goalIds: "[\"d7239405bd89c930e885aa76\", \"405bc930e88d7239d895aa76\"]"
+      goalIds:
+      - "d7239405bd89c930e885aa76"
+      - "405bc930e88d7239d895aa76"
       sel: "45501b9314dc4641841af774cb038b96"
       lastModified: 1469326565348
       trackEvents: false
@@ -2401,6 +2437,9 @@ definitions:
         description: "Description of the user segment."
       tags:
         type: "array"
+        example:
+        - "dev"
+        - "ops"
         description: "An array of tags for this user segment."
         items:
           type: "string"
@@ -2482,8 +2521,8 @@ definitions:
       version: 6
       key: "beta-testers"
       tags:
-      - "tags"
-      - "tags"
+      - "dev"
+      - "ops"
   UserSegmentRule:
     type: "object"
     properties:
@@ -2579,8 +2618,8 @@ definitions:
         version: 6
         key: "beta-testers"
         tags:
-        - "tags"
-        - "tags"
+        - "dev"
+        - "ops"
       - excluded:
         - "excluded"
         - "excluded"
@@ -2631,8 +2670,8 @@ definitions:
         version: 6
         key: "beta-testers"
         tags:
-        - "tags"
-        - "tags"
+        - "dev"
+        - "ops"
   Project:
     type: "object"
     properties:
@@ -3468,9 +3507,15 @@ definitions:
   CustomProperties:
     type: "object"
     description: "A mapping of keys to CustomProperty entries."
-    example: "{ \"bugs\": { \"name\": \"Issue tracker ids\", \"value\": [\"123\",\
-      \ \"456\"] }, \"deprecated\": { \"name\": \"Deprecated Date\", \"value\": []\
-      \ } }"
+    example:
+      bugs:
+        name: "Issue tracker ids"
+        value:
+        - "123"
+        - "456"
+      deprecated:
+        name: "Deprecated Date"
+        value: []
   CustomProperty:
     type: "object"
     required:
@@ -3488,7 +3533,7 @@ definitions:
     description: "Values for this property."
     items:
       type: "string"
-    example: "[\"Value 1\", \"Value 2\"]"
+    example: "[\"Value 1\",\"Value 2\"]"
   projectBody:
     type: "object"
     required:
@@ -3559,7 +3604,7 @@ definitions:
         description: "Tags for the feature flag."
         items:
           type: "string"
-          example: "[]"
+          example: ""
       includeInSnippet:
         type: "boolean"
         description: "Whether or not this flag should be made available to the client-side\
@@ -3598,7 +3643,7 @@ definitions:
         description: "Tags for the user segment."
         items:
           type: "string"
-          example: "[]"
+          example: ""
   userSettingsBody:
     type: "object"
     properties:
