@@ -197,7 +197,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **PostFeatureFlag**
-> PostFeatureFlag(ctx, projectKey, featureFlagBody)
+> PostFeatureFlag(ctx, projectKey, featureFlagBody, optional)
 Creates a new feature flag.
 
 ### Required Parameters
@@ -207,6 +207,16 @@ Name | Type | Description  | Notes
  **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
   **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
   **featureFlagBody** | [**FeatureFlagBody**](FeatureFlagBody.md)| Create a new feature flag. | 
+ **optional** | **map[string]interface{}** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a map[string]interface{}.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
+ **featureFlagBody** | [**FeatureFlagBody**](FeatureFlagBody.md)| Create a new feature flag. | 
+ **clone** | **string**| The key of the feature flag to be cloned. The key identifies the flag in your code.  For example, setting clone&#x3D;flagKey will copy the full targeting configuration for all environments (including on/off state) from the original flag to the new flag. | 
 
 ### Return type
 

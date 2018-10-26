@@ -102,7 +102,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
   **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
-  **environmentBody** | [**EnvironmentBody**](EnvironmentBody.md)| New environment. | 
+  **environmentBody** | [**EnvironmentPost**](EnvironmentPost.md)| New environment. | 
 
 ### Return type
 

@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Build custom integrations with the LaunchDarkly REST API"
-  version: "2.0.9"
+  version: "2.0.10"
   title: "LaunchDarkly REST API"
   termsOfService: "https://launchdarkly.com/terms"
   contact:
@@ -160,7 +160,7 @@ paths:
         description: "New environment."
         required: true
         schema:
-          $ref: "#/definitions/environmentBody"
+          $ref: "#/definitions/EnvironmentPost"
         x-exportParamName: "EnvironmentBody"
       responses:
         201:
@@ -327,6 +327,15 @@ paths:
         schema:
           $ref: "#/definitions/featureFlagBody"
         x-exportParamName: "FeatureFlagBody"
+      - name: "clone"
+        in: "query"
+        description: "The key of the feature flag to be cloned. The key identifies\
+          \ the flag in your code.  For example, setting clone=flagKey will copy the\
+          \ full targeting configuration for all environments (including on/off state)\
+          \ from the original flag to the new flag."
+        required: false
+        type: "string"
+        x-exportParamName: "Clone"
       responses:
         201:
           description: "Resource created."
@@ -2937,6 +2946,35 @@ definitions:
       tags:
       - "tags"
       - "tags"
+  EnvironmentPost:
+    type: "object"
+    required:
+    - "color"
+    - "key"
+    - "name"
+    properties:
+      name:
+        type: "string"
+        example: "Development"
+        description: "The name of the new environment."
+      key:
+        type: "string"
+        example: "dev"
+        description: "A project-unique key for the new environment."
+      color:
+        type: "string"
+        example: "417505"
+        description: "A color swatch (as an RGB hex value with no leading '#', e.g.\
+          \ C8C8C8)."
+      defaultTtl:
+        type: "number"
+        example: 0.0
+        description: "The default TTL for the new environment."
+    example:
+      color: "417505"
+      name: "Development"
+      defaultTtl: 0.0
+      key: "dev"
   User:
     type: "object"
     properties:
@@ -3546,30 +3584,10 @@ definitions:
       key:
         type: "string"
         example: "new-project"
-  environmentBody:
-    type: "object"
-    required:
-    - "color"
-    - "key"
-    - "name"
-    properties:
-      name:
-        type: "string"
-        example: "Development"
-        description: "The name of the new environment."
-      key:
-        type: "string"
-        example: "dev"
-        description: "A project-unique key for the new environment."
-      color:
-        type: "string"
-        example: "417505"
-        description: "A color swatch (as an RGB hex value with no leading '#', e.g.\
-          \ C8C8C8)."
-      defaultTtl:
-        type: "number"
-        example: 0.0
-        description: "The default TTL for the new environment."
+      environments:
+        type: "array"
+        items:
+          $ref: "#/definitions/EnvironmentPost"
   featureFlagBody:
     type: "object"
     required:
@@ -3791,7 +3809,7 @@ parameters:
     description: "New environment."
     required: true
     schema:
-      $ref: "#/definitions/environmentBody"
+      $ref: "#/definitions/EnvironmentPost"
     x-exportParamName: "EnvironmentBody"
   ProjectKey:
     name: "projectKey"
@@ -3826,6 +3844,16 @@ parameters:
     required: true
     type: "string"
     x-exportParamName: "FeatureFlagKey"
+  CloneFlagKeyQuery:
+    name: "clone"
+    in: "query"
+    description: "The key of the feature flag to be cloned. The key identifies the\
+      \ flag in your code.  For example, setting clone=flagKey will copy the full\
+      \ targeting configuration for all environments (including on/off state) from\
+      \ the original flag to the new flag."
+    required: false
+    type: "string"
+    x-exportParamName: "Clone"
   UserSegmentKey:
     name: "userSegmentKey"
     in: "path"
