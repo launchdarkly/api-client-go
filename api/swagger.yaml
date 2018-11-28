@@ -338,7 +338,9 @@ paths:
         x-exportParamName: "Clone"
       responses:
         201:
-          description: "Resource created."
+          description: "Flag response."
+          schema:
+            $ref: "#/definitions/FeatureFlag"
         400:
           description: "Invalid request body."
         401:
@@ -1624,6 +1626,9 @@ definitions:
         description: "The variations for this feature flag."
         items:
           $ref: "#/definitions/Variation"
+      _version:
+        type: "integer"
+        example: 23
       customProperties:
         $ref: "#/definitions/CustomProperties"
       _links:
@@ -1756,6 +1761,7 @@ definitions:
       - value: "a"
       - value: "b"
       name: "Test Feature"
+      _version: 23
       key: "test-feature"
   FeatureFlags:
     type: "object"
@@ -1896,6 +1902,7 @@ definitions:
         - value: "a"
         - value: "b"
         name: "Test Feature"
+        _version: 23
         key: "test-feature"
       - temporary: false
         _maintainer:
@@ -2018,6 +2025,7 @@ definitions:
         - value: "a"
         - value: "b"
         name: "Test Feature"
+        _version: 23
         key: "test-feature"
   Member:
     type: "object"
@@ -4032,10 +4040,6 @@ responses:
     description: "Custom role response."
     schema:
       $ref: "#/definitions/CustomRole"
-  FeatureFlags200:
-    description: "Feature flag response."
-    schema:
-      $ref: "#/definitions/FeatureFlag"
   Member200:
     description: "Member response."
     schema:

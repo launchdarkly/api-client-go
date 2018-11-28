@@ -40,6 +40,8 @@ type FeatureFlag struct {
 	// The variations for this feature flag.
 	Variations []Variation `json:"variations,omitempty"`
 
+	Version int32 `json:"_version,omitempty"`
+
 	CustomProperties *CustomProperties `json:"customProperties,omitempty"`
 
 	Links *Links `json:"_links,omitempty"`

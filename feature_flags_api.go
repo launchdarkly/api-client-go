@@ -522,13 +522,14 @@ func (a *FeatureFlagsApiService) PatchFeatureFlag(ctx context.Context, projectKe
  @param featureFlagBody Create a new feature flag.
  @param optional (nil or map[string]interface{}) with one or more of:
      @param "clone" (string) The key of the feature flag to be cloned. The key identifies the flag in your code.  For example, setting clone&#x3D;flagKey will copy the full targeting configuration for all environments (including on/off state) from the original flag to the new flag.
- @return */
-func (a *FeatureFlagsApiService) PostFeatureFlag(ctx context.Context, projectKey string, featureFlagBody FeatureFlagBody, localVarOptionals map[string]interface{}) ( *http.Response, error) {
+ @return FeatureFlag*/
+func (a *FeatureFlagsApiService) PostFeatureFlag(ctx context.Context, projectKey string, featureFlagBody FeatureFlagBody, localVarOptionals map[string]interface{}) (FeatureFlag,  *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Post")
 		localVarPostBody interface{}
 		localVarFileName string
 		localVarFileBytes []byte
+	 	successPayload  FeatureFlag
 	)
 
 	// create path and map variables
@@ -540,7 +541,7 @@ func (a *FeatureFlagsApiService) PostFeatureFlag(ctx context.Context, projectKey
 	localVarFormParams := url.Values{}
 
 	if err := typeCheckParameter(localVarOptionals["clone"], "string", "clone"); err != nil {
-		return nil, err
+		return successPayload, nil, err
 	}
 
 	if localVarTempParam, localVarOk := localVarOptionals["clone"].(string); localVarOk {
@@ -581,19 +582,24 @@ func (a *FeatureFlagsApiService) PostFeatureFlag(ctx context.Context, projectKey
 	}
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return nil, err
+		return successPayload, nil, err
 	}
 
 	localVarHttpResponse, err := a.client.callAPI(r)
 	if err != nil || localVarHttpResponse == nil {
-		return localVarHttpResponse, err
+		return successPayload, localVarHttpResponse, err
 	}
 	defer localVarHttpResponse.Body.Close()
 	if localVarHttpResponse.StatusCode >= 300 {
 		bodyBytes, _ := ioutil.ReadAll(localVarHttpResponse.Body)
-		return localVarHttpResponse, reportError("Status: %v, Body: %s", localVarHttpResponse.Status, bodyBytes)
+		return successPayload, localVarHttpResponse, reportError("Status: %v, Body: %s", localVarHttpResponse.Status, bodyBytes)
 	}
 
-	return localVarHttpResponse, err
+	if err = json.NewDecoder(localVarHttpResponse.Body).Decode(&successPayload); err != nil {
+		return successPayload, localVarHttpResponse, err
+	}
+
+
+	return successPayload, localVarHttpResponse, err
 }
 
