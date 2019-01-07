@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Build custom integrations with the LaunchDarkly REST API"
-  version: "2.0.10"
+  version: "2.0.12"
   title: "LaunchDarkly REST API"
   termsOfService: "https://launchdarkly.com/terms"
   contact:
@@ -455,6 +455,46 @@ paths:
           description: "Invalid access token."
         404:
           description: "Invalid resource specifier."
+        409:
+          description: "Status conflict."
+  /flags/{projectKey}/{environmentKey}/{featureFlagKey}/copy:
+    post:
+      tags:
+      - "Feature flags"
+      summary: "Copies the feature flag configuration from one environment to the\
+        \ same feature flag in another environment."
+      operationId: "copyFeatureFlag"
+      parameters:
+      - name: "projectKey"
+        in: "path"
+        description: "The project key, used to tie the flags together under one project\
+          \ so they can be managed together."
+        required: true
+        type: "string"
+        x-exportParamName: "ProjectKey"
+      - name: "environmentKey"
+        in: "path"
+        description: "The environment key, used to tie together flag configuration\
+          \ and users under one environment so they can be managed together."
+        required: true
+        type: "string"
+        x-exportParamName: "EnvironmentKey"
+      - name: "featureFlagKey"
+        in: "path"
+        description: "The feature flag's key. The key identifies the flag in your\
+          \ code."
+        required: true
+        type: "string"
+        x-exportParamName: "FeatureFlagKey"
+      responses:
+        201:
+          description: "Flag confguration copy response."
+          schema:
+            $ref: "#/definitions/FeatureFlag"
+        400:
+          description: "Invalid request body."
+        401:
+          description: "Invalid access token."
         409:
           description: "Status conflict."
   /flag-statuses/{projectKey}/{environmentKey}:
@@ -1630,7 +1670,19 @@ definitions:
         type: "integer"
         example: 23
       customProperties:
-        $ref: "#/definitions/CustomProperties"
+        type: "object"
+        example:
+          bugs:
+            name: "Issue tracker ids"
+            value:
+            - "123"
+            - "456"
+          deprecated:
+            name: "Deprecated Date"
+            value: []
+        description: "A mapping of keys to CustomProperty entries."
+        additionalProperties:
+          $ref: "#/definitions/CustomProperty"
       _links:
         $ref: "#/definitions/Links"
       _maintainer:
@@ -3550,18 +3602,6 @@ definitions:
       value:
         type: "object"
         properties: {}
-  CustomProperties:
-    type: "object"
-    description: "A mapping of keys to CustomProperty entries."
-    example:
-      bugs:
-        name: "Issue tracker ids"
-        value:
-        - "123"
-        - "456"
-      deprecated:
-        name: "Deprecated Date"
-        value: []
   CustomProperty:
     type: "object"
     required:
