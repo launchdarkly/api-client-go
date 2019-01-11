@@ -10,7 +10,7 @@ info:
   license:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
-  version: 2.0.12
+  version: 2.0.13
 host: app.launchdarkly.com
 basePath: /api/v2
 schemes:
@@ -964,6 +964,14 @@ definitions:
         example:
           - value: a
           - value: b
+      goalIds:
+        type: array
+        description: An array goals from all environments associated with this feature flag
+        items:
+          type: string
+        example:
+          - d7239405bd89c930e885aa76
+          - 405bc930e88d7239d895aa76
       _version:
         type: integer
         example: 23
@@ -1053,13 +1061,6 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/Target'
-      goalIds:
-        type: array
-        example:
-          - d7239405bd89c930e885aa76
-          - 405bc930e88d7239d895aa76
-        items:
-          type: string
       rules:
         type: array
         items:
