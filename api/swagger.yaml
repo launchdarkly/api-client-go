@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Build custom integrations with the LaunchDarkly REST API"
-  version: "2.0.13"
+  version: "2.0.14"
   title: "LaunchDarkly REST API"
   termsOfService: "https://launchdarkly.com/terms"
   contact:
@@ -294,12 +294,14 @@ paths:
         required: false
         type: "string"
         x-exportParamName: "Env"
+        x-optionalDataType: "String"
       - name: "tag"
         in: "query"
         description: "Filter by tag. A tag can be used to group flags across projects."
         required: false
         type: "string"
         x-exportParamName: "Tag"
+        x-optionalDataType: "String"
       responses:
         200:
           description: "Flags response."
@@ -336,6 +338,7 @@ paths:
         required: false
         type: "string"
         x-exportParamName: "Clone"
+        x-optionalDataType: "String"
       responses:
         201:
           description: "Flag response."
@@ -377,6 +380,7 @@ paths:
         required: false
         type: "string"
         x-exportParamName: "Env"
+        x-optionalDataType: "String"
       responses:
         200:
           description: "Flag response."
@@ -589,6 +593,7 @@ paths:
         required: false
         type: "string"
         x-exportParamName: "Tag"
+        x-optionalDataType: "String"
       responses:
         200:
           description: "Segments response."
@@ -786,18 +791,21 @@ paths:
         required: false
         type: "integer"
         x-exportParamName: "Limit"
+        x-optionalDataType: "Int32"
       - name: "h"
         in: "query"
         description: "This parameter is required when following \"next\" links."
         required: false
         type: "string"
         x-exportParamName: "H"
+        x-optionalDataType: "String"
       - name: "scrollId"
         in: "query"
         description: "This parameter is required when following \"next\" links."
         required: false
         type: "string"
         x-exportParamName: "ScrollId"
+        x-optionalDataType: "String"
       responses:
         200:
           description: "Users response."
@@ -834,18 +842,21 @@ paths:
         required: false
         type: "string"
         x-exportParamName: "Q"
+        x-optionalDataType: "String"
       - name: "limit"
         in: "query"
         description: "Pagination limit."
         required: false
         type: "integer"
         x-exportParamName: "Limit"
+        x-optionalDataType: "Int32"
       - name: "offset"
         in: "query"
         description: "Specifies the first item to return in the collection."
         required: false
         type: "integer"
         x-exportParamName: "Offset"
+        x-optionalDataType: "Int32"
       - name: "after"
         in: "query"
         description: "A timestamp filter, expressed as a Unix epoch time in milliseconds.\
@@ -854,6 +865,7 @@ paths:
         type: "number"
         format: "int64"
         x-exportParamName: "After"
+        x-optionalDataType: "Float32"
       responses:
         200:
           description: "Users response."
@@ -1074,6 +1086,7 @@ paths:
         required: false
         type: "number"
         x-exportParamName: "Before"
+        x-optionalDataType: "Float32"
       - name: "after"
         in: "query"
         description: "A timestamp filter, expressed as a Unix epoch time in milliseconds.\
@@ -1082,6 +1095,7 @@ paths:
         type: "number"
         format: "int64"
         x-exportParamName: "After"
+        x-optionalDataType: "Float32"
       - name: "q"
         in: "query"
         description: "Text to search for. You can search for the full or partial name\
@@ -1090,6 +1104,7 @@ paths:
         required: false
         type: "string"
         x-exportParamName: "Q"
+        x-optionalDataType: "String"
       - name: "limit"
         in: "query"
         description: "A limit on the number of audit log entries to be returned, between\
@@ -1097,6 +1112,7 @@ paths:
         required: false
         type: "number"
         x-exportParamName: "Limit"
+        x-optionalDataType: "Float32"
       - name: "spec"
         in: "query"
         description: "A resource specifier, allowing you to filter audit log listings\
@@ -1104,6 +1120,7 @@ paths:
         required: false
         type: "string"
         x-exportParamName: "Spec"
+        x-optionalDataType: "String"
       responses:
         200:
           description: "Audit log entries response."
@@ -3376,7 +3393,6 @@ definitions:
           \ be true, false, or null if there is no defined fallthrough value."
       setting:
         type: "boolean"
-        example: false
         description: "The setting attribute indicates whether you've explicitly targeted\
           \ this user to receive a particular variation. For example, if you have\
           \ explicitly turned off a feature toggle for a user, setting will be false.\
@@ -3391,7 +3407,7 @@ definitions:
           href: "/api/v2/endpoint"
           type: "application/json"
       _value: true
-      setting: false
+      setting: true
   UserFlagSettings:
     type: "object"
     properties:
@@ -3406,14 +3422,12 @@ definitions:
                 href: "/api/v2/users/lacuna/production/Abbie_Braun/flags/sort.order"
                 type: "application/json"
               _value: true
-              setting: null
           alternate.page:
             _links:
               self:
                 href: "/api/v2/users/lacuna/production/Abbie_Braun/flags/alternate.page"
                 type: "application/json"
             _value: "false,"
-            setting: null
         additionalProperties:
           $ref: "#/definitions/UserFlagSetting"
     example:
@@ -3431,14 +3445,12 @@ definitions:
               href: "/api/v2/users/lacuna/production/Abbie_Braun/flags/sort.order"
               type: "application/json"
             _value: true
-            setting: null
         alternate.page:
           _links:
             self:
               href: "/api/v2/users/lacuna/production/Abbie_Braun/flags/alternate.page"
               type: "application/json"
           _value: "false,"
-          setting: null
   Statements:
     type: "array"
     items:
@@ -3618,7 +3630,9 @@ definitions:
     description: "Values for this property."
     items:
       type: "string"
-    example: "[\"Value 1\",\"Value 2\"]"
+    example:
+    - "Value 1"
+    - "Value 2"
   projectBody:
     type: "object"
     required:
@@ -3884,6 +3898,7 @@ parameters:
     required: false
     type: "string"
     x-exportParamName: "Env"
+    x-optionalDataType: "String"
   FeatureFlagKey:
     name: "featureFlagKey"
     in: "path"
@@ -3901,6 +3916,7 @@ parameters:
     required: false
     type: "string"
     x-exportParamName: "Clone"
+    x-optionalDataType: "String"
   UserSegmentKey:
     name: "userSegmentKey"
     in: "path"
@@ -3923,6 +3939,7 @@ parameters:
     required: false
     type: "string"
     x-exportParamName: "Tag"
+    x-optionalDataType: "String"
   Limit:
     name: "limit"
     in: "query"
@@ -3930,6 +3947,7 @@ parameters:
     required: false
     type: "integer"
     x-exportParamName: "Limit"
+    x-optionalDataType: "Int32"
   Query:
     name: "q"
     in: "query"
@@ -3937,6 +3955,7 @@ parameters:
     required: false
     type: "string"
     x-exportParamName: "Q"
+    x-optionalDataType: "String"
   HMAC:
     name: "h"
     in: "query"
@@ -3944,6 +3963,7 @@ parameters:
     required: false
     type: "string"
     x-exportParamName: "H"
+    x-optionalDataType: "String"
   ScrollId:
     name: "scrollId"
     in: "query"
@@ -3951,6 +3971,7 @@ parameters:
     required: false
     type: "string"
     x-exportParamName: "ScrollId"
+    x-optionalDataType: "String"
   Offset:
     name: "offset"
     in: "query"
@@ -3958,6 +3979,7 @@ parameters:
     required: false
     type: "integer"
     x-exportParamName: "Offset"
+    x-optionalDataType: "Int32"
   After:
     name: "after"
     in: "query"
@@ -3967,6 +3989,7 @@ parameters:
     type: "number"
     format: "int64"
     x-exportParamName: "After"
+    x-optionalDataType: "Float32"
   PatchRequest:
     in: "body"
     name: "patchDelta"
@@ -3993,6 +4016,7 @@ parameters:
     required: false
     type: "number"
     x-exportParamName: "Before"
+    x-optionalDataType: "Float32"
   Q:
     name: "q"
     in: "query"
@@ -4002,6 +4026,7 @@ parameters:
     required: false
     type: "string"
     x-exportParamName: "Q"
+    x-optionalDataType: "String"
   AuditLimit:
     name: "limit"
     in: "query"
@@ -4010,6 +4035,7 @@ parameters:
     required: false
     type: "number"
     x-exportParamName: "Limit"
+    x-optionalDataType: "Float32"
   Spec:
     name: "spec"
     in: "query"
@@ -4018,6 +4044,7 @@ parameters:
     required: false
     type: "string"
     x-exportParamName: "Spec"
+    x-optionalDataType: "String"
   MembersPostRequest:
     in: "body"
     name: "membersBody"

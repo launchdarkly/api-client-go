@@ -16,19 +16,19 @@ Get a list of all audit log entries. The query parameters allow you to restrict 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
- **optional** | **map[string]interface{}** | optional parameters | nil if no parameters
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+ **optional** | ***GetAuditLogEntriesOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
-Optional parameters are passed through a map[string]interface{}.
+Optional parameters are passed through a pointer to a GetAuditLogEntriesOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **before** | **float32**| A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries returned will have before this timestamp. | 
- **after** | **float32**| A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries returned will have occured after this timestamp. | 
- **q** | **string**| Text to search for. You can search for the full or partial name of the resource involved or fullpartial email address of the member who made the change. | 
- **limit** | **float32**| A limit on the number of audit log entries to be returned, between 1 and 20. | 
- **spec** | **string**| A resource specifier, allowing you to filter audit log listings by resource. | 
+ **before** | **optional.Float32**| A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries returned will have before this timestamp. | 
+ **after** | **optional.Float32**| A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries returned will have occured after this timestamp. | 
+ **q** | **optional.String**| Text to search for. You can search for the full or partial name of the resource involved or fullpartial email address of the member who made the change. | 
+ **limit** | **optional.Float32**| A limit on the number of audit log entries to be returned, between 1 and 20. | 
+ **spec** | **optional.String**| A resource specifier, allowing you to filter audit log listings by resource. | 
 
 ### Return type
 
@@ -53,7 +53,7 @@ Use this endpoint to fetch a single audit log entry by its resouce ID.
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **resourceId** | **string**| The resource ID. | 
 
 ### Return type

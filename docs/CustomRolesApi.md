@@ -19,7 +19,7 @@ Delete a custom role by key.
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **customRoleKey** | **string**| The custom role key. | 
 
 ### Return type
@@ -45,7 +45,7 @@ Get one custom role by key.
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **customRoleKey** | **string**| The custom role key. | 
 
 ### Return type
@@ -93,7 +93,7 @@ Modify a custom role by key.
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **customRoleKey** | **string**| The custom role key. | 
   **patchDelta** | [**[]PatchOperation**](PatchOperation.md)| Requires a JSON Patch representation of the desired changes to the project. &#39;http://jsonpatch.com/&#39; | 
 
@@ -120,7 +120,7 @@ Create a new custom role.
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for logging, tracing, authentication, etc.
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **customRoleBody** | [**CustomRoleBody**](CustomRoleBody.md)| New role or roles to create. | 
 
 ### Return type
