@@ -113,7 +113,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **PostWebhook**
-> PostWebhook(ctx, webhookBody)
+> Webhook PostWebhook(ctx, webhookBody)
 Create a webhook.
 
 ### Required Parameters
@@ -125,7 +125,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Webhook**](Webhook.md)
 
 ### Authorization
 

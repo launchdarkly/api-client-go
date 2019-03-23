@@ -93,7 +93,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **PostEnvironment**
-> PostEnvironment(ctx, projectKey, environmentBody)
+> Environment PostEnvironment(ctx, projectKey, environmentBody)
 Create a new environment in a specified project with a given name, key, and swatch color.
 
 ### Required Parameters
@@ -106,7 +106,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Environment**](Environment.md)
 
 ### Authorization
 

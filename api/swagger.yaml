@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Build custom integrations with the LaunchDarkly REST API"
-  version: "2.0.14"
+  version: "2.0.15"
   title: "LaunchDarkly REST API"
   termsOfService: "https://launchdarkly.com/terms"
   contact:
@@ -52,7 +52,9 @@ paths:
         x-exportParamName: "ProjectBody"
       responses:
         201:
-          description: "Resource created."
+          description: "Successful Project response."
+          schema:
+            $ref: "#/definitions/Project"
         400:
           description: "Invalid request body."
         401:
@@ -164,7 +166,9 @@ paths:
         x-exportParamName: "EnvironmentBody"
       responses:
         201:
-          description: "Resource created."
+          description: "Environment response."
+          schema:
+            $ref: "#/definitions/Environment"
         400:
           description: "Invalid request body."
         401:
@@ -630,7 +634,9 @@ paths:
         x-exportParamName: "UserSegmentBody"
       responses:
         201:
-          description: "Resource created."
+          description: "User segment response."
+          schema:
+            $ref: "#/definitions/UserSegment"
         400:
           description: "Invalid request body."
         401:
@@ -1182,7 +1188,9 @@ paths:
         x-exportParamName: "WebhookBody"
       responses:
         201:
-          description: "Resource created."
+          description: "Webhook response."
+          schema:
+            $ref: "#/definitions/Webhook"
         400:
           description: "Invalid request body."
         401:
@@ -1292,7 +1300,9 @@ paths:
         x-exportParamName: "CustomRoleBody"
       responses:
         201:
-          description: "Resource created."
+          description: "Custom role response."
+          schema:
+            $ref: "#/definitions/CustomRole"
         400:
           description: "Invalid request body."
         401:
@@ -1384,7 +1394,7 @@ paths:
       parameters: []
       responses:
         200:
-          description: "Projects response."
+          description: "Members response."
           schema:
             $ref: "#/definitions/Members"
         401:
@@ -1406,7 +1416,9 @@ paths:
         x-exportParamName: "MembersBody"
       responses:
         201:
-          description: "Resource created."
+          description: "Members response."
+          schema:
+            $ref: "#/definitions/Members"
         400:
           description: "Invalid request body."
         401:
@@ -1720,6 +1732,8 @@ definitions:
     example:
       temporary: false
       _maintainer:
+        firstName: "Alan"
+        lastName: "Turing"
         role: {}
         _links:
           next:
@@ -1861,6 +1875,8 @@ definitions:
       items:
       - temporary: false
         _maintainer:
+          firstName: "Alan"
+          lastName: "Turing"
           role: {}
           _links:
             next:
@@ -1984,6 +2000,8 @@ definitions:
         key: "test-feature"
       - temporary: false
         _maintainer:
+          firstName: "Alan"
+          lastName: "Turing"
           role: {}
           _links:
             next:
@@ -2119,6 +2137,12 @@ definitions:
       email:
         type: "string"
         example: "user@launchdarkly.com"
+      firstName:
+        type: "string"
+        example: "Alan"
+      lastName:
+        type: "string"
+        example: "Turing"
       _pendingInvite:
         type: "boolean"
       isBeta:
@@ -2130,6 +2154,8 @@ definitions:
           example: "5a580a01b4ff89217bdf9dc1"
           description: "The unique resource id."
     example:
+      firstName: "Alan"
+      lastName: "Turing"
       role: {}
       _links:
         next:
@@ -2151,7 +2177,9 @@ definitions:
       _links:
         $ref: "#/definitions/Links"
       items:
-        $ref: "#/definitions/Member"
+        type: "array"
+        items:
+          $ref: "#/definitions/Member"
     example:
       _links:
         next:
@@ -2161,6 +2189,25 @@ definitions:
           href: "/api/v2/endpoint"
           type: "application/json"
       items:
+      - firstName: "Alan"
+        lastName: "Turing"
+        role: {}
+        _links:
+          next:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+          self:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+        _pendingInvite: true
+        isBeta: true
+        _id: "5a580a01b4ff89217bdf9dc1"
+        email: "user@launchdarkly.com"
+        customRoles:
+        - "5a580a01b4ff89217bdf9dc1"
+        - "5a580a01b4ff89217bdf9dc1"
+      - firstName: "Alan"
+        lastName: "Turing"
         role: {}
         _links:
           next:
@@ -3239,6 +3286,8 @@ definitions:
       kind: "environment"
       name: "Testing"
       member:
+        firstName: "Alan"
+        lastName: "Turing"
         role: {}
         _links:
           next:
@@ -3302,6 +3351,8 @@ definitions:
         kind: "environment"
         name: "Testing"
         member:
+          firstName: "Alan"
+          lastName: "Turing"
           role: {}
           _links:
             next:
@@ -3347,6 +3398,8 @@ definitions:
         kind: "environment"
         name: "Testing"
         member:
+          firstName: "Alan"
+          lastName: "Turing"
           role: {}
           _links:
             next:
@@ -3459,38 +3512,38 @@ definitions:
     type: "object"
     properties:
       resources:
-        $ref: "#/definitions/Resources"
+        type: "array"
+        items:
+          type: "string"
+          example: "proj/*:env/*:flag/my-flag"
+          description: "A resource specifier string"
       notresources:
+        type: "array"
         description: "Targeted resource will be those resources NOT in this list.\
           \ The \"resources`\" field must be empty to use this field."
-        $ref: "#/definitions/Resources"
+        items:
+          type: "string"
+          example: "proj/*:env/*:flag/my-flag"
+          description: "A resource specifier string"
       actions:
-        $ref: "#/definitions/Actions"
+        type: "array"
+        items:
+          type: "string"
+          example: "updateOn"
+          description: "An action to perform on a resource."
       notactions:
+        type: "array"
         description: "Targeted actions will be those actions NOT in this list. The\
           \ \"actions\" field must be empty to use this field."
-        $ref: "#/definitions/Actions"
+        items:
+          type: "string"
+          example: "updateOn"
+          description: "An action to perform on a resource."
       effect:
         type: "string"
         enum:
         - "allow"
         - "deny"
-  Resources:
-    type: "array"
-    items:
-      $ref: "#/definitions/Resource"
-  Resource:
-    type: "string"
-    description: "A resource specifier string"
-    example: "proj/*:env/*:flag/my-flag"
-  Actions:
-    type: "array"
-    items:
-      $ref: "#/definitions/Action"
-  Action:
-    type: "string"
-    description: "An action to perform on a resource."
-    example: "updateOn"
   Role:
     type: "string"
     enum:
@@ -3498,10 +3551,6 @@ definitions:
     - "reader"
     - "admin"
     - "owner"
-  CustomRoleKeyOrId:
-    type: "string"
-    description: "The 20-hexdigit id or the key for a custom role."
-    example: "revenue-team"
   CustomRole:
     type: "object"
     properties:
@@ -3512,7 +3561,9 @@ definitions:
         example: "revenue team"
         description: "Name of the custom role."
       key:
-        $ref: "#/definitions/CustomRoleKeyOrId"
+        type: "string"
+        example: "revenue-team"
+        description: "The 20-hexdigit id or the key for a custom role."
       description:
         type: "string"
         example: "Description of revenue team role here"
@@ -3539,18 +3590,28 @@ definitions:
       key: "revenue-team"
       policy:
       - effect: "deny"
-        resources: ""
-        actions: ""
+        resources:
+        - "proj/*:env/*:flag/my-flag"
+        - "proj/*:env/*:flag/my-flag"
+        actions:
+        - "updateOn"
+        - "updateOn"
       - effect: "deny"
-        resources: ""
-        actions: ""
+        resources:
+        - "proj/*:env/*:flag/my-flag"
+        - "proj/*:env/*:flag/my-flag"
+        actions:
+        - "updateOn"
+        - "updateOn"
   CustomRoles:
     type: "object"
     properties:
       _links:
         $ref: "#/definitions/Links"
       items:
-        $ref: "#/definitions/CustomRole"
+        type: "array"
+        items:
+          $ref: "#/definitions/CustomRole"
     example:
       _links:
         next:
@@ -3560,7 +3621,7 @@ definitions:
           href: "/api/v2/endpoint"
           type: "application/json"
       items:
-        _links:
+      - _links:
           next:
             href: "/api/v2/endpoint"
             type: "application/json"
@@ -3573,26 +3634,72 @@ definitions:
         key: "revenue-team"
         policy:
         - effect: "deny"
-          resources: ""
-          actions: ""
+          resources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          actions:
+          - "updateOn"
+          - "updateOn"
         - effect: "deny"
-          resources: ""
-          actions: ""
+          resources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          actions:
+          - "updateOn"
+          - "updateOn"
+      - _links:
+          next:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+          self:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+        name: "revenue team"
+        description: "Description of revenue team role here"
+        _id: "5a580a01b4ff89217bdf9dc1"
+        key: "revenue-team"
+        policy:
+        - effect: "deny"
+          resources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          actions:
+          - "updateOn"
+          - "updateOn"
+        - effect: "deny"
+          resources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          actions:
+          - "updateOn"
+          - "updateOn"
   Policy:
     type: "object"
     properties:
       resources:
-        $ref: "#/definitions/Resources"
+        type: "array"
+        items:
+          type: "string"
+          example: "proj/*:env/*:flag/my-flag"
+          description: "A resource specifier string"
       actions:
-        $ref: "#/definitions/Actions"
+        type: "array"
+        items:
+          type: "string"
+          example: "updateOn"
+          description: "An action to perform on a resource."
       effect:
         type: "string"
         example: "deny"
         description: "Effect of the policy - allow or deny."
     example:
       effect: "deny"
-      resources: ""
-      actions: ""
+      resources:
+      - "proj/*:env/*:flag/my-flag"
+      - "proj/*:env/*:flag/my-flag"
+      actions:
+      - "updateOn"
+      - "updateOn"
   Id:
     type: "string"
     description: "The unique resource id."
@@ -3623,16 +3730,12 @@ definitions:
         example: "My property"
         description: "The name of the property."
       value:
-        $ref: "#/definitions/CustomPropertyValues"
+        type: "array"
+        description: "Values for this property."
+        items:
+          type: "string"
+          example: ""
     description: "A name and value describing a custom property."
-  CustomPropertyValues:
-    type: "array"
-    description: "Values for this property."
-    items:
-      type: "string"
-    example:
-    - "Value 1"
-    - "Value 2"
   projectBody:
     type: "object"
     required:
@@ -3774,7 +3877,9 @@ definitions:
         example: "Description of revenue team role here"
         description: "Description of the custom role."
       key:
-        $ref: "#/definitions/CustomRoleKeyOrId"
+        type: "string"
+        example: "revenue-team"
+        description: "The 20-hexdigit id or the key for a custom role."
       policy:
         type: "array"
         items:
@@ -3797,7 +3902,9 @@ definitions:
       customRoles:
         type: "array"
         items:
-          $ref: "#/definitions/CustomRoleKeyOrId"
+          type: "string"
+          example: "revenue-team"
+          description: "The 20-hexdigit id or the key for a custom role."
       inlineRole:
         $ref: "#/definitions/Statements"
   AuditLogEntry_target:
@@ -4102,15 +4209,19 @@ parameters:
         $ref: "#/definitions/PatchOperation"
     x-exportParamName: "PatchOnly"
 responses:
-  CustomRole200:
+  CustomRole2xx:
     description: "Custom role response."
     schema:
       $ref: "#/definitions/CustomRole"
-  Member200:
+  Environment2xx:
+    description: "Environment response."
+    schema:
+      $ref: "#/definitions/Environment"
+  Member2xx:
     description: "Member response."
     schema:
       $ref: "#/definitions/Member"
-  Projects200:
+  Project2xx:
     description: "Successful Project response."
     schema:
       $ref: "#/definitions/Project"
@@ -4130,11 +4241,11 @@ responses:
     description: "Invalid resource specifier."
   Standard409:
     description: "Status conflict."
-  UserSegment200:
+  UserSegment2xx:
     description: "User segment response."
     schema:
       $ref: "#/definitions/UserSegment"
-  Webhooks200:
+  Webhook2xx:
     description: "Webhook response."
     schema:
       $ref: "#/definitions/Webhook"

@@ -5,7 +5,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Links** | [***Links**](Links.md) |  | [optional] [default to null]
 **Name** | **string** | Name of the custom role. | [optional] [default to null]
-**Key** | [***CustomRoleKeyOrId**](CustomRoleKeyOrId.md) |  | [optional] [default to null]
+**Key** | **string** | The 20-hexdigit id or the key for a custom role. | [optional] [default to null]
 **Description** | **string** | Description of the custom role. | [optional] [default to null]
 **Id** | **string** | The unique resource id. | [optional] [default to null]
 **Policy** | [**[]Policy**](Policy.md) |  | [optional] [default to null]
