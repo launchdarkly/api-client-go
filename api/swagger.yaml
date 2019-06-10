@@ -868,10 +868,10 @@ paths:
         description: "A timestamp filter, expressed as a Unix epoch time in milliseconds.\
           \ All entries returned will have occured after this timestamp."
         required: false
-        type: "number"
+        type: "integer"
         format: "int64"
         x-exportParamName: "After"
-        x-optionalDataType: "Float32"
+        x-optionalDataType: "Int64"
       responses:
         200:
           description: "Users response."
@@ -1090,18 +1090,19 @@ paths:
         description: "A timestamp filter, expressed as a Unix epoch time in milliseconds.\
           \ All entries returned will have before this timestamp."
         required: false
-        type: "number"
+        type: "integer"
+        format: "int64"
         x-exportParamName: "Before"
-        x-optionalDataType: "Float32"
+        x-optionalDataType: "Int64"
       - name: "after"
         in: "query"
         description: "A timestamp filter, expressed as a Unix epoch time in milliseconds.\
           \ All entries returned will have occured after this timestamp."
         required: false
-        type: "number"
+        type: "integer"
         format: "int64"
         x-exportParamName: "After"
-        x-optionalDataType: "Float32"
+        x-optionalDataType: "Int64"
       - name: "q"
         in: "query"
         description: "Text to search for. You can search for the full or partial name\
@@ -4093,10 +4094,10 @@ parameters:
     description: "A timestamp filter, expressed as a Unix epoch time in milliseconds.\
       \ All entries returned will have occured after this timestamp."
     required: false
-    type: "number"
+    type: "integer"
     format: "int64"
     x-exportParamName: "After"
-    x-optionalDataType: "Float32"
+    x-optionalDataType: "Int64"
   PatchRequest:
     in: "body"
     name: "patchDelta"
@@ -4121,9 +4122,10 @@ parameters:
     description: "A timestamp filter, expressed as a Unix epoch time in milliseconds.\
       \ All entries returned will have before this timestamp."
     required: false
-    type: "number"
+    type: "integer"
+    format: "int64"
     x-exportParamName: "Before"
-    x-optionalDataType: "Float32"
+    x-optionalDataType: "Int64"
   Q:
     name: "q"
     in: "query"
