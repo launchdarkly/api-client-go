@@ -2847,16 +2847,18 @@ definitions:
           self:
             href: "/api/v2/endpoint"
             type: "application/json"
-        name: "Production"
-        defaultTtl: 0.0
-        _id: "5a580a01b4ff89217bdf9dc1"
+        confirmChanges: false
+        requireComments: false
         mobileKey: "XXX"
-        secureMode: false
         defaultTrackEvents: false
-        key: "production"
         tags:
         - "tags"
         - "tags"
+        name: "Production"
+        defaultTtl: 0.0
+        _id: "5a580a01b4ff89217bdf9dc1"
+        secureMode: false
+        key: "production"
       - apiKey: "XXX"
         color: "417505"
         _links:
@@ -2866,16 +2868,18 @@ definitions:
           self:
             href: "/api/v2/endpoint"
             type: "application/json"
-        name: "Production"
-        defaultTtl: 0.0
-        _id: "5a580a01b4ff89217bdf9dc1"
+        confirmChanges: false
+        requireComments: false
         mobileKey: "XXX"
-        secureMode: false
         defaultTrackEvents: false
-        key: "production"
         tags:
         - "tags"
         - "tags"
+        name: "Production"
+        defaultTtl: 0.0
+        _id: "5a580a01b4ff89217bdf9dc1"
+        secureMode: false
+        key: "production"
       name: "Zentasks"
       _id: "5a580a01b4ff89217bdf9dc1"
       key: "zentasks"
@@ -2917,16 +2921,18 @@ definitions:
             self:
               href: "/api/v2/endpoint"
               type: "application/json"
-          name: "Production"
-          defaultTtl: 0.0
-          _id: "5a580a01b4ff89217bdf9dc1"
+          confirmChanges: false
+          requireComments: false
           mobileKey: "XXX"
-          secureMode: false
           defaultTrackEvents: false
-          key: "production"
           tags:
           - "tags"
           - "tags"
+          name: "Production"
+          defaultTtl: 0.0
+          _id: "5a580a01b4ff89217bdf9dc1"
+          secureMode: false
+          key: "production"
         - apiKey: "XXX"
           color: "417505"
           _links:
@@ -2936,16 +2942,18 @@ definitions:
             self:
               href: "/api/v2/endpoint"
               type: "application/json"
-          name: "Production"
-          defaultTtl: 0.0
-          _id: "5a580a01b4ff89217bdf9dc1"
+          confirmChanges: false
+          requireComments: false
           mobileKey: "XXX"
-          secureMode: false
           defaultTrackEvents: false
-          key: "production"
           tags:
           - "tags"
           - "tags"
+          name: "Production"
+          defaultTtl: 0.0
+          _id: "5a580a01b4ff89217bdf9dc1"
+          secureMode: false
+          key: "production"
         name: "Zentasks"
         _id: "5a580a01b4ff89217bdf9dc1"
         key: "zentasks"
@@ -2969,16 +2977,18 @@ definitions:
             self:
               href: "/api/v2/endpoint"
               type: "application/json"
-          name: "Production"
-          defaultTtl: 0.0
-          _id: "5a580a01b4ff89217bdf9dc1"
+          confirmChanges: false
+          requireComments: false
           mobileKey: "XXX"
-          secureMode: false
           defaultTrackEvents: false
-          key: "production"
           tags:
           - "tags"
           - "tags"
+          name: "Production"
+          defaultTtl: 0.0
+          _id: "5a580a01b4ff89217bdf9dc1"
+          secureMode: false
+          key: "production"
         - apiKey: "XXX"
           color: "417505"
           _links:
@@ -2988,16 +2998,18 @@ definitions:
             self:
               href: "/api/v2/endpoint"
               type: "application/json"
-          name: "Production"
-          defaultTtl: 0.0
-          _id: "5a580a01b4ff89217bdf9dc1"
+          confirmChanges: false
+          requireComments: false
           mobileKey: "XXX"
-          secureMode: false
           defaultTrackEvents: false
-          key: "production"
           tags:
           - "tags"
           - "tags"
+          name: "Production"
+          defaultTtl: 0.0
+          _id: "5a580a01b4ff89217bdf9dc1"
+          secureMode: false
+          key: "production"
         name: "Zentasks"
         _id: "5a580a01b4ff89217bdf9dc1"
         key: "zentasks"
@@ -3050,6 +3062,16 @@ definitions:
         description: "An array of tags for this environment."
         items:
           type: "string"
+      requireComments:
+        type: "boolean"
+        example: false
+        description: "Determines if this environment requires comments for flag and\
+          \ segment changes."
+      confirmChanges:
+        type: "boolean"
+        example: false
+        description: "Determines if this environment requires confirmation for flag\
+          \ and segment changes."
     example:
       apiKey: "XXX"
       color: "417505"
@@ -3060,16 +3082,18 @@ definitions:
         self:
           href: "/api/v2/endpoint"
           type: "application/json"
-      name: "Production"
-      defaultTtl: 0.0
-      _id: "5a580a01b4ff89217bdf9dc1"
+      confirmChanges: false
+      requireComments: false
       mobileKey: "XXX"
-      secureMode: false
       defaultTrackEvents: false
-      key: "production"
       tags:
       - "tags"
       - "tags"
+      name: "Production"
+      defaultTtl: 0.0
+      _id: "5a580a01b4ff89217bdf9dc1"
+      secureMode: false
+      key: "production"
   EnvironmentPost:
     type: "object"
     required:

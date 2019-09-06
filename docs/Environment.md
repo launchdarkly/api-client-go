@@ -14,6 +14,8 @@ Name | Type | Description | Notes
 **SecureMode** | **bool** | Determines if this environment is in safe mode. | [optional] [default to null]
 **DefaultTrackEvents** | **bool** | Set to true to send detailed event information for new flags. | [optional] [default to null]
 **Tags** | **[]string** | An array of tags for this environment. | [optional] [default to null]
+**RequireComments** | **bool** | Determines if this environment requires comments for flag and segment changes. | [optional] [default to null]
+**ConfirmChanges** | **bool** | Determines if this environment requires confirmation for flag and segment changes. | [optional] [default to null]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

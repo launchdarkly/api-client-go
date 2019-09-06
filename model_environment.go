@@ -32,4 +32,8 @@ type Environment struct {
 	DefaultTrackEvents bool `json:"defaultTrackEvents,omitempty"`
 	// An array of tags for this environment.
 	Tags []string `json:"tags,omitempty"`
+	// Determines if this environment requires comments for flag and segment changes.
+	RequireComments bool `json:"requireComments,omitempty"`
+	// Determines if this environment requires confirmation for flag and segment changes.
+	ConfirmChanges bool `json:"confirmChanges,omitempty"`
 }
