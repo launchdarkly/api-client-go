@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Build custom integrations with the LaunchDarkly REST API"
-  version: "2.0.18"
+  version: "2.0.19"
   title: "LaunchDarkly REST API"
   termsOfService: "https://launchdarkly.com/terms"
   contact:
@@ -465,7 +465,7 @@ paths:
           description: "Invalid resource specifier."
         409:
           description: "Status conflict."
-  /flags/{projectKey}/{environmentKey}/{featureFlagKey}/copy:
+  /flags/{projectKey}/{featureFlagKey}/copy:
     post:
       tags:
       - "Feature flags"
@@ -480,13 +480,6 @@ paths:
         required: true
         type: "string"
         x-exportParamName: "ProjectKey"
-      - name: "environmentKey"
-        in: "path"
-        description: "The environment key, used to tie together flag configuration\
-          \ and users under one environment so they can be managed together."
-        required: true
-        type: "string"
-        x-exportParamName: "EnvironmentKey"
       - name: "featureFlagKey"
         in: "path"
         description: "The feature flag's key. The key identifies the flag in your\
@@ -494,9 +487,16 @@ paths:
         required: true
         type: "string"
         x-exportParamName: "FeatureFlagKey"
+      - in: "body"
+        name: "featureFlagCopyBody"
+        description: "Copy feature flag configurations between environments."
+        required: true
+        schema:
+          $ref: "#/definitions/featureFlagCopyBody"
+        x-exportParamName: "FeatureFlagCopyBody"
       responses:
         201:
-          description: "Flag confguration copy response."
+          description: "Flag configuration copy response."
           schema:
             $ref: "#/definitions/FeatureFlag"
         400:
@@ -3761,6 +3761,30 @@ definitions:
           type: "string"
           example: ""
     description: "A name and value describing a custom property."
+  FeatureFlagCopyObject:
+    type: "object"
+    required:
+    - "key"
+    properties:
+      key:
+        type: "string"
+        example: "staging"
+        description: "The environment key to be used."
+      currentVersion:
+        type: "integer"
+        example: 65
+        description: "If the latest version of the flag matches provided version it\
+          \ will copy, otherwise it will return a conflict."
+  CopyActions:
+    type: "string"
+    example: []
+    enum:
+    - "updateOn"
+    - "updatePrerequisites"
+    - "updateTargets"
+    - "updateRules"
+    - "updateFallthrough"
+    - "updateOffVariation"
   projectBody:
     type: "object"
     required:
@@ -3826,6 +3850,28 @@ definitions:
         type: "array"
         items:
           $ref: "#/definitions/PatchOperation"
+  featureFlagCopyBody:
+    type: "object"
+    properties:
+      source:
+        $ref: "#/definitions/FeatureFlagCopyObject"
+      target:
+        $ref: "#/definitions/FeatureFlagCopyObject"
+      comment:
+        type: "string"
+        example: "This is a comment string"
+        description: "comment will be included in audit log item for change."
+      includedActions:
+        type: "array"
+        description: "Define the parts of the flag configuration that will be copied."
+        items:
+          $ref: "#/definitions/CopyActions"
+      excludedActions:
+        type: "array"
+        description: "Define the parts of the flag configuration that will not be\
+          \ copied."
+        items:
+          $ref: "#/definitions/CopyActions"
   userSegmentBody:
     type: "object"
     required:
@@ -3972,6 +4018,14 @@ parameters:
     schema:
       $ref: "#/definitions/webhookBody"
     x-exportParamName: "WebhookBody"
+  FeatureFlagCopyBody:
+    in: "body"
+    name: "featureFlagCopyBody"
+    description: "Copy feature flag configurations between environments."
+    required: true
+    schema:
+      $ref: "#/definitions/featureFlagCopyBody"
+    x-exportParamName: "FeatureFlagCopyBody"
   FeatureFlagPostRequest:
     in: "body"
     name: "featureFlagBody"

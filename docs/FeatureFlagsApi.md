@@ -4,7 +4,7 @@ All URIs are relative to *https://app.launchdarkly.com/api/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CopyFeatureFlag**](FeatureFlagsApi.md#CopyFeatureFlag) | **Post** /flags/{projectKey}/{environmentKey}/{featureFlagKey}/copy | Copies the feature flag configuration from one environment to the same feature flag in another environment.
+[**CopyFeatureFlag**](FeatureFlagsApi.md#CopyFeatureFlag) | **Post** /flags/{projectKey}/{featureFlagKey}/copy | Copies the feature flag configuration from one environment to the same feature flag in another environment.
 [**DeleteFeatureFlag**](FeatureFlagsApi.md#DeleteFeatureFlag) | **Delete** /flags/{projectKey}/{featureFlagKey} | Delete a feature flag in all environments. Be careful-- only delete feature flags that are no longer being used by your application.
 [**GetFeatureFlag**](FeatureFlagsApi.md#GetFeatureFlag) | **Get** /flags/{projectKey}/{featureFlagKey} | Get a single feature flag by key.
 [**GetFeatureFlagStatus**](FeatureFlagsApi.md#GetFeatureFlagStatus) | **Get** /flag-statuses/{projectKey}/{environmentKey}/{featureFlagKey} | Get the status for a particular feature flag.
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 
 # **CopyFeatureFlag**
-> FeatureFlag CopyFeatureFlag(ctx, projectKey, environmentKey, featureFlagKey)
+> FeatureFlag CopyFeatureFlag(ctx, projectKey, featureFlagKey, featureFlagCopyBody)
 Copies the feature flag configuration from one environment to the same feature flag in another environment.
 
 ### Required Parameters
@@ -24,8 +24,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
-  **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
   **featureFlagKey** | **string**| The feature flag&#39;s key. The key identifies the flag in your code. | 
+  **featureFlagCopyBody** | [**FeatureFlagCopyBody**](FeatureFlagCopyBody.md)| Copy feature flag configurations between environments. | 
 
 ### Return type
 

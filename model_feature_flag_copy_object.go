@@ -10,8 +10,9 @@
 
 package ldapi
 
-type ProjectBody struct {
-	Name string `json:"name"`
+type FeatureFlagCopyObject struct {
+	// The environment key to be used.
 	Key string `json:"key"`
-	Environments []EnvironmentPost `json:"environments,omitempty"`
+	// If the latest version of the flag matches provided version it will copy, otherwise it will return a conflict.
+	CurrentVersion int32 `json:"currentVersion,omitempty"`
 }
