@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Build custom integrations with the LaunchDarkly REST API"
-  version: "2.0.19"
+  version: "2.0.20"
   title: "LaunchDarkly REST API"
   termsOfService: "https://launchdarkly.com/terms"
   contact:
@@ -570,6 +570,39 @@ paths:
             $ref: "#/definitions/FeatureFlagStatus"
         401:
           description: "Invalid access token."
+  /flag-status/{projectKey}/{featureFlagKey}:
+    get:
+      tags:
+      - "Feature flags"
+      summary: "[BETA] Get the status for a particular feature flag across environments"
+      operationId: "getFeatureFlagStatusAcrossEnvironments"
+      parameters:
+      - name: "projectKey"
+        in: "path"
+        description: "The project key, used to tie the flags together under one project\
+          \ so they can be managed together."
+        required: true
+        type: "string"
+        x-exportParamName: "ProjectKey"
+      - name: "featureFlagKey"
+        in: "path"
+        description: "The feature flag's key. The key identifies the flag in your\
+          \ code."
+        required: true
+        type: "string"
+        x-exportParamName: "FeatureFlagKey"
+      responses:
+        200:
+          description: "Status of the requested feature flag across environments"
+          schema:
+            $ref: "#/definitions/FeatureFlagStatusAcrossEnvironments"
+        401:
+          description: "Invalid access token."
+        403:
+          description: "This is a beta API, you must pass beta in the LD-API-Version\
+            \ header to use it."
+          schema:
+            $ref: "#/definitions/UsageError"
   /segments/{projectKey}/{environmentKey}:
     get:
       tags:
@@ -1502,6 +1535,233 @@ paths:
           description: "Invalid resource specifier."
         409:
           description: "Status conflict."
+  /usage:
+    get:
+      tags:
+      - "Usage"
+      summary: "[BETA] Returns of the usage endpoints available."
+      operationId: "getUsage"
+      parameters: []
+      responses:
+        200:
+          description: "Usage endpoints"
+          schema:
+            $ref: "#/definitions/Usage"
+        403:
+          description: "This is a beta API, you must pass beta in the LD-API-Version\
+            \ header to use it."
+          schema:
+            $ref: "#/definitions/UsageError"
+  /usage/streams:
+    get:
+      tags:
+      - "Usage"
+      summary: "[BETA] Returns a list of all streams."
+      operationId: "getStreams"
+      parameters: []
+      responses:
+        200:
+          description: "Stream usage endpoints"
+          schema:
+            $ref: "#/definitions/Streams"
+        403:
+          description: "This is a beta API, you must pass beta in the LD-API-Version\
+            \ header to use it."
+          schema:
+            $ref: "#/definitions/UsageError"
+  /usage/streams/{source}:
+    get:
+      tags:
+      - "Usage"
+      summary: "[BETA] Get a stream endpoint and return timeseries data."
+      operationId: "getStream"
+      parameters:
+      - name: "source"
+        in: "path"
+        description: "The source of where the stream comes from."
+        required: true
+        type: "string"
+        x-exportParamName: "Source"
+      responses:
+        200:
+          description: "Responds with time series data on stream usage."
+          schema:
+            $ref: "#/definitions/Stream"
+        403:
+          description: "This is a beta API, you must pass beta in the LD-API-Version\
+            \ header to use it."
+          schema:
+            $ref: "#/definitions/UsageError"
+        404:
+          description: "The stream source you requested could not be found"
+          schema:
+            $ref: "#/definitions/StreamUsageError"
+  /usage/streams/{source}/bysdkversion:
+    get:
+      tags:
+      - "Usage"
+      summary: "[BETA] Get a stream timeseries data by source show sdk version metadata."
+      operationId: "getStreamBySDK"
+      parameters:
+      - name: "source"
+        in: "path"
+        description: "The source of where the stream comes from."
+        required: true
+        type: "string"
+        x-exportParamName: "Source"
+      responses:
+        200:
+          description: "Returns timeseries data and metadata on sdk version."
+          schema:
+            $ref: "#/definitions/StreamBySDK"
+        403:
+          description: "This is a beta API, you must pass beta in the LD-API-Version\
+            \ header to use it."
+          schema:
+            $ref: "#/definitions/UsageError"
+        404:
+          description: "The stream source you requested could not be found"
+          schema:
+            $ref: "#/definitions/StreamUsageError"
+  /usage/streams/{source}/sdkversions:
+    get:
+      tags:
+      - "Usage"
+      summary: "[BETA] Get a stream timeseries data by source and show all sdk version\
+        \ associated."
+      operationId: "getStreamSDKVersion"
+      parameters:
+      - name: "source"
+        in: "path"
+        description: "The source of where the stream comes from."
+        required: true
+        type: "string"
+        x-exportParamName: "Source"
+      responses:
+        200:
+          description: "Returns timeseries data and all sdk versions."
+          schema:
+            $ref: "#/definitions/StreamSDKVersion"
+        403:
+          description: "This is a beta API, you must pass beta in the LD-API-Version\
+            \ header to use it."
+          schema:
+            $ref: "#/definitions/UsageError"
+        404:
+          description: "The stream source you requested could not be found"
+          schema:
+            $ref: "#/definitions/StreamUsageError"
+  /usage/mau:
+    get:
+      tags:
+      - "Usage"
+      summary: "[BETA] Get monthly active user data."
+      operationId: "getMAU"
+      parameters: []
+      responses:
+        200:
+          description: "Returns timeseries data and all sdk versions."
+          schema:
+            $ref: "#/definitions/MAU"
+        403:
+          description: "This is a beta API, you must pass beta in the LD-API-Version\
+            \ header to use it."
+          schema:
+            $ref: "#/definitions/UsageError"
+  /usage/mau/bycategory:
+    get:
+      tags:
+      - "Usage"
+      summary: "[BETA] Get monthly active user data by category."
+      operationId: "getMAUByCategory"
+      parameters: []
+      responses:
+        200:
+          description: "Returns timeseries data and all sdk versions."
+          schema:
+            $ref: "#/definitions/MAUbyCategory"
+        403:
+          description: "This is a beta API, you must pass beta in the LD-API-Version\
+            \ header to use it."
+          schema:
+            $ref: "#/definitions/UsageError"
+  /usage/events:
+    get:
+      tags:
+      - "Usage"
+      summary: "[BETA] Get events usage endpoints."
+      operationId: "getEvents"
+      parameters: []
+      responses:
+        200:
+          description: "Returns timeseries data and all sdk versions."
+          schema:
+            $ref: "#/definitions/Events"
+        403:
+          description: "This is a beta API, you must pass beta in the LD-API-Version\
+            \ header to use it."
+          schema:
+            $ref: "#/definitions/UsageError"
+  /usage/events/{type}:
+    get:
+      tags:
+      - "Usage"
+      summary: "[BETA] Get events usage by event type."
+      operationId: "getEvent"
+      parameters:
+      - name: "type"
+        in: "path"
+        description: "The type of event we would like to track."
+        required: true
+        type: "string"
+        x-exportParamName: "Type_"
+      responses:
+        200:
+          description: "Returns timeseries data and all sdk versions."
+          schema:
+            $ref: "#/definitions/StreamSDKVersion"
+        403:
+          description: "This is a beta API, you must pass beta in the LD-API-Version\
+            \ header to use it."
+          schema:
+            $ref: "#/definitions/UsageError"
+        404:
+          description: "The stream source you requested could not be found"
+          schema:
+            $ref: "#/definitions/StreamUsageError"
+  /usage/evaluations/{envId}/{flagKey}:
+    get:
+      tags:
+      - "Usage"
+      summary: "[BETA] Get events usage by event id and the feature flag key."
+      operationId: "getEvaluations"
+      parameters:
+      - name: "envId"
+        in: "path"
+        description: "The environment id for the flag evaluations in question."
+        required: true
+        type: "string"
+        x-exportParamName: "EnvId"
+      - name: "flagKey"
+        in: "path"
+        description: "The key of the flag we want metrics for."
+        required: true
+        type: "string"
+        x-exportParamName: "FlagKey"
+      responses:
+        200:
+          description: "Returns timeseries data and all sdk versions."
+          schema:
+            $ref: "#/definitions/StreamSDKVersion"
+        403:
+          description: "This is a beta API, you must pass beta in the LD-API-Version\
+            \ header to use it."
+          schema:
+            $ref: "#/definitions/UsageError"
+        404:
+          description: "The environment or flag you requested could not be found"
+          schema:
+            $ref: "#/definitions/EvaluationUsageError"
   /:
     get:
       tags:
@@ -1577,6 +1837,8 @@ definitions:
         type: "string"
         example: "Example hook"
         description: "The name of the webhook."
+      statements:
+        $ref: "#/definitions/Statements"
       tags:
         type: "array"
         description: "Tags assigned to this webhook."
@@ -1592,6 +1854,7 @@ definitions:
           href: "/api/v2/endpoint"
           type: "application/json"
       name: "Example hook"
+      statements: ""
       _id: "5a580a01b4ff89217bdf9dc1"
       secret: "frobozz"
       url: "https://example.com/example"
@@ -1625,6 +1888,7 @@ definitions:
             href: "/api/v2/endpoint"
             type: "application/json"
         name: "Example hook"
+        statements: ""
         _id: "5a580a01b4ff89217bdf9dc1"
         secret: "frobozz"
         url: "https://example.com/example"
@@ -1640,6 +1904,7 @@ definitions:
             href: "/api/v2/endpoint"
             type: "application/json"
         name: "Example hook"
+        statements: ""
         _id: "5a580a01b4ff89217bdf9dc1"
         secret: "frobozz"
         url: "https://example.com/example"
@@ -1730,7 +1995,18 @@ definitions:
         type: "object"
         additionalProperties:
           $ref: "#/definitions/FeatureFlagConfig"
+      archivedDate:
+        type: "number"
+        format: "int64"
+        example: 1.44365223259E12
+        description: "A unix epoch time in milliseconds specifying the archived time\
+          \ of this flag."
+      archived:
+        type: "boolean"
+        example: false
+        description: "Whether or not this flag is archived."
     example:
+      archivedDate: 1.44365223259E12
       temporary: false
       _maintainer:
         firstName: "Alan"
@@ -1839,6 +2115,7 @@ definitions:
       goalIds:
       - "d7239405bd89c930e885aa76"
       - "405bc930e88d7239d895aa76"
+      archived: false
       includeInSnippet: false
       maintainerId: "561c579cd8fd5c2704000001"
       customProperties:
@@ -1874,7 +2151,8 @@ definitions:
           href: "/api/v2/endpoint"
           type: "application/json"
       items:
-      - temporary: false
+      - archivedDate: 1.44365223259E12
+        temporary: false
         _maintainer:
           firstName: "Alan"
           lastName: "Turing"
@@ -1982,6 +2260,7 @@ definitions:
         goalIds:
         - "d7239405bd89c930e885aa76"
         - "405bc930e88d7239d895aa76"
+        archived: false
         includeInSnippet: false
         maintainerId: "561c579cd8fd5c2704000001"
         customProperties:
@@ -1999,7 +2278,8 @@ definitions:
         name: "Test Feature"
         _version: 23
         key: "test-feature"
-      - temporary: false
+      - archivedDate: 1.44365223259E12
+        temporary: false
         _maintainer:
           firstName: "Alan"
           lastName: "Turing"
@@ -2107,6 +2387,7 @@ definitions:
         goalIds:
         - "d7239405bd89c930e885aa76"
         - "405bc930e88d7239d895aa76"
+        archived: false
         includeInSnippet: false
         maintainerId: "561c579cd8fd5c2704000001"
         customProperties:
@@ -2479,6 +2760,51 @@ definitions:
     properties:
       _links:
         $ref: "#/definitions/Links"
+    example:
+      _links:
+        next:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+        self:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+    additionalProperties:
+      $ref: "#/definitions/FeatureFlagStatusForQueriedEnvironment"
+  FeatureFlagStatuses:
+    type: "object"
+    properties:
+      _links:
+        $ref: "#/definitions/Links"
+      items:
+        type: "array"
+        items:
+          $ref: "#/definitions/FeatureFlagStatus"
+    example:
+      _links:
+        next:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+        self:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+      items:
+      - _links:
+          next:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+          self:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+      - _links:
+          next:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+          self:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+  FeatureFlagStatusForQueriedEnvironment:
+    type: "object"
+    properties:
       name:
         type: "string"
         description: "| Name     | Description |\n| --------:| ----------- |\n| new\
@@ -2503,23 +2829,18 @@ definitions:
     example:
       lastRequested: "2016-08-16T21:10:11.886Z"
       default: "{}"
-      _links:
-        next:
-          href: "/api/v2/endpoint"
-          type: "application/json"
-        self:
-          href: "/api/v2/endpoint"
-          type: "application/json"
       name: "new"
-  FeatureFlagStatuses:
+  FeatureFlagStatusAcrossEnvironments:
     type: "object"
     properties:
       _links:
         $ref: "#/definitions/Links"
-      items:
-        type: "array"
-        items:
-          $ref: "#/definitions/FeatureFlagStatus"
+      key:
+        type: "string"
+      environments:
+        type: "object"
+        additionalProperties:
+          $ref: "#/definitions/FeatureFlagStatusForQueriedEnvironment"
     example:
       _links:
         next:
@@ -2528,27 +2849,12 @@ definitions:
         self:
           href: "/api/v2/endpoint"
           type: "application/json"
-      items:
-      - lastRequested: "2016-08-16T21:10:11.886Z"
-        default: "{}"
-        _links:
-          next:
-            href: "/api/v2/endpoint"
-            type: "application/json"
-          self:
-            href: "/api/v2/endpoint"
-            type: "application/json"
-        name: "new"
-      - lastRequested: "2016-08-16T21:10:11.886Z"
-        default: "{}"
-        _links:
-          next:
-            href: "/api/v2/endpoint"
-            type: "application/json"
-          self:
-            href: "/api/v2/endpoint"
-            type: "application/json"
-        name: "new"
+      environments:
+        key:
+          lastRequested: "2016-08-16T21:10:11.886Z"
+          default: "{}"
+          name: "new"
+      key: "key"
   UserSegment:
     type: "object"
     required:
@@ -3761,6 +4067,403 @@ definitions:
           type: "string"
           example: ""
     description: "A name and value describing a custom property."
+  CustomPropertyValues:
+    type: "array"
+    description: "Values for this property."
+    items:
+      type: "string"
+    example:
+    - "Value 1"
+    - "Value 2"
+  UsageLinks:
+    type: "object"
+    properties:
+      parent:
+        $ref: "#/definitions/Link"
+      self:
+        $ref: "#/definitions/Link"
+      subseries:
+        type: "array"
+        description: "The following links that are in the response."
+        items:
+          $ref: "#/definitions/Link"
+    example:
+      parent:
+        href: "/api/v2/endpoint"
+        type: "application/json"
+      self:
+        href: "/api/v2/endpoint"
+        type: "application/json"
+      subseries:
+      - href: "/api/v2/endpoint"
+        type: "application/json"
+      - href: "/api/v2/endpoint"
+        type: "application/json"
+  StreamLinks:
+    type: "object"
+    properties:
+      parent:
+        $ref: "#/definitions/Link"
+      self:
+        $ref: "#/definitions/Link"
+      subseries:
+        type: "array"
+        description: "Links to endpoints that are in the request path."
+        items:
+          $ref: "#/definitions/Link"
+  Usage:
+    type: "object"
+    properties:
+      _links:
+        $ref: "#/definitions/UsageLinks"
+      series:
+        type: "array"
+        items:
+          $ref: "#/definitions/StreamUsageSeries"
+    example:
+      _links:
+        parent:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+        self:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+        subseries:
+        - href: "/api/v2/endpoint"
+          type: "application/json"
+        - href: "/api/v2/endpoint"
+          type: "application/json"
+      series:
+      - 0: 0.0
+        time: 1.5517404E12
+      - 0: 0.0
+        time: 1.5517404E12
+  UsageError:
+    type: "object"
+    properties:
+      message:
+        type: "string"
+        example: "This is a beta API, you must pass beta in the LD-API-Version header\
+          \ to use it."
+  Streams:
+    type: "object"
+    properties:
+      _links:
+        $ref: "#/definitions/StreamUsageLinks"
+    example:
+      _links:
+        parent:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+        self:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+        subseries:
+        - href: "/api/v2/endpoint"
+          type: "application/json"
+        - href: "/api/v2/endpoint"
+          type: "application/json"
+  Stream:
+    type: "object"
+    properties:
+      _links:
+        $ref: "#/definitions/StreamUsageLinks"
+      metadata:
+        type: "array"
+        items:
+          $ref: "#/definitions/StreamUsageMetadata"
+      series:
+        type: "array"
+        items:
+          $ref: "#/definitions/StreamUsageSeries"
+    example:
+      metadata:
+      - sdk: "ruby"
+        source: "server"
+        version: "5.4.3"
+      - sdk: "ruby"
+        source: "server"
+        version: "5.4.3"
+      _links:
+        parent:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+        self:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+        subseries:
+        - href: "/api/v2/endpoint"
+          type: "application/json"
+        - href: "/api/v2/endpoint"
+          type: "application/json"
+      series:
+      - 0: 0.0
+        time: 1.5517404E12
+      - 0: 0.0
+        time: 1.5517404E12
+  StreamUsageLinks:
+    type: "object"
+    properties:
+      parent:
+        $ref: "#/definitions/Link"
+      self:
+        $ref: "#/definitions/Link"
+      subseries:
+        type: "array"
+        description: "The following links that are in the response."
+        items:
+          $ref: "#/definitions/Link"
+    example:
+      parent:
+        href: "/api/v2/endpoint"
+        type: "application/json"
+      self:
+        href: "/api/v2/endpoint"
+        type: "application/json"
+      subseries:
+      - href: "/api/v2/endpoint"
+        type: "application/json"
+      - href: "/api/v2/endpoint"
+        type: "application/json"
+  StreamUsageSeries:
+    type: "object"
+    properties:
+      0:
+        type: "number"
+        format: "int64"
+        example: 0.0
+        description: "A key corresponding to a time series data point."
+      time:
+        type: "number"
+        format: "int64"
+        example: 1.5517404E12
+        description: "A unix epoch time in milliseconds specifying the creation time\
+          \ of this flag."
+    example:
+      0: 0.0
+      time: 1.5517404E12
+  StreamUsageMetadata:
+    type: "object"
+    properties:
+      sdk:
+        type: "string"
+        example: "ruby"
+        description: "The language of the sdk"
+      version:
+        type: "string"
+        example: "5.4.3"
+        description: "The version of the SDK"
+      source:
+        type: "string"
+        example: "server"
+    example:
+      sdk: "ruby"
+      source: "server"
+      version: "5.4.3"
+  StreamUsageError:
+    type: "object"
+    properties:
+      code:
+        type: "string"
+        example: "not_found"
+      message:
+        type: "string"
+        example: "Stream source not found"
+  StreamBySDK:
+    type: "object"
+    properties:
+      _links:
+        $ref: "#/definitions/StreamBySDKLinks"
+      metadata:
+        type: "array"
+        items:
+          $ref: "#/definitions/StreamBySDKLinksMetadata"
+      series:
+        type: "array"
+        items:
+          $ref: "#/definitions/StreamUsageSeries"
+    example:
+      metadata:
+      - sdk: "ruby"
+        source: "server"
+        version: "5.4.3"
+      - sdk: "ruby"
+        source: "server"
+        version: "5.4.3"
+      _links:
+        parent:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+        self:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+      series:
+      - 0: 0.0
+        time: 1.5517404E12
+      - 0: 0.0
+        time: 1.5517404E12
+  StreamBySDKLinks:
+    type: "object"
+    properties:
+      parent:
+        $ref: "#/definitions/Link"
+      self:
+        $ref: "#/definitions/Link"
+    example:
+      parent:
+        href: "/api/v2/endpoint"
+        type: "application/json"
+      self:
+        href: "/api/v2/endpoint"
+        type: "application/json"
+  StreamBySDKLinksMetadata:
+    type: "object"
+    properties:
+      sdk:
+        type: "string"
+        example: "ruby"
+      version:
+        type: "string"
+        example: "5.4.3"
+      source:
+        type: "string"
+        example: "server"
+    example:
+      sdk: "ruby"
+      source: "server"
+      version: "5.4.3"
+  StreamSDKVersion:
+    type: "object"
+    properties:
+      _links:
+        $ref: "#/definitions/StreamBySDKLinks"
+      sdkVersions:
+        type: "array"
+        items:
+          $ref: "#/definitions/StreamSDKVersionData"
+    example:
+      _links:
+        parent:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+        self:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+      sdkVersions:
+      - sdk: "ruby"
+        version: "5.4.3"
+      - sdk: "ruby"
+        version: "5.4.3"
+  StreamSDKVersionData:
+    type: "object"
+    properties:
+      sdk:
+        type: "string"
+        example: "ruby"
+        description: "The language of the sdk"
+      version:
+        type: "string"
+        example: "5.4.3"
+        description: "The version of the sdk"
+    example:
+      sdk: "ruby"
+      version: "5.4.3"
+  MAU:
+    type: "object"
+    properties:
+      _links:
+        $ref: "#/definitions/UsageLinks"
+      metadata:
+        type: "array"
+        items:
+          $ref: "#/definitions/StreamBySDKLinksMetadata"
+      series:
+        type: "array"
+        items:
+          $ref: "#/definitions/StreamUsageSeries"
+    example:
+      metadata:
+      - sdk: "ruby"
+        source: "server"
+        version: "5.4.3"
+      - sdk: "ruby"
+        source: "server"
+        version: "5.4.3"
+      _links:
+        parent:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+        self:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+        subseries:
+        - href: "/api/v2/endpoint"
+          type: "application/json"
+        - href: "/api/v2/endpoint"
+          type: "application/json"
+      series:
+      - 0: 0.0
+        time: 1.5517404E12
+      - 0: 0.0
+        time: 1.5517404E12
+  MAUbyCategory:
+    type: "object"
+    properties:
+      _links:
+        $ref: "#/definitions/StreamBySDKLinks"
+      metadata:
+        type: "array"
+        items:
+          $ref: "#/definitions/MAUMetadata"
+      series:
+        type: "array"
+        items:
+          $ref: "#/definitions/StreamUsageSeries"
+    example:
+      metadata:
+      - {}
+      - {}
+      _links:
+        parent:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+        self:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+      series:
+      - 0: 0.0
+        time: 1.5517404E12
+      - 0: 0.0
+        time: 1.5517404E12
+  MAUMetadata:
+    type: "object"
+  Events:
+    type: "object"
+    properties:
+      links:
+        $ref: "#/definitions/UsageLinks"
+    example:
+      links:
+        parent:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+        self:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+        subseries:
+        - href: "/api/v2/endpoint"
+          type: "application/json"
+        - href: "/api/v2/endpoint"
+          type: "application/json"
+  EvaluationUsageError:
+    type: "object"
+    properties:
+      code:
+        type: "string"
+        example: "not_found"
+      message:
+        type: "string"
+        example: "unknown environment"
   FeatureFlagCopyObject:
     type: "object"
     required:
@@ -3932,6 +4635,14 @@ definitions:
         type: "string"
         example: "Example hook"
         description: "The name of the webhook."
+      statements:
+        $ref: "#/definitions/Statements"
+      tags:
+        type: "array"
+        example: []
+        description: "Tags for the webhook."
+        items:
+          type: "string"
   customRoleBody:
     type: "object"
     required:
@@ -4288,7 +4999,40 @@ parameters:
       items:
         $ref: "#/definitions/PatchOperation"
     x-exportParamName: "PatchOnly"
+  StreamSource:
+    name: "source"
+    in: "path"
+    description: "The source of where the stream comes from."
+    required: true
+    type: "string"
+    x-exportParamName: "Source"
+  EventType:
+    name: "type"
+    in: "path"
+    description: "The type of event we would like to track."
+    required: true
+    type: "string"
+    x-exportParamName: "Type_"
+  EvaluationEnvId:
+    name: "envId"
+    in: "path"
+    description: "The environment id for the flag evaluations in question."
+    required: true
+    type: "string"
+    x-exportParamName: "EnvId"
+  EvaluationFlagKey:
+    name: "flagKey"
+    in: "path"
+    description: "The key of the flag we want metrics for."
+    required: true
+    type: "string"
+    x-exportParamName: "FlagKey"
 responses:
+  BetaApi403:
+    description: "This is a beta API, you must pass beta in the LD-API-Version header\
+      \ to use it."
+    schema:
+      $ref: "#/definitions/UsageError"
   CustomRole2xx:
     description: "Custom role response."
     schema:
@@ -4297,6 +5041,10 @@ responses:
     description: "Environment response."
     schema:
       $ref: "#/definitions/Environment"
+  EvaluationUsage404:
+    description: "The environment or flag you requested could not be found"
+    schema:
+      $ref: "#/definitions/EvaluationUsageError"
   Member2xx:
     description: "Member response."
     schema:
@@ -4321,6 +5069,10 @@ responses:
     description: "Invalid resource specifier."
   Standard409:
     description: "Status conflict."
+  StreamUsage404:
+    description: "The stream source you requested could not be found"
+    schema:
+      $ref: "#/definitions/StreamUsageError"
   UserSegment2xx:
     description: "User segment response."
     schema:
