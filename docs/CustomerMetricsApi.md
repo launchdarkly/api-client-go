@@ -1,24 +1,24 @@
-# \UsageApi
+# \CustomerMetricsApi
 
 All URIs are relative to *https://app.launchdarkly.com/api/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetEvaluations**](UsageApi.md#GetEvaluations) | **Get** /usage/evaluations/{envId}/{flagKey} | [BETA] Get events usage by event id and the feature flag key.
-[**GetEvent**](UsageApi.md#GetEvent) | **Get** /usage/events/{type} | [BETA] Get events usage by event type.
-[**GetEvents**](UsageApi.md#GetEvents) | **Get** /usage/events | [BETA] Get events usage endpoints.
-[**GetMAU**](UsageApi.md#GetMAU) | **Get** /usage/mau | [BETA] Get monthly active user data.
-[**GetMAUByCategory**](UsageApi.md#GetMAUByCategory) | **Get** /usage/mau/bycategory | [BETA] Get monthly active user data by category.
-[**GetStream**](UsageApi.md#GetStream) | **Get** /usage/streams/{source} | [BETA] Get a stream endpoint and return timeseries data.
-[**GetStreamBySDK**](UsageApi.md#GetStreamBySDK) | **Get** /usage/streams/{source}/bysdkversion | [BETA] Get a stream timeseries data by source show sdk version metadata.
-[**GetStreamSDKVersion**](UsageApi.md#GetStreamSDKVersion) | **Get** /usage/streams/{source}/sdkversions | [BETA] Get a stream timeseries data by source and show all sdk version associated.
-[**GetStreams**](UsageApi.md#GetStreams) | **Get** /usage/streams | [BETA] Returns a list of all streams.
-[**GetUsage**](UsageApi.md#GetUsage) | **Get** /usage | [BETA] Returns of the usage endpoints available.
+[**GetEvaluations**](CustomerMetricsApi.md#GetEvaluations) | **Get** /usage/evaluations/{envId}/{flagKey} | Get events usage by event id and the feature flag key.
+[**GetEvent**](CustomerMetricsApi.md#GetEvent) | **Get** /usage/events/{type} | Get events usage by event type.
+[**GetEvents**](CustomerMetricsApi.md#GetEvents) | **Get** /usage/events | Get events usage endpoints.
+[**GetMAU**](CustomerMetricsApi.md#GetMAU) | **Get** /usage/mau | Get monthly active user data.
+[**GetMAUByCategory**](CustomerMetricsApi.md#GetMAUByCategory) | **Get** /usage/mau/bycategory | Get monthly active user data by category.
+[**GetStream**](CustomerMetricsApi.md#GetStream) | **Get** /usage/streams/{source} | Get a stream endpoint and return timeseries data.
+[**GetStreamBySDK**](CustomerMetricsApi.md#GetStreamBySDK) | **Get** /usage/streams/{source}/bysdkversion | Get a stream timeseries data by source show sdk version metadata.
+[**GetStreamSDKVersion**](CustomerMetricsApi.md#GetStreamSDKVersion) | **Get** /usage/streams/{source}/sdkversions | Get a stream timeseries data by source and show all sdk version associated.
+[**GetStreams**](CustomerMetricsApi.md#GetStreams) | **Get** /usage/streams | Returns a list of all streams.
+[**GetUsage**](CustomerMetricsApi.md#GetUsage) | **Get** /usage | Returns of the usage endpoints available.
 
 
 # **GetEvaluations**
 > StreamSdkVersion GetEvaluations(ctx, envId, flagKey)
-[BETA] Get events usage by event id and the feature flag key.
+Get events usage by event id and the feature flag key.
 
 ### Required Parameters
 
@@ -45,7 +45,7 @@ Name | Type | Description  | Notes
 
 # **GetEvent**
 > StreamSdkVersion GetEvent(ctx, type_)
-[BETA] Get events usage by event type.
+Get events usage by event type.
 
 ### Required Parameters
 
@@ -71,7 +71,7 @@ Name | Type | Description  | Notes
 
 # **GetEvents**
 > Events GetEvents(ctx, )
-[BETA] Get events usage endpoints.
+Get events usage endpoints.
 
 ### Required Parameters
 This endpoint does not need any parameter.
@@ -93,7 +93,7 @@ This endpoint does not need any parameter.
 
 # **GetMAU**
 > Mau GetMAU(ctx, )
-[BETA] Get monthly active user data.
+Get monthly active user data.
 
 ### Required Parameters
 This endpoint does not need any parameter.
@@ -115,7 +115,7 @@ This endpoint does not need any parameter.
 
 # **GetMAUByCategory**
 > MaUbyCategory GetMAUByCategory(ctx, )
-[BETA] Get monthly active user data by category.
+Get monthly active user data by category.
 
 ### Required Parameters
 This endpoint does not need any parameter.
@@ -137,7 +137,7 @@ This endpoint does not need any parameter.
 
 # **GetStream**
 > Stream GetStream(ctx, source)
-[BETA] Get a stream endpoint and return timeseries data.
+Get a stream endpoint and return timeseries data.
 
 ### Required Parameters
 
@@ -163,7 +163,7 @@ Name | Type | Description  | Notes
 
 # **GetStreamBySDK**
 > StreamBySdk GetStreamBySDK(ctx, source)
-[BETA] Get a stream timeseries data by source show sdk version metadata.
+Get a stream timeseries data by source show sdk version metadata.
 
 ### Required Parameters
 
@@ -189,7 +189,7 @@ Name | Type | Description  | Notes
 
 # **GetStreamSDKVersion**
 > StreamSdkVersion GetStreamSDKVersion(ctx, source)
-[BETA] Get a stream timeseries data by source and show all sdk version associated.
+Get a stream timeseries data by source and show all sdk version associated.
 
 ### Required Parameters
 
@@ -215,7 +215,7 @@ Name | Type | Description  | Notes
 
 # **GetStreams**
 > Streams GetStreams(ctx, )
-[BETA] Returns a list of all streams.
+Returns a list of all streams.
 
 ### Required Parameters
 This endpoint does not need any parameter.
@@ -237,7 +237,7 @@ This endpoint does not need any parameter.
 
 # **GetUsage**
 > Usage GetUsage(ctx, )
-[BETA] Returns of the usage endpoints available.
+Returns of the usage endpoints available.
 
 ### Required Parameters
 This endpoint does not need any parameter.
