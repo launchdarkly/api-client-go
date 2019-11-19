@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Build custom integrations with the LaunchDarkly REST API"
-  version: "2.0.21"
+  version: "2.0.22"
   title: "LaunchDarkly REST API"
   termsOfService: "https://launchdarkly.com/terms"
   contact:
@@ -298,6 +298,24 @@ paths:
         required: false
         type: "string"
         x-exportParamName: "Env"
+        x-optionalDataType: "String"
+      - name: "summary"
+        in: "query"
+        description: "By default in api version >= 1, flags will _not_ include their\
+          \ list of prerequisites, targets or rules.  Set summary=0 to include these\
+          \ fields for each flag returned."
+        required: false
+        type: "string"
+        x-exportParamName: "Summary"
+        x-optionalDataType: "String"
+      - name: "archived"
+        in: "query"
+        description: "When set to 1, archived flags will be included in the list of\
+          \ flags returned.  By default, archived flags are not included in the list\
+          \ of flags."
+        required: false
+        type: "string"
+        x-exportParamName: "Archived"
         x-optionalDataType: "String"
       - name: "tag"
         in: "query"
@@ -2001,7 +2019,7 @@ definitions:
         description: "If defined, the webhooks post request will include a X-LD-Signature\
           \ header whose value will contain an HMAC SHA256 hex digest of the webhook\
           \ payload, using the secret as the key."
-      on:
+      "on":
         type: "boolean"
         example: true
         description: "Whether this webhook is enabled or not."
@@ -2030,7 +2048,7 @@ definitions:
       _id: "5a580a01b4ff89217bdf9dc1"
       secret: "frobozz"
       url: "https://example.com/example"
-      on: true
+      "on": true
       tags:
       - ""
       - ""
@@ -2064,7 +2082,7 @@ definitions:
         _id: "5a580a01b4ff89217bdf9dc1"
         secret: "frobozz"
         url: "https://example.com/example"
-        on: true
+        "on": true
         tags:
         - ""
         - ""
@@ -2080,7 +2098,7 @@ definitions:
         _id: "5a580a01b4ff89217bdf9dc1"
         secret: "frobozz"
         url: "https://example.com/example"
-        on: true
+        "on": true
         tags:
         - ""
         - ""
@@ -2279,7 +2297,7 @@ definitions:
             - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
             - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
             variation: 0
-          on: true
+          "on": true
       kind: "boolean"
       description: "This flag controls whether test feature is turned on or not."
       creationDate: 1.44365223259E12
@@ -2424,7 +2442,7 @@ definitions:
               - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
               - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
               variation: 0
-            on: true
+            "on": true
         kind: "boolean"
         description: "This flag controls whether test feature is turned on or not."
         creationDate: 1.44365223259E12
@@ -2551,7 +2569,7 @@ definitions:
               - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
               - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
               variation: 0
-            on: true
+            "on": true
         kind: "boolean"
         description: "This flag controls whether test feature is turned on or not."
         creationDate: 1.44365223259E12
@@ -2680,7 +2698,7 @@ definitions:
   FeatureFlagConfig:
     type: "object"
     properties:
-      on:
+      "on":
         type: "boolean"
       archived:
         type: "boolean"
@@ -2790,7 +2808,7 @@ definitions:
         - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
         - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
         variation: 0
-      on: true
+      "on": true
   Target:
     type: "object"
     properties:
@@ -3524,7 +3542,7 @@ definitions:
           topic: "test"
         description: "destination-specific configuration."
         properties: {}
-      on:
+      "on":
         type: "boolean"
         example: true
         description: "Whether the data export destination is on or not."
@@ -3546,7 +3564,7 @@ definitions:
         project: "cool-project"
         topic: "test"
       version: 2
-      on: true
+      "on": true
   Destinations:
     type: "object"
     properties:
@@ -3579,7 +3597,7 @@ definitions:
           project: "cool-project"
           topic: "test"
         version: 2
-        on: true
+        "on": true
       - _links:
           next:
             href: "/api/v2/endpoint"
@@ -3594,7 +3612,7 @@ definitions:
           project: "cool-project"
           topic: "test"
         version: 2
-        on: true
+        "on": true
   DestinationGooglePubSub:
     type: "object"
     properties:
@@ -4952,7 +4970,7 @@ definitions:
         type: "boolean"
         description: "If sign is false, the webhook will not include a signature header,\
           \ and the secret can be omitted."
-      on:
+      "on":
         type: "boolean"
         example: true
         description: "Whether this webhook is enabled or not."
@@ -5042,7 +5060,7 @@ definitions:
           topic: "test"
         description: "destination-specific configuration."
         properties: {}
-      on:
+      "on":
         type: "boolean"
         example: true
         description: "Whether the data export destination is on or not."
@@ -5160,6 +5178,25 @@ parameters:
     required: false
     type: "string"
     x-exportParamName: "Env"
+    x-optionalDataType: "String"
+  SummaryQuery:
+    name: "summary"
+    in: "query"
+    description: "By default in api version >= 1, flags will _not_ include their list\
+      \ of prerequisites, targets or rules.  Set summary=0 to include these fields\
+      \ for each flag returned."
+    required: false
+    type: "string"
+    x-exportParamName: "Summary"
+    x-optionalDataType: "String"
+  ArchivedQuery:
+    name: "archived"
+    in: "query"
+    description: "When set to 1, archived flags will be included in the list of flags\
+      \ returned.  By default, archived flags are not included in the list of flags."
+    required: false
+    type: "string"
+    x-exportParamName: "Archived"
     x-optionalDataType: "String"
   FeatureFlagKey:
     name: "featureFlagKey"

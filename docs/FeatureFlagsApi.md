@@ -208,6 +208,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **env** | **optional.String**| By default, each feature will include configurations for each environment. You can filter environments with the env query parameter. For example, setting env&#x3D;production will restrict the returned configurations to just your production environment. | 
+ **summary** | **optional.String**| By default in api version &gt;&#x3D; 1, flags will _not_ include their list of prerequisites, targets or rules.  Set summary&#x3D;0 to include these fields for each flag returned. | 
+ **archived** | **optional.String**| When set to 1, archived flags will be included in the list of flags returned.  By default, archived flags are not included in the list of flags. | 
  **tag** | **optional.String**| Filter by tag. A tag can be used to group flags across projects. | 
 
 ### Return type
