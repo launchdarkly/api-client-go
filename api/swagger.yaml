@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Build custom integrations with the LaunchDarkly REST API"
-  version: "2.0.22"
+  version: "2.0.23"
   title: "LaunchDarkly REST API"
   termsOfService: "https://launchdarkly.com/terms"
   contact:
@@ -305,18 +305,18 @@ paths:
           \ list of prerequisites, targets or rules.  Set summary=0 to include these\
           \ fields for each flag returned."
         required: false
-        type: "string"
+        type: "boolean"
         x-exportParamName: "Summary"
-        x-optionalDataType: "String"
+        x-optionalDataType: "Bool"
       - name: "archived"
         in: "query"
         description: "When set to 1, archived flags will be included in the list of\
           \ flags returned.  By default, archived flags are not included in the list\
           \ of flags."
         required: false
-        type: "string"
+        type: "boolean"
         x-exportParamName: "Archived"
-        x-optionalDataType: "String"
+        x-optionalDataType: "Bool"
       - name: "tag"
         in: "query"
         description: "Filter by tag. A tag can be used to group flags across projects."
@@ -2239,6 +2239,7 @@ definitions:
                 variation: 1
               - weight: 5
                 variation: 1
+              bucketBy: "bucketBy"
             clauses:
             - op: "in"
               negate: true
@@ -2260,6 +2261,7 @@ definitions:
                 variation: 1
               - weight: 5
                 variation: 1
+              bucketBy: "bucketBy"
             clauses:
             - op: "in"
               negate: true
@@ -2285,6 +2287,7 @@ definitions:
                 variation: 1
               - weight: 5
                 variation: 1
+              bucketBy: "bucketBy"
             variation: 5
           offVariation: 2
           version: 65
@@ -2384,6 +2387,7 @@ definitions:
                   variation: 1
                 - weight: 5
                   variation: 1
+                bucketBy: "bucketBy"
               clauses:
               - op: "in"
                 negate: true
@@ -2405,6 +2409,7 @@ definitions:
                   variation: 1
                 - weight: 5
                   variation: 1
+                bucketBy: "bucketBy"
               clauses:
               - op: "in"
                 negate: true
@@ -2430,6 +2435,7 @@ definitions:
                   variation: 1
                 - weight: 5
                   variation: 1
+                bucketBy: "bucketBy"
               variation: 5
             offVariation: 2
             version: 65
@@ -2511,6 +2517,7 @@ definitions:
                   variation: 1
                 - weight: 5
                   variation: 1
+                bucketBy: "bucketBy"
               clauses:
               - op: "in"
                 negate: true
@@ -2532,6 +2539,7 @@ definitions:
                   variation: 1
                 - weight: 5
                   variation: 1
+                bucketBy: "bucketBy"
               clauses:
               - op: "in"
                 negate: true
@@ -2557,6 +2565,7 @@ definitions:
                   variation: 1
                 - weight: 5
                   variation: 1
+                bucketBy: "bucketBy"
               variation: 5
             offVariation: 2
             version: 65
@@ -2750,6 +2759,7 @@ definitions:
             variation: 1
           - weight: 5
             variation: 1
+          bucketBy: "bucketBy"
         clauses:
         - op: "in"
           negate: true
@@ -2771,6 +2781,7 @@ definitions:
             variation: 1
           - weight: 5
             variation: 1
+          bucketBy: "bucketBy"
         clauses:
         - op: "in"
           negate: true
@@ -2796,6 +2807,7 @@ definitions:
             variation: 1
           - weight: 5
             variation: 1
+          bucketBy: "bucketBy"
         variation: 5
       offVariation: 2
       version: 65
@@ -2844,6 +2856,7 @@ definitions:
           variation: 1
         - weight: 5
           variation: 1
+        bucketBy: "bucketBy"
       clauses:
       - op: "in"
         negate: true
@@ -2873,10 +2886,13 @@ definitions:
           variation: 1
         - weight: 5
           variation: 1
+        bucketBy: "bucketBy"
       variation: 5
   Rollout:
     type: "object"
     properties:
+      bucketBy:
+        type: "string"
       variations:
         type: "array"
         items:
@@ -2887,6 +2903,7 @@ definitions:
         variation: 1
       - weight: 5
         variation: 1
+      bucketBy: "bucketBy"
   WeightedVariation:
     type: "object"
     properties:
@@ -5186,18 +5203,18 @@ parameters:
       \ of prerequisites, targets or rules.  Set summary=0 to include these fields\
       \ for each flag returned."
     required: false
-    type: "string"
+    type: "boolean"
     x-exportParamName: "Summary"
-    x-optionalDataType: "String"
+    x-optionalDataType: "Bool"
   ArchivedQuery:
     name: "archived"
     in: "query"
     description: "When set to 1, archived flags will be included in the list of flags\
       \ returned.  By default, archived flags are not included in the list of flags."
     required: false
-    type: "string"
+    type: "boolean"
     x-exportParamName: "Archived"
-    x-optionalDataType: "String"
+    x-optionalDataType: "Bool"
   FeatureFlagKey:
     name: "featureFlagKey"
     in: "path"
