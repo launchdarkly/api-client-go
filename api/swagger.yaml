@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Build custom integrations with the LaunchDarkly REST API"
-  version: "2.0.24"
+  version: "2.0.23"
   title: "LaunchDarkly REST API"
   termsOfService: "https://launchdarkly.com/terms"
   contact:
@@ -3802,11 +3802,45 @@ definitions:
         type: "number"
         example: 0.0
         description: "The default TTL for the new environment."
+      secureMode:
+        type: "boolean"
+        example: false
+        description: "Determines whether the environment is in secure mode."
+      defaultTrackEvents:
+        type: "boolean"
+        example: false
+        description: "Set to true to send detailed event information for newly created\
+          \ flags."
+      tags:
+        type: "array"
+        example:
+        - "tag1"
+        - "tag2"
+        description: "An array of tags for this environment."
+        items:
+          type: "string"
+      requireComments:
+        type: "boolean"
+        example: false
+        description: "Determines if this environment requires comments for flag and\
+          \ segment changes."
+      confirmChanges:
+        type: "boolean"
+        example: false
+        description: "Determines if this environment requires confirmation for flag\
+          \ and segment changes."
     example:
       color: "417505"
+      confirmChanges: false
       name: "Development"
       defaultTtl: 0.0
+      requireComments: false
+      secureMode: false
+      defaultTrackEvents: false
       key: "dev"
+      tags:
+      - "tag1"
+      - "tag2"
   User:
     type: "object"
     properties:
