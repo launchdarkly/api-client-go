@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Build custom integrations with the LaunchDarkly REST API"
-  version: "2.0.29"
+  version: "2.0.30"
   title: "LaunchDarkly REST API"
   termsOfService: "https://launchdarkly.com/terms"
   contact:
@@ -2000,6 +2000,18 @@ definitions:
       self:
         href: "/api/v2/endpoint"
         type: "application/json"
+  Site:
+    type: "object"
+    properties:
+      href:
+        type: "string"
+        example: "/features/sort.order"
+      type:
+        type: "string"
+        example: "text/html"
+    example:
+      href: "/features/sort.order"
+      type: "text/html"
   Webhook:
     type: "object"
     properties:
@@ -2225,12 +2237,6 @@ definitions:
           type: "application/json"
       environments:
         key:
-          prerequisites:
-          - key: "key"
-            variation: 7
-          - key: "key"
-            variation: 7
-          archived: true
           salt: "YWx0ZXJuYXRlLnBhZ2U="
           rules:
           - rollout:
@@ -2254,6 +2260,7 @@ definitions:
               - "Top Customers"
               attribute: "groups"
             _id: "_id"
+            trackEvents: true
             variation: 6
           - rollout:
               variations:
@@ -2276,7 +2283,25 @@ definitions:
               - "Top Customers"
               attribute: "groups"
             _id: "_id"
+            trackEvents: true
             variation: 6
+          version: 65
+          targets:
+          - values:
+            - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
+            - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
+            variation: 0
+          - values:
+            - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
+            - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
+            variation: 0
+          prerequisites:
+          - key: "key"
+            variation: 7
+          - key: "key"
+            variation: 7
+          archived: true
+          trackEventsFallthrough: true
           sel: "45501b9314dc4641841af774cb038b96"
           lastModified: 1469326565348
           trackEvents: false
@@ -2290,16 +2315,6 @@ definitions:
               bucketBy: "bucketBy"
             variation: 5
           offVariation: 2
-          version: 65
-          targets:
-          - values:
-            - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
-            - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
-            variation: 0
-          - values:
-            - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
-            - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
-            variation: 0
           "on": true
       kind: "boolean"
       description: "This flag controls whether test feature is turned on or not."
@@ -2373,12 +2388,6 @@ definitions:
             type: "application/json"
         environments:
           key:
-            prerequisites:
-            - key: "key"
-              variation: 7
-            - key: "key"
-              variation: 7
-            archived: true
             salt: "YWx0ZXJuYXRlLnBhZ2U="
             rules:
             - rollout:
@@ -2402,6 +2411,7 @@ definitions:
                 - "Top Customers"
                 attribute: "groups"
               _id: "_id"
+              trackEvents: true
               variation: 6
             - rollout:
                 variations:
@@ -2424,7 +2434,25 @@ definitions:
                 - "Top Customers"
                 attribute: "groups"
               _id: "_id"
+              trackEvents: true
               variation: 6
+            version: 65
+            targets:
+            - values:
+              - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
+              - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
+              variation: 0
+            - values:
+              - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
+              - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
+              variation: 0
+            prerequisites:
+            - key: "key"
+              variation: 7
+            - key: "key"
+              variation: 7
+            archived: true
+            trackEventsFallthrough: true
             sel: "45501b9314dc4641841af774cb038b96"
             lastModified: 1469326565348
             trackEvents: false
@@ -2438,16 +2466,6 @@ definitions:
                 bucketBy: "bucketBy"
               variation: 5
             offVariation: 2
-            version: 65
-            targets:
-            - values:
-              - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
-              - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
-              variation: 0
-            - values:
-              - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
-              - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
-              variation: 0
             "on": true
         kind: "boolean"
         description: "This flag controls whether test feature is turned on or not."
@@ -2503,12 +2521,6 @@ definitions:
             type: "application/json"
         environments:
           key:
-            prerequisites:
-            - key: "key"
-              variation: 7
-            - key: "key"
-              variation: 7
-            archived: true
             salt: "YWx0ZXJuYXRlLnBhZ2U="
             rules:
             - rollout:
@@ -2532,6 +2544,7 @@ definitions:
                 - "Top Customers"
                 attribute: "groups"
               _id: "_id"
+              trackEvents: true
               variation: 6
             - rollout:
                 variations:
@@ -2554,7 +2567,25 @@ definitions:
                 - "Top Customers"
                 attribute: "groups"
               _id: "_id"
+              trackEvents: true
               variation: 6
+            version: 65
+            targets:
+            - values:
+              - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
+              - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
+              variation: 0
+            - values:
+              - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
+              - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
+              variation: 0
+            prerequisites:
+            - key: "key"
+              variation: 7
+            - key: "key"
+              variation: 7
+            archived: true
+            trackEventsFallthrough: true
             sel: "45501b9314dc4641841af774cb038b96"
             lastModified: 1469326565348
             trackEvents: false
@@ -2568,16 +2599,6 @@ definitions:
                 bucketBy: "bucketBy"
               variation: 5
             offVariation: 2
-            version: 65
-            targets:
-            - values:
-              - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
-              - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
-              variation: 0
-            - values:
-              - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
-              - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
-              variation: 0
             "on": true
         kind: "boolean"
         description: "This flag controls whether test feature is turned on or not."
@@ -2744,13 +2765,12 @@ definitions:
         type: "boolean"
         example: false
         description: "Set to true to send detailed event information for this flag."
+      trackEventsFallthrough:
+        type: "boolean"
+        example: true
+        description: "Set to true to send detailed event information when targeting\
+          \ is enabled but no individual targeting rule is matched."
     example:
-      prerequisites:
-      - key: "key"
-        variation: 7
-      - key: "key"
-        variation: 7
-      archived: true
       salt: "YWx0ZXJuYXRlLnBhZ2U="
       rules:
       - rollout:
@@ -2774,6 +2794,7 @@ definitions:
           - "Top Customers"
           attribute: "groups"
         _id: "_id"
+        trackEvents: true
         variation: 6
       - rollout:
           variations:
@@ -2796,7 +2817,25 @@ definitions:
           - "Top Customers"
           attribute: "groups"
         _id: "_id"
+        trackEvents: true
         variation: 6
+      version: 65
+      targets:
+      - values:
+        - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
+        - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
+        variation: 0
+      - values:
+        - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
+        - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
+        variation: 0
+      prerequisites:
+      - key: "key"
+        variation: 7
+      - key: "key"
+        variation: 7
+      archived: true
+      trackEventsFallthrough: true
       sel: "45501b9314dc4641841af774cb038b96"
       lastModified: 1469326565348
       trackEvents: false
@@ -2810,16 +2849,6 @@ definitions:
           bucketBy: "bucketBy"
         variation: 5
       offVariation: 2
-      version: 65
-      targets:
-      - values:
-        - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
-        - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
-        variation: 0
-      - values:
-        - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
-        - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
-        variation: 0
       "on": true
   Target:
     type: "object"
@@ -2843,6 +2872,8 @@ definitions:
         type: "string"
       variation:
         type: "integer"
+      trackEvents:
+        type: "boolean"
       rollout:
         $ref: "#/definitions/Rollout"
       clauses:
@@ -2871,6 +2902,7 @@ definitions:
         - "Top Customers"
         attribute: "groups"
       _id: "_id"
+      trackEvents: true
       variation: 6
   Fallthrough:
     type: "object"
@@ -3144,10 +3176,40 @@ definitions:
         type: "integer"
       _links:
         $ref: "#/definitions/Links"
+      _flags:
+        type: "array"
+        readOnly: true
+        items:
+          $ref: "#/definitions/FlagListItem"
     example:
       excluded:
       - "excluded"
       - "excluded"
+      _flags:
+      - _links:
+          next:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+          self:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+        _site:
+          href: "/features/sort.order"
+          type: "text/html"
+        name: "name"
+        key: "key"
+      - _links:
+          next:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+          self:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+        _site:
+          href: "/features/sort.order"
+          type: "text/html"
+        name: "name"
+        key: "key"
       _links:
         next:
           href: "/api/v2/endpoint"
@@ -3245,6 +3307,31 @@ definitions:
       - excluded:
         - "excluded"
         - "excluded"
+        _flags:
+        - _links:
+            next:
+              href: "/api/v2/endpoint"
+              type: "application/json"
+            self:
+              href: "/api/v2/endpoint"
+              type: "application/json"
+          _site:
+            href: "/features/sort.order"
+            type: "text/html"
+          name: "name"
+          key: "key"
+        - _links:
+            next:
+              href: "/api/v2/endpoint"
+              type: "application/json"
+            self:
+              href: "/api/v2/endpoint"
+              type: "application/json"
+          _site:
+            href: "/features/sort.order"
+            type: "text/html"
+          name: "name"
+          key: "key"
         _links:
           next:
             href: "/api/v2/endpoint"
@@ -3297,6 +3384,31 @@ definitions:
       - excluded:
         - "excluded"
         - "excluded"
+        _flags:
+        - _links:
+            next:
+              href: "/api/v2/endpoint"
+              type: "application/json"
+            self:
+              href: "/api/v2/endpoint"
+              type: "application/json"
+          _site:
+            href: "/features/sort.order"
+            type: "text/html"
+          name: "name"
+          key: "key"
+        - _links:
+            next:
+              href: "/api/v2/endpoint"
+              type: "application/json"
+            self:
+              href: "/api/v2/endpoint"
+              type: "application/json"
+          _site:
+            href: "/features/sort.order"
+            type: "text/html"
+          name: "name"
+          key: "key"
         _links:
           next:
             href: "/api/v2/endpoint"
@@ -3361,6 +3473,9 @@ definitions:
       name:
         type: "string"
         example: "Zentasks"
+      includeInSnippetByDefault:
+        type: "boolean"
+        example: true
       environments:
         type: "array"
         items:
@@ -3371,6 +3486,7 @@ definitions:
         items:
           type: "string"
     example:
+      includeInSnippetByDefault: true
       _links:
         next:
           href: "/api/v2/endpoint"
@@ -3445,7 +3561,8 @@ definitions:
           href: "/api/v2/endpoint"
           type: "application/json"
       items:
-      - _links:
+      - includeInSnippetByDefault: true
+        _links:
           next:
             href: "/api/v2/endpoint"
             type: "application/json"
@@ -3501,7 +3618,8 @@ definitions:
         tags:
         - "tags"
         - "tags"
-      - _links:
+      - includeInSnippetByDefault: true
+        _links:
           next:
             href: "/api/v2/endpoint"
             type: "application/json"
@@ -4958,6 +5076,30 @@ definitions:
     - "updateRules"
     - "updateFallthrough"
     - "updateOffVariation"
+  FlagListItem:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      key:
+        type: "string"
+      _links:
+        $ref: "#/definitions/Links"
+      _site:
+        $ref: "#/definitions/Site"
+    example:
+      _links:
+        next:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+        self:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+      _site:
+        href: "/features/sort.order"
+        type: "text/html"
+      name: "name"
+      key: "key"
   projectBody:
     type: "object"
     required:

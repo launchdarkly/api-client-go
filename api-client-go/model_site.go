@@ -10,5 +10,7 @@
 
 package ldapi
 
-type Statements struct {
+type Site struct {
+	Href string `json:"href,omitempty"`
+	Type_ string `json:"type,omitempty"`
 }
