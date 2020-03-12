@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Build custom integrations with the LaunchDarkly REST API"
-  version: "2.0.30"
+  version: "2.0.31"
   title: "LaunchDarkly REST API"
   termsOfService: "https://launchdarkly.com/terms"
   contact:
@@ -2040,7 +2040,9 @@ definitions:
         example: "Example hook"
         description: "The name of the webhook."
       statements:
-        $ref: "#/definitions/Statements"
+        type: "array"
+        items:
+          $ref: "#/definitions/Statement"
       tags:
         type: "array"
         description: "Tags assigned to this webhook."
@@ -2056,7 +2058,33 @@ definitions:
           href: "/api/v2/endpoint"
           type: "application/json"
       name: "Example hook"
-      statements: ""
+      statements:
+      - notActions:
+        - "updateOn"
+        - "updateOn"
+        notResources:
+        - "proj/*:env/*:flag/my-flag"
+        - "proj/*:env/*:flag/my-flag"
+        effect: "allow"
+        resources:
+        - "proj/*:env/*:flag/my-flag"
+        - "proj/*:env/*:flag/my-flag"
+        actions:
+        - "updateOn"
+        - "updateOn"
+      - notActions:
+        - "updateOn"
+        - "updateOn"
+        notResources:
+        - "proj/*:env/*:flag/my-flag"
+        - "proj/*:env/*:flag/my-flag"
+        effect: "allow"
+        resources:
+        - "proj/*:env/*:flag/my-flag"
+        - "proj/*:env/*:flag/my-flag"
+        actions:
+        - "updateOn"
+        - "updateOn"
       _id: "5a580a01b4ff89217bdf9dc1"
       secret: "frobozz"
       url: "https://example.com/example"
@@ -2090,7 +2118,33 @@ definitions:
             href: "/api/v2/endpoint"
             type: "application/json"
         name: "Example hook"
-        statements: ""
+        statements:
+        - notActions:
+          - "updateOn"
+          - "updateOn"
+          notResources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          effect: "allow"
+          resources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          actions:
+          - "updateOn"
+          - "updateOn"
+        - notActions:
+          - "updateOn"
+          - "updateOn"
+          notResources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          effect: "allow"
+          resources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          actions:
+          - "updateOn"
+          - "updateOn"
         _id: "5a580a01b4ff89217bdf9dc1"
         secret: "frobozz"
         url: "https://example.com/example"
@@ -2106,7 +2160,33 @@ definitions:
             href: "/api/v2/endpoint"
             type: "application/json"
         name: "Example hook"
-        statements: ""
+        statements:
+        - notActions:
+          - "updateOn"
+          - "updateOn"
+          notResources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          effect: "allow"
+          resources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          actions:
+          - "updateOn"
+          - "updateOn"
+        - notActions:
+          - "updateOn"
+          - "updateOn"
+          notResources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          effect: "allow"
+          resources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          actions:
+          - "updateOn"
+          - "updateOn"
         _id: "5a580a01b4ff89217bdf9dc1"
         secret: "frobozz"
         url: "https://example.com/example"
@@ -4365,10 +4445,6 @@ definitions:
               href: "/api/v2/users/lacuna/production/Abbie_Braun/flags/alternate.page"
               type: "application/json"
           _value: "false,"
-  Statements:
-    type: "array"
-    items:
-      $ref: "#/definitions/Statement"
   Statement:
     type: "object"
     properties:
@@ -4405,6 +4481,20 @@ definitions:
         enum:
         - "allow"
         - "deny"
+    example:
+      notActions:
+      - "updateOn"
+      - "updateOn"
+      notResources:
+      - "proj/*:env/*:flag/my-flag"
+      - "proj/*:env/*:flag/my-flag"
+      effect: "allow"
+      resources:
+      - "proj/*:env/*:flag/my-flag"
+      - "proj/*:env/*:flag/my-flag"
+      actions:
+      - "updateOn"
+      - "updateOn"
   Role:
     type: "string"
     enum:
@@ -5258,7 +5348,9 @@ definitions:
         example: "Example hook"
         description: "The name of the webhook."
       statements:
-        $ref: "#/definitions/Statements"
+        type: "array"
+        items:
+          $ref: "#/definitions/Statement"
       tags:
         type: "array"
         example: []
@@ -5310,7 +5402,9 @@ definitions:
           example: "revenue-team"
           description: "The 20-hexdigit id or the key for a custom role."
       inlineRole:
-        $ref: "#/definitions/Statements"
+        type: "array"
+        items:
+          $ref: "#/definitions/Statement"
   destinationBody:
     type: "object"
     required:
