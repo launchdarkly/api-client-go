@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Build custom integrations with the LaunchDarkly REST API"
-  version: "2.0.26"
+  version: "2.0.32"
   title: "LaunchDarkly REST API"
   termsOfService: "https://launchdarkly.com/terms"
   contact:
@@ -2000,6 +2000,18 @@ definitions:
       self:
         href: "/api/v2/endpoint"
         type: "application/json"
+  Site:
+    type: "object"
+    properties:
+      href:
+        type: "string"
+        example: "/features/sort.order"
+      type:
+        type: "string"
+        example: "text/html"
+    example:
+      href: "/features/sort.order"
+      type: "text/html"
   Webhook:
     type: "object"
     properties:
@@ -2028,7 +2040,9 @@ definitions:
         example: "Example hook"
         description: "The name of the webhook."
       statements:
-        $ref: "#/definitions/Statements"
+        type: "array"
+        items:
+          $ref: "#/definitions/Statement"
       tags:
         type: "array"
         description: "Tags assigned to this webhook."
@@ -2044,7 +2058,33 @@ definitions:
           href: "/api/v2/endpoint"
           type: "application/json"
       name: "Example hook"
-      statements: ""
+      statements:
+      - notActions:
+        - "updateOn"
+        - "updateOn"
+        notResources:
+        - "proj/*:env/*:flag/my-flag"
+        - "proj/*:env/*:flag/my-flag"
+        effect: "allow"
+        resources:
+        - "proj/*:env/*:flag/my-flag"
+        - "proj/*:env/*:flag/my-flag"
+        actions:
+        - "updateOn"
+        - "updateOn"
+      - notActions:
+        - "updateOn"
+        - "updateOn"
+        notResources:
+        - "proj/*:env/*:flag/my-flag"
+        - "proj/*:env/*:flag/my-flag"
+        effect: "allow"
+        resources:
+        - "proj/*:env/*:flag/my-flag"
+        - "proj/*:env/*:flag/my-flag"
+        actions:
+        - "updateOn"
+        - "updateOn"
       _id: "5a580a01b4ff89217bdf9dc1"
       secret: "frobozz"
       url: "https://example.com/example"
@@ -2078,7 +2118,33 @@ definitions:
             href: "/api/v2/endpoint"
             type: "application/json"
         name: "Example hook"
-        statements: ""
+        statements:
+        - notActions:
+          - "updateOn"
+          - "updateOn"
+          notResources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          effect: "allow"
+          resources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          actions:
+          - "updateOn"
+          - "updateOn"
+        - notActions:
+          - "updateOn"
+          - "updateOn"
+          notResources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          effect: "allow"
+          resources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          actions:
+          - "updateOn"
+          - "updateOn"
         _id: "5a580a01b4ff89217bdf9dc1"
         secret: "frobozz"
         url: "https://example.com/example"
@@ -2094,7 +2160,33 @@ definitions:
             href: "/api/v2/endpoint"
             type: "application/json"
         name: "Example hook"
-        statements: ""
+        statements:
+        - notActions:
+          - "updateOn"
+          - "updateOn"
+          notResources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          effect: "allow"
+          resources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          actions:
+          - "updateOn"
+          - "updateOn"
+        - notActions:
+          - "updateOn"
+          - "updateOn"
+          notResources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          effect: "allow"
+          resources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          actions:
+          - "updateOn"
+          - "updateOn"
         _id: "5a580a01b4ff89217bdf9dc1"
         secret: "frobozz"
         url: "https://example.com/example"
@@ -2195,6 +2287,8 @@ definitions:
         type: "boolean"
         example: false
         description: "Whether or not this flag is archived."
+      defaults:
+        $ref: "#/definitions/Defaults"
     example:
       archivedDate: 1.44365223259E12
       temporary: false
@@ -2225,12 +2319,6 @@ definitions:
           type: "application/json"
       environments:
         key:
-          prerequisites:
-          - key: "key"
-            variation: 7
-          - key: "key"
-            variation: 7
-          archived: true
           salt: "YWx0ZXJuYXRlLnBhZ2U="
           rules:
           - rollout:
@@ -2254,6 +2342,7 @@ definitions:
               - "Top Customers"
               attribute: "groups"
             _id: "_id"
+            trackEvents: true
             variation: 6
           - rollout:
               variations:
@@ -2276,7 +2365,25 @@ definitions:
               - "Top Customers"
               attribute: "groups"
             _id: "_id"
+            trackEvents: true
             variation: 6
+          version: 65
+          targets:
+          - values:
+            - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
+            - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
+            variation: 0
+          - values:
+            - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
+            - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
+            variation: 0
+          prerequisites:
+          - key: "key"
+            variation: 7
+          - key: "key"
+            variation: 7
+          archived: true
+          trackEventsFallthrough: true
           sel: "45501b9314dc4641841af774cb038b96"
           lastModified: 1469326565348
           trackEvents: false
@@ -2290,16 +2397,6 @@ definitions:
               bucketBy: "bucketBy"
             variation: 5
           offVariation: 2
-          version: 65
-          targets:
-          - values:
-            - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
-            - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
-            variation: 0
-          - values:
-            - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
-            - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
-            variation: 0
           "on": true
       kind: "boolean"
       description: "This flag controls whether test feature is turned on or not."
@@ -2320,6 +2417,9 @@ definitions:
         deprecated:
           name: "Deprecated Date"
           value: []
+      defaults:
+        onVariation: 9
+        offVariation: 3
       variations:
       - value: "a"
       - value: "b"
@@ -2373,12 +2473,6 @@ definitions:
             type: "application/json"
         environments:
           key:
-            prerequisites:
-            - key: "key"
-              variation: 7
-            - key: "key"
-              variation: 7
-            archived: true
             salt: "YWx0ZXJuYXRlLnBhZ2U="
             rules:
             - rollout:
@@ -2402,6 +2496,7 @@ definitions:
                 - "Top Customers"
                 attribute: "groups"
               _id: "_id"
+              trackEvents: true
               variation: 6
             - rollout:
                 variations:
@@ -2424,7 +2519,25 @@ definitions:
                 - "Top Customers"
                 attribute: "groups"
               _id: "_id"
+              trackEvents: true
               variation: 6
+            version: 65
+            targets:
+            - values:
+              - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
+              - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
+              variation: 0
+            - values:
+              - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
+              - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
+              variation: 0
+            prerequisites:
+            - key: "key"
+              variation: 7
+            - key: "key"
+              variation: 7
+            archived: true
+            trackEventsFallthrough: true
             sel: "45501b9314dc4641841af774cb038b96"
             lastModified: 1469326565348
             trackEvents: false
@@ -2438,16 +2551,6 @@ definitions:
                 bucketBy: "bucketBy"
               variation: 5
             offVariation: 2
-            version: 65
-            targets:
-            - values:
-              - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
-              - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
-              variation: 0
-            - values:
-              - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
-              - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
-              variation: 0
             "on": true
         kind: "boolean"
         description: "This flag controls whether test feature is turned on or not."
@@ -2468,6 +2571,9 @@ definitions:
           deprecated:
             name: "Deprecated Date"
             value: []
+        defaults:
+          onVariation: 9
+          offVariation: 3
         variations:
         - value: "a"
         - value: "b"
@@ -2503,12 +2609,6 @@ definitions:
             type: "application/json"
         environments:
           key:
-            prerequisites:
-            - key: "key"
-              variation: 7
-            - key: "key"
-              variation: 7
-            archived: true
             salt: "YWx0ZXJuYXRlLnBhZ2U="
             rules:
             - rollout:
@@ -2532,6 +2632,7 @@ definitions:
                 - "Top Customers"
                 attribute: "groups"
               _id: "_id"
+              trackEvents: true
               variation: 6
             - rollout:
                 variations:
@@ -2554,7 +2655,25 @@ definitions:
                 - "Top Customers"
                 attribute: "groups"
               _id: "_id"
+              trackEvents: true
               variation: 6
+            version: 65
+            targets:
+            - values:
+              - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
+              - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
+              variation: 0
+            - values:
+              - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
+              - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
+              variation: 0
+            prerequisites:
+            - key: "key"
+              variation: 7
+            - key: "key"
+              variation: 7
+            archived: true
+            trackEventsFallthrough: true
             sel: "45501b9314dc4641841af774cb038b96"
             lastModified: 1469326565348
             trackEvents: false
@@ -2568,16 +2687,6 @@ definitions:
                 bucketBy: "bucketBy"
               variation: 5
             offVariation: 2
-            version: 65
-            targets:
-            - values:
-              - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
-              - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
-              variation: 0
-            - values:
-              - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
-              - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
-              variation: 0
             "on": true
         kind: "boolean"
         description: "This flag controls whether test feature is turned on or not."
@@ -2598,6 +2707,9 @@ definitions:
           deprecated:
             name: "Deprecated Date"
             value: []
+        defaults:
+          onVariation: 9
+          offVariation: 3
         variations:
         - value: "a"
         - value: "b"
@@ -2744,13 +2856,12 @@ definitions:
         type: "boolean"
         example: false
         description: "Set to true to send detailed event information for this flag."
+      trackEventsFallthrough:
+        type: "boolean"
+        example: true
+        description: "Set to true to send detailed event information when targeting\
+          \ is enabled but no individual targeting rule is matched."
     example:
-      prerequisites:
-      - key: "key"
-        variation: 7
-      - key: "key"
-        variation: 7
-      archived: true
       salt: "YWx0ZXJuYXRlLnBhZ2U="
       rules:
       - rollout:
@@ -2774,6 +2885,7 @@ definitions:
           - "Top Customers"
           attribute: "groups"
         _id: "_id"
+        trackEvents: true
         variation: 6
       - rollout:
           variations:
@@ -2796,7 +2908,25 @@ definitions:
           - "Top Customers"
           attribute: "groups"
         _id: "_id"
+        trackEvents: true
         variation: 6
+      version: 65
+      targets:
+      - values:
+        - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
+        - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
+        variation: 0
+      - values:
+        - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
+        - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
+        variation: 0
+      prerequisites:
+      - key: "key"
+        variation: 7
+      - key: "key"
+        variation: 7
+      archived: true
+      trackEventsFallthrough: true
       sel: "45501b9314dc4641841af774cb038b96"
       lastModified: 1469326565348
       trackEvents: false
@@ -2810,16 +2940,6 @@ definitions:
           bucketBy: "bucketBy"
         variation: 5
       offVariation: 2
-      version: 65
-      targets:
-      - values:
-        - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
-        - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
-        variation: 0
-      - values:
-        - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
-        - "\"1461797806427-7-115540266\", \"00142875-a39d-4028-a3b7-987ccd151649\""
-        variation: 0
       "on": true
   Target:
     type: "object"
@@ -2843,6 +2963,8 @@ definitions:
         type: "string"
       variation:
         type: "integer"
+      trackEvents:
+        type: "boolean"
       rollout:
         $ref: "#/definitions/Rollout"
       clauses:
@@ -2871,6 +2993,7 @@ definitions:
         - "Top Customers"
         attribute: "groups"
       _id: "_id"
+      trackEvents: true
       variation: 6
   Fallthrough:
     type: "object"
@@ -2952,6 +3075,23 @@ definitions:
       value:
         type: "object"
         properties: {}
+  Defaults:
+    type: "object"
+    required:
+    - "offVariation"
+    - "onVariation"
+    properties:
+      onVariation:
+        type: "integer"
+        description: "The index of the variation to be served when a flag's targeting\
+          \ is on (default variation)."
+      offVariation:
+        type: "integer"
+        description: "The index of the variation to be served when a flag is off."
+    description: "Default values to be used when a new environment is created."
+    example:
+      onVariation: 9
+      offVariation: 3
   Prerequisite:
     type: "object"
     properties:
@@ -3144,10 +3284,40 @@ definitions:
         type: "integer"
       _links:
         $ref: "#/definitions/Links"
+      _flags:
+        type: "array"
+        readOnly: true
+        items:
+          $ref: "#/definitions/FlagListItem"
     example:
       excluded:
       - "excluded"
       - "excluded"
+      _flags:
+      - _links:
+          next:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+          self:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+        _site:
+          href: "/features/sort.order"
+          type: "text/html"
+        name: "name"
+        key: "key"
+      - _links:
+          next:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+          self:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+        _site:
+          href: "/features/sort.order"
+          type: "text/html"
+        name: "name"
+        key: "key"
       _links:
         next:
           href: "/api/v2/endpoint"
@@ -3245,6 +3415,31 @@ definitions:
       - excluded:
         - "excluded"
         - "excluded"
+        _flags:
+        - _links:
+            next:
+              href: "/api/v2/endpoint"
+              type: "application/json"
+            self:
+              href: "/api/v2/endpoint"
+              type: "application/json"
+          _site:
+            href: "/features/sort.order"
+            type: "text/html"
+          name: "name"
+          key: "key"
+        - _links:
+            next:
+              href: "/api/v2/endpoint"
+              type: "application/json"
+            self:
+              href: "/api/v2/endpoint"
+              type: "application/json"
+          _site:
+            href: "/features/sort.order"
+            type: "text/html"
+          name: "name"
+          key: "key"
         _links:
           next:
             href: "/api/v2/endpoint"
@@ -3297,6 +3492,31 @@ definitions:
       - excluded:
         - "excluded"
         - "excluded"
+        _flags:
+        - _links:
+            next:
+              href: "/api/v2/endpoint"
+              type: "application/json"
+            self:
+              href: "/api/v2/endpoint"
+              type: "application/json"
+          _site:
+            href: "/features/sort.order"
+            type: "text/html"
+          name: "name"
+          key: "key"
+        - _links:
+            next:
+              href: "/api/v2/endpoint"
+              type: "application/json"
+            self:
+              href: "/api/v2/endpoint"
+              type: "application/json"
+          _site:
+            href: "/features/sort.order"
+            type: "text/html"
+          name: "name"
+          key: "key"
         _links:
           next:
             href: "/api/v2/endpoint"
@@ -3361,6 +3581,9 @@ definitions:
       name:
         type: "string"
         example: "Zentasks"
+      includeInSnippetByDefault:
+        type: "boolean"
+        example: true
       environments:
         type: "array"
         items:
@@ -3371,6 +3594,7 @@ definitions:
         items:
           type: "string"
     example:
+      includeInSnippetByDefault: true
       _links:
         next:
           href: "/api/v2/endpoint"
@@ -3445,7 +3669,8 @@ definitions:
           href: "/api/v2/endpoint"
           type: "application/json"
       items:
-      - _links:
+      - includeInSnippetByDefault: true
+        _links:
           next:
             href: "/api/v2/endpoint"
             type: "application/json"
@@ -3501,7 +3726,8 @@ definitions:
         tags:
         - "tags"
         - "tags"
-      - _links:
+      - includeInSnippetByDefault: true
+        _links:
           next:
             href: "/api/v2/endpoint"
             type: "application/json"
@@ -4247,10 +4473,6 @@ definitions:
               href: "/api/v2/users/lacuna/production/Abbie_Braun/flags/alternate.page"
               type: "application/json"
           _value: "false,"
-  Statements:
-    type: "array"
-    items:
-      $ref: "#/definitions/Statement"
   Statement:
     type: "object"
     properties:
@@ -4260,7 +4482,7 @@ definitions:
           type: "string"
           example: "proj/*:env/*:flag/my-flag"
           description: "A resource specifier string"
-      notresources:
+      notResources:
         type: "array"
         description: "Targeted resource will be those resources NOT in this list.\
           \ The \"resources`\" field must be empty to use this field."
@@ -4274,7 +4496,7 @@ definitions:
           type: "string"
           example: "updateOn"
           description: "An action to perform on a resource."
-      notactions:
+      notActions:
         type: "array"
         description: "Targeted actions will be those actions NOT in this list. The\
           \ \"actions\" field must be empty to use this field."
@@ -4287,6 +4509,20 @@ definitions:
         enum:
         - "allow"
         - "deny"
+    example:
+      notActions:
+      - "updateOn"
+      - "updateOn"
+      notResources:
+      - "proj/*:env/*:flag/my-flag"
+      - "proj/*:env/*:flag/my-flag"
+      effect: "allow"
+      resources:
+      - "proj/*:env/*:flag/my-flag"
+      - "proj/*:env/*:flag/my-flag"
+      actions:
+      - "updateOn"
+      - "updateOn"
   Role:
     type: "string"
     enum:
@@ -4332,14 +4568,26 @@ definitions:
       _id: "5a580a01b4ff89217bdf9dc1"
       key: "revenue-team"
       policy:
-      - effect: "deny"
+      - notActions:
+        - "updateOn"
+        - "updateOn"
+        notResources:
+        - "proj/*:env/*:flag/my-flag"
+        - "proj/*:env/*:flag/my-flag"
+        effect: "deny"
         resources:
         - "proj/*:env/*:flag/my-flag"
         - "proj/*:env/*:flag/my-flag"
         actions:
         - "updateOn"
         - "updateOn"
-      - effect: "deny"
+      - notActions:
+        - "updateOn"
+        - "updateOn"
+        notResources:
+        - "proj/*:env/*:flag/my-flag"
+        - "proj/*:env/*:flag/my-flag"
+        effect: "deny"
         resources:
         - "proj/*:env/*:flag/my-flag"
         - "proj/*:env/*:flag/my-flag"
@@ -4376,14 +4624,26 @@ definitions:
         _id: "5a580a01b4ff89217bdf9dc1"
         key: "revenue-team"
         policy:
-        - effect: "deny"
+        - notActions:
+          - "updateOn"
+          - "updateOn"
+          notResources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          effect: "deny"
           resources:
           - "proj/*:env/*:flag/my-flag"
           - "proj/*:env/*:flag/my-flag"
           actions:
           - "updateOn"
           - "updateOn"
-        - effect: "deny"
+        - notActions:
+          - "updateOn"
+          - "updateOn"
+          notResources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          effect: "deny"
           resources:
           - "proj/*:env/*:flag/my-flag"
           - "proj/*:env/*:flag/my-flag"
@@ -4402,14 +4662,26 @@ definitions:
         _id: "5a580a01b4ff89217bdf9dc1"
         key: "revenue-team"
         policy:
-        - effect: "deny"
+        - notActions:
+          - "updateOn"
+          - "updateOn"
+          notResources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          effect: "deny"
           resources:
           - "proj/*:env/*:flag/my-flag"
           - "proj/*:env/*:flag/my-flag"
           actions:
           - "updateOn"
           - "updateOn"
-        - effect: "deny"
+        - notActions:
+          - "updateOn"
+          - "updateOn"
+          notResources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          effect: "deny"
           resources:
           - "proj/*:env/*:flag/my-flag"
           - "proj/*:env/*:flag/my-flag"
@@ -4425,8 +4697,24 @@ definitions:
           type: "string"
           example: "proj/*:env/*:flag/my-flag"
           description: "A resource specifier string"
+      notResources:
+        type: "array"
+        description: "Targeted resource will be those resources NOT in this list.\
+          \ The \"resources`\" field must be empty to use this field."
+        items:
+          type: "string"
+          example: "proj/*:env/*:flag/my-flag"
+          description: "A resource specifier string"
       actions:
         type: "array"
+        items:
+          type: "string"
+          example: "updateOn"
+          description: "An action to perform on a resource."
+      notActions:
+        type: "array"
+        description: "Targeted actions will be those actions NOT in this list. The\
+          \ \"actions\" field must be empty to use this field."
         items:
           type: "string"
           example: "updateOn"
@@ -4436,6 +4724,12 @@ definitions:
         example: "deny"
         description: "Effect of the policy - allow or deny."
     example:
+      notActions:
+      - "updateOn"
+      - "updateOn"
+      notResources:
+      - "proj/*:env/*:flag/my-flag"
+      - "proj/*:env/*:flag/my-flag"
       effect: "deny"
       resources:
       - "proj/*:env/*:flag/my-flag"
@@ -4900,6 +5194,30 @@ definitions:
     - "updateRules"
     - "updateFallthrough"
     - "updateOffVariation"
+  FlagListItem:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      key:
+        type: "string"
+      _links:
+        $ref: "#/definitions/Links"
+      _site:
+        $ref: "#/definitions/Site"
+    example:
+      _links:
+        next:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+        self:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+      _site:
+        href: "/features/sort.order"
+        type: "text/html"
+      name: "name"
+      key: "key"
   projectBody:
     type: "object"
     required:
@@ -4965,6 +5283,8 @@ definitions:
         type: "boolean"
         description: "Whether or not this flag should be made available to the client-side\
           \ JavaScript SDK."
+      defaults:
+        $ref: "#/definitions/Defaults"
   patchComment:
     type: "object"
     properties:
@@ -5058,7 +5378,9 @@ definitions:
         example: "Example hook"
         description: "The name of the webhook."
       statements:
-        $ref: "#/definitions/Statements"
+        type: "array"
+        items:
+          $ref: "#/definitions/Statement"
       tags:
         type: "array"
         example: []
@@ -5110,7 +5432,9 @@ definitions:
           example: "revenue-team"
           description: "The 20-hexdigit id or the key for a custom role."
       inlineRole:
-        $ref: "#/definitions/Statements"
+        type: "array"
+        items:
+          $ref: "#/definitions/Statement"
   destinationBody:
     type: "object"
     required:

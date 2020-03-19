@@ -10,7 +10,7 @@
 
 package ldapi
 
-type ModelFallthrough struct {
-	Variation int32 `json:"variation,omitempty"`
-	Rollout *Rollout `json:"rollout,omitempty"`
+type Site struct {
+	Href string `json:"href,omitempty"`
+	Type_ string `json:"type,omitempty"`
 }

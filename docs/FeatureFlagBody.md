@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **Temporary** | **bool** | Whether or not the flag is a temporary flag. | [optional] [default to null]
 **Tags** | **[]string** | Tags for the feature flag. | [optional] [default to null]
 **IncludeInSnippet** | **bool** | Whether or not this flag should be made available to the client-side JavaScript SDK. | [optional] [default to null]
+**Defaults** | [***Defaults**](Defaults.md) |  | [optional] [default to null]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
