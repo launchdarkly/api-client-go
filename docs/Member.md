@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **Email** | **string** |  | [optional] [default to null]
 **FirstName** | **string** |  | [optional] [default to null]
 **LastName** | **string** |  | [optional] [default to null]
+**Verified** | **bool** |  | [optional] [default to null]
 **PendingInvite** | **bool** |  | [optional] [default to null]
 **IsBeta** | **bool** |  | [optional] [default to null]
 **CustomRoles** | **[]string** |  | [optional] [default to null]
