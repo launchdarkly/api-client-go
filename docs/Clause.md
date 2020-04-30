@@ -3,6 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Id** | **string** |  | [optional] [default to null]
 **Attribute** | **string** |  | [optional] [default to null]
 **Op** | **string** |  | [optional] [default to null]
 **Values** | [**[]interface{}**](interface{}.md) |  | [optional] [default to null]

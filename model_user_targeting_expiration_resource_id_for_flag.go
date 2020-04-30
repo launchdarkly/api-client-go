@@ -10,7 +10,10 @@
 
 package ldapi
 
-type Prerequisite struct {
+type UserTargetingExpirationResourceIdForFlag struct {
+	Kind string `json:"kind,omitempty"`
+	ProjectKey string `json:"projectKey,omitempty"`
+	EnvironmentKey string `json:"environmentKey,omitempty"`
+	FlagKey string `json:"flagKey,omitempty"`
 	Key string `json:"key,omitempty"`
-	Variation int32 `json:"variation,omitempty"`
 }

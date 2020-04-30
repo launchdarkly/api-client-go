@@ -10,7 +10,7 @@
 
 package ldapi
 
-type WeightedVariation struct {
-	Variation int32 `json:"variation,omitempty"`
-	Weight int32 `json:"weight,omitempty"`
+type UserTargetingExpirationOnFlagsForUser struct {
+	Links *Links `json:"_links,omitempty"`
+	Items []UserTargetingExpirationForFlag `json:"items,omitempty"`
 }

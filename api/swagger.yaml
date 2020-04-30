@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Build custom integrations with the LaunchDarkly REST API"
-  version: "3.0.0"
+  version: "3.1.0"
   title: "LaunchDarkly REST API"
   termsOfService: "https://launchdarkly.com/terms"
   contact:
@@ -658,6 +658,91 @@ paths:
             \ header to use it."
           schema:
             $ref: "#/definitions/UsageError"
+  /flags/{projectKey}/{featureFlagKey}/expiring-user-targets/{environmentKey}:
+    get:
+      tags:
+      - "Feature flags"
+      summary: "Get expiring user targets for feature flag"
+      operationId: "getExpiringUserTargets"
+      parameters:
+      - name: "projectKey"
+        in: "path"
+        description: "The project key, used to tie the flags together under one project\
+          \ so they can be managed together."
+        required: true
+        type: "string"
+        x-exportParamName: "ProjectKey"
+      - name: "environmentKey"
+        in: "path"
+        description: "The environment key, used to tie together flag configuration\
+          \ and users under one environment so they can be managed together."
+        required: true
+        type: "string"
+        x-exportParamName: "EnvironmentKey"
+      - name: "featureFlagKey"
+        in: "path"
+        description: "The feature flag's key. The key identifies the flag in your\
+          \ code."
+        required: true
+        type: "string"
+        x-exportParamName: "FeatureFlagKey"
+      responses:
+        200:
+          description: "User targets of the requested feature flag."
+          schema:
+            $ref: "#/definitions/UserTargetingExpirationForFlags"
+        401:
+          description: "Invalid access token."
+    patch:
+      tags:
+      - "Feature flags"
+      summary: "Update, add, or delete expiring user targets on feature flag"
+      operationId: "patchExpiringUserTargets"
+      parameters:
+      - name: "projectKey"
+        in: "path"
+        description: "The project key, used to tie the flags together under one project\
+          \ so they can be managed together."
+        required: true
+        type: "string"
+        x-exportParamName: "ProjectKey"
+      - name: "environmentKey"
+        in: "path"
+        description: "The environment key, used to tie together flag configuration\
+          \ and users under one environment so they can be managed together."
+        required: true
+        type: "string"
+        x-exportParamName: "EnvironmentKey"
+      - name: "featureFlagKey"
+        in: "path"
+        description: "The feature flag's key. The key identifies the flag in your\
+          \ code."
+        required: true
+        type: "string"
+        x-exportParamName: "FeatureFlagKey"
+      - in: "body"
+        name: "patchComment"
+        description: "Requires a JSON Patch representation of the desired changes\
+          \ to the project, and an optional comment. 'http://jsonpatch.com/' Feature\
+          \ flag patches also support JSON Merge Patch format. 'https://tools.ietf.org/html/rfc7386'\
+          \ The addition of comments is also supported."
+        required: true
+        schema:
+          $ref: "#/definitions/patchComment"
+        x-exportParamName: "PatchComment"
+      responses:
+        200:
+          description: "User targeting expirations on feature flag response."
+          schema:
+            $ref: "#/definitions/UserTargetingExpirationForFlags"
+        400:
+          description: "Invalid request body."
+        401:
+          description: "Invalid access token."
+        404:
+          description: "Invalid resource specifier."
+        409:
+          description: "Status conflict."
   /segments/{projectKey}/{environmentKey}:
     get:
       tags:
@@ -1164,6 +1249,90 @@ paths:
           description: "Invalid access token."
         404:
           description: "Invalid resource specifier."
+  /users/{projectKey}/{userKey}/expiring-user-targets/{environmentKey}:
+    get:
+      tags:
+      - "User settings"
+      summary: "Get expiring dates on flags for user"
+      operationId: "getExpiringUserTargetsForUser"
+      parameters:
+      - name: "projectKey"
+        in: "path"
+        description: "The project key, used to tie the flags together under one project\
+          \ so they can be managed together."
+        required: true
+        type: "string"
+        x-exportParamName: "ProjectKey"
+      - name: "environmentKey"
+        in: "path"
+        description: "The environment key, used to tie together flag configuration\
+          \ and users under one environment so they can be managed together."
+        required: true
+        type: "string"
+        x-exportParamName: "EnvironmentKey"
+      - name: "userKey"
+        in: "path"
+        description: "The user's key."
+        required: true
+        type: "string"
+        x-exportParamName: "UserKey"
+      responses:
+        200:
+          description: "User targets of the requested feature flag."
+          schema:
+            $ref: "#/definitions/UserTargetingExpirationOnFlagsForUser"
+        401:
+          description: "Invalid access token."
+    patch:
+      tags:
+      - "User settings"
+      summary: "Update, add, or delete expiring user targets for a single user on\
+        \ all flags"
+      operationId: "patchExpiringUserTargetsForFlags"
+      parameters:
+      - name: "projectKey"
+        in: "path"
+        description: "The project key, used to tie the flags together under one project\
+          \ so they can be managed together."
+        required: true
+        type: "string"
+        x-exportParamName: "ProjectKey"
+      - name: "environmentKey"
+        in: "path"
+        description: "The environment key, used to tie together flag configuration\
+          \ and users under one environment so they can be managed together."
+        required: true
+        type: "string"
+        x-exportParamName: "EnvironmentKey"
+      - name: "userKey"
+        in: "path"
+        description: "The user's key."
+        required: true
+        type: "string"
+        x-exportParamName: "UserKey"
+      - in: "body"
+        name: "patchComment"
+        description: "Requires a JSON Patch representation of the desired changes\
+          \ to the project, and an optional comment. 'http://jsonpatch.com/' Feature\
+          \ flag patches also support JSON Merge Patch format. 'https://tools.ietf.org/html/rfc7386'\
+          \ The addition of comments is also supported."
+        required: true
+        schema:
+          $ref: "#/definitions/patchComment"
+        x-exportParamName: "PatchComment"
+      responses:
+        200:
+          description: "User Targeting expiration for single user on all flags response."
+          schema:
+            $ref: "#/definitions/UserTargetingExpirationOnFlagsForUser"
+        400:
+          description: "Invalid request body."
+        401:
+          description: "Invalid access token."
+        404:
+          description: "Invalid resource specifier."
+        409:
+          description: "Status conflict."
   /auditlog:
     get:
       tags:
@@ -2421,12 +2590,14 @@ definitions:
               values:
               - "Top Customers"
               - "Top Customers"
+              _id: "_id"
               attribute: "groups"
             - op: "in"
               negate: true
               values:
               - "Top Customers"
               - "Top Customers"
+              _id: "_id"
               attribute: "groups"
             _id: "_id"
             trackEvents: true
@@ -2444,12 +2615,14 @@ definitions:
               values:
               - "Top Customers"
               - "Top Customers"
+              _id: "_id"
               attribute: "groups"
             - op: "in"
               negate: true
               values:
               - "Top Customers"
               - "Top Customers"
+              _id: "_id"
               attribute: "groups"
             _id: "_id"
             trackEvents: true
@@ -2579,12 +2752,14 @@ definitions:
                 values:
                 - "Top Customers"
                 - "Top Customers"
+                _id: "_id"
                 attribute: "groups"
               - op: "in"
                 negate: true
                 values:
                 - "Top Customers"
                 - "Top Customers"
+                _id: "_id"
                 attribute: "groups"
               _id: "_id"
               trackEvents: true
@@ -2602,12 +2777,14 @@ definitions:
                 values:
                 - "Top Customers"
                 - "Top Customers"
+                _id: "_id"
                 attribute: "groups"
               - op: "in"
                 negate: true
                 values:
                 - "Top Customers"
                 - "Top Customers"
+                _id: "_id"
                 attribute: "groups"
               _id: "_id"
               trackEvents: true
@@ -2716,12 +2893,14 @@ definitions:
                 values:
                 - "Top Customers"
                 - "Top Customers"
+                _id: "_id"
                 attribute: "groups"
               - op: "in"
                 negate: true
                 values:
                 - "Top Customers"
                 - "Top Customers"
+                _id: "_id"
                 attribute: "groups"
               _id: "_id"
               trackEvents: true
@@ -2739,12 +2918,14 @@ definitions:
                 values:
                 - "Top Customers"
                 - "Top Customers"
+                _id: "_id"
                 attribute: "groups"
               - op: "in"
                 negate: true
                 values:
                 - "Top Customers"
                 - "Top Customers"
+                _id: "_id"
                 attribute: "groups"
               _id: "_id"
               trackEvents: true
@@ -2977,12 +3158,14 @@ definitions:
           values:
           - "Top Customers"
           - "Top Customers"
+          _id: "_id"
           attribute: "groups"
         - op: "in"
           negate: true
           values:
           - "Top Customers"
           - "Top Customers"
+          _id: "_id"
           attribute: "groups"
         _id: "_id"
         trackEvents: true
@@ -3000,12 +3183,14 @@ definitions:
           values:
           - "Top Customers"
           - "Top Customers"
+          _id: "_id"
           attribute: "groups"
         - op: "in"
           negate: true
           values:
           - "Top Customers"
           - "Top Customers"
+          _id: "_id"
           attribute: "groups"
         _id: "_id"
         trackEvents: true
@@ -3085,12 +3270,14 @@ definitions:
         values:
         - "Top Customers"
         - "Top Customers"
+        _id: "_id"
         attribute: "groups"
       - op: "in"
         negate: true
         values:
         - "Top Customers"
         - "Top Customers"
+        _id: "_id"
         attribute: "groups"
       _id: "_id"
       trackEvents: true
@@ -3140,6 +3327,8 @@ definitions:
   Clause:
     type: "object"
     properties:
+      _id:
+        type: "string"
       attribute:
         type: "string"
         example: "groups"
@@ -3160,6 +3349,7 @@ definitions:
       values:
       - "Top Customers"
       - "Top Customers"
+      _id: "_id"
       attribute: "groups"
   Variation:
     type: "object"
@@ -3330,6 +3520,172 @@ definitions:
           default: "{}"
           name: "new"
       key: "key"
+  UserTargetingExpirationForFlags:
+    type: "object"
+    properties:
+      _links:
+        $ref: "#/definitions/Links"
+      items:
+        type: "array"
+        items:
+          $ref: "#/definitions/UserTargetingExpirationForFlag"
+    example:
+      _links:
+        next:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+        self:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+      items:
+      - _resourceId:
+          projectKey: "projectKey"
+          kind: "kind"
+          flagKey: "flagKey"
+          key: "key"
+          environmentKey: "environmentKey"
+        variationId: "variationId"
+        _links:
+          next:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+          self:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+        _id: "_id"
+        _version: 6
+        userKey: "userKey"
+        expirationDate: 0
+      - _resourceId:
+          projectKey: "projectKey"
+          kind: "kind"
+          flagKey: "flagKey"
+          key: "key"
+          environmentKey: "environmentKey"
+        variationId: "variationId"
+        _links:
+          next:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+          self:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+        _id: "_id"
+        _version: 6
+        userKey: "userKey"
+        expirationDate: 0
+  UserTargetingExpirationOnFlagsForUser:
+    type: "object"
+    properties:
+      _links:
+        $ref: "#/definitions/Links"
+      items:
+        type: "array"
+        items:
+          $ref: "#/definitions/UserTargetingExpirationForFlag"
+    example:
+      _links:
+        next:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+        self:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+      items:
+      - _resourceId:
+          projectKey: "projectKey"
+          kind: "kind"
+          flagKey: "flagKey"
+          key: "key"
+          environmentKey: "environmentKey"
+        variationId: "variationId"
+        _links:
+          next:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+          self:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+        _id: "_id"
+        _version: 6
+        userKey: "userKey"
+        expirationDate: 0
+      - _resourceId:
+          projectKey: "projectKey"
+          kind: "kind"
+          flagKey: "flagKey"
+          key: "key"
+          environmentKey: "environmentKey"
+        variationId: "variationId"
+        _links:
+          next:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+          self:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+        _id: "_id"
+        _version: 6
+        userKey: "userKey"
+        expirationDate: 0
+  UserTargetingExpirationForFlag:
+    type: "object"
+    properties:
+      expirationDate:
+        type: "integer"
+        description: "Date scheduled for expiration"
+      variationId:
+        type: "string"
+        description: "the ID of the variation that the user is targeted on a flag"
+      userKey:
+        type: "string"
+        description: "Unique identifier for the user"
+      _id:
+        type: "string"
+      _resourceId:
+        $ref: "#/definitions/UserTargetingExpirationResourceIdForFlag"
+      _links:
+        $ref: "#/definitions/Links"
+      _version:
+        type: "integer"
+    example:
+      _resourceId:
+        projectKey: "projectKey"
+        kind: "kind"
+        flagKey: "flagKey"
+        key: "key"
+        environmentKey: "environmentKey"
+      variationId: "variationId"
+      _links:
+        next:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+        self:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+      _id: "_id"
+      _version: 6
+      userKey: "userKey"
+      expirationDate: 0
+  UserTargetingExpirationResourceIdForFlag:
+    type: "object"
+    properties:
+      kind:
+        type: "string"
+      projectKey:
+        type: "string"
+      environmentKey:
+        type: "string"
+      flagKey:
+        type: "string"
+      key:
+        type: "string"
+    example:
+      projectKey: "projectKey"
+      kind: "kind"
+      flagKey: "flagKey"
+      key: "key"
+      environmentKey: "environmentKey"
   UserSegment:
     type: "object"
     required:
@@ -3434,12 +3790,14 @@ definitions:
           values:
           - "Top Customers"
           - "Top Customers"
+          _id: "_id"
           attribute: "groups"
         - op: "in"
           negate: true
           values:
           - "Top Customers"
           - "Top Customers"
+          _id: "_id"
           attribute: "groups"
         weight: 0
         bucketBy: "bucketBy"
@@ -3449,12 +3807,14 @@ definitions:
           values:
           - "Top Customers"
           - "Top Customers"
+          _id: "_id"
           attribute: "groups"
         - op: "in"
           negate: true
           values:
           - "Top Customers"
           - "Top Customers"
+          _id: "_id"
           attribute: "groups"
         weight: 0
         bucketBy: "bucketBy"
@@ -3485,12 +3845,14 @@ definitions:
         values:
         - "Top Customers"
         - "Top Customers"
+        _id: "_id"
         attribute: "groups"
       - op: "in"
         negate: true
         values:
         - "Top Customers"
         - "Top Customers"
+        _id: "_id"
         attribute: "groups"
       weight: 0
       bucketBy: "bucketBy"
@@ -3556,12 +3918,14 @@ definitions:
             values:
             - "Top Customers"
             - "Top Customers"
+            _id: "_id"
             attribute: "groups"
           - op: "in"
             negate: true
             values:
             - "Top Customers"
             - "Top Customers"
+            _id: "_id"
             attribute: "groups"
           weight: 0
           bucketBy: "bucketBy"
@@ -3571,12 +3935,14 @@ definitions:
             values:
             - "Top Customers"
             - "Top Customers"
+            _id: "_id"
             attribute: "groups"
           - op: "in"
             negate: true
             values:
             - "Top Customers"
             - "Top Customers"
+            _id: "_id"
             attribute: "groups"
           weight: 0
           bucketBy: "bucketBy"
@@ -3633,12 +3999,14 @@ definitions:
             values:
             - "Top Customers"
             - "Top Customers"
+            _id: "_id"
             attribute: "groups"
           - op: "in"
             negate: true
             values:
             - "Top Customers"
             - "Top Customers"
+            _id: "_id"
             attribute: "groups"
           weight: 0
           bucketBy: "bucketBy"
@@ -3648,12 +4016,14 @@ definitions:
             values:
             - "Top Customers"
             - "Top Customers"
+            _id: "_id"
             attribute: "groups"
           - op: "in"
             negate: true
             values:
             - "Top Customers"
             - "Top Customers"
+            _id: "_id"
             attribute: "groups"
           weight: 0
           bucketBy: "bucketBy"
