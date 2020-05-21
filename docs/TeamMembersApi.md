@@ -103,7 +103,7 @@ Optional parameters are passed through a pointer to a GetMembersOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **limit** | **optional.Float32**| The number of objects to return. Defaults to -1, which returns everything. | 
- **number** | **optional.Bool**| Where to start in the list. This is for use with pagination. For example, an offset of 10 would skip the first 10 items and then return the next limit items. | 
+ **offset** | **optional.Float32**| Where to start in the list. This is for use with pagination. For example, an offset of 10 would skip the first 10 items and then return the next limit items. | 
  **filter** | **optional.String**| A comma-separated list of filters. Each filter is of the form field:value. | 
  **sort** | **optional.String**| A comma-separated list of fields to sort by. A field prefixed by a - will be sorted in descending order. | 
 

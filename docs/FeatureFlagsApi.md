@@ -241,7 +241,7 @@ Name | Type | Description  | Notes
  **summary** | **optional.Bool**| By default in api version &gt;&#x3D; 1, flags will _not_ include their list of prerequisites, targets or rules.  Set summary&#x3D;0 to include these fields for each flag returned. | 
  **archived** | **optional.Bool**| When set to 1, archived flags will be included in the list of flags returned.  By default, archived flags are not included in the list of flags. | 
  **limit** | **optional.Float32**| The number of objects to return. Defaults to -1, which returns everything. | 
- **number** | **optional.Bool**| Where to start in the list. This is for use with pagination. For example, an offset of 10 would skip the first 10 items and then return the next limit items. | 
+ **offset** | **optional.Float32**| Where to start in the list. This is for use with pagination. For example, an offset of 10 would skip the first 10 items and then return the next limit items. | 
  **filter** | **optional.String**| A comma-separated list of filters. Each filter is of the form field:value. | 
  **sort** | **optional.String**| A comma-separated list of fields to sort by. A field prefixed by a - will be sorted in descending order. | 
  **tag** | **optional.String**| Filter by tag. A tag can be used to group flags across projects. | 
@@ -262,7 +262,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **PatchExpiringUserTargets**
-> UserTargetingExpirationForFlags PatchExpiringUserTargets(ctx, projectKey, environmentKey, featureFlagKey, patchComment)
+> UserTargetingExpirationForFlags PatchExpiringUserTargets(ctx, projectKey, environmentKey, featureFlagKey, semanticPatchWithComment)
 Update, add, or delete expiring user targets on feature flag
 
 ### Required Parameters
@@ -273,7 +273,7 @@ Name | Type | Description  | Notes
   **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
   **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
   **featureFlagKey** | **string**| The feature flag&#39;s key. The key identifies the flag in your code. | 
-  **patchComment** | [**PatchComment**](PatchComment.md)| Requires a JSON Patch representation of the desired changes to the project, and an optional comment. &#39;http://jsonpatch.com/&#39; Feature flag patches also support JSON Merge Patch format. &#39;https://tools.ietf.org/html/rfc7386&#39; The addition of comments is also supported. | 
+  **semanticPatchWithComment** | [**interface{}**](interface{}.md)| Requires a Semantic Patch representation of the desired changes to the resource. &#39;https://apidocs.launchdarkly.com/reference#updates-via-semantic-patches&#39;. The addition of comments is also supported. | 
 
 ### Return type
 

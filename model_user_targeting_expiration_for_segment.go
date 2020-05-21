@@ -10,11 +10,11 @@
 
 package ldapi
 
-type UserTargetingExpirationForFlag struct {
+type UserTargetingExpirationForSegment struct {
 	// Date scheduled for expiration
 	ExpirationDate int32 `json:"expirationDate,omitempty"`
-	// the ID of the variation that the user is targeted on a flag
-	VariationId string `json:"variationId,omitempty"`
+	// either the included or excluded variation that the user is targeted on a segment
+	TargetType string `json:"targetType,omitempty"`
 	// Unique identifier for the user
 	UserKey string `json:"userKey,omitempty"`
 	Id string `json:"_id,omitempty"`

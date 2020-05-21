@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Build custom integrations with the LaunchDarkly REST API"
-  version: "3.1.0"
+  version: "3.2.0"
   title: "LaunchDarkly REST API"
   termsOfService: "https://launchdarkly.com/terms"
   contact:
@@ -327,15 +327,15 @@ paths:
         type: "number"
         x-exportParamName: "Limit"
         x-optionalDataType: "Float32"
-      - name: "number"
+      - name: "offset"
         in: "query"
         description: "Where to start in the list. This is for use with pagination.\
           \ For example, an offset of 10 would skip the first 10 items and then return\
           \ the next limit items."
         required: false
-        type: "boolean"
-        x-exportParamName: "Number"
-        x-optionalDataType: "Bool"
+        type: "number"
+        x-exportParamName: "Offset"
+        x-optionalDataType: "Float32"
       - name: "filter"
         in: "query"
         description: "A comma-separated list of filters. Each filter is of the form\
@@ -721,15 +721,14 @@ paths:
         type: "string"
         x-exportParamName: "FeatureFlagKey"
       - in: "body"
-        name: "patchComment"
-        description: "Requires a JSON Patch representation of the desired changes\
-          \ to the project, and an optional comment. 'http://jsonpatch.com/' Feature\
-          \ flag patches also support JSON Merge Patch format. 'https://tools.ietf.org/html/rfc7386'\
+        name: "SemanticPatchWithComment"
+        description: "Requires a Semantic Patch representation of the desired changes\
+          \ to the resource. 'https://apidocs.launchdarkly.com/reference#updates-via-semantic-patches'.\
           \ The addition of comments is also supported."
         required: true
         schema:
-          $ref: "#/definitions/patchComment"
-        x-exportParamName: "PatchComment"
+          type: "object"
+        x-exportParamName: "SemanticPatchWithComment"
       responses:
         200:
           description: "User targeting expirations on feature flag response."
@@ -931,6 +930,92 @@ paths:
           description: "User segment response."
           schema:
             $ref: "#/definitions/UserSegment"
+        400:
+          description: "Invalid request body."
+        401:
+          description: "Invalid access token."
+        404:
+          description: "Invalid resource specifier."
+        409:
+          description: "Status conflict."
+  /segments/{projectKey}/{userSegmentKey}/expiring-user-targets/{environmentKey}:
+    get:
+      tags:
+      - "User segments"
+      summary: "Get expiring user targets for user segment"
+      operationId: "getExpiringUserTargetsOnSegment"
+      parameters:
+      - name: "projectKey"
+        in: "path"
+        description: "The project key, used to tie the flags together under one project\
+          \ so they can be managed together."
+        required: true
+        type: "string"
+        x-exportParamName: "ProjectKey"
+      - name: "environmentKey"
+        in: "path"
+        description: "The environment key, used to tie together flag configuration\
+          \ and users under one environment so they can be managed together."
+        required: true
+        type: "string"
+        x-exportParamName: "EnvironmentKey"
+      - name: "userSegmentKey"
+        in: "path"
+        description: "The user segment's key. The key identifies the user segment\
+          \ in your code."
+        required: true
+        type: "string"
+        x-exportParamName: "UserSegmentKey"
+      responses:
+        200:
+          description: "User targeting expirations on user segment response."
+          schema:
+            $ref: "#/definitions/UserTargetingExpirationForSegment"
+        401:
+          description: "Invalid access token."
+        404:
+          description: "Invalid resource specifier."
+    patch:
+      tags:
+      - "User segments"
+      summary: "Update, add, or delete expiring user targets on user segment"
+      operationId: "patchExpiringUserTargetsOnSegment"
+      parameters:
+      - name: "projectKey"
+        in: "path"
+        description: "The project key, used to tie the flags together under one project\
+          \ so they can be managed together."
+        required: true
+        type: "string"
+        x-exportParamName: "ProjectKey"
+      - name: "environmentKey"
+        in: "path"
+        description: "The environment key, used to tie together flag configuration\
+          \ and users under one environment so they can be managed together."
+        required: true
+        type: "string"
+        x-exportParamName: "EnvironmentKey"
+      - name: "userSegmentKey"
+        in: "path"
+        description: "The user segment's key. The key identifies the user segment\
+          \ in your code."
+        required: true
+        type: "string"
+        x-exportParamName: "UserSegmentKey"
+      - in: "body"
+        name: "SemanticPatchWithComment"
+        description: "Requires a Semantic Patch representation of the desired changes\
+          \ to the resource. 'https://apidocs.launchdarkly.com/reference#updates-via-semantic-patches'.\
+          \ The addition of comments is also supported."
+        required: true
+        schema:
+          type: "object"
+        x-exportParamName: "SemanticPatchWithComment"
+      responses:
+        200:
+          description: "User targeting expirations on user segment response."
+          schema:
+            $ref: "#/definitions/UserTargetingExpirationForSegment"
         400:
           description: "Invalid request body."
         401:
@@ -1311,15 +1396,14 @@ paths:
         type: "string"
         x-exportParamName: "UserKey"
       - in: "body"
-        name: "patchComment"
-        description: "Requires a JSON Patch representation of the desired changes\
-          \ to the project, and an optional comment. 'http://jsonpatch.com/' Feature\
-          \ flag patches also support JSON Merge Patch format. 'https://tools.ietf.org/html/rfc7386'\
+        name: "SemanticPatchWithComment"
+        description: "Requires a Semantic Patch representation of the desired changes\
+          \ to the resource. 'https://apidocs.launchdarkly.com/reference#updates-via-semantic-patches'.\
           \ The addition of comments is also supported."
         required: true
         schema:
-          $ref: "#/definitions/patchComment"
-        x-exportParamName: "PatchComment"
+          type: "object"
+        x-exportParamName: "SemanticPatchWithComment"
       responses:
         200:
           description: "User Targeting expiration for single user on all flags response."
@@ -1658,15 +1742,15 @@ paths:
         type: "number"
         x-exportParamName: "Limit"
         x-optionalDataType: "Float32"
-      - name: "number"
+      - name: "offset"
         in: "query"
         description: "Where to start in the list. This is for use with pagination.\
           \ For example, an offset of 10 would skip the first 10 items and then return\
           \ the next limit items."
         required: false
-        type: "boolean"
-        x-exportParamName: "Number"
-        x-optionalDataType: "Bool"
+        type: "number"
+        x-exportParamName: "Offset"
+        x-optionalDataType: "Float32"
       - name: "filter"
         in: "query"
         description: "A comma-separated list of filters. Each filter is of the form\
@@ -3667,6 +3751,46 @@ definitions:
       _version: 6
       userKey: "userKey"
       expirationDate: 0
+  UserTargetingExpirationForSegment:
+    type: "object"
+    properties:
+      expirationDate:
+        type: "integer"
+        description: "Date scheduled for expiration"
+      targetType:
+        type: "string"
+        description: "either the included or excluded variation that the user is targeted\
+          \ on a segment"
+      userKey:
+        type: "string"
+        description: "Unique identifier for the user"
+      _id:
+        type: "string"
+      _resourceId:
+        $ref: "#/definitions/UserTargetingExpirationResourceIdForFlag"
+      _links:
+        $ref: "#/definitions/Links"
+      _version:
+        type: "integer"
+    example:
+      _resourceId:
+        projectKey: "projectKey"
+        kind: "kind"
+        flagKey: "flagKey"
+        key: "key"
+        environmentKey: "environmentKey"
+      _links:
+        next:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+        self:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+      targetType: "targetType"
+      _id: "_id"
+      _version: 6
+      userKey: "userKey"
+      expirationDate: 0
   UserTargetingExpirationResourceIdForFlag:
     type: "object"
     properties:
@@ -5230,6 +5354,18 @@ definitions:
       value:
         type: "object"
         properties: {}
+  SemanticPatchOperation:
+    type: "object"
+    required:
+    - "instructions"
+    properties:
+      comment:
+        type: "string"
+        example: "This is a comment string"
+      instructions:
+        type: "array"
+        items:
+          $ref: "#/definitions/SemanticPatchOperation_instructions"
   CustomProperty:
     type: "object"
     required:
@@ -5964,6 +6100,13 @@ definitions:
       resources:
       - "proj/alexis:env/test"
       - "proj/alexis:env/test"
+  SemanticPatchOperation_instructions:
+    properties:
+      kind:
+        type: "string"
+        example: "removeUserTargets"
+        description: "The name of the modification you would like to perform on a\
+          \ resource."
 parameters:
   ResourceId:
     name: "resourceId"
@@ -6085,15 +6228,15 @@ parameters:
     x-exportParamName: "Limit"
     x-optionalDataType: "Float32"
   OffsetQuery:
-    name: "number"
+    name: "offset"
     in: "query"
     description: "Where to start in the list. This is for use with pagination. For\
       \ example, an offset of 10 would skip the first 10 items and then return the\
       \ next limit items."
     required: false
-    type: "boolean"
-    x-exportParamName: "Number"
-    x-optionalDataType: "Bool"
+    type: "number"
+    x-exportParamName: "Offset"
+    x-optionalDataType: "Float32"
   FilterQuery:
     name: "filter"
     in: "query"
@@ -6321,6 +6464,16 @@ parameters:
       items:
         $ref: "#/definitions/PatchOperation"
     x-exportParamName: "PatchOnly"
+  SemanticPatchWithComment:
+    in: "body"
+    name: "SemanticPatchWithComment"
+    description: "Requires a Semantic Patch representation of the desired changes\
+      \ to the resource. 'https://apidocs.launchdarkly.com/reference#updates-via-semantic-patches'.\
+      \ The addition of comments is also supported."
+    required: true
+    schema:
+      type: "object"
+    x-exportParamName: "SemanticPatchWithComment"
   StreamSource:
     name: "source"
     in: "path"
