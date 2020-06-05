@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ExpirationDate** | **int32** | Date scheduled for expiration | [optional] [default to null]
+**ExpirationDate** | **float32** | Unix epoch time in milliseconds specifying the expiration date | [optional] [default to null]
 **TargetType** | **string** | either the included or excluded variation that the user is targeted on a segment | [optional] [default to null]
 **UserKey** | **string** | Unique identifier for the user | [optional] [default to null]
 **Id** | **string** |  | [optional] [default to null]

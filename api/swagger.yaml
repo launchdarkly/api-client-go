@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Build custom integrations with the LaunchDarkly REST API"
-  version: "3.3.0"
+  version: "3.3.1"
   title: "LaunchDarkly REST API"
   termsOfService: "https://launchdarkly.com/terms"
   contact:
@@ -3640,9 +3640,9 @@ definitions:
             href: "/api/v2/endpoint"
             type: "application/json"
         _id: "_id"
-        _version: 6
+        _version: 0
         userKey: "userKey"
-        expirationDate: 0
+        expirationDate: 1.7356896E12
       - _resourceId:
           projectKey: "projectKey"
           kind: "kind"
@@ -3658,9 +3658,9 @@ definitions:
             href: "/api/v2/endpoint"
             type: "application/json"
         _id: "_id"
-        _version: 6
+        _version: 0
         userKey: "userKey"
-        expirationDate: 0
+        expirationDate: 1.7356896E12
   UserTargetingExpirationOnFlagsForUser:
     type: "object"
     properties:
@@ -3694,9 +3694,9 @@ definitions:
             href: "/api/v2/endpoint"
             type: "application/json"
         _id: "_id"
-        _version: 6
+        _version: 0
         userKey: "userKey"
-        expirationDate: 0
+        expirationDate: 1.7356896E12
       - _resourceId:
           projectKey: "projectKey"
           kind: "kind"
@@ -3712,15 +3712,17 @@ definitions:
             href: "/api/v2/endpoint"
             type: "application/json"
         _id: "_id"
-        _version: 6
+        _version: 0
         userKey: "userKey"
-        expirationDate: 0
+        expirationDate: 1.7356896E12
   UserTargetingExpirationForFlag:
     type: "object"
     properties:
       expirationDate:
-        type: "integer"
-        description: "Date scheduled for expiration"
+        type: "number"
+        format: "int64"
+        example: 1.7356896E12
+        description: "Unix epoch time in milliseconds specifying the expiration date"
       variationId:
         type: "string"
         description: "the ID of the variation that the user is targeted on a flag"
@@ -3751,15 +3753,17 @@ definitions:
           href: "/api/v2/endpoint"
           type: "application/json"
       _id: "_id"
-      _version: 6
+      _version: 0
       userKey: "userKey"
-      expirationDate: 0
+      expirationDate: 1.7356896E12
   UserTargetingExpirationForSegment:
     type: "object"
     properties:
       expirationDate:
-        type: "integer"
-        description: "Date scheduled for expiration"
+        type: "number"
+        format: "int64"
+        example: 1.7356896E12
+        description: "Unix epoch time in milliseconds specifying the expiration date"
       targetType:
         type: "string"
         description: "either the included or excluded variation that the user is targeted\
@@ -3791,9 +3795,9 @@ definitions:
           type: "application/json"
       targetType: "targetType"
       _id: "_id"
-      _version: 6
+      _version: 0
       userKey: "userKey"
-      expirationDate: 0
+      expirationDate: 1.7356896E12
   UserTargetingExpirationResourceIdForFlag:
     type: "object"
     properties:
