@@ -25,8 +25,8 @@ Optional parameters are passed through a pointer to a GetAuditLogEntriesOpts str
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **before** | **optional.Int64**| A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries returned will have before this timestamp. | 
- **after** | **optional.Int64**| A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries returned will have occured after this timestamp. | 
- **q** | **optional.String**| Text to search for. You can search for the full or partial name of the resource involved or fullpartial email address of the member who made the change. | 
+ **after** | **optional.Int64**| A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries returned will have occurred after this timestamp. | 
+ **q** | **optional.String**| Text to search for. You can search for the full or partial name of the resource involved or full or partial email address of the member who made the change. | 
  **limit** | **optional.Float32**| A limit on the number of audit log entries to be returned, between 1 and 20. | 
  **spec** | **optional.String**| A resource specifier, allowing you to filter audit log listings by resource. | 
 

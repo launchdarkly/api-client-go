@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Build custom integrations with the LaunchDarkly REST API"
-  version: "3.3.1"
+  version: "3.3.2"
   title: "LaunchDarkly REST API"
   termsOfService: "https://launchdarkly.com/terms"
   contact:
@@ -1124,7 +1124,7 @@ paths:
       - name: "after"
         in: "query"
         description: "A timestamp filter, expressed as a Unix epoch time in milliseconds.\
-          \ All entries returned will have occured after this timestamp."
+          \ All entries returned will have occurred after this timestamp."
         required: false
         type: "integer"
         format: "int64"
@@ -1438,7 +1438,7 @@ paths:
       - name: "after"
         in: "query"
         description: "A timestamp filter, expressed as a Unix epoch time in milliseconds.\
-          \ All entries returned will have occured after this timestamp."
+          \ All entries returned will have occurred after this timestamp."
         required: false
         type: "integer"
         format: "int64"
@@ -1447,8 +1447,8 @@ paths:
       - name: "q"
         in: "query"
         description: "Text to search for. You can search for the full or partial name\
-          \ of the resource involved or fullpartial email address of the member who\
-          \ made the change."
+          \ of the resource involved or full or partial email address of the member\
+          \ who made the change."
         required: false
         type: "string"
         x-exportParamName: "Q"
@@ -2552,9 +2552,9 @@ definitions:
         example: "boolean"
         description: "Whether the feature flag is a boolean flag or multivariate."
       creationDate:
-        type: "number"
+        type: "integer"
         format: "int64"
-        example: 1.44365223259E12
+        example: 1443652232590
         description: "A unix epoch time in milliseconds specifying the creation time\
           \ of this flag."
       includeInSnippet:
@@ -2617,9 +2617,9 @@ definitions:
         additionalProperties:
           $ref: "#/definitions/FeatureFlagConfig"
       archivedDate:
-        type: "number"
+        type: "integer"
         format: "int64"
-        example: 1.44365223259E12
+        example: 1443652232590
         description: "A unix epoch time in milliseconds specifying the archived time\
           \ of this flag."
       archived:
@@ -2629,7 +2629,7 @@ definitions:
       defaults:
         $ref: "#/definitions/Defaults"
     example:
-      archivedDate: 1.44365223259E12
+      archivedDate: 1443652232590
       temporary: false
       _maintainer:
         firstName: "Alan"
@@ -2744,7 +2744,7 @@ definitions:
           "on": true
       kind: "boolean"
       description: "This flag controls whether test feature is turned on or not."
-      creationDate: 1.44365223259E12
+      creationDate: 1443652232590
       tags: []
       goalIds:
       - "d7239405bd89c930e885aa76"
@@ -2791,7 +2791,7 @@ definitions:
           type: "application/json"
       totalCount: 2.027123023002321833274663731572218239307403564453125
       items:
-      - archivedDate: 1.44365223259E12
+      - archivedDate: 1443652232590
         temporary: false
         _maintainer:
           firstName: "Alan"
@@ -2906,7 +2906,7 @@ definitions:
             "on": true
         kind: "boolean"
         description: "This flag controls whether test feature is turned on or not."
-        creationDate: 1.44365223259E12
+        creationDate: 1443652232590
         tags: []
         goalIds:
         - "d7239405bd89c930e885aa76"
@@ -2932,7 +2932,7 @@ definitions:
         name: "Test Feature"
         _version: 23
         key: "test-feature"
-      - archivedDate: 1.44365223259E12
+      - archivedDate: 1443652232590
         temporary: false
         _maintainer:
           firstName: "Alan"
@@ -3047,7 +3047,7 @@ definitions:
             "on": true
         kind: "boolean"
         description: "This flag controls whether test feature is turned on or not."
-        creationDate: 1.44365223259E12
+        creationDate: 1443652232590
         tags: []
         goalIds:
         - "d7239405bd89c930e885aa76"
@@ -3642,7 +3642,7 @@ definitions:
         _id: "_id"
         _version: 0
         userKey: "userKey"
-        expirationDate: 1.7356896E12
+        expirationDate: 1735689600000
       - _resourceId:
           projectKey: "projectKey"
           kind: "kind"
@@ -3660,7 +3660,7 @@ definitions:
         _id: "_id"
         _version: 0
         userKey: "userKey"
-        expirationDate: 1.7356896E12
+        expirationDate: 1735689600000
   UserTargetingExpirationOnFlagsForUser:
     type: "object"
     properties:
@@ -3696,7 +3696,7 @@ definitions:
         _id: "_id"
         _version: 0
         userKey: "userKey"
-        expirationDate: 1.7356896E12
+        expirationDate: 1735689600000
       - _resourceId:
           projectKey: "projectKey"
           kind: "kind"
@@ -3714,14 +3714,14 @@ definitions:
         _id: "_id"
         _version: 0
         userKey: "userKey"
-        expirationDate: 1.7356896E12
+        expirationDate: 1735689600000
   UserTargetingExpirationForFlag:
     type: "object"
     properties:
       expirationDate:
-        type: "number"
+        type: "integer"
         format: "int64"
-        example: 1.7356896E12
+        example: 1735689600000
         description: "Unix epoch time in milliseconds specifying the expiration date"
       variationId:
         type: "string"
@@ -3755,14 +3755,14 @@ definitions:
       _id: "_id"
       _version: 0
       userKey: "userKey"
-      expirationDate: 1.7356896E12
+      expirationDate: 1735689600000
   UserTargetingExpirationForSegment:
     type: "object"
     properties:
       expirationDate:
-        type: "number"
+        type: "integer"
         format: "int64"
-        example: 1.7356896E12
+        example: 1735689600000
         description: "Unix epoch time in milliseconds specifying the expiration date"
       targetType:
         type: "string"
@@ -3797,7 +3797,7 @@ definitions:
       _id: "_id"
       _version: 0
       userKey: "userKey"
-      expirationDate: 1.7356896E12
+      expirationDate: 1735689600000
   UserTargetingExpirationResourceIdForFlag:
     type: "object"
     properties:
@@ -3845,9 +3845,9 @@ definitions:
         items:
           type: "string"
       creationDate:
-        type: "number"
+        type: "integer"
         format: "int64"
-        example: 1.44365223259E12
+        example: 1443652232590
         description: "A unix epoch time in milliseconds specifying the creation time\
           \ of this flag."
       included:
@@ -3949,7 +3949,7 @@ definitions:
           attribute: "groups"
         weight: 0
         bucketBy: "bucketBy"
-      creationDate: 1.44365223259E12
+      creationDate: 1443652232590
       included:
       - "included"
       - "included"
@@ -4077,7 +4077,7 @@ definitions:
             attribute: "groups"
           weight: 0
           bucketBy: "bucketBy"
-        creationDate: 1.44365223259E12
+        creationDate: 1443652232590
         included:
         - "included"
         - "included"
@@ -4158,7 +4158,7 @@ definitions:
             attribute: "groups"
           weight: 0
           bucketBy: "bucketBy"
-        creationDate: 1.44365223259E12
+        creationDate: 1443652232590
         included:
         - "included"
         - "included"
@@ -4716,7 +4716,6 @@ definitions:
     properties:
       lastPing:
         type: "string"
-        format: "int64"
         example: "2015-03-03T02:37:22.492Z"
       environmentId:
         type: "string"
@@ -5456,10 +5455,10 @@ definitions:
         - href: "/api/v2/endpoint"
           type: "application/json"
       series:
-      - 0: 0.0
-        time: 1.5517404E12
-      - 0: 0.0
-        time: 1.5517404E12
+      - 0: 0
+        time: 1551740400000
+      - 0: 0
+        time: 1551740400000
   UsageError:
     type: "object"
     properties:
@@ -5519,10 +5518,10 @@ definitions:
         - href: "/api/v2/endpoint"
           type: "application/json"
       series:
-      - 0: 0.0
-        time: 1.5517404E12
-      - 0: 0.0
-        time: 1.5517404E12
+      - 0: 0
+        time: 1551740400000
+      - 0: 0
+        time: 1551740400000
   StreamUsageLinks:
     type: "object"
     properties:
@@ -5551,19 +5550,19 @@ definitions:
     type: "object"
     properties:
       0:
-        type: "number"
+        type: "integer"
         format: "int64"
-        example: 0.0
+        example: 0
         description: "A key corresponding to a time series data point."
       time:
-        type: "number"
+        type: "integer"
         format: "int64"
-        example: 1.5517404E12
+        example: 1551740400000
         description: "A unix epoch time in milliseconds specifying the creation time\
           \ of this flag."
     example:
-      0: 0.0
-      time: 1.5517404E12
+      0: 0
+      time: 1551740400000
   StreamUsageMetadata:
     type: "object"
     properties:
@@ -5620,10 +5619,10 @@ definitions:
           href: "/api/v2/endpoint"
           type: "application/json"
       series:
-      - 0: 0.0
-        time: 1.5517404E12
-      - 0: 0.0
-        time: 1.5517404E12
+      - 0: 0
+        time: 1551740400000
+      - 0: 0
+        time: 1551740400000
   StreamBySDKLinks:
     type: "object"
     properties:
@@ -5724,10 +5723,10 @@ definitions:
         - href: "/api/v2/endpoint"
           type: "application/json"
       series:
-      - 0: 0.0
-        time: 1.5517404E12
-      - 0: 0.0
-        time: 1.5517404E12
+      - 0: 0
+        time: 1551740400000
+      - 0: 0
+        time: 1551740400000
   MAUbyCategory:
     type: "object"
     properties:
@@ -5753,10 +5752,10 @@ definitions:
           href: "/api/v2/endpoint"
           type: "application/json"
       series:
-      - 0: 0.0
-        time: 1.5517404E12
-      - 0: 0.0
-        time: 1.5517404E12
+      - 0: 0
+        time: 1551740400000
+      - 0: 0
+        time: 1551740400000
   MAUMetadata:
     type: "object"
   Events:
@@ -6353,7 +6352,7 @@ parameters:
     name: "after"
     in: "query"
     description: "A timestamp filter, expressed as a Unix epoch time in milliseconds.\
-      \ All entries returned will have occured after this timestamp."
+      \ All entries returned will have occurred after this timestamp."
     required: false
     type: "integer"
     format: "int64"
@@ -6391,8 +6390,8 @@ parameters:
     name: "q"
     in: "query"
     description: "Text to search for. You can search for the full or partial name\
-      \ of the resource involved or fullpartial email address of the member who made\
-      \ the change."
+      \ of the resource involved or full or partial email address of the member who\
+      \ made the change."
     required: false
     type: "string"
     x-exportParamName: "Q"

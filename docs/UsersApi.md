@@ -61,7 +61,7 @@ Name | Type | Description  | Notes
  **q** | **optional.String**| Search query. | 
  **limit** | **optional.Int32**| Pagination limit. | 
  **offset** | **optional.Int32**| Specifies the first item to return in the collection. | 
- **after** | **optional.Int64**| A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries returned will have occured after this timestamp. | 
+ **after** | **optional.Int64**| A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries returned will have occurred after this timestamp. | 
 
 ### Return type
 

@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Name** | **string** | Name of the feature flag. | [optional] [default to null]
 **Description** | **string** | Description of the feature flag. | [optional] [default to null]
 **Kind** | **string** | Whether the feature flag is a boolean flag or multivariate. | [optional] [default to null]
-**CreationDate** | **float32** | A unix epoch time in milliseconds specifying the creation time of this flag. | [optional] [default to null]
+**CreationDate** | **int64** | A unix epoch time in milliseconds specifying the creation time of this flag. | [optional] [default to null]
 **IncludeInSnippet** | **bool** |  | [optional] [default to null]
 **Temporary** | **bool** | Whether or not this flag is temporary. | [optional] [default to null]
 **MaintainerId** | **string** | The ID of the member that should maintain this flag. | [optional] [default to null]
@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 **Links** | [***Links**](Links.md) |  | [optional] [default to null]
 **Maintainer** | [***Member**](Member.md) |  | [optional] [default to null]
 **Environments** | [**map[string]FeatureFlagConfig**](FeatureFlagConfig.md) |  | [optional] [default to null]
-**ArchivedDate** | **float32** | A unix epoch time in milliseconds specifying the archived time of this flag. | [optional] [default to null]
+**ArchivedDate** | **int64** | A unix epoch time in milliseconds specifying the archived time of this flag. | [optional] [default to null]
 **Archived** | **bool** | Whether or not this flag is archived. | [optional] [default to null]
 **Defaults** | [***Defaults**](Defaults.md) |  | [optional] [default to null]
 
