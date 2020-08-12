@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Build custom integrations with the LaunchDarkly REST API"
-  version: "3.3.2"
+  version: "3.4.0"
   title: "LaunchDarkly REST API"
   termsOfService: "https://launchdarkly.com/terms"
   contact:
@@ -312,9 +312,9 @@ paths:
         x-optionalDataType: "Bool"
       - name: "archived"
         in: "query"
-        description: "When set to 1, archived flags will be included in the list of\
-          \ flags returned.  By default, archived flags are not included in the list\
-          \ of flags."
+        description: "When set to 1, only archived flags will be included in the list\
+          \ of flags returned.  By default, archived flags are not included in the\
+          \ list of flags."
         required: false
         type: "boolean"
         x-exportParamName: "Archived"
@@ -2291,6 +2291,160 @@ paths:
           description: "The environment or flag you requested could not be found"
           schema:
             $ref: "#/definitions/EvaluationUsageError"
+  /tokens:
+    get:
+      tags:
+      - "Access tokens"
+      summary: "Returns a list of tokens in the account."
+      operationId: "getTokens"
+      parameters:
+      - name: "showAll"
+        in: "query"
+        description: "If set to true, and the authentication access token has the\
+          \ \"Admin\" role, personal access tokens for all members will be retrieved."
+        required: false
+        type: "boolean"
+        x-exportParamName: "ShowAll"
+        x-optionalDataType: "Bool"
+      responses:
+        200:
+          description: "Tokens response."
+          schema:
+            $ref: "#/definitions/Tokens"
+        401:
+          description: "Invalid access token."
+    post:
+      tags:
+      - "Access tokens"
+      summary: "Create a new token."
+      operationId: "postToken"
+      parameters:
+      - in: "body"
+        name: "tokenBody"
+        description: "Create a new access token."
+        required: true
+        schema:
+          $ref: "#/definitions/tokenBody"
+        x-exportParamName: "TokenBody"
+      responses:
+        201:
+          description: "Token response."
+          schema:
+            $ref: "#/definitions/Token"
+        400:
+          description: "Invalid request body."
+        401:
+          description: "Invalid access token."
+        409:
+          description: "Status conflict."
+  /tokens/{tokenId}:
+    get:
+      tags:
+      - "Access tokens"
+      summary: "Get a single access token by ID."
+      operationId: "getToken"
+      parameters:
+      - name: "tokenId"
+        in: "path"
+        description: "The access token ID."
+        required: true
+        type: "string"
+        x-exportParamName: "TokenId"
+      responses:
+        200:
+          description: "Token response."
+          schema:
+            $ref: "#/definitions/Token"
+        400:
+          description: "Invalid request body."
+        401:
+          description: "Invalid access token."
+    delete:
+      tags:
+      - "Access tokens"
+      summary: "Delete an access token by ID."
+      operationId: "deleteToken"
+      parameters:
+      - name: "tokenId"
+        in: "path"
+        description: "The access token ID."
+        required: true
+        type: "string"
+        x-exportParamName: "TokenId"
+      responses:
+        204:
+          description: "Action completed successfully."
+        401:
+          description: "Invalid access token."
+        404:
+          description: "Invalid resource specifier."
+    patch:
+      tags:
+      - "Access tokens"
+      summary: "Modify an access tokenby ID."
+      operationId: "patchToken"
+      parameters:
+      - name: "tokenId"
+        in: "path"
+        description: "The access token ID."
+        required: true
+        type: "string"
+        x-exportParamName: "TokenId"
+      - in: "body"
+        name: "patchDelta"
+        description: "Requires a JSON Patch representation of the desired changes\
+          \ to the project. 'http://jsonpatch.com/'"
+        required: true
+        schema:
+          type: "array"
+          items:
+            $ref: "#/definitions/PatchOperation"
+        x-exportParamName: "PatchDelta"
+      responses:
+        200:
+          description: "Token response."
+          schema:
+            $ref: "#/definitions/Token"
+        400:
+          description: "Invalid request body."
+        401:
+          description: "Invalid access token."
+        404:
+          description: "Invalid resource specifier."
+        409:
+          description: "Status conflict."
+  /tokens/{tokenId}/reset:
+    post:
+      tags:
+      - "Access tokens"
+      summary: "Reset an access token's secret key with an optional expiry time for\
+        \ the old key."
+      operationId: "resetToken"
+      parameters:
+      - name: "tokenId"
+        in: "path"
+        description: "The access token ID."
+        required: true
+        type: "string"
+        x-exportParamName: "TokenId"
+      - name: "expiry"
+        in: "query"
+        description: "An expiration time for the old token key, expressed as a Unix\
+          \ epoch time in milliseconds. By default, the token will expire immediately."
+        required: false
+        type: "integer"
+        format: "int64"
+        x-exportParamName: "Expiry"
+        x-optionalDataType: "Int64"
+      responses:
+        200:
+          description: "Token response."
+          schema:
+            $ref: "#/definitions/Token"
+        400:
+          description: "Invalid request body."
+        401:
+          description: "Invalid access token."
   /:
     get:
       tags:
@@ -5356,9 +5510,10 @@ definitions:
         example: "replace"
       path:
         type: "string"
-        example: "/on"
+        example: "/name"
       value:
         type: "object"
+        example: "My resource name"
         properties: {}
   SemanticPatchOperation:
     type: "object"
@@ -5833,6 +5988,292 @@ definitions:
         type: "text/html"
       name: "name"
       key: "key"
+  Tokens:
+    type: "object"
+    properties:
+      _links:
+        $ref: "#/definitions/Links"
+      items:
+        type: "array"
+        items:
+          $ref: "#/definitions/Token"
+    example:
+      _links:
+        next:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+        self:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+      items:
+      - role: "writer"
+        customRoleIds:
+        - "customRoleIds"
+        - "customRoleIds"
+        _links:
+          next:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+          self:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+        _member:
+          firstName: "Alan"
+          lastName: "Turing"
+          _verified: true
+          role: {}
+          _links:
+            next:
+              href: "/api/v2/endpoint"
+              type: "application/json"
+            self:
+              href: "/api/v2/endpoint"
+              type: "application/json"
+          _pendingInvite: true
+          isBeta: true
+          _id: "5a580a01b4ff89217bdf9dc1"
+          email: "user@launchdarkly.com"
+          customRoles:
+          - "5a580a01b4ff89217bdf9dc1"
+          - "5a580a01b4ff89217bdf9dc1"
+        ownerId: "5a580a01b4ff89217bdf9dc1"
+        creationDate: 1443652232590
+        defaultApiVersion: 0
+        token: "3243"
+        lastUsed: 1469326565348
+        inlineRole:
+        - notActions:
+          - "updateOn"
+          - "updateOn"
+          notResources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          effect: "allow"
+          resources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          actions:
+          - "updateOn"
+          - "updateOn"
+        - notActions:
+          - "updateOn"
+          - "updateOn"
+          notResources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          effect: "allow"
+          resources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          actions:
+          - "updateOn"
+          - "updateOn"
+        name: "My access token"
+        _id: "5a580a01b4ff89217bdf9dc1"
+        lastModified: 1469326565348
+        serviceToken: true
+        memberId: "5a580a01b4ff89217bdf9dc1"
+      - role: "writer"
+        customRoleIds:
+        - "customRoleIds"
+        - "customRoleIds"
+        _links:
+          next:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+          self:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+        _member:
+          firstName: "Alan"
+          lastName: "Turing"
+          _verified: true
+          role: {}
+          _links:
+            next:
+              href: "/api/v2/endpoint"
+              type: "application/json"
+            self:
+              href: "/api/v2/endpoint"
+              type: "application/json"
+          _pendingInvite: true
+          isBeta: true
+          _id: "5a580a01b4ff89217bdf9dc1"
+          email: "user@launchdarkly.com"
+          customRoles:
+          - "5a580a01b4ff89217bdf9dc1"
+          - "5a580a01b4ff89217bdf9dc1"
+        ownerId: "5a580a01b4ff89217bdf9dc1"
+        creationDate: 1443652232590
+        defaultApiVersion: 0
+        token: "3243"
+        lastUsed: 1469326565348
+        inlineRole:
+        - notActions:
+          - "updateOn"
+          - "updateOn"
+          notResources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          effect: "allow"
+          resources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          actions:
+          - "updateOn"
+          - "updateOn"
+        - notActions:
+          - "updateOn"
+          - "updateOn"
+          notResources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          effect: "allow"
+          resources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          actions:
+          - "updateOn"
+          - "updateOn"
+        name: "My access token"
+        _id: "5a580a01b4ff89217bdf9dc1"
+        lastModified: 1469326565348
+        serviceToken: true
+        memberId: "5a580a01b4ff89217bdf9dc1"
+  Token:
+    type: "object"
+    properties:
+      _links:
+        $ref: "#/definitions/Links"
+      _id:
+        type: "string"
+        example: "5a580a01b4ff89217bdf9dc1"
+        description: "The unique resource id."
+      ownerId:
+        type: "string"
+        example: "5a580a01b4ff89217bdf9dc1"
+        description: "The unique resource id."
+      memberId:
+        type: "string"
+        example: "5a580a01b4ff89217bdf9dc1"
+        description: "The unique resource id."
+      _member:
+        $ref: "#/definitions/Member"
+      creationDate:
+        type: "integer"
+        format: "int64"
+        example: 1443652232590
+        description: "A unix epoch time in milliseconds specifying the creation time\
+          \ of this access token."
+      lastModified:
+        type: "integer"
+        format: "int64"
+        example: 1469326565348
+        description: "A unix epoch time in milliseconds specifying the last time this\
+          \ access token was modified."
+      lastUsed:
+        type: "integer"
+        format: "int64"
+        example: 1469326565348
+        description: "A unix epoch time in milliseconds specifying the last time this\
+          \ access token was used to authorize access to the LaunchDarkly REST API."
+      token:
+        type: "string"
+        example: "3243"
+        description: "The last 4 digits of the unique secret key for this access token.\
+          \ If creating or resetting the token, this will be the full token secret."
+      name:
+        type: "string"
+        example: "My access token"
+        description: "A human-friendly name for the access token"
+      role:
+        type: "string"
+        example: "writer"
+        description: "The name of a built-in role for the token"
+      customRoleIds:
+        type: "array"
+        description: "A list of custom role IDs to use as access limits for the access\
+          \ token"
+        items:
+          type: "string"
+      inlineRole:
+        type: "array"
+        items:
+          $ref: "#/definitions/Statement"
+      serviceToken:
+        type: "boolean"
+        description: "Whether the token will be a service token https://docs.launchdarkly.com/home/account-security/api-access-tokens#service-tokens"
+      defaultApiVersion:
+        type: "integer"
+        description: "The default API version for this token"
+    example:
+      role: "writer"
+      customRoleIds:
+      - "customRoleIds"
+      - "customRoleIds"
+      _links:
+        next:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+        self:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+      _member:
+        firstName: "Alan"
+        lastName: "Turing"
+        _verified: true
+        role: {}
+        _links:
+          next:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+          self:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+        _pendingInvite: true
+        isBeta: true
+        _id: "5a580a01b4ff89217bdf9dc1"
+        email: "user@launchdarkly.com"
+        customRoles:
+        - "5a580a01b4ff89217bdf9dc1"
+        - "5a580a01b4ff89217bdf9dc1"
+      ownerId: "5a580a01b4ff89217bdf9dc1"
+      creationDate: 1443652232590
+      defaultApiVersion: 0
+      token: "3243"
+      lastUsed: 1469326565348
+      inlineRole:
+      - notActions:
+        - "updateOn"
+        - "updateOn"
+        notResources:
+        - "proj/*:env/*:flag/my-flag"
+        - "proj/*:env/*:flag/my-flag"
+        effect: "allow"
+        resources:
+        - "proj/*:env/*:flag/my-flag"
+        - "proj/*:env/*:flag/my-flag"
+        actions:
+        - "updateOn"
+        - "updateOn"
+      - notActions:
+        - "updateOn"
+        - "updateOn"
+        notResources:
+        - "proj/*:env/*:flag/my-flag"
+        - "proj/*:env/*:flag/my-flag"
+        effect: "allow"
+        resources:
+        - "proj/*:env/*:flag/my-flag"
+        - "proj/*:env/*:flag/my-flag"
+        actions:
+        - "updateOn"
+        - "updateOn"
+      name: "My access token"
+      _id: "5a580a01b4ff89217bdf9dc1"
+      lastModified: 1469326565348
+      serviceToken: true
+      memberId: "5a580a01b4ff89217bdf9dc1"
   projectBody:
     type: "object"
     required:
@@ -6082,6 +6523,34 @@ definitions:
         type: "boolean"
         example: true
         description: "Whether the data export destination is on or not."
+  tokenBody:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        example: "My access token"
+        description: "A human-friendly name for the access token"
+      role:
+        type: "string"
+        example: "writer"
+        description: "The name of a built-in role for the token"
+      customRoleIds:
+        type: "array"
+        description: "A list of custom role IDs to use as access limits for the access\
+          \ token"
+        items:
+          type: "string"
+          example: ""
+      inlineRole:
+        type: "array"
+        items:
+          $ref: "#/definitions/Statement"
+      serviceToken:
+        type: "boolean"
+        description: "Whether the token will be a service token https://docs.launchdarkly.com/home/account-security/api-access-tokens#service-tokens"
+      defaultApiVersion:
+        type: "integer"
+        description: "The default API version for this token"
   AuditLogEntry_target:
     properties:
       _links:
@@ -6219,8 +6688,9 @@ parameters:
   ArchivedQuery:
     name: "archived"
     in: "query"
-    description: "When set to 1, archived flags will be included in the list of flags\
-      \ returned.  By default, archived flags are not included in the list of flags."
+    description: "When set to 1, only archived flags will be included in the list\
+      \ of flags returned.  By default, archived flags are not included in the list\
+      \ of flags."
     required: false
     type: "boolean"
     x-exportParamName: "Archived"
@@ -6508,6 +6978,40 @@ parameters:
     required: true
     type: "string"
     x-exportParamName: "FlagKey"
+  TokensPostRequest:
+    in: "body"
+    name: "tokenBody"
+    description: "Create a new access token."
+    required: true
+    schema:
+      $ref: "#/definitions/tokenBody"
+    x-exportParamName: "TokenBody"
+  TokenId:
+    name: "tokenId"
+    in: "path"
+    description: "The access token ID."
+    required: true
+    type: "string"
+    x-exportParamName: "TokenId"
+  TokenShowAllQuery:
+    name: "showAll"
+    in: "query"
+    description: "If set to true, and the authentication access token has the \"Admin\"\
+      \ role, personal access tokens for all members will be retrieved."
+    required: false
+    type: "boolean"
+    x-exportParamName: "ShowAll"
+    x-optionalDataType: "Bool"
+  TokenExpiry:
+    name: "expiry"
+    in: "query"
+    description: "An expiration time for the old token key, expressed as a Unix epoch\
+      \ time in milliseconds. By default, the token will expire immediately."
+    required: false
+    type: "integer"
+    format: "int64"
+    x-exportParamName: "Expiry"
+    x-optionalDataType: "Int64"
 responses:
   BetaApi403:
     description: "This is a beta API, you must pass beta in the LD-API-Version header\
@@ -6558,6 +7062,10 @@ responses:
     description: "The stream source you requested could not be found"
     schema:
       $ref: "#/definitions/StreamUsageError"
+  Token2xx:
+    description: "Token response."
+    schema:
+      $ref: "#/definitions/Token"
   UserSegment2xx:
     description: "User segment response."
     schema:

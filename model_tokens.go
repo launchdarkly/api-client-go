@@ -10,8 +10,7 @@
 
 package ldapi
 
-type StreamBySdk struct {
-	Links *StreamBySdkLinks `json:"_links,omitempty"`
-	Metadata []StreamBySdkLinksMetadata `json:"metadata,omitempty"`
-	Series []StreamUsageSeries `json:"series,omitempty"`
+type Tokens struct {
+	Links *Links `json:"_links,omitempty"`
+	Items []Token `json:"items,omitempty"`
 }
