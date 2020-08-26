@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Build custom integrations with the LaunchDarkly REST API"
-  version: "3.4.0"
+  version: "3.5.0"
   title: "LaunchDarkly REST API"
   termsOfService: "https://launchdarkly.com/terms"
   contact:
@@ -2780,6 +2780,8 @@ definitions:
         type: "boolean"
         example: false
         description: "Whether or not this flag is archived."
+      clientSideAvailability:
+        $ref: "#/definitions/ClientSideAvailability"
       defaults:
         $ref: "#/definitions/Defaults"
     example:
@@ -2804,6 +2806,9 @@ definitions:
         customRoles:
         - "5a580a01b4ff89217bdf9dc1"
         - "5a580a01b4ff89217bdf9dc1"
+      clientSideAvailability:
+        usingEnvironmentId: true
+        usingMobileKey: true
       _links:
         next:
           href: "/api/v2/endpoint"
@@ -2966,6 +2971,9 @@ definitions:
           customRoles:
           - "5a580a01b4ff89217bdf9dc1"
           - "5a580a01b4ff89217bdf9dc1"
+        clientSideAvailability:
+          usingEnvironmentId: true
+          usingMobileKey: true
         _links:
           next:
             href: "/api/v2/endpoint"
@@ -3107,6 +3115,9 @@ definitions:
           customRoles:
           - "5a580a01b4ff89217bdf9dc1"
           - "5a580a01b4ff89217bdf9dc1"
+        clientSideAvailability:
+          usingEnvironmentId: true
+          usingMobileKey: true
         _links:
           next:
             href: "/api/v2/endpoint"
@@ -3633,6 +3644,20 @@ definitions:
     example:
       key: "key"
       variation: 7
+  ClientSideAvailability:
+    type: "object"
+    properties:
+      usingEnvironmentId:
+        type: "boolean"
+        description: "When set to true, this flag will be available to SDKs using\
+          \ the client-side id."
+      usingMobileKey:
+        type: "boolean"
+        description: "When set to true, this flag will be available to SDKS using\
+          \ a mobile key."
+    example:
+      usingEnvironmentId: true
+      usingMobileKey: true
   FeatureFlagStatus:
     type: "object"
     properties:
@@ -4348,6 +4373,8 @@ definitions:
         description: "An array of tags for this project."
         items:
           type: "string"
+      defaultClientSideAvailability:
+        $ref: "#/definitions/ClientSideAvailability"
     example:
       includeInSnippetByDefault: true
       _links:
@@ -4400,6 +4427,9 @@ definitions:
         _id: "5a580a01b4ff89217bdf9dc1"
         secureMode: false
         key: "production"
+      defaultClientSideAvailability:
+        usingEnvironmentId: true
+        usingMobileKey: true
       name: "Zentasks"
       _id: "5a580a01b4ff89217bdf9dc1"
       key: "zentasks"
@@ -4475,6 +4505,9 @@ definitions:
           _id: "5a580a01b4ff89217bdf9dc1"
           secureMode: false
           key: "production"
+        defaultClientSideAvailability:
+          usingEnvironmentId: true
+          usingMobileKey: true
         name: "Zentasks"
         _id: "5a580a01b4ff89217bdf9dc1"
         key: "zentasks"
@@ -4532,6 +4565,9 @@ definitions:
           _id: "5a580a01b4ff89217bdf9dc1"
           secureMode: false
           key: "production"
+        defaultClientSideAvailability:
+          usingEnvironmentId: true
+          usingMobileKey: true
         name: "Zentasks"
         _id: "5a580a01b4ff89217bdf9dc1"
         key: "zentasks"
@@ -6300,6 +6336,8 @@ definitions:
         type: "array"
         items:
           $ref: "#/definitions/EnvironmentPost"
+      defaultClientSideAvailability:
+        $ref: "#/definitions/ClientSideAvailability"
   featureFlagBody:
     type: "object"
     required:
@@ -6339,6 +6377,8 @@ definitions:
         type: "boolean"
         description: "Whether or not this flag should be made available to the client-side\
           \ JavaScript SDK."
+      clientSideAvailability:
+        $ref: "#/definitions/ClientSideAvailability"
       defaults:
         $ref: "#/definitions/Defaults"
   patchComment:

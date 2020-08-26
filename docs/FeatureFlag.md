@@ -21,6 +21,7 @@ Name | Type | Description | Notes
 **Environments** | [**map[string]FeatureFlagConfig**](FeatureFlagConfig.md) |  | [optional] [default to null]
 **ArchivedDate** | **int64** | A unix epoch time in milliseconds specifying the archived time of this flag. | [optional] [default to null]
 **Archived** | **bool** | Whether or not this flag is archived. | [optional] [default to null]
+**ClientSideAvailability** | [***ClientSideAvailability**](ClientSideAvailability.md) |  | [optional] [default to null]
 **Defaults** | [***Defaults**](Defaults.md) |  | [optional] [default to null]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
