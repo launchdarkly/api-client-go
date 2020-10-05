@@ -7,7 +7,7 @@ Method | HTTP request | Description
 [**DeleteToken**](AccessTokensApi.md#DeleteToken) | **Delete** /tokens/{tokenId} | Delete an access token by ID.
 [**GetToken**](AccessTokensApi.md#GetToken) | **Get** /tokens/{tokenId} | Get a single access token by ID.
 [**GetTokens**](AccessTokensApi.md#GetTokens) | **Get** /tokens | Returns a list of tokens in the account.
-[**PatchToken**](AccessTokensApi.md#PatchToken) | **Patch** /tokens/{tokenId} | Modify an access tokenby ID.
+[**PatchToken**](AccessTokensApi.md#PatchToken) | **Patch** /tokens/{tokenId} | Modify an access token by ID.
 [**PostToken**](AccessTokensApi.md#PostToken) | **Post** /tokens | Create a new token.
 [**ResetToken**](AccessTokensApi.md#ResetToken) | **Post** /tokens/{tokenId}/reset | Reset an access token&#39;s secret key with an optional expiry time for the old key.
 
@@ -99,7 +99,7 @@ Name | Type | Description  | Notes
 
 # **PatchToken**
 > Token PatchToken(ctx, tokenId, patchDelta)
-Modify an access tokenby ID.
+Modify an access token by ID.
 
 ### Required Parameters
 

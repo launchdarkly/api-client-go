@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Build custom integrations with the LaunchDarkly REST API"
-  version: "3.5.0"
+  version: "3.6.0"
   title: "LaunchDarkly REST API"
   termsOfService: "https://launchdarkly.com/terms"
   contact:
@@ -1024,6 +1024,49 @@ paths:
           description: "Invalid resource specifier."
         409:
           description: "Status conflict."
+  /segments/{projectKey}/{environmentKey}/{userSegmentKey}/unbounded-users:
+    post:
+      tags:
+      - "User segments"
+      summary: "Update targets included or excluded in an unbounded segment"
+      operationId: "updatedUnboundedSegmentTargets"
+      parameters:
+      - name: "projectKey"
+        in: "path"
+        description: "The project key, used to tie the flags together under one project\
+          \ so they can be managed together."
+        required: true
+        type: "string"
+        x-exportParamName: "ProjectKey"
+      - name: "environmentKey"
+        in: "path"
+        description: "The environment key, used to tie together flag configuration\
+          \ and users under one environment so they can be managed together."
+        required: true
+        type: "string"
+        x-exportParamName: "EnvironmentKey"
+      - name: "userSegmentKey"
+        in: "path"
+        description: "The user segment's key. The key identifies the user segment\
+          \ in your code."
+        required: true
+        type: "string"
+        x-exportParamName: "UserSegmentKey"
+      - in: "body"
+        name: "unboundedSegmentTargetsBody"
+        description: "Add or remove user targets to the included or excluded lists\
+          \ on an unbounded segment"
+        required: true
+        schema:
+          $ref: "#/definitions/unboundedSegmentTargetsBody"
+        x-exportParamName: "UnboundedSegmentTargetsBody"
+      responses:
+        204:
+          description: "Action completed successfully."
+        400:
+          description: "Invalid request body."
+        401:
+          description: "Invalid access token."
   /users/{projectKey}/{environmentKey}:
     get:
       tags:
@@ -2381,7 +2424,7 @@ paths:
     patch:
       tags:
       - "Access tokens"
-      summary: "Modify an access tokenby ID."
+      summary: "Modify an access token by ID."
       operationId: "patchToken"
       parameters:
       - name: "tokenId"
@@ -2445,6 +2488,145 @@ paths:
           description: "Invalid request body."
         401:
           description: "Invalid access token."
+  /account/relay-auto-configs:
+    get:
+      tags:
+      - "Relay proxy configurations"
+      summary: "Returns a list of relay proxy configurations in the account."
+      operationId: "getRelayProxyConfigs"
+      parameters: []
+      responses:
+        200:
+          description: "Relay proxy configs response."
+          schema:
+            $ref: "#/definitions/RelayProxyConfigs"
+    post:
+      tags:
+      - "Relay proxy configurations"
+      summary: "Create a new relay proxy config."
+      operationId: "postRelayAutoConfig"
+      parameters:
+      - in: "body"
+        name: "relayProxyConfigBody"
+        description: "Create a new relay proxy configuration"
+        required: true
+        schema:
+          $ref: "#/definitions/relayProxyConfigBody"
+        x-exportParamName: "RelayProxyConfigBody"
+      responses:
+        201:
+          description: "Relay proxy config response."
+          schema:
+            $ref: "#/definitions/RelayProxyConfig"
+        400:
+          description: "Invalid request body."
+        403:
+          description: "Access to the requested resource was denied."
+  /account/relay-auto-configs/{id}:
+    get:
+      tags:
+      - "Relay proxy configurations"
+      summary: "Get a single relay proxy configuration by ID."
+      operationId: "getRelayProxyConfig"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "The relay proxy configuration ID"
+        required: true
+        type: "string"
+        x-exportParamName: "Id"
+      responses:
+        200:
+          description: "Relay proxy config response."
+          schema:
+            $ref: "#/definitions/RelayProxyConfig"
+        404:
+          description: "Invalid resource specifier."
+    delete:
+      tags:
+      - "Relay proxy configurations"
+      summary: "Delete a relay proxy configuration by ID."
+      operationId: "deleteRelayProxyConfig"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "The relay proxy configuration ID"
+        required: true
+        type: "string"
+        x-exportParamName: "Id"
+      responses:
+        204:
+          description: "Action completed successfully."
+        400:
+          description: "Invalid request body."
+        404:
+          description: "Invalid resource specifier."
+    patch:
+      tags:
+      - "Relay proxy configurations"
+      summary: "Modify a relay proxy configuration by ID."
+      operationId: "patchRelayProxyConfig"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "The relay proxy configuration ID"
+        required: true
+        type: "string"
+        x-exportParamName: "Id"
+      - in: "body"
+        name: "patchDelta"
+        description: "Requires a JSON Patch representation of the desired changes\
+          \ to the project. 'http://jsonpatch.com/'"
+        required: true
+        schema:
+          type: "array"
+          items:
+            $ref: "#/definitions/PatchOperation"
+        x-exportParamName: "PatchDelta"
+      responses:
+        200:
+          description: "Relay proxy config response."
+          schema:
+            $ref: "#/definitions/RelayProxyConfig"
+        400:
+          description: "Invalid request body."
+        404:
+          description: "Invalid resource specifier."
+        409:
+          description: "Status conflict."
+  /account/relay-auto-configs/{id}/reset:
+    post:
+      tags:
+      - "Relay proxy configurations"
+      summary: "Reset a relay proxy configuration's secret key with an optional expiry\
+        \ time for the old key."
+      operationId: "resetRelayProxyConfig"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "The relay proxy configuration ID"
+        required: true
+        type: "string"
+        x-exportParamName: "Id"
+      - name: "expiry"
+        in: "query"
+        description: "An expiration time for the old relay proxy configuration key,\
+          \ expressed as a Unix epoch time in milliseconds. By default, the relay\
+          \ proxy configuration will expire immediately"
+        required: false
+        type: "integer"
+        format: "int64"
+        x-exportParamName: "Expiry"
+        x-optionalDataType: "Int64"
+      responses:
+        200:
+          description: "Relay proxy config response."
+          schema:
+            $ref: "#/definitions/RelayProxyConfig"
+        400:
+          description: "Invalid request body."
+        404:
+          description: "Invalid resource specifier."
   /:
     get:
       tags:
@@ -3644,6 +3826,44 @@ definitions:
     example:
       key: "key"
       variation: 7
+  FeatureFlagScheduledChanges:
+    type: "object"
+    properties:
+      _links:
+        $ref: "#/definitions/Links"
+      items:
+        type: "array"
+        items:
+          $ref: "#/definitions/FeatureFlagScheduledChange"
+  FeatureFlagScheduledChange:
+    type: "object"
+    properties:
+      executionDate:
+        type: "integer"
+        description: "A unix epoch time in milliseconds specifying the date the scheduled\
+          \ changes will be applied"
+      _version:
+        type: "integer"
+      _id:
+        type: "string"
+      instructions:
+        $ref: "#/definitions/SemanticPatchInstruction"
+  FeatureFlagScheduledChangesConflicts:
+    type: "object"
+    properties:
+      instructions:
+        type: "array"
+        items:
+          $ref: "#/definitions/FeatureFlagScheduledChangesConflicts_instructions"
+  ScheduledChangesFeatureFlagConflict:
+    type: "object"
+    properties:
+      _id:
+        type: "string"
+        description: "Feature flag scheduled change id this change will conflict with"
+      reason:
+        type: "string"
+        description: "Feature flag scheduled change conflict reason"
   ClientSideAvailability:
     type: "object"
     properties:
@@ -4046,6 +4266,12 @@ definitions:
           \ segment."
         items:
           $ref: "#/definitions/UserSegmentRule"
+      unbounded:
+        type: "boolean"
+        example: false
+        description: "Controls whether this segment can support unlimited numbers\
+          \ of users. Requires the beta API and additional setup. Include/exclude\
+          \ lists in this payload are not used in unbounded segments."
       version:
         type: "integer"
       _links:
@@ -4129,6 +4355,7 @@ definitions:
         weight: 0
         bucketBy: "bucketBy"
       creationDate: 1443652232590
+      unbounded: false
       included:
       - "included"
       - "included"
@@ -4257,6 +4484,7 @@ definitions:
           weight: 0
           bucketBy: "bucketBy"
         creationDate: 1443652232590
+        unbounded: false
         included:
         - "included"
         - "included"
@@ -4338,6 +4566,7 @@ definitions:
           weight: 0
           bucketBy: "bucketBy"
         creationDate: 1443652232590
+        unbounded: false
         included:
         - "included"
         - "included"
@@ -4346,6 +4575,22 @@ definitions:
         tags:
         - "dev"
         - "ops"
+  UnboundedSegmentTargetChanges:
+    type: "object"
+    properties:
+      add:
+        type: "array"
+        example:
+        - "user@launchdarkly.com"
+        description: "Users to add to this list of targets"
+        items:
+          type: "string"
+      remove:
+        type: "array"
+        example: []
+        description: "Users to remove from this list of targets"
+        items:
+          type: "string"
   Project:
     type: "object"
     properties:
@@ -5560,9 +5805,11 @@ definitions:
         type: "string"
         example: "This is a comment string"
       instructions:
-        type: "array"
-        items:
-          $ref: "#/definitions/SemanticPatchOperation_instructions"
+        $ref: "#/definitions/SemanticPatchInstruction"
+  SemanticPatchInstruction:
+    type: "array"
+    items:
+      $ref: "#/definitions/SemanticPatchInstruction_inner"
   CustomProperty:
     type: "object"
     required:
@@ -6310,6 +6557,219 @@ definitions:
       lastModified: 1469326565348
       serviceToken: true
       memberId: "5a580a01b4ff89217bdf9dc1"
+  RelayProxyConfigs:
+    type: "object"
+    properties:
+      items:
+        type: "array"
+        items:
+          $ref: "#/definitions/RelayProxyConfig"
+    example:
+      items:
+      - displayKey: "66eo"
+        _creator:
+          firstName: "Alan"
+          lastName: "Turing"
+          _verified: true
+          role: {}
+          _links:
+            next:
+              href: "/api/v2/endpoint"
+              type: "application/json"
+            self:
+              href: "/api/v2/endpoint"
+              type: "application/json"
+          _pendingInvite: true
+          isBeta: true
+          _id: "5a580a01b4ff89217bdf9dc1"
+          email: "user@launchdarkly.com"
+          customRoles:
+          - "5a580a01b4ff89217bdf9dc1"
+          - "5a580a01b4ff89217bdf9dc1"
+        fullKey: "rel-8a3a773d-b75e-48eb-a850-492cda9266eo"
+        name: "My relay proxy config"
+        _id: "5a580a01b4ff89217bdf9dc1"
+        lastModified: 1469326565348
+        creationDate: 1443652232590
+        policy:
+        - notActions:
+          - "updateOn"
+          - "updateOn"
+          notResources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          effect: "deny"
+          resources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          actions:
+          - "updateOn"
+          - "updateOn"
+        - notActions:
+          - "updateOn"
+          - "updateOn"
+          notResources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          effect: "deny"
+          resources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          actions:
+          - "updateOn"
+          - "updateOn"
+      - displayKey: "66eo"
+        _creator:
+          firstName: "Alan"
+          lastName: "Turing"
+          _verified: true
+          role: {}
+          _links:
+            next:
+              href: "/api/v2/endpoint"
+              type: "application/json"
+            self:
+              href: "/api/v2/endpoint"
+              type: "application/json"
+          _pendingInvite: true
+          isBeta: true
+          _id: "5a580a01b4ff89217bdf9dc1"
+          email: "user@launchdarkly.com"
+          customRoles:
+          - "5a580a01b4ff89217bdf9dc1"
+          - "5a580a01b4ff89217bdf9dc1"
+        fullKey: "rel-8a3a773d-b75e-48eb-a850-492cda9266eo"
+        name: "My relay proxy config"
+        _id: "5a580a01b4ff89217bdf9dc1"
+        lastModified: 1469326565348
+        creationDate: 1443652232590
+        policy:
+        - notActions:
+          - "updateOn"
+          - "updateOn"
+          notResources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          effect: "deny"
+          resources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          actions:
+          - "updateOn"
+          - "updateOn"
+        - notActions:
+          - "updateOn"
+          - "updateOn"
+          notResources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          effect: "deny"
+          resources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          actions:
+          - "updateOn"
+          - "updateOn"
+  RelayProxyConfig:
+    type: "object"
+    required:
+    - "_creator"
+    - "_id"
+    - "creationDate"
+    - "displayKey"
+    - "lastModified"
+    - "name"
+    - "policy"
+    properties:
+      _id:
+        type: "string"
+        example: "5a580a01b4ff89217bdf9dc1"
+        description: "The unique resource id."
+      _creator:
+        $ref: "#/definitions/Member"
+      name:
+        type: "string"
+        example: "My relay proxy config"
+        description: "A human-friendly name for the relay proxy configuration"
+      policy:
+        type: "array"
+        items:
+          $ref: "#/definitions/Policy"
+      fullKey:
+        type: "string"
+        example: "rel-8a3a773d-b75e-48eb-a850-492cda9266eo"
+        description: "Full secret key. Only included if creating or resetting the\
+          \ relay proxy configuration"
+      displayKey:
+        type: "string"
+        example: "66eo"
+        description: "The last 4 digits of the unique secret key for this relay proxy\
+          \ configuration"
+      creationDate:
+        type: "integer"
+        format: "int64"
+        example: 1443652232590
+        description: "A unix epoch time in milliseconds specifying the creation time\
+          \ of this relay proxy configuration"
+      lastModified:
+        type: "integer"
+        format: "int64"
+        example: 1469326565348
+        description: "A unix epoch time in milliseconds specifying the last time this\
+          \ relay proxy configuration was modified"
+    example:
+      displayKey: "66eo"
+      _creator:
+        firstName: "Alan"
+        lastName: "Turing"
+        _verified: true
+        role: {}
+        _links:
+          next:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+          self:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+        _pendingInvite: true
+        isBeta: true
+        _id: "5a580a01b4ff89217bdf9dc1"
+        email: "user@launchdarkly.com"
+        customRoles:
+        - "5a580a01b4ff89217bdf9dc1"
+        - "5a580a01b4ff89217bdf9dc1"
+      fullKey: "rel-8a3a773d-b75e-48eb-a850-492cda9266eo"
+      name: "My relay proxy config"
+      _id: "5a580a01b4ff89217bdf9dc1"
+      lastModified: 1469326565348
+      creationDate: 1443652232590
+      policy:
+      - notActions:
+        - "updateOn"
+        - "updateOn"
+        notResources:
+        - "proj/*:env/*:flag/my-flag"
+        - "proj/*:env/*:flag/my-flag"
+        effect: "deny"
+        resources:
+        - "proj/*:env/*:flag/my-flag"
+        - "proj/*:env/*:flag/my-flag"
+        actions:
+        - "updateOn"
+        - "updateOn"
+      - notActions:
+        - "updateOn"
+        - "updateOn"
+        notResources:
+        - "proj/*:env/*:flag/my-flag"
+        - "proj/*:env/*:flag/my-flag"
+        effect: "deny"
+        resources:
+        - "proj/*:env/*:flag/my-flag"
+        - "proj/*:env/*:flag/my-flag"
+        actions:
+        - "updateOn"
+        - "updateOn"
   projectBody:
     type: "object"
     required:
@@ -6432,12 +6892,25 @@ definitions:
         type: "string"
         example: "Users in this segment will have access to beta features."
         description: "A description for the user segment."
+      unbounded:
+        type: "boolean"
+        example: false
+        description: "Controls whether this segment can support unlimited numbers\
+          \ of users. Requires the beta API and additional setup. Include/exclude\
+          \ lists in this payload are not used in unbounded segments."
       tags:
         type: "array"
         description: "Tags for the user segment."
         items:
           type: "string"
           example: ""
+  unboundedSegmentTargetsBody:
+    type: "object"
+    properties:
+      included:
+        $ref: "#/definitions/UnboundedSegmentTargetChanges"
+      excluded:
+        $ref: "#/definitions/UnboundedSegmentTargetChanges"
   userSettingsBody:
     type: "object"
     properties:
@@ -6591,6 +7064,28 @@ definitions:
       defaultApiVersion:
         type: "integer"
         description: "The default API version for this token"
+  relayProxyConfigBody:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        example: "My relay proxy config"
+        description: "A human-friendly name for the relay proxy configuration"
+      policy:
+        type: "array"
+        items:
+          $ref: "#/definitions/Policy"
+  FeatureFlagScheduledChangesConflicts_instructions:
+    properties:
+      kind:
+        type: "string"
+        example: "removeUserTargets"
+        description: "The name of the modification you would like to perform on a\
+          \ resource."
+      conflicts:
+        type: "array"
+        items:
+          $ref: "#/definitions/ScheduledChangesFeatureFlagConflict"
   AuditLogEntry_target:
     properties:
       _links:
@@ -6615,7 +7110,7 @@ definitions:
       resources:
       - "proj/alexis:env/test"
       - "proj/alexis:env/test"
-  SemanticPatchOperation_instructions:
+  SemanticPatchInstruction_inner:
     properties:
       kind:
         type: "string"
@@ -6654,6 +7149,20 @@ parameters:
     schema:
       $ref: "#/definitions/featureFlagBody"
     x-exportParamName: "FeatureFlagBody"
+  ScheduledFeatureFlagChangesPostRequest:
+    in: "body"
+    name: "scheduledFeatureFlagChangesBody"
+    description: "Create scheduled changes on a feature flag."
+    required: true
+    schema:
+      type: "object"
+      properties:
+        executionDate:
+          type: "integer"
+          description: "A unix epoch time in milliseconds specifying the date the\
+            \ scheduled changes will be applied"
+        instructions:
+          $ref: "#/definitions/SemanticPatchInstruction"
   DestinationPostRequest:
     in: "body"
     name: "destinationBody"
@@ -6670,6 +7179,15 @@ parameters:
     schema:
       $ref: "#/definitions/userSegmentBody"
     x-exportParamName: "UserSegmentBody"
+  UnboundedSegmentTargetsPostRequest:
+    in: "body"
+    name: "unboundedSegmentTargetsBody"
+    description: "Add or remove user targets to the included or excluded lists on\
+      \ an unbounded segment"
+    required: true
+    schema:
+      $ref: "#/definitions/unboundedSegmentTargetsBody"
+    x-exportParamName: "UnboundedSegmentTargetsBody"
   ProjectPostRequest:
     in: "body"
     name: "projectBody"
@@ -7052,6 +7570,32 @@ parameters:
     format: "int64"
     x-exportParamName: "Expiry"
     x-optionalDataType: "Int64"
+  RelayProxyConfigPostRequest:
+    in: "body"
+    name: "relayProxyConfigBody"
+    description: "Create a new relay proxy configuration"
+    required: true
+    schema:
+      $ref: "#/definitions/relayProxyConfigBody"
+    x-exportParamName: "RelayProxyConfigBody"
+  RelayProxyConfigId:
+    name: "id"
+    in: "path"
+    description: "The relay proxy configuration ID"
+    required: true
+    type: "string"
+    x-exportParamName: "Id"
+  RelayProxyConfigsExpiry:
+    name: "expiry"
+    in: "query"
+    description: "An expiration time for the old relay proxy configuration key, expressed\
+      \ as a Unix epoch time in milliseconds. By default, the relay proxy configuration\
+      \ will expire immediately"
+    required: false
+    type: "integer"
+    format: "int64"
+    x-exportParamName: "Expiry"
+    x-optionalDataType: "Int64"
 responses:
   BetaApi403:
     description: "This is a beta API, you must pass beta in the LD-API-Version header\
@@ -7082,6 +7626,10 @@ responses:
     description: "Successful Project response."
     schema:
       $ref: "#/definitions/Project"
+  RelayProxyConfig2xx:
+    description: "Relay proxy config response."
+    schema:
+      $ref: "#/definitions/RelayProxyConfig"
   Root200:
     description: "A list of links to available resources in the API."
     schema:
@@ -7094,6 +7642,8 @@ responses:
     description: "Invalid request body."
   Standard401:
     description: "Invalid access token."
+  Standard403:
+    description: "Access to the requested resource was denied."
   Standard404:
     description: "Invalid resource specifier."
   Standard409:
