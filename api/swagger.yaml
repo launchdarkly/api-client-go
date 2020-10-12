@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Build custom integrations with the LaunchDarkly REST API"
-  version: "3.6.0"
+  version: "3.7.0"
   title: "LaunchDarkly REST API"
   termsOfService: "https://launchdarkly.com/terms"
   contact:
@@ -271,6 +271,88 @@ paths:
           description: "Invalid request body."
         401:
           description: "Invalid access token."
+        404:
+          description: "Invalid resource specifier."
+        409:
+          description: "Status conflict."
+  /projects/{projectKey}/environments/{environmentKey}/apiKey:
+    post:
+      tags:
+      - "Environments"
+      summary: "Reset an environment's SDK key with an optional expiry time for the\
+        \ old key."
+      operationId: "resetEnvironmentSDKKey"
+      parameters:
+      - name: "projectKey"
+        in: "path"
+        description: "The project key, used to tie the flags together under one project\
+          \ so they can be managed together."
+        required: true
+        type: "string"
+        x-exportParamName: "ProjectKey"
+      - name: "environmentKey"
+        in: "path"
+        description: "The environment key, used to tie together flag configuration\
+          \ and users under one environment so they can be managed together."
+        required: true
+        type: "string"
+        x-exportParamName: "EnvironmentKey"
+      - name: "expiry"
+        in: "query"
+        description: "An expiration time for the old environment SDK or mobile key,\
+          \ expressed as a Unix epoch time in milliseconds. By default, the key will\
+          \ expire immediately"
+        required: false
+        type: "integer"
+        format: "int64"
+        x-exportParamName: "Expiry"
+        x-optionalDataType: "Int64"
+      responses:
+        200:
+          description: "Environment response."
+          schema:
+            $ref: "#/definitions/Environment"
+        404:
+          description: "Invalid resource specifier."
+        409:
+          description: "Status conflict."
+  /projects/{projectKey}/environments/{environmentKey}/mobileKey:
+    post:
+      tags:
+      - "Environments"
+      summary: "Reset an environment's mobile key with an optional expiry time for\
+        \ the old key."
+      operationId: "resetEnvironmentMobileKey"
+      parameters:
+      - name: "projectKey"
+        in: "path"
+        description: "The project key, used to tie the flags together under one project\
+          \ so they can be managed together."
+        required: true
+        type: "string"
+        x-exportParamName: "ProjectKey"
+      - name: "environmentKey"
+        in: "path"
+        description: "The environment key, used to tie together flag configuration\
+          \ and users under one environment so they can be managed together."
+        required: true
+        type: "string"
+        x-exportParamName: "EnvironmentKey"
+      - name: "expiry"
+        in: "query"
+        description: "An expiration time for the old environment SDK or mobile key,\
+          \ expressed as a Unix epoch time in milliseconds. By default, the key will\
+          \ expire immediately"
+        required: false
+        type: "integer"
+        format: "int64"
+        x-exportParamName: "Expiry"
+        x-optionalDataType: "Int64"
+      responses:
+        200:
+          description: "Environment response."
+          schema:
+            $ref: "#/definitions/Environment"
         404:
           description: "Invalid resource specifier."
         409:
@@ -7233,6 +7315,16 @@ parameters:
       type: "string"
     collectionFormat: "multi"
     x-exportParamName: "Env"
+  EnvironmentKeyExpiry:
+    name: "expiry"
+    in: "query"
+    description: "An expiration time for the old environment SDK or mobile key, expressed\
+      \ as a Unix epoch time in milliseconds. By default, the key will expire immediately"
+    required: false
+    type: "integer"
+    format: "int64"
+    x-exportParamName: "Expiry"
+    x-optionalDataType: "Int64"
   SummaryQuery:
     name: "summary"
     in: "query"
