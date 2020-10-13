@@ -8,7 +8,7 @@ Method | HTTP request | Description
 [**GetEnvironment**](EnvironmentsApi.md#GetEnvironment) | **Get** /projects/{projectKey}/environments/{environmentKey} | Get an environment given a project and key.
 [**PatchEnvironment**](EnvironmentsApi.md#PatchEnvironment) | **Patch** /projects/{projectKey}/environments/{environmentKey} | Modify an environment by ID.
 [**PostEnvironment**](EnvironmentsApi.md#PostEnvironment) | **Post** /projects/{projectKey}/environments | Create a new environment in a specified project with a given name, key, and swatch color.
-[**ResetEnvironmentMobileKey**](EnvironmentsApi.md#ResetEnvironmentMobileKey) | **Post** /projects/{projectKey}/environments/{environmentKey}/mobileKey | Reset an environment&#39;s mobile key with an optional expiry time for the old key.
+[**ResetEnvironmentMobileKey**](EnvironmentsApi.md#ResetEnvironmentMobileKey) | **Post** /projects/{projectKey}/environments/{environmentKey}/mobileKey | Reset an environment&#39;s mobile key. The optional expiry for the old key is deprecated for this endpoint, so the old key will always expire immediately.
 [**ResetEnvironmentSDKKey**](EnvironmentsApi.md#ResetEnvironmentSDKKey) | **Post** /projects/{projectKey}/environments/{environmentKey}/apiKey | Reset an environment&#39;s SDK key with an optional expiry time for the old key.
 
 
@@ -123,7 +123,7 @@ Name | Type | Description  | Notes
 
 # **ResetEnvironmentMobileKey**
 > Environment ResetEnvironmentMobileKey(ctx, projectKey, environmentKey, optional)
-Reset an environment's mobile key with an optional expiry time for the old key.
+Reset an environment's mobile key. The optional expiry for the old key is deprecated for this endpoint, so the old key will always expire immediately.
 
 ### Required Parameters
 
@@ -141,7 +141,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **expiry** | **optional.Int64**| An expiration time for the old environment SDK or mobile key, expressed as a Unix epoch time in milliseconds. By default, the key will expire immediately | 
+ **expiry** | **optional.Int64**| The expiry parameter is deprecated for this endpoint, so the old mobile key will always expire immediately. This parameter will be removed in an upcoming major API client version. | 
 
 ### Return type
 
@@ -178,7 +178,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **expiry** | **optional.Int64**| An expiration time for the old environment SDK or mobile key, expressed as a Unix epoch time in milliseconds. By default, the key will expire immediately | 
+ **expiry** | **optional.Int64**| An expiration time for the old environment SDK key, expressed as a Unix epoch time in milliseconds. By default, the key will expire immediately. | 
 
 ### Return type
 
