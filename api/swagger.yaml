@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Build custom integrations with the LaunchDarkly REST API"
-  version: "3.7.1"
+  version: "3.8.0"
   title: "LaunchDarkly REST API"
   termsOfService: "https://launchdarkly.com/terms"
   contact:
@@ -2724,6 +2724,174 @@ paths:
             $ref: "#/definitions/Links"
         401:
           description: "Invalid access token."
+  /integrations:
+    get:
+      tags:
+      - "Integrations"
+      summary: "Get a list of all configured audit log event integrations associated\
+        \ with this account."
+      operationId: "getIntegrations"
+      parameters: []
+      responses:
+        200:
+          description: "Integrations response."
+          schema:
+            $ref: "#/definitions/Integrations"
+        403:
+          description: "This is a beta API, you must pass beta in the LD-API-Version\
+            \ header to use it."
+          schema:
+            $ref: "#/definitions/UsageError"
+  /integrations/{integrationKey}:
+    get:
+      tags:
+      - "Integrations"
+      summary: "Get a list of all configured integrations of a given kind."
+      operationId: "getIntegrationSubscriptions"
+      parameters:
+      - name: "integrationKey"
+        in: "path"
+        description: "The key used to specify the integration kind."
+        required: true
+        type: "string"
+        x-exportParamName: "IntegrationKey"
+      responses:
+        200:
+          description: "Integrations response."
+          schema:
+            $ref: "#/definitions/Integration"
+        403:
+          description: "This is a beta API, you must pass beta in the LD-API-Version\
+            \ header to use it."
+          schema:
+            $ref: "#/definitions/UsageError"
+        404:
+          description: "Invalid resource specifier."
+    post:
+      tags:
+      - "Integrations"
+      summary: "Create a new integration subscription of a given kind."
+      operationId: "postIntegrationSubscription"
+      parameters:
+      - name: "integrationKey"
+        in: "path"
+        description: "The key used to specify the integration kind."
+        required: true
+        type: "string"
+        x-exportParamName: "IntegrationKey"
+      - in: "body"
+        name: "subscriptionBody"
+        description: "Create a new integration subscription."
+        required: true
+        schema:
+          $ref: "#/definitions/subscriptionBody"
+        x-exportParamName: "SubscriptionBody"
+      responses:
+        201:
+          description: "Integrations response."
+          schema:
+            $ref: "#/definitions/IntegrationSubscription"
+        400:
+          description: "Invalid request body."
+        401:
+          description: "Invalid access token."
+        409:
+          description: "Status conflict."
+  /integrations/{integrationKey}/{integrationId}:
+    get:
+      tags:
+      - "Integrations"
+      summary: "Get a single integration subscription by ID."
+      operationId: "getIntegrationSubscription"
+      parameters:
+      - name: "integrationKey"
+        in: "path"
+        description: "The key used to specify the integration kind."
+        required: true
+        type: "string"
+        x-exportParamName: "IntegrationKey"
+      - name: "integrationId"
+        in: "path"
+        description: "The integration ID."
+        required: true
+        type: "string"
+        x-exportParamName: "IntegrationId"
+      responses:
+        200:
+          description: "Integrations response."
+          schema:
+            $ref: "#/definitions/IntegrationSubscription"
+        403:
+          description: "This is a beta API, you must pass beta in the LD-API-Version\
+            \ header to use it."
+          schema:
+            $ref: "#/definitions/UsageError"
+        404:
+          description: "Invalid resource specifier."
+    delete:
+      tags:
+      - "Integrations"
+      summary: "Delete an integration subscription by ID."
+      operationId: "deleteIntegrationSubscription"
+      parameters:
+      - name: "integrationKey"
+        in: "path"
+        description: "The key used to specify the integration kind."
+        required: true
+        type: "string"
+        x-exportParamName: "IntegrationKey"
+      - name: "integrationId"
+        in: "path"
+        description: "The integration ID."
+        required: true
+        type: "string"
+        x-exportParamName: "IntegrationId"
+      responses:
+        204:
+          description: "Action completed successfully."
+        401:
+          description: "Invalid access token."
+        404:
+          description: "Invalid resource specifier."
+    patch:
+      tags:
+      - "Integrations"
+      summary: "Modify an integration subscription by ID."
+      operationId: "patchIntegrationSubscription"
+      parameters:
+      - name: "integrationKey"
+        in: "path"
+        description: "The key used to specify the integration kind."
+        required: true
+        type: "string"
+        x-exportParamName: "IntegrationKey"
+      - name: "integrationId"
+        in: "path"
+        description: "The integration ID."
+        required: true
+        type: "string"
+        x-exportParamName: "IntegrationId"
+      - in: "body"
+        name: "patchDelta"
+        description: "Requires a JSON Patch representation of the desired changes\
+          \ to the project. 'http://jsonpatch.com/'"
+        required: true
+        schema:
+          type: "array"
+          items:
+            $ref: "#/definitions/PatchOperation"
+        x-exportParamName: "PatchDelta"
+      responses:
+        200:
+          description: "Integrations response."
+          schema:
+            $ref: "#/definitions/IntegrationSubscription"
+        400:
+          description: "Invalid request body."
+        401:
+          description: "Invalid access token."
+        404:
+          description: "Invalid resource specifier."
 securityDefinitions:
   Token:
     description: "https://app.launchdarkly.com/settings#/tokens"
@@ -6852,6 +7020,342 @@ definitions:
         actions:
         - "updateOn"
         - "updateOn"
+  HierarchicalLinks:
+    type: "object"
+    properties:
+      parent:
+        $ref: "#/definitions/Link"
+      self:
+        $ref: "#/definitions/Link"
+    example:
+      parent:
+        href: "/api/v2/endpoint"
+        type: "application/json"
+      self:
+        href: "/api/v2/endpoint"
+        type: "application/json"
+  IntegrationSubscription:
+    type: "object"
+    properties:
+      _links:
+        $ref: "#/definitions/HierarchicalLinks"
+      _id:
+        type: "string"
+        example: "5a580a01b4ff89217bdf9dc1"
+        description: "The unique resource id."
+      kind:
+        type: "string"
+        example: "datadog"
+        description: "The type of integration associated with this configuration."
+      name:
+        type: "string"
+        example: "V2"
+        description: "The user-defined name associated with this configuration."
+      config:
+        type: "object"
+        example:
+          apiKey: "582**************************116"
+          hostURL: "https://api.datadoghq.com"
+        description: "A key-value mapping of configuration fields."
+        properties: {}
+      statements:
+        type: "array"
+        items:
+          $ref: "#/definitions/Statement"
+      "on":
+        type: "boolean"
+        example: true
+        description: "Whether or not the integration is currently active."
+      tags:
+        type: "array"
+        description: "An array of tags for this integration configuration."
+        items:
+          type: "string"
+      _status:
+        $ref: "#/definitions/IntegrationSubscription__status"
+    example:
+      _links:
+        parent:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+        self:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+      kind: "datadog"
+      name: "V2"
+      statements:
+      - notActions:
+        - "updateOn"
+        - "updateOn"
+        notResources:
+        - "proj/*:env/*:flag/my-flag"
+        - "proj/*:env/*:flag/my-flag"
+        effect: "allow"
+        resources:
+        - "proj/*:env/*:flag/my-flag"
+        - "proj/*:env/*:flag/my-flag"
+        actions:
+        - "updateOn"
+        - "updateOn"
+      - notActions:
+        - "updateOn"
+        - "updateOn"
+        notResources:
+        - "proj/*:env/*:flag/my-flag"
+        - "proj/*:env/*:flag/my-flag"
+        effect: "allow"
+        resources:
+        - "proj/*:env/*:flag/my-flag"
+        - "proj/*:env/*:flag/my-flag"
+        actions:
+        - "updateOn"
+        - "updateOn"
+      _id: "5a580a01b4ff89217bdf9dc1"
+      _status:
+        successCount: 6
+        lastSuccess: 1443652232590
+        errorCount: 2
+      config:
+        apiKey: "582**************************116"
+        hostURL: "https://api.datadoghq.com"
+      "on": true
+      tags:
+      - "tags"
+      - "tags"
+  Integration:
+    type: "object"
+    properties:
+      _links:
+        $ref: "#/definitions/Integration__links"
+      items:
+        type: "array"
+        items:
+          $ref: "#/definitions/IntegrationSubscription"
+    example:
+      _links:
+        self:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+      items:
+      - _links:
+          parent:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+          self:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+        kind: "datadog"
+        name: "V2"
+        statements:
+        - notActions:
+          - "updateOn"
+          - "updateOn"
+          notResources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          effect: "allow"
+          resources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          actions:
+          - "updateOn"
+          - "updateOn"
+        - notActions:
+          - "updateOn"
+          - "updateOn"
+          notResources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          effect: "allow"
+          resources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          actions:
+          - "updateOn"
+          - "updateOn"
+        _id: "5a580a01b4ff89217bdf9dc1"
+        _status:
+          successCount: 6
+          lastSuccess: 1443652232590
+          errorCount: 2
+        config:
+          apiKey: "582**************************116"
+          hostURL: "https://api.datadoghq.com"
+        "on": true
+        tags:
+        - "tags"
+        - "tags"
+      - _links:
+          parent:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+          self:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+        kind: "datadog"
+        name: "V2"
+        statements:
+        - notActions:
+          - "updateOn"
+          - "updateOn"
+          notResources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          effect: "allow"
+          resources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          actions:
+          - "updateOn"
+          - "updateOn"
+        - notActions:
+          - "updateOn"
+          - "updateOn"
+          notResources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          effect: "allow"
+          resources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          actions:
+          - "updateOn"
+          - "updateOn"
+        _id: "5a580a01b4ff89217bdf9dc1"
+        _status:
+          successCount: 6
+          lastSuccess: 1443652232590
+          errorCount: 2
+        config:
+          apiKey: "582**************************116"
+          hostURL: "https://api.datadoghq.com"
+        "on": true
+        tags:
+        - "tags"
+        - "tags"
+  Integrations:
+    type: "object"
+    properties:
+      _links:
+        type: "object"
+        example:
+          appdynamics:
+            href: "/api/v2/integrations/appdynamics"
+            type: "application/json"
+          splunk:
+            href: "/api/v2/integrations/splunk"
+            type: "application/json"
+        description: "A mapping of integration types to their respective API endpoints."
+        properties: {}
+      items:
+        type: "array"
+        items:
+          $ref: "#/definitions/IntegrationSubscription"
+    example:
+      _links:
+        appdynamics:
+          href: "/api/v2/integrations/appdynamics"
+          type: "application/json"
+        splunk:
+          href: "/api/v2/integrations/splunk"
+          type: "application/json"
+      items:
+      - _links:
+          parent:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+          self:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+        kind: "datadog"
+        name: "V2"
+        statements:
+        - notActions:
+          - "updateOn"
+          - "updateOn"
+          notResources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          effect: "allow"
+          resources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          actions:
+          - "updateOn"
+          - "updateOn"
+        - notActions:
+          - "updateOn"
+          - "updateOn"
+          notResources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          effect: "allow"
+          resources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          actions:
+          - "updateOn"
+          - "updateOn"
+        _id: "5a580a01b4ff89217bdf9dc1"
+        _status:
+          successCount: 6
+          lastSuccess: 1443652232590
+          errorCount: 2
+        config:
+          apiKey: "582**************************116"
+          hostURL: "https://api.datadoghq.com"
+        "on": true
+        tags:
+        - "tags"
+        - "tags"
+      - _links:
+          parent:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+          self:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+        kind: "datadog"
+        name: "V2"
+        statements:
+        - notActions:
+          - "updateOn"
+          - "updateOn"
+          notResources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          effect: "allow"
+          resources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          actions:
+          - "updateOn"
+          - "updateOn"
+        - notActions:
+          - "updateOn"
+          - "updateOn"
+          notResources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          effect: "allow"
+          resources:
+          - "proj/*:env/*:flag/my-flag"
+          - "proj/*:env/*:flag/my-flag"
+          actions:
+          - "updateOn"
+          - "updateOn"
+        _id: "5a580a01b4ff89217bdf9dc1"
+        _status:
+          successCount: 6
+          lastSuccess: 1443652232590
+          errorCount: 2
+        config:
+          apiKey: "582**************************116"
+          hostURL: "https://api.datadoghq.com"
+        "on": true
+        tags:
+        - "tags"
+        - "tags"
   projectBody:
     type: "object"
     required:
@@ -7157,6 +7661,37 @@ definitions:
         type: "array"
         items:
           $ref: "#/definitions/Policy"
+  subscriptionBody:
+    type: "object"
+    required:
+    - "config"
+    - "name"
+    properties:
+      name:
+        type: "string"
+        example: "Example Datadog Integration"
+        description: "A human-readable name for your subscription configuration."
+      statements:
+        type: "array"
+        items:
+          $ref: "#/definitions/Statement"
+      config:
+        type: "object"
+        example:
+          apiKey: "582**************************116"
+          hostURL: "https://api.datadoghq.com"
+        description: "Integration-specific configuration fields."
+        properties: {}
+      "on":
+        type: "boolean"
+        example: true
+        description: "Whether the integration subscription is active or not."
+      tags:
+        type: "array"
+        example: []
+        description: "Tags for the integration subscription."
+        items:
+          type: "string"
   FeatureFlagScheduledChangesConflicts_instructions:
     properties:
       kind:
@@ -7199,6 +7734,32 @@ definitions:
         example: "removeUserTargets"
         description: "The name of the modification you would like to perform on a\
           \ resource."
+  IntegrationSubscription__status:
+    properties:
+      successCount:
+        type: "integer"
+        example: 6
+      lastSuccess:
+        type: "integer"
+        format: "int64"
+        example: 1443652232590
+        description: "A unix epoch time in milliseconds specifying the last time this\
+          \ integration was successfully used."
+      errorCount:
+        type: "integer"
+        example: 2
+    example:
+      successCount: 6
+      lastSuccess: 1443652232590
+      errorCount: 2
+  Integration__links:
+    properties:
+      self:
+        $ref: "#/definitions/Link"
+    example:
+      self:
+        href: "/api/v2/endpoint"
+        type: "application/json"
 parameters:
   ResourceId:
     name: "resourceId"
@@ -7699,6 +8260,28 @@ parameters:
     format: "int64"
     x-exportParamName: "Expiry"
     x-optionalDataType: "Int64"
+  IntegrationKey:
+    name: "integrationKey"
+    in: "path"
+    description: "The key used to specify the integration kind."
+    required: true
+    type: "string"
+    x-exportParamName: "IntegrationKey"
+  IntegrationId:
+    name: "integrationId"
+    in: "path"
+    description: "The integration ID."
+    required: true
+    type: "string"
+    x-exportParamName: "IntegrationId"
+  IntegrationPostRequest:
+    in: "body"
+    name: "subscriptionBody"
+    description: "Create a new integration subscription."
+    required: true
+    schema:
+      $ref: "#/definitions/subscriptionBody"
+    x-exportParamName: "SubscriptionBody"
 responses:
   BetaApi403:
     description: "This is a beta API, you must pass beta in the LD-API-Version header\
