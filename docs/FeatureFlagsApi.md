@@ -8,13 +8,18 @@ Method | HTTP request | Description
 [**DeleteFeatureFlag**](FeatureFlagsApi.md#DeleteFeatureFlag) | **Delete** /flags/{projectKey}/{featureFlagKey} | Delete a feature flag in all environments. Be careful-- only delete feature flags that are no longer being used by your application.
 [**GetExpiringUserTargets**](FeatureFlagsApi.md#GetExpiringUserTargets) | **Get** /flags/{projectKey}/{featureFlagKey}/expiring-user-targets/{environmentKey} | Get expiring user targets for feature flag
 [**GetFeatureFlag**](FeatureFlagsApi.md#GetFeatureFlag) | **Get** /flags/{projectKey}/{featureFlagKey} | Get a single feature flag by key.
+[**GetFeatureFlagChangeRequest**](FeatureFlagsApi.md#GetFeatureFlagChangeRequest) | **Get** /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{featureFlagChangeRequestId} | Get a single change request for a feature flag
+[**GetFeatureFlagChangeRequests**](FeatureFlagsApi.md#GetFeatureFlagChangeRequests) | **Get** /{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests | Get all change requests for a feature flag
 [**GetFeatureFlagStatus**](FeatureFlagsApi.md#GetFeatureFlagStatus) | **Get** /flag-statuses/{projectKey}/{environmentKey}/{featureFlagKey} | Get the status for a particular feature flag.
 [**GetFeatureFlagStatusAcrossEnvironments**](FeatureFlagsApi.md#GetFeatureFlagStatusAcrossEnvironments) | **Get** /flag-status/{projectKey}/{featureFlagKey} | Get the status for a particular feature flag across environments
 [**GetFeatureFlagStatuses**](FeatureFlagsApi.md#GetFeatureFlagStatuses) | **Get** /flag-statuses/{projectKey}/{environmentKey} | Get a list of statuses for all feature flags. The status includes the last time the feature flag was requested, as well as the state of the flag.
 [**GetFeatureFlags**](FeatureFlagsApi.md#GetFeatureFlags) | **Get** /flags/{projectKey} | Get a list of all features in the given project.
 [**PatchExpiringUserTargets**](FeatureFlagsApi.md#PatchExpiringUserTargets) | **Patch** /flags/{projectKey}/{featureFlagKey}/expiring-user-targets/{environmentKey} | Update, add, or delete expiring user targets on feature flag
 [**PatchFeatureFlag**](FeatureFlagsApi.md#PatchFeatureFlag) | **Patch** /flags/{projectKey}/{featureFlagKey} | Perform a partial update to a feature.
+[**PostApplyFeatureFlagChangeRequest**](FeatureFlagsApi.md#PostApplyFeatureFlagChangeRequest) | **Post** /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{featureFlagChangeRequestId}/apply | Apply change request for a feature flag
 [**PostFeatureFlag**](FeatureFlagsApi.md#PostFeatureFlag) | **Post** /flags/{projectKey} | Creates a new feature flag.
+[**PostFeatureFlagChangeRequest**](FeatureFlagsApi.md#PostFeatureFlagChangeRequest) | **Post** /{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests | 
+[**PostReviewFeatureFlagChangeRequest**](FeatureFlagsApi.md#PostReviewFeatureFlagChangeRequest) | **Post** /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{featureFlagChangeRequestId}/review | Review change request for a feature flag
 
 
 # **CopyFeatureFlag**
@@ -125,6 +130,63 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**FeatureFlag**](FeatureFlag.md)
+
+### Authorization
+
+[Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **GetFeatureFlagChangeRequest**
+> FeatureFlagChangeRequests GetFeatureFlagChangeRequest(ctx, projectKey, featureFlagKey, environmentKey, featureFlagChangeRequestId)
+Get a single change request for a feature flag
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
+  **featureFlagKey** | **string**| The feature flag&#39;s key. The key identifies the flag in your code. | 
+  **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
+  **featureFlagChangeRequestId** | **string**| The feature flag change request ID | 
+
+### Return type
+
+[**FeatureFlagChangeRequests**](FeatureFlagChangeRequests.md)
+
+### Authorization
+
+[Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **GetFeatureFlagChangeRequests**
+> FeatureFlagChangeRequests GetFeatureFlagChangeRequests(ctx, projectKey, featureFlagKey, environmentKey)
+Get all change requests for a feature flag
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
+  **featureFlagKey** | **string**| The feature flag&#39;s key. The key identifies the flag in your code. | 
+  **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
+
+### Return type
+
+[**FeatureFlagChangeRequests**](FeatureFlagChangeRequests.md)
 
 ### Authorization
 
@@ -318,6 +380,36 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **PostApplyFeatureFlagChangeRequest**
+> FeatureFlagChangeRequests PostApplyFeatureFlagChangeRequest(ctx, projectKey, featureFlagKey, environmentKey, featureFlagChangeRequestId, featureFlagChangeRequestApplyConfigBody)
+Apply change request for a feature flag
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
+  **featureFlagKey** | **string**| The feature flag&#39;s key. The key identifies the flag in your code. | 
+  **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
+  **featureFlagChangeRequestId** | **string**| The feature flag change request ID | 
+  **featureFlagChangeRequestApplyConfigBody** | [**FeatureFlagChangeRequestApplyConfigBody**](FeatureFlagChangeRequestApplyConfigBody.md)| Apply a new feature flag change request | 
+
+### Return type
+
+[**FeatureFlagChangeRequests**](FeatureFlagChangeRequests.md)
+
+### Authorization
+
+[Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **PostFeatureFlag**
 > FeatureFlag PostFeatureFlag(ctx, projectKey, featureFlagBody, optional)
 Creates a new feature flag.
@@ -343,6 +435,75 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**FeatureFlag**](FeatureFlag.md)
+
+### Authorization
+
+[Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **PostFeatureFlagChangeRequest**
+> FeatureFlagChangeRequest PostFeatureFlagChangeRequest(ctx, projectKey, featureFlagKey, environmentKey, optional)
+
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
+  **featureFlagKey** | **string**| The feature flag&#39;s key. The key identifies the flag in your code. | 
+  **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
+ **optional** | ***PostFeatureFlagChangeRequestOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a pointer to a PostFeatureFlagChangeRequestOpts struct
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+ **featureFlagChangeRequestConfigBody** | [**optional.Interface of FeatureFlagChangeRequestConfigBody**](FeatureFlagChangeRequestConfigBody.md)| Create a new feature flag change request | 
+
+### Return type
+
+[**FeatureFlagChangeRequest**](FeatureFlagChangeRequest.md)
+
+### Authorization
+
+[Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **PostReviewFeatureFlagChangeRequest**
+> FeatureFlagChangeRequests PostReviewFeatureFlagChangeRequest(ctx, projectKey, featureFlagKey, environmentKey, featureFlagChangeRequestId, featureFlagChangeRequestReviewConfigBody)
+Review change request for a feature flag
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
+  **featureFlagKey** | **string**| The feature flag&#39;s key. The key identifies the flag in your code. | 
+  **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
+  **featureFlagChangeRequestId** | **string**| The feature flag change request ID | 
+  **featureFlagChangeRequestReviewConfigBody** | [**FeatureFlagChangeRequestReviewConfigBody**](FeatureFlagChangeRequestReviewConfigBody.md)| Review a feature flag change request | 
+
+### Return type
+
+[**FeatureFlagChangeRequests**](FeatureFlagChangeRequests.md)
 
 ### Authorization
 
