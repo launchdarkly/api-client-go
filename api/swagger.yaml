@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Build custom integrations with the LaunchDarkly REST API"
-  version: "3.9.0"
+  version: "3.9.1"
   title: "LaunchDarkly REST API"
   termsOfService: "https://launchdarkly.com/terms"
   contact:
