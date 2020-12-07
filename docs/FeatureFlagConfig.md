@@ -16,6 +16,8 @@ Name | Type | Description | Notes
 **Prerequisites** | [**[]Prerequisite**](Prerequisite.md) |  | [optional] [default to null]
 **TrackEvents** | **bool** | Set to true to send detailed event information for this flag. | [optional] [default to null]
 **TrackEventsFallthrough** | **bool** | Set to true to send detailed event information when targeting is enabled but no individual targeting rule is matched. | [optional] [default to null]
+**Site** | [***Site**](Site.md) |  | [optional] [default to null]
+**EnvironmentName** | **string** |  | [optional] [default to null]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

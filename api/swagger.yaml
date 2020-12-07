@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Build custom integrations with the LaunchDarkly REST API"
-  version: "3.9.2"
+  version: "3.10.0"
   title: "LaunchDarkly REST API"
   termsOfService: "https://launchdarkly.com/terms"
   contact:
@@ -3543,6 +3543,10 @@ definitions:
             variation: 7
           archived: true
           trackEventsFallthrough: true
+          _environmentName: "_environmentName"
+          _site:
+            href: "/features/sort.order"
+            type: "text/html"
           sel: "45501b9314dc4641841af774cb038b96"
           lastModified: 1469326565348
           trackEvents: false
@@ -3710,6 +3714,10 @@ definitions:
               variation: 7
             archived: true
             trackEventsFallthrough: true
+            _environmentName: "_environmentName"
+            _site:
+              href: "/features/sort.order"
+              type: "text/html"
             sel: "45501b9314dc4641841af774cb038b96"
             lastModified: 1469326565348
             trackEvents: false
@@ -3856,6 +3864,10 @@ definitions:
               variation: 7
             archived: true
             trackEventsFallthrough: true
+            _environmentName: "_environmentName"
+            _site:
+              href: "/features/sort.order"
+              type: "text/html"
             sel: "45501b9314dc4641841af774cb038b96"
             lastModified: 1469326565348
             trackEvents: false
@@ -4051,6 +4063,10 @@ definitions:
         example: true
         description: "Set to true to send detailed event information when targeting\
           \ is enabled but no individual targeting rule is matched."
+      _site:
+        $ref: "#/definitions/Site"
+      _environmentName:
+        type: "string"
     example:
       salt: "YWx0ZXJuYXRlLnBhZ2U="
       rules:
@@ -4123,6 +4139,10 @@ definitions:
         variation: 7
       archived: true
       trackEventsFallthrough: true
+      _environmentName: "_environmentName"
+      _site:
+        href: "/features/sort.order"
+        type: "text/html"
       sel: "45501b9314dc4641841af774cb038b96"
       lastModified: 1469326565348
       trackEvents: false
