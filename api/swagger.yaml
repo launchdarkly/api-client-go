@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Build custom integrations with the LaunchDarkly REST API"
-  version: "3.10.0"
+  version: "4.0.0"
   title: "LaunchDarkly REST API"
   termsOfService: "https://launchdarkly.com/terms"
   contact:
@@ -824,12 +824,12 @@ paths:
           description: "Invalid resource specifier."
         409:
           description: "Status conflict."
-  /{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests:
+  /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests:
     get:
       tags:
       - "Feature flags"
-      summary: "Get all change requests for a feature flag"
-      operationId: "getFeatureFlagChangeRequests"
+      summary: "Get all approval requests for a feature flag"
+      operationId: "getFeatureFlagApprovalRequests"
       parameters:
       - name: "projectKey"
         in: "path"
@@ -854,9 +854,52 @@ paths:
         x-exportParamName: "EnvironmentKey"
       responses:
         200:
-          description: "Feature flag change requests response"
+          description: "Feature flag approval requests response"
           schema:
-            $ref: "#/definitions/FeatureFlagChangeRequests"
+            $ref: "#/definitions/FeatureFlagApprovalRequests"
+        401:
+          description: "Invalid access token."
+        404:
+          description: "Invalid resource specifier."
+  /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{featureFlagApprovalRequestId}:
+    get:
+      tags:
+      - "Feature flags"
+      summary: "Get a single approval request for a feature flag"
+      operationId: "getFeatureFlagApprovalRequest"
+      parameters:
+      - name: "projectKey"
+        in: "path"
+        description: "The project key, used to tie the flags together under one project\
+          \ so they can be managed together."
+        required: true
+        type: "string"
+        x-exportParamName: "ProjectKey"
+      - name: "featureFlagKey"
+        in: "path"
+        description: "The feature flag's key. The key identifies the flag in your\
+          \ code."
+        required: true
+        type: "string"
+        x-exportParamName: "FeatureFlagKey"
+      - name: "environmentKey"
+        in: "path"
+        description: "The environment key, used to tie together flag configuration\
+          \ and users under one environment so they can be managed together."
+        required: true
+        type: "string"
+        x-exportParamName: "EnvironmentKey"
+      - name: "featureFlagApprovalRequestId"
+        in: "path"
+        description: "The feature flag approval request ID"
+        required: true
+        type: "string"
+        x-exportParamName: "FeatureFlagApprovalRequestId"
+      responses:
+        200:
+          description: "Feature flag approval request response"
+          schema:
+            $ref: "#/definitions/FeatureFlagApprovalRequests"
         401:
           description: "Invalid access token."
         404:
@@ -864,7 +907,8 @@ paths:
     post:
       tags:
       - "Feature flags"
-      operationId: "postFeatureFlagChangeRequest"
+      summary: "Create an approval request for a feature flag"
+      operationId: "postFeatureFlagApprovalRequest"
       parameters:
       - name: "projectKey"
         in: "path"
@@ -887,28 +931,33 @@ paths:
         required: true
         type: "string"
         x-exportParamName: "EnvironmentKey"
+      - name: "featureFlagApprovalRequestId"
+        in: "path"
+        description: "The feature flag approval request ID"
+        required: true
+        type: "string"
+        x-exportParamName: "FeatureFlagApprovalRequestId"
       - in: "body"
-        name: "featureFlagChangeRequestConfigBody"
-        description: "Create a new feature flag change request"
+        name: "featureFlagApprovalRequestConfigBody"
+        description: "Create a new feature flag approval request"
         required: false
         schema:
-          $ref: "#/definitions/featureFlagChangeRequestConfigBody"
-        x-exportParamName: "FeatureFlagChangeRequestConfigBody"
+          $ref: "#/definitions/featureFlagApprovalRequestConfigBody"
+        x-exportParamName: "FeatureFlagApprovalRequestConfigBody"
       responses:
         200:
-          description: "Feature flag change request response"
+          description: "Feature flag approval request response"
           schema:
-            $ref: "#/definitions/FeatureFlagChangeRequest"
+            $ref: "#/definitions/FeatureFlagApprovalRequest"
         401:
           description: "Invalid access token."
         404:
           description: "Invalid resource specifier."
-  /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{featureFlagChangeRequestId}:
-    get:
+    delete:
       tags:
       - "Feature flags"
-      summary: "Get a single change request for a feature flag"
-      operationId: "getFeatureFlagChangeRequest"
+      summary: "Delete an approval request for a feature flag"
+      operationId: "deleteFeatureFlagApprovalRequest"
       parameters:
       - name: "projectKey"
         in: "path"
@@ -917,13 +966,6 @@ paths:
         required: true
         type: "string"
         x-exportParamName: "ProjectKey"
-      - name: "featureFlagKey"
-        in: "path"
-        description: "The feature flag's key. The key identifies the flag in your\
-          \ code."
-        required: true
-        type: "string"
-        x-exportParamName: "FeatureFlagKey"
       - name: "environmentKey"
         in: "path"
         description: "The environment key, used to tie together flag configuration\
@@ -931,27 +973,39 @@ paths:
         required: true
         type: "string"
         x-exportParamName: "EnvironmentKey"
-      - name: "featureFlagChangeRequestId"
+      - name: "featureFlagKey"
         in: "path"
-        description: "The feature flag change request ID"
+        description: "The feature flag's key. The key identifies the flag in your\
+          \ code."
         required: true
         type: "string"
-        x-exportParamName: "FeatureFlagChangeRequestId"
+        x-exportParamName: "FeatureFlagKey"
+      - name: "featureFlagApprovalRequestId"
+        in: "path"
+        description: "The feature flag approval request ID"
+        required: true
+        type: "string"
+        x-exportParamName: "FeatureFlagApprovalRequestId"
+      - in: "body"
+        name: "featureFlagApprovalRequestConfigBody"
+        description: "Create a new feature flag approval request"
+        required: false
+        schema:
+          $ref: "#/definitions/featureFlagApprovalRequestConfigBody"
+        x-exportParamName: "FeatureFlagApprovalRequestConfigBody"
       responses:
-        200:
-          description: "Feature flag change request response"
-          schema:
-            $ref: "#/definitions/FeatureFlagChangeRequests"
+        204:
+          description: "Action completed successfully."
         401:
           description: "Invalid access token."
         404:
           description: "Invalid resource specifier."
-  ? /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{featureFlagChangeRequestId}/apply
+  ? /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{featureFlagApprovalRequestId}/apply
   : post:
       tags:
       - "Feature flags"
-      summary: "Apply change request for a feature flag"
-      operationId: "postApplyFeatureFlagChangeRequest"
+      summary: "Apply approval request for a feature flag"
+      operationId: "postApplyFeatureFlagApprovalRequest"
       parameters:
       - name: "projectKey"
         in: "path"
@@ -974,34 +1028,34 @@ paths:
         required: true
         type: "string"
         x-exportParamName: "EnvironmentKey"
-      - name: "featureFlagChangeRequestId"
+      - name: "featureFlagApprovalRequestId"
         in: "path"
-        description: "The feature flag change request ID"
+        description: "The feature flag approval request ID"
         required: true
         type: "string"
-        x-exportParamName: "FeatureFlagChangeRequestId"
+        x-exportParamName: "FeatureFlagApprovalRequestId"
       - in: "body"
-        name: "featureFlagChangeRequestApplyConfigBody"
-        description: "Apply a new feature flag change request"
+        name: "featureFlagApprovalRequestApplyConfigBody"
+        description: "Apply a new feature flag approval request"
         required: true
         schema:
-          $ref: "#/definitions/featureFlagChangeRequestApplyConfigBody"
-        x-exportParamName: "FeatureFlagChangeRequestApplyConfigBody"
+          $ref: "#/definitions/featureFlagApprovalRequestApplyConfigBody"
+        x-exportParamName: "FeatureFlagApprovalRequestApplyConfigBody"
       responses:
         200:
-          description: "Feature flag change request applied response"
+          description: "Feature flag approval request applied response"
           schema:
-            $ref: "#/definitions/FeatureFlagChangeRequests"
+            $ref: "#/definitions/FeatureFlagApprovalRequests"
         401:
           description: "Invalid access token."
         404:
           description: "Invalid resource specifier."
-  ? /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{featureFlagChangeRequestId}/review
+  ? /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{featureFlagApprovalRequestId}/review
   : post:
       tags:
       - "Feature flags"
-      summary: "Review change request for a feature flag"
-      operationId: "postReviewFeatureFlagChangeRequest"
+      summary: "Review approval request for a feature flag"
+      operationId: "postReviewFeatureFlagApprovalRequest"
       parameters:
       - name: "projectKey"
         in: "path"
@@ -1024,24 +1078,24 @@ paths:
         required: true
         type: "string"
         x-exportParamName: "EnvironmentKey"
-      - name: "featureFlagChangeRequestId"
+      - name: "featureFlagApprovalRequestId"
         in: "path"
-        description: "The feature flag change request ID"
+        description: "The feature flag approval request ID"
         required: true
         type: "string"
-        x-exportParamName: "FeatureFlagChangeRequestId"
+        x-exportParamName: "FeatureFlagApprovalRequestId"
       - in: "body"
-        name: "featureFlagChangeRequestReviewConfigBody"
-        description: "Review a feature flag change request"
+        name: "featureFlagApprovalRequestReviewConfigBody"
+        description: "Review a feature flag approval request"
         required: true
         schema:
-          $ref: "#/definitions/featureFlagChangeRequestReviewConfigBody"
-        x-exportParamName: "FeatureFlagChangeRequestReviewConfigBody"
+          $ref: "#/definitions/featureFlagApprovalRequestReviewConfigBody"
+        x-exportParamName: "FeatureFlagApprovalRequestReviewConfigBody"
       responses:
         200:
-          description: "Feature flag change request reviewed response"
+          description: "Feature flag approval request reviewed response"
           schema:
-            $ref: "#/definitions/FeatureFlagChangeRequests"
+            $ref: "#/definitions/FeatureFlagApprovalRequests"
         401:
           description: "Invalid access token."
         404:
@@ -4367,7 +4421,7 @@ definitions:
       reason:
         type: "string"
         description: "Feature flag scheduled change conflict reason"
-  FeatureFlagChangeRequests:
+  FeatureFlagApprovalRequests:
     type: "object"
     properties:
       _links:
@@ -4375,7 +4429,7 @@ definitions:
       items:
         type: "array"
         items:
-          $ref: "#/definitions/FeatureFlagChangeRequest"
+          $ref: "#/definitions/FeatureFlagApprovalRequest"
     example:
       _links:
         next:
@@ -4397,10 +4451,6 @@ definitions:
         - "memberId"
         - "memberId2"
         requestorId: "requestorId"
-        currentReviewsByMemberId:
-          _id: "5a580a01b4ff89217bdf9dc1"
-          creationDate: 5
-          memberId: "5a580a01b4ff89217bdf9dc1"
         appliedDate: 1
         reviewStatus: {}
         appliedByMemberID: "appliedByMemberID"
@@ -4420,10 +4470,6 @@ definitions:
         - "memberId"
         - "memberId2"
         requestorId: "requestorId"
-        currentReviewsByMemberId:
-          _id: "5a580a01b4ff89217bdf9dc1"
-          creationDate: 5
-          memberId: "5a580a01b4ff89217bdf9dc1"
         appliedDate: 1
         reviewStatus: {}
         appliedByMemberID: "appliedByMemberID"
@@ -4431,7 +4477,7 @@ definitions:
         creationDate: 6
         _version: 0
         status: "pending"
-  FeatureFlagChangeRequest:
+  FeatureFlagApprovalRequest:
     type: "object"
     properties:
       _id:
@@ -4442,37 +4488,35 @@ definitions:
         type: "integer"
       creationDate:
         type: "integer"
-        description: "A unix epoch time in milliseconds specifying the date the change\
+        description: "A unix epoch time in milliseconds specifying the date the approval\
           \ request was requested"
       requestorId:
         type: "string"
         description: "The id of the member that requested the change"
       reviewStatus:
-        $ref: "#/definitions/FeatureFlagChangeRequestReviewStatus"
+        $ref: "#/definitions/FeatureFlagApprovalRequestReviewStatus"
       status:
         type: "string"
         description: "| Name     | Description |\n| --------:| ----------- |\n| pending\
-          \  | the feature flag change request has not been applied yet |\n| completed|\
-          \ the feature flag change request has been applied successfully |\n| failed\
-          \   | the feature flag change request has been applied but the changes were\
-          \ not applied successfully |\n"
+          \  | the feature flag approval request has not been applied yet |\n| completed|\
+          \ the feature flag approval request has been applied successfully |\n| failed\
+          \   | the feature flag approval request has been applied but the changes\
+          \ were not applied successfully |\n"
         enum:
         - "pending"
         - "completed"
         - "failed"
       appliedByMemberID:
         type: "string"
-        description: "The id of the member that applied the change request"
+        description: "The id of the member that applied the approval request"
       appliedDate:
         type: "integer"
-        description: "A unix epoch time in milliseconds specifying the date the change\
+        description: "A unix epoch time in milliseconds specifying the date the approval\
           \ request was applied"
-      currentReviewsByMemberId:
-        $ref: "#/definitions/FeatureFlagChangeRequestReview"
       allReviews:
         type: "array"
         items:
-          $ref: "#/definitions/FeatureFlagChangeRequestReview"
+          $ref: "#/definitions/FeatureFlagApprovalRequestReview"
       notifyMemberIds:
         type: "array"
         example:
@@ -4495,10 +4539,6 @@ definitions:
       - "memberId"
       - "memberId2"
       requestorId: "requestorId"
-      currentReviewsByMemberId:
-        _id: "5a580a01b4ff89217bdf9dc1"
-        creationDate: 5
-        memberId: "5a580a01b4ff89217bdf9dc1"
       appliedDate: 1
       reviewStatus: {}
       appliedByMemberID: "appliedByMemberID"
@@ -4506,15 +4546,15 @@ definitions:
       creationDate: 6
       _version: 0
       status: "pending"
-  FeatureFlagChangeRequestReview:
+  FeatureFlagApprovalRequestReview:
     type: "object"
     properties:
       creationDate:
         type: "integer"
-        description: "A unix epoch time in milliseconds specifying the date the change\
+        description: "A unix epoch time in milliseconds specifying the date the approval\
           \ request was reviewed"
       kind:
-        $ref: "#/definitions/FeatureFlagChangeRequestReviewStatus"
+        $ref: "#/definitions/FeatureFlagApprovalRequestReviewStatus"
       memberId:
         type: "string"
         example: "5a580a01b4ff89217bdf9dc1"
@@ -4527,12 +4567,12 @@ definitions:
       _id: "5a580a01b4ff89217bdf9dc1"
       creationDate: 5
       memberId: "5a580a01b4ff89217bdf9dc1"
-  FeatureFlagChangeRequestReviewStatus:
+  FeatureFlagApprovalRequestReviewStatus:
     type: "string"
     description: "| Name     | Description |\n| --------:| ----------- |\n| pending\
-      \  | the feature flag change request has not been reviewed yet |\n| approved\
-      \ | the feature flag change request has been approved and can now be applied\
-      \ |\n| declined | the feature flag change request has been declined and cannot\
+      \  | the feature flag approval request has not been reviewed yet |\n| approved\
+      \ | the feature flag approval request has been approved and can now be applied\
+      \ |\n| declined | the feature flag approval request has been declined and cannot\
       \ be applied |\n"
     enum:
     - "pending"
@@ -5304,7 +5344,13 @@ definitions:
           href: "/api/v2/endpoint"
           type: "application/json"
       environments:
-      - apiKey: "XXX"
+      - approvalSettings:
+          serviceKind: "launchdarkly"
+          canReviewOwnRequest: true
+          canApplyDeclinedChanges: true
+          minNumApprovals: 2
+          required: true
+        apiKey: "XXX"
         color: "417505"
         _links:
           next:
@@ -5325,7 +5371,13 @@ definitions:
         _id: "5a580a01b4ff89217bdf9dc1"
         secureMode: false
         key: "production"
-      - apiKey: "XXX"
+      - approvalSettings:
+          serviceKind: "launchdarkly"
+          canReviewOwnRequest: true
+          canApplyDeclinedChanges: true
+          minNumApprovals: 2
+          required: true
+        apiKey: "XXX"
         color: "417505"
         _links:
           next:
@@ -5382,7 +5434,13 @@ definitions:
             href: "/api/v2/endpoint"
             type: "application/json"
         environments:
-        - apiKey: "XXX"
+        - approvalSettings:
+            serviceKind: "launchdarkly"
+            canReviewOwnRequest: true
+            canApplyDeclinedChanges: true
+            minNumApprovals: 2
+            required: true
+          apiKey: "XXX"
           color: "417505"
           _links:
             next:
@@ -5403,7 +5461,13 @@ definitions:
           _id: "5a580a01b4ff89217bdf9dc1"
           secureMode: false
           key: "production"
-        - apiKey: "XXX"
+        - approvalSettings:
+            serviceKind: "launchdarkly"
+            canReviewOwnRequest: true
+            canApplyDeclinedChanges: true
+            minNumApprovals: 2
+            required: true
+          apiKey: "XXX"
           color: "417505"
           _links:
             next:
@@ -5442,7 +5506,13 @@ definitions:
             href: "/api/v2/endpoint"
             type: "application/json"
         environments:
-        - apiKey: "XXX"
+        - approvalSettings:
+            serviceKind: "launchdarkly"
+            canReviewOwnRequest: true
+            canApplyDeclinedChanges: true
+            minNumApprovals: 2
+            required: true
+          apiKey: "XXX"
           color: "417505"
           _links:
             next:
@@ -5463,7 +5533,13 @@ definitions:
           _id: "5a580a01b4ff89217bdf9dc1"
           secureMode: false
           key: "production"
-        - apiKey: "XXX"
+        - approvalSettings:
+            serviceKind: "launchdarkly"
+            canReviewOwnRequest: true
+            canApplyDeclinedChanges: true
+            minNumApprovals: 2
+            required: true
+          apiKey: "XXX"
           color: "417505"
           _links:
             next:
@@ -5692,7 +5768,15 @@ definitions:
         example: false
         description: "Determines if this environment requires confirmation for flag\
           \ and segment changes."
+      approvalSettings:
+        $ref: "#/definitions/Environment_approvalSettings"
     example:
+      approvalSettings:
+        serviceKind: "launchdarkly"
+        canReviewOwnRequest: true
+        canApplyDeclinedChanges: true
+        minNumApprovals: 2
+        required: true
       apiKey: "XXX"
       color: "417505"
       _links:
@@ -7883,7 +7967,7 @@ definitions:
           \ copied."
         items:
           $ref: "#/definitions/CopyActions"
-  featureFlagChangeRequestConfigBody:
+  featureFlagApprovalRequestConfigBody:
     type: "object"
     required:
     - "description"
@@ -7906,14 +7990,14 @@ definitions:
       comment:
         type: "string"
         description: "comment will be included in audit log item for change."
-  featureFlagChangeRequestApplyConfigBody:
+  featureFlagApprovalRequestApplyConfigBody:
     type: "object"
     properties:
       comment:
         type: "string"
         example: "Applying approved changes"
         description: "comment will be included in audit log item for change."
-  featureFlagChangeRequestReviewConfigBody:
+  featureFlagApprovalRequestReviewConfigBody:
     type: "object"
     required:
     - "kind"
@@ -7921,10 +8005,11 @@ definitions:
       kind:
         type: "string"
         example: "approve"
-        description: "Either approve or decline change request"
+        description: "One of approve, decline, or comment."
         enum:
         - "approve"
         - "decline"
+        - "comment"
       comment:
         type: "string"
         example: "This is a comment string"
@@ -8173,6 +8258,40 @@ definitions:
         type: "array"
         items:
           $ref: "#/definitions/ScheduledChangesFeatureFlagConflict"
+  Environment_approvalSettings:
+    properties:
+      serviceKind:
+        type: "string"
+        description: "The approvals system used."
+        enum:
+        - "launchdarkly"
+        - "service-now"
+      required:
+        type: "boolean"
+        description: "Whether any changes to flags in this environment will require\
+          \ approval."
+      canReviewOwnRequest:
+        type: "boolean"
+        description: "Whether requesters can approve or decline their own request.\
+          \ They may always comment."
+      minNumApprovals:
+        type: "integer"
+        format: "int64"
+        example: 2
+        description: "The number of approvals required before an approval request\
+          \ can be applied."
+      canApplyDeclinedChanges:
+        type: "boolean"
+        description: "Whether changes can be applied as long as minNumApprovals is\
+          \ met, regardless of if any reviewers have declined a request."
+    description: "Approval settings for an environment. Only appears if the approvals\
+      \ feature is enabled."
+    example:
+      serviceKind: "launchdarkly"
+      canReviewOwnRequest: true
+      canApplyDeclinedChanges: true
+      minNumApprovals: 2
+      required: true
   AuditLogEntry_target:
     properties:
       _links:
@@ -8730,37 +8849,37 @@ parameters:
     format: "int64"
     x-exportParamName: "Expiry"
     x-optionalDataType: "Int64"
-  FeatureFlagChangeRequestId:
-    name: "featureFlagChangeRequestId"
+  FeatureFlagApprovalRequestId:
+    name: "featureFlagApprovalRequestId"
     in: "path"
-    description: "The feature flag change request ID"
+    description: "The feature flag approval request ID"
     required: true
     type: "string"
-    x-exportParamName: "FeatureFlagChangeRequestId"
-  FeatureFlagChangeRequestPostRequest:
+    x-exportParamName: "FeatureFlagApprovalRequestId"
+  FeatureFlagApprovalRequestPostRequest:
     in: "body"
-    name: "featureFlagChangeRequestConfigBody"
-    description: "Create a new feature flag change request"
+    name: "featureFlagApprovalRequestConfigBody"
+    description: "Create a new feature flag approval request"
     required: false
     schema:
-      $ref: "#/definitions/featureFlagChangeRequestConfigBody"
-    x-exportParamName: "FeatureFlagChangeRequestConfigBody"
-  FeatureFlagChangeRequestReviewPostRequest:
+      $ref: "#/definitions/featureFlagApprovalRequestConfigBody"
+    x-exportParamName: "FeatureFlagApprovalRequestConfigBody"
+  FeatureFlagApprovalRequestReviewPostRequest:
     in: "body"
-    name: "featureFlagChangeRequestReviewConfigBody"
-    description: "Review a feature flag change request"
+    name: "featureFlagApprovalRequestReviewConfigBody"
+    description: "Review a feature flag approval request"
     required: true
     schema:
-      $ref: "#/definitions/featureFlagChangeRequestReviewConfigBody"
-    x-exportParamName: "FeatureFlagChangeRequestReviewConfigBody"
-  FeatureFlagChangeRequestApplyPostRequest:
+      $ref: "#/definitions/featureFlagApprovalRequestReviewConfigBody"
+    x-exportParamName: "FeatureFlagApprovalRequestReviewConfigBody"
+  FeatureFlagApprovalRequestApplyPostRequest:
     in: "body"
-    name: "featureFlagChangeRequestApplyConfigBody"
-    description: "Apply a new feature flag change request"
+    name: "featureFlagApprovalRequestApplyConfigBody"
+    description: "Apply a new feature flag approval request"
     required: true
     schema:
-      $ref: "#/definitions/featureFlagChangeRequestApplyConfigBody"
-    x-exportParamName: "FeatureFlagChangeRequestApplyConfigBody"
+      $ref: "#/definitions/featureFlagApprovalRequestApplyConfigBody"
+    x-exportParamName: "FeatureFlagApprovalRequestApplyConfigBody"
   IntegrationKey:
     name: "integrationKey"
     in: "path"
