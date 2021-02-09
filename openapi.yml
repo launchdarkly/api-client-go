@@ -10,7 +10,7 @@ info:
   license:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
-  version: 4.0.0
+  version: 5.0.0
 host: app.launchdarkly.com
 basePath: /api/v2
 schemes:
@@ -436,10 +436,10 @@ paths:
           $ref: '#/responses/Standard409'
       tags:
         - Feature flags
-  '/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests':
+  '/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/scheduled-changes':
     get:
-      operationId: getFeatureFlagApprovalRequests
-      summary: Get all approval requests for a feature flag
+      summary: Get all scheduled workflows for a feature flag by key.
+      operationId: getFlagConfigScheduledChanges
       parameters:
         - $ref: '#/parameters/ProjectKey'
         - $ref: '#/parameters/FeatureFlagKey'
@@ -447,28 +447,8 @@ paths:
       responses:
         '200':
           schema:
-            $ref: '#/definitions/FeatureFlagApprovalRequests'
-          description: Feature flag approval requests response
-        '401':
-          $ref: '#/responses/Standard401'
-        '404':
-          $ref: '#/responses/Standard404'
-      tags:
-        - Feature flags
-  '/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{featureFlagApprovalRequestId}':
-    get:
-      operationId: getFeatureFlagApprovalRequest
-      summary: Get a single approval request for a feature flag
-      parameters:
-        - $ref: '#/parameters/ProjectKey'
-        - $ref: '#/parameters/FeatureFlagKey'
-        - $ref: '#/parameters/EnvironmentKey'
-        - $ref: '#/parameters/FeatureFlagApprovalRequestId'
-      responses:
-        '200':
-          schema:
-            $ref: '#/definitions/FeatureFlagApprovalRequests'
-          description: Feature flag approval request response
+            $ref: '#/definitions/FeatureFlagScheduledChanges'
+          description: A list of scheduled changes for feature flag response.
         '401':
           $ref: '#/responses/Standard401'
         '404':
@@ -476,34 +456,101 @@ paths:
       tags:
         - Feature flags
     post:
-      operationId: postFeatureFlagApprovalRequest
-      summary: Create an approval request for a feature flag
+      summary: Creates a new scheduled change for a feature flag.
+      operationId: postFlagConfigScheduledChanges
+      parameters:
+        - $ref: '#/parameters/ProjectKey'
+        - $ref: '#/parameters/FlagConfigScheduledChangesPostBody'
+        - $ref: '#/parameters/FeatureFlagKey'
+        - $ref: '#/parameters/EnvironmentKey'
+      responses:
+        '201':
+          description: A scheduled change for feature flag response.
+          schema:
+            $ref: '#/definitions/FeatureFlagScheduledChange'
+        '400':
+          $ref: '#/responses/Standard400'
+        '401':
+          $ref: '#/responses/Standard401'
+        '409':
+          $ref: '#/responses/Standard409'
+      tags:
+        - Feature flags
+  '/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/scheduled-changes-conflicts':
+    post:
+      summary: >-
+        Lists conflicts between the given instructions and any existing
+        scheduled changes for the feature flag. The actual HTTP verb should be
+        REPORT, not POST.
+      operationId: getFlagConfigScheduledChangesConflicts
       parameters:
         - $ref: '#/parameters/ProjectKey'
         - $ref: '#/parameters/FeatureFlagKey'
         - $ref: '#/parameters/EnvironmentKey'
-        - $ref: '#/parameters/FeatureFlagApprovalRequestId'
-        - $ref: '#/parameters/FeatureFlagApprovalRequestPostRequest'
+        - $ref: '#/parameters/FlagConfigScheduledChangesConflictsBody'
       responses:
         '200':
           schema:
-            $ref: '#/definitions/FeatureFlagApprovalRequest'
-          description: Feature flag approval request response
+            $ref: '#/definitions/FeatureFlagScheduledChangesConflicts'
+          description: Scheduled changes conflict response
         '401':
           $ref: '#/responses/Standard401'
         '404':
           $ref: '#/responses/Standard404'
       tags:
         - Feature flags
-    delete:
-      operationId: deleteFeatureFlagApprovalRequest
-      summary: Delete an approval request for a feature flag
+  '/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/scheduled-changes/{scheduledChangeId}':
+    get:
+      summary: Get a scheduled change on a feature flag by id.
+      operationId: getFlagConfigScheduledChange
       parameters:
         - $ref: '#/parameters/ProjectKey'
-        - $ref: '#/parameters/EnvironmentKey'
         - $ref: '#/parameters/FeatureFlagKey'
-        - $ref: '#/parameters/FeatureFlagApprovalRequestId'
-        - $ref: '#/parameters/FeatureFlagApprovalRequestPostRequest'
+        - $ref: '#/parameters/EnvironmentKey'
+        - $ref: '#/parameters/ScheduledChangeId'
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/FeatureFlagScheduledChange'
+          description: A scheduled change for feature flag response.
+        '401':
+          $ref: '#/responses/Standard401'
+        '404':
+          $ref: '#/responses/Standard404'
+      tags:
+        - Feature flags
+    patch:
+      summary: >-
+        Updates an existing scheduled-change on a feature flag in an
+        environment.
+      operationId: patchFlagConfigScheduledChange
+      parameters:
+        - $ref: '#/parameters/ProjectKey'
+        - $ref: '#/parameters/FeatureFlagKey'
+        - $ref: '#/parameters/FlagConfigScheduledChangesPatchBody'
+        - $ref: '#/parameters/EnvironmentKey'
+        - $ref: '#/parameters/ScheduledChangeId'
+      responses:
+        '201':
+          description: A Scheduled change for feature flag response.
+          schema:
+            $ref: '#/definitions/FeatureFlagScheduledChange'
+        '400':
+          $ref: '#/responses/Standard400'
+        '401':
+          $ref: '#/responses/Standard401'
+        '409':
+          $ref: '#/responses/Standard409'
+      tags:
+        - Feature flags
+    delete:
+      summary: Delete a scheduled change on a feature flag in an environment.
+      operationId: deleteFlagConfigScheduledChanges
+      parameters:
+        - $ref: '#/parameters/ProjectKey'
+        - $ref: '#/parameters/FeatureFlagKey'
+        - $ref: '#/parameters/EnvironmentKey'
+        - $ref: '#/parameters/ScheduledChangeId'
       responses:
         '204':
           $ref: '#/responses/Standard204'
@@ -513,42 +560,119 @@ paths:
           $ref: '#/responses/Standard404'
       tags:
         - Feature flags
-  '/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{featureFlagApprovalRequestId}/apply':
-    post:
-      operationId: postApplyFeatureFlagApprovalRequest
-      summary: Apply approval request for a feature flag
+  '/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests':
+    get:
+      operationId: getApprovalRequests
+      summary: Get all approval requests for a feature flag config
       parameters:
         - $ref: '#/parameters/ProjectKey'
         - $ref: '#/parameters/FeatureFlagKey'
         - $ref: '#/parameters/EnvironmentKey'
-        - $ref: '#/parameters/FeatureFlagApprovalRequestId'
-        - $ref: '#/parameters/FeatureFlagApprovalRequestApplyPostRequest'
       responses:
         '200':
           schema:
-            $ref: '#/definitions/FeatureFlagApprovalRequests'
-          description: Feature flag approval request applied response
+            $ref: '#/definitions/ApprovalRequests'
+          description: Approval requests response
         '401':
           $ref: '#/responses/Standard401'
         '404':
           $ref: '#/responses/Standard404'
       tags:
         - Feature flags
-  '/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{featureFlagApprovalRequestId}/review':
-    post:
-      operationId: postReviewFeatureFlagApprovalRequest
-      summary: Review approval request for a feature flag
+  '/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{approvalRequestId}':
+    get:
+      operationId: getApprovalRequest
+      summary: Get a single approval request for a feature flag config
       parameters:
         - $ref: '#/parameters/ProjectKey'
         - $ref: '#/parameters/FeatureFlagKey'
         - $ref: '#/parameters/EnvironmentKey'
-        - $ref: '#/parameters/FeatureFlagApprovalRequestId'
-        - $ref: '#/parameters/FeatureFlagApprovalRequestReviewPostRequest'
+        - $ref: '#/parameters/ApprovalRequestId'
       responses:
         '200':
           schema:
-            $ref: '#/definitions/FeatureFlagApprovalRequests'
-          description: Feature flag approval request reviewed response
+            $ref: '#/definitions/ApprovalRequests'
+          description: Approval request response
+        '401':
+          $ref: '#/responses/Standard401'
+        '404':
+          $ref: '#/responses/Standard404'
+      tags:
+        - Feature flags
+    post:
+      operationId: postApprovalRequest
+      summary: Create an approval request for a feature flag config
+      parameters:
+        - $ref: '#/parameters/ProjectKey'
+        - $ref: '#/parameters/FeatureFlagKey'
+        - $ref: '#/parameters/EnvironmentKey'
+        - $ref: '#/parameters/ApprovalRequestId'
+        - $ref: '#/parameters/ApprovalRequestPostRequest'
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/ApprovalRequest'
+          description: Approval request response
+        '401':
+          $ref: '#/responses/Standard401'
+        '404':
+          $ref: '#/responses/Standard404'
+      tags:
+        - Feature flags
+    delete:
+      operationId: deleteApprovalRequest
+      summary: Delete an approval request for a feature flag config
+      parameters:
+        - $ref: '#/parameters/ProjectKey'
+        - $ref: '#/parameters/EnvironmentKey'
+        - $ref: '#/parameters/FeatureFlagKey'
+        - $ref: '#/parameters/ApprovalRequestId'
+        - $ref: '#/parameters/ApprovalRequestPostRequest'
+      responses:
+        '204':
+          $ref: '#/responses/Standard204'
+        '401':
+          $ref: '#/responses/Standard401'
+        '404':
+          $ref: '#/responses/Standard404'
+      tags:
+        - Feature flags
+  '/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{approvalRequestId}/apply':
+    post:
+      operationId: postApplyApprovalRequest
+      summary: Apply approval request for a feature flag config
+      parameters:
+        - $ref: '#/parameters/ProjectKey'
+        - $ref: '#/parameters/FeatureFlagKey'
+        - $ref: '#/parameters/EnvironmentKey'
+        - $ref: '#/parameters/ApprovalRequestId'
+        - $ref: '#/parameters/ApprovalRequestApplyPostRequest'
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/ApprovalRequests'
+          description: Approval request applied response
+        '401':
+          $ref: '#/responses/Standard401'
+        '404':
+          $ref: '#/responses/Standard404'
+      tags:
+        - Feature flags
+  '/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{approvalRequestId}/review':
+    post:
+      operationId: postReviewApprovalRequest
+      summary: Review approval request for a feature flag config
+      parameters:
+        - $ref: '#/parameters/ProjectKey'
+        - $ref: '#/parameters/FeatureFlagKey'
+        - $ref: '#/parameters/EnvironmentKey'
+        - $ref: '#/parameters/ApprovalRequestId'
+        - $ref: '#/parameters/ApprovalRequestReviewPostRequest'
+      responses:
+        '200':
+          schema:
+            $ref: '#/definitions/ApprovalRequests'
+          description: Approval request reviewed response
         '401':
           $ref: '#/responses/Standard401'
         '404':
@@ -769,7 +893,7 @@ paths:
         '404':
           $ref: '#/responses/Standard404'
       tags:
-        - Users
+        - UserRecord
     delete:
       summary: Delete a user by ID.
       operationId: deleteUser
@@ -1937,6 +2061,23 @@ definitions:
           type: string
           description: The unique resource id.
           example: "5a580a01b4ff89217bdf9dc1"
+      _lastSeen:
+        type: integer
+        format: int64
+        example: 1469326565348
+        description: >-
+          A unix epoch time in milliseconds specifying the last time this member
+          was active in LaunchDarkly.
+      _lastSeenMetadata:
+        type: object
+        properties:
+          tokenId:
+            type: string
+            example: 5fd2a1ee05600316d5cb3e96
+            description: >-
+              If the last time this member accessed LaunchDarkly was using the
+              REST API, this value will be set to the ID of the personal access
+              token used.
   Members:
     type: object
     properties:
@@ -2153,7 +2294,7 @@ definitions:
       reason:
         type: string
         description: Feature flag scheduled change conflict reason
-  FeatureFlagApprovalRequests:
+  ApprovalRequests:
     type: object
     properties:
       _links:
@@ -2161,8 +2302,8 @@ definitions:
       items:
         type: array
         items:
-          $ref: '#/definitions/FeatureFlagApprovalRequest'
-  FeatureFlagApprovalRequest:
+          $ref: '#/definitions/ApprovalRequest'
+  ApprovalRequest:
     type: object
     properties:
       _id:
@@ -2180,7 +2321,7 @@ definitions:
         type: string
         description: The id of the member that requested the change
       reviewStatus:
-        $ref: '#/definitions/FeatureFlagApprovalRequestReviewStatus'
+        $ref: '#/definitions/ApprovalRequestReviewStatus'
       status:
         type: string
         description: >
@@ -2188,14 +2329,12 @@ definitions:
 
           | --------:| ----------- |
 
-          | pending  | the feature flag approval request has not been applied
-          yet |
+          | pending  | the approval request has not been applied yet |
 
-          | completed| the feature flag approval request has been applied
-          successfully |
+          | completed| the approval request has been applied successfully |
 
-          | failed   | the feature flag approval request has been applied but
-          the changes were not applied successfully |
+          | failed   | the approval request has been applied but the changes
+          were not applied successfully |
         enum:
           - pending
           - completed
@@ -2211,7 +2350,7 @@ definitions:
       allReviews:
         type: array
         items:
-          $ref: '#/definitions/FeatureFlagApprovalRequestReview'
+          $ref: '#/definitions/ApprovalRequestReview'
       notifyMemberIds:
         type: array
         items:
@@ -2221,7 +2360,7 @@ definitions:
           - memberId2
       instructions:
         $ref: '#/definitions/SemanticPatchInstruction'
-  FeatureFlagApprovalRequestReview:
+  ApprovalRequestReview:
     type: object
     properties:
       creationDate:
@@ -2230,7 +2369,7 @@ definitions:
           A unix epoch time in milliseconds specifying the date the approval
           request was reviewed
       kind:
-        $ref: '#/definitions/FeatureFlagApprovalRequestReviewStatus'
+        $ref: '#/definitions/ApprovalRequestReviewStatus'
       memberId:
         type: string
         description: The unique resource id.
@@ -2239,20 +2378,20 @@ definitions:
         type: string
         description: The unique resource id.
         example: "5a580a01b4ff89217bdf9dc1"
-  FeatureFlagApprovalRequestReviewStatus:
+  ApprovalRequestReviewStatus:
     type: string
     description: >
       | Name     | Description |
 
       | --------:| ----------- |
 
-      | pending  | the feature flag approval request has not been reviewed yet |
+      | pending  | the approval request has not been reviewed yet |
 
-      | approved | the feature flag approval request has been approved and can
-      now be applied |
+      | approved | the approval request has been approved and can now be applied
+      |
 
-      | declined | the feature flag approval request has been declined and
-      cannot be applied |
+      | declined | the approval request has been declined and cannot be applied
+      |
     enum:
       - pending
       - approved
@@ -3818,11 +3957,19 @@ parameters:
         - name
         - key
         - variations
-  ScheduledFeatureFlagChangesPostRequest:
-    name: scheduledFeatureFlagChangesBody
+  ScheduledChangeId:
+    name: scheduledChangeId
+    in: path
+    required: true
+    description: The id of the scheduled change
+    type: string
+  FlagConfigScheduledChangesConflictsBody:
+    name: flagConfigScheduledChangesConflictsBody
     in: body
     required: true
-    description: Create scheduled changes on a feature flag.
+    description: >-
+      Used to determine if a semantic patch will result in conflicts with
+      scheduled changes on a feature flag.
     schema:
       type: object
       properties:
@@ -3831,6 +3978,37 @@ parameters:
           description: >-
             A unix epoch time in milliseconds specifying the date the scheduled
             changes will be applied
+        instructions:
+          $ref: '#/definitions/SemanticPatchInstruction'
+  FlagConfigScheduledChangesPostBody:
+    name: flagConfigScheduledChangesPostBody
+    in: body
+    required: true
+    description: Create scheduled changes on a feature flag.
+    schema:
+      type: object
+      properties:
+        comment:
+          type: string
+          description: Used to describe the scheduled changes.
+        executionDate:
+          type: integer
+          description: >-
+            A unix epoch time in milliseconds specifying the date the scheduled
+            changes will be applied
+        instructions:
+          $ref: '#/definitions/SemanticPatchInstruction'
+  FlagConfigScheduledChangesPatchBody:
+    name: flagConfigScheduledChangesPatchBody
+    in: body
+    required: true
+    description: Update scheduled changes on a feature flag.
+    schema:
+      type: object
+      properties:
+        comment:
+          type: string
+          description: Used to describe the scheduled changes.
         instructions:
           $ref: '#/definitions/SemanticPatchInstruction'
   DestinationPostRequest:
@@ -4428,16 +4606,16 @@ parameters:
       An expiration time for the old relay proxy configuration key, expressed as
       a Unix epoch time in milliseconds. By default, the relay proxy
       configuration will expire immediately
-  FeatureFlagApprovalRequestId:
-    name: featureFlagApprovalRequestId
+  ApprovalRequestId:
+    name: approvalRequestId
     in: path
     required: true
-    description: The feature flag approval request ID
+    description: The approval request ID
     type: string
-  FeatureFlagApprovalRequestPostRequest:
-    name: featureFlagApprovalRequestConfigBody
+  ApprovalRequestPostRequest:
+    name: approvalRequestConfigBody
     in: body
-    description: Create a new feature flag approval request
+    description: Create a new approval request
     schema:
       type: object
       properties:
@@ -4462,11 +4640,11 @@ parameters:
         - description
         - instructions
         - notifyMemberIds
-  FeatureFlagApprovalRequestReviewPostRequest:
-    name: featureFlagApprovalRequestReviewConfigBody
+  ApprovalRequestReviewPostRequest:
+    name: approvalRequestReviewConfigBody
     in: body
     required: true
-    description: Review a feature flag approval request
+    description: Review an approval request
     schema:
       type: object
       properties:
@@ -4484,11 +4662,11 @@ parameters:
           example: This is a comment string
       required:
         - kind
-  FeatureFlagApprovalRequestApplyPostRequest:
-    name: featureFlagApprovalRequestApplyConfigBody
+  ApprovalRequestApplyPostRequest:
+    name: approvalRequestApplyConfigBody
     in: body
     required: true
-    description: Apply a new feature flag approval request
+    description: Apply an approval request
     schema:
       type: object
       properties:

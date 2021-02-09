@@ -5,22 +5,28 @@ All URIs are relative to *https://app.launchdarkly.com/api/v2*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CopyFeatureFlag**](FeatureFlagsApi.md#CopyFeatureFlag) | **Post** /flags/{projectKey}/{featureFlagKey}/copy | Copies the feature flag configuration from one environment to the same feature flag in another environment.
+[**DeleteApprovalRequest**](FeatureFlagsApi.md#DeleteApprovalRequest) | **Delete** /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{approvalRequestId} | Delete an approval request for a feature flag config
 [**DeleteFeatureFlag**](FeatureFlagsApi.md#DeleteFeatureFlag) | **Delete** /flags/{projectKey}/{featureFlagKey} | Delete a feature flag in all environments. Be careful-- only delete feature flags that are no longer being used by your application.
-[**DeleteFeatureFlagApprovalRequest**](FeatureFlagsApi.md#DeleteFeatureFlagApprovalRequest) | **Delete** /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{featureFlagApprovalRequestId} | Delete an approval request for a feature flag
+[**DeleteFlagConfigScheduledChanges**](FeatureFlagsApi.md#DeleteFlagConfigScheduledChanges) | **Delete** /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/scheduled-changes/{scheduledChangeId} | Delete a scheduled change on a feature flag in an environment.
+[**GetApprovalRequest**](FeatureFlagsApi.md#GetApprovalRequest) | **Get** /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{approvalRequestId} | Get a single approval request for a feature flag config
+[**GetApprovalRequests**](FeatureFlagsApi.md#GetApprovalRequests) | **Get** /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests | Get all approval requests for a feature flag config
 [**GetExpiringUserTargets**](FeatureFlagsApi.md#GetExpiringUserTargets) | **Get** /flags/{projectKey}/{featureFlagKey}/expiring-user-targets/{environmentKey} | Get expiring user targets for feature flag
 [**GetFeatureFlag**](FeatureFlagsApi.md#GetFeatureFlag) | **Get** /flags/{projectKey}/{featureFlagKey} | Get a single feature flag by key.
-[**GetFeatureFlagApprovalRequest**](FeatureFlagsApi.md#GetFeatureFlagApprovalRequest) | **Get** /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{featureFlagApprovalRequestId} | Get a single approval request for a feature flag
-[**GetFeatureFlagApprovalRequests**](FeatureFlagsApi.md#GetFeatureFlagApprovalRequests) | **Get** /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests | Get all approval requests for a feature flag
 [**GetFeatureFlagStatus**](FeatureFlagsApi.md#GetFeatureFlagStatus) | **Get** /flag-statuses/{projectKey}/{environmentKey}/{featureFlagKey} | Get the status for a particular feature flag.
 [**GetFeatureFlagStatusAcrossEnvironments**](FeatureFlagsApi.md#GetFeatureFlagStatusAcrossEnvironments) | **Get** /flag-status/{projectKey}/{featureFlagKey} | Get the status for a particular feature flag across environments
 [**GetFeatureFlagStatuses**](FeatureFlagsApi.md#GetFeatureFlagStatuses) | **Get** /flag-statuses/{projectKey}/{environmentKey} | Get a list of statuses for all feature flags. The status includes the last time the feature flag was requested, as well as the state of the flag.
 [**GetFeatureFlags**](FeatureFlagsApi.md#GetFeatureFlags) | **Get** /flags/{projectKey} | Get a list of all features in the given project.
+[**GetFlagConfigScheduledChange**](FeatureFlagsApi.md#GetFlagConfigScheduledChange) | **Get** /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/scheduled-changes/{scheduledChangeId} | Get a scheduled change on a feature flag by id.
+[**GetFlagConfigScheduledChanges**](FeatureFlagsApi.md#GetFlagConfigScheduledChanges) | **Get** /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/scheduled-changes | Get all scheduled workflows for a feature flag by key.
+[**GetFlagConfigScheduledChangesConflicts**](FeatureFlagsApi.md#GetFlagConfigScheduledChangesConflicts) | **Post** /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/scheduled-changes-conflicts | Lists conflicts between the given instructions and any existing scheduled changes for the feature flag. The actual HTTP verb should be REPORT, not POST.
 [**PatchExpiringUserTargets**](FeatureFlagsApi.md#PatchExpiringUserTargets) | **Patch** /flags/{projectKey}/{featureFlagKey}/expiring-user-targets/{environmentKey} | Update, add, or delete expiring user targets on feature flag
 [**PatchFeatureFlag**](FeatureFlagsApi.md#PatchFeatureFlag) | **Patch** /flags/{projectKey}/{featureFlagKey} | Perform a partial update to a feature.
-[**PostApplyFeatureFlagApprovalRequest**](FeatureFlagsApi.md#PostApplyFeatureFlagApprovalRequest) | **Post** /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{featureFlagApprovalRequestId}/apply | Apply approval request for a feature flag
+[**PatchFlagConfigScheduledChange**](FeatureFlagsApi.md#PatchFlagConfigScheduledChange) | **Patch** /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/scheduled-changes/{scheduledChangeId} | Updates an existing scheduled-change on a feature flag in an environment.
+[**PostApplyApprovalRequest**](FeatureFlagsApi.md#PostApplyApprovalRequest) | **Post** /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{approvalRequestId}/apply | Apply approval request for a feature flag config
+[**PostApprovalRequest**](FeatureFlagsApi.md#PostApprovalRequest) | **Post** /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{approvalRequestId} | Create an approval request for a feature flag config
 [**PostFeatureFlag**](FeatureFlagsApi.md#PostFeatureFlag) | **Post** /flags/{projectKey} | Creates a new feature flag.
-[**PostFeatureFlagApprovalRequest**](FeatureFlagsApi.md#PostFeatureFlagApprovalRequest) | **Post** /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{featureFlagApprovalRequestId} | Create an approval request for a feature flag
-[**PostReviewFeatureFlagApprovalRequest**](FeatureFlagsApi.md#PostReviewFeatureFlagApprovalRequest) | **Post** /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{featureFlagApprovalRequestId}/review | Review approval request for a feature flag
+[**PostFlagConfigScheduledChanges**](FeatureFlagsApi.md#PostFlagConfigScheduledChanges) | **Post** /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/scheduled-changes | Creates a new scheduled change for a feature flag.
+[**PostReviewApprovalRequest**](FeatureFlagsApi.md#PostReviewApprovalRequest) | **Post** /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{approvalRequestId}/review | Review approval request for a feature flag config
 
 
 # **CopyFeatureFlag**
@@ -39,6 +45,47 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**FeatureFlag**](FeatureFlag.md)
+
+### Authorization
+
+[Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **DeleteApprovalRequest**
+> DeleteApprovalRequest(ctx, projectKey, environmentKey, featureFlagKey, approvalRequestId, optional)
+Delete an approval request for a feature flag config
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
+  **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
+  **featureFlagKey** | **string**| The feature flag&#39;s key. The key identifies the flag in your code. | 
+  **approvalRequestId** | **string**| The approval request ID | 
+ **optional** | ***DeleteApprovalRequestOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a pointer to a DeleteApprovalRequestOpts struct
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+
+ **approvalRequestConfigBody** | [**optional.Interface of ApprovalRequestConfigBody**](ApprovalRequestConfigBody.md)| Create a new approval request | 
+
+### Return type
+
+ (empty response body)
 
 ### Authorization
 
@@ -78,9 +125,9 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **DeleteFeatureFlagApprovalRequest**
-> DeleteFeatureFlagApprovalRequest(ctx, projectKey, environmentKey, featureFlagKey, featureFlagApprovalRequestId, optional)
-Delete an approval request for a feature flag
+# **DeleteFlagConfigScheduledChanges**
+> DeleteFlagConfigScheduledChanges(ctx, projectKey, featureFlagKey, environmentKey, scheduledChangeId)
+Delete a scheduled change on a feature flag in an environment.
 
 ### Required Parameters
 
@@ -88,25 +135,70 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
-  **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
   **featureFlagKey** | **string**| The feature flag&#39;s key. The key identifies the flag in your code. | 
-  **featureFlagApprovalRequestId** | **string**| The feature flag approval request ID | 
- **optional** | ***DeleteFeatureFlagApprovalRequestOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-Optional parameters are passed through a pointer to a DeleteFeatureFlagApprovalRequestOpts struct
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-
-
- **featureFlagApprovalRequestConfigBody** | [**optional.Interface of FeatureFlagApprovalRequestConfigBody**](FeatureFlagApprovalRequestConfigBody.md)| Create a new feature flag approval request | 
+  **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
+  **scheduledChangeId** | **string**| The id of the scheduled change | 
 
 ### Return type
 
  (empty response body)
+
+### Authorization
+
+[Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **GetApprovalRequest**
+> ApprovalRequests GetApprovalRequest(ctx, projectKey, featureFlagKey, environmentKey, approvalRequestId)
+Get a single approval request for a feature flag config
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
+  **featureFlagKey** | **string**| The feature flag&#39;s key. The key identifies the flag in your code. | 
+  **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
+  **approvalRequestId** | **string**| The approval request ID | 
+
+### Return type
+
+[**ApprovalRequests**](ApprovalRequests.md)
+
+### Authorization
+
+[Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **GetApprovalRequests**
+> ApprovalRequests GetApprovalRequests(ctx, projectKey, featureFlagKey, environmentKey)
+Get all approval requests for a feature flag config
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
+  **featureFlagKey** | **string**| The feature flag&#39;s key. The key identifies the flag in your code. | 
+  **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
+
+### Return type
+
+[**ApprovalRequests**](ApprovalRequests.md)
 
 ### Authorization
 
@@ -172,63 +264,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**FeatureFlag**](FeatureFlag.md)
-
-### Authorization
-
-[Token](../README.md#Token)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **GetFeatureFlagApprovalRequest**
-> FeatureFlagApprovalRequests GetFeatureFlagApprovalRequest(ctx, projectKey, featureFlagKey, environmentKey, featureFlagApprovalRequestId)
-Get a single approval request for a feature flag
-
-### Required Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
-  **featureFlagKey** | **string**| The feature flag&#39;s key. The key identifies the flag in your code. | 
-  **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
-  **featureFlagApprovalRequestId** | **string**| The feature flag approval request ID | 
-
-### Return type
-
-[**FeatureFlagApprovalRequests**](FeatureFlagApprovalRequests.md)
-
-### Authorization
-
-[Token](../README.md#Token)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **GetFeatureFlagApprovalRequests**
-> FeatureFlagApprovalRequests GetFeatureFlagApprovalRequests(ctx, projectKey, featureFlagKey, environmentKey)
-Get all approval requests for a feature flag
-
-### Required Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
-  **featureFlagKey** | **string**| The feature flag&#39;s key. The key identifies the flag in your code. | 
-  **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
-
-### Return type
-
-[**FeatureFlagApprovalRequests**](FeatureFlagApprovalRequests.md)
 
 ### Authorization
 
@@ -365,6 +400,92 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **GetFlagConfigScheduledChange**
+> FeatureFlagScheduledChange GetFlagConfigScheduledChange(ctx, projectKey, featureFlagKey, environmentKey, scheduledChangeId)
+Get a scheduled change on a feature flag by id.
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
+  **featureFlagKey** | **string**| The feature flag&#39;s key. The key identifies the flag in your code. | 
+  **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
+  **scheduledChangeId** | **string**| The id of the scheduled change | 
+
+### Return type
+
+[**FeatureFlagScheduledChange**](FeatureFlagScheduledChange.md)
+
+### Authorization
+
+[Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **GetFlagConfigScheduledChanges**
+> FeatureFlagScheduledChanges GetFlagConfigScheduledChanges(ctx, projectKey, featureFlagKey, environmentKey)
+Get all scheduled workflows for a feature flag by key.
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
+  **featureFlagKey** | **string**| The feature flag&#39;s key. The key identifies the flag in your code. | 
+  **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
+
+### Return type
+
+[**FeatureFlagScheduledChanges**](FeatureFlagScheduledChanges.md)
+
+### Authorization
+
+[Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **GetFlagConfigScheduledChangesConflicts**
+> FeatureFlagScheduledChangesConflicts GetFlagConfigScheduledChangesConflicts(ctx, projectKey, featureFlagKey, environmentKey, flagConfigScheduledChangesConflictsBody)
+Lists conflicts between the given instructions and any existing scheduled changes for the feature flag. The actual HTTP verb should be REPORT, not POST.
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
+  **featureFlagKey** | **string**| The feature flag&#39;s key. The key identifies the flag in your code. | 
+  **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
+  **flagConfigScheduledChangesConflictsBody** | [**FlagConfigScheduledChangesConflictsBody**](FlagConfigScheduledChangesConflictsBody.md)| Used to determine if a semantic patch will result in conflicts with scheduled changes on a feature flag. | 
+
+### Return type
+
+[**FeatureFlagScheduledChangesConflicts**](FeatureFlagScheduledChangesConflicts.md)
+
+### Authorization
+
+[Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **PatchExpiringUserTargets**
 > UserTargetingExpirationForFlags PatchExpiringUserTargets(ctx, projectKey, environmentKey, featureFlagKey, semanticPatchWithComment)
 Update, add, or delete expiring user targets on feature flag
@@ -422,9 +543,39 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **PostApplyFeatureFlagApprovalRequest**
-> FeatureFlagApprovalRequests PostApplyFeatureFlagApprovalRequest(ctx, projectKey, featureFlagKey, environmentKey, featureFlagApprovalRequestId, featureFlagApprovalRequestApplyConfigBody)
-Apply approval request for a feature flag
+# **PatchFlagConfigScheduledChange**
+> FeatureFlagScheduledChange PatchFlagConfigScheduledChange(ctx, projectKey, featureFlagKey, flagConfigScheduledChangesPatchBody, environmentKey, scheduledChangeId)
+Updates an existing scheduled-change on a feature flag in an environment.
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
+  **featureFlagKey** | **string**| The feature flag&#39;s key. The key identifies the flag in your code. | 
+  **flagConfigScheduledChangesPatchBody** | [**FlagConfigScheduledChangesPatchBody**](FlagConfigScheduledChangesPatchBody.md)| Update scheduled changes on a feature flag. | 
+  **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
+  **scheduledChangeId** | **string**| The id of the scheduled change | 
+
+### Return type
+
+[**FeatureFlagScheduledChange**](FeatureFlagScheduledChange.md)
+
+### Authorization
+
+[Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **PostApplyApprovalRequest**
+> ApprovalRequests PostApplyApprovalRequest(ctx, projectKey, featureFlagKey, environmentKey, approvalRequestId, approvalRequestApplyConfigBody)
+Apply approval request for a feature flag config
 
 ### Required Parameters
 
@@ -434,12 +585,53 @@ Name | Type | Description  | Notes
   **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
   **featureFlagKey** | **string**| The feature flag&#39;s key. The key identifies the flag in your code. | 
   **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
-  **featureFlagApprovalRequestId** | **string**| The feature flag approval request ID | 
-  **featureFlagApprovalRequestApplyConfigBody** | [**FeatureFlagApprovalRequestApplyConfigBody**](FeatureFlagApprovalRequestApplyConfigBody.md)| Apply a new feature flag approval request | 
+  **approvalRequestId** | **string**| The approval request ID | 
+  **approvalRequestApplyConfigBody** | [**ApprovalRequestApplyConfigBody**](ApprovalRequestApplyConfigBody.md)| Apply an approval request | 
 
 ### Return type
 
-[**FeatureFlagApprovalRequests**](FeatureFlagApprovalRequests.md)
+[**ApprovalRequests**](ApprovalRequests.md)
+
+### Authorization
+
+[Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **PostApprovalRequest**
+> ApprovalRequest PostApprovalRequest(ctx, projectKey, featureFlagKey, environmentKey, approvalRequestId, optional)
+Create an approval request for a feature flag config
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
+  **featureFlagKey** | **string**| The feature flag&#39;s key. The key identifies the flag in your code. | 
+  **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
+  **approvalRequestId** | **string**| The approval request ID | 
+ **optional** | ***PostApprovalRequestOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+Optional parameters are passed through a pointer to a PostApprovalRequestOpts struct
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+
+ **approvalRequestConfigBody** | [**optional.Interface of ApprovalRequestConfigBody**](ApprovalRequestConfigBody.md)| Create a new approval request | 
+
+### Return type
+
+[**ApprovalRequest**](ApprovalRequest.md)
 
 ### Authorization
 
@@ -489,9 +681,9 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **PostFeatureFlagApprovalRequest**
-> FeatureFlagApprovalRequest PostFeatureFlagApprovalRequest(ctx, projectKey, featureFlagKey, environmentKey, featureFlagApprovalRequestId, optional)
-Create an approval request for a feature flag
+# **PostFlagConfigScheduledChanges**
+> FeatureFlagScheduledChange PostFlagConfigScheduledChanges(ctx, projectKey, flagConfigScheduledChangesPostBody, featureFlagKey, environmentKey)
+Creates a new scheduled change for a feature flag.
 
 ### Required Parameters
 
@@ -499,25 +691,13 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
+  **flagConfigScheduledChangesPostBody** | [**FlagConfigScheduledChangesPostBody**](FlagConfigScheduledChangesPostBody.md)| Create scheduled changes on a feature flag. | 
   **featureFlagKey** | **string**| The feature flag&#39;s key. The key identifies the flag in your code. | 
   **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
-  **featureFlagApprovalRequestId** | **string**| The feature flag approval request ID | 
- **optional** | ***PostFeatureFlagApprovalRequestOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-Optional parameters are passed through a pointer to a PostFeatureFlagApprovalRequestOpts struct
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-
-
- **featureFlagApprovalRequestConfigBody** | [**optional.Interface of FeatureFlagApprovalRequestConfigBody**](FeatureFlagApprovalRequestConfigBody.md)| Create a new feature flag approval request | 
 
 ### Return type
 
-[**FeatureFlagApprovalRequest**](FeatureFlagApprovalRequest.md)
+[**FeatureFlagScheduledChange**](FeatureFlagScheduledChange.md)
 
 ### Authorization
 
@@ -530,9 +710,9 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **PostReviewFeatureFlagApprovalRequest**
-> FeatureFlagApprovalRequests PostReviewFeatureFlagApprovalRequest(ctx, projectKey, featureFlagKey, environmentKey, featureFlagApprovalRequestId, featureFlagApprovalRequestReviewConfigBody)
-Review approval request for a feature flag
+# **PostReviewApprovalRequest**
+> ApprovalRequests PostReviewApprovalRequest(ctx, projectKey, featureFlagKey, environmentKey, approvalRequestId, approvalRequestReviewConfigBody)
+Review approval request for a feature flag config
 
 ### Required Parameters
 
@@ -542,12 +722,12 @@ Name | Type | Description  | Notes
   **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
   **featureFlagKey** | **string**| The feature flag&#39;s key. The key identifies the flag in your code. | 
   **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
-  **featureFlagApprovalRequestId** | **string**| The feature flag approval request ID | 
-  **featureFlagApprovalRequestReviewConfigBody** | [**FeatureFlagApprovalRequestReviewConfigBody**](FeatureFlagApprovalRequestReviewConfigBody.md)| Review a feature flag approval request | 
+  **approvalRequestId** | **string**| The approval request ID | 
+  **approvalRequestReviewConfigBody** | [**ApprovalRequestReviewConfigBody**](ApprovalRequestReviewConfigBody.md)| Review an approval request | 
 
 ### Return type
 
-[**FeatureFlagApprovalRequests**](FeatureFlagApprovalRequests.md)
+[**ApprovalRequests**](ApprovalRequests.md)
 
 ### Authorization
 

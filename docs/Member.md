@@ -13,6 +13,8 @@ Name | Type | Description | Notes
 **PendingInvite** | **bool** |  | [optional] [default to null]
 **IsBeta** | **bool** |  | [optional] [default to null]
 **CustomRoles** | **[]string** |  | [optional] [default to null]
+**LastSeen** | **int64** | A unix epoch time in milliseconds specifying the last time this member was active in LaunchDarkly. | [optional] [default to null]
+**LastSeenMetadata** | [***MemberLastSeenMetadata**](Member__lastSeenMetadata.md) |  | [optional] [default to null]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
