@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Build custom integrations with the LaunchDarkly REST API"
-  version: "5.0.0"
+  version: "5.0.1"
   title: "LaunchDarkly REST API"
   termsOfService: "https://launchdarkly.com/terms"
   contact:
@@ -1804,7 +1804,7 @@ paths:
   /users/{projectKey}/{environmentKey}/{userKey}:
     get:
       tags:
-      - "UserRecord"
+      - "Users"
       summary: "Get a user by key."
       operationId: "getUser"
       parameters:
@@ -1832,7 +1832,7 @@ paths:
         200:
           description: "User response."
           schema:
-            $ref: "#/definitions/User"
+            $ref: "#/definitions/UserRecord"
         401:
           description: "Invalid access token."
         404:

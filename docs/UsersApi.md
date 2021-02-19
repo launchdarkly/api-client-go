@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**DeleteUser**](UsersApi.md#DeleteUser) | **Delete** /users/{projectKey}/{environmentKey}/{userKey} | Delete a user by ID.
 [**GetSearchUsers**](UsersApi.md#GetSearchUsers) | **Get** /user-search/{projectKey}/{environmentKey} | Search users in LaunchDarkly based on their last active date, or a search query. It should not be used to enumerate all users in LaunchDarkly-- use the List users API resource.
+[**GetUser**](UsersApi.md#GetUser) | **Get** /users/{projectKey}/{environmentKey}/{userKey} | Get a user by key.
 [**GetUsers**](UsersApi.md#GetUsers) | **Get** /users/{projectKey}/{environmentKey} | List all users in the environment. Includes the total count of users. In each page, there will be up to &#39;limit&#39; users returned (default 20). This is useful for exporting all users in the system for further analysis. Paginated collections will include a next link containing a URL with the next set of elements in the collection.
 
 
@@ -65,6 +66,34 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Users**](Users.md)
+
+### Authorization
+
+[Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **GetUser**
+> UserRecord GetUser(ctx, projectKey, environmentKey, userKey)
+Get a user by key.
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
+  **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
+  **userKey** | **string**| The user&#39;s key. | 
+
+### Return type
+
+[**UserRecord**](UserRecord.md)
 
 ### Authorization
 
