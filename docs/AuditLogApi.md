@@ -17,10 +17,10 @@ Get a list of all audit log entries. The query parameters allow you to restrict 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***GetAuditLogEntriesOpts** | optional parameters | nil if no parameters
+ **optional** | ***AuditLogApiGetAuditLogEntriesOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
-Optional parameters are passed through a pointer to a GetAuditLogEntriesOpts struct
+Optional parameters are passed through a pointer to a AuditLogApiGetAuditLogEntriesOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------

@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Build custom integrations with the LaunchDarkly REST API"
-  version: "5.0.1"
+  version: "5.0.2"
   title: "LaunchDarkly REST API"
   termsOfService: "https://launchdarkly.com/terms"
   contact:
@@ -31,11 +31,11 @@ paths:
       operationId: "getProjects"
       parameters: []
       responses:
-        200:
+        "200":
           description: "Projects response"
           schema:
             $ref: "#/definitions/Projects"
-        401:
+        "401":
           description: "Invalid access token."
     post:
       tags:
@@ -51,15 +51,15 @@ paths:
           $ref: "#/definitions/projectBody"
         x-exportParamName: "ProjectBody"
       responses:
-        201:
+        "201":
           description: "Successful Project response."
           schema:
             $ref: "#/definitions/Project"
-        400:
+        "400":
           description: "Invalid request body."
-        401:
+        "401":
           description: "Invalid access token."
-        409:
+        "409":
           description: "Status conflict."
   /projects/{projectKey}:
     get:
@@ -76,13 +76,13 @@ paths:
         type: "string"
         x-exportParamName: "ProjectKey"
       responses:
-        200:
+        "200":
           description: "Successful Project response."
           schema:
             $ref: "#/definitions/Project"
-        401:
+        "401":
           description: "Invalid access token."
-        404:
+        "404":
           description: "Invalid resource specifier."
     delete:
       tags:
@@ -100,11 +100,11 @@ paths:
         type: "string"
         x-exportParamName: "ProjectKey"
       responses:
-        204:
+        "204":
           description: "Action completed successfully."
-        401:
+        "401":
           description: "Invalid access token."
-        404:
+        "404":
           description: "Invalid resource specifier."
     patch:
       tags:
@@ -130,17 +130,17 @@ paths:
             $ref: "#/definitions/PatchOperation"
         x-exportParamName: "PatchDelta"
       responses:
-        200:
+        "200":
           description: "Successful Project response."
           schema:
             $ref: "#/definitions/Project"
-        400:
+        "400":
           description: "Invalid request body."
-        401:
+        "401":
           description: "Invalid access token."
-        404:
+        "404":
           description: "Invalid resource specifier."
-        409:
+        "409":
           description: "Status conflict."
   /projects/{projectKey}/environments:
     post:
@@ -165,15 +165,15 @@ paths:
           $ref: "#/definitions/EnvironmentPost"
         x-exportParamName: "EnvironmentBody"
       responses:
-        201:
+        "201":
           description: "Environment response."
           schema:
             $ref: "#/definitions/Environment"
-        400:
+        "400":
           description: "Invalid request body."
-        401:
+        "401":
           description: "Invalid access token."
-        409:
+        "409":
           description: "Status conflict."
   /projects/{projectKey}/environments/{environmentKey}:
     get:
@@ -197,13 +197,13 @@ paths:
         type: "string"
         x-exportParamName: "EnvironmentKey"
       responses:
-        200:
+        "200":
           description: "Environment response."
           schema:
             $ref: "#/definitions/Environment"
-        401:
+        "401":
           description: "Invalid access token."
-        404:
+        "404":
           description: "Invalid resource specifier."
     delete:
       tags:
@@ -226,11 +226,11 @@ paths:
         type: "string"
         x-exportParamName: "EnvironmentKey"
       responses:
-        204:
+        "204":
           description: "Action completed successfully."
-        401:
+        "401":
           description: "Invalid access token."
-        404:
+        "404":
           description: "Invalid resource specifier."
     patch:
       tags:
@@ -263,17 +263,17 @@ paths:
             $ref: "#/definitions/PatchOperation"
         x-exportParamName: "PatchDelta"
       responses:
-        200:
+        "200":
           description: "Environment response."
           schema:
             $ref: "#/definitions/Environment"
-        400:
+        "400":
           description: "Invalid request body."
-        401:
+        "401":
           description: "Invalid access token."
-        404:
+        "404":
           description: "Invalid resource specifier."
-        409:
+        "409":
           description: "Status conflict."
   /projects/{projectKey}/environments/{environmentKey}/apiKey:
     post:
@@ -308,13 +308,13 @@ paths:
         x-exportParamName: "Expiry"
         x-optionalDataType: "Int64"
       responses:
-        200:
+        "200":
           description: "Environment response."
           schema:
             $ref: "#/definitions/Environment"
-        404:
+        "404":
           description: "Invalid resource specifier."
-        409:
+        "409":
           description: "Status conflict."
   /projects/{projectKey}/environments/{environmentKey}/mobileKey:
     post:
@@ -349,13 +349,13 @@ paths:
         x-exportParamName: "Expiry"
         x-optionalDataType: "Int64"
       responses:
-        200:
+        "200":
           description: "Environment response."
           schema:
             $ref: "#/definitions/Environment"
-        404:
+        "404":
           description: "Invalid resource specifier."
-        409:
+        "409":
           description: "Status conflict."
   /flags/{projectKey}:
     get:
@@ -442,11 +442,11 @@ paths:
         x-exportParamName: "Tag"
         x-optionalDataType: "String"
       responses:
-        200:
+        "200":
           description: "Flags response."
           schema:
             $ref: "#/definitions/FeatureFlags"
-        401:
+        "401":
           description: "Invalid access token."
     post:
       tags:
@@ -479,15 +479,15 @@ paths:
         x-exportParamName: "Clone"
         x-optionalDataType: "String"
       responses:
-        201:
+        "201":
           description: "Flag response."
           schema:
             $ref: "#/definitions/FeatureFlag"
-        400:
+        "400":
           description: "Invalid request body."
-        401:
+        "401":
           description: "Invalid access token."
-        409:
+        "409":
           description: "Status conflict."
   /flags/{projectKey}/{featureFlagKey}:
     get:
@@ -523,13 +523,13 @@ paths:
         collectionFormat: "multi"
         x-exportParamName: "Env"
       responses:
-        200:
+        "200":
           description: "Flag response."
           schema:
             $ref: "#/definitions/FeatureFlag"
-        401:
+        "401":
           description: "Invalid access token."
-        404:
+        "404":
           description: "Invalid resource specifier."
     delete:
       tags:
@@ -553,11 +553,11 @@ paths:
         type: "string"
         x-exportParamName: "FeatureFlagKey"
       responses:
-        204:
+        "204":
           description: "Action completed successfully."
-        401:
+        "401":
           description: "Invalid access token."
-        404:
+        "404":
           description: "Invalid resource specifier."
     patch:
       tags:
@@ -590,17 +590,17 @@ paths:
           $ref: "#/definitions/patchComment"
         x-exportParamName: "PatchComment"
       responses:
-        200:
+        "200":
           description: "Feature flag response."
           schema:
             $ref: "#/definitions/FeatureFlag"
-        400:
+        "400":
           description: "Invalid request body."
-        401:
+        "401":
           description: "Invalid access token."
-        404:
+        "404":
           description: "Invalid resource specifier."
-        409:
+        "409":
           description: "Status conflict."
   /flags/{projectKey}/{featureFlagKey}/copy:
     post:
@@ -632,15 +632,15 @@ paths:
           $ref: "#/definitions/featureFlagCopyBody"
         x-exportParamName: "FeatureFlagCopyBody"
       responses:
-        201:
+        "201":
           description: "Flag configuration copy response."
           schema:
             $ref: "#/definitions/FeatureFlag"
-        400:
+        "400":
           description: "Invalid request body."
-        401:
+        "401":
           description: "Invalid access token."
-        409:
+        "409":
           description: "Status conflict."
   /flag-statuses/{projectKey}/{environmentKey}:
     get:
@@ -666,11 +666,11 @@ paths:
         type: "string"
         x-exportParamName: "EnvironmentKey"
       responses:
-        200:
+        "200":
           description: "List of feature flag statuses."
           schema:
             $ref: "#/definitions/FeatureFlagStatuses"
-        401:
+        "401":
           description: "Invalid access token."
   /flag-statuses/{projectKey}/{environmentKey}/{featureFlagKey}:
     get:
@@ -701,11 +701,11 @@ paths:
         type: "string"
         x-exportParamName: "FeatureFlagKey"
       responses:
-        200:
+        "200":
           description: "Status of the requested feature flag."
           schema:
             $ref: "#/definitions/FeatureFlagStatus"
-        401:
+        "401":
           description: "Invalid access token."
   /flag-status/{projectKey}/{featureFlagKey}:
     get:
@@ -729,13 +729,13 @@ paths:
         type: "string"
         x-exportParamName: "FeatureFlagKey"
       responses:
-        200:
+        "200":
           description: "Status of the requested feature flag across environments"
           schema:
             $ref: "#/definitions/FeatureFlagStatusAcrossEnvironments"
-        401:
+        "401":
           description: "Invalid access token."
-        403:
+        "403":
           description: "This is a beta API, you must pass beta in the LD-API-Version\
             \ header to use it."
           schema:
@@ -769,11 +769,11 @@ paths:
         type: "string"
         x-exportParamName: "FeatureFlagKey"
       responses:
-        200:
+        "200":
           description: "User targets of the requested feature flag."
           schema:
             $ref: "#/definitions/UserTargetingExpirationForFlags"
-        401:
+        "401":
           description: "Invalid access token."
     patch:
       tags:
@@ -812,17 +812,17 @@ paths:
           type: "object"
         x-exportParamName: "SemanticPatchWithComment"
       responses:
-        200:
+        "200":
           description: "User targeting expirations on feature flag response."
           schema:
             $ref: "#/definitions/UserTargetingExpirationForFlags"
-        400:
+        "400":
           description: "Invalid request body."
-        401:
+        "401":
           description: "Invalid access token."
-        404:
+        "404":
           description: "Invalid resource specifier."
-        409:
+        "409":
           description: "Status conflict."
   /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/scheduled-changes:
     get:
@@ -853,13 +853,13 @@ paths:
         type: "string"
         x-exportParamName: "EnvironmentKey"
       responses:
-        200:
+        "200":
           description: "A list of scheduled changes for feature flag response."
           schema:
             $ref: "#/definitions/FeatureFlagScheduledChanges"
-        401:
+        "401":
           description: "Invalid access token."
-        404:
+        "404":
           description: "Invalid resource specifier."
     post:
       tags:
@@ -896,15 +896,15 @@ paths:
         type: "string"
         x-exportParamName: "EnvironmentKey"
       responses:
-        201:
+        "201":
           description: "A scheduled change for feature flag response."
           schema:
             $ref: "#/definitions/FeatureFlagScheduledChange"
-        400:
+        "400":
           description: "Invalid request body."
-        401:
+        "401":
           description: "Invalid access token."
-        409:
+        "409":
           description: "Status conflict."
   /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/scheduled-changes-conflicts:
     post:
@@ -945,13 +945,13 @@ paths:
           $ref: "#/definitions/flagConfigScheduledChangesConflictsBody"
         x-exportParamName: "FlagConfigScheduledChangesConflictsBody"
       responses:
-        200:
+        "200":
           description: "Scheduled changes conflict response"
           schema:
             $ref: "#/definitions/FeatureFlagScheduledChangesConflicts"
-        401:
+        "401":
           description: "Invalid access token."
-        404:
+        "404":
           description: "Invalid resource specifier."
   /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/scheduled-changes/{scheduledChangeId}:
     get:
@@ -988,13 +988,13 @@ paths:
         type: "string"
         x-exportParamName: "ScheduledChangeId"
       responses:
-        200:
+        "200":
           description: "A scheduled change for feature flag response."
           schema:
             $ref: "#/definitions/FeatureFlagScheduledChange"
-        401:
+        "401":
           description: "Invalid access token."
-        404:
+        "404":
           description: "Invalid resource specifier."
     delete:
       tags:
@@ -1030,11 +1030,11 @@ paths:
         type: "string"
         x-exportParamName: "ScheduledChangeId"
       responses:
-        204:
+        "204":
           description: "Action completed successfully."
-        401:
+        "401":
           description: "Invalid access token."
-        404:
+        "404":
           description: "Invalid resource specifier."
     patch:
       tags:
@@ -1077,15 +1077,15 @@ paths:
         type: "string"
         x-exportParamName: "ScheduledChangeId"
       responses:
-        201:
+        "201":
           description: "A Scheduled change for feature flag response."
           schema:
             $ref: "#/definitions/FeatureFlagScheduledChange"
-        400:
+        "400":
           description: "Invalid request body."
-        401:
+        "401":
           description: "Invalid access token."
-        409:
+        "409":
           description: "Status conflict."
   /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests:
     get:
@@ -1116,13 +1116,13 @@ paths:
         type: "string"
         x-exportParamName: "EnvironmentKey"
       responses:
-        200:
+        "200":
           description: "Approval requests response"
           schema:
             $ref: "#/definitions/ApprovalRequests"
-        401:
+        "401":
           description: "Invalid access token."
-        404:
+        "404":
           description: "Invalid resource specifier."
   /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{approvalRequestId}:
     get:
@@ -1159,13 +1159,13 @@ paths:
         type: "string"
         x-exportParamName: "ApprovalRequestId"
       responses:
-        200:
+        "200":
           description: "Approval request response"
           schema:
             $ref: "#/definitions/ApprovalRequests"
-        401:
+        "401":
           description: "Invalid access token."
-        404:
+        "404":
           description: "Invalid resource specifier."
     post:
       tags:
@@ -1208,13 +1208,13 @@ paths:
           $ref: "#/definitions/approvalRequestConfigBody"
         x-exportParamName: "ApprovalRequestConfigBody"
       responses:
-        200:
+        "200":
           description: "Approval request response"
           schema:
             $ref: "#/definitions/ApprovalRequest"
-        401:
+        "401":
           description: "Invalid access token."
-        404:
+        "404":
           description: "Invalid resource specifier."
     delete:
       tags:
@@ -1257,11 +1257,11 @@ paths:
           $ref: "#/definitions/approvalRequestConfigBody"
         x-exportParamName: "ApprovalRequestConfigBody"
       responses:
-        204:
+        "204":
           description: "Action completed successfully."
-        401:
+        "401":
           description: "Invalid access token."
-        404:
+        "404":
           description: "Invalid resource specifier."
   /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{approvalRequestId}/apply:
     post:
@@ -1305,13 +1305,13 @@ paths:
           $ref: "#/definitions/approvalRequestApplyConfigBody"
         x-exportParamName: "ApprovalRequestApplyConfigBody"
       responses:
-        200:
+        "200":
           description: "Approval request applied response"
           schema:
             $ref: "#/definitions/ApprovalRequests"
-        401:
+        "401":
           description: "Invalid access token."
-        404:
+        "404":
           description: "Invalid resource specifier."
   /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{approvalRequestId}/review:
     post:
@@ -1355,13 +1355,13 @@ paths:
           $ref: "#/definitions/approvalRequestReviewConfigBody"
         x-exportParamName: "ApprovalRequestReviewConfigBody"
       responses:
-        200:
+        "200":
           description: "Approval request reviewed response"
           schema:
             $ref: "#/definitions/ApprovalRequests"
-        401:
+        "401":
           description: "Invalid access token."
-        404:
+        "404":
           description: "Invalid resource specifier."
   /segments/{projectKey}/{environmentKey}:
     get:
@@ -1392,11 +1392,11 @@ paths:
         x-exportParamName: "Tag"
         x-optionalDataType: "String"
       responses:
-        200:
+        "200":
           description: "Segments response."
           schema:
             $ref: "#/definitions/UserSegments"
-        401:
+        "401":
           description: "Invalid access token."
     post:
       tags:
@@ -1426,15 +1426,15 @@ paths:
           $ref: "#/definitions/userSegmentBody"
         x-exportParamName: "UserSegmentBody"
       responses:
-        201:
+        "201":
           description: "User segment response."
           schema:
             $ref: "#/definitions/UserSegment"
-        400:
+        "400":
           description: "Invalid request body."
-        401:
+        "401":
           description: "Invalid access token."
-        409:
+        "409":
           description: "Status conflict."
   /segments/{projectKey}/{environmentKey}/{userSegmentKey}:
     get:
@@ -1465,13 +1465,13 @@ paths:
         type: "string"
         x-exportParamName: "UserSegmentKey"
       responses:
-        200:
+        "200":
           description: "User segment response."
           schema:
             $ref: "#/definitions/UserSegment"
-        401:
+        "401":
           description: "Invalid access token."
-        404:
+        "404":
           description: "Invalid resource specifier."
     delete:
       tags:
@@ -1501,11 +1501,11 @@ paths:
         type: "string"
         x-exportParamName: "UserSegmentKey"
       responses:
-        204:
+        "204":
           description: "Action completed successfully."
-        401:
+        "401":
           description: "Invalid access token."
-        404:
+        "404":
           description: "Invalid resource specifier."
     patch:
       tags:
@@ -1547,17 +1547,17 @@ paths:
             $ref: "#/definitions/PatchOperation"
         x-exportParamName: "PatchOnly"
       responses:
-        200:
+        "200":
           description: "User segment response."
           schema:
             $ref: "#/definitions/UserSegment"
-        400:
+        "400":
           description: "Invalid request body."
-        401:
+        "401":
           description: "Invalid access token."
-        404:
+        "404":
           description: "Invalid resource specifier."
-        409:
+        "409":
           description: "Status conflict."
   /segments/{projectKey}/{userSegmentKey}/expiring-user-targets/{environmentKey}:
     get:
@@ -1588,13 +1588,13 @@ paths:
         type: "string"
         x-exportParamName: "UserSegmentKey"
       responses:
-        200:
+        "200":
           description: "User targeting expirations on user segment response."
           schema:
             $ref: "#/definitions/UserTargetingExpirationForSegment"
-        401:
+        "401":
           description: "Invalid access token."
-        404:
+        "404":
           description: "Invalid resource specifier."
     patch:
       tags:
@@ -1633,17 +1633,17 @@ paths:
           type: "object"
         x-exportParamName: "SemanticPatchWithComment"
       responses:
-        200:
+        "200":
           description: "User targeting expirations on user segment response."
           schema:
             $ref: "#/definitions/UserTargetingExpirationForSegment"
-        400:
+        "400":
           description: "Invalid request body."
-        401:
+        "401":
           description: "Invalid access token."
-        404:
+        "404":
           description: "Invalid resource specifier."
-        409:
+        "409":
           description: "Status conflict."
   /segments/{projectKey}/{environmentKey}/{userSegmentKey}/unbounded-users:
     post:
@@ -1682,11 +1682,11 @@ paths:
           $ref: "#/definitions/unboundedSegmentTargetsBody"
         x-exportParamName: "UnboundedSegmentTargetsBody"
       responses:
-        204:
+        "204":
           description: "Action completed successfully."
-        400:
+        "400":
           description: "Invalid request body."
-        401:
+        "401":
           description: "Invalid access token."
   /users/{projectKey}/{environmentKey}:
     get:
@@ -1735,11 +1735,11 @@ paths:
         x-exportParamName: "ScrollId"
         x-optionalDataType: "String"
       responses:
-        200:
+        "200":
           description: "Users response."
           schema:
             $ref: "#/definitions/Users"
-        401:
+        "401":
           description: "Invalid access token."
   /user-search/{projectKey}/{environmentKey}:
     get:
@@ -1795,11 +1795,11 @@ paths:
         x-exportParamName: "After"
         x-optionalDataType: "Int64"
       responses:
-        200:
+        "200":
           description: "Users response."
           schema:
             $ref: "#/definitions/Users"
-        401:
+        "401":
           description: "Invalid access token."
   /users/{projectKey}/{environmentKey}/{userKey}:
     get:
@@ -1829,13 +1829,13 @@ paths:
         type: "string"
         x-exportParamName: "UserKey"
       responses:
-        200:
+        "200":
           description: "User response."
           schema:
             $ref: "#/definitions/UserRecord"
-        401:
+        "401":
           description: "Invalid access token."
-        404:
+        "404":
           description: "Invalid resource specifier."
     delete:
       tags:
@@ -1864,11 +1864,11 @@ paths:
         type: "string"
         x-exportParamName: "UserKey"
       responses:
-        204:
+        "204":
           description: "Action completed successfully."
-        401:
+        "401":
           description: "Invalid access token."
-        404:
+        "404":
           description: "Invalid resource specifier."
   /users/{projectKey}/{environmentKey}/{userKey}/flags:
     get:
@@ -1898,13 +1898,13 @@ paths:
         type: "string"
         x-exportParamName: "UserKey"
       responses:
-        200:
+        "200":
           description: "User flags settings response."
           schema:
             $ref: "#/definitions/UserFlagSettings"
-        401:
+        "401":
           description: "Invalid access token."
-        404:
+        "404":
           description: "Invalid resource specifier."
   /users/{projectKey}/{environmentKey}/{userKey}/flags/{featureFlagKey}:
     get:
@@ -1941,13 +1941,13 @@ paths:
         type: "string"
         x-exportParamName: "FeatureFlagKey"
       responses:
-        200:
+        "200":
           description: "User flag setting response."
           schema:
             $ref: "#/definitions/UserFlagSetting"
-        401:
+        "401":
           description: "Invalid access token."
-        404:
+        "404":
           description: "Invalid resource specifier."
     put:
       tags:
@@ -1990,13 +1990,13 @@ paths:
           $ref: "#/definitions/userSettingsBody"
         x-exportParamName: "UserSettingsBody"
       responses:
-        204:
+        "204":
           description: "Action completed successfully."
-        400:
+        "400":
           description: "Invalid request body."
-        401:
+        "401":
           description: "Invalid access token."
-        404:
+        "404":
           description: "Invalid resource specifier."
   /users/{projectKey}/{userKey}/expiring-user-targets/{environmentKey}:
     get:
@@ -2026,11 +2026,11 @@ paths:
         type: "string"
         x-exportParamName: "UserKey"
       responses:
-        200:
+        "200":
           description: "User targets of the requested feature flag."
           schema:
             $ref: "#/definitions/UserTargetingExpirationOnFlagsForUser"
-        401:
+        "401":
           description: "Invalid access token."
     patch:
       tags:
@@ -2069,17 +2069,17 @@ paths:
           type: "object"
         x-exportParamName: "SemanticPatchWithComment"
       responses:
-        200:
+        "200":
           description: "User Targeting expiration for single user on all flags response."
           schema:
             $ref: "#/definitions/UserTargetingExpirationOnFlagsForUser"
-        400:
+        "400":
           description: "Invalid request body."
-        401:
+        "401":
           description: "Invalid access token."
-        404:
+        "404":
           description: "Invalid resource specifier."
-        409:
+        "409":
           description: "Status conflict."
   /auditlog:
     get:
@@ -2134,13 +2134,13 @@ paths:
         x-exportParamName: "Spec"
         x-optionalDataType: "String"
       responses:
-        200:
+        "200":
           description: "Audit log entries response."
           schema:
             $ref: "#/definitions/AuditLogEntries"
-        400:
+        "400":
           description: "Invalid request body."
-        401:
+        "401":
           description: "Invalid access token."
   /auditlog/{resourceId}:
     get:
@@ -2157,13 +2157,13 @@ paths:
         type: "string"
         x-exportParamName: "ResourceId"
       responses:
-        200:
+        "200":
           description: "Audit log entry response."
           schema:
             $ref: "#/definitions/AuditLogEntry"
-        401:
+        "401":
           description: "Invalid access token."
-        404:
+        "404":
           description: "Invalid resource specifier."
   /webhooks:
     get:
@@ -2173,11 +2173,11 @@ paths:
       operationId: "getWebhooks"
       parameters: []
       responses:
-        200:
+        "200":
           description: "Webhooks response."
           schema:
             $ref: "#/definitions/Webhooks"
-        401:
+        "401":
           description: "Invalid access token."
     post:
       tags:
@@ -2193,13 +2193,13 @@ paths:
           $ref: "#/definitions/webhookBody"
         x-exportParamName: "WebhookBody"
       responses:
-        201:
+        "201":
           description: "Webhook response."
           schema:
             $ref: "#/definitions/Webhook"
-        400:
+        "400":
           description: "Invalid request body."
-        401:
+        "401":
           description: "Invalid access token."
   /webhooks/{resourceId}:
     get:
@@ -2215,13 +2215,13 @@ paths:
         type: "string"
         x-exportParamName: "ResourceId"
       responses:
-        200:
+        "200":
           description: "Webhook response."
           schema:
             $ref: "#/definitions/Webhook"
-        401:
+        "401":
           description: "Invalid access token."
-        404:
+        "404":
           description: "Invalid resource specifier."
     delete:
       tags:
@@ -2236,11 +2236,11 @@ paths:
         type: "string"
         x-exportParamName: "ResourceId"
       responses:
-        204:
+        "204":
           description: "Action completed successfully."
-        401:
+        "401":
           description: "Invalid access token."
-        404:
+        "404":
           description: "Invalid resource specifier."
     patch:
       tags:
@@ -2265,17 +2265,17 @@ paths:
             $ref: "#/definitions/PatchOperation"
         x-exportParamName: "PatchDelta"
       responses:
-        200:
+        "200":
           description: "Webhook response."
           schema:
             $ref: "#/definitions/Webhook"
-        400:
+        "400":
           description: "Invalid request body."
-        401:
+        "401":
           description: "Invalid access token."
-        404:
+        "404":
           description: "Invalid resource specifier."
-        409:
+        "409":
           description: "Status conflict."
   /roles:
     get:
@@ -2285,11 +2285,11 @@ paths:
       operationId: "getCustomRoles"
       parameters: []
       responses:
-        200:
+        "200":
           description: "Custom roles response."
           schema:
             $ref: "#/definitions/CustomRoles"
-        401:
+        "401":
           description: "Invalid access token."
     post:
       tags:
@@ -2305,15 +2305,15 @@ paths:
           $ref: "#/definitions/customRoleBody"
         x-exportParamName: "CustomRoleBody"
       responses:
-        201:
+        "201":
           description: "Custom role response."
           schema:
             $ref: "#/definitions/CustomRole"
-        400:
+        "400":
           description: "Invalid request body."
-        401:
+        "401":
           description: "Invalid access token."
-        409:
+        "409":
           description: "Status conflict."
   /roles/{customRoleKey}:
     get:
@@ -2329,13 +2329,13 @@ paths:
         type: "string"
         x-exportParamName: "CustomRoleKey"
       responses:
-        200:
+        "200":
           description: "Custom role response."
           schema:
             $ref: "#/definitions/CustomRole"
-        400:
+        "400":
           description: "Invalid request body."
-        401:
+        "401":
           description: "Invalid access token."
     delete:
       tags:
@@ -2350,11 +2350,11 @@ paths:
         type: "string"
         x-exportParamName: "CustomRoleKey"
       responses:
-        204:
+        "204":
           description: "Action completed successfully."
-        401:
+        "401":
           description: "Invalid access token."
-        404:
+        "404":
           description: "Invalid resource specifier."
     patch:
       tags:
@@ -2379,17 +2379,17 @@ paths:
             $ref: "#/definitions/PatchOperation"
         x-exportParamName: "PatchDelta"
       responses:
-        200:
+        "200":
           description: "Custom role response."
           schema:
             $ref: "#/definitions/CustomRole"
-        400:
+        "400":
           description: "Invalid request body."
-        401:
+        "401":
           description: "Invalid access token."
-        404:
+        "404":
           description: "Invalid resource specifier."
-        409:
+        "409":
           description: "Status conflict."
   /members:
     get:
@@ -2432,11 +2432,11 @@ paths:
         x-exportParamName: "Sort"
         x-optionalDataType: "String"
       responses:
-        200:
+        "200":
           description: "Members response."
           schema:
             $ref: "#/definitions/Members"
-        401:
+        "401":
           description: "Invalid access token."
     post:
       tags:
@@ -2454,15 +2454,15 @@ paths:
             $ref: "#/definitions/membersBody"
         x-exportParamName: "MembersBody"
       responses:
-        201:
+        "201":
           description: "Members response."
           schema:
             $ref: "#/definitions/Members"
-        400:
+        "400":
           description: "Invalid request body."
-        401:
+        "401":
           description: "Invalid access token."
-        409:
+        "409":
           description: "Status conflict."
   /members/me:
     get:
@@ -2472,13 +2472,13 @@ paths:
       operationId: "getMe"
       parameters: []
       responses:
-        200:
+        "200":
           description: "Member response."
           schema:
             $ref: "#/definitions/Member"
-        400:
+        "400":
           description: "Invalid request body."
-        401:
+        "401":
           description: "Invalid access token."
   /members/{memberId}:
     get:
@@ -2494,13 +2494,13 @@ paths:
         type: "string"
         x-exportParamName: "MemberId"
       responses:
-        200:
+        "200":
           description: "Member response."
           schema:
             $ref: "#/definitions/Member"
-        400:
+        "400":
           description: "Invalid request body."
-        401:
+        "401":
           description: "Invalid access token."
     delete:
       tags:
@@ -2515,11 +2515,11 @@ paths:
         type: "string"
         x-exportParamName: "MemberId"
       responses:
-        204:
+        "204":
           description: "Action completed successfully."
-        401:
+        "401":
           description: "Invalid access token."
-        404:
+        "404":
           description: "Invalid resource specifier."
     patch:
       tags:
@@ -2544,17 +2544,17 @@ paths:
             $ref: "#/definitions/PatchOperation"
         x-exportParamName: "PatchDelta"
       responses:
-        200:
+        "200":
           description: "Member response."
           schema:
             $ref: "#/definitions/Member"
-        400:
+        "400":
           description: "Invalid request body."
-        401:
+        "401":
           description: "Invalid access token."
-        404:
+        "404":
           description: "Invalid resource specifier."
-        409:
+        "409":
           description: "Status conflict."
   /destinations:
     get:
@@ -2564,11 +2564,11 @@ paths:
       operationId: "getDestinations"
       parameters: []
       responses:
-        200:
+        "200":
           description: "Destinations response."
           schema:
             $ref: "#/definitions/Destinations"
-        401:
+        "401":
           description: "Invalid access token."
   /destinations/{projectKey}/{environmentKey}:
     post:
@@ -2599,15 +2599,15 @@ paths:
           $ref: "#/definitions/destinationBody"
         x-exportParamName: "DestinationBody"
       responses:
-        201:
+        "201":
           description: "Destination response."
           schema:
             $ref: "#/definitions/Destination"
-        400:
+        "400":
           description: "Invalid request body."
-        401:
+        "401":
           description: "Invalid access token."
-        409:
+        "409":
           description: "Status conflict."
   /destinations/{projectKey}/{environmentKey}/{destinationId}:
     get:
@@ -2637,13 +2637,13 @@ paths:
         type: "string"
         x-exportParamName: "DestinationId"
       responses:
-        200:
+        "200":
           description: "Destination response."
           schema:
             $ref: "#/definitions/Destination"
-        401:
+        "401":
           description: "Invalid access token."
-        404:
+        "404":
           description: "Invalid resource specifier."
     delete:
       tags:
@@ -2672,11 +2672,11 @@ paths:
         type: "string"
         x-exportParamName: "DestinationId"
       responses:
-        204:
+        "204":
           description: "Action completed successfully."
-        401:
+        "401":
           description: "Invalid access token."
-        404:
+        "404":
           description: "Invalid resource specifier."
     patch:
       tags:
@@ -2717,17 +2717,17 @@ paths:
             $ref: "#/definitions/PatchOperation"
         x-exportParamName: "PatchOnly"
       responses:
-        200:
+        "200":
           description: "Destination response."
           schema:
             $ref: "#/definitions/Destination"
-        400:
+        "400":
           description: "Invalid request body."
-        401:
+        "401":
           description: "Invalid access token."
-        404:
+        "404":
           description: "Invalid resource specifier."
-        409:
+        "409":
           description: "Status conflict."
   /usage:
     get:
@@ -2737,11 +2737,11 @@ paths:
       operationId: "getUsage"
       parameters: []
       responses:
-        200:
+        "200":
           description: "Usage endpoints"
           schema:
             $ref: "#/definitions/Usage"
-        403:
+        "403":
           description: "This is a beta API, you must pass beta in the LD-API-Version\
             \ header to use it."
           schema:
@@ -2754,11 +2754,11 @@ paths:
       operationId: "getStreams"
       parameters: []
       responses:
-        200:
+        "200":
           description: "Stream usage endpoints"
           schema:
             $ref: "#/definitions/Streams"
-        403:
+        "403":
           description: "This is a beta API, you must pass beta in the LD-API-Version\
             \ header to use it."
           schema:
@@ -2777,16 +2777,16 @@ paths:
         type: "string"
         x-exportParamName: "Source"
       responses:
-        200:
+        "200":
           description: "Responds with time series data on stream usage."
           schema:
             $ref: "#/definitions/Stream"
-        403:
+        "403":
           description: "This is a beta API, you must pass beta in the LD-API-Version\
             \ header to use it."
           schema:
             $ref: "#/definitions/UsageError"
-        404:
+        "404":
           description: "The stream source you requested could not be found"
           schema:
             $ref: "#/definitions/StreamUsageError"
@@ -2804,16 +2804,16 @@ paths:
         type: "string"
         x-exportParamName: "Source"
       responses:
-        200:
+        "200":
           description: "Returns timeseries data and metadata on sdk version."
           schema:
             $ref: "#/definitions/StreamBySDK"
-        403:
+        "403":
           description: "This is a beta API, you must pass beta in the LD-API-Version\
             \ header to use it."
           schema:
             $ref: "#/definitions/UsageError"
-        404:
+        "404":
           description: "The stream source you requested could not be found"
           schema:
             $ref: "#/definitions/StreamUsageError"
@@ -2831,16 +2831,16 @@ paths:
         type: "string"
         x-exportParamName: "Source"
       responses:
-        200:
+        "200":
           description: "Returns timeseries data and all sdk versions."
           schema:
             $ref: "#/definitions/StreamSDKVersion"
-        403:
+        "403":
           description: "This is a beta API, you must pass beta in the LD-API-Version\
             \ header to use it."
           schema:
             $ref: "#/definitions/UsageError"
-        404:
+        "404":
           description: "The stream source you requested could not be found"
           schema:
             $ref: "#/definitions/StreamUsageError"
@@ -2852,11 +2852,11 @@ paths:
       operationId: "getMAU"
       parameters: []
       responses:
-        200:
+        "200":
           description: "Returns timeseries data and all sdk versions."
           schema:
             $ref: "#/definitions/MAU"
-        403:
+        "403":
           description: "This is a beta API, you must pass beta in the LD-API-Version\
             \ header to use it."
           schema:
@@ -2869,11 +2869,11 @@ paths:
       operationId: "getMAUByCategory"
       parameters: []
       responses:
-        200:
+        "200":
           description: "Returns timeseries data and all sdk versions."
           schema:
             $ref: "#/definitions/MAUbyCategory"
-        403:
+        "403":
           description: "This is a beta API, you must pass beta in the LD-API-Version\
             \ header to use it."
           schema:
@@ -2886,11 +2886,11 @@ paths:
       operationId: "getEvents"
       parameters: []
       responses:
-        200:
+        "200":
           description: "Returns timeseries data and all sdk versions."
           schema:
             $ref: "#/definitions/Events"
-        403:
+        "403":
           description: "This is a beta API, you must pass beta in the LD-API-Version\
             \ header to use it."
           schema:
@@ -2909,16 +2909,16 @@ paths:
         type: "string"
         x-exportParamName: "Type_"
       responses:
-        200:
+        "200":
           description: "Returns timeseries data and all sdk versions."
           schema:
             $ref: "#/definitions/StreamSDKVersion"
-        403:
+        "403":
           description: "This is a beta API, you must pass beta in the LD-API-Version\
             \ header to use it."
           schema:
             $ref: "#/definitions/UsageError"
-        404:
+        "404":
           description: "The stream source you requested could not be found"
           schema:
             $ref: "#/definitions/StreamUsageError"
@@ -2942,16 +2942,16 @@ paths:
         type: "string"
         x-exportParamName: "FlagKey"
       responses:
-        200:
+        "200":
           description: "Returns timeseries data and all sdk versions."
           schema:
             $ref: "#/definitions/StreamSDKVersion"
-        403:
+        "403":
           description: "This is a beta API, you must pass beta in the LD-API-Version\
             \ header to use it."
           schema:
             $ref: "#/definitions/UsageError"
-        404:
+        "404":
           description: "The environment or flag you requested could not be found"
           schema:
             $ref: "#/definitions/EvaluationUsageError"
@@ -2971,11 +2971,11 @@ paths:
         x-exportParamName: "ShowAll"
         x-optionalDataType: "Bool"
       responses:
-        200:
+        "200":
           description: "Tokens response."
           schema:
             $ref: "#/definitions/Tokens"
-        401:
+        "401":
           description: "Invalid access token."
     post:
       tags:
@@ -2991,15 +2991,15 @@ paths:
           $ref: "#/definitions/tokenBody"
         x-exportParamName: "TokenBody"
       responses:
-        201:
+        "201":
           description: "Token response."
           schema:
             $ref: "#/definitions/Token"
-        400:
+        "400":
           description: "Invalid request body."
-        401:
+        "401":
           description: "Invalid access token."
-        409:
+        "409":
           description: "Status conflict."
   /tokens/{tokenId}:
     get:
@@ -3015,13 +3015,13 @@ paths:
         type: "string"
         x-exportParamName: "TokenId"
       responses:
-        200:
+        "200":
           description: "Token response."
           schema:
             $ref: "#/definitions/Token"
-        400:
+        "400":
           description: "Invalid request body."
-        401:
+        "401":
           description: "Invalid access token."
     delete:
       tags:
@@ -3036,11 +3036,11 @@ paths:
         type: "string"
         x-exportParamName: "TokenId"
       responses:
-        204:
+        "204":
           description: "Action completed successfully."
-        401:
+        "401":
           description: "Invalid access token."
-        404:
+        "404":
           description: "Invalid resource specifier."
     patch:
       tags:
@@ -3065,17 +3065,17 @@ paths:
             $ref: "#/definitions/PatchOperation"
         x-exportParamName: "PatchDelta"
       responses:
-        200:
+        "200":
           description: "Token response."
           schema:
             $ref: "#/definitions/Token"
-        400:
+        "400":
           description: "Invalid request body."
-        401:
+        "401":
           description: "Invalid access token."
-        404:
+        "404":
           description: "Invalid resource specifier."
-        409:
+        "409":
           description: "Status conflict."
   /tokens/{tokenId}/reset:
     post:
@@ -3101,13 +3101,13 @@ paths:
         x-exportParamName: "Expiry"
         x-optionalDataType: "Int64"
       responses:
-        200:
+        "200":
           description: "Token response."
           schema:
             $ref: "#/definitions/Token"
-        400:
+        "400":
           description: "Invalid request body."
-        401:
+        "401":
           description: "Invalid access token."
   /account/relay-auto-configs:
     get:
@@ -3117,7 +3117,7 @@ paths:
       operationId: "getRelayProxyConfigs"
       parameters: []
       responses:
-        200:
+        "200":
           description: "Relay proxy configs response."
           schema:
             $ref: "#/definitions/RelayProxyConfigs"
@@ -3135,13 +3135,13 @@ paths:
           $ref: "#/definitions/relayProxyConfigBody"
         x-exportParamName: "RelayProxyConfigBody"
       responses:
-        201:
+        "201":
           description: "Relay proxy config response."
           schema:
             $ref: "#/definitions/RelayProxyConfig"
-        400:
+        "400":
           description: "Invalid request body."
-        403:
+        "403":
           description: "Access to the requested resource was denied."
   /account/relay-auto-configs/{id}:
     get:
@@ -3157,11 +3157,11 @@ paths:
         type: "string"
         x-exportParamName: "Id"
       responses:
-        200:
+        "200":
           description: "Relay proxy config response."
           schema:
             $ref: "#/definitions/RelayProxyConfig"
-        404:
+        "404":
           description: "Invalid resource specifier."
     delete:
       tags:
@@ -3176,11 +3176,11 @@ paths:
         type: "string"
         x-exportParamName: "Id"
       responses:
-        204:
+        "204":
           description: "Action completed successfully."
-        400:
+        "400":
           description: "Invalid request body."
-        404:
+        "404":
           description: "Invalid resource specifier."
     patch:
       tags:
@@ -3205,15 +3205,15 @@ paths:
             $ref: "#/definitions/PatchOperation"
         x-exportParamName: "PatchDelta"
       responses:
-        200:
+        "200":
           description: "Relay proxy config response."
           schema:
             $ref: "#/definitions/RelayProxyConfig"
-        400:
+        "400":
           description: "Invalid request body."
-        404:
+        "404":
           description: "Invalid resource specifier."
-        409:
+        "409":
           description: "Status conflict."
   /account/relay-auto-configs/{id}/reset:
     post:
@@ -3240,13 +3240,13 @@ paths:
         x-exportParamName: "Expiry"
         x-optionalDataType: "Int64"
       responses:
-        200:
+        "200":
           description: "Relay proxy config response."
           schema:
             $ref: "#/definitions/RelayProxyConfig"
-        400:
+        "400":
           description: "Invalid request body."
-        404:
+        "404":
           description: "Invalid resource specifier."
   /:
     get:
@@ -3257,11 +3257,11 @@ paths:
       operationId: "getRoot"
       parameters: []
       responses:
-        200:
+        "200":
           description: "A list of links to available resources in the API."
           schema:
             $ref: "#/definitions/Links"
-        401:
+        "401":
           description: "Invalid access token."
   /integrations:
     get:
@@ -3272,11 +3272,11 @@ paths:
       operationId: "getIntegrations"
       parameters: []
       responses:
-        200:
+        "200":
           description: "Integrations response."
           schema:
             $ref: "#/definitions/Integrations"
-        403:
+        "403":
           description: "This is a beta API, you must pass beta in the LD-API-Version\
             \ header to use it."
           schema:
@@ -3295,16 +3295,16 @@ paths:
         type: "string"
         x-exportParamName: "IntegrationKey"
       responses:
-        200:
+        "200":
           description: "Integrations response."
           schema:
             $ref: "#/definitions/Integration"
-        403:
+        "403":
           description: "This is a beta API, you must pass beta in the LD-API-Version\
             \ header to use it."
           schema:
             $ref: "#/definitions/UsageError"
-        404:
+        "404":
           description: "Invalid resource specifier."
     post:
       tags:
@@ -3326,15 +3326,15 @@ paths:
           $ref: "#/definitions/subscriptionBody"
         x-exportParamName: "SubscriptionBody"
       responses:
-        201:
+        "201":
           description: "Integrations response."
           schema:
             $ref: "#/definitions/IntegrationSubscription"
-        400:
+        "400":
           description: "Invalid request body."
-        401:
+        "401":
           description: "Invalid access token."
-        409:
+        "409":
           description: "Status conflict."
   /integrations/{integrationKey}/{integrationId}:
     get:
@@ -3356,16 +3356,16 @@ paths:
         type: "string"
         x-exportParamName: "IntegrationId"
       responses:
-        200:
+        "200":
           description: "Integrations response."
           schema:
             $ref: "#/definitions/IntegrationSubscription"
-        403:
+        "403":
           description: "This is a beta API, you must pass beta in the LD-API-Version\
             \ header to use it."
           schema:
             $ref: "#/definitions/UsageError"
-        404:
+        "404":
           description: "Invalid resource specifier."
     delete:
       tags:
@@ -3386,11 +3386,11 @@ paths:
         type: "string"
         x-exportParamName: "IntegrationId"
       responses:
-        204:
+        "204":
           description: "Action completed successfully."
-        401:
+        "401":
           description: "Invalid access token."
-        404:
+        "404":
           description: "Invalid resource specifier."
     patch:
       tags:
@@ -3421,15 +3421,15 @@ paths:
             $ref: "#/definitions/PatchOperation"
         x-exportParamName: "PatchDelta"
       responses:
-        200:
+        "200":
           description: "Integrations response."
           schema:
             $ref: "#/definitions/IntegrationSubscription"
-        400:
+        "400":
           description: "Invalid request body."
-        401:
+        "401":
           description: "Invalid access token."
-        404:
+        "404":
           description: "Invalid resource specifier."
 securityDefinitions:
   Token:
@@ -6986,9 +6986,9 @@ definitions:
         - href: "/api/v2/endpoint"
           type: "application/json"
       series:
-      - 0: 0
+      - "0": 0
         time: 1551740400000
-      - 0: 0
+      - "0": 0
         time: 1551740400000
   UsageError:
     type: "object"
@@ -7049,9 +7049,9 @@ definitions:
         - href: "/api/v2/endpoint"
           type: "application/json"
       series:
-      - 0: 0
+      - "0": 0
         time: 1551740400000
-      - 0: 0
+      - "0": 0
         time: 1551740400000
   StreamUsageLinks:
     type: "object"
@@ -7080,7 +7080,7 @@ definitions:
   StreamUsageSeries:
     type: "object"
     properties:
-      0:
+      "0":
         type: "integer"
         format: "int64"
         example: 0
@@ -7092,7 +7092,7 @@ definitions:
         description: "A unix epoch time in milliseconds specifying the creation time\
           \ of this flag."
     example:
-      0: 0
+      "0": 0
       time: 1551740400000
   StreamUsageMetadata:
     type: "object"
@@ -7150,9 +7150,9 @@ definitions:
           href: "/api/v2/endpoint"
           type: "application/json"
       series:
-      - 0: 0
+      - "0": 0
         time: 1551740400000
-      - 0: 0
+      - "0": 0
         time: 1551740400000
   StreamBySDKLinks:
     type: "object"
@@ -7254,9 +7254,9 @@ definitions:
         - href: "/api/v2/endpoint"
           type: "application/json"
       series:
-      - 0: 0
+      - "0": 0
         time: 1551740400000
-      - 0: 0
+      - "0": 0
         time: 1551740400000
   MAUbyCategory:
     type: "object"
@@ -7283,9 +7283,9 @@ definitions:
           href: "/api/v2/endpoint"
           type: "application/json"
       series:
-      - 0: 0
+      - "0": 0
         time: 1551740400000
-      - 0: 0
+      - "0": 0
         time: 1551740400000
   MAUMetadata:
     type: "object"
@@ -8503,6 +8503,7 @@ definitions:
         items:
           $ref: "#/definitions/Policy"
   membersBody:
+    type: "object"
     required:
     - "email"
     properties:
@@ -8630,6 +8631,7 @@ definitions:
         items:
           type: "string"
   Member__lastSeenMetadata:
+    type: "object"
     properties:
       tokenId:
         type: "string"
@@ -8640,6 +8642,7 @@ definitions:
     example:
       tokenId: "5fd2a1ee05600316d5cb3e96"
   FeatureFlagScheduledChangesConflicts_instructions:
+    type: "object"
     properties:
       kind:
         type: "string"
@@ -8658,6 +8661,7 @@ definitions:
       - reason: "reason"
         _id: "_id"
   Environment_approvalSettings:
+    type: "object"
     properties:
       serviceKind:
         type: "string"
@@ -8692,6 +8696,7 @@ definitions:
       minNumApprovals: 2
       required: true
   AuditLogEntry_target:
+    type: "object"
     properties:
       _links:
         $ref: "#/definitions/Links"
@@ -8716,6 +8721,7 @@ definitions:
       - "proj/alexis:env/test"
       - "proj/alexis:env/test"
   SemanticPatchInstruction_inner:
+    type: "object"
     properties:
       kind:
         type: "string"
@@ -8723,6 +8729,7 @@ definitions:
         description: "The name of the modification you would like to perform on a\
           \ resource."
   IntegrationSubscription__status:
+    type: "object"
     properties:
       successCount:
         type: "integer"
@@ -8741,6 +8748,7 @@ definitions:
       lastSuccess: 1443652232590
       errorCount: 2
   Integration__links:
+    type: "object"
     properties:
       self:
         $ref: "#/definitions/Link"

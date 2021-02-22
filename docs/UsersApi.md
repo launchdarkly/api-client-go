@@ -49,10 +49,10 @@ Name | Type | Description  | Notes
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
   **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
- **optional** | ***GetSearchUsersOpts** | optional parameters | nil if no parameters
+ **optional** | ***UsersApiGetSearchUsersOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
-Optional parameters are passed through a pointer to a GetSearchUsersOpts struct
+Optional parameters are passed through a pointer to a UsersApiGetSearchUsersOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -117,10 +117,10 @@ Name | Type | Description  | Notes
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
   **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
- **optional** | ***GetUsersOpts** | optional parameters | nil if no parameters
+ **optional** | ***UsersApiGetUsersOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
-Optional parameters are passed through a pointer to a GetUsersOpts struct
+Optional parameters are passed through a pointer to a UsersApiGetUsersOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------

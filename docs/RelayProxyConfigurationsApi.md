@@ -149,10 +149,10 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **id** | **string**| The relay proxy configuration ID | 
- **optional** | ***ResetRelayProxyConfigOpts** | optional parameters | nil if no parameters
+ **optional** | ***RelayProxyConfigurationsApiResetRelayProxyConfigOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
-Optional parameters are passed through a pointer to a ResetRelayProxyConfigOpts struct
+Optional parameters are passed through a pointer to a RelayProxyConfigurationsApiResetRelayProxyConfigOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------

@@ -95,10 +95,10 @@ Returns a list of all members in the account.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***GetMembersOpts** | optional parameters | nil if no parameters
+ **optional** | ***TeamMembersApiGetMembersOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
-Optional parameters are passed through a pointer to a GetMembersOpts struct
+Optional parameters are passed through a pointer to a TeamMembersApiGetMembersOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------

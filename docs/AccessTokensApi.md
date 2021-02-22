@@ -73,10 +73,10 @@ Returns a list of tokens in the account.
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***GetTokensOpts** | optional parameters | nil if no parameters
+ **optional** | ***AccessTokensApiGetTokensOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
-Optional parameters are passed through a pointer to a GetTokensOpts struct
+Optional parameters are passed through a pointer to a AccessTokensApiGetTokensOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -160,10 +160,10 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **tokenId** | **string**| The access token ID. | 
- **optional** | ***ResetTokenOpts** | optional parameters | nil if no parameters
+ **optional** | ***AccessTokensApiResetTokenOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
-Optional parameters are passed through a pointer to a ResetTokenOpts struct
+Optional parameters are passed through a pointer to a AccessTokensApiResetTokenOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------

@@ -70,10 +70,10 @@ Name | Type | Description  | Notes
   **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
   **featureFlagKey** | **string**| The feature flag&#39;s key. The key identifies the flag in your code. | 
   **approvalRequestId** | **string**| The approval request ID | 
- **optional** | ***DeleteApprovalRequestOpts** | optional parameters | nil if no parameters
+ **optional** | ***FeatureFlagsApiDeleteApprovalRequestOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
-Optional parameters are passed through a pointer to a DeleteApprovalRequestOpts struct
+Optional parameters are passed through a pointer to a FeatureFlagsApiDeleteApprovalRequestOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -250,10 +250,10 @@ Name | Type | Description  | Notes
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
   **featureFlagKey** | **string**| The feature flag&#39;s key. The key identifies the flag in your code. | 
- **optional** | ***GetFeatureFlagOpts** | optional parameters | nil if no parameters
+ **optional** | ***FeatureFlagsApiGetFeatureFlagOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
-Optional parameters are passed through a pointer to a GetFeatureFlagOpts struct
+Optional parameters are passed through a pointer to a FeatureFlagsApiGetFeatureFlagOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -368,10 +368,10 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
- **optional** | ***GetFeatureFlagsOpts** | optional parameters | nil if no parameters
+ **optional** | ***FeatureFlagsApiGetFeatureFlagsOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
-Optional parameters are passed through a pointer to a GetFeatureFlagsOpts struct
+Optional parameters are passed through a pointer to a FeatureFlagsApiGetFeatureFlagsOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -616,10 +616,10 @@ Name | Type | Description  | Notes
   **featureFlagKey** | **string**| The feature flag&#39;s key. The key identifies the flag in your code. | 
   **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
   **approvalRequestId** | **string**| The approval request ID | 
- **optional** | ***PostApprovalRequestOpts** | optional parameters | nil if no parameters
+ **optional** | ***FeatureFlagsApiPostApprovalRequestOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
-Optional parameters are passed through a pointer to a PostApprovalRequestOpts struct
+Optional parameters are passed through a pointer to a FeatureFlagsApiPostApprovalRequestOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
@@ -655,10 +655,10 @@ Name | Type | Description  | Notes
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
   **featureFlagBody** | [**FeatureFlagBody**](FeatureFlagBody.md)| Create a new feature flag. | 
- **optional** | ***PostFeatureFlagOpts** | optional parameters | nil if no parameters
+ **optional** | ***FeatureFlagsApiPostFeatureFlagOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
-Optional parameters are passed through a pointer to a PostFeatureFlagOpts struct
+Optional parameters are passed through a pointer to a FeatureFlagsApiPostFeatureFlagOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------

@@ -109,10 +109,10 @@ Name | Type | Description  | Notes
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
   **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
   **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
- **optional** | ***GetUserSegmentsOpts** | optional parameters | nil if no parameters
+ **optional** | ***UserSegmentsApiGetUserSegmentsOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
-Optional parameters are passed through a pointer to a GetUserSegmentsOpts struct
+Optional parameters are passed through a pointer to a UserSegmentsApiGetUserSegmentsOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
