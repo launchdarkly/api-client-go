@@ -12,6 +12,6 @@ package ldapi
 
 type Integrations struct {
 	// A mapping of integration types to their respective API endpoints.
-	Links *interface{} `json:"_links,omitempty"`
+	Links interface{} `json:"_links,omitempty"`
 	Items []IntegrationSubscription `json:"items,omitempty"`
 }

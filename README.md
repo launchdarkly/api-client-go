@@ -295,9 +295,9 @@ func main() {
 		Name: "Test Flag Go",
 		Key:  "test-go",
 		Variations: []ldapi.Variation{
-			{Value: intfPtr([]interface{}{1, 2})},
-			{Value: intfPtr([]interface{}{3, 4})},
-			{Value: intfPtr([]interface{}{5})}}}
+			{Value: []int{1, 2}},
+			{Value: []int{3, 4}},
+			{Value: []int{5}}
 	flag, _, err := client.FeatureFlagsApi.PostFeatureFlag(ctx, "openapi", body, nil)
 	if err != nil {
 		panic(fmt.Errorf("create failed: %s", err))
@@ -309,9 +309,5 @@ func main() {
 			panic(fmt.Errorf("delete failed: %s", err))
 		}
 	}()
-}
-
-func intfPtr(i interface{}) *interface{} {
-	return &i
 }
 ```

@@ -16,7 +16,7 @@ type DestinationBody struct {
 	// The data export destination type. Available choices are kinesis, google-pubsub, mparticle, or segment.
 	Kind string `json:"kind"`
 	// destination-specific configuration.
-	Config *interface{} `json:"config"`
+	Config interface{} `json:"config"`
 	// Whether the data export destination is on or not.
 	On bool `json:"on,omitempty"`
 }

@@ -13,5 +13,5 @@ package ldapi
 type PatchOperation struct {
 	Op string `json:"op"`
 	Path string `json:"path"`
-	Value *interface{} `json:"value"`
+	Value interface{} `json:"value"`
 }

@@ -19,7 +19,7 @@ type IntegrationSubscription struct {
 	// The user-defined name associated with this configuration.
 	Name string `json:"name,omitempty"`
 	// A key-value mapping of configuration fields.
-	Config *interface{} `json:"config,omitempty"`
+	Config interface{} `json:"config,omitempty"`
 	Statements []Statement `json:"statements,omitempty"`
 	// Whether or not the integration is currently active.
 	On bool `json:"on,omitempty"`

@@ -21,5 +21,5 @@ type User struct {
 	Avatar string `json:"avatar,omitempty"`
 	Name string `json:"name,omitempty"`
 	Anonymous bool `json:"anonymous,omitempty"`
-	Custom *interface{} `json:"custom,omitempty"`
+	Custom interface{} `json:"custom,omitempty"`
 }

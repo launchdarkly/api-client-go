@@ -14,5 +14,5 @@ type Variation struct {
 	Id string `json:"_id,omitempty"`
 	Name string `json:"name,omitempty"`
 	Description string `json:"description,omitempty"`
-	Value *interface{} `json:"value"`
+	Value interface{} `json:"value"`
 }

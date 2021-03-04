@@ -19,7 +19,7 @@ type Destination struct {
 	// Destination type (\"google-pubsub\", \"kinesis\", \"mparticle\", or \"segment\")
 	Kind string `json:"kind,omitempty"`
 	// destination-specific configuration.
-	Config *interface{} `json:"config,omitempty"`
+	Config interface{} `json:"config,omitempty"`
 	// Whether the data export destination is on or not.
 	On bool `json:"on,omitempty"`
 	Version int32 `json:"version,omitempty"`

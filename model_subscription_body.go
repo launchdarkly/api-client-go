@@ -15,7 +15,7 @@ type SubscriptionBody struct {
 	Name string `json:"name"`
 	Statements []Statement `json:"statements,omitempty"`
 	// Integration-specific configuration fields.
-	Config *interface{} `json:"config"`
+	Config interface{} `json:"config"`
 	// Whether the integration subscription is active or not.
 	On bool `json:"on,omitempty"`
 	// Tags for the integration subscription.
