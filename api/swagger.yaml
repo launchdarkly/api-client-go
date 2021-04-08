@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Build custom integrations with the LaunchDarkly REST API"
-  version: "5.0.2"
+  version: "5.0.3"
   title: "LaunchDarkly REST API"
   termsOfService: "https://launchdarkly.com/terms"
   contact:
@@ -1645,12 +1645,12 @@ paths:
           description: "Invalid resource specifier."
         "409":
           description: "Status conflict."
-  /segments/{projectKey}/{environmentKey}/{userSegmentKey}/unbounded-users:
+  /segments/{projectKey}/{environmentKey}/{userSegmentKey}/users:
     post:
       tags:
       - "User segments"
-      summary: "Update targets included or excluded in an unbounded segment"
-      operationId: "updatedUnboundedSegmentTargets"
+      summary: "Update targets included or excluded in a big segment"
+      operationId: "updatedBigSegmentTargets"
       parameters:
       - name: "projectKey"
         in: "path"
@@ -1674,13 +1674,14 @@ paths:
         type: "string"
         x-exportParamName: "UserSegmentKey"
       - in: "body"
-        name: "unboundedSegmentTargetsBody"
+        name: "bigSegmentTargetsBody"
         description: "Add or remove user targets to the included or excluded lists\
-          \ on an unbounded segment"
+          \ on a big segment. Contact your account manager for early access to this\
+          \ feature."
         required: true
         schema:
-          $ref: "#/definitions/unboundedSegmentTargetsBody"
-        x-exportParamName: "UnboundedSegmentTargetsBody"
+          $ref: "#/definitions/bigSegmentTargetsBody"
+        x-exportParamName: "BigSegmentTargetsBody"
       responses:
         "204":
           description: "Action completed successfully."
@@ -4778,12 +4779,14 @@ definitions:
         notifyMemberIds:
         - "memberId"
         - "memberId2"
-        requestorId: "requestorId"
+        executionDate: 5
         appliedDate: 1
+        creationDate: 6
+        requestorId: "requestorId"
         reviewStatus: {}
         appliedByMemberID: "appliedByMemberID"
+        operatingOnId: "operatingOnId"
         _id: "5a580a01b4ff89217bdf9dc1"
-        creationDate: 6
         _version: 0
         status: "pending"
       - allReviews:
@@ -4797,12 +4800,14 @@ definitions:
         notifyMemberIds:
         - "memberId"
         - "memberId2"
-        requestorId: "requestorId"
+        executionDate: 5
         appliedDate: 1
+        creationDate: 6
+        requestorId: "requestorId"
         reviewStatus: {}
         appliedByMemberID: "appliedByMemberID"
+        operatingOnId: "operatingOnId"
         _id: "5a580a01b4ff89217bdf9dc1"
-        creationDate: 6
         _version: 0
         status: "pending"
   ApprovalRequest:
@@ -4825,13 +4830,16 @@ definitions:
         $ref: "#/definitions/ApprovalRequestReviewStatus"
       status:
         type: "string"
-        description: "| Name     | Description |\n| --------:| ----------- |\n| pending\
-          \  | the approval request has not been applied yet |\n| completed| the approval\
-          \ request has been applied successfully |\n| failed   | the approval request\
-          \ has been applied but the changes were not applied successfully |\n"
+        description: "| Name      | Description |\n| ---------:| ----------- |\n|\
+          \ pending   | the approval request has not been applied yet |\n| completed\
+          \ | the approval request has been applied successfully |\n| scheduled |\
+          \ the approval request for a scheduled change has been applied successfully\
+          \ |\n| failed    | the approval request has been applied but the changes\
+          \ were not applied successfully |\n"
         enum:
         - "pending"
         - "completed"
+        - "scheduled"
         - "failed"
       appliedByMemberID:
         type: "string"
@@ -4853,6 +4861,13 @@ definitions:
           type: "string"
       instructions:
         $ref: "#/definitions/SemanticPatchInstruction"
+      executionDate:
+        type: "integer"
+        format: "int64"
+        description: "Timestamp for when instructions will be executed"
+      operatingOnId:
+        type: "string"
+        description: "ID of scheduled change to edit or delete"
     example:
       allReviews:
       - _id: "5a580a01b4ff89217bdf9dc1"
@@ -4865,12 +4880,14 @@ definitions:
       notifyMemberIds:
       - "memberId"
       - "memberId2"
-      requestorId: "requestorId"
+      executionDate: 5
       appliedDate: 1
+      creationDate: 6
+      requestorId: "requestorId"
       reviewStatus: {}
       appliedByMemberID: "appliedByMemberID"
+      operatingOnId: "operatingOnId"
       _id: "5a580a01b4ff89217bdf9dc1"
-      creationDate: 6
       _version: 0
       status: "pending"
   ApprovalRequestReview:
@@ -4943,12 +4960,12 @@ definitions:
         type: "object"
         properties: {}
       _links:
-        $ref: "#/definitions/Links"
+        $ref: "#/definitions/FeatureFlagStatusLinks"
     example:
       lastRequested: "2016-08-16T21:10:11.886Z"
       default: "{}"
       _links:
-        next:
+        parent:
           href: "/api/v2/endpoint"
           type: "application/json"
         self:
@@ -4959,14 +4976,14 @@ definitions:
     type: "object"
     properties:
       _links:
-        $ref: "#/definitions/Links"
+        $ref: "#/definitions/FeatureFlagStatusLinks"
       items:
         type: "array"
         items:
           $ref: "#/definitions/FeatureFlagStatus"
     example:
       _links:
-        next:
+        parent:
           href: "/api/v2/endpoint"
           type: "application/json"
         self:
@@ -4976,7 +4993,7 @@ definitions:
       - lastRequested: "2016-08-16T21:10:11.886Z"
         default: "{}"
         _links:
-          next:
+          parent:
             href: "/api/v2/endpoint"
             type: "application/json"
           self:
@@ -4986,7 +5003,7 @@ definitions:
       - lastRequested: "2016-08-16T21:10:11.886Z"
         default: "{}"
         _links:
-          next:
+          parent:
             href: "/api/v2/endpoint"
             type: "application/json"
           self:
@@ -5025,7 +5042,7 @@ definitions:
     type: "object"
     properties:
       _links:
-        $ref: "#/definitions/Links"
+        $ref: "#/definitions/FeatureFlagStatusLinks"
       key:
         type: "string"
       environments:
@@ -5034,7 +5051,7 @@ definitions:
           $ref: "#/definitions/FeatureFlagStatusForQueriedEnvironment"
     example:
       _links:
-        next:
+        parent:
           href: "/api/v2/endpoint"
           type: "application/json"
         self:
@@ -5046,6 +5063,20 @@ definitions:
           default: "{}"
           name: "new"
       key: "key"
+  FeatureFlagStatusLinks:
+    type: "object"
+    properties:
+      parent:
+        $ref: "#/definitions/Link"
+      self:
+        $ref: "#/definitions/Link"
+    example:
+      parent:
+        href: "/api/v2/endpoint"
+        type: "application/json"
+      self:
+        href: "/api/v2/endpoint"
+        type: "application/json"
   UserTargetingExpirationForFlags:
     type: "object"
     properties:
@@ -5309,9 +5340,10 @@ definitions:
       unbounded:
         type: "boolean"
         example: false
-        description: "Controls whether this segment can support unlimited numbers\
-          \ of users. Requires the beta API and additional setup. Include/exclude\
-          \ lists in this payload are not used in unbounded segments."
+        description: "Controls whether this is considered a \"big segment\" which\
+          \ can support an unlimited numbers of users. Include/exclude lists sent\
+          \ with this payload are not used in big segments. Contact your account manager\
+          \ for early access to this feature."
       version:
         type: "integer"
       _links:
@@ -5615,7 +5647,7 @@ definitions:
         tags:
         - "dev"
         - "ops"
-  UnboundedSegmentTargetChanges:
+  BigSegmentTargetChanges:
     type: "object"
     properties:
       add:
@@ -8372,6 +8404,13 @@ definitions:
       comment:
         type: "string"
         description: "comment will be included in audit log item for change."
+      executionDate:
+        type: "integer"
+        format: "int64"
+        description: "Timestamp for when instructions will be executed"
+      operatingOnId:
+        type: "string"
+        description: "ID of scheduled change to edit or delete"
   approvalRequestApplyConfigBody:
     type: "object"
     properties:
@@ -8418,22 +8457,23 @@ definitions:
       unbounded:
         type: "boolean"
         example: false
-        description: "Controls whether this segment can support unlimited numbers\
-          \ of users. Requires the beta API and additional setup. Include/exclude\
-          \ lists in this payload are not used in unbounded segments."
+        description: "Controls whether this is considered a \"big segment\" which\
+          \ can support an unlimited numbers of users. Include/exclude lists sent\
+          \ with this payload are not used in big segments. Contact your account manager\
+          \ for early access to this feature."
       tags:
         type: "array"
         description: "Tags for the user segment."
         items:
           type: "string"
           example: ""
-  unboundedSegmentTargetsBody:
+  bigSegmentTargetsBody:
     type: "object"
     properties:
       included:
-        $ref: "#/definitions/UnboundedSegmentTargetChanges"
+        $ref: "#/definitions/BigSegmentTargetChanges"
       excluded:
-        $ref: "#/definitions/UnboundedSegmentTargetChanges"
+        $ref: "#/definitions/BigSegmentTargetChanges"
   userSettingsBody:
     type: "object"
     properties:
@@ -8836,15 +8876,15 @@ parameters:
     schema:
       $ref: "#/definitions/userSegmentBody"
     x-exportParamName: "UserSegmentBody"
-  UnboundedSegmentTargetsPostRequest:
+  BigSegmentTargetsPostRequest:
     in: "body"
-    name: "unboundedSegmentTargetsBody"
+    name: "bigSegmentTargetsBody"
     description: "Add or remove user targets to the included or excluded lists on\
-      \ an unbounded segment"
+      \ a big segment. Contact your account manager for early access to this feature."
     required: true
     schema:
-      $ref: "#/definitions/unboundedSegmentTargetsBody"
-    x-exportParamName: "UnboundedSegmentTargetsBody"
+      $ref: "#/definitions/bigSegmentTargetsBody"
+    x-exportParamName: "BigSegmentTargetsBody"
   ProjectPostRequest:
     in: "body"
     name: "projectBody"

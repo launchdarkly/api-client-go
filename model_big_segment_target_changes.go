@@ -10,7 +10,9 @@
 
 package ldapi
 
-type CustomRoles struct {
-	Links *Links `json:"_links,omitempty"`
-	Items []CustomRole `json:"items,omitempty"`
+type BigSegmentTargetChanges struct {
+	// Users to add to this list of targets
+	Add []string `json:"add,omitempty"`
+	// Users to remove from this list of targets
+	Remove []string `json:"remove,omitempty"`
 }

@@ -10,7 +10,7 @@
 
 package ldapi
 
-type CustomRoles struct {
-	Links *Links `json:"_links,omitempty"`
-	Items []CustomRole `json:"items,omitempty"`
+type FeatureFlagStatusLinks struct {
+	Parent *Link `json:"parent,omitempty"`
+	Self *Link `json:"self,omitempty"`
 }

@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **Included** | **[]string** | An array of user keys that are included in this segment. | [optional] [default to null]
 **Excluded** | **[]string** | An array of user keys that should not be included in this segment, unless they are also listed in \&quot;included\&quot;. | [optional] [default to null]
 **Rules** | [**[]UserSegmentRule**](UserSegmentRule.md) | An array of rules that can cause a user to be included in this segment. | [optional] [default to null]
-**Unbounded** | **bool** | Controls whether this segment can support unlimited numbers of users. Requires the beta API and additional setup. Include/exclude lists in this payload are not used in unbounded segments. | [optional] [default to null]
+**Unbounded** | **bool** | Controls whether this is considered a \&quot;big segment\&quot; which can support an unlimited numbers of users. Include/exclude lists sent with this payload are not used in big segments. Contact your account manager for early access to this feature. | [optional] [default to null]
 **Version** | **int32** |  | [optional] [default to null]
 **Links** | [***Links**](Links.md) |  | [optional] [default to null]
 **Flags** | [**[]FlagListItem**](FlagListItem.md) |  | [optional] [default to null]

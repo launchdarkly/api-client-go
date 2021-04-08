@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Links** | [***Links**](Links.md) |  | [optional] [default to null]
+**Links** | [***FeatureFlagStatusLinks**](FeatureFlagStatusLinks.md) |  | [optional] [default to null]
 **Key** | **string** |  | [optional] [default to null]
 **Environments** | [**map[string]FeatureFlagStatusForQueriedEnvironment**](FeatureFlagStatusForQueriedEnvironment.md) |  | [optional] [default to null]
 
