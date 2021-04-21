@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Build custom integrations with the LaunchDarkly REST API"
-  version: "5.0.3"
+  version: "5.1.0"
   title: "LaunchDarkly REST API"
   termsOfService: "https://launchdarkly.com/terms"
   contact:
@@ -824,6 +824,83 @@ paths:
           description: "Invalid resource specifier."
         "409":
           description: "Status conflict."
+  /flags/{projectKey}/{featureFlagKey}/dependent-flags:
+    get:
+      tags:
+      - "Feature flags"
+      summary: "Get dependent flags across all environments for the flag specified\
+        \ in the path parameters"
+      parameters:
+      - name: "projectKey"
+        in: "path"
+        description: "The project key, used to tie the flags together under one project\
+          \ so they can be managed together."
+        required: true
+        type: "string"
+        x-exportParamName: "ProjectKey"
+      - name: "featureFlagKey"
+        in: "path"
+        description: "The feature flag's key. The key identifies the flag in your\
+          \ code."
+        required: true
+        type: "string"
+        x-exportParamName: "FeatureFlagKey"
+      responses:
+        "200":
+          description: "Dependent flags accross all environemnts in the project response"
+          schema:
+            $ref: "#/definitions/MultiEnvironmentDependentFlags"
+        "401":
+          description: "Invalid access token."
+        "403":
+          description: "This is a beta API, you must pass beta in the LD-API-Version\
+            \ header to use it."
+          schema:
+            $ref: "#/definitions/UsageError"
+        "404":
+          description: "Invalid resource specifier."
+  /flags/{projectKey}/{environmentKey}/{featureFlagKey}/dependent-flags:
+    get:
+      tags:
+      - "Feature flags"
+      summary: "Get dependent flags for the flag in the environment specified in path\
+        \ parameters"
+      parameters:
+      - name: "projectKey"
+        in: "path"
+        description: "The project key, used to tie the flags together under one project\
+          \ so they can be managed together."
+        required: true
+        type: "string"
+        x-exportParamName: "ProjectKey"
+      - name: "environmentKey"
+        in: "path"
+        description: "The environment key, used to tie together flag configuration\
+          \ and users under one environment so they can be managed together."
+        required: true
+        type: "string"
+        x-exportParamName: "EnvironmentKey"
+      - name: "featureFlagKey"
+        in: "path"
+        description: "The feature flag's key. The key identifies the flag in your\
+          \ code."
+        required: true
+        type: "string"
+        x-exportParamName: "FeatureFlagKey"
+      responses:
+        "200":
+          description: "Dependent flags in a single envrionemnt response"
+          schema:
+            $ref: "#/definitions/DependentFlagsByEnvironment"
+        "401":
+          description: "Invalid access token."
+        "403":
+          description: "This is a beta API, you must pass beta in the LD-API-Version\
+            \ header to use it."
+          schema:
+            $ref: "#/definitions/UsageError"
+        "404":
+          description: "Invalid resource specifier."
   /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/scheduled-changes:
     get:
       tags:
@@ -1650,7 +1727,7 @@ paths:
       tags:
       - "User segments"
       summary: "Update targets included or excluded in a big segment"
-      operationId: "updatedBigSegmentTargets"
+      operationId: "updateBigSegmentTargets"
       parameters:
       - name: "projectKey"
         in: "path"
@@ -5077,6 +5154,256 @@ definitions:
       self:
         href: "/api/v2/endpoint"
         type: "application/json"
+  DependentFlagsByEnvironment:
+    type: "object"
+    properties:
+      items:
+        type: "array"
+        items:
+          $ref: "#/definitions/DependentFlag"
+      _links:
+        $ref: "#/definitions/DependentFlagsLinks"
+      _site:
+        $ref: "#/definitions/Site"
+    example:
+      _links:
+        parent:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+        self:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+      _site:
+        href: "/features/sort.order"
+        type: "text/html"
+      items:
+      - _links:
+          self:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+        _site:
+          href: "/features/sort.order"
+          type: "text/html"
+        name: "name"
+        key: "key"
+      - _links:
+          self:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+        _site:
+          href: "/features/sort.order"
+          type: "text/html"
+        name: "name"
+        key: "key"
+  DependentFlag:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      key:
+        type: "string"
+      _links:
+        $ref: "#/definitions/DependentFlag__links"
+      _site:
+        $ref: "#/definitions/Site"
+    example:
+      _links:
+        self:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+      _site:
+        href: "/features/sort.order"
+        type: "text/html"
+      name: "name"
+      key: "key"
+  DependentFlagsLinks:
+    type: "object"
+    properties:
+      parent:
+        $ref: "#/definitions/Link"
+      self:
+        $ref: "#/definitions/Link"
+    example:
+      parent:
+        href: "/api/v2/endpoint"
+        type: "application/json"
+      self:
+        href: "/api/v2/endpoint"
+        type: "application/json"
+  MultiEnvironmentDependentFlags:
+    type: "object"
+    properties:
+      items:
+        type: "array"
+        items:
+          $ref: "#/definitions/MultiEnvironmentDependentFlag"
+      _links:
+        $ref: "#/definitions/DependentFlagsLinks"
+      _site:
+        $ref: "#/definitions/Site"
+    example:
+      _links:
+        parent:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+        self:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+      _site:
+        href: "/features/sort.order"
+        type: "text/html"
+      items:
+      - environments:
+        - _links:
+            flagLink:
+              href: "/api/v2/endpoint"
+              type: "application/json"
+            self:
+              href: "/api/v2/endpoint"
+              type: "application/json"
+          _site:
+            href: "/features/sort.order"
+            type: "text/html"
+          name: "name"
+          key: "key"
+        - _links:
+            flagLink:
+              href: "/api/v2/endpoint"
+              type: "application/json"
+            self:
+              href: "/api/v2/endpoint"
+              type: "application/json"
+          _site:
+            href: "/features/sort.order"
+            type: "text/html"
+          name: "name"
+          key: "key"
+        _links:
+          parent:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+          self:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+        _site:
+          href: "/features/sort.order"
+          type: "text/html"
+        name: "name"
+        key: "key"
+      - environments:
+        - _links:
+            flagLink:
+              href: "/api/v2/endpoint"
+              type: "application/json"
+            self:
+              href: "/api/v2/endpoint"
+              type: "application/json"
+          _site:
+            href: "/features/sort.order"
+            type: "text/html"
+          name: "name"
+          key: "key"
+        - _links:
+            flagLink:
+              href: "/api/v2/endpoint"
+              type: "application/json"
+            self:
+              href: "/api/v2/endpoint"
+              type: "application/json"
+          _site:
+            href: "/features/sort.order"
+            type: "text/html"
+          name: "name"
+          key: "key"
+        _links:
+          parent:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+          self:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+        _site:
+          href: "/features/sort.order"
+          type: "text/html"
+        name: "name"
+        key: "key"
+  MultiEnvironmentDependentFlag:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      key:
+        type: "string"
+      environments:
+        type: "array"
+        items:
+          $ref: "#/definitions/DependentFlagEnvironment"
+      _links:
+        $ref: "#/definitions/DependentFlagsLinks"
+      _site:
+        $ref: "#/definitions/Site"
+    example:
+      environments:
+      - _links:
+          flagLink:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+          self:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+        _site:
+          href: "/features/sort.order"
+          type: "text/html"
+        name: "name"
+        key: "key"
+      - _links:
+          flagLink:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+          self:
+            href: "/api/v2/endpoint"
+            type: "application/json"
+        _site:
+          href: "/features/sort.order"
+          type: "text/html"
+        name: "name"
+        key: "key"
+      _links:
+        parent:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+        self:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+      _site:
+        href: "/features/sort.order"
+        type: "text/html"
+      name: "name"
+      key: "key"
+  DependentFlagEnvironment:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      key:
+        type: "string"
+      _links:
+        $ref: "#/definitions/DependentFlagEnvironment__links"
+      _site:
+        $ref: "#/definitions/Site"
+    example:
+      _links:
+        flagLink:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+        self:
+          href: "/api/v2/endpoint"
+          type: "application/json"
+      _site:
+        href: "/features/sort.order"
+        type: "text/html"
+      name: "name"
+      key: "key"
   UserTargetingExpirationForFlags:
     type: "object"
     properties:
@@ -8019,7 +8346,7 @@ definitions:
     type: "object"
     properties:
       _links:
-        $ref: "#/definitions/Integration__links"
+        $ref: "#/definitions/DependentFlag__links"
       items:
         type: "array"
         items:
@@ -8700,6 +9027,29 @@ definitions:
         _id: "_id"
       - reason: "reason"
         _id: "_id"
+  DependentFlag__links:
+    type: "object"
+    properties:
+      self:
+        $ref: "#/definitions/Link"
+    example:
+      self:
+        href: "/api/v2/endpoint"
+        type: "application/json"
+  DependentFlagEnvironment__links:
+    type: "object"
+    properties:
+      self:
+        $ref: "#/definitions/Link"
+      flagLink:
+        $ref: "#/definitions/Link"
+    example:
+      flagLink:
+        href: "/api/v2/endpoint"
+        type: "application/json"
+      self:
+        href: "/api/v2/endpoint"
+        type: "application/json"
   Environment_approvalSettings:
     type: "object"
     properties:
@@ -8787,15 +9137,6 @@ definitions:
       successCount: 6
       lastSuccess: 1443652232590
       errorCount: 2
-  Integration__links:
-    type: "object"
-    properties:
-      self:
-        $ref: "#/definitions/Link"
-    example:
-      self:
-        href: "/api/v2/endpoint"
-        type: "application/json"
 parameters:
   ResourceId:
     name: "resourceId"

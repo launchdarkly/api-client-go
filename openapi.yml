@@ -10,7 +10,7 @@ info:
   license:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
-  version: 5.0.3
+  version: 5.1.0
 host: app.launchdarkly.com
 basePath: /api/v2
 schemes:
@@ -436,6 +436,49 @@ paths:
           $ref: '#/responses/Standard409'
       tags:
         - Feature flags
+  '/flags/{projectKey}/{featureFlagKey}/dependent-flags':
+    get:
+      summary: >-
+        Get dependent flags across all environments for the flag specified in
+        the path parameters
+      parameters:
+        - $ref: '#/parameters/ProjectKey'
+        - $ref: '#/parameters/FeatureFlagKey'
+      responses:
+        '200':
+          description: Dependent flags accross all environemnts in the project response
+          schema:
+            $ref: '#/definitions/MultiEnvironmentDependentFlags'
+        '401':
+          $ref: '#/responses/Standard401'
+        '403':
+          $ref: '#/responses/BetaApi403'
+        '404':
+          $ref: '#/responses/Standard404'
+      tags:
+        - Feature flags
+  '/flags/{projectKey}/{environmentKey}/{featureFlagKey}/dependent-flags':
+    get:
+      summary: >-
+        Get dependent flags for the flag in the environment specified in path
+        parameters
+      parameters:
+        - $ref: '#/parameters/ProjectKey'
+        - $ref: '#/parameters/EnvironmentKey'
+        - $ref: '#/parameters/FeatureFlagKey'
+      responses:
+        '200':
+          description: Dependent flags in a single envrionemnt response
+          schema:
+            $ref: '#/definitions/DependentFlagsByEnvironment'
+        '401':
+          $ref: '#/responses/Standard401'
+        '403':
+          $ref: '#/responses/BetaApi403'
+        '404':
+          $ref: '#/responses/Standard404'
+      tags:
+        - Feature flags
   '/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/scheduled-changes':
     get:
       summary: Get all scheduled workflows for a feature flag by key.
@@ -813,7 +856,7 @@ paths:
   '/segments/{projectKey}/{environmentKey}/{userSegmentKey}/users':
     post:
       summary: Update targets included or excluded in a big segment
-      operationId: updatedBigSegmentTargets
+      operationId: updateBigSegmentTargets
       parameters:
         - $ref: '#/parameters/ProjectKey'
         - $ref: '#/parameters/EnvironmentKey'
@@ -2513,6 +2556,80 @@ definitions:
         $ref: '#/definitions/Link'
       self:
         $ref: '#/definitions/Link'
+  DependentFlagsByEnvironment:
+    type: object
+    properties:
+      items:
+        type: array
+        items:
+          $ref: '#/definitions/DependentFlag'
+      _links:
+        $ref: '#/definitions/DependentFlagsLinks'
+      _site:
+        $ref: '#/definitions/Site'
+  DependentFlag:
+    type: object
+    properties:
+      name:
+        type: string
+      key:
+        type: string
+      _links:
+        type: object
+        properties:
+          self:
+            $ref: '#/definitions/Link'
+      _site:
+        $ref: '#/definitions/Site'
+  DependentFlagsLinks:
+    type: object
+    properties:
+      parent:
+        $ref: '#/definitions/Link'
+      self:
+        $ref: '#/definitions/Link'
+  MultiEnvironmentDependentFlags:
+    type: object
+    properties:
+      items:
+        type: array
+        items:
+          $ref: '#/definitions/MultiEnvironmentDependentFlag'
+      _links:
+        $ref: '#/definitions/DependentFlagsLinks'
+      _site:
+        $ref: '#/definitions/Site'
+  MultiEnvironmentDependentFlag:
+    type: object
+    properties:
+      name:
+        type: string
+      key:
+        type: string
+      environments:
+        type: array
+        items:
+          $ref: '#/definitions/DependentFlagEnvironment'
+      _links:
+        $ref: '#/definitions/DependentFlagsLinks'
+      _site:
+        $ref: '#/definitions/Site'
+  DependentFlagEnvironment:
+    type: object
+    properties:
+      name:
+        type: string
+      key:
+        type: string
+      _links:
+        type: object
+        properties:
+          self:
+            $ref: '#/definitions/Link'
+          flagLink:
+            $ref: '#/definitions/Link'
+      _site:
+        $ref: '#/definitions/Site'
   UserTargetingExpirationForFlags:
     type: object
     properties:

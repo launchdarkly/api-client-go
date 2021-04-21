@@ -8,6 +8,8 @@ Method | HTTP request | Description
 [**DeleteApprovalRequest**](FeatureFlagsApi.md#DeleteApprovalRequest) | **Delete** /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{approvalRequestId} | Delete an approval request for a feature flag config
 [**DeleteFeatureFlag**](FeatureFlagsApi.md#DeleteFeatureFlag) | **Delete** /flags/{projectKey}/{featureFlagKey} | Delete a feature flag in all environments. Be careful-- only delete feature flags that are no longer being used by your application.
 [**DeleteFlagConfigScheduledChanges**](FeatureFlagsApi.md#DeleteFlagConfigScheduledChanges) | **Delete** /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/scheduled-changes/{scheduledChangeId} | Delete a scheduled change on a feature flag in an environment.
+[**FlagsProjectKeyEnvironmentKeyFeatureFlagKeyDependentFlagsGet**](FeatureFlagsApi.md#FlagsProjectKeyEnvironmentKeyFeatureFlagKeyDependentFlagsGet) | **Get** /flags/{projectKey}/{environmentKey}/{featureFlagKey}/dependent-flags | Get dependent flags for the flag in the environment specified in path parameters
+[**FlagsProjectKeyFeatureFlagKeyDependentFlagsGet**](FeatureFlagsApi.md#FlagsProjectKeyFeatureFlagKeyDependentFlagsGet) | **Get** /flags/{projectKey}/{featureFlagKey}/dependent-flags | Get dependent flags across all environments for the flag specified in the path parameters
 [**GetApprovalRequest**](FeatureFlagsApi.md#GetApprovalRequest) | **Get** /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{approvalRequestId} | Get a single approval request for a feature flag config
 [**GetApprovalRequests**](FeatureFlagsApi.md#GetApprovalRequests) | **Get** /projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests | Get all approval requests for a feature flag config
 [**GetExpiringUserTargets**](FeatureFlagsApi.md#GetExpiringUserTargets) | **Get** /flags/{projectKey}/{featureFlagKey}/expiring-user-targets/{environmentKey} | Get expiring user targets for feature flag
@@ -142,6 +144,61 @@ Name | Type | Description  | Notes
 ### Return type
 
  (empty response body)
+
+### Authorization
+
+[Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **FlagsProjectKeyEnvironmentKeyFeatureFlagKeyDependentFlagsGet**
+> DependentFlagsByEnvironment FlagsProjectKeyEnvironmentKeyFeatureFlagKeyDependentFlagsGet(ctx, projectKey, environmentKey, featureFlagKey)
+Get dependent flags for the flag in the environment specified in path parameters
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
+  **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
+  **featureFlagKey** | **string**| The feature flag&#39;s key. The key identifies the flag in your code. | 
+
+### Return type
+
+[**DependentFlagsByEnvironment**](DependentFlagsByEnvironment.md)
+
+### Authorization
+
+[Token](../README.md#Token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **FlagsProjectKeyFeatureFlagKeyDependentFlagsGet**
+> MultiEnvironmentDependentFlags FlagsProjectKeyFeatureFlagKeyDependentFlagsGet(ctx, projectKey, featureFlagKey)
+Get dependent flags across all environments for the flag specified in the path parameters
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
+  **featureFlagKey** | **string**| The feature flag&#39;s key. The key identifies the flag in your code. | 
+
+### Return type
+
+[**MultiEnvironmentDependentFlags**](MultiEnvironmentDependentFlags.md)
 
 ### Authorization
 

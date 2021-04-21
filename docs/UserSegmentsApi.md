@@ -11,7 +11,7 @@ Method | HTTP request | Description
 [**PatchExpiringUserTargetsOnSegment**](UserSegmentsApi.md#PatchExpiringUserTargetsOnSegment) | **Patch** /segments/{projectKey}/{userSegmentKey}/expiring-user-targets/{environmentKey} | Update, add, or delete expiring user targets on user segment
 [**PatchUserSegment**](UserSegmentsApi.md#PatchUserSegment) | **Patch** /segments/{projectKey}/{environmentKey}/{userSegmentKey} | Perform a partial update to a user segment.
 [**PostUserSegment**](UserSegmentsApi.md#PostUserSegment) | **Post** /segments/{projectKey}/{environmentKey} | Creates a new user segment.
-[**UpdatedBigSegmentTargets**](UserSegmentsApi.md#UpdatedBigSegmentTargets) | **Post** /segments/{projectKey}/{environmentKey}/{userSegmentKey}/users | Update targets included or excluded in a big segment
+[**UpdateBigSegmentTargets**](UserSegmentsApi.md#UpdateBigSegmentTargets) | **Post** /segments/{projectKey}/{environmentKey}/{userSegmentKey}/users | Update targets included or excluded in a big segment
 
 
 # **DeleteUserSegment**
@@ -221,8 +221,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **UpdatedBigSegmentTargets**
-> UpdatedBigSegmentTargets(ctx, projectKey, environmentKey, userSegmentKey, bigSegmentTargetsBody)
+# **UpdateBigSegmentTargets**
+> UpdateBigSegmentTargets(ctx, projectKey, environmentKey, userSegmentKey, bigSegmentTargetsBody)
 Update targets included or excluded in a big segment
 
 ### Required Parameters
