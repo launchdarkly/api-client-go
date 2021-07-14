@@ -10,7 +10,7 @@ info:
   license:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
-  version: 5.1.0
+  version: 5.3.0
 host: app.launchdarkly.com
 basePath: /api/v2
 schemes:
@@ -145,7 +145,13 @@ paths:
       tags:
         - Environments
     patch:
-      summary: Modify an environment by ID.
+      summary: >-
+        Modify an environment by ID. If you try to patch the environment by
+        setting both required and requiredApprovalTags, it will result in an
+        error. Users can specify either required approvals for all flags in an
+        environment or those with specific tags, but not both. Only customers on
+        an Enterprise plan can require approval for flag updates with either
+        mechanism.
       operationId: patchEnvironment
       parameters:
         - $ref: '#/parameters/ProjectKey'
@@ -3013,7 +3019,8 @@ definitions:
             type: boolean
             description: >-
               Whether any changes to flags in this environment will require
-              approval.
+              approval. You may only set required or requiredApprovalTags, not
+              both.
           canReviewOwnRequest:
             type: boolean
             description: >-
@@ -3031,6 +3038,14 @@ definitions:
             description: >-
               Whether changes can be applied as long as minNumApprovals is met,
               regardless of if any reviewers have declined a request.
+          requiredApprovalTags:
+            type: array
+            items:
+              type: string
+            description: >-
+              An array of tags used to specify which flags with those tags
+              require approval. You may only set requiredApprovalTags or
+              required, not both.
   EnvironmentPost:
     type: object
     properties:

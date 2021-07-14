@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "Build custom integrations with the LaunchDarkly REST API"
-  version: "5.1.0"
+  version: "5.3.0"
   title: "LaunchDarkly REST API"
   termsOfService: "https://launchdarkly.com/terms"
   contact:
@@ -235,7 +235,11 @@ paths:
     patch:
       tags:
       - "Environments"
-      summary: "Modify an environment by ID."
+      summary: "Modify an environment by ID. If you try to patch the environment by\
+        \ setting both required and requiredApprovalTags, it will result in an error.\
+        \ Users can specify either required approvals for all flags in an environment\
+        \ or those with specific tags, but not both. Only customers on an Enterprise\
+        \ plan can require approval for flag updates with either mechanism."
       operationId: "patchEnvironment"
       parameters:
       - name: "projectKey"
@@ -6032,6 +6036,9 @@ definitions:
       - approvalSettings:
           serviceKind: "launchdarkly"
           canReviewOwnRequest: true
+          requiredApprovalTags:
+          - "requiredApprovalTags"
+          - "requiredApprovalTags"
           canApplyDeclinedChanges: true
           minNumApprovals: 2
           required: true
@@ -6059,6 +6066,9 @@ definitions:
       - approvalSettings:
           serviceKind: "launchdarkly"
           canReviewOwnRequest: true
+          requiredApprovalTags:
+          - "requiredApprovalTags"
+          - "requiredApprovalTags"
           canApplyDeclinedChanges: true
           minNumApprovals: 2
           required: true
@@ -6122,6 +6132,9 @@ definitions:
         - approvalSettings:
             serviceKind: "launchdarkly"
             canReviewOwnRequest: true
+            requiredApprovalTags:
+            - "requiredApprovalTags"
+            - "requiredApprovalTags"
             canApplyDeclinedChanges: true
             minNumApprovals: 2
             required: true
@@ -6149,6 +6162,9 @@ definitions:
         - approvalSettings:
             serviceKind: "launchdarkly"
             canReviewOwnRequest: true
+            requiredApprovalTags:
+            - "requiredApprovalTags"
+            - "requiredApprovalTags"
             canApplyDeclinedChanges: true
             minNumApprovals: 2
             required: true
@@ -6194,6 +6210,9 @@ definitions:
         - approvalSettings:
             serviceKind: "launchdarkly"
             canReviewOwnRequest: true
+            requiredApprovalTags:
+            - "requiredApprovalTags"
+            - "requiredApprovalTags"
             canApplyDeclinedChanges: true
             minNumApprovals: 2
             required: true
@@ -6221,6 +6240,9 @@ definitions:
         - approvalSettings:
             serviceKind: "launchdarkly"
             canReviewOwnRequest: true
+            requiredApprovalTags:
+            - "requiredApprovalTags"
+            - "requiredApprovalTags"
             canApplyDeclinedChanges: true
             minNumApprovals: 2
             required: true
@@ -6459,6 +6481,9 @@ definitions:
       approvalSettings:
         serviceKind: "launchdarkly"
         canReviewOwnRequest: true
+        requiredApprovalTags:
+        - "requiredApprovalTags"
+        - "requiredApprovalTags"
         canApplyDeclinedChanges: true
         minNumApprovals: 2
         required: true
@@ -9062,7 +9087,7 @@ definitions:
       required:
         type: "boolean"
         description: "Whether any changes to flags in this environment will require\
-          \ approval."
+          \ approval. You may only set required or requiredApprovalTags, not both."
       canReviewOwnRequest:
         type: "boolean"
         description: "Whether requesters can approve or decline their own request.\
@@ -9077,11 +9102,21 @@ definitions:
         type: "boolean"
         description: "Whether changes can be applied as long as minNumApprovals is\
           \ met, regardless of if any reviewers have declined a request."
+      requiredApprovalTags:
+        type: "array"
+        description: "An array of tags used to specify which flags with those tags\
+          \ require approval. You may only set requiredApprovalTags or required, not\
+          \ both."
+        items:
+          type: "string"
     description: "Approval settings for an environment. Only appears if the approvals\
       \ feature is enabled."
     example:
       serviceKind: "launchdarkly"
       canReviewOwnRequest: true
+      requiredApprovalTags:
+      - "requiredApprovalTags"
+      - "requiredApprovalTags"
       canApplyDeclinedChanges: true
       minNumApprovals: 2
       required: true

@@ -6,7 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**DeleteEnvironment**](EnvironmentsApi.md#DeleteEnvironment) | **Delete** /projects/{projectKey}/environments/{environmentKey} | Delete an environment in a specific project.
 [**GetEnvironment**](EnvironmentsApi.md#GetEnvironment) | **Get** /projects/{projectKey}/environments/{environmentKey} | Get an environment given a project and key.
-[**PatchEnvironment**](EnvironmentsApi.md#PatchEnvironment) | **Patch** /projects/{projectKey}/environments/{environmentKey} | Modify an environment by ID.
+[**PatchEnvironment**](EnvironmentsApi.md#PatchEnvironment) | **Patch** /projects/{projectKey}/environments/{environmentKey} | Modify an environment by ID. If you try to patch the environment by setting both required and requiredApprovalTags, it will result in an error. Users can specify either required approvals for all flags in an environment or those with specific tags, but not both. Only customers on an Enterprise plan can require approval for flag updates with either mechanism.
 [**PostEnvironment**](EnvironmentsApi.md#PostEnvironment) | **Post** /projects/{projectKey}/environments | Create a new environment in a specified project with a given name, key, and swatch color.
 [**ResetEnvironmentMobileKey**](EnvironmentsApi.md#ResetEnvironmentMobileKey) | **Post** /projects/{projectKey}/environments/{environmentKey}/mobileKey | Reset an environment&#39;s mobile key. The optional expiry for the old key is deprecated for this endpoint, so the old key will always expire immediately.
 [**ResetEnvironmentSDKKey**](EnvironmentsApi.md#ResetEnvironmentSDKKey) | **Post** /projects/{projectKey}/environments/{environmentKey}/apiKey | Reset an environment&#39;s SDK key with an optional expiry time for the old key.
@@ -68,7 +68,7 @@ Name | Type | Description  | Notes
 
 # **PatchEnvironment**
 > Environment PatchEnvironment(ctx, projectKey, environmentKey, patchDelta)
-Modify an environment by ID.
+Modify an environment by ID. If you try to patch the environment by setting both required and requiredApprovalTags, it will result in an error. Users can specify either required approvals for all flags in an environment or those with specific tags, but not both. Only customers on an Enterprise plan can require approval for flag updates with either mechanism.
 
 ### Required Parameters
 
