@@ -1,73 +1,83 @@
 # \AuditLogApi
 
-All URIs are relative to *https://app.launchdarkly.com/api/v2*
+All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetAuditLogEntries**](AuditLogApi.md#GetAuditLogEntries) | **Get** /auditlog | Get a list of all audit log entries. The query parameters allow you to restrict the returned results by date ranges, resource specifiers, or a full-text search query.
-[**GetAuditLogEntry**](AuditLogApi.md#GetAuditLogEntry) | **Get** /auditlog/{resourceId} | Use this endpoint to fetch a single audit log entry by its resouce ID.
+[**GetAuditLogEntries**](AuditLogApi.md#GetAuditLogEntries) | **Get** /api/v2/auditlog | List audit log feature flag entries
 
 
-# **GetAuditLogEntries**
-> AuditLogEntries GetAuditLogEntries(ctx, optional)
-Get a list of all audit log entries. The query parameters allow you to restrict the returned results by date ranges, resource specifiers, or a full-text search query.
 
-### Required Parameters
+## GetAuditLogEntries
+
+> AuditLogEntryListingRepCollection GetAuditLogEntries(ctx).Before(before).After(after).Q(q).Limit(limit).Spec(spec).Execute()
+
+List audit log feature flag entries
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    before := int64(789) // int64 | A timestamp filter, expressed as a Unix epoch time in milliseconds.  All entries this returns occurred before the timestamp. (optional)
+    after := int64(789) // int64 | A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries this returns occurred after the timestamp. (optional)
+    q := "q_example" // string | Text to search for. You can search for the full or partial name of the resource, or full or partial email address of the member who made a change. (optional)
+    limit := int64(789) // int64 | A limit on the number of audit log entries that return. Set between 1 and 20. (optional)
+    spec := "spec_example" // string | A resource specifier that lets you filter audit log listings by resource (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.AuditLogApi.GetAuditLogEntries(context.Background()).Before(before).After(after).Q(q).Limit(limit).Spec(spec).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AuditLogApi.GetAuditLogEntries``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetAuditLogEntries`: AuditLogEntryListingRepCollection
+    fmt.Fprintf(os.Stdout, "Response from `AuditLogApi.GetAuditLogEntries`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetAuditLogEntriesRequest struct via the builder pattern
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***AuditLogApiGetAuditLogEntriesOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-Optional parameters are passed through a pointer to a AuditLogApiGetAuditLogEntriesOpts struct
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **before** | **optional.Int64**| A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries returned will have before this timestamp. | 
- **after** | **optional.Int64**| A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries returned will have occurred after this timestamp. | 
- **q** | **optional.String**| Text to search for. You can search for the full or partial name of the resource involved or full or partial email address of the member who made the change. | 
- **limit** | **optional.Float32**| A limit on the number of audit log entries to be returned, between 1 and 20. | 
- **spec** | **optional.String**| A resource specifier, allowing you to filter audit log listings by resource. | 
+ **before** | **int64** | A timestamp filter, expressed as a Unix epoch time in milliseconds.  All entries this returns occurred before the timestamp. | 
+ **after** | **int64** | A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries this returns occurred after the timestamp. | 
+ **q** | **string** | Text to search for. You can search for the full or partial name of the resource, or full or partial email address of the member who made a change. | 
+ **limit** | **int64** | A limit on the number of audit log entries that return. Set between 1 and 20. | 
+ **spec** | **string** | A resource specifier that lets you filter audit log listings by resource | 
 
 ### Return type
 
-[**AuditLogEntries**](AuditLogEntries.md)
+[**AuditLogEntryListingRepCollection**](AuditLogEntryListingRepCollection.md)
 
 ### Authorization
 
-[Token](../README.md#Token)
+[ApiKey](../README.md#ApiKey)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **GetAuditLogEntry**
-> AuditLogEntry GetAuditLogEntry(ctx, resourceId)
-Use this endpoint to fetch a single audit log entry by its resouce ID.
-
-### Required Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **resourceId** | **string**| The resource ID. | 
-
-### Return type
-
-[**AuditLogEntry**](AuditLogEntry.md)
-
-### Authorization
-
-[Token](../README.md#Token)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 

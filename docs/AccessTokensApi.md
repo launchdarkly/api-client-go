@@ -1,27 +1,67 @@
 # \AccessTokensApi
 
-All URIs are relative to *https://app.launchdarkly.com/api/v2*
+All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteToken**](AccessTokensApi.md#DeleteToken) | **Delete** /tokens/{tokenId} | Delete an access token by ID.
-[**GetToken**](AccessTokensApi.md#GetToken) | **Get** /tokens/{tokenId} | Get a single access token by ID.
-[**GetTokens**](AccessTokensApi.md#GetTokens) | **Get** /tokens | Returns a list of tokens in the account.
-[**PatchToken**](AccessTokensApi.md#PatchToken) | **Patch** /tokens/{tokenId} | Modify an access token by ID.
-[**PostToken**](AccessTokensApi.md#PostToken) | **Post** /tokens | Create a new token.
-[**ResetToken**](AccessTokensApi.md#ResetToken) | **Post** /tokens/{tokenId}/reset | Reset an access token&#39;s secret key with an optional expiry time for the old key.
+[**DeleteToken**](AccessTokensApi.md#DeleteToken) | **Delete** /api/v2/tokens/{id} | Delete access token
+[**GetToken**](AccessTokensApi.md#GetToken) | **Get** /api/v2/tokens/{id} | Get access token
+[**GetTokens**](AccessTokensApi.md#GetTokens) | **Get** /api/v2/tokens | List access tokens
+[**PatchToken**](AccessTokensApi.md#PatchToken) | **Patch** /api/v2/tokens/{id} | Patch access token
+[**PostToken**](AccessTokensApi.md#PostToken) | **Post** /api/v2/tokens | Create access token
+[**ResetToken**](AccessTokensApi.md#ResetToken) | **Post** /api/v2/tokens/{id}/reset | Reset access token
 
 
-# **DeleteToken**
-> DeleteToken(ctx, tokenId)
-Delete an access token by ID.
 
-### Required Parameters
+## DeleteToken
+
+> DeleteToken(ctx, id).Execute()
+
+Delete access token
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    id := "id_example" // string | The ID of the access token to update
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.AccessTokensApi.DeleteToken(context.Background(), id).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AccessTokensApi.DeleteToken``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **tokenId** | **string**| The access token ID. | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | The ID of the access token to update | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteTokenRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 ### Return type
 
@@ -29,159 +69,360 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Token](../README.md#Token)
+[ApiKey](../README.md#ApiKey)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: Not defined
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **GetToken**
-> Token GetToken(ctx, tokenId)
-Get a single access token by ID.
 
-### Required Parameters
+## GetToken
+
+> AccessTokenRep GetToken(ctx, id).Execute()
+
+Get access token
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    id := "id_example" // string | The ID of the access token
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.AccessTokensApi.GetToken(context.Background(), id).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AccessTokensApi.GetToken``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetToken`: AccessTokenRep
+    fmt.Fprintf(os.Stdout, "Response from `AccessTokensApi.GetToken`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **tokenId** | **string**| The access token ID. | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | The ID of the access token | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetTokenRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 ### Return type
 
-[**Token**](Token.md)
+[**AccessTokenRep**](AccessTokenRep.md)
 
 ### Authorization
 
-[Token](../README.md#Token)
+[ApiKey](../README.md#ApiKey)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **GetTokens**
-> Tokens GetTokens(ctx, optional)
-Returns a list of tokens in the account.
 
-### Required Parameters
+## GetTokens
+
+> AccessTokenCollectionRep GetTokens(ctx).ShowAll(showAll).Execute()
+
+List access tokens
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    showAll := true // bool | If set to true, and the authentication access token has the 'Admin' role, personal access tokens for all members will be retrieved. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.AccessTokensApi.GetTokens(context.Background()).ShowAll(showAll).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AccessTokensApi.GetTokens``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetTokens`: AccessTokenCollectionRep
+    fmt.Fprintf(os.Stdout, "Response from `AccessTokensApi.GetTokens`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetTokensRequest struct via the builder pattern
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***AccessTokensApiGetTokensOpts** | optional parameters | nil if no parameters
-
-### Optional Parameters
-Optional parameters are passed through a pointer to a AccessTokensApiGetTokensOpts struct
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **showAll** | **optional.Bool**| If set to true, and the authentication access token has the \&quot;Admin\&quot; role, personal access tokens for all members will be retrieved. | 
+ **showAll** | **bool** | If set to true, and the authentication access token has the &#39;Admin&#39; role, personal access tokens for all members will be retrieved. | 
 
 ### Return type
 
-[**Tokens**](Tokens.md)
+[**AccessTokenCollectionRep**](AccessTokenCollectionRep.md)
 
 ### Authorization
 
-[Token](../README.md#Token)
+[ApiKey](../README.md#ApiKey)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **PatchToken**
-> Token PatchToken(ctx, tokenId, patchDelta)
-Modify an access token by ID.
 
-### Required Parameters
+## PatchToken
+
+> AccessTokenRep PatchToken(ctx, id).JSONPatchElt(jSONPatchElt).Execute()
+
+Patch access token
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    id := "id_example" // string | The ID of the access token to update
+    jSONPatchElt := []openapiclient.JSONPatchElt{*openapiclient.NewJSONPatchElt()} // []JSONPatchElt | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.AccessTokensApi.PatchToken(context.Background(), id).JSONPatchElt(jSONPatchElt).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AccessTokensApi.PatchToken``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PatchToken`: AccessTokenRep
+    fmt.Fprintf(os.Stdout, "Response from `AccessTokensApi.PatchToken`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **tokenId** | **string**| The access token ID. | 
-  **patchDelta** | [**[]PatchOperation**](PatchOperation.md)| Requires a JSON Patch representation of the desired changes to the project. &#39;http://jsonpatch.com/&#39; | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | The ID of the access token to update | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPatchTokenRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **jSONPatchElt** | [**[]JSONPatchElt**](JSONPatchElt.md) |  | 
 
 ### Return type
 
-[**Token**](Token.md)
+[**AccessTokenRep**](AccessTokenRep.md)
 
 ### Authorization
 
-[Token](../README.md#Token)
+[ApiKey](../README.md#ApiKey)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: application/json
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **PostToken**
-> Token PostToken(ctx, tokenBody)
-Create a new token.
 
-### Required Parameters
+## PostToken
+
+> AccessTokenRep PostToken(ctx).AccessTokensAccessTokenPost(accessTokensAccessTokenPost).Execute()
+
+Create access token
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    accessTokensAccessTokenPost := *openapiclient.NewAccessTokensAccessTokenPost() // AccessTokensAccessTokenPost | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.AccessTokensApi.PostToken(context.Background()).AccessTokensAccessTokenPost(accessTokensAccessTokenPost).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AccessTokensApi.PostToken``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PostToken`: AccessTokenRep
+    fmt.Fprintf(os.Stdout, "Response from `AccessTokensApi.PostToken`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostTokenRequest struct via the builder pattern
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **tokenBody** | [**TokenBody**](TokenBody.md)| Create a new access token. | 
+ **accessTokensAccessTokenPost** | [**AccessTokensAccessTokenPost**](AccessTokensAccessTokenPost.md) |  | 
 
 ### Return type
 
-[**Token**](Token.md)
+[**AccessTokenRep**](AccessTokenRep.md)
 
 ### Authorization
 
-[Token](../README.md#Token)
+[ApiKey](../README.md#ApiKey)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: application/json
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **ResetToken**
-> Token ResetToken(ctx, tokenId, optional)
-Reset an access token's secret key with an optional expiry time for the old key.
 
-### Required Parameters
+## ResetToken
+
+> AccessTokenRep ResetToken(ctx, id).Expiry(expiry).Execute()
+
+Reset access token
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    id := "id_example" // string | The ID of the access token to update
+    expiry := int64(789) // int64 | An expiration time for the old token key, expressed as a Unix epoch time in milliseconds. By default, the token will expire immediately. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.AccessTokensApi.ResetToken(context.Background(), id).Expiry(expiry).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AccessTokensApi.ResetToken``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ResetToken`: AccessTokenRep
+    fmt.Fprintf(os.Stdout, "Response from `AccessTokensApi.ResetToken`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **tokenId** | **string**| The access token ID. | 
- **optional** | ***AccessTokensApiResetTokenOpts** | optional parameters | nil if no parameters
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | The ID of the access token to update | 
 
-### Optional Parameters
-Optional parameters are passed through a pointer to a AccessTokensApiResetTokenOpts struct
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiResetTokenRequest struct via the builder pattern
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **expiry** | **optional.Int64**| An expiration time for the old token key, expressed as a Unix epoch time in milliseconds. By default, the token will expire immediately. | 
+ **expiry** | **int64** | An expiration time for the old token key, expressed as a Unix epoch time in milliseconds. By default, the token will expire immediately. | 
 
 ### Return type
 
-[**Token**](Token.md)
+[**AccessTokenRep**](AccessTokenRep.md)
 
 ### Authorization
 
-[Token](../README.md#Token)
+[ApiKey](../README.md#ApiKey)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 

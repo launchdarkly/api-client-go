@@ -1,144 +1,230 @@
 # \UserSettingsApi
 
-All URIs are relative to *https://app.launchdarkly.com/api/v2*
+All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetExpiringUserTargetsForUser**](UserSettingsApi.md#GetExpiringUserTargetsForUser) | **Get** /users/{projectKey}/{userKey}/expiring-user-targets/{environmentKey} | Get expiring dates on flags for user
-[**GetUserFlagSetting**](UserSettingsApi.md#GetUserFlagSetting) | **Get** /users/{projectKey}/{environmentKey}/{userKey}/flags/{featureFlagKey} | Fetch a single flag setting for a user by key.
-[**GetUserFlagSettings**](UserSettingsApi.md#GetUserFlagSettings) | **Get** /users/{projectKey}/{environmentKey}/{userKey}/flags | Fetch a single flag setting for a user by key.
-[**PatchExpiringUserTargetsForFlags**](UserSettingsApi.md#PatchExpiringUserTargetsForFlags) | **Patch** /users/{projectKey}/{userKey}/expiring-user-targets/{environmentKey} | Update, add, or delete expiring user targets for a single user on all flags
-[**PutFlagSetting**](UserSettingsApi.md#PutFlagSetting) | **Put** /users/{projectKey}/{environmentKey}/{userKey}/flags/{featureFlagKey} | Specifically enable or disable a feature flag for a user based on their key.
+[**GetUserFlagSetting**](UserSettingsApi.md#GetUserFlagSetting) | **Get** /api/v2/users/{projKey}/{envKey}/{key}/flags/{featureKey} | Get flag setting for user
+[**GetUserFlagSettings**](UserSettingsApi.md#GetUserFlagSettings) | **Get** /api/v2/users/{projKey}/{envKey}/{key}/flags | List flag settings for user
+[**PutFlagSetting**](UserSettingsApi.md#PutFlagSetting) | **Put** /api/v2/users/{projKey}/{envKey}/{key}/flags/{featureKey} | Update flag settings for user
 
 
-# **GetExpiringUserTargetsForUser**
-> UserTargetingExpirationOnFlagsForUser GetExpiringUserTargetsForUser(ctx, projectKey, environmentKey, userKey)
-Get expiring dates on flags for user
 
-### Required Parameters
+## GetUserFlagSetting
+
+> UserSettingRep GetUserFlagSetting(ctx, projKey, envKey, key, featureKey).Execute()
+
+Get flag setting for user
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    projKey := "projKey_example" // string | The project key
+    envKey := "envKey_example" // string | The environment key
+    key := "key_example" // string | The user key
+    featureKey := "featureKey_example" // string | The feature flag key
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserSettingsApi.GetUserFlagSetting(context.Background(), projKey, envKey, key, featureKey).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserSettingsApi.GetUserFlagSetting``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetUserFlagSetting`: UserSettingRep
+    fmt.Fprintf(os.Stdout, "Response from `UserSettingsApi.GetUserFlagSetting`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
-  **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
-  **userKey** | **string**| The user&#39;s key. | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projKey** | **string** | The project key | 
+**envKey** | **string** | The environment key | 
+**key** | **string** | The user key | 
+**featureKey** | **string** | The feature flag key | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetUserFlagSettingRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+
 
 ### Return type
 
-[**UserTargetingExpirationOnFlagsForUser**](UserTargetingExpirationOnFlagsForUser.md)
+[**UserSettingRep**](UserSettingRep.md)
 
 ### Authorization
 
-[Token](../README.md#Token)
+[ApiKey](../README.md#ApiKey)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **GetUserFlagSetting**
-> UserFlagSetting GetUserFlagSetting(ctx, projectKey, environmentKey, userKey, featureFlagKey)
-Fetch a single flag setting for a user by key.
 
-### Required Parameters
+## GetUserFlagSettings
+
+> UserSettingsCollection GetUserFlagSettings(ctx, projKey, envKey, key).Execute()
+
+List flag settings for user
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    projKey := "projKey_example" // string | The project key
+    envKey := "envKey_example" // string | The environment key
+    key := "key_example" // string | The user key
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserSettingsApi.GetUserFlagSettings(context.Background(), projKey, envKey, key).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserSettingsApi.GetUserFlagSettings``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetUserFlagSettings`: UserSettingsCollection
+    fmt.Fprintf(os.Stdout, "Response from `UserSettingsApi.GetUserFlagSettings`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
-  **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
-  **userKey** | **string**| The user&#39;s key. | 
-  **featureFlagKey** | **string**| The feature flag&#39;s key. The key identifies the flag in your code. | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projKey** | **string** | The project key | 
+**envKey** | **string** | The environment key | 
+**key** | **string** | The user key | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetUserFlagSettingsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
 
 ### Return type
 
-[**UserFlagSetting**](UserFlagSetting.md)
+[**UserSettingsCollection**](UserSettingsCollection.md)
 
 ### Authorization
 
-[Token](../README.md#Token)
+[ApiKey](../README.md#ApiKey)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **GetUserFlagSettings**
-> UserFlagSettings GetUserFlagSettings(ctx, projectKey, environmentKey, userKey)
-Fetch a single flag setting for a user by key.
 
-### Required Parameters
+## PutFlagSetting
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
-  **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
-  **userKey** | **string**| The user&#39;s key. | 
+> PutFlagSetting(ctx, projKey, envKey, key, featureKey).Api2ValuePut(api2ValuePut).Execute()
 
-### Return type
+Update flag settings for user
 
-[**UserFlagSettings**](UserFlagSettings.md)
 
-### Authorization
 
-[Token](../README.md#Token)
+### Example
 
-### HTTP request headers
+```go
+package main
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+func main() {
+    projKey := "projKey_example" // string | The project key
+    envKey := "envKey_example" // string | The environment key
+    key := "key_example" // string | The user key
+    featureKey := "featureKey_example" // string | The feature flag key
+    api2ValuePut := *openapiclient.NewApi2ValuePut() // Api2ValuePut | 
 
-# **PatchExpiringUserTargetsForFlags**
-> UserTargetingExpirationOnFlagsForUser PatchExpiringUserTargetsForFlags(ctx, projectKey, environmentKey, userKey, semanticPatchWithComment)
-Update, add, or delete expiring user targets for a single user on all flags
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserSettingsApi.PutFlagSetting(context.Background(), projKey, envKey, key, featureKey).Api2ValuePut(api2ValuePut).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserSettingsApi.PutFlagSetting``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
 
-### Required Parameters
+### Path Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
-  **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
-  **userKey** | **string**| The user&#39;s key. | 
-  **semanticPatchWithComment** | [**interface{}**](interface{}.md)| Requires a Semantic Patch representation of the desired changes to the resource. &#39;https://apidocs.launchdarkly.com/reference#updates-via-semantic-patches&#39;. The addition of comments is also supported. | 
-
-### Return type
-
-[**UserTargetingExpirationOnFlagsForUser**](UserTargetingExpirationOnFlagsForUser.md)
-
-### Authorization
-
-[Token](../README.md#Token)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **PutFlagSetting**
-> PutFlagSetting(ctx, projectKey, environmentKey, userKey, featureFlagKey, userSettingsBody)
-Specifically enable or disable a feature flag for a user based on their key.
-
-### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
-  **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
-  **userKey** | **string**| The user&#39;s key. | 
-  **featureFlagKey** | **string**| The feature flag&#39;s key. The key identifies the flag in your code. | 
-  **userSettingsBody** | [**UserSettingsBody**](UserSettingsBody.md)|  | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projKey** | **string** | The project key | 
+**envKey** | **string** | The environment key | 
+**key** | **string** | The user key | 
+**featureKey** | **string** | The feature flag key | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPutFlagSettingRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+
+ **api2ValuePut** | [**Api2ValuePut**](Api2ValuePut.md) |  | 
 
 ### Return type
 
@@ -146,12 +232,14 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Token](../README.md#Token)
+[ApiKey](../README.md#ApiKey)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: application/json
+- **Accept**: Not defined
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 

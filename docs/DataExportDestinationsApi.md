@@ -1,28 +1,72 @@
 # \DataExportDestinationsApi
 
-All URIs are relative to *https://app.launchdarkly.com/api/v2*
+All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteDestination**](DataExportDestinationsApi.md#DeleteDestination) | **Delete** /destinations/{projectKey}/{environmentKey}/{destinationId} | Get a single data export destination by ID
-[**GetDestination**](DataExportDestinationsApi.md#GetDestination) | **Get** /destinations/{projectKey}/{environmentKey}/{destinationId} | Get a single data export destination by ID
-[**GetDestinations**](DataExportDestinationsApi.md#GetDestinations) | **Get** /destinations | Returns a list of all data export destinations.
-[**PatchDestination**](DataExportDestinationsApi.md#PatchDestination) | **Patch** /destinations/{projectKey}/{environmentKey}/{destinationId} | Perform a partial update to a data export destination.
-[**PostDestination**](DataExportDestinationsApi.md#PostDestination) | **Post** /destinations/{projectKey}/{environmentKey} | Create a new data export destination
+[**DeleteDestination**](DataExportDestinationsApi.md#DeleteDestination) | **Delete** /api/v2/destinations/{projKey}/{envKey}/{id} | Delete Data Export destination
+[**GetDestination**](DataExportDestinationsApi.md#GetDestination) | **Get** /api/v2/destinations/{projKey}/{envKey}/{id} | Get destination
+[**GetDestinations**](DataExportDestinationsApi.md#GetDestinations) | **Get** /api/v2/destinations | List destinations
+[**PatchDestination**](DataExportDestinationsApi.md#PatchDestination) | **Patch** /api/v2/destinations/{projKey}/{envKey}/{id} | Update Data Export destination
+[**PostDestination**](DataExportDestinationsApi.md#PostDestination) | **Post** /api/v2/destinations/{projKey}/{envKey} | Create data export destination
 
 
-# **DeleteDestination**
-> DeleteDestination(ctx, projectKey, environmentKey, destinationId)
-Get a single data export destination by ID
 
-### Required Parameters
+## DeleteDestination
+
+> DeleteDestination(ctx, projKey, envKey, id).Execute()
+
+Delete Data Export destination
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    projKey := "projKey_example" // string | The project key
+    envKey := "envKey_example" // string | The environment key
+    id := "id_example" // string | The data export destination ID
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DataExportDestinationsApi.DeleteDestination(context.Background(), projKey, envKey, id).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DataExportDestinationsApi.DeleteDestination``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
-  **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
-  **destinationId** | **string**| The data export destination ID. | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projKey** | **string** | The project key | 
+**envKey** | **string** | The environment key | 
+**id** | **string** | The data export destination ID | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteDestinationRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
 
 ### Return type
 
@@ -30,119 +74,304 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Token](../README.md#Token)
+[ApiKey](../README.md#ApiKey)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: Not defined
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **GetDestination**
-> Destination GetDestination(ctx, projectKey, environmentKey, destinationId)
-Get a single data export destination by ID
 
-### Required Parameters
+## GetDestination
+
+> DestinationRep GetDestination(ctx, projKey, envKey, id).Execute()
+
+Get destination
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    projKey := "projKey_example" // string | The project key
+    envKey := "envKey_example" // string | The environment key
+    id := "id_example" // string | The Data Export destination ID
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DataExportDestinationsApi.GetDestination(context.Background(), projKey, envKey, id).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DataExportDestinationsApi.GetDestination``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetDestination`: DestinationRep
+    fmt.Fprintf(os.Stdout, "Response from `DataExportDestinationsApi.GetDestination`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
-  **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
-  **destinationId** | **string**| The data export destination ID. | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projKey** | **string** | The project key | 
+**envKey** | **string** | The environment key | 
+**id** | **string** | The Data Export destination ID | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetDestinationRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
 
 ### Return type
 
-[**Destination**](Destination.md)
+[**DestinationRep**](DestinationRep.md)
 
 ### Authorization
 
-[Token](../README.md#Token)
+[ApiKey](../README.md#ApiKey)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **GetDestinations**
-> Destinations GetDestinations(ctx, )
-Returns a list of all data export destinations.
 
-### Required Parameters
+## GetDestinations
+
+> DestinationCollectionRep GetDestinations(ctx).Execute()
+
+List destinations
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DataExportDestinationsApi.GetDestinations(context.Background()).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DataExportDestinationsApi.GetDestinations``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetDestinations`: DestinationCollectionRep
+    fmt.Fprintf(os.Stdout, "Response from `DataExportDestinationsApi.GetDestinations`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 This endpoint does not need any parameter.
 
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetDestinationsRequest struct via the builder pattern
+
+
 ### Return type
 
-[**Destinations**](Destinations.md)
+[**DestinationCollectionRep**](DestinationCollectionRep.md)
 
 ### Authorization
 
-[Token](../README.md#Token)
+[ApiKey](../README.md#ApiKey)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **PatchDestination**
-> Destination PatchDestination(ctx, projectKey, environmentKey, destinationId, patchOnly)
-Perform a partial update to a data export destination.
 
-### Required Parameters
+## PatchDestination
+
+> DestinationRep PatchDestination(ctx, projKey, envKey, id).JSONPatchElt(jSONPatchElt).Execute()
+
+Update Data Export destination
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    projKey := "projKey_example" // string | The project key
+    envKey := "envKey_example" // string | The environment key
+    id := "id_example" // string | The Data Export destination ID
+    jSONPatchElt := []openapiclient.JSONPatchElt{*openapiclient.NewJSONPatchElt()} // []JSONPatchElt | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DataExportDestinationsApi.PatchDestination(context.Background(), projKey, envKey, id).JSONPatchElt(jSONPatchElt).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DataExportDestinationsApi.PatchDestination``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PatchDestination`: DestinationRep
+    fmt.Fprintf(os.Stdout, "Response from `DataExportDestinationsApi.PatchDestination`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
-  **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
-  **destinationId** | **string**| The data export destination ID. | 
-  **patchOnly** | [**[]PatchOperation**](PatchOperation.md)| Requires a JSON Patch representation of the desired changes to the project. &#39;http://jsonpatch.com/&#39; Feature flag patches also support JSON Merge Patch format. &#39;https://tools.ietf.org/html/rfc7386&#39; The addition of comments is also supported. | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projKey** | **string** | The project key | 
+**envKey** | **string** | The environment key | 
+**id** | **string** | The Data Export destination ID | 
 
-### Return type
+### Other Parameters
 
-[**Destination**](Destination.md)
+Other parameters are passed through a pointer to a apiPatchDestinationRequest struct via the builder pattern
 
-### Authorization
-
-[Token](../README.md#Token)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **PostDestination**
-> Destination PostDestination(ctx, projectKey, environmentKey, destinationBody)
-Create a new data export destination
-
-### Required Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
-  **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
-  **destinationBody** | [**DestinationBody**](DestinationBody.md)| Create a new data export destination. | 
+
+
+
+ **jSONPatchElt** | [**[]JSONPatchElt**](JSONPatchElt.md) |  | 
 
 ### Return type
 
-[**Destination**](Destination.md)
+[**DestinationRep**](DestinationRep.md)
 
 ### Authorization
 
-[Token](../README.md#Token)
+[ApiKey](../README.md#ApiKey)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: application/json
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostDestination
+
+> DestinationRep PostDestination(ctx, projKey, envKey).Body(body).Execute()
+
+Create data export destination
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    projKey := "projKey_example" // string | The project key
+    envKey := "envKey_example" // string | The environment key
+    body := "body_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DataExportDestinationsApi.PostDestination(context.Background(), projKey, envKey).Body(body).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DataExportDestinationsApi.PostDestination``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PostDestination`: DestinationRep
+    fmt.Fprintf(os.Stdout, "Response from `DataExportDestinationsApi.PostDestination`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projKey** | **string** | The project key | 
+**envKey** | **string** | The environment key | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostDestinationRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **body** | **string** |  | 
+
+### Return type
+
+[**DestinationRep**](DestinationRep.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
