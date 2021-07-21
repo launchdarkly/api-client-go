@@ -474,7 +474,7 @@ Name | Type | Description  | Notes
 
 ## PatchSegment
 
-> SegmentRep PatchSegment(ctx, projKey, envKey, key).PatchWithComment(patchWithComment).Execute()
+> SegmentRep PatchSegment(ctx, projKey, envKey, key).JSONPatchElt(jSONPatchElt).Execute()
 
 Patch segment
 
@@ -496,11 +496,11 @@ func main() {
     projKey := "projKey_example" // string | The project key. This connects flags within one project so you can manage them together.
     envKey := "envKey_example" // string | The environment key. This connects flag configurations and users under one environment so you can manage them together.
     key := "key_example" // string | The user segment key. The key identifies the user segment in your code.
-    patchWithComment := *openapiclient.NewPatchWithComment() // PatchWithComment | 
+    jSONPatchElt := []openapiclient.JSONPatchElt{*openapiclient.NewJSONPatchElt()} // []JSONPatchElt | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SegmentsApi.PatchSegment(context.Background(), projKey, envKey, key).PatchWithComment(patchWithComment).Execute()
+    resp, r, err := api_client.SegmentsApi.PatchSegment(context.Background(), projKey, envKey, key).JSONPatchElt(jSONPatchElt).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.PatchSegment``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -530,7 +530,7 @@ Name | Type | Description  | Notes
 
 
 
- **patchWithComment** | [**PatchWithComment**](PatchWithComment.md) |  | 
+ **jSONPatchElt** | [**[]JSONPatchElt**](JSONPatchElt.md) |  | 
 
 ### Return type
 
@@ -552,7 +552,7 @@ Name | Type | Description  | Notes
 
 ## PostSegment
 
-> SegmentRep PostSegment(ctx, projKey, envKey).RequestBody(requestBody).Execute()
+> SegmentRep PostSegment(ctx, projKey, envKey).SegmentsSegmentPost(segmentsSegmentPost).Execute()
 
 Create segment
 
@@ -573,11 +573,11 @@ import (
 func main() {
     projKey := "projKey_example" // string | The project key. This connects flags within one project so you can manage them together.
     envKey := "envKey_example" // string | The environment key. This connects flag configurations and users within one environment so you can manage them together.
-    requestBody := []string{"Property_example"} // []string | 
+    segmentsSegmentPost := *openapiclient.NewSegmentsSegmentPost() // SegmentsSegmentPost | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SegmentsApi.PostSegment(context.Background(), projKey, envKey).RequestBody(requestBody).Execute()
+    resp, r, err := api_client.SegmentsApi.PostSegment(context.Background(), projKey, envKey).SegmentsSegmentPost(segmentsSegmentPost).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.PostSegment``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -605,7 +605,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **requestBody** | **[]string** |  | 
+ **segmentsSegmentPost** | [**SegmentsSegmentPost**](SegmentsSegmentPost.md) |  | 
 
 ### Return type
 

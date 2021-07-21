@@ -61,6 +61,7 @@ docs/AuditLogEntryListingRepCollection.md
 docs/AuditLogEntryListingRepCollectionItems.md
 docs/AuthorizedAppDataRep.md
 docs/ClausesClause.md
+docs/ClientSideAvailabilityPost.md
 docs/CodeReferencesApi.md
 docs/ConfidenceIntervalRep.md
 docs/CoreLink.md
@@ -114,6 +115,8 @@ docs/FlagConfigurationRepTargets.md
 docs/FlagDefaultsRep.md
 docs/FlagGlobalAttributesRep.md
 docs/FlagListingRep.md
+docs/FlagPost.md
+docs/FlagPostVariations.md
 docs/FlagStatusCollectionRep.md
 docs/FlagStatusRep.md
 docs/FlagStatusRepFromEnvSummaries.md
@@ -124,6 +127,7 @@ docs/FlagsFlagCopyConfigEnvironment.md
 docs/FlagsFlagCopyConfigPost.md
 docs/FlagsPrerequisite.md
 docs/FlagsTarget.md
+docs/FlagsVariate.md
 docs/GlobalFlagCollectionRep.md
 docs/GlobalFlagRep.md
 docs/GlobalFlagRepEnvironments.md
@@ -175,6 +179,7 @@ docs/SegmentRep.md
 docs/SegmentRepRules.md
 docs/SegmentRuleRep.md
 docs/SegmentsApi.md
+docs/SegmentsSegmentPost.md
 docs/SegmentsUnboundedTargetRep.md
 docs/SharedUrlPost.md
 docs/StatementRep.md
@@ -263,6 +268,7 @@ model_audit_log_entry_listing_rep_collection.go
 model_audit_log_entry_listing_rep_collection_items.go
 model_authorized_app_data_rep.go
 model_clauses_clause.go
+model_client_side_availability_post.go
 model_confidence_interval_rep.go
 model_core_link.go
 model_custom_property.go
@@ -310,6 +316,8 @@ model_flag_configuration_rep_targets.go
 model_flag_defaults_rep.go
 model_flag_global_attributes_rep.go
 model_flag_listing_rep.go
+model_flag_post.go
+model_flag_post_variations.go
 model_flag_status_collection_rep.go
 model_flag_status_rep.go
 model_flag_status_rep_from_env_summaries.go
@@ -320,6 +328,7 @@ model_flags_flag_copy_config_environment.go
 model_flags_flag_copy_config_post.go
 model_flags_prerequisite.go
 model_flags_target.go
+model_flags_variate.go
 model_global_flag_collection_rep.go
 model_global_flag_rep.go
 model_global_flag_rep_environments.go
@@ -366,6 +375,7 @@ model_scheduled_changes_rep.go
 model_segment_rep.go
 model_segment_rep_rules.go
 model_segment_rule_rep.go
+model_segments_segment_post.go
 model_segments_unbounded_target_rep.go
 model_shared_url_post.go
 model_statement_rep.go

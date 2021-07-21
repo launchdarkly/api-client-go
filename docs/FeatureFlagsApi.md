@@ -781,7 +781,7 @@ Name | Type | Description  | Notes
 
 ## PostFeatureFlag
 
-> GlobalFlagRep PostFeatureFlag(ctx, projKey).GlobalFlagRep(globalFlagRep).Clone(clone).Execute()
+> GlobalFlagRep PostFeatureFlag(ctx, projKey).FlagPost(flagPost).Clone(clone).Execute()
 
 Create a feature flag
 
@@ -801,12 +801,12 @@ import (
 
 func main() {
     projKey := "projKey_example" // string | The project key. This connects flags within one project so you can manage them together.
-    globalFlagRep := *openapiclient.NewGlobalFlagRep() // GlobalFlagRep | 
+    flagPost := *openapiclient.NewFlagPost() // FlagPost | 
     clone := "clone_example" // string | The key of the feature flag to be cloned. The key identifies the flag in your code. For example, setting `clone=flagKey` copies the full targeting configuration for all environments, including `on/off` state, from the original flag to the new flag. (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.FeatureFlagsApi.PostFeatureFlag(context.Background(), projKey).GlobalFlagRep(globalFlagRep).Clone(clone).Execute()
+    resp, r, err := api_client.FeatureFlagsApi.PostFeatureFlag(context.Background(), projKey).FlagPost(flagPost).Clone(clone).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.PostFeatureFlag``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -832,7 +832,7 @@ Other parameters are passed through a pointer to a apiPostFeatureFlagRequest str
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **globalFlagRep** | [**GlobalFlagRep**](GlobalFlagRep.md) |  | 
+ **flagPost** | [**FlagPost**](FlagPost.md) |  | 
  **clone** | **string** | The key of the feature flag to be cloned. The key identifies the flag in your code. For example, setting &#x60;clone&#x3D;flagKey&#x60; copies the full targeting configuration for all environments, including &#x60;on/off&#x60; state, from the original flag to the new flag. | 
 
 ### Return type

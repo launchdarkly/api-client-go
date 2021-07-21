@@ -801,11 +801,11 @@ type ApiPatchSegmentRequest struct {
 	projKey string
 	envKey string
 	key string
-	patchWithComment *PatchWithComment
+	jSONPatchElt *[]JSONPatchElt
 }
 
-func (r ApiPatchSegmentRequest) PatchWithComment(patchWithComment PatchWithComment) ApiPatchSegmentRequest {
-	r.patchWithComment = &patchWithComment
+func (r ApiPatchSegmentRequest) JSONPatchElt(jSONPatchElt []JSONPatchElt) ApiPatchSegmentRequest {
+	r.jSONPatchElt = &jSONPatchElt
 	return r
 }
 
@@ -859,8 +859,8 @@ func (a *SegmentsApiService) PatchSegmentExecute(r ApiPatchSegmentRequest) (Segm
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-	if r.patchWithComment == nil {
-		return localVarReturnValue, nil, reportError("patchWithComment is required and must be specified")
+	if r.jSONPatchElt == nil {
+		return localVarReturnValue, nil, reportError("jSONPatchElt is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -881,7 +881,7 @@ func (a *SegmentsApiService) PatchSegmentExecute(r ApiPatchSegmentRequest) (Segm
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.patchWithComment
+	localVarPostBody = r.jSONPatchElt
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -938,11 +938,11 @@ type ApiPostSegmentRequest struct {
 	ApiService *SegmentsApiService
 	projKey string
 	envKey string
-	requestBody *[]string
+	segmentsSegmentPost *SegmentsSegmentPost
 }
 
-func (r ApiPostSegmentRequest) RequestBody(requestBody []string) ApiPostSegmentRequest {
-	r.requestBody = &requestBody
+func (r ApiPostSegmentRequest) SegmentsSegmentPost(segmentsSegmentPost SegmentsSegmentPost) ApiPostSegmentRequest {
+	r.segmentsSegmentPost = &segmentsSegmentPost
 	return r
 }
 
@@ -993,8 +993,8 @@ func (a *SegmentsApiService) PostSegmentExecute(r ApiPostSegmentRequest) (Segmen
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-	if r.requestBody == nil {
-		return localVarReturnValue, nil, reportError("requestBody is required and must be specified")
+	if r.segmentsSegmentPost == nil {
+		return localVarReturnValue, nil, reportError("segmentsSegmentPost is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1015,7 +1015,7 @@ func (a *SegmentsApiService) PostSegmentExecute(r ApiPostSegmentRequest) (Segmen
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.requestBody
+	localVarPostBody = r.segmentsSegmentPost
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {

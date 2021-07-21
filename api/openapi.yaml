@@ -17,7 +17,6 @@ security:
   - write
 tags:
 - name: Access tokens
-- name: Account usage
 - name: Approvals
 - name: Audit log
 - name: Code references
@@ -28,13 +27,11 @@ tags:
 - name: Feature flags
 - name: Metrics
 - name: Projects
-- name: Relay proxy configurations
 - name: Scheduled changes
 - name: Segments
 - name: Team members
 - name: Users
 - name: User settings
-- name: Webhooks
 - name: Other
 paths:
   /api/v2:
@@ -1122,7 +1119,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/GlobalFlagRep'
+              $ref: '#/components/schemas/FlagPost'
         required: true
       responses:
         "201":
@@ -3346,9 +3343,7 @@ paths:
         content:
           application/json:
             schema:
-              items:
-                type: string
-              type: array
+              $ref: '#/components/schemas/segments.SegmentPost'
         required: true
       responses:
         "201":
@@ -3526,7 +3521,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PatchWithComment'
+              $ref: '#/components/schemas/JSONPatch'
         required: true
       responses:
         "200":
@@ -5054,6 +5049,16 @@ components:
         maintainerName:
           type: string
       type: object
+    ClientSideAvailabilityPost:
+      example:
+        usingEnvironmentId: true
+        usingMobileKey: true
+      properties:
+        usingEnvironmentId:
+          type: boolean
+        usingMobileKey:
+          type: boolean
+      type: object
     ConfidenceIntervalRep:
       example:
         upper: 5.637376656633329
@@ -6420,6 +6425,67 @@ components:
           type: object
         _site:
           $ref: '#/components/schemas/core.Link'
+      type: object
+    FlagPost:
+      example:
+        temporary: true
+        includeInSnippet: true
+        customProperties:
+          key:
+            name: name
+            value:
+            - value
+            - value
+        clientSideAvailability:
+          usingEnvironmentId: true
+          usingMobileKey: true
+        defaults:
+          onVariation: 2
+          offVariation: 4
+        variations:
+        - name: name
+          description: description
+          id: id
+          value: ""
+        - name: name
+          description: description
+          id: id
+          value: ""
+        name: name
+        description: description
+        key: key
+        variationJsonSchema: ""
+        tags:
+        - tags
+        - tags
+      properties:
+        name:
+          type: string
+        key:
+          type: string
+        description:
+          type: string
+        includeInSnippet:
+          type: boolean
+        clientSideAvailability:
+          $ref: '#/components/schemas/ClientSideAvailabilityPost'
+        variations:
+          items:
+            $ref: '#/components/schemas/FlagPost_variations'
+          type: array
+        variationJsonSchema: {}
+        temporary:
+          type: boolean
+        tags:
+          items:
+            type: string
+          type: array
+        customProperties:
+          additionalProperties:
+            $ref: '#/components/schemas/customProperty'
+          type: object
+        defaults:
+          $ref: '#/components/schemas/FlagDefaultsRep'
       type: object
     FlagStatusCollectionRep:
       example:
@@ -10719,6 +10785,16 @@ components:
         variation:
           type: integer
       type: object
+    flags.Variate:
+      properties:
+        id:
+          type: string
+        value: {}
+        description:
+          type: string
+        name:
+          type: string
+      type: object
     ftime.UnixMillis:
       format: int64
       type: integer
@@ -10927,6 +11003,21 @@ components:
       items:
         $ref: '#/components/schemas/roles.StatementPost'
       type: array
+    segments.SegmentPost:
+      properties:
+        name:
+          type: string
+        key:
+          type: string
+        description:
+          type: string
+        tags:
+          items:
+            type: string
+          type: array
+        unbounded:
+          type: boolean
+      type: object
     segments.unboundedTargetRep:
       example:
         excluded: true
@@ -11979,6 +12070,21 @@ components:
           type: string
         variation:
           type: integer
+      type: object
+    FlagPost_variations:
+      example:
+        name: name
+        description: description
+        id: id
+        value: ""
+      properties:
+        id:
+          type: string
+        value: {}
+        description:
+          type: string
+        name:
+          type: string
       type: object
     FlagStatusRepFromEnvSummaries_environments:
       example:
