@@ -5510,8 +5510,7 @@ components:
       example:
         kind: kinesis
         name: Example Google Pub/Sub Destination
-        config:
-          key: config
+        config: ""
         "on": true
       properties:
         name:
@@ -5523,10 +5522,7 @@ components:
           - kinesis
           - pubsub
           type: string
-        config:
-          additionalProperties:
-            type: string
-          type: object
+        config: {}
         "on":
           type: boolean
       type: object

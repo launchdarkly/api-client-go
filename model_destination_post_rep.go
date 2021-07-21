@@ -20,7 +20,7 @@ type DestinationPostRep struct {
 	// A human-readable name for your data export destination.
 	Name *string `json:"name,omitempty"`
 	Kind *string `json:"kind,omitempty"`
-	Config *map[string]string `json:"config,omitempty"`
+	Config interface{} `json:"config,omitempty"`
 	On *bool `json:"on,omitempty"`
 }
 
@@ -105,22 +105,23 @@ func (o *DestinationPostRep) SetKind(v string) {
 	o.Kind = &v
 }
 
-// GetConfig returns the Config field value if set, zero value otherwise.
-func (o *DestinationPostRep) GetConfig() map[string]string {
-	if o == nil || o.Config == nil {
-		var ret map[string]string
+// GetConfig returns the Config field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *DestinationPostRep) GetConfig() interface{} {
+	if o == nil  {
+		var ret interface{}
 		return ret
 	}
-	return *o.Config
+	return o.Config
 }
 
 // GetConfigOk returns a tuple with the Config field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DestinationPostRep) GetConfigOk() (*map[string]string, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *DestinationPostRep) GetConfigOk() (*interface{}, bool) {
 	if o == nil || o.Config == nil {
 		return nil, false
 	}
-	return o.Config, true
+	return &o.Config, true
 }
 
 // HasConfig returns a boolean if a field has been set.
@@ -132,9 +133,9 @@ func (o *DestinationPostRep) HasConfig() bool {
 	return false
 }
 
-// SetConfig gets a reference to the given map[string]string and assigns it to the Config field.
-func (o *DestinationPostRep) SetConfig(v map[string]string) {
-	o.Config = &v
+// SetConfig gets a reference to the given interface{} and assigns it to the Config field.
+func (o *DestinationPostRep) SetConfig(v interface{}) {
+	o.Config = v
 }
 
 // GetOn returns the On field value if set, zero value otherwise.

@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | Pointer to **string** | A human-readable name for your data export destination. | [optional] 
 **Kind** | Pointer to **string** |  | [optional] 
-**Config** | Pointer to **map[string]string** |  | [optional] 
+**Config** | Pointer to **interface{}** |  | [optional] 
 **On** | Pointer to **bool** |  | [optional] 
 
 ## Methods
@@ -80,20 +80,20 @@ HasKind returns a boolean if a field has been set.
 
 ### GetConfig
 
-`func (o *DestinationPostRep) GetConfig() map[string]string`
+`func (o *DestinationPostRep) GetConfig() interface{}`
 
 GetConfig returns the Config field if non-nil, zero value otherwise.
 
 ### GetConfigOk
 
-`func (o *DestinationPostRep) GetConfigOk() (*map[string]string, bool)`
+`func (o *DestinationPostRep) GetConfigOk() (*interface{}, bool)`
 
 GetConfigOk returns a tuple with the Config field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetConfig
 
-`func (o *DestinationPostRep) SetConfig(v map[string]string)`
+`func (o *DestinationPostRep) SetConfig(v interface{})`
 
 SetConfig sets Config field to given value.
 
@@ -103,6 +103,16 @@ SetConfig sets Config field to given value.
 
 HasConfig returns a boolean if a field has been set.
 
+### SetConfigNil
+
+`func (o *DestinationPostRep) SetConfigNil(b bool)`
+
+ SetConfigNil sets the value for Config to be an explicit nil
+
+### UnsetConfig
+`func (o *DestinationPostRep) UnsetConfig()`
+
+UnsetConfig ensures that no value is present for Config, not even an explicit nil
 ### GetOn
 
 `func (o *DestinationPostRep) GetOn() bool`
