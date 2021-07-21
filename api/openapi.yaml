@@ -3521,7 +3521,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/JSONPatch'
+              $ref: '#/components/schemas/PatchWithComment'
         required: true
       responses:
         "200":

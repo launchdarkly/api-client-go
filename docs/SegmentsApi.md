@@ -474,7 +474,7 @@ Name | Type | Description  | Notes
 
 ## PatchSegment
 
-> SegmentRep PatchSegment(ctx, projKey, envKey, key).JSONPatchElt(jSONPatchElt).Execute()
+> SegmentRep PatchSegment(ctx, projKey, envKey, key).PatchWithComment(patchWithComment).Execute()
 
 Patch segment
 
@@ -496,11 +496,11 @@ func main() {
     projKey := "projKey_example" // string | The project key. This connects flags within one project so you can manage them together.
     envKey := "envKey_example" // string | The environment key. This connects flag configurations and users under one environment so you can manage them together.
     key := "key_example" // string | The user segment key. The key identifies the user segment in your code.
-    jSONPatchElt := []openapiclient.JSONPatchElt{*openapiclient.NewJSONPatchElt()} // []JSONPatchElt | 
+    patchWithComment := *openapiclient.NewPatchWithComment() // PatchWithComment | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SegmentsApi.PatchSegment(context.Background(), projKey, envKey, key).JSONPatchElt(jSONPatchElt).Execute()
+    resp, r, err := api_client.SegmentsApi.PatchSegment(context.Background(), projKey, envKey, key).PatchWithComment(patchWithComment).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.PatchSegment``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -530,7 +530,7 @@ Name | Type | Description  | Notes
 
 
 
- **jSONPatchElt** | [**[]JSONPatchElt**](JSONPatchElt.md) |  | 
+ **patchWithComment** | [**PatchWithComment**](PatchWithComment.md) |  | 
 
 ### Return type
 
