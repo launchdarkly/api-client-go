@@ -552,7 +552,7 @@ Name | Type | Description  | Notes
 
 ## PostSegment
 
-> SegmentRep PostSegment(ctx, projKey, envKey).SegmentsSegmentPost(segmentsSegmentPost).Execute()
+> SegmentRep PostSegment(ctx, projKey, envKey).RequestBody(requestBody).Execute()
 
 Create segment
 
@@ -573,11 +573,11 @@ import (
 func main() {
     projKey := "projKey_example" // string | The project key. This connects flags within one project so you can manage them together.
     envKey := "envKey_example" // string | The environment key. This connects flag configurations and users within one environment so you can manage them together.
-    segmentsSegmentPost := *openapiclient.NewSegmentsSegmentPost() // SegmentsSegmentPost | 
+    requestBody := []string{"Property_example"} // []string | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SegmentsApi.PostSegment(context.Background(), projKey, envKey).SegmentsSegmentPost(segmentsSegmentPost).Execute()
+    resp, r, err := api_client.SegmentsApi.PostSegment(context.Background(), projKey, envKey).RequestBody(requestBody).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.PostSegment``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -605,7 +605,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **segmentsSegmentPost** | [**SegmentsSegmentPost**](SegmentsSegmentPost.md) |  | 
+ **requestBody** | **[]string** |  | 
 
 ### Return type
 

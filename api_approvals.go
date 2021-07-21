@@ -830,3 +830,141 @@ func (a *ApprovalsApiService) PostApprovalRequestReviewExecute(r ApiPostApproval
 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
+
+type ApiPostCopyFlagConfigApprovalRequestRequest struct {
+	ctx _context.Context
+	ApiService *ApprovalsApiService
+	projectKey string
+	featureFlagKey string
+	environmentKey string
+	approvalsEndpointsCreateCopyFlagConfigApprovalRequestRequest *ApprovalsEndpointsCreateCopyFlagConfigApprovalRequestRequest
+}
+
+func (r ApiPostCopyFlagConfigApprovalRequestRequest) ApprovalsEndpointsCreateCopyFlagConfigApprovalRequestRequest(approvalsEndpointsCreateCopyFlagConfigApprovalRequestRequest ApprovalsEndpointsCreateCopyFlagConfigApprovalRequestRequest) ApiPostCopyFlagConfigApprovalRequestRequest {
+	r.approvalsEndpointsCreateCopyFlagConfigApprovalRequestRequest = &approvalsEndpointsCreateCopyFlagConfigApprovalRequestRequest
+	return r
+}
+
+func (r ApiPostCopyFlagConfigApprovalRequestRequest) Execute() (WebFlagConfigApprovalRequestResponse, *_nethttp.Response, error) {
+	return r.ApiService.PostCopyFlagConfigApprovalRequestExecute(r)
+}
+
+/*
+ * PostCopyFlagConfigApprovalRequest Create approval request to copy flag configurations across environments
+ *  Create an approval request to copy a feature flag's configuration across environments.
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param projectKey The project key
+ * @param featureFlagKey The feature flag's key
+ * @param environmentKey The environment key
+ * @return ApiPostCopyFlagConfigApprovalRequestRequest
+ */
+func (a *ApprovalsApiService) PostCopyFlagConfigApprovalRequest(ctx _context.Context, projectKey string, featureFlagKey string, environmentKey string) ApiPostCopyFlagConfigApprovalRequestRequest {
+	return ApiPostCopyFlagConfigApprovalRequestRequest{
+		ApiService: a,
+		ctx: ctx,
+		projectKey: projectKey,
+		featureFlagKey: featureFlagKey,
+		environmentKey: environmentKey,
+	}
+}
+
+/*
+ * Execute executes the request
+ * @return WebFlagConfigApprovalRequestResponse
+ */
+func (a *ApprovalsApiService) PostCopyFlagConfigApprovalRequestExecute(r ApiPostCopyFlagConfigApprovalRequestRequest) (WebFlagConfigApprovalRequestResponse, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  WebFlagConfigApprovalRequestResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApprovalsApiService.PostCopyFlagConfigApprovalRequest")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v2/projects/{projectKey}/flags/{featureFlagKey}/copy/environments/{environmentKey}/approval-requests-flag-copy"
+	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", _neturl.PathEscape(parameterToString(r.projectKey, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"featureFlagKey"+"}", _neturl.PathEscape(parameterToString(r.featureFlagKey, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"environmentKey"+"}", _neturl.PathEscape(parameterToString(r.environmentKey, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+	if r.approvalsEndpointsCreateCopyFlagConfigApprovalRequestRequest == nil {
+		return localVarReturnValue, nil, reportError("approvalsEndpointsCreateCopyFlagConfigApprovalRequestRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.approvalsEndpointsCreateCopyFlagConfigApprovalRequestRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["ApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}

@@ -572,7 +572,7 @@ paths:
         content:
           application/json:
             schema:
-              type: string
+              $ref: '#/components/schemas/DestinationPostRep'
         required: true
       responses:
         "201":
@@ -1122,7 +1122,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/FlagPost'
+              $ref: '#/components/schemas/GlobalFlagRep'
         required: true
       responses:
         "201":
@@ -2269,6 +2269,68 @@ paths:
       summary: Patch environment by key
       tags:
       - Environments
+  /api/v2/projects/{projectKey}/flags/{featureFlagKey}/copy/environments/{environmentKey}/approval-requests-flag-copy:
+    post:
+      description: ' Create an approval request to copy a feature flag''s configuration
+        across environments.'
+      operationId: postCopyFlagConfigApprovalRequest
+      parameters:
+      - description: The project key
+        explode: false
+        in: path
+        name: projectKey
+        required: true
+        schema:
+          description: The project key
+          format: string
+          type: string
+        style: simple
+      - description: The feature flag's key
+        explode: false
+        in: path
+        name: featureFlagKey
+        required: true
+        schema:
+          description: The feature flag's key
+          format: string
+          type: string
+        style: simple
+      - description: The environment key
+        explode: false
+        in: path
+        name: environmentKey
+        required: true
+        schema:
+          description: The environment key
+          format: string
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/approvals_endpoints.createCopyFlagConfigApprovalRequestRequest'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/web.FlagConfigApprovalRequestResponse'
+          description: Successful approval request response
+        "400":
+          description: Invalid request body
+        "401":
+          description: Invalid access token
+        "403":
+          description: Forbidden
+        "409":
+          description: Conflict
+        "429":
+          description: Rate limited
+      summary: Create approval request to copy flag configurations across environments
+      tags:
+      - Approvals
   /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests:
     get:
       description: ' Get all approval requests for a feature flag'
@@ -3284,7 +3346,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/segments.SegmentPost'
+              items:
+                type: string
+              type: array
         required: true
       responses:
         "201":
@@ -4990,16 +5054,6 @@ components:
         maintainerName:
           type: string
       type: object
-    ClientSideAvailabilityPost:
-      example:
-        usingEnvironmentId: true
-        usingMobileKey: true
-      properties:
-        usingEnvironmentId:
-          type: boolean
-        usingMobileKey:
-          type: boolean
-      type: object
     ConfidenceIntervalRep:
       example:
         upper: 5.637376656633329
@@ -5451,6 +5505,30 @@ components:
           items:
             $ref: '#/components/schemas/DestinationRep'
           type: array
+      type: object
+    DestinationPostRep:
+      example:
+        kind: kinesis
+        name: Example Google Pub/Sub Destination
+        config:
+          key: config
+        "on": true
+      properties:
+        name:
+          description: A human-readable name for your data export destination.
+          example: Example Google Pub/Sub Destination
+          type: string
+        kind:
+          enum:
+          - kinesis
+          - pubsub
+          type: string
+        config:
+          additionalProperties:
+            type: string
+          type: object
+        "on":
+          type: boolean
       type: object
     DestinationRep:
       example:
@@ -6346,67 +6424,6 @@ components:
           type: object
         _site:
           $ref: '#/components/schemas/core.Link'
-      type: object
-    FlagPost:
-      example:
-        temporary: true
-        includeInSnippet: true
-        customProperties:
-          key:
-            name: name
-            value:
-            - value
-            - value
-        clientSideAvailability:
-          usingEnvironmentId: true
-          usingMobileKey: true
-        defaults:
-          onVariation: 2
-          offVariation: 4
-        variations:
-        - name: name
-          description: description
-          id: id
-          value: ""
-        - name: name
-          description: description
-          id: id
-          value: ""
-        name: name
-        description: description
-        key: key
-        variationJsonSchema: ""
-        tags:
-        - tags
-        - tags
-      properties:
-        name:
-          type: string
-        key:
-          type: string
-        description:
-          type: string
-        includeInSnippet:
-          type: boolean
-        clientSideAvailability:
-          $ref: '#/components/schemas/ClientSideAvailabilityPost'
-        variations:
-          items:
-            $ref: '#/components/schemas/FlagPost_variations'
-          type: array
-        variationJsonSchema: {}
-        temporary:
-          type: boolean
-        tags:
-          items:
-            type: string
-          type: array
-        customProperties:
-          additionalProperties:
-            $ref: '#/components/schemas/customProperty'
-          type: object
-        defaults:
-          $ref: '#/components/schemas/FlagDefaultsRep'
       type: object
     FlagStatusCollectionRep:
       example:
@@ -10531,6 +10548,27 @@ components:
             type: string
           type: array
       type: object
+    approvals_endpoints.createCopyFlagConfigApprovalRequestRequest:
+      properties:
+        comment:
+          type: string
+        description:
+          type: string
+        notifyMemberIds:
+          items:
+            type: string
+          type: array
+        source:
+          $ref: '#/components/schemas/approvals_endpoints.sourceFlag'
+        includedActions:
+          items:
+            type: string
+          type: array
+        excludedActions:
+          items:
+            type: string
+          type: array
+      type: object
     approvals_endpoints.createFlagConfigApprovalRequestRequest:
       properties:
         comment:
@@ -10562,6 +10600,13 @@ components:
           type: string
         comment:
           type: string
+      type: object
+    approvals_endpoints.sourceFlag:
+      properties:
+        key:
+          type: string
+        version:
+          type: integer
       type: object
     bson.ObjectId:
       type: string
@@ -10677,16 +10722,6 @@ components:
           type: array
         variation:
           type: integer
-      type: object
-    flags.Variate:
-      properties:
-        id:
-          type: string
-        value: {}
-        description:
-          type: string
-        name:
-          type: string
       type: object
     ftime.UnixMillis:
       format: int64
@@ -10896,21 +10931,6 @@ components:
       items:
         $ref: '#/components/schemas/roles.StatementPost'
       type: array
-    segments.SegmentPost:
-      properties:
-        name:
-          type: string
-        key:
-          type: string
-        description:
-          type: string
-        tags:
-          items:
-            type: string
-          type: array
-        unbounded:
-          type: boolean
-      type: object
     segments.unboundedTargetRep:
       example:
         excluded: true
@@ -11075,6 +11095,16 @@ components:
             $ref: '#/components/schemas/web_ConflictResponse_conflicts'
           type: array
       type: object
+    web.CopiedFromEnv:
+      example:
+        version: 7
+        key: key
+      properties:
+        key:
+          type: string
+        version:
+          type: integer
+      type: object
     web.ExpiringUserTargetError:
       properties:
         instructionIndex:
@@ -11186,6 +11216,9 @@ components:
         executionDate: 5
         description: description
         appliedDate: 5
+        source:
+          version: 7
+          key: key
         creationDate: 6
         requestorId: requestorId
         integrationMetadata:
@@ -11258,6 +11291,8 @@ components:
           type: string
         integrationMetadata:
           $ref: '#/components/schemas/web.IntegrationMetadata'
+        source:
+          $ref: '#/components/schemas/web.CopiedFromEnv'
       type: object
     web.FlagScheduledChangesInput:
       properties:
@@ -11948,21 +11983,6 @@ components:
           type: string
         variation:
           type: integer
-      type: object
-    FlagPost_variations:
-      example:
-        name: name
-        description: description
-        id: id
-        value: ""
-      properties:
-        id:
-          type: string
-        value: {}
-        description:
-          type: string
-        name:
-          type: string
       type: object
     FlagStatusRepFromEnvSummaries_environments:
       example:

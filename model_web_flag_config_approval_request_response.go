@@ -35,6 +35,7 @@ type WebFlagConfigApprovalRequestResponse struct {
 	ExecutionDate *int64 `json:"executionDate,omitempty"`
 	OperatingOnId *string `json:"operatingOnId,omitempty"`
 	IntegrationMetadata *WebIntegrationMetadata `json:"integrationMetadata,omitempty"`
+	Source *WebCopiedFromEnv `json:"source,omitempty"`
 }
 
 // NewWebFlagConfigApprovalRequestResponse instantiates a new WebFlagConfigApprovalRequestResponse object
@@ -630,6 +631,38 @@ func (o *WebFlagConfigApprovalRequestResponse) SetIntegrationMetadata(v WebInteg
 	o.IntegrationMetadata = &v
 }
 
+// GetSource returns the Source field value if set, zero value otherwise.
+func (o *WebFlagConfigApprovalRequestResponse) GetSource() WebCopiedFromEnv {
+	if o == nil || o.Source == nil {
+		var ret WebCopiedFromEnv
+		return ret
+	}
+	return *o.Source
+}
+
+// GetSourceOk returns a tuple with the Source field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *WebFlagConfigApprovalRequestResponse) GetSourceOk() (*WebCopiedFromEnv, bool) {
+	if o == nil || o.Source == nil {
+		return nil, false
+	}
+	return o.Source, true
+}
+
+// HasSource returns a boolean if a field has been set.
+func (o *WebFlagConfigApprovalRequestResponse) HasSource() bool {
+	if o != nil && o.Source != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSource gets a reference to the given WebCopiedFromEnv and assigns it to the Source field.
+func (o *WebFlagConfigApprovalRequestResponse) SetSource(v WebCopiedFromEnv) {
+	o.Source = &v
+}
+
 func (o WebFlagConfigApprovalRequestResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Id != nil {
@@ -685,6 +718,9 @@ func (o WebFlagConfigApprovalRequestResponse) MarshalJSON() ([]byte, error) {
 	}
 	if o.IntegrationMetadata != nil {
 		toSerialize["integrationMetadata"] = o.IntegrationMetadata
+	}
+	if o.Source != nil {
+		toSerialize["source"] = o.Source
 	}
 	return json.Marshal(toSerialize)
 }

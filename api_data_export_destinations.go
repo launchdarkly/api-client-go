@@ -532,11 +532,11 @@ type ApiPostDestinationRequest struct {
 	ApiService *DataExportDestinationsApiService
 	projKey string
 	envKey string
-	body *string
+	destinationPostRep *DestinationPostRep
 }
 
-func (r ApiPostDestinationRequest) Body(body string) ApiPostDestinationRequest {
-	r.body = &body
+func (r ApiPostDestinationRequest) DestinationPostRep(destinationPostRep DestinationPostRep) ApiPostDestinationRequest {
+	r.destinationPostRep = &destinationPostRep
 	return r
 }
 
@@ -587,8 +587,8 @@ func (a *DataExportDestinationsApiService) PostDestinationExecute(r ApiPostDesti
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	if r.destinationPostRep == nil {
+		return localVarReturnValue, nil, reportError("destinationPostRep is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -609,7 +609,7 @@ func (a *DataExportDestinationsApiService) PostDestinationExecute(r ApiPostDesti
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.body
+	localVarPostBody = r.destinationPostRep
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {

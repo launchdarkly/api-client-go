@@ -49,9 +49,11 @@ docs/ApiStatisticCollectionRep.md
 docs/ApiStatisticRep.md
 docs/ApprovalSettingsRep.md
 docs/ApprovalsApi.md
+docs/ApprovalsEndpointsCreateCopyFlagConfigApprovalRequestRequest.md
 docs/ApprovalsEndpointsCreateFlagConfigApprovalRequestRequest.md
 docs/ApprovalsEndpointsPostApprovalRequestApplyRequest.md
 docs/ApprovalsEndpointsPostApprovalRequestReviewRequest.md
+docs/ApprovalsEndpointsSourceFlag.md
 docs/AuditLogApi.md
 docs/AuditLogEntryListingRep.md
 docs/AuditLogEntryListingRepAccesses.md
@@ -59,7 +61,6 @@ docs/AuditLogEntryListingRepCollection.md
 docs/AuditLogEntryListingRepCollectionItems.md
 docs/AuthorizedAppDataRep.md
 docs/ClausesClause.md
-docs/ClientSideAvailabilityPost.md
 docs/CodeReferencesApi.md
 docs/ConfidenceIntervalRep.md
 docs/CoreLink.md
@@ -76,6 +77,7 @@ docs/DependentFlagWithEnvs.md
 docs/DependentFlagWithEnvsEnvironments.md
 docs/DependentFlagsCollectionRep.md
 docs/DestinationCollectionRep.md
+docs/DestinationPostRep.md
 docs/DestinationRep.md
 docs/EnvironmentPost.md
 docs/EnvironmentRep.md
@@ -112,8 +114,6 @@ docs/FlagConfigurationRepTargets.md
 docs/FlagDefaultsRep.md
 docs/FlagGlobalAttributesRep.md
 docs/FlagListingRep.md
-docs/FlagPost.md
-docs/FlagPostVariations.md
 docs/FlagStatusCollectionRep.md
 docs/FlagStatusRep.md
 docs/FlagStatusRepFromEnvSummaries.md
@@ -124,7 +124,6 @@ docs/FlagsFlagCopyConfigEnvironment.md
 docs/FlagsFlagCopyConfigPost.md
 docs/FlagsPrerequisite.md
 docs/FlagsTarget.md
-docs/FlagsVariate.md
 docs/GlobalFlagCollectionRep.md
 docs/GlobalFlagRep.md
 docs/GlobalFlagRepEnvironments.md
@@ -176,7 +175,6 @@ docs/SegmentRep.md
 docs/SegmentRepRules.md
 docs/SegmentRuleRep.md
 docs/SegmentsApi.md
-docs/SegmentsSegmentPost.md
 docs/SegmentsUnboundedTargetRep.md
 docs/SharedUrlPost.md
 docs/StatementRep.md
@@ -208,6 +206,7 @@ docs/WebConflictResponseConflict.md
 docs/WebConflictResponseConflicts.md
 docs/WebConflictResponseInstruction.md
 docs/WebConflictResponseItems.md
+docs/WebCopiedFromEnv.md
 docs/WebExpiringUserTargetError.md
 docs/WebExpiringUserTargetItem.md
 docs/WebExpiringUserTargetResponse.md
@@ -253,16 +252,17 @@ model_api_repository_rep.go
 model_api_statistic_collection_rep.go
 model_api_statistic_rep.go
 model_approval_settings_rep.go
+model_approvals_endpoints_create_copy_flag_config_approval_request_request.go
 model_approvals_endpoints_create_flag_config_approval_request_request.go
 model_approvals_endpoints_post_approval_request_apply_request.go
 model_approvals_endpoints_post_approval_request_review_request.go
+model_approvals_endpoints_source_flag.go
 model_audit_log_entry_listing_rep.go
 model_audit_log_entry_listing_rep_accesses.go
 model_audit_log_entry_listing_rep_collection.go
 model_audit_log_entry_listing_rep_collection_items.go
 model_authorized_app_data_rep.go
 model_clauses_clause.go
-model_client_side_availability_post.go
 model_confidence_interval_rep.go
 model_core_link.go
 model_custom_property.go
@@ -276,6 +276,7 @@ model_dependent_flag_with_envs.go
 model_dependent_flag_with_envs_environments.go
 model_dependent_flags_collection_rep.go
 model_destination_collection_rep.go
+model_destination_post_rep.go
 model_destination_rep.go
 model_environment_post.go
 model_environment_rep.go
@@ -309,8 +310,6 @@ model_flag_configuration_rep_targets.go
 model_flag_defaults_rep.go
 model_flag_global_attributes_rep.go
 model_flag_listing_rep.go
-model_flag_post.go
-model_flag_post_variations.go
 model_flag_status_collection_rep.go
 model_flag_status_rep.go
 model_flag_status_rep_from_env_summaries.go
@@ -321,7 +320,6 @@ model_flags_flag_copy_config_environment.go
 model_flags_flag_copy_config_post.go
 model_flags_prerequisite.go
 model_flags_target.go
-model_flags_variate.go
 model_global_flag_collection_rep.go
 model_global_flag_rep.go
 model_global_flag_rep_environments.go
@@ -368,7 +366,6 @@ model_scheduled_changes_rep.go
 model_segment_rep.go
 model_segment_rep_rules.go
 model_segment_rule_rep.go
-model_segments_segment_post.go
 model_segments_unbounded_target_rep.go
 model_shared_url_post.go
 model_statement_rep.go
@@ -397,6 +394,7 @@ model_web_conflict_response_conflict.go
 model_web_conflict_response_conflicts.go
 model_web_conflict_response_instruction.go
 model_web_conflict_response_items.go
+model_web_copied_from_env.go
 model_web_expiring_user_target_error.go
 model_web_expiring_user_target_item.go
 model_web_expiring_user_target_response.go

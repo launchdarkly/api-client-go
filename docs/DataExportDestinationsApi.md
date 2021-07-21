@@ -303,7 +303,7 @@ Name | Type | Description  | Notes
 
 ## PostDestination
 
-> DestinationRep PostDestination(ctx, projKey, envKey).Body(body).Execute()
+> DestinationRep PostDestination(ctx, projKey, envKey).DestinationPostRep(destinationPostRep).Execute()
 
 Create data export destination
 
@@ -324,11 +324,11 @@ import (
 func main() {
     projKey := "projKey_example" // string | The project key
     envKey := "envKey_example" // string | The environment key
-    body := "body_example" // string | 
+    destinationPostRep := *openapiclient.NewDestinationPostRep() // DestinationPostRep | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DataExportDestinationsApi.PostDestination(context.Background(), projKey, envKey).Body(body).Execute()
+    resp, r, err := api_client.DataExportDestinationsApi.PostDestination(context.Background(), projKey, envKey).DestinationPostRep(destinationPostRep).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DataExportDestinationsApi.PostDestination``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -356,7 +356,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **body** | **string** |  | 
+ **destinationPostRep** | [**DestinationPostRep**](DestinationPostRep.md) |  | 
 
 ### Return type
 

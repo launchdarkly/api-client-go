@@ -10,6 +10,7 @@ Method | HTTP request | Description
 [**PostApprovalRequest**](ApprovalsApi.md#PostApprovalRequest) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests | Create approval request
 [**PostApprovalRequestApplyRequest**](ApprovalsApi.md#PostApprovalRequestApplyRequest) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id}/apply | Apply approval request
 [**PostApprovalRequestReview**](ApprovalsApi.md#PostApprovalRequestReview) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id}/reviews | Review approval request
+[**PostCopyFlagConfigApprovalRequest**](ApprovalsApi.md#PostCopyFlagConfigApprovalRequest) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/copy/environments/{environmentKey}/approval-requests-flag-copy | Create approval request to copy flag configurations across environments
 
 
 
@@ -466,6 +467,84 @@ Name | Type | Description  | Notes
 
 
  **approvalsEndpointsPostApprovalRequestReviewRequest** | [**ApprovalsEndpointsPostApprovalRequestReviewRequest**](ApprovalsEndpointsPostApprovalRequestReviewRequest.md) |  | 
+
+### Return type
+
+[**WebFlagConfigApprovalRequestResponse**](WebFlagConfigApprovalRequestResponse.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostCopyFlagConfigApprovalRequest
+
+> WebFlagConfigApprovalRequestResponse PostCopyFlagConfigApprovalRequest(ctx, projectKey, featureFlagKey, environmentKey).ApprovalsEndpointsCreateCopyFlagConfigApprovalRequestRequest(approvalsEndpointsCreateCopyFlagConfigApprovalRequestRequest).Execute()
+
+Create approval request to copy flag configurations across environments
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    projectKey := "projectKey_example" // string | The project key
+    featureFlagKey := "featureFlagKey_example" // string | The feature flag's key
+    environmentKey := "environmentKey_example" // string | The environment key
+    approvalsEndpointsCreateCopyFlagConfigApprovalRequestRequest := *openapiclient.NewApprovalsEndpointsCreateCopyFlagConfigApprovalRequestRequest() // ApprovalsEndpointsCreateCopyFlagConfigApprovalRequestRequest | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ApprovalsApi.PostCopyFlagConfigApprovalRequest(context.Background(), projectKey, featureFlagKey, environmentKey).ApprovalsEndpointsCreateCopyFlagConfigApprovalRequestRequest(approvalsEndpointsCreateCopyFlagConfigApprovalRequestRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.PostCopyFlagConfigApprovalRequest``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PostCopyFlagConfigApprovalRequest`: WebFlagConfigApprovalRequestResponse
+    fmt.Fprintf(os.Stdout, "Response from `ApprovalsApi.PostCopyFlagConfigApprovalRequest`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projectKey** | **string** | The project key | 
+**featureFlagKey** | **string** | The feature flag&#39;s key | 
+**environmentKey** | **string** | The environment key | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCopyFlagConfigApprovalRequestRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+ **approvalsEndpointsCreateCopyFlagConfigApprovalRequestRequest** | [**ApprovalsEndpointsCreateCopyFlagConfigApprovalRequestRequest**](ApprovalsEndpointsCreateCopyFlagConfigApprovalRequestRequest.md) |  | 
 
 ### Return type
 

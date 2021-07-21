@@ -96,6 +96,7 @@ Class | Method | HTTP request | Description
 *ApprovalsApi* | [**PostApprovalRequest**](docs/ApprovalsApi.md#postapprovalrequest) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests | Create approval request
 *ApprovalsApi* | [**PostApprovalRequestApplyRequest**](docs/ApprovalsApi.md#postapprovalrequestapplyrequest) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id}/apply | Apply approval request
 *ApprovalsApi* | [**PostApprovalRequestReview**](docs/ApprovalsApi.md#postapprovalrequestreview) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id}/reviews | Review approval request
+*ApprovalsApi* | [**PostCopyFlagConfigApprovalRequest**](docs/ApprovalsApi.md#postcopyflagconfigapprovalrequest) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/copy/environments/{environmentKey}/approval-requests-flag-copy | Create approval request to copy flag configurations across environments
 *AuditLogApi* | [**GetAuditLogEntries**](docs/AuditLogApi.md#getauditlogentries) | **Get** /api/v2/auditlog | List audit log feature flag entries
 *CodeReferencesApi* | [**DeleteRepository**](docs/CodeReferencesApi.md#deleterepository) | **Delete** /api/v2/code-refs/repositories/{repo} | Delete repository
 *CodeReferencesApi* | [**GetBranch**](docs/CodeReferencesApi.md#getbranch) | **Get** /api/v2/code-refs/repositories/{repo}/branches/{branch} | Get branch
@@ -203,16 +204,17 @@ Class | Method | HTTP request | Description
  - [ApiStatisticCollectionRep](docs/ApiStatisticCollectionRep.md)
  - [ApiStatisticRep](docs/ApiStatisticRep.md)
  - [ApprovalSettingsRep](docs/ApprovalSettingsRep.md)
+ - [ApprovalsEndpointsCreateCopyFlagConfigApprovalRequestRequest](docs/ApprovalsEndpointsCreateCopyFlagConfigApprovalRequestRequest.md)
  - [ApprovalsEndpointsCreateFlagConfigApprovalRequestRequest](docs/ApprovalsEndpointsCreateFlagConfigApprovalRequestRequest.md)
  - [ApprovalsEndpointsPostApprovalRequestApplyRequest](docs/ApprovalsEndpointsPostApprovalRequestApplyRequest.md)
  - [ApprovalsEndpointsPostApprovalRequestReviewRequest](docs/ApprovalsEndpointsPostApprovalRequestReviewRequest.md)
+ - [ApprovalsEndpointsSourceFlag](docs/ApprovalsEndpointsSourceFlag.md)
  - [AuditLogEntryListingRep](docs/AuditLogEntryListingRep.md)
  - [AuditLogEntryListingRepAccesses](docs/AuditLogEntryListingRepAccesses.md)
  - [AuditLogEntryListingRepCollection](docs/AuditLogEntryListingRepCollection.md)
  - [AuditLogEntryListingRepCollectionItems](docs/AuditLogEntryListingRepCollectionItems.md)
  - [AuthorizedAppDataRep](docs/AuthorizedAppDataRep.md)
  - [ClausesClause](docs/ClausesClause.md)
- - [ClientSideAvailabilityPost](docs/ClientSideAvailabilityPost.md)
  - [ConfidenceIntervalRep](docs/ConfidenceIntervalRep.md)
  - [CoreLink](docs/CoreLink.md)
  - [CustomProperty](docs/CustomProperty.md)
@@ -226,6 +228,7 @@ Class | Method | HTTP request | Description
  - [DependentFlagWithEnvsEnvironments](docs/DependentFlagWithEnvsEnvironments.md)
  - [DependentFlagsCollectionRep](docs/DependentFlagsCollectionRep.md)
  - [DestinationCollectionRep](docs/DestinationCollectionRep.md)
+ - [DestinationPostRep](docs/DestinationPostRep.md)
  - [DestinationRep](docs/DestinationRep.md)
  - [EnvironmentPost](docs/EnvironmentPost.md)
  - [EnvironmentRep](docs/EnvironmentRep.md)
@@ -259,8 +262,6 @@ Class | Method | HTTP request | Description
  - [FlagDefaultsRep](docs/FlagDefaultsRep.md)
  - [FlagGlobalAttributesRep](docs/FlagGlobalAttributesRep.md)
  - [FlagListingRep](docs/FlagListingRep.md)
- - [FlagPost](docs/FlagPost.md)
- - [FlagPostVariations](docs/FlagPostVariations.md)
  - [FlagStatusCollectionRep](docs/FlagStatusCollectionRep.md)
  - [FlagStatusRep](docs/FlagStatusRep.md)
  - [FlagStatusRepFromEnvSummaries](docs/FlagStatusRepFromEnvSummaries.md)
@@ -271,7 +272,6 @@ Class | Method | HTTP request | Description
  - [FlagsFlagCopyConfigPost](docs/FlagsFlagCopyConfigPost.md)
  - [FlagsPrerequisite](docs/FlagsPrerequisite.md)
  - [FlagsTarget](docs/FlagsTarget.md)
- - [FlagsVariate](docs/FlagsVariate.md)
  - [GlobalFlagCollectionRep](docs/GlobalFlagCollectionRep.md)
  - [GlobalFlagRep](docs/GlobalFlagRep.md)
  - [GlobalFlagRepEnvironments](docs/GlobalFlagRepEnvironments.md)
@@ -318,7 +318,6 @@ Class | Method | HTTP request | Description
  - [SegmentRep](docs/SegmentRep.md)
  - [SegmentRepRules](docs/SegmentRepRules.md)
  - [SegmentRuleRep](docs/SegmentRuleRep.md)
- - [SegmentsSegmentPost](docs/SegmentsSegmentPost.md)
  - [SegmentsUnboundedTargetRep](docs/SegmentsUnboundedTargetRep.md)
  - [SharedUrlPost](docs/SharedUrlPost.md)
  - [StatementRep](docs/StatementRep.md)
@@ -347,6 +346,7 @@ Class | Method | HTTP request | Description
  - [WebConflictResponseConflicts](docs/WebConflictResponseConflicts.md)
  - [WebConflictResponseInstruction](docs/WebConflictResponseInstruction.md)
  - [WebConflictResponseItems](docs/WebConflictResponseItems.md)
+ - [WebCopiedFromEnv](docs/WebCopiedFromEnv.md)
  - [WebExpiringUserTargetError](docs/WebExpiringUserTargetError.md)
  - [WebExpiringUserTargetItem](docs/WebExpiringUserTargetItem.md)
  - [WebExpiringUserTargetResponse](docs/WebExpiringUserTargetResponse.md)

@@ -1390,12 +1390,12 @@ type ApiPostFeatureFlagRequest struct {
 	ctx _context.Context
 	ApiService *FeatureFlagsApiService
 	projKey string
-	flagPost *FlagPost
+	globalFlagRep *GlobalFlagRep
 	clone *string
 }
 
-func (r ApiPostFeatureFlagRequest) FlagPost(flagPost FlagPost) ApiPostFeatureFlagRequest {
-	r.flagPost = &flagPost
+func (r ApiPostFeatureFlagRequest) GlobalFlagRep(globalFlagRep GlobalFlagRep) ApiPostFeatureFlagRequest {
+	r.globalFlagRep = &globalFlagRep
 	return r
 }
 func (r ApiPostFeatureFlagRequest) Clone(clone string) ApiPostFeatureFlagRequest {
@@ -1447,8 +1447,8 @@ func (a *FeatureFlagsApiService) PostFeatureFlagExecute(r ApiPostFeatureFlagRequ
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-	if r.flagPost == nil {
-		return localVarReturnValue, nil, reportError("flagPost is required and must be specified")
+	if r.globalFlagRep == nil {
+		return localVarReturnValue, nil, reportError("globalFlagRep is required and must be specified")
 	}
 
 	if r.clone != nil {
@@ -1472,7 +1472,7 @@ func (a *FeatureFlagsApiService) PostFeatureFlagExecute(r ApiPostFeatureFlagRequ
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.flagPost
+	localVarPostBody = r.globalFlagRep
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
