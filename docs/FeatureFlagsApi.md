@@ -41,7 +41,7 @@ import (
 func main() {
     projKey := "projKey_example" // string | The project key. This connects flags within one project so you can manage them together.
     featureFlagKey := "featureFlagKey_example" // string | The feature flag's key. The key identifies the flag in your code.
-    flagsFlagCopyConfigPost := *openapiclient.NewFlagsFlagCopyConfigPost() // FlagsFlagCopyConfigPost | 
+    flagsFlagCopyConfigPost := *openapiclient.NewFlagsFlagCopyConfigPost(*openapiclient.NewFlagsFlagCopyConfigEnvironment("Key_example"), *openapiclient.NewFlagsFlagCopyConfigEnvironment("Key_example")) // FlagsFlagCopyConfigPost | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -727,7 +727,7 @@ import (
 func main() {
     projKey := "projKey_example" // string | The project key. This connects flags within one project so you can manage them together.
     key := "key_example" // string | The feature flag's key. The key identifies the flag in your code.
-    patchWithComment := *openapiclient.NewPatchWithComment() // PatchWithComment | 
+    patchWithComment := *openapiclient.NewPatchWithComment([]openapiclient.JSONPatchElt{*openapiclient.NewJSONPatchElt("replace", "/biscuits", interface{}(Chocolate Digestive))}) // PatchWithComment | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -801,7 +801,7 @@ import (
 
 func main() {
     projKey := "projKey_example" // string | The project key. This connects flags within one project so you can manage them together.
-    flagPost := *openapiclient.NewFlagPost() // FlagPost | 
+    flagPost := *openapiclient.NewFlagPost("Name_example", "Key_example") // FlagPost | 
     clone := "clone_example" // string | The key of the feature flag to be cloned. The key identifies the flag in your code. For example, setting `clone=flagKey` copies the full targeting configuration for all environments, including `on/off` state, from the original flag to the new flag. (optional)
 
     configuration := openapiclient.NewConfiguration()

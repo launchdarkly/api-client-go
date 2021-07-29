@@ -10,7 +10,7 @@ Method | HTTP request | Description
 [**PostApprovalRequest**](ApprovalsApi.md#PostApprovalRequest) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests | Create approval request
 [**PostApprovalRequestApplyRequest**](ApprovalsApi.md#PostApprovalRequestApplyRequest) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id}/apply | Apply approval request
 [**PostApprovalRequestReview**](ApprovalsApi.md#PostApprovalRequestReview) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id}/reviews | Review approval request
-[**PostCopyFlagConfigApprovalRequest**](ApprovalsApi.md#PostCopyFlagConfigApprovalRequest) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/copy/environments/{environmentKey}/approval-requests-flag-copy | Create approval request to copy flag configurations across environments
+[**PostFlagCopyConfigApprovalRequest**](ApprovalsApi.md#PostFlagCopyConfigApprovalRequest) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/copy/environments/{environmentKey}/approval-requests-flag-copy | Create approval request to copy flag configurations across environments
 
 
 
@@ -486,9 +486,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostCopyFlagConfigApprovalRequest
+## PostFlagCopyConfigApprovalRequest
 
-> WebFlagConfigApprovalRequestResponse PostCopyFlagConfigApprovalRequest(ctx, projectKey, featureFlagKey, environmentKey).ApprovalsEndpointsCreateCopyFlagConfigApprovalRequestRequest(approvalsEndpointsCreateCopyFlagConfigApprovalRequestRequest).Execute()
+> WebFlagConfigApprovalRequestResponse PostFlagCopyConfigApprovalRequest(ctx, projectKey, featureFlagKey, environmentKey).ApprovalsEndpointsCreateCopyFlagConfigApprovalRequestRequest(approvalsEndpointsCreateCopyFlagConfigApprovalRequestRequest).Execute()
 
 Create approval request to copy flag configurations across environments
 
@@ -514,13 +514,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ApprovalsApi.PostCopyFlagConfigApprovalRequest(context.Background(), projectKey, featureFlagKey, environmentKey).ApprovalsEndpointsCreateCopyFlagConfigApprovalRequestRequest(approvalsEndpointsCreateCopyFlagConfigApprovalRequestRequest).Execute()
+    resp, r, err := api_client.ApprovalsApi.PostFlagCopyConfigApprovalRequest(context.Background(), projectKey, featureFlagKey, environmentKey).ApprovalsEndpointsCreateCopyFlagConfigApprovalRequestRequest(approvalsEndpointsCreateCopyFlagConfigApprovalRequestRequest).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.PostCopyFlagConfigApprovalRequest``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.PostFlagCopyConfigApprovalRequest``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostCopyFlagConfigApprovalRequest`: WebFlagConfigApprovalRequestResponse
-    fmt.Fprintf(os.Stdout, "Response from `ApprovalsApi.PostCopyFlagConfigApprovalRequest`: %v\n", resp)
+    // response from `PostFlagCopyConfigApprovalRequest`: WebFlagConfigApprovalRequestResponse
+    fmt.Fprintf(os.Stdout, "Response from `ApprovalsApi.PostFlagCopyConfigApprovalRequest`: %v\n", resp)
 }
 ```
 
@@ -536,7 +536,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostCopyFlagConfigApprovalRequestRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPostFlagCopyConfigApprovalRequestRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

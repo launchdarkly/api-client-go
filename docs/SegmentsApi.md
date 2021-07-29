@@ -496,7 +496,7 @@ func main() {
     projKey := "projKey_example" // string | The project key. This connects flags within one project so you can manage them together.
     envKey := "envKey_example" // string | The environment key. This connects flag configurations and users under one environment so you can manage them together.
     key := "key_example" // string | The user segment key. The key identifies the user segment in your code.
-    patchWithComment := *openapiclient.NewPatchWithComment() // PatchWithComment | 
+    patchWithComment := *openapiclient.NewPatchWithComment([]openapiclient.JSONPatchElt{*openapiclient.NewJSONPatchElt("replace", "/biscuits", interface{}(Chocolate Digestive))}) // PatchWithComment | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -573,7 +573,7 @@ import (
 func main() {
     projKey := "projKey_example" // string | The project key. This connects flags within one project so you can manage them together.
     envKey := "envKey_example" // string | The environment key. This connects flag configurations and users within one environment so you can manage them together.
-    segmentsSegmentPost := *openapiclient.NewSegmentsSegmentPost() // SegmentsSegmentPost | 
+    segmentsSegmentPost := *openapiclient.NewSegmentsSegmentPost("Name_example", "Key_example") // SegmentsSegmentPost | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)

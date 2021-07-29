@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Op** | Pointer to **string** | The type of operation to perform | [optional] 
-**Path** | Pointer to **string** | A JSON Pointer string specifying the part of the document to operate on | [optional] 
-**Value** | Pointer to **interface{}** | A JSON value used in \&quot;add\&quot;, \&quot;replace\&quot;, and \&quot;test\&quot; operations | [optional] 
+**Op** | **string** | The type of operation to perform | 
+**Path** | **string** | A JSON Pointer string specifying the part of the document to operate on | 
+**Value** | **interface{}** | A JSON value used in \&quot;add\&quot;, \&quot;replace\&quot;, and \&quot;test\&quot; operations | 
 
 ## Methods
 
 ### NewJSONPatchElt
 
-`func NewJSONPatchElt() *JSONPatchElt`
+`func NewJSONPatchElt(op string, path string, value interface{}, ) *JSONPatchElt`
 
 NewJSONPatchElt instantiates a new JSONPatchElt object
 This constructor will assign default values to properties that have it defined,
@@ -46,11 +46,6 @@ and a boolean to check if the value has been set.
 
 SetOp sets Op field to given value.
 
-### HasOp
-
-`func (o *JSONPatchElt) HasOp() bool`
-
-HasOp returns a boolean if a field has been set.
 
 ### GetPath
 
@@ -71,11 +66,6 @@ and a boolean to check if the value has been set.
 
 SetPath sets Path field to given value.
 
-### HasPath
-
-`func (o *JSONPatchElt) HasPath() bool`
-
-HasPath returns a boolean if a field has been set.
 
 ### GetValue
 
@@ -96,11 +86,6 @@ and a boolean to check if the value has been set.
 
 SetValue sets Value field to given value.
 
-### HasValue
-
-`func (o *JSONPatchElt) HasValue() bool`
-
-HasValue returns a boolean if a field has been set.
 
 ### SetValueNil
 

@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Denied** | Pointer to [**[]AccessRepDenied**](AccessRepDenied.md) |  | [optional] 
+**Denied** | [**[]AccessRepDenied**](AccessRepDenied.md) |  | 
 
 ## Methods
 
 ### NewAccessRep
 
-`func NewAccessRep() *AccessRep`
+`func NewAccessRep(denied []AccessRepDenied, ) *AccessRep`
 
 NewAccessRep instantiates a new AccessRep object
 This constructor will assign default values to properties that have it defined,
@@ -44,11 +44,6 @@ and a boolean to check if the value has been set.
 
 SetDenied sets Denied field to given value.
 
-### HasDenied
-
-`func (o *AccessRep) HasDenied() bool`
-
-HasDenied returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -23,7 +23,7 @@ Name | Type | Description | Notes
 **Unit** | Pointer to **string** |  | [optional] 
 **EventKey** | Pointer to **string** |  | [optional] 
 **IsActive** | Pointer to **bool** |  | [optional] 
-**AttachedFeatures** | Pointer to [**[]DependentFlagWithEnvsEnvironments**](DependentFlagWithEnvsEnvironments.md) |  | [optional] 
+**AttachedFeatures** | Pointer to [**[]MetricRepAttachedFeatures**](MetricRepAttachedFeatures.md) |  | [optional] 
 **Version** | Pointer to **int32** |  | [optional] 
 **Selector** | Pointer to **string** |  | [optional] 
 **Urls** | Pointer to **[]interface{}** |  | [optional] 
@@ -524,20 +524,20 @@ HasIsActive returns a boolean if a field has been set.
 
 ### GetAttachedFeatures
 
-`func (o *MetricRep) GetAttachedFeatures() []DependentFlagWithEnvsEnvironments`
+`func (o *MetricRep) GetAttachedFeatures() []MetricRepAttachedFeatures`
 
 GetAttachedFeatures returns the AttachedFeatures field if non-nil, zero value otherwise.
 
 ### GetAttachedFeaturesOk
 
-`func (o *MetricRep) GetAttachedFeaturesOk() (*[]DependentFlagWithEnvsEnvironments, bool)`
+`func (o *MetricRep) GetAttachedFeaturesOk() (*[]MetricRepAttachedFeatures, bool)`
 
 GetAttachedFeaturesOk returns a tuple with the AttachedFeatures field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAttachedFeatures
 
-`func (o *MetricRep) SetAttachedFeatures(v []DependentFlagWithEnvsEnvironments)`
+`func (o *MetricRep) SetAttachedFeatures(v []MetricRepAttachedFeatures)`
 
 SetAttachedFeatures sets AttachedFeatures field to given value.
 

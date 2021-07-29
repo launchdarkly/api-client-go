@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Email** | Pointer to **string** |  | [optional] 
+**Email** | **string** |  | 
 **Password** | Pointer to **string** |  | [optional] 
 **FirstName** | Pointer to **string** |  | [optional] 
 **LastName** | Pointer to **string** |  | [optional] 
@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 
 ### NewApiNewMemberForm
 
-`func NewApiNewMemberForm() *ApiNewMemberForm`
+`func NewApiNewMemberForm(email string, ) *ApiNewMemberForm`
 
 NewApiNewMemberForm instantiates a new ApiNewMemberForm object
 This constructor will assign default values to properties that have it defined,
@@ -49,11 +49,6 @@ and a boolean to check if the value has been set.
 
 SetEmail sets Email field to given value.
 
-### HasEmail
-
-`func (o *ApiNewMemberForm) HasEmail() bool`
-
-HasEmail returns a boolean if a field has been set.
 
 ### GetPassword
 

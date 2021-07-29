@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Items** | Pointer to [**[]MemberRep**](MemberRep.md) |  | [optional] 
-**Links** | Pointer to [**map[string]InlineResponse200**](InlineResponse200.md) |  | [optional] 
+**Items** | [**[]MemberRep**](MemberRep.md) |  | 
+**Links** | [**map[string]InlineResponse200**](InlineResponse200.md) |  | 
 **TotalCount** | Pointer to **int32** |  | [optional] 
 
 ## Methods
 
 ### NewMemberCollectionRep
 
-`func NewMemberCollectionRep() *MemberCollectionRep`
+`func NewMemberCollectionRep(items []MemberRep, links map[string]InlineResponse200, ) *MemberCollectionRep`
 
 NewMemberCollectionRep instantiates a new MemberCollectionRep object
 This constructor will assign default values to properties that have it defined,
@@ -46,11 +46,6 @@ and a boolean to check if the value has been set.
 
 SetItems sets Items field to given value.
 
-### HasItems
-
-`func (o *MemberCollectionRep) HasItems() bool`
-
-HasItems returns a boolean if a field has been set.
 
 ### GetLinks
 
@@ -71,11 +66,6 @@ and a boolean to check if the value has been set.
 
 SetLinks sets Links field to given value.
 
-### HasLinks
-
-`func (o *MemberCollectionRep) HasLinks() bool`
-
-HasLinks returns a boolean if a field has been set.
 
 ### GetTotalCount
 

@@ -247,7 +247,7 @@ func main() {
     projKey := "projKey_example" // string | The project key
     envKey := "envKey_example" // string | The environment key
     id := "id_example" // string | The Data Export destination ID
-    jSONPatchElt := []openapiclient.JSONPatchElt{*openapiclient.NewJSONPatchElt()} // []JSONPatchElt | 
+    jSONPatchElt := []openapiclient.JSONPatchElt{*openapiclient.NewJSONPatchElt("replace", "/biscuits", interface{}(Chocolate Digestive))} // []JSONPatchElt | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)

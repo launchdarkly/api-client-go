@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | Pointer to **string** |  | [optional] 
-**Key** | Pointer to **string** |  | [optional] 
+**Name** | **string** |  | 
+**Key** | **string** |  | 
 **Description** | Pointer to **string** |  | [optional] 
 **IncludeInSnippet** | Pointer to **bool** |  | [optional] 
 **ClientSideAvailability** | Pointer to [**ClientSideAvailabilityPost**](ClientSideAvailabilityPost.md) |  | [optional] 
@@ -20,7 +20,7 @@ Name | Type | Description | Notes
 
 ### NewFlagPost
 
-`func NewFlagPost() *FlagPost`
+`func NewFlagPost(name string, key string, ) *FlagPost`
 
 NewFlagPost instantiates a new FlagPost object
 This constructor will assign default values to properties that have it defined,
@@ -54,11 +54,6 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
-### HasName
-
-`func (o *FlagPost) HasName() bool`
-
-HasName returns a boolean if a field has been set.
 
 ### GetKey
 
@@ -79,11 +74,6 @@ and a boolean to check if the value has been set.
 
 SetKey sets Key field to given value.
 
-### HasKey
-
-`func (o *FlagPost) HasKey() bool`
-
-HasKey returns a boolean if a field has been set.
 
 ### GetDescription
 

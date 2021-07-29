@@ -4,21 +4,21 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | Pointer to **string** |  | [optional] 
+**Name** | **string** |  | 
 **Description** | Pointer to **string** |  | [optional] 
-**Tags** | Pointer to **[]string** |  | [optional] 
-**CreationDate** | Pointer to **int64** |  | [optional] 
-**Key** | Pointer to **string** |  | [optional] 
-**Included** | Pointer to **[]string** |  | [optional] 
-**Excluded** | Pointer to **[]string** |  | [optional] 
-**Links** | Pointer to [**map[string]InlineResponse200**](InlineResponse200.md) |  | [optional] 
-**Rules** | Pointer to [**[]SegmentRepRules**](SegmentRepRules.md) |  | [optional] 
-**Version** | Pointer to **int32** |  | [optional] 
-**Deleted** | Pointer to **bool** |  | [optional] 
+**Tags** | **[]string** |  | 
+**CreationDate** | **int64** |  | 
+**Key** | **string** |  | 
+**Included** | **[]string** |  | 
+**Excluded** | **[]string** |  | 
+**Links** | [**map[string]InlineResponse200**](InlineResponse200.md) |  | 
+**Rules** | [**[]SegmentRepRules**](SegmentRepRules.md) |  | 
+**Version** | **int32** |  | 
+**Deleted** | **bool** |  | 
 **Access** | Pointer to [**AccessRep**](AccessRep.md) |  | [optional] 
 **Flags** | Pointer to [**[]FlagListingRep**](FlagListingRep.md) |  | [optional] 
 **Unbounded** | Pointer to **bool** |  | [optional] 
-**Generation** | Pointer to **int32** |  | [optional] 
+**Generation** | **int32** |  | 
 **UnboundedMetadata** | Pointer to [**UnboundedSegmentMetadata**](UnboundedSegmentMetadata.md) |  | [optional] 
 **External** | Pointer to **string** |  | [optional] 
 **ExternalLink** | Pointer to **string** |  | [optional] 
@@ -27,7 +27,7 @@ Name | Type | Description | Notes
 
 ### NewSegmentRep
 
-`func NewSegmentRep() *SegmentRep`
+`func NewSegmentRep(name string, tags []string, creationDate int64, key string, included []string, excluded []string, links map[string]InlineResponse200, rules []SegmentRepRules, version int32, deleted bool, generation int32, ) *SegmentRep`
 
 NewSegmentRep instantiates a new SegmentRep object
 This constructor will assign default values to properties that have it defined,
@@ -61,11 +61,6 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
-### HasName
-
-`func (o *SegmentRep) HasName() bool`
-
-HasName returns a boolean if a field has been set.
 
 ### GetDescription
 
@@ -111,11 +106,6 @@ and a boolean to check if the value has been set.
 
 SetTags sets Tags field to given value.
 
-### HasTags
-
-`func (o *SegmentRep) HasTags() bool`
-
-HasTags returns a boolean if a field has been set.
 
 ### GetCreationDate
 
@@ -136,11 +126,6 @@ and a boolean to check if the value has been set.
 
 SetCreationDate sets CreationDate field to given value.
 
-### HasCreationDate
-
-`func (o *SegmentRep) HasCreationDate() bool`
-
-HasCreationDate returns a boolean if a field has been set.
 
 ### GetKey
 
@@ -161,11 +146,6 @@ and a boolean to check if the value has been set.
 
 SetKey sets Key field to given value.
 
-### HasKey
-
-`func (o *SegmentRep) HasKey() bool`
-
-HasKey returns a boolean if a field has been set.
 
 ### GetIncluded
 
@@ -186,11 +166,6 @@ and a boolean to check if the value has been set.
 
 SetIncluded sets Included field to given value.
 
-### HasIncluded
-
-`func (o *SegmentRep) HasIncluded() bool`
-
-HasIncluded returns a boolean if a field has been set.
 
 ### GetExcluded
 
@@ -211,11 +186,6 @@ and a boolean to check if the value has been set.
 
 SetExcluded sets Excluded field to given value.
 
-### HasExcluded
-
-`func (o *SegmentRep) HasExcluded() bool`
-
-HasExcluded returns a boolean if a field has been set.
 
 ### GetLinks
 
@@ -236,11 +206,6 @@ and a boolean to check if the value has been set.
 
 SetLinks sets Links field to given value.
 
-### HasLinks
-
-`func (o *SegmentRep) HasLinks() bool`
-
-HasLinks returns a boolean if a field has been set.
 
 ### GetRules
 
@@ -261,11 +226,6 @@ and a boolean to check if the value has been set.
 
 SetRules sets Rules field to given value.
 
-### HasRules
-
-`func (o *SegmentRep) HasRules() bool`
-
-HasRules returns a boolean if a field has been set.
 
 ### GetVersion
 
@@ -286,11 +246,6 @@ and a boolean to check if the value has been set.
 
 SetVersion sets Version field to given value.
 
-### HasVersion
-
-`func (o *SegmentRep) HasVersion() bool`
-
-HasVersion returns a boolean if a field has been set.
 
 ### GetDeleted
 
@@ -311,11 +266,6 @@ and a boolean to check if the value has been set.
 
 SetDeleted sets Deleted field to given value.
 
-### HasDeleted
-
-`func (o *SegmentRep) HasDeleted() bool`
-
-HasDeleted returns a boolean if a field has been set.
 
 ### GetAccess
 
@@ -411,11 +361,6 @@ and a boolean to check if the value has been set.
 
 SetGeneration sets Generation field to given value.
 
-### HasGeneration
-
-`func (o *SegmentRep) HasGeneration() bool`
-
-HasGeneration returns a boolean if a field has been set.
 
 ### GetUnboundedMetadata
 

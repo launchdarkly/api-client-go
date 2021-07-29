@@ -4,24 +4,24 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Links** | Pointer to [**map[string]InlineResponse200**](InlineResponse200.md) |  | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
-**Key** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**ApiKey** | Pointer to **string** |  | [optional] 
-**MobileKey** | Pointer to **string** |  | [optional] 
-**Color** | Pointer to **string** |  | [optional] 
-**DefaultTtl** | Pointer to **int32** |  | [optional] 
-**SecureMode** | Pointer to **bool** |  | [optional] 
-**DefaultTrackEvents** | Pointer to **bool** |  | [optional] 
-**Tags** | Pointer to **[]string** |  | [optional] 
+**Links** | [**map[string]InlineResponse200**](InlineResponse200.md) | Links to related resources. | 
+**Id** | **string** |  | 
+**Key** | **string** | A project-unique key for the new environment. | 
+**Name** | **string** | A human-friendly name for the new environment. | 
+**ApiKey** | **string** | API key to use with client-side SDKs. | 
+**MobileKey** | **string** | API key to use with mobile SDKs. | 
+**Color** | **string** | The color used to indicate this environment in the UI. | 
+**DefaultTtl** | **int32** | The default time (in minutes) that the PHP SDK can cache feature flag rules locally. | 
+**SecureMode** | **bool** | Secure mode ensures that a user of the client-side SDK cannot impersonate another user. | 
+**DefaultTrackEvents** | **bool** | Enables tracking detailed information for new flags by default. | 
+**Tags** | **[]string** |  | 
 **ApprovalSettings** | Pointer to [**ApprovalSettingsRep**](ApprovalSettingsRep.md) |  | [optional] 
 
 ## Methods
 
 ### NewEnvironmentRep
 
-`func NewEnvironmentRep() *EnvironmentRep`
+`func NewEnvironmentRep(links map[string]InlineResponse200, id string, key string, name string, apiKey string, mobileKey string, color string, defaultTtl int32, secureMode bool, defaultTrackEvents bool, tags []string, ) *EnvironmentRep`
 
 NewEnvironmentRep instantiates a new EnvironmentRep object
 This constructor will assign default values to properties that have it defined,
@@ -55,11 +55,6 @@ and a boolean to check if the value has been set.
 
 SetLinks sets Links field to given value.
 
-### HasLinks
-
-`func (o *EnvironmentRep) HasLinks() bool`
-
-HasLinks returns a boolean if a field has been set.
 
 ### GetId
 
@@ -80,11 +75,6 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
-### HasId
-
-`func (o *EnvironmentRep) HasId() bool`
-
-HasId returns a boolean if a field has been set.
 
 ### GetKey
 
@@ -105,11 +95,6 @@ and a boolean to check if the value has been set.
 
 SetKey sets Key field to given value.
 
-### HasKey
-
-`func (o *EnvironmentRep) HasKey() bool`
-
-HasKey returns a boolean if a field has been set.
 
 ### GetName
 
@@ -130,11 +115,6 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
-### HasName
-
-`func (o *EnvironmentRep) HasName() bool`
-
-HasName returns a boolean if a field has been set.
 
 ### GetApiKey
 
@@ -155,11 +135,6 @@ and a boolean to check if the value has been set.
 
 SetApiKey sets ApiKey field to given value.
 
-### HasApiKey
-
-`func (o *EnvironmentRep) HasApiKey() bool`
-
-HasApiKey returns a boolean if a field has been set.
 
 ### GetMobileKey
 
@@ -180,11 +155,6 @@ and a boolean to check if the value has been set.
 
 SetMobileKey sets MobileKey field to given value.
 
-### HasMobileKey
-
-`func (o *EnvironmentRep) HasMobileKey() bool`
-
-HasMobileKey returns a boolean if a field has been set.
 
 ### GetColor
 
@@ -205,11 +175,6 @@ and a boolean to check if the value has been set.
 
 SetColor sets Color field to given value.
 
-### HasColor
-
-`func (o *EnvironmentRep) HasColor() bool`
-
-HasColor returns a boolean if a field has been set.
 
 ### GetDefaultTtl
 
@@ -230,11 +195,6 @@ and a boolean to check if the value has been set.
 
 SetDefaultTtl sets DefaultTtl field to given value.
 
-### HasDefaultTtl
-
-`func (o *EnvironmentRep) HasDefaultTtl() bool`
-
-HasDefaultTtl returns a boolean if a field has been set.
 
 ### GetSecureMode
 
@@ -255,11 +215,6 @@ and a boolean to check if the value has been set.
 
 SetSecureMode sets SecureMode field to given value.
 
-### HasSecureMode
-
-`func (o *EnvironmentRep) HasSecureMode() bool`
-
-HasSecureMode returns a boolean if a field has been set.
 
 ### GetDefaultTrackEvents
 
@@ -280,11 +235,6 @@ and a boolean to check if the value has been set.
 
 SetDefaultTrackEvents sets DefaultTrackEvents field to given value.
 
-### HasDefaultTrackEvents
-
-`func (o *EnvironmentRep) HasDefaultTrackEvents() bool`
-
-HasDefaultTrackEvents returns a boolean if a field has been set.
 
 ### GetTags
 
@@ -305,11 +255,6 @@ and a boolean to check if the value has been set.
 
 SetTags sets Tags field to given value.
 
-### HasTags
-
-`func (o *EnvironmentRep) HasTags() bool`
-
-HasTags returns a boolean if a field has been set.
 
 ### GetApprovalSettings
 

@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CustomRoleKeys** | Pointer to **[]string** |  | [optional] 
-**Key** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
+**CustomRoleKeys** | **[]string** |  | 
+**Key** | **string** |  | 
+**Name** | **string** |  | 
 
 ## Methods
 
 ### NewMemberRepTeams
 
-`func NewMemberRepTeams() *MemberRepTeams`
+`func NewMemberRepTeams(customRoleKeys []string, key string, name string, ) *MemberRepTeams`
 
 NewMemberRepTeams instantiates a new MemberRepTeams object
 This constructor will assign default values to properties that have it defined,
@@ -46,11 +46,6 @@ and a boolean to check if the value has been set.
 
 SetCustomRoleKeys sets CustomRoleKeys field to given value.
 
-### HasCustomRoleKeys
-
-`func (o *MemberRepTeams) HasCustomRoleKeys() bool`
-
-HasCustomRoleKeys returns a boolean if a field has been set.
 
 ### GetKey
 
@@ -71,11 +66,6 @@ and a boolean to check if the value has been set.
 
 SetKey sets Key field to given value.
 
-### HasKey
-
-`func (o *MemberRepTeams) HasKey() bool`
-
-HasKey returns a boolean if a field has been set.
 
 ### GetName
 
@@ -96,11 +86,6 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
-### HasName
-
-`func (o *MemberRepTeams) HasName() bool`
-
-HasName returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

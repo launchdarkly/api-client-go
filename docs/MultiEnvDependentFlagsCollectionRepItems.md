@@ -5,14 +5,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | Pointer to **string** |  | [optional] 
-**Key** | Pointer to **string** |  | [optional] 
-**Environments** | Pointer to [**[]DependentFlagWithEnvsEnvironments**](DependentFlagWithEnvsEnvironments.md) |  | [optional] 
+**Key** | **string** |  | 
+**Environments** | [**[]DependentFlagWithEnvsEnvironments**](DependentFlagWithEnvsEnvironments.md) |  | 
 
 ## Methods
 
 ### NewMultiEnvDependentFlagsCollectionRepItems
 
-`func NewMultiEnvDependentFlagsCollectionRepItems() *MultiEnvDependentFlagsCollectionRepItems`
+`func NewMultiEnvDependentFlagsCollectionRepItems(key string, environments []DependentFlagWithEnvsEnvironments, ) *MultiEnvDependentFlagsCollectionRepItems`
 
 NewMultiEnvDependentFlagsCollectionRepItems instantiates a new MultiEnvDependentFlagsCollectionRepItems object
 This constructor will assign default values to properties that have it defined,
@@ -71,11 +71,6 @@ and a boolean to check if the value has been set.
 
 SetKey sets Key field to given value.
 
-### HasKey
-
-`func (o *MultiEnvDependentFlagsCollectionRepItems) HasKey() bool`
-
-HasKey returns a boolean if a field has been set.
 
 ### GetEnvironments
 
@@ -96,11 +91,6 @@ and a boolean to check if the value has been set.
 
 SetEnvironments sets Environments field to given value.
 
-### HasEnvironments
-
-`func (o *MultiEnvDependentFlagsCollectionRepItems) HasEnvironments() bool`
-
-HasEnvironments returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -8,13 +8,13 @@ Name | Type | Description | Notes
 **NotResources** | Pointer to **[]map[string]interface{}** |  | [optional] 
 **Actions** | Pointer to **[]string** |  | [optional] 
 **NotActions** | Pointer to **[]string** |  | [optional] 
-**Effect** | Pointer to **string** |  | [optional] 
+**Effect** | **string** |  | 
 
 ## Methods
 
 ### NewStatementRep
 
-`func NewStatementRep() *StatementRep`
+`func NewStatementRep(effect string, ) *StatementRep`
 
 NewStatementRep instantiates a new StatementRep object
 This constructor will assign default values to properties that have it defined,
@@ -148,11 +148,6 @@ and a boolean to check if the value has been set.
 
 SetEffect sets Effect field to given value.
 
-### HasEffect
-
-`func (o *StatementRep) HasEffect() bool`
-
-HasEffect returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

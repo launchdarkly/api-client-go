@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Rules** | Pointer to **int32** |  | [optional] 
-**NullRules** | Pointer to **int32** |  | [optional] 
-**Targets** | Pointer to **int32** |  | [optional] 
+**Rules** | **int32** |  | 
+**NullRules** | **int32** |  | 
+**Targets** | **int32** |  | 
 **IsFallthrough** | Pointer to **bool** |  | [optional] 
 **IsOff** | Pointer to **bool** |  | [optional] 
 **Rollout** | Pointer to **int32** |  | [optional] 
@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 
 ### NewVariationSummary
 
-`func NewVariationSummary() *VariationSummary`
+`func NewVariationSummary(rules int32, nullRules int32, targets int32, ) *VariationSummary`
 
 NewVariationSummary instantiates a new VariationSummary object
 This constructor will assign default values to properties that have it defined,
@@ -50,11 +50,6 @@ and a boolean to check if the value has been set.
 
 SetRules sets Rules field to given value.
 
-### HasRules
-
-`func (o *VariationSummary) HasRules() bool`
-
-HasRules returns a boolean if a field has been set.
 
 ### GetNullRules
 
@@ -75,11 +70,6 @@ and a boolean to check if the value has been set.
 
 SetNullRules sets NullRules field to given value.
 
-### HasNullRules
-
-`func (o *VariationSummary) HasNullRules() bool`
-
-HasNullRules returns a boolean if a field has been set.
 
 ### GetTargets
 
@@ -100,11 +90,6 @@ and a boolean to check if the value has been set.
 
 SetTargets sets Targets field to given value.
 
-### HasTargets
-
-`func (o *VariationSummary) HasTargets() bool`
-
-HasTargets returns a boolean if a field has been set.
 
 ### GetIsFallthrough
 

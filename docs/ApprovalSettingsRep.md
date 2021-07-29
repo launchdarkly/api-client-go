@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Required** | **bool** |  | 
+**Required** | **bool** | If approvals are required for this environment. | 
 **BypassApprovalsForPendingChanges** | Pointer to **bool** |  | [optional] 
-**MinNumApprovals** | Pointer to **int32** |  | [optional] 
-**CanReviewOwnRequest** | Pointer to **bool** |  | [optional] 
-**CanApplyDeclinedChanges** | Pointer to **bool** |  | [optional] 
-**ServiceKind** | Pointer to **string** |  | [optional] 
+**MinNumApprovals** | Pointer to **int32** | Sets the amount of approvals required before a member can apply a change. The minimum is one and the maximum is five. | [optional] 
+**CanReviewOwnRequest** | Pointer to **bool** | Allow someone who makes an approval request to apply their own change. | [optional] 
+**CanApplyDeclinedChanges** | Pointer to **bool** | Allow applying the change as long as at least one person has approved. | [optional] 
+**ServiceKind** | Pointer to **string** | Which service to use for managing approvals. | [optional] 
 **ServiceConfig** | Pointer to **map[string]interface{}** |  | [optional] 
-**RequiredApprovalTags** | Pointer to **[]string** |  | [optional] 
+**RequiredApprovalTags** | Pointer to **[]string** | Require approval only on flags with the provided tags. Otherwise all flags will require approval. | [optional] 
 
 ## Methods
 

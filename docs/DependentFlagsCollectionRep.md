@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Items** | Pointer to [**[]DependentFlagWithEnvsEnvironments**](DependentFlagWithEnvsEnvironments.md) |  | [optional] 
-**Links** | Pointer to [**map[string]InlineResponse200**](InlineResponse200.md) |  | [optional] 
-**Site** | Pointer to [**CoreLink**](CoreLink.md) |  | [optional] 
+**Items** | [**[]DependentFlagWithEnvsEnvironments**](DependentFlagWithEnvsEnvironments.md) |  | 
+**Links** | [**map[string]InlineResponse200**](InlineResponse200.md) |  | 
+**Site** | [**CoreLink**](CoreLink.md) |  | 
 
 ## Methods
 
 ### NewDependentFlagsCollectionRep
 
-`func NewDependentFlagsCollectionRep() *DependentFlagsCollectionRep`
+`func NewDependentFlagsCollectionRep(items []DependentFlagWithEnvsEnvironments, links map[string]InlineResponse200, site CoreLink, ) *DependentFlagsCollectionRep`
 
 NewDependentFlagsCollectionRep instantiates a new DependentFlagsCollectionRep object
 This constructor will assign default values to properties that have it defined,
@@ -46,11 +46,6 @@ and a boolean to check if the value has been set.
 
 SetItems sets Items field to given value.
 
-### HasItems
-
-`func (o *DependentFlagsCollectionRep) HasItems() bool`
-
-HasItems returns a boolean if a field has been set.
 
 ### GetLinks
 
@@ -71,11 +66,6 @@ and a boolean to check if the value has been set.
 
 SetLinks sets Links field to given value.
 
-### HasLinks
-
-`func (o *DependentFlagsCollectionRep) HasLinks() bool`
-
-HasLinks returns a boolean if a field has been set.
 
 ### GetSite
 
@@ -96,11 +86,6 @@ and a boolean to check if the value has been set.
 
 SetSite sets Site field to given value.
 
-### HasSite
-
-`func (o *DependentFlagsCollectionRep) HasSite() bool`
-
-HasSite returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

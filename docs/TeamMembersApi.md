@@ -171,7 +171,7 @@ import (
 
 func main() {
     id := "id_example" // string | The member ID
-    jSONPatchElt := []openapiclient.JSONPatchElt{*openapiclient.NewJSONPatchElt()} // []JSONPatchElt | 
+    jSONPatchElt := []openapiclient.JSONPatchElt{*openapiclient.NewJSONPatchElt("replace", "/biscuits", interface{}(Chocolate Digestive))} // []JSONPatchElt | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -242,7 +242,7 @@ import (
 )
 
 func main() {
-    inlineObject := []openapiclient.InlineObject{*openapiclient.NewInlineObject()} // []InlineObject | 
+    inlineObject := []openapiclient.InlineObject{*openapiclient.NewInlineObject("Email_example")} // []InlineObject | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)

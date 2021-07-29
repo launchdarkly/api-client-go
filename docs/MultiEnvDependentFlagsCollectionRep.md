@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Items** | Pointer to [**[]MultiEnvDependentFlagsCollectionRepItems**](MultiEnvDependentFlagsCollectionRepItems.md) |  | [optional] 
-**Links** | Pointer to [**map[string]InlineResponse200**](InlineResponse200.md) |  | [optional] 
-**Site** | Pointer to [**CoreLink**](CoreLink.md) |  | [optional] 
+**Items** | [**[]MultiEnvDependentFlagsCollectionRepItems**](MultiEnvDependentFlagsCollectionRepItems.md) |  | 
+**Links** | [**map[string]InlineResponse200**](InlineResponse200.md) |  | 
+**Site** | [**CoreLink**](CoreLink.md) |  | 
 
 ## Methods
 
 ### NewMultiEnvDependentFlagsCollectionRep
 
-`func NewMultiEnvDependentFlagsCollectionRep() *MultiEnvDependentFlagsCollectionRep`
+`func NewMultiEnvDependentFlagsCollectionRep(items []MultiEnvDependentFlagsCollectionRepItems, links map[string]InlineResponse200, site CoreLink, ) *MultiEnvDependentFlagsCollectionRep`
 
 NewMultiEnvDependentFlagsCollectionRep instantiates a new MultiEnvDependentFlagsCollectionRep object
 This constructor will assign default values to properties that have it defined,
@@ -46,11 +46,6 @@ and a boolean to check if the value has been set.
 
 SetItems sets Items field to given value.
 
-### HasItems
-
-`func (o *MultiEnvDependentFlagsCollectionRep) HasItems() bool`
-
-HasItems returns a boolean if a field has been set.
 
 ### GetLinks
 
@@ -71,11 +66,6 @@ and a boolean to check if the value has been set.
 
 SetLinks sets Links field to given value.
 
-### HasLinks
-
-`func (o *MultiEnvDependentFlagsCollectionRep) HasLinks() bool`
-
-HasLinks returns a boolean if a field has been set.
 
 ### GetSite
 
@@ -96,11 +86,6 @@ and a boolean to check if the value has been set.
 
 SetSite sets Site field to given value.
 
-### HasSite
-
-`func (o *MultiEnvDependentFlagsCollectionRep) HasSite() bool`
-
-HasSite returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

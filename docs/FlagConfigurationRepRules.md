@@ -7,15 +7,15 @@ Name | Type | Description | Notes
 **Id** | Pointer to **string** |  | [optional] 
 **Variation** | Pointer to **int32** |  | [optional] 
 **Rollout** | Pointer to [**RolloutRep**](RolloutRep.md) |  | [optional] 
-**Clauses** | Pointer to [**[]FlagConfigurationRepClauses**](FlagConfigurationRepClauses.md) |  | [optional] 
-**TrackEvents** | Pointer to **bool** |  | [optional] 
+**Clauses** | [**[]FlagConfigurationRepClauses**](FlagConfigurationRepClauses.md) |  | 
+**TrackEvents** | **bool** |  | 
 **Description** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
 ### NewFlagConfigurationRepRules
 
-`func NewFlagConfigurationRepRules() *FlagConfigurationRepRules`
+`func NewFlagConfigurationRepRules(clauses []FlagConfigurationRepClauses, trackEvents bool, ) *FlagConfigurationRepRules`
 
 NewFlagConfigurationRepRules instantiates a new FlagConfigurationRepRules object
 This constructor will assign default values to properties that have it defined,
@@ -124,11 +124,6 @@ and a boolean to check if the value has been set.
 
 SetClauses sets Clauses field to given value.
 
-### HasClauses
-
-`func (o *FlagConfigurationRepRules) HasClauses() bool`
-
-HasClauses returns a boolean if a field has been set.
 
 ### GetTrackEvents
 
@@ -149,11 +144,6 @@ and a boolean to check if the value has been set.
 
 SetTrackEvents sets TrackEvents field to given value.
 
-### HasTrackEvents
-
-`func (o *FlagConfigurationRepRules) HasTrackEvents() bool`
-
-HasTrackEvents returns a boolean if a field has been set.
 
 ### GetDescription
 

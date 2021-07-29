@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Variations** | Pointer to [**[]RolloutRepVariations**](RolloutRepVariations.md) |  | [optional] 
+**Variations** | [**[]RolloutRepVariations**](RolloutRepVariations.md) |  | 
 **ExperimentAllocation** | Pointer to [**ExperimentAllocationRep**](ExperimentAllocationRep.md) |  | [optional] 
 **Seed** | Pointer to **int32** |  | [optional] 
 **BucketBy** | Pointer to **string** |  | [optional] 
@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 
 ### NewRolloutRep
 
-`func NewRolloutRep() *RolloutRep`
+`func NewRolloutRep(variations []RolloutRepVariations, ) *RolloutRep`
 
 NewRolloutRep instantiates a new RolloutRep object
 This constructor will assign default values to properties that have it defined,
@@ -47,11 +47,6 @@ and a boolean to check if the value has been set.
 
 SetVariations sets Variations field to given value.
 
-### HasVariations
-
-`func (o *RolloutRep) HasVariations() bool`
-
-HasVariations returns a boolean if a field has been set.
 
 ### GetExperimentAllocation
 

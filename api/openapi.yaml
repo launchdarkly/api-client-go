@@ -4,6 +4,295 @@ info:
     email: support@launchdarkly.com
     name: LaunchDarkly Technical Support Team
     url: https://support.launchdarkly.com
+  description: "# Authentication\n\nAll REST API resources are authenticated with\
+    \ [personal access tokens](https://docs.launchdarkly.com/home/account-security/api-access-tokens)\
+    \ or session cookies. Other authentication mechanisms are not supported. You can\
+    \ manage personal access tokens on your [Account settings](https://app.launchdarkly.com/settings/tokens)\
+    \ page. \n\nLaunchDarkly also has SDK keys, mobile keys, and client-side IDs that\
+    \ are used by our server-side SDKs, mobile SDKs, and client-side JavaScript SDKs,\
+    \ respectively. **These keys cannot be used to access our REST API**. These keys\
+    \ are environment-specific, and can only perform read-only operations (fetching\
+    \ feature flag settings).\n\n| Auth mechanism | Allowed resources | Use cases\
+    \ |\n| -------------- | ----------------- | --------- |\n| [Personal access tokens](https://docs.launchdarkly.com/home/account-security/api-access-tokens)\
+    \ | Can be customized on a per-token basis | Building scripts, custom integrations,\
+    \ data export |\n| SDK keys | Can only access read-only SDK-specific resources\
+    \ and the firehose, restricted to a single environment | Server-side SDKs, Firehose\
+    \ API |\n| Mobile keys | Can only access read-only mobile SDK-specific resources,\
+    \ restricted to a single environment | Mobile SDKs |\n| Client-side ID | Single\
+    \ environment, only flags marked available to client-side | Client-side JavaScript\
+    \ |\n\n<blockquote>\n    <h3><span>❗️</span>Keep your access tokens and SDK keys\
+    \ private</h3>\n    <p>Access tokens should *never* be exposed in untrusted contexts.\
+    \ Never put an access token in client-side JavaScript, or embed it in a mobile\
+    \ application. LaunchDarkly has special mobile keys that you can embed in mobile\
+    \ apps. If you accidentally expose an access token or SDK key, you can reset it\
+    \ from your [Account Settings](https://app.launchdarkly.com/settings#/tokens)\
+    \ page.</p>\n    <p>The client-side ID is safe to embed in untrusted contexts.\
+    \ It's designed for use in client-side JavaScript.</p>\n</blockquote>\n\n## Via\
+    \ request header\n\nThe preferred way to authenticate with the API is by adding\
+    \ an `Authorization` header containing your access token to your requests. The\
+    \ value of the `Authorization` header must be your access token.\n\nManage personal\
+    \ access tokens from the [Account Settings](https://app.launchdarkly.com/settings/tokens)\
+    \ page.\n\n## Via session cookie\n\nFor testing purposes, you can make API calls\
+    \ directly from your web browser. If you're logged in to the application, the\
+    \ API will use your existing session to authenticate calls.\n\nIf you have a [role](https://docs.launchdarkly.com/home/team/built-in-roles)\
+    \ other than Admin, or have a [custom role](https://docs.launchdarkly.com/home/team/custom-roles)\
+    \ defined, you may not have permission to perform some API calls. You will receive\
+    \ a `401` response code in that case.\n\n<blockquote>\n    <h3><span>❗️</span>Modifying\
+    \ the Origin header causes an error</h3>\n    <p>We validate that the Origin header\
+    \ for any API request authenticated by a session cookie matches the expected Origin\
+    \ header. The expected Origin header is `https://app.launchdarkly.com`.</p>\n\
+    \    <p>If the Origin header does not match what's expected, LaunchDarkly returns\
+    \ an error. This error can prevent the LaunchDarkly app from working correctly.\
+    \ </p>\n    <p>Any browser extension that intentionally changes the Origin header\
+    \ can cause this problem. For example, the `Allow-Control-Allow-Origin: *` Chrome\
+    \ extension changes the Origin header to http://evil.com and causes the app to\
+    \ fail.</p>\n    <p>To prevent this error, do not modify your Origin header.</p>\n\
+    \    <p>LaunchDarkly does not require origin matching when authenticating with\
+    \ an Access Token, so this issue does not affect normal API usage.</p>\n</blockquote>\n\
+    \n# Representations\n\nAll resources expect and return JSON response bodies. Error\
+    \ responses will also send a JSON body. Read [Errors](#section/Errors) for a more\
+    \ detailed description of the error format used by the API. \n\nIn practice this\
+    \ means that you always get a response with a `Content-Type` header set to `application/json`.\n\
+    \nIn addition, request bodies for `PUT`, `POST`, `REPORT` and `PATCH` requests\
+    \ must be encoded as JSON with a `Content-Type` header set to `application/json`.\n\
+    \n## Summary and detailed representations\n\nWhen you fetch a list of resources,\
+    \ the response includes only the most important attributes of each resource. This\
+    \ is a *summary representation* of the resource. When you fetch an individual\
+    \ resource (for example, a single feature flag), you receive a *detailed representation*\
+    \ containing all of the attributes of the resource.\n\nThe best way to find a\
+    \ detailed representation is to follow links. Every summary representation includes\
+    \ a link to its detailed representation.\n\n## Links and addressability\n\nThe\
+    \ best way to navigate the API is by following links. These are attributes in\
+    \ representations that link to other resources. The API always uses the same format\
+    \ for links:\n\n* Links to other resources within the API are encapsulated in\
+    \ a `_links` object.\n* If the resource has a corresponding link to HTML content\
+    \ on the site, it is stored in a special `_site` link.\n\nEach link has two attributes:\
+    \ an href (the URL) and a type (the content type). For example, a feature resource\
+    \ might return the following:\n\n```json\n{\n    \"_links\": {\n        \"parent\"\
+    : {\n            \"href\": \"/api/features\",\n            \"type\": \"application/json\"\
+    \n        },\n        \"self\": {\n            \"href\":\"/api/features/sort.order\"\
+    ,\n            \"type\":\"application/json\"\n        }\n    },\n    \"_site\"\
+    :{\n        \"href\":\"/features/sort.order\",\n        \"type\":\"text/html\"\
+    \n    }\n}\n```\n\nFrom this, you can navigate to the parent collection of features\
+    \ by following the `parent` link, or navigate to the site page for the feature\
+    \ by following the `_site` link.\n\nCollections are always represented as a JSON\
+    \ object with an `items` attribute containing an array of representations. Like\
+    \ all other representations, collections have `_links` defined at the top level.\n\
+    \nPaginated collections include `first`, `last`, `next`, and `prev` links containing\
+    \ a URL with the respective set of elements in the collection.\n\n# Updates\n\n\
+    Resources that accept partial updates use the `PATCH` verb, and support the [JSON\
+    \ Patch](http://tools.ietf.org/html/rfc6902) format. Some resources also support\
+    \ the [JSON Merge Patch](https://tools.ietf.org/html/rfc7386) format. In addition,\
+    \ some resources support optional comments that can be submitted with updates.\
+    \ Comments appear in outgoing webhooks, the audit log, and other integrations.\n\
+    \n## Updates via JSON Patch\n\n[JSON Patch](http://tools.ietf.org/html/rfc6902)\
+    \ is a way to specify the modifications to perform on a resource. For example,\
+    \ in this feature flag representation:\n\n```json\n{\n    \"name\": \"New recommendations\
+    \ engine\",\n    \"key\": \"engine.enable\",\n    \"description\": \"This is the\
+    \ description\",\n    ...\n}\n```\n\nYou can change the feature flag's description\
+    \ with the following patch document:\n\n```json\n[\n    { \"op\": \"replace\"\
+    , \"path\": \"/description\", \"value\": \"This is the new description\"}\n]\n\
+    ```\n\nJSON Patch documents are always arrays. You can specify multiple modifications\
+    \ to perform in a single request. You can also test that certain preconditions\
+    \ are met before applying the patch:\n\n```json\n[\n    { \"op\": \"test\", \"\
+    path\": \"/version\", \"value\": 10 },\n    { \"op\": \"replace\", \"path\": \"\
+    /description\", \"value\": \"The new description\" }\n]\n```\n\nThe above patch\
+    \ request tests whether the feature flag's `version` is `10`, and if so, changes\
+    \ the feature flag's description.\n\nAttributes that aren't editable, like a resource's\
+    \ `_links`, have names that start with an underscore.\n\n## Updates via JSON Merge\
+    \ Patch\n\nThe API also supports the [JSON Merge Patch](https://tools.ietf.org/html/rfc7386)\
+    \ format, as well as the [Update feature flag](#operation/patchFeatureFlag) resource.\
+    \ \n\nJSON Merge Patch is less expressive than JSON Patch but in many cases, it\
+    \ is simpler to construct a merge patch document. For example, you can change\
+    \ a feature flag's description with the following merge patch document:\n\n```json\n\
+    {\n    \"description\": \"New flag description\"\n}\n```\n\n## Updates with comments\n\
+    \nYou can submit optional comments with `PATCH` changes. The [Update feature flag](#operation/patchFeatureFlag)\
+    \ resource supports comments.\n\nTo submit a comment along with a JSON Patch document,\
+    \ use the following format:\n\n```json\n{\n    \"comment\": \"This is a comment\
+    \ string\",\n    \"patch\": [ {\"op\": \"replace\", \"path\": \"/description\"\
+    , \"value\": \"The new description\" } ]\n}\n```\n\nTo submit a comment along\
+    \ with a JSON Merge Patch document, use the following format:\n\n```json\n{\n\
+    \    \"comment\": \"This is a comment string\",\n    \"merge\": { \"description\"\
+    : \"New flag description\"}\n}\n```\n\n## Updates via semantic patches\n\nThe\
+    \ API also supports the Semantic patch format. A semantic `PATCH` is a way to\
+    \ specify the modifications to perform on a resource as a set of executable instructions.\
+    \ \n\nJSON Patch uses paths and a limited set of operations to describe how to\
+    \ transform the current state of the resource into a new state. Semantic patch\
+    \ allows you to be explicit about intent using precise, custom instructions. In\
+    \ many cases, semantic patch instructions can also be defined independently of\
+    \ the current state of the resource. This can be useful when defining a change\
+    \ that may be applied at a future date.\n\nFor example, in this feature flag configuration\
+    \ in environment Production:\n\n```json\n{\n    \"name\": \"Alternate sort order\"\
+    ,\n    \"kind\": \"boolean\",\n    \"key\": \"sort.order\",\n   ...\n    \"environments\"\
+    : {\n        \"production\": {\n            \"on\": true,\n            \"archived\"\
+    : false,\n            \"salt\": \"c29ydC5vcmRlcg==\",\n            \"sel\": \"\
+    8de1085cb7354b0ab41c0e778376dfd3\",\n            \"lastModified\": 1469131558260,\n\
+    \            \"version\": 81,\n            \"targets\": [\n                {\n\
+    \                    \"values\": [\n                        \"Gerhard.Little@yahoo.com\"\
+    \n                    ],\n                    \"variation\": 0\n             \
+    \   },\n                {\n                    \"values\": [\n               \
+    \         \"1461797806429-33-861961230\",\n                        \"438580d8-02ee-418d-9eec-0085cab2bdf0\"\
+    \n                    ],\n                    \"variation\": 1\n             \
+    \   }\n            ],\n            \"rules\": [],\n            \"fallthrough\"\
+    : {\n                \"variation\": 0\n            },\n            \"offVariation\"\
+    : 1,\n            \"prerequisites\": [],\n            \"_site\": {\n         \
+    \       \"href\": \"/default/production/features/sort.order\",\n             \
+    \   \"type\": \"text/html\"\n            }\n       }\n    }\n}\n```\n\nYou can\
+    \ add a date you want a user to be removed from the feature flag's user targets.\
+    \ For example, “remove user 1461797806429-33-861961230 from the user target for\
+    \ variation 0 on the Alternate sort order flag in the production environment on\
+    \ Wed Jul 08 2020 at 15:27:41 pm”. This is done using the following:\n\n```json\n\
+    {\n    \"comment\": \"update expiring user targets\",\n    \"instructions\": [\n\
+    \        {\n            \"kind\": \"removeExpireUserTargetDate\",\n          \
+    \  \"userKey\": \"userKey\",\n            \"variationId\": \"978d53f9-7fe3-4a63-992d-97bcb4535dc8\"\
+    ,\n        },\n        {\n            \"kind\": \"updateExpireUserTargetDate\"\
+    ,\n            \"userKey\": \"userKey2\",\n            \"variationId\": \"978d53f9-7fe3-4a63-992d-97bcb4535dc8\"\
+    ,\n            \"value\": 1587582000000\n        },\n        {\n            \"\
+    kind\": \"addExpireUserTargetDate\",\n            \"userKey\": \"userKey3\",\n\
+    \            \"variationId\": \"978d53f9-7fe3-4a63-992d-97bcb4535dc8\",\n    \
+    \        \"value\": 1594247266386\n        }\n    ]\n}\n```\n\nHere is another\
+    \ example. In this feature flag configuration:\n\n```json\n{\n    \"name\": \"\
+    New recommendations engine\",\n    \"key\": \"engine.enable\",\n    \"environments\"\
+    : {\n        \"test\": {\n            \"on\": true\n        }\n    }\n}\n```\n\
+    \nYou can change the feature flag's description with the following patch document\
+    \ as a set of executable instructions. For example, “add user X to targets for\
+    \ variation Y and remove user A from targets for variation B for test flag”:\n\
+    \n```json\n{\n    \"comment\": \"\",\n    \"instructions\": [\n        {\n   \
+    \         \"kind\": \"removeUserTargets\",\n            \"values\": [\"438580d8-02ee-418d-9eec-0085cab2bdf0\"\
+    ],\n            \"variationId\": \"852cb784-54ff-46b9-8c35-5498d2e4f270\"\n  \
+    \      },\n        {\n            \"kind\": \"addUserTargets\",\n            \"\
+    values\": [\"438580d8-02ee-418d-9eec-0085cab2bdf0\"],\n            \"variationId\"\
+    : \"1bb18465-33b6-49aa-a3bd-eeb6650b33ad\"\n        }\n    ]\n}\n```\n\n<blockquote>\n\
+    \    <h3><span>\U0001f4d8</span>Supported semantic patch API endpoints</h3>\n\
+    \    <p>TODO: update these links</p>\n    <p><a href=\"#operation/patchFeatureFlag\"\
+    >Update feature flag</a></p>\n    <p><a href=\"\">Update expiring user targets\
+    \ on feature flag</a></p>\n    <p><a href=\"\">Update expiring user target for\
+    \ flags</a></p>\n</blockquote>\n\n# Errors\n\nThe API always returns errors in\
+    \ a common format. Here's an example:\n\n```json\n{\n    \"code\": \"invalid_request\"\
+    ,\n    \"message\": \"A feature with that key already exists\",\n    \"id\": \"\
+    30ce6058-87da-11e4-b116-123b93f75cba\"\n}\n```\n\nThe general class of error is\
+    \ indicated by the `code`. The `message` is a human-readable explanation of what\
+    \ went wrong. The `id` is a unique identifier. Use it when you're working with\
+    \ LaunchDarkly support to debug a problem with a specific API call.\n\n## HTTP\
+    \ Status - Error Response Codes\n\n| Code | Definition | Desc. | Possible Solution\
+    \ |\n| ---- | ---------- | ----- | ----------------- |\n| 400  | Bad Request |\
+    \ A request that fails may return this HTTP response code. | Ensure JSON syntax\
+    \ in request body is correct. |\n| 401  | Unauthorized | User doesn't have permission\
+    \ to an API call. | Ensure your SDK key is good. |\n| 403  | Forbidden | User\
+    \ does not have permission for operation. | Ensure that the user or access token\
+    \ has proper permissions set. |\n| 409  | Conflict | The API request could not\
+    \ be completed because it conflicted with a concurrent API request. | Retry your\
+    \ request. |\n| 429  | Too many requests | See [Rate limiting](ref:rate-limiting).\
+    \ | Wait and try again later. |\n\n# CORS\n\nThe LaunchDarkly API supports Cross\
+    \ Origin Resource Sharing (CORS) for AJAX requests from any origin. If an `Origin`\
+    \ header is given in a request, it will be echoed as an explicitly allowed origin.\
+    \ Otherwise, a wildcard is returned: `Access-Control-Allow-Origin: *`. For more\
+    \ information on CORS, see the [CORS W3C Recommendation](http://www.w3.org/TR/cors).\
+    \ Example CORS headers might look like:\n\n```http\nAccess-Control-Allow-Headers:\
+    \ Accept, Content-Type, Content-Length, Accept-Encoding, Authorization\nAccess-Control-Allow-Methods:\
+    \ OPTIONS, GET, DELETE, PATCH\nAccess-Control-Allow-Origin: *\nAccess-Control-Max-Age:\
+    \ 300\n```\n\nYou can make authenticated CORS calls just as you would make same-origin\
+    \ calls, using either [token or session-based authentication](#section/Authentication).\
+    \ If you’re using session auth, you should set the `withCredentials` property\
+    \ for your `xhr` request to `true`. You should never expose your access tokens\
+    \ to untrusted users.\n\n# Rate limiting\n\nWe use several rate limiting strategies\
+    \ to ensure the availability of our APIs. Rate-limited calls to our APIs will\
+    \ return a `429` status code. Calls to our APIs will include headers indicating\
+    \ the current rate limit status. The specific headers returned depend on the API\
+    \ route being called-- the limits differ based on the route, authentication mechanism,\
+    \ and other factors. Routes that are not rate limited may not contain any of the\
+    \ headers described below.\n\n<blockquote>\n    <h3><span>❗️</span>Rate limiting\
+    \ and SDKs</h3>\n    <p>Our SDKs are never rate limited. Our SDKs do not use the\
+    \ API endpoints defined here. We use a different set of approaches, including\
+    \ streaming/server-sent events and a global CDN, to ensure availability to the\
+    \ routes used by our SDKs.</p>\n    <p>The client-side ID is safe to embed in\
+    \ untrusted contexts. It's designed for use in client-side JavaScript.</p>\n</blockquote>\n\
+    \n## Global rate limits\n\nAuthenticated requests are subject to a global limit.\
+    \ This is the maximum number of calls that can be made to the API per ten seconds.\
+    \ All personal access tokens on the account share this limit, so exceeding the\
+    \ limit with one access token will impact other tokens. Calls that are subject\
+    \ to global rate limits will return the headers below:\n\n| Header name | Description\
+    \ |\n| ----------- | ----------- |\n| `X-Ratelimit-Global-Remaining` | The maximum\
+    \ number of requests the account is permitted to make per ten seconds. |\n| `X-Ratelimit-Reset`\
+    \ | The time at which the current rate limit window resets in epoch milliseconds.\
+    \ |\n\nWe do not publicly document the specific number of calls that can be made\
+    \ globally. This limit may change, and we encourage clients to program against\
+    \ the specification, relying on the two headers defined above, rather than hardcoding\
+    \ to the current limit.\n\n## Route-level rate limits\n\nSome authenticated routes\
+    \ have custom rate limits. These also reset every ten seconds. Any access tokens\
+    \ hitting the same route share this limit, so exceeding the limit with one access\
+    \ token may impact other tokens. Calls that are subject to route-level rate limits\
+    \ will return the headers below:\n\n| Header name | Description |\n| -----------\
+    \ | ----------- |\n| `X-Ratelimit-Route-Remaining` | The maximum number of requests\
+    \ to the current route the account is permitted to make per ten seconds. |\n|\
+    \ `X-Ratelimit-Reset` | The time at which the current rate limit window resets\
+    \ in epoch milliseconds. |\n\nA *route* represents a specific URL pattern and\
+    \ verb. For example, the [Delete environment](#operation/deleteEnvironment) endpoint\
+    \ is considered a single route, and each call to delete an environment counts\
+    \ against your route-level rate limit for that route. \n\nWe do not publicly document\
+    \ the specific number of calls that can be made to each endpoint per ten seconds.\
+    \ These limits may change, and we encourage clients to program against the specification,\
+    \ relying on the two headers defined above, rather than hardcoding to the current\
+    \ limits.\n\n## IP-based rate limiting\n\nWe also employ IP-based rate limiting\
+    \ on some API routes. If you hit an IP-based rate limit, your API response will\
+    \ include a `Retry-After` header indicating how long to wait before re-trying\
+    \ the call. Clients must wait at least `Retry-After` seconds before making additional\
+    \ calls to our API, and should employ jitter and backoff strategies to avoid triggering\
+    \ rate limits again.\n\n# OpenAPI (Swagger)\n\nWe have a [complete OpenAPI (Swagger)\
+    \ specification](https://app.launchdarkly.com/api/v2/openapi.json) for our API.\n\
+    \nYou can use this specification to generate client libraries to interact with\
+    \ our REST API in your language of choice. \n\n# Client libraries\n\nWe auto-generate\
+    \ multiple client libraries based on our OpenAPI specification. To learn more,\
+    \ visit [GitHub](https://github.com/search?q=topic%3Alaunchdarkly-api+org%3Alaunchdarkly&type=Repositories).\n\
+    \n# Method Overriding\n\nSome firewalls and HTTP clients restrict the use of verbs\
+    \ other than `GET` and `POST`. In those environments, our API endpoints that use\
+    \ `PUT`, `PATCH`, and `DELETE` verbs will be inaccessible.\n\nTo avoid this issue,\
+    \ our API supports the `X-HTTP-Method-Override` header, allowing clients to \"\
+    tunnel\" `PUT`, `PATCH`, and `DELETE` requests via a `POST` request. \n\nFor example,\
+    \ if you wish to call one of our `PATCH` resources via a `POST` request, you can\
+    \ include `X-HTTP-Method-Override:PATCH` as a header.\n\n# Beta resources\n\n\
+    We sometimes release new API resources in **beta** status before we release them\
+    \ with general availability. \n\nResources that are in beta are still undergoing\
+    \ testing and development. They may change without notice, including becoming\
+    \ backwards incompatible. \n\nWe try to promote resources into general availability\
+    \ as quickly as possible. This happens after sufficient testing and when we're\
+    \ satisfied that we no longer need to make backwards-incompatible changes.\n\n\
+    We mark beta resources with a \"Beta\" callout in our documentation, pictured\
+    \ below:\n<blockquote>\n    <h3><span>\U0001f4d8</span>Beta</h3>\n    <p>**This\
+    \ feature is in beta.** You must include a specific header to use it.\\n\\nTo\
+    \ learn more, read [Beta resources](ref:beta-resources).</p>\n</blockquote>\n\n\
+    ## Using beta resources\n\nTo use a beta resource, you must include a header in\
+    \ the request. If you call a beta resource without this header, you'll receive\
+    \ a `403` response.\n\nUse this header: \n\n```\nLD-API-Version: beta\n```\n\n\
+    # Versioning\n\nWe try hard to keep our REST API backwards compatible, but we\
+    \ occasionally have to make backwards-incompatible changes in the process of shipping\
+    \ new features. These breaking changes can cause unexpected behavior if you don't\
+    \ prepare for them accordingly. \n\nUpdates to our REST API include support for\
+    \ the latest features in LaunchDarkly. We also release a new version of our REST\
+    \ API every time we make a breaking change. We provide simultaneous support for\
+    \ multiple API versions so you can migrate from your current API version to a\
+    \ new version at your own pace. \n\nSee new versions in the [Changelog](ref:changelog).\n\
+    \n## Setting the API version per request\n\nYou can set the API version on a specific\
+    \ request by sending an `LD-API-Version` header, as shown in the example below:\n\
+    \n```\nLD-API-Version: 20191212\n```\n\nThe header value is the version number\
+    \ of the API version you'd like to request. The number for each version corresponds\
+    \ to the date the version was released. In the example above the version `20191212`\
+    \ corresponds to December 12, 2019. \n\n## Setting the API version per access\
+    \ token\n\nWhen creating an access token, you must specify a specific version\
+    \ of the API to use. This ensures that integrations using this token cannot be\
+    \ broken by version changes.\n\nTokens created before versioning was released\
+    \ have their version set to `20160426` (the version of the API that existed before\
+    \ versioning) so that they continue working the same way they did before versioning.\n\
+    \nIf you would like to upgrade your integration to use a new API version, you\
+    \ can explicitly set the header described above.\n\n<blockquote>\n    <h3><span>\U0001f44d\
+    </span>Best practice: Set the header for every client or integration</h3>\n  \
+    \  <p>We recommend that you set the API version header explicitly in any client\
+    \ or integration you build.</p>\n    <p>Only rely on the access token API version\
+    \ during manual testing.</p>\n</blockquote>\n\n<blockquote>\n    <h3><span>\U0001f6a7\
+    </span>API Path Versioning</h3>\n    <p>In the past, we've used path-based API\
+    \ versioning. For example, versioning resources by adding `v2` to endpoint URLs.\
+    \ We don't foresee the need to do this again, but may do so if we need to make\
+    \ major revisions to the API.</p>\n</blockquote>\n"
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
@@ -16,22 +305,339 @@ security:
   - read
   - write
 tags:
-- name: Access tokens
-- name: Approvals
-- name: Audit log
-- name: Code references
-- name: Custom roles
-- name: Data export destinations
-- name: Environments
-- name: Experiments
-- name: Feature flags
-- name: Metrics
-- name: Projects
-- name: Scheduled changes
-- name: Segments
-- name: Team members
-- name: Users
-- name: User settings
+- description: "The access tokens API allows you to list, create, modify, and delete\
+    \ access tokens programmatically. \n\nWhen using access tokens to manage access\
+    \ tokens, the following restrictions apply:\n- Personal tokens can see all service\
+    \ tokens and other personal tokens created by the same team member. If the personal\
+    \ token has the \"Admin\" role, it may also see other member's personal tokens.\
+    \ To learn more, read [Personal tokens](https://docs.launchdarkly.com/home/account-security/api-access-tokens#personal-tokens).\n\
+    - Service tokens can see all service tokens. If the token has the \"Admin\" role,\
+    \ it may also see all personal tokens. To learn more, read  [Service tokens](https://docs.launchdarkly.com/home/account-security/api-access-tokens#service-tokens).\n\
+    - Tokens can only manage other tokens, including themselves, if they have \"Admin\"\
+    \ role or explicit permission via a custom role. To learn more, read [Personal\
+    \ access token actions](https://docs.launchdarkly.com/home/team/role-actions#personal-access-token-actions).\n\
+    \nTo learn more about access tokens, read [API access tokens](https://docs.launchdarkly.com/home/account-security/api-access-tokens).\n"
+  name: Access tokens
+- description: |
+    You may create an approval request for updating a flag and request approval from a team member before applying the changes. You may to select up to ten reviewers to be notified via email, however, anyone with the sufficient permissions can review a pending approval request. At least one approval is needed to allow the changes to be applied.
+
+    Change instructions that are in a conflict state will fail if approved and applied, and the flag will not be updated.
+  name: Approvals
+- description: The audit log contains a record of all the changes made to any resource
+    in the system. You can filter the audit log by timestamps, or use a custom policy
+    to select which entries to receive.
+  name: Audit log
+- description: |
+    <blockquote>
+        <h3><span>🚧</span>Use ld-find-code-refs</h3>
+        <p>LaunchDarkly provides the [`ld-find-code-refs` utility](https://github.com/launchdarkly/ld-find-code-refs) that creates repository connections, generates code reference data, and creates calls to the code references API. Most customers do not need to call this API directly.</p>
+    </blockquote>
+
+    The [code references](https://docs.launchdarkly.com/home/code/code-references) API provides access to all resources related to connected repository, and associated feature flag code reference data for all branches.
+  name: Code references
+- description: "<blockquote>\n    <h3><span>\U0001f4d8</span>Custom roles is an Enterprise\
+    \ feature</h3>\n    <p>Custom roles is available to customers on an Enterprise\
+    \ plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/).\
+    \ To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).</p>\n\
+    </blockquote>\n\nCustom roles allow you to create flexible policies providing\
+    \ fine-grained access control to everything in LaunchDarkly, from feature flags\
+    \ to goals, environments and teams. With custom roles, it's possible to enforce\
+    \ access policies that meet your exact workflow needs. \n\nThe custom roles API\
+    \ allows you to create, update and delete custom roles. You can also use the API\
+    \ to list all of your custom roles or get a custom role by ID.\n\nFor more information\
+    \ about custom roles and the syntax for custom role policies, read the product\
+    \ documentation for [Custom roles](https://docs.launchdarkly.com/docs/custom-roles).\n"
+  name: Custom roles
+- description: "<blockquote>\n    <h3><span>\U0001f4d8</span>Data Export is an add-on\
+    \ feature</h3>\n    <p>Data Export is available as an add-on for customers on\
+    \ an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/).\
+    \ To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).</p>\n\
+    </blockquote>\n\nData Export provides a real-time export of raw analytics data,\
+    \ including feature flag requests, analytics events, custom events, and more.\
+    \ \n\n_Data Export Destinations_ are locations that receive exported data. The\
+    \ Data Export Destinations API allows you to configure destinations so that your\
+    \ data can be exported.\n\nTo learn more, read [Data Export](https://docs.launchdarkly.com/docs/data-export).\n"
+  name: Data export destinations
+- description: |
+    Environments allow you to maintain separate rollout rules in different contexts, from local development to QA, staging, and production. With the LaunchDarkly Environments API, you can programmatically create, delete, and update environments.
+  name: Environments
+- description: |
+    An experiment is a running tally of user behaviors based on which variation of a feature flag they receive. In LaunchDarkly, an experiment requires two things: a metric that defines what user behaviors to track, and at least one flag associated with that metric.
+
+    Experiments are largely managed via PATCH requests to the Flags API. There are also dedicated API resources for getting and deleting experiment data.
+  name: Experiments
+- description: |
+    ## Anatomy of a feature flag
+
+    The feature flag API allows you to control percentage rollouts, target specific users, or even toggle off a feature programmatically. By looking at the representation of a feature flag, we can see how to do any of these tasks.
+
+    ## Sample feature flag representation
+
+    Every feature flag has a set of top-level attributes, as well as an `environments` map containing the flag rollout and targeting rules specific to each environment. Top-level attributes include things like the flag's name, description, tags, and creation date.
+
+    For reference, here's a complete feature flag representation. Below we break this down and explain each attribute in detail.
+
+    ```json
+    {
+      "name": "Alternate product page",
+      "kind": "boolean",
+      "description": "This is a description",
+      "key": "alternate.page",
+      "creationDate": 1418684722483,
+      "includeInSnippet": true,
+      "variations": [
+        {
+          "value": true,
+          "name": "true"
+        },
+        {
+          "value": false,
+          "name": "false"
+        }
+      ],
+      "defaults": {
+        "onVariation": 0,
+        "offVariation": 1
+      },
+      "temporary": false,
+      "tags": ["ops", "experiments"],
+      "_links": {
+        "parent": {
+          "href": "/api/v2/flags/default",
+          "type": "application/json"
+        },
+        "self": {
+          "href": "/api/v2/flags/default/alternate.page",
+          "type": "application/json"
+        }
+      },
+      "maintainerId": "548f6741c1efad40031b18ae",
+      "_maintainer": {
+        "_links": {
+          "parent": {
+            "href": "/internal/account/members",
+            "type": "application/json"
+          },
+          "self": {
+            "href": "/internal/account/members/548f6741c1efad40031b18ae",
+            "type": "application/json"
+          }
+        },
+        "_id": "548f6741c1efad40031b18ae",
+        "firstName": "Reese",
+        "lastName": "App",
+        "role": "owner",
+        "email": "refapp@launchdarkly.com",
+        "_pendingInvite": false,
+        "isBeta": false,
+        "customRoles": []
+      },
+      "goalIds": [],
+      "environments": {
+        "production": {
+          "on": true,
+          "archived": false,
+          "salt": "YWx0ZXJuYXRlLnBhZ2U=",
+          "sel": "45501b9314dc4641841af774cb038b96",
+          "lastModified": 1469326565348,
+          "version": 61,
+          "targets": [
+            {
+              "values": ["1461797806427-7-115540266"],
+              "variation": 0
+            },
+            {
+              "values": ["Gerhard.Little@yahoo.com"],
+              "variation": 1
+            }
+          ],
+          "rules": [
+            {
+              "variation": 0,
+              "clauses": [
+                {
+                  "attribute": "groups",
+                  "op": "in",
+                  "values": ["Top Customers"],
+                  "negate": false
+                },
+                {
+                  "attribute": "email",
+                  "op": "endsWith",
+                  "values": ["gmail.com"],
+                  "negate": false
+                }
+              ]
+            }
+          ],
+          "fallthrough": {
+            "rollout": {
+              "variations": [
+                {
+                  "variation": 0,
+                  "weight": 60000
+                },
+                {
+                  "variation": 1,
+                  "weight": 40000
+                }
+              ]
+            }
+          },
+          "offVariation": 1,
+          "prerequisites": [],
+          "_site": {
+            "href": "/default/production/features/alternate.page",
+            "type": "text/html"
+          }
+        },
+        "test": {
+          "on": true,
+          "archived": false,
+          "salt": "YWx0ZXJuYXRlLnBhZ2U=",
+          "sel": "76c63094d35949bb9dc9bd5c570bacf5",
+          "lastModified": 1455145480896,
+          "version": 37,
+          "targets": [
+            {
+              "values": [],
+              "variation": 0
+            },
+            {
+              "values": [],
+              "variation": 1
+            }
+          ],
+          "rules": [],
+          "fallthrough": {
+            "rollout": {
+              "variations": [
+                {
+                  "variation": 0,
+                  "weight": 49000
+                },
+                {
+                  "variation": 1,
+                  "weight": 51000
+                }
+              ]
+            }
+          },
+          "prerequisites": [],
+          "_site": {
+            "href": "/default/tester/features/alternate.page",
+            "type": "text/html"
+          }
+        }
+      }
+    }
+    ```
+
+    ## Top-level attributes
+
+    Most of the top-level attributes have a straightforward interpretation. For example, to change the name of a feature, [update the feature flag](#operation/patchFeatureFlag) with the `name` attribute set to the new name:
+
+    ```json
+    [
+        { "op": "replace", "path": "/name", "value": "New name" }
+    ]
+    ```
+
+    The `variations` array represents the different variation values that a feature flag has. For a boolean flag, there are two variations: `true` and `false`. Multivariate flags have more variation values, and those values could be any JSON type: numbers, strings, objects, or arrays. In targeting rules, the variations are referred to by their index into this array. Below are some specific examples.
+
+    ## Per-environment configurations
+
+    Each entry in the `environments` map contains a JSON object that represents the environment-specific flag configuration data that you see on the [Targeting](https://docs.launchdarkly.com/home/flags/targeting-users) tab of your Manage Feature page. For example, to toggle off a feature flag in your production environment, use the following JSON patch operation:
+
+    ```json
+    [
+        { "op": "replace", "path": "/environments/production/on", "value": false }
+    ]
+    ```
+
+    Each section of the Targeting tab corresponds to a different attribute of the per-environment configuration data, as shown here:
+
+    ## Individual user targets
+
+    The `targets` array in the per-environment configuration data represents the individual user targeting rules on the Targeting tab. Each object in the `targets` array represents a list of user keys assigned to a particular variation. For example:
+
+    ```json
+    {
+        ...
+        "environments" : {
+            "production" : {
+                ...
+                "targets": [
+                    {
+                        "values": ["foo@example.com"],
+                        "variation: 0
+                    }
+                ]
+            }
+        }
+    }
+    ```
+
+    This `targets` array here means that user `foo@example.com` receives the first variation listed in the `variations` array. Recall that the variations are stored at the top level of the flag JSON in an array, and the per-environment configuration rules point to indexes into this array. If this is a boolean flag, `foo@example.com` is receiving the `true` variation.
+
+    ## Targeting rules
+
+    The `rules` array corresponds to the custom targeting rules section of the Targeting tab. This is where you can express complex rules on attributes with conditions and operators. For example, a rule like "roll out the `true` variation to 80% of users whose email address ends with `gmail.com` could be expressed here.
+
+    ## The fallthrough rule
+
+    The `fallthrough` object is a special rule that contains no conditions. It is the rollout strategy that is applied when none of the individual or custom targeting rules match.
+
+    ## The off variation
+
+    The off variation represents the variation to serve if the feature flag is turned off, meaning the `on` attribute is `false`. For boolean flags, this is usually `false`. For multivariate flags, set the off variation to whatever variation represents the control or baseline behavior for your application. If you don't set the off variation, LaunchDarkly will serve the fallback value defined in your code.
+
+    ## Percentage rollouts
+
+    The `weight` attribute defines the percentage rollout for each variation. Weights range from 0 (a 0% rollout) to 100000 (a 100% rollout). The weights are scaled by a factor of 1000 so that fractions of a percent can be represented without using floating-point. For example, a weight of `50000` means that 50% of users that don't otherwise match any `targets` will see that variation. The sum of weights across all variations should be 100%.
+  name: Feature flags
+- description: |-
+    <blockquote>
+        <h3><span>📘</span>This feature is currently in beta</h3>
+        <p>To use this feature, pass in a header including the `LD-API-Version` key with value set to `beta`. Use this header with each call.</p>
+    </blockquote>
+
+    Metrics track flag behavior over time when an experiment is running. The data generated from experiments gives you more insight into the impact of a particular flag.
+
+    Using the Metrics API, you can create, delete, and manage metrics.
+  name: Metrics
+- description: "Projects allow you to manage multiple different software projects\
+    \ under one LaunchDarkly account. Each project has its own unique set of environments\
+    \ and feature flags. \n\nUsing the Projects API, you can create, destroy, and\
+    \ manage projects."
+  name: Projects
+- description: |
+    Schedule the specified flag targeting changes to take effect at the selected time. You may schedule multiple changes for a flag each with a different `ExecutionDate`.
+
+    The supported flag actions include enabling/disabling targeting, changing the default rule, and changing the `off` variation. If you include unsupported actions as part of your scheduled changes, they will be discarded.
+  name: Scheduled changes
+- description: |-
+    Segments allow you to create targeting rules and lists of users that can be shared by one or more feature flags in an environment. Creating a segment is a lot like creating a flag. You can include individual users from a segment. You can also create targeting rules, same as those for flags, that include or exclude users based on attributes your application has provided about those users. Finally, you can explicitly exclude users that would otherwise be included by those rules.
+
+    The segments API allows you to list, create, modify, and delete segments programmatically.
+  name: Segments
+- description: |-
+    The Team Members API allows you to invite new members to a team by making a POST request to /api/v2/members.  When you invite a new member to a team, an invitation will be sent to the email you have provided.  Members with "admin" or "owner" roles may create new members, as well as anyone with a "createMember" permission for "member/*".
+
+    Any member may request the complete list of team members with a GET to /api/v2/members.
+  name: Team members
+- description: |-
+    LaunchDarkly creates a record for each user passed in to `variation` calls. This record powers the autocomplete functionality on the Feature Flag management page, as well as the Users page.
+
+    LaunchDarkly also offers an API that lets you tap into this data. You can use the users API to see what user data is available to LaunchDarkly, as well as determine which flag values a user will receive. You can also explicitly set which flag value a user will receive via this API.
+
+    Users are always scoped within a project and environment. In other words, each environment has its own set of user records.
+  name: Users
+- description: |-
+    LaunchDarkly's User Settings API provides a picture of all feature flags and their current values for a specific user. This gives you instant visibility of how a particular user is experiencing your site or application.
+
+    The User Settings API can also be used to assign a user to a specific variation for any feature flag.
+  name: User settings
 - name: Other
 paths:
   /api/v2:
@@ -1503,6 +2109,169 @@ paths:
       summary: Update feature flag
       tags:
       - Feature flags
+  /api/v2/integrations:
+    get:
+      description: ' Get a list of all configured audit log event integrations associated
+        with this account.'
+      operationId: getConfigurations
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/inline_response_200_1'
+                type: array
+          description: Successful integrations response
+        "429":
+          description: Rate limited
+      summary: List integration configurations
+      tags:
+      - Integrations
+  /api/v2/integrations/{integrationKey}:
+    patch:
+      description: ' Update a subscription integration.'
+      operationId: updateSubscription
+      parameters:
+      - description: The integration key
+        explode: false
+        in: path
+        name: integrationKey
+        required: true
+        schema:
+          description: The integration key
+          format: string
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IntegrationSubscriptionRep'
+          description: Successful
+        "400":
+          description: Invalid integration configuration
+        "403":
+          description: Access to the requested resource was denied
+        "404":
+          description: Integration not found
+        "409":
+          description: Optimistic locking error
+        "429":
+          description: Rate limited
+      summary: Update subscription
+      tags:
+      - Integrations
+    post:
+      description: ' Create an integration configuration.'
+      operationId: createSubscription
+      parameters:
+      - description: The integration key
+        explode: false
+        in: path
+        name: integrationKey
+        required: true
+        schema:
+          description: The integration key
+          format: string
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/integrations.subscriptionPost'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IntegrationSubscriptionRep'
+          description: Successful integration
+        "400":
+          description: Invalid configuration
+        "404":
+          description: Integration not found
+        "429":
+          description: Rate Limited
+      summary: Create integration configuration
+      tags:
+      - Integrations
+  /api/v2/integrations/{integrationKey}/{id}:
+    delete:
+      description: ' Delete a subscription integration.'
+      operationId: deleteSubscription
+      parameters:
+      - description: The integration key
+        explode: false
+        in: path
+        name: integrationKey
+        required: true
+        schema:
+          description: The integration key
+          format: string
+          type: string
+        style: simple
+      - description: The subscription ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          description: The subscription ID
+          format: string
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: Action completed successfully
+        "404":
+          description: Integration not found
+      summary: Delete integration configuration
+      tags:
+      - Integrations
+    get:
+      description: ' Get a subscription integration by ID.'
+      operationId: getIntegrationSubscriptionByID
+      parameters:
+      - description: The integration key
+        explode: false
+        in: path
+        name: integrationKey
+        required: true
+        schema:
+          description: The integration key
+          format: string
+          type: string
+        style: simple
+      - description: The subscription ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          description: The subscription ID
+          format: string
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IntegrationSubscriptionRepCollection'
+          description: Successful integrations response
+        "403":
+          description: Forbidden
+        "404":
+          description: Invalid resource specifier
+        "429":
+          description: Rate Limited
+      summary: Get configured integration by ID
+      tags:
+      - Integrations
   /api/v2/members:
     post:
       description: ' Invite one or more new team members to join an account. Each
@@ -2270,7 +3039,7 @@ paths:
     post:
       description: ' Create an approval request to copy a feature flag''s configuration
         across environments.'
-      operationId: postCopyFlagConfigApprovalRequest
+      operationId: postFlagCopyConfigApprovalRequest
       parameters:
       - description: The project key
         explode: false
@@ -4344,6 +5113,73 @@ paths:
       summary: Update flag settings for user
       tags:
       - User settings
+  /api/v2/versions:
+    get:
+      description: ' Returns the latest API version, the list of valid API versions
+        in ascending order, and the version being used for this request. These are
+        all in the external, date-based format.'
+      operationId: getVersions
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VersionsRep'
+          description: Versions information response
+        "401":
+          description: Invalid access token
+        "403":
+          description: Forbidden
+        "404":
+          description: Invalid resource identifier
+        "429":
+          description: Rate limited
+      summary: Get version information
+      tags:
+      - Other
+  /integrations/{integrationKey}/{id}/validate:
+    post:
+      description: ' Validate an integration connection for receiving audit log webhooks.'
+      operationId: validateConnection
+      parameters:
+      - description: The integration key
+        explode: false
+        in: path
+        name: integrationKey
+        required: true
+        schema:
+          description: The integration key
+          format: string
+          type: string
+        style: simple
+      - description: The integration configuration ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          description: The integration configuration ID
+          format: string
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IntegrationSubscriptionTestEventRep'
+          description: Successful
+        "400":
+          description: Integration does not support test event feature
+        "403":
+          description: Access to the requested resource was denied
+        "404":
+          description: Integration not found
+        "429":
+          description: Rate limited
+      summary: Validate connection
+      tags:
+      - Integrations (Beta)
   /segments/{projKey}/{envKey}/{key}/users:
     post:
       description: ' Update targets included or excluded in a big segment'
@@ -4507,6 +5343,9 @@ components:
           type: string
         reason:
           $ref: '#/components/schemas/AccessDeniedReasonRep'
+      required:
+      - action
+      - reason
       type: object
     AccessRep:
       example:
@@ -4548,6 +5387,8 @@ components:
           items:
             $ref: '#/components/schemas/AccessRep_denied'
           type: array
+      required:
+      - denied
       type: object
     AccessTokenCollectionRep:
       example:
@@ -4796,21 +5637,29 @@ components:
         minNumApprovals: 1
       properties:
         Required:
+          description: If approvals are required for this environment.
           example: true
           type: boolean
         bypassApprovalsForPendingChanges:
           example: false
           type: boolean
         minNumApprovals:
+          description: Sets the amount of approvals required before a member can apply
+            a change. The minimum is one and the maximum is five.
           example: 1
           type: integer
         canReviewOwnRequest:
+          description: Allow someone who makes an approval request to apply their
+            own change.
           example: false
           type: boolean
         canApplyDeclinedChanges:
+          description: Allow applying the change as long as at least one person has
+            approved.
           example: false
           type: boolean
         serviceKind:
+          description: Which service to use for managing approvals.
           example: launchdarkly
           type: string
         serviceConfig:
@@ -4818,6 +5667,8 @@ components:
           example: {}
           type: object
         requiredApprovalTags:
+          description: Require approval only on flags with the provided tags. Otherwise
+            all flags will require approval.
           example:
           - require-approval
           items:
@@ -5058,6 +5909,9 @@ components:
           type: boolean
         usingMobileKey:
           type: boolean
+      required:
+      - usingEnvironmentId
+      - usingMobileKey
       type: object
     ConfidenceIntervalRep:
       example:
@@ -5341,6 +6195,10 @@ components:
           type: object
         _site:
           $ref: '#/components/schemas/core.Link'
+      required:
+      - _links
+      - _site
+      - key
       type: object
     DependentFlagEnvironment:
       properties:
@@ -5354,6 +6212,10 @@ components:
           type: object
         _site:
           $ref: '#/components/schemas/core.Link'
+      required:
+      - _links
+      - _site
+      - key
       type: object
     DependentFlagWithEnvs:
       properties:
@@ -5365,6 +6227,9 @@ components:
           items:
             $ref: '#/components/schemas/DependentFlagWithEnvs_environments'
           type: array
+      required:
+      - environments
+      - key
       type: object
     DependentFlagsCollectionRep:
       example:
@@ -5405,6 +6270,10 @@ components:
           type: object
         _site:
           $ref: '#/components/schemas/core.Link'
+      required:
+      - _links
+      - _site
+      - items
       type: object
     DestinationCollectionRep:
       example:
@@ -5513,7 +6382,7 @@ components:
       type: object
     DestinationPostRep:
       example:
-        kind: kinesis
+        kind: kind
         name: Example Google Pub/Sub Destination
         config: ""
         "on": true
@@ -5523,9 +6392,6 @@ components:
           example: Example Google Pub/Sub Destination
           type: string
         kind:
-          enum:
-          - kinesis
-          - pubsub
           type: string
         config: {}
         "on":
@@ -5600,40 +6466,53 @@ components:
       example:
         color: F5A623
         confirmChanges: false
-        name: Test
-        defaultTtl: 0
+        name: My Environment
+        defaultTtl: 5
         requireComments: false
         secureMode: true
         defaultTrackEvents: false
-        key: test
+        key: my-environment
         tags:
         - ops
       properties:
         name:
-          example: Test
+          description: A human-friendly name for the new environment.
+          example: My Environment
           type: string
         key:
-          example: test
+          description: A project-unique key for the new environment.
+          example: my-environment
           type: string
         color:
+          description: A color to indicate this environment in the UI.
           example: F5A623
           type: string
         defaultTtl:
-          example: 0
+          description: The default time (in minutes) that the PHP SDK can cache feature
+            flag rules locally.
+          example: 5
           type: integer
         secureMode:
+          description: Secure mode ensures that a user of the client-side SDK cannot
+            impersonate another user.
           example: true
           type: boolean
         defaultTrackEvents:
+          description: Enables tracking detailed information for new flags by default.
           example: false
           type: boolean
         confirmChanges:
+          description: Require confirmation for all flag and segment changes via the
+            UI in this environment.
           example: false
           type: boolean
         requireComments:
+          description: Require comments for all flag and segment changes via the UI
+            in this environment.
           example: false
           type: boolean
         tags:
+          description: Tags to apply to the new environment.
           example:
           - ops
           items:
@@ -5654,47 +6533,64 @@ components:
           minNumApprovals: 1
         apiKey: XYZ
         color: F5A623
-        _links: {}
-        name: Test
-        defaultTtl: 0
+        _links:
+          self:
+            href: /api/v2/projects/my-project/environments/my-environment
+            type: application/json
+        name: My Environment
+        defaultTtl: 5
         _id: 57be1db38b75bf0772d11384
         mobileKey: XYZ
         secureMode: true
         defaultTrackEvents: false
-        key: test
+        key: my-environment
         tags:
         - ops
       properties:
         _links:
           additionalProperties:
             $ref: '#/components/schemas/inline_response_200'
-          example: {}
+          description: Links to related resources.
+          example:
+            self:
+              href: /api/v2/projects/my-project/environments/my-environment
+              type: application/json
           type: object
         _id:
           example: 57be1db38b75bf0772d11384
           type: string
         key:
-          example: test
+          description: A project-unique key for the new environment.
+          example: my-environment
           type: string
         name:
-          example: Test
+          description: A human-friendly name for the new environment.
+          example: My Environment
           type: string
         apiKey:
+          description: API key to use with client-side SDKs.
           example: XYZ
           type: string
         mobileKey:
+          description: API key to use with mobile SDKs.
           example: XYZ
           type: string
         color:
+          description: The color used to indicate this environment in the UI.
           example: F5A623
           type: string
         defaultTtl:
-          example: 0
+          description: The default time (in minutes) that the PHP SDK can cache feature
+            flag rules locally.
+          example: 5
           type: integer
         secureMode:
+          description: Secure mode ensures that a user of the client-side SDK cannot
+            impersonate another user.
           example: true
           type: boolean
         defaultTrackEvents:
+          description: Enables tracking detailed information for new flags by default.
           example: false
           type: boolean
         tags:
@@ -5705,6 +6601,18 @@ components:
           type: array
         approvalSettings:
           $ref: '#/components/schemas/ApprovalSettingsRep'
+      required:
+      - _id
+      - _links
+      - apiKey
+      - color
+      - defaultTrackEvents
+      - defaultTtl
+      - key
+      - mobileKey
+      - name
+      - secureMode
+      - tags
       type: object
     ExperimentAllocationRep:
       example:
@@ -5715,6 +6623,9 @@ components:
           type: integer
         canReshuffle:
           type: boolean
+      required:
+      - canReshuffle
+      - defaultVariation
       type: object
     ExperimentEnvironmentSettingRep:
       properties:
@@ -5929,6 +6840,9 @@ components:
           items:
             $ref: '#/components/schemas/ExperimentInfoRep_items'
           type: array
+      required:
+      - baselineIdx
+      - items
       type: object
     ExperimentMetadataRep:
       properties:
@@ -6336,6 +7250,21 @@ components:
           type: integer
         _summary:
           $ref: '#/components/schemas/FlagSummary'
+      required:
+      - _environmentName
+      - _site
+      - archived
+      - fallthrough
+      - lastModified
+      - "on"
+      - prerequisites
+      - rules
+      - salt
+      - sel
+      - targets
+      - trackEvents
+      - trackEventsFallthrough
+      - version
       type: object
     FlagDefaultsRep:
       example:
@@ -6346,6 +7275,9 @@ components:
           type: integer
         offVariation:
           type: integer
+      required:
+      - offVariation
+      - onVariation
       type: object
     FlagGlobalAttributesRep:
       properties:
@@ -6402,6 +7334,19 @@ components:
           type: integer
         defaults:
           $ref: '#/components/schemas/FlagDefaultsRep'
+      required:
+      - _links
+      - _version
+      - archived
+      - creationDate
+      - customProperties
+      - experiments
+      - key
+      - kind
+      - name
+      - tags
+      - temporary
+      - variations
       type: object
     FlagListingRep:
       example:
@@ -6425,6 +7370,9 @@ components:
           type: object
         _site:
           $ref: '#/components/schemas/core.Link'
+      required:
+      - key
+      - name
       type: object
     FlagPost:
       example:
@@ -6486,6 +7434,9 @@ components:
           type: object
         defaults:
           $ref: '#/components/schemas/FlagDefaultsRep'
+      required:
+      - key
+      - name
       type: object
     FlagStatusCollectionRep:
       example:
@@ -6578,6 +7529,8 @@ components:
       properties:
         prerequisites:
           type: integer
+      required:
+      - prerequisites
       type: object
     GlobalFlagCollectionRep:
       example:
@@ -7310,6 +8263,9 @@ components:
           type: object
         totalCount:
           type: integer
+      required:
+      - _links
+      - items
       type: object
     GlobalFlagRep:
       example:
@@ -7727,6 +8683,8 @@ components:
           additionalProperties:
             $ref: '#/components/schemas/GlobalFlagRep_environments'
           type: object
+      required:
+      - environments
       type: object
     GlobalSegmentCollectionRep:
       example:
@@ -7984,6 +8942,377 @@ components:
           additionalProperties:
             $ref: '#/components/schemas/inline_response_200'
           type: object
+      required:
+      - _links
+      - items
+      type: object
+    IntegrationStatusRep:
+      properties:
+        statusCode:
+          type: integer
+        responseBody:
+          type: string
+        timestamp:
+          format: int64
+          type: integer
+      type: object
+    IntegrationSubscriptionRep:
+      example:
+        _access:
+          denied:
+          - reason:
+              role_name: role_name
+              notActions:
+              - notActions
+              - notActions
+              notResources:
+              - '{}'
+              - '{}'
+              effect: effect
+              resources:
+              - '{}'
+              - '{}'
+              actions:
+              - actions
+              - actions
+            action: action
+          - reason:
+              role_name: role_name
+              notActions:
+              - notActions
+              - notActions
+              notResources:
+              - '{}'
+              - '{}'
+              effect: effect
+              resources:
+              - '{}'
+              - '{}'
+              actions:
+              - actions
+              - actions
+            action: action
+        apiKey: apiKey
+        _links:
+          key:
+            href: href
+            type: type
+        kind: kind
+        name: name
+        statements:
+        - notActions:
+          - notActions
+          - notActions
+          notResources:
+          - '{}'
+          - '{}'
+          effect: effect
+          resources:
+          - '{}'
+          - '{}'
+          actions:
+          - actions
+          - actions
+        - notActions:
+          - notActions
+          - notActions
+          notResources:
+          - '{}'
+          - '{}'
+          effect: effect
+          resources:
+          - '{}'
+          - '{}'
+          actions:
+          - actions
+          - actions
+        _id: _id
+        _status:
+          lastError: 1
+          successCount: 0
+          lastSuccess: 6
+          errorCount: 5
+          errors:
+          - responseBody: responseBody
+            statusCode: 5
+            timestamp: 2
+          - responseBody: responseBody
+            statusCode: 5
+            timestamp: 2
+        config:
+          key: ""
+        url: url
+        "on": true
+        tags:
+        - tags
+        - tags
+      properties:
+        _links:
+          additionalProperties:
+            $ref: '#/components/schemas/inline_response_200'
+          type: object
+        _id:
+          type: string
+        kind:
+          type: string
+        name:
+          type: string
+        config:
+          additionalProperties: {}
+          type: object
+        statements:
+          items:
+            $ref: '#/components/schemas/StatementRep'
+          type: array
+        "on":
+          type: boolean
+        tags:
+          items:
+            type: string
+          type: array
+        _access:
+          $ref: '#/components/schemas/AccessRep'
+        _status:
+          $ref: '#/components/schemas/IntegrationSubscriptionStatusRep'
+        url:
+          type: string
+        apiKey:
+          type: string
+      type: object
+    IntegrationSubscriptionRepCollection:
+      example:
+        _links:
+          key:
+            href: href
+            type: type
+        items:
+        - _access:
+            denied:
+            - reason:
+                role_name: role_name
+                notActions:
+                - notActions
+                - notActions
+                notResources:
+                - '{}'
+                - '{}'
+                effect: effect
+                resources:
+                - '{}'
+                - '{}'
+                actions:
+                - actions
+                - actions
+              action: action
+            - reason:
+                role_name: role_name
+                notActions:
+                - notActions
+                - notActions
+                notResources:
+                - '{}'
+                - '{}'
+                effect: effect
+                resources:
+                - '{}'
+                - '{}'
+                actions:
+                - actions
+                - actions
+              action: action
+          apiKey: apiKey
+          _links:
+            key:
+              href: href
+              type: type
+          kind: kind
+          name: name
+          statements:
+          - notActions:
+            - notActions
+            - notActions
+            notResources:
+            - '{}'
+            - '{}'
+            effect: effect
+            resources:
+            - '{}'
+            - '{}'
+            actions:
+            - actions
+            - actions
+          - notActions:
+            - notActions
+            - notActions
+            notResources:
+            - '{}'
+            - '{}'
+            effect: effect
+            resources:
+            - '{}'
+            - '{}'
+            actions:
+            - actions
+            - actions
+          _id: _id
+          _status:
+            lastError: 1
+            successCount: 0
+            lastSuccess: 6
+            errorCount: 5
+            errors:
+            - responseBody: responseBody
+              statusCode: 5
+              timestamp: 2
+            - responseBody: responseBody
+              statusCode: 5
+              timestamp: 2
+          config:
+            key: ""
+          url: url
+          "on": true
+          tags:
+          - tags
+          - tags
+        - _access:
+            denied:
+            - reason:
+                role_name: role_name
+                notActions:
+                - notActions
+                - notActions
+                notResources:
+                - '{}'
+                - '{}'
+                effect: effect
+                resources:
+                - '{}'
+                - '{}'
+                actions:
+                - actions
+                - actions
+              action: action
+            - reason:
+                role_name: role_name
+                notActions:
+                - notActions
+                - notActions
+                notResources:
+                - '{}'
+                - '{}'
+                effect: effect
+                resources:
+                - '{}'
+                - '{}'
+                actions:
+                - actions
+                - actions
+              action: action
+          apiKey: apiKey
+          _links:
+            key:
+              href: href
+              type: type
+          kind: kind
+          name: name
+          statements:
+          - notActions:
+            - notActions
+            - notActions
+            notResources:
+            - '{}'
+            - '{}'
+            effect: effect
+            resources:
+            - '{}'
+            - '{}'
+            actions:
+            - actions
+            - actions
+          - notActions:
+            - notActions
+            - notActions
+            notResources:
+            - '{}'
+            - '{}'
+            effect: effect
+            resources:
+            - '{}'
+            - '{}'
+            actions:
+            - actions
+            - actions
+          _id: _id
+          _status:
+            lastError: 1
+            successCount: 0
+            lastSuccess: 6
+            errorCount: 5
+            errors:
+            - responseBody: responseBody
+              statusCode: 5
+              timestamp: 2
+            - responseBody: responseBody
+              statusCode: 5
+              timestamp: 2
+          config:
+            key: ""
+          url: url
+          "on": true
+          tags:
+          - tags
+          - tags
+        key: key
+      properties:
+        _links:
+          additionalProperties:
+            $ref: '#/components/schemas/inline_response_200'
+          type: object
+        items:
+          items:
+            $ref: '#/components/schemas/_api_v2_integrations_items'
+          type: array
+        key:
+          type: string
+      type: object
+    IntegrationSubscriptionStatusRep:
+      example:
+        lastError: 1
+        successCount: 0
+        lastSuccess: 6
+        errorCount: 5
+        errors:
+        - responseBody: responseBody
+          statusCode: 5
+          timestamp: 2
+        - responseBody: responseBody
+          statusCode: 5
+          timestamp: 2
+      properties:
+        successCount:
+          type: integer
+        lastSuccess:
+          format: int64
+          type: integer
+        lastError:
+          format: int64
+          type: integer
+        errorCount:
+          type: integer
+        errors:
+          items:
+            $ref: '#/components/schemas/IntegrationSubscriptionStatusRep_errors'
+          type: array
+      type: object
+    IntegrationSubscriptionTestEventRep:
+      example:
+        error: error
+        statusCode: 0
+      properties:
+        statusCode:
+          type: integer
+        error:
+          type: string
       type: object
     JSONPatch:
       items:
@@ -8007,6 +9336,10 @@ components:
         value:
           description: A JSON value used in "add", "replace", and "test" operations
           example: Chocolate Digestive
+      required:
+      - op
+      - path
+      - value
       type: object
     LastSeenMetadata:
       example:
@@ -8108,6 +9441,9 @@ components:
           type: object
         totalCount:
           type: integer
+      required:
+      - _links
+      - items
       type: object
     MemberDataRep:
       example:
@@ -8235,6 +9571,17 @@ components:
           items:
             $ref: '#/components/schemas/MemberRep_teams'
           type: array
+      required:
+      - _id
+      - _lastSeen
+      - _links
+      - _pendingInvite
+      - _verified
+      - customRoles
+      - email
+      - excludedDashboards
+      - mfa
+      - role
       type: object
     MemberSummaryRep:
       example:
@@ -8262,6 +9609,11 @@ components:
           type: string
         email:
           type: string
+      required:
+      - _id
+      - _links
+      - email
+      - role
       type: object
     MemberTeamSummaryRep:
       properties:
@@ -8273,6 +9625,10 @@ components:
           type: string
         name:
           type: string
+      required:
+      - customRoleKeys
+      - key
+      - name
       type: object
     MetricCollectionRep:
       example:
@@ -8681,7 +10037,7 @@ components:
           type: boolean
         _attachedFeatures:
           items:
-            $ref: '#/components/schemas/DependentFlagWithEnvs_environments'
+            $ref: '#/components/schemas/MetricRep__attachedFeatures'
           type: array
         _version:
           type: integer
@@ -8755,6 +10111,10 @@ components:
           type: object
         _site:
           $ref: '#/components/schemas/core.Link'
+      required:
+      - _links
+      - _site
+      - items
       type: object
     ParentResourceRep:
       example:
@@ -8790,6 +10150,8 @@ components:
           type: array
         comment:
           type: string
+      required:
+      - patch
       type: object
     ProjectCollectionRep:
       example:
@@ -8813,14 +10175,17 @@ components:
               minNumApprovals: 1
             apiKey: XYZ
             color: F5A623
-            _links: {}
-            name: Test
-            defaultTtl: 0
+            _links:
+              self:
+                href: /api/v2/projects/my-project/environments/my-environment
+                type: application/json
+            name: My Environment
+            defaultTtl: 5
             _id: 57be1db38b75bf0772d11384
             mobileKey: XYZ
             secureMode: true
             defaultTrackEvents: false
-            key: test
+            key: my-environment
             tags:
             - ops
           - approvalSettings:
@@ -8835,14 +10200,17 @@ components:
               minNumApprovals: 1
             apiKey: XYZ
             color: F5A623
-            _links: {}
-            name: Test
-            defaultTtl: 0
+            _links:
+              self:
+                href: /api/v2/projects/my-project/environments/my-environment
+                type: application/json
+            name: My Environment
+            defaultTtl: 5
             _id: 57be1db38b75bf0772d11384
             mobileKey: XYZ
             secureMode: true
             defaultTrackEvents: false
-            key: test
+            key: my-environment
             tags:
             - ops
           defaultClientSideAvailability:
@@ -8868,14 +10236,17 @@ components:
               minNumApprovals: 1
             apiKey: XYZ
             color: F5A623
-            _links: {}
-            name: Test
-            defaultTtl: 0
+            _links:
+              self:
+                href: /api/v2/projects/my-project/environments/my-environment
+                type: application/json
+            name: My Environment
+            defaultTtl: 5
             _id: 57be1db38b75bf0772d11384
             mobileKey: XYZ
             secureMode: true
             defaultTrackEvents: false
-            key: test
+            key: my-environment
             tags:
             - ops
           - approvalSettings:
@@ -8890,14 +10261,17 @@ components:
               minNumApprovals: 1
             apiKey: XYZ
             color: F5A623
-            _links: {}
-            name: Test
-            defaultTtl: 0
+            _links:
+              self:
+                href: /api/v2/projects/my-project/environments/my-environment
+                type: application/json
+            name: My Environment
+            defaultTtl: 5
             _id: 57be1db38b75bf0772d11384
             mobileKey: XYZ
             secureMode: true
             defaultTrackEvents: false
-            key: test
+            key: my-environment
             tags:
             - ops
           defaultClientSideAvailability:
@@ -8999,14 +10373,17 @@ components:
             minNumApprovals: 1
           apiKey: XYZ
           color: F5A623
-          _links: {}
-          name: Test
-          defaultTtl: 0
+          _links:
+            self:
+              href: /api/v2/projects/my-project/environments/my-environment
+              type: application/json
+          name: My Environment
+          defaultTtl: 5
           _id: 57be1db38b75bf0772d11384
           mobileKey: XYZ
           secureMode: true
           defaultTrackEvents: false
-          key: test
+          key: my-environment
           tags:
           - ops
         - approvalSettings:
@@ -9021,14 +10398,17 @@ components:
             minNumApprovals: 1
           apiKey: XYZ
           color: F5A623
-          _links: {}
-          name: Test
-          defaultTtl: 0
+          _links:
+            self:
+              href: /api/v2/projects/my-project/environments/my-environment
+              type: application/json
+          name: My Environment
+          defaultTtl: 5
           _id: 57be1db38b75bf0772d11384
           mobileKey: XYZ
           secureMode: true
           defaultTrackEvents: false
-          key: test
+          key: my-environment
           tags:
           - ops
         defaultClientSideAvailability:
@@ -9102,6 +10482,8 @@ components:
           type: integer
         bucketBy:
           type: string
+      required:
+      - variations
       type: object
     RuleRep:
       properties:
@@ -9119,6 +10501,9 @@ components:
           type: boolean
         description:
           type: string
+      required:
+      - clauses
+      - trackEvents
       type: object
     ScheduledChangesCollectionRep:
       example:
@@ -9373,6 +10758,18 @@ components:
           type: string
         _externalLink:
           type: string
+      required:
+      - _links
+      - creationDate
+      - deleted
+      - excluded
+      - generation
+      - included
+      - key
+      - name
+      - rules
+      - tags
+      - version
       type: object
     SegmentRuleRep:
       properties:
@@ -9423,6 +10820,8 @@ components:
           type: array
         effect:
           type: string
+      required:
+      - effect
       type: object
     SubjectDataRep:
       example:
@@ -9799,6 +11198,8 @@ components:
           type: string
         name:
           type: string
+      required:
+      - value
       type: object
     VariationOrRolloutRep:
       example:
@@ -9838,6 +11239,34 @@ components:
           type: integer
         bucketBy:
           type: string
+      required:
+      - nullRules
+      - rules
+      - targets
+      type: object
+    VersionsRep:
+      example:
+        validVersions:
+        - 0
+        - 0
+        latestVersion: 6
+        currentVersion: 1
+        beta: true
+      properties:
+        validVersions:
+          items:
+            type: integer
+          type: array
+        latestVersion:
+          type: integer
+        currentVersion:
+          type: integer
+        beta:
+          type: boolean
+      required:
+      - currentVersion
+      - latestVersion
+      - validVersions
       type: object
     WeightedVariationRep:
       properties:
@@ -9847,6 +11276,9 @@ components:
           type: integer
         _untracked:
           type: boolean
+      required:
+      - variation
+      - weight
       type: object
     access_tokens.AccessTokenPost:
       properties:
@@ -10084,6 +11516,8 @@ components:
           items:
             type: string
           type: array
+      required:
+      - email
       type: object
     api.ReferenceRep:
       properties:
@@ -10685,6 +12119,10 @@ components:
           type: array
         negate:
           type: boolean
+      required:
+      - negate
+      - op
+      - values
       type: object
     clauses.Operator:
       type: string
@@ -10711,6 +12149,9 @@ components:
           items:
             type: string
           type: array
+      required:
+      - name
+      - value
       type: object
     expiring_user_targets_endpoints.patchSegmentInstruction:
       properties:
@@ -10751,6 +12192,8 @@ components:
           type: string
         currentVersion:
           type: integer
+      required:
+      - key
       type: object
     flags.FlagCopyConfigPost:
       properties:
@@ -10768,6 +12211,9 @@ components:
           items:
             type: string
           type: array
+      required:
+      - source
+      - target
       type: object
     flags.Prerequisite:
       properties:
@@ -10794,6 +12240,8 @@ components:
           type: string
         name:
           type: string
+      required:
+      - value
       type: object
     ftime.UnixMillis:
       format: int64
@@ -10813,6 +12261,28 @@ components:
       items:
         $ref: '#/components/schemas/goals.UrlMatcher'
       type: array
+    integrations.subscriptionPost:
+      properties:
+        name:
+          type: string
+        statements:
+          items:
+            $ref: '#/components/schemas/roles.StatementPost'
+          type: array
+        "on":
+          type: boolean
+        tags:
+          items:
+            type: string
+          type: array
+        config:
+          additionalProperties: {}
+          type: object
+        url:
+          type: string
+        apiKey:
+          type: string
+      type: object
     metrics.MetricPost:
       properties:
         key:
@@ -11017,6 +12487,9 @@ components:
           type: array
         unbounded:
           type: boolean
+      required:
+      - key
+      - name
       type: object
     segments.unboundedTargetRep:
       example:
@@ -11131,6 +12604,8 @@ components:
         excluded:
           $ref: '#/components/schemas/unbounded.SegmentUserList'
       type: object
+    versioning.DateVersion:
+      type: integer
     web.Conflict:
       properties:
         instruction:
@@ -11492,6 +12967,325 @@ components:
         type:
           type: string
       type: object
+    _api_v2_integrations_items:
+      example:
+        _access:
+          denied:
+          - reason:
+              role_name: role_name
+              notActions:
+              - notActions
+              - notActions
+              notResources:
+              - '{}'
+              - '{}'
+              effect: effect
+              resources:
+              - '{}'
+              - '{}'
+              actions:
+              - actions
+              - actions
+            action: action
+          - reason:
+              role_name: role_name
+              notActions:
+              - notActions
+              - notActions
+              notResources:
+              - '{}'
+              - '{}'
+              effect: effect
+              resources:
+              - '{}'
+              - '{}'
+              actions:
+              - actions
+              - actions
+            action: action
+        apiKey: apiKey
+        _links:
+          key:
+            href: href
+            type: type
+        kind: kind
+        name: name
+        statements:
+        - notActions:
+          - notActions
+          - notActions
+          notResources:
+          - '{}'
+          - '{}'
+          effect: effect
+          resources:
+          - '{}'
+          - '{}'
+          actions:
+          - actions
+          - actions
+        - notActions:
+          - notActions
+          - notActions
+          notResources:
+          - '{}'
+          - '{}'
+          effect: effect
+          resources:
+          - '{}'
+          - '{}'
+          actions:
+          - actions
+          - actions
+        _id: _id
+        _status:
+          lastError: 1
+          successCount: 0
+          lastSuccess: 6
+          errorCount: 5
+          errors:
+          - responseBody: responseBody
+            statusCode: 5
+            timestamp: 2
+          - responseBody: responseBody
+            statusCode: 5
+            timestamp: 2
+        config:
+          key: ""
+        url: url
+        "on": true
+        tags:
+        - tags
+        - tags
+      properties:
+        _links:
+          additionalProperties:
+            $ref: '#/components/schemas/inline_response_200'
+          type: object
+        _id:
+          type: string
+        kind:
+          type: string
+        name:
+          type: string
+        config:
+          additionalProperties: {}
+          type: object
+        statements:
+          items:
+            $ref: '#/components/schemas/StatementRep'
+          type: array
+        "on":
+          type: boolean
+        tags:
+          items:
+            type: string
+          type: array
+        _access:
+          $ref: '#/components/schemas/AccessRep'
+        _status:
+          $ref: '#/components/schemas/IntegrationSubscriptionStatusRep'
+        url:
+          type: string
+        apiKey:
+          type: string
+      type: object
+    inline_response_200_1:
+      example:
+        _links:
+          key:
+            href: href
+            type: type
+        items:
+        - _access:
+            denied:
+            - reason:
+                role_name: role_name
+                notActions:
+                - notActions
+                - notActions
+                notResources:
+                - '{}'
+                - '{}'
+                effect: effect
+                resources:
+                - '{}'
+                - '{}'
+                actions:
+                - actions
+                - actions
+              action: action
+            - reason:
+                role_name: role_name
+                notActions:
+                - notActions
+                - notActions
+                notResources:
+                - '{}'
+                - '{}'
+                effect: effect
+                resources:
+                - '{}'
+                - '{}'
+                actions:
+                - actions
+                - actions
+              action: action
+          apiKey: apiKey
+          _links:
+            key:
+              href: href
+              type: type
+          kind: kind
+          name: name
+          statements:
+          - notActions:
+            - notActions
+            - notActions
+            notResources:
+            - '{}'
+            - '{}'
+            effect: effect
+            resources:
+            - '{}'
+            - '{}'
+            actions:
+            - actions
+            - actions
+          - notActions:
+            - notActions
+            - notActions
+            notResources:
+            - '{}'
+            - '{}'
+            effect: effect
+            resources:
+            - '{}'
+            - '{}'
+            actions:
+            - actions
+            - actions
+          _id: _id
+          _status:
+            lastError: 1
+            successCount: 0
+            lastSuccess: 6
+            errorCount: 5
+            errors:
+            - responseBody: responseBody
+              statusCode: 5
+              timestamp: 2
+            - responseBody: responseBody
+              statusCode: 5
+              timestamp: 2
+          config:
+            key: ""
+          url: url
+          "on": true
+          tags:
+          - tags
+          - tags
+        - _access:
+            denied:
+            - reason:
+                role_name: role_name
+                notActions:
+                - notActions
+                - notActions
+                notResources:
+                - '{}'
+                - '{}'
+                effect: effect
+                resources:
+                - '{}'
+                - '{}'
+                actions:
+                - actions
+                - actions
+              action: action
+            - reason:
+                role_name: role_name
+                notActions:
+                - notActions
+                - notActions
+                notResources:
+                - '{}'
+                - '{}'
+                effect: effect
+                resources:
+                - '{}'
+                - '{}'
+                actions:
+                - actions
+                - actions
+              action: action
+          apiKey: apiKey
+          _links:
+            key:
+              href: href
+              type: type
+          kind: kind
+          name: name
+          statements:
+          - notActions:
+            - notActions
+            - notActions
+            notResources:
+            - '{}'
+            - '{}'
+            effect: effect
+            resources:
+            - '{}'
+            - '{}'
+            actions:
+            - actions
+            - actions
+          - notActions:
+            - notActions
+            - notActions
+            notResources:
+            - '{}'
+            - '{}'
+            effect: effect
+            resources:
+            - '{}'
+            - '{}'
+            actions:
+            - actions
+            - actions
+          _id: _id
+          _status:
+            lastError: 1
+            successCount: 0
+            lastSuccess: 6
+            errorCount: 5
+            errors:
+            - responseBody: responseBody
+              statusCode: 5
+              timestamp: 2
+            - responseBody: responseBody
+              statusCode: 5
+              timestamp: 2
+          config:
+            key: ""
+          url: url
+          "on": true
+          tags:
+          - tags
+          - tags
+        key: key
+      properties:
+        _links:
+          additionalProperties:
+            $ref: '#/components/schemas/inline_response_200'
+          type: object
+        items:
+          items:
+            $ref: '#/components/schemas/_api_v2_integrations_items'
+          type: array
+        key:
+          type: string
+      type: object
     InlineObject:
       example:
         firstName: firstName
@@ -11517,6 +13311,8 @@ components:
           items:
             type: string
           type: array
+      required:
+      - email
       type: object
     AccessRep_denied:
       example:
@@ -11541,6 +13337,9 @@ components:
           type: string
         reason:
           $ref: '#/components/schemas/AccessDeniedReasonRep'
+      required:
+      - action
+      - reason
       type: object
     AuditLogEntryListingRep_accesses:
       example:
@@ -11778,6 +13577,10 @@ components:
           type: object
         _site:
           $ref: '#/components/schemas/core.Link'
+      required:
+      - _links
+      - _site
+      - key
       type: object
     ExperimentFlagRep_variations:
       example:
@@ -11793,6 +13596,8 @@ components:
           type: string
         name:
           type: string
+      required:
+      - value
       type: object
     ExperimentInfoRep__environmentSettings:
       example:
@@ -12010,6 +13815,10 @@ components:
           type: array
         negate:
           type: boolean
+      required:
+      - negate
+      - op
+      - values
       type: object
     FlagConfigurationRep_rules:
       example:
@@ -12060,6 +13869,9 @@ components:
           type: boolean
         description:
           type: string
+      required:
+      - clauses
+      - trackEvents
       type: object
     FlagConfigurationRep_prerequisites:
       example:
@@ -12085,6 +13897,8 @@ components:
           type: string
         name:
           type: string
+      required:
+      - value
       type: object
     FlagStatusRepFromEnvSummaries_environments:
       example:
@@ -12290,6 +14104,35 @@ components:
           type: integer
         _summary:
           $ref: '#/components/schemas/FlagSummary'
+      required:
+      - _environmentName
+      - _site
+      - archived
+      - fallthrough
+      - lastModified
+      - "on"
+      - prerequisites
+      - rules
+      - salt
+      - sel
+      - targets
+      - trackEvents
+      - trackEventsFallthrough
+      - version
+      type: object
+    IntegrationSubscriptionStatusRep_errors:
+      example:
+        responseBody: responseBody
+        statusCode: 5
+        timestamp: 2
+      properties:
+        statusCode:
+          type: integer
+        responseBody:
+          type: string
+        timestamp:
+          format: int64
+          type: integer
       type: object
     MemberRep_teams:
       example:
@@ -12307,6 +14150,36 @@ components:
           type: string
         name:
           type: string
+      required:
+      - customRoleKeys
+      - key
+      - name
+      type: object
+    MetricRep__attachedFeatures:
+      example:
+        _links:
+          key:
+            href: href
+            type: type
+        _site:
+          href: href
+          type: type
+        name: name
+        key: key
+      properties:
+        name:
+          type: string
+        key:
+          type: string
+        _links:
+          additionalProperties:
+            $ref: '#/components/schemas/inline_response_200'
+          type: object
+        _site:
+          $ref: '#/components/schemas/core.Link'
+      required:
+      - key
+      - name
       type: object
     MultiEnvDependentFlagsCollectionRep_items:
       example:
@@ -12340,6 +14213,9 @@ components:
           items:
             $ref: '#/components/schemas/DependentFlagWithEnvs_environments'
           type: array
+      required:
+      - environments
+      - key
       type: object
     RolloutRep_variations:
       example:
@@ -12353,6 +14229,9 @@ components:
           type: integer
         _untracked:
           type: boolean
+      required:
+      - variation
+      - weight
       type: object
     SegmentRep_rules:
       example:

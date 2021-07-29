@@ -4,18 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Links** | Pointer to [**map[string]InlineResponse200**](InlineResponse200.md) |  | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
+**Links** | [**map[string]InlineResponse200**](InlineResponse200.md) |  | 
+**Id** | **string** |  | 
 **FirstName** | Pointer to **string** |  | [optional] 
 **LastName** | Pointer to **string** |  | [optional] 
-**Role** | Pointer to **string** |  | [optional] 
-**Email** | Pointer to **string** |  | [optional] 
+**Role** | **string** |  | 
+**Email** | **string** |  | 
 
 ## Methods
 
 ### NewMemberSummaryRep
 
-`func NewMemberSummaryRep() *MemberSummaryRep`
+`func NewMemberSummaryRep(links map[string]InlineResponse200, id string, role string, email string, ) *MemberSummaryRep`
 
 NewMemberSummaryRep instantiates a new MemberSummaryRep object
 This constructor will assign default values to properties that have it defined,
@@ -49,11 +49,6 @@ and a boolean to check if the value has been set.
 
 SetLinks sets Links field to given value.
 
-### HasLinks
-
-`func (o *MemberSummaryRep) HasLinks() bool`
-
-HasLinks returns a boolean if a field has been set.
 
 ### GetId
 
@@ -74,11 +69,6 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
-### HasId
-
-`func (o *MemberSummaryRep) HasId() bool`
-
-HasId returns a boolean if a field has been set.
 
 ### GetFirstName
 
@@ -149,11 +139,6 @@ and a boolean to check if the value has been set.
 
 SetRole sets Role field to given value.
 
-### HasRole
-
-`func (o *MemberSummaryRep) HasRole() bool`
-
-HasRole returns a boolean if a field has been set.
 
 ### GetEmail
 
@@ -174,11 +159,6 @@ and a boolean to check if the value has been set.
 
 SetEmail sets Email field to given value.
 
-### HasEmail
-
-`func (o *MemberSummaryRep) HasEmail() bool`
-
-HasEmail returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

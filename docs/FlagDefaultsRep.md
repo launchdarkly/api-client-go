@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**OnVariation** | Pointer to **int32** |  | [optional] 
-**OffVariation** | Pointer to **int32** |  | [optional] 
+**OnVariation** | **int32** |  | 
+**OffVariation** | **int32** |  | 
 
 ## Methods
 
 ### NewFlagDefaultsRep
 
-`func NewFlagDefaultsRep() *FlagDefaultsRep`
+`func NewFlagDefaultsRep(onVariation int32, offVariation int32, ) *FlagDefaultsRep`
 
 NewFlagDefaultsRep instantiates a new FlagDefaultsRep object
 This constructor will assign default values to properties that have it defined,
@@ -45,11 +45,6 @@ and a boolean to check if the value has been set.
 
 SetOnVariation sets OnVariation field to given value.
 
-### HasOnVariation
-
-`func (o *FlagDefaultsRep) HasOnVariation() bool`
-
-HasOnVariation returns a boolean if a field has been set.
 
 ### GetOffVariation
 
@@ -70,11 +65,6 @@ and a boolean to check if the value has been set.
 
 SetOffVariation sets OffVariation field to given value.
 
-### HasOffVariation
-
-`func (o *FlagDefaultsRep) HasOffVariation() bool`
-
-HasOffVariation returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

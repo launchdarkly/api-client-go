@@ -5,15 +5,15 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | Pointer to **string** |  | [optional] 
-**Key** | Pointer to **string** |  | [optional] 
-**Links** | Pointer to [**map[string]InlineResponse200**](InlineResponse200.md) |  | [optional] 
-**Site** | Pointer to [**CoreLink**](CoreLink.md) |  | [optional] 
+**Key** | **string** |  | 
+**Links** | [**map[string]InlineResponse200**](InlineResponse200.md) |  | 
+**Site** | [**CoreLink**](CoreLink.md) |  | 
 
 ## Methods
 
 ### NewDependentFlag
 
-`func NewDependentFlag() *DependentFlag`
+`func NewDependentFlag(key string, links map[string]InlineResponse200, site CoreLink, ) *DependentFlag`
 
 NewDependentFlag instantiates a new DependentFlag object
 This constructor will assign default values to properties that have it defined,
@@ -72,11 +72,6 @@ and a boolean to check if the value has been set.
 
 SetKey sets Key field to given value.
 
-### HasKey
-
-`func (o *DependentFlag) HasKey() bool`
-
-HasKey returns a boolean if a field has been set.
 
 ### GetLinks
 
@@ -97,11 +92,6 @@ and a boolean to check if the value has been set.
 
 SetLinks sets Links field to given value.
 
-### HasLinks
-
-`func (o *DependentFlag) HasLinks() bool`
-
-HasLinks returns a boolean if a field has been set.
 
 ### GetSite
 
@@ -122,11 +112,6 @@ and a boolean to check if the value has been set.
 
 SetSite sets Site field to given value.
 
-### HasSite
-
-`func (o *DependentFlag) HasSite() bool`
-
-HasSite returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

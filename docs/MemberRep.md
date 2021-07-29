@@ -4,19 +4,19 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Links** | Pointer to [**map[string]InlineResponse200**](InlineResponse200.md) |  | [optional] 
-**Id** | Pointer to **string** | The member&#39;s ID | [optional] 
+**Links** | [**map[string]InlineResponse200**](InlineResponse200.md) |  | 
+**Id** | **string** | The member&#39;s ID | 
 **FirstName** | Pointer to **string** | The member&#39;s first name | [optional] 
 **LastName** | Pointer to **string** | The member&#39;s last name | [optional] 
-**Role** | Pointer to **string** | The member&#39;s built-in role. If the member has no custom roles, this role will be in effect. | [optional] 
-**Email** | Pointer to **string** | The member&#39;s e-mail address | [optional] 
-**PendingInvite** | Pointer to **bool** | Whether or not the member has a pending invitation | [optional] 
-**Verified** | Pointer to **bool** | Whether or not the member&#39;s e-mail address has been verified | [optional] 
+**Role** | **string** | The member&#39;s built-in role. If the member has no custom roles, this role will be in effect. | 
+**Email** | **string** | The member&#39;s e-mail address | 
+**PendingInvite** | **bool** | Whether or not the member has a pending invitation | 
+**Verified** | **bool** | Whether or not the member&#39;s e-mail address has been verified | 
 **PendingEmail** | Pointer to **string** |  | [optional] 
-**CustomRoles** | Pointer to **[]string** | The set of custom roles (as keys) assigned to the member | [optional] 
-**Mfa** | Pointer to **string** | Whether or not multi-factor authentication is enabled for this member | [optional] 
-**ExcludedDashboards** | Pointer to **[]string** | Default dashboards that the team member has chosen to ignore | [optional] 
-**LastSeen** | Pointer to **int64** |  | [optional] 
+**CustomRoles** | **[]string** | The set of custom roles (as keys) assigned to the member | 
+**Mfa** | **string** | Whether or not multi-factor authentication is enabled for this member | 
+**ExcludedDashboards** | **[]string** | Default dashboards that the team member has chosen to ignore | 
+**LastSeen** | **int64** |  | 
 **LastSeenMetadata** | Pointer to [**LastSeenMetadata**](LastSeenMetadata.md) |  | [optional] 
 **IntegrationMetadata** | Pointer to [**map[string]AccountsIntegrationSubscriptionMetadata**](AccountsIntegrationSubscriptionMetadata.md) |  | [optional] 
 **Teams** | Pointer to [**[]MemberRepTeams**](MemberRepTeams.md) |  | [optional] 
@@ -25,7 +25,7 @@ Name | Type | Description | Notes
 
 ### NewMemberRep
 
-`func NewMemberRep() *MemberRep`
+`func NewMemberRep(links map[string]InlineResponse200, id string, role string, email string, pendingInvite bool, verified bool, customRoles []string, mfa string, excludedDashboards []string, lastSeen int64, ) *MemberRep`
 
 NewMemberRep instantiates a new MemberRep object
 This constructor will assign default values to properties that have it defined,
@@ -59,11 +59,6 @@ and a boolean to check if the value has been set.
 
 SetLinks sets Links field to given value.
 
-### HasLinks
-
-`func (o *MemberRep) HasLinks() bool`
-
-HasLinks returns a boolean if a field has been set.
 
 ### GetId
 
@@ -84,11 +79,6 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
-### HasId
-
-`func (o *MemberRep) HasId() bool`
-
-HasId returns a boolean if a field has been set.
 
 ### GetFirstName
 
@@ -159,11 +149,6 @@ and a boolean to check if the value has been set.
 
 SetRole sets Role field to given value.
 
-### HasRole
-
-`func (o *MemberRep) HasRole() bool`
-
-HasRole returns a boolean if a field has been set.
 
 ### GetEmail
 
@@ -184,11 +169,6 @@ and a boolean to check if the value has been set.
 
 SetEmail sets Email field to given value.
 
-### HasEmail
-
-`func (o *MemberRep) HasEmail() bool`
-
-HasEmail returns a boolean if a field has been set.
 
 ### GetPendingInvite
 
@@ -209,11 +189,6 @@ and a boolean to check if the value has been set.
 
 SetPendingInvite sets PendingInvite field to given value.
 
-### HasPendingInvite
-
-`func (o *MemberRep) HasPendingInvite() bool`
-
-HasPendingInvite returns a boolean if a field has been set.
 
 ### GetVerified
 
@@ -234,11 +209,6 @@ and a boolean to check if the value has been set.
 
 SetVerified sets Verified field to given value.
 
-### HasVerified
-
-`func (o *MemberRep) HasVerified() bool`
-
-HasVerified returns a boolean if a field has been set.
 
 ### GetPendingEmail
 
@@ -284,11 +254,6 @@ and a boolean to check if the value has been set.
 
 SetCustomRoles sets CustomRoles field to given value.
 
-### HasCustomRoles
-
-`func (o *MemberRep) HasCustomRoles() bool`
-
-HasCustomRoles returns a boolean if a field has been set.
 
 ### GetMfa
 
@@ -309,11 +274,6 @@ and a boolean to check if the value has been set.
 
 SetMfa sets Mfa field to given value.
 
-### HasMfa
-
-`func (o *MemberRep) HasMfa() bool`
-
-HasMfa returns a boolean if a field has been set.
 
 ### GetExcludedDashboards
 
@@ -334,11 +294,6 @@ and a boolean to check if the value has been set.
 
 SetExcludedDashboards sets ExcludedDashboards field to given value.
 
-### HasExcludedDashboards
-
-`func (o *MemberRep) HasExcludedDashboards() bool`
-
-HasExcludedDashboards returns a boolean if a field has been set.
 
 ### GetLastSeen
 
@@ -359,11 +314,6 @@ and a boolean to check if the value has been set.
 
 SetLastSeen sets LastSeen field to given value.
 
-### HasLastSeen
-
-`func (o *MemberRep) HasLastSeen() bool`
-
-HasLastSeen returns a boolean if a field has been set.
 
 ### GetLastSeenMetadata
 

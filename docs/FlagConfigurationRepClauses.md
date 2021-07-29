@@ -6,15 +6,15 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** |  | [optional] 
 **Attribute** | Pointer to **string** |  | [optional] 
-**Op** | Pointer to **string** |  | [optional] 
-**Values** | Pointer to **[]interface{}** |  | [optional] 
-**Negate** | Pointer to **bool** |  | [optional] 
+**Op** | **string** |  | 
+**Values** | **[]interface{}** |  | 
+**Negate** | **bool** |  | 
 
 ## Methods
 
 ### NewFlagConfigurationRepClauses
 
-`func NewFlagConfigurationRepClauses() *FlagConfigurationRepClauses`
+`func NewFlagConfigurationRepClauses(op string, values []interface{}, negate bool, ) *FlagConfigurationRepClauses`
 
 NewFlagConfigurationRepClauses instantiates a new FlagConfigurationRepClauses object
 This constructor will assign default values to properties that have it defined,
@@ -98,11 +98,6 @@ and a boolean to check if the value has been set.
 
 SetOp sets Op field to given value.
 
-### HasOp
-
-`func (o *FlagConfigurationRepClauses) HasOp() bool`
-
-HasOp returns a boolean if a field has been set.
 
 ### GetValues
 
@@ -123,11 +118,6 @@ and a boolean to check if the value has been set.
 
 SetValues sets Values field to given value.
 
-### HasValues
-
-`func (o *FlagConfigurationRepClauses) HasValues() bool`
-
-HasValues returns a boolean if a field has been set.
 
 ### GetNegate
 
@@ -148,11 +138,6 @@ and a boolean to check if the value has been set.
 
 SetNegate sets Negate field to given value.
 
-### HasNegate
-
-`func (o *FlagConfigurationRepClauses) HasNegate() bool`
-
-HasNegate returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

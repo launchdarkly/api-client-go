@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Items** | Pointer to [**[]SegmentRep**](SegmentRep.md) |  | [optional] 
-**Links** | Pointer to [**map[string]InlineResponse200**](InlineResponse200.md) |  | [optional] 
+**Items** | [**[]SegmentRep**](SegmentRep.md) |  | 
+**Links** | [**map[string]InlineResponse200**](InlineResponse200.md) |  | 
 
 ## Methods
 
 ### NewGlobalSegmentCollectionRep
 
-`func NewGlobalSegmentCollectionRep() *GlobalSegmentCollectionRep`
+`func NewGlobalSegmentCollectionRep(items []SegmentRep, links map[string]InlineResponse200, ) *GlobalSegmentCollectionRep`
 
 NewGlobalSegmentCollectionRep instantiates a new GlobalSegmentCollectionRep object
 This constructor will assign default values to properties that have it defined,
@@ -45,11 +45,6 @@ and a boolean to check if the value has been set.
 
 SetItems sets Items field to given value.
 
-### HasItems
-
-`func (o *GlobalSegmentCollectionRep) HasItems() bool`
-
-HasItems returns a boolean if a field has been set.
 
 ### GetLinks
 
@@ -70,11 +65,6 @@ and a boolean to check if the value has been set.
 
 SetLinks sets Links field to given value.
 
-### HasLinks
-
-`func (o *GlobalSegmentCollectionRep) HasLinks() bool`
-
-HasLinks returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

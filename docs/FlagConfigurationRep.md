@@ -4,22 +4,22 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**On** | Pointer to **bool** |  | [optional] 
-**Archived** | Pointer to **bool** |  | [optional] 
-**Salt** | Pointer to **string** |  | [optional] 
-**Sel** | Pointer to **string** |  | [optional] 
-**LastModified** | Pointer to **int64** |  | [optional] 
-**Version** | Pointer to **int32** |  | [optional] 
-**Targets** | Pointer to [**[]FlagConfigurationRepTargets**](FlagConfigurationRepTargets.md) |  | [optional] 
-**Rules** | Pointer to [**[]FlagConfigurationRepRules**](FlagConfigurationRepRules.md) |  | [optional] 
-**Fallthrough** | Pointer to [**VariationOrRolloutRep**](VariationOrRolloutRep.md) |  | [optional] 
+**On** | **bool** |  | 
+**Archived** | **bool** |  | 
+**Salt** | **string** |  | 
+**Sel** | **string** |  | 
+**LastModified** | **int64** |  | 
+**Version** | **int32** |  | 
+**Targets** | [**[]FlagConfigurationRepTargets**](FlagConfigurationRepTargets.md) |  | 
+**Rules** | [**[]FlagConfigurationRepRules**](FlagConfigurationRepRules.md) |  | 
+**Fallthrough** | [**VariationOrRolloutRep**](VariationOrRolloutRep.md) |  | 
 **OffVariation** | Pointer to **int32** |  | [optional] 
-**Prerequisites** | Pointer to [**[]FlagConfigurationRepPrerequisites**](FlagConfigurationRepPrerequisites.md) |  | [optional] 
-**Site** | Pointer to [**CoreLink**](CoreLink.md) |  | [optional] 
+**Prerequisites** | [**[]FlagConfigurationRepPrerequisites**](FlagConfigurationRepPrerequisites.md) |  | 
+**Site** | [**CoreLink**](CoreLink.md) |  | 
 **Access** | Pointer to [**AccessRep**](AccessRep.md) |  | [optional] 
-**EnvironmentName** | Pointer to **string** |  | [optional] 
-**TrackEvents** | Pointer to **bool** |  | [optional] 
-**TrackEventsFallthrough** | Pointer to **bool** |  | [optional] 
+**EnvironmentName** | **string** |  | 
+**TrackEvents** | **bool** |  | 
+**TrackEventsFallthrough** | **bool** |  | 
 **DebugEventsUntilDate** | Pointer to **int64** |  | [optional] 
 **Summary** | Pointer to [**FlagSummary**](FlagSummary.md) |  | [optional] 
 
@@ -27,7 +27,7 @@ Name | Type | Description | Notes
 
 ### NewFlagConfigurationRep
 
-`func NewFlagConfigurationRep() *FlagConfigurationRep`
+`func NewFlagConfigurationRep(on bool, archived bool, salt string, sel string, lastModified int64, version int32, targets []FlagConfigurationRepTargets, rules []FlagConfigurationRepRules, fallthrough_ VariationOrRolloutRep, prerequisites []FlagConfigurationRepPrerequisites, site CoreLink, environmentName string, trackEvents bool, trackEventsFallthrough bool, ) *FlagConfigurationRep`
 
 NewFlagConfigurationRep instantiates a new FlagConfigurationRep object
 This constructor will assign default values to properties that have it defined,
@@ -61,11 +61,6 @@ and a boolean to check if the value has been set.
 
 SetOn sets On field to given value.
 
-### HasOn
-
-`func (o *FlagConfigurationRep) HasOn() bool`
-
-HasOn returns a boolean if a field has been set.
 
 ### GetArchived
 
@@ -86,11 +81,6 @@ and a boolean to check if the value has been set.
 
 SetArchived sets Archived field to given value.
 
-### HasArchived
-
-`func (o *FlagConfigurationRep) HasArchived() bool`
-
-HasArchived returns a boolean if a field has been set.
 
 ### GetSalt
 
@@ -111,11 +101,6 @@ and a boolean to check if the value has been set.
 
 SetSalt sets Salt field to given value.
 
-### HasSalt
-
-`func (o *FlagConfigurationRep) HasSalt() bool`
-
-HasSalt returns a boolean if a field has been set.
 
 ### GetSel
 
@@ -136,11 +121,6 @@ and a boolean to check if the value has been set.
 
 SetSel sets Sel field to given value.
 
-### HasSel
-
-`func (o *FlagConfigurationRep) HasSel() bool`
-
-HasSel returns a boolean if a field has been set.
 
 ### GetLastModified
 
@@ -161,11 +141,6 @@ and a boolean to check if the value has been set.
 
 SetLastModified sets LastModified field to given value.
 
-### HasLastModified
-
-`func (o *FlagConfigurationRep) HasLastModified() bool`
-
-HasLastModified returns a boolean if a field has been set.
 
 ### GetVersion
 
@@ -186,11 +161,6 @@ and a boolean to check if the value has been set.
 
 SetVersion sets Version field to given value.
 
-### HasVersion
-
-`func (o *FlagConfigurationRep) HasVersion() bool`
-
-HasVersion returns a boolean if a field has been set.
 
 ### GetTargets
 
@@ -211,11 +181,6 @@ and a boolean to check if the value has been set.
 
 SetTargets sets Targets field to given value.
 
-### HasTargets
-
-`func (o *FlagConfigurationRep) HasTargets() bool`
-
-HasTargets returns a boolean if a field has been set.
 
 ### GetRules
 
@@ -236,11 +201,6 @@ and a boolean to check if the value has been set.
 
 SetRules sets Rules field to given value.
 
-### HasRules
-
-`func (o *FlagConfigurationRep) HasRules() bool`
-
-HasRules returns a boolean if a field has been set.
 
 ### GetFallthrough
 
@@ -261,11 +221,6 @@ and a boolean to check if the value has been set.
 
 SetFallthrough sets Fallthrough field to given value.
 
-### HasFallthrough
-
-`func (o *FlagConfigurationRep) HasFallthrough() bool`
-
-HasFallthrough returns a boolean if a field has been set.
 
 ### GetOffVariation
 
@@ -311,11 +266,6 @@ and a boolean to check if the value has been set.
 
 SetPrerequisites sets Prerequisites field to given value.
 
-### HasPrerequisites
-
-`func (o *FlagConfigurationRep) HasPrerequisites() bool`
-
-HasPrerequisites returns a boolean if a field has been set.
 
 ### GetSite
 
@@ -336,11 +286,6 @@ and a boolean to check if the value has been set.
 
 SetSite sets Site field to given value.
 
-### HasSite
-
-`func (o *FlagConfigurationRep) HasSite() bool`
-
-HasSite returns a boolean if a field has been set.
 
 ### GetAccess
 
@@ -386,11 +331,6 @@ and a boolean to check if the value has been set.
 
 SetEnvironmentName sets EnvironmentName field to given value.
 
-### HasEnvironmentName
-
-`func (o *FlagConfigurationRep) HasEnvironmentName() bool`
-
-HasEnvironmentName returns a boolean if a field has been set.
 
 ### GetTrackEvents
 
@@ -411,11 +351,6 @@ and a boolean to check if the value has been set.
 
 SetTrackEvents sets TrackEvents field to given value.
 
-### HasTrackEvents
-
-`func (o *FlagConfigurationRep) HasTrackEvents() bool`
-
-HasTrackEvents returns a boolean if a field has been set.
 
 ### GetTrackEventsFallthrough
 
@@ -436,11 +371,6 @@ and a boolean to check if the value has been set.
 
 SetTrackEventsFallthrough sets TrackEventsFallthrough field to given value.
 
-### HasTrackEventsFallthrough
-
-`func (o *FlagConfigurationRep) HasTrackEventsFallthrough() bool`
-
-HasTrackEventsFallthrough returns a boolean if a field has been set.
 
 ### GetDebugEventsUntilDate
 

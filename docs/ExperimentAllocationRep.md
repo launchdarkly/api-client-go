@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DefaultVariation** | Pointer to **int32** |  | [optional] 
-**CanReshuffle** | Pointer to **bool** |  | [optional] 
+**DefaultVariation** | **int32** |  | 
+**CanReshuffle** | **bool** |  | 
 
 ## Methods
 
 ### NewExperimentAllocationRep
 
-`func NewExperimentAllocationRep() *ExperimentAllocationRep`
+`func NewExperimentAllocationRep(defaultVariation int32, canReshuffle bool, ) *ExperimentAllocationRep`
 
 NewExperimentAllocationRep instantiates a new ExperimentAllocationRep object
 This constructor will assign default values to properties that have it defined,
@@ -45,11 +45,6 @@ and a boolean to check if the value has been set.
 
 SetDefaultVariation sets DefaultVariation field to given value.
 
-### HasDefaultVariation
-
-`func (o *ExperimentAllocationRep) HasDefaultVariation() bool`
-
-HasDefaultVariation returns a boolean if a field has been set.
 
 ### GetCanReshuffle
 
@@ -70,11 +65,6 @@ and a boolean to check if the value has been set.
 
 SetCanReshuffle sets CanReshuffle field to given value.
 
-### HasCanReshuffle
-
-`func (o *ExperimentAllocationRep) HasCanReshuffle() bool`
-
-HasCanReshuffle returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

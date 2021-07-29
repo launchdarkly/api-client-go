@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Key** | Pointer to **string** |  | [optional] 
+**Key** | **string** |  | 
 **CurrentVersion** | Pointer to **int32** |  | [optional] 
 
 ## Methods
 
 ### NewFlagsFlagCopyConfigEnvironment
 
-`func NewFlagsFlagCopyConfigEnvironment() *FlagsFlagCopyConfigEnvironment`
+`func NewFlagsFlagCopyConfigEnvironment(key string, ) *FlagsFlagCopyConfigEnvironment`
 
 NewFlagsFlagCopyConfigEnvironment instantiates a new FlagsFlagCopyConfigEnvironment object
 This constructor will assign default values to properties that have it defined,
@@ -45,11 +45,6 @@ and a boolean to check if the value has been set.
 
 SetKey sets Key field to given value.
 
-### HasKey
-
-`func (o *FlagsFlagCopyConfigEnvironment) HasKey() bool`
-
-HasKey returns a boolean if a field has been set.
 
 ### GetCurrentVersion
 

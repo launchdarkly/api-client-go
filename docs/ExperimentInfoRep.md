@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**BaselineIdx** | Pointer to **int32** |  | [optional] 
-**Items** | Pointer to [**[]ExperimentInfoRepItems**](ExperimentInfoRepItems.md) |  | [optional] 
+**BaselineIdx** | **int32** |  | 
+**Items** | [**[]ExperimentInfoRepItems**](ExperimentInfoRepItems.md) |  | 
 
 ## Methods
 
 ### NewExperimentInfoRep
 
-`func NewExperimentInfoRep() *ExperimentInfoRep`
+`func NewExperimentInfoRep(baselineIdx int32, items []ExperimentInfoRepItems, ) *ExperimentInfoRep`
 
 NewExperimentInfoRep instantiates a new ExperimentInfoRep object
 This constructor will assign default values to properties that have it defined,
@@ -45,11 +45,6 @@ and a boolean to check if the value has been set.
 
 SetBaselineIdx sets BaselineIdx field to given value.
 
-### HasBaselineIdx
-
-`func (o *ExperimentInfoRep) HasBaselineIdx() bool`
-
-HasBaselineIdx returns a boolean if a field has been set.
 
 ### GetItems
 
@@ -70,11 +65,6 @@ and a boolean to check if the value has been set.
 
 SetItems sets Items field to given value.
 
-### HasItems
-
-`func (o *ExperimentInfoRep) HasItems() bool`
-
-HasItems returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

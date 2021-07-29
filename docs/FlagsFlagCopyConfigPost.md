@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Source** | Pointer to [**FlagsFlagCopyConfigEnvironment**](FlagsFlagCopyConfigEnvironment.md) |  | [optional] 
-**Target** | Pointer to [**FlagsFlagCopyConfigEnvironment**](FlagsFlagCopyConfigEnvironment.md) |  | [optional] 
+**Source** | [**FlagsFlagCopyConfigEnvironment**](FlagsFlagCopyConfigEnvironment.md) |  | 
+**Target** | [**FlagsFlagCopyConfigEnvironment**](FlagsFlagCopyConfigEnvironment.md) |  | 
 **Comment** | Pointer to **string** |  | [optional] 
 **IncludedActions** | Pointer to **[]string** |  | [optional] 
 **ExcludedActions** | Pointer to **[]string** |  | [optional] 
@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 
 ### NewFlagsFlagCopyConfigPost
 
-`func NewFlagsFlagCopyConfigPost() *FlagsFlagCopyConfigPost`
+`func NewFlagsFlagCopyConfigPost(source FlagsFlagCopyConfigEnvironment, target FlagsFlagCopyConfigEnvironment, ) *FlagsFlagCopyConfigPost`
 
 NewFlagsFlagCopyConfigPost instantiates a new FlagsFlagCopyConfigPost object
 This constructor will assign default values to properties that have it defined,
@@ -48,11 +48,6 @@ and a boolean to check if the value has been set.
 
 SetSource sets Source field to given value.
 
-### HasSource
-
-`func (o *FlagsFlagCopyConfigPost) HasSource() bool`
-
-HasSource returns a boolean if a field has been set.
 
 ### GetTarget
 
@@ -73,11 +68,6 @@ and a boolean to check if the value has been set.
 
 SetTarget sets Target field to given value.
 
-### HasTarget
-
-`func (o *FlagsFlagCopyConfigPost) HasTarget() bool`
-
-HasTarget returns a boolean if a field has been set.
 
 ### GetComment
 

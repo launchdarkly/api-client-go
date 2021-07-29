@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Prerequisites** | Pointer to **int32** |  | [optional] 
+**Prerequisites** | **int32** |  | 
 
 ## Methods
 
 ### NewFlagSummary
 
-`func NewFlagSummary() *FlagSummary`
+`func NewFlagSummary(prerequisites int32, ) *FlagSummary`
 
 NewFlagSummary instantiates a new FlagSummary object
 This constructor will assign default values to properties that have it defined,
@@ -44,11 +44,6 @@ and a boolean to check if the value has been set.
 
 SetPrerequisites sets Prerequisites field to given value.
 
-### HasPrerequisites
-
-`func (o *FlagSummary) HasPrerequisites() bool`
-
-HasPrerequisites returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

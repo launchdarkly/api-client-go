@@ -25,13 +25,13 @@ Name | Type | Description | Notes
 **Archived** | Pointer to **bool** |  | [optional] 
 **ArchivedDate** | Pointer to **int64** |  | [optional] 
 **Defaults** | Pointer to [**FlagDefaultsRep**](FlagDefaultsRep.md) |  | [optional] 
-**Environments** | Pointer to [**map[string]GlobalFlagRepEnvironments**](GlobalFlagRepEnvironments.md) |  | [optional] 
+**Environments** | [**map[string]GlobalFlagRepEnvironments**](GlobalFlagRepEnvironments.md) |  | 
 
 ## Methods
 
 ### NewGlobalFlagRep
 
-`func NewGlobalFlagRep() *GlobalFlagRep`
+`func NewGlobalFlagRep(environments map[string]GlobalFlagRepEnvironments, ) *GlobalFlagRep`
 
 NewGlobalFlagRep instantiates a new GlobalFlagRep object
 This constructor will assign default values to properties that have it defined,
@@ -600,11 +600,6 @@ and a boolean to check if the value has been set.
 
 SetEnvironments sets Environments field to given value.
 
-### HasEnvironments
-
-`func (o *GlobalFlagRep) HasEnvironments() bool`
-
-HasEnvironments returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

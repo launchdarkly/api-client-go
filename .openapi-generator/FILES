@@ -11,6 +11,8 @@ api_data_export_destinations.go
 api_environments.go
 api_experiments.go
 api_feature_flags.go
+api_integrations.go
+api_integrations_beta.go
 api_metrics.go
 api_other.go
 api_projects.go
@@ -47,6 +49,7 @@ docs/ApiRepositoryCollectionRepItems.md
 docs/ApiRepositoryRep.md
 docs/ApiStatisticCollectionRep.md
 docs/ApiStatisticRep.md
+docs/ApiV2IntegrationsItems.md
 docs/ApprovalSettingsRep.md
 docs/ApprovalsApi.md
 docs/ApprovalsEndpointsCreateCopyFlagConfigApprovalRequestRequest.md
@@ -135,6 +138,16 @@ docs/GlobalSegmentCollectionRep.md
 docs/GoalsModification.md
 docs/InlineObject.md
 docs/InlineResponse200.md
+docs/InlineResponse2001.md
+docs/IntegrationStatusRep.md
+docs/IntegrationSubscriptionRep.md
+docs/IntegrationSubscriptionRepCollection.md
+docs/IntegrationSubscriptionStatusRep.md
+docs/IntegrationSubscriptionStatusRepErrors.md
+docs/IntegrationSubscriptionTestEventRep.md
+docs/IntegrationsApi.md
+docs/IntegrationsBetaApi.md
+docs/IntegrationsSubscriptionPost.md
 docs/JSONPatchElt.md
 docs/LastSeenMetadata.md
 docs/MemberCollectionRep.md
@@ -146,6 +159,7 @@ docs/MemberTeamSummaryRep.md
 docs/MetricCollectionRep.md
 docs/MetricListingRep.md
 docs/MetricRep.md
+docs/MetricRepAttachedFeatures.md
 docs/MetricsApi.md
 docs/MetricsMetricPost.md
 docs/MetricsMetricPostUrls.md
@@ -205,6 +219,7 @@ docs/UsersApi.md
 docs/VariateRep.md
 docs/VariationOrRolloutRep.md
 docs/VariationSummary.md
+docs/VersionsRep.md
 docs/WebConflict.md
 docs/WebConflictResponse.md
 docs/WebConflictResponseConflict.md
@@ -231,6 +246,7 @@ docs/WeightedVariationRep.md
 git_push.sh
 go.mod
 go.sum
+model__api_v2_integrations_items.go
 model_access_denied_reason_rep.go
 model_access_denied_rep.go
 model_access_rep.go
@@ -336,6 +352,14 @@ model_global_segment_collection_rep.go
 model_goals_modification.go
 model_inline_object.go
 model_inline_response_200.go
+model_inline_response_200_1.go
+model_integration_status_rep.go
+model_integration_subscription_rep.go
+model_integration_subscription_rep_collection.go
+model_integration_subscription_status_rep.go
+model_integration_subscription_status_rep_errors.go
+model_integration_subscription_test_event_rep.go
+model_integrations_subscription_post.go
 model_json_patch_elt.go
 model_last_seen_metadata.go
 model_member_collection_rep.go
@@ -347,6 +371,7 @@ model_member_team_summary_rep.go
 model_metric_collection_rep.go
 model_metric_listing_rep.go
 model_metric_rep.go
+model_metric_rep__attached_features.go
 model_metrics_metric_post.go
 model_metrics_metric_post_urls.go
 model_models_derived_attribute.go
@@ -398,6 +423,7 @@ model_user_settings_collection_items.go
 model_variate_rep.go
 model_variation_or_rollout_rep.go
 model_variation_summary.go
+model_versions_rep.go
 model_web_conflict.go
 model_web_conflict_response.go
 model_web_conflict_response_conflict.go

@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Variation** | Pointer to **int32** |  | [optional] 
-**Weight** | Pointer to **int32** |  | [optional] 
+**Variation** | **int32** |  | 
+**Weight** | **int32** |  | 
 **Untracked** | Pointer to **bool** |  | [optional] 
 
 ## Methods
 
 ### NewRolloutRepVariations
 
-`func NewRolloutRepVariations() *RolloutRepVariations`
+`func NewRolloutRepVariations(variation int32, weight int32, ) *RolloutRepVariations`
 
 NewRolloutRepVariations instantiates a new RolloutRepVariations object
 This constructor will assign default values to properties that have it defined,
@@ -46,11 +46,6 @@ and a boolean to check if the value has been set.
 
 SetVariation sets Variation field to given value.
 
-### HasVariation
-
-`func (o *RolloutRepVariations) HasVariation() bool`
-
-HasVariation returns a boolean if a field has been set.
 
 ### GetWeight
 
@@ -71,11 +66,6 @@ and a boolean to check if the value has been set.
 
 SetWeight sets Weight field to given value.
 
-### HasWeight
-
-`func (o *RolloutRepVariations) HasWeight() bool`
-
-HasWeight returns a boolean if a field has been set.
 
 ### GetUntracked
 

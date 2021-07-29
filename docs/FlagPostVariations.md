@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** |  | [optional] 
-**Value** | Pointer to **interface{}** |  | [optional] 
+**Value** | **interface{}** |  | 
 **Description** | Pointer to **string** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 
@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 
 ### NewFlagPostVariations
 
-`func NewFlagPostVariations() *FlagPostVariations`
+`func NewFlagPostVariations(value interface{}, ) *FlagPostVariations`
 
 NewFlagPostVariations instantiates a new FlagPostVariations object
 This constructor will assign default values to properties that have it defined,
@@ -72,11 +72,6 @@ and a boolean to check if the value has been set.
 
 SetValue sets Value field to given value.
 
-### HasValue
-
-`func (o *FlagPostVariations) HasValue() bool`
-
-HasValue returns a boolean if a field has been set.
 
 ### SetValueNil
 

@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | Pointer to **string** |  | [optional] 
-**Key** | Pointer to **string** |  | [optional] 
-**Color** | Pointer to **string** |  | [optional] 
-**DefaultTtl** | Pointer to **int32** |  | [optional] 
-**SecureMode** | Pointer to **bool** |  | [optional] 
-**DefaultTrackEvents** | Pointer to **bool** |  | [optional] 
-**ConfirmChanges** | Pointer to **bool** |  | [optional] 
-**RequireComments** | Pointer to **bool** |  | [optional] 
-**Tags** | Pointer to **[]string** |  | [optional] 
+**Name** | Pointer to **string** | A human-friendly name for the new environment. | [optional] 
+**Key** | Pointer to **string** | A project-unique key for the new environment. | [optional] 
+**Color** | Pointer to **string** | A color to indicate this environment in the UI. | [optional] 
+**DefaultTtl** | Pointer to **int32** | The default time (in minutes) that the PHP SDK can cache feature flag rules locally. | [optional] 
+**SecureMode** | Pointer to **bool** | Secure mode ensures that a user of the client-side SDK cannot impersonate another user. | [optional] 
+**DefaultTrackEvents** | Pointer to **bool** | Enables tracking detailed information for new flags by default. | [optional] 
+**ConfirmChanges** | Pointer to **bool** | Require confirmation for all flag and segment changes via the UI in this environment. | [optional] 
+**RequireComments** | Pointer to **bool** | Require comments for all flag and segment changes via the UI in this environment. | [optional] 
+**Tags** | Pointer to **[]string** | Tags to apply to the new environment. | [optional] 
 
 ## Methods
 

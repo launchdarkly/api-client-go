@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Action** | Pointer to **string** |  | [optional] 
-**Reason** | Pointer to [**AccessDeniedReasonRep**](AccessDeniedReasonRep.md) |  | [optional] 
+**Action** | **string** |  | 
+**Reason** | [**AccessDeniedReasonRep**](AccessDeniedReasonRep.md) |  | 
 
 ## Methods
 
 ### NewAccessRepDenied
 
-`func NewAccessRepDenied() *AccessRepDenied`
+`func NewAccessRepDenied(action string, reason AccessDeniedReasonRep, ) *AccessRepDenied`
 
 NewAccessRepDenied instantiates a new AccessRepDenied object
 This constructor will assign default values to properties that have it defined,
@@ -45,11 +45,6 @@ and a boolean to check if the value has been set.
 
 SetAction sets Action field to given value.
 
-### HasAction
-
-`func (o *AccessRepDenied) HasAction() bool`
-
-HasAction returns a boolean if a field has been set.
 
 ### GetReason
 
@@ -70,11 +65,6 @@ and a boolean to check if the value has been set.
 
 SetReason sets Reason field to given value.
 
-### HasReason
-
-`func (o *AccessRepDenied) HasReason() bool`
-
-HasReason returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

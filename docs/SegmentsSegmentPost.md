@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | Pointer to **string** |  | [optional] 
-**Key** | Pointer to **string** |  | [optional] 
+**Name** | **string** |  | 
+**Key** | **string** |  | 
 **Description** | Pointer to **string** |  | [optional] 
 **Tags** | Pointer to **[]string** |  | [optional] 
 **Unbounded** | Pointer to **bool** |  | [optional] 
@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 
 ### NewSegmentsSegmentPost
 
-`func NewSegmentsSegmentPost() *SegmentsSegmentPost`
+`func NewSegmentsSegmentPost(name string, key string, ) *SegmentsSegmentPost`
 
 NewSegmentsSegmentPost instantiates a new SegmentsSegmentPost object
 This constructor will assign default values to properties that have it defined,
@@ -48,11 +48,6 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
-### HasName
-
-`func (o *SegmentsSegmentPost) HasName() bool`
-
-HasName returns a boolean if a field has been set.
 
 ### GetKey
 
@@ -73,11 +68,6 @@ and a boolean to check if the value has been set.
 
 SetKey sets Key field to given value.
 
-### HasKey
-
-`func (o *SegmentsSegmentPost) HasKey() bool`
-
-HasKey returns a boolean if a field has been set.
 
 ### GetDescription
 

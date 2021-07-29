@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**GetIps**](OtherApi.md#GetIps) | **Get** /api/v2/public-ip-list | Gets the public IP list
 [**GetOpenapiSpec**](OtherApi.md#GetOpenapiSpec) | **Get** /api/v2/openapi.json | Gets the OpenAPI spec in json
 [**GetRoot**](OtherApi.md#GetRoot) | **Get** /api/v2 | Root resource
+[**GetVersions**](OtherApi.md#GetVersions) | **Get** /api/v2/versions | Get version information
 
 
 
@@ -176,6 +177,67 @@ Other parameters are passed through a pointer to a apiGetRootRequest struct via 
 ### Return type
 
 [**map[string]InlineResponse200**](InlineResponse200.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetVersions
+
+> VersionsRep GetVersions(ctx).Execute()
+
+Get version information
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.OtherApi.GetVersions(context.Background()).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `OtherApi.GetVersions``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetVersions`: VersionsRep
+    fmt.Fprintf(os.Stdout, "Response from `OtherApi.GetVersions`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetVersionsRequest struct via the builder pattern
+
+
+### Return type
+
+[**VersionsRep**](VersionsRep.md)
 
 ### Authorization
 

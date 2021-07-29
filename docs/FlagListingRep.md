@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | Pointer to **string** |  | [optional] 
-**Key** | Pointer to **string** |  | [optional] 
+**Name** | **string** |  | 
+**Key** | **string** |  | 
 **Links** | Pointer to [**map[string]InlineResponse200**](InlineResponse200.md) |  | [optional] 
 **Site** | Pointer to [**CoreLink**](CoreLink.md) |  | [optional] 
 
@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 
 ### NewFlagListingRep
 
-`func NewFlagListingRep() *FlagListingRep`
+`func NewFlagListingRep(name string, key string, ) *FlagListingRep`
 
 NewFlagListingRep instantiates a new FlagListingRep object
 This constructor will assign default values to properties that have it defined,
@@ -47,11 +47,6 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
-### HasName
-
-`func (o *FlagListingRep) HasName() bool`
-
-HasName returns a boolean if a field has been set.
 
 ### GetKey
 
@@ -72,11 +67,6 @@ and a boolean to check if the value has been set.
 
 SetKey sets Key field to given value.
 
-### HasKey
-
-`func (o *FlagListingRep) HasKey() bool`
-
-HasKey returns a boolean if a field has been set.
 
 ### GetLinks
 

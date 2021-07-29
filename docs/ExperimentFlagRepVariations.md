@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** |  | [optional] 
-**Value** | Pointer to **interface{}** |  | [optional] 
+**Value** | **interface{}** |  | 
 **Description** | Pointer to **string** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 
@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 
 ### NewExperimentFlagRepVariations
 
-`func NewExperimentFlagRepVariations() *ExperimentFlagRepVariations`
+`func NewExperimentFlagRepVariations(value interface{}, ) *ExperimentFlagRepVariations`
 
 NewExperimentFlagRepVariations instantiates a new ExperimentFlagRepVariations object
 This constructor will assign default values to properties that have it defined,
@@ -72,11 +72,6 @@ and a boolean to check if the value has been set.
 
 SetValue sets Value field to given value.
 
-### HasValue
-
-`func (o *ExperimentFlagRepVariations) HasValue() bool`
-
-HasValue returns a boolean if a field has been set.
 
 ### SetValueNil
 

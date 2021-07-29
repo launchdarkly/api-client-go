@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Patch** | Pointer to [**[]JSONPatchElt**](JSONPatchElt.md) |  | [optional] 
+**Patch** | [**[]JSONPatchElt**](JSONPatchElt.md) |  | 
 **Comment** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
 ### NewPatchWithComment
 
-`func NewPatchWithComment() *PatchWithComment`
+`func NewPatchWithComment(patch []JSONPatchElt, ) *PatchWithComment`
 
 NewPatchWithComment instantiates a new PatchWithComment object
 This constructor will assign default values to properties that have it defined,
@@ -45,11 +45,6 @@ and a boolean to check if the value has been set.
 
 SetPatch sets Patch field to given value.
 
-### HasPatch
-
-`func (o *PatchWithComment) HasPatch() bool`
-
-HasPatch returns a boolean if a field has been set.
 
 ### GetComment
 

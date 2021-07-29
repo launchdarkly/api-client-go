@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Items** | Pointer to [**[]GlobalFlagRep**](GlobalFlagRep.md) |  | [optional] 
-**Links** | Pointer to [**map[string]InlineResponse200**](InlineResponse200.md) |  | [optional] 
+**Items** | [**[]GlobalFlagRep**](GlobalFlagRep.md) |  | 
+**Links** | [**map[string]InlineResponse200**](InlineResponse200.md) |  | 
 **TotalCount** | Pointer to **int32** |  | [optional] 
 
 ## Methods
 
 ### NewGlobalFlagCollectionRep
 
-`func NewGlobalFlagCollectionRep() *GlobalFlagCollectionRep`
+`func NewGlobalFlagCollectionRep(items []GlobalFlagRep, links map[string]InlineResponse200, ) *GlobalFlagCollectionRep`
 
 NewGlobalFlagCollectionRep instantiates a new GlobalFlagCollectionRep object
 This constructor will assign default values to properties that have it defined,
@@ -46,11 +46,6 @@ and a boolean to check if the value has been set.
 
 SetItems sets Items field to given value.
 
-### HasItems
-
-`func (o *GlobalFlagCollectionRep) HasItems() bool`
-
-HasItems returns a boolean if a field has been set.
 
 ### GetLinks
 
@@ -71,11 +66,6 @@ and a boolean to check if the value has been set.
 
 SetLinks sets Links field to given value.
 
-### HasLinks
-
-`func (o *GlobalFlagCollectionRep) HasLinks() bool`
-
-HasLinks returns a boolean if a field has been set.
 
 ### GetTotalCount
 
