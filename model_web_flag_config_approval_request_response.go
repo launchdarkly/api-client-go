@@ -24,14 +24,14 @@ type WebFlagConfigApprovalRequestResponse struct {
 	RequestorId *string `json:"requestorId,omitempty"`
 	Description *string `json:"description,omitempty"`
 	ReviewStatus *string `json:"reviewStatus,omitempty"`
-	AllReviews *[]WebFlagConfigApprovalRequestResponseAllReviews `json:"allReviews,omitempty"`
+	AllReviews *[]WebReviewResponse `json:"allReviews,omitempty"`
 	NotifyMemberIds *[]string `json:"notifyMemberIds,omitempty"`
 	AppliedDate *int64 `json:"appliedDate,omitempty"`
 	AppliedByMemberId *string `json:"appliedByMemberId,omitempty"`
 	Status *string `json:"status,omitempty"`
 	Instructions *[]map[string]interface{} `json:"instructions,omitempty"`
-	Conflicts *[]WebFlagConfigApprovalRequestResponseConflicts `json:"conflicts,omitempty"`
-	Links *map[string]InlineResponse200 `json:"_links,omitempty"`
+	Conflicts *[]WebConflict `json:"conflicts,omitempty"`
+	Links *[]CoreLink `json:"_links,omitempty"`
 	ExecutionDate *int64 `json:"executionDate,omitempty"`
 	OperatingOnId *string `json:"operatingOnId,omitempty"`
 	IntegrationMetadata *WebIntegrationMetadata `json:"integrationMetadata,omitempty"`
@@ -280,9 +280,9 @@ func (o *WebFlagConfigApprovalRequestResponse) SetReviewStatus(v string) {
 }
 
 // GetAllReviews returns the AllReviews field value if set, zero value otherwise.
-func (o *WebFlagConfigApprovalRequestResponse) GetAllReviews() []WebFlagConfigApprovalRequestResponseAllReviews {
+func (o *WebFlagConfigApprovalRequestResponse) GetAllReviews() []WebReviewResponse {
 	if o == nil || o.AllReviews == nil {
-		var ret []WebFlagConfigApprovalRequestResponseAllReviews
+		var ret []WebReviewResponse
 		return ret
 	}
 	return *o.AllReviews
@@ -290,7 +290,7 @@ func (o *WebFlagConfigApprovalRequestResponse) GetAllReviews() []WebFlagConfigAp
 
 // GetAllReviewsOk returns a tuple with the AllReviews field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WebFlagConfigApprovalRequestResponse) GetAllReviewsOk() (*[]WebFlagConfigApprovalRequestResponseAllReviews, bool) {
+func (o *WebFlagConfigApprovalRequestResponse) GetAllReviewsOk() (*[]WebReviewResponse, bool) {
 	if o == nil || o.AllReviews == nil {
 		return nil, false
 	}
@@ -306,8 +306,8 @@ func (o *WebFlagConfigApprovalRequestResponse) HasAllReviews() bool {
 	return false
 }
 
-// SetAllReviews gets a reference to the given []WebFlagConfigApprovalRequestResponseAllReviews and assigns it to the AllReviews field.
-func (o *WebFlagConfigApprovalRequestResponse) SetAllReviews(v []WebFlagConfigApprovalRequestResponseAllReviews) {
+// SetAllReviews gets a reference to the given []WebReviewResponse and assigns it to the AllReviews field.
+func (o *WebFlagConfigApprovalRequestResponse) SetAllReviews(v []WebReviewResponse) {
 	o.AllReviews = &v
 }
 
@@ -472,9 +472,9 @@ func (o *WebFlagConfigApprovalRequestResponse) SetInstructions(v []map[string]in
 }
 
 // GetConflicts returns the Conflicts field value if set, zero value otherwise.
-func (o *WebFlagConfigApprovalRequestResponse) GetConflicts() []WebFlagConfigApprovalRequestResponseConflicts {
+func (o *WebFlagConfigApprovalRequestResponse) GetConflicts() []WebConflict {
 	if o == nil || o.Conflicts == nil {
-		var ret []WebFlagConfigApprovalRequestResponseConflicts
+		var ret []WebConflict
 		return ret
 	}
 	return *o.Conflicts
@@ -482,7 +482,7 @@ func (o *WebFlagConfigApprovalRequestResponse) GetConflicts() []WebFlagConfigApp
 
 // GetConflictsOk returns a tuple with the Conflicts field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WebFlagConfigApprovalRequestResponse) GetConflictsOk() (*[]WebFlagConfigApprovalRequestResponseConflicts, bool) {
+func (o *WebFlagConfigApprovalRequestResponse) GetConflictsOk() (*[]WebConflict, bool) {
 	if o == nil || o.Conflicts == nil {
 		return nil, false
 	}
@@ -498,15 +498,15 @@ func (o *WebFlagConfigApprovalRequestResponse) HasConflicts() bool {
 	return false
 }
 
-// SetConflicts gets a reference to the given []WebFlagConfigApprovalRequestResponseConflicts and assigns it to the Conflicts field.
-func (o *WebFlagConfigApprovalRequestResponse) SetConflicts(v []WebFlagConfigApprovalRequestResponseConflicts) {
+// SetConflicts gets a reference to the given []WebConflict and assigns it to the Conflicts field.
+func (o *WebFlagConfigApprovalRequestResponse) SetConflicts(v []WebConflict) {
 	o.Conflicts = &v
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
-func (o *WebFlagConfigApprovalRequestResponse) GetLinks() map[string]InlineResponse200 {
+func (o *WebFlagConfigApprovalRequestResponse) GetLinks() []CoreLink {
 	if o == nil || o.Links == nil {
-		var ret map[string]InlineResponse200
+		var ret []CoreLink
 		return ret
 	}
 	return *o.Links
@@ -514,7 +514,7 @@ func (o *WebFlagConfigApprovalRequestResponse) GetLinks() map[string]InlineRespo
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WebFlagConfigApprovalRequestResponse) GetLinksOk() (*map[string]InlineResponse200, bool) {
+func (o *WebFlagConfigApprovalRequestResponse) GetLinksOk() (*[]CoreLink, bool) {
 	if o == nil || o.Links == nil {
 		return nil, false
 	}
@@ -530,8 +530,8 @@ func (o *WebFlagConfigApprovalRequestResponse) HasLinks() bool {
 	return false
 }
 
-// SetLinks gets a reference to the given map[string]InlineResponse200 and assigns it to the Links field.
-func (o *WebFlagConfigApprovalRequestResponse) SetLinks(v map[string]InlineResponse200) {
+// SetLinks gets a reference to the given []CoreLink and assigns it to the Links field.
+func (o *WebFlagConfigApprovalRequestResponse) SetLinks(v []CoreLink) {
 	o.Links = &v
 }
 

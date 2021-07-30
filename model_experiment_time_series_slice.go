@@ -17,8 +17,8 @@ import (
 
 // ExperimentTimeSeriesSlice struct for ExperimentTimeSeriesSlice
 type ExperimentTimeSeriesSlice struct {
-	Time *int64 `json:"Time,omitempty"`
-	VariationData *[]ExperimentTimeSeriesVariationSlice `json:"VariationData,omitempty"`
+	Time interface{} `json:"Time,omitempty"`
+	VariationData interface{} `json:"VariationData,omitempty"`
 }
 
 // NewExperimentTimeSeriesSlice instantiates a new ExperimentTimeSeriesSlice object
@@ -38,22 +38,23 @@ func NewExperimentTimeSeriesSliceWithDefaults() *ExperimentTimeSeriesSlice {
 	return &this
 }
 
-// GetTime returns the Time field value if set, zero value otherwise.
-func (o *ExperimentTimeSeriesSlice) GetTime() int64 {
-	if o == nil || o.Time == nil {
-		var ret int64
+// GetTime returns the Time field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ExperimentTimeSeriesSlice) GetTime() interface{} {
+	if o == nil  {
+		var ret interface{}
 		return ret
 	}
-	return *o.Time
+	return o.Time
 }
 
 // GetTimeOk returns a tuple with the Time field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ExperimentTimeSeriesSlice) GetTimeOk() (*int64, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ExperimentTimeSeriesSlice) GetTimeOk() (*interface{}, bool) {
 	if o == nil || o.Time == nil {
 		return nil, false
 	}
-	return o.Time, true
+	return &o.Time, true
 }
 
 // HasTime returns a boolean if a field has been set.
@@ -65,27 +66,28 @@ func (o *ExperimentTimeSeriesSlice) HasTime() bool {
 	return false
 }
 
-// SetTime gets a reference to the given int64 and assigns it to the Time field.
-func (o *ExperimentTimeSeriesSlice) SetTime(v int64) {
-	o.Time = &v
+// SetTime gets a reference to the given interface{} and assigns it to the Time field.
+func (o *ExperimentTimeSeriesSlice) SetTime(v interface{}) {
+	o.Time = v
 }
 
-// GetVariationData returns the VariationData field value if set, zero value otherwise.
-func (o *ExperimentTimeSeriesSlice) GetVariationData() []ExperimentTimeSeriesVariationSlice {
-	if o == nil || o.VariationData == nil {
-		var ret []ExperimentTimeSeriesVariationSlice
+// GetVariationData returns the VariationData field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ExperimentTimeSeriesSlice) GetVariationData() interface{} {
+	if o == nil  {
+		var ret interface{}
 		return ret
 	}
-	return *o.VariationData
+	return o.VariationData
 }
 
 // GetVariationDataOk returns a tuple with the VariationData field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ExperimentTimeSeriesSlice) GetVariationDataOk() (*[]ExperimentTimeSeriesVariationSlice, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ExperimentTimeSeriesSlice) GetVariationDataOk() (*interface{}, bool) {
 	if o == nil || o.VariationData == nil {
 		return nil, false
 	}
-	return o.VariationData, true
+	return &o.VariationData, true
 }
 
 // HasVariationData returns a boolean if a field has been set.
@@ -97,9 +99,9 @@ func (o *ExperimentTimeSeriesSlice) HasVariationData() bool {
 	return false
 }
 
-// SetVariationData gets a reference to the given []ExperimentTimeSeriesVariationSlice and assigns it to the VariationData field.
-func (o *ExperimentTimeSeriesSlice) SetVariationData(v []ExperimentTimeSeriesVariationSlice) {
-	o.VariationData = &v
+// SetVariationData gets a reference to the given interface{} and assigns it to the VariationData field.
+func (o *ExperimentTimeSeriesSlice) SetVariationData(v interface{}) {
+	o.VariationData = v
 }
 
 func (o ExperimentTimeSeriesSlice) MarshalJSON() ([]byte, error) {

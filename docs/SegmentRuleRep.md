@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** |  | [optional] 
-**Clauses** | Pointer to [**[]FlagConfigurationRepClauses**](FlagConfigurationRepClauses.md) |  | [optional] 
+**Clauses** | Pointer to [**[]ClausesClause**](ClausesClause.md) |  | [optional] 
 **Weight** | Pointer to **int32** |  | [optional] 
 **BucketBy** | Pointer to **string** |  | [optional] 
 
@@ -55,20 +55,20 @@ HasId returns a boolean if a field has been set.
 
 ### GetClauses
 
-`func (o *SegmentRuleRep) GetClauses() []FlagConfigurationRepClauses`
+`func (o *SegmentRuleRep) GetClauses() []ClausesClause`
 
 GetClauses returns the Clauses field if non-nil, zero value otherwise.
 
 ### GetClausesOk
 
-`func (o *SegmentRuleRep) GetClausesOk() (*[]FlagConfigurationRepClauses, bool)`
+`func (o *SegmentRuleRep) GetClausesOk() (*[]ClausesClause, bool)`
 
 GetClausesOk returns a tuple with the Clauses field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetClauses
 
-`func (o *SegmentRuleRep) SetClauses(v []FlagConfigurationRepClauses)`
+`func (o *SegmentRuleRep) SetClauses(v []ClausesClause)`
 
 SetClauses sets Clauses field to given value.
 

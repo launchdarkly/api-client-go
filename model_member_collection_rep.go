@@ -18,7 +18,7 @@ import (
 // MemberCollectionRep struct for MemberCollectionRep
 type MemberCollectionRep struct {
 	Items []MemberRep `json:"items"`
-	Links map[string]InlineResponse200 `json:"_links"`
+	Links []CoreLink `json:"_links"`
 	TotalCount *int32 `json:"totalCount,omitempty"`
 }
 
@@ -26,7 +26,7 @@ type MemberCollectionRep struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMemberCollectionRep(items []MemberRep, links map[string]InlineResponse200) *MemberCollectionRep {
+func NewMemberCollectionRep(items []MemberRep, links []CoreLink) *MemberCollectionRep {
 	this := MemberCollectionRep{}
 	this.Items = items
 	this.Links = links
@@ -66,9 +66,9 @@ func (o *MemberCollectionRep) SetItems(v []MemberRep) {
 }
 
 // GetLinks returns the Links field value
-func (o *MemberCollectionRep) GetLinks() map[string]InlineResponse200 {
+func (o *MemberCollectionRep) GetLinks() []CoreLink {
 	if o == nil {
-		var ret map[string]InlineResponse200
+		var ret []CoreLink
 		return ret
 	}
 
@@ -77,7 +77,7 @@ func (o *MemberCollectionRep) GetLinks() map[string]InlineResponse200 {
 
 // GetLinksOk returns a tuple with the Links field value
 // and a boolean to check if the value has been set.
-func (o *MemberCollectionRep) GetLinksOk() (*map[string]InlineResponse200, bool) {
+func (o *MemberCollectionRep) GetLinksOk() (*[]CoreLink, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -85,7 +85,7 @@ func (o *MemberCollectionRep) GetLinksOk() (*map[string]InlineResponse200, bool)
 }
 
 // SetLinks sets field value
-func (o *MemberCollectionRep) SetLinks(v map[string]InlineResponse200) {
+func (o *MemberCollectionRep) SetLinks(v []CoreLink) {
 	o.Links = v
 }
 

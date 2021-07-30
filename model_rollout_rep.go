@@ -17,7 +17,7 @@ import (
 
 // RolloutRep struct for RolloutRep
 type RolloutRep struct {
-	Variations []RolloutRepVariations `json:"variations"`
+	Variations []WeightedVariationRep `json:"variations"`
 	ExperimentAllocation *ExperimentAllocationRep `json:"experimentAllocation,omitempty"`
 	Seed *int32 `json:"seed,omitempty"`
 	BucketBy *string `json:"bucketBy,omitempty"`
@@ -27,7 +27,7 @@ type RolloutRep struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRolloutRep(variations []RolloutRepVariations) *RolloutRep {
+func NewRolloutRep(variations []WeightedVariationRep) *RolloutRep {
 	this := RolloutRep{}
 	this.Variations = variations
 	return &this
@@ -42,9 +42,9 @@ func NewRolloutRepWithDefaults() *RolloutRep {
 }
 
 // GetVariations returns the Variations field value
-func (o *RolloutRep) GetVariations() []RolloutRepVariations {
+func (o *RolloutRep) GetVariations() []WeightedVariationRep {
 	if o == nil {
-		var ret []RolloutRepVariations
+		var ret []WeightedVariationRep
 		return ret
 	}
 
@@ -53,7 +53,7 @@ func (o *RolloutRep) GetVariations() []RolloutRepVariations {
 
 // GetVariationsOk returns a tuple with the Variations field value
 // and a boolean to check if the value has been set.
-func (o *RolloutRep) GetVariationsOk() (*[]RolloutRepVariations, bool) {
+func (o *RolloutRep) GetVariationsOk() (*[]WeightedVariationRep, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -61,7 +61,7 @@ func (o *RolloutRep) GetVariationsOk() (*[]RolloutRepVariations, bool) {
 }
 
 // SetVariations sets field value
-func (o *RolloutRep) SetVariations(v []RolloutRepVariations) {
+func (o *RolloutRep) SetVariations(v []WeightedVariationRep) {
 	o.Variations = v
 }
 

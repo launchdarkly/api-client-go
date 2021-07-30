@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Kind** | Pointer to **string** |  | [optional] 
-**Conflicts** | Pointer to [**[]WebConflictResponseConflicts**](WebConflictResponseConflicts.md) |  | [optional] 
+**Conflicts** | Pointer to [**[]WebConflictResponseConflict**](WebConflictResponseConflict.md) |  | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasKind returns a boolean if a field has been set.
 
 ### GetConflicts
 
-`func (o *WebConflictResponseInstruction) GetConflicts() []WebConflictResponseConflicts`
+`func (o *WebConflictResponseInstruction) GetConflicts() []WebConflictResponseConflict`
 
 GetConflicts returns the Conflicts field if non-nil, zero value otherwise.
 
 ### GetConflictsOk
 
-`func (o *WebConflictResponseInstruction) GetConflictsOk() (*[]WebConflictResponseConflicts, bool)`
+`func (o *WebConflictResponseInstruction) GetConflictsOk() (*[]WebConflictResponseConflict, bool)`
 
 GetConflictsOk returns a tuple with the Conflicts field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetConflicts
 
-`func (o *WebConflictResponseInstruction) SetConflicts(v []WebConflictResponseConflicts)`
+`func (o *WebConflictResponseInstruction) SetConflicts(v []WebConflictResponseConflict)`
 
 SetConflicts sets Conflicts field to given value.
 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Projects** | Pointer to [**[]InlineResponse200**](InlineResponse200.md) |  | [optional] 
+**Projects** | Pointer to [**[]CoreLink**](CoreLink.md) |  | [optional] 
 **Self** | Pointer to [**CoreLink**](CoreLink.md) |  | [optional] 
 
 ## Methods
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetProjects
 
-`func (o *ApiStatisticsRoot) GetProjects() []InlineResponse200`
+`func (o *ApiStatisticsRoot) GetProjects() []CoreLink`
 
 GetProjects returns the Projects field if non-nil, zero value otherwise.
 
 ### GetProjectsOk
 
-`func (o *ApiStatisticsRoot) GetProjectsOk() (*[]InlineResponse200, bool)`
+`func (o *ApiStatisticsRoot) GetProjectsOk() (*[]CoreLink, bool)`
 
 GetProjectsOk returns a tuple with the Projects field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetProjects
 
-`func (o *ApiStatisticsRoot) SetProjects(v []InlineResponse200)`
+`func (o *ApiStatisticsRoot) SetProjects(v []CoreLink)`
 
 SetProjects sets Projects field to given value.
 

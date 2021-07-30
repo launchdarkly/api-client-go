@@ -17,12 +17,12 @@ import (
 
 // WebExpiringUserTargetResponse struct for WebExpiringUserTargetResponse
 type WebExpiringUserTargetResponse struct {
-	Items *[]WebExpiringUserTargetResponseItems `json:"items,omitempty"`
-	Links *map[string]InlineResponse200 `json:"_links,omitempty"`
+	Items *[]WebExpiringUserTargetItem `json:"items,omitempty"`
+	Links *[]CoreLink `json:"_links,omitempty"`
 	TotalInstructions *int32 `json:"totalInstructions,omitempty"`
 	SuccessfulInstructions *int32 `json:"successfulInstructions,omitempty"`
 	FailedInstructions *int32 `json:"failedInstructions,omitempty"`
-	Errors *[]WebExpiringUserTargetResponseErrors `json:"errors,omitempty"`
+	Errors *[]WebExpiringUserTargetError `json:"errors,omitempty"`
 }
 
 // NewWebExpiringUserTargetResponse instantiates a new WebExpiringUserTargetResponse object
@@ -43,9 +43,9 @@ func NewWebExpiringUserTargetResponseWithDefaults() *WebExpiringUserTargetRespon
 }
 
 // GetItems returns the Items field value if set, zero value otherwise.
-func (o *WebExpiringUserTargetResponse) GetItems() []WebExpiringUserTargetResponseItems {
+func (o *WebExpiringUserTargetResponse) GetItems() []WebExpiringUserTargetItem {
 	if o == nil || o.Items == nil {
-		var ret []WebExpiringUserTargetResponseItems
+		var ret []WebExpiringUserTargetItem
 		return ret
 	}
 	return *o.Items
@@ -53,7 +53,7 @@ func (o *WebExpiringUserTargetResponse) GetItems() []WebExpiringUserTargetRespon
 
 // GetItemsOk returns a tuple with the Items field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WebExpiringUserTargetResponse) GetItemsOk() (*[]WebExpiringUserTargetResponseItems, bool) {
+func (o *WebExpiringUserTargetResponse) GetItemsOk() (*[]WebExpiringUserTargetItem, bool) {
 	if o == nil || o.Items == nil {
 		return nil, false
 	}
@@ -69,15 +69,15 @@ func (o *WebExpiringUserTargetResponse) HasItems() bool {
 	return false
 }
 
-// SetItems gets a reference to the given []WebExpiringUserTargetResponseItems and assigns it to the Items field.
-func (o *WebExpiringUserTargetResponse) SetItems(v []WebExpiringUserTargetResponseItems) {
+// SetItems gets a reference to the given []WebExpiringUserTargetItem and assigns it to the Items field.
+func (o *WebExpiringUserTargetResponse) SetItems(v []WebExpiringUserTargetItem) {
 	o.Items = &v
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
-func (o *WebExpiringUserTargetResponse) GetLinks() map[string]InlineResponse200 {
+func (o *WebExpiringUserTargetResponse) GetLinks() []CoreLink {
 	if o == nil || o.Links == nil {
-		var ret map[string]InlineResponse200
+		var ret []CoreLink
 		return ret
 	}
 	return *o.Links
@@ -85,7 +85,7 @@ func (o *WebExpiringUserTargetResponse) GetLinks() map[string]InlineResponse200 
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WebExpiringUserTargetResponse) GetLinksOk() (*map[string]InlineResponse200, bool) {
+func (o *WebExpiringUserTargetResponse) GetLinksOk() (*[]CoreLink, bool) {
 	if o == nil || o.Links == nil {
 		return nil, false
 	}
@@ -101,8 +101,8 @@ func (o *WebExpiringUserTargetResponse) HasLinks() bool {
 	return false
 }
 
-// SetLinks gets a reference to the given map[string]InlineResponse200 and assigns it to the Links field.
-func (o *WebExpiringUserTargetResponse) SetLinks(v map[string]InlineResponse200) {
+// SetLinks gets a reference to the given []CoreLink and assigns it to the Links field.
+func (o *WebExpiringUserTargetResponse) SetLinks(v []CoreLink) {
 	o.Links = &v
 }
 
@@ -203,9 +203,9 @@ func (o *WebExpiringUserTargetResponse) SetFailedInstructions(v int32) {
 }
 
 // GetErrors returns the Errors field value if set, zero value otherwise.
-func (o *WebExpiringUserTargetResponse) GetErrors() []WebExpiringUserTargetResponseErrors {
+func (o *WebExpiringUserTargetResponse) GetErrors() []WebExpiringUserTargetError {
 	if o == nil || o.Errors == nil {
-		var ret []WebExpiringUserTargetResponseErrors
+		var ret []WebExpiringUserTargetError
 		return ret
 	}
 	return *o.Errors
@@ -213,7 +213,7 @@ func (o *WebExpiringUserTargetResponse) GetErrors() []WebExpiringUserTargetRespo
 
 // GetErrorsOk returns a tuple with the Errors field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WebExpiringUserTargetResponse) GetErrorsOk() (*[]WebExpiringUserTargetResponseErrors, bool) {
+func (o *WebExpiringUserTargetResponse) GetErrorsOk() (*[]WebExpiringUserTargetError, bool) {
 	if o == nil || o.Errors == nil {
 		return nil, false
 	}
@@ -229,8 +229,8 @@ func (o *WebExpiringUserTargetResponse) HasErrors() bool {
 	return false
 }
 
-// SetErrors gets a reference to the given []WebExpiringUserTargetResponseErrors and assigns it to the Errors field.
-func (o *WebExpiringUserTargetResponse) SetErrors(v []WebExpiringUserTargetResponseErrors) {
+// SetErrors gets a reference to the given []WebExpiringUserTargetError and assigns it to the Errors field.
+func (o *WebExpiringUserTargetResponse) SetErrors(v []WebExpiringUserTargetError) {
 	o.Errors = &v
 }
 

@@ -18,14 +18,14 @@ import (
 // GlobalSegmentCollectionRep struct for GlobalSegmentCollectionRep
 type GlobalSegmentCollectionRep struct {
 	Items []SegmentRep `json:"items"`
-	Links map[string]InlineResponse200 `json:"_links"`
+	Links []CoreLink `json:"_links"`
 }
 
 // NewGlobalSegmentCollectionRep instantiates a new GlobalSegmentCollectionRep object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGlobalSegmentCollectionRep(items []SegmentRep, links map[string]InlineResponse200) *GlobalSegmentCollectionRep {
+func NewGlobalSegmentCollectionRep(items []SegmentRep, links []CoreLink) *GlobalSegmentCollectionRep {
 	this := GlobalSegmentCollectionRep{}
 	this.Items = items
 	this.Links = links
@@ -65,9 +65,9 @@ func (o *GlobalSegmentCollectionRep) SetItems(v []SegmentRep) {
 }
 
 // GetLinks returns the Links field value
-func (o *GlobalSegmentCollectionRep) GetLinks() map[string]InlineResponse200 {
+func (o *GlobalSegmentCollectionRep) GetLinks() []CoreLink {
 	if o == nil {
-		var ret map[string]InlineResponse200
+		var ret []CoreLink
 		return ret
 	}
 
@@ -76,7 +76,7 @@ func (o *GlobalSegmentCollectionRep) GetLinks() map[string]InlineResponse200 {
 
 // GetLinksOk returns a tuple with the Links field value
 // and a boolean to check if the value has been set.
-func (o *GlobalSegmentCollectionRep) GetLinksOk() (*map[string]InlineResponse200, bool) {
+func (o *GlobalSegmentCollectionRep) GetLinksOk() (*[]CoreLink, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -84,7 +84,7 @@ func (o *GlobalSegmentCollectionRep) GetLinksOk() (*map[string]InlineResponse200
 }
 
 // SetLinks sets field value
-func (o *GlobalSegmentCollectionRep) SetLinks(v map[string]InlineResponse200) {
+func (o *GlobalSegmentCollectionRep) SetLinks(v []CoreLink) {
 	o.Links = v
 }
 

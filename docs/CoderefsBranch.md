@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Sha** | Pointer to **string** |  | [optional] 
 **UpdateSequenceId** | Pointer to **int64** |  | [optional] 
 **SyncTime** | Pointer to **int64** |  | [optional] 
-**References** | Pointer to [**[]CoderefsBranchReferences**](CoderefsBranchReferences.md) |  | [optional] 
+**References** | Pointer to [**[]CoderefsReferenceFile**](CoderefsReferenceFile.md) |  | [optional] 
 
 ## Methods
 
@@ -131,20 +131,20 @@ HasSyncTime returns a boolean if a field has been set.
 
 ### GetReferences
 
-`func (o *CoderefsBranch) GetReferences() []CoderefsBranchReferences`
+`func (o *CoderefsBranch) GetReferences() []CoderefsReferenceFile`
 
 GetReferences returns the References field if non-nil, zero value otherwise.
 
 ### GetReferencesOk
 
-`func (o *CoderefsBranch) GetReferencesOk() (*[]CoderefsBranchReferences, bool)`
+`func (o *CoderefsBranch) GetReferencesOk() (*[]CoderefsReferenceFile, bool)`
 
 GetReferencesOk returns a tuple with the References field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetReferences
 
-`func (o *CoderefsBranch) SetReferences(v []CoderefsBranchReferences)`
+`func (o *CoderefsBranch) SetReferences(v []CoderefsReferenceFile)`
 
 SetReferences sets References field to given value.
 

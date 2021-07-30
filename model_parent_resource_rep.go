@@ -17,7 +17,7 @@ import (
 
 // ParentResourceRep struct for ParentResourceRep
 type ParentResourceRep struct {
-	Links *map[string]InlineResponse200 `json:"_links,omitempty"`
+	Links *[]CoreLink `json:"_links,omitempty"`
 	Name *string `json:"name,omitempty"`
 	Resource interface{} `json:"resource,omitempty"`
 }
@@ -40,9 +40,9 @@ func NewParentResourceRepWithDefaults() *ParentResourceRep {
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
-func (o *ParentResourceRep) GetLinks() map[string]InlineResponse200 {
+func (o *ParentResourceRep) GetLinks() []CoreLink {
 	if o == nil || o.Links == nil {
-		var ret map[string]InlineResponse200
+		var ret []CoreLink
 		return ret
 	}
 	return *o.Links
@@ -50,7 +50,7 @@ func (o *ParentResourceRep) GetLinks() map[string]InlineResponse200 {
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ParentResourceRep) GetLinksOk() (*map[string]InlineResponse200, bool) {
+func (o *ParentResourceRep) GetLinksOk() (*[]CoreLink, bool) {
 	if o == nil || o.Links == nil {
 		return nil, false
 	}
@@ -66,8 +66,8 @@ func (o *ParentResourceRep) HasLinks() bool {
 	return false
 }
 
-// SetLinks gets a reference to the given map[string]InlineResponse200 and assigns it to the Links field.
-func (o *ParentResourceRep) SetLinks(v map[string]InlineResponse200) {
+// SetLinks gets a reference to the given []CoreLink and assigns it to the Links field.
+func (o *ParentResourceRep) SetLinks(v []CoreLink) {
 	o.Links = &v
 }
 

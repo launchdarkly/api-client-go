@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Links** | Pointer to [**map[string]InlineResponse200**](InlineResponse200.md) |  | [optional] 
-**Items** | Pointer to [**[]ApiBranchCollectionRepItems**](ApiBranchCollectionRepItems.md) |  | [optional] 
+**Links** | Pointer to [**[]CoreLink**](CoreLink.md) |  | [optional] 
+**Items** | Pointer to [**[]ApiBranchRep**](ApiBranchRep.md) |  | [optional] 
 
 ## Methods
 
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetLinks
 
-`func (o *ApiBranchCollectionRep) GetLinks() map[string]InlineResponse200`
+`func (o *ApiBranchCollectionRep) GetLinks() []CoreLink`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *ApiBranchCollectionRep) GetLinksOk() (*map[string]InlineResponse200, bool)`
+`func (o *ApiBranchCollectionRep) GetLinksOk() (*[]CoreLink, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *ApiBranchCollectionRep) SetLinks(v map[string]InlineResponse200)`
+`func (o *ApiBranchCollectionRep) SetLinks(v []CoreLink)`
 
 SetLinks sets Links field to given value.
 
@@ -53,20 +53,20 @@ HasLinks returns a boolean if a field has been set.
 
 ### GetItems
 
-`func (o *ApiBranchCollectionRep) GetItems() []ApiBranchCollectionRepItems`
+`func (o *ApiBranchCollectionRep) GetItems() []ApiBranchRep`
 
 GetItems returns the Items field if non-nil, zero value otherwise.
 
 ### GetItemsOk
 
-`func (o *ApiBranchCollectionRep) GetItemsOk() (*[]ApiBranchCollectionRepItems, bool)`
+`func (o *ApiBranchCollectionRep) GetItemsOk() (*[]ApiBranchRep, bool)`
 
 GetItemsOk returns a tuple with the Items field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetItems
 
-`func (o *ApiBranchCollectionRep) SetItems(v []ApiBranchCollectionRepItems)`
+`func (o *ApiBranchCollectionRep) SetItems(v []ApiBranchRep)`
 
 SetItems sets Items field to given value.
 

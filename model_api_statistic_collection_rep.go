@@ -17,15 +17,15 @@ import (
 
 // ApiStatisticCollectionRep struct for ApiStatisticCollectionRep
 type ApiStatisticCollectionRep struct {
-	Flags map[string][]map[string]interface{} `json:"flags"`
-	Links map[string]InlineResponse200 `json:"_links"`
+	Flags map[string][]ApiStatisticRep `json:"flags"`
+	Links []CoreLink `json:"_links"`
 }
 
 // NewApiStatisticCollectionRep instantiates a new ApiStatisticCollectionRep object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewApiStatisticCollectionRep(flags map[string][]map[string]interface{}, links map[string]InlineResponse200) *ApiStatisticCollectionRep {
+func NewApiStatisticCollectionRep(flags map[string][]ApiStatisticRep, links []CoreLink) *ApiStatisticCollectionRep {
 	this := ApiStatisticCollectionRep{}
 	this.Flags = flags
 	this.Links = links
@@ -41,9 +41,9 @@ func NewApiStatisticCollectionRepWithDefaults() *ApiStatisticCollectionRep {
 }
 
 // GetFlags returns the Flags field value
-func (o *ApiStatisticCollectionRep) GetFlags() map[string][]map[string]interface{} {
+func (o *ApiStatisticCollectionRep) GetFlags() map[string][]ApiStatisticRep {
 	if o == nil {
-		var ret map[string][]map[string]interface{}
+		var ret map[string][]ApiStatisticRep
 		return ret
 	}
 
@@ -52,7 +52,7 @@ func (o *ApiStatisticCollectionRep) GetFlags() map[string][]map[string]interface
 
 // GetFlagsOk returns a tuple with the Flags field value
 // and a boolean to check if the value has been set.
-func (o *ApiStatisticCollectionRep) GetFlagsOk() (*map[string][]map[string]interface{}, bool) {
+func (o *ApiStatisticCollectionRep) GetFlagsOk() (*map[string][]ApiStatisticRep, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -60,14 +60,14 @@ func (o *ApiStatisticCollectionRep) GetFlagsOk() (*map[string][]map[string]inter
 }
 
 // SetFlags sets field value
-func (o *ApiStatisticCollectionRep) SetFlags(v map[string][]map[string]interface{}) {
+func (o *ApiStatisticCollectionRep) SetFlags(v map[string][]ApiStatisticRep) {
 	o.Flags = v
 }
 
 // GetLinks returns the Links field value
-func (o *ApiStatisticCollectionRep) GetLinks() map[string]InlineResponse200 {
+func (o *ApiStatisticCollectionRep) GetLinks() []CoreLink {
 	if o == nil {
-		var ret map[string]InlineResponse200
+		var ret []CoreLink
 		return ret
 	}
 
@@ -76,7 +76,7 @@ func (o *ApiStatisticCollectionRep) GetLinks() map[string]InlineResponse200 {
 
 // GetLinksOk returns a tuple with the Links field value
 // and a boolean to check if the value has been set.
-func (o *ApiStatisticCollectionRep) GetLinksOk() (*map[string]InlineResponse200, bool) {
+func (o *ApiStatisticCollectionRep) GetLinksOk() (*[]CoreLink, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -84,7 +84,7 @@ func (o *ApiStatisticCollectionRep) GetLinksOk() (*map[string]InlineResponse200,
 }
 
 // SetLinks sets field value
-func (o *ApiStatisticCollectionRep) SetLinks(v map[string]InlineResponse200) {
+func (o *ApiStatisticCollectionRep) SetLinks(v []CoreLink) {
 	o.Links = v
 }
 

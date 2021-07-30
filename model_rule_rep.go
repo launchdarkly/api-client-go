@@ -17,10 +17,9 @@ import (
 
 // RuleRep struct for RuleRep
 type RuleRep struct {
-	Id *string `json:"_id,omitempty"`
 	Variation *int32 `json:"variation,omitempty"`
 	Rollout *RolloutRep `json:"rollout,omitempty"`
-	Clauses []FlagConfigurationRepClauses `json:"clauses"`
+	Clauses []RuleRepClauses `json:"clauses"`
 	TrackEvents bool `json:"trackEvents"`
 	Description *string `json:"description,omitempty"`
 }
@@ -29,7 +28,7 @@ type RuleRep struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRuleRep(clauses []FlagConfigurationRepClauses, trackEvents bool) *RuleRep {
+func NewRuleRep(clauses []RuleRepClauses, trackEvents bool) *RuleRep {
 	this := RuleRep{}
 	this.Clauses = clauses
 	this.TrackEvents = trackEvents
@@ -42,38 +41,6 @@ func NewRuleRep(clauses []FlagConfigurationRepClauses, trackEvents bool) *RuleRe
 func NewRuleRepWithDefaults() *RuleRep {
 	this := RuleRep{}
 	return &this
-}
-
-// GetId returns the Id field value if set, zero value otherwise.
-func (o *RuleRep) GetId() string {
-	if o == nil || o.Id == nil {
-		var ret string
-		return ret
-	}
-	return *o.Id
-}
-
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *RuleRep) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
-		return nil, false
-	}
-	return o.Id, true
-}
-
-// HasId returns a boolean if a field has been set.
-func (o *RuleRep) HasId() bool {
-	if o != nil && o.Id != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetId gets a reference to the given string and assigns it to the Id field.
-func (o *RuleRep) SetId(v string) {
-	o.Id = &v
 }
 
 // GetVariation returns the Variation field value if set, zero value otherwise.
@@ -141,9 +108,9 @@ func (o *RuleRep) SetRollout(v RolloutRep) {
 }
 
 // GetClauses returns the Clauses field value
-func (o *RuleRep) GetClauses() []FlagConfigurationRepClauses {
+func (o *RuleRep) GetClauses() []RuleRepClauses {
 	if o == nil {
-		var ret []FlagConfigurationRepClauses
+		var ret []RuleRepClauses
 		return ret
 	}
 
@@ -152,7 +119,7 @@ func (o *RuleRep) GetClauses() []FlagConfigurationRepClauses {
 
 // GetClausesOk returns a tuple with the Clauses field value
 // and a boolean to check if the value has been set.
-func (o *RuleRep) GetClausesOk() (*[]FlagConfigurationRepClauses, bool) {
+func (o *RuleRep) GetClausesOk() (*[]RuleRepClauses, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -160,7 +127,7 @@ func (o *RuleRep) GetClausesOk() (*[]FlagConfigurationRepClauses, bool) {
 }
 
 // SetClauses sets field value
-func (o *RuleRep) SetClauses(v []FlagConfigurationRepClauses) {
+func (o *RuleRep) SetClauses(v []RuleRepClauses) {
 	o.Clauses = v
 }
 
@@ -222,9 +189,6 @@ func (o *RuleRep) SetDescription(v string) {
 
 func (o RuleRep) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
-		toSerialize["_id"] = o.Id
-	}
 	if o.Variation != nil {
 		toSerialize["variation"] = o.Variation
 	}

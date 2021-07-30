@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **ExecutionDate** | Pointer to **int64** |  | [optional] 
 **Instructions** | Pointer to **[]map[string]interface{}** |  | [optional] 
 **Conflicts** | Pointer to **interface{}** |  | [optional] 
-**Links** | Pointer to [**map[string]InlineResponse200**](InlineResponse200.md) |  | [optional] 
+**Links** | Pointer to [**[]CoreLink**](CoreLink.md) |  | [optional] 
 
 ## Methods
 
@@ -219,20 +219,20 @@ HasConflicts returns a boolean if a field has been set.
 UnsetConflicts ensures that no value is present for Conflicts, not even an explicit nil
 ### GetLinks
 
-`func (o *ScheduledChangesRep) GetLinks() map[string]InlineResponse200`
+`func (o *ScheduledChangesRep) GetLinks() []CoreLink`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *ScheduledChangesRep) GetLinksOk() (*map[string]InlineResponse200, bool)`
+`func (o *ScheduledChangesRep) GetLinksOk() (*[]CoreLink, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *ScheduledChangesRep) SetLinks(v map[string]InlineResponse200)`
+`func (o *ScheduledChangesRep) SetLinks(v []CoreLink)`
 
 SetLinks sets Links field to given value.
 

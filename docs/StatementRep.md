@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **Actions** | Pointer to **[]string** |  | [optional] 
 **NotActions** | Pointer to **[]string** |  | [optional] 
 **Effect** | **string** |  | 
+**RoleName** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -148,6 +149,31 @@ and a boolean to check if the value has been set.
 
 SetEffect sets Effect field to given value.
 
+
+### GetRoleName
+
+`func (o *StatementRep) GetRoleName() string`
+
+GetRoleName returns the RoleName field if non-nil, zero value otherwise.
+
+### GetRoleNameOk
+
+`func (o *StatementRep) GetRoleNameOk() (*string, bool)`
+
+GetRoleNameOk returns a tuple with the RoleName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRoleName
+
+`func (o *StatementRep) SetRoleName(v string)`
+
+SetRoleName sets RoleName field to given value.
+
+### HasRoleName
+
+`func (o *StatementRep) HasRoleName() bool`
+
+HasRoleName returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

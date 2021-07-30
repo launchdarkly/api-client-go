@@ -22,6 +22,7 @@ type StatementRep struct {
 	Actions *[]string `json:"actions,omitempty"`
 	NotActions *[]string `json:"notActions,omitempty"`
 	Effect string `json:"effect"`
+	RoleName *string `json:"role_name,omitempty"`
 }
 
 // NewStatementRep instantiates a new StatementRep object
@@ -194,6 +195,38 @@ func (o *StatementRep) SetEffect(v string) {
 	o.Effect = v
 }
 
+// GetRoleName returns the RoleName field value if set, zero value otherwise.
+func (o *StatementRep) GetRoleName() string {
+	if o == nil || o.RoleName == nil {
+		var ret string
+		return ret
+	}
+	return *o.RoleName
+}
+
+// GetRoleNameOk returns a tuple with the RoleName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *StatementRep) GetRoleNameOk() (*string, bool) {
+	if o == nil || o.RoleName == nil {
+		return nil, false
+	}
+	return o.RoleName, true
+}
+
+// HasRoleName returns a boolean if a field has been set.
+func (o *StatementRep) HasRoleName() bool {
+	if o != nil && o.RoleName != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRoleName gets a reference to the given string and assigns it to the RoleName field.
+func (o *StatementRep) SetRoleName(v string) {
+	o.RoleName = &v
+}
+
 func (o StatementRep) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Resources != nil {
@@ -210,6 +243,9 @@ func (o StatementRep) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["effect"] = o.Effect
+	}
+	if o.RoleName != nil {
+		toSerialize["role_name"] = o.RoleName
 	}
 	return json.Marshal(toSerialize)
 }

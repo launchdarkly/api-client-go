@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **MetricKey** | Pointer to **string** |  | [optional] 
 **Metric** | Pointer to [**MetricListingRep**](MetricListingRep.md) |  | [optional] 
 **Environments** | Pointer to **[]string** |  | [optional] 
-**EnvironmentSettings** | Pointer to [**map[string]ExperimentInfoRepEnvironmentSettings**](ExperimentInfoRepEnvironmentSettings.md) |  | [optional] 
+**EnvironmentSettings** | Pointer to [**map[string]ExperimentEnvironmentSettingRep**](ExperimentEnvironmentSettingRep.md) |  | [optional] 
 
 ## Methods
 
@@ -105,20 +105,20 @@ HasEnvironments returns a boolean if a field has been set.
 
 ### GetEnvironmentSettings
 
-`func (o *ExperimentRep) GetEnvironmentSettings() map[string]ExperimentInfoRepEnvironmentSettings`
+`func (o *ExperimentRep) GetEnvironmentSettings() map[string]ExperimentEnvironmentSettingRep`
 
 GetEnvironmentSettings returns the EnvironmentSettings field if non-nil, zero value otherwise.
 
 ### GetEnvironmentSettingsOk
 
-`func (o *ExperimentRep) GetEnvironmentSettingsOk() (*map[string]ExperimentInfoRepEnvironmentSettings, bool)`
+`func (o *ExperimentRep) GetEnvironmentSettingsOk() (*map[string]ExperimentEnvironmentSettingRep, bool)`
 
 GetEnvironmentSettingsOk returns a tuple with the EnvironmentSettings field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEnvironmentSettings
 
-`func (o *ExperimentRep) SetEnvironmentSettings(v map[string]ExperimentInfoRepEnvironmentSettings)`
+`func (o *ExperimentRep) SetEnvironmentSettings(v map[string]ExperimentEnvironmentSettingRep)`
 
 SetEnvironmentSettings sets EnvironmentSettings field to given value.
 

@@ -17,14 +17,14 @@ import (
 
 // AccessRep struct for AccessRep
 type AccessRep struct {
-	Denied []AccessRepDenied `json:"denied"`
+	Denied []AccessDeniedRep `json:"denied"`
 }
 
 // NewAccessRep instantiates a new AccessRep object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAccessRep(denied []AccessRepDenied) *AccessRep {
+func NewAccessRep(denied []AccessDeniedRep) *AccessRep {
 	this := AccessRep{}
 	this.Denied = denied
 	return &this
@@ -39,9 +39,9 @@ func NewAccessRepWithDefaults() *AccessRep {
 }
 
 // GetDenied returns the Denied field value
-func (o *AccessRep) GetDenied() []AccessRepDenied {
+func (o *AccessRep) GetDenied() []AccessDeniedRep {
 	if o == nil {
-		var ret []AccessRepDenied
+		var ret []AccessDeniedRep
 		return ret
 	}
 
@@ -50,7 +50,7 @@ func (o *AccessRep) GetDenied() []AccessRepDenied {
 
 // GetDeniedOk returns a tuple with the Denied field value
 // and a boolean to check if the value has been set.
-func (o *AccessRep) GetDeniedOk() (*[]AccessRepDenied, bool) {
+func (o *AccessRep) GetDeniedOk() (*[]AccessDeniedRep, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -58,7 +58,7 @@ func (o *AccessRep) GetDeniedOk() (*[]AccessRepDenied, bool) {
 }
 
 // SetDenied sets field value
-func (o *AccessRep) SetDenied(v []AccessRepDenied) {
+func (o *AccessRep) SetDenied(v []AccessDeniedRep) {
 	o.Denied = v
 }
 

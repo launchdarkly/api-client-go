@@ -19,6 +19,9 @@ import (
 type VariationOrRolloutRep struct {
 	Variation *int32 `json:"variation,omitempty"`
 	Rollout *RolloutRep `json:"rollout,omitempty"`
+	Clauses *[]RuleRepClauses `json:"clauses,omitempty"`
+	TrackEvents *bool `json:"trackEvents,omitempty"`
+	Description *string `json:"description,omitempty"`
 }
 
 // NewVariationOrRolloutRep instantiates a new VariationOrRolloutRep object
@@ -102,6 +105,102 @@ func (o *VariationOrRolloutRep) SetRollout(v RolloutRep) {
 	o.Rollout = &v
 }
 
+// GetClauses returns the Clauses field value if set, zero value otherwise.
+func (o *VariationOrRolloutRep) GetClauses() []RuleRepClauses {
+	if o == nil || o.Clauses == nil {
+		var ret []RuleRepClauses
+		return ret
+	}
+	return *o.Clauses
+}
+
+// GetClausesOk returns a tuple with the Clauses field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *VariationOrRolloutRep) GetClausesOk() (*[]RuleRepClauses, bool) {
+	if o == nil || o.Clauses == nil {
+		return nil, false
+	}
+	return o.Clauses, true
+}
+
+// HasClauses returns a boolean if a field has been set.
+func (o *VariationOrRolloutRep) HasClauses() bool {
+	if o != nil && o.Clauses != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetClauses gets a reference to the given []RuleRepClauses and assigns it to the Clauses field.
+func (o *VariationOrRolloutRep) SetClauses(v []RuleRepClauses) {
+	o.Clauses = &v
+}
+
+// GetTrackEvents returns the TrackEvents field value if set, zero value otherwise.
+func (o *VariationOrRolloutRep) GetTrackEvents() bool {
+	if o == nil || o.TrackEvents == nil {
+		var ret bool
+		return ret
+	}
+	return *o.TrackEvents
+}
+
+// GetTrackEventsOk returns a tuple with the TrackEvents field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *VariationOrRolloutRep) GetTrackEventsOk() (*bool, bool) {
+	if o == nil || o.TrackEvents == nil {
+		return nil, false
+	}
+	return o.TrackEvents, true
+}
+
+// HasTrackEvents returns a boolean if a field has been set.
+func (o *VariationOrRolloutRep) HasTrackEvents() bool {
+	if o != nil && o.TrackEvents != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTrackEvents gets a reference to the given bool and assigns it to the TrackEvents field.
+func (o *VariationOrRolloutRep) SetTrackEvents(v bool) {
+	o.TrackEvents = &v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *VariationOrRolloutRep) GetDescription() string {
+	if o == nil || o.Description == nil {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *VariationOrRolloutRep) GetDescriptionOk() (*string, bool) {
+	if o == nil || o.Description == nil {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *VariationOrRolloutRep) HasDescription() bool {
+	if o != nil && o.Description != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *VariationOrRolloutRep) SetDescription(v string) {
+	o.Description = &v
+}
+
 func (o VariationOrRolloutRep) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Variation != nil {
@@ -109,6 +208,15 @@ func (o VariationOrRolloutRep) MarshalJSON() ([]byte, error) {
 	}
 	if o.Rollout != nil {
 		toSerialize["rollout"] = o.Rollout
+	}
+	if o.Clauses != nil {
+		toSerialize["clauses"] = o.Clauses
+	}
+	if o.TrackEvents != nil {
+		toSerialize["trackEvents"] = o.TrackEvents
+	}
+	if o.Description != nil {
+		toSerialize["description"] = o.Description
 	}
 	return json.Marshal(toSerialize)
 }

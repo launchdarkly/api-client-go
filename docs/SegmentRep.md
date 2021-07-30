@@ -11,8 +11,8 @@ Name | Type | Description | Notes
 **Key** | **string** |  | 
 **Included** | **[]string** |  | 
 **Excluded** | **[]string** |  | 
-**Links** | [**map[string]InlineResponse200**](InlineResponse200.md) |  | 
-**Rules** | [**[]SegmentRepRules**](SegmentRepRules.md) |  | 
+**Links** | [**[]CoreLink**](CoreLink.md) |  | 
+**Rules** | [**[]SegmentRuleRep**](SegmentRuleRep.md) |  | 
 **Version** | **int32** |  | 
 **Deleted** | **bool** |  | 
 **Access** | Pointer to [**AccessRep**](AccessRep.md) |  | [optional] 
@@ -27,7 +27,7 @@ Name | Type | Description | Notes
 
 ### NewSegmentRep
 
-`func NewSegmentRep(name string, tags []string, creationDate int64, key string, included []string, excluded []string, links map[string]InlineResponse200, rules []SegmentRepRules, version int32, deleted bool, generation int32, ) *SegmentRep`
+`func NewSegmentRep(name string, tags []string, creationDate int64, key string, included []string, excluded []string, links []CoreLink, rules []SegmentRuleRep, version int32, deleted bool, generation int32, ) *SegmentRep`
 
 NewSegmentRep instantiates a new SegmentRep object
 This constructor will assign default values to properties that have it defined,
@@ -189,40 +189,40 @@ SetExcluded sets Excluded field to given value.
 
 ### GetLinks
 
-`func (o *SegmentRep) GetLinks() map[string]InlineResponse200`
+`func (o *SegmentRep) GetLinks() []CoreLink`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *SegmentRep) GetLinksOk() (*map[string]InlineResponse200, bool)`
+`func (o *SegmentRep) GetLinksOk() (*[]CoreLink, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *SegmentRep) SetLinks(v map[string]InlineResponse200)`
+`func (o *SegmentRep) SetLinks(v []CoreLink)`
 
 SetLinks sets Links field to given value.
 
 
 ### GetRules
 
-`func (o *SegmentRep) GetRules() []SegmentRepRules`
+`func (o *SegmentRep) GetRules() []SegmentRuleRep`
 
 GetRules returns the Rules field if non-nil, zero value otherwise.
 
 ### GetRulesOk
 
-`func (o *SegmentRep) GetRulesOk() (*[]SegmentRepRules, bool)`
+`func (o *SegmentRep) GetRulesOk() (*[]SegmentRuleRep, bool)`
 
 GetRulesOk returns a tuple with the Rules field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRules
 
-`func (o *SegmentRep) SetRules(v []SegmentRepRules)`
+`func (o *SegmentRep) SetRules(v []SegmentRuleRep)`
 
 SetRules sets Rules field to given value.
 

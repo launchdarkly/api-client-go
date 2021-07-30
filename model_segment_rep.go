@@ -24,8 +24,8 @@ type SegmentRep struct {
 	Key string `json:"key"`
 	Included []string `json:"included"`
 	Excluded []string `json:"excluded"`
-	Links map[string]InlineResponse200 `json:"_links"`
-	Rules []SegmentRepRules `json:"rules"`
+	Links []CoreLink `json:"_links"`
+	Rules []SegmentRuleRep `json:"rules"`
 	Version int32 `json:"version"`
 	Deleted bool `json:"deleted"`
 	Access *AccessRep `json:"_access,omitempty"`
@@ -41,7 +41,7 @@ type SegmentRep struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSegmentRep(name string, tags []string, creationDate int64, key string, included []string, excluded []string, links map[string]InlineResponse200, rules []SegmentRepRules, version int32, deleted bool, generation int32) *SegmentRep {
+func NewSegmentRep(name string, tags []string, creationDate int64, key string, included []string, excluded []string, links []CoreLink, rules []SegmentRuleRep, version int32, deleted bool, generation int32) *SegmentRep {
 	this := SegmentRep{}
 	this.Name = name
 	this.Tags = tags
@@ -242,9 +242,9 @@ func (o *SegmentRep) SetExcluded(v []string) {
 }
 
 // GetLinks returns the Links field value
-func (o *SegmentRep) GetLinks() map[string]InlineResponse200 {
+func (o *SegmentRep) GetLinks() []CoreLink {
 	if o == nil {
-		var ret map[string]InlineResponse200
+		var ret []CoreLink
 		return ret
 	}
 
@@ -253,7 +253,7 @@ func (o *SegmentRep) GetLinks() map[string]InlineResponse200 {
 
 // GetLinksOk returns a tuple with the Links field value
 // and a boolean to check if the value has been set.
-func (o *SegmentRep) GetLinksOk() (*map[string]InlineResponse200, bool) {
+func (o *SegmentRep) GetLinksOk() (*[]CoreLink, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -261,14 +261,14 @@ func (o *SegmentRep) GetLinksOk() (*map[string]InlineResponse200, bool) {
 }
 
 // SetLinks sets field value
-func (o *SegmentRep) SetLinks(v map[string]InlineResponse200) {
+func (o *SegmentRep) SetLinks(v []CoreLink) {
 	o.Links = v
 }
 
 // GetRules returns the Rules field value
-func (o *SegmentRep) GetRules() []SegmentRepRules {
+func (o *SegmentRep) GetRules() []SegmentRuleRep {
 	if o == nil {
-		var ret []SegmentRepRules
+		var ret []SegmentRuleRep
 		return ret
 	}
 
@@ -277,7 +277,7 @@ func (o *SegmentRep) GetRules() []SegmentRepRules {
 
 // GetRulesOk returns a tuple with the Rules field value
 // and a boolean to check if the value has been set.
-func (o *SegmentRep) GetRulesOk() (*[]SegmentRepRules, bool) {
+func (o *SegmentRep) GetRulesOk() (*[]SegmentRuleRep, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -285,7 +285,7 @@ func (o *SegmentRep) GetRulesOk() (*[]SegmentRepRules, bool) {
 }
 
 // SetRules sets field value
-func (o *SegmentRep) SetRules(v []SegmentRepRules) {
+func (o *SegmentRep) SetRules(v []SegmentRuleRep) {
 	o.Rules = v
 }
 

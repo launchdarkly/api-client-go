@@ -4,34 +4,34 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | Pointer to **string** |  | [optional] 
-**Kind** | Pointer to **string** |  | [optional] 
+**Name** | **string** |  | 
+**Kind** | **string** |  | 
 **Description** | Pointer to **string** |  | [optional] 
-**Key** | Pointer to **string** |  | [optional] 
-**Version** | Pointer to **int32** |  | [optional] 
-**CreationDate** | Pointer to **int64** |  | [optional] 
+**Key** | **string** |  | 
+**Version** | **int32** |  | 
+**CreationDate** | **int64** |  | 
 **IncludeInSnippet** | Pointer to **bool** |  | [optional] 
 **ClientSideAvailability** | Pointer to [**AccountsClientSideAvailability**](AccountsClientSideAvailability.md) |  | [optional] 
-**Variations** | Pointer to [**[]VariateRep**](VariateRep.md) |  | [optional] 
+**Variations** | [**[]VariateRep**](VariateRep.md) |  | 
 **VariationJsonSchema** | Pointer to **interface{}** |  | [optional] 
-**Temporary** | Pointer to **bool** |  | [optional] 
-**Tags** | Pointer to **[]string** |  | [optional] 
-**Links** | Pointer to [**map[string]InlineResponse200**](InlineResponse200.md) |  | [optional] 
+**Temporary** | **bool** |  | 
+**Tags** | **[]string** |  | 
+**Links** | [**[]CoreLink**](CoreLink.md) |  | 
 **MaintainerId** | Pointer to **string** |  | [optional] 
 **Maintainer** | Pointer to [**MemberSummaryRep**](MemberSummaryRep.md) |  | [optional] 
 **GoalIds** | Pointer to **[]string** |  | [optional] 
-**Experiments** | Pointer to [**ExperimentInfoRep**](ExperimentInfoRep.md) |  | [optional] 
-**CustomProperties** | Pointer to [**map[string]CustomProperty**](CustomProperty.md) |  | [optional] 
-**Archived** | Pointer to **bool** |  | [optional] 
+**Experiments** | [**ExperimentInfoRep**](ExperimentInfoRep.md) |  | 
+**CustomProperties** | [**map[string]CustomProperty**](CustomProperty.md) |  | 
+**Archived** | **bool** |  | 
 **ArchivedDate** | Pointer to **int64** |  | [optional] 
 **Defaults** | Pointer to [**FlagDefaultsRep**](FlagDefaultsRep.md) |  | [optional] 
-**Environments** | [**map[string]GlobalFlagRepEnvironments**](GlobalFlagRepEnvironments.md) |  | 
+**Environments** | [**map[string]FlagConfigurationRep**](FlagConfigurationRep.md) |  | 
 
 ## Methods
 
 ### NewGlobalFlagRep
 
-`func NewGlobalFlagRep(environments map[string]GlobalFlagRepEnvironments, ) *GlobalFlagRep`
+`func NewGlobalFlagRep(name string, kind string, key string, version int32, creationDate int64, variations []VariateRep, temporary bool, tags []string, links []CoreLink, experiments ExperimentInfoRep, customProperties map[string]CustomProperty, archived bool, environments map[string]FlagConfigurationRep, ) *GlobalFlagRep`
 
 NewGlobalFlagRep instantiates a new GlobalFlagRep object
 This constructor will assign default values to properties that have it defined,
@@ -65,11 +65,6 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
-### HasName
-
-`func (o *GlobalFlagRep) HasName() bool`
-
-HasName returns a boolean if a field has been set.
 
 ### GetKind
 
@@ -90,11 +85,6 @@ and a boolean to check if the value has been set.
 
 SetKind sets Kind field to given value.
 
-### HasKind
-
-`func (o *GlobalFlagRep) HasKind() bool`
-
-HasKind returns a boolean if a field has been set.
 
 ### GetDescription
 
@@ -140,11 +130,6 @@ and a boolean to check if the value has been set.
 
 SetKey sets Key field to given value.
 
-### HasKey
-
-`func (o *GlobalFlagRep) HasKey() bool`
-
-HasKey returns a boolean if a field has been set.
 
 ### GetVersion
 
@@ -165,11 +150,6 @@ and a boolean to check if the value has been set.
 
 SetVersion sets Version field to given value.
 
-### HasVersion
-
-`func (o *GlobalFlagRep) HasVersion() bool`
-
-HasVersion returns a boolean if a field has been set.
 
 ### GetCreationDate
 
@@ -190,11 +170,6 @@ and a boolean to check if the value has been set.
 
 SetCreationDate sets CreationDate field to given value.
 
-### HasCreationDate
-
-`func (o *GlobalFlagRep) HasCreationDate() bool`
-
-HasCreationDate returns a boolean if a field has been set.
 
 ### GetIncludeInSnippet
 
@@ -265,11 +240,6 @@ and a boolean to check if the value has been set.
 
 SetVariations sets Variations field to given value.
 
-### HasVariations
-
-`func (o *GlobalFlagRep) HasVariations() bool`
-
-HasVariations returns a boolean if a field has been set.
 
 ### GetVariationJsonSchema
 
@@ -325,11 +295,6 @@ and a boolean to check if the value has been set.
 
 SetTemporary sets Temporary field to given value.
 
-### HasTemporary
-
-`func (o *GlobalFlagRep) HasTemporary() bool`
-
-HasTemporary returns a boolean if a field has been set.
 
 ### GetTags
 
@@ -350,36 +315,26 @@ and a boolean to check if the value has been set.
 
 SetTags sets Tags field to given value.
 
-### HasTags
-
-`func (o *GlobalFlagRep) HasTags() bool`
-
-HasTags returns a boolean if a field has been set.
 
 ### GetLinks
 
-`func (o *GlobalFlagRep) GetLinks() map[string]InlineResponse200`
+`func (o *GlobalFlagRep) GetLinks() []CoreLink`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *GlobalFlagRep) GetLinksOk() (*map[string]InlineResponse200, bool)`
+`func (o *GlobalFlagRep) GetLinksOk() (*[]CoreLink, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *GlobalFlagRep) SetLinks(v map[string]InlineResponse200)`
+`func (o *GlobalFlagRep) SetLinks(v []CoreLink)`
 
 SetLinks sets Links field to given value.
 
-### HasLinks
-
-`func (o *GlobalFlagRep) HasLinks() bool`
-
-HasLinks returns a boolean if a field has been set.
 
 ### GetMaintainerId
 
@@ -475,11 +430,6 @@ and a boolean to check if the value has been set.
 
 SetExperiments sets Experiments field to given value.
 
-### HasExperiments
-
-`func (o *GlobalFlagRep) HasExperiments() bool`
-
-HasExperiments returns a boolean if a field has been set.
 
 ### GetCustomProperties
 
@@ -500,11 +450,6 @@ and a boolean to check if the value has been set.
 
 SetCustomProperties sets CustomProperties field to given value.
 
-### HasCustomProperties
-
-`func (o *GlobalFlagRep) HasCustomProperties() bool`
-
-HasCustomProperties returns a boolean if a field has been set.
 
 ### GetArchived
 
@@ -525,11 +470,6 @@ and a boolean to check if the value has been set.
 
 SetArchived sets Archived field to given value.
 
-### HasArchived
-
-`func (o *GlobalFlagRep) HasArchived() bool`
-
-HasArchived returns a boolean if a field has been set.
 
 ### GetArchivedDate
 
@@ -583,20 +523,20 @@ HasDefaults returns a boolean if a field has been set.
 
 ### GetEnvironments
 
-`func (o *GlobalFlagRep) GetEnvironments() map[string]GlobalFlagRepEnvironments`
+`func (o *GlobalFlagRep) GetEnvironments() map[string]FlagConfigurationRep`
 
 GetEnvironments returns the Environments field if non-nil, zero value otherwise.
 
 ### GetEnvironmentsOk
 
-`func (o *GlobalFlagRep) GetEnvironmentsOk() (*map[string]GlobalFlagRepEnvironments, bool)`
+`func (o *GlobalFlagRep) GetEnvironmentsOk() (*map[string]FlagConfigurationRep, bool)`
 
 GetEnvironmentsOk returns a tuple with the Environments field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEnvironments
 
-`func (o *GlobalFlagRep) SetEnvironments(v map[string]GlobalFlagRepEnvironments)`
+`func (o *GlobalFlagRep) SetEnvironments(v map[string]FlagConfigurationRep)`
 
 SetEnvironments sets Environments field to given value.
 

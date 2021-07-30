@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Links** | Pointer to [**map[string]InlineResponse200**](InlineResponse200.md) |  | [optional] 
-**Items** | Pointer to [**[]ApiRepositoryCollectionRepItems**](ApiRepositoryCollectionRepItems.md) |  | [optional] 
+**Links** | Pointer to [**[]CoreLink**](CoreLink.md) |  | [optional] 
+**Items** | Pointer to [**[]ApiRepositoryRep**](ApiRepositoryRep.md) |  | [optional] 
 
 ## Methods
 
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetLinks
 
-`func (o *ApiRepositoryCollectionRep) GetLinks() map[string]InlineResponse200`
+`func (o *ApiRepositoryCollectionRep) GetLinks() []CoreLink`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *ApiRepositoryCollectionRep) GetLinksOk() (*map[string]InlineResponse200, bool)`
+`func (o *ApiRepositoryCollectionRep) GetLinksOk() (*[]CoreLink, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *ApiRepositoryCollectionRep) SetLinks(v map[string]InlineResponse200)`
+`func (o *ApiRepositoryCollectionRep) SetLinks(v []CoreLink)`
 
 SetLinks sets Links field to given value.
 
@@ -53,20 +53,20 @@ HasLinks returns a boolean if a field has been set.
 
 ### GetItems
 
-`func (o *ApiRepositoryCollectionRep) GetItems() []ApiRepositoryCollectionRepItems`
+`func (o *ApiRepositoryCollectionRep) GetItems() []ApiRepositoryRep`
 
 GetItems returns the Items field if non-nil, zero value otherwise.
 
 ### GetItemsOk
 
-`func (o *ApiRepositoryCollectionRep) GetItemsOk() (*[]ApiRepositoryCollectionRepItems, bool)`
+`func (o *ApiRepositoryCollectionRep) GetItemsOk() (*[]ApiRepositoryRep, bool)`
 
 GetItemsOk returns a tuple with the Items field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetItems
 
-`func (o *ApiRepositoryCollectionRep) SetItems(v []ApiRepositoryCollectionRepItems)`
+`func (o *ApiRepositoryCollectionRep) SetItems(v []ApiRepositoryRep)`
 
 SetItems sets Items field to given value.
 

@@ -8,14 +8,14 @@ Name | Type | Description | Notes
 **NotResources** | Pointer to **[]map[string]interface{}** |  | [optional] 
 **Actions** | Pointer to **[]string** |  | [optional] 
 **NotActions** | Pointer to **[]string** |  | [optional] 
-**Effect** | Pointer to **string** |  | [optional] 
+**Effect** | **string** |  | 
 **RoleName** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
 ### NewAccessDeniedReasonRep
 
-`func NewAccessDeniedReasonRep() *AccessDeniedReasonRep`
+`func NewAccessDeniedReasonRep(effect string, ) *AccessDeniedReasonRep`
 
 NewAccessDeniedReasonRep instantiates a new AccessDeniedReasonRep object
 This constructor will assign default values to properties that have it defined,
@@ -149,11 +149,6 @@ and a boolean to check if the value has been set.
 
 SetEffect sets Effect field to given value.
 
-### HasEffect
-
-`func (o *AccessDeniedReasonRep) HasEffect() bool`
-
-HasEffect returns a boolean if a field has been set.
 
 ### GetRoleName
 

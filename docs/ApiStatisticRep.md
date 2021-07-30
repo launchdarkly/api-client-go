@@ -10,13 +10,13 @@ Name | Type | Description | Notes
 **Enabled** | **bool** |  | 
 **Version** | **int32** |  | 
 **HunkCount** | **int32** |  | 
-**Links** | [**map[string]InlineResponse200**](InlineResponse200.md) |  | 
+**Links** | [**[]CoreLink**](CoreLink.md) |  | 
 
 ## Methods
 
 ### NewApiStatisticRep
 
-`func NewApiStatisticRep(name string, sourceLink string, defaultBranch string, enabled bool, version int32, hunkCount int32, links map[string]InlineResponse200, ) *ApiStatisticRep`
+`func NewApiStatisticRep(name string, sourceLink string, defaultBranch string, enabled bool, version int32, hunkCount int32, links []CoreLink, ) *ApiStatisticRep`
 
 NewApiStatisticRep instantiates a new ApiStatisticRep object
 This constructor will assign default values to properties that have it defined,
@@ -153,20 +153,20 @@ SetHunkCount sets HunkCount field to given value.
 
 ### GetLinks
 
-`func (o *ApiStatisticRep) GetLinks() map[string]InlineResponse200`
+`func (o *ApiStatisticRep) GetLinks() []CoreLink`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *ApiStatisticRep) GetLinksOk() (*map[string]InlineResponse200, bool)`
+`func (o *ApiStatisticRep) GetLinksOk() (*[]CoreLink, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *ApiStatisticRep) SetLinks(v map[string]InlineResponse200)`
+`func (o *ApiStatisticRep) SetLinks(v []CoreLink)`
 
 SetLinks sets Links field to given value.
 

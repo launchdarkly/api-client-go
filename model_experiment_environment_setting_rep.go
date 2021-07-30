@@ -19,7 +19,7 @@ import (
 type ExperimentEnvironmentSettingRep struct {
 	StartDate *int64 `json:"startDate,omitempty"`
 	StopDate *int64 `json:"stopDate,omitempty"`
-	EnabledPeriods *[]ExperimentEnvironmentSettingRepEnabledPeriods `json:"enabledPeriods,omitempty"`
+	EnabledPeriods *[]ExperimentEnabledPeriodRep `json:"enabledPeriods,omitempty"`
 }
 
 // NewExperimentEnvironmentSettingRep instantiates a new ExperimentEnvironmentSettingRep object
@@ -104,9 +104,9 @@ func (o *ExperimentEnvironmentSettingRep) SetStopDate(v int64) {
 }
 
 // GetEnabledPeriods returns the EnabledPeriods field value if set, zero value otherwise.
-func (o *ExperimentEnvironmentSettingRep) GetEnabledPeriods() []ExperimentEnvironmentSettingRepEnabledPeriods {
+func (o *ExperimentEnvironmentSettingRep) GetEnabledPeriods() []ExperimentEnabledPeriodRep {
 	if o == nil || o.EnabledPeriods == nil {
-		var ret []ExperimentEnvironmentSettingRepEnabledPeriods
+		var ret []ExperimentEnabledPeriodRep
 		return ret
 	}
 	return *o.EnabledPeriods
@@ -114,7 +114,7 @@ func (o *ExperimentEnvironmentSettingRep) GetEnabledPeriods() []ExperimentEnviro
 
 // GetEnabledPeriodsOk returns a tuple with the EnabledPeriods field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ExperimentEnvironmentSettingRep) GetEnabledPeriodsOk() (*[]ExperimentEnvironmentSettingRepEnabledPeriods, bool) {
+func (o *ExperimentEnvironmentSettingRep) GetEnabledPeriodsOk() (*[]ExperimentEnabledPeriodRep, bool) {
 	if o == nil || o.EnabledPeriods == nil {
 		return nil, false
 	}
@@ -130,8 +130,8 @@ func (o *ExperimentEnvironmentSettingRep) HasEnabledPeriods() bool {
 	return false
 }
 
-// SetEnabledPeriods gets a reference to the given []ExperimentEnvironmentSettingRepEnabledPeriods and assigns it to the EnabledPeriods field.
-func (o *ExperimentEnvironmentSettingRep) SetEnabledPeriods(v []ExperimentEnvironmentSettingRepEnabledPeriods) {
+// SetEnabledPeriods gets a reference to the given []ExperimentEnabledPeriodRep and assigns it to the EnabledPeriods field.
+func (o *ExperimentEnvironmentSettingRep) SetEnabledPeriods(v []ExperimentEnabledPeriodRep) {
 	o.EnabledPeriods = &v
 }
 

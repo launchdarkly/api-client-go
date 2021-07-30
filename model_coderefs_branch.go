@@ -21,7 +21,7 @@ type CoderefsBranch struct {
 	Sha *string `json:"sha,omitempty"`
 	UpdateSequenceId *int64 `json:"update_sequence_Id,omitempty"`
 	SyncTime *int64 `json:"sync_time,omitempty"`
-	References *[]CoderefsBranchReferences `json:"references,omitempty"`
+	References *[]CoderefsReferenceFile `json:"references,omitempty"`
 }
 
 // NewCoderefsBranch instantiates a new CoderefsBranch object
@@ -170,9 +170,9 @@ func (o *CoderefsBranch) SetSyncTime(v int64) {
 }
 
 // GetReferences returns the References field value if set, zero value otherwise.
-func (o *CoderefsBranch) GetReferences() []CoderefsBranchReferences {
+func (o *CoderefsBranch) GetReferences() []CoderefsReferenceFile {
 	if o == nil || o.References == nil {
-		var ret []CoderefsBranchReferences
+		var ret []CoderefsReferenceFile
 		return ret
 	}
 	return *o.References
@@ -180,7 +180,7 @@ func (o *CoderefsBranch) GetReferences() []CoderefsBranchReferences {
 
 // GetReferencesOk returns a tuple with the References field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CoderefsBranch) GetReferencesOk() (*[]CoderefsBranchReferences, bool) {
+func (o *CoderefsBranch) GetReferencesOk() (*[]CoderefsReferenceFile, bool) {
 	if o == nil || o.References == nil {
 		return nil, false
 	}
@@ -196,8 +196,8 @@ func (o *CoderefsBranch) HasReferences() bool {
 	return false
 }
 
-// SetReferences gets a reference to the given []CoderefsBranchReferences and assigns it to the References field.
-func (o *CoderefsBranch) SetReferences(v []CoderefsBranchReferences) {
+// SetReferences gets a reference to the given []CoderefsReferenceFile and assigns it to the References field.
+func (o *CoderefsBranch) SetReferences(v []CoderefsReferenceFile) {
 	o.References = &v
 }
 

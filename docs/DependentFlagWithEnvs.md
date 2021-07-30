@@ -6,13 +6,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | Pointer to **string** |  | [optional] 
 **Key** | **string** |  | 
-**Environments** | [**[]DependentFlagWithEnvsEnvironments**](DependentFlagWithEnvsEnvironments.md) |  | 
+**Environments** | [**[]DependentFlagEnvironment**](DependentFlagEnvironment.md) |  | 
 
 ## Methods
 
 ### NewDependentFlagWithEnvs
 
-`func NewDependentFlagWithEnvs(key string, environments []DependentFlagWithEnvsEnvironments, ) *DependentFlagWithEnvs`
+`func NewDependentFlagWithEnvs(key string, environments []DependentFlagEnvironment, ) *DependentFlagWithEnvs`
 
 NewDependentFlagWithEnvs instantiates a new DependentFlagWithEnvs object
 This constructor will assign default values to properties that have it defined,
@@ -74,20 +74,20 @@ SetKey sets Key field to given value.
 
 ### GetEnvironments
 
-`func (o *DependentFlagWithEnvs) GetEnvironments() []DependentFlagWithEnvsEnvironments`
+`func (o *DependentFlagWithEnvs) GetEnvironments() []DependentFlagEnvironment`
 
 GetEnvironments returns the Environments field if non-nil, zero value otherwise.
 
 ### GetEnvironmentsOk
 
-`func (o *DependentFlagWithEnvs) GetEnvironmentsOk() (*[]DependentFlagWithEnvsEnvironments, bool)`
+`func (o *DependentFlagWithEnvs) GetEnvironmentsOk() (*[]DependentFlagEnvironment, bool)`
 
 GetEnvironmentsOk returns a tuple with the Environments field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEnvironments
 
-`func (o *DependentFlagWithEnvs) SetEnvironments(v []DependentFlagWithEnvsEnvironments)`
+`func (o *DependentFlagWithEnvs) SetEnvironments(v []DependentFlagEnvironment)`
 
 SetEnvironments sets Environments field to given value.
 

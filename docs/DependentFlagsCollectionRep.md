@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Items** | [**[]DependentFlagWithEnvsEnvironments**](DependentFlagWithEnvsEnvironments.md) |  | 
-**Links** | [**map[string]InlineResponse200**](InlineResponse200.md) |  | 
+**Items** | [**[]DependentFlag**](DependentFlag.md) |  | 
+**Links** | [**[]CoreLink**](CoreLink.md) |  | 
 **Site** | [**CoreLink**](CoreLink.md) |  | 
 
 ## Methods
 
 ### NewDependentFlagsCollectionRep
 
-`func NewDependentFlagsCollectionRep(items []DependentFlagWithEnvsEnvironments, links map[string]InlineResponse200, site CoreLink, ) *DependentFlagsCollectionRep`
+`func NewDependentFlagsCollectionRep(items []DependentFlag, links []CoreLink, site CoreLink, ) *DependentFlagsCollectionRep`
 
 NewDependentFlagsCollectionRep instantiates a new DependentFlagsCollectionRep object
 This constructor will assign default values to properties that have it defined,
@@ -29,40 +29,40 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetItems
 
-`func (o *DependentFlagsCollectionRep) GetItems() []DependentFlagWithEnvsEnvironments`
+`func (o *DependentFlagsCollectionRep) GetItems() []DependentFlag`
 
 GetItems returns the Items field if non-nil, zero value otherwise.
 
 ### GetItemsOk
 
-`func (o *DependentFlagsCollectionRep) GetItemsOk() (*[]DependentFlagWithEnvsEnvironments, bool)`
+`func (o *DependentFlagsCollectionRep) GetItemsOk() (*[]DependentFlag, bool)`
 
 GetItemsOk returns a tuple with the Items field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetItems
 
-`func (o *DependentFlagsCollectionRep) SetItems(v []DependentFlagWithEnvsEnvironments)`
+`func (o *DependentFlagsCollectionRep) SetItems(v []DependentFlag)`
 
 SetItems sets Items field to given value.
 
 
 ### GetLinks
 
-`func (o *DependentFlagsCollectionRep) GetLinks() map[string]InlineResponse200`
+`func (o *DependentFlagsCollectionRep) GetLinks() []CoreLink`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *DependentFlagsCollectionRep) GetLinksOk() (*map[string]InlineResponse200, bool)`
+`func (o *DependentFlagsCollectionRep) GetLinksOk() (*[]CoreLink, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *DependentFlagsCollectionRep) SetLinks(v map[string]InlineResponse200)`
+`func (o *DependentFlagsCollectionRep) SetLinks(v []CoreLink)`
 
 SetLinks sets Links field to given value.
 

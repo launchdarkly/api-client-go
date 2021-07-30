@@ -19,14 +19,14 @@ import (
 type DependentFlagWithEnvs struct {
 	Name *string `json:"name,omitempty"`
 	Key string `json:"key"`
-	Environments []DependentFlagWithEnvsEnvironments `json:"environments"`
+	Environments []DependentFlagEnvironment `json:"environments"`
 }
 
 // NewDependentFlagWithEnvs instantiates a new DependentFlagWithEnvs object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDependentFlagWithEnvs(key string, environments []DependentFlagWithEnvsEnvironments) *DependentFlagWithEnvs {
+func NewDependentFlagWithEnvs(key string, environments []DependentFlagEnvironment) *DependentFlagWithEnvs {
 	this := DependentFlagWithEnvs{}
 	this.Key = key
 	this.Environments = environments
@@ -98,9 +98,9 @@ func (o *DependentFlagWithEnvs) SetKey(v string) {
 }
 
 // GetEnvironments returns the Environments field value
-func (o *DependentFlagWithEnvs) GetEnvironments() []DependentFlagWithEnvsEnvironments {
+func (o *DependentFlagWithEnvs) GetEnvironments() []DependentFlagEnvironment {
 	if o == nil {
-		var ret []DependentFlagWithEnvsEnvironments
+		var ret []DependentFlagEnvironment
 		return ret
 	}
 
@@ -109,7 +109,7 @@ func (o *DependentFlagWithEnvs) GetEnvironments() []DependentFlagWithEnvsEnviron
 
 // GetEnvironmentsOk returns a tuple with the Environments field value
 // and a boolean to check if the value has been set.
-func (o *DependentFlagWithEnvs) GetEnvironmentsOk() (*[]DependentFlagWithEnvsEnvironments, bool) {
+func (o *DependentFlagWithEnvs) GetEnvironmentsOk() (*[]DependentFlagEnvironment, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -117,7 +117,7 @@ func (o *DependentFlagWithEnvs) GetEnvironmentsOk() (*[]DependentFlagWithEnvsEnv
 }
 
 // SetEnvironments sets field value
-func (o *DependentFlagWithEnvs) SetEnvironments(v []DependentFlagWithEnvsEnvironments) {
+func (o *DependentFlagWithEnvs) SetEnvironments(v []DependentFlagEnvironment) {
 	o.Environments = v
 }
 

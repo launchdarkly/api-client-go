@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **IsNumeric** | Pointer to **bool** |  | [optional] 
 **Unit** | Pointer to **string** |  | [optional] 
 **EventKey** | Pointer to **string** | Required for custom metrics | [optional] 
-**SuccessCriteria** | Pointer to **int32** |  | [optional] 
+**SuccessCriteria** | Pointer to **interface{}** |  | [optional] 
 **Tags** | Pointer to **[]string** |  | [optional] 
 
 ## Methods
@@ -288,20 +288,20 @@ HasEventKey returns a boolean if a field has been set.
 
 ### GetSuccessCriteria
 
-`func (o *MetricsMetricPost) GetSuccessCriteria() int32`
+`func (o *MetricsMetricPost) GetSuccessCriteria() interface{}`
 
 GetSuccessCriteria returns the SuccessCriteria field if non-nil, zero value otherwise.
 
 ### GetSuccessCriteriaOk
 
-`func (o *MetricsMetricPost) GetSuccessCriteriaOk() (*int32, bool)`
+`func (o *MetricsMetricPost) GetSuccessCriteriaOk() (*interface{}, bool)`
 
 GetSuccessCriteriaOk returns a tuple with the SuccessCriteria field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSuccessCriteria
 
-`func (o *MetricsMetricPost) SetSuccessCriteria(v int32)`
+`func (o *MetricsMetricPost) SetSuccessCriteria(v interface{})`
 
 SetSuccessCriteria sets SuccessCriteria field to given value.
 
@@ -311,6 +311,16 @@ SetSuccessCriteria sets SuccessCriteria field to given value.
 
 HasSuccessCriteria returns a boolean if a field has been set.
 
+### SetSuccessCriteriaNil
+
+`func (o *MetricsMetricPost) SetSuccessCriteriaNil(b bool)`
+
+ SetSuccessCriteriaNil sets the value for SuccessCriteria to be an explicit nil
+
+### UnsetSuccessCriteria
+`func (o *MetricsMetricPost) UnsetSuccessCriteria()`
+
+UnsetSuccessCriteria ensures that no value is present for SuccessCriteria, not even an explicit nil
 ### GetTags
 
 `func (o *MetricsMetricPost) GetTags() []string`

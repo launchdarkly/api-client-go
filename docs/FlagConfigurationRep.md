@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **LastModified** | **int64** |  | 
 **Version** | **int32** |  | 
 **Targets** | [**[]FlagConfigurationRepTargets**](FlagConfigurationRepTargets.md) |  | 
-**Rules** | [**[]FlagConfigurationRepRules**](FlagConfigurationRepRules.md) |  | 
+**Rules** | [**[]RuleRep**](RuleRep.md) |  | 
 **Fallthrough** | [**VariationOrRolloutRep**](VariationOrRolloutRep.md) |  | 
 **OffVariation** | Pointer to **int32** |  | [optional] 
 **Prerequisites** | [**[]FlagConfigurationRepPrerequisites**](FlagConfigurationRepPrerequisites.md) |  | 
@@ -27,7 +27,7 @@ Name | Type | Description | Notes
 
 ### NewFlagConfigurationRep
 
-`func NewFlagConfigurationRep(on bool, archived bool, salt string, sel string, lastModified int64, version int32, targets []FlagConfigurationRepTargets, rules []FlagConfigurationRepRules, fallthrough_ VariationOrRolloutRep, prerequisites []FlagConfigurationRepPrerequisites, site CoreLink, environmentName string, trackEvents bool, trackEventsFallthrough bool, ) *FlagConfigurationRep`
+`func NewFlagConfigurationRep(on bool, archived bool, salt string, sel string, lastModified int64, version int32, targets []FlagConfigurationRepTargets, rules []RuleRep, fallthrough_ VariationOrRolloutRep, prerequisites []FlagConfigurationRepPrerequisites, site CoreLink, environmentName string, trackEvents bool, trackEventsFallthrough bool, ) *FlagConfigurationRep`
 
 NewFlagConfigurationRep instantiates a new FlagConfigurationRep object
 This constructor will assign default values to properties that have it defined,
@@ -184,20 +184,20 @@ SetTargets sets Targets field to given value.
 
 ### GetRules
 
-`func (o *FlagConfigurationRep) GetRules() []FlagConfigurationRepRules`
+`func (o *FlagConfigurationRep) GetRules() []RuleRep`
 
 GetRules returns the Rules field if non-nil, zero value otherwise.
 
 ### GetRulesOk
 
-`func (o *FlagConfigurationRep) GetRulesOk() (*[]FlagConfigurationRepRules, bool)`
+`func (o *FlagConfigurationRep) GetRulesOk() (*[]RuleRep, bool)`
 
 GetRulesOk returns a tuple with the Rules field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRules
 
-`func (o *FlagConfigurationRep) SetRules(v []FlagConfigurationRepRules)`
+`func (o *FlagConfigurationRep) SetRules(v []RuleRep)`
 
 SetRules sets Rules field to given value.
 

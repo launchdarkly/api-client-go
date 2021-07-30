@@ -21,7 +21,7 @@ type ApiBranchRep struct {
 	Head *string `json:"head,omitempty"`
 	UpdateSequenceId *int64 `json:"updateSequenceId,omitempty"`
 	SyncTime *int64 `json:"syncTime,omitempty"`
-	References *[]ApiBranchCollectionRepReferences `json:"references,omitempty"`
+	References *[]ApiReferenceRep `json:"references,omitempty"`
 	Links *map[string]interface{} `json:"_links,omitempty"`
 }
 
@@ -171,9 +171,9 @@ func (o *ApiBranchRep) SetSyncTime(v int64) {
 }
 
 // GetReferences returns the References field value if set, zero value otherwise.
-func (o *ApiBranchRep) GetReferences() []ApiBranchCollectionRepReferences {
+func (o *ApiBranchRep) GetReferences() []ApiReferenceRep {
 	if o == nil || o.References == nil {
-		var ret []ApiBranchCollectionRepReferences
+		var ret []ApiReferenceRep
 		return ret
 	}
 	return *o.References
@@ -181,7 +181,7 @@ func (o *ApiBranchRep) GetReferences() []ApiBranchCollectionRepReferences {
 
 // GetReferencesOk returns a tuple with the References field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ApiBranchRep) GetReferencesOk() (*[]ApiBranchCollectionRepReferences, bool) {
+func (o *ApiBranchRep) GetReferencesOk() (*[]ApiReferenceRep, bool) {
 	if o == nil || o.References == nil {
 		return nil, false
 	}
@@ -197,8 +197,8 @@ func (o *ApiBranchRep) HasReferences() bool {
 	return false
 }
 
-// SetReferences gets a reference to the given []ApiBranchCollectionRepReferences and assigns it to the References field.
-func (o *ApiBranchRep) SetReferences(v []ApiBranchCollectionRepReferences) {
+// SetReferences gets a reference to the given []ApiReferenceRep and assigns it to the References field.
+func (o *ApiBranchRep) SetReferences(v []ApiReferenceRep) {
 	o.References = &v
 }
 

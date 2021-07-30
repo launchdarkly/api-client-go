@@ -18,9 +18,9 @@ import (
 // WebPostFlagScheduledChangesInput struct for WebPostFlagScheduledChangesInput
 type WebPostFlagScheduledChangesInput struct {
 	Comment *string `json:"Comment,omitempty"`
-	ExecutionDate *int64 `json:"ExecutionDate,omitempty"`
+	ExecutionDate interface{} `json:"ExecutionDate,omitempty"`
 	IgnoreConflicts *bool `json:"IgnoreConflicts,omitempty"`
-	Instructions *[]map[string]interface{} `json:"Instructions,omitempty"`
+	Instructions interface{} `json:"Instructions,omitempty"`
 }
 
 // NewWebPostFlagScheduledChangesInput instantiates a new WebPostFlagScheduledChangesInput object
@@ -72,22 +72,23 @@ func (o *WebPostFlagScheduledChangesInput) SetComment(v string) {
 	o.Comment = &v
 }
 
-// GetExecutionDate returns the ExecutionDate field value if set, zero value otherwise.
-func (o *WebPostFlagScheduledChangesInput) GetExecutionDate() int64 {
-	if o == nil || o.ExecutionDate == nil {
-		var ret int64
+// GetExecutionDate returns the ExecutionDate field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *WebPostFlagScheduledChangesInput) GetExecutionDate() interface{} {
+	if o == nil  {
+		var ret interface{}
 		return ret
 	}
-	return *o.ExecutionDate
+	return o.ExecutionDate
 }
 
 // GetExecutionDateOk returns a tuple with the ExecutionDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WebPostFlagScheduledChangesInput) GetExecutionDateOk() (*int64, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *WebPostFlagScheduledChangesInput) GetExecutionDateOk() (*interface{}, bool) {
 	if o == nil || o.ExecutionDate == nil {
 		return nil, false
 	}
-	return o.ExecutionDate, true
+	return &o.ExecutionDate, true
 }
 
 // HasExecutionDate returns a boolean if a field has been set.
@@ -99,9 +100,9 @@ func (o *WebPostFlagScheduledChangesInput) HasExecutionDate() bool {
 	return false
 }
 
-// SetExecutionDate gets a reference to the given int64 and assigns it to the ExecutionDate field.
-func (o *WebPostFlagScheduledChangesInput) SetExecutionDate(v int64) {
-	o.ExecutionDate = &v
+// SetExecutionDate gets a reference to the given interface{} and assigns it to the ExecutionDate field.
+func (o *WebPostFlagScheduledChangesInput) SetExecutionDate(v interface{}) {
+	o.ExecutionDate = v
 }
 
 // GetIgnoreConflicts returns the IgnoreConflicts field value if set, zero value otherwise.
@@ -136,22 +137,23 @@ func (o *WebPostFlagScheduledChangesInput) SetIgnoreConflicts(v bool) {
 	o.IgnoreConflicts = &v
 }
 
-// GetInstructions returns the Instructions field value if set, zero value otherwise.
-func (o *WebPostFlagScheduledChangesInput) GetInstructions() []map[string]interface{} {
-	if o == nil || o.Instructions == nil {
-		var ret []map[string]interface{}
+// GetInstructions returns the Instructions field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *WebPostFlagScheduledChangesInput) GetInstructions() interface{} {
+	if o == nil  {
+		var ret interface{}
 		return ret
 	}
-	return *o.Instructions
+	return o.Instructions
 }
 
 // GetInstructionsOk returns a tuple with the Instructions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WebPostFlagScheduledChangesInput) GetInstructionsOk() (*[]map[string]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *WebPostFlagScheduledChangesInput) GetInstructionsOk() (*interface{}, bool) {
 	if o == nil || o.Instructions == nil {
 		return nil, false
 	}
-	return o.Instructions, true
+	return &o.Instructions, true
 }
 
 // HasInstructions returns a boolean if a field has been set.
@@ -163,9 +165,9 @@ func (o *WebPostFlagScheduledChangesInput) HasInstructions() bool {
 	return false
 }
 
-// SetInstructions gets a reference to the given []map[string]interface{} and assigns it to the Instructions field.
-func (o *WebPostFlagScheduledChangesInput) SetInstructions(v []map[string]interface{}) {
-	o.Instructions = &v
+// SetInstructions gets a reference to the given interface{} and assigns it to the Instructions field.
+func (o *WebPostFlagScheduledChangesInput) SetInstructions(v interface{}) {
+	o.Instructions = v
 }
 
 func (o WebPostFlagScheduledChangesInput) MarshalJSON() ([]byte, error) {

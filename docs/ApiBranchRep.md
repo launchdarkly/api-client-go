@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Head** | Pointer to **string** |  | [optional] 
 **UpdateSequenceId** | Pointer to **int64** |  | [optional] 
 **SyncTime** | Pointer to **int64** |  | [optional] 
-**References** | Pointer to [**[]ApiBranchCollectionRepReferences**](ApiBranchCollectionRepReferences.md) |  | [optional] 
+**References** | Pointer to [**[]ApiReferenceRep**](ApiReferenceRep.md) |  | [optional] 
 **Links** | Pointer to **map[string]interface{}** |  | [optional] 
 
 ## Methods
@@ -132,20 +132,20 @@ HasSyncTime returns a boolean if a field has been set.
 
 ### GetReferences
 
-`func (o *ApiBranchRep) GetReferences() []ApiBranchCollectionRepReferences`
+`func (o *ApiBranchRep) GetReferences() []ApiReferenceRep`
 
 GetReferences returns the References field if non-nil, zero value otherwise.
 
 ### GetReferencesOk
 
-`func (o *ApiBranchRep) GetReferencesOk() (*[]ApiBranchCollectionRepReferences, bool)`
+`func (o *ApiBranchRep) GetReferencesOk() (*[]ApiReferenceRep, bool)`
 
 GetReferencesOk returns a tuple with the References field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetReferences
 
-`func (o *ApiBranchRep) SetReferences(v []ApiBranchCollectionRepReferences)`
+`func (o *ApiBranchRep) SetReferences(v []ApiReferenceRep)`
 
 SetReferences sets References field to given value.
 

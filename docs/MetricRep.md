@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Name** | Pointer to **string** |  | [optional] 
 **Kind** | Pointer to **string** |  | [optional] 
 **AttachedFlagCount** | Pointer to **int32** |  | [optional] 
-**Links** | Pointer to [**map[string]InlineResponse200**](InlineResponse200.md) |  | [optional] 
+**Links** | Pointer to [**[]CoreLink**](CoreLink.md) |  | [optional] 
 **Site** | Pointer to [**CoreLink**](CoreLink.md) |  | [optional] 
 **Access** | Pointer to [**AccessRep**](AccessRep.md) |  | [optional] 
 **Tags** | Pointer to **[]string** |  | [optional] 
@@ -23,7 +23,7 @@ Name | Type | Description | Notes
 **Unit** | Pointer to **string** |  | [optional] 
 **EventKey** | Pointer to **string** |  | [optional] 
 **IsActive** | Pointer to **bool** |  | [optional] 
-**AttachedFeatures** | Pointer to [**[]MetricRepAttachedFeatures**](MetricRepAttachedFeatures.md) |  | [optional] 
+**AttachedFeatures** | Pointer to [**[]FlagListingRep**](FlagListingRep.md) |  | [optional] 
 **Version** | Pointer to **int32** |  | [optional] 
 **Selector** | Pointer to **string** |  | [optional] 
 **Urls** | Pointer to **[]interface{}** |  | [optional] 
@@ -174,20 +174,20 @@ HasAttachedFlagCount returns a boolean if a field has been set.
 
 ### GetLinks
 
-`func (o *MetricRep) GetLinks() map[string]InlineResponse200`
+`func (o *MetricRep) GetLinks() []CoreLink`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *MetricRep) GetLinksOk() (*map[string]InlineResponse200, bool)`
+`func (o *MetricRep) GetLinksOk() (*[]CoreLink, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *MetricRep) SetLinks(v map[string]InlineResponse200)`
+`func (o *MetricRep) SetLinks(v []CoreLink)`
 
 SetLinks sets Links field to given value.
 
@@ -524,20 +524,20 @@ HasIsActive returns a boolean if a field has been set.
 
 ### GetAttachedFeatures
 
-`func (o *MetricRep) GetAttachedFeatures() []MetricRepAttachedFeatures`
+`func (o *MetricRep) GetAttachedFeatures() []FlagListingRep`
 
 GetAttachedFeatures returns the AttachedFeatures field if non-nil, zero value otherwise.
 
 ### GetAttachedFeaturesOk
 
-`func (o *MetricRep) GetAttachedFeaturesOk() (*[]MetricRepAttachedFeatures, bool)`
+`func (o *MetricRep) GetAttachedFeaturesOk() (*[]FlagListingRep, bool)`
 
 GetAttachedFeaturesOk returns a tuple with the AttachedFeatures field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAttachedFeatures
 
-`func (o *MetricRep) SetAttachedFeatures(v []MetricRepAttachedFeatures)`
+`func (o *MetricRep) SetAttachedFeatures(v []FlagListingRep)`
 
 SetAttachedFeatures sets AttachedFeatures field to given value.
 

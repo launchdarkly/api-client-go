@@ -17,7 +17,7 @@ import (
 
 // WebConflictResponse struct for WebConflictResponse
 type WebConflictResponse struct {
-	Items *[]WebConflictResponseItems `json:"items,omitempty"`
+	Items *[]WebConflictResponseInstruction `json:"items,omitempty"`
 }
 
 // NewWebConflictResponse instantiates a new WebConflictResponse object
@@ -38,9 +38,9 @@ func NewWebConflictResponseWithDefaults() *WebConflictResponse {
 }
 
 // GetItems returns the Items field value if set, zero value otherwise.
-func (o *WebConflictResponse) GetItems() []WebConflictResponseItems {
+func (o *WebConflictResponse) GetItems() []WebConflictResponseInstruction {
 	if o == nil || o.Items == nil {
-		var ret []WebConflictResponseItems
+		var ret []WebConflictResponseInstruction
 		return ret
 	}
 	return *o.Items
@@ -48,7 +48,7 @@ func (o *WebConflictResponse) GetItems() []WebConflictResponseItems {
 
 // GetItemsOk returns a tuple with the Items field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WebConflictResponse) GetItemsOk() (*[]WebConflictResponseItems, bool) {
+func (o *WebConflictResponse) GetItemsOk() (*[]WebConflictResponseInstruction, bool) {
 	if o == nil || o.Items == nil {
 		return nil, false
 	}
@@ -64,8 +64,8 @@ func (o *WebConflictResponse) HasItems() bool {
 	return false
 }
 
-// SetItems gets a reference to the given []WebConflictResponseItems and assigns it to the Items field.
-func (o *WebConflictResponse) SetItems(v []WebConflictResponseItems) {
+// SetItems gets a reference to the given []WebConflictResponseInstruction and assigns it to the Items field.
+func (o *WebConflictResponse) SetItems(v []WebConflictResponseInstruction) {
 	o.Items = &v
 }
 

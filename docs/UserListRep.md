@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Links** | Pointer to [**map[string]InlineResponse200**](InlineResponse200.md) |  | [optional] 
+**Links** | Pointer to [**[]CoreLink**](CoreLink.md) |  | [optional] 
 **TotalCount** | Pointer to **int32** |  | [optional] 
-**Items** | Pointer to [**[]UserListRepItems**](UserListRepItems.md) |  | [optional] 
+**Items** | Pointer to [**[]UserRep**](UserRep.md) |  | [optional] 
 
 ## Methods
 
@@ -29,20 +29,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetLinks
 
-`func (o *UserListRep) GetLinks() map[string]InlineResponse200`
+`func (o *UserListRep) GetLinks() []CoreLink`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *UserListRep) GetLinksOk() (*map[string]InlineResponse200, bool)`
+`func (o *UserListRep) GetLinksOk() (*[]CoreLink, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *UserListRep) SetLinks(v map[string]InlineResponse200)`
+`func (o *UserListRep) SetLinks(v []CoreLink)`
 
 SetLinks sets Links field to given value.
 
@@ -79,20 +79,20 @@ HasTotalCount returns a boolean if a field has been set.
 
 ### GetItems
 
-`func (o *UserListRep) GetItems() []UserListRepItems`
+`func (o *UserListRep) GetItems() []UserRep`
 
 GetItems returns the Items field if non-nil, zero value otherwise.
 
 ### GetItemsOk
 
-`func (o *UserListRep) GetItemsOk() (*[]UserListRepItems, bool)`
+`func (o *UserListRep) GetItemsOk() (*[]UserRep, bool)`
 
 GetItemsOk returns a tuple with the Items field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetItems
 
-`func (o *UserListRep) SetItems(v []UserListRepItems)`
+`func (o *UserListRep) SetItems(v []UserRep)`
 
 SetItems sets Items field to given value.
 

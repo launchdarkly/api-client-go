@@ -18,7 +18,7 @@ import (
 // ExpiringUserTargetsEndpointsPatchSegmentRequest struct for ExpiringUserTargetsEndpointsPatchSegmentRequest
 type ExpiringUserTargetsEndpointsPatchSegmentRequest struct {
 	Comment *string `json:"comment,omitempty"`
-	Instructions *[]ExpiringUserTargetsEndpointsPatchSegmentRequestInstructions `json:"instructions,omitempty"`
+	Instructions *[]ExpiringUserTargetsEndpointsPatchSegmentInstruction `json:"instructions,omitempty"`
 }
 
 // NewExpiringUserTargetsEndpointsPatchSegmentRequest instantiates a new ExpiringUserTargetsEndpointsPatchSegmentRequest object
@@ -71,9 +71,9 @@ func (o *ExpiringUserTargetsEndpointsPatchSegmentRequest) SetComment(v string) {
 }
 
 // GetInstructions returns the Instructions field value if set, zero value otherwise.
-func (o *ExpiringUserTargetsEndpointsPatchSegmentRequest) GetInstructions() []ExpiringUserTargetsEndpointsPatchSegmentRequestInstructions {
+func (o *ExpiringUserTargetsEndpointsPatchSegmentRequest) GetInstructions() []ExpiringUserTargetsEndpointsPatchSegmentInstruction {
 	if o == nil || o.Instructions == nil {
-		var ret []ExpiringUserTargetsEndpointsPatchSegmentRequestInstructions
+		var ret []ExpiringUserTargetsEndpointsPatchSegmentInstruction
 		return ret
 	}
 	return *o.Instructions
@@ -81,7 +81,7 @@ func (o *ExpiringUserTargetsEndpointsPatchSegmentRequest) GetInstructions() []Ex
 
 // GetInstructionsOk returns a tuple with the Instructions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ExpiringUserTargetsEndpointsPatchSegmentRequest) GetInstructionsOk() (*[]ExpiringUserTargetsEndpointsPatchSegmentRequestInstructions, bool) {
+func (o *ExpiringUserTargetsEndpointsPatchSegmentRequest) GetInstructionsOk() (*[]ExpiringUserTargetsEndpointsPatchSegmentInstruction, bool) {
 	if o == nil || o.Instructions == nil {
 		return nil, false
 	}
@@ -97,8 +97,8 @@ func (o *ExpiringUserTargetsEndpointsPatchSegmentRequest) HasInstructions() bool
 	return false
 }
 
-// SetInstructions gets a reference to the given []ExpiringUserTargetsEndpointsPatchSegmentRequestInstructions and assigns it to the Instructions field.
-func (o *ExpiringUserTargetsEndpointsPatchSegmentRequest) SetInstructions(v []ExpiringUserTargetsEndpointsPatchSegmentRequestInstructions) {
+// SetInstructions gets a reference to the given []ExpiringUserTargetsEndpointsPatchSegmentInstruction and assigns it to the Instructions field.
+func (o *ExpiringUserTargetsEndpointsPatchSegmentRequest) SetInstructions(v []ExpiringUserTargetsEndpointsPatchSegmentInstruction) {
 	o.Instructions = &v
 }
 

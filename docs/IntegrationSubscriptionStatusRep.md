@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **LastSuccess** | Pointer to **int64** |  | [optional] 
 **LastError** | Pointer to **int64** |  | [optional] 
 **ErrorCount** | Pointer to **int32** |  | [optional] 
-**Errors** | Pointer to [**[]IntegrationSubscriptionStatusRepErrors**](IntegrationSubscriptionStatusRepErrors.md) |  | [optional] 
+**Errors** | Pointer to [**[]IntegrationStatusRep**](IntegrationStatusRep.md) |  | [optional] 
 
 ## Methods
 
@@ -131,20 +131,20 @@ HasErrorCount returns a boolean if a field has been set.
 
 ### GetErrors
 
-`func (o *IntegrationSubscriptionStatusRep) GetErrors() []IntegrationSubscriptionStatusRepErrors`
+`func (o *IntegrationSubscriptionStatusRep) GetErrors() []IntegrationStatusRep`
 
 GetErrors returns the Errors field if non-nil, zero value otherwise.
 
 ### GetErrorsOk
 
-`func (o *IntegrationSubscriptionStatusRep) GetErrorsOk() (*[]IntegrationSubscriptionStatusRepErrors, bool)`
+`func (o *IntegrationSubscriptionStatusRep) GetErrorsOk() (*[]IntegrationStatusRep, bool)`
 
 GetErrorsOk returns a tuple with the Errors field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetErrors
 
-`func (o *IntegrationSubscriptionStatusRep) SetErrors(v []IntegrationSubscriptionStatusRepErrors)`
+`func (o *IntegrationSubscriptionStatusRep) SetErrors(v []IntegrationStatusRep)`
 
 SetErrors sets Errors field to given value.
 

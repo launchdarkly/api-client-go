@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Variations** | [**[]RolloutRepVariations**](RolloutRepVariations.md) |  | 
+**Variations** | [**[]WeightedVariationRep**](WeightedVariationRep.md) |  | 
 **ExperimentAllocation** | Pointer to [**ExperimentAllocationRep**](ExperimentAllocationRep.md) |  | [optional] 
 **Seed** | Pointer to **int32** |  | [optional] 
 **BucketBy** | Pointer to **string** |  | [optional] 
@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 
 ### NewRolloutRep
 
-`func NewRolloutRep(variations []RolloutRepVariations, ) *RolloutRep`
+`func NewRolloutRep(variations []WeightedVariationRep, ) *RolloutRep`
 
 NewRolloutRep instantiates a new RolloutRep object
 This constructor will assign default values to properties that have it defined,
@@ -30,20 +30,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetVariations
 
-`func (o *RolloutRep) GetVariations() []RolloutRepVariations`
+`func (o *RolloutRep) GetVariations() []WeightedVariationRep`
 
 GetVariations returns the Variations field if non-nil, zero value otherwise.
 
 ### GetVariationsOk
 
-`func (o *RolloutRep) GetVariationsOk() (*[]RolloutRepVariations, bool)`
+`func (o *RolloutRep) GetVariationsOk() (*[]WeightedVariationRep, bool)`
 
 GetVariationsOk returns a tuple with the Variations field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVariations
 
-`func (o *RolloutRep) SetVariations(v []RolloutRepVariations)`
+`func (o *RolloutRep) SetVariations(v []WeightedVariationRep)`
 
 SetVariations sets Variations field to given value.
 

@@ -18,7 +18,7 @@ import (
 // SegmentRuleRep struct for SegmentRuleRep
 type SegmentRuleRep struct {
 	Id *string `json:"_id,omitempty"`
-	Clauses *[]FlagConfigurationRepClauses `json:"clauses,omitempty"`
+	Clauses *[]ClausesClause `json:"clauses,omitempty"`
 	Weight *int32 `json:"weight,omitempty"`
 	BucketBy *string `json:"bucketBy,omitempty"`
 }
@@ -73,9 +73,9 @@ func (o *SegmentRuleRep) SetId(v string) {
 }
 
 // GetClauses returns the Clauses field value if set, zero value otherwise.
-func (o *SegmentRuleRep) GetClauses() []FlagConfigurationRepClauses {
+func (o *SegmentRuleRep) GetClauses() []ClausesClause {
 	if o == nil || o.Clauses == nil {
-		var ret []FlagConfigurationRepClauses
+		var ret []ClausesClause
 		return ret
 	}
 	return *o.Clauses
@@ -83,7 +83,7 @@ func (o *SegmentRuleRep) GetClauses() []FlagConfigurationRepClauses {
 
 // GetClausesOk returns a tuple with the Clauses field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SegmentRuleRep) GetClausesOk() (*[]FlagConfigurationRepClauses, bool) {
+func (o *SegmentRuleRep) GetClausesOk() (*[]ClausesClause, bool) {
 	if o == nil || o.Clauses == nil {
 		return nil, false
 	}
@@ -99,8 +99,8 @@ func (o *SegmentRuleRep) HasClauses() bool {
 	return false
 }
 
-// SetClauses gets a reference to the given []FlagConfigurationRepClauses and assigns it to the Clauses field.
-func (o *SegmentRuleRep) SetClauses(v []FlagConfigurationRepClauses) {
+// SetClauses gets a reference to the given []ClausesClause and assigns it to the Clauses field.
+func (o *SegmentRuleRep) SetClauses(v []ClausesClause) {
 	o.Clauses = &v
 }
 

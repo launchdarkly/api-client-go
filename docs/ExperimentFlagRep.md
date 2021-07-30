@@ -7,8 +7,8 @@ Name | Type | Description | Notes
 **Name** | Pointer to **string** |  | [optional] 
 **Key** | Pointer to **string** |  | [optional] 
 **Archived** | Pointer to **bool** |  | [optional] 
-**Variations** | Pointer to [**[]ExperimentFlagRepVariations**](ExperimentFlagRepVariations.md) |  | [optional] 
-**Links** | Pointer to [**map[string]InlineResponse200**](InlineResponse200.md) |  | [optional] 
+**Variations** | Pointer to [**[]VariateRep**](VariateRep.md) |  | [optional] 
+**Links** | Pointer to [**[]CoreLink**](CoreLink.md) |  | [optional] 
 **Site** | Pointer to [**CoreLink**](CoreLink.md) |  | [optional] 
 
 ## Methods
@@ -107,20 +107,20 @@ HasArchived returns a boolean if a field has been set.
 
 ### GetVariations
 
-`func (o *ExperimentFlagRep) GetVariations() []ExperimentFlagRepVariations`
+`func (o *ExperimentFlagRep) GetVariations() []VariateRep`
 
 GetVariations returns the Variations field if non-nil, zero value otherwise.
 
 ### GetVariationsOk
 
-`func (o *ExperimentFlagRep) GetVariationsOk() (*[]ExperimentFlagRepVariations, bool)`
+`func (o *ExperimentFlagRep) GetVariationsOk() (*[]VariateRep, bool)`
 
 GetVariationsOk returns a tuple with the Variations field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVariations
 
-`func (o *ExperimentFlagRep) SetVariations(v []ExperimentFlagRepVariations)`
+`func (o *ExperimentFlagRep) SetVariations(v []VariateRep)`
 
 SetVariations sets Variations field to given value.
 
@@ -132,20 +132,20 @@ HasVariations returns a boolean if a field has been set.
 
 ### GetLinks
 
-`func (o *ExperimentFlagRep) GetLinks() map[string]InlineResponse200`
+`func (o *ExperimentFlagRep) GetLinks() []CoreLink`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *ExperimentFlagRep) GetLinksOk() (*map[string]InlineResponse200, bool)`
+`func (o *ExperimentFlagRep) GetLinksOk() (*[]CoreLink, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *ExperimentFlagRep) SetLinks(v map[string]InlineResponse200)`
+`func (o *ExperimentFlagRep) SetLinks(v []CoreLink)`
 
 SetLinks sets Links field to given value.
 

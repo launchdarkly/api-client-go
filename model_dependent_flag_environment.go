@@ -19,7 +19,7 @@ import (
 type DependentFlagEnvironment struct {
 	Name *string `json:"name,omitempty"`
 	Key string `json:"key"`
-	Links map[string]InlineResponse200 `json:"_links"`
+	Links []CoreLink `json:"_links"`
 	Site CoreLink `json:"_site"`
 }
 
@@ -27,7 +27,7 @@ type DependentFlagEnvironment struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDependentFlagEnvironment(key string, links map[string]InlineResponse200, site CoreLink) *DependentFlagEnvironment {
+func NewDependentFlagEnvironment(key string, links []CoreLink, site CoreLink) *DependentFlagEnvironment {
 	this := DependentFlagEnvironment{}
 	this.Key = key
 	this.Links = links
@@ -100,9 +100,9 @@ func (o *DependentFlagEnvironment) SetKey(v string) {
 }
 
 // GetLinks returns the Links field value
-func (o *DependentFlagEnvironment) GetLinks() map[string]InlineResponse200 {
+func (o *DependentFlagEnvironment) GetLinks() []CoreLink {
 	if o == nil {
-		var ret map[string]InlineResponse200
+		var ret []CoreLink
 		return ret
 	}
 
@@ -111,7 +111,7 @@ func (o *DependentFlagEnvironment) GetLinks() map[string]InlineResponse200 {
 
 // GetLinksOk returns a tuple with the Links field value
 // and a boolean to check if the value has been set.
-func (o *DependentFlagEnvironment) GetLinksOk() (*map[string]InlineResponse200, bool) {
+func (o *DependentFlagEnvironment) GetLinksOk() (*[]CoreLink, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -119,7 +119,7 @@ func (o *DependentFlagEnvironment) GetLinksOk() (*map[string]InlineResponse200, 
 }
 
 // SetLinks sets field value
-func (o *DependentFlagEnvironment) SetLinks(v map[string]InlineResponse200) {
+func (o *DependentFlagEnvironment) SetLinks(v []CoreLink) {
 	o.Links = v
 }
 

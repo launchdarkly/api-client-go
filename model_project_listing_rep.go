@@ -17,13 +17,14 @@ import (
 
 // ProjectListingRep struct for ProjectListingRep
 type ProjectListingRep struct {
-	Links *map[string]InlineResponse200 `json:"_links,omitempty"`
+	Links *[]CoreLink `json:"_links,omitempty"`
 	Id *string `json:"_id,omitempty"`
 	Key *string `json:"key,omitempty"`
 	IncludeInSnippetByDefault *bool `json:"includeInSnippetByDefault,omitempty"`
 	DefaultClientSideAvailability *AccountsClientSideAvailability `json:"defaultClientSideAvailability,omitempty"`
 	Name *string `json:"name,omitempty"`
 	Tags *[]string `json:"tags,omitempty"`
+	Environments *[]EnvironmentRep `json:"environments,omitempty"`
 }
 
 // NewProjectListingRep instantiates a new ProjectListingRep object
@@ -44,9 +45,9 @@ func NewProjectListingRepWithDefaults() *ProjectListingRep {
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
-func (o *ProjectListingRep) GetLinks() map[string]InlineResponse200 {
+func (o *ProjectListingRep) GetLinks() []CoreLink {
 	if o == nil || o.Links == nil {
-		var ret map[string]InlineResponse200
+		var ret []CoreLink
 		return ret
 	}
 	return *o.Links
@@ -54,7 +55,7 @@ func (o *ProjectListingRep) GetLinks() map[string]InlineResponse200 {
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProjectListingRep) GetLinksOk() (*map[string]InlineResponse200, bool) {
+func (o *ProjectListingRep) GetLinksOk() (*[]CoreLink, bool) {
 	if o == nil || o.Links == nil {
 		return nil, false
 	}
@@ -70,8 +71,8 @@ func (o *ProjectListingRep) HasLinks() bool {
 	return false
 }
 
-// SetLinks gets a reference to the given map[string]InlineResponse200 and assigns it to the Links field.
-func (o *ProjectListingRep) SetLinks(v map[string]InlineResponse200) {
+// SetLinks gets a reference to the given []CoreLink and assigns it to the Links field.
+func (o *ProjectListingRep) SetLinks(v []CoreLink) {
 	o.Links = &v
 }
 
@@ -267,6 +268,38 @@ func (o *ProjectListingRep) SetTags(v []string) {
 	o.Tags = &v
 }
 
+// GetEnvironments returns the Environments field value if set, zero value otherwise.
+func (o *ProjectListingRep) GetEnvironments() []EnvironmentRep {
+	if o == nil || o.Environments == nil {
+		var ret []EnvironmentRep
+		return ret
+	}
+	return *o.Environments
+}
+
+// GetEnvironmentsOk returns a tuple with the Environments field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ProjectListingRep) GetEnvironmentsOk() (*[]EnvironmentRep, bool) {
+	if o == nil || o.Environments == nil {
+		return nil, false
+	}
+	return o.Environments, true
+}
+
+// HasEnvironments returns a boolean if a field has been set.
+func (o *ProjectListingRep) HasEnvironments() bool {
+	if o != nil && o.Environments != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetEnvironments gets a reference to the given []EnvironmentRep and assigns it to the Environments field.
+func (o *ProjectListingRep) SetEnvironments(v []EnvironmentRep) {
+	o.Environments = &v
+}
+
 func (o ProjectListingRep) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Links != nil {
@@ -289,6 +322,9 @@ func (o ProjectListingRep) MarshalJSON() ([]byte, error) {
 	}
 	if o.Tags != nil {
 		toSerialize["tags"] = o.Tags
+	}
+	if o.Environments != nil {
+		toSerialize["environments"] = o.Environments
 	}
 	return json.Marshal(toSerialize)
 }

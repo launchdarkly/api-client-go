@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Links** | [**map[string]InlineResponse200**](InlineResponse200.md) | Links to related resources. | 
+**Links** | [**[]CoreLink**](CoreLink.md) | Links to related resources. | 
 **Id** | **string** |  | 
 **Key** | **string** | A project-unique key for the new environment. | 
 **Name** | **string** | A human-friendly name for the new environment. | 
@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 
 ### NewEnvironmentRep
 
-`func NewEnvironmentRep(links map[string]InlineResponse200, id string, key string, name string, apiKey string, mobileKey string, color string, defaultTtl int32, secureMode bool, defaultTrackEvents bool, tags []string, ) *EnvironmentRep`
+`func NewEnvironmentRep(links []CoreLink, id string, key string, name string, apiKey string, mobileKey string, color string, defaultTtl int32, secureMode bool, defaultTrackEvents bool, tags []string, ) *EnvironmentRep`
 
 NewEnvironmentRep instantiates a new EnvironmentRep object
 This constructor will assign default values to properties that have it defined,
@@ -38,20 +38,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetLinks
 
-`func (o *EnvironmentRep) GetLinks() map[string]InlineResponse200`
+`func (o *EnvironmentRep) GetLinks() []CoreLink`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *EnvironmentRep) GetLinksOk() (*map[string]InlineResponse200, bool)`
+`func (o *EnvironmentRep) GetLinksOk() (*[]CoreLink, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *EnvironmentRep) SetLinks(v map[string]InlineResponse200)`
+`func (o *EnvironmentRep) SetLinks(v []CoreLink)`
 
 SetLinks sets Links field to given value.
 

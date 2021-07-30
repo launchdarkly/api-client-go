@@ -22,7 +22,7 @@ type MetricRep struct {
 	Name *string `json:"name,omitempty"`
 	Kind *string `json:"kind,omitempty"`
 	AttachedFlagCount *int32 `json:"_attachedFlagCount,omitempty"`
-	Links *map[string]InlineResponse200 `json:"_links,omitempty"`
+	Links *[]CoreLink `json:"_links,omitempty"`
 	Site *CoreLink `json:"_site,omitempty"`
 	Access *AccessRep `json:"_access,omitempty"`
 	Tags *[]string `json:"tags,omitempty"`
@@ -36,7 +36,7 @@ type MetricRep struct {
 	Unit *string `json:"unit,omitempty"`
 	EventKey *string `json:"eventKey,omitempty"`
 	IsActive *bool `json:"isActive,omitempty"`
-	AttachedFeatures *[]MetricRepAttachedFeatures `json:"_attachedFeatures,omitempty"`
+	AttachedFeatures *[]FlagListingRep `json:"_attachedFeatures,omitempty"`
 	Version *int32 `json:"_version,omitempty"`
 	Selector *string `json:"selector,omitempty"`
 	Urls *[]interface{} `json:"urls,omitempty"`
@@ -220,9 +220,9 @@ func (o *MetricRep) SetAttachedFlagCount(v int32) {
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
-func (o *MetricRep) GetLinks() map[string]InlineResponse200 {
+func (o *MetricRep) GetLinks() []CoreLink {
 	if o == nil || o.Links == nil {
-		var ret map[string]InlineResponse200
+		var ret []CoreLink
 		return ret
 	}
 	return *o.Links
@@ -230,7 +230,7 @@ func (o *MetricRep) GetLinks() map[string]InlineResponse200 {
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MetricRep) GetLinksOk() (*map[string]InlineResponse200, bool) {
+func (o *MetricRep) GetLinksOk() (*[]CoreLink, bool) {
 	if o == nil || o.Links == nil {
 		return nil, false
 	}
@@ -246,8 +246,8 @@ func (o *MetricRep) HasLinks() bool {
 	return false
 }
 
-// SetLinks gets a reference to the given map[string]InlineResponse200 and assigns it to the Links field.
-func (o *MetricRep) SetLinks(v map[string]InlineResponse200) {
+// SetLinks gets a reference to the given []CoreLink and assigns it to the Links field.
+func (o *MetricRep) SetLinks(v []CoreLink) {
 	o.Links = &v
 }
 
@@ -668,9 +668,9 @@ func (o *MetricRep) SetIsActive(v bool) {
 }
 
 // GetAttachedFeatures returns the AttachedFeatures field value if set, zero value otherwise.
-func (o *MetricRep) GetAttachedFeatures() []MetricRepAttachedFeatures {
+func (o *MetricRep) GetAttachedFeatures() []FlagListingRep {
 	if o == nil || o.AttachedFeatures == nil {
-		var ret []MetricRepAttachedFeatures
+		var ret []FlagListingRep
 		return ret
 	}
 	return *o.AttachedFeatures
@@ -678,7 +678,7 @@ func (o *MetricRep) GetAttachedFeatures() []MetricRepAttachedFeatures {
 
 // GetAttachedFeaturesOk returns a tuple with the AttachedFeatures field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MetricRep) GetAttachedFeaturesOk() (*[]MetricRepAttachedFeatures, bool) {
+func (o *MetricRep) GetAttachedFeaturesOk() (*[]FlagListingRep, bool) {
 	if o == nil || o.AttachedFeatures == nil {
 		return nil, false
 	}
@@ -694,8 +694,8 @@ func (o *MetricRep) HasAttachedFeatures() bool {
 	return false
 }
 
-// SetAttachedFeatures gets a reference to the given []MetricRepAttachedFeatures and assigns it to the AttachedFeatures field.
-func (o *MetricRep) SetAttachedFeatures(v []MetricRepAttachedFeatures) {
+// SetAttachedFeatures gets a reference to the given []FlagListingRep and assigns it to the AttachedFeatures field.
+func (o *MetricRep) SetAttachedFeatures(v []FlagListingRep) {
 	o.AttachedFeatures = &v
 }
 

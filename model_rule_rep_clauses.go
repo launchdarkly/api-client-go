@@ -15,101 +15,223 @@ import (
 	"encoding/json"
 )
 
-// ExperimentResultsRepMetadata struct for ExperimentResultsRepMetadata
-type ExperimentResultsRepMetadata struct {
-	Key interface{} `json:"key,omitempty"`
+// RuleRepClauses struct for RuleRepClauses
+type RuleRepClauses struct {
+	Id *string `json:"_id,omitempty"`
+	Attribute *string `json:"attribute,omitempty"`
+	Op string `json:"op"`
+	Values []interface{} `json:"values"`
+	Negate bool `json:"negate"`
 }
 
-// NewExperimentResultsRepMetadata instantiates a new ExperimentResultsRepMetadata object
+// NewRuleRepClauses instantiates a new RuleRepClauses object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewExperimentResultsRepMetadata() *ExperimentResultsRepMetadata {
-	this := ExperimentResultsRepMetadata{}
+func NewRuleRepClauses(op string, values []interface{}, negate bool) *RuleRepClauses {
+	this := RuleRepClauses{}
+	this.Op = op
+	this.Values = values
+	this.Negate = negate
 	return &this
 }
 
-// NewExperimentResultsRepMetadataWithDefaults instantiates a new ExperimentResultsRepMetadata object
+// NewRuleRepClausesWithDefaults instantiates a new RuleRepClauses object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewExperimentResultsRepMetadataWithDefaults() *ExperimentResultsRepMetadata {
-	this := ExperimentResultsRepMetadata{}
+func NewRuleRepClausesWithDefaults() *RuleRepClauses {
+	this := RuleRepClauses{}
 	return &this
 }
 
-// GetKey returns the Key field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ExperimentResultsRepMetadata) GetKey() interface{} {
-	if o == nil  {
-		var ret interface{}
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *RuleRepClauses) GetId() string {
+	if o == nil || o.Id == nil {
+		var ret string
 		return ret
 	}
-	return o.Key
+	return *o.Id
 }
 
-// GetKeyOk returns a tuple with the Key field value if set, nil otherwise
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ExperimentResultsRepMetadata) GetKeyOk() (*interface{}, bool) {
-	if o == nil || o.Key == nil {
+func (o *RuleRepClauses) GetIdOk() (*string, bool) {
+	if o == nil || o.Id == nil {
 		return nil, false
 	}
-	return &o.Key, true
+	return o.Id, true
 }
 
-// HasKey returns a boolean if a field has been set.
-func (o *ExperimentResultsRepMetadata) HasKey() bool {
-	if o != nil && o.Key != nil {
+// HasId returns a boolean if a field has been set.
+func (o *RuleRepClauses) HasId() bool {
+	if o != nil && o.Id != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetKey gets a reference to the given interface{} and assigns it to the Key field.
-func (o *ExperimentResultsRepMetadata) SetKey(v interface{}) {
-	o.Key = v
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *RuleRepClauses) SetId(v string) {
+	o.Id = &v
 }
 
-func (o ExperimentResultsRepMetadata) MarshalJSON() ([]byte, error) {
+// GetAttribute returns the Attribute field value if set, zero value otherwise.
+func (o *RuleRepClauses) GetAttribute() string {
+	if o == nil || o.Attribute == nil {
+		var ret string
+		return ret
+	}
+	return *o.Attribute
+}
+
+// GetAttributeOk returns a tuple with the Attribute field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RuleRepClauses) GetAttributeOk() (*string, bool) {
+	if o == nil || o.Attribute == nil {
+		return nil, false
+	}
+	return o.Attribute, true
+}
+
+// HasAttribute returns a boolean if a field has been set.
+func (o *RuleRepClauses) HasAttribute() bool {
+	if o != nil && o.Attribute != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAttribute gets a reference to the given string and assigns it to the Attribute field.
+func (o *RuleRepClauses) SetAttribute(v string) {
+	o.Attribute = &v
+}
+
+// GetOp returns the Op field value
+func (o *RuleRepClauses) GetOp() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Op
+}
+
+// GetOpOk returns a tuple with the Op field value
+// and a boolean to check if the value has been set.
+func (o *RuleRepClauses) GetOpOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.Op, true
+}
+
+// SetOp sets field value
+func (o *RuleRepClauses) SetOp(v string) {
+	o.Op = v
+}
+
+// GetValues returns the Values field value
+func (o *RuleRepClauses) GetValues() []interface{} {
+	if o == nil {
+		var ret []interface{}
+		return ret
+	}
+
+	return o.Values
+}
+
+// GetValuesOk returns a tuple with the Values field value
+// and a boolean to check if the value has been set.
+func (o *RuleRepClauses) GetValuesOk() (*[]interface{}, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.Values, true
+}
+
+// SetValues sets field value
+func (o *RuleRepClauses) SetValues(v []interface{}) {
+	o.Values = v
+}
+
+// GetNegate returns the Negate field value
+func (o *RuleRepClauses) GetNegate() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.Negate
+}
+
+// GetNegateOk returns a tuple with the Negate field value
+// and a boolean to check if the value has been set.
+func (o *RuleRepClauses) GetNegateOk() (*bool, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.Negate, true
+}
+
+// SetNegate sets field value
+func (o *RuleRepClauses) SetNegate(v bool) {
+	o.Negate = v
+}
+
+func (o RuleRepClauses) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Key != nil {
-		toSerialize["key"] = o.Key
+	if o.Id != nil {
+		toSerialize["_id"] = o.Id
+	}
+	if o.Attribute != nil {
+		toSerialize["attribute"] = o.Attribute
+	}
+	if true {
+		toSerialize["op"] = o.Op
+	}
+	if true {
+		toSerialize["values"] = o.Values
+	}
+	if true {
+		toSerialize["negate"] = o.Negate
 	}
 	return json.Marshal(toSerialize)
 }
 
-type NullableExperimentResultsRepMetadata struct {
-	value *ExperimentResultsRepMetadata
+type NullableRuleRepClauses struct {
+	value *RuleRepClauses
 	isSet bool
 }
 
-func (v NullableExperimentResultsRepMetadata) Get() *ExperimentResultsRepMetadata {
+func (v NullableRuleRepClauses) Get() *RuleRepClauses {
 	return v.value
 }
 
-func (v *NullableExperimentResultsRepMetadata) Set(val *ExperimentResultsRepMetadata) {
+func (v *NullableRuleRepClauses) Set(val *RuleRepClauses) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableExperimentResultsRepMetadata) IsSet() bool {
+func (v NullableRuleRepClauses) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableExperimentResultsRepMetadata) Unset() {
+func (v *NullableRuleRepClauses) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableExperimentResultsRepMetadata(val *ExperimentResultsRepMetadata) *NullableExperimentResultsRepMetadata {
-	return &NullableExperimentResultsRepMetadata{value: val, isSet: true}
+func NewNullableRuleRepClauses(val *RuleRepClauses) *NullableRuleRepClauses {
+	return &NullableRuleRepClauses{value: val, isSet: true}
 }
 
-func (v NullableExperimentResultsRepMetadata) MarshalJSON() ([]byte, error) {
+func (v NullableRuleRepClauses) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableExperimentResultsRepMetadata) UnmarshalJSON(src []byte) error {
+func (v *NullableRuleRepClauses) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

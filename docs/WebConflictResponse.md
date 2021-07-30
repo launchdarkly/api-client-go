@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Items** | Pointer to [**[]WebConflictResponseItems**](WebConflictResponseItems.md) |  | [optional] 
+**Items** | Pointer to [**[]WebConflictResponseInstruction**](WebConflictResponseInstruction.md) |  | [optional] 
 
 ## Methods
 
@@ -27,20 +27,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetItems
 
-`func (o *WebConflictResponse) GetItems() []WebConflictResponseItems`
+`func (o *WebConflictResponse) GetItems() []WebConflictResponseInstruction`
 
 GetItems returns the Items field if non-nil, zero value otherwise.
 
 ### GetItemsOk
 
-`func (o *WebConflictResponse) GetItemsOk() (*[]WebConflictResponseItems, bool)`
+`func (o *WebConflictResponse) GetItemsOk() (*[]WebConflictResponseInstruction, bool)`
 
 GetItemsOk returns a tuple with the Items field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetItems
 
-`func (o *WebConflictResponse) SetItems(v []WebConflictResponseItems)`
+`func (o *WebConflictResponse) SetItems(v []WebConflictResponseInstruction)`
 
 SetItems sets Items field to given value.
 

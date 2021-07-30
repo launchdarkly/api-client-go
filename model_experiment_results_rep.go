@@ -17,10 +17,10 @@ import (
 
 // ExperimentResultsRep struct for ExperimentResultsRep
 type ExperimentResultsRep struct {
-	Links *map[string]InlineResponse200 `json:"_links,omitempty"`
-	Metadata *[]ExperimentResultsRepMetadata `json:"metadata,omitempty"`
-	Totals *[]ExperimentResultsRepTotals `json:"totals,omitempty"`
-	Series *[]ExperimentResultsRepSeries `json:"series,omitempty"`
+	Links *[]CoreLink `json:"_links,omitempty"`
+	Metadata *[]ExperimentMetadataRep `json:"metadata,omitempty"`
+	Totals *[]ExperimentTotalsRep `json:"totals,omitempty"`
+	Series *[]ExperimentTimeSeriesSlice `json:"series,omitempty"`
 	Stats *ExperimentStatsRep `json:"stats,omitempty"`
 	Granularity *string `json:"granularity,omitempty"`
 }
@@ -43,9 +43,9 @@ func NewExperimentResultsRepWithDefaults() *ExperimentResultsRep {
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
-func (o *ExperimentResultsRep) GetLinks() map[string]InlineResponse200 {
+func (o *ExperimentResultsRep) GetLinks() []CoreLink {
 	if o == nil || o.Links == nil {
-		var ret map[string]InlineResponse200
+		var ret []CoreLink
 		return ret
 	}
 	return *o.Links
@@ -53,7 +53,7 @@ func (o *ExperimentResultsRep) GetLinks() map[string]InlineResponse200 {
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ExperimentResultsRep) GetLinksOk() (*map[string]InlineResponse200, bool) {
+func (o *ExperimentResultsRep) GetLinksOk() (*[]CoreLink, bool) {
 	if o == nil || o.Links == nil {
 		return nil, false
 	}
@@ -69,15 +69,15 @@ func (o *ExperimentResultsRep) HasLinks() bool {
 	return false
 }
 
-// SetLinks gets a reference to the given map[string]InlineResponse200 and assigns it to the Links field.
-func (o *ExperimentResultsRep) SetLinks(v map[string]InlineResponse200) {
+// SetLinks gets a reference to the given []CoreLink and assigns it to the Links field.
+func (o *ExperimentResultsRep) SetLinks(v []CoreLink) {
 	o.Links = &v
 }
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
-func (o *ExperimentResultsRep) GetMetadata() []ExperimentResultsRepMetadata {
+func (o *ExperimentResultsRep) GetMetadata() []ExperimentMetadataRep {
 	if o == nil || o.Metadata == nil {
-		var ret []ExperimentResultsRepMetadata
+		var ret []ExperimentMetadataRep
 		return ret
 	}
 	return *o.Metadata
@@ -85,7 +85,7 @@ func (o *ExperimentResultsRep) GetMetadata() []ExperimentResultsRepMetadata {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ExperimentResultsRep) GetMetadataOk() (*[]ExperimentResultsRepMetadata, bool) {
+func (o *ExperimentResultsRep) GetMetadataOk() (*[]ExperimentMetadataRep, bool) {
 	if o == nil || o.Metadata == nil {
 		return nil, false
 	}
@@ -101,15 +101,15 @@ func (o *ExperimentResultsRep) HasMetadata() bool {
 	return false
 }
 
-// SetMetadata gets a reference to the given []ExperimentResultsRepMetadata and assigns it to the Metadata field.
-func (o *ExperimentResultsRep) SetMetadata(v []ExperimentResultsRepMetadata) {
+// SetMetadata gets a reference to the given []ExperimentMetadataRep and assigns it to the Metadata field.
+func (o *ExperimentResultsRep) SetMetadata(v []ExperimentMetadataRep) {
 	o.Metadata = &v
 }
 
 // GetTotals returns the Totals field value if set, zero value otherwise.
-func (o *ExperimentResultsRep) GetTotals() []ExperimentResultsRepTotals {
+func (o *ExperimentResultsRep) GetTotals() []ExperimentTotalsRep {
 	if o == nil || o.Totals == nil {
-		var ret []ExperimentResultsRepTotals
+		var ret []ExperimentTotalsRep
 		return ret
 	}
 	return *o.Totals
@@ -117,7 +117,7 @@ func (o *ExperimentResultsRep) GetTotals() []ExperimentResultsRepTotals {
 
 // GetTotalsOk returns a tuple with the Totals field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ExperimentResultsRep) GetTotalsOk() (*[]ExperimentResultsRepTotals, bool) {
+func (o *ExperimentResultsRep) GetTotalsOk() (*[]ExperimentTotalsRep, bool) {
 	if o == nil || o.Totals == nil {
 		return nil, false
 	}
@@ -133,15 +133,15 @@ func (o *ExperimentResultsRep) HasTotals() bool {
 	return false
 }
 
-// SetTotals gets a reference to the given []ExperimentResultsRepTotals and assigns it to the Totals field.
-func (o *ExperimentResultsRep) SetTotals(v []ExperimentResultsRepTotals) {
+// SetTotals gets a reference to the given []ExperimentTotalsRep and assigns it to the Totals field.
+func (o *ExperimentResultsRep) SetTotals(v []ExperimentTotalsRep) {
 	o.Totals = &v
 }
 
 // GetSeries returns the Series field value if set, zero value otherwise.
-func (o *ExperimentResultsRep) GetSeries() []ExperimentResultsRepSeries {
+func (o *ExperimentResultsRep) GetSeries() []ExperimentTimeSeriesSlice {
 	if o == nil || o.Series == nil {
-		var ret []ExperimentResultsRepSeries
+		var ret []ExperimentTimeSeriesSlice
 		return ret
 	}
 	return *o.Series
@@ -149,7 +149,7 @@ func (o *ExperimentResultsRep) GetSeries() []ExperimentResultsRepSeries {
 
 // GetSeriesOk returns a tuple with the Series field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ExperimentResultsRep) GetSeriesOk() (*[]ExperimentResultsRepSeries, bool) {
+func (o *ExperimentResultsRep) GetSeriesOk() (*[]ExperimentTimeSeriesSlice, bool) {
 	if o == nil || o.Series == nil {
 		return nil, false
 	}
@@ -165,8 +165,8 @@ func (o *ExperimentResultsRep) HasSeries() bool {
 	return false
 }
 
-// SetSeries gets a reference to the given []ExperimentResultsRepSeries and assigns it to the Series field.
-func (o *ExperimentResultsRep) SetSeries(v []ExperimentResultsRepSeries) {
+// SetSeries gets a reference to the given []ExperimentTimeSeriesSlice and assigns it to the Series field.
+func (o *ExperimentResultsRep) SetSeries(v []ExperimentTimeSeriesSlice) {
 	o.Series = &v
 }
 

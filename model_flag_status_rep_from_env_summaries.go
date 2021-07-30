@@ -17,9 +17,9 @@ import (
 
 // FlagStatusRepFromEnvSummaries struct for FlagStatusRepFromEnvSummaries
 type FlagStatusRepFromEnvSummaries struct {
-	Environments *map[string]FlagStatusRepFromEnvSummariesEnvironments `json:"environments,omitempty"`
+	Environments *map[string]FlagStatusesRep `json:"environments,omitempty"`
 	Key *string `json:"key,omitempty"`
-	Links *map[string]InlineResponse200 `json:"_links,omitempty"`
+	Links *[]CoreLink `json:"_links,omitempty"`
 }
 
 // NewFlagStatusRepFromEnvSummaries instantiates a new FlagStatusRepFromEnvSummaries object
@@ -40,9 +40,9 @@ func NewFlagStatusRepFromEnvSummariesWithDefaults() *FlagStatusRepFromEnvSummari
 }
 
 // GetEnvironments returns the Environments field value if set, zero value otherwise.
-func (o *FlagStatusRepFromEnvSummaries) GetEnvironments() map[string]FlagStatusRepFromEnvSummariesEnvironments {
+func (o *FlagStatusRepFromEnvSummaries) GetEnvironments() map[string]FlagStatusesRep {
 	if o == nil || o.Environments == nil {
-		var ret map[string]FlagStatusRepFromEnvSummariesEnvironments
+		var ret map[string]FlagStatusesRep
 		return ret
 	}
 	return *o.Environments
@@ -50,7 +50,7 @@ func (o *FlagStatusRepFromEnvSummaries) GetEnvironments() map[string]FlagStatusR
 
 // GetEnvironmentsOk returns a tuple with the Environments field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FlagStatusRepFromEnvSummaries) GetEnvironmentsOk() (*map[string]FlagStatusRepFromEnvSummariesEnvironments, bool) {
+func (o *FlagStatusRepFromEnvSummaries) GetEnvironmentsOk() (*map[string]FlagStatusesRep, bool) {
 	if o == nil || o.Environments == nil {
 		return nil, false
 	}
@@ -66,8 +66,8 @@ func (o *FlagStatusRepFromEnvSummaries) HasEnvironments() bool {
 	return false
 }
 
-// SetEnvironments gets a reference to the given map[string]FlagStatusRepFromEnvSummariesEnvironments and assigns it to the Environments field.
-func (o *FlagStatusRepFromEnvSummaries) SetEnvironments(v map[string]FlagStatusRepFromEnvSummariesEnvironments) {
+// SetEnvironments gets a reference to the given map[string]FlagStatusesRep and assigns it to the Environments field.
+func (o *FlagStatusRepFromEnvSummaries) SetEnvironments(v map[string]FlagStatusesRep) {
 	o.Environments = &v
 }
 
@@ -104,9 +104,9 @@ func (o *FlagStatusRepFromEnvSummaries) SetKey(v string) {
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
-func (o *FlagStatusRepFromEnvSummaries) GetLinks() map[string]InlineResponse200 {
+func (o *FlagStatusRepFromEnvSummaries) GetLinks() []CoreLink {
 	if o == nil || o.Links == nil {
-		var ret map[string]InlineResponse200
+		var ret []CoreLink
 		return ret
 	}
 	return *o.Links
@@ -114,7 +114,7 @@ func (o *FlagStatusRepFromEnvSummaries) GetLinks() map[string]InlineResponse200 
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FlagStatusRepFromEnvSummaries) GetLinksOk() (*map[string]InlineResponse200, bool) {
+func (o *FlagStatusRepFromEnvSummaries) GetLinksOk() (*[]CoreLink, bool) {
 	if o == nil || o.Links == nil {
 		return nil, false
 	}
@@ -130,8 +130,8 @@ func (o *FlagStatusRepFromEnvSummaries) HasLinks() bool {
 	return false
 }
 
-// SetLinks gets a reference to the given map[string]InlineResponse200 and assigns it to the Links field.
-func (o *FlagStatusRepFromEnvSummaries) SetLinks(v map[string]InlineResponse200) {
+// SetLinks gets a reference to the given []CoreLink and assigns it to the Links field.
+func (o *FlagStatusRepFromEnvSummaries) SetLinks(v []CoreLink) {
 	o.Links = &v
 }
 

@@ -17,8 +17,8 @@ import (
 
 // ApiBranchCollectionRep struct for ApiBranchCollectionRep
 type ApiBranchCollectionRep struct {
-	Links *map[string]InlineResponse200 `json:"_links,omitempty"`
-	Items *[]ApiBranchCollectionRepItems `json:"items,omitempty"`
+	Links *[]CoreLink `json:"_links,omitempty"`
+	Items *[]ApiBranchRep `json:"items,omitempty"`
 }
 
 // NewApiBranchCollectionRep instantiates a new ApiBranchCollectionRep object
@@ -39,9 +39,9 @@ func NewApiBranchCollectionRepWithDefaults() *ApiBranchCollectionRep {
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
-func (o *ApiBranchCollectionRep) GetLinks() map[string]InlineResponse200 {
+func (o *ApiBranchCollectionRep) GetLinks() []CoreLink {
 	if o == nil || o.Links == nil {
-		var ret map[string]InlineResponse200
+		var ret []CoreLink
 		return ret
 	}
 	return *o.Links
@@ -49,7 +49,7 @@ func (o *ApiBranchCollectionRep) GetLinks() map[string]InlineResponse200 {
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ApiBranchCollectionRep) GetLinksOk() (*map[string]InlineResponse200, bool) {
+func (o *ApiBranchCollectionRep) GetLinksOk() (*[]CoreLink, bool) {
 	if o == nil || o.Links == nil {
 		return nil, false
 	}
@@ -65,15 +65,15 @@ func (o *ApiBranchCollectionRep) HasLinks() bool {
 	return false
 }
 
-// SetLinks gets a reference to the given map[string]InlineResponse200 and assigns it to the Links field.
-func (o *ApiBranchCollectionRep) SetLinks(v map[string]InlineResponse200) {
+// SetLinks gets a reference to the given []CoreLink and assigns it to the Links field.
+func (o *ApiBranchCollectionRep) SetLinks(v []CoreLink) {
 	o.Links = &v
 }
 
 // GetItems returns the Items field value if set, zero value otherwise.
-func (o *ApiBranchCollectionRep) GetItems() []ApiBranchCollectionRepItems {
+func (o *ApiBranchCollectionRep) GetItems() []ApiBranchRep {
 	if o == nil || o.Items == nil {
-		var ret []ApiBranchCollectionRepItems
+		var ret []ApiBranchRep
 		return ret
 	}
 	return *o.Items
@@ -81,7 +81,7 @@ func (o *ApiBranchCollectionRep) GetItems() []ApiBranchCollectionRepItems {
 
 // GetItemsOk returns a tuple with the Items field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ApiBranchCollectionRep) GetItemsOk() (*[]ApiBranchCollectionRepItems, bool) {
+func (o *ApiBranchCollectionRep) GetItemsOk() (*[]ApiBranchRep, bool) {
 	if o == nil || o.Items == nil {
 		return nil, false
 	}
@@ -97,8 +97,8 @@ func (o *ApiBranchCollectionRep) HasItems() bool {
 	return false
 }
 
-// SetItems gets a reference to the given []ApiBranchCollectionRepItems and assigns it to the Items field.
-func (o *ApiBranchCollectionRep) SetItems(v []ApiBranchCollectionRepItems) {
+// SetItems gets a reference to the given []ApiBranchRep and assigns it to the Items field.
+func (o *ApiBranchCollectionRep) SetItems(v []ApiBranchRep) {
 	o.Items = &v
 }
 

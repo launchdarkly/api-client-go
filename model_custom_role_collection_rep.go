@@ -17,8 +17,8 @@ import (
 
 // CustomRoleCollectionRep struct for CustomRoleCollectionRep
 type CustomRoleCollectionRep struct {
-	Links *map[string]InlineResponse200 `json:"_links,omitempty"`
-	Items *[]CustomRoleCollectionRepItems `json:"items,omitempty"`
+	Links *[]CoreLink `json:"_links,omitempty"`
+	Items *[]CustomRoleRep `json:"items,omitempty"`
 }
 
 // NewCustomRoleCollectionRep instantiates a new CustomRoleCollectionRep object
@@ -39,9 +39,9 @@ func NewCustomRoleCollectionRepWithDefaults() *CustomRoleCollectionRep {
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
-func (o *CustomRoleCollectionRep) GetLinks() map[string]InlineResponse200 {
+func (o *CustomRoleCollectionRep) GetLinks() []CoreLink {
 	if o == nil || o.Links == nil {
-		var ret map[string]InlineResponse200
+		var ret []CoreLink
 		return ret
 	}
 	return *o.Links
@@ -49,7 +49,7 @@ func (o *CustomRoleCollectionRep) GetLinks() map[string]InlineResponse200 {
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CustomRoleCollectionRep) GetLinksOk() (*map[string]InlineResponse200, bool) {
+func (o *CustomRoleCollectionRep) GetLinksOk() (*[]CoreLink, bool) {
 	if o == nil || o.Links == nil {
 		return nil, false
 	}
@@ -65,15 +65,15 @@ func (o *CustomRoleCollectionRep) HasLinks() bool {
 	return false
 }
 
-// SetLinks gets a reference to the given map[string]InlineResponse200 and assigns it to the Links field.
-func (o *CustomRoleCollectionRep) SetLinks(v map[string]InlineResponse200) {
+// SetLinks gets a reference to the given []CoreLink and assigns it to the Links field.
+func (o *CustomRoleCollectionRep) SetLinks(v []CoreLink) {
 	o.Links = &v
 }
 
 // GetItems returns the Items field value if set, zero value otherwise.
-func (o *CustomRoleCollectionRep) GetItems() []CustomRoleCollectionRepItems {
+func (o *CustomRoleCollectionRep) GetItems() []CustomRoleRep {
 	if o == nil || o.Items == nil {
-		var ret []CustomRoleCollectionRepItems
+		var ret []CustomRoleRep
 		return ret
 	}
 	return *o.Items
@@ -81,7 +81,7 @@ func (o *CustomRoleCollectionRep) GetItems() []CustomRoleCollectionRepItems {
 
 // GetItemsOk returns a tuple with the Items field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CustomRoleCollectionRep) GetItemsOk() (*[]CustomRoleCollectionRepItems, bool) {
+func (o *CustomRoleCollectionRep) GetItemsOk() (*[]CustomRoleRep, bool) {
 	if o == nil || o.Items == nil {
 		return nil, false
 	}
@@ -97,8 +97,8 @@ func (o *CustomRoleCollectionRep) HasItems() bool {
 	return false
 }
 
-// SetItems gets a reference to the given []CustomRoleCollectionRepItems and assigns it to the Items field.
-func (o *CustomRoleCollectionRep) SetItems(v []CustomRoleCollectionRepItems) {
+// SetItems gets a reference to the given []CustomRoleRep and assigns it to the Items field.
+func (o *CustomRoleCollectionRep) SetItems(v []CustomRoleRep) {
 	o.Items = &v
 }
 

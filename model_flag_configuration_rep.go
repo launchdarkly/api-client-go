@@ -24,7 +24,7 @@ type FlagConfigurationRep struct {
 	LastModified int64 `json:"lastModified"`
 	Version int32 `json:"version"`
 	Targets []FlagConfigurationRepTargets `json:"targets"`
-	Rules []FlagConfigurationRepRules `json:"rules"`
+	Rules []RuleRep `json:"rules"`
 	Fallthrough VariationOrRolloutRep `json:"fallthrough"`
 	OffVariation *int32 `json:"offVariation,omitempty"`
 	Prerequisites []FlagConfigurationRepPrerequisites `json:"prerequisites"`
@@ -41,7 +41,7 @@ type FlagConfigurationRep struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFlagConfigurationRep(on bool, archived bool, salt string, sel string, lastModified int64, version int32, targets []FlagConfigurationRepTargets, rules []FlagConfigurationRepRules, fallthrough_ VariationOrRolloutRep, prerequisites []FlagConfigurationRepPrerequisites, site CoreLink, environmentName string, trackEvents bool, trackEventsFallthrough bool) *FlagConfigurationRep {
+func NewFlagConfigurationRep(on bool, archived bool, salt string, sel string, lastModified int64, version int32, targets []FlagConfigurationRepTargets, rules []RuleRep, fallthrough_ VariationOrRolloutRep, prerequisites []FlagConfigurationRepPrerequisites, site CoreLink, environmentName string, trackEvents bool, trackEventsFallthrough bool) *FlagConfigurationRep {
 	this := FlagConfigurationRep{}
 	this.On = on
 	this.Archived = archived
@@ -237,9 +237,9 @@ func (o *FlagConfigurationRep) SetTargets(v []FlagConfigurationRepTargets) {
 }
 
 // GetRules returns the Rules field value
-func (o *FlagConfigurationRep) GetRules() []FlagConfigurationRepRules {
+func (o *FlagConfigurationRep) GetRules() []RuleRep {
 	if o == nil {
-		var ret []FlagConfigurationRepRules
+		var ret []RuleRep
 		return ret
 	}
 
@@ -248,7 +248,7 @@ func (o *FlagConfigurationRep) GetRules() []FlagConfigurationRepRules {
 
 // GetRulesOk returns a tuple with the Rules field value
 // and a boolean to check if the value has been set.
-func (o *FlagConfigurationRep) GetRulesOk() (*[]FlagConfigurationRepRules, bool) {
+func (o *FlagConfigurationRep) GetRulesOk() (*[]RuleRep, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -256,7 +256,7 @@ func (o *FlagConfigurationRep) GetRulesOk() (*[]FlagConfigurationRepRules, bool)
 }
 
 // SetRules sets field value
-func (o *FlagConfigurationRep) SetRules(v []FlagConfigurationRepRules) {
+func (o *FlagConfigurationRep) SetRules(v []RuleRep) {
 	o.Rules = v
 }
 

@@ -17,7 +17,7 @@ import (
 
 // ApiStatisticsRoot struct for ApiStatisticsRoot
 type ApiStatisticsRoot struct {
-	Projects *[]InlineResponse200 `json:"projects,omitempty"`
+	Projects *[]CoreLink `json:"projects,omitempty"`
 	Self *CoreLink `json:"self,omitempty"`
 }
 
@@ -39,9 +39,9 @@ func NewApiStatisticsRootWithDefaults() *ApiStatisticsRoot {
 }
 
 // GetProjects returns the Projects field value if set, zero value otherwise.
-func (o *ApiStatisticsRoot) GetProjects() []InlineResponse200 {
+func (o *ApiStatisticsRoot) GetProjects() []CoreLink {
 	if o == nil || o.Projects == nil {
-		var ret []InlineResponse200
+		var ret []CoreLink
 		return ret
 	}
 	return *o.Projects
@@ -49,7 +49,7 @@ func (o *ApiStatisticsRoot) GetProjects() []InlineResponse200 {
 
 // GetProjectsOk returns a tuple with the Projects field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ApiStatisticsRoot) GetProjectsOk() (*[]InlineResponse200, bool) {
+func (o *ApiStatisticsRoot) GetProjectsOk() (*[]CoreLink, bool) {
 	if o == nil || o.Projects == nil {
 		return nil, false
 	}
@@ -65,8 +65,8 @@ func (o *ApiStatisticsRoot) HasProjects() bool {
 	return false
 }
 
-// SetProjects gets a reference to the given []InlineResponse200 and assigns it to the Projects field.
-func (o *ApiStatisticsRoot) SetProjects(v []InlineResponse200) {
+// SetProjects gets a reference to the given []CoreLink and assigns it to the Projects field.
+func (o *ApiStatisticsRoot) SetProjects(v []CoreLink) {
 	o.Projects = &v
 }
 

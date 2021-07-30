@@ -19,7 +19,7 @@ import (
 type DependentFlag struct {
 	Name *string `json:"name,omitempty"`
 	Key string `json:"key"`
-	Links map[string]InlineResponse200 `json:"_links"`
+	Links []CoreLink `json:"_links"`
 	Site CoreLink `json:"_site"`
 }
 
@@ -27,7 +27,7 @@ type DependentFlag struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDependentFlag(key string, links map[string]InlineResponse200, site CoreLink) *DependentFlag {
+func NewDependentFlag(key string, links []CoreLink, site CoreLink) *DependentFlag {
 	this := DependentFlag{}
 	this.Key = key
 	this.Links = links
@@ -100,9 +100,9 @@ func (o *DependentFlag) SetKey(v string) {
 }
 
 // GetLinks returns the Links field value
-func (o *DependentFlag) GetLinks() map[string]InlineResponse200 {
+func (o *DependentFlag) GetLinks() []CoreLink {
 	if o == nil {
-		var ret map[string]InlineResponse200
+		var ret []CoreLink
 		return ret
 	}
 
@@ -111,7 +111,7 @@ func (o *DependentFlag) GetLinks() map[string]InlineResponse200 {
 
 // GetLinksOk returns a tuple with the Links field value
 // and a boolean to check if the value has been set.
-func (o *DependentFlag) GetLinksOk() (*map[string]InlineResponse200, bool) {
+func (o *DependentFlag) GetLinksOk() (*[]CoreLink, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -119,7 +119,7 @@ func (o *DependentFlag) GetLinksOk() (*map[string]InlineResponse200, bool) {
 }
 
 // SetLinks sets field value
-func (o *DependentFlag) SetLinks(v map[string]InlineResponse200) {
+func (o *DependentFlag) SetLinks(v []CoreLink) {
 	o.Links = v
 }
 

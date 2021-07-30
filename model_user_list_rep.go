@@ -17,9 +17,9 @@ import (
 
 // UserListRep struct for UserListRep
 type UserListRep struct {
-	Links *map[string]InlineResponse200 `json:"_links,omitempty"`
+	Links *[]CoreLink `json:"_links,omitempty"`
 	TotalCount *int32 `json:"totalCount,omitempty"`
-	Items *[]UserListRepItems `json:"items,omitempty"`
+	Items *[]UserRep `json:"items,omitempty"`
 }
 
 // NewUserListRep instantiates a new UserListRep object
@@ -40,9 +40,9 @@ func NewUserListRepWithDefaults() *UserListRep {
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
-func (o *UserListRep) GetLinks() map[string]InlineResponse200 {
+func (o *UserListRep) GetLinks() []CoreLink {
 	if o == nil || o.Links == nil {
-		var ret map[string]InlineResponse200
+		var ret []CoreLink
 		return ret
 	}
 	return *o.Links
@@ -50,7 +50,7 @@ func (o *UserListRep) GetLinks() map[string]InlineResponse200 {
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UserListRep) GetLinksOk() (*map[string]InlineResponse200, bool) {
+func (o *UserListRep) GetLinksOk() (*[]CoreLink, bool) {
 	if o == nil || o.Links == nil {
 		return nil, false
 	}
@@ -66,8 +66,8 @@ func (o *UserListRep) HasLinks() bool {
 	return false
 }
 
-// SetLinks gets a reference to the given map[string]InlineResponse200 and assigns it to the Links field.
-func (o *UserListRep) SetLinks(v map[string]InlineResponse200) {
+// SetLinks gets a reference to the given []CoreLink and assigns it to the Links field.
+func (o *UserListRep) SetLinks(v []CoreLink) {
 	o.Links = &v
 }
 
@@ -104,9 +104,9 @@ func (o *UserListRep) SetTotalCount(v int32) {
 }
 
 // GetItems returns the Items field value if set, zero value otherwise.
-func (o *UserListRep) GetItems() []UserListRepItems {
+func (o *UserListRep) GetItems() []UserRep {
 	if o == nil || o.Items == nil {
-		var ret []UserListRepItems
+		var ret []UserRep
 		return ret
 	}
 	return *o.Items
@@ -114,7 +114,7 @@ func (o *UserListRep) GetItems() []UserListRepItems {
 
 // GetItemsOk returns a tuple with the Items field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UserListRep) GetItemsOk() (*[]UserListRepItems, bool) {
+func (o *UserListRep) GetItemsOk() (*[]UserRep, bool) {
 	if o == nil || o.Items == nil {
 		return nil, false
 	}
@@ -130,8 +130,8 @@ func (o *UserListRep) HasItems() bool {
 	return false
 }
 
-// SetItems gets a reference to the given []UserListRepItems and assigns it to the Items field.
-func (o *UserListRep) SetItems(v []UserListRepItems) {
+// SetItems gets a reference to the given []UserRep and assigns it to the Items field.
+func (o *UserListRep) SetItems(v []UserRep) {
 	o.Items = &v
 }
 

@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **StopDate** | Pointer to **int64** |  | [optional] 
 **Flag** | Pointer to [**ExperimentFlagRep**](ExperimentFlagRep.md) |  | [optional] 
 **Metric** | Pointer to [**MetricListingRep**](MetricListingRep.md) |  | [optional] 
-**Links** | Pointer to [**map[string]InlineResponse200**](InlineResponse200.md) |  | [optional] 
+**Links** | Pointer to [**[]CoreLink**](CoreLink.md) |  | [optional] 
 
 ## Methods
 
@@ -261,20 +261,20 @@ HasMetric returns a boolean if a field has been set.
 
 ### GetLinks
 
-`func (o *ExperimentSummaryRep) GetLinks() map[string]InlineResponse200`
+`func (o *ExperimentSummaryRep) GetLinks() []CoreLink`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *ExperimentSummaryRep) GetLinksOk() (*map[string]InlineResponse200, bool)`
+`func (o *ExperimentSummaryRep) GetLinksOk() (*[]CoreLink, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *ExperimentSummaryRep) SetLinks(v map[string]InlineResponse200)`
+`func (o *ExperimentSummaryRep) SetLinks(v []CoreLink)`
 
 SetLinks sets Links field to given value.
 

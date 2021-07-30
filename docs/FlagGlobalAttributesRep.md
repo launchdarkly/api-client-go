@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **VariationJsonSchema** | Pointer to **interface{}** |  | [optional] 
 **Temporary** | **bool** |  | 
 **Tags** | **[]string** |  | 
-**Links** | [**map[string]InlineResponse200**](InlineResponse200.md) |  | 
+**Links** | [**[]CoreLink**](CoreLink.md) |  | 
 **MaintainerId** | Pointer to **string** |  | [optional] 
 **Maintainer** | Pointer to [**MemberSummaryRep**](MemberSummaryRep.md) |  | [optional] 
 **GoalIds** | Pointer to **[]string** |  | [optional] 
@@ -25,12 +25,13 @@ Name | Type | Description | Notes
 **Archived** | **bool** |  | 
 **ArchivedDate** | Pointer to **int64** |  | [optional] 
 **Defaults** | Pointer to [**FlagDefaultsRep**](FlagDefaultsRep.md) |  | [optional] 
+**Environments** | Pointer to [**map[string]FlagConfigurationRep**](FlagConfigurationRep.md) |  | [optional] 
 
 ## Methods
 
 ### NewFlagGlobalAttributesRep
 
-`func NewFlagGlobalAttributesRep(name string, kind string, key string, version int32, creationDate int64, variations []VariateRep, temporary bool, tags []string, links map[string]InlineResponse200, experiments ExperimentInfoRep, customProperties map[string]CustomProperty, archived bool, ) *FlagGlobalAttributesRep`
+`func NewFlagGlobalAttributesRep(name string, kind string, key string, version int32, creationDate int64, variations []VariateRep, temporary bool, tags []string, links []CoreLink, experiments ExperimentInfoRep, customProperties map[string]CustomProperty, archived bool, ) *FlagGlobalAttributesRep`
 
 NewFlagGlobalAttributesRep instantiates a new FlagGlobalAttributesRep object
 This constructor will assign default values to properties that have it defined,
@@ -317,20 +318,20 @@ SetTags sets Tags field to given value.
 
 ### GetLinks
 
-`func (o *FlagGlobalAttributesRep) GetLinks() map[string]InlineResponse200`
+`func (o *FlagGlobalAttributesRep) GetLinks() []CoreLink`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *FlagGlobalAttributesRep) GetLinksOk() (*map[string]InlineResponse200, bool)`
+`func (o *FlagGlobalAttributesRep) GetLinksOk() (*[]CoreLink, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *FlagGlobalAttributesRep) SetLinks(v map[string]InlineResponse200)`
+`func (o *FlagGlobalAttributesRep) SetLinks(v []CoreLink)`
 
 SetLinks sets Links field to given value.
 
@@ -519,6 +520,31 @@ SetDefaults sets Defaults field to given value.
 `func (o *FlagGlobalAttributesRep) HasDefaults() bool`
 
 HasDefaults returns a boolean if a field has been set.
+
+### GetEnvironments
+
+`func (o *FlagGlobalAttributesRep) GetEnvironments() map[string]FlagConfigurationRep`
+
+GetEnvironments returns the Environments field if non-nil, zero value otherwise.
+
+### GetEnvironmentsOk
+
+`func (o *FlagGlobalAttributesRep) GetEnvironmentsOk() (*map[string]FlagConfigurationRep, bool)`
+
+GetEnvironmentsOk returns a tuple with the Environments field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEnvironments
+
+`func (o *FlagGlobalAttributesRep) SetEnvironments(v map[string]FlagConfigurationRep)`
+
+SetEnvironments sets Environments field to given value.
+
+### HasEnvironments
+
+`func (o *FlagGlobalAttributesRep) HasEnvironments() bool`
+
+HasEnvironments returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

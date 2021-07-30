@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **Name** | Pointer to **string** |  | [optional] 
 **Anonymous** | Pointer to **bool** |  | [optional] 
 **Custom** | Pointer to **map[string]interface{}** |  | [optional] 
-**Derived** | Pointer to [**map[string]ModelsUserDerived**](ModelsUserDerived.md) |  | [optional] 
+**Derived** | Pointer to [**map[string]ModelsDerivedAttribute**](ModelsDerivedAttribute.md) |  | [optional] 
 **PrivateAttrs** | Pointer to **[]string** |  | [optional] 
 
 ## Methods
@@ -314,20 +314,20 @@ HasCustom returns a boolean if a field has been set.
 
 ### GetDerived
 
-`func (o *ModelsUser) GetDerived() map[string]ModelsUserDerived`
+`func (o *ModelsUser) GetDerived() map[string]ModelsDerivedAttribute`
 
 GetDerived returns the Derived field if non-nil, zero value otherwise.
 
 ### GetDerivedOk
 
-`func (o *ModelsUser) GetDerivedOk() (*map[string]ModelsUserDerived, bool)`
+`func (o *ModelsUser) GetDerivedOk() (*map[string]ModelsDerivedAttribute, bool)`
 
 GetDerivedOk returns a tuple with the Derived field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDerived
 
-`func (o *ModelsUser) SetDerived(v map[string]ModelsUserDerived)`
+`func (o *ModelsUser) SetDerived(v map[string]ModelsDerivedAttribute)`
 
 SetDerived sets Derived field to given value.
 

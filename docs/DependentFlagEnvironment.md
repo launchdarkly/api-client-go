@@ -6,14 +6,14 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | Pointer to **string** |  | [optional] 
 **Key** | **string** |  | 
-**Links** | [**map[string]InlineResponse200**](InlineResponse200.md) |  | 
+**Links** | [**[]CoreLink**](CoreLink.md) |  | 
 **Site** | [**CoreLink**](CoreLink.md) |  | 
 
 ## Methods
 
 ### NewDependentFlagEnvironment
 
-`func NewDependentFlagEnvironment(key string, links map[string]InlineResponse200, site CoreLink, ) *DependentFlagEnvironment`
+`func NewDependentFlagEnvironment(key string, links []CoreLink, site CoreLink, ) *DependentFlagEnvironment`
 
 NewDependentFlagEnvironment instantiates a new DependentFlagEnvironment object
 This constructor will assign default values to properties that have it defined,
@@ -75,20 +75,20 @@ SetKey sets Key field to given value.
 
 ### GetLinks
 
-`func (o *DependentFlagEnvironment) GetLinks() map[string]InlineResponse200`
+`func (o *DependentFlagEnvironment) GetLinks() []CoreLink`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *DependentFlagEnvironment) GetLinksOk() (*map[string]InlineResponse200, bool)`
+`func (o *DependentFlagEnvironment) GetLinksOk() (*[]CoreLink, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *DependentFlagEnvironment) SetLinks(v map[string]InlineResponse200)`
+`func (o *DependentFlagEnvironment) SetLinks(v []CoreLink)`
 
 SetLinks sets Links field to given value.
 

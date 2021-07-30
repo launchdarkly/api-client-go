@@ -18,8 +18,8 @@ import (
 // WebFlagScheduledChangesInput struct for WebFlagScheduledChangesInput
 type WebFlagScheduledChangesInput struct {
 	Comment *string `json:"Comment,omitempty"`
-	Instructions *[]interface{} `json:"Instructions,omitempty"`
-	ScheduledChangesWorkflowId *string `json:"ScheduledChangesWorkflowId,omitempty"`
+	Instructions interface{} `json:"Instructions,omitempty"`
+	ScheduledChangesWorkflowId interface{} `json:"ScheduledChangesWorkflowId,omitempty"`
 	IgnoreConflicts *bool `json:"IgnoreConflicts,omitempty"`
 }
 
@@ -72,22 +72,23 @@ func (o *WebFlagScheduledChangesInput) SetComment(v string) {
 	o.Comment = &v
 }
 
-// GetInstructions returns the Instructions field value if set, zero value otherwise.
-func (o *WebFlagScheduledChangesInput) GetInstructions() []interface{} {
-	if o == nil || o.Instructions == nil {
-		var ret []interface{}
+// GetInstructions returns the Instructions field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *WebFlagScheduledChangesInput) GetInstructions() interface{} {
+	if o == nil  {
+		var ret interface{}
 		return ret
 	}
-	return *o.Instructions
+	return o.Instructions
 }
 
 // GetInstructionsOk returns a tuple with the Instructions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WebFlagScheduledChangesInput) GetInstructionsOk() (*[]interface{}, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *WebFlagScheduledChangesInput) GetInstructionsOk() (*interface{}, bool) {
 	if o == nil || o.Instructions == nil {
 		return nil, false
 	}
-	return o.Instructions, true
+	return &o.Instructions, true
 }
 
 // HasInstructions returns a boolean if a field has been set.
@@ -99,27 +100,28 @@ func (o *WebFlagScheduledChangesInput) HasInstructions() bool {
 	return false
 }
 
-// SetInstructions gets a reference to the given []interface{} and assigns it to the Instructions field.
-func (o *WebFlagScheduledChangesInput) SetInstructions(v []interface{}) {
-	o.Instructions = &v
+// SetInstructions gets a reference to the given interface{} and assigns it to the Instructions field.
+func (o *WebFlagScheduledChangesInput) SetInstructions(v interface{}) {
+	o.Instructions = v
 }
 
-// GetScheduledChangesWorkflowId returns the ScheduledChangesWorkflowId field value if set, zero value otherwise.
-func (o *WebFlagScheduledChangesInput) GetScheduledChangesWorkflowId() string {
-	if o == nil || o.ScheduledChangesWorkflowId == nil {
-		var ret string
+// GetScheduledChangesWorkflowId returns the ScheduledChangesWorkflowId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *WebFlagScheduledChangesInput) GetScheduledChangesWorkflowId() interface{} {
+	if o == nil  {
+		var ret interface{}
 		return ret
 	}
-	return *o.ScheduledChangesWorkflowId
+	return o.ScheduledChangesWorkflowId
 }
 
 // GetScheduledChangesWorkflowIdOk returns a tuple with the ScheduledChangesWorkflowId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WebFlagScheduledChangesInput) GetScheduledChangesWorkflowIdOk() (*string, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *WebFlagScheduledChangesInput) GetScheduledChangesWorkflowIdOk() (*interface{}, bool) {
 	if o == nil || o.ScheduledChangesWorkflowId == nil {
 		return nil, false
 	}
-	return o.ScheduledChangesWorkflowId, true
+	return &o.ScheduledChangesWorkflowId, true
 }
 
 // HasScheduledChangesWorkflowId returns a boolean if a field has been set.
@@ -131,9 +133,9 @@ func (o *WebFlagScheduledChangesInput) HasScheduledChangesWorkflowId() bool {
 	return false
 }
 
-// SetScheduledChangesWorkflowId gets a reference to the given string and assigns it to the ScheduledChangesWorkflowId field.
-func (o *WebFlagScheduledChangesInput) SetScheduledChangesWorkflowId(v string) {
-	o.ScheduledChangesWorkflowId = &v
+// SetScheduledChangesWorkflowId gets a reference to the given interface{} and assigns it to the ScheduledChangesWorkflowId field.
+func (o *WebFlagScheduledChangesInput) SetScheduledChangesWorkflowId(v interface{}) {
+	o.ScheduledChangesWorkflowId = v
 }
 
 // GetIgnoreConflicts returns the IgnoreConflicts field value if set, zero value otherwise.

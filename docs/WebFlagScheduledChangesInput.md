@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Comment** | Pointer to **string** |  | [optional] 
-**Instructions** | Pointer to **[]interface{}** |  | [optional] 
-**ScheduledChangesWorkflowId** | Pointer to **string** |  | [optional] 
+**Instructions** | Pointer to **interface{}** |  | [optional] 
+**ScheduledChangesWorkflowId** | Pointer to **interface{}** |  | [optional] 
 **IgnoreConflicts** | Pointer to **bool** |  | [optional] 
 
 ## Methods
@@ -55,20 +55,20 @@ HasComment returns a boolean if a field has been set.
 
 ### GetInstructions
 
-`func (o *WebFlagScheduledChangesInput) GetInstructions() []interface{}`
+`func (o *WebFlagScheduledChangesInput) GetInstructions() interface{}`
 
 GetInstructions returns the Instructions field if non-nil, zero value otherwise.
 
 ### GetInstructionsOk
 
-`func (o *WebFlagScheduledChangesInput) GetInstructionsOk() (*[]interface{}, bool)`
+`func (o *WebFlagScheduledChangesInput) GetInstructionsOk() (*interface{}, bool)`
 
 GetInstructionsOk returns a tuple with the Instructions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInstructions
 
-`func (o *WebFlagScheduledChangesInput) SetInstructions(v []interface{})`
+`func (o *WebFlagScheduledChangesInput) SetInstructions(v interface{})`
 
 SetInstructions sets Instructions field to given value.
 
@@ -78,22 +78,32 @@ SetInstructions sets Instructions field to given value.
 
 HasInstructions returns a boolean if a field has been set.
 
+### SetInstructionsNil
+
+`func (o *WebFlagScheduledChangesInput) SetInstructionsNil(b bool)`
+
+ SetInstructionsNil sets the value for Instructions to be an explicit nil
+
+### UnsetInstructions
+`func (o *WebFlagScheduledChangesInput) UnsetInstructions()`
+
+UnsetInstructions ensures that no value is present for Instructions, not even an explicit nil
 ### GetScheduledChangesWorkflowId
 
-`func (o *WebFlagScheduledChangesInput) GetScheduledChangesWorkflowId() string`
+`func (o *WebFlagScheduledChangesInput) GetScheduledChangesWorkflowId() interface{}`
 
 GetScheduledChangesWorkflowId returns the ScheduledChangesWorkflowId field if non-nil, zero value otherwise.
 
 ### GetScheduledChangesWorkflowIdOk
 
-`func (o *WebFlagScheduledChangesInput) GetScheduledChangesWorkflowIdOk() (*string, bool)`
+`func (o *WebFlagScheduledChangesInput) GetScheduledChangesWorkflowIdOk() (*interface{}, bool)`
 
 GetScheduledChangesWorkflowIdOk returns a tuple with the ScheduledChangesWorkflowId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetScheduledChangesWorkflowId
 
-`func (o *WebFlagScheduledChangesInput) SetScheduledChangesWorkflowId(v string)`
+`func (o *WebFlagScheduledChangesInput) SetScheduledChangesWorkflowId(v interface{})`
 
 SetScheduledChangesWorkflowId sets ScheduledChangesWorkflowId field to given value.
 
@@ -103,6 +113,16 @@ SetScheduledChangesWorkflowId sets ScheduledChangesWorkflowId field to given val
 
 HasScheduledChangesWorkflowId returns a boolean if a field has been set.
 
+### SetScheduledChangesWorkflowIdNil
+
+`func (o *WebFlagScheduledChangesInput) SetScheduledChangesWorkflowIdNil(b bool)`
+
+ SetScheduledChangesWorkflowIdNil sets the value for ScheduledChangesWorkflowId to be an explicit nil
+
+### UnsetScheduledChangesWorkflowId
+`func (o *WebFlagScheduledChangesInput) UnsetScheduledChangesWorkflowId()`
+
+UnsetScheduledChangesWorkflowId ensures that no value is present for ScheduledChangesWorkflowId, not even an explicit nil
 ### GetIgnoreConflicts
 
 `func (o *WebFlagScheduledChangesInput) GetIgnoreConflicts() bool`

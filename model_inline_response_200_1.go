@@ -17,8 +17,8 @@ import (
 
 // InlineResponse2001 struct for InlineResponse2001
 type InlineResponse2001 struct {
-	Links *map[string]InlineResponse200 `json:"_links,omitempty"`
-	Items *[]ApiV2IntegrationsItems `json:"items,omitempty"`
+	Links *[]CoreLink `json:"_links,omitempty"`
+	Items *[]IntegrationSubscriptionRep `json:"items,omitempty"`
 	Key *string `json:"key,omitempty"`
 }
 
@@ -40,9 +40,9 @@ func NewInlineResponse2001WithDefaults() *InlineResponse2001 {
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
-func (o *InlineResponse2001) GetLinks() map[string]InlineResponse200 {
+func (o *InlineResponse2001) GetLinks() []CoreLink {
 	if o == nil || o.Links == nil {
-		var ret map[string]InlineResponse200
+		var ret []CoreLink
 		return ret
 	}
 	return *o.Links
@@ -50,7 +50,7 @@ func (o *InlineResponse2001) GetLinks() map[string]InlineResponse200 {
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InlineResponse2001) GetLinksOk() (*map[string]InlineResponse200, bool) {
+func (o *InlineResponse2001) GetLinksOk() (*[]CoreLink, bool) {
 	if o == nil || o.Links == nil {
 		return nil, false
 	}
@@ -66,15 +66,15 @@ func (o *InlineResponse2001) HasLinks() bool {
 	return false
 }
 
-// SetLinks gets a reference to the given map[string]InlineResponse200 and assigns it to the Links field.
-func (o *InlineResponse2001) SetLinks(v map[string]InlineResponse200) {
+// SetLinks gets a reference to the given []CoreLink and assigns it to the Links field.
+func (o *InlineResponse2001) SetLinks(v []CoreLink) {
 	o.Links = &v
 }
 
 // GetItems returns the Items field value if set, zero value otherwise.
-func (o *InlineResponse2001) GetItems() []ApiV2IntegrationsItems {
+func (o *InlineResponse2001) GetItems() []IntegrationSubscriptionRep {
 	if o == nil || o.Items == nil {
-		var ret []ApiV2IntegrationsItems
+		var ret []IntegrationSubscriptionRep
 		return ret
 	}
 	return *o.Items
@@ -82,7 +82,7 @@ func (o *InlineResponse2001) GetItems() []ApiV2IntegrationsItems {
 
 // GetItemsOk returns a tuple with the Items field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InlineResponse2001) GetItemsOk() (*[]ApiV2IntegrationsItems, bool) {
+func (o *InlineResponse2001) GetItemsOk() (*[]IntegrationSubscriptionRep, bool) {
 	if o == nil || o.Items == nil {
 		return nil, false
 	}
@@ -98,8 +98,8 @@ func (o *InlineResponse2001) HasItems() bool {
 	return false
 }
 
-// SetItems gets a reference to the given []ApiV2IntegrationsItems and assigns it to the Items field.
-func (o *InlineResponse2001) SetItems(v []ApiV2IntegrationsItems) {
+// SetItems gets a reference to the given []IntegrationSubscriptionRep and assigns it to the Items field.
+func (o *InlineResponse2001) SetItems(v []IntegrationSubscriptionRep) {
 	o.Items = &v
 }
 

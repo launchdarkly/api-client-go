@@ -17,8 +17,8 @@ import (
 
 // ApiExtinctionCollectionRep struct for ApiExtinctionCollectionRep
 type ApiExtinctionCollectionRep struct {
-	Links *map[string]InlineResponse200 `json:"_links,omitempty"`
-	Items *map[string][]map[string]interface{} `json:"items,omitempty"`
+	Links *[]CoreLink `json:"_links,omitempty"`
+	Items *map[string][]ApiExtinctionRep `json:"items,omitempty"`
 }
 
 // NewApiExtinctionCollectionRep instantiates a new ApiExtinctionCollectionRep object
@@ -39,9 +39,9 @@ func NewApiExtinctionCollectionRepWithDefaults() *ApiExtinctionCollectionRep {
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
-func (o *ApiExtinctionCollectionRep) GetLinks() map[string]InlineResponse200 {
+func (o *ApiExtinctionCollectionRep) GetLinks() []CoreLink {
 	if o == nil || o.Links == nil {
-		var ret map[string]InlineResponse200
+		var ret []CoreLink
 		return ret
 	}
 	return *o.Links
@@ -49,7 +49,7 @@ func (o *ApiExtinctionCollectionRep) GetLinks() map[string]InlineResponse200 {
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ApiExtinctionCollectionRep) GetLinksOk() (*map[string]InlineResponse200, bool) {
+func (o *ApiExtinctionCollectionRep) GetLinksOk() (*[]CoreLink, bool) {
 	if o == nil || o.Links == nil {
 		return nil, false
 	}
@@ -65,15 +65,15 @@ func (o *ApiExtinctionCollectionRep) HasLinks() bool {
 	return false
 }
 
-// SetLinks gets a reference to the given map[string]InlineResponse200 and assigns it to the Links field.
-func (o *ApiExtinctionCollectionRep) SetLinks(v map[string]InlineResponse200) {
+// SetLinks gets a reference to the given []CoreLink and assigns it to the Links field.
+func (o *ApiExtinctionCollectionRep) SetLinks(v []CoreLink) {
 	o.Links = &v
 }
 
 // GetItems returns the Items field value if set, zero value otherwise.
-func (o *ApiExtinctionCollectionRep) GetItems() map[string][]map[string]interface{} {
+func (o *ApiExtinctionCollectionRep) GetItems() map[string][]ApiExtinctionRep {
 	if o == nil || o.Items == nil {
-		var ret map[string][]map[string]interface{}
+		var ret map[string][]ApiExtinctionRep
 		return ret
 	}
 	return *o.Items
@@ -81,7 +81,7 @@ func (o *ApiExtinctionCollectionRep) GetItems() map[string][]map[string]interfac
 
 // GetItemsOk returns a tuple with the Items field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ApiExtinctionCollectionRep) GetItemsOk() (*map[string][]map[string]interface{}, bool) {
+func (o *ApiExtinctionCollectionRep) GetItemsOk() (*map[string][]ApiExtinctionRep, bool) {
 	if o == nil || o.Items == nil {
 		return nil, false
 	}
@@ -97,8 +97,8 @@ func (o *ApiExtinctionCollectionRep) HasItems() bool {
 	return false
 }
 
-// SetItems gets a reference to the given map[string][]map[string]interface{} and assigns it to the Items field.
-func (o *ApiExtinctionCollectionRep) SetItems(v map[string][]map[string]interface{}) {
+// SetItems gets a reference to the given map[string][]ApiExtinctionRep and assigns it to the Items field.
+func (o *ApiExtinctionCollectionRep) SetItems(v map[string][]ApiExtinctionRep) {
 	o.Items = &v
 }
 

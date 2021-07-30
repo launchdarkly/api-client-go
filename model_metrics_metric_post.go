@@ -31,7 +31,7 @@ type MetricsMetricPost struct {
 	Unit *string `json:"unit,omitempty"`
 	// Required for custom metrics
 	EventKey *string `json:"eventKey,omitempty"`
-	SuccessCriteria *int32 `json:"successCriteria,omitempty"`
+	SuccessCriteria interface{} `json:"successCriteria,omitempty"`
 	Tags *[]string `json:"tags,omitempty"`
 }
 
@@ -372,22 +372,23 @@ func (o *MetricsMetricPost) SetEventKey(v string) {
 	o.EventKey = &v
 }
 
-// GetSuccessCriteria returns the SuccessCriteria field value if set, zero value otherwise.
-func (o *MetricsMetricPost) GetSuccessCriteria() int32 {
-	if o == nil || o.SuccessCriteria == nil {
-		var ret int32
+// GetSuccessCriteria returns the SuccessCriteria field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *MetricsMetricPost) GetSuccessCriteria() interface{} {
+	if o == nil  {
+		var ret interface{}
 		return ret
 	}
-	return *o.SuccessCriteria
+	return o.SuccessCriteria
 }
 
 // GetSuccessCriteriaOk returns a tuple with the SuccessCriteria field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MetricsMetricPost) GetSuccessCriteriaOk() (*int32, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *MetricsMetricPost) GetSuccessCriteriaOk() (*interface{}, bool) {
 	if o == nil || o.SuccessCriteria == nil {
 		return nil, false
 	}
-	return o.SuccessCriteria, true
+	return &o.SuccessCriteria, true
 }
 
 // HasSuccessCriteria returns a boolean if a field has been set.
@@ -399,9 +400,9 @@ func (o *MetricsMetricPost) HasSuccessCriteria() bool {
 	return false
 }
 
-// SetSuccessCriteria gets a reference to the given int32 and assigns it to the SuccessCriteria field.
-func (o *MetricsMetricPost) SetSuccessCriteria(v int32) {
-	o.SuccessCriteria = &v
+// SetSuccessCriteria gets a reference to the given interface{} and assigns it to the SuccessCriteria field.
+func (o *MetricsMetricPost) SetSuccessCriteria(v interface{}) {
+	o.SuccessCriteria = v
 }
 
 // GetTags returns the Tags field value if set, zero value otherwise.

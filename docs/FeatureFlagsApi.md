@@ -614,7 +614,7 @@ Name | Type | Description  | Notes
 
 ## GetFeatureFlags
 
-> GlobalFlagCollectionRep GetFeatureFlags(ctx, projKey).Env(env).Tag(tag).Limit(limit).Offset(offset).Query(query).Archived(archived).Summary(summary).Type_(type_).HasExperiment(hasExperiment).HasDataExport(hasDataExport).Evaluated(evaluated).FilterEnv(filterEnv).Execute()
+> GlobalFlagCollectionRep GetFeatureFlags(ctx, projKey).Env(env).Tag(tag).Limit(limit).Offset(offset).Query(query).Archived(archived).Summary(summary).Type_(type_).HasExperiment(hasExperiment).HasDataExport(hasDataExport).FilterEnv(filterEnv).Execute()
 
 List feature flags
 
@@ -644,12 +644,11 @@ func main() {
     type_ := "type__example" // string | A string that lets you filter by temporary or permanent flags. (optional)
     hasExperiment := true // bool | A boolean with values of `true` or `false`. It returns any flags that have an attached metric. (optional)
     hasDataExport := true // bool | A boolean with values of `true` or `false`. That returns any flags that are currently exporting data in the specified environment. This includes flags that are exporting data from experiments. This filter also requires a `filterEnv` field, set to a valid environment key. For example, `filter=hasExperiment:true,filterEnv:production`. (optional)
-    evaluated := TODO // map[string]interface{} | An object that contains a key of after and a value in Unix time in milliseconds. This returns all flags that have been evaluated since the time you specify in the environment provided. This filter also requires a `filterEnv` field to be set to a valid environment. For example, `filter=evaluated:{ (optional)
     filterEnv := "filterEnv_example" // string | A string with the key of a valid environment. The `filterEnv` field is for filters that are environment specific. If there are multiple environment specific filters, only declare this parameter once. For example, `filter=evaluated:{ (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.FeatureFlagsApi.GetFeatureFlags(context.Background(), projKey).Env(env).Tag(tag).Limit(limit).Offset(offset).Query(query).Archived(archived).Summary(summary).Type_(type_).HasExperiment(hasExperiment).HasDataExport(hasDataExport).Evaluated(evaluated).FilterEnv(filterEnv).Execute()
+    resp, r, err := api_client.FeatureFlagsApi.GetFeatureFlags(context.Background(), projKey).Env(env).Tag(tag).Limit(limit).Offset(offset).Query(query).Archived(archived).Summary(summary).Type_(type_).HasExperiment(hasExperiment).HasDataExport(hasDataExport).FilterEnv(filterEnv).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.GetFeatureFlags``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -685,7 +684,6 @@ Name | Type | Description  | Notes
  **type_** | **string** | A string that lets you filter by temporary or permanent flags. | 
  **hasExperiment** | **bool** | A boolean with values of &#x60;true&#x60; or &#x60;false&#x60;. It returns any flags that have an attached metric. | 
  **hasDataExport** | **bool** | A boolean with values of &#x60;true&#x60; or &#x60;false&#x60;. That returns any flags that are currently exporting data in the specified environment. This includes flags that are exporting data from experiments. This filter also requires a &#x60;filterEnv&#x60; field, set to a valid environment key. For example, &#x60;filter&#x3D;hasExperiment:true,filterEnv:production&#x60;. | 
- **evaluated** | [**map[string]interface{}**](map[string]interface{}.md) | An object that contains a key of after and a value in Unix time in milliseconds. This returns all flags that have been evaluated since the time you specify in the environment provided. This filter also requires a &#x60;filterEnv&#x60; field to be set to a valid environment. For example, &#x60;filter&#x3D;evaluated:{ | 
  **filterEnv** | **string** | A string with the key of a valid environment. The &#x60;filterEnv&#x60; field is for filters that are environment specific. If there are multiple environment specific filters, only declare this parameter once. For example, &#x60;filter&#x3D;evaluated:{ | 
 
 ### Return type

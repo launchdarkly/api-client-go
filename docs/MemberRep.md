@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Links** | [**map[string]InlineResponse200**](InlineResponse200.md) |  | 
+**Links** | [**[]CoreLink**](CoreLink.md) |  | 
 **Id** | **string** | The member&#39;s ID | 
 **FirstName** | Pointer to **string** | The member&#39;s first name | [optional] 
 **LastName** | Pointer to **string** | The member&#39;s last name | [optional] 
@@ -19,13 +19,13 @@ Name | Type | Description | Notes
 **LastSeen** | **int64** |  | 
 **LastSeenMetadata** | Pointer to [**LastSeenMetadata**](LastSeenMetadata.md) |  | [optional] 
 **IntegrationMetadata** | Pointer to [**map[string]AccountsIntegrationSubscriptionMetadata**](AccountsIntegrationSubscriptionMetadata.md) |  | [optional] 
-**Teams** | Pointer to [**[]MemberRepTeams**](MemberRepTeams.md) |  | [optional] 
+**Teams** | Pointer to [**[]MemberTeamSummaryRep**](MemberTeamSummaryRep.md) |  | [optional] 
 
 ## Methods
 
 ### NewMemberRep
 
-`func NewMemberRep(links map[string]InlineResponse200, id string, role string, email string, pendingInvite bool, verified bool, customRoles []string, mfa string, excludedDashboards []string, lastSeen int64, ) *MemberRep`
+`func NewMemberRep(links []CoreLink, id string, role string, email string, pendingInvite bool, verified bool, customRoles []string, mfa string, excludedDashboards []string, lastSeen int64, ) *MemberRep`
 
 NewMemberRep instantiates a new MemberRep object
 This constructor will assign default values to properties that have it defined,
@@ -42,20 +42,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetLinks
 
-`func (o *MemberRep) GetLinks() map[string]InlineResponse200`
+`func (o *MemberRep) GetLinks() []CoreLink`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *MemberRep) GetLinksOk() (*map[string]InlineResponse200, bool)`
+`func (o *MemberRep) GetLinksOk() (*[]CoreLink, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *MemberRep) SetLinks(v map[string]InlineResponse200)`
+`func (o *MemberRep) SetLinks(v []CoreLink)`
 
 SetLinks sets Links field to given value.
 
@@ -367,20 +367,20 @@ HasIntegrationMetadata returns a boolean if a field has been set.
 
 ### GetTeams
 
-`func (o *MemberRep) GetTeams() []MemberRepTeams`
+`func (o *MemberRep) GetTeams() []MemberTeamSummaryRep`
 
 GetTeams returns the Teams field if non-nil, zero value otherwise.
 
 ### GetTeamsOk
 
-`func (o *MemberRep) GetTeamsOk() (*[]MemberRepTeams, bool)`
+`func (o *MemberRep) GetTeamsOk() (*[]MemberTeamSummaryRep, bool)`
 
 GetTeamsOk returns a tuple with the Teams field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTeams
 
-`func (o *MemberRep) SetTeams(v []MemberRepTeams)`
+`func (o *MemberRep) SetTeams(v []MemberTeamSummaryRep)`
 
 SetTeams sets Teams field to given value.
 

@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Environments** | Pointer to [**map[string]FlagStatusRepFromEnvSummariesEnvironments**](FlagStatusRepFromEnvSummariesEnvironments.md) |  | [optional] 
+**Environments** | Pointer to [**map[string]FlagStatusesRep**](FlagStatusesRep.md) |  | [optional] 
 **Key** | Pointer to **string** |  | [optional] 
-**Links** | Pointer to [**map[string]InlineResponse200**](InlineResponse200.md) |  | [optional] 
+**Links** | Pointer to [**[]CoreLink**](CoreLink.md) |  | [optional] 
 
 ## Methods
 
@@ -29,20 +29,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetEnvironments
 
-`func (o *FlagStatusRepFromEnvSummaries) GetEnvironments() map[string]FlagStatusRepFromEnvSummariesEnvironments`
+`func (o *FlagStatusRepFromEnvSummaries) GetEnvironments() map[string]FlagStatusesRep`
 
 GetEnvironments returns the Environments field if non-nil, zero value otherwise.
 
 ### GetEnvironmentsOk
 
-`func (o *FlagStatusRepFromEnvSummaries) GetEnvironmentsOk() (*map[string]FlagStatusRepFromEnvSummariesEnvironments, bool)`
+`func (o *FlagStatusRepFromEnvSummaries) GetEnvironmentsOk() (*map[string]FlagStatusesRep, bool)`
 
 GetEnvironmentsOk returns a tuple with the Environments field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEnvironments
 
-`func (o *FlagStatusRepFromEnvSummaries) SetEnvironments(v map[string]FlagStatusRepFromEnvSummariesEnvironments)`
+`func (o *FlagStatusRepFromEnvSummaries) SetEnvironments(v map[string]FlagStatusesRep)`
 
 SetEnvironments sets Environments field to given value.
 
@@ -79,20 +79,20 @@ HasKey returns a boolean if a field has been set.
 
 ### GetLinks
 
-`func (o *FlagStatusRepFromEnvSummaries) GetLinks() map[string]InlineResponse200`
+`func (o *FlagStatusRepFromEnvSummaries) GetLinks() []CoreLink`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *FlagStatusRepFromEnvSummaries) GetLinksOk() (*map[string]InlineResponse200, bool)`
+`func (o *FlagStatusRepFromEnvSummaries) GetLinksOk() (*[]CoreLink, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *FlagStatusRepFromEnvSummaries) SetLinks(v map[string]InlineResponse200)`
+`func (o *FlagStatusRepFromEnvSummaries) SetLinks(v []CoreLink)`
 
 SetLinks sets Links field to given value.
 

@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Items** | Pointer to [**[]WebExpiringUserTargetResponseItems**](WebExpiringUserTargetResponseItems.md) |  | [optional] 
-**Links** | Pointer to [**map[string]InlineResponse200**](InlineResponse200.md) |  | [optional] 
+**Items** | Pointer to [**[]WebExpiringUserTargetItem**](WebExpiringUserTargetItem.md) |  | [optional] 
+**Links** | Pointer to [**[]CoreLink**](CoreLink.md) |  | [optional] 
 **TotalInstructions** | Pointer to **int32** |  | [optional] 
 **SuccessfulInstructions** | Pointer to **int32** |  | [optional] 
 **FailedInstructions** | Pointer to **int32** |  | [optional] 
-**Errors** | Pointer to [**[]WebExpiringUserTargetResponseErrors**](WebExpiringUserTargetResponseErrors.md) |  | [optional] 
+**Errors** | Pointer to [**[]WebExpiringUserTargetError**](WebExpiringUserTargetError.md) |  | [optional] 
 
 ## Methods
 
@@ -32,20 +32,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetItems
 
-`func (o *WebExpiringUserTargetResponse) GetItems() []WebExpiringUserTargetResponseItems`
+`func (o *WebExpiringUserTargetResponse) GetItems() []WebExpiringUserTargetItem`
 
 GetItems returns the Items field if non-nil, zero value otherwise.
 
 ### GetItemsOk
 
-`func (o *WebExpiringUserTargetResponse) GetItemsOk() (*[]WebExpiringUserTargetResponseItems, bool)`
+`func (o *WebExpiringUserTargetResponse) GetItemsOk() (*[]WebExpiringUserTargetItem, bool)`
 
 GetItemsOk returns a tuple with the Items field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetItems
 
-`func (o *WebExpiringUserTargetResponse) SetItems(v []WebExpiringUserTargetResponseItems)`
+`func (o *WebExpiringUserTargetResponse) SetItems(v []WebExpiringUserTargetItem)`
 
 SetItems sets Items field to given value.
 
@@ -57,20 +57,20 @@ HasItems returns a boolean if a field has been set.
 
 ### GetLinks
 
-`func (o *WebExpiringUserTargetResponse) GetLinks() map[string]InlineResponse200`
+`func (o *WebExpiringUserTargetResponse) GetLinks() []CoreLink`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *WebExpiringUserTargetResponse) GetLinksOk() (*map[string]InlineResponse200, bool)`
+`func (o *WebExpiringUserTargetResponse) GetLinksOk() (*[]CoreLink, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *WebExpiringUserTargetResponse) SetLinks(v map[string]InlineResponse200)`
+`func (o *WebExpiringUserTargetResponse) SetLinks(v []CoreLink)`
 
 SetLinks sets Links field to given value.
 
@@ -157,20 +157,20 @@ HasFailedInstructions returns a boolean if a field has been set.
 
 ### GetErrors
 
-`func (o *WebExpiringUserTargetResponse) GetErrors() []WebExpiringUserTargetResponseErrors`
+`func (o *WebExpiringUserTargetResponse) GetErrors() []WebExpiringUserTargetError`
 
 GetErrors returns the Errors field if non-nil, zero value otherwise.
 
 ### GetErrorsOk
 
-`func (o *WebExpiringUserTargetResponse) GetErrorsOk() (*[]WebExpiringUserTargetResponseErrors, bool)`
+`func (o *WebExpiringUserTargetResponse) GetErrorsOk() (*[]WebExpiringUserTargetError, bool)`
 
 GetErrorsOk returns a tuple with the Errors field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetErrors
 
-`func (o *WebExpiringUserTargetResponse) SetErrors(v []WebExpiringUserTargetResponseErrors)`
+`func (o *WebExpiringUserTargetResponse) SetErrors(v []WebExpiringUserTargetError)`
 
 SetErrors sets Errors field to given value.
 

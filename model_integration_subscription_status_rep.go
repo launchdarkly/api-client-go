@@ -21,7 +21,7 @@ type IntegrationSubscriptionStatusRep struct {
 	LastSuccess *int64 `json:"lastSuccess,omitempty"`
 	LastError *int64 `json:"lastError,omitempty"`
 	ErrorCount *int32 `json:"errorCount,omitempty"`
-	Errors *[]IntegrationSubscriptionStatusRepErrors `json:"errors,omitempty"`
+	Errors *[]IntegrationStatusRep `json:"errors,omitempty"`
 }
 
 // NewIntegrationSubscriptionStatusRep instantiates a new IntegrationSubscriptionStatusRep object
@@ -170,9 +170,9 @@ func (o *IntegrationSubscriptionStatusRep) SetErrorCount(v int32) {
 }
 
 // GetErrors returns the Errors field value if set, zero value otherwise.
-func (o *IntegrationSubscriptionStatusRep) GetErrors() []IntegrationSubscriptionStatusRepErrors {
+func (o *IntegrationSubscriptionStatusRep) GetErrors() []IntegrationStatusRep {
 	if o == nil || o.Errors == nil {
-		var ret []IntegrationSubscriptionStatusRepErrors
+		var ret []IntegrationStatusRep
 		return ret
 	}
 	return *o.Errors
@@ -180,7 +180,7 @@ func (o *IntegrationSubscriptionStatusRep) GetErrors() []IntegrationSubscription
 
 // GetErrorsOk returns a tuple with the Errors field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IntegrationSubscriptionStatusRep) GetErrorsOk() (*[]IntegrationSubscriptionStatusRepErrors, bool) {
+func (o *IntegrationSubscriptionStatusRep) GetErrorsOk() (*[]IntegrationStatusRep, bool) {
 	if o == nil || o.Errors == nil {
 		return nil, false
 	}
@@ -196,8 +196,8 @@ func (o *IntegrationSubscriptionStatusRep) HasErrors() bool {
 	return false
 }
 
-// SetErrors gets a reference to the given []IntegrationSubscriptionStatusRepErrors and assigns it to the Errors field.
-func (o *IntegrationSubscriptionStatusRep) SetErrors(v []IntegrationSubscriptionStatusRepErrors) {
+// SetErrors gets a reference to the given []IntegrationStatusRep and assigns it to the Errors field.
+func (o *IntegrationSubscriptionStatusRep) SetErrors(v []IntegrationStatusRep) {
 	o.Errors = &v
 }
 

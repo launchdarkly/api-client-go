@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Path** | Pointer to **string** |  | [optional] 
 **Hint** | Pointer to **string** |  | [optional] 
-**Hunks** | Pointer to [**[]ApiBranchCollectionRepHunks**](ApiBranchCollectionRepHunks.md) |  | [optional] 
+**Hunks** | Pointer to [**[]ApiHunkRep**](ApiHunkRep.md) |  | [optional] 
 
 ## Methods
 
@@ -79,20 +79,20 @@ HasHint returns a boolean if a field has been set.
 
 ### GetHunks
 
-`func (o *ApiReferenceRep) GetHunks() []ApiBranchCollectionRepHunks`
+`func (o *ApiReferenceRep) GetHunks() []ApiHunkRep`
 
 GetHunks returns the Hunks field if non-nil, zero value otherwise.
 
 ### GetHunksOk
 
-`func (o *ApiReferenceRep) GetHunksOk() (*[]ApiBranchCollectionRepHunks, bool)`
+`func (o *ApiReferenceRep) GetHunksOk() (*[]ApiHunkRep, bool)`
 
 GetHunksOk returns a tuple with the Hunks field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetHunks
 
-`func (o *ApiReferenceRep) SetHunks(v []ApiBranchCollectionRepHunks)`
+`func (o *ApiReferenceRep) SetHunks(v []ApiHunkRep)`
 
 SetHunks sets Hunks field to given value.
 

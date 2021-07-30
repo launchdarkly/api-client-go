@@ -17,8 +17,8 @@ import (
 
 // DependentFlagsCollectionRep struct for DependentFlagsCollectionRep
 type DependentFlagsCollectionRep struct {
-	Items []DependentFlagWithEnvsEnvironments `json:"items"`
-	Links map[string]InlineResponse200 `json:"_links"`
+	Items []DependentFlag `json:"items"`
+	Links []CoreLink `json:"_links"`
 	Site CoreLink `json:"_site"`
 }
 
@@ -26,7 +26,7 @@ type DependentFlagsCollectionRep struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDependentFlagsCollectionRep(items []DependentFlagWithEnvsEnvironments, links map[string]InlineResponse200, site CoreLink) *DependentFlagsCollectionRep {
+func NewDependentFlagsCollectionRep(items []DependentFlag, links []CoreLink, site CoreLink) *DependentFlagsCollectionRep {
 	this := DependentFlagsCollectionRep{}
 	this.Items = items
 	this.Links = links
@@ -43,9 +43,9 @@ func NewDependentFlagsCollectionRepWithDefaults() *DependentFlagsCollectionRep {
 }
 
 // GetItems returns the Items field value
-func (o *DependentFlagsCollectionRep) GetItems() []DependentFlagWithEnvsEnvironments {
+func (o *DependentFlagsCollectionRep) GetItems() []DependentFlag {
 	if o == nil {
-		var ret []DependentFlagWithEnvsEnvironments
+		var ret []DependentFlag
 		return ret
 	}
 
@@ -54,7 +54,7 @@ func (o *DependentFlagsCollectionRep) GetItems() []DependentFlagWithEnvsEnvironm
 
 // GetItemsOk returns a tuple with the Items field value
 // and a boolean to check if the value has been set.
-func (o *DependentFlagsCollectionRep) GetItemsOk() (*[]DependentFlagWithEnvsEnvironments, bool) {
+func (o *DependentFlagsCollectionRep) GetItemsOk() (*[]DependentFlag, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -62,14 +62,14 @@ func (o *DependentFlagsCollectionRep) GetItemsOk() (*[]DependentFlagWithEnvsEnvi
 }
 
 // SetItems sets field value
-func (o *DependentFlagsCollectionRep) SetItems(v []DependentFlagWithEnvsEnvironments) {
+func (o *DependentFlagsCollectionRep) SetItems(v []DependentFlag) {
 	o.Items = v
 }
 
 // GetLinks returns the Links field value
-func (o *DependentFlagsCollectionRep) GetLinks() map[string]InlineResponse200 {
+func (o *DependentFlagsCollectionRep) GetLinks() []CoreLink {
 	if o == nil {
-		var ret map[string]InlineResponse200
+		var ret []CoreLink
 		return ret
 	}
 
@@ -78,7 +78,7 @@ func (o *DependentFlagsCollectionRep) GetLinks() map[string]InlineResponse200 {
 
 // GetLinksOk returns a tuple with the Links field value
 // and a boolean to check if the value has been set.
-func (o *DependentFlagsCollectionRep) GetLinksOk() (*map[string]InlineResponse200, bool) {
+func (o *DependentFlagsCollectionRep) GetLinksOk() (*[]CoreLink, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -86,7 +86,7 @@ func (o *DependentFlagsCollectionRep) GetLinksOk() (*map[string]InlineResponse20
 }
 
 // SetLinks sets field value
-func (o *DependentFlagsCollectionRep) SetLinks(v map[string]InlineResponse200) {
+func (o *DependentFlagsCollectionRep) SetLinks(v []CoreLink) {
 	o.Links = v
 }
 

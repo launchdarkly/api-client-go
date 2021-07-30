@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Comment** | Pointer to **string** |  | [optional] 
-**Instructions** | Pointer to [**[]ExpiringUserTargetsEndpointsPatchSegmentRequestInstructions**](ExpiringUserTargetsEndpointsPatchSegmentRequestInstructions.md) |  | [optional] 
+**Instructions** | Pointer to [**[]ExpiringUserTargetsEndpointsPatchSegmentInstruction**](ExpiringUserTargetsEndpointsPatchSegmentInstruction.md) |  | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasComment returns a boolean if a field has been set.
 
 ### GetInstructions
 
-`func (o *ExpiringUserTargetsEndpointsPatchSegmentRequest) GetInstructions() []ExpiringUserTargetsEndpointsPatchSegmentRequestInstructions`
+`func (o *ExpiringUserTargetsEndpointsPatchSegmentRequest) GetInstructions() []ExpiringUserTargetsEndpointsPatchSegmentInstruction`
 
 GetInstructions returns the Instructions field if non-nil, zero value otherwise.
 
 ### GetInstructionsOk
 
-`func (o *ExpiringUserTargetsEndpointsPatchSegmentRequest) GetInstructionsOk() (*[]ExpiringUserTargetsEndpointsPatchSegmentRequestInstructions, bool)`
+`func (o *ExpiringUserTargetsEndpointsPatchSegmentRequest) GetInstructionsOk() (*[]ExpiringUserTargetsEndpointsPatchSegmentInstruction, bool)`
 
 GetInstructionsOk returns a tuple with the Instructions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInstructions
 
-`func (o *ExpiringUserTargetsEndpointsPatchSegmentRequest) SetInstructions(v []ExpiringUserTargetsEndpointsPatchSegmentRequestInstructions)`
+`func (o *ExpiringUserTargetsEndpointsPatchSegmentRequest) SetInstructions(v []ExpiringUserTargetsEndpointsPatchSegmentInstruction)`
 
 SetInstructions sets Instructions field to given value.
 

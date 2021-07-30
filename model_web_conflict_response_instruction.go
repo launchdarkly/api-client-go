@@ -18,7 +18,7 @@ import (
 // WebConflictResponseInstruction struct for WebConflictResponseInstruction
 type WebConflictResponseInstruction struct {
 	Kind *string `json:"kind,omitempty"`
-	Conflicts *[]WebConflictResponseConflicts `json:"conflicts,omitempty"`
+	Conflicts *[]WebConflictResponseConflict `json:"conflicts,omitempty"`
 }
 
 // NewWebConflictResponseInstruction instantiates a new WebConflictResponseInstruction object
@@ -71,9 +71,9 @@ func (o *WebConflictResponseInstruction) SetKind(v string) {
 }
 
 // GetConflicts returns the Conflicts field value if set, zero value otherwise.
-func (o *WebConflictResponseInstruction) GetConflicts() []WebConflictResponseConflicts {
+func (o *WebConflictResponseInstruction) GetConflicts() []WebConflictResponseConflict {
 	if o == nil || o.Conflicts == nil {
-		var ret []WebConflictResponseConflicts
+		var ret []WebConflictResponseConflict
 		return ret
 	}
 	return *o.Conflicts
@@ -81,7 +81,7 @@ func (o *WebConflictResponseInstruction) GetConflicts() []WebConflictResponseCon
 
 // GetConflictsOk returns a tuple with the Conflicts field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WebConflictResponseInstruction) GetConflictsOk() (*[]WebConflictResponseConflicts, bool) {
+func (o *WebConflictResponseInstruction) GetConflictsOk() (*[]WebConflictResponseConflict, bool) {
 	if o == nil || o.Conflicts == nil {
 		return nil, false
 	}
@@ -97,8 +97,8 @@ func (o *WebConflictResponseInstruction) HasConflicts() bool {
 	return false
 }
 
-// SetConflicts gets a reference to the given []WebConflictResponseConflicts and assigns it to the Conflicts field.
-func (o *WebConflictResponseInstruction) SetConflicts(v []WebConflictResponseConflicts) {
+// SetConflicts gets a reference to the given []WebConflictResponseConflict and assigns it to the Conflicts field.
+func (o *WebConflictResponseInstruction) SetConflicts(v []WebConflictResponseConflict) {
 	o.Conflicts = &v
 }
 

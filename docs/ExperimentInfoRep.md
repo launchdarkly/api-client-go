@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **BaselineIdx** | **int32** |  | 
-**Items** | [**[]ExperimentInfoRepItems**](ExperimentInfoRepItems.md) |  | 
+**Items** | [**[]ExperimentRep**](ExperimentRep.md) |  | 
 
 ## Methods
 
 ### NewExperimentInfoRep
 
-`func NewExperimentInfoRep(baselineIdx int32, items []ExperimentInfoRepItems, ) *ExperimentInfoRep`
+`func NewExperimentInfoRep(baselineIdx int32, items []ExperimentRep, ) *ExperimentInfoRep`
 
 NewExperimentInfoRep instantiates a new ExperimentInfoRep object
 This constructor will assign default values to properties that have it defined,
@@ -48,20 +48,20 @@ SetBaselineIdx sets BaselineIdx field to given value.
 
 ### GetItems
 
-`func (o *ExperimentInfoRep) GetItems() []ExperimentInfoRepItems`
+`func (o *ExperimentInfoRep) GetItems() []ExperimentRep`
 
 GetItems returns the Items field if non-nil, zero value otherwise.
 
 ### GetItemsOk
 
-`func (o *ExperimentInfoRep) GetItemsOk() (*[]ExperimentInfoRepItems, bool)`
+`func (o *ExperimentInfoRep) GetItemsOk() (*[]ExperimentRep, bool)`
 
 GetItemsOk returns a tuple with the Items field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetItems
 
-`func (o *ExperimentInfoRep) SetItems(v []ExperimentInfoRepItems)`
+`func (o *ExperimentInfoRep) SetItems(v []ExperimentRep)`
 
 SetItems sets Items field to given value.
 

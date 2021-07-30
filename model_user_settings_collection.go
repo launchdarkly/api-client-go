@@ -17,8 +17,8 @@ import (
 
 // UserSettingsCollection struct for UserSettingsCollection
 type UserSettingsCollection struct {
-	Items *map[string]UserSettingsCollectionItems `json:"items,omitempty"`
-	Links *map[string]InlineResponse200 `json:"_links,omitempty"`
+	Items *map[string]UserSettingRep `json:"items,omitempty"`
+	Links *[]CoreLink `json:"_links,omitempty"`
 }
 
 // NewUserSettingsCollection instantiates a new UserSettingsCollection object
@@ -39,9 +39,9 @@ func NewUserSettingsCollectionWithDefaults() *UserSettingsCollection {
 }
 
 // GetItems returns the Items field value if set, zero value otherwise.
-func (o *UserSettingsCollection) GetItems() map[string]UserSettingsCollectionItems {
+func (o *UserSettingsCollection) GetItems() map[string]UserSettingRep {
 	if o == nil || o.Items == nil {
-		var ret map[string]UserSettingsCollectionItems
+		var ret map[string]UserSettingRep
 		return ret
 	}
 	return *o.Items
@@ -49,7 +49,7 @@ func (o *UserSettingsCollection) GetItems() map[string]UserSettingsCollectionIte
 
 // GetItemsOk returns a tuple with the Items field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UserSettingsCollection) GetItemsOk() (*map[string]UserSettingsCollectionItems, bool) {
+func (o *UserSettingsCollection) GetItemsOk() (*map[string]UserSettingRep, bool) {
 	if o == nil || o.Items == nil {
 		return nil, false
 	}
@@ -65,15 +65,15 @@ func (o *UserSettingsCollection) HasItems() bool {
 	return false
 }
 
-// SetItems gets a reference to the given map[string]UserSettingsCollectionItems and assigns it to the Items field.
-func (o *UserSettingsCollection) SetItems(v map[string]UserSettingsCollectionItems) {
+// SetItems gets a reference to the given map[string]UserSettingRep and assigns it to the Items field.
+func (o *UserSettingsCollection) SetItems(v map[string]UserSettingRep) {
 	o.Items = &v
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
-func (o *UserSettingsCollection) GetLinks() map[string]InlineResponse200 {
+func (o *UserSettingsCollection) GetLinks() []CoreLink {
 	if o == nil || o.Links == nil {
-		var ret map[string]InlineResponse200
+		var ret []CoreLink
 		return ret
 	}
 	return *o.Links
@@ -81,7 +81,7 @@ func (o *UserSettingsCollection) GetLinks() map[string]InlineResponse200 {
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UserSettingsCollection) GetLinksOk() (*map[string]InlineResponse200, bool) {
+func (o *UserSettingsCollection) GetLinksOk() (*[]CoreLink, bool) {
 	if o == nil || o.Links == nil {
 		return nil, false
 	}
@@ -97,8 +97,8 @@ func (o *UserSettingsCollection) HasLinks() bool {
 	return false
 }
 
-// SetLinks gets a reference to the given map[string]InlineResponse200 and assigns it to the Links field.
-func (o *UserSettingsCollection) SetLinks(v map[string]InlineResponse200) {
+// SetLinks gets a reference to the given []CoreLink and assigns it to the Links field.
+func (o *UserSettingsCollection) SetLinks(v []CoreLink) {
 	o.Links = &v
 }
 

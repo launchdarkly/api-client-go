@@ -17,7 +17,7 @@ import (
 
 // MemberRep struct for MemberRep
 type MemberRep struct {
-	Links map[string]InlineResponse200 `json:"_links"`
+	Links []CoreLink `json:"_links"`
 	// The member's ID
 	Id string `json:"_id"`
 	// The member's first name
@@ -42,14 +42,14 @@ type MemberRep struct {
 	LastSeen int64 `json:"_lastSeen"`
 	LastSeenMetadata *LastSeenMetadata `json:"_lastSeenMetadata,omitempty"`
 	IntegrationMetadata *map[string]AccountsIntegrationSubscriptionMetadata `json:"_integrationMetadata,omitempty"`
-	Teams *[]MemberRepTeams `json:"teams,omitempty"`
+	Teams *[]MemberTeamSummaryRep `json:"teams,omitempty"`
 }
 
 // NewMemberRep instantiates a new MemberRep object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMemberRep(links map[string]InlineResponse200, id string, role string, email string, pendingInvite bool, verified bool, customRoles []string, mfa string, excludedDashboards []string, lastSeen int64) *MemberRep {
+func NewMemberRep(links []CoreLink, id string, role string, email string, pendingInvite bool, verified bool, customRoles []string, mfa string, excludedDashboards []string, lastSeen int64) *MemberRep {
 	this := MemberRep{}
 	this.Links = links
 	this.Id = id
@@ -73,9 +73,9 @@ func NewMemberRepWithDefaults() *MemberRep {
 }
 
 // GetLinks returns the Links field value
-func (o *MemberRep) GetLinks() map[string]InlineResponse200 {
+func (o *MemberRep) GetLinks() []CoreLink {
 	if o == nil {
-		var ret map[string]InlineResponse200
+		var ret []CoreLink
 		return ret
 	}
 
@@ -84,7 +84,7 @@ func (o *MemberRep) GetLinks() map[string]InlineResponse200 {
 
 // GetLinksOk returns a tuple with the Links field value
 // and a boolean to check if the value has been set.
-func (o *MemberRep) GetLinksOk() (*map[string]InlineResponse200, bool) {
+func (o *MemberRep) GetLinksOk() (*[]CoreLink, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -92,7 +92,7 @@ func (o *MemberRep) GetLinksOk() (*map[string]InlineResponse200, bool) {
 }
 
 // SetLinks sets field value
-func (o *MemberRep) SetLinks(v map[string]InlineResponse200) {
+func (o *MemberRep) SetLinks(v []CoreLink) {
 	o.Links = v
 }
 
@@ -473,9 +473,9 @@ func (o *MemberRep) SetIntegrationMetadata(v map[string]AccountsIntegrationSubsc
 }
 
 // GetTeams returns the Teams field value if set, zero value otherwise.
-func (o *MemberRep) GetTeams() []MemberRepTeams {
+func (o *MemberRep) GetTeams() []MemberTeamSummaryRep {
 	if o == nil || o.Teams == nil {
-		var ret []MemberRepTeams
+		var ret []MemberTeamSummaryRep
 		return ret
 	}
 	return *o.Teams
@@ -483,7 +483,7 @@ func (o *MemberRep) GetTeams() []MemberRepTeams {
 
 // GetTeamsOk returns a tuple with the Teams field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MemberRep) GetTeamsOk() (*[]MemberRepTeams, bool) {
+func (o *MemberRep) GetTeamsOk() (*[]MemberTeamSummaryRep, bool) {
 	if o == nil || o.Teams == nil {
 		return nil, false
 	}
@@ -499,8 +499,8 @@ func (o *MemberRep) HasTeams() bool {
 	return false
 }
 
-// SetTeams gets a reference to the given []MemberRepTeams and assigns it to the Teams field.
-func (o *MemberRep) SetTeams(v []MemberRepTeams) {
+// SetTeams gets a reference to the given []MemberTeamSummaryRep and assigns it to the Teams field.
+func (o *MemberRep) SetTeams(v []MemberTeamSummaryRep) {
 	o.Teams = &v
 }
 

@@ -25,6 +25,12 @@ type TitleRep struct {
 	Title *string `json:"title,omitempty"`
 	Target *TargetResourceRep `json:"target,omitempty"`
 	Parent *ParentResourceRep `json:"parent,omitempty"`
+	Delta interface{} `json:"delta,omitempty"`
+	TriggerBody interface{} `json:"triggerBody,omitempty"`
+	Merge interface{} `json:"merge,omitempty"`
+	PreviousVersion interface{} `json:"previousVersion,omitempty"`
+	CurrentVersion interface{} `json:"currentVersion,omitempty"`
+	Subentries *[]AuditLogEntryListingRep `json:"subentries,omitempty"`
 }
 
 // NewTitleRep instantiates a new TitleRep object
@@ -300,6 +306,203 @@ func (o *TitleRep) SetParent(v ParentResourceRep) {
 	o.Parent = &v
 }
 
+// GetDelta returns the Delta field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *TitleRep) GetDelta() interface{} {
+	if o == nil  {
+		var ret interface{}
+		return ret
+	}
+	return o.Delta
+}
+
+// GetDeltaOk returns a tuple with the Delta field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *TitleRep) GetDeltaOk() (*interface{}, bool) {
+	if o == nil || o.Delta == nil {
+		return nil, false
+	}
+	return &o.Delta, true
+}
+
+// HasDelta returns a boolean if a field has been set.
+func (o *TitleRep) HasDelta() bool {
+	if o != nil && o.Delta != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDelta gets a reference to the given interface{} and assigns it to the Delta field.
+func (o *TitleRep) SetDelta(v interface{}) {
+	o.Delta = v
+}
+
+// GetTriggerBody returns the TriggerBody field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *TitleRep) GetTriggerBody() interface{} {
+	if o == nil  {
+		var ret interface{}
+		return ret
+	}
+	return o.TriggerBody
+}
+
+// GetTriggerBodyOk returns a tuple with the TriggerBody field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *TitleRep) GetTriggerBodyOk() (*interface{}, bool) {
+	if o == nil || o.TriggerBody == nil {
+		return nil, false
+	}
+	return &o.TriggerBody, true
+}
+
+// HasTriggerBody returns a boolean if a field has been set.
+func (o *TitleRep) HasTriggerBody() bool {
+	if o != nil && o.TriggerBody != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTriggerBody gets a reference to the given interface{} and assigns it to the TriggerBody field.
+func (o *TitleRep) SetTriggerBody(v interface{}) {
+	o.TriggerBody = v
+}
+
+// GetMerge returns the Merge field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *TitleRep) GetMerge() interface{} {
+	if o == nil  {
+		var ret interface{}
+		return ret
+	}
+	return o.Merge
+}
+
+// GetMergeOk returns a tuple with the Merge field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *TitleRep) GetMergeOk() (*interface{}, bool) {
+	if o == nil || o.Merge == nil {
+		return nil, false
+	}
+	return &o.Merge, true
+}
+
+// HasMerge returns a boolean if a field has been set.
+func (o *TitleRep) HasMerge() bool {
+	if o != nil && o.Merge != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMerge gets a reference to the given interface{} and assigns it to the Merge field.
+func (o *TitleRep) SetMerge(v interface{}) {
+	o.Merge = v
+}
+
+// GetPreviousVersion returns the PreviousVersion field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *TitleRep) GetPreviousVersion() interface{} {
+	if o == nil  {
+		var ret interface{}
+		return ret
+	}
+	return o.PreviousVersion
+}
+
+// GetPreviousVersionOk returns a tuple with the PreviousVersion field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *TitleRep) GetPreviousVersionOk() (*interface{}, bool) {
+	if o == nil || o.PreviousVersion == nil {
+		return nil, false
+	}
+	return &o.PreviousVersion, true
+}
+
+// HasPreviousVersion returns a boolean if a field has been set.
+func (o *TitleRep) HasPreviousVersion() bool {
+	if o != nil && o.PreviousVersion != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPreviousVersion gets a reference to the given interface{} and assigns it to the PreviousVersion field.
+func (o *TitleRep) SetPreviousVersion(v interface{}) {
+	o.PreviousVersion = v
+}
+
+// GetCurrentVersion returns the CurrentVersion field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *TitleRep) GetCurrentVersion() interface{} {
+	if o == nil  {
+		var ret interface{}
+		return ret
+	}
+	return o.CurrentVersion
+}
+
+// GetCurrentVersionOk returns a tuple with the CurrentVersion field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *TitleRep) GetCurrentVersionOk() (*interface{}, bool) {
+	if o == nil || o.CurrentVersion == nil {
+		return nil, false
+	}
+	return &o.CurrentVersion, true
+}
+
+// HasCurrentVersion returns a boolean if a field has been set.
+func (o *TitleRep) HasCurrentVersion() bool {
+	if o != nil && o.CurrentVersion != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCurrentVersion gets a reference to the given interface{} and assigns it to the CurrentVersion field.
+func (o *TitleRep) SetCurrentVersion(v interface{}) {
+	o.CurrentVersion = v
+}
+
+// GetSubentries returns the Subentries field value if set, zero value otherwise.
+func (o *TitleRep) GetSubentries() []AuditLogEntryListingRep {
+	if o == nil || o.Subentries == nil {
+		var ret []AuditLogEntryListingRep
+		return ret
+	}
+	return *o.Subentries
+}
+
+// GetSubentriesOk returns a tuple with the Subentries field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TitleRep) GetSubentriesOk() (*[]AuditLogEntryListingRep, bool) {
+	if o == nil || o.Subentries == nil {
+		return nil, false
+	}
+	return o.Subentries, true
+}
+
+// HasSubentries returns a boolean if a field has been set.
+func (o *TitleRep) HasSubentries() bool {
+	if o != nil && o.Subentries != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSubentries gets a reference to the given []AuditLogEntryListingRep and assigns it to the Subentries field.
+func (o *TitleRep) SetSubentries(v []AuditLogEntryListingRep) {
+	o.Subentries = &v
+}
+
 func (o TitleRep) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Subject != nil {
@@ -325,6 +528,24 @@ func (o TitleRep) MarshalJSON() ([]byte, error) {
 	}
 	if o.Parent != nil {
 		toSerialize["parent"] = o.Parent
+	}
+	if o.Delta != nil {
+		toSerialize["delta"] = o.Delta
+	}
+	if o.TriggerBody != nil {
+		toSerialize["triggerBody"] = o.TriggerBody
+	}
+	if o.Merge != nil {
+		toSerialize["merge"] = o.Merge
+	}
+	if o.PreviousVersion != nil {
+		toSerialize["previousVersion"] = o.PreviousVersion
+	}
+	if o.CurrentVersion != nil {
+		toSerialize["currentVersion"] = o.CurrentVersion
+	}
+	if o.Subentries != nil {
+		toSerialize["subentries"] = o.Subentries
 	}
 	return json.Marshal(toSerialize)
 }

@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Items** | Pointer to [**map[string]UserSettingsCollectionItems**](UserSettingsCollectionItems.md) |  | [optional] 
-**Links** | Pointer to [**map[string]InlineResponse200**](InlineResponse200.md) |  | [optional] 
+**Items** | Pointer to [**map[string]UserSettingRep**](UserSettingRep.md) |  | [optional] 
+**Links** | Pointer to [**[]CoreLink**](CoreLink.md) |  | [optional] 
 
 ## Methods
 
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetItems
 
-`func (o *UserSettingsCollection) GetItems() map[string]UserSettingsCollectionItems`
+`func (o *UserSettingsCollection) GetItems() map[string]UserSettingRep`
 
 GetItems returns the Items field if non-nil, zero value otherwise.
 
 ### GetItemsOk
 
-`func (o *UserSettingsCollection) GetItemsOk() (*map[string]UserSettingsCollectionItems, bool)`
+`func (o *UserSettingsCollection) GetItemsOk() (*map[string]UserSettingRep, bool)`
 
 GetItemsOk returns a tuple with the Items field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetItems
 
-`func (o *UserSettingsCollection) SetItems(v map[string]UserSettingsCollectionItems)`
+`func (o *UserSettingsCollection) SetItems(v map[string]UserSettingRep)`
 
 SetItems sets Items field to given value.
 
@@ -53,20 +53,20 @@ HasItems returns a boolean if a field has been set.
 
 ### GetLinks
 
-`func (o *UserSettingsCollection) GetLinks() map[string]InlineResponse200`
+`func (o *UserSettingsCollection) GetLinks() []CoreLink`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *UserSettingsCollection) GetLinksOk() (*map[string]InlineResponse200, bool)`
+`func (o *UserSettingsCollection) GetLinksOk() (*[]CoreLink, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *UserSettingsCollection) SetLinks(v map[string]InlineResponse200)`
+`func (o *UserSettingsCollection) SetLinks(v []CoreLink)`
 
 SetLinks sets Links field to given value.
 

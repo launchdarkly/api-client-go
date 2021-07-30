@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Comment** | Pointer to **string** |  | [optional] 
-**ExecutionDate** | Pointer to **int64** |  | [optional] 
+**ExecutionDate** | Pointer to **interface{}** |  | [optional] 
 **IgnoreConflicts** | Pointer to **bool** |  | [optional] 
-**Instructions** | Pointer to **[]map[string]interface{}** |  | [optional] 
+**Instructions** | Pointer to **interface{}** |  | [optional] 
 
 ## Methods
 
@@ -55,20 +55,20 @@ HasComment returns a boolean if a field has been set.
 
 ### GetExecutionDate
 
-`func (o *WebPostFlagScheduledChangesInput) GetExecutionDate() int64`
+`func (o *WebPostFlagScheduledChangesInput) GetExecutionDate() interface{}`
 
 GetExecutionDate returns the ExecutionDate field if non-nil, zero value otherwise.
 
 ### GetExecutionDateOk
 
-`func (o *WebPostFlagScheduledChangesInput) GetExecutionDateOk() (*int64, bool)`
+`func (o *WebPostFlagScheduledChangesInput) GetExecutionDateOk() (*interface{}, bool)`
 
 GetExecutionDateOk returns a tuple with the ExecutionDate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetExecutionDate
 
-`func (o *WebPostFlagScheduledChangesInput) SetExecutionDate(v int64)`
+`func (o *WebPostFlagScheduledChangesInput) SetExecutionDate(v interface{})`
 
 SetExecutionDate sets ExecutionDate field to given value.
 
@@ -78,6 +78,16 @@ SetExecutionDate sets ExecutionDate field to given value.
 
 HasExecutionDate returns a boolean if a field has been set.
 
+### SetExecutionDateNil
+
+`func (o *WebPostFlagScheduledChangesInput) SetExecutionDateNil(b bool)`
+
+ SetExecutionDateNil sets the value for ExecutionDate to be an explicit nil
+
+### UnsetExecutionDate
+`func (o *WebPostFlagScheduledChangesInput) UnsetExecutionDate()`
+
+UnsetExecutionDate ensures that no value is present for ExecutionDate, not even an explicit nil
 ### GetIgnoreConflicts
 
 `func (o *WebPostFlagScheduledChangesInput) GetIgnoreConflicts() bool`
@@ -105,20 +115,20 @@ HasIgnoreConflicts returns a boolean if a field has been set.
 
 ### GetInstructions
 
-`func (o *WebPostFlagScheduledChangesInput) GetInstructions() []map[string]interface{}`
+`func (o *WebPostFlagScheduledChangesInput) GetInstructions() interface{}`
 
 GetInstructions returns the Instructions field if non-nil, zero value otherwise.
 
 ### GetInstructionsOk
 
-`func (o *WebPostFlagScheduledChangesInput) GetInstructionsOk() (*[]map[string]interface{}, bool)`
+`func (o *WebPostFlagScheduledChangesInput) GetInstructionsOk() (*interface{}, bool)`
 
 GetInstructionsOk returns a tuple with the Instructions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInstructions
 
-`func (o *WebPostFlagScheduledChangesInput) SetInstructions(v []map[string]interface{})`
+`func (o *WebPostFlagScheduledChangesInput) SetInstructions(v interface{})`
 
 SetInstructions sets Instructions field to given value.
 
@@ -128,6 +138,16 @@ SetInstructions sets Instructions field to given value.
 
 HasInstructions returns a boolean if a field has been set.
 
+### SetInstructionsNil
+
+`func (o *WebPostFlagScheduledChangesInput) SetInstructionsNil(b bool)`
+
+ SetInstructionsNil sets the value for Instructions to be an explicit nil
+
+### UnsetInstructions
+`func (o *WebPostFlagScheduledChangesInput) UnsetInstructions()`
+
+UnsetInstructions ensures that no value is present for Instructions, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -23,6 +23,8 @@ type UserRecord struct {
 	OwnerId *string `json:"ownerId,omitempty"`
 	User *ModelsUser `json:"user,omitempty"`
 	SortValue interface{} `json:"sortValue,omitempty"`
+	Links *[]CoreLink `json:"_links,omitempty"`
+	Access *AccessRep `json:"_access,omitempty"`
 }
 
 // NewUserRecord instantiates a new UserRecord object
@@ -203,6 +205,70 @@ func (o *UserRecord) SetSortValue(v interface{}) {
 	o.SortValue = v
 }
 
+// GetLinks returns the Links field value if set, zero value otherwise.
+func (o *UserRecord) GetLinks() []CoreLink {
+	if o == nil || o.Links == nil {
+		var ret []CoreLink
+		return ret
+	}
+	return *o.Links
+}
+
+// GetLinksOk returns a tuple with the Links field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UserRecord) GetLinksOk() (*[]CoreLink, bool) {
+	if o == nil || o.Links == nil {
+		return nil, false
+	}
+	return o.Links, true
+}
+
+// HasLinks returns a boolean if a field has been set.
+func (o *UserRecord) HasLinks() bool {
+	if o != nil && o.Links != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLinks gets a reference to the given []CoreLink and assigns it to the Links field.
+func (o *UserRecord) SetLinks(v []CoreLink) {
+	o.Links = &v
+}
+
+// GetAccess returns the Access field value if set, zero value otherwise.
+func (o *UserRecord) GetAccess() AccessRep {
+	if o == nil || o.Access == nil {
+		var ret AccessRep
+		return ret
+	}
+	return *o.Access
+}
+
+// GetAccessOk returns a tuple with the Access field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UserRecord) GetAccessOk() (*AccessRep, bool) {
+	if o == nil || o.Access == nil {
+		return nil, false
+	}
+	return o.Access, true
+}
+
+// HasAccess returns a boolean if a field has been set.
+func (o *UserRecord) HasAccess() bool {
+	if o != nil && o.Access != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAccess gets a reference to the given AccessRep and assigns it to the Access field.
+func (o *UserRecord) SetAccess(v AccessRep) {
+	o.Access = &v
+}
+
 func (o UserRecord) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.LastPing != nil {
@@ -219,6 +285,12 @@ func (o UserRecord) MarshalJSON() ([]byte, error) {
 	}
 	if o.SortValue != nil {
 		toSerialize["sortValue"] = o.SortValue
+	}
+	if o.Links != nil {
+		toSerialize["_links"] = o.Links
+	}
+	if o.Access != nil {
+		toSerialize["_access"] = o.Access
 	}
 	return json.Marshal(toSerialize)
 }

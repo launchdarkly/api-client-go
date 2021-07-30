@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 **Role** | Pointer to **string** |  | [optional] 
 **Token** | Pointer to **string** |  | [optional] 
 **ServiceToken** | Pointer to **bool** |  | [optional] 
-**Links** | Pointer to [**map[string]InlineResponse200**](InlineResponse200.md) |  | [optional] 
+**Links** | Pointer to [**[]CoreLink**](CoreLink.md) |  | [optional] 
 **DefaultApiVersion** | Pointer to **int32** |  | [optional] 
 **LastUsed** | Pointer to **int64** |  | [optional] 
 
@@ -367,20 +367,20 @@ HasServiceToken returns a boolean if a field has been set.
 
 ### GetLinks
 
-`func (o *AccessTokenRep) GetLinks() map[string]InlineResponse200`
+`func (o *AccessTokenRep) GetLinks() []CoreLink`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *AccessTokenRep) GetLinksOk() (*map[string]InlineResponse200, bool)`
+`func (o *AccessTokenRep) GetLinksOk() (*[]CoreLink, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *AccessTokenRep) SetLinks(v map[string]InlineResponse200)`
+`func (o *AccessTokenRep) SetLinks(v []CoreLink)`
 
 SetLinks sets Links field to given value.
 

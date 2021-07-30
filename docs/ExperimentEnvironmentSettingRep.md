@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **StartDate** | Pointer to **int64** |  | [optional] 
 **StopDate** | Pointer to **int64** |  | [optional] 
-**EnabledPeriods** | Pointer to [**[]ExperimentEnvironmentSettingRepEnabledPeriods**](ExperimentEnvironmentSettingRepEnabledPeriods.md) |  | [optional] 
+**EnabledPeriods** | Pointer to [**[]ExperimentEnabledPeriodRep**](ExperimentEnabledPeriodRep.md) |  | [optional] 
 
 ## Methods
 
@@ -79,20 +79,20 @@ HasStopDate returns a boolean if a field has been set.
 
 ### GetEnabledPeriods
 
-`func (o *ExperimentEnvironmentSettingRep) GetEnabledPeriods() []ExperimentEnvironmentSettingRepEnabledPeriods`
+`func (o *ExperimentEnvironmentSettingRep) GetEnabledPeriods() []ExperimentEnabledPeriodRep`
 
 GetEnabledPeriods returns the EnabledPeriods field if non-nil, zero value otherwise.
 
 ### GetEnabledPeriodsOk
 
-`func (o *ExperimentEnvironmentSettingRep) GetEnabledPeriodsOk() (*[]ExperimentEnvironmentSettingRepEnabledPeriods, bool)`
+`func (o *ExperimentEnvironmentSettingRep) GetEnabledPeriodsOk() (*[]ExperimentEnabledPeriodRep, bool)`
 
 GetEnabledPeriodsOk returns a tuple with the EnabledPeriods field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEnabledPeriods
 
-`func (o *ExperimentEnvironmentSettingRep) SetEnabledPeriods(v []ExperimentEnvironmentSettingRepEnabledPeriods)`
+`func (o *ExperimentEnvironmentSettingRep) SetEnabledPeriods(v []ExperimentEnabledPeriodRep)`
 
 SetEnabledPeriods sets EnabledPeriods field to given value.
 

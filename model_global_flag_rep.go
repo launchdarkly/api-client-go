@@ -17,36 +17,48 @@ import (
 
 // GlobalFlagRep struct for GlobalFlagRep
 type GlobalFlagRep struct {
-	Name *string `json:"name,omitempty"`
-	Kind *string `json:"kind,omitempty"`
+	Name string `json:"name"`
+	Kind string `json:"kind"`
 	Description *string `json:"description,omitempty"`
-	Key *string `json:"key,omitempty"`
-	Version *int32 `json:"_version,omitempty"`
-	CreationDate *int64 `json:"creationDate,omitempty"`
+	Key string `json:"key"`
+	Version int32 `json:"_version"`
+	CreationDate int64 `json:"creationDate"`
 	IncludeInSnippet *bool `json:"includeInSnippet,omitempty"`
 	ClientSideAvailability *AccountsClientSideAvailability `json:"clientSideAvailability,omitempty"`
-	Variations *[]VariateRep `json:"variations,omitempty"`
+	Variations []VariateRep `json:"variations"`
 	VariationJsonSchema interface{} `json:"variationJsonSchema,omitempty"`
-	Temporary *bool `json:"temporary,omitempty"`
-	Tags *[]string `json:"tags,omitempty"`
-	Links *map[string]InlineResponse200 `json:"_links,omitempty"`
+	Temporary bool `json:"temporary"`
+	Tags []string `json:"tags"`
+	Links []CoreLink `json:"_links"`
 	MaintainerId *string `json:"maintainerId,omitempty"`
 	Maintainer *MemberSummaryRep `json:"_maintainer,omitempty"`
 	GoalIds *[]string `json:"goalIds,omitempty"`
-	Experiments *ExperimentInfoRep `json:"experiments,omitempty"`
-	CustomProperties *map[string]CustomProperty `json:"customProperties,omitempty"`
-	Archived *bool `json:"archived,omitempty"`
+	Experiments ExperimentInfoRep `json:"experiments"`
+	CustomProperties map[string]CustomProperty `json:"customProperties"`
+	Archived bool `json:"archived"`
 	ArchivedDate *int64 `json:"archivedDate,omitempty"`
 	Defaults *FlagDefaultsRep `json:"defaults,omitempty"`
-	Environments map[string]GlobalFlagRepEnvironments `json:"environments"`
+	Environments map[string]FlagConfigurationRep `json:"environments"`
 }
 
 // NewGlobalFlagRep instantiates a new GlobalFlagRep object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGlobalFlagRep(environments map[string]GlobalFlagRepEnvironments) *GlobalFlagRep {
+func NewGlobalFlagRep(name string, kind string, key string, version int32, creationDate int64, variations []VariateRep, temporary bool, tags []string, links []CoreLink, experiments ExperimentInfoRep, customProperties map[string]CustomProperty, archived bool, environments map[string]FlagConfigurationRep) *GlobalFlagRep {
 	this := GlobalFlagRep{}
+	this.Name = name
+	this.Kind = kind
+	this.Key = key
+	this.Version = version
+	this.CreationDate = creationDate
+	this.Variations = variations
+	this.Temporary = temporary
+	this.Tags = tags
+	this.Links = links
+	this.Experiments = experiments
+	this.CustomProperties = customProperties
+	this.Archived = archived
 	this.Environments = environments
 	return &this
 }
@@ -59,68 +71,52 @@ func NewGlobalFlagRepWithDefaults() *GlobalFlagRep {
 	return &this
 }
 
-// GetName returns the Name field value if set, zero value otherwise.
+// GetName returns the Name field value
 func (o *GlobalFlagRep) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Name
+
+	return o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *GlobalFlagRep) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Name, true
+	return &o.Name, true
 }
 
-// HasName returns a boolean if a field has been set.
-func (o *GlobalFlagRep) HasName() bool {
-	if o != nil && o.Name != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetName gets a reference to the given string and assigns it to the Name field.
+// SetName sets field value
 func (o *GlobalFlagRep) SetName(v string) {
-	o.Name = &v
+	o.Name = v
 }
 
-// GetKind returns the Kind field value if set, zero value otherwise.
+// GetKind returns the Kind field value
 func (o *GlobalFlagRep) GetKind() string {
-	if o == nil || o.Kind == nil {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Kind
+
+	return o.Kind
 }
 
-// GetKindOk returns a tuple with the Kind field value if set, nil otherwise
+// GetKindOk returns a tuple with the Kind field value
 // and a boolean to check if the value has been set.
 func (o *GlobalFlagRep) GetKindOk() (*string, bool) {
-	if o == nil || o.Kind == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Kind, true
+	return &o.Kind, true
 }
 
-// HasKind returns a boolean if a field has been set.
-func (o *GlobalFlagRep) HasKind() bool {
-	if o != nil && o.Kind != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetKind gets a reference to the given string and assigns it to the Kind field.
+// SetKind sets field value
 func (o *GlobalFlagRep) SetKind(v string) {
-	o.Kind = &v
+	o.Kind = v
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
@@ -155,100 +151,76 @@ func (o *GlobalFlagRep) SetDescription(v string) {
 	o.Description = &v
 }
 
-// GetKey returns the Key field value if set, zero value otherwise.
+// GetKey returns the Key field value
 func (o *GlobalFlagRep) GetKey() string {
-	if o == nil || o.Key == nil {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Key
+
+	return o.Key
 }
 
-// GetKeyOk returns a tuple with the Key field value if set, nil otherwise
+// GetKeyOk returns a tuple with the Key field value
 // and a boolean to check if the value has been set.
 func (o *GlobalFlagRep) GetKeyOk() (*string, bool) {
-	if o == nil || o.Key == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Key, true
+	return &o.Key, true
 }
 
-// HasKey returns a boolean if a field has been set.
-func (o *GlobalFlagRep) HasKey() bool {
-	if o != nil && o.Key != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetKey gets a reference to the given string and assigns it to the Key field.
+// SetKey sets field value
 func (o *GlobalFlagRep) SetKey(v string) {
-	o.Key = &v
+	o.Key = v
 }
 
-// GetVersion returns the Version field value if set, zero value otherwise.
+// GetVersion returns the Version field value
 func (o *GlobalFlagRep) GetVersion() int32 {
-	if o == nil || o.Version == nil {
+	if o == nil {
 		var ret int32
 		return ret
 	}
-	return *o.Version
+
+	return o.Version
 }
 
-// GetVersionOk returns a tuple with the Version field value if set, nil otherwise
+// GetVersionOk returns a tuple with the Version field value
 // and a boolean to check if the value has been set.
 func (o *GlobalFlagRep) GetVersionOk() (*int32, bool) {
-	if o == nil || o.Version == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Version, true
+	return &o.Version, true
 }
 
-// HasVersion returns a boolean if a field has been set.
-func (o *GlobalFlagRep) HasVersion() bool {
-	if o != nil && o.Version != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetVersion gets a reference to the given int32 and assigns it to the Version field.
+// SetVersion sets field value
 func (o *GlobalFlagRep) SetVersion(v int32) {
-	o.Version = &v
+	o.Version = v
 }
 
-// GetCreationDate returns the CreationDate field value if set, zero value otherwise.
+// GetCreationDate returns the CreationDate field value
 func (o *GlobalFlagRep) GetCreationDate() int64 {
-	if o == nil || o.CreationDate == nil {
+	if o == nil {
 		var ret int64
 		return ret
 	}
-	return *o.CreationDate
+
+	return o.CreationDate
 }
 
-// GetCreationDateOk returns a tuple with the CreationDate field value if set, nil otherwise
+// GetCreationDateOk returns a tuple with the CreationDate field value
 // and a boolean to check if the value has been set.
 func (o *GlobalFlagRep) GetCreationDateOk() (*int64, bool) {
-	if o == nil || o.CreationDate == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.CreationDate, true
+	return &o.CreationDate, true
 }
 
-// HasCreationDate returns a boolean if a field has been set.
-func (o *GlobalFlagRep) HasCreationDate() bool {
-	if o != nil && o.CreationDate != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetCreationDate gets a reference to the given int64 and assigns it to the CreationDate field.
+// SetCreationDate sets field value
 func (o *GlobalFlagRep) SetCreationDate(v int64) {
-	o.CreationDate = &v
+	o.CreationDate = v
 }
 
 // GetIncludeInSnippet returns the IncludeInSnippet field value if set, zero value otherwise.
@@ -315,36 +287,28 @@ func (o *GlobalFlagRep) SetClientSideAvailability(v AccountsClientSideAvailabili
 	o.ClientSideAvailability = &v
 }
 
-// GetVariations returns the Variations field value if set, zero value otherwise.
+// GetVariations returns the Variations field value
 func (o *GlobalFlagRep) GetVariations() []VariateRep {
-	if o == nil || o.Variations == nil {
+	if o == nil {
 		var ret []VariateRep
 		return ret
 	}
-	return *o.Variations
+
+	return o.Variations
 }
 
-// GetVariationsOk returns a tuple with the Variations field value if set, nil otherwise
+// GetVariationsOk returns a tuple with the Variations field value
 // and a boolean to check if the value has been set.
 func (o *GlobalFlagRep) GetVariationsOk() (*[]VariateRep, bool) {
-	if o == nil || o.Variations == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Variations, true
+	return &o.Variations, true
 }
 
-// HasVariations returns a boolean if a field has been set.
-func (o *GlobalFlagRep) HasVariations() bool {
-	if o != nil && o.Variations != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetVariations gets a reference to the given []VariateRep and assigns it to the Variations field.
+// SetVariations sets field value
 func (o *GlobalFlagRep) SetVariations(v []VariateRep) {
-	o.Variations = &v
+	o.Variations = v
 }
 
 // GetVariationJsonSchema returns the VariationJsonSchema field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -380,100 +344,76 @@ func (o *GlobalFlagRep) SetVariationJsonSchema(v interface{}) {
 	o.VariationJsonSchema = v
 }
 
-// GetTemporary returns the Temporary field value if set, zero value otherwise.
+// GetTemporary returns the Temporary field value
 func (o *GlobalFlagRep) GetTemporary() bool {
-	if o == nil || o.Temporary == nil {
+	if o == nil {
 		var ret bool
 		return ret
 	}
-	return *o.Temporary
+
+	return o.Temporary
 }
 
-// GetTemporaryOk returns a tuple with the Temporary field value if set, nil otherwise
+// GetTemporaryOk returns a tuple with the Temporary field value
 // and a boolean to check if the value has been set.
 func (o *GlobalFlagRep) GetTemporaryOk() (*bool, bool) {
-	if o == nil || o.Temporary == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Temporary, true
+	return &o.Temporary, true
 }
 
-// HasTemporary returns a boolean if a field has been set.
-func (o *GlobalFlagRep) HasTemporary() bool {
-	if o != nil && o.Temporary != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTemporary gets a reference to the given bool and assigns it to the Temporary field.
+// SetTemporary sets field value
 func (o *GlobalFlagRep) SetTemporary(v bool) {
-	o.Temporary = &v
+	o.Temporary = v
 }
 
-// GetTags returns the Tags field value if set, zero value otherwise.
+// GetTags returns the Tags field value
 func (o *GlobalFlagRep) GetTags() []string {
-	if o == nil || o.Tags == nil {
+	if o == nil {
 		var ret []string
 		return ret
 	}
-	return *o.Tags
+
+	return o.Tags
 }
 
-// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// GetTagsOk returns a tuple with the Tags field value
 // and a boolean to check if the value has been set.
 func (o *GlobalFlagRep) GetTagsOk() (*[]string, bool) {
-	if o == nil || o.Tags == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Tags, true
+	return &o.Tags, true
 }
 
-// HasTags returns a boolean if a field has been set.
-func (o *GlobalFlagRep) HasTags() bool {
-	if o != nil && o.Tags != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTags gets a reference to the given []string and assigns it to the Tags field.
+// SetTags sets field value
 func (o *GlobalFlagRep) SetTags(v []string) {
-	o.Tags = &v
+	o.Tags = v
 }
 
-// GetLinks returns the Links field value if set, zero value otherwise.
-func (o *GlobalFlagRep) GetLinks() map[string]InlineResponse200 {
-	if o == nil || o.Links == nil {
-		var ret map[string]InlineResponse200
+// GetLinks returns the Links field value
+func (o *GlobalFlagRep) GetLinks() []CoreLink {
+	if o == nil {
+		var ret []CoreLink
 		return ret
 	}
-	return *o.Links
+
+	return o.Links
 }
 
-// GetLinksOk returns a tuple with the Links field value if set, nil otherwise
+// GetLinksOk returns a tuple with the Links field value
 // and a boolean to check if the value has been set.
-func (o *GlobalFlagRep) GetLinksOk() (*map[string]InlineResponse200, bool) {
-	if o == nil || o.Links == nil {
+func (o *GlobalFlagRep) GetLinksOk() (*[]CoreLink, bool) {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Links, true
+	return &o.Links, true
 }
 
-// HasLinks returns a boolean if a field has been set.
-func (o *GlobalFlagRep) HasLinks() bool {
-	if o != nil && o.Links != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetLinks gets a reference to the given map[string]InlineResponse200 and assigns it to the Links field.
-func (o *GlobalFlagRep) SetLinks(v map[string]InlineResponse200) {
-	o.Links = &v
+// SetLinks sets field value
+func (o *GlobalFlagRep) SetLinks(v []CoreLink) {
+	o.Links = v
 }
 
 // GetMaintainerId returns the MaintainerId field value if set, zero value otherwise.
@@ -572,100 +512,76 @@ func (o *GlobalFlagRep) SetGoalIds(v []string) {
 	o.GoalIds = &v
 }
 
-// GetExperiments returns the Experiments field value if set, zero value otherwise.
+// GetExperiments returns the Experiments field value
 func (o *GlobalFlagRep) GetExperiments() ExperimentInfoRep {
-	if o == nil || o.Experiments == nil {
+	if o == nil {
 		var ret ExperimentInfoRep
 		return ret
 	}
-	return *o.Experiments
+
+	return o.Experiments
 }
 
-// GetExperimentsOk returns a tuple with the Experiments field value if set, nil otherwise
+// GetExperimentsOk returns a tuple with the Experiments field value
 // and a boolean to check if the value has been set.
 func (o *GlobalFlagRep) GetExperimentsOk() (*ExperimentInfoRep, bool) {
-	if o == nil || o.Experiments == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Experiments, true
+	return &o.Experiments, true
 }
 
-// HasExperiments returns a boolean if a field has been set.
-func (o *GlobalFlagRep) HasExperiments() bool {
-	if o != nil && o.Experiments != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetExperiments gets a reference to the given ExperimentInfoRep and assigns it to the Experiments field.
+// SetExperiments sets field value
 func (o *GlobalFlagRep) SetExperiments(v ExperimentInfoRep) {
-	o.Experiments = &v
+	o.Experiments = v
 }
 
-// GetCustomProperties returns the CustomProperties field value if set, zero value otherwise.
+// GetCustomProperties returns the CustomProperties field value
 func (o *GlobalFlagRep) GetCustomProperties() map[string]CustomProperty {
-	if o == nil || o.CustomProperties == nil {
+	if o == nil {
 		var ret map[string]CustomProperty
 		return ret
 	}
-	return *o.CustomProperties
+
+	return o.CustomProperties
 }
 
-// GetCustomPropertiesOk returns a tuple with the CustomProperties field value if set, nil otherwise
+// GetCustomPropertiesOk returns a tuple with the CustomProperties field value
 // and a boolean to check if the value has been set.
 func (o *GlobalFlagRep) GetCustomPropertiesOk() (*map[string]CustomProperty, bool) {
-	if o == nil || o.CustomProperties == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.CustomProperties, true
+	return &o.CustomProperties, true
 }
 
-// HasCustomProperties returns a boolean if a field has been set.
-func (o *GlobalFlagRep) HasCustomProperties() bool {
-	if o != nil && o.CustomProperties != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetCustomProperties gets a reference to the given map[string]CustomProperty and assigns it to the CustomProperties field.
+// SetCustomProperties sets field value
 func (o *GlobalFlagRep) SetCustomProperties(v map[string]CustomProperty) {
-	o.CustomProperties = &v
+	o.CustomProperties = v
 }
 
-// GetArchived returns the Archived field value if set, zero value otherwise.
+// GetArchived returns the Archived field value
 func (o *GlobalFlagRep) GetArchived() bool {
-	if o == nil || o.Archived == nil {
+	if o == nil {
 		var ret bool
 		return ret
 	}
-	return *o.Archived
+
+	return o.Archived
 }
 
-// GetArchivedOk returns a tuple with the Archived field value if set, nil otherwise
+// GetArchivedOk returns a tuple with the Archived field value
 // and a boolean to check if the value has been set.
 func (o *GlobalFlagRep) GetArchivedOk() (*bool, bool) {
-	if o == nil || o.Archived == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Archived, true
+	return &o.Archived, true
 }
 
-// HasArchived returns a boolean if a field has been set.
-func (o *GlobalFlagRep) HasArchived() bool {
-	if o != nil && o.Archived != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetArchived gets a reference to the given bool and assigns it to the Archived field.
+// SetArchived sets field value
 func (o *GlobalFlagRep) SetArchived(v bool) {
-	o.Archived = &v
+	o.Archived = v
 }
 
 // GetArchivedDate returns the ArchivedDate field value if set, zero value otherwise.
@@ -733,9 +649,9 @@ func (o *GlobalFlagRep) SetDefaults(v FlagDefaultsRep) {
 }
 
 // GetEnvironments returns the Environments field value
-func (o *GlobalFlagRep) GetEnvironments() map[string]GlobalFlagRepEnvironments {
+func (o *GlobalFlagRep) GetEnvironments() map[string]FlagConfigurationRep {
 	if o == nil {
-		var ret map[string]GlobalFlagRepEnvironments
+		var ret map[string]FlagConfigurationRep
 		return ret
 	}
 
@@ -744,7 +660,7 @@ func (o *GlobalFlagRep) GetEnvironments() map[string]GlobalFlagRepEnvironments {
 
 // GetEnvironmentsOk returns a tuple with the Environments field value
 // and a boolean to check if the value has been set.
-func (o *GlobalFlagRep) GetEnvironmentsOk() (*map[string]GlobalFlagRepEnvironments, bool) {
+func (o *GlobalFlagRep) GetEnvironmentsOk() (*map[string]FlagConfigurationRep, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -752,28 +668,28 @@ func (o *GlobalFlagRep) GetEnvironmentsOk() (*map[string]GlobalFlagRepEnvironmen
 }
 
 // SetEnvironments sets field value
-func (o *GlobalFlagRep) SetEnvironments(v map[string]GlobalFlagRepEnvironments) {
+func (o *GlobalFlagRep) SetEnvironments(v map[string]FlagConfigurationRep) {
 	o.Environments = v
 }
 
 func (o GlobalFlagRep) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
+	if true {
 		toSerialize["name"] = o.Name
 	}
-	if o.Kind != nil {
+	if true {
 		toSerialize["kind"] = o.Kind
 	}
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}
-	if o.Key != nil {
+	if true {
 		toSerialize["key"] = o.Key
 	}
-	if o.Version != nil {
+	if true {
 		toSerialize["_version"] = o.Version
 	}
-	if o.CreationDate != nil {
+	if true {
 		toSerialize["creationDate"] = o.CreationDate
 	}
 	if o.IncludeInSnippet != nil {
@@ -782,19 +698,19 @@ func (o GlobalFlagRep) MarshalJSON() ([]byte, error) {
 	if o.ClientSideAvailability != nil {
 		toSerialize["clientSideAvailability"] = o.ClientSideAvailability
 	}
-	if o.Variations != nil {
+	if true {
 		toSerialize["variations"] = o.Variations
 	}
 	if o.VariationJsonSchema != nil {
 		toSerialize["variationJsonSchema"] = o.VariationJsonSchema
 	}
-	if o.Temporary != nil {
+	if true {
 		toSerialize["temporary"] = o.Temporary
 	}
-	if o.Tags != nil {
+	if true {
 		toSerialize["tags"] = o.Tags
 	}
-	if o.Links != nil {
+	if true {
 		toSerialize["_links"] = o.Links
 	}
 	if o.MaintainerId != nil {
@@ -806,13 +722,13 @@ func (o GlobalFlagRep) MarshalJSON() ([]byte, error) {
 	if o.GoalIds != nil {
 		toSerialize["goalIds"] = o.GoalIds
 	}
-	if o.Experiments != nil {
+	if true {
 		toSerialize["experiments"] = o.Experiments
 	}
-	if o.CustomProperties != nil {
+	if true {
 		toSerialize["customProperties"] = o.CustomProperties
 	}
-	if o.Archived != nil {
+	if true {
 		toSerialize["archived"] = o.Archived
 	}
 	if o.ArchivedDate != nil {

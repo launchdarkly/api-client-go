@@ -17,7 +17,7 @@ import (
 
 // IntegrationSubscriptionRep struct for IntegrationSubscriptionRep
 type IntegrationSubscriptionRep struct {
-	Links *map[string]InlineResponse200 `json:"_links,omitempty"`
+	Links *[]CoreLink `json:"_links,omitempty"`
 	Id *string `json:"_id,omitempty"`
 	Kind *string `json:"kind,omitempty"`
 	Name *string `json:"name,omitempty"`
@@ -49,9 +49,9 @@ func NewIntegrationSubscriptionRepWithDefaults() *IntegrationSubscriptionRep {
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
-func (o *IntegrationSubscriptionRep) GetLinks() map[string]InlineResponse200 {
+func (o *IntegrationSubscriptionRep) GetLinks() []CoreLink {
 	if o == nil || o.Links == nil {
-		var ret map[string]InlineResponse200
+		var ret []CoreLink
 		return ret
 	}
 	return *o.Links
@@ -59,7 +59,7 @@ func (o *IntegrationSubscriptionRep) GetLinks() map[string]InlineResponse200 {
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IntegrationSubscriptionRep) GetLinksOk() (*map[string]InlineResponse200, bool) {
+func (o *IntegrationSubscriptionRep) GetLinksOk() (*[]CoreLink, bool) {
 	if o == nil || o.Links == nil {
 		return nil, false
 	}
@@ -75,8 +75,8 @@ func (o *IntegrationSubscriptionRep) HasLinks() bool {
 	return false
 }
 
-// SetLinks gets a reference to the given map[string]InlineResponse200 and assigns it to the Links field.
-func (o *IntegrationSubscriptionRep) SetLinks(v map[string]InlineResponse200) {
+// SetLinks gets a reference to the given []CoreLink and assigns it to the Links field.
+func (o *IntegrationSubscriptionRep) SetLinks(v []CoreLink) {
 	o.Links = &v
 }
 

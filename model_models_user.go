@@ -28,7 +28,7 @@ type ModelsUser struct {
 	Name *string `json:"name,omitempty"`
 	Anonymous *bool `json:"anonymous,omitempty"`
 	Custom *map[string]interface{} `json:"custom,omitempty"`
-	Derived *map[string]ModelsUserDerived `json:"derived,omitempty"`
+	Derived *map[string]ModelsDerivedAttribute `json:"derived,omitempty"`
 	PrivateAttrs *[]string `json:"privateAttrs,omitempty"`
 }
 
@@ -402,9 +402,9 @@ func (o *ModelsUser) SetCustom(v map[string]interface{}) {
 }
 
 // GetDerived returns the Derived field value if set, zero value otherwise.
-func (o *ModelsUser) GetDerived() map[string]ModelsUserDerived {
+func (o *ModelsUser) GetDerived() map[string]ModelsDerivedAttribute {
 	if o == nil || o.Derived == nil {
-		var ret map[string]ModelsUserDerived
+		var ret map[string]ModelsDerivedAttribute
 		return ret
 	}
 	return *o.Derived
@@ -412,7 +412,7 @@ func (o *ModelsUser) GetDerived() map[string]ModelsUserDerived {
 
 // GetDerivedOk returns a tuple with the Derived field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ModelsUser) GetDerivedOk() (*map[string]ModelsUserDerived, bool) {
+func (o *ModelsUser) GetDerivedOk() (*map[string]ModelsDerivedAttribute, bool) {
 	if o == nil || o.Derived == nil {
 		return nil, false
 	}
@@ -428,8 +428,8 @@ func (o *ModelsUser) HasDerived() bool {
 	return false
 }
 
-// SetDerived gets a reference to the given map[string]ModelsUserDerived and assigns it to the Derived field.
-func (o *ModelsUser) SetDerived(v map[string]ModelsUserDerived) {
+// SetDerived gets a reference to the given map[string]ModelsDerivedAttribute and assigns it to the Derived field.
+func (o *ModelsUser) SetDerived(v map[string]ModelsDerivedAttribute) {
 	o.Derived = &v
 }
 

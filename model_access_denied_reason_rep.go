@@ -21,7 +21,7 @@ type AccessDeniedReasonRep struct {
 	NotResources *[]map[string]interface{} `json:"notResources,omitempty"`
 	Actions *[]string `json:"actions,omitempty"`
 	NotActions *[]string `json:"notActions,omitempty"`
-	Effect *string `json:"effect,omitempty"`
+	Effect string `json:"effect"`
 	RoleName *string `json:"role_name,omitempty"`
 }
 
@@ -29,8 +29,9 @@ type AccessDeniedReasonRep struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAccessDeniedReasonRep() *AccessDeniedReasonRep {
+func NewAccessDeniedReasonRep(effect string) *AccessDeniedReasonRep {
 	this := AccessDeniedReasonRep{}
+	this.Effect = effect
 	return &this
 }
 
@@ -170,36 +171,28 @@ func (o *AccessDeniedReasonRep) SetNotActions(v []string) {
 	o.NotActions = &v
 }
 
-// GetEffect returns the Effect field value if set, zero value otherwise.
+// GetEffect returns the Effect field value
 func (o *AccessDeniedReasonRep) GetEffect() string {
-	if o == nil || o.Effect == nil {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Effect
+
+	return o.Effect
 }
 
-// GetEffectOk returns a tuple with the Effect field value if set, nil otherwise
+// GetEffectOk returns a tuple with the Effect field value
 // and a boolean to check if the value has been set.
 func (o *AccessDeniedReasonRep) GetEffectOk() (*string, bool) {
-	if o == nil || o.Effect == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Effect, true
+	return &o.Effect, true
 }
 
-// HasEffect returns a boolean if a field has been set.
-func (o *AccessDeniedReasonRep) HasEffect() bool {
-	if o != nil && o.Effect != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetEffect gets a reference to the given string and assigns it to the Effect field.
+// SetEffect sets field value
 func (o *AccessDeniedReasonRep) SetEffect(v string) {
-	o.Effect = &v
+	o.Effect = v
 }
 
 // GetRoleName returns the RoleName field value if set, zero value otherwise.
@@ -248,7 +241,7 @@ func (o AccessDeniedReasonRep) MarshalJSON() ([]byte, error) {
 	if o.NotActions != nil {
 		toSerialize["notActions"] = o.NotActions
 	}
-	if o.Effect != nil {
+	if true {
 		toSerialize["effect"] = o.Effect
 	}
 	if o.RoleName != nil {

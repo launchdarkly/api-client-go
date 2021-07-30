@@ -20,7 +20,7 @@ type ExperimentRep struct {
 	MetricKey *string `json:"metricKey,omitempty"`
 	Metric *MetricListingRep `json:"_metric,omitempty"`
 	Environments *[]string `json:"environments,omitempty"`
-	EnvironmentSettings *map[string]ExperimentInfoRepEnvironmentSettings `json:"_environmentSettings,omitempty"`
+	EnvironmentSettings *map[string]ExperimentEnvironmentSettingRep `json:"_environmentSettings,omitempty"`
 }
 
 // NewExperimentRep instantiates a new ExperimentRep object
@@ -137,9 +137,9 @@ func (o *ExperimentRep) SetEnvironments(v []string) {
 }
 
 // GetEnvironmentSettings returns the EnvironmentSettings field value if set, zero value otherwise.
-func (o *ExperimentRep) GetEnvironmentSettings() map[string]ExperimentInfoRepEnvironmentSettings {
+func (o *ExperimentRep) GetEnvironmentSettings() map[string]ExperimentEnvironmentSettingRep {
 	if o == nil || o.EnvironmentSettings == nil {
-		var ret map[string]ExperimentInfoRepEnvironmentSettings
+		var ret map[string]ExperimentEnvironmentSettingRep
 		return ret
 	}
 	return *o.EnvironmentSettings
@@ -147,7 +147,7 @@ func (o *ExperimentRep) GetEnvironmentSettings() map[string]ExperimentInfoRepEnv
 
 // GetEnvironmentSettingsOk returns a tuple with the EnvironmentSettings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ExperimentRep) GetEnvironmentSettingsOk() (*map[string]ExperimentInfoRepEnvironmentSettings, bool) {
+func (o *ExperimentRep) GetEnvironmentSettingsOk() (*map[string]ExperimentEnvironmentSettingRep, bool) {
 	if o == nil || o.EnvironmentSettings == nil {
 		return nil, false
 	}
@@ -163,8 +163,8 @@ func (o *ExperimentRep) HasEnvironmentSettings() bool {
 	return false
 }
 
-// SetEnvironmentSettings gets a reference to the given map[string]ExperimentInfoRepEnvironmentSettings and assigns it to the EnvironmentSettings field.
-func (o *ExperimentRep) SetEnvironmentSettings(v map[string]ExperimentInfoRepEnvironmentSettings) {
+// SetEnvironmentSettings gets a reference to the given map[string]ExperimentEnvironmentSettingRep and assigns it to the EnvironmentSettings field.
+func (o *ExperimentRep) SetEnvironmentSettings(v map[string]ExperimentEnvironmentSettingRep) {
 	o.EnvironmentSettings = &v
 }
 

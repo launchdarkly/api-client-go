@@ -20,8 +20,8 @@ type ExperimentFlagRep struct {
 	Name *string `json:"name,omitempty"`
 	Key *string `json:"key,omitempty"`
 	Archived *bool `json:"archived,omitempty"`
-	Variations *[]ExperimentFlagRepVariations `json:"variations,omitempty"`
-	Links *map[string]InlineResponse200 `json:"links,omitempty"`
+	Variations *[]VariateRep `json:"variations,omitempty"`
+	Links *[]CoreLink `json:"links,omitempty"`
 	Site *CoreLink `json:"site,omitempty"`
 }
 
@@ -139,9 +139,9 @@ func (o *ExperimentFlagRep) SetArchived(v bool) {
 }
 
 // GetVariations returns the Variations field value if set, zero value otherwise.
-func (o *ExperimentFlagRep) GetVariations() []ExperimentFlagRepVariations {
+func (o *ExperimentFlagRep) GetVariations() []VariateRep {
 	if o == nil || o.Variations == nil {
-		var ret []ExperimentFlagRepVariations
+		var ret []VariateRep
 		return ret
 	}
 	return *o.Variations
@@ -149,7 +149,7 @@ func (o *ExperimentFlagRep) GetVariations() []ExperimentFlagRepVariations {
 
 // GetVariationsOk returns a tuple with the Variations field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ExperimentFlagRep) GetVariationsOk() (*[]ExperimentFlagRepVariations, bool) {
+func (o *ExperimentFlagRep) GetVariationsOk() (*[]VariateRep, bool) {
 	if o == nil || o.Variations == nil {
 		return nil, false
 	}
@@ -165,15 +165,15 @@ func (o *ExperimentFlagRep) HasVariations() bool {
 	return false
 }
 
-// SetVariations gets a reference to the given []ExperimentFlagRepVariations and assigns it to the Variations field.
-func (o *ExperimentFlagRep) SetVariations(v []ExperimentFlagRepVariations) {
+// SetVariations gets a reference to the given []VariateRep and assigns it to the Variations field.
+func (o *ExperimentFlagRep) SetVariations(v []VariateRep) {
 	o.Variations = &v
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
-func (o *ExperimentFlagRep) GetLinks() map[string]InlineResponse200 {
+func (o *ExperimentFlagRep) GetLinks() []CoreLink {
 	if o == nil || o.Links == nil {
-		var ret map[string]InlineResponse200
+		var ret []CoreLink
 		return ret
 	}
 	return *o.Links
@@ -181,7 +181,7 @@ func (o *ExperimentFlagRep) GetLinks() map[string]InlineResponse200 {
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ExperimentFlagRep) GetLinksOk() (*map[string]InlineResponse200, bool) {
+func (o *ExperimentFlagRep) GetLinksOk() (*[]CoreLink, bool) {
 	if o == nil || o.Links == nil {
 		return nil, false
 	}
@@ -197,8 +197,8 @@ func (o *ExperimentFlagRep) HasLinks() bool {
 	return false
 }
 
-// SetLinks gets a reference to the given map[string]InlineResponse200 and assigns it to the Links field.
-func (o *ExperimentFlagRep) SetLinks(v map[string]InlineResponse200) {
+// SetLinks gets a reference to the given []CoreLink and assigns it to the Links field.
+func (o *ExperimentFlagRep) SetLinks(v []CoreLink) {
 	o.Links = &v
 }
 

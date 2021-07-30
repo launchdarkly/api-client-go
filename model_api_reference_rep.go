@@ -19,7 +19,7 @@ import (
 type ApiReferenceRep struct {
 	Path *string `json:"path,omitempty"`
 	Hint *string `json:"hint,omitempty"`
-	Hunks *[]ApiBranchCollectionRepHunks `json:"hunks,omitempty"`
+	Hunks *[]ApiHunkRep `json:"hunks,omitempty"`
 }
 
 // NewApiReferenceRep instantiates a new ApiReferenceRep object
@@ -104,9 +104,9 @@ func (o *ApiReferenceRep) SetHint(v string) {
 }
 
 // GetHunks returns the Hunks field value if set, zero value otherwise.
-func (o *ApiReferenceRep) GetHunks() []ApiBranchCollectionRepHunks {
+func (o *ApiReferenceRep) GetHunks() []ApiHunkRep {
 	if o == nil || o.Hunks == nil {
-		var ret []ApiBranchCollectionRepHunks
+		var ret []ApiHunkRep
 		return ret
 	}
 	return *o.Hunks
@@ -114,7 +114,7 @@ func (o *ApiReferenceRep) GetHunks() []ApiBranchCollectionRepHunks {
 
 // GetHunksOk returns a tuple with the Hunks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ApiReferenceRep) GetHunksOk() (*[]ApiBranchCollectionRepHunks, bool) {
+func (o *ApiReferenceRep) GetHunksOk() (*[]ApiHunkRep, bool) {
 	if o == nil || o.Hunks == nil {
 		return nil, false
 	}
@@ -130,8 +130,8 @@ func (o *ApiReferenceRep) HasHunks() bool {
 	return false
 }
 
-// SetHunks gets a reference to the given []ApiBranchCollectionRepHunks and assigns it to the Hunks field.
-func (o *ApiReferenceRep) SetHunks(v []ApiBranchCollectionRepHunks) {
+// SetHunks gets a reference to the given []ApiHunkRep and assigns it to the Hunks field.
+func (o *ApiReferenceRep) SetHunks(v []ApiHunkRep) {
 	o.Hunks = &v
 }
 

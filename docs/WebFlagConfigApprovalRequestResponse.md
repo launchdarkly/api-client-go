@@ -11,14 +11,14 @@ Name | Type | Description | Notes
 **RequestorId** | Pointer to **string** |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
 **ReviewStatus** | Pointer to **string** |  | [optional] 
-**AllReviews** | Pointer to [**[]WebFlagConfigApprovalRequestResponseAllReviews**](WebFlagConfigApprovalRequestResponseAllReviews.md) |  | [optional] 
+**AllReviews** | Pointer to [**[]WebReviewResponse**](WebReviewResponse.md) |  | [optional] 
 **NotifyMemberIds** | Pointer to **[]string** |  | [optional] 
 **AppliedDate** | Pointer to **int64** |  | [optional] 
 **AppliedByMemberId** | Pointer to **string** |  | [optional] 
 **Status** | Pointer to **string** |  | [optional] 
 **Instructions** | Pointer to **[]map[string]interface{}** |  | [optional] 
-**Conflicts** | Pointer to [**[]WebFlagConfigApprovalRequestResponseConflicts**](WebFlagConfigApprovalRequestResponseConflicts.md) |  | [optional] 
-**Links** | Pointer to [**map[string]InlineResponse200**](InlineResponse200.md) |  | [optional] 
+**Conflicts** | Pointer to [**[]WebConflict**](WebConflict.md) |  | [optional] 
+**Links** | Pointer to [**[]CoreLink**](CoreLink.md) |  | [optional] 
 **ExecutionDate** | Pointer to **int64** |  | [optional] 
 **OperatingOnId** | Pointer to **string** |  | [optional] 
 **IntegrationMetadata** | Pointer to [**WebIntegrationMetadata**](WebIntegrationMetadata.md) |  | [optional] 
@@ -220,20 +220,20 @@ HasReviewStatus returns a boolean if a field has been set.
 
 ### GetAllReviews
 
-`func (o *WebFlagConfigApprovalRequestResponse) GetAllReviews() []WebFlagConfigApprovalRequestResponseAllReviews`
+`func (o *WebFlagConfigApprovalRequestResponse) GetAllReviews() []WebReviewResponse`
 
 GetAllReviews returns the AllReviews field if non-nil, zero value otherwise.
 
 ### GetAllReviewsOk
 
-`func (o *WebFlagConfigApprovalRequestResponse) GetAllReviewsOk() (*[]WebFlagConfigApprovalRequestResponseAllReviews, bool)`
+`func (o *WebFlagConfigApprovalRequestResponse) GetAllReviewsOk() (*[]WebReviewResponse, bool)`
 
 GetAllReviewsOk returns a tuple with the AllReviews field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAllReviews
 
-`func (o *WebFlagConfigApprovalRequestResponse) SetAllReviews(v []WebFlagConfigApprovalRequestResponseAllReviews)`
+`func (o *WebFlagConfigApprovalRequestResponse) SetAllReviews(v []WebReviewResponse)`
 
 SetAllReviews sets AllReviews field to given value.
 
@@ -370,20 +370,20 @@ HasInstructions returns a boolean if a field has been set.
 
 ### GetConflicts
 
-`func (o *WebFlagConfigApprovalRequestResponse) GetConflicts() []WebFlagConfigApprovalRequestResponseConflicts`
+`func (o *WebFlagConfigApprovalRequestResponse) GetConflicts() []WebConflict`
 
 GetConflicts returns the Conflicts field if non-nil, zero value otherwise.
 
 ### GetConflictsOk
 
-`func (o *WebFlagConfigApprovalRequestResponse) GetConflictsOk() (*[]WebFlagConfigApprovalRequestResponseConflicts, bool)`
+`func (o *WebFlagConfigApprovalRequestResponse) GetConflictsOk() (*[]WebConflict, bool)`
 
 GetConflictsOk returns a tuple with the Conflicts field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetConflicts
 
-`func (o *WebFlagConfigApprovalRequestResponse) SetConflicts(v []WebFlagConfigApprovalRequestResponseConflicts)`
+`func (o *WebFlagConfigApprovalRequestResponse) SetConflicts(v []WebConflict)`
 
 SetConflicts sets Conflicts field to given value.
 
@@ -395,20 +395,20 @@ HasConflicts returns a boolean if a field has been set.
 
 ### GetLinks
 
-`func (o *WebFlagConfigApprovalRequestResponse) GetLinks() map[string]InlineResponse200`
+`func (o *WebFlagConfigApprovalRequestResponse) GetLinks() []CoreLink`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *WebFlagConfigApprovalRequestResponse) GetLinksOk() (*map[string]InlineResponse200, bool)`
+`func (o *WebFlagConfigApprovalRequestResponse) GetLinksOk() (*[]CoreLink, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *WebFlagConfigApprovalRequestResponse) SetLinks(v map[string]InlineResponse200)`
+`func (o *WebFlagConfigApprovalRequestResponse) SetLinks(v []CoreLink)`
 
 SetLinks sets Links field to given value.
 

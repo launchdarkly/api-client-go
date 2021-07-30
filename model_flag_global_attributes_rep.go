@@ -29,7 +29,7 @@ type FlagGlobalAttributesRep struct {
 	VariationJsonSchema interface{} `json:"variationJsonSchema,omitempty"`
 	Temporary bool `json:"temporary"`
 	Tags []string `json:"tags"`
-	Links map[string]InlineResponse200 `json:"_links"`
+	Links []CoreLink `json:"_links"`
 	MaintainerId *string `json:"maintainerId,omitempty"`
 	Maintainer *MemberSummaryRep `json:"_maintainer,omitempty"`
 	GoalIds *[]string `json:"goalIds,omitempty"`
@@ -38,13 +38,14 @@ type FlagGlobalAttributesRep struct {
 	Archived bool `json:"archived"`
 	ArchivedDate *int64 `json:"archivedDate,omitempty"`
 	Defaults *FlagDefaultsRep `json:"defaults,omitempty"`
+	Environments *map[string]FlagConfigurationRep `json:"environments,omitempty"`
 }
 
 // NewFlagGlobalAttributesRep instantiates a new FlagGlobalAttributesRep object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFlagGlobalAttributesRep(name string, kind string, key string, version int32, creationDate int64, variations []VariateRep, temporary bool, tags []string, links map[string]InlineResponse200, experiments ExperimentInfoRep, customProperties map[string]CustomProperty, archived bool) *FlagGlobalAttributesRep {
+func NewFlagGlobalAttributesRep(name string, kind string, key string, version int32, creationDate int64, variations []VariateRep, temporary bool, tags []string, links []CoreLink, experiments ExperimentInfoRep, customProperties map[string]CustomProperty, archived bool) *FlagGlobalAttributesRep {
 	this := FlagGlobalAttributesRep{}
 	this.Name = name
 	this.Kind = kind
@@ -391,9 +392,9 @@ func (o *FlagGlobalAttributesRep) SetTags(v []string) {
 }
 
 // GetLinks returns the Links field value
-func (o *FlagGlobalAttributesRep) GetLinks() map[string]InlineResponse200 {
+func (o *FlagGlobalAttributesRep) GetLinks() []CoreLink {
 	if o == nil {
-		var ret map[string]InlineResponse200
+		var ret []CoreLink
 		return ret
 	}
 
@@ -402,7 +403,7 @@ func (o *FlagGlobalAttributesRep) GetLinks() map[string]InlineResponse200 {
 
 // GetLinksOk returns a tuple with the Links field value
 // and a boolean to check if the value has been set.
-func (o *FlagGlobalAttributesRep) GetLinksOk() (*map[string]InlineResponse200, bool) {
+func (o *FlagGlobalAttributesRep) GetLinksOk() (*[]CoreLink, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -410,7 +411,7 @@ func (o *FlagGlobalAttributesRep) GetLinksOk() (*map[string]InlineResponse200, b
 }
 
 // SetLinks sets field value
-func (o *FlagGlobalAttributesRep) SetLinks(v map[string]InlineResponse200) {
+func (o *FlagGlobalAttributesRep) SetLinks(v []CoreLink) {
 	o.Links = v
 }
 
@@ -646,6 +647,38 @@ func (o *FlagGlobalAttributesRep) SetDefaults(v FlagDefaultsRep) {
 	o.Defaults = &v
 }
 
+// GetEnvironments returns the Environments field value if set, zero value otherwise.
+func (o *FlagGlobalAttributesRep) GetEnvironments() map[string]FlagConfigurationRep {
+	if o == nil || o.Environments == nil {
+		var ret map[string]FlagConfigurationRep
+		return ret
+	}
+	return *o.Environments
+}
+
+// GetEnvironmentsOk returns a tuple with the Environments field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FlagGlobalAttributesRep) GetEnvironmentsOk() (*map[string]FlagConfigurationRep, bool) {
+	if o == nil || o.Environments == nil {
+		return nil, false
+	}
+	return o.Environments, true
+}
+
+// HasEnvironments returns a boolean if a field has been set.
+func (o *FlagGlobalAttributesRep) HasEnvironments() bool {
+	if o != nil && o.Environments != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetEnvironments gets a reference to the given map[string]FlagConfigurationRep and assigns it to the Environments field.
+func (o *FlagGlobalAttributesRep) SetEnvironments(v map[string]FlagConfigurationRep) {
+	o.Environments = &v
+}
+
 func (o FlagGlobalAttributesRep) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -710,6 +743,9 @@ func (o FlagGlobalAttributesRep) MarshalJSON() ([]byte, error) {
 	}
 	if o.Defaults != nil {
 		toSerialize["defaults"] = o.Defaults
+	}
+	if o.Environments != nil {
+		toSerialize["environments"] = o.Environments
 	}
 	return json.Marshal(toSerialize)
 }

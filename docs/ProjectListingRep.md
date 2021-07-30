@@ -4,13 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Links** | Pointer to [**map[string]InlineResponse200**](InlineResponse200.md) |  | [optional] 
+**Links** | Pointer to [**[]CoreLink**](CoreLink.md) |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
 **Key** | Pointer to **string** |  | [optional] 
 **IncludeInSnippetByDefault** | Pointer to **bool** |  | [optional] 
 **DefaultClientSideAvailability** | Pointer to [**AccountsClientSideAvailability**](AccountsClientSideAvailability.md) |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **Tags** | Pointer to **[]string** |  | [optional] 
+**Environments** | Pointer to [**[]EnvironmentRep**](EnvironmentRep.md) |  | [optional] 
 
 ## Methods
 
@@ -33,20 +34,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetLinks
 
-`func (o *ProjectListingRep) GetLinks() map[string]InlineResponse200`
+`func (o *ProjectListingRep) GetLinks() []CoreLink`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *ProjectListingRep) GetLinksOk() (*map[string]InlineResponse200, bool)`
+`func (o *ProjectListingRep) GetLinksOk() (*[]CoreLink, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *ProjectListingRep) SetLinks(v map[string]InlineResponse200)`
+`func (o *ProjectListingRep) SetLinks(v []CoreLink)`
 
 SetLinks sets Links field to given value.
 
@@ -205,6 +206,31 @@ SetTags sets Tags field to given value.
 `func (o *ProjectListingRep) HasTags() bool`
 
 HasTags returns a boolean if a field has been set.
+
+### GetEnvironments
+
+`func (o *ProjectListingRep) GetEnvironments() []EnvironmentRep`
+
+GetEnvironments returns the Environments field if non-nil, zero value otherwise.
+
+### GetEnvironmentsOk
+
+`func (o *ProjectListingRep) GetEnvironmentsOk() (*[]EnvironmentRep, bool)`
+
+GetEnvironmentsOk returns a tuple with the Environments field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEnvironments
+
+`func (o *ProjectListingRep) SetEnvironments(v []EnvironmentRep)`
+
+SetEnvironments sets Environments field to given value.
+
+### HasEnvironments
+
+`func (o *ProjectListingRep) HasEnvironments() bool`
+
+HasEnvironments returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
