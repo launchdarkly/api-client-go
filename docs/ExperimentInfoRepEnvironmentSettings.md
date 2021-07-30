@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **StartDate** | Pointer to **int64** |  | [optional] 
 **StopDate** | Pointer to **int64** |  | [optional] 
+**EnabledPeriods** | Pointer to [**[]ExperimentEnvironmentSettingRepEnabledPeriods**](ExperimentEnvironmentSettingRepEnabledPeriods.md) |  | [optional] 
 
 ## Methods
 
@@ -75,6 +76,31 @@ SetStopDate sets StopDate field to given value.
 `func (o *ExperimentInfoRepEnvironmentSettings) HasStopDate() bool`
 
 HasStopDate returns a boolean if a field has been set.
+
+### GetEnabledPeriods
+
+`func (o *ExperimentInfoRepEnvironmentSettings) GetEnabledPeriods() []ExperimentEnvironmentSettingRepEnabledPeriods`
+
+GetEnabledPeriods returns the EnabledPeriods field if non-nil, zero value otherwise.
+
+### GetEnabledPeriodsOk
+
+`func (o *ExperimentInfoRepEnvironmentSettings) GetEnabledPeriodsOk() (*[]ExperimentEnvironmentSettingRepEnabledPeriods, bool)`
+
+GetEnabledPeriodsOk returns a tuple with the EnabledPeriods field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEnabledPeriods
+
+`func (o *ExperimentInfoRepEnvironmentSettings) SetEnabledPeriods(v []ExperimentEnvironmentSettingRepEnabledPeriods)`
+
+SetEnabledPeriods sets EnabledPeriods field to given value.
+
+### HasEnabledPeriods
+
+`func (o *ExperimentInfoRepEnvironmentSettings) HasEnabledPeriods() bool`
+
+HasEnabledPeriods returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

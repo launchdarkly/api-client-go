@@ -4,18 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | Pointer to **string** |  | [optional] 
-**Key** | Pointer to **string** |  | [optional] 
-**IncludeInSnippetByDefault** | Pointer to **bool** |  | [optional] 
+**Name** | **string** | A human-friendly name for the project. | 
+**Key** | **string** | A unique key used to reference the project in your code. | 
+**IncludeInSnippetByDefault** | Pointer to **bool** | Whether or not flags created in this project are made available to the client-side JavaScript SDK by default. | [optional] 
 **DefaultClientSideAvailability** | Pointer to [**DefaultClientSideAvailabilityPost**](DefaultClientSideAvailabilityPost.md) |  | [optional] 
 **Tags** | Pointer to **[]string** |  | [optional] 
-**Environments** | Pointer to **[]map[string]interface{}** |  | [optional] 
+**Environments** | Pointer to **[]map[string]interface{}** | Creates the provided environments for this project. If omitted default environments will be created instead. | [optional] 
 
 ## Methods
 
 ### NewProjectPost
 
-`func NewProjectPost() *ProjectPost`
+`func NewProjectPost(name string, key string, ) *ProjectPost`
 
 NewProjectPost instantiates a new ProjectPost object
 This constructor will assign default values to properties that have it defined,
@@ -49,11 +49,6 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
-### HasName
-
-`func (o *ProjectPost) HasName() bool`
-
-HasName returns a boolean if a field has been set.
 
 ### GetKey
 
@@ -74,11 +69,6 @@ and a boolean to check if the value has been set.
 
 SetKey sets Key field to given value.
 
-### HasKey
-
-`func (o *ProjectPost) HasKey() bool`
-
-HasKey returns a boolean if a field has been set.
 
 ### GetIncludeInSnippetByDefault
 

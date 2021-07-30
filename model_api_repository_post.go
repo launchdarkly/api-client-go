@@ -15,239 +15,35 @@ import (
 	"encoding/json"
 )
 
-// AuditLogEntryListingRepCollectionItems struct for AuditLogEntryListingRepCollectionItems
-type AuditLogEntryListingRepCollectionItems struct {
-	Links *map[string]InlineResponse200 `json:"_links,omitempty"`
-	Id *string `json:"_id,omitempty"`
-	AccountId *string `json:"_accountId,omitempty"`
-	Date *int64 `json:"date,omitempty"`
-	Accesses *[]AuditLogEntryListingRepAccesses `json:"accesses,omitempty"`
-	Kind *string `json:"kind,omitempty"`
+// ApiRepositoryPost struct for ApiRepositoryPost
+type ApiRepositoryPost struct {
 	Name *string `json:"name,omitempty"`
-	Description *string `json:"description,omitempty"`
-	ShortDescription *string `json:"shortDescription,omitempty"`
-	Comment *string `json:"comment,omitempty"`
-	Subject *SubjectDataRep `json:"subject,omitempty"`
-	Member *MemberDataRep `json:"member,omitempty"`
-	Token *TokenDataRep `json:"token,omitempty"`
-	App *AuthorizedAppDataRep `json:"app,omitempty"`
-	TitleVerb *string `json:"titleVerb,omitempty"`
-	Title *string `json:"title,omitempty"`
-	Target *TargetResourceRep `json:"target,omitempty"`
-	Parent *ParentResourceRep `json:"parent,omitempty"`
+	SourceLink *string `json:"sourceLink,omitempty"`
+	CommitUrlTemplate *string `json:"commitUrlTemplate,omitempty"`
+	HunkUrlTemplate *string `json:"hunkUrlTemplate,omitempty"`
+	Type *string `json:"type,omitempty"`
+	DefaultBranch *string `json:"defaultBranch,omitempty"`
 }
 
-// NewAuditLogEntryListingRepCollectionItems instantiates a new AuditLogEntryListingRepCollectionItems object
+// NewApiRepositoryPost instantiates a new ApiRepositoryPost object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAuditLogEntryListingRepCollectionItems() *AuditLogEntryListingRepCollectionItems {
-	this := AuditLogEntryListingRepCollectionItems{}
+func NewApiRepositoryPost() *ApiRepositoryPost {
+	this := ApiRepositoryPost{}
 	return &this
 }
 
-// NewAuditLogEntryListingRepCollectionItemsWithDefaults instantiates a new AuditLogEntryListingRepCollectionItems object
+// NewApiRepositoryPostWithDefaults instantiates a new ApiRepositoryPost object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewAuditLogEntryListingRepCollectionItemsWithDefaults() *AuditLogEntryListingRepCollectionItems {
-	this := AuditLogEntryListingRepCollectionItems{}
+func NewApiRepositoryPostWithDefaults() *ApiRepositoryPost {
+	this := ApiRepositoryPost{}
 	return &this
-}
-
-// GetLinks returns the Links field value if set, zero value otherwise.
-func (o *AuditLogEntryListingRepCollectionItems) GetLinks() map[string]InlineResponse200 {
-	if o == nil || o.Links == nil {
-		var ret map[string]InlineResponse200
-		return ret
-	}
-	return *o.Links
-}
-
-// GetLinksOk returns a tuple with the Links field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AuditLogEntryListingRepCollectionItems) GetLinksOk() (*map[string]InlineResponse200, bool) {
-	if o == nil || o.Links == nil {
-		return nil, false
-	}
-	return o.Links, true
-}
-
-// HasLinks returns a boolean if a field has been set.
-func (o *AuditLogEntryListingRepCollectionItems) HasLinks() bool {
-	if o != nil && o.Links != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetLinks gets a reference to the given map[string]InlineResponse200 and assigns it to the Links field.
-func (o *AuditLogEntryListingRepCollectionItems) SetLinks(v map[string]InlineResponse200) {
-	o.Links = &v
-}
-
-// GetId returns the Id field value if set, zero value otherwise.
-func (o *AuditLogEntryListingRepCollectionItems) GetId() string {
-	if o == nil || o.Id == nil {
-		var ret string
-		return ret
-	}
-	return *o.Id
-}
-
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AuditLogEntryListingRepCollectionItems) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
-		return nil, false
-	}
-	return o.Id, true
-}
-
-// HasId returns a boolean if a field has been set.
-func (o *AuditLogEntryListingRepCollectionItems) HasId() bool {
-	if o != nil && o.Id != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetId gets a reference to the given string and assigns it to the Id field.
-func (o *AuditLogEntryListingRepCollectionItems) SetId(v string) {
-	o.Id = &v
-}
-
-// GetAccountId returns the AccountId field value if set, zero value otherwise.
-func (o *AuditLogEntryListingRepCollectionItems) GetAccountId() string {
-	if o == nil || o.AccountId == nil {
-		var ret string
-		return ret
-	}
-	return *o.AccountId
-}
-
-// GetAccountIdOk returns a tuple with the AccountId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AuditLogEntryListingRepCollectionItems) GetAccountIdOk() (*string, bool) {
-	if o == nil || o.AccountId == nil {
-		return nil, false
-	}
-	return o.AccountId, true
-}
-
-// HasAccountId returns a boolean if a field has been set.
-func (o *AuditLogEntryListingRepCollectionItems) HasAccountId() bool {
-	if o != nil && o.AccountId != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetAccountId gets a reference to the given string and assigns it to the AccountId field.
-func (o *AuditLogEntryListingRepCollectionItems) SetAccountId(v string) {
-	o.AccountId = &v
-}
-
-// GetDate returns the Date field value if set, zero value otherwise.
-func (o *AuditLogEntryListingRepCollectionItems) GetDate() int64 {
-	if o == nil || o.Date == nil {
-		var ret int64
-		return ret
-	}
-	return *o.Date
-}
-
-// GetDateOk returns a tuple with the Date field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AuditLogEntryListingRepCollectionItems) GetDateOk() (*int64, bool) {
-	if o == nil || o.Date == nil {
-		return nil, false
-	}
-	return o.Date, true
-}
-
-// HasDate returns a boolean if a field has been set.
-func (o *AuditLogEntryListingRepCollectionItems) HasDate() bool {
-	if o != nil && o.Date != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetDate gets a reference to the given int64 and assigns it to the Date field.
-func (o *AuditLogEntryListingRepCollectionItems) SetDate(v int64) {
-	o.Date = &v
-}
-
-// GetAccesses returns the Accesses field value if set, zero value otherwise.
-func (o *AuditLogEntryListingRepCollectionItems) GetAccesses() []AuditLogEntryListingRepAccesses {
-	if o == nil || o.Accesses == nil {
-		var ret []AuditLogEntryListingRepAccesses
-		return ret
-	}
-	return *o.Accesses
-}
-
-// GetAccessesOk returns a tuple with the Accesses field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AuditLogEntryListingRepCollectionItems) GetAccessesOk() (*[]AuditLogEntryListingRepAccesses, bool) {
-	if o == nil || o.Accesses == nil {
-		return nil, false
-	}
-	return o.Accesses, true
-}
-
-// HasAccesses returns a boolean if a field has been set.
-func (o *AuditLogEntryListingRepCollectionItems) HasAccesses() bool {
-	if o != nil && o.Accesses != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetAccesses gets a reference to the given []AuditLogEntryListingRepAccesses and assigns it to the Accesses field.
-func (o *AuditLogEntryListingRepCollectionItems) SetAccesses(v []AuditLogEntryListingRepAccesses) {
-	o.Accesses = &v
-}
-
-// GetKind returns the Kind field value if set, zero value otherwise.
-func (o *AuditLogEntryListingRepCollectionItems) GetKind() string {
-	if o == nil || o.Kind == nil {
-		var ret string
-		return ret
-	}
-	return *o.Kind
-}
-
-// GetKindOk returns a tuple with the Kind field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AuditLogEntryListingRepCollectionItems) GetKindOk() (*string, bool) {
-	if o == nil || o.Kind == nil {
-		return nil, false
-	}
-	return o.Kind, true
-}
-
-// HasKind returns a boolean if a field has been set.
-func (o *AuditLogEntryListingRepCollectionItems) HasKind() bool {
-	if o != nil && o.Kind != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetKind gets a reference to the given string and assigns it to the Kind field.
-func (o *AuditLogEntryListingRepCollectionItems) SetKind(v string) {
-	o.Kind = &v
 }
 
 // GetName returns the Name field value if set, zero value otherwise.
-func (o *AuditLogEntryListingRepCollectionItems) GetName() string {
+func (o *ApiRepositoryPost) GetName() string {
 	if o == nil || o.Name == nil {
 		var ret string
 		return ret
@@ -257,7 +53,7 @@ func (o *AuditLogEntryListingRepCollectionItems) GetName() string {
 
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AuditLogEntryListingRepCollectionItems) GetNameOk() (*string, bool) {
+func (o *ApiRepositoryPost) GetNameOk() (*string, bool) {
 	if o == nil || o.Name == nil {
 		return nil, false
 	}
@@ -265,7 +61,7 @@ func (o *AuditLogEntryListingRepCollectionItems) GetNameOk() (*string, bool) {
 }
 
 // HasName returns a boolean if a field has been set.
-func (o *AuditLogEntryListingRepCollectionItems) HasName() bool {
+func (o *ApiRepositoryPost) HasName() bool {
 	if o != nil && o.Name != nil {
 		return true
 	}
@@ -274,453 +70,225 @@ func (o *AuditLogEntryListingRepCollectionItems) HasName() bool {
 }
 
 // SetName gets a reference to the given string and assigns it to the Name field.
-func (o *AuditLogEntryListingRepCollectionItems) SetName(v string) {
+func (o *ApiRepositoryPost) SetName(v string) {
 	o.Name = &v
 }
 
-// GetDescription returns the Description field value if set, zero value otherwise.
-func (o *AuditLogEntryListingRepCollectionItems) GetDescription() string {
-	if o == nil || o.Description == nil {
+// GetSourceLink returns the SourceLink field value if set, zero value otherwise.
+func (o *ApiRepositoryPost) GetSourceLink() string {
+	if o == nil || o.SourceLink == nil {
 		var ret string
 		return ret
 	}
-	return *o.Description
+	return *o.SourceLink
 }
 
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// GetSourceLinkOk returns a tuple with the SourceLink field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AuditLogEntryListingRepCollectionItems) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+func (o *ApiRepositoryPost) GetSourceLinkOk() (*string, bool) {
+	if o == nil || o.SourceLink == nil {
 		return nil, false
 	}
-	return o.Description, true
+	return o.SourceLink, true
 }
 
-// HasDescription returns a boolean if a field has been set.
-func (o *AuditLogEntryListingRepCollectionItems) HasDescription() bool {
-	if o != nil && o.Description != nil {
+// HasSourceLink returns a boolean if a field has been set.
+func (o *ApiRepositoryPost) HasSourceLink() bool {
+	if o != nil && o.SourceLink != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *AuditLogEntryListingRepCollectionItems) SetDescription(v string) {
-	o.Description = &v
+// SetSourceLink gets a reference to the given string and assigns it to the SourceLink field.
+func (o *ApiRepositoryPost) SetSourceLink(v string) {
+	o.SourceLink = &v
 }
 
-// GetShortDescription returns the ShortDescription field value if set, zero value otherwise.
-func (o *AuditLogEntryListingRepCollectionItems) GetShortDescription() string {
-	if o == nil || o.ShortDescription == nil {
+// GetCommitUrlTemplate returns the CommitUrlTemplate field value if set, zero value otherwise.
+func (o *ApiRepositoryPost) GetCommitUrlTemplate() string {
+	if o == nil || o.CommitUrlTemplate == nil {
 		var ret string
 		return ret
 	}
-	return *o.ShortDescription
+	return *o.CommitUrlTemplate
 }
 
-// GetShortDescriptionOk returns a tuple with the ShortDescription field value if set, nil otherwise
+// GetCommitUrlTemplateOk returns a tuple with the CommitUrlTemplate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AuditLogEntryListingRepCollectionItems) GetShortDescriptionOk() (*string, bool) {
-	if o == nil || o.ShortDescription == nil {
+func (o *ApiRepositoryPost) GetCommitUrlTemplateOk() (*string, bool) {
+	if o == nil || o.CommitUrlTemplate == nil {
 		return nil, false
 	}
-	return o.ShortDescription, true
+	return o.CommitUrlTemplate, true
 }
 
-// HasShortDescription returns a boolean if a field has been set.
-func (o *AuditLogEntryListingRepCollectionItems) HasShortDescription() bool {
-	if o != nil && o.ShortDescription != nil {
+// HasCommitUrlTemplate returns a boolean if a field has been set.
+func (o *ApiRepositoryPost) HasCommitUrlTemplate() bool {
+	if o != nil && o.CommitUrlTemplate != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetShortDescription gets a reference to the given string and assigns it to the ShortDescription field.
-func (o *AuditLogEntryListingRepCollectionItems) SetShortDescription(v string) {
-	o.ShortDescription = &v
+// SetCommitUrlTemplate gets a reference to the given string and assigns it to the CommitUrlTemplate field.
+func (o *ApiRepositoryPost) SetCommitUrlTemplate(v string) {
+	o.CommitUrlTemplate = &v
 }
 
-// GetComment returns the Comment field value if set, zero value otherwise.
-func (o *AuditLogEntryListingRepCollectionItems) GetComment() string {
-	if o == nil || o.Comment == nil {
+// GetHunkUrlTemplate returns the HunkUrlTemplate field value if set, zero value otherwise.
+func (o *ApiRepositoryPost) GetHunkUrlTemplate() string {
+	if o == nil || o.HunkUrlTemplate == nil {
 		var ret string
 		return ret
 	}
-	return *o.Comment
+	return *o.HunkUrlTemplate
 }
 
-// GetCommentOk returns a tuple with the Comment field value if set, nil otherwise
+// GetHunkUrlTemplateOk returns a tuple with the HunkUrlTemplate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AuditLogEntryListingRepCollectionItems) GetCommentOk() (*string, bool) {
-	if o == nil || o.Comment == nil {
+func (o *ApiRepositoryPost) GetHunkUrlTemplateOk() (*string, bool) {
+	if o == nil || o.HunkUrlTemplate == nil {
 		return nil, false
 	}
-	return o.Comment, true
+	return o.HunkUrlTemplate, true
 }
 
-// HasComment returns a boolean if a field has been set.
-func (o *AuditLogEntryListingRepCollectionItems) HasComment() bool {
-	if o != nil && o.Comment != nil {
+// HasHunkUrlTemplate returns a boolean if a field has been set.
+func (o *ApiRepositoryPost) HasHunkUrlTemplate() bool {
+	if o != nil && o.HunkUrlTemplate != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetComment gets a reference to the given string and assigns it to the Comment field.
-func (o *AuditLogEntryListingRepCollectionItems) SetComment(v string) {
-	o.Comment = &v
+// SetHunkUrlTemplate gets a reference to the given string and assigns it to the HunkUrlTemplate field.
+func (o *ApiRepositoryPost) SetHunkUrlTemplate(v string) {
+	o.HunkUrlTemplate = &v
 }
 
-// GetSubject returns the Subject field value if set, zero value otherwise.
-func (o *AuditLogEntryListingRepCollectionItems) GetSubject() SubjectDataRep {
-	if o == nil || o.Subject == nil {
-		var ret SubjectDataRep
-		return ret
-	}
-	return *o.Subject
-}
-
-// GetSubjectOk returns a tuple with the Subject field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AuditLogEntryListingRepCollectionItems) GetSubjectOk() (*SubjectDataRep, bool) {
-	if o == nil || o.Subject == nil {
-		return nil, false
-	}
-	return o.Subject, true
-}
-
-// HasSubject returns a boolean if a field has been set.
-func (o *AuditLogEntryListingRepCollectionItems) HasSubject() bool {
-	if o != nil && o.Subject != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetSubject gets a reference to the given SubjectDataRep and assigns it to the Subject field.
-func (o *AuditLogEntryListingRepCollectionItems) SetSubject(v SubjectDataRep) {
-	o.Subject = &v
-}
-
-// GetMember returns the Member field value if set, zero value otherwise.
-func (o *AuditLogEntryListingRepCollectionItems) GetMember() MemberDataRep {
-	if o == nil || o.Member == nil {
-		var ret MemberDataRep
-		return ret
-	}
-	return *o.Member
-}
-
-// GetMemberOk returns a tuple with the Member field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AuditLogEntryListingRepCollectionItems) GetMemberOk() (*MemberDataRep, bool) {
-	if o == nil || o.Member == nil {
-		return nil, false
-	}
-	return o.Member, true
-}
-
-// HasMember returns a boolean if a field has been set.
-func (o *AuditLogEntryListingRepCollectionItems) HasMember() bool {
-	if o != nil && o.Member != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetMember gets a reference to the given MemberDataRep and assigns it to the Member field.
-func (o *AuditLogEntryListingRepCollectionItems) SetMember(v MemberDataRep) {
-	o.Member = &v
-}
-
-// GetToken returns the Token field value if set, zero value otherwise.
-func (o *AuditLogEntryListingRepCollectionItems) GetToken() TokenDataRep {
-	if o == nil || o.Token == nil {
-		var ret TokenDataRep
-		return ret
-	}
-	return *o.Token
-}
-
-// GetTokenOk returns a tuple with the Token field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AuditLogEntryListingRepCollectionItems) GetTokenOk() (*TokenDataRep, bool) {
-	if o == nil || o.Token == nil {
-		return nil, false
-	}
-	return o.Token, true
-}
-
-// HasToken returns a boolean if a field has been set.
-func (o *AuditLogEntryListingRepCollectionItems) HasToken() bool {
-	if o != nil && o.Token != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetToken gets a reference to the given TokenDataRep and assigns it to the Token field.
-func (o *AuditLogEntryListingRepCollectionItems) SetToken(v TokenDataRep) {
-	o.Token = &v
-}
-
-// GetApp returns the App field value if set, zero value otherwise.
-func (o *AuditLogEntryListingRepCollectionItems) GetApp() AuthorizedAppDataRep {
-	if o == nil || o.App == nil {
-		var ret AuthorizedAppDataRep
-		return ret
-	}
-	return *o.App
-}
-
-// GetAppOk returns a tuple with the App field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AuditLogEntryListingRepCollectionItems) GetAppOk() (*AuthorizedAppDataRep, bool) {
-	if o == nil || o.App == nil {
-		return nil, false
-	}
-	return o.App, true
-}
-
-// HasApp returns a boolean if a field has been set.
-func (o *AuditLogEntryListingRepCollectionItems) HasApp() bool {
-	if o != nil && o.App != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetApp gets a reference to the given AuthorizedAppDataRep and assigns it to the App field.
-func (o *AuditLogEntryListingRepCollectionItems) SetApp(v AuthorizedAppDataRep) {
-	o.App = &v
-}
-
-// GetTitleVerb returns the TitleVerb field value if set, zero value otherwise.
-func (o *AuditLogEntryListingRepCollectionItems) GetTitleVerb() string {
-	if o == nil || o.TitleVerb == nil {
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *ApiRepositoryPost) GetType() string {
+	if o == nil || o.Type == nil {
 		var ret string
 		return ret
 	}
-	return *o.TitleVerb
+	return *o.Type
 }
 
-// GetTitleVerbOk returns a tuple with the TitleVerb field value if set, nil otherwise
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AuditLogEntryListingRepCollectionItems) GetTitleVerbOk() (*string, bool) {
-	if o == nil || o.TitleVerb == nil {
+func (o *ApiRepositoryPost) GetTypeOk() (*string, bool) {
+	if o == nil || o.Type == nil {
 		return nil, false
 	}
-	return o.TitleVerb, true
+	return o.Type, true
 }
 
-// HasTitleVerb returns a boolean if a field has been set.
-func (o *AuditLogEntryListingRepCollectionItems) HasTitleVerb() bool {
-	if o != nil && o.TitleVerb != nil {
+// HasType returns a boolean if a field has been set.
+func (o *ApiRepositoryPost) HasType() bool {
+	if o != nil && o.Type != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetTitleVerb gets a reference to the given string and assigns it to the TitleVerb field.
-func (o *AuditLogEntryListingRepCollectionItems) SetTitleVerb(v string) {
-	o.TitleVerb = &v
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *ApiRepositoryPost) SetType(v string) {
+	o.Type = &v
 }
 
-// GetTitle returns the Title field value if set, zero value otherwise.
-func (o *AuditLogEntryListingRepCollectionItems) GetTitle() string {
-	if o == nil || o.Title == nil {
+// GetDefaultBranch returns the DefaultBranch field value if set, zero value otherwise.
+func (o *ApiRepositoryPost) GetDefaultBranch() string {
+	if o == nil || o.DefaultBranch == nil {
 		var ret string
 		return ret
 	}
-	return *o.Title
+	return *o.DefaultBranch
 }
 
-// GetTitleOk returns a tuple with the Title field value if set, nil otherwise
+// GetDefaultBranchOk returns a tuple with the DefaultBranch field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AuditLogEntryListingRepCollectionItems) GetTitleOk() (*string, bool) {
-	if o == nil || o.Title == nil {
+func (o *ApiRepositoryPost) GetDefaultBranchOk() (*string, bool) {
+	if o == nil || o.DefaultBranch == nil {
 		return nil, false
 	}
-	return o.Title, true
+	return o.DefaultBranch, true
 }
 
-// HasTitle returns a boolean if a field has been set.
-func (o *AuditLogEntryListingRepCollectionItems) HasTitle() bool {
-	if o != nil && o.Title != nil {
+// HasDefaultBranch returns a boolean if a field has been set.
+func (o *ApiRepositoryPost) HasDefaultBranch() bool {
+	if o != nil && o.DefaultBranch != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetTitle gets a reference to the given string and assigns it to the Title field.
-func (o *AuditLogEntryListingRepCollectionItems) SetTitle(v string) {
-	o.Title = &v
+// SetDefaultBranch gets a reference to the given string and assigns it to the DefaultBranch field.
+func (o *ApiRepositoryPost) SetDefaultBranch(v string) {
+	o.DefaultBranch = &v
 }
 
-// GetTarget returns the Target field value if set, zero value otherwise.
-func (o *AuditLogEntryListingRepCollectionItems) GetTarget() TargetResourceRep {
-	if o == nil || o.Target == nil {
-		var ret TargetResourceRep
-		return ret
-	}
-	return *o.Target
-}
-
-// GetTargetOk returns a tuple with the Target field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AuditLogEntryListingRepCollectionItems) GetTargetOk() (*TargetResourceRep, bool) {
-	if o == nil || o.Target == nil {
-		return nil, false
-	}
-	return o.Target, true
-}
-
-// HasTarget returns a boolean if a field has been set.
-func (o *AuditLogEntryListingRepCollectionItems) HasTarget() bool {
-	if o != nil && o.Target != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTarget gets a reference to the given TargetResourceRep and assigns it to the Target field.
-func (o *AuditLogEntryListingRepCollectionItems) SetTarget(v TargetResourceRep) {
-	o.Target = &v
-}
-
-// GetParent returns the Parent field value if set, zero value otherwise.
-func (o *AuditLogEntryListingRepCollectionItems) GetParent() ParentResourceRep {
-	if o == nil || o.Parent == nil {
-		var ret ParentResourceRep
-		return ret
-	}
-	return *o.Parent
-}
-
-// GetParentOk returns a tuple with the Parent field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AuditLogEntryListingRepCollectionItems) GetParentOk() (*ParentResourceRep, bool) {
-	if o == nil || o.Parent == nil {
-		return nil, false
-	}
-	return o.Parent, true
-}
-
-// HasParent returns a boolean if a field has been set.
-func (o *AuditLogEntryListingRepCollectionItems) HasParent() bool {
-	if o != nil && o.Parent != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetParent gets a reference to the given ParentResourceRep and assigns it to the Parent field.
-func (o *AuditLogEntryListingRepCollectionItems) SetParent(v ParentResourceRep) {
-	o.Parent = &v
-}
-
-func (o AuditLogEntryListingRepCollectionItems) MarshalJSON() ([]byte, error) {
+func (o ApiRepositoryPost) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Links != nil {
-		toSerialize["_links"] = o.Links
-	}
-	if o.Id != nil {
-		toSerialize["_id"] = o.Id
-	}
-	if o.AccountId != nil {
-		toSerialize["_accountId"] = o.AccountId
-	}
-	if o.Date != nil {
-		toSerialize["date"] = o.Date
-	}
-	if o.Accesses != nil {
-		toSerialize["accesses"] = o.Accesses
-	}
-	if o.Kind != nil {
-		toSerialize["kind"] = o.Kind
-	}
 	if o.Name != nil {
 		toSerialize["name"] = o.Name
 	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
+	if o.SourceLink != nil {
+		toSerialize["sourceLink"] = o.SourceLink
 	}
-	if o.ShortDescription != nil {
-		toSerialize["shortDescription"] = o.ShortDescription
+	if o.CommitUrlTemplate != nil {
+		toSerialize["commitUrlTemplate"] = o.CommitUrlTemplate
 	}
-	if o.Comment != nil {
-		toSerialize["comment"] = o.Comment
+	if o.HunkUrlTemplate != nil {
+		toSerialize["hunkUrlTemplate"] = o.HunkUrlTemplate
 	}
-	if o.Subject != nil {
-		toSerialize["subject"] = o.Subject
+	if o.Type != nil {
+		toSerialize["type"] = o.Type
 	}
-	if o.Member != nil {
-		toSerialize["member"] = o.Member
-	}
-	if o.Token != nil {
-		toSerialize["token"] = o.Token
-	}
-	if o.App != nil {
-		toSerialize["app"] = o.App
-	}
-	if o.TitleVerb != nil {
-		toSerialize["titleVerb"] = o.TitleVerb
-	}
-	if o.Title != nil {
-		toSerialize["title"] = o.Title
-	}
-	if o.Target != nil {
-		toSerialize["target"] = o.Target
-	}
-	if o.Parent != nil {
-		toSerialize["parent"] = o.Parent
+	if o.DefaultBranch != nil {
+		toSerialize["defaultBranch"] = o.DefaultBranch
 	}
 	return json.Marshal(toSerialize)
 }
 
-type NullableAuditLogEntryListingRepCollectionItems struct {
-	value *AuditLogEntryListingRepCollectionItems
+type NullableApiRepositoryPost struct {
+	value *ApiRepositoryPost
 	isSet bool
 }
 
-func (v NullableAuditLogEntryListingRepCollectionItems) Get() *AuditLogEntryListingRepCollectionItems {
+func (v NullableApiRepositoryPost) Get() *ApiRepositoryPost {
 	return v.value
 }
 
-func (v *NullableAuditLogEntryListingRepCollectionItems) Set(val *AuditLogEntryListingRepCollectionItems) {
+func (v *NullableApiRepositoryPost) Set(val *ApiRepositoryPost) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableAuditLogEntryListingRepCollectionItems) IsSet() bool {
+func (v NullableApiRepositoryPost) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableAuditLogEntryListingRepCollectionItems) Unset() {
+func (v *NullableApiRepositoryPost) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableAuditLogEntryListingRepCollectionItems(val *AuditLogEntryListingRepCollectionItems) *NullableAuditLogEntryListingRepCollectionItems {
-	return &NullableAuditLogEntryListingRepCollectionItems{value: val, isSet: true}
+func NewNullableApiRepositoryPost(val *ApiRepositoryPost) *NullableApiRepositoryPost {
+	return &NullableApiRepositoryPost{value: val, isSet: true}
 }
 
-func (v NullableAuditLogEntryListingRepCollectionItems) MarshalJSON() ([]byte, error) {
+func (v NullableApiRepositoryPost) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableAuditLogEntryListingRepCollectionItems) UnmarshalJSON(src []byte) error {
+func (v *NullableApiRepositoryPost) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

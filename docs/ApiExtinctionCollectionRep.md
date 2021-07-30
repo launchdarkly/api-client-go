@@ -1,78 +1,78 @@
-# ProjectCollectionRep
+# ApiExtinctionCollectionRep
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Links** | Pointer to [**map[string]InlineResponse200**](InlineResponse200.md) | A link to this resource. | [optional] 
-**Items** | Pointer to [**[]ProjectRep**](ProjectRep.md) | List of projects. | [optional] 
+**Links** | Pointer to [**map[string]InlineResponse200**](InlineResponse200.md) |  | [optional] 
+**Items** | Pointer to **map[string][]map[string]interface{}** |  | [optional] 
 
 ## Methods
 
-### NewProjectCollectionRep
+### NewApiExtinctionCollectionRep
 
-`func NewProjectCollectionRep() *ProjectCollectionRep`
+`func NewApiExtinctionCollectionRep() *ApiExtinctionCollectionRep`
 
-NewProjectCollectionRep instantiates a new ProjectCollectionRep object
+NewApiExtinctionCollectionRep instantiates a new ApiExtinctionCollectionRep object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewProjectCollectionRepWithDefaults
+### NewApiExtinctionCollectionRepWithDefaults
 
-`func NewProjectCollectionRepWithDefaults() *ProjectCollectionRep`
+`func NewApiExtinctionCollectionRepWithDefaults() *ApiExtinctionCollectionRep`
 
-NewProjectCollectionRepWithDefaults instantiates a new ProjectCollectionRep object
+NewApiExtinctionCollectionRepWithDefaults instantiates a new ApiExtinctionCollectionRep object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetLinks
 
-`func (o *ProjectCollectionRep) GetLinks() map[string]InlineResponse200`
+`func (o *ApiExtinctionCollectionRep) GetLinks() map[string]InlineResponse200`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *ProjectCollectionRep) GetLinksOk() (*map[string]InlineResponse200, bool)`
+`func (o *ApiExtinctionCollectionRep) GetLinksOk() (*map[string]InlineResponse200, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *ProjectCollectionRep) SetLinks(v map[string]InlineResponse200)`
+`func (o *ApiExtinctionCollectionRep) SetLinks(v map[string]InlineResponse200)`
 
 SetLinks sets Links field to given value.
 
 ### HasLinks
 
-`func (o *ProjectCollectionRep) HasLinks() bool`
+`func (o *ApiExtinctionCollectionRep) HasLinks() bool`
 
 HasLinks returns a boolean if a field has been set.
 
 ### GetItems
 
-`func (o *ProjectCollectionRep) GetItems() []ProjectRep`
+`func (o *ApiExtinctionCollectionRep) GetItems() map[string][]map[string]interface{}`
 
 GetItems returns the Items field if non-nil, zero value otherwise.
 
 ### GetItemsOk
 
-`func (o *ProjectCollectionRep) GetItemsOk() (*[]ProjectRep, bool)`
+`func (o *ApiExtinctionCollectionRep) GetItemsOk() (*map[string][]map[string]interface{}, bool)`
 
 GetItemsOk returns a tuple with the Items field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetItems
 
-`func (o *ProjectCollectionRep) SetItems(v []ProjectRep)`
+`func (o *ApiExtinctionCollectionRep) SetItems(v map[string][]map[string]interface{})`
 
 SetItems sets Items field to given value.
 
 ### HasItems
 
-`func (o *ProjectCollectionRep) HasItems() bool`
+`func (o *ApiExtinctionCollectionRep) HasItems() bool`
 
 HasItems returns a boolean if a field has been set.
 

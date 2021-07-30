@@ -223,7 +223,7 @@ Name | Type | Description  | Notes
 
 ## PostMembers
 
-> MemberCollectionRep PostMembers(ctx).InlineObject(inlineObject).Execute()
+> MemberCollectionRep PostMembers(ctx).InlineObject1(inlineObject1).Execute()
 
 Invite new members
 
@@ -242,11 +242,11 @@ import (
 )
 
 func main() {
-    inlineObject := []openapiclient.InlineObject{*openapiclient.NewInlineObject("Email_example")} // []InlineObject | 
+    inlineObject1 := []openapiclient.InlineObject1{*openapiclient.NewInlineObject1("Email_example")} // []InlineObject1 | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.TeamMembersApi.PostMembers(context.Background()).InlineObject(inlineObject).Execute()
+    resp, r, err := api_client.TeamMembersApi.PostMembers(context.Background()).InlineObject1(inlineObject1).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TeamMembersApi.PostMembers``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -267,7 +267,7 @@ Other parameters are passed through a pointer to a apiPostMembersRequest struct 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **inlineObject** | [**[]InlineObject**](InlineObject.md) |  | 
+ **inlineObject1** | [**[]InlineObject1**](InlineObject1.md) |  | 
 
 ### Return type
 

@@ -17,7 +17,9 @@ import (
 
 // ProjectCollectionRep struct for ProjectCollectionRep
 type ProjectCollectionRep struct {
+	// A link to this resource.
 	Links *map[string]InlineResponse200 `json:"_links,omitempty"`
+	// List of projects.
 	Items *[]ProjectRep `json:"items,omitempty"`
 }
 

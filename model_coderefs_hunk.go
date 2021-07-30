@@ -12,294 +12,249 @@
 package ldapi
 
 import (
-	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
-	"strings"
+	"encoding/json"
 )
 
-// Linger please
-var (
-	_ _context.Context
-)
-
-// AuditLogApiService AuditLogApi service
-type AuditLogApiService service
-
-type ApiGetAuditLogEntriesRequest struct {
-	ctx _context.Context
-	ApiService *AuditLogApiService
-	before *int64
-	after *int64
-	q *string
-	limit *int64
-	spec *string
+// CoderefsHunk struct for CoderefsHunk
+type CoderefsHunk struct {
+	ProjectKey *string `json:"project_key,omitempty"`
+	FlagKey *string `json:"flag_key,omitempty"`
+	StartingLineNum *int32 `json:"starting_line_num,omitempty"`
+	Lines *string `json:"lines,omitempty"`
+	Aliases *[]string `json:"aliases,omitempty"`
 }
 
-func (r ApiGetAuditLogEntriesRequest) Before(before int64) ApiGetAuditLogEntriesRequest {
-	r.before = &before
-	return r
-}
-func (r ApiGetAuditLogEntriesRequest) After(after int64) ApiGetAuditLogEntriesRequest {
-	r.after = &after
-	return r
-}
-func (r ApiGetAuditLogEntriesRequest) Q(q string) ApiGetAuditLogEntriesRequest {
-	r.q = &q
-	return r
-}
-func (r ApiGetAuditLogEntriesRequest) Limit(limit int64) ApiGetAuditLogEntriesRequest {
-	r.limit = &limit
-	return r
-}
-func (r ApiGetAuditLogEntriesRequest) Spec(spec string) ApiGetAuditLogEntriesRequest {
-	r.spec = &spec
-	return r
+// NewCoderefsHunk instantiates a new CoderefsHunk object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewCoderefsHunk() *CoderefsHunk {
+	this := CoderefsHunk{}
+	return &this
 }
 
-func (r ApiGetAuditLogEntriesRequest) Execute() (AuditLogEntryListingRepCollection, *_nethttp.Response, error) {
-	return r.ApiService.GetAuditLogEntriesExecute(r)
+// NewCoderefsHunkWithDefaults instantiates a new CoderefsHunk object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewCoderefsHunkWithDefaults() *CoderefsHunk {
+	this := CoderefsHunk{}
+	return &this
 }
 
-/*
- * GetAuditLogEntries List audit log feature flag entries
- *  Gets a list of all audit log entries. The query parameters let you restrict the results that return by date ranges, resource specifiers, or a full-text search query.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @return ApiGetAuditLogEntriesRequest
- */
-func (a *AuditLogApiService) GetAuditLogEntries(ctx _context.Context) ApiGetAuditLogEntriesRequest {
-	return ApiGetAuditLogEntriesRequest{
-		ApiService: a,
-		ctx: ctx,
+// GetProjectKey returns the ProjectKey field value if set, zero value otherwise.
+func (o *CoderefsHunk) GetProjectKey() string {
+	if o == nil || o.ProjectKey == nil {
+		var ret string
+		return ret
 	}
+	return *o.ProjectKey
 }
 
-/*
- * Execute executes the request
- * @return AuditLogEntryListingRepCollection
- */
-func (a *AuditLogApiService) GetAuditLogEntriesExecute(r ApiGetAuditLogEntriesRequest) (AuditLogEntryListingRepCollection, *_nethttp.Response, error) {
-	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  AuditLogEntryListingRepCollection
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuditLogApiService.GetAuditLogEntries")
-	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+// GetProjectKeyOk returns a tuple with the ProjectKey field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CoderefsHunk) GetProjectKeyOk() (*string, bool) {
+	if o == nil || o.ProjectKey == nil {
+		return nil, false
 	}
-
-	localVarPath := localBasePath + "/api/v2/auditlog"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
-
-	if r.before != nil {
-		localVarQueryParams.Add("before", parameterToString(*r.before, ""))
-	}
-	if r.after != nil {
-		localVarQueryParams.Add("after", parameterToString(*r.after, ""))
-	}
-	if r.q != nil {
-		localVarQueryParams.Add("q", parameterToString(*r.q, ""))
-	}
-	if r.limit != nil {
-		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
-	}
-	if r.spec != nil {
-		localVarQueryParams.Add("spec", parameterToString(*r.spec, ""))
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["ApiKey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["Authorization"] = key
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return o.ProjectKey, true
 }
 
-type ApiGetAuditLogEntryRequest struct {
-	ctx _context.Context
-	ApiService *AuditLogApiService
-	resourceId string
+// HasProjectKey returns a boolean if a field has been set.
+func (o *CoderefsHunk) HasProjectKey() bool {
+	if o != nil && o.ProjectKey != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetProjectKey gets a reference to the given string and assigns it to the ProjectKey field.
+func (o *CoderefsHunk) SetProjectKey(v string) {
+	o.ProjectKey = &v
+}
+
+// GetFlagKey returns the FlagKey field value if set, zero value otherwise.
+func (o *CoderefsHunk) GetFlagKey() string {
+	if o == nil || o.FlagKey == nil {
+		var ret string
+		return ret
+	}
+	return *o.FlagKey
+}
+
+// GetFlagKeyOk returns a tuple with the FlagKey field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CoderefsHunk) GetFlagKeyOk() (*string, bool) {
+	if o == nil || o.FlagKey == nil {
+		return nil, false
+	}
+	return o.FlagKey, true
+}
+
+// HasFlagKey returns a boolean if a field has been set.
+func (o *CoderefsHunk) HasFlagKey() bool {
+	if o != nil && o.FlagKey != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFlagKey gets a reference to the given string and assigns it to the FlagKey field.
+func (o *CoderefsHunk) SetFlagKey(v string) {
+	o.FlagKey = &v
+}
+
+// GetStartingLineNum returns the StartingLineNum field value if set, zero value otherwise.
+func (o *CoderefsHunk) GetStartingLineNum() int32 {
+	if o == nil || o.StartingLineNum == nil {
+		var ret int32
+		return ret
+	}
+	return *o.StartingLineNum
+}
+
+// GetStartingLineNumOk returns a tuple with the StartingLineNum field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CoderefsHunk) GetStartingLineNumOk() (*int32, bool) {
+	if o == nil || o.StartingLineNum == nil {
+		return nil, false
+	}
+	return o.StartingLineNum, true
+}
+
+// HasStartingLineNum returns a boolean if a field has been set.
+func (o *CoderefsHunk) HasStartingLineNum() bool {
+	if o != nil && o.StartingLineNum != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetStartingLineNum gets a reference to the given int32 and assigns it to the StartingLineNum field.
+func (o *CoderefsHunk) SetStartingLineNum(v int32) {
+	o.StartingLineNum = &v
+}
+
+// GetLines returns the Lines field value if set, zero value otherwise.
+func (o *CoderefsHunk) GetLines() string {
+	if o == nil || o.Lines == nil {
+		var ret string
+		return ret
+	}
+	return *o.Lines
+}
+
+// GetLinesOk returns a tuple with the Lines field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CoderefsHunk) GetLinesOk() (*string, bool) {
+	if o == nil || o.Lines == nil {
+		return nil, false
+	}
+	return o.Lines, true
+}
+
+// HasLines returns a boolean if a field has been set.
+func (o *CoderefsHunk) HasLines() bool {
+	if o != nil && o.Lines != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLines gets a reference to the given string and assigns it to the Lines field.
+func (o *CoderefsHunk) SetLines(v string) {
+	o.Lines = &v
+}
+
+// GetAliases returns the Aliases field value if set, zero value otherwise.
+func (o *CoderefsHunk) GetAliases() []string {
+	if o == nil || o.Aliases == nil {
+		var ret []string
+		return ret
+	}
+	return *o.Aliases
+}
+
+// GetAliasesOk returns a tuple with the Aliases field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CoderefsHunk) GetAliasesOk() (*[]string, bool) {
+	if o == nil || o.Aliases == nil {
+		return nil, false
+	}
+	return o.Aliases, true
+}
+
+// HasAliases returns a boolean if a field has been set.
+func (o *CoderefsHunk) HasAliases() bool {
+	if o != nil && o.Aliases != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAliases gets a reference to the given []string and assigns it to the Aliases field.
+func (o *CoderefsHunk) SetAliases(v []string) {
+	o.Aliases = &v
+}
+
+func (o CoderefsHunk) MarshalJSON() ([]byte, error) {
+	toSerialize := map[string]interface{}{}
+	if o.ProjectKey != nil {
+		toSerialize["project_key"] = o.ProjectKey
+	}
+	if o.FlagKey != nil {
+		toSerialize["flag_key"] = o.FlagKey
+	}
+	if o.StartingLineNum != nil {
+		toSerialize["starting_line_num"] = o.StartingLineNum
+	}
+	if o.Lines != nil {
+		toSerialize["lines"] = o.Lines
+	}
+	if o.Aliases != nil {
+		toSerialize["aliases"] = o.Aliases
+	}
+	return json.Marshal(toSerialize)
+}
+
+type NullableCoderefsHunk struct {
+	value *CoderefsHunk
+	isSet bool
+}
+
+func (v NullableCoderefsHunk) Get() *CoderefsHunk {
+	return v.value
+}
+
+func (v *NullableCoderefsHunk) Set(val *CoderefsHunk) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableCoderefsHunk) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableCoderefsHunk) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableCoderefsHunk(val *CoderefsHunk) *NullableCoderefsHunk {
+	return &NullableCoderefsHunk{value: val, isSet: true}
+}
+
+func (v NullableCoderefsHunk) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableCoderefsHunk) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
 }
 
 
-func (r ApiGetAuditLogEntryRequest) Execute() (AuditLogEntryRep, *_nethttp.Response, error) {
-	return r.ApiService.GetAuditLogEntryExecute(r)
-}
-
-/*
- * GetAuditLogEntry Get audit log entry
- *  Fetches a detailed audit log entry representation
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param resourceId The ID of the audit log entry
- * @return ApiGetAuditLogEntryRequest
- */
-func (a *AuditLogApiService) GetAuditLogEntry(ctx _context.Context, resourceId string) ApiGetAuditLogEntryRequest {
-	return ApiGetAuditLogEntryRequest{
-		ApiService: a,
-		ctx: ctx,
-		resourceId: resourceId,
-	}
-}
-
-/*
- * Execute executes the request
- * @return AuditLogEntryRep
- */
-func (a *AuditLogApiService) GetAuditLogEntryExecute(r ApiGetAuditLogEntryRequest) (AuditLogEntryRep, *_nethttp.Response, error) {
-	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  AuditLogEntryRep
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuditLogApiService.GetAuditLogEntry")
-	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v2/auditlog/{resourceId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"resourceId"+"}", _neturl.PathEscape(parameterToString(r.resourceId, "")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["ApiKey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["Authorization"] = key
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}

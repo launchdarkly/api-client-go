@@ -12,294 +12,141 @@
 package ldapi
 
 import (
-	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
-	"strings"
+	"encoding/json"
 )
 
-// Linger please
-var (
-	_ _context.Context
-)
-
-// AuditLogApiService AuditLogApi service
-type AuditLogApiService service
-
-type ApiGetAuditLogEntriesRequest struct {
-	ctx _context.Context
-	ApiService *AuditLogApiService
-	before *int64
-	after *int64
-	q *string
-	limit *int64
-	spec *string
+// ApiStatisticsRoot struct for ApiStatisticsRoot
+type ApiStatisticsRoot struct {
+	Projects *[]InlineResponse200 `json:"projects,omitempty"`
+	Self *CoreLink `json:"self,omitempty"`
 }
 
-func (r ApiGetAuditLogEntriesRequest) Before(before int64) ApiGetAuditLogEntriesRequest {
-	r.before = &before
-	return r
-}
-func (r ApiGetAuditLogEntriesRequest) After(after int64) ApiGetAuditLogEntriesRequest {
-	r.after = &after
-	return r
-}
-func (r ApiGetAuditLogEntriesRequest) Q(q string) ApiGetAuditLogEntriesRequest {
-	r.q = &q
-	return r
-}
-func (r ApiGetAuditLogEntriesRequest) Limit(limit int64) ApiGetAuditLogEntriesRequest {
-	r.limit = &limit
-	return r
-}
-func (r ApiGetAuditLogEntriesRequest) Spec(spec string) ApiGetAuditLogEntriesRequest {
-	r.spec = &spec
-	return r
+// NewApiStatisticsRoot instantiates a new ApiStatisticsRoot object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewApiStatisticsRoot() *ApiStatisticsRoot {
+	this := ApiStatisticsRoot{}
+	return &this
 }
 
-func (r ApiGetAuditLogEntriesRequest) Execute() (AuditLogEntryListingRepCollection, *_nethttp.Response, error) {
-	return r.ApiService.GetAuditLogEntriesExecute(r)
+// NewApiStatisticsRootWithDefaults instantiates a new ApiStatisticsRoot object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewApiStatisticsRootWithDefaults() *ApiStatisticsRoot {
+	this := ApiStatisticsRoot{}
+	return &this
 }
 
-/*
- * GetAuditLogEntries List audit log feature flag entries
- *  Gets a list of all audit log entries. The query parameters let you restrict the results that return by date ranges, resource specifiers, or a full-text search query.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @return ApiGetAuditLogEntriesRequest
- */
-func (a *AuditLogApiService) GetAuditLogEntries(ctx _context.Context) ApiGetAuditLogEntriesRequest {
-	return ApiGetAuditLogEntriesRequest{
-		ApiService: a,
-		ctx: ctx,
+// GetProjects returns the Projects field value if set, zero value otherwise.
+func (o *ApiStatisticsRoot) GetProjects() []InlineResponse200 {
+	if o == nil || o.Projects == nil {
+		var ret []InlineResponse200
+		return ret
 	}
+	return *o.Projects
 }
 
-/*
- * Execute executes the request
- * @return AuditLogEntryListingRepCollection
- */
-func (a *AuditLogApiService) GetAuditLogEntriesExecute(r ApiGetAuditLogEntriesRequest) (AuditLogEntryListingRepCollection, *_nethttp.Response, error) {
-	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  AuditLogEntryListingRepCollection
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuditLogApiService.GetAuditLogEntries")
-	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+// GetProjectsOk returns a tuple with the Projects field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiStatisticsRoot) GetProjectsOk() (*[]InlineResponse200, bool) {
+	if o == nil || o.Projects == nil {
+		return nil, false
 	}
-
-	localVarPath := localBasePath + "/api/v2/auditlog"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
-
-	if r.before != nil {
-		localVarQueryParams.Add("before", parameterToString(*r.before, ""))
-	}
-	if r.after != nil {
-		localVarQueryParams.Add("after", parameterToString(*r.after, ""))
-	}
-	if r.q != nil {
-		localVarQueryParams.Add("q", parameterToString(*r.q, ""))
-	}
-	if r.limit != nil {
-		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
-	}
-	if r.spec != nil {
-		localVarQueryParams.Add("spec", parameterToString(*r.spec, ""))
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["ApiKey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["Authorization"] = key
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return o.Projects, true
 }
 
-type ApiGetAuditLogEntryRequest struct {
-	ctx _context.Context
-	ApiService *AuditLogApiService
-	resourceId string
+// HasProjects returns a boolean if a field has been set.
+func (o *ApiStatisticsRoot) HasProjects() bool {
+	if o != nil && o.Projects != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetProjects gets a reference to the given []InlineResponse200 and assigns it to the Projects field.
+func (o *ApiStatisticsRoot) SetProjects(v []InlineResponse200) {
+	o.Projects = &v
+}
+
+// GetSelf returns the Self field value if set, zero value otherwise.
+func (o *ApiStatisticsRoot) GetSelf() CoreLink {
+	if o == nil || o.Self == nil {
+		var ret CoreLink
+		return ret
+	}
+	return *o.Self
+}
+
+// GetSelfOk returns a tuple with the Self field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiStatisticsRoot) GetSelfOk() (*CoreLink, bool) {
+	if o == nil || o.Self == nil {
+		return nil, false
+	}
+	return o.Self, true
+}
+
+// HasSelf returns a boolean if a field has been set.
+func (o *ApiStatisticsRoot) HasSelf() bool {
+	if o != nil && o.Self != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSelf gets a reference to the given CoreLink and assigns it to the Self field.
+func (o *ApiStatisticsRoot) SetSelf(v CoreLink) {
+	o.Self = &v
+}
+
+func (o ApiStatisticsRoot) MarshalJSON() ([]byte, error) {
+	toSerialize := map[string]interface{}{}
+	if o.Projects != nil {
+		toSerialize["projects"] = o.Projects
+	}
+	if o.Self != nil {
+		toSerialize["self"] = o.Self
+	}
+	return json.Marshal(toSerialize)
+}
+
+type NullableApiStatisticsRoot struct {
+	value *ApiStatisticsRoot
+	isSet bool
+}
+
+func (v NullableApiStatisticsRoot) Get() *ApiStatisticsRoot {
+	return v.value
+}
+
+func (v *NullableApiStatisticsRoot) Set(val *ApiStatisticsRoot) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableApiStatisticsRoot) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableApiStatisticsRoot) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableApiStatisticsRoot(val *ApiStatisticsRoot) *NullableApiStatisticsRoot {
+	return &NullableApiStatisticsRoot{value: val, isSet: true}
+}
+
+func (v NullableApiStatisticsRoot) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableApiStatisticsRoot) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
 }
 
 
-func (r ApiGetAuditLogEntryRequest) Execute() (AuditLogEntryRep, *_nethttp.Response, error) {
-	return r.ApiService.GetAuditLogEntryExecute(r)
-}
-
-/*
- * GetAuditLogEntry Get audit log entry
- *  Fetches a detailed audit log entry representation
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param resourceId The ID of the audit log entry
- * @return ApiGetAuditLogEntryRequest
- */
-func (a *AuditLogApiService) GetAuditLogEntry(ctx _context.Context, resourceId string) ApiGetAuditLogEntryRequest {
-	return ApiGetAuditLogEntryRequest{
-		ApiService: a,
-		ctx: ctx,
-		resourceId: resourceId,
-	}
-}
-
-/*
- * Execute executes the request
- * @return AuditLogEntryRep
- */
-func (a *AuditLogApiService) GetAuditLogEntryExecute(r ApiGetAuditLogEntryRequest) (AuditLogEntryRep, *_nethttp.Response, error) {
-	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  AuditLogEntryRep
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuditLogApiService.GetAuditLogEntry")
-	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v2/auditlog/{resourceId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"resourceId"+"}", _neturl.PathEscape(parameterToString(r.resourceId, "")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["ApiKey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["Authorization"] = key
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}

@@ -1058,6 +1058,7 @@ type ApiGetFeatureFlagsRequest struct {
 	type_ *string
 	hasExperiment *bool
 	hasDataExport *bool
+	evaluated *map[string]interface{}
 	filterEnv *string
 }
 
@@ -1099,6 +1100,10 @@ func (r ApiGetFeatureFlagsRequest) HasExperiment(hasExperiment bool) ApiGetFeatu
 }
 func (r ApiGetFeatureFlagsRequest) HasDataExport(hasDataExport bool) ApiGetFeatureFlagsRequest {
 	r.hasDataExport = &hasDataExport
+	return r
+}
+func (r ApiGetFeatureFlagsRequest) Evaluated(evaluated map[string]interface{}) ApiGetFeatureFlagsRequest {
+	r.evaluated = &evaluated
 	return r
 }
 func (r ApiGetFeatureFlagsRequest) FilterEnv(filterEnv string) ApiGetFeatureFlagsRequest {
@@ -1180,6 +1185,9 @@ func (a *FeatureFlagsApiService) GetFeatureFlagsExecute(r ApiGetFeatureFlagsRequ
 	}
 	if r.hasDataExport != nil {
 		localVarQueryParams.Add("hasDataExport", parameterToString(*r.hasDataExport, ""))
+	}
+	if r.evaluated != nil {
+		localVarQueryParams.Add("evaluated", parameterToString(*r.evaluated, ""))
 	}
 	if r.filterEnv != nil {
 		localVarQueryParams.Add("filterEnv", parameterToString(*r.filterEnv, ""))

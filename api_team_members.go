@@ -390,11 +390,11 @@ func (a *TeamMembersApiService) PatchMemberExecute(r ApiPatchMemberRequest) (Mem
 type ApiPostMembersRequest struct {
 	ctx _context.Context
 	ApiService *TeamMembersApiService
-	inlineObject *[]InlineObject
+	inlineObject1 *[]InlineObject1
 }
 
-func (r ApiPostMembersRequest) InlineObject(inlineObject []InlineObject) ApiPostMembersRequest {
-	r.inlineObject = &inlineObject
+func (r ApiPostMembersRequest) InlineObject1(inlineObject1 []InlineObject1) ApiPostMembersRequest {
+	r.inlineObject1 = &inlineObject1
 	return r
 }
 
@@ -439,8 +439,8 @@ func (a *TeamMembersApiService) PostMembersExecute(r ApiPostMembersRequest) (Mem
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-	if r.inlineObject == nil {
-		return localVarReturnValue, nil, reportError("inlineObject is required and must be specified")
+	if r.inlineObject1 == nil {
+		return localVarReturnValue, nil, reportError("inlineObject1 is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -461,7 +461,7 @@ func (a *TeamMembersApiService) PostMembersExecute(r ApiPostMembersRequest) (Mem
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.inlineObject
+	localVarPostBody = r.inlineObject1
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {

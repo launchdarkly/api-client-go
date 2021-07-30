@@ -4,16 +4,90 @@ All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**DeleteBranches**](CodeReferencesApi.md#DeleteBranches) | **Post** /api/v2/code-refs/repositories/{repo}/branch-delete-tasks | Delete branches
 [**DeleteRepository**](CodeReferencesApi.md#DeleteRepository) | **Delete** /api/v2/code-refs/repositories/{repo} | Delete repository
 [**GetBranch**](CodeReferencesApi.md#GetBranch) | **Get** /api/v2/code-refs/repositories/{repo}/branches/{branch} | Get branch
 [**GetBranches**](CodeReferencesApi.md#GetBranches) | **Get** /api/v2/code-refs/repositories/{repo}/branches | List branches
+[**GetExtinctions**](CodeReferencesApi.md#GetExtinctions) | **Get** /api/v2/code-refs/extinctions | List extinctions
 [**GetRepositories**](CodeReferencesApi.md#GetRepositories) | **Get** /api/v2/code-refs/repositories | List repositories
 [**GetRepository**](CodeReferencesApi.md#GetRepository) | **Get** /api/v2/code-refs/repositories/{repo} | Get repository
+[**GetRootStatistic**](CodeReferencesApi.md#GetRootStatistic) | **Get** /api/v2/code-refs/statistics | Get number of code references for flags
 [**GetStatistics**](CodeReferencesApi.md#GetStatistics) | **Get** /api/v2/code-refs/statistics/{projKey} | Get number of code references for flags
 [**PatchRepository**](CodeReferencesApi.md#PatchRepository) | **Patch** /api/v2/code-refs/repositories/{repo} | Update repository
+[**PostExtinction**](CodeReferencesApi.md#PostExtinction) | **Post** /api/v2/code-refs/repositories/{repo}/branches/{branch} | Post extinction
 [**PostRepository**](CodeReferencesApi.md#PostRepository) | **Post** /api/v2/code-refs/repositories | Create repository
 [**PutBranch**](CodeReferencesApi.md#PutBranch) | **Put** /api/v2/code-refs/repositories/{repo}/branches/{branch} | Upsert branch
 
+
+
+## DeleteBranches
+
+> DeleteBranches(ctx, repo).RequestBody(requestBody).Execute()
+
+Delete branches
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    repo := "repo_example" // string | The repo name to delete branches for.
+    requestBody := []string{"Property_example"} // []string | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.CodeReferencesApi.DeleteBranches(context.Background(), repo).RequestBody(requestBody).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `CodeReferencesApi.DeleteBranches``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**repo** | **string** | The repo name to delete branches for. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteBranchesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **requestBody** | **[]string** |  | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## DeleteRepository
@@ -86,7 +160,7 @@ Name | Type | Description  | Notes
 
 ## GetBranch
 
-> ApiBranchRep GetBranch(ctx, repo, branch).Execute()
+> ApiBranchRep GetBranch(ctx, repo, branch).ProjKey(projKey).FlagKey(flagKey).Execute()
 
 Get branch
 
@@ -107,10 +181,12 @@ import (
 func main() {
     repo := "repo_example" // string | The repository name
     branch := "branch_example" // string | The url-encoded branch name
+    projKey := "projKey_example" // string | Filter results to a specific project (optional)
+    flagKey := "flagKey_example" // string | Filter results to a specific flag key (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CodeReferencesApi.GetBranch(context.Background(), repo, branch).Execute()
+    resp, r, err := api_client.CodeReferencesApi.GetBranch(context.Background(), repo, branch).ProjKey(projKey).FlagKey(flagKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CodeReferencesApi.GetBranch``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -138,6 +214,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **projKey** | **string** | Filter results to a specific project | 
+ **flagKey** | **string** | Filter results to a specific flag key | 
 
 ### Return type
 
@@ -212,6 +290,78 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ApiBranchCollectionRep**](ApiBranchCollectionRep.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetExtinctions
+
+> ApiExtinctionCollectionRep GetExtinctions(ctx).RepoName(repoName).BranchName(branchName).ProjKey(projKey).FlagKey(flagKey).Execute()
+
+List extinctions
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    repoName := "repoName_example" // string | Filter results to a specific repository (optional)
+    branchName := "branchName_example" // string | Filter results to a specific branch (optional)
+    projKey := "projKey_example" // string | Filter results to a specific project (optional)
+    flagKey := "flagKey_example" // string | Filter results to a specific flag key (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.CodeReferencesApi.GetExtinctions(context.Background()).RepoName(repoName).BranchName(branchName).ProjKey(projKey).FlagKey(flagKey).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `CodeReferencesApi.GetExtinctions``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetExtinctions`: ApiExtinctionCollectionRep
+    fmt.Fprintf(os.Stdout, "Response from `CodeReferencesApi.GetExtinctions`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetExtinctionsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **repoName** | **string** | Filter results to a specific repository | 
+ **branchName** | **string** | Filter results to a specific branch | 
+ **projKey** | **string** | Filter results to a specific project | 
+ **flagKey** | **string** | Filter results to a specific flag key | 
+
+### Return type
+
+[**ApiExtinctionCollectionRep**](ApiExtinctionCollectionRep.md)
 
 ### Authorization
 
@@ -354,6 +504,67 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ApiRepositoryRep**](ApiRepositoryRep.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetRootStatistic
+
+> ApiStatisticsRoot GetRootStatistic(ctx).Execute()
+
+Get number of code references for flags
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.CodeReferencesApi.GetRootStatistic(context.Background()).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `CodeReferencesApi.GetRootStatistic``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetRootStatistic`: ApiStatisticsRoot
+    fmt.Fprintf(os.Stdout, "Response from `CodeReferencesApi.GetRootStatistic`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetRootStatisticRequest struct via the builder pattern
+
+
+### Return type
+
+[**ApiStatisticsRoot**](ApiStatisticsRoot.md)
 
 ### Authorization
 
@@ -513,9 +724,82 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## PostExtinction
+
+> PostExtinction(ctx, repo, branch).InlineObject(inlineObject).Execute()
+
+Post extinction
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    repo := "repo_example" // string | The repository name
+    branch := "branch_example" // string | The url-encoded branch name
+    inlineObject := []openapiclient.InlineObject{*openapiclient.NewInlineObject()} // []InlineObject | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.CodeReferencesApi.PostExtinction(context.Background(), repo, branch).InlineObject(inlineObject).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `CodeReferencesApi.PostExtinction``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**repo** | **string** | The repository name | 
+**branch** | **string** | The url-encoded branch name | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostExtinctionRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **inlineObject** | [**[]InlineObject**](InlineObject.md) |  | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## PostRepository
 
-> PostRepository(ctx).Body(body).Execute()
+> PostRepository(ctx).ApiRepositoryPost(apiRepositoryPost).Execute()
 
 Create repository
 
@@ -534,11 +818,11 @@ import (
 )
 
 func main() {
-    body := "body_example" // string | 
+    apiRepositoryPost := *openapiclient.NewApiRepositoryPost() // ApiRepositoryPost | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CodeReferencesApi.PostRepository(context.Background()).Body(body).Execute()
+    resp, r, err := api_client.CodeReferencesApi.PostRepository(context.Background()).ApiRepositoryPost(apiRepositoryPost).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CodeReferencesApi.PostRepository``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -557,7 +841,7 @@ Other parameters are passed through a pointer to a apiPostRepositoryRequest stru
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | **string** |  | 
+ **apiRepositoryPost** | [**ApiRepositoryPost**](ApiRepositoryPost.md) |  | 
 
 ### Return type
 
@@ -579,7 +863,7 @@ Name | Type | Description  | Notes
 
 ## PutBranch
 
-> PutBranch(ctx, repo, branch).Head(head).SyncTime(syncTime).Execute()
+> PutBranch(ctx, repo, branch).CoderefsBranch(coderefsBranch).Execute()
 
 Upsert branch
 
@@ -600,12 +884,11 @@ import (
 func main() {
     repo := "repo_example" // string | The repository name
     branch := "branch_example" // string | The url-encoded branch name
-    head := "head_example" // string | The current 40-character SHA revision of the git branch
-    syncTime := int64(789) // int64 | A unix epoch time in milliseconds specifying the time code reference data was generated
+    coderefsBranch := *openapiclient.NewCoderefsBranch() // CoderefsBranch | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CodeReferencesApi.PutBranch(context.Background(), repo, branch).Head(head).SyncTime(syncTime).Execute()
+    resp, r, err := api_client.CodeReferencesApi.PutBranch(context.Background(), repo, branch).CoderefsBranch(coderefsBranch).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CodeReferencesApi.PutBranch``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -631,8 +914,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **head** | **string** | The current 40-character SHA revision of the git branch | 
- **syncTime** | **int64** | A unix epoch time in milliseconds specifying the time code reference data was generated | 
+ **coderefsBranch** | [**CoderefsBranch**](CoderefsBranch.md) |  | 
 
 ### Return type
 
@@ -644,7 +926,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

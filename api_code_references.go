@@ -28,6 +28,125 @@ var (
 // CodeReferencesApiService CodeReferencesApi service
 type CodeReferencesApiService service
 
+type ApiDeleteBranchesRequest struct {
+	ctx _context.Context
+	ApiService *CodeReferencesApiService
+	repo string
+	requestBody *[]string
+}
+
+func (r ApiDeleteBranchesRequest) RequestBody(requestBody []string) ApiDeleteBranchesRequest {
+	r.requestBody = &requestBody
+	return r
+}
+
+func (r ApiDeleteBranchesRequest) Execute() (*_nethttp.Response, error) {
+	return r.ApiService.DeleteBranchesExecute(r)
+}
+
+/*
+ * DeleteBranches Delete branches
+ *  Asynchronously deletes a number of branches
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param repo The repo name to delete branches for.
+ * @return ApiDeleteBranchesRequest
+ */
+func (a *CodeReferencesApiService) DeleteBranches(ctx _context.Context, repo string) ApiDeleteBranchesRequest {
+	return ApiDeleteBranchesRequest{
+		ApiService: a,
+		ctx: ctx,
+		repo: repo,
+	}
+}
+
+/*
+ * Execute executes the request
+ */
+func (a *CodeReferencesApiService) DeleteBranchesExecute(r ApiDeleteBranchesRequest) (*_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CodeReferencesApiService.DeleteBranches")
+	if err != nil {
+		return nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v2/code-refs/repositories/{repo}/branch-delete-tasks"
+	localVarPath = strings.Replace(localVarPath, "{"+"repo"+"}", _neturl.PathEscape(parameterToString(r.repo, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+	if r.requestBody == nil {
+		return nil, reportError("requestBody is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.requestBody
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["ApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type ApiDeleteRepositoryRequest struct {
 	ctx _context.Context
 	ApiService *CodeReferencesApiService
@@ -142,8 +261,18 @@ type ApiGetBranchRequest struct {
 	ApiService *CodeReferencesApiService
 	repo string
 	branch string
+	projKey *string
+	flagKey *string
 }
 
+func (r ApiGetBranchRequest) ProjKey(projKey string) ApiGetBranchRequest {
+	r.projKey = &projKey
+	return r
+}
+func (r ApiGetBranchRequest) FlagKey(flagKey string) ApiGetBranchRequest {
+	r.flagKey = &flagKey
+	return r
+}
 
 func (r ApiGetBranchRequest) Execute() (ApiBranchRep, *_nethttp.Response, error) {
 	return r.ApiService.GetBranchExecute(r)
@@ -193,6 +322,12 @@ func (a *CodeReferencesApiService) GetBranchExecute(r ApiGetBranchRequest) (ApiB
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 
+	if r.projKey != nil {
+		localVarQueryParams.Add("projKey", parameterToString(*r.projKey, ""))
+	}
+	if r.flagKey != nil {
+		localVarQueryParams.Add("flagKey", parameterToString(*r.flagKey, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -313,6 +448,154 @@ func (a *CodeReferencesApiService) GetBranchesExecute(r ApiGetBranchesRequest) (
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["ApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetExtinctionsRequest struct {
+	ctx _context.Context
+	ApiService *CodeReferencesApiService
+	repoName *string
+	branchName *string
+	projKey *string
+	flagKey *string
+}
+
+func (r ApiGetExtinctionsRequest) RepoName(repoName string) ApiGetExtinctionsRequest {
+	r.repoName = &repoName
+	return r
+}
+func (r ApiGetExtinctionsRequest) BranchName(branchName string) ApiGetExtinctionsRequest {
+	r.branchName = &branchName
+	return r
+}
+func (r ApiGetExtinctionsRequest) ProjKey(projKey string) ApiGetExtinctionsRequest {
+	r.projKey = &projKey
+	return r
+}
+func (r ApiGetExtinctionsRequest) FlagKey(flagKey string) ApiGetExtinctionsRequest {
+	r.flagKey = &flagKey
+	return r
+}
+
+func (r ApiGetExtinctionsRequest) Execute() (ApiExtinctionCollectionRep, *_nethttp.Response, error) {
+	return r.ApiService.GetExtinctionsExecute(r)
+}
+
+/*
+ * GetExtinctions List extinctions
+ *  Gets a list of all extinctions
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @return ApiGetExtinctionsRequest
+ */
+func (a *CodeReferencesApiService) GetExtinctions(ctx _context.Context) ApiGetExtinctionsRequest {
+	return ApiGetExtinctionsRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+/*
+ * Execute executes the request
+ * @return ApiExtinctionCollectionRep
+ */
+func (a *CodeReferencesApiService) GetExtinctionsExecute(r ApiGetExtinctionsRequest) (ApiExtinctionCollectionRep, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  ApiExtinctionCollectionRep
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CodeReferencesApiService.GetExtinctions")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v2/code-refs/extinctions"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	if r.repoName != nil {
+		localVarQueryParams.Add("repoName", parameterToString(*r.repoName, ""))
+	}
+	if r.branchName != nil {
+		localVarQueryParams.Add("branchName", parameterToString(*r.branchName, ""))
+	}
+	if r.projKey != nil {
+		localVarQueryParams.Add("projKey", parameterToString(*r.projKey, ""))
+	}
+	if r.flagKey != nil {
+		localVarQueryParams.Add("flagKey", parameterToString(*r.flagKey, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -649,6 +932,122 @@ func (a *CodeReferencesApiService) GetRepositoryExecute(r ApiGetRepositoryReques
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiGetRootStatisticRequest struct {
+	ctx _context.Context
+	ApiService *CodeReferencesApiService
+}
+
+
+func (r ApiGetRootStatisticRequest) Execute() (ApiStatisticsRoot, *_nethttp.Response, error) {
+	return r.ApiService.GetRootStatisticExecute(r)
+}
+
+/*
+ * GetRootStatistic Get number of code references for flags
+ *  Retrieves links for all projects that have Code References.
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @return ApiGetRootStatisticRequest
+ */
+func (a *CodeReferencesApiService) GetRootStatistic(ctx _context.Context) ApiGetRootStatisticRequest {
+	return ApiGetRootStatisticRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+/*
+ * Execute executes the request
+ * @return ApiStatisticsRoot
+ */
+func (a *CodeReferencesApiService) GetRootStatisticExecute(r ApiGetRootStatisticRequest) (ApiStatisticsRoot, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  ApiStatisticsRoot
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CodeReferencesApiService.GetRootStatistic")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v2/code-refs/statistics"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["ApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiGetStatisticsRequest struct {
 	ctx _context.Context
 	ApiService *CodeReferencesApiService
@@ -907,14 +1306,137 @@ func (a *CodeReferencesApiService) PatchRepositoryExecute(r ApiPatchRepositoryRe
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiPostExtinctionRequest struct {
+	ctx _context.Context
+	ApiService *CodeReferencesApiService
+	repo string
+	branch string
+	inlineObject *[]InlineObject
+}
+
+func (r ApiPostExtinctionRequest) InlineObject(inlineObject []InlineObject) ApiPostExtinctionRequest {
+	r.inlineObject = &inlineObject
+	return r
+}
+
+func (r ApiPostExtinctionRequest) Execute() (*_nethttp.Response, error) {
+	return r.ApiService.PostExtinctionExecute(r)
+}
+
+/*
+ * PostExtinction Post extinction
+ *  Create a new extinction
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param repo The repository name
+ * @param branch The url-encoded branch name
+ * @return ApiPostExtinctionRequest
+ */
+func (a *CodeReferencesApiService) PostExtinction(ctx _context.Context, repo string, branch string) ApiPostExtinctionRequest {
+	return ApiPostExtinctionRequest{
+		ApiService: a,
+		ctx: ctx,
+		repo: repo,
+		branch: branch,
+	}
+}
+
+/*
+ * Execute executes the request
+ */
+func (a *CodeReferencesApiService) PostExtinctionExecute(r ApiPostExtinctionRequest) (*_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CodeReferencesApiService.PostExtinction")
+	if err != nil {
+		return nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v2/code-refs/repositories/{repo}/branches/{branch}"
+	localVarPath = strings.Replace(localVarPath, "{"+"repo"+"}", _neturl.PathEscape(parameterToString(r.repo, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"branch"+"}", _neturl.PathEscape(parameterToString(r.branch, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+	if r.inlineObject == nil {
+		return nil, reportError("inlineObject is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.inlineObject
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["ApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type ApiPostRepositoryRequest struct {
 	ctx _context.Context
 	ApiService *CodeReferencesApiService
-	body *string
+	apiRepositoryPost *ApiRepositoryPost
 }
 
-func (r ApiPostRepositoryRequest) Body(body string) ApiPostRepositoryRequest {
-	r.body = &body
+func (r ApiPostRepositoryRequest) ApiRepositoryPost(apiRepositoryPost ApiRepositoryPost) ApiPostRepositoryRequest {
+	r.apiRepositoryPost = &apiRepositoryPost
 	return r
 }
 
@@ -957,8 +1479,8 @@ func (a *CodeReferencesApiService) PostRepositoryExecute(r ApiPostRepositoryRequ
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-	if r.body == nil {
-		return nil, reportError("body is required and must be specified")
+	if r.apiRepositoryPost == nil {
+		return nil, reportError("apiRepositoryPost is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -979,7 +1501,7 @@ func (a *CodeReferencesApiService) PostRepositoryExecute(r ApiPostRepositoryRequ
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.body
+	localVarPostBody = r.apiRepositoryPost
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1027,16 +1549,11 @@ type ApiPutBranchRequest struct {
 	ApiService *CodeReferencesApiService
 	repo string
 	branch string
-	head *string
-	syncTime *int64
+	coderefsBranch *CoderefsBranch
 }
 
-func (r ApiPutBranchRequest) Head(head string) ApiPutBranchRequest {
-	r.head = &head
-	return r
-}
-func (r ApiPutBranchRequest) SyncTime(syncTime int64) ApiPutBranchRequest {
-	r.syncTime = &syncTime
+func (r ApiPutBranchRequest) CoderefsBranch(coderefsBranch CoderefsBranch) ApiPutBranchRequest {
+	r.coderefsBranch = &coderefsBranch
 	return r
 }
 
@@ -1085,17 +1602,12 @@ func (a *CodeReferencesApiService) PutBranchExecute(r ApiPutBranchRequest) (*_ne
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-	if r.head == nil {
-		return nil, reportError("head is required and must be specified")
-	}
-	if r.syncTime == nil {
-		return nil, reportError("syncTime is required and must be specified")
+	if r.coderefsBranch == nil {
+		return nil, reportError("coderefsBranch is required and must be specified")
 	}
 
-	localVarQueryParams.Add("head", parameterToString(*r.head, ""))
-	localVarQueryParams.Add("syncTime", parameterToString(*r.syncTime, ""))
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -1111,6 +1623,8 @@ func (a *CodeReferencesApiService) PutBranchExecute(r ApiPutBranchRequest) (*_ne
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.coderefsBranch
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {

@@ -17,7 +17,7 @@ import (
 
 // AuditLogEntryListingRepCollection struct for AuditLogEntryListingRepCollection
 type AuditLogEntryListingRepCollection struct {
-	Items *[]AuditLogEntryListingRepCollectionItems `json:"items,omitempty"`
+	Items *[]AuditLogEntryListingRep `json:"items,omitempty"`
 	Links *map[string]InlineResponse200 `json:"_links,omitempty"`
 }
 
@@ -39,9 +39,9 @@ func NewAuditLogEntryListingRepCollectionWithDefaults() *AuditLogEntryListingRep
 }
 
 // GetItems returns the Items field value if set, zero value otherwise.
-func (o *AuditLogEntryListingRepCollection) GetItems() []AuditLogEntryListingRepCollectionItems {
+func (o *AuditLogEntryListingRepCollection) GetItems() []AuditLogEntryListingRep {
 	if o == nil || o.Items == nil {
-		var ret []AuditLogEntryListingRepCollectionItems
+		var ret []AuditLogEntryListingRep
 		return ret
 	}
 	return *o.Items
@@ -49,7 +49,7 @@ func (o *AuditLogEntryListingRepCollection) GetItems() []AuditLogEntryListingRep
 
 // GetItemsOk returns a tuple with the Items field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AuditLogEntryListingRepCollection) GetItemsOk() (*[]AuditLogEntryListingRepCollectionItems, bool) {
+func (o *AuditLogEntryListingRepCollection) GetItemsOk() (*[]AuditLogEntryListingRep, bool) {
 	if o == nil || o.Items == nil {
 		return nil, false
 	}
@@ -65,8 +65,8 @@ func (o *AuditLogEntryListingRepCollection) HasItems() bool {
 	return false
 }
 
-// SetItems gets a reference to the given []AuditLogEntryListingRepCollectionItems and assigns it to the Items field.
-func (o *AuditLogEntryListingRepCollection) SetItems(v []AuditLogEntryListingRepCollectionItems) {
+// SetItems gets a reference to the given []AuditLogEntryListingRep and assigns it to the Items field.
+func (o *AuditLogEntryListingRepCollection) SetItems(v []AuditLogEntryListingRep) {
 	o.Items = &v
 }
 

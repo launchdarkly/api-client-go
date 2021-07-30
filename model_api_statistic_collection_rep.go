@@ -17,16 +17,18 @@ import (
 
 // ApiStatisticCollectionRep struct for ApiStatisticCollectionRep
 type ApiStatisticCollectionRep struct {
-	Flags *map[string][]map[string]interface{} `json:"flags,omitempty"`
-	Links *map[string]InlineResponse200 `json:"_links,omitempty"`
+	Flags map[string][]map[string]interface{} `json:"flags"`
+	Links map[string]InlineResponse200 `json:"_links"`
 }
 
 // NewApiStatisticCollectionRep instantiates a new ApiStatisticCollectionRep object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewApiStatisticCollectionRep() *ApiStatisticCollectionRep {
+func NewApiStatisticCollectionRep(flags map[string][]map[string]interface{}, links map[string]InlineResponse200) *ApiStatisticCollectionRep {
 	this := ApiStatisticCollectionRep{}
+	this.Flags = flags
+	this.Links = links
 	return &this
 }
 
@@ -38,76 +40,60 @@ func NewApiStatisticCollectionRepWithDefaults() *ApiStatisticCollectionRep {
 	return &this
 }
 
-// GetFlags returns the Flags field value if set, zero value otherwise.
+// GetFlags returns the Flags field value
 func (o *ApiStatisticCollectionRep) GetFlags() map[string][]map[string]interface{} {
-	if o == nil || o.Flags == nil {
+	if o == nil {
 		var ret map[string][]map[string]interface{}
 		return ret
 	}
-	return *o.Flags
+
+	return o.Flags
 }
 
-// GetFlagsOk returns a tuple with the Flags field value if set, nil otherwise
+// GetFlagsOk returns a tuple with the Flags field value
 // and a boolean to check if the value has been set.
 func (o *ApiStatisticCollectionRep) GetFlagsOk() (*map[string][]map[string]interface{}, bool) {
-	if o == nil || o.Flags == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Flags, true
+	return &o.Flags, true
 }
 
-// HasFlags returns a boolean if a field has been set.
-func (o *ApiStatisticCollectionRep) HasFlags() bool {
-	if o != nil && o.Flags != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetFlags gets a reference to the given map[string][]map[string]interface{} and assigns it to the Flags field.
+// SetFlags sets field value
 func (o *ApiStatisticCollectionRep) SetFlags(v map[string][]map[string]interface{}) {
-	o.Flags = &v
+	o.Flags = v
 }
 
-// GetLinks returns the Links field value if set, zero value otherwise.
+// GetLinks returns the Links field value
 func (o *ApiStatisticCollectionRep) GetLinks() map[string]InlineResponse200 {
-	if o == nil || o.Links == nil {
+	if o == nil {
 		var ret map[string]InlineResponse200
 		return ret
 	}
-	return *o.Links
+
+	return o.Links
 }
 
-// GetLinksOk returns a tuple with the Links field value if set, nil otherwise
+// GetLinksOk returns a tuple with the Links field value
 // and a boolean to check if the value has been set.
 func (o *ApiStatisticCollectionRep) GetLinksOk() (*map[string]InlineResponse200, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Links, true
+	return &o.Links, true
 }
 
-// HasLinks returns a boolean if a field has been set.
-func (o *ApiStatisticCollectionRep) HasLinks() bool {
-	if o != nil && o.Links != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetLinks gets a reference to the given map[string]InlineResponse200 and assigns it to the Links field.
+// SetLinks sets field value
 func (o *ApiStatisticCollectionRep) SetLinks(v map[string]InlineResponse200) {
-	o.Links = &v
+	o.Links = v
 }
 
 func (o ApiStatisticCollectionRep) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Flags != nil {
+	if true {
 		toSerialize["flags"] = o.Flags
 	}
-	if o.Links != nil {
+	if true {
 		toSerialize["_links"] = o.Links
 	}
 	return json.Marshal(toSerialize)

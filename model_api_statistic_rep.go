@@ -17,21 +17,28 @@ import (
 
 // ApiStatisticRep struct for ApiStatisticRep
 type ApiStatisticRep struct {
-	Name *string `json:"name,omitempty"`
-	SourceLink *string `json:"sourceLink,omitempty"`
-	DefaultBranch *string `json:"defaultBranch,omitempty"`
-	Enabled *bool `json:"enabled,omitempty"`
-	Version *int32 `json:"version,omitempty"`
-	HunkCount *int32 `json:"hunkCount,omitempty"`
-	Links *map[string]InlineResponse200 `json:"_links,omitempty"`
+	Name string `json:"name"`
+	SourceLink string `json:"sourceLink"`
+	DefaultBranch string `json:"defaultBranch"`
+	Enabled bool `json:"enabled"`
+	Version int32 `json:"version"`
+	HunkCount int32 `json:"hunkCount"`
+	Links map[string]InlineResponse200 `json:"_links"`
 }
 
 // NewApiStatisticRep instantiates a new ApiStatisticRep object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewApiStatisticRep() *ApiStatisticRep {
+func NewApiStatisticRep(name string, sourceLink string, defaultBranch string, enabled bool, version int32, hunkCount int32, links map[string]InlineResponse200) *ApiStatisticRep {
 	this := ApiStatisticRep{}
+	this.Name = name
+	this.SourceLink = sourceLink
+	this.DefaultBranch = defaultBranch
+	this.Enabled = enabled
+	this.Version = version
+	this.HunkCount = hunkCount
+	this.Links = links
 	return &this
 }
 
@@ -43,251 +50,195 @@ func NewApiStatisticRepWithDefaults() *ApiStatisticRep {
 	return &this
 }
 
-// GetName returns the Name field value if set, zero value otherwise.
+// GetName returns the Name field value
 func (o *ApiStatisticRep) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Name
+
+	return o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *ApiStatisticRep) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Name, true
+	return &o.Name, true
 }
 
-// HasName returns a boolean if a field has been set.
-func (o *ApiStatisticRep) HasName() bool {
-	if o != nil && o.Name != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetName gets a reference to the given string and assigns it to the Name field.
+// SetName sets field value
 func (o *ApiStatisticRep) SetName(v string) {
-	o.Name = &v
+	o.Name = v
 }
 
-// GetSourceLink returns the SourceLink field value if set, zero value otherwise.
+// GetSourceLink returns the SourceLink field value
 func (o *ApiStatisticRep) GetSourceLink() string {
-	if o == nil || o.SourceLink == nil {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.SourceLink
+
+	return o.SourceLink
 }
 
-// GetSourceLinkOk returns a tuple with the SourceLink field value if set, nil otherwise
+// GetSourceLinkOk returns a tuple with the SourceLink field value
 // and a boolean to check if the value has been set.
 func (o *ApiStatisticRep) GetSourceLinkOk() (*string, bool) {
-	if o == nil || o.SourceLink == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.SourceLink, true
+	return &o.SourceLink, true
 }
 
-// HasSourceLink returns a boolean if a field has been set.
-func (o *ApiStatisticRep) HasSourceLink() bool {
-	if o != nil && o.SourceLink != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetSourceLink gets a reference to the given string and assigns it to the SourceLink field.
+// SetSourceLink sets field value
 func (o *ApiStatisticRep) SetSourceLink(v string) {
-	o.SourceLink = &v
+	o.SourceLink = v
 }
 
-// GetDefaultBranch returns the DefaultBranch field value if set, zero value otherwise.
+// GetDefaultBranch returns the DefaultBranch field value
 func (o *ApiStatisticRep) GetDefaultBranch() string {
-	if o == nil || o.DefaultBranch == nil {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.DefaultBranch
+
+	return o.DefaultBranch
 }
 
-// GetDefaultBranchOk returns a tuple with the DefaultBranch field value if set, nil otherwise
+// GetDefaultBranchOk returns a tuple with the DefaultBranch field value
 // and a boolean to check if the value has been set.
 func (o *ApiStatisticRep) GetDefaultBranchOk() (*string, bool) {
-	if o == nil || o.DefaultBranch == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.DefaultBranch, true
+	return &o.DefaultBranch, true
 }
 
-// HasDefaultBranch returns a boolean if a field has been set.
-func (o *ApiStatisticRep) HasDefaultBranch() bool {
-	if o != nil && o.DefaultBranch != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetDefaultBranch gets a reference to the given string and assigns it to the DefaultBranch field.
+// SetDefaultBranch sets field value
 func (o *ApiStatisticRep) SetDefaultBranch(v string) {
-	o.DefaultBranch = &v
+	o.DefaultBranch = v
 }
 
-// GetEnabled returns the Enabled field value if set, zero value otherwise.
+// GetEnabled returns the Enabled field value
 func (o *ApiStatisticRep) GetEnabled() bool {
-	if o == nil || o.Enabled == nil {
+	if o == nil {
 		var ret bool
 		return ret
 	}
-	return *o.Enabled
+
+	return o.Enabled
 }
 
-// GetEnabledOk returns a tuple with the Enabled field value if set, nil otherwise
+// GetEnabledOk returns a tuple with the Enabled field value
 // and a boolean to check if the value has been set.
 func (o *ApiStatisticRep) GetEnabledOk() (*bool, bool) {
-	if o == nil || o.Enabled == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Enabled, true
+	return &o.Enabled, true
 }
 
-// HasEnabled returns a boolean if a field has been set.
-func (o *ApiStatisticRep) HasEnabled() bool {
-	if o != nil && o.Enabled != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetEnabled gets a reference to the given bool and assigns it to the Enabled field.
+// SetEnabled sets field value
 func (o *ApiStatisticRep) SetEnabled(v bool) {
-	o.Enabled = &v
+	o.Enabled = v
 }
 
-// GetVersion returns the Version field value if set, zero value otherwise.
+// GetVersion returns the Version field value
 func (o *ApiStatisticRep) GetVersion() int32 {
-	if o == nil || o.Version == nil {
+	if o == nil {
 		var ret int32
 		return ret
 	}
-	return *o.Version
+
+	return o.Version
 }
 
-// GetVersionOk returns a tuple with the Version field value if set, nil otherwise
+// GetVersionOk returns a tuple with the Version field value
 // and a boolean to check if the value has been set.
 func (o *ApiStatisticRep) GetVersionOk() (*int32, bool) {
-	if o == nil || o.Version == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Version, true
+	return &o.Version, true
 }
 
-// HasVersion returns a boolean if a field has been set.
-func (o *ApiStatisticRep) HasVersion() bool {
-	if o != nil && o.Version != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetVersion gets a reference to the given int32 and assigns it to the Version field.
+// SetVersion sets field value
 func (o *ApiStatisticRep) SetVersion(v int32) {
-	o.Version = &v
+	o.Version = v
 }
 
-// GetHunkCount returns the HunkCount field value if set, zero value otherwise.
+// GetHunkCount returns the HunkCount field value
 func (o *ApiStatisticRep) GetHunkCount() int32 {
-	if o == nil || o.HunkCount == nil {
+	if o == nil {
 		var ret int32
 		return ret
 	}
-	return *o.HunkCount
+
+	return o.HunkCount
 }
 
-// GetHunkCountOk returns a tuple with the HunkCount field value if set, nil otherwise
+// GetHunkCountOk returns a tuple with the HunkCount field value
 // and a boolean to check if the value has been set.
 func (o *ApiStatisticRep) GetHunkCountOk() (*int32, bool) {
-	if o == nil || o.HunkCount == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.HunkCount, true
+	return &o.HunkCount, true
 }
 
-// HasHunkCount returns a boolean if a field has been set.
-func (o *ApiStatisticRep) HasHunkCount() bool {
-	if o != nil && o.HunkCount != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetHunkCount gets a reference to the given int32 and assigns it to the HunkCount field.
+// SetHunkCount sets field value
 func (o *ApiStatisticRep) SetHunkCount(v int32) {
-	o.HunkCount = &v
+	o.HunkCount = v
 }
 
-// GetLinks returns the Links field value if set, zero value otherwise.
+// GetLinks returns the Links field value
 func (o *ApiStatisticRep) GetLinks() map[string]InlineResponse200 {
-	if o == nil || o.Links == nil {
+	if o == nil {
 		var ret map[string]InlineResponse200
 		return ret
 	}
-	return *o.Links
+
+	return o.Links
 }
 
-// GetLinksOk returns a tuple with the Links field value if set, nil otherwise
+// GetLinksOk returns a tuple with the Links field value
 // and a boolean to check if the value has been set.
 func (o *ApiStatisticRep) GetLinksOk() (*map[string]InlineResponse200, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Links, true
+	return &o.Links, true
 }
 
-// HasLinks returns a boolean if a field has been set.
-func (o *ApiStatisticRep) HasLinks() bool {
-	if o != nil && o.Links != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetLinks gets a reference to the given map[string]InlineResponse200 and assigns it to the Links field.
+// SetLinks sets field value
 func (o *ApiStatisticRep) SetLinks(v map[string]InlineResponse200) {
-	o.Links = &v
+	o.Links = v
 }
 
 func (o ApiStatisticRep) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
+	if true {
 		toSerialize["name"] = o.Name
 	}
-	if o.SourceLink != nil {
+	if true {
 		toSerialize["sourceLink"] = o.SourceLink
 	}
-	if o.DefaultBranch != nil {
+	if true {
 		toSerialize["defaultBranch"] = o.DefaultBranch
 	}
-	if o.Enabled != nil {
+	if true {
 		toSerialize["enabled"] = o.Enabled
 	}
-	if o.Version != nil {
+	if true {
 		toSerialize["version"] = o.Version
 	}
-	if o.HunkCount != nil {
+	if true {
 		toSerialize["hunkCount"] = o.HunkCount
 	}
-	if o.Links != nil {
+	if true {
 		toSerialize["_links"] = o.Links
 	}
 	return json.Marshal(toSerialize)

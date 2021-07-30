@@ -1,4 +1,4 @@
-# InlineObject
+# CoderefsExtinction
 
 ## Properties
 
@@ -13,170 +13,170 @@ Name | Type | Description | Notes
 
 ## Methods
 
-### NewInlineObject
+### NewCoderefsExtinction
 
-`func NewInlineObject() *InlineObject`
+`func NewCoderefsExtinction() *CoderefsExtinction`
 
-NewInlineObject instantiates a new InlineObject object
+NewCoderefsExtinction instantiates a new CoderefsExtinction object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewInlineObjectWithDefaults
+### NewCoderefsExtinctionWithDefaults
 
-`func NewInlineObjectWithDefaults() *InlineObject`
+`func NewCoderefsExtinctionWithDefaults() *CoderefsExtinction`
 
-NewInlineObjectWithDefaults instantiates a new InlineObject object
+NewCoderefsExtinctionWithDefaults instantiates a new CoderefsExtinction object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetRevision
 
-`func (o *InlineObject) GetRevision() string`
+`func (o *CoderefsExtinction) GetRevision() string`
 
 GetRevision returns the Revision field if non-nil, zero value otherwise.
 
 ### GetRevisionOk
 
-`func (o *InlineObject) GetRevisionOk() (*string, bool)`
+`func (o *CoderefsExtinction) GetRevisionOk() (*string, bool)`
 
 GetRevisionOk returns a tuple with the Revision field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRevision
 
-`func (o *InlineObject) SetRevision(v string)`
+`func (o *CoderefsExtinction) SetRevision(v string)`
 
 SetRevision sets Revision field to given value.
 
 ### HasRevision
 
-`func (o *InlineObject) HasRevision() bool`
+`func (o *CoderefsExtinction) HasRevision() bool`
 
 HasRevision returns a boolean if a field has been set.
 
 ### GetMessage
 
-`func (o *InlineObject) GetMessage() string`
+`func (o *CoderefsExtinction) GetMessage() string`
 
 GetMessage returns the Message field if non-nil, zero value otherwise.
 
 ### GetMessageOk
 
-`func (o *InlineObject) GetMessageOk() (*string, bool)`
+`func (o *CoderefsExtinction) GetMessageOk() (*string, bool)`
 
 GetMessageOk returns a tuple with the Message field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMessage
 
-`func (o *InlineObject) SetMessage(v string)`
+`func (o *CoderefsExtinction) SetMessage(v string)`
 
 SetMessage sets Message field to given value.
 
 ### HasMessage
 
-`func (o *InlineObject) HasMessage() bool`
+`func (o *CoderefsExtinction) HasMessage() bool`
 
 HasMessage returns a boolean if a field has been set.
 
 ### GetTime
 
-`func (o *InlineObject) GetTime() int64`
+`func (o *CoderefsExtinction) GetTime() int64`
 
 GetTime returns the Time field if non-nil, zero value otherwise.
 
 ### GetTimeOk
 
-`func (o *InlineObject) GetTimeOk() (*int64, bool)`
+`func (o *CoderefsExtinction) GetTimeOk() (*int64, bool)`
 
 GetTimeOk returns a tuple with the Time field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTime
 
-`func (o *InlineObject) SetTime(v int64)`
+`func (o *CoderefsExtinction) SetTime(v int64)`
 
 SetTime sets Time field to given value.
 
 ### HasTime
 
-`func (o *InlineObject) HasTime() bool`
+`func (o *CoderefsExtinction) HasTime() bool`
 
 HasTime returns a boolean if a field has been set.
 
 ### GetFlagKey
 
-`func (o *InlineObject) GetFlagKey() string`
+`func (o *CoderefsExtinction) GetFlagKey() string`
 
 GetFlagKey returns the FlagKey field if non-nil, zero value otherwise.
 
 ### GetFlagKeyOk
 
-`func (o *InlineObject) GetFlagKeyOk() (*string, bool)`
+`func (o *CoderefsExtinction) GetFlagKeyOk() (*string, bool)`
 
 GetFlagKeyOk returns a tuple with the FlagKey field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFlagKey
 
-`func (o *InlineObject) SetFlagKey(v string)`
+`func (o *CoderefsExtinction) SetFlagKey(v string)`
 
 SetFlagKey sets FlagKey field to given value.
 
 ### HasFlagKey
 
-`func (o *InlineObject) HasFlagKey() bool`
+`func (o *CoderefsExtinction) HasFlagKey() bool`
 
 HasFlagKey returns a boolean if a field has been set.
 
 ### GetProjectKey
 
-`func (o *InlineObject) GetProjectKey() string`
+`func (o *CoderefsExtinction) GetProjectKey() string`
 
 GetProjectKey returns the ProjectKey field if non-nil, zero value otherwise.
 
 ### GetProjectKeyOk
 
-`func (o *InlineObject) GetProjectKeyOk() (*string, bool)`
+`func (o *CoderefsExtinction) GetProjectKeyOk() (*string, bool)`
 
 GetProjectKeyOk returns a tuple with the ProjectKey field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetProjectKey
 
-`func (o *InlineObject) SetProjectKey(v string)`
+`func (o *CoderefsExtinction) SetProjectKey(v string)`
 
 SetProjectKey sets ProjectKey field to given value.
 
 ### HasProjectKey
 
-`func (o *InlineObject) HasProjectKey() bool`
+`func (o *CoderefsExtinction) HasProjectKey() bool`
 
 HasProjectKey returns a boolean if a field has been set.
 
 ### GetRepoName
 
-`func (o *InlineObject) GetRepoName() string`
+`func (o *CoderefsExtinction) GetRepoName() string`
 
 GetRepoName returns the RepoName field if non-nil, zero value otherwise.
 
 ### GetRepoNameOk
 
-`func (o *InlineObject) GetRepoNameOk() (*string, bool)`
+`func (o *CoderefsExtinction) GetRepoNameOk() (*string, bool)`
 
 GetRepoNameOk returns a tuple with the RepoName field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRepoName
 
-`func (o *InlineObject) SetRepoName(v string)`
+`func (o *CoderefsExtinction) SetRepoName(v string)`
 
 SetRepoName sets RepoName field to given value.
 
 ### HasRepoName
 
-`func (o *InlineObject) HasRepoName() bool`
+`func (o *CoderefsExtinction) HasRepoName() bool`
 
 HasRepoName returns a boolean if a field has been set.
 

@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Flags** | Pointer to **map[string][]map[string]interface{}** |  | [optional] 
-**Links** | Pointer to [**map[string]InlineResponse200**](InlineResponse200.md) |  | [optional] 
+**Flags** | **map[string][]map[string]interface{}** |  | 
+**Links** | [**map[string]InlineResponse200**](InlineResponse200.md) |  | 
 
 ## Methods
 
 ### NewApiStatisticCollectionRep
 
-`func NewApiStatisticCollectionRep() *ApiStatisticCollectionRep`
+`func NewApiStatisticCollectionRep(flags map[string][]map[string]interface{}, links map[string]InlineResponse200, ) *ApiStatisticCollectionRep`
 
 NewApiStatisticCollectionRep instantiates a new ApiStatisticCollectionRep object
 This constructor will assign default values to properties that have it defined,
@@ -45,11 +45,6 @@ and a boolean to check if the value has been set.
 
 SetFlags sets Flags field to given value.
 
-### HasFlags
-
-`func (o *ApiStatisticCollectionRep) HasFlags() bool`
-
-HasFlags returns a boolean if a field has been set.
 
 ### GetLinks
 
@@ -70,11 +65,6 @@ and a boolean to check if the value has been set.
 
 SetLinks sets Links field to given value.
 
-### HasLinks
-
-`func (o *ApiStatisticCollectionRep) HasLinks() bool`
-
-HasLinks returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -19,6 +19,7 @@ import (
 type ExperimentEnvironmentSettingRep struct {
 	StartDate *int64 `json:"startDate,omitempty"`
 	StopDate *int64 `json:"stopDate,omitempty"`
+	EnabledPeriods *[]ExperimentEnvironmentSettingRepEnabledPeriods `json:"enabledPeriods,omitempty"`
 }
 
 // NewExperimentEnvironmentSettingRep instantiates a new ExperimentEnvironmentSettingRep object
@@ -102,6 +103,38 @@ func (o *ExperimentEnvironmentSettingRep) SetStopDate(v int64) {
 	o.StopDate = &v
 }
 
+// GetEnabledPeriods returns the EnabledPeriods field value if set, zero value otherwise.
+func (o *ExperimentEnvironmentSettingRep) GetEnabledPeriods() []ExperimentEnvironmentSettingRepEnabledPeriods {
+	if o == nil || o.EnabledPeriods == nil {
+		var ret []ExperimentEnvironmentSettingRepEnabledPeriods
+		return ret
+	}
+	return *o.EnabledPeriods
+}
+
+// GetEnabledPeriodsOk returns a tuple with the EnabledPeriods field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ExperimentEnvironmentSettingRep) GetEnabledPeriodsOk() (*[]ExperimentEnvironmentSettingRepEnabledPeriods, bool) {
+	if o == nil || o.EnabledPeriods == nil {
+		return nil, false
+	}
+	return o.EnabledPeriods, true
+}
+
+// HasEnabledPeriods returns a boolean if a field has been set.
+func (o *ExperimentEnvironmentSettingRep) HasEnabledPeriods() bool {
+	if o != nil && o.EnabledPeriods != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetEnabledPeriods gets a reference to the given []ExperimentEnvironmentSettingRepEnabledPeriods and assigns it to the EnabledPeriods field.
+func (o *ExperimentEnvironmentSettingRep) SetEnabledPeriods(v []ExperimentEnvironmentSettingRepEnabledPeriods) {
+	o.EnabledPeriods = &v
+}
+
 func (o ExperimentEnvironmentSettingRep) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.StartDate != nil {
@@ -109,6 +142,9 @@ func (o ExperimentEnvironmentSettingRep) MarshalJSON() ([]byte, error) {
 	}
 	if o.StopDate != nil {
 		toSerialize["stopDate"] = o.StopDate
+	}
+	if o.EnabledPeriods != nil {
+		toSerialize["enabledPeriods"] = o.EnabledPeriods
 	}
 	return json.Marshal(toSerialize)
 }

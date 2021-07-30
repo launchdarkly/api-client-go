@@ -15,270 +15,933 @@ import (
 	"encoding/json"
 )
 
-// ProjectPost struct for ProjectPost
-type ProjectPost struct {
-	// A human-friendly name for the project.
-	Name string `json:"name"`
-	// A unique key used to reference the project in your code.
-	Key string `json:"key"`
-	// Whether or not flags created in this project are made available to the client-side JavaScript SDK by default.
-	IncludeInSnippetByDefault *bool `json:"includeInSnippetByDefault,omitempty"`
-	DefaultClientSideAvailability *DefaultClientSideAvailabilityPost `json:"defaultClientSideAvailability,omitempty"`
-	Tags *[]string `json:"tags,omitempty"`
-	// Creates the provided environments for this project. If omitted default environments will be created instead.
-	Environments *[]map[string]interface{} `json:"environments,omitempty"`
+// AuditLogEntryRep struct for AuditLogEntryRep
+type AuditLogEntryRep struct {
+	Links *map[string]InlineResponse200 `json:"_links,omitempty"`
+	Id *string `json:"_id,omitempty"`
+	AccountId *string `json:"_accountId,omitempty"`
+	Date *int64 `json:"date,omitempty"`
+	Accesses *[]AuditLogEntryListingRepAccesses `json:"accesses,omitempty"`
+	Kind *string `json:"kind,omitempty"`
+	Name *string `json:"name,omitempty"`
+	Description *string `json:"description,omitempty"`
+	ShortDescription *string `json:"shortDescription,omitempty"`
+	Comment *string `json:"comment,omitempty"`
+	Subject *SubjectDataRep `json:"subject,omitempty"`
+	Member *MemberDataRep `json:"member,omitempty"`
+	Token *TokenDataRep `json:"token,omitempty"`
+	App *AuthorizedAppDataRep `json:"app,omitempty"`
+	TitleVerb *string `json:"titleVerb,omitempty"`
+	Title *string `json:"title,omitempty"`
+	Target *TargetResourceRep `json:"target,omitempty"`
+	Parent *ParentResourceRep `json:"parent,omitempty"`
+	Delta interface{} `json:"delta,omitempty"`
+	TriggerBody interface{} `json:"triggerBody,omitempty"`
+	Merge interface{} `json:"merge,omitempty"`
+	PreviousVersion interface{} `json:"previousVersion,omitempty"`
+	CurrentVersion interface{} `json:"currentVersion,omitempty"`
+	Subentries *[]AuditLogEntryListingRep `json:"subentries,omitempty"`
 }
 
-// NewProjectPost instantiates a new ProjectPost object
+// NewAuditLogEntryRep instantiates a new AuditLogEntryRep object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewProjectPost(name string, key string) *ProjectPost {
-	this := ProjectPost{}
-	this.Name = name
-	this.Key = key
+func NewAuditLogEntryRep() *AuditLogEntryRep {
+	this := AuditLogEntryRep{}
 	return &this
 }
 
-// NewProjectPostWithDefaults instantiates a new ProjectPost object
+// NewAuditLogEntryRepWithDefaults instantiates a new AuditLogEntryRep object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewProjectPostWithDefaults() *ProjectPost {
-	this := ProjectPost{}
+func NewAuditLogEntryRepWithDefaults() *AuditLogEntryRep {
+	this := AuditLogEntryRep{}
 	return &this
 }
 
-// GetName returns the Name field value
-func (o *ProjectPost) GetName() string {
-	if o == nil {
+// GetLinks returns the Links field value if set, zero value otherwise.
+func (o *AuditLogEntryRep) GetLinks() map[string]InlineResponse200 {
+	if o == nil || o.Links == nil {
+		var ret map[string]InlineResponse200
+		return ret
+	}
+	return *o.Links
+}
+
+// GetLinksOk returns a tuple with the Links field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AuditLogEntryRep) GetLinksOk() (*map[string]InlineResponse200, bool) {
+	if o == nil || o.Links == nil {
+		return nil, false
+	}
+	return o.Links, true
+}
+
+// HasLinks returns a boolean if a field has been set.
+func (o *AuditLogEntryRep) HasLinks() bool {
+	if o != nil && o.Links != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLinks gets a reference to the given map[string]InlineResponse200 and assigns it to the Links field.
+func (o *AuditLogEntryRep) SetLinks(v map[string]InlineResponse200) {
+	o.Links = &v
+}
+
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *AuditLogEntryRep) GetId() string {
+	if o == nil || o.Id == nil {
 		var ret string
 		return ret
 	}
-
-	return o.Name
+	return *o.Id
 }
 
-// GetNameOk returns a tuple with the Name field value
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProjectPost) GetNameOk() (*string, bool) {
-	if o == nil  {
+func (o *AuditLogEntryRep) GetIdOk() (*string, bool) {
+	if o == nil || o.Id == nil {
 		return nil, false
 	}
-	return &o.Name, true
+	return o.Id, true
 }
 
-// SetName sets field value
-func (o *ProjectPost) SetName(v string) {
-	o.Name = v
+// HasId returns a boolean if a field has been set.
+func (o *AuditLogEntryRep) HasId() bool {
+	if o != nil && o.Id != nil {
+		return true
+	}
+
+	return false
 }
 
-// GetKey returns the Key field value
-func (o *ProjectPost) GetKey() string {
-	if o == nil {
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *AuditLogEntryRep) SetId(v string) {
+	o.Id = &v
+}
+
+// GetAccountId returns the AccountId field value if set, zero value otherwise.
+func (o *AuditLogEntryRep) GetAccountId() string {
+	if o == nil || o.AccountId == nil {
 		var ret string
 		return ret
 	}
-
-	return o.Key
+	return *o.AccountId
 }
 
-// GetKeyOk returns a tuple with the Key field value
+// GetAccountIdOk returns a tuple with the AccountId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProjectPost) GetKeyOk() (*string, bool) {
+func (o *AuditLogEntryRep) GetAccountIdOk() (*string, bool) {
+	if o == nil || o.AccountId == nil {
+		return nil, false
+	}
+	return o.AccountId, true
+}
+
+// HasAccountId returns a boolean if a field has been set.
+func (o *AuditLogEntryRep) HasAccountId() bool {
+	if o != nil && o.AccountId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAccountId gets a reference to the given string and assigns it to the AccountId field.
+func (o *AuditLogEntryRep) SetAccountId(v string) {
+	o.AccountId = &v
+}
+
+// GetDate returns the Date field value if set, zero value otherwise.
+func (o *AuditLogEntryRep) GetDate() int64 {
+	if o == nil || o.Date == nil {
+		var ret int64
+		return ret
+	}
+	return *o.Date
+}
+
+// GetDateOk returns a tuple with the Date field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AuditLogEntryRep) GetDateOk() (*int64, bool) {
+	if o == nil || o.Date == nil {
+		return nil, false
+	}
+	return o.Date, true
+}
+
+// HasDate returns a boolean if a field has been set.
+func (o *AuditLogEntryRep) HasDate() bool {
+	if o != nil && o.Date != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDate gets a reference to the given int64 and assigns it to the Date field.
+func (o *AuditLogEntryRep) SetDate(v int64) {
+	o.Date = &v
+}
+
+// GetAccesses returns the Accesses field value if set, zero value otherwise.
+func (o *AuditLogEntryRep) GetAccesses() []AuditLogEntryListingRepAccesses {
+	if o == nil || o.Accesses == nil {
+		var ret []AuditLogEntryListingRepAccesses
+		return ret
+	}
+	return *o.Accesses
+}
+
+// GetAccessesOk returns a tuple with the Accesses field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AuditLogEntryRep) GetAccessesOk() (*[]AuditLogEntryListingRepAccesses, bool) {
+	if o == nil || o.Accesses == nil {
+		return nil, false
+	}
+	return o.Accesses, true
+}
+
+// HasAccesses returns a boolean if a field has been set.
+func (o *AuditLogEntryRep) HasAccesses() bool {
+	if o != nil && o.Accesses != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAccesses gets a reference to the given []AuditLogEntryListingRepAccesses and assigns it to the Accesses field.
+func (o *AuditLogEntryRep) SetAccesses(v []AuditLogEntryListingRepAccesses) {
+	o.Accesses = &v
+}
+
+// GetKind returns the Kind field value if set, zero value otherwise.
+func (o *AuditLogEntryRep) GetKind() string {
+	if o == nil || o.Kind == nil {
+		var ret string
+		return ret
+	}
+	return *o.Kind
+}
+
+// GetKindOk returns a tuple with the Kind field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AuditLogEntryRep) GetKindOk() (*string, bool) {
+	if o == nil || o.Kind == nil {
+		return nil, false
+	}
+	return o.Kind, true
+}
+
+// HasKind returns a boolean if a field has been set.
+func (o *AuditLogEntryRep) HasKind() bool {
+	if o != nil && o.Kind != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetKind gets a reference to the given string and assigns it to the Kind field.
+func (o *AuditLogEntryRep) SetKind(v string) {
+	o.Kind = &v
+}
+
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *AuditLogEntryRep) GetName() string {
+	if o == nil || o.Name == nil {
+		var ret string
+		return ret
+	}
+	return *o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AuditLogEntryRep) GetNameOk() (*string, bool) {
+	if o == nil || o.Name == nil {
+		return nil, false
+	}
+	return o.Name, true
+}
+
+// HasName returns a boolean if a field has been set.
+func (o *AuditLogEntryRep) HasName() bool {
+	if o != nil && o.Name != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *AuditLogEntryRep) SetName(v string) {
+	o.Name = &v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *AuditLogEntryRep) GetDescription() string {
+	if o == nil || o.Description == nil {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AuditLogEntryRep) GetDescriptionOk() (*string, bool) {
+	if o == nil || o.Description == nil {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *AuditLogEntryRep) HasDescription() bool {
+	if o != nil && o.Description != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *AuditLogEntryRep) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetShortDescription returns the ShortDescription field value if set, zero value otherwise.
+func (o *AuditLogEntryRep) GetShortDescription() string {
+	if o == nil || o.ShortDescription == nil {
+		var ret string
+		return ret
+	}
+	return *o.ShortDescription
+}
+
+// GetShortDescriptionOk returns a tuple with the ShortDescription field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AuditLogEntryRep) GetShortDescriptionOk() (*string, bool) {
+	if o == nil || o.ShortDescription == nil {
+		return nil, false
+	}
+	return o.ShortDescription, true
+}
+
+// HasShortDescription returns a boolean if a field has been set.
+func (o *AuditLogEntryRep) HasShortDescription() bool {
+	if o != nil && o.ShortDescription != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetShortDescription gets a reference to the given string and assigns it to the ShortDescription field.
+func (o *AuditLogEntryRep) SetShortDescription(v string) {
+	o.ShortDescription = &v
+}
+
+// GetComment returns the Comment field value if set, zero value otherwise.
+func (o *AuditLogEntryRep) GetComment() string {
+	if o == nil || o.Comment == nil {
+		var ret string
+		return ret
+	}
+	return *o.Comment
+}
+
+// GetCommentOk returns a tuple with the Comment field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AuditLogEntryRep) GetCommentOk() (*string, bool) {
+	if o == nil || o.Comment == nil {
+		return nil, false
+	}
+	return o.Comment, true
+}
+
+// HasComment returns a boolean if a field has been set.
+func (o *AuditLogEntryRep) HasComment() bool {
+	if o != nil && o.Comment != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetComment gets a reference to the given string and assigns it to the Comment field.
+func (o *AuditLogEntryRep) SetComment(v string) {
+	o.Comment = &v
+}
+
+// GetSubject returns the Subject field value if set, zero value otherwise.
+func (o *AuditLogEntryRep) GetSubject() SubjectDataRep {
+	if o == nil || o.Subject == nil {
+		var ret SubjectDataRep
+		return ret
+	}
+	return *o.Subject
+}
+
+// GetSubjectOk returns a tuple with the Subject field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AuditLogEntryRep) GetSubjectOk() (*SubjectDataRep, bool) {
+	if o == nil || o.Subject == nil {
+		return nil, false
+	}
+	return o.Subject, true
+}
+
+// HasSubject returns a boolean if a field has been set.
+func (o *AuditLogEntryRep) HasSubject() bool {
+	if o != nil && o.Subject != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSubject gets a reference to the given SubjectDataRep and assigns it to the Subject field.
+func (o *AuditLogEntryRep) SetSubject(v SubjectDataRep) {
+	o.Subject = &v
+}
+
+// GetMember returns the Member field value if set, zero value otherwise.
+func (o *AuditLogEntryRep) GetMember() MemberDataRep {
+	if o == nil || o.Member == nil {
+		var ret MemberDataRep
+		return ret
+	}
+	return *o.Member
+}
+
+// GetMemberOk returns a tuple with the Member field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AuditLogEntryRep) GetMemberOk() (*MemberDataRep, bool) {
+	if o == nil || o.Member == nil {
+		return nil, false
+	}
+	return o.Member, true
+}
+
+// HasMember returns a boolean if a field has been set.
+func (o *AuditLogEntryRep) HasMember() bool {
+	if o != nil && o.Member != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMember gets a reference to the given MemberDataRep and assigns it to the Member field.
+func (o *AuditLogEntryRep) SetMember(v MemberDataRep) {
+	o.Member = &v
+}
+
+// GetToken returns the Token field value if set, zero value otherwise.
+func (o *AuditLogEntryRep) GetToken() TokenDataRep {
+	if o == nil || o.Token == nil {
+		var ret TokenDataRep
+		return ret
+	}
+	return *o.Token
+}
+
+// GetTokenOk returns a tuple with the Token field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AuditLogEntryRep) GetTokenOk() (*TokenDataRep, bool) {
+	if o == nil || o.Token == nil {
+		return nil, false
+	}
+	return o.Token, true
+}
+
+// HasToken returns a boolean if a field has been set.
+func (o *AuditLogEntryRep) HasToken() bool {
+	if o != nil && o.Token != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetToken gets a reference to the given TokenDataRep and assigns it to the Token field.
+func (o *AuditLogEntryRep) SetToken(v TokenDataRep) {
+	o.Token = &v
+}
+
+// GetApp returns the App field value if set, zero value otherwise.
+func (o *AuditLogEntryRep) GetApp() AuthorizedAppDataRep {
+	if o == nil || o.App == nil {
+		var ret AuthorizedAppDataRep
+		return ret
+	}
+	return *o.App
+}
+
+// GetAppOk returns a tuple with the App field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AuditLogEntryRep) GetAppOk() (*AuthorizedAppDataRep, bool) {
+	if o == nil || o.App == nil {
+		return nil, false
+	}
+	return o.App, true
+}
+
+// HasApp returns a boolean if a field has been set.
+func (o *AuditLogEntryRep) HasApp() bool {
+	if o != nil && o.App != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetApp gets a reference to the given AuthorizedAppDataRep and assigns it to the App field.
+func (o *AuditLogEntryRep) SetApp(v AuthorizedAppDataRep) {
+	o.App = &v
+}
+
+// GetTitleVerb returns the TitleVerb field value if set, zero value otherwise.
+func (o *AuditLogEntryRep) GetTitleVerb() string {
+	if o == nil || o.TitleVerb == nil {
+		var ret string
+		return ret
+	}
+	return *o.TitleVerb
+}
+
+// GetTitleVerbOk returns a tuple with the TitleVerb field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AuditLogEntryRep) GetTitleVerbOk() (*string, bool) {
+	if o == nil || o.TitleVerb == nil {
+		return nil, false
+	}
+	return o.TitleVerb, true
+}
+
+// HasTitleVerb returns a boolean if a field has been set.
+func (o *AuditLogEntryRep) HasTitleVerb() bool {
+	if o != nil && o.TitleVerb != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTitleVerb gets a reference to the given string and assigns it to the TitleVerb field.
+func (o *AuditLogEntryRep) SetTitleVerb(v string) {
+	o.TitleVerb = &v
+}
+
+// GetTitle returns the Title field value if set, zero value otherwise.
+func (o *AuditLogEntryRep) GetTitle() string {
+	if o == nil || o.Title == nil {
+		var ret string
+		return ret
+	}
+	return *o.Title
+}
+
+// GetTitleOk returns a tuple with the Title field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AuditLogEntryRep) GetTitleOk() (*string, bool) {
+	if o == nil || o.Title == nil {
+		return nil, false
+	}
+	return o.Title, true
+}
+
+// HasTitle returns a boolean if a field has been set.
+func (o *AuditLogEntryRep) HasTitle() bool {
+	if o != nil && o.Title != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTitle gets a reference to the given string and assigns it to the Title field.
+func (o *AuditLogEntryRep) SetTitle(v string) {
+	o.Title = &v
+}
+
+// GetTarget returns the Target field value if set, zero value otherwise.
+func (o *AuditLogEntryRep) GetTarget() TargetResourceRep {
+	if o == nil || o.Target == nil {
+		var ret TargetResourceRep
+		return ret
+	}
+	return *o.Target
+}
+
+// GetTargetOk returns a tuple with the Target field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AuditLogEntryRep) GetTargetOk() (*TargetResourceRep, bool) {
+	if o == nil || o.Target == nil {
+		return nil, false
+	}
+	return o.Target, true
+}
+
+// HasTarget returns a boolean if a field has been set.
+func (o *AuditLogEntryRep) HasTarget() bool {
+	if o != nil && o.Target != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTarget gets a reference to the given TargetResourceRep and assigns it to the Target field.
+func (o *AuditLogEntryRep) SetTarget(v TargetResourceRep) {
+	o.Target = &v
+}
+
+// GetParent returns the Parent field value if set, zero value otherwise.
+func (o *AuditLogEntryRep) GetParent() ParentResourceRep {
+	if o == nil || o.Parent == nil {
+		var ret ParentResourceRep
+		return ret
+	}
+	return *o.Parent
+}
+
+// GetParentOk returns a tuple with the Parent field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AuditLogEntryRep) GetParentOk() (*ParentResourceRep, bool) {
+	if o == nil || o.Parent == nil {
+		return nil, false
+	}
+	return o.Parent, true
+}
+
+// HasParent returns a boolean if a field has been set.
+func (o *AuditLogEntryRep) HasParent() bool {
+	if o != nil && o.Parent != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetParent gets a reference to the given ParentResourceRep and assigns it to the Parent field.
+func (o *AuditLogEntryRep) SetParent(v ParentResourceRep) {
+	o.Parent = &v
+}
+
+// GetDelta returns the Delta field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AuditLogEntryRep) GetDelta() interface{} {
 	if o == nil  {
-		return nil, false
-	}
-	return &o.Key, true
-}
-
-// SetKey sets field value
-func (o *ProjectPost) SetKey(v string) {
-	o.Key = v
-}
-
-// GetIncludeInSnippetByDefault returns the IncludeInSnippetByDefault field value if set, zero value otherwise.
-func (o *ProjectPost) GetIncludeInSnippetByDefault() bool {
-	if o == nil || o.IncludeInSnippetByDefault == nil {
-		var ret bool
+		var ret interface{}
 		return ret
 	}
-	return *o.IncludeInSnippetByDefault
+	return o.Delta
 }
 
-// GetIncludeInSnippetByDefaultOk returns a tuple with the IncludeInSnippetByDefault field value if set, nil otherwise
+// GetDeltaOk returns a tuple with the Delta field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProjectPost) GetIncludeInSnippetByDefaultOk() (*bool, bool) {
-	if o == nil || o.IncludeInSnippetByDefault == nil {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AuditLogEntryRep) GetDeltaOk() (*interface{}, bool) {
+	if o == nil || o.Delta == nil {
 		return nil, false
 	}
-	return o.IncludeInSnippetByDefault, true
+	return &o.Delta, true
 }
 
-// HasIncludeInSnippetByDefault returns a boolean if a field has been set.
-func (o *ProjectPost) HasIncludeInSnippetByDefault() bool {
-	if o != nil && o.IncludeInSnippetByDefault != nil {
+// HasDelta returns a boolean if a field has been set.
+func (o *AuditLogEntryRep) HasDelta() bool {
+	if o != nil && o.Delta != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetIncludeInSnippetByDefault gets a reference to the given bool and assigns it to the IncludeInSnippetByDefault field.
-func (o *ProjectPost) SetIncludeInSnippetByDefault(v bool) {
-	o.IncludeInSnippetByDefault = &v
+// SetDelta gets a reference to the given interface{} and assigns it to the Delta field.
+func (o *AuditLogEntryRep) SetDelta(v interface{}) {
+	o.Delta = v
 }
 
-// GetDefaultClientSideAvailability returns the DefaultClientSideAvailability field value if set, zero value otherwise.
-func (o *ProjectPost) GetDefaultClientSideAvailability() DefaultClientSideAvailabilityPost {
-	if o == nil || o.DefaultClientSideAvailability == nil {
-		var ret DefaultClientSideAvailabilityPost
+// GetTriggerBody returns the TriggerBody field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AuditLogEntryRep) GetTriggerBody() interface{} {
+	if o == nil  {
+		var ret interface{}
 		return ret
 	}
-	return *o.DefaultClientSideAvailability
+	return o.TriggerBody
 }
 
-// GetDefaultClientSideAvailabilityOk returns a tuple with the DefaultClientSideAvailability field value if set, nil otherwise
+// GetTriggerBodyOk returns a tuple with the TriggerBody field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProjectPost) GetDefaultClientSideAvailabilityOk() (*DefaultClientSideAvailabilityPost, bool) {
-	if o == nil || o.DefaultClientSideAvailability == nil {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AuditLogEntryRep) GetTriggerBodyOk() (*interface{}, bool) {
+	if o == nil || o.TriggerBody == nil {
 		return nil, false
 	}
-	return o.DefaultClientSideAvailability, true
+	return &o.TriggerBody, true
 }
 
-// HasDefaultClientSideAvailability returns a boolean if a field has been set.
-func (o *ProjectPost) HasDefaultClientSideAvailability() bool {
-	if o != nil && o.DefaultClientSideAvailability != nil {
+// HasTriggerBody returns a boolean if a field has been set.
+func (o *AuditLogEntryRep) HasTriggerBody() bool {
+	if o != nil && o.TriggerBody != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetDefaultClientSideAvailability gets a reference to the given DefaultClientSideAvailabilityPost and assigns it to the DefaultClientSideAvailability field.
-func (o *ProjectPost) SetDefaultClientSideAvailability(v DefaultClientSideAvailabilityPost) {
-	o.DefaultClientSideAvailability = &v
+// SetTriggerBody gets a reference to the given interface{} and assigns it to the TriggerBody field.
+func (o *AuditLogEntryRep) SetTriggerBody(v interface{}) {
+	o.TriggerBody = v
 }
 
-// GetTags returns the Tags field value if set, zero value otherwise.
-func (o *ProjectPost) GetTags() []string {
-	if o == nil || o.Tags == nil {
-		var ret []string
+// GetMerge returns the Merge field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AuditLogEntryRep) GetMerge() interface{} {
+	if o == nil  {
+		var ret interface{}
 		return ret
 	}
-	return *o.Tags
+	return o.Merge
 }
 
-// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// GetMergeOk returns a tuple with the Merge field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProjectPost) GetTagsOk() (*[]string, bool) {
-	if o == nil || o.Tags == nil {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AuditLogEntryRep) GetMergeOk() (*interface{}, bool) {
+	if o == nil || o.Merge == nil {
 		return nil, false
 	}
-	return o.Tags, true
+	return &o.Merge, true
 }
 
-// HasTags returns a boolean if a field has been set.
-func (o *ProjectPost) HasTags() bool {
-	if o != nil && o.Tags != nil {
+// HasMerge returns a boolean if a field has been set.
+func (o *AuditLogEntryRep) HasMerge() bool {
+	if o != nil && o.Merge != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetTags gets a reference to the given []string and assigns it to the Tags field.
-func (o *ProjectPost) SetTags(v []string) {
-	o.Tags = &v
+// SetMerge gets a reference to the given interface{} and assigns it to the Merge field.
+func (o *AuditLogEntryRep) SetMerge(v interface{}) {
+	o.Merge = v
 }
 
-// GetEnvironments returns the Environments field value if set, zero value otherwise.
-func (o *ProjectPost) GetEnvironments() []map[string]interface{} {
-	if o == nil || o.Environments == nil {
-		var ret []map[string]interface{}
+// GetPreviousVersion returns the PreviousVersion field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AuditLogEntryRep) GetPreviousVersion() interface{} {
+	if o == nil  {
+		var ret interface{}
 		return ret
 	}
-	return *o.Environments
+	return o.PreviousVersion
 }
 
-// GetEnvironmentsOk returns a tuple with the Environments field value if set, nil otherwise
+// GetPreviousVersionOk returns a tuple with the PreviousVersion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProjectPost) GetEnvironmentsOk() (*[]map[string]interface{}, bool) {
-	if o == nil || o.Environments == nil {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AuditLogEntryRep) GetPreviousVersionOk() (*interface{}, bool) {
+	if o == nil || o.PreviousVersion == nil {
 		return nil, false
 	}
-	return o.Environments, true
+	return &o.PreviousVersion, true
 }
 
-// HasEnvironments returns a boolean if a field has been set.
-func (o *ProjectPost) HasEnvironments() bool {
-	if o != nil && o.Environments != nil {
+// HasPreviousVersion returns a boolean if a field has been set.
+func (o *AuditLogEntryRep) HasPreviousVersion() bool {
+	if o != nil && o.PreviousVersion != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetEnvironments gets a reference to the given []map[string]interface{} and assigns it to the Environments field.
-func (o *ProjectPost) SetEnvironments(v []map[string]interface{}) {
-	o.Environments = &v
+// SetPreviousVersion gets a reference to the given interface{} and assigns it to the PreviousVersion field.
+func (o *AuditLogEntryRep) SetPreviousVersion(v interface{}) {
+	o.PreviousVersion = v
 }
 
-func (o ProjectPost) MarshalJSON() ([]byte, error) {
+// GetCurrentVersion returns the CurrentVersion field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AuditLogEntryRep) GetCurrentVersion() interface{} {
+	if o == nil  {
+		var ret interface{}
+		return ret
+	}
+	return o.CurrentVersion
+}
+
+// GetCurrentVersionOk returns a tuple with the CurrentVersion field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AuditLogEntryRep) GetCurrentVersionOk() (*interface{}, bool) {
+	if o == nil || o.CurrentVersion == nil {
+		return nil, false
+	}
+	return &o.CurrentVersion, true
+}
+
+// HasCurrentVersion returns a boolean if a field has been set.
+func (o *AuditLogEntryRep) HasCurrentVersion() bool {
+	if o != nil && o.CurrentVersion != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCurrentVersion gets a reference to the given interface{} and assigns it to the CurrentVersion field.
+func (o *AuditLogEntryRep) SetCurrentVersion(v interface{}) {
+	o.CurrentVersion = v
+}
+
+// GetSubentries returns the Subentries field value if set, zero value otherwise.
+func (o *AuditLogEntryRep) GetSubentries() []AuditLogEntryListingRep {
+	if o == nil || o.Subentries == nil {
+		var ret []AuditLogEntryListingRep
+		return ret
+	}
+	return *o.Subentries
+}
+
+// GetSubentriesOk returns a tuple with the Subentries field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AuditLogEntryRep) GetSubentriesOk() (*[]AuditLogEntryListingRep, bool) {
+	if o == nil || o.Subentries == nil {
+		return nil, false
+	}
+	return o.Subentries, true
+}
+
+// HasSubentries returns a boolean if a field has been set.
+func (o *AuditLogEntryRep) HasSubentries() bool {
+	if o != nil && o.Subentries != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSubentries gets a reference to the given []AuditLogEntryListingRep and assigns it to the Subentries field.
+func (o *AuditLogEntryRep) SetSubentries(v []AuditLogEntryListingRep) {
+	o.Subentries = &v
+}
+
+func (o AuditLogEntryRep) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
+	if o.Links != nil {
+		toSerialize["_links"] = o.Links
+	}
+	if o.Id != nil {
+		toSerialize["_id"] = o.Id
+	}
+	if o.AccountId != nil {
+		toSerialize["_accountId"] = o.AccountId
+	}
+	if o.Date != nil {
+		toSerialize["date"] = o.Date
+	}
+	if o.Accesses != nil {
+		toSerialize["accesses"] = o.Accesses
+	}
+	if o.Kind != nil {
+		toSerialize["kind"] = o.Kind
+	}
+	if o.Name != nil {
 		toSerialize["name"] = o.Name
 	}
-	if true {
-		toSerialize["key"] = o.Key
+	if o.Description != nil {
+		toSerialize["description"] = o.Description
 	}
-	if o.IncludeInSnippetByDefault != nil {
-		toSerialize["includeInSnippetByDefault"] = o.IncludeInSnippetByDefault
+	if o.ShortDescription != nil {
+		toSerialize["shortDescription"] = o.ShortDescription
 	}
-	if o.DefaultClientSideAvailability != nil {
-		toSerialize["defaultClientSideAvailability"] = o.DefaultClientSideAvailability
+	if o.Comment != nil {
+		toSerialize["comment"] = o.Comment
 	}
-	if o.Tags != nil {
-		toSerialize["tags"] = o.Tags
+	if o.Subject != nil {
+		toSerialize["subject"] = o.Subject
 	}
-	if o.Environments != nil {
-		toSerialize["environments"] = o.Environments
+	if o.Member != nil {
+		toSerialize["member"] = o.Member
+	}
+	if o.Token != nil {
+		toSerialize["token"] = o.Token
+	}
+	if o.App != nil {
+		toSerialize["app"] = o.App
+	}
+	if o.TitleVerb != nil {
+		toSerialize["titleVerb"] = o.TitleVerb
+	}
+	if o.Title != nil {
+		toSerialize["title"] = o.Title
+	}
+	if o.Target != nil {
+		toSerialize["target"] = o.Target
+	}
+	if o.Parent != nil {
+		toSerialize["parent"] = o.Parent
+	}
+	if o.Delta != nil {
+		toSerialize["delta"] = o.Delta
+	}
+	if o.TriggerBody != nil {
+		toSerialize["triggerBody"] = o.TriggerBody
+	}
+	if o.Merge != nil {
+		toSerialize["merge"] = o.Merge
+	}
+	if o.PreviousVersion != nil {
+		toSerialize["previousVersion"] = o.PreviousVersion
+	}
+	if o.CurrentVersion != nil {
+		toSerialize["currentVersion"] = o.CurrentVersion
+	}
+	if o.Subentries != nil {
+		toSerialize["subentries"] = o.Subentries
 	}
 	return json.Marshal(toSerialize)
 }
 
-type NullableProjectPost struct {
-	value *ProjectPost
+type NullableAuditLogEntryRep struct {
+	value *AuditLogEntryRep
 	isSet bool
 }
 
-func (v NullableProjectPost) Get() *ProjectPost {
+func (v NullableAuditLogEntryRep) Get() *AuditLogEntryRep {
 	return v.value
 }
 
-func (v *NullableProjectPost) Set(val *ProjectPost) {
+func (v *NullableAuditLogEntryRep) Set(val *AuditLogEntryRep) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableProjectPost) IsSet() bool {
+func (v NullableAuditLogEntryRep) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableProjectPost) Unset() {
+func (v *NullableAuditLogEntryRep) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableProjectPost(val *ProjectPost) *NullableProjectPost {
-	return &NullableProjectPost{value: val, isSet: true}
+func NewNullableAuditLogEntryRep(val *AuditLogEntryRep) *NullableAuditLogEntryRep {
+	return &NullableAuditLogEntryRep{value: val, isSet: true}
 }
 
-func (v NullableProjectPost) MarshalJSON() ([]byte, error) {
+func (v NullableAuditLogEntryRep) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableProjectPost) UnmarshalJSON(src []byte) error {
+func (v *NullableAuditLogEntryRep) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

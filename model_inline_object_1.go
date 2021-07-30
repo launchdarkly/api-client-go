@@ -12,294 +12,278 @@
 package ldapi
 
 import (
-	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
-	"strings"
+	"encoding/json"
 )
 
-// Linger please
-var (
-	_ _context.Context
-)
-
-// AuditLogApiService AuditLogApi service
-type AuditLogApiService service
-
-type ApiGetAuditLogEntriesRequest struct {
-	ctx _context.Context
-	ApiService *AuditLogApiService
-	before *int64
-	after *int64
-	q *string
-	limit *int64
-	spec *string
+// InlineObject1 struct for InlineObject1
+type InlineObject1 struct {
+	Email string `json:"email"`
+	Password *string `json:"password,omitempty"`
+	FirstName *string `json:"firstName,omitempty"`
+	LastName *string `json:"lastName,omitempty"`
+	Role *string `json:"role,omitempty"`
+	CustomRoles *[]string `json:"customRoles,omitempty"`
 }
 
-func (r ApiGetAuditLogEntriesRequest) Before(before int64) ApiGetAuditLogEntriesRequest {
-	r.before = &before
-	return r
-}
-func (r ApiGetAuditLogEntriesRequest) After(after int64) ApiGetAuditLogEntriesRequest {
-	r.after = &after
-	return r
-}
-func (r ApiGetAuditLogEntriesRequest) Q(q string) ApiGetAuditLogEntriesRequest {
-	r.q = &q
-	return r
-}
-func (r ApiGetAuditLogEntriesRequest) Limit(limit int64) ApiGetAuditLogEntriesRequest {
-	r.limit = &limit
-	return r
-}
-func (r ApiGetAuditLogEntriesRequest) Spec(spec string) ApiGetAuditLogEntriesRequest {
-	r.spec = &spec
-	return r
+// NewInlineObject1 instantiates a new InlineObject1 object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewInlineObject1(email string) *InlineObject1 {
+	this := InlineObject1{}
+	this.Email = email
+	return &this
 }
 
-func (r ApiGetAuditLogEntriesRequest) Execute() (AuditLogEntryListingRepCollection, *_nethttp.Response, error) {
-	return r.ApiService.GetAuditLogEntriesExecute(r)
+// NewInlineObject1WithDefaults instantiates a new InlineObject1 object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewInlineObject1WithDefaults() *InlineObject1 {
+	this := InlineObject1{}
+	return &this
 }
 
-/*
- * GetAuditLogEntries List audit log feature flag entries
- *  Gets a list of all audit log entries. The query parameters let you restrict the results that return by date ranges, resource specifiers, or a full-text search query.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @return ApiGetAuditLogEntriesRequest
- */
-func (a *AuditLogApiService) GetAuditLogEntries(ctx _context.Context) ApiGetAuditLogEntriesRequest {
-	return ApiGetAuditLogEntriesRequest{
-		ApiService: a,
-		ctx: ctx,
+// GetEmail returns the Email field value
+func (o *InlineObject1) GetEmail() string {
+	if o == nil {
+		var ret string
+		return ret
 	}
+
+	return o.Email
 }
 
-/*
- * Execute executes the request
- * @return AuditLogEntryListingRepCollection
- */
-func (a *AuditLogApiService) GetAuditLogEntriesExecute(r ApiGetAuditLogEntriesRequest) (AuditLogEntryListingRepCollection, *_nethttp.Response, error) {
-	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  AuditLogEntryListingRepCollection
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuditLogApiService.GetAuditLogEntries")
-	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+// GetEmailOk returns a tuple with the Email field value
+// and a boolean to check if the value has been set.
+func (o *InlineObject1) GetEmailOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
 	}
-
-	localVarPath := localBasePath + "/api/v2/auditlog"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
-
-	if r.before != nil {
-		localVarQueryParams.Add("before", parameterToString(*r.before, ""))
-	}
-	if r.after != nil {
-		localVarQueryParams.Add("after", parameterToString(*r.after, ""))
-	}
-	if r.q != nil {
-		localVarQueryParams.Add("q", parameterToString(*r.q, ""))
-	}
-	if r.limit != nil {
-		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
-	}
-	if r.spec != nil {
-		localVarQueryParams.Add("spec", parameterToString(*r.spec, ""))
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["ApiKey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["Authorization"] = key
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return &o.Email, true
 }
 
-type ApiGetAuditLogEntryRequest struct {
-	ctx _context.Context
-	ApiService *AuditLogApiService
-	resourceId string
+// SetEmail sets field value
+func (o *InlineObject1) SetEmail(v string) {
+	o.Email = v
+}
+
+// GetPassword returns the Password field value if set, zero value otherwise.
+func (o *InlineObject1) GetPassword() string {
+	if o == nil || o.Password == nil {
+		var ret string
+		return ret
+	}
+	return *o.Password
+}
+
+// GetPasswordOk returns a tuple with the Password field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InlineObject1) GetPasswordOk() (*string, bool) {
+	if o == nil || o.Password == nil {
+		return nil, false
+	}
+	return o.Password, true
+}
+
+// HasPassword returns a boolean if a field has been set.
+func (o *InlineObject1) HasPassword() bool {
+	if o != nil && o.Password != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPassword gets a reference to the given string and assigns it to the Password field.
+func (o *InlineObject1) SetPassword(v string) {
+	o.Password = &v
+}
+
+// GetFirstName returns the FirstName field value if set, zero value otherwise.
+func (o *InlineObject1) GetFirstName() string {
+	if o == nil || o.FirstName == nil {
+		var ret string
+		return ret
+	}
+	return *o.FirstName
+}
+
+// GetFirstNameOk returns a tuple with the FirstName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InlineObject1) GetFirstNameOk() (*string, bool) {
+	if o == nil || o.FirstName == nil {
+		return nil, false
+	}
+	return o.FirstName, true
+}
+
+// HasFirstName returns a boolean if a field has been set.
+func (o *InlineObject1) HasFirstName() bool {
+	if o != nil && o.FirstName != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFirstName gets a reference to the given string and assigns it to the FirstName field.
+func (o *InlineObject1) SetFirstName(v string) {
+	o.FirstName = &v
+}
+
+// GetLastName returns the LastName field value if set, zero value otherwise.
+func (o *InlineObject1) GetLastName() string {
+	if o == nil || o.LastName == nil {
+		var ret string
+		return ret
+	}
+	return *o.LastName
+}
+
+// GetLastNameOk returns a tuple with the LastName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InlineObject1) GetLastNameOk() (*string, bool) {
+	if o == nil || o.LastName == nil {
+		return nil, false
+	}
+	return o.LastName, true
+}
+
+// HasLastName returns a boolean if a field has been set.
+func (o *InlineObject1) HasLastName() bool {
+	if o != nil && o.LastName != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLastName gets a reference to the given string and assigns it to the LastName field.
+func (o *InlineObject1) SetLastName(v string) {
+	o.LastName = &v
+}
+
+// GetRole returns the Role field value if set, zero value otherwise.
+func (o *InlineObject1) GetRole() string {
+	if o == nil || o.Role == nil {
+		var ret string
+		return ret
+	}
+	return *o.Role
+}
+
+// GetRoleOk returns a tuple with the Role field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InlineObject1) GetRoleOk() (*string, bool) {
+	if o == nil || o.Role == nil {
+		return nil, false
+	}
+	return o.Role, true
+}
+
+// HasRole returns a boolean if a field has been set.
+func (o *InlineObject1) HasRole() bool {
+	if o != nil && o.Role != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRole gets a reference to the given string and assigns it to the Role field.
+func (o *InlineObject1) SetRole(v string) {
+	o.Role = &v
+}
+
+// GetCustomRoles returns the CustomRoles field value if set, zero value otherwise.
+func (o *InlineObject1) GetCustomRoles() []string {
+	if o == nil || o.CustomRoles == nil {
+		var ret []string
+		return ret
+	}
+	return *o.CustomRoles
+}
+
+// GetCustomRolesOk returns a tuple with the CustomRoles field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InlineObject1) GetCustomRolesOk() (*[]string, bool) {
+	if o == nil || o.CustomRoles == nil {
+		return nil, false
+	}
+	return o.CustomRoles, true
+}
+
+// HasCustomRoles returns a boolean if a field has been set.
+func (o *InlineObject1) HasCustomRoles() bool {
+	if o != nil && o.CustomRoles != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCustomRoles gets a reference to the given []string and assigns it to the CustomRoles field.
+func (o *InlineObject1) SetCustomRoles(v []string) {
+	o.CustomRoles = &v
+}
+
+func (o InlineObject1) MarshalJSON() ([]byte, error) {
+	toSerialize := map[string]interface{}{}
+	if true {
+		toSerialize["email"] = o.Email
+	}
+	if o.Password != nil {
+		toSerialize["password"] = o.Password
+	}
+	if o.FirstName != nil {
+		toSerialize["firstName"] = o.FirstName
+	}
+	if o.LastName != nil {
+		toSerialize["lastName"] = o.LastName
+	}
+	if o.Role != nil {
+		toSerialize["role"] = o.Role
+	}
+	if o.CustomRoles != nil {
+		toSerialize["customRoles"] = o.CustomRoles
+	}
+	return json.Marshal(toSerialize)
+}
+
+type NullableInlineObject1 struct {
+	value *InlineObject1
+	isSet bool
+}
+
+func (v NullableInlineObject1) Get() *InlineObject1 {
+	return v.value
+}
+
+func (v *NullableInlineObject1) Set(val *InlineObject1) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableInlineObject1) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableInlineObject1) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableInlineObject1(val *InlineObject1) *NullableInlineObject1 {
+	return &NullableInlineObject1{value: val, isSet: true}
+}
+
+func (v NullableInlineObject1) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableInlineObject1) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
 }
 
 
-func (r ApiGetAuditLogEntryRequest) Execute() (AuditLogEntryRep, *_nethttp.Response, error) {
-	return r.ApiService.GetAuditLogEntryExecute(r)
-}
-
-/*
- * GetAuditLogEntry Get audit log entry
- *  Fetches a detailed audit log entry representation
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param resourceId The ID of the audit log entry
- * @return ApiGetAuditLogEntryRequest
- */
-func (a *AuditLogApiService) GetAuditLogEntry(ctx _context.Context, resourceId string) ApiGetAuditLogEntryRequest {
-	return ApiGetAuditLogEntryRequest{
-		ApiService: a,
-		ctx: ctx,
-		resourceId: resourceId,
-	}
-}
-
-/*
- * Execute executes the request
- * @return AuditLogEntryRep
- */
-func (a *AuditLogApiService) GetAuditLogEntryExecute(r ApiGetAuditLogEntryRequest) (AuditLogEntryRep, *_nethttp.Response, error) {
-	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  AuditLogEntryRep
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuditLogApiService.GetAuditLogEntry")
-	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v2/auditlog/{resourceId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"resourceId"+"}", _neturl.PathEscape(parameterToString(r.resourceId, "")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["ApiKey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["Authorization"] = key
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}

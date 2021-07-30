@@ -742,6 +742,98 @@ paths:
       summary: List audit log feature flag entries
       tags:
       - Audit log
+  /api/v2/auditlog/{resourceId}:
+    get:
+      description: ' Fetches a detailed audit log entry representation'
+      operationId: getAuditLogEntry
+      parameters:
+      - description: The ID of the audit log entry
+        explode: false
+        in: path
+        name: resourceId
+        required: true
+        schema:
+          description: The ID of the audit log entry
+          format: string
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuditLogEntryRep'
+          description: Audit log entry response
+        "401":
+          description: Invalid access token
+        "404":
+          description: Invalid resource specifier
+        "429":
+          description: Rate limited
+      summary: Get audit log entry
+      tags:
+      - Audit log
+  /api/v2/code-refs/extinctions:
+    get:
+      description: ' Gets a list of all extinctions'
+      operationId: getExtinctions
+      parameters:
+      - description: Filter results to a specific repository
+        explode: true
+        in: query
+        name: repoName
+        required: false
+        schema:
+          description: Filter results to a specific repository
+          format: string
+          type: string
+        style: form
+      - description: Filter results to a specific branch
+        explode: true
+        in: query
+        name: branchName
+        required: false
+        schema:
+          description: Filter results to a specific branch
+          format: string
+          type: string
+        style: form
+      - description: Filter results to a specific project
+        explode: true
+        in: query
+        name: projKey
+        required: false
+        schema:
+          description: Filter results to a specific project
+          format: string
+          type: string
+        style: form
+      - description: Filter results to a specific flag key
+        explode: true
+        in: query
+        name: flagKey
+        required: false
+        schema:
+          description: Filter results to a specific flag key
+          format: string
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.ExtinctionCollectionRep'
+          description: Branch response
+        "401":
+          description: Invalid access token
+        "404":
+          description: Invalid resource specifier
+        "429":
+          description: Rate limited
+      summary: List extinctions
+      tags:
+      - Code references
   /api/v2/code-refs/repositories:
     get:
       description: ' Retrieves a complete list of connected repositories. Optionally,
@@ -821,7 +913,7 @@ paths:
         content:
           application/json:
             schema:
-              type: string
+              $ref: '#/components/schemas/api.repositoryPost'
         required: true
       responses:
         "200":
@@ -853,10 +945,8 @@ paths:
           type: string
         style: simple
       responses:
-        "200":
-          description: Repository response
-        "400":
-          description: Invalid request
+        "204":
+          description: Action completed successfully
         "401":
           description: Invalid access token
         "403":
@@ -940,6 +1030,41 @@ paths:
       summary: Update repository
       tags:
       - Code references
+  /api/v2/code-refs/repositories/{repo}/branch-delete-tasks:
+    post:
+      description: ' Asynchronously deletes a number of branches'
+      operationId: deleteBranches
+      parameters:
+      - description: The repo name to delete branches for.
+        explode: false
+        in: path
+        name: repo
+        required: true
+        schema:
+          description: The repo name to delete branches for.
+          format: string
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                type: string
+              type: array
+        required: true
+      responses:
+        "204":
+          description: Action completed successfully
+        "401":
+          description: Invalid access token
+        "404":
+          description: Invalid resource identifier
+        "429":
+          description: Rate limited
+      summary: Delete branches
+      tags:
+      - Code references
   /api/v2/code-refs/repositories/{repo}/branches:
     get:
       description: ' Gets a list of branches'
@@ -962,8 +1087,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/api.BranchCollectionRep'
           description: Branch collection response
-        "400":
-          description: Invalid request
         "401":
           description: Invalid access token
         "404":
@@ -998,6 +1121,26 @@ paths:
           format: string
           type: string
         style: simple
+      - description: Filter results to a specific project
+        explode: true
+        in: query
+        name: projKey
+        required: false
+        schema:
+          description: Filter results to a specific project
+          format: string
+          type: string
+        style: form
+      - description: Filter results to a specific flag key
+        explode: true
+        in: query
+        name: flagKey
+        required: false
+        schema:
+          description: Filter results to a specific flag key
+          format: string
+          type: string
+        style: form
       responses:
         "200":
           content:
@@ -1005,8 +1148,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/api.BranchRep'
           description: Branch response
-        "400":
-          description: Invalid request
         "401":
           description: Invalid access token
         "404":
@@ -1014,6 +1155,50 @@ paths:
         "429":
           description: Rate limited
       summary: Get branch
+      tags:
+      - Code references
+    post:
+      description: ' Create a new extinction'
+      operationId: postExtinction
+      parameters:
+      - description: The repository name
+        explode: false
+        in: path
+        name: repo
+        required: true
+        schema:
+          description: The repository name
+          format: string
+          type: string
+        style: simple
+      - description: The url-encoded branch name
+        explode: false
+        in: path
+        name: branch
+        required: true
+        schema:
+          description: The url-encoded branch name
+          format: string
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/InlineObject'
+              type: array
+        required: true
+      responses:
+        "200":
+          description: Extinction response
+        "401":
+          description: Invalid access token
+        "404":
+          description: Invalid resource specifier
+        "429":
+          description: Rate limited
+      summary: Post extinction
       tags:
       - Code references
     put:
@@ -1041,28 +1226,12 @@ paths:
           format: string
           type: string
         style: simple
-      - description: The current 40-character SHA revision of the git branch
-        explode: true
-        in: query
-        name: head
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/coderefs.Branch'
         required: true
-        schema:
-          description: The current 40-character SHA revision of the git branch
-          format: string
-          type: string
-        style: form
-      - description: A unix epoch time in milliseconds specifying the time code reference
-          data was generated
-        explode: true
-        in: query
-        name: syncTime
-        required: true
-        schema:
-          description: A unix epoch time in milliseconds specifying the time code
-            reference data was generated
-          format: int64
-          type: integer
-        style: form
       responses:
         "200":
           description: Branch response
@@ -1077,6 +1246,26 @@ paths:
         "429":
           description: Rate limited
       summary: Upsert branch
+      tags:
+      - Code references
+  /api/v2/code-refs/statistics:
+    get:
+      description: ' Retrieves links for all projects that have Code References.'
+      operationId: getRootStatistic
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/api.StatisticsRoot'
+          description: Statistic root response
+        "401":
+          description: Invalid access token
+        "404":
+          description: Invalid resource specifier
+        "429":
+          description: Rate limited
+      summary: Get number of code references for flags
       tags:
       - Code references
   /api/v2/code-refs/statistics/{projKey}:
@@ -1652,6 +1841,22 @@ paths:
             example, `filter=hasExperiment:true,filterEnv:production`.
           format: boolean
           type: boolean
+        style: form
+      - description: An object that contains a key of after and a value in Unix time
+          in milliseconds. This returns all flags that have been evaluated since the
+          time you specify in the environment provided. This filter also requires
+          a `filterEnv` field to be set to a valid environment. For example, `filter=evaluated:{
+        explode: true
+        in: query
+        name: evaluated
+        required: false
+        schema:
+          description: An object that contains a key of after and a value in Unix
+            time in milliseconds. This returns all flags that have been evaluated
+            since the time you specify in the environment provided. This filter also
+            requires a `filterEnv` field to be set to a valid environment. For example,
+            `filter=evaluated:{
+          type: object
         style: form
       - description: A string with the key of a valid environment. The `filterEnv`
           field is for filters that are environment specific. If there are multiple
@@ -2285,7 +2490,7 @@ paths:
           application/json:
             schema:
               items:
-                $ref: '#/components/schemas/InlineObject'
+                $ref: '#/components/schemas/InlineObject_1'
               type: array
         required: true
       responses:
@@ -5678,6 +5883,76 @@ components:
       - Required
       type: object
     AuditLogEntryListingRep:
+      example:
+        date: 0
+        app:
+          _links:
+            key:
+              href: href
+              type: type
+          isScim: true
+          name: name
+          _id: _id
+          maintainerName: maintainerName
+        parent:
+          _links:
+            key:
+              href: href
+              type: type
+          resource: ""
+          name: name
+        titleVerb: titleVerb
+        _links:
+          key:
+            href: href
+            type: type
+        kind: kind
+        subject:
+          _links:
+            key:
+              href: href
+              type: type
+          avatarUrl: avatarUrl
+          name: name
+        description: description
+        shortDescription: shortDescription
+        title: title
+        token:
+          ending: ending
+          _links:
+            key:
+              href: href
+              type: type
+          name: name
+          _id: _id
+          serviceToken: true
+        target:
+          _links:
+            key:
+              href: href
+              type: type
+          name: name
+          resources:
+          - ""
+          - ""
+        _accountId: _accountId
+        name: name
+        member:
+          firstName: firstName
+          lastName: lastName
+          _links:
+            key:
+              href: href
+              type: type
+          _id: _id
+          email: email
+        comment: comment
+        _id: _id
+        accesses:
+        - resource: ""
+          action: action
+        - resource: ""
+          action: action
       properties:
         _links:
           additionalProperties:
@@ -5869,12 +6144,279 @@ components:
       properties:
         items:
           items:
-            $ref: '#/components/schemas/AuditLogEntryListingRepCollection_items'
+            $ref: '#/components/schemas/AuditLogEntryListingRep'
           type: array
         _links:
           additionalProperties:
             $ref: '#/components/schemas/inline_response_200'
           type: object
+      type: object
+    AuditLogEntryRep:
+      example:
+        date: 0
+        app:
+          _links:
+            key:
+              href: href
+              type: type
+          isScim: true
+          name: name
+          _id: _id
+          maintainerName: maintainerName
+        parent:
+          _links:
+            key:
+              href: href
+              type: type
+          resource: ""
+          name: name
+        titleVerb: titleVerb
+        _links:
+          key:
+            href: href
+            type: type
+        kind: kind
+        subject:
+          _links:
+            key:
+              href: href
+              type: type
+          avatarUrl: avatarUrl
+          name: name
+        delta: ""
+        description: description
+        subentries:
+        - date: 0
+          app:
+            _links:
+              key:
+                href: href
+                type: type
+            isScim: true
+            name: name
+            _id: _id
+            maintainerName: maintainerName
+          parent:
+            _links:
+              key:
+                href: href
+                type: type
+            resource: ""
+            name: name
+          titleVerb: titleVerb
+          _links:
+            key:
+              href: href
+              type: type
+          kind: kind
+          subject:
+            _links:
+              key:
+                href: href
+                type: type
+            avatarUrl: avatarUrl
+            name: name
+          description: description
+          shortDescription: shortDescription
+          title: title
+          token:
+            ending: ending
+            _links:
+              key:
+                href: href
+                type: type
+            name: name
+            _id: _id
+            serviceToken: true
+          target:
+            _links:
+              key:
+                href: href
+                type: type
+            name: name
+            resources:
+            - ""
+            - ""
+          _accountId: _accountId
+          name: name
+          member:
+            firstName: firstName
+            lastName: lastName
+            _links:
+              key:
+                href: href
+                type: type
+            _id: _id
+            email: email
+          comment: comment
+          _id: _id
+          accesses:
+          - resource: ""
+            action: action
+          - resource: ""
+            action: action
+        - date: 0
+          app:
+            _links:
+              key:
+                href: href
+                type: type
+            isScim: true
+            name: name
+            _id: _id
+            maintainerName: maintainerName
+          parent:
+            _links:
+              key:
+                href: href
+                type: type
+            resource: ""
+            name: name
+          titleVerb: titleVerb
+          _links:
+            key:
+              href: href
+              type: type
+          kind: kind
+          subject:
+            _links:
+              key:
+                href: href
+                type: type
+            avatarUrl: avatarUrl
+            name: name
+          description: description
+          shortDescription: shortDescription
+          title: title
+          token:
+            ending: ending
+            _links:
+              key:
+                href: href
+                type: type
+            name: name
+            _id: _id
+            serviceToken: true
+          target:
+            _links:
+              key:
+                href: href
+                type: type
+            name: name
+            resources:
+            - ""
+            - ""
+          _accountId: _accountId
+          name: name
+          member:
+            firstName: firstName
+            lastName: lastName
+            _links:
+              key:
+                href: href
+                type: type
+            _id: _id
+            email: email
+          comment: comment
+          _id: _id
+          accesses:
+          - resource: ""
+            action: action
+          - resource: ""
+            action: action
+        shortDescription: shortDescription
+        title: title
+        currentVersion: ""
+        token:
+          ending: ending
+          _links:
+            key:
+              href: href
+              type: type
+          name: name
+          _id: _id
+          serviceToken: true
+        target:
+          _links:
+            key:
+              href: href
+              type: type
+          name: name
+          resources:
+          - ""
+          - ""
+        _accountId: _accountId
+        previousVersion: ""
+        merge: ""
+        name: name
+        member:
+          firstName: firstName
+          lastName: lastName
+          _links:
+            key:
+              href: href
+              type: type
+          _id: _id
+          email: email
+        comment: comment
+        _id: _id
+        triggerBody: ""
+        accesses:
+        - resource: ""
+          action: action
+        - resource: ""
+          action: action
+      properties:
+        _links:
+          additionalProperties:
+            $ref: '#/components/schemas/inline_response_200'
+          type: object
+        _id:
+          type: string
+        _accountId:
+          type: string
+        date:
+          format: int64
+          type: integer
+        accesses:
+          items:
+            $ref: '#/components/schemas/AuditLogEntryListingRep_accesses'
+          type: array
+        kind:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        shortDescription:
+          type: string
+        comment:
+          type: string
+        subject:
+          $ref: '#/components/schemas/SubjectDataRep'
+        member:
+          $ref: '#/components/schemas/MemberDataRep'
+        token:
+          $ref: '#/components/schemas/TokenDataRep'
+        app:
+          $ref: '#/components/schemas/AuthorizedAppDataRep'
+        titleVerb:
+          type: string
+        title:
+          type: string
+        target:
+          $ref: '#/components/schemas/TargetResourceRep'
+        parent:
+          $ref: '#/components/schemas/ParentResourceRep'
+        delta: {}
+        triggerBody: {}
+        merge: {}
+        previousVersion: {}
+        currentVersion: {}
+        subentries:
+          items:
+            $ref: '#/components/schemas/AuditLogEntryListingRep'
+          type: array
       type: object
     AuthorizedAppDataRep:
       example:
@@ -6616,7 +7158,7 @@ components:
       type: object
     ExperimentAllocationRep:
       example:
-        defaultVariation: 1
+        defaultVariation: 5
         canReshuffle: true
       properties:
         defaultVariation:
@@ -6627,6 +7169,15 @@ components:
       - canReshuffle
       - defaultVariation
       type: object
+    ExperimentEnabledPeriodRep:
+      properties:
+        startDate:
+          format: int64
+          type: integer
+        stopDate:
+          format: int64
+          type: integer
+      type: object
     ExperimentEnvironmentSettingRep:
       properties:
         startDate:
@@ -6635,6 +7186,10 @@ components:
         stopDate:
           format: int64
           type: integer
+        enabledPeriods:
+          items:
+            $ref: '#/components/schemas/ExperimentEnvironmentSettingRep_enabledPeriods'
+          type: array
       type: object
     ExperimentFlagRep:
       example:
@@ -6687,6 +7242,11 @@ components:
             key:
               startDate: 7
               stopDate: 9
+              enabledPeriods:
+              - startDate: 3
+                stopDate: 2
+              - startDate: 3
+                stopDate: 2
           _metric:
             _maintainer:
               firstName: firstName
@@ -6764,6 +7324,11 @@ components:
             key:
               startDate: 7
               stopDate: 9
+              enabledPeriods:
+              - startDate: 3
+                stopDate: 2
+              - startDate: 3
+                stopDate: 2
           _metric:
             _maintainer:
               firstName: firstName
@@ -7268,8 +7833,8 @@ components:
       type: object
     FlagDefaultsRep:
       example:
-        onVariation: 2
-        offVariation: 4
+        onVariation: 7
+        offVariation: 1
       properties:
         onVariation:
           type: integer
@@ -7388,8 +7953,8 @@ components:
           usingEnvironmentId: true
           usingMobileKey: true
         defaults:
-          onVariation: 2
-          offVariation: 4
+          onVariation: 7
+          offVariation: 1
         variations:
         - name: name
           description: description
@@ -7525,7 +8090,7 @@ components:
       type: object
     FlagSummary:
       example:
-        prerequisites: 8
+        prerequisites: 6
       properties:
         prerequisites:
           type: integer
@@ -7538,9 +8103,9 @@ components:
           key:
             href: href
             type: type
-        totalCount: 9
+        totalCount: 3
         items:
-        - archivedDate: 3
+        - archivedDate: 4
           temporary: true
           _maintainer:
             firstName: firstName
@@ -7565,16 +8130,16 @@ components:
               rules:
               - rollout:
                   experimentAllocation:
-                    defaultVariation: 1
+                    defaultVariation: 5
                     canReshuffle: true
-                  seed: 4
+                  seed: 9
                   variations:
-                  - weight: 7
+                  - weight: 4
                     _untracked: true
-                    variation: 6
-                  - weight: 7
+                    variation: 1
+                  - weight: 4
                     _untracked: true
-                    variation: 6
+                    variation: 1
                   bucketBy: bucketBy
                 clauses:
                 - op: op
@@ -7594,19 +8159,19 @@ components:
                 description: description
                 _id: _id
                 trackEvents: true
-                variation: 1
+                variation: 7
               - rollout:
                   experimentAllocation:
-                    defaultVariation: 1
+                    defaultVariation: 5
                     canReshuffle: true
-                  seed: 4
+                  seed: 9
                   variations:
-                  - weight: 7
+                  - weight: 4
                     _untracked: true
-                    variation: 6
-                  - weight: 7
+                    variation: 1
+                  - weight: 4
                     _untracked: true
-                    variation: 6
+                    variation: 1
                   bucketBy: bucketBy
                 clauses:
                 - op: op
@@ -7626,26 +8191,26 @@ components:
                 description: description
                 _id: _id
                 trackEvents: true
-                variation: 1
+                variation: 7
               version: 1
               targets:
               - values:
                 - values
                 - values
-                variation: 1
+                variation: 6
               - values:
                 - values
                 - values
-                variation: 1
+                variation: 6
               prerequisites:
               - key: key
-                variation: 9
+                variation: 8
               - key: key
-                variation: 9
+                variation: 8
               archived: true
-              _debugEventsUntilDate: 6
+              _debugEventsUntilDate: 9
               _summary:
-                prerequisites: 8
+                prerequisites: 6
               trackEventsFallthrough: true
               _access:
                 denied:
@@ -7686,24 +8251,24 @@ components:
                 href: href
                 type: type
               sel: sel
-              lastModified: 7
+              lastModified: 1
               trackEvents: true
               fallthrough:
                 rollout:
                   experimentAllocation:
-                    defaultVariation: 1
+                    defaultVariation: 5
                     canReshuffle: true
-                  seed: 4
+                  seed: 9
                   variations:
-                  - weight: 7
+                  - weight: 4
                     _untracked: true
-                    variation: 6
-                  - weight: 7
+                    variation: 1
+                  - weight: 4
                     _untracked: true
-                    variation: 6
+                    variation: 1
                   bucketBy: bucketBy
-                variation: 5
-              offVariation: 9
+                variation: 9
+              offVariation: 6
               "on": true
           kind: kind
           experiments:
@@ -7717,6 +8282,11 @@ components:
                 key:
                   startDate: 7
                   stopDate: 9
+                  enabledPeriods:
+                  - startDate: 3
+                    stopDate: 2
+                  - startDate: 3
+                    stopDate: 2
               _metric:
                 _maintainer:
                   firstName: firstName
@@ -7794,6 +8364,11 @@ components:
                 key:
                   startDate: 7
                   stopDate: 9
+                  enabledPeriods:
+                  - startDate: 3
+                    stopDate: 2
+                  - startDate: 3
+                    stopDate: 2
               _metric:
                 _maintainer:
                   firstName: firstName
@@ -7881,8 +8456,8 @@ components:
               - value
               - value
           defaults:
-            onVariation: 2
-            offVariation: 4
+            onVariation: 7
+            offVariation: 1
           variations:
           - name: name
             description: description
@@ -7896,7 +8471,7 @@ components:
           _version: 0
           key: key
           variationJsonSchema: ""
-        - archivedDate: 3
+        - archivedDate: 4
           temporary: true
           _maintainer:
             firstName: firstName
@@ -7921,16 +8496,16 @@ components:
               rules:
               - rollout:
                   experimentAllocation:
-                    defaultVariation: 1
+                    defaultVariation: 5
                     canReshuffle: true
-                  seed: 4
+                  seed: 9
                   variations:
-                  - weight: 7
+                  - weight: 4
                     _untracked: true
-                    variation: 6
-                  - weight: 7
+                    variation: 1
+                  - weight: 4
                     _untracked: true
-                    variation: 6
+                    variation: 1
                   bucketBy: bucketBy
                 clauses:
                 - op: op
@@ -7950,19 +8525,19 @@ components:
                 description: description
                 _id: _id
                 trackEvents: true
-                variation: 1
+                variation: 7
               - rollout:
                   experimentAllocation:
-                    defaultVariation: 1
+                    defaultVariation: 5
                     canReshuffle: true
-                  seed: 4
+                  seed: 9
                   variations:
-                  - weight: 7
+                  - weight: 4
                     _untracked: true
-                    variation: 6
-                  - weight: 7
+                    variation: 1
+                  - weight: 4
                     _untracked: true
-                    variation: 6
+                    variation: 1
                   bucketBy: bucketBy
                 clauses:
                 - op: op
@@ -7982,26 +8557,26 @@ components:
                 description: description
                 _id: _id
                 trackEvents: true
-                variation: 1
+                variation: 7
               version: 1
               targets:
               - values:
                 - values
                 - values
-                variation: 1
+                variation: 6
               - values:
                 - values
                 - values
-                variation: 1
+                variation: 6
               prerequisites:
               - key: key
-                variation: 9
+                variation: 8
               - key: key
-                variation: 9
+                variation: 8
               archived: true
-              _debugEventsUntilDate: 6
+              _debugEventsUntilDate: 9
               _summary:
-                prerequisites: 8
+                prerequisites: 6
               trackEventsFallthrough: true
               _access:
                 denied:
@@ -8042,24 +8617,24 @@ components:
                 href: href
                 type: type
               sel: sel
-              lastModified: 7
+              lastModified: 1
               trackEvents: true
               fallthrough:
                 rollout:
                   experimentAllocation:
-                    defaultVariation: 1
+                    defaultVariation: 5
                     canReshuffle: true
-                  seed: 4
+                  seed: 9
                   variations:
-                  - weight: 7
+                  - weight: 4
                     _untracked: true
-                    variation: 6
-                  - weight: 7
+                    variation: 1
+                  - weight: 4
                     _untracked: true
-                    variation: 6
+                    variation: 1
                   bucketBy: bucketBy
-                variation: 5
-              offVariation: 9
+                variation: 9
+              offVariation: 6
               "on": true
           kind: kind
           experiments:
@@ -8073,6 +8648,11 @@ components:
                 key:
                   startDate: 7
                   stopDate: 9
+                  enabledPeriods:
+                  - startDate: 3
+                    stopDate: 2
+                  - startDate: 3
+                    stopDate: 2
               _metric:
                 _maintainer:
                   firstName: firstName
@@ -8150,6 +8730,11 @@ components:
                 key:
                   startDate: 7
                   stopDate: 9
+                  enabledPeriods:
+                  - startDate: 3
+                    stopDate: 2
+                  - startDate: 3
+                    stopDate: 2
               _metric:
                 _maintainer:
                   firstName: firstName
@@ -8237,8 +8822,8 @@ components:
               - value
               - value
           defaults:
-            onVariation: 2
-            offVariation: 4
+            onVariation: 7
+            offVariation: 1
           variations:
           - name: name
             description: description
@@ -8269,7 +8854,7 @@ components:
       type: object
     GlobalFlagRep:
       example:
-        archivedDate: 3
+        archivedDate: 4
         temporary: true
         _maintainer:
           firstName: firstName
@@ -8294,16 +8879,16 @@ components:
             rules:
             - rollout:
                 experimentAllocation:
-                  defaultVariation: 1
+                  defaultVariation: 5
                   canReshuffle: true
-                seed: 4
+                seed: 9
                 variations:
-                - weight: 7
+                - weight: 4
                   _untracked: true
-                  variation: 6
-                - weight: 7
+                  variation: 1
+                - weight: 4
                   _untracked: true
-                  variation: 6
+                  variation: 1
                 bucketBy: bucketBy
               clauses:
               - op: op
@@ -8323,19 +8908,19 @@ components:
               description: description
               _id: _id
               trackEvents: true
-              variation: 1
+              variation: 7
             - rollout:
                 experimentAllocation:
-                  defaultVariation: 1
+                  defaultVariation: 5
                   canReshuffle: true
-                seed: 4
+                seed: 9
                 variations:
-                - weight: 7
+                - weight: 4
                   _untracked: true
-                  variation: 6
-                - weight: 7
+                  variation: 1
+                - weight: 4
                   _untracked: true
-                  variation: 6
+                  variation: 1
                 bucketBy: bucketBy
               clauses:
               - op: op
@@ -8355,26 +8940,26 @@ components:
               description: description
               _id: _id
               trackEvents: true
-              variation: 1
+              variation: 7
             version: 1
             targets:
             - values:
               - values
               - values
-              variation: 1
+              variation: 6
             - values:
               - values
               - values
-              variation: 1
+              variation: 6
             prerequisites:
             - key: key
-              variation: 9
+              variation: 8
             - key: key
-              variation: 9
+              variation: 8
             archived: true
-            _debugEventsUntilDate: 6
+            _debugEventsUntilDate: 9
             _summary:
-              prerequisites: 8
+              prerequisites: 6
             trackEventsFallthrough: true
             _access:
               denied:
@@ -8415,24 +9000,24 @@ components:
               href: href
               type: type
             sel: sel
-            lastModified: 7
+            lastModified: 1
             trackEvents: true
             fallthrough:
               rollout:
                 experimentAllocation:
-                  defaultVariation: 1
+                  defaultVariation: 5
                   canReshuffle: true
-                seed: 4
+                seed: 9
                 variations:
-                - weight: 7
+                - weight: 4
                   _untracked: true
-                  variation: 6
-                - weight: 7
+                  variation: 1
+                - weight: 4
                   _untracked: true
-                  variation: 6
+                  variation: 1
                 bucketBy: bucketBy
-              variation: 5
-            offVariation: 9
+              variation: 9
+            offVariation: 6
             "on": true
         kind: kind
         experiments:
@@ -8446,6 +9031,11 @@ components:
               key:
                 startDate: 7
                 stopDate: 9
+                enabledPeriods:
+                - startDate: 3
+                  stopDate: 2
+                - startDate: 3
+                  stopDate: 2
             _metric:
               _maintainer:
                 firstName: firstName
@@ -8523,6 +9113,11 @@ components:
               key:
                 startDate: 7
                 stopDate: 9
+                enabledPeriods:
+                - startDate: 3
+                  stopDate: 2
+                - startDate: 3
+                  stopDate: 2
             _metric:
               _maintainer:
                 firstName: firstName
@@ -8610,8 +9205,8 @@ components:
             - value
             - value
         defaults:
-          onVariation: 2
-          offVariation: 4
+          onVariation: 7
+          offVariation: 1
         variations:
         - name: name
           description: description
@@ -10156,12 +10751,18 @@ components:
     ProjectCollectionRep:
       example:
         _links:
-          key:
-            href: href
-            type: type
+          self:
+            href: /api/v2/projects
+            type: application/json
         items:
         - includeInSnippetByDefault: true
-          _links: {}
+          _links:
+            environments:
+              href: /api/v2/projects/my-project/environments
+              type: application/json
+            self:
+              href: /api/v2/projects/my-project
+              type: application/json
           environments:
           - approvalSettings:
               serviceKind: launchdarkly
@@ -10222,7 +10823,13 @@ components:
           tags:
           - ops
         - includeInSnippetByDefault: true
-          _links: {}
+          _links:
+            environments:
+              href: /api/v2/projects/my-project/environments
+              type: application/json
+            self:
+              href: /api/v2/projects/my-project
+              type: application/json
           environments:
           - approvalSettings:
               serviceKind: launchdarkly
@@ -10286,8 +10893,14 @@ components:
         _links:
           additionalProperties:
             $ref: '#/components/schemas/inline_response_200'
+          description: A link to this resource.
+          example:
+            self:
+              href: /api/v2/projects
+              type: application/json
           type: object
         items:
+          description: List of projects.
           items:
             $ref: '#/components/schemas/ProjectRep'
           type: array
@@ -10297,7 +10910,13 @@ components:
         _links:
           additionalProperties:
             $ref: '#/components/schemas/inline_response_200'
-          example: {}
+          example:
+            environments:
+              href: /api/v2/projects/my-project/environments
+              type: application/json
+            self:
+              href: /api/v2/projects/my-project
+              type: application/json
           type: object
         _id:
           example: 57be1db38b75bf0772d11383
@@ -10335,12 +10954,16 @@ components:
         - ops
       properties:
         name:
+          description: A human-friendly name for the project.
           example: My Project
           type: string
         key:
+          description: A unique key used to reference the project in your code.
           example: my-project
           type: string
         includeInSnippetByDefault:
+          description: Whether or not flags created in this project are made available
+            to the client-side JavaScript SDK by default.
           example: true
           type: boolean
         defaultClientSideAvailability:
@@ -10352,14 +10975,25 @@ components:
             type: string
           type: array
         environments:
+          description: Creates the provided environments for this project. If omitted
+            default environments will be created instead.
           items:
             type: object
           type: array
+      required:
+      - key
+      - name
       type: object
     ProjectRep:
       example:
         includeInSnippetByDefault: true
-        _links: {}
+        _links:
+          environments:
+            href: /api/v2/projects/my-project/environments
+            type: application/json
+          self:
+            href: /api/v2/projects/my-project
+            type: application/json
         environments:
         - approvalSettings:
             serviceKind: launchdarkly
@@ -10423,7 +11057,13 @@ components:
         _links:
           additionalProperties:
             $ref: '#/components/schemas/inline_response_200'
-          example: {}
+          example:
+            environments:
+              href: /api/v2/projects/my-project/environments
+              type: application/json
+            self:
+              href: /api/v2/projects/my-project
+              type: application/json
           type: object
         _id:
           example: 57be1db38b75bf0772d11383
@@ -10460,16 +11100,16 @@ components:
     RolloutRep:
       example:
         experimentAllocation:
-          defaultVariation: 1
+          defaultVariation: 5
           canReshuffle: true
-        seed: 4
+        seed: 9
         variations:
-        - weight: 7
+        - weight: 4
           _untracked: true
-          variation: 6
-        - weight: 7
+          variation: 1
+        - weight: 4
           _untracked: true
-          variation: 6
+          variation: 1
         bucketBy: bucketBy
       properties:
         variations:
@@ -11205,18 +11845,18 @@ components:
       example:
         rollout:
           experimentAllocation:
-            defaultVariation: 1
+            defaultVariation: 5
             canReshuffle: true
-          seed: 4
+          seed: 9
           variations:
-          - weight: 7
+          - weight: 4
             _untracked: true
-            variation: 6
-          - weight: 7
+            variation: 1
+          - weight: 4
             _untracked: true
-            variation: 6
+            variation: 1
           bucketBy: bucketBy
-        variation: 5
+        variation: 9
       properties:
         variation:
           type: integer
@@ -11484,6 +12124,53 @@ components:
         _links:
           additionalProperties: {}
           type: object
+      type: object
+    api.ExtinctionCollectionRep:
+      example:
+        _links:
+          key:
+            href: href
+            type: type
+        items:
+          key:
+          - '{}'
+          - '{}'
+      properties:
+        _links:
+          additionalProperties:
+            $ref: '#/components/schemas/inline_response_200'
+          type: object
+        items:
+          additionalProperties:
+            items:
+              properties:
+                revision:
+                  type: string
+                message:
+                  type: string
+                time:
+                  $ref: '#/components/schemas/ftime.UnixMillis'
+                flagKey:
+                  type: string
+                projKey:
+                  type: string
+              type: object
+            type: array
+          type: object
+      type: object
+    api.ExtinctionRep:
+      properties:
+        revision:
+          type: string
+        message:
+          type: string
+        time:
+          format: int64
+          type: integer
+        flagKey:
+          type: string
+        projKey:
+          type: string
       type: object
     api.HunkRep:
       properties:
@@ -11993,6 +12680,14 @@ components:
                         type: string
                     type: object
                   type: object
+              required:
+              - _links
+              - defaultBranch
+              - enabled
+              - hunkCount
+              - name
+              - sourceLink
+              - version
               type: object
             type: array
           type: object
@@ -12000,6 +12695,9 @@ components:
           additionalProperties:
             $ref: '#/components/schemas/inline_response_200'
           type: object
+      required:
+      - _links
+      - flags
       type: object
     api.StatisticRep:
       properties:
@@ -12019,6 +12717,47 @@ components:
           additionalProperties:
             $ref: '#/components/schemas/inline_response_200'
           type: object
+      required:
+      - _links
+      - defaultBranch
+      - enabled
+      - hunkCount
+      - name
+      - sourceLink
+      - version
+      type: object
+    api.StatisticsRoot:
+      example:
+        projects:
+        - href: href
+          type: type
+        - href: href
+          type: type
+        self:
+          href: href
+          type: type
+      properties:
+        projects:
+          items:
+            $ref: '#/components/schemas/inline_response_200'
+          type: array
+        self:
+          $ref: '#/components/schemas/core.Link'
+      type: object
+    api.repositoryPost:
+      properties:
+        name:
+          type: string
+        sourceLink:
+          type: string
+        commitUrlTemplate:
+          type: string
+        hunkUrlTemplate:
+          type: string
+        type:
+          type: string
+        defaultBranch:
+          type: string
       type: object
     api2.ValuePut:
       properties:
@@ -12126,6 +12865,69 @@ components:
       type: object
     clauses.Operator:
       type: string
+    coderefs.Branch:
+      properties:
+        name:
+          type: string
+        sha:
+          type: string
+        update_sequence_Id:
+          format: int64
+          type: integer
+        sync_time:
+          format: int64
+          type: integer
+        references:
+          items:
+            $ref: '#/components/schemas/coderefs_Branch_references'
+          type: array
+      type: object
+    coderefs.Extinction:
+      properties:
+        revision:
+          type: string
+        message:
+          type: string
+        time:
+          format: int64
+          type: integer
+        flag_key:
+          type: string
+        project_key:
+          type: string
+        repo_name:
+          type: string
+      type: object
+    coderefs.Hunk:
+      properties:
+        project_key:
+          type: string
+        flag_key:
+          type: string
+        starting_line_num:
+          type: integer
+        lines:
+          type: string
+        aliases:
+          items:
+            type: string
+          type: array
+      type: object
+    coderefs.HunkCollection:
+      items:
+        $ref: '#/components/schemas/coderefs.Hunk'
+      type: array
+    coderefs.ReferenceFile:
+      properties:
+        path:
+          type: string
+        hint:
+          type: string
+        hunks:
+          items:
+            $ref: '#/components/schemas/coderefs.Hunk'
+          type: array
+      type: object
     core.Link:
       example:
         href: href
@@ -12967,6 +13769,29 @@ components:
         type:
           type: string
       type: object
+    InlineObject:
+      example:
+        project_key: project_key
+        repo_name: repo_name
+        time: 0
+        flag_key: flag_key
+        message: message
+        revision: revision
+      properties:
+        revision:
+          type: string
+        message:
+          type: string
+        time:
+          format: int64
+          type: integer
+        flag_key:
+          type: string
+        project_key:
+          type: string
+        repo_name:
+          type: string
+      type: object
     _api_v2_integrations_items:
       example:
         _access:
@@ -13286,16 +14111,7 @@ components:
         key:
           type: string
       type: object
-    InlineObject:
-      example:
-        firstName: firstName
-        lastName: lastName
-        password: password
-        role: role
-        email: email
-        customRoles:
-        - customRoles
-        - customRoles
+    InlineObject_1:
       properties:
         email:
           type: string
@@ -13349,120 +14165,6 @@ components:
         action:
           type: string
         resource: {}
-      type: object
-    AuditLogEntryListingRepCollection_items:
-      example:
-        date: 0
-        app:
-          _links:
-            key:
-              href: href
-              type: type
-          isScim: true
-          name: name
-          _id: _id
-          maintainerName: maintainerName
-        parent:
-          _links:
-            key:
-              href: href
-              type: type
-          resource: ""
-          name: name
-        titleVerb: titleVerb
-        _links:
-          key:
-            href: href
-            type: type
-        kind: kind
-        subject:
-          _links:
-            key:
-              href: href
-              type: type
-          avatarUrl: avatarUrl
-          name: name
-        description: description
-        shortDescription: shortDescription
-        title: title
-        token:
-          ending: ending
-          _links:
-            key:
-              href: href
-              type: type
-          name: name
-          _id: _id
-          serviceToken: true
-        target:
-          _links:
-            key:
-              href: href
-              type: type
-          name: name
-          resources:
-          - ""
-          - ""
-        _accountId: _accountId
-        name: name
-        member:
-          firstName: firstName
-          lastName: lastName
-          _links:
-            key:
-              href: href
-              type: type
-          _id: _id
-          email: email
-        comment: comment
-        _id: _id
-        accesses:
-        - resource: ""
-          action: action
-        - resource: ""
-          action: action
-      properties:
-        _links:
-          additionalProperties:
-            $ref: '#/components/schemas/inline_response_200'
-          type: object
-        _id:
-          type: string
-        _accountId:
-          type: string
-        date:
-          format: int64
-          type: integer
-        accesses:
-          items:
-            $ref: '#/components/schemas/AuditLogEntryListingRep_accesses'
-          type: array
-        kind:
-          type: string
-        name:
-          type: string
-        description:
-          type: string
-        shortDescription:
-          type: string
-        comment:
-          type: string
-        subject:
-          $ref: '#/components/schemas/SubjectDataRep'
-        member:
-          $ref: '#/components/schemas/MemberDataRep'
-        token:
-          $ref: '#/components/schemas/TokenDataRep'
-        app:
-          $ref: '#/components/schemas/AuthorizedAppDataRep'
-        titleVerb:
-          type: string
-        title:
-          type: string
-        target:
-          $ref: '#/components/schemas/TargetResourceRep'
-        parent:
-          $ref: '#/components/schemas/ParentResourceRep'
       type: object
     CustomRoleCollectionRep_items:
       example:
@@ -13582,6 +14284,18 @@ components:
       - _site
       - key
       type: object
+    ExperimentEnvironmentSettingRep_enabledPeriods:
+      example:
+        startDate: 3
+        stopDate: 2
+      properties:
+        startDate:
+          format: int64
+          type: integer
+        stopDate:
+          format: int64
+          type: integer
+      type: object
     ExperimentFlagRep_variations:
       example:
         name: name
@@ -13603,6 +14317,11 @@ components:
       example:
         startDate: 7
         stopDate: 9
+        enabledPeriods:
+        - startDate: 3
+          stopDate: 2
+        - startDate: 3
+          stopDate: 2
       properties:
         startDate:
           format: int64
@@ -13610,6 +14329,10 @@ components:
         stopDate:
           format: int64
           type: integer
+        enabledPeriods:
+          items:
+            $ref: '#/components/schemas/ExperimentEnvironmentSettingRep_enabledPeriods'
+          type: array
       type: object
     ExperimentInfoRep_items:
       example:
@@ -13621,6 +14344,11 @@ components:
           key:
             startDate: 7
             stopDate: 9
+            enabledPeriods:
+            - startDate: 3
+              stopDate: 2
+            - startDate: 3
+              stopDate: 2
         _metric:
           _maintainer:
             firstName: firstName
@@ -13785,7 +14513,7 @@ components:
         values:
         - values
         - values
-        variation: 1
+        variation: 6
       properties:
         values:
           items:
@@ -13824,16 +14552,16 @@ components:
       example:
         rollout:
           experimentAllocation:
-            defaultVariation: 1
+            defaultVariation: 5
             canReshuffle: true
-          seed: 4
+          seed: 9
           variations:
-          - weight: 7
+          - weight: 4
             _untracked: true
-            variation: 6
-          - weight: 7
+            variation: 1
+          - weight: 4
             _untracked: true
-            variation: 6
+            variation: 1
           bucketBy: bucketBy
         clauses:
         - op: op
@@ -13853,7 +14581,7 @@ components:
         description: description
         _id: _id
         trackEvents: true
-        variation: 1
+        variation: 7
       properties:
         _id:
           type: string
@@ -13876,7 +14604,7 @@ components:
     FlagConfigurationRep_prerequisites:
       example:
         key: key
-        variation: 9
+        variation: 8
       properties:
         key:
           type: string
@@ -13919,16 +14647,16 @@ components:
         rules:
         - rollout:
             experimentAllocation:
-              defaultVariation: 1
+              defaultVariation: 5
               canReshuffle: true
-            seed: 4
+            seed: 9
             variations:
-            - weight: 7
+            - weight: 4
               _untracked: true
-              variation: 6
-            - weight: 7
+              variation: 1
+            - weight: 4
               _untracked: true
-              variation: 6
+              variation: 1
             bucketBy: bucketBy
           clauses:
           - op: op
@@ -13948,19 +14676,19 @@ components:
           description: description
           _id: _id
           trackEvents: true
-          variation: 1
+          variation: 7
         - rollout:
             experimentAllocation:
-              defaultVariation: 1
+              defaultVariation: 5
               canReshuffle: true
-            seed: 4
+            seed: 9
             variations:
-            - weight: 7
+            - weight: 4
               _untracked: true
-              variation: 6
-            - weight: 7
+              variation: 1
+            - weight: 4
               _untracked: true
-              variation: 6
+              variation: 1
             bucketBy: bucketBy
           clauses:
           - op: op
@@ -13980,26 +14708,26 @@ components:
           description: description
           _id: _id
           trackEvents: true
-          variation: 1
+          variation: 7
         version: 1
         targets:
         - values:
           - values
           - values
-          variation: 1
+          variation: 6
         - values:
           - values
           - values
-          variation: 1
+          variation: 6
         prerequisites:
         - key: key
-          variation: 9
+          variation: 8
         - key: key
-          variation: 9
+          variation: 8
         archived: true
-        _debugEventsUntilDate: 6
+        _debugEventsUntilDate: 9
         _summary:
-          prerequisites: 8
+          prerequisites: 6
         trackEventsFallthrough: true
         _access:
           denied:
@@ -14040,24 +14768,24 @@ components:
           href: href
           type: type
         sel: sel
-        lastModified: 7
+        lastModified: 1
         trackEvents: true
         fallthrough:
           rollout:
             experimentAllocation:
-              defaultVariation: 1
+              defaultVariation: 5
               canReshuffle: true
-            seed: 4
+            seed: 9
             variations:
-            - weight: 7
+            - weight: 4
               _untracked: true
-              variation: 6
-            - weight: 7
+              variation: 1
+            - weight: 4
               _untracked: true
-              variation: 6
+              variation: 1
             bucketBy: bucketBy
-          variation: 5
-        offVariation: 9
+          variation: 9
+        offVariation: 6
         "on": true
       properties:
         "on":
@@ -14219,9 +14947,9 @@ components:
       type: object
     RolloutRep_variations:
       example:
-        weight: 7
+        weight: 4
         _untracked: true
-        variation: 6
+        variation: 1
       properties:
         variation:
           type: integer
@@ -14653,6 +15381,17 @@ components:
           type: object
         _access:
           $ref: '#/components/schemas/AccessRep'
+      type: object
+    coderefs_Branch_references:
+      properties:
+        path:
+          type: string
+        hint:
+          type: string
+        hunks:
+          items:
+            $ref: '#/components/schemas/coderefs.Hunk'
+          type: array
       type: object
     expiring_user_targets_endpoints_patchSegmentRequest_instructions:
       properties:

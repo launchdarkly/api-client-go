@@ -304,7 +304,7 @@ import (
 )
 
 func main() {
-    projectPost := *openapiclient.NewProjectPost() // ProjectPost | 
+    projectPost := *openapiclient.NewProjectPost("My Project", "my-project") // ProjectPost | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)

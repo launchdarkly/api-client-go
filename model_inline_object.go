@@ -17,21 +17,20 @@ import (
 
 // InlineObject struct for InlineObject
 type InlineObject struct {
-	Email string `json:"email"`
-	Password *string `json:"password,omitempty"`
-	FirstName *string `json:"firstName,omitempty"`
-	LastName *string `json:"lastName,omitempty"`
-	Role *string `json:"role,omitempty"`
-	CustomRoles *[]string `json:"customRoles,omitempty"`
+	Revision *string `json:"revision,omitempty"`
+	Message *string `json:"message,omitempty"`
+	Time *int64 `json:"time,omitempty"`
+	FlagKey *string `json:"flag_key,omitempty"`
+	ProjectKey *string `json:"project_key,omitempty"`
+	RepoName *string `json:"repo_name,omitempty"`
 }
 
 // NewInlineObject instantiates a new InlineObject object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewInlineObject(email string) *InlineObject {
+func NewInlineObject() *InlineObject {
 	this := InlineObject{}
-	this.Email = email
 	return &this
 }
 
@@ -43,209 +42,217 @@ func NewInlineObjectWithDefaults() *InlineObject {
 	return &this
 }
 
-// GetEmail returns the Email field value
-func (o *InlineObject) GetEmail() string {
-	if o == nil {
+// GetRevision returns the Revision field value if set, zero value otherwise.
+func (o *InlineObject) GetRevision() string {
+	if o == nil || o.Revision == nil {
 		var ret string
 		return ret
 	}
-
-	return o.Email
+	return *o.Revision
 }
 
-// GetEmailOk returns a tuple with the Email field value
+// GetRevisionOk returns a tuple with the Revision field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InlineObject) GetEmailOk() (*string, bool) {
-	if o == nil  {
+func (o *InlineObject) GetRevisionOk() (*string, bool) {
+	if o == nil || o.Revision == nil {
 		return nil, false
 	}
-	return &o.Email, true
+	return o.Revision, true
 }
 
-// SetEmail sets field value
-func (o *InlineObject) SetEmail(v string) {
-	o.Email = v
-}
-
-// GetPassword returns the Password field value if set, zero value otherwise.
-func (o *InlineObject) GetPassword() string {
-	if o == nil || o.Password == nil {
-		var ret string
-		return ret
-	}
-	return *o.Password
-}
-
-// GetPasswordOk returns a tuple with the Password field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *InlineObject) GetPasswordOk() (*string, bool) {
-	if o == nil || o.Password == nil {
-		return nil, false
-	}
-	return o.Password, true
-}
-
-// HasPassword returns a boolean if a field has been set.
-func (o *InlineObject) HasPassword() bool {
-	if o != nil && o.Password != nil {
+// HasRevision returns a boolean if a field has been set.
+func (o *InlineObject) HasRevision() bool {
+	if o != nil && o.Revision != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetPassword gets a reference to the given string and assigns it to the Password field.
-func (o *InlineObject) SetPassword(v string) {
-	o.Password = &v
+// SetRevision gets a reference to the given string and assigns it to the Revision field.
+func (o *InlineObject) SetRevision(v string) {
+	o.Revision = &v
 }
 
-// GetFirstName returns the FirstName field value if set, zero value otherwise.
-func (o *InlineObject) GetFirstName() string {
-	if o == nil || o.FirstName == nil {
+// GetMessage returns the Message field value if set, zero value otherwise.
+func (o *InlineObject) GetMessage() string {
+	if o == nil || o.Message == nil {
 		var ret string
 		return ret
 	}
-	return *o.FirstName
+	return *o.Message
 }
 
-// GetFirstNameOk returns a tuple with the FirstName field value if set, nil otherwise
+// GetMessageOk returns a tuple with the Message field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InlineObject) GetFirstNameOk() (*string, bool) {
-	if o == nil || o.FirstName == nil {
+func (o *InlineObject) GetMessageOk() (*string, bool) {
+	if o == nil || o.Message == nil {
 		return nil, false
 	}
-	return o.FirstName, true
+	return o.Message, true
 }
 
-// HasFirstName returns a boolean if a field has been set.
-func (o *InlineObject) HasFirstName() bool {
-	if o != nil && o.FirstName != nil {
+// HasMessage returns a boolean if a field has been set.
+func (o *InlineObject) HasMessage() bool {
+	if o != nil && o.Message != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetFirstName gets a reference to the given string and assigns it to the FirstName field.
-func (o *InlineObject) SetFirstName(v string) {
-	o.FirstName = &v
+// SetMessage gets a reference to the given string and assigns it to the Message field.
+func (o *InlineObject) SetMessage(v string) {
+	o.Message = &v
 }
 
-// GetLastName returns the LastName field value if set, zero value otherwise.
-func (o *InlineObject) GetLastName() string {
-	if o == nil || o.LastName == nil {
+// GetTime returns the Time field value if set, zero value otherwise.
+func (o *InlineObject) GetTime() int64 {
+	if o == nil || o.Time == nil {
+		var ret int64
+		return ret
+	}
+	return *o.Time
+}
+
+// GetTimeOk returns a tuple with the Time field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *InlineObject) GetTimeOk() (*int64, bool) {
+	if o == nil || o.Time == nil {
+		return nil, false
+	}
+	return o.Time, true
+}
+
+// HasTime returns a boolean if a field has been set.
+func (o *InlineObject) HasTime() bool {
+	if o != nil && o.Time != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTime gets a reference to the given int64 and assigns it to the Time field.
+func (o *InlineObject) SetTime(v int64) {
+	o.Time = &v
+}
+
+// GetFlagKey returns the FlagKey field value if set, zero value otherwise.
+func (o *InlineObject) GetFlagKey() string {
+	if o == nil || o.FlagKey == nil {
 		var ret string
 		return ret
 	}
-	return *o.LastName
+	return *o.FlagKey
 }
 
-// GetLastNameOk returns a tuple with the LastName field value if set, nil otherwise
+// GetFlagKeyOk returns a tuple with the FlagKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InlineObject) GetLastNameOk() (*string, bool) {
-	if o == nil || o.LastName == nil {
+func (o *InlineObject) GetFlagKeyOk() (*string, bool) {
+	if o == nil || o.FlagKey == nil {
 		return nil, false
 	}
-	return o.LastName, true
+	return o.FlagKey, true
 }
 
-// HasLastName returns a boolean if a field has been set.
-func (o *InlineObject) HasLastName() bool {
-	if o != nil && o.LastName != nil {
+// HasFlagKey returns a boolean if a field has been set.
+func (o *InlineObject) HasFlagKey() bool {
+	if o != nil && o.FlagKey != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetLastName gets a reference to the given string and assigns it to the LastName field.
-func (o *InlineObject) SetLastName(v string) {
-	o.LastName = &v
+// SetFlagKey gets a reference to the given string and assigns it to the FlagKey field.
+func (o *InlineObject) SetFlagKey(v string) {
+	o.FlagKey = &v
 }
 
-// GetRole returns the Role field value if set, zero value otherwise.
-func (o *InlineObject) GetRole() string {
-	if o == nil || o.Role == nil {
+// GetProjectKey returns the ProjectKey field value if set, zero value otherwise.
+func (o *InlineObject) GetProjectKey() string {
+	if o == nil || o.ProjectKey == nil {
 		var ret string
 		return ret
 	}
-	return *o.Role
+	return *o.ProjectKey
 }
 
-// GetRoleOk returns a tuple with the Role field value if set, nil otherwise
+// GetProjectKeyOk returns a tuple with the ProjectKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InlineObject) GetRoleOk() (*string, bool) {
-	if o == nil || o.Role == nil {
+func (o *InlineObject) GetProjectKeyOk() (*string, bool) {
+	if o == nil || o.ProjectKey == nil {
 		return nil, false
 	}
-	return o.Role, true
+	return o.ProjectKey, true
 }
 
-// HasRole returns a boolean if a field has been set.
-func (o *InlineObject) HasRole() bool {
-	if o != nil && o.Role != nil {
+// HasProjectKey returns a boolean if a field has been set.
+func (o *InlineObject) HasProjectKey() bool {
+	if o != nil && o.ProjectKey != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetRole gets a reference to the given string and assigns it to the Role field.
-func (o *InlineObject) SetRole(v string) {
-	o.Role = &v
+// SetProjectKey gets a reference to the given string and assigns it to the ProjectKey field.
+func (o *InlineObject) SetProjectKey(v string) {
+	o.ProjectKey = &v
 }
 
-// GetCustomRoles returns the CustomRoles field value if set, zero value otherwise.
-func (o *InlineObject) GetCustomRoles() []string {
-	if o == nil || o.CustomRoles == nil {
-		var ret []string
+// GetRepoName returns the RepoName field value if set, zero value otherwise.
+func (o *InlineObject) GetRepoName() string {
+	if o == nil || o.RepoName == nil {
+		var ret string
 		return ret
 	}
-	return *o.CustomRoles
+	return *o.RepoName
 }
 
-// GetCustomRolesOk returns a tuple with the CustomRoles field value if set, nil otherwise
+// GetRepoNameOk returns a tuple with the RepoName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InlineObject) GetCustomRolesOk() (*[]string, bool) {
-	if o == nil || o.CustomRoles == nil {
+func (o *InlineObject) GetRepoNameOk() (*string, bool) {
+	if o == nil || o.RepoName == nil {
 		return nil, false
 	}
-	return o.CustomRoles, true
+	return o.RepoName, true
 }
 
-// HasCustomRoles returns a boolean if a field has been set.
-func (o *InlineObject) HasCustomRoles() bool {
-	if o != nil && o.CustomRoles != nil {
+// HasRepoName returns a boolean if a field has been set.
+func (o *InlineObject) HasRepoName() bool {
+	if o != nil && o.RepoName != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetCustomRoles gets a reference to the given []string and assigns it to the CustomRoles field.
-func (o *InlineObject) SetCustomRoles(v []string) {
-	o.CustomRoles = &v
+// SetRepoName gets a reference to the given string and assigns it to the RepoName field.
+func (o *InlineObject) SetRepoName(v string) {
+	o.RepoName = &v
 }
 
 func (o InlineObject) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["email"] = o.Email
+	if o.Revision != nil {
+		toSerialize["revision"] = o.Revision
 	}
-	if o.Password != nil {
-		toSerialize["password"] = o.Password
+	if o.Message != nil {
+		toSerialize["message"] = o.Message
 	}
-	if o.FirstName != nil {
-		toSerialize["firstName"] = o.FirstName
+	if o.Time != nil {
+		toSerialize["time"] = o.Time
 	}
-	if o.LastName != nil {
-		toSerialize["lastName"] = o.LastName
+	if o.FlagKey != nil {
+		toSerialize["flag_key"] = o.FlagKey
 	}
-	if o.Role != nil {
-		toSerialize["role"] = o.Role
+	if o.ProjectKey != nil {
+		toSerialize["project_key"] = o.ProjectKey
 	}
-	if o.CustomRoles != nil {
-		toSerialize["customRoles"] = o.CustomRoles
+	if o.RepoName != nil {
+		toSerialize["repo_name"] = o.RepoName
 	}
 	return json.Marshal(toSerialize)
 }

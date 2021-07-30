@@ -1,8 +1,7 @@
 This repository contains a client library for LaunchDarkly's REST API. This client was automatically
-generated from our [OpenAPI specification](https://github.com/launchdarkly/ld-openapi).
+generated from our [OpenAPI specification](https://app.launchdarkly.com/api/v2/openapi.json) using a [code generation library](https://github.com/launchdarkly/ld-openapi). View our [sample code](#sample-code) for example usage.
 
-This REST API is for custom integrations, data export, or automating your feature flag workflows. *DO NOT* use this client library to include feature flags in your web or mobile application. To integrate feature flags with your application, please see the [SDK documentation](https://docs.launchdarkly.com/v2.0/docs)
-
+This REST API is for custom integrations, data export, or automating your feature flag workflows. *DO NOT* use this client library to include feature flags in your web or mobile application. To integrate feature flags with your application, read the [SDK documentation](https://docs.launchdarkly.com/sdk).
 # Go API client for ldapi
 
 # Authentication
@@ -532,13 +531,18 @@ Class | Method | HTTP request | Description
 *ApprovalsApi* | [**PostApprovalRequestReview**](docs/ApprovalsApi.md#postapprovalrequestreview) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id}/reviews | Review approval request
 *ApprovalsApi* | [**PostFlagCopyConfigApprovalRequest**](docs/ApprovalsApi.md#postflagcopyconfigapprovalrequest) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/copy/environments/{environmentKey}/approval-requests-flag-copy | Create approval request to copy flag configurations across environments
 *AuditLogApi* | [**GetAuditLogEntries**](docs/AuditLogApi.md#getauditlogentries) | **Get** /api/v2/auditlog | List audit log feature flag entries
+*AuditLogApi* | [**GetAuditLogEntry**](docs/AuditLogApi.md#getauditlogentry) | **Get** /api/v2/auditlog/{resourceId} | Get audit log entry
+*CodeReferencesApi* | [**DeleteBranches**](docs/CodeReferencesApi.md#deletebranches) | **Post** /api/v2/code-refs/repositories/{repo}/branch-delete-tasks | Delete branches
 *CodeReferencesApi* | [**DeleteRepository**](docs/CodeReferencesApi.md#deleterepository) | **Delete** /api/v2/code-refs/repositories/{repo} | Delete repository
 *CodeReferencesApi* | [**GetBranch**](docs/CodeReferencesApi.md#getbranch) | **Get** /api/v2/code-refs/repositories/{repo}/branches/{branch} | Get branch
 *CodeReferencesApi* | [**GetBranches**](docs/CodeReferencesApi.md#getbranches) | **Get** /api/v2/code-refs/repositories/{repo}/branches | List branches
+*CodeReferencesApi* | [**GetExtinctions**](docs/CodeReferencesApi.md#getextinctions) | **Get** /api/v2/code-refs/extinctions | List extinctions
 *CodeReferencesApi* | [**GetRepositories**](docs/CodeReferencesApi.md#getrepositories) | **Get** /api/v2/code-refs/repositories | List repositories
 *CodeReferencesApi* | [**GetRepository**](docs/CodeReferencesApi.md#getrepository) | **Get** /api/v2/code-refs/repositories/{repo} | Get repository
+*CodeReferencesApi* | [**GetRootStatistic**](docs/CodeReferencesApi.md#getrootstatistic) | **Get** /api/v2/code-refs/statistics | Get number of code references for flags
 *CodeReferencesApi* | [**GetStatistics**](docs/CodeReferencesApi.md#getstatistics) | **Get** /api/v2/code-refs/statistics/{projKey} | Get number of code references for flags
 *CodeReferencesApi* | [**PatchRepository**](docs/CodeReferencesApi.md#patchrepository) | **Patch** /api/v2/code-refs/repositories/{repo} | Update repository
+*CodeReferencesApi* | [**PostExtinction**](docs/CodeReferencesApi.md#postextinction) | **Post** /api/v2/code-refs/repositories/{repo}/branches/{branch} | Post extinction
 *CodeReferencesApi* | [**PostRepository**](docs/CodeReferencesApi.md#postrepository) | **Post** /api/v2/code-refs/repositories | Create repository
 *CodeReferencesApi* | [**PutBranch**](docs/CodeReferencesApi.md#putbranch) | **Put** /api/v2/code-refs/repositories/{repo}/branches/{branch} | Upsert branch
 *CustomRolesApi* | [**DeleteCustomRole**](docs/CustomRolesApi.md#deletecustomrole) | **Delete** /api/v2/roles/{key} | Delete custom role
@@ -636,14 +640,18 @@ Class | Method | HTTP request | Description
  - [ApiBranchCollectionRepItems](docs/ApiBranchCollectionRepItems.md)
  - [ApiBranchCollectionRepReferences](docs/ApiBranchCollectionRepReferences.md)
  - [ApiBranchRep](docs/ApiBranchRep.md)
+ - [ApiExtinctionCollectionRep](docs/ApiExtinctionCollectionRep.md)
+ - [ApiExtinctionRep](docs/ApiExtinctionRep.md)
  - [ApiHunkRep](docs/ApiHunkRep.md)
  - [ApiNewMemberForm](docs/ApiNewMemberForm.md)
  - [ApiReferenceRep](docs/ApiReferenceRep.md)
  - [ApiRepositoryCollectionRep](docs/ApiRepositoryCollectionRep.md)
  - [ApiRepositoryCollectionRepItems](docs/ApiRepositoryCollectionRepItems.md)
+ - [ApiRepositoryPost](docs/ApiRepositoryPost.md)
  - [ApiRepositoryRep](docs/ApiRepositoryRep.md)
  - [ApiStatisticCollectionRep](docs/ApiStatisticCollectionRep.md)
  - [ApiStatisticRep](docs/ApiStatisticRep.md)
+ - [ApiStatisticsRoot](docs/ApiStatisticsRoot.md)
  - [ApiV2IntegrationsItems](docs/ApiV2IntegrationsItems.md)
  - [ApprovalSettingsRep](docs/ApprovalSettingsRep.md)
  - [ApprovalsEndpointsCreateCopyFlagConfigApprovalRequestRequest](docs/ApprovalsEndpointsCreateCopyFlagConfigApprovalRequestRequest.md)
@@ -654,10 +662,15 @@ Class | Method | HTTP request | Description
  - [AuditLogEntryListingRep](docs/AuditLogEntryListingRep.md)
  - [AuditLogEntryListingRepAccesses](docs/AuditLogEntryListingRepAccesses.md)
  - [AuditLogEntryListingRepCollection](docs/AuditLogEntryListingRepCollection.md)
- - [AuditLogEntryListingRepCollectionItems](docs/AuditLogEntryListingRepCollectionItems.md)
+ - [AuditLogEntryRep](docs/AuditLogEntryRep.md)
  - [AuthorizedAppDataRep](docs/AuthorizedAppDataRep.md)
  - [ClausesClause](docs/ClausesClause.md)
  - [ClientSideAvailabilityPost](docs/ClientSideAvailabilityPost.md)
+ - [CoderefsBranch](docs/CoderefsBranch.md)
+ - [CoderefsBranchReferences](docs/CoderefsBranchReferences.md)
+ - [CoderefsExtinction](docs/CoderefsExtinction.md)
+ - [CoderefsHunk](docs/CoderefsHunk.md)
+ - [CoderefsReferenceFile](docs/CoderefsReferenceFile.md)
  - [ConfidenceIntervalRep](docs/ConfidenceIntervalRep.md)
  - [CoreLink](docs/CoreLink.md)
  - [CustomProperty](docs/CustomProperty.md)
@@ -676,7 +689,9 @@ Class | Method | HTTP request | Description
  - [EnvironmentPost](docs/EnvironmentPost.md)
  - [EnvironmentRep](docs/EnvironmentRep.md)
  - [ExperimentAllocationRep](docs/ExperimentAllocationRep.md)
+ - [ExperimentEnabledPeriodRep](docs/ExperimentEnabledPeriodRep.md)
  - [ExperimentEnvironmentSettingRep](docs/ExperimentEnvironmentSettingRep.md)
+ - [ExperimentEnvironmentSettingRepEnabledPeriods](docs/ExperimentEnvironmentSettingRepEnabledPeriods.md)
  - [ExperimentFlagRep](docs/ExperimentFlagRep.md)
  - [ExperimentFlagRepVariations](docs/ExperimentFlagRepVariations.md)
  - [ExperimentInfoRep](docs/ExperimentInfoRep.md)
@@ -724,6 +739,7 @@ Class | Method | HTTP request | Description
  - [GlobalSegmentCollectionRep](docs/GlobalSegmentCollectionRep.md)
  - [GoalsModification](docs/GoalsModification.md)
  - [InlineObject](docs/InlineObject.md)
+ - [InlineObject1](docs/InlineObject1.md)
  - [InlineResponse200](docs/InlineResponse200.md)
  - [InlineResponse2001](docs/InlineResponse2001.md)
  - [IntegrationStatusRep](docs/IntegrationStatusRep.md)
@@ -897,15 +913,15 @@ func main() {
 			{Value: &valTwo},
 		},
 	}
-	flag, resp, err := client.DefaultApi.PostFeatureFlag(ctx, "openapi").Reps2GlobalFlagRep(body).Execute()
+	flag, resp, err := client.FeatureFlagsApi.PostFeatureFlag(ctx, "openapi").Reps2GlobalFlagRep(body).Execute()
 	if err != nil {
 		if resp.StatusCode != 409 {
 			panic(fmt.Errorf("create failed: %s", err))
 		} else {
-			if _, err := client.DefaultApi.DeleteFeatureFlag(ctx, "openapi", *body.Key).Execute(); err != nil {
+			if _, err := client.FeatureFlagsApi.DeleteFeatureFlag(ctx, "openapi", *body.Key).Execute(); err != nil {
 				panic(fmt.Errorf("delete failed: %s", err))
 			}
-			flag, resp, err = client.DefaultApi.PostFeatureFlag(ctx, "openapi").Reps2GlobalFlagRep(body).Execute()
+			flag, resp, err = client.FeatureFlagsApi.PostFeatureFlag(ctx, "openapi").Reps2GlobalFlagRep(body).Execute()
 			if err != nil {
 				panic(fmt.Errorf("create failed: %s", err))
 			}
@@ -914,9 +930,13 @@ func main() {
 	fmt.Printf("Created flag: %+v\n", flag)
 	// Clean up new flag
 	defer func() {
-		if _, err := client.DefaultApi.DeleteFeatureFlag(ctx, "openapi", *body.Key).Execute(); err != nil {
+		if _, err := client.FeatureFlagsApi.DeleteFeatureFlag(ctx, "openapi", *body.Key).Execute(); err != nil {
 			panic(fmt.Errorf("delete failed: %s", err))
 		}
 	}()
+}
+
+func intfPtr(i interface{}) *interface{} {
+	return &i
 }
 ```

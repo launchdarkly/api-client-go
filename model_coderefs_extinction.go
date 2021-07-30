@@ -12,294 +12,285 @@
 package ldapi
 
 import (
-	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
-	"strings"
+	"encoding/json"
 )
 
-// Linger please
-var (
-	_ _context.Context
-)
-
-// AuditLogApiService AuditLogApi service
-type AuditLogApiService service
-
-type ApiGetAuditLogEntriesRequest struct {
-	ctx _context.Context
-	ApiService *AuditLogApiService
-	before *int64
-	after *int64
-	q *string
-	limit *int64
-	spec *string
+// CoderefsExtinction struct for CoderefsExtinction
+type CoderefsExtinction struct {
+	Revision *string `json:"revision,omitempty"`
+	Message *string `json:"message,omitempty"`
+	Time *int64 `json:"time,omitempty"`
+	FlagKey *string `json:"flag_key,omitempty"`
+	ProjectKey *string `json:"project_key,omitempty"`
+	RepoName *string `json:"repo_name,omitempty"`
 }
 
-func (r ApiGetAuditLogEntriesRequest) Before(before int64) ApiGetAuditLogEntriesRequest {
-	r.before = &before
-	return r
-}
-func (r ApiGetAuditLogEntriesRequest) After(after int64) ApiGetAuditLogEntriesRequest {
-	r.after = &after
-	return r
-}
-func (r ApiGetAuditLogEntriesRequest) Q(q string) ApiGetAuditLogEntriesRequest {
-	r.q = &q
-	return r
-}
-func (r ApiGetAuditLogEntriesRequest) Limit(limit int64) ApiGetAuditLogEntriesRequest {
-	r.limit = &limit
-	return r
-}
-func (r ApiGetAuditLogEntriesRequest) Spec(spec string) ApiGetAuditLogEntriesRequest {
-	r.spec = &spec
-	return r
+// NewCoderefsExtinction instantiates a new CoderefsExtinction object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewCoderefsExtinction() *CoderefsExtinction {
+	this := CoderefsExtinction{}
+	return &this
 }
 
-func (r ApiGetAuditLogEntriesRequest) Execute() (AuditLogEntryListingRepCollection, *_nethttp.Response, error) {
-	return r.ApiService.GetAuditLogEntriesExecute(r)
+// NewCoderefsExtinctionWithDefaults instantiates a new CoderefsExtinction object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewCoderefsExtinctionWithDefaults() *CoderefsExtinction {
+	this := CoderefsExtinction{}
+	return &this
 }
 
-/*
- * GetAuditLogEntries List audit log feature flag entries
- *  Gets a list of all audit log entries. The query parameters let you restrict the results that return by date ranges, resource specifiers, or a full-text search query.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @return ApiGetAuditLogEntriesRequest
- */
-func (a *AuditLogApiService) GetAuditLogEntries(ctx _context.Context) ApiGetAuditLogEntriesRequest {
-	return ApiGetAuditLogEntriesRequest{
-		ApiService: a,
-		ctx: ctx,
+// GetRevision returns the Revision field value if set, zero value otherwise.
+func (o *CoderefsExtinction) GetRevision() string {
+	if o == nil || o.Revision == nil {
+		var ret string
+		return ret
 	}
+	return *o.Revision
 }
 
-/*
- * Execute executes the request
- * @return AuditLogEntryListingRepCollection
- */
-func (a *AuditLogApiService) GetAuditLogEntriesExecute(r ApiGetAuditLogEntriesRequest) (AuditLogEntryListingRepCollection, *_nethttp.Response, error) {
-	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  AuditLogEntryListingRepCollection
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuditLogApiService.GetAuditLogEntries")
-	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+// GetRevisionOk returns a tuple with the Revision field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CoderefsExtinction) GetRevisionOk() (*string, bool) {
+	if o == nil || o.Revision == nil {
+		return nil, false
 	}
-
-	localVarPath := localBasePath + "/api/v2/auditlog"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
-
-	if r.before != nil {
-		localVarQueryParams.Add("before", parameterToString(*r.before, ""))
-	}
-	if r.after != nil {
-		localVarQueryParams.Add("after", parameterToString(*r.after, ""))
-	}
-	if r.q != nil {
-		localVarQueryParams.Add("q", parameterToString(*r.q, ""))
-	}
-	if r.limit != nil {
-		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
-	}
-	if r.spec != nil {
-		localVarQueryParams.Add("spec", parameterToString(*r.spec, ""))
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["ApiKey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["Authorization"] = key
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return o.Revision, true
 }
 
-type ApiGetAuditLogEntryRequest struct {
-	ctx _context.Context
-	ApiService *AuditLogApiService
-	resourceId string
+// HasRevision returns a boolean if a field has been set.
+func (o *CoderefsExtinction) HasRevision() bool {
+	if o != nil && o.Revision != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRevision gets a reference to the given string and assigns it to the Revision field.
+func (o *CoderefsExtinction) SetRevision(v string) {
+	o.Revision = &v
+}
+
+// GetMessage returns the Message field value if set, zero value otherwise.
+func (o *CoderefsExtinction) GetMessage() string {
+	if o == nil || o.Message == nil {
+		var ret string
+		return ret
+	}
+	return *o.Message
+}
+
+// GetMessageOk returns a tuple with the Message field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CoderefsExtinction) GetMessageOk() (*string, bool) {
+	if o == nil || o.Message == nil {
+		return nil, false
+	}
+	return o.Message, true
+}
+
+// HasMessage returns a boolean if a field has been set.
+func (o *CoderefsExtinction) HasMessage() bool {
+	if o != nil && o.Message != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMessage gets a reference to the given string and assigns it to the Message field.
+func (o *CoderefsExtinction) SetMessage(v string) {
+	o.Message = &v
+}
+
+// GetTime returns the Time field value if set, zero value otherwise.
+func (o *CoderefsExtinction) GetTime() int64 {
+	if o == nil || o.Time == nil {
+		var ret int64
+		return ret
+	}
+	return *o.Time
+}
+
+// GetTimeOk returns a tuple with the Time field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CoderefsExtinction) GetTimeOk() (*int64, bool) {
+	if o == nil || o.Time == nil {
+		return nil, false
+	}
+	return o.Time, true
+}
+
+// HasTime returns a boolean if a field has been set.
+func (o *CoderefsExtinction) HasTime() bool {
+	if o != nil && o.Time != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTime gets a reference to the given int64 and assigns it to the Time field.
+func (o *CoderefsExtinction) SetTime(v int64) {
+	o.Time = &v
+}
+
+// GetFlagKey returns the FlagKey field value if set, zero value otherwise.
+func (o *CoderefsExtinction) GetFlagKey() string {
+	if o == nil || o.FlagKey == nil {
+		var ret string
+		return ret
+	}
+	return *o.FlagKey
+}
+
+// GetFlagKeyOk returns a tuple with the FlagKey field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CoderefsExtinction) GetFlagKeyOk() (*string, bool) {
+	if o == nil || o.FlagKey == nil {
+		return nil, false
+	}
+	return o.FlagKey, true
+}
+
+// HasFlagKey returns a boolean if a field has been set.
+func (o *CoderefsExtinction) HasFlagKey() bool {
+	if o != nil && o.FlagKey != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFlagKey gets a reference to the given string and assigns it to the FlagKey field.
+func (o *CoderefsExtinction) SetFlagKey(v string) {
+	o.FlagKey = &v
+}
+
+// GetProjectKey returns the ProjectKey field value if set, zero value otherwise.
+func (o *CoderefsExtinction) GetProjectKey() string {
+	if o == nil || o.ProjectKey == nil {
+		var ret string
+		return ret
+	}
+	return *o.ProjectKey
+}
+
+// GetProjectKeyOk returns a tuple with the ProjectKey field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CoderefsExtinction) GetProjectKeyOk() (*string, bool) {
+	if o == nil || o.ProjectKey == nil {
+		return nil, false
+	}
+	return o.ProjectKey, true
+}
+
+// HasProjectKey returns a boolean if a field has been set.
+func (o *CoderefsExtinction) HasProjectKey() bool {
+	if o != nil && o.ProjectKey != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetProjectKey gets a reference to the given string and assigns it to the ProjectKey field.
+func (o *CoderefsExtinction) SetProjectKey(v string) {
+	o.ProjectKey = &v
+}
+
+// GetRepoName returns the RepoName field value if set, zero value otherwise.
+func (o *CoderefsExtinction) GetRepoName() string {
+	if o == nil || o.RepoName == nil {
+		var ret string
+		return ret
+	}
+	return *o.RepoName
+}
+
+// GetRepoNameOk returns a tuple with the RepoName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CoderefsExtinction) GetRepoNameOk() (*string, bool) {
+	if o == nil || o.RepoName == nil {
+		return nil, false
+	}
+	return o.RepoName, true
+}
+
+// HasRepoName returns a boolean if a field has been set.
+func (o *CoderefsExtinction) HasRepoName() bool {
+	if o != nil && o.RepoName != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRepoName gets a reference to the given string and assigns it to the RepoName field.
+func (o *CoderefsExtinction) SetRepoName(v string) {
+	o.RepoName = &v
+}
+
+func (o CoderefsExtinction) MarshalJSON() ([]byte, error) {
+	toSerialize := map[string]interface{}{}
+	if o.Revision != nil {
+		toSerialize["revision"] = o.Revision
+	}
+	if o.Message != nil {
+		toSerialize["message"] = o.Message
+	}
+	if o.Time != nil {
+		toSerialize["time"] = o.Time
+	}
+	if o.FlagKey != nil {
+		toSerialize["flag_key"] = o.FlagKey
+	}
+	if o.ProjectKey != nil {
+		toSerialize["project_key"] = o.ProjectKey
+	}
+	if o.RepoName != nil {
+		toSerialize["repo_name"] = o.RepoName
+	}
+	return json.Marshal(toSerialize)
+}
+
+type NullableCoderefsExtinction struct {
+	value *CoderefsExtinction
+	isSet bool
+}
+
+func (v NullableCoderefsExtinction) Get() *CoderefsExtinction {
+	return v.value
+}
+
+func (v *NullableCoderefsExtinction) Set(val *CoderefsExtinction) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableCoderefsExtinction) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableCoderefsExtinction) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableCoderefsExtinction(val *CoderefsExtinction) *NullableCoderefsExtinction {
+	return &NullableCoderefsExtinction{value: val, isSet: true}
+}
+
+func (v NullableCoderefsExtinction) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableCoderefsExtinction) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
 }
 
 
-func (r ApiGetAuditLogEntryRequest) Execute() (AuditLogEntryRep, *_nethttp.Response, error) {
-	return r.ApiService.GetAuditLogEntryExecute(r)
-}
-
-/*
- * GetAuditLogEntry Get audit log entry
- *  Fetches a detailed audit log entry representation
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param resourceId The ID of the audit log entry
- * @return ApiGetAuditLogEntryRequest
- */
-func (a *AuditLogApiService) GetAuditLogEntry(ctx _context.Context, resourceId string) ApiGetAuditLogEntryRequest {
-	return ApiGetAuditLogEntryRequest{
-		ApiService: a,
-		ctx: ctx,
-		resourceId: resourceId,
-	}
-}
-
-/*
- * Execute executes the request
- * @return AuditLogEntryRep
- */
-func (a *AuditLogApiService) GetAuditLogEntryExecute(r ApiGetAuditLogEntryRequest) (AuditLogEntryRep, *_nethttp.Response, error) {
-	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  AuditLogEntryRep
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuditLogApiService.GetAuditLogEntry")
-	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v2/auditlog/{resourceId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"resourceId"+"}", _neturl.PathEscape(parameterToString(r.resourceId, "")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["ApiKey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["Authorization"] = key
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}

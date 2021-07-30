@@ -4,19 +4,19 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | Pointer to **string** |  | [optional] 
-**SourceLink** | Pointer to **string** |  | [optional] 
-**DefaultBranch** | Pointer to **string** |  | [optional] 
-**Enabled** | Pointer to **bool** |  | [optional] 
-**Version** | Pointer to **int32** |  | [optional] 
-**HunkCount** | Pointer to **int32** |  | [optional] 
-**Links** | Pointer to [**map[string]InlineResponse200**](InlineResponse200.md) |  | [optional] 
+**Name** | **string** |  | 
+**SourceLink** | **string** |  | 
+**DefaultBranch** | **string** |  | 
+**Enabled** | **bool** |  | 
+**Version** | **int32** |  | 
+**HunkCount** | **int32** |  | 
+**Links** | [**map[string]InlineResponse200**](InlineResponse200.md) |  | 
 
 ## Methods
 
 ### NewApiStatisticRep
 
-`func NewApiStatisticRep() *ApiStatisticRep`
+`func NewApiStatisticRep(name string, sourceLink string, defaultBranch string, enabled bool, version int32, hunkCount int32, links map[string]InlineResponse200, ) *ApiStatisticRep`
 
 NewApiStatisticRep instantiates a new ApiStatisticRep object
 This constructor will assign default values to properties that have it defined,
@@ -50,11 +50,6 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
-### HasName
-
-`func (o *ApiStatisticRep) HasName() bool`
-
-HasName returns a boolean if a field has been set.
 
 ### GetSourceLink
 
@@ -75,11 +70,6 @@ and a boolean to check if the value has been set.
 
 SetSourceLink sets SourceLink field to given value.
 
-### HasSourceLink
-
-`func (o *ApiStatisticRep) HasSourceLink() bool`
-
-HasSourceLink returns a boolean if a field has been set.
 
 ### GetDefaultBranch
 
@@ -100,11 +90,6 @@ and a boolean to check if the value has been set.
 
 SetDefaultBranch sets DefaultBranch field to given value.
 
-### HasDefaultBranch
-
-`func (o *ApiStatisticRep) HasDefaultBranch() bool`
-
-HasDefaultBranch returns a boolean if a field has been set.
 
 ### GetEnabled
 
@@ -125,11 +110,6 @@ and a boolean to check if the value has been set.
 
 SetEnabled sets Enabled field to given value.
 
-### HasEnabled
-
-`func (o *ApiStatisticRep) HasEnabled() bool`
-
-HasEnabled returns a boolean if a field has been set.
 
 ### GetVersion
 
@@ -150,11 +130,6 @@ and a boolean to check if the value has been set.
 
 SetVersion sets Version field to given value.
 
-### HasVersion
-
-`func (o *ApiStatisticRep) HasVersion() bool`
-
-HasVersion returns a boolean if a field has been set.
 
 ### GetHunkCount
 
@@ -175,11 +150,6 @@ and a boolean to check if the value has been set.
 
 SetHunkCount sets HunkCount field to given value.
 
-### HasHunkCount
-
-`func (o *ApiStatisticRep) HasHunkCount() bool`
-
-HasHunkCount returns a boolean if a field has been set.
 
 ### GetLinks
 
@@ -200,11 +170,6 @@ and a boolean to check if the value has been set.
 
 SetLinks sets Links field to given value.
 
-### HasLinks
-
-`func (o *ApiStatisticRep) HasLinks() bool`
-
-HasLinks returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

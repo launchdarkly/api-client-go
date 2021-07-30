@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Items** | Pointer to [**[]AuditLogEntryListingRepCollectionItems**](AuditLogEntryListingRepCollectionItems.md) |  | [optional] 
+**Items** | Pointer to [**[]AuditLogEntryListingRep**](AuditLogEntryListingRep.md) |  | [optional] 
 **Links** | Pointer to [**map[string]InlineResponse200**](InlineResponse200.md) |  | [optional] 
 
 ## Methods
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetItems
 
-`func (o *AuditLogEntryListingRepCollection) GetItems() []AuditLogEntryListingRepCollectionItems`
+`func (o *AuditLogEntryListingRepCollection) GetItems() []AuditLogEntryListingRep`
 
 GetItems returns the Items field if non-nil, zero value otherwise.
 
 ### GetItemsOk
 
-`func (o *AuditLogEntryListingRepCollection) GetItemsOk() (*[]AuditLogEntryListingRepCollectionItems, bool)`
+`func (o *AuditLogEntryListingRepCollection) GetItemsOk() (*[]AuditLogEntryListingRep, bool)`
 
 GetItemsOk returns a tuple with the Items field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetItems
 
-`func (o *AuditLogEntryListingRepCollection) SetItems(v []AuditLogEntryListingRepCollectionItems)`
+`func (o *AuditLogEntryListingRepCollection) SetItems(v []AuditLogEntryListingRep)`
 
 SetItems sets Items field to given value.
 
