@@ -5,14 +5,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Items** | [**[]GlobalFlagRep**](GlobalFlagRep.md) |  | 
-**Links** | [**[]CoreLink**](CoreLink.md) |  | 
+**Links** | [**map[string]CoreLink**](CoreLink.md) |  | 
 **TotalCount** | Pointer to **int32** |  | [optional] 
 
 ## Methods
 
 ### NewGlobalFlagCollectionRep
 
-`func NewGlobalFlagCollectionRep(items []GlobalFlagRep, links []CoreLink, ) *GlobalFlagCollectionRep`
+`func NewGlobalFlagCollectionRep(items []GlobalFlagRep, links map[string]CoreLink, ) *GlobalFlagCollectionRep`
 
 NewGlobalFlagCollectionRep instantiates a new GlobalFlagCollectionRep object
 This constructor will assign default values to properties that have it defined,
@@ -49,20 +49,20 @@ SetItems sets Items field to given value.
 
 ### GetLinks
 
-`func (o *GlobalFlagCollectionRep) GetLinks() []CoreLink`
+`func (o *GlobalFlagCollectionRep) GetLinks() map[string]CoreLink`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *GlobalFlagCollectionRep) GetLinksOk() (*[]CoreLink, bool)`
+`func (o *GlobalFlagCollectionRep) GetLinksOk() (*map[string]CoreLink, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *GlobalFlagCollectionRep) SetLinks(v []CoreLink)`
+`func (o *GlobalFlagCollectionRep) SetLinks(v map[string]CoreLink)`
 
 SetLinks sets Links field to given value.
 

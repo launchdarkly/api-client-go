@@ -18,7 +18,7 @@ import (
 // WebExpiringUserTargetResponse struct for WebExpiringUserTargetResponse
 type WebExpiringUserTargetResponse struct {
 	Items *[]WebExpiringUserTargetItem `json:"items,omitempty"`
-	Links *[]CoreLink `json:"_links,omitempty"`
+	Links *map[string]CoreLink `json:"_links,omitempty"`
 	TotalInstructions *int32 `json:"totalInstructions,omitempty"`
 	SuccessfulInstructions *int32 `json:"successfulInstructions,omitempty"`
 	FailedInstructions *int32 `json:"failedInstructions,omitempty"`
@@ -75,9 +75,9 @@ func (o *WebExpiringUserTargetResponse) SetItems(v []WebExpiringUserTargetItem) 
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
-func (o *WebExpiringUserTargetResponse) GetLinks() []CoreLink {
+func (o *WebExpiringUserTargetResponse) GetLinks() map[string]CoreLink {
 	if o == nil || o.Links == nil {
-		var ret []CoreLink
+		var ret map[string]CoreLink
 		return ret
 	}
 	return *o.Links
@@ -85,7 +85,7 @@ func (o *WebExpiringUserTargetResponse) GetLinks() []CoreLink {
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WebExpiringUserTargetResponse) GetLinksOk() (*[]CoreLink, bool) {
+func (o *WebExpiringUserTargetResponse) GetLinksOk() (*map[string]CoreLink, bool) {
 	if o == nil || o.Links == nil {
 		return nil, false
 	}
@@ -101,8 +101,8 @@ func (o *WebExpiringUserTargetResponse) HasLinks() bool {
 	return false
 }
 
-// SetLinks gets a reference to the given []CoreLink and assigns it to the Links field.
-func (o *WebExpiringUserTargetResponse) SetLinks(v []CoreLink) {
+// SetLinks gets a reference to the given map[string]CoreLink and assigns it to the Links field.
+func (o *WebExpiringUserTargetResponse) SetLinks(v map[string]CoreLink) {
 	o.Links = &v
 }
 

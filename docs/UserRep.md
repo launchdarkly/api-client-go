@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **OwnerId** | Pointer to **string** |  | [optional] 
 **User** | Pointer to [**ModelsUser**](ModelsUser.md) |  | [optional] 
 **SortValue** | Pointer to **interface{}** |  | [optional] 
-**Links** | Pointer to [**[]CoreLink**](CoreLink.md) |  | [optional] 
+**Links** | Pointer to [**map[string]CoreLink**](CoreLink.md) |  | [optional] 
 **Access** | Pointer to [**AccessRep**](AccessRep.md) |  | [optional] 
 
 ## Methods
@@ -168,20 +168,20 @@ HasSortValue returns a boolean if a field has been set.
 UnsetSortValue ensures that no value is present for SortValue, not even an explicit nil
 ### GetLinks
 
-`func (o *UserRep) GetLinks() []CoreLink`
+`func (o *UserRep) GetLinks() map[string]CoreLink`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *UserRep) GetLinksOk() (*[]CoreLink, bool)`
+`func (o *UserRep) GetLinksOk() (*map[string]CoreLink, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *UserRep) SetLinks(v []CoreLink)`
+`func (o *UserRep) SetLinks(v map[string]CoreLink)`
 
 SetLinks sets Links field to given value.
 

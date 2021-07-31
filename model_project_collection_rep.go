@@ -18,7 +18,7 @@ import (
 // ProjectCollectionRep struct for ProjectCollectionRep
 type ProjectCollectionRep struct {
 	// A link to this resource.
-	Links *[]CoreLink `json:"_links,omitempty"`
+	Links *map[string]CoreLink `json:"_links,omitempty"`
 	// List of projects.
 	Items *[]ProjectRep `json:"items,omitempty"`
 }
@@ -41,9 +41,9 @@ func NewProjectCollectionRepWithDefaults() *ProjectCollectionRep {
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
-func (o *ProjectCollectionRep) GetLinks() []CoreLink {
+func (o *ProjectCollectionRep) GetLinks() map[string]CoreLink {
 	if o == nil || o.Links == nil {
-		var ret []CoreLink
+		var ret map[string]CoreLink
 		return ret
 	}
 	return *o.Links
@@ -51,7 +51,7 @@ func (o *ProjectCollectionRep) GetLinks() []CoreLink {
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProjectCollectionRep) GetLinksOk() (*[]CoreLink, bool) {
+func (o *ProjectCollectionRep) GetLinksOk() (*map[string]CoreLink, bool) {
 	if o == nil || o.Links == nil {
 		return nil, false
 	}
@@ -67,8 +67,8 @@ func (o *ProjectCollectionRep) HasLinks() bool {
 	return false
 }
 
-// SetLinks gets a reference to the given []CoreLink and assigns it to the Links field.
-func (o *ProjectCollectionRep) SetLinks(v []CoreLink) {
+// SetLinks gets a reference to the given map[string]CoreLink and assigns it to the Links field.
+func (o *ProjectCollectionRep) SetLinks(v map[string]CoreLink) {
 	o.Links = &v
 }
 

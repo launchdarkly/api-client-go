@@ -18,7 +18,7 @@ import (
 // EnvironmentRep struct for EnvironmentRep
 type EnvironmentRep struct {
 	// Links to related resources.
-	Links []CoreLink `json:"_links"`
+	Links map[string]CoreLink `json:"_links"`
 	Id string `json:"_id"`
 	// A project-unique key for the new environment.
 	Key string `json:"key"`
@@ -44,7 +44,7 @@ type EnvironmentRep struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEnvironmentRep(links []CoreLink, id string, key string, name string, apiKey string, mobileKey string, color string, defaultTtl int32, secureMode bool, defaultTrackEvents bool, tags []string) *EnvironmentRep {
+func NewEnvironmentRep(links map[string]CoreLink, id string, key string, name string, apiKey string, mobileKey string, color string, defaultTtl int32, secureMode bool, defaultTrackEvents bool, tags []string) *EnvironmentRep {
 	this := EnvironmentRep{}
 	this.Links = links
 	this.Id = id
@@ -69,9 +69,9 @@ func NewEnvironmentRepWithDefaults() *EnvironmentRep {
 }
 
 // GetLinks returns the Links field value
-func (o *EnvironmentRep) GetLinks() []CoreLink {
+func (o *EnvironmentRep) GetLinks() map[string]CoreLink {
 	if o == nil {
-		var ret []CoreLink
+		var ret map[string]CoreLink
 		return ret
 	}
 
@@ -80,7 +80,7 @@ func (o *EnvironmentRep) GetLinks() []CoreLink {
 
 // GetLinksOk returns a tuple with the Links field value
 // and a boolean to check if the value has been set.
-func (o *EnvironmentRep) GetLinksOk() (*[]CoreLink, bool) {
+func (o *EnvironmentRep) GetLinksOk() (*map[string]CoreLink, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -88,7 +88,7 @@ func (o *EnvironmentRep) GetLinksOk() (*[]CoreLink, bool) {
 }
 
 // SetLinks sets field value
-func (o *EnvironmentRep) SetLinks(v []CoreLink) {
+func (o *EnvironmentRep) SetLinks(v map[string]CoreLink) {
 	o.Links = v
 }
 

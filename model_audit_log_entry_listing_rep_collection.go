@@ -18,7 +18,7 @@ import (
 // AuditLogEntryListingRepCollection struct for AuditLogEntryListingRepCollection
 type AuditLogEntryListingRepCollection struct {
 	Items *[]AuditLogEntryListingRep `json:"items,omitempty"`
-	Links *[]CoreLink `json:"_links,omitempty"`
+	Links *map[string]CoreLink `json:"_links,omitempty"`
 }
 
 // NewAuditLogEntryListingRepCollection instantiates a new AuditLogEntryListingRepCollection object
@@ -71,9 +71,9 @@ func (o *AuditLogEntryListingRepCollection) SetItems(v []AuditLogEntryListingRep
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
-func (o *AuditLogEntryListingRepCollection) GetLinks() []CoreLink {
+func (o *AuditLogEntryListingRepCollection) GetLinks() map[string]CoreLink {
 	if o == nil || o.Links == nil {
-		var ret []CoreLink
+		var ret map[string]CoreLink
 		return ret
 	}
 	return *o.Links
@@ -81,7 +81,7 @@ func (o *AuditLogEntryListingRepCollection) GetLinks() []CoreLink {
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AuditLogEntryListingRepCollection) GetLinksOk() (*[]CoreLink, bool) {
+func (o *AuditLogEntryListingRepCollection) GetLinksOk() (*map[string]CoreLink, bool) {
 	if o == nil || o.Links == nil {
 		return nil, false
 	}
@@ -97,8 +97,8 @@ func (o *AuditLogEntryListingRepCollection) HasLinks() bool {
 	return false
 }
 
-// SetLinks gets a reference to the given []CoreLink and assigns it to the Links field.
-func (o *AuditLogEntryListingRepCollection) SetLinks(v []CoreLink) {
+// SetLinks gets a reference to the given map[string]CoreLink and assigns it to the Links field.
+func (o *AuditLogEntryListingRepCollection) SetLinks(v map[string]CoreLink) {
 	o.Links = &v
 }
 

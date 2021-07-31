@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **Key** | **string** |  | 
 **Included** | **[]string** |  | 
 **Excluded** | **[]string** |  | 
-**Links** | [**[]CoreLink**](CoreLink.md) |  | 
+**Links** | [**map[string]CoreLink**](CoreLink.md) |  | 
 **Rules** | [**[]SegmentRuleRep**](SegmentRuleRep.md) |  | 
 **Version** | **int32** |  | 
 **Deleted** | **bool** |  | 
@@ -27,7 +27,7 @@ Name | Type | Description | Notes
 
 ### NewSegmentRep
 
-`func NewSegmentRep(name string, tags []string, creationDate int64, key string, included []string, excluded []string, links []CoreLink, rules []SegmentRuleRep, version int32, deleted bool, generation int32, ) *SegmentRep`
+`func NewSegmentRep(name string, tags []string, creationDate int64, key string, included []string, excluded []string, links map[string]CoreLink, rules []SegmentRuleRep, version int32, deleted bool, generation int32, ) *SegmentRep`
 
 NewSegmentRep instantiates a new SegmentRep object
 This constructor will assign default values to properties that have it defined,
@@ -189,20 +189,20 @@ SetExcluded sets Excluded field to given value.
 
 ### GetLinks
 
-`func (o *SegmentRep) GetLinks() []CoreLink`
+`func (o *SegmentRep) GetLinks() map[string]CoreLink`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *SegmentRep) GetLinksOk() (*[]CoreLink, bool)`
+`func (o *SegmentRep) GetLinksOk() (*map[string]CoreLink, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *SegmentRep) SetLinks(v []CoreLink)`
+`func (o *SegmentRep) SetLinks(v map[string]CoreLink)`
 
 SetLinks sets Links field to given value.
 

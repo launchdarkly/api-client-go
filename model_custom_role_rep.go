@@ -17,7 +17,7 @@ import (
 
 // CustomRoleRep struct for CustomRoleRep
 type CustomRoleRep struct {
-	Links *[]CoreLink `json:"_links,omitempty"`
+	Links *map[string]CoreLink `json:"_links,omitempty"`
 	Name *string `json:"name,omitempty"`
 	Key *string `json:"key,omitempty"`
 	Description *string `json:"description,omitempty"`
@@ -44,9 +44,9 @@ func NewCustomRoleRepWithDefaults() *CustomRoleRep {
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
-func (o *CustomRoleRep) GetLinks() []CoreLink {
+func (o *CustomRoleRep) GetLinks() map[string]CoreLink {
 	if o == nil || o.Links == nil {
-		var ret []CoreLink
+		var ret map[string]CoreLink
 		return ret
 	}
 	return *o.Links
@@ -54,7 +54,7 @@ func (o *CustomRoleRep) GetLinks() []CoreLink {
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CustomRoleRep) GetLinksOk() (*[]CoreLink, bool) {
+func (o *CustomRoleRep) GetLinksOk() (*map[string]CoreLink, bool) {
 	if o == nil || o.Links == nil {
 		return nil, false
 	}
@@ -70,8 +70,8 @@ func (o *CustomRoleRep) HasLinks() bool {
 	return false
 }
 
-// SetLinks gets a reference to the given []CoreLink and assigns it to the Links field.
-func (o *CustomRoleRep) SetLinks(v []CoreLink) {
+// SetLinks gets a reference to the given map[string]CoreLink and assigns it to the Links field.
+func (o *CustomRoleRep) SetLinks(v map[string]CoreLink) {
 	o.Links = &v
 }
 

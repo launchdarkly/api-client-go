@@ -5600,30 +5600,27 @@ components:
     AccessTokenCollectionRep:
       example:
         _links:
-        - href: href
-          type: type
-        - href: href
-          type: type
+          key:
+            href: href
+            type: type
         items:
         - role: role
           customRoleIds:
           - null
           - null
           _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           description: description
           _member:
             firstName: firstName
             lastName: lastName
             role: role
             _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             _id: _id
             email: email
           ownerId: ownerId
@@ -5670,20 +5667,18 @@ components:
           - null
           - null
           _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           description: description
           _member:
             firstName: firstName
             lastName: lastName
             role: role
             _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             _id: _id
             email: email
           ownerId: ownerId
@@ -5731,9 +5726,9 @@ components:
             $ref: '#/components/schemas/AccessTokenRep'
           type: array
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
       type: object
     AccessTokenRep:
       example:
@@ -5742,20 +5737,18 @@ components:
         - null
         - null
         _links:
-        - href: href
-          type: type
-        - href: href
-          type: type
+          key:
+            href: href
+            type: type
         description: description
         _member:
           firstName: firstName
           lastName: lastName
           role: role
           _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           _id: _id
           email: email
         ownerId: ownerId
@@ -5831,9 +5824,9 @@ components:
         serviceToken:
           type: boolean
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
         defaultApiVersion:
           type: integer
         lastUsed:
@@ -5901,29 +5894,26 @@ components:
       example:
         app:
           _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           isScim: true
           name: name
           _id: _id
           maintainerName: maintainerName
         parent:
           _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           resource: ""
           name: name
         titleVerb: titleVerb
         subject:
           _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           avatarUrl: avatarUrl
           name: name
         delta: ""
@@ -5935,19 +5925,17 @@ components:
         token:
           ending: ending
           _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           name: name
           _id: _id
           serviceToken: true
         target:
           _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           name: name
           resources:
           - null
@@ -5958,10 +5946,9 @@ components:
           firstName: firstName
           lastName: lastName
           _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           _id: _id
           email: email
         triggerBody: ""
@@ -5995,36 +5982,32 @@ components:
     AuditLogEntryListingRepCollection:
       example:
         _links:
-        - href: href
-          type: type
-        - href: href
-          type: type
+          key:
+            href: href
+            type: type
         items:
         - app:
             _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             isScim: true
             name: name
             _id: _id
             maintainerName: maintainerName
           parent:
             _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             resource: ""
             name: name
           titleVerb: titleVerb
           subject:
             _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             avatarUrl: avatarUrl
             name: name
           delta: ""
@@ -6036,19 +6019,17 @@ components:
           token:
             ending: ending
             _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             name: name
             _id: _id
             serviceToken: true
           target:
             _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             name: name
             resources:
             - null
@@ -6059,38 +6040,34 @@ components:
             firstName: firstName
             lastName: lastName
             _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             _id: _id
             email: email
           triggerBody: ""
         - app:
             _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             isScim: true
             name: name
             _id: _id
             maintainerName: maintainerName
           parent:
             _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             resource: ""
             name: name
           titleVerb: titleVerb
           subject:
             _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             avatarUrl: avatarUrl
             name: name
           delta: ""
@@ -6102,19 +6079,17 @@ components:
           token:
             ending: ending
             _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             name: name
             _id: _id
             serviceToken: true
           target:
             _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             name: name
             resources:
             - null
@@ -6125,10 +6100,9 @@ components:
             firstName: firstName
             lastName: lastName
             _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             _id: _id
             email: email
           triggerBody: ""
@@ -6138,66 +6112,60 @@ components:
             $ref: '#/components/schemas/AuditLogEntryListingRep'
           type: array
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
       type: object
     AuditLogEntryRep:
       example:
         app:
           _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           isScim: true
           name: name
           _id: _id
           maintainerName: maintainerName
         parent:
           _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           resource: ""
           name: name
         titleVerb: titleVerb
         subject:
           _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           avatarUrl: avatarUrl
           name: name
         delta: ""
         subentries:
         - app:
             _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             isScim: true
             name: name
             _id: _id
             maintainerName: maintainerName
           parent:
             _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             resource: ""
             name: name
           titleVerb: titleVerb
           subject:
             _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             avatarUrl: avatarUrl
             name: name
           delta: ""
@@ -6209,19 +6177,17 @@ components:
           token:
             ending: ending
             _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             name: name
             _id: _id
             serviceToken: true
           target:
             _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             name: name
             resources:
             - null
@@ -6232,38 +6198,34 @@ components:
             firstName: firstName
             lastName: lastName
             _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             _id: _id
             email: email
           triggerBody: ""
         - app:
             _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             isScim: true
             name: name
             _id: _id
             maintainerName: maintainerName
           parent:
             _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             resource: ""
             name: name
           titleVerb: titleVerb
           subject:
             _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             avatarUrl: avatarUrl
             name: name
           delta: ""
@@ -6275,19 +6237,17 @@ components:
           token:
             ending: ending
             _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             name: name
             _id: _id
             serviceToken: true
           target:
             _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             name: name
             resources:
             - null
@@ -6298,10 +6258,9 @@ components:
             firstName: firstName
             lastName: lastName
             _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             _id: _id
             email: email
           triggerBody: ""
@@ -6310,19 +6269,17 @@ components:
         token:
           ending: ending
           _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           name: name
           _id: _id
           serviceToken: true
         target:
           _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           name: name
           resources:
           - null
@@ -6333,10 +6290,9 @@ components:
           firstName: firstName
           lastName: lastName
           _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           _id: _id
           email: email
         triggerBody: ""
@@ -6370,19 +6326,18 @@ components:
     AuthorizedAppDataRep:
       example:
         _links:
-        - href: href
-          type: type
-        - href: href
-          type: type
+          key:
+            href: href
+            type: type
         isScim: true
         name: name
         _id: _id
         maintainerName: maintainerName
       properties:
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
         _id:
           type: string
         isScim:
@@ -6422,10 +6377,9 @@ components:
     CustomRoleCollectionRep:
       example:
         _links:
-        - href: href
-          type: type
-        - href: href
-          type: type
+          key:
+            href: href
+            type: type
         items:
         - _access:
             denied:
@@ -6462,10 +6416,9 @@ components:
                 - actions
               action: action
           _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           name: name
           description: description
           _id: _id
@@ -6534,10 +6487,9 @@ components:
                 - actions
               action: action
           _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           name: name
           description: description
           _id: _id
@@ -6573,9 +6525,9 @@ components:
             - actions
       properties:
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
         items:
           items:
             $ref: '#/components/schemas/CustomRoleRep'
@@ -6618,10 +6570,9 @@ components:
               - actions
             action: action
         _links:
-        - href: href
-          type: type
-        - href: href
-          type: type
+          key:
+            href: href
+            type: type
         name: name
         description: description
         _id: _id
@@ -6657,9 +6608,9 @@ components:
           - actions
       properties:
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
         name:
           type: string
         key:
@@ -6688,10 +6639,9 @@ components:
     DependentFlag:
       example:
         _links:
-        - href: href
-          type: type
-        - href: href
-          type: type
+          key:
+            href: href
+            type: type
         _site:
           href: href
           type: type
@@ -6703,9 +6653,9 @@ components:
         key:
           type: string
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
         _site:
           $ref: '#/components/schemas/core.Link'
       required:
@@ -6716,10 +6666,9 @@ components:
     DependentFlagEnvironment:
       example:
         _links:
-        - href: href
-          type: type
-        - href: href
-          type: type
+          key:
+            href: href
+            type: type
         _site:
           href: href
           type: type
@@ -6731,9 +6680,9 @@ components:
         key:
           type: string
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
         _site:
           $ref: '#/components/schemas/core.Link'
       required:
@@ -6745,20 +6694,18 @@ components:
       example:
         environments:
         - _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           _site:
             href: href
             type: type
           name: name
           key: key
         - _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           _site:
             href: href
             type: type
@@ -6782,29 +6729,26 @@ components:
     DependentFlagsCollectionRep:
       example:
         _links:
-        - href: href
-          type: type
-        - href: href
-          type: type
+          key:
+            href: href
+            type: type
         _site:
           href: href
           type: type
         items:
         - _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           _site:
             href: href
             type: type
           name: name
           key: key
         - _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           _site:
             href: href
             type: type
@@ -6816,9 +6760,9 @@ components:
             $ref: '#/components/schemas/DependentFlag'
           type: array
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
         _site:
           $ref: '#/components/schemas/core.Link'
       required:
@@ -6829,10 +6773,9 @@ components:
     DestinationCollectionRep:
       example:
         _links:
-        - href: href
-          type: type
-        - href: href
-          type: type
+          key:
+            href: href
+            type: type
         items:
         - _access:
             denied:
@@ -6869,10 +6812,9 @@ components:
                 - actions
               action: action
           _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           kind: kind
           name: name
           _id: _id
@@ -6914,10 +6856,9 @@ components:
                 - actions
               action: action
           _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           kind: kind
           name: name
           _id: _id
@@ -6926,9 +6867,9 @@ components:
           "on": true
       properties:
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
         items:
           items:
             $ref: '#/components/schemas/DestinationRep'
@@ -6988,10 +6929,9 @@ components:
               - actions
             action: action
         _links:
-        - href: href
-          type: type
-        - href: href
-          type: type
+          key:
+            href: href
+            type: type
         kind: kind
         name: name
         _id: _id
@@ -7002,9 +6942,9 @@ components:
         _id:
           type: string
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
         name:
           type: string
         kind:
@@ -7103,14 +7043,14 @@ components:
         - ops
       properties:
         _links:
+          additionalProperties:
+            $ref: '#/components/schemas/core.Link'
           description: Links to related resources.
           example:
             self:
               href: /api/v2/projects/my-project/environments/my-environment
               type: application/json
-          items:
-            $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
         _id:
           example: 57be1db38b75bf0772d11384
           type: string
@@ -7232,10 +7172,9 @@ components:
           value: ""
         name: name
         links:
-        - href: href
-          type: type
-        - href: href
-          type: type
+          key:
+            href: href
+            type: type
         key: key
       properties:
         name:
@@ -7249,9 +7188,9 @@ components:
             $ref: '#/components/schemas/VariateRep'
           type: array
         links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
         site:
           $ref: '#/components/schemas/core.Link'
       type: object
@@ -7278,17 +7217,15 @@ components:
               lastName: lastName
               role: role
               _links:
-              - href: href
-                type: type
-              - href: href
-                type: type
+                key:
+                  href: href
+                  type: type
               _id: _id
               email: email
             _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             kind: kind
             _attachedFlagCount: 5
             description: description
@@ -7344,20 +7281,18 @@ components:
             eventKey: eventKey
             _attachedFeatures:
             - _links:
-              - href: href
-                type: type
-              - href: href
-                type: type
+                key:
+                  href: href
+                  type: type
               _site:
                 href: href
                 type: type
               name: name
               key: key
             - _links:
-              - href: href
-                type: type
-              - href: href
-                type: type
+                key:
+                  href: href
+                  type: type
               _site:
                 href: href
                 type: type
@@ -7389,17 +7324,15 @@ components:
               lastName: lastName
               role: role
               _links:
-              - href: href
-                type: type
-              - href: href
-                type: type
+                key:
+                  href: href
+                  type: type
               _id: _id
               email: email
             _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             kind: kind
             _attachedFlagCount: 5
             description: description
@@ -7455,20 +7388,18 @@ components:
             eventKey: eventKey
             _attachedFeatures:
             - _links:
-              - href: href
-                type: type
-              - href: href
-                type: type
+                key:
+                  href: href
+                  type: type
               _site:
                 href: href
                 type: type
               name: name
               key: key
             - _links:
-              - href: href
-                type: type
-              - href: href
-                type: type
+                key:
+                  href: href
+                  type: type
               _site:
                 href: href
                 type: type
@@ -7535,17 +7466,15 @@ components:
             lastName: lastName
             role: role
             _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             _id: _id
             email: email
           _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           kind: kind
           _attachedFlagCount: 5
           description: description
@@ -7601,20 +7530,18 @@ components:
           eventKey: eventKey
           _attachedFeatures:
           - _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             _site:
               href: href
               type: type
             name: name
             key: key
           - _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             _site:
               href: href
               type: type
@@ -7647,10 +7574,9 @@ components:
         - key: ""
         - key: ""
         _links:
-        - href: href
-          type: type
-        - href: href
-          type: type
+          key:
+            href: href
+            type: type
         stats:
           chi2: 4.145608029883936
           winningVariationIdx: 7
@@ -7685,9 +7611,9 @@ components:
           cumulativeValue: 0.8008281904610115
       properties:
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
         metadata:
           items:
             $ref: '#/components/schemas/ExperimentMetadataRep'
@@ -7739,34 +7665,30 @@ components:
             value: ""
           name: name
           links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           key: key
         _baselineIdx: 0
         _links:
-        - href: href
-          type: type
-        - href: href
-          type: type
+          key:
+            href: href
+            type: type
         _metric:
           _maintainer:
             firstName: firstName
             lastName: lastName
             role: role
             _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             _id: _id
             email: email
           _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           kind: kind
           _attachedFlagCount: 5
           description: description
@@ -7822,20 +7744,18 @@ components:
           eventKey: eventKey
           _attachedFeatures:
           - _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             _site:
               href: href
               type: type
             name: name
             key: key
           - _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             _site:
               href: href
               type: type
@@ -7876,9 +7796,9 @@ components:
         _metric:
           $ref: '#/components/schemas/MetricListingRep'
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
       type: object
     ExperimentTimeSeriesSlice:
       example:
@@ -8212,9 +8132,9 @@ components:
             type: string
           type: array
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
         maintainerId:
           type: string
         _maintainer:
@@ -8257,10 +8177,9 @@ components:
     FlagListingRep:
       example:
         _links:
-        - href: href
-          type: type
-        - href: href
-          type: type
+          key:
+            href: href
+            type: type
         _site:
           href: href
           type: type
@@ -8272,9 +8191,9 @@ components:
         key:
           type: string
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
         _site:
           $ref: '#/components/schemas/core.Link'
       required:
@@ -8348,32 +8267,29 @@ components:
     FlagStatusCollectionRep:
       example:
         _links:
-        - href: href
-          type: type
-        - href: href
-          type: type
+          key:
+            href: href
+            type: type
         items:
         - lastRequested: 2000-01-23T04:56:07.000+00:00
           default: ""
           _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           name: name
         - lastRequested: 2000-01-23T04:56:07.000+00:00
           default: ""
           _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           name: name
       properties:
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
         items:
           items:
             $ref: '#/components/schemas/FlagStatusRep'
@@ -8384,16 +8300,15 @@ components:
         lastRequested: 2000-01-23T04:56:07.000+00:00
         default: ""
         _links:
-        - href: href
-          type: type
-        - href: href
-          type: type
+          key:
+            href: href
+            type: type
         name: name
       properties:
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
         name:
           type: string
         lastRequested:
@@ -8409,10 +8324,9 @@ components:
             default: ""
             name: name
         _links:
-        - href: href
-          type: type
-        - href: href
-          type: type
+          key:
+            href: href
+            type: type
         key: key
       properties:
         environments:
@@ -8422,9 +8336,9 @@ components:
         key:
           type: string
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
       type: object
     FlagStatusesRep:
       example:
@@ -8451,10 +8365,9 @@ components:
     GlobalFlagCollectionRep:
       example:
         _links:
-        - href: href
-          type: type
-        - href: href
-          type: type
+          key:
+            href: href
+            type: type
         totalCount: 6
         items:
         - archivedDate: 7
@@ -8464,20 +8377,18 @@ components:
             lastName: lastName
             role: role
             _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             _id: _id
             email: email
           clientSideAvailability:
             usingEnvironmentId: true
             usingMobileKey: true
           _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           environments:
             key:
               salt: salt
@@ -8662,17 +8573,15 @@ components:
                   lastName: lastName
                   role: role
                   _links:
-                  - href: href
-                    type: type
-                  - href: href
-                    type: type
+                    key:
+                      href: href
+                      type: type
                   _id: _id
                   email: email
                 _links:
-                - href: href
-                  type: type
-                - href: href
-                  type: type
+                  key:
+                    href: href
+                    type: type
                 kind: kind
                 _attachedFlagCount: 5
                 description: description
@@ -8728,20 +8637,18 @@ components:
                 eventKey: eventKey
                 _attachedFeatures:
                 - _links:
-                  - href: href
-                    type: type
-                  - href: href
-                    type: type
+                    key:
+                      href: href
+                      type: type
                   _site:
                     href: href
                     type: type
                   name: name
                   key: key
                 - _links:
-                  - href: href
-                    type: type
-                  - href: href
-                    type: type
+                    key:
+                      href: href
+                      type: type
                   _site:
                     href: href
                     type: type
@@ -8773,17 +8680,15 @@ components:
                   lastName: lastName
                   role: role
                   _links:
-                  - href: href
-                    type: type
-                  - href: href
-                    type: type
+                    key:
+                      href: href
+                      type: type
                   _id: _id
                   email: email
                 _links:
-                - href: href
-                  type: type
-                - href: href
-                  type: type
+                  key:
+                    href: href
+                    type: type
                 kind: kind
                 _attachedFlagCount: 5
                 description: description
@@ -8839,20 +8744,18 @@ components:
                 eventKey: eventKey
                 _attachedFeatures:
                 - _links:
-                  - href: href
-                    type: type
-                  - href: href
-                    type: type
+                    key:
+                      href: href
+                      type: type
                   _site:
                     href: href
                     type: type
                   name: name
                   key: key
                 - _links:
-                  - href: href
-                    type: type
-                  - href: href
-                    type: type
+                    key:
+                      href: href
+                      type: type
                   _site:
                     href: href
                     type: type
@@ -8905,20 +8808,18 @@ components:
             lastName: lastName
             role: role
             _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             _id: _id
             email: email
           clientSideAvailability:
             usingEnvironmentId: true
             usingMobileKey: true
           _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           environments:
             key:
               salt: salt
@@ -9103,17 +9004,15 @@ components:
                   lastName: lastName
                   role: role
                   _links:
-                  - href: href
-                    type: type
-                  - href: href
-                    type: type
+                    key:
+                      href: href
+                      type: type
                   _id: _id
                   email: email
                 _links:
-                - href: href
-                  type: type
-                - href: href
-                  type: type
+                  key:
+                    href: href
+                    type: type
                 kind: kind
                 _attachedFlagCount: 5
                 description: description
@@ -9169,20 +9068,18 @@ components:
                 eventKey: eventKey
                 _attachedFeatures:
                 - _links:
-                  - href: href
-                    type: type
-                  - href: href
-                    type: type
+                    key:
+                      href: href
+                      type: type
                   _site:
                     href: href
                     type: type
                   name: name
                   key: key
                 - _links:
-                  - href: href
-                    type: type
-                  - href: href
-                    type: type
+                    key:
+                      href: href
+                      type: type
                   _site:
                     href: href
                     type: type
@@ -9214,17 +9111,15 @@ components:
                   lastName: lastName
                   role: role
                   _links:
-                  - href: href
-                    type: type
-                  - href: href
-                    type: type
+                    key:
+                      href: href
+                      type: type
                   _id: _id
                   email: email
                 _links:
-                - href: href
-                  type: type
-                - href: href
-                  type: type
+                  key:
+                    href: href
+                    type: type
                 kind: kind
                 _attachedFlagCount: 5
                 description: description
@@ -9280,20 +9175,18 @@ components:
                 eventKey: eventKey
                 _attachedFeatures:
                 - _links:
-                  - href: href
-                    type: type
-                  - href: href
-                    type: type
+                    key:
+                      href: href
+                      type: type
                   _site:
                     href: href
                     type: type
                   name: name
                   key: key
                 - _links:
-                  - href: href
-                    type: type
-                  - href: href
-                    type: type
+                    key:
+                      href: href
+                      type: type
                   _site:
                     href: href
                     type: type
@@ -9345,9 +9238,9 @@ components:
             $ref: '#/components/schemas/GlobalFlagRep'
           type: array
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
         totalCount:
           type: integer
       required:
@@ -9363,20 +9256,18 @@ components:
           lastName: lastName
           role: role
           _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           _id: _id
           email: email
         clientSideAvailability:
           usingEnvironmentId: true
           usingMobileKey: true
         _links:
-        - href: href
-          type: type
-        - href: href
-          type: type
+          key:
+            href: href
+            type: type
         environments:
           key:
             salt: salt
@@ -9561,17 +9452,15 @@ components:
                 lastName: lastName
                 role: role
                 _links:
-                - href: href
-                  type: type
-                - href: href
-                  type: type
+                  key:
+                    href: href
+                    type: type
                 _id: _id
                 email: email
               _links:
-              - href: href
-                type: type
-              - href: href
-                type: type
+                key:
+                  href: href
+                  type: type
               kind: kind
               _attachedFlagCount: 5
               description: description
@@ -9627,20 +9516,18 @@ components:
               eventKey: eventKey
               _attachedFeatures:
               - _links:
-                - href: href
-                  type: type
-                - href: href
-                  type: type
+                  key:
+                    href: href
+                    type: type
                 _site:
                   href: href
                   type: type
                 name: name
                 key: key
               - _links:
-                - href: href
-                  type: type
-                - href: href
-                  type: type
+                  key:
+                    href: href
+                    type: type
                 _site:
                   href: href
                   type: type
@@ -9672,17 +9559,15 @@ components:
                 lastName: lastName
                 role: role
                 _links:
-                - href: href
-                  type: type
-                - href: href
-                  type: type
+                  key:
+                    href: href
+                    type: type
                 _id: _id
                 email: email
               _links:
-              - href: href
-                type: type
-              - href: href
-                type: type
+                key:
+                  href: href
+                  type: type
               kind: kind
               _attachedFlagCount: 5
               description: description
@@ -9738,20 +9623,18 @@ components:
               eventKey: eventKey
               _attachedFeatures:
               - _links:
-                - href: href
-                  type: type
-                - href: href
-                  type: type
+                  key:
+                    href: href
+                    type: type
                 _site:
                   href: href
                   type: type
                 name: name
                 key: key
               - _links:
-                - href: href
-                  type: type
-                - href: href
-                  type: type
+                  key:
+                    href: href
+                    type: type
                 _site:
                   href: href
                   type: type
@@ -9827,9 +9710,9 @@ components:
             type: string
           type: array
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
         maintainerId:
           type: string
         _maintainer:
@@ -9873,28 +9756,25 @@ components:
     GlobalSegmentCollectionRep:
       example:
         _links:
-        - href: href
-          type: type
-        - href: href
-          type: type
+          key:
+            href: href
+            type: type
         items:
         - generation: 5
           _flags:
           - _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             _site:
               href: href
               type: type
             name: name
             key: key
           - _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             _site:
               href: href
               type: type
@@ -9902,10 +9782,9 @@ components:
             key: key
           _externalLink: _externalLink
           _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           description: description
           rules:
           - clauses:
@@ -10004,20 +9883,18 @@ components:
         - generation: 5
           _flags:
           - _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             _site:
               href: href
               type: type
             name: name
             key: key
           - _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             _site:
               href: href
               type: type
@@ -10025,10 +9902,9 @@ components:
             key: key
           _externalLink: _externalLink
           _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           description: description
           rules:
           - clauses:
@@ -10130,9 +10006,9 @@ components:
             $ref: '#/components/schemas/SegmentRep'
           type: array
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
       required:
       - _links
       - items
@@ -10189,10 +10065,9 @@ components:
             action: action
         apiKey: apiKey
         _links:
-        - href: href
-          type: type
-        - href: href
-          type: type
+          key:
+            href: href
+            type: type
         kind: kind
         name: name
         statements:
@@ -10246,9 +10121,9 @@ components:
         - tags
       properties:
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
         _id:
           type: string
         kind:
@@ -10280,10 +10155,9 @@ components:
     IntegrationSubscriptionRepCollection:
       example:
         _links:
-        - href: href
-          type: type
-        - href: href
-          type: type
+          key:
+            href: href
+            type: type
         items:
         - _access:
             denied:
@@ -10321,10 +10195,9 @@ components:
               action: action
           apiKey: apiKey
           _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           kind: kind
           name: name
           statements:
@@ -10412,10 +10285,9 @@ components:
               action: action
           apiKey: apiKey
           _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           kind: kind
           name: name
           statements:
@@ -10470,9 +10342,9 @@ components:
         key: key
       properties:
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
         items:
           items:
             $ref: '#/components/schemas/IntegrationSubscriptionRep'
@@ -10558,10 +10430,9 @@ components:
     MemberCollectionRep:
       example:
         _links:
-        - href: href
-          type: type
-        - href: href
-          type: type
+          key:
+            href: href
+            type: type
         totalCount: 6
         items:
         - lastName: Loblaw
@@ -10580,10 +10451,9 @@ components:
             - customRoleKeys
             key: key
           _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           mfa: mfa
           excludedDashboards:
           - excludedDashboards
@@ -10617,10 +10487,9 @@ components:
             - customRoleKeys
             key: key
           _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           mfa: mfa
           excludedDashboards:
           - excludedDashboards
@@ -10644,9 +10513,9 @@ components:
             $ref: '#/components/schemas/MemberRep'
           type: array
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
         totalCount:
           type: integer
       required:
@@ -10658,17 +10527,16 @@ components:
         firstName: firstName
         lastName: lastName
         _links:
-        - href: href
-          type: type
-        - href: href
-          type: type
+          key:
+            href: href
+            type: type
         _id: _id
         email: email
       properties:
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
         _id:
           type: string
         email:
@@ -10696,10 +10564,9 @@ components:
           - customRoleKeys
           key: key
         _links:
-        - href: href
-          type: type
-        - href: href
-          type: type
+          key:
+            href: href
+            type: type
         mfa: mfa
         excludedDashboards:
         - excludedDashboards
@@ -10719,9 +10586,9 @@ components:
         - backend-devs
       properties:
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
         _id:
           description: The member's ID
           example: 507f1f77bcf86cd799439011
@@ -10799,17 +10666,16 @@ components:
         lastName: lastName
         role: role
         _links:
-        - href: href
-          type: type
-        - href: href
-          type: type
+          key:
+            href: href
+            type: type
         _id: _id
         email: email
       properties:
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
         _id:
           type: string
         firstName:
@@ -10850,27 +10716,24 @@ components:
     MetricCollectionRep:
       example:
         _links:
-        - href: href
-          type: type
-        - href: href
-          type: type
+          key:
+            href: href
+            type: type
         items:
         - _maintainer:
             firstName: firstName
             lastName: lastName
             role: role
             _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             _id: _id
             email: email
           _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           kind: kind
           _attachedFlagCount: 5
           description: description
@@ -10926,20 +10789,18 @@ components:
           eventKey: eventKey
           _attachedFeatures:
           - _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             _site:
               href: href
               type: type
             name: name
             key: key
           - _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             _site:
               href: href
               type: type
@@ -10957,17 +10818,15 @@ components:
             lastName: lastName
             role: role
             _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             _id: _id
             email: email
           _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           kind: kind
           _attachedFlagCount: 5
           description: description
@@ -11023,20 +10882,18 @@ components:
           eventKey: eventKey
           _attachedFeatures:
           - _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             _site:
               href: href
               type: type
             name: name
             key: key
           - _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             _site:
               href: href
               type: type
@@ -11055,9 +10912,9 @@ components:
             $ref: '#/components/schemas/MetricListingRep'
           type: array
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
       type: object
     MetricListingRep:
       example:
@@ -11066,17 +10923,15 @@ components:
           lastName: lastName
           role: role
           _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           _id: _id
           email: email
         _links:
-        - href: href
-          type: type
-        - href: href
-          type: type
+          key:
+            href: href
+            type: type
         kind: kind
         _attachedFlagCount: 5
         description: description
@@ -11132,20 +10987,18 @@ components:
         eventKey: eventKey
         _attachedFeatures:
         - _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           _site:
             href: href
             type: type
           name: name
           key: key
         - _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           _site:
             href: href
             type: type
@@ -11170,9 +11023,9 @@ components:
         _attachedFlagCount:
           type: integer
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
         _site:
           $ref: '#/components/schemas/core.Link'
         _access:
@@ -11222,17 +11075,15 @@ components:
           lastName: lastName
           role: role
           _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           _id: _id
           email: email
         _links:
-        - href: href
-          type: type
-        - href: href
-          type: type
+          key:
+            href: href
+            type: type
         kind: kind
         _attachedFlagCount: 0
         description: description
@@ -11288,20 +11139,18 @@ components:
         eventKey: eventKey
         _attachedFeatures:
         - _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           _site:
             href: href
             type: type
           name: name
           key: key
         - _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           _site:
             href: href
             type: type
@@ -11326,9 +11175,9 @@ components:
         _attachedFlagCount:
           type: integer
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
         _site:
           $ref: '#/components/schemas/core.Link'
         _access:
@@ -11374,30 +11223,27 @@ components:
     MultiEnvDependentFlagsCollectionRep:
       example:
         _links:
-        - href: href
-          type: type
-        - href: href
-          type: type
+          key:
+            href: href
+            type: type
         _site:
           href: href
           type: type
         items:
         - environments:
           - _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             _site:
               href: href
               type: type
             name: name
             key: key
           - _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             _site:
               href: href
               type: type
@@ -11407,20 +11253,18 @@ components:
           key: key
         - environments:
           - _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             _site:
               href: href
               type: type
             name: name
             key: key
           - _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             _site:
               href: href
               type: type
@@ -11434,9 +11278,9 @@ components:
             $ref: '#/components/schemas/DependentFlagWithEnvs'
           type: array
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
         _site:
           $ref: '#/components/schemas/core.Link'
       required:
@@ -11447,17 +11291,16 @@ components:
     ParentResourceRep:
       example:
         _links:
-        - href: href
-          type: type
-        - href: href
-          type: type
+          key:
+            href: href
+            type: type
         resource: ""
         name: name
       properties:
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
         name:
           type: string
         resource: {}
@@ -11625,14 +11468,14 @@ components:
           - ops
       properties:
         _links:
+          additionalProperties:
+            $ref: '#/components/schemas/core.Link'
           description: A link to this resource.
           example:
             self:
               href: /api/v2/projects
               type: application/json
-          items:
-            $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
         items:
           description: List of projects.
           items:
@@ -11642,6 +11485,8 @@ components:
     ProjectListingRep:
       properties:
         _links:
+          additionalProperties:
+            $ref: '#/components/schemas/core.Link'
           example:
             environments:
               href: /api/v2/projects/my-project/environments
@@ -11649,9 +11494,7 @@ components:
             self:
               href: /api/v2/projects/my-project
               type: application/json
-          items:
-            $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
         _id:
           example: 57be1db38b75bf0772d11383
           type: string
@@ -11793,6 +11636,8 @@ components:
         - ops
       properties:
         _links:
+          additionalProperties:
+            $ref: '#/components/schemas/core.Link'
           example:
             environments:
               href: /api/v2/projects/my-project/environments
@@ -11800,9 +11645,7 @@ components:
             self:
               href: /api/v2/projects/my-project
               type: application/json
-          items:
-            $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
         _id:
           example: 57be1db38b75bf0772d11383
           type: string
@@ -11916,20 +11759,18 @@ components:
     ScheduledChangesCollectionRep:
       example:
         _links:
-        - href: href
-          type: type
-        - href: href
-          type: type
+          key:
+            href: href
+            type: type
         items:
         - instructions:
           - null
           - null
           _maintainerId: _maintainerId
           _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           executionDate: 1
           conflicts: ""
           _id: _id
@@ -11940,10 +11781,9 @@ components:
           - null
           _maintainerId: _maintainerId
           _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           executionDate: 1
           conflicts: ""
           _id: _id
@@ -11955,9 +11795,9 @@ components:
             $ref: '#/components/schemas/ScheduledChangesRep'
           type: array
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
       type: object
     ScheduledChangesRep:
       example:
@@ -11966,10 +11806,9 @@ components:
         - null
         _maintainerId: _maintainerId
         _links:
-        - href: href
-          type: type
-        - href: href
-          type: type
+          key:
+            href: href
+            type: type
         executionDate: 1
         conflicts: ""
         _id: _id
@@ -11994,29 +11833,27 @@ components:
           type: array
         conflicts: {}
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
       type: object
     SegmentRep:
       example:
         generation: 5
         _flags:
         - _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           _site:
             href: href
             type: type
           name: name
           key: key
         - _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           _site:
             href: href
             type: type
@@ -12024,10 +11861,9 @@ components:
           key: key
         _externalLink: _externalLink
         _links:
-        - href: href
-          type: type
-        - href: href
-          type: type
+          key:
+            href: href
+            type: type
         description: description
         rules:
         - clauses:
@@ -12146,9 +11982,9 @@ components:
             type: string
           type: array
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
         rules:
           items:
             $ref: '#/components/schemas/SegmentRuleRep'
@@ -12262,17 +12098,16 @@ components:
     SubjectDataRep:
       example:
         _links:
-        - href: href
-          type: type
-        - href: href
-          type: type
+          key:
+            href: href
+            type: type
         avatarUrl: avatarUrl
         name: name
       properties:
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
         name:
           type: string
         avatarUrl:
@@ -12281,19 +12116,18 @@ components:
     TargetResourceRep:
       example:
         _links:
-        - href: href
-          type: type
-        - href: href
-          type: type
+          key:
+            href: href
+            type: type
         name: name
         resources:
         - null
         - null
       properties:
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
         name:
           type: string
         resources:
@@ -12333,18 +12167,17 @@ components:
       example:
         ending: ending
         _links:
-        - href: href
-          type: type
-        - href: href
-          type: type
+          key:
+            href: href
+            type: type
         name: name
         _id: _id
         serviceToken: true
       properties:
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
         _id:
           type: string
         name:
@@ -12357,10 +12190,9 @@ components:
     UserListRep:
       example:
         _links:
-        - href: href
-          type: type
-        - href: href
-          type: type
+          key:
+            href: href
+            type: type
         totalCount: 0
         items:
         - sortValue: ""
@@ -12400,10 +12232,9 @@ components:
                 - actions
               action: action
           _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           lastPing: 2000-01-23T04:56:07.000+00:00
           ownerId: ownerId
           user:
@@ -12463,10 +12294,9 @@ components:
                 - actions
               action: action
           _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           lastPing: 2000-01-23T04:56:07.000+00:00
           ownerId: ownerId
           user:
@@ -12491,9 +12321,9 @@ components:
             email: email
       properties:
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
         totalCount:
           type: integer
         items:
@@ -12514,9 +12344,9 @@ components:
           $ref: '#/components/schemas/models.User'
         sortValue: {}
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
         _access:
           $ref: '#/components/schemas/AccessRep'
       type: object
@@ -12559,10 +12389,9 @@ components:
               - actions
             action: action
         _links:
-        - href: href
-          type: type
-        - href: href
-          type: type
+          key:
+            href: href
+            type: type
         lastPing: 2000-01-23T04:56:07.000+00:00
         ownerId: ownerId
         user:
@@ -12597,43 +12426,40 @@ components:
           $ref: '#/components/schemas/models.User'
         sortValue: {}
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
         _access:
           $ref: '#/components/schemas/AccessRep'
       type: object
     UserSettingRep:
       example:
         _links:
-        - href: href
-          type: type
-        - href: href
-          type: type
+          key:
+            href: href
+            type: type
         _value: ""
         setting: ""
       properties:
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
         _value: {}
         setting: {}
       type: object
     UserSettingsCollection:
       example:
         _links:
-        - href: href
-          type: type
-        - href: href
-          type: type
+          key:
+            href: href
+            type: type
         items:
           key:
             _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             _value: ""
             setting: ""
       properties:
@@ -12642,9 +12468,9 @@ components:
             $ref: '#/components/schemas/UserSettingRep'
           type: object
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
       type: object
     VariateRep:
       example:
@@ -12818,10 +12644,9 @@ components:
     api.BranchCollectionRep:
       example:
         _links:
-        - href: href
-          type: type
-        - href: href
-          type: type
+          key:
+            href: href
+            type: type
         items:
         - head: head
           syncTime: 1
@@ -12907,9 +12732,9 @@ components:
           updateSequenceId: 6
       properties:
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
         items:
           items:
             $ref: '#/components/schemas/api.BranchRep'
@@ -12980,10 +12805,9 @@ components:
     api.ExtinctionCollectionRep:
       example:
         _links:
-        - href: href
-          type: type
-        - href: href
-          type: type
+          key:
+            href: href
+            type: type
         items:
           key:
           - time: 0
@@ -12998,9 +12822,9 @@ components:
             revision: revision
       properties:
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
         items:
           additionalProperties:
             items:
@@ -13102,10 +12926,9 @@ components:
     api.RepositoryCollectionRep:
       example:
         _links:
-        - href: href
-          type: type
-        - href: href
-          type: type
+          key:
+            href: href
+            type: type
         items:
         - _access:
             denied:
@@ -13363,9 +13186,9 @@ components:
           enabled: true
       properties:
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
         items:
           items:
             $ref: '#/components/schemas/api.RepositoryRep'
@@ -13530,17 +13353,15 @@ components:
     api.StatisticCollectionRep:
       example:
         _links:
-        - href: href
-          type: type
-        - href: href
-          type: type
+          key:
+            href: href
+            type: type
         flags:
           key:
           - _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             defaultBranch: defaultBranch
             name: name
             sourceLink: sourceLink
@@ -13548,10 +13369,9 @@ components:
             version: 0
             enabled: true
           - _links:
-            - href: href
-              type: type
-            - href: href
-              type: type
+              key:
+                href: href
+                type: type
             defaultBranch: defaultBranch
             name: name
             sourceLink: sourceLink
@@ -13566,9 +13386,9 @@ components:
             type: array
           type: object
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
       required:
       - _links
       - flags
@@ -13576,10 +13396,9 @@ components:
     api.StatisticRep:
       example:
         _links:
-        - href: href
-          type: type
-        - href: href
-          type: type
+          key:
+            href: href
+            type: type
         defaultBranch: defaultBranch
         name: name
         sourceLink: sourceLink
@@ -13600,9 +13419,9 @@ components:
         hunkCount:
           type: integer
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
       required:
       - _links
       - defaultBranch
@@ -14428,10 +14247,9 @@ components:
       example:
         failedInstructions: 5
         _links:
-        - href: href
-          type: type
-        - href: href
-          type: type
+          key:
+            href: href
+            type: type
         successfulInstructions: 5
         items:
         - _resourceId:
@@ -14470,9 +14288,9 @@ components:
             $ref: '#/components/schemas/web.ExpiringUserTargetItem'
           type: array
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
         totalInstructions:
           type: integer
         successfulInstructions:
@@ -14505,10 +14323,9 @@ components:
         - notifyMemberIds
         - notifyMemberIds
         _links:
-        - href: href
-          type: type
-        - href: href
-          type: type
+          key:
+            href: href
+            type: type
         executionDate: 5
         description: description
         appliedDate: 5
@@ -14577,9 +14394,9 @@ components:
             $ref: '#/components/schemas/web.Conflict'
           type: array
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
         executionDate:
           format: int64
           type: integer
@@ -14716,10 +14533,9 @@ components:
     inline_response_200_1:
       example:
         _links:
-        - href: href
-          type: type
-        - href: href
-          type: type
+          key:
+            href: href
+            type: type
         items:
         - _access:
             denied:
@@ -14757,10 +14573,9 @@ components:
               action: action
           apiKey: apiKey
           _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           kind: kind
           name: name
           statements:
@@ -14848,10 +14663,9 @@ components:
               action: action
           apiKey: apiKey
           _links:
-          - href: href
-            type: type
-          - href: href
-            type: type
+            key:
+              href: href
+              type: type
           kind: kind
           name: name
           statements:
@@ -14906,9 +14720,9 @@ components:
         key: key
       properties:
         _links:
-          items:
+          additionalProperties:
             $ref: '#/components/schemas/core.Link'
-          type: array
+          type: object
         items:
           items:
             $ref: '#/components/schemas/IntegrationSubscriptionRep'

@@ -23,14 +23,14 @@ type ApiStatisticRep struct {
 	Enabled bool `json:"enabled"`
 	Version int32 `json:"version"`
 	HunkCount int32 `json:"hunkCount"`
-	Links []CoreLink `json:"_links"`
+	Links map[string]CoreLink `json:"_links"`
 }
 
 // NewApiStatisticRep instantiates a new ApiStatisticRep object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewApiStatisticRep(name string, sourceLink string, defaultBranch string, enabled bool, version int32, hunkCount int32, links []CoreLink) *ApiStatisticRep {
+func NewApiStatisticRep(name string, sourceLink string, defaultBranch string, enabled bool, version int32, hunkCount int32, links map[string]CoreLink) *ApiStatisticRep {
 	this := ApiStatisticRep{}
 	this.Name = name
 	this.SourceLink = sourceLink
@@ -195,9 +195,9 @@ func (o *ApiStatisticRep) SetHunkCount(v int32) {
 }
 
 // GetLinks returns the Links field value
-func (o *ApiStatisticRep) GetLinks() []CoreLink {
+func (o *ApiStatisticRep) GetLinks() map[string]CoreLink {
 	if o == nil {
-		var ret []CoreLink
+		var ret map[string]CoreLink
 		return ret
 	}
 
@@ -206,7 +206,7 @@ func (o *ApiStatisticRep) GetLinks() []CoreLink {
 
 // GetLinksOk returns a tuple with the Links field value
 // and a boolean to check if the value has been set.
-func (o *ApiStatisticRep) GetLinksOk() (*[]CoreLink, bool) {
+func (o *ApiStatisticRep) GetLinksOk() (*map[string]CoreLink, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -214,7 +214,7 @@ func (o *ApiStatisticRep) GetLinksOk() (*[]CoreLink, bool) {
 }
 
 // SetLinks sets field value
-func (o *ApiStatisticRep) SetLinks(v []CoreLink) {
+func (o *ApiStatisticRep) SetLinks(v map[string]CoreLink) {
 	o.Links = v
 }
 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Links** | Pointer to [**[]CoreLink**](CoreLink.md) |  | [optional] 
+**Links** | Pointer to [**map[string]CoreLink**](CoreLink.md) |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **LastRequested** | Pointer to **time.Time** |  | [optional] 
 **Default** | Pointer to **interface{}** |  | [optional] 
@@ -30,20 +30,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetLinks
 
-`func (o *FlagStatusRep) GetLinks() []CoreLink`
+`func (o *FlagStatusRep) GetLinks() map[string]CoreLink`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *FlagStatusRep) GetLinksOk() (*[]CoreLink, bool)`
+`func (o *FlagStatusRep) GetLinksOk() (*map[string]CoreLink, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *FlagStatusRep) SetLinks(v []CoreLink)`
+`func (o *FlagStatusRep) SetLinks(v map[string]CoreLink)`
 
 SetLinks sets Links field to given value.
 

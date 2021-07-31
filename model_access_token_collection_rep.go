@@ -18,7 +18,7 @@ import (
 // AccessTokenCollectionRep struct for AccessTokenCollectionRep
 type AccessTokenCollectionRep struct {
 	Items *[]AccessTokenRep `json:"items,omitempty"`
-	Links *[]CoreLink `json:"_links,omitempty"`
+	Links *map[string]CoreLink `json:"_links,omitempty"`
 }
 
 // NewAccessTokenCollectionRep instantiates a new AccessTokenCollectionRep object
@@ -71,9 +71,9 @@ func (o *AccessTokenCollectionRep) SetItems(v []AccessTokenRep) {
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
-func (o *AccessTokenCollectionRep) GetLinks() []CoreLink {
+func (o *AccessTokenCollectionRep) GetLinks() map[string]CoreLink {
 	if o == nil || o.Links == nil {
-		var ret []CoreLink
+		var ret map[string]CoreLink
 		return ret
 	}
 	return *o.Links
@@ -81,7 +81,7 @@ func (o *AccessTokenCollectionRep) GetLinks() []CoreLink {
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AccessTokenCollectionRep) GetLinksOk() (*[]CoreLink, bool) {
+func (o *AccessTokenCollectionRep) GetLinksOk() (*map[string]CoreLink, bool) {
 	if o == nil || o.Links == nil {
 		return nil, false
 	}
@@ -97,8 +97,8 @@ func (o *AccessTokenCollectionRep) HasLinks() bool {
 	return false
 }
 
-// SetLinks gets a reference to the given []CoreLink and assigns it to the Links field.
-func (o *AccessTokenCollectionRep) SetLinks(v []CoreLink) {
+// SetLinks gets a reference to the given map[string]CoreLink and assigns it to the Links field.
+func (o *AccessTokenCollectionRep) SetLinks(v map[string]CoreLink) {
 	o.Links = &v
 }
 

@@ -5,14 +5,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Items** | [**[]DependentFlag**](DependentFlag.md) |  | 
-**Links** | [**[]CoreLink**](CoreLink.md) |  | 
+**Links** | [**map[string]CoreLink**](CoreLink.md) |  | 
 **Site** | [**CoreLink**](CoreLink.md) |  | 
 
 ## Methods
 
 ### NewDependentFlagsCollectionRep
 
-`func NewDependentFlagsCollectionRep(items []DependentFlag, links []CoreLink, site CoreLink, ) *DependentFlagsCollectionRep`
+`func NewDependentFlagsCollectionRep(items []DependentFlag, links map[string]CoreLink, site CoreLink, ) *DependentFlagsCollectionRep`
 
 NewDependentFlagsCollectionRep instantiates a new DependentFlagsCollectionRep object
 This constructor will assign default values to properties that have it defined,
@@ -49,20 +49,20 @@ SetItems sets Items field to given value.
 
 ### GetLinks
 
-`func (o *DependentFlagsCollectionRep) GetLinks() []CoreLink`
+`func (o *DependentFlagsCollectionRep) GetLinks() map[string]CoreLink`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *DependentFlagsCollectionRep) GetLinksOk() (*[]CoreLink, bool)`
+`func (o *DependentFlagsCollectionRep) GetLinksOk() (*map[string]CoreLink, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *DependentFlagsCollectionRep) SetLinks(v []CoreLink)`
+`func (o *DependentFlagsCollectionRep) SetLinks(v map[string]CoreLink)`
 
 SetLinks sets Links field to given value.
 

@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Flags** | [**map[string][]ApiStatisticRep**](array.md) |  | 
-**Links** | [**[]CoreLink**](CoreLink.md) |  | 
+**Links** | [**map[string]CoreLink**](CoreLink.md) |  | 
 
 ## Methods
 
 ### NewApiStatisticCollectionRep
 
-`func NewApiStatisticCollectionRep(flags map[string][]ApiStatisticRep, links []CoreLink, ) *ApiStatisticCollectionRep`
+`func NewApiStatisticCollectionRep(flags map[string][]ApiStatisticRep, links map[string]CoreLink, ) *ApiStatisticCollectionRep`
 
 NewApiStatisticCollectionRep instantiates a new ApiStatisticCollectionRep object
 This constructor will assign default values to properties that have it defined,
@@ -48,20 +48,20 @@ SetFlags sets Flags field to given value.
 
 ### GetLinks
 
-`func (o *ApiStatisticCollectionRep) GetLinks() []CoreLink`
+`func (o *ApiStatisticCollectionRep) GetLinks() map[string]CoreLink`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *ApiStatisticCollectionRep) GetLinksOk() (*[]CoreLink, bool)`
+`func (o *ApiStatisticCollectionRep) GetLinksOk() (*map[string]CoreLink, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *ApiStatisticCollectionRep) SetLinks(v []CoreLink)`
+`func (o *ApiStatisticCollectionRep) SetLinks(v map[string]CoreLink)`
 
 SetLinks sets Links field to given value.
 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Links** | Pointer to [**[]CoreLink**](CoreLink.md) |  | [optional] 
+**Links** | Pointer to [**map[string]CoreLink**](CoreLink.md) |  | [optional] 
 **Items** | Pointer to [**[]IntegrationSubscriptionRep**](IntegrationSubscriptionRep.md) |  | [optional] 
 **Key** | Pointer to **string** |  | [optional] 
 
@@ -29,20 +29,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetLinks
 
-`func (o *InlineResponse2001) GetLinks() []CoreLink`
+`func (o *InlineResponse2001) GetLinks() map[string]CoreLink`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *InlineResponse2001) GetLinksOk() (*[]CoreLink, bool)`
+`func (o *InlineResponse2001) GetLinksOk() (*map[string]CoreLink, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *InlineResponse2001) SetLinks(v []CoreLink)`
+`func (o *InlineResponse2001) SetLinks(v map[string]CoreLink)`
 
 SetLinks sets Links field to given value.
 

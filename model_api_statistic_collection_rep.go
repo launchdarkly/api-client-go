@@ -18,14 +18,14 @@ import (
 // ApiStatisticCollectionRep struct for ApiStatisticCollectionRep
 type ApiStatisticCollectionRep struct {
 	Flags map[string][]ApiStatisticRep `json:"flags"`
-	Links []CoreLink `json:"_links"`
+	Links map[string]CoreLink `json:"_links"`
 }
 
 // NewApiStatisticCollectionRep instantiates a new ApiStatisticCollectionRep object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewApiStatisticCollectionRep(flags map[string][]ApiStatisticRep, links []CoreLink) *ApiStatisticCollectionRep {
+func NewApiStatisticCollectionRep(flags map[string][]ApiStatisticRep, links map[string]CoreLink) *ApiStatisticCollectionRep {
 	this := ApiStatisticCollectionRep{}
 	this.Flags = flags
 	this.Links = links
@@ -65,9 +65,9 @@ func (o *ApiStatisticCollectionRep) SetFlags(v map[string][]ApiStatisticRep) {
 }
 
 // GetLinks returns the Links field value
-func (o *ApiStatisticCollectionRep) GetLinks() []CoreLink {
+func (o *ApiStatisticCollectionRep) GetLinks() map[string]CoreLink {
 	if o == nil {
-		var ret []CoreLink
+		var ret map[string]CoreLink
 		return ret
 	}
 
@@ -76,7 +76,7 @@ func (o *ApiStatisticCollectionRep) GetLinks() []CoreLink {
 
 // GetLinksOk returns a tuple with the Links field value
 // and a boolean to check if the value has been set.
-func (o *ApiStatisticCollectionRep) GetLinksOk() (*[]CoreLink, bool) {
+func (o *ApiStatisticCollectionRep) GetLinksOk() (*map[string]CoreLink, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -84,7 +84,7 @@ func (o *ApiStatisticCollectionRep) GetLinksOk() (*[]CoreLink, bool) {
 }
 
 // SetLinks sets field value
-func (o *ApiStatisticCollectionRep) SetLinks(v []CoreLink) {
+func (o *ApiStatisticCollectionRep) SetLinks(v map[string]CoreLink) {
 	o.Links = v
 }
 

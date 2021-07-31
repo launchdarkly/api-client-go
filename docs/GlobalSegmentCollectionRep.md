@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Items** | [**[]SegmentRep**](SegmentRep.md) |  | 
-**Links** | [**[]CoreLink**](CoreLink.md) |  | 
+**Links** | [**map[string]CoreLink**](CoreLink.md) |  | 
 
 ## Methods
 
 ### NewGlobalSegmentCollectionRep
 
-`func NewGlobalSegmentCollectionRep(items []SegmentRep, links []CoreLink, ) *GlobalSegmentCollectionRep`
+`func NewGlobalSegmentCollectionRep(items []SegmentRep, links map[string]CoreLink, ) *GlobalSegmentCollectionRep`
 
 NewGlobalSegmentCollectionRep instantiates a new GlobalSegmentCollectionRep object
 This constructor will assign default values to properties that have it defined,
@@ -48,20 +48,20 @@ SetItems sets Items field to given value.
 
 ### GetLinks
 
-`func (o *GlobalSegmentCollectionRep) GetLinks() []CoreLink`
+`func (o *GlobalSegmentCollectionRep) GetLinks() map[string]CoreLink`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *GlobalSegmentCollectionRep) GetLinksOk() (*[]CoreLink, bool)`
+`func (o *GlobalSegmentCollectionRep) GetLinksOk() (*map[string]CoreLink, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *GlobalSegmentCollectionRep) SetLinks(v []CoreLink)`
+`func (o *GlobalSegmentCollectionRep) SetLinks(v map[string]CoreLink)`
 
 SetLinks sets Links field to given value.
 

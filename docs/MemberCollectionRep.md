@@ -5,14 +5,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Items** | [**[]MemberRep**](MemberRep.md) |  | 
-**Links** | [**[]CoreLink**](CoreLink.md) |  | 
+**Links** | [**map[string]CoreLink**](CoreLink.md) |  | 
 **TotalCount** | Pointer to **int32** |  | [optional] 
 
 ## Methods
 
 ### NewMemberCollectionRep
 
-`func NewMemberCollectionRep(items []MemberRep, links []CoreLink, ) *MemberCollectionRep`
+`func NewMemberCollectionRep(items []MemberRep, links map[string]CoreLink, ) *MemberCollectionRep`
 
 NewMemberCollectionRep instantiates a new MemberCollectionRep object
 This constructor will assign default values to properties that have it defined,
@@ -49,20 +49,20 @@ SetItems sets Items field to given value.
 
 ### GetLinks
 
-`func (o *MemberCollectionRep) GetLinks() []CoreLink`
+`func (o *MemberCollectionRep) GetLinks() map[string]CoreLink`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *MemberCollectionRep) GetLinksOk() (*[]CoreLink, bool)`
+`func (o *MemberCollectionRep) GetLinksOk() (*map[string]CoreLink, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *MemberCollectionRep) SetLinks(v []CoreLink)`
+`func (o *MemberCollectionRep) SetLinks(v map[string]CoreLink)`
 
 SetLinks sets Links field to given value.
 

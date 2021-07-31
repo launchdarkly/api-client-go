@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **VariationJsonSchema** | Pointer to **interface{}** |  | [optional] 
 **Temporary** | **bool** |  | 
 **Tags** | **[]string** |  | 
-**Links** | [**[]CoreLink**](CoreLink.md) |  | 
+**Links** | [**map[string]CoreLink**](CoreLink.md) |  | 
 **MaintainerId** | Pointer to **string** |  | [optional] 
 **Maintainer** | Pointer to [**MemberSummaryRep**](MemberSummaryRep.md) |  | [optional] 
 **GoalIds** | Pointer to **[]string** |  | [optional] 
@@ -31,7 +31,7 @@ Name | Type | Description | Notes
 
 ### NewGlobalFlagRep
 
-`func NewGlobalFlagRep(name string, kind string, key string, version int32, creationDate int64, variations []VariateRep, temporary bool, tags []string, links []CoreLink, experiments ExperimentInfoRep, customProperties map[string]CustomProperty, archived bool, environments map[string]FlagConfigurationRep, ) *GlobalFlagRep`
+`func NewGlobalFlagRep(name string, kind string, key string, version int32, creationDate int64, variations []VariateRep, temporary bool, tags []string, links map[string]CoreLink, experiments ExperimentInfoRep, customProperties map[string]CustomProperty, archived bool, environments map[string]FlagConfigurationRep, ) *GlobalFlagRep`
 
 NewGlobalFlagRep instantiates a new GlobalFlagRep object
 This constructor will assign default values to properties that have it defined,
@@ -318,20 +318,20 @@ SetTags sets Tags field to given value.
 
 ### GetLinks
 
-`func (o *GlobalFlagRep) GetLinks() []CoreLink`
+`func (o *GlobalFlagRep) GetLinks() map[string]CoreLink`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *GlobalFlagRep) GetLinksOk() (*[]CoreLink, bool)`
+`func (o *GlobalFlagRep) GetLinksOk() (*map[string]CoreLink, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *GlobalFlagRep) SetLinks(v []CoreLink)`
+`func (o *GlobalFlagRep) SetLinks(v map[string]CoreLink)`
 
 SetLinks sets Links field to given value.
 

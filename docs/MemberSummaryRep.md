@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Links** | [**[]CoreLink**](CoreLink.md) |  | 
+**Links** | [**map[string]CoreLink**](CoreLink.md) |  | 
 **Id** | **string** |  | 
 **FirstName** | Pointer to **string** |  | [optional] 
 **LastName** | Pointer to **string** |  | [optional] 
@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 
 ### NewMemberSummaryRep
 
-`func NewMemberSummaryRep(links []CoreLink, id string, role string, email string, ) *MemberSummaryRep`
+`func NewMemberSummaryRep(links map[string]CoreLink, id string, role string, email string, ) *MemberSummaryRep`
 
 NewMemberSummaryRep instantiates a new MemberSummaryRep object
 This constructor will assign default values to properties that have it defined,
@@ -32,20 +32,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetLinks
 
-`func (o *MemberSummaryRep) GetLinks() []CoreLink`
+`func (o *MemberSummaryRep) GetLinks() map[string]CoreLink`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *MemberSummaryRep) GetLinksOk() (*[]CoreLink, bool)`
+`func (o *MemberSummaryRep) GetLinksOk() (*map[string]CoreLink, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *MemberSummaryRep) SetLinks(v []CoreLink)`
+`func (o *MemberSummaryRep) SetLinks(v map[string]CoreLink)`
 
 SetLinks sets Links field to given value.
 

@@ -29,7 +29,7 @@ type GlobalFlagRep struct {
 	VariationJsonSchema interface{} `json:"variationJsonSchema,omitempty"`
 	Temporary bool `json:"temporary"`
 	Tags []string `json:"tags"`
-	Links []CoreLink `json:"_links"`
+	Links map[string]CoreLink `json:"_links"`
 	MaintainerId *string `json:"maintainerId,omitempty"`
 	Maintainer *MemberSummaryRep `json:"_maintainer,omitempty"`
 	GoalIds *[]string `json:"goalIds,omitempty"`
@@ -45,7 +45,7 @@ type GlobalFlagRep struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGlobalFlagRep(name string, kind string, key string, version int32, creationDate int64, variations []VariateRep, temporary bool, tags []string, links []CoreLink, experiments ExperimentInfoRep, customProperties map[string]CustomProperty, archived bool, environments map[string]FlagConfigurationRep) *GlobalFlagRep {
+func NewGlobalFlagRep(name string, kind string, key string, version int32, creationDate int64, variations []VariateRep, temporary bool, tags []string, links map[string]CoreLink, experiments ExperimentInfoRep, customProperties map[string]CustomProperty, archived bool, environments map[string]FlagConfigurationRep) *GlobalFlagRep {
 	this := GlobalFlagRep{}
 	this.Name = name
 	this.Kind = kind
@@ -393,9 +393,9 @@ func (o *GlobalFlagRep) SetTags(v []string) {
 }
 
 // GetLinks returns the Links field value
-func (o *GlobalFlagRep) GetLinks() []CoreLink {
+func (o *GlobalFlagRep) GetLinks() map[string]CoreLink {
 	if o == nil {
-		var ret []CoreLink
+		var ret map[string]CoreLink
 		return ret
 	}
 
@@ -404,7 +404,7 @@ func (o *GlobalFlagRep) GetLinks() []CoreLink {
 
 // GetLinksOk returns a tuple with the Links field value
 // and a boolean to check if the value has been set.
-func (o *GlobalFlagRep) GetLinksOk() (*[]CoreLink, bool) {
+func (o *GlobalFlagRep) GetLinksOk() (*map[string]CoreLink, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -412,7 +412,7 @@ func (o *GlobalFlagRep) GetLinksOk() (*[]CoreLink, bool) {
 }
 
 // SetLinks sets field value
-func (o *GlobalFlagRep) SetLinks(v []CoreLink) {
+func (o *GlobalFlagRep) SetLinks(v map[string]CoreLink) {
 	o.Links = v
 }
 

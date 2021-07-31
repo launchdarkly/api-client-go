@@ -17,7 +17,7 @@ import (
 
 // UserSettingRep struct for UserSettingRep
 type UserSettingRep struct {
-	Links *[]CoreLink `json:"_links,omitempty"`
+	Links *map[string]CoreLink `json:"_links,omitempty"`
 	Value interface{} `json:"_value,omitempty"`
 	Setting interface{} `json:"setting,omitempty"`
 }
@@ -40,9 +40,9 @@ func NewUserSettingRepWithDefaults() *UserSettingRep {
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
-func (o *UserSettingRep) GetLinks() []CoreLink {
+func (o *UserSettingRep) GetLinks() map[string]CoreLink {
 	if o == nil || o.Links == nil {
-		var ret []CoreLink
+		var ret map[string]CoreLink
 		return ret
 	}
 	return *o.Links
@@ -50,7 +50,7 @@ func (o *UserSettingRep) GetLinks() []CoreLink {
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UserSettingRep) GetLinksOk() (*[]CoreLink, bool) {
+func (o *UserSettingRep) GetLinksOk() (*map[string]CoreLink, bool) {
 	if o == nil || o.Links == nil {
 		return nil, false
 	}
@@ -66,8 +66,8 @@ func (o *UserSettingRep) HasLinks() bool {
 	return false
 }
 
-// SetLinks gets a reference to the given []CoreLink and assigns it to the Links field.
-func (o *UserSettingRep) SetLinks(v []CoreLink) {
+// SetLinks gets a reference to the given map[string]CoreLink and assigns it to the Links field.
+func (o *UserSettingRep) SetLinks(v map[string]CoreLink) {
 	o.Links = &v
 }
 

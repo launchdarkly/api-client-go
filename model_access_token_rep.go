@@ -30,7 +30,7 @@ type AccessTokenRep struct {
 	Role *string `json:"role,omitempty"`
 	Token *string `json:"token,omitempty"`
 	ServiceToken *bool `json:"serviceToken,omitempty"`
-	Links *[]CoreLink `json:"_links,omitempty"`
+	Links *map[string]CoreLink `json:"_links,omitempty"`
 	DefaultApiVersion *int32 `json:"defaultApiVersion,omitempty"`
 	LastUsed *int64 `json:"lastUsed,omitempty"`
 }
@@ -469,9 +469,9 @@ func (o *AccessTokenRep) SetServiceToken(v bool) {
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
-func (o *AccessTokenRep) GetLinks() []CoreLink {
+func (o *AccessTokenRep) GetLinks() map[string]CoreLink {
 	if o == nil || o.Links == nil {
-		var ret []CoreLink
+		var ret map[string]CoreLink
 		return ret
 	}
 	return *o.Links
@@ -479,7 +479,7 @@ func (o *AccessTokenRep) GetLinks() []CoreLink {
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AccessTokenRep) GetLinksOk() (*[]CoreLink, bool) {
+func (o *AccessTokenRep) GetLinksOk() (*map[string]CoreLink, bool) {
 	if o == nil || o.Links == nil {
 		return nil, false
 	}
@@ -495,8 +495,8 @@ func (o *AccessTokenRep) HasLinks() bool {
 	return false
 }
 
-// SetLinks gets a reference to the given []CoreLink and assigns it to the Links field.
-func (o *AccessTokenRep) SetLinks(v []CoreLink) {
+// SetLinks gets a reference to the given map[string]CoreLink and assigns it to the Links field.
+func (o *AccessTokenRep) SetLinks(v map[string]CoreLink) {
 	o.Links = &v
 }
 

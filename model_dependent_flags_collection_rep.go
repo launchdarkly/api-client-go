@@ -18,7 +18,7 @@ import (
 // DependentFlagsCollectionRep struct for DependentFlagsCollectionRep
 type DependentFlagsCollectionRep struct {
 	Items []DependentFlag `json:"items"`
-	Links []CoreLink `json:"_links"`
+	Links map[string]CoreLink `json:"_links"`
 	Site CoreLink `json:"_site"`
 }
 
@@ -26,7 +26,7 @@ type DependentFlagsCollectionRep struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDependentFlagsCollectionRep(items []DependentFlag, links []CoreLink, site CoreLink) *DependentFlagsCollectionRep {
+func NewDependentFlagsCollectionRep(items []DependentFlag, links map[string]CoreLink, site CoreLink) *DependentFlagsCollectionRep {
 	this := DependentFlagsCollectionRep{}
 	this.Items = items
 	this.Links = links
@@ -67,9 +67,9 @@ func (o *DependentFlagsCollectionRep) SetItems(v []DependentFlag) {
 }
 
 // GetLinks returns the Links field value
-func (o *DependentFlagsCollectionRep) GetLinks() []CoreLink {
+func (o *DependentFlagsCollectionRep) GetLinks() map[string]CoreLink {
 	if o == nil {
-		var ret []CoreLink
+		var ret map[string]CoreLink
 		return ret
 	}
 
@@ -78,7 +78,7 @@ func (o *DependentFlagsCollectionRep) GetLinks() []CoreLink {
 
 // GetLinksOk returns a tuple with the Links field value
 // and a boolean to check if the value has been set.
-func (o *DependentFlagsCollectionRep) GetLinksOk() (*[]CoreLink, bool) {
+func (o *DependentFlagsCollectionRep) GetLinksOk() (*map[string]CoreLink, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -86,7 +86,7 @@ func (o *DependentFlagsCollectionRep) GetLinksOk() (*[]CoreLink, bool) {
 }
 
 // SetLinks sets field value
-func (o *DependentFlagsCollectionRep) SetLinks(v []CoreLink) {
+func (o *DependentFlagsCollectionRep) SetLinks(v map[string]CoreLink) {
 	o.Links = v
 }
 

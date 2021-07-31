@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** |  | 
 **Key** | **string** |  | 
-**Links** | Pointer to [**[]CoreLink**](CoreLink.md) |  | [optional] 
+**Links** | Pointer to [**map[string]CoreLink**](CoreLink.md) |  | [optional] 
 **Site** | Pointer to [**CoreLink**](CoreLink.md) |  | [optional] 
 
 ## Methods
@@ -70,20 +70,20 @@ SetKey sets Key field to given value.
 
 ### GetLinks
 
-`func (o *FlagListingRep) GetLinks() []CoreLink`
+`func (o *FlagListingRep) GetLinks() map[string]CoreLink`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *FlagListingRep) GetLinksOk() (*[]CoreLink, bool)`
+`func (o *FlagListingRep) GetLinksOk() (*map[string]CoreLink, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *FlagListingRep) SetLinks(v []CoreLink)`
+`func (o *FlagListingRep) SetLinks(v map[string]CoreLink)`
 
 SetLinks sets Links field to given value.
 

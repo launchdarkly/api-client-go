@@ -17,7 +17,7 @@ import (
 
 // InlineResponse2001 struct for InlineResponse2001
 type InlineResponse2001 struct {
-	Links *[]CoreLink `json:"_links,omitempty"`
+	Links *map[string]CoreLink `json:"_links,omitempty"`
 	Items *[]IntegrationSubscriptionRep `json:"items,omitempty"`
 	Key *string `json:"key,omitempty"`
 }
@@ -40,9 +40,9 @@ func NewInlineResponse2001WithDefaults() *InlineResponse2001 {
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
-func (o *InlineResponse2001) GetLinks() []CoreLink {
+func (o *InlineResponse2001) GetLinks() map[string]CoreLink {
 	if o == nil || o.Links == nil {
-		var ret []CoreLink
+		var ret map[string]CoreLink
 		return ret
 	}
 	return *o.Links
@@ -50,7 +50,7 @@ func (o *InlineResponse2001) GetLinks() []CoreLink {
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *InlineResponse2001) GetLinksOk() (*[]CoreLink, bool) {
+func (o *InlineResponse2001) GetLinksOk() (*map[string]CoreLink, bool) {
 	if o == nil || o.Links == nil {
 		return nil, false
 	}
@@ -66,8 +66,8 @@ func (o *InlineResponse2001) HasLinks() bool {
 	return false
 }
 
-// SetLinks gets a reference to the given []CoreLink and assigns it to the Links field.
-func (o *InlineResponse2001) SetLinks(v []CoreLink) {
+// SetLinks gets a reference to the given map[string]CoreLink and assigns it to the Links field.
+func (o *InlineResponse2001) SetLinks(v map[string]CoreLink) {
 	o.Links = &v
 }
 

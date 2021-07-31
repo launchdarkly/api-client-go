@@ -21,7 +21,7 @@ type ExperimentFlagRep struct {
 	Key *string `json:"key,omitempty"`
 	Archived *bool `json:"archived,omitempty"`
 	Variations *[]VariateRep `json:"variations,omitempty"`
-	Links *[]CoreLink `json:"links,omitempty"`
+	Links *map[string]CoreLink `json:"links,omitempty"`
 	Site *CoreLink `json:"site,omitempty"`
 }
 
@@ -171,9 +171,9 @@ func (o *ExperimentFlagRep) SetVariations(v []VariateRep) {
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
-func (o *ExperimentFlagRep) GetLinks() []CoreLink {
+func (o *ExperimentFlagRep) GetLinks() map[string]CoreLink {
 	if o == nil || o.Links == nil {
-		var ret []CoreLink
+		var ret map[string]CoreLink
 		return ret
 	}
 	return *o.Links
@@ -181,7 +181,7 @@ func (o *ExperimentFlagRep) GetLinks() []CoreLink {
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ExperimentFlagRep) GetLinksOk() (*[]CoreLink, bool) {
+func (o *ExperimentFlagRep) GetLinksOk() (*map[string]CoreLink, bool) {
 	if o == nil || o.Links == nil {
 		return nil, false
 	}
@@ -197,8 +197,8 @@ func (o *ExperimentFlagRep) HasLinks() bool {
 	return false
 }
 
-// SetLinks gets a reference to the given []CoreLink and assigns it to the Links field.
-func (o *ExperimentFlagRep) SetLinks(v []CoreLink) {
+// SetLinks gets a reference to the given map[string]CoreLink and assigns it to the Links field.
+func (o *ExperimentFlagRep) SetLinks(v map[string]CoreLink) {
 	o.Links = &v
 }
 

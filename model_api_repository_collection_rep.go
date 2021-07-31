@@ -17,7 +17,7 @@ import (
 
 // ApiRepositoryCollectionRep struct for ApiRepositoryCollectionRep
 type ApiRepositoryCollectionRep struct {
-	Links *[]CoreLink `json:"_links,omitempty"`
+	Links *map[string]CoreLink `json:"_links,omitempty"`
 	Items *[]ApiRepositoryRep `json:"items,omitempty"`
 }
 
@@ -39,9 +39,9 @@ func NewApiRepositoryCollectionRepWithDefaults() *ApiRepositoryCollectionRep {
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
-func (o *ApiRepositoryCollectionRep) GetLinks() []CoreLink {
+func (o *ApiRepositoryCollectionRep) GetLinks() map[string]CoreLink {
 	if o == nil || o.Links == nil {
-		var ret []CoreLink
+		var ret map[string]CoreLink
 		return ret
 	}
 	return *o.Links
@@ -49,7 +49,7 @@ func (o *ApiRepositoryCollectionRep) GetLinks() []CoreLink {
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ApiRepositoryCollectionRep) GetLinksOk() (*[]CoreLink, bool) {
+func (o *ApiRepositoryCollectionRep) GetLinksOk() (*map[string]CoreLink, bool) {
 	if o == nil || o.Links == nil {
 		return nil, false
 	}
@@ -65,8 +65,8 @@ func (o *ApiRepositoryCollectionRep) HasLinks() bool {
 	return false
 }
 
-// SetLinks gets a reference to the given []CoreLink and assigns it to the Links field.
-func (o *ApiRepositoryCollectionRep) SetLinks(v []CoreLink) {
+// SetLinks gets a reference to the given map[string]CoreLink and assigns it to the Links field.
+func (o *ApiRepositoryCollectionRep) SetLinks(v map[string]CoreLink) {
 	o.Links = &v
 }
 

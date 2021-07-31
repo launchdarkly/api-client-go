@@ -17,7 +17,7 @@ import (
 
 // ExperimentResultsRep struct for ExperimentResultsRep
 type ExperimentResultsRep struct {
-	Links *[]CoreLink `json:"_links,omitempty"`
+	Links *map[string]CoreLink `json:"_links,omitempty"`
 	Metadata *[]ExperimentMetadataRep `json:"metadata,omitempty"`
 	Totals *[]ExperimentTotalsRep `json:"totals,omitempty"`
 	Series *[]ExperimentTimeSeriesSlice `json:"series,omitempty"`
@@ -43,9 +43,9 @@ func NewExperimentResultsRepWithDefaults() *ExperimentResultsRep {
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
-func (o *ExperimentResultsRep) GetLinks() []CoreLink {
+func (o *ExperimentResultsRep) GetLinks() map[string]CoreLink {
 	if o == nil || o.Links == nil {
-		var ret []CoreLink
+		var ret map[string]CoreLink
 		return ret
 	}
 	return *o.Links
@@ -53,7 +53,7 @@ func (o *ExperimentResultsRep) GetLinks() []CoreLink {
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ExperimentResultsRep) GetLinksOk() (*[]CoreLink, bool) {
+func (o *ExperimentResultsRep) GetLinksOk() (*map[string]CoreLink, bool) {
 	if o == nil || o.Links == nil {
 		return nil, false
 	}
@@ -69,8 +69,8 @@ func (o *ExperimentResultsRep) HasLinks() bool {
 	return false
 }
 
-// SetLinks gets a reference to the given []CoreLink and assigns it to the Links field.
-func (o *ExperimentResultsRep) SetLinks(v []CoreLink) {
+// SetLinks gets a reference to the given map[string]CoreLink and assigns it to the Links field.
+func (o *ExperimentResultsRep) SetLinks(v map[string]CoreLink) {
 	o.Links = &v
 }
 

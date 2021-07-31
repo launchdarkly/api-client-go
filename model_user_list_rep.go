@@ -17,7 +17,7 @@ import (
 
 // UserListRep struct for UserListRep
 type UserListRep struct {
-	Links *[]CoreLink `json:"_links,omitempty"`
+	Links *map[string]CoreLink `json:"_links,omitempty"`
 	TotalCount *int32 `json:"totalCount,omitempty"`
 	Items *[]UserRep `json:"items,omitempty"`
 }
@@ -40,9 +40,9 @@ func NewUserListRepWithDefaults() *UserListRep {
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
-func (o *UserListRep) GetLinks() []CoreLink {
+func (o *UserListRep) GetLinks() map[string]CoreLink {
 	if o == nil || o.Links == nil {
-		var ret []CoreLink
+		var ret map[string]CoreLink
 		return ret
 	}
 	return *o.Links
@@ -50,7 +50,7 @@ func (o *UserListRep) GetLinks() []CoreLink {
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UserListRep) GetLinksOk() (*[]CoreLink, bool) {
+func (o *UserListRep) GetLinksOk() (*map[string]CoreLink, bool) {
 	if o == nil || o.Links == nil {
 		return nil, false
 	}
@@ -66,8 +66,8 @@ func (o *UserListRep) HasLinks() bool {
 	return false
 }
 
-// SetLinks gets a reference to the given []CoreLink and assigns it to the Links field.
-func (o *UserListRep) SetLinks(v []CoreLink) {
+// SetLinks gets a reference to the given map[string]CoreLink and assigns it to the Links field.
+func (o *UserListRep) SetLinks(v map[string]CoreLink) {
 	o.Links = &v
 }
 

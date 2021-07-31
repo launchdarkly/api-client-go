@@ -18,7 +18,7 @@ import (
 // ScheduledChangesCollectionRep struct for ScheduledChangesCollectionRep
 type ScheduledChangesCollectionRep struct {
 	Items *[]ScheduledChangesRep `json:"items,omitempty"`
-	Links *[]CoreLink `json:"_links,omitempty"`
+	Links *map[string]CoreLink `json:"_links,omitempty"`
 }
 
 // NewScheduledChangesCollectionRep instantiates a new ScheduledChangesCollectionRep object
@@ -71,9 +71,9 @@ func (o *ScheduledChangesCollectionRep) SetItems(v []ScheduledChangesRep) {
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
-func (o *ScheduledChangesCollectionRep) GetLinks() []CoreLink {
+func (o *ScheduledChangesCollectionRep) GetLinks() map[string]CoreLink {
 	if o == nil || o.Links == nil {
-		var ret []CoreLink
+		var ret map[string]CoreLink
 		return ret
 	}
 	return *o.Links
@@ -81,7 +81,7 @@ func (o *ScheduledChangesCollectionRep) GetLinks() []CoreLink {
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ScheduledChangesCollectionRep) GetLinksOk() (*[]CoreLink, bool) {
+func (o *ScheduledChangesCollectionRep) GetLinksOk() (*map[string]CoreLink, bool) {
 	if o == nil || o.Links == nil {
 		return nil, false
 	}
@@ -97,8 +97,8 @@ func (o *ScheduledChangesCollectionRep) HasLinks() bool {
 	return false
 }
 
-// SetLinks gets a reference to the given []CoreLink and assigns it to the Links field.
-func (o *ScheduledChangesCollectionRep) SetLinks(v []CoreLink) {
+// SetLinks gets a reference to the given map[string]CoreLink and assigns it to the Links field.
+func (o *ScheduledChangesCollectionRep) SetLinks(v map[string]CoreLink) {
 	o.Links = &v
 }
 

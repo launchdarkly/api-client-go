@@ -26,7 +26,7 @@ type ExperimentSummaryRep struct {
 	StopDate *int64 `json:"_stopDate,omitempty"`
 	Flag *ExperimentFlagRep `json:"_flag,omitempty"`
 	Metric *MetricListingRep `json:"_metric,omitempty"`
-	Links *[]CoreLink `json:"_links,omitempty"`
+	Links *map[string]CoreLink `json:"_links,omitempty"`
 }
 
 // NewExperimentSummaryRep instantiates a new ExperimentSummaryRep object
@@ -335,9 +335,9 @@ func (o *ExperimentSummaryRep) SetMetric(v MetricListingRep) {
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
-func (o *ExperimentSummaryRep) GetLinks() []CoreLink {
+func (o *ExperimentSummaryRep) GetLinks() map[string]CoreLink {
 	if o == nil || o.Links == nil {
-		var ret []CoreLink
+		var ret map[string]CoreLink
 		return ret
 	}
 	return *o.Links
@@ -345,7 +345,7 @@ func (o *ExperimentSummaryRep) GetLinks() []CoreLink {
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ExperimentSummaryRep) GetLinksOk() (*[]CoreLink, bool) {
+func (o *ExperimentSummaryRep) GetLinksOk() (*map[string]CoreLink, bool) {
 	if o == nil || o.Links == nil {
 		return nil, false
 	}
@@ -361,8 +361,8 @@ func (o *ExperimentSummaryRep) HasLinks() bool {
 	return false
 }
 
-// SetLinks gets a reference to the given []CoreLink and assigns it to the Links field.
-func (o *ExperimentSummaryRep) SetLinks(v []CoreLink) {
+// SetLinks gets a reference to the given map[string]CoreLink and assigns it to the Links field.
+func (o *ExperimentSummaryRep) SetLinks(v map[string]CoreLink) {
 	o.Links = &v
 }
 

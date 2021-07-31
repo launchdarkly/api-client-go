@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Items** | Pointer to [**map[string]UserSettingRep**](UserSettingRep.md) |  | [optional] 
-**Links** | Pointer to [**[]CoreLink**](CoreLink.md) |  | [optional] 
+**Links** | Pointer to [**map[string]CoreLink**](CoreLink.md) |  | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasItems returns a boolean if a field has been set.
 
 ### GetLinks
 
-`func (o *UserSettingsCollection) GetLinks() []CoreLink`
+`func (o *UserSettingsCollection) GetLinks() map[string]CoreLink`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *UserSettingsCollection) GetLinksOk() (*[]CoreLink, bool)`
+`func (o *UserSettingsCollection) GetLinksOk() (*map[string]CoreLink, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *UserSettingsCollection) SetLinks(v []CoreLink)`
+`func (o *UserSettingsCollection) SetLinks(v map[string]CoreLink)`
 
 SetLinks sets Links field to given value.
 

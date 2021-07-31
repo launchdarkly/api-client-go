@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Items** | Pointer to [**[]AuditLogEntryListingRep**](AuditLogEntryListingRep.md) |  | [optional] 
-**Links** | Pointer to [**[]CoreLink**](CoreLink.md) |  | [optional] 
+**Links** | Pointer to [**map[string]CoreLink**](CoreLink.md) |  | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasItems returns a boolean if a field has been set.
 
 ### GetLinks
 
-`func (o *AuditLogEntryListingRepCollection) GetLinks() []CoreLink`
+`func (o *AuditLogEntryListingRepCollection) GetLinks() map[string]CoreLink`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *AuditLogEntryListingRepCollection) GetLinksOk() (*[]CoreLink, bool)`
+`func (o *AuditLogEntryListingRepCollection) GetLinksOk() (*map[string]CoreLink, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *AuditLogEntryListingRepCollection) SetLinks(v []CoreLink)`
+`func (o *AuditLogEntryListingRepCollection) SetLinks(v map[string]CoreLink)`
 
 SetLinks sets Links field to given value.
 

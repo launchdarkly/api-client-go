@@ -18,7 +18,7 @@ import (
 
 // FlagStatusRep struct for FlagStatusRep
 type FlagStatusRep struct {
-	Links *[]CoreLink `json:"_links,omitempty"`
+	Links *map[string]CoreLink `json:"_links,omitempty"`
 	Name *string `json:"name,omitempty"`
 	LastRequested *time.Time `json:"lastRequested,omitempty"`
 	Default interface{} `json:"default,omitempty"`
@@ -42,9 +42,9 @@ func NewFlagStatusRepWithDefaults() *FlagStatusRep {
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
-func (o *FlagStatusRep) GetLinks() []CoreLink {
+func (o *FlagStatusRep) GetLinks() map[string]CoreLink {
 	if o == nil || o.Links == nil {
-		var ret []CoreLink
+		var ret map[string]CoreLink
 		return ret
 	}
 	return *o.Links
@@ -52,7 +52,7 @@ func (o *FlagStatusRep) GetLinks() []CoreLink {
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FlagStatusRep) GetLinksOk() (*[]CoreLink, bool) {
+func (o *FlagStatusRep) GetLinksOk() (*map[string]CoreLink, bool) {
 	if o == nil || o.Links == nil {
 		return nil, false
 	}
@@ -68,8 +68,8 @@ func (o *FlagStatusRep) HasLinks() bool {
 	return false
 }
 
-// SetLinks gets a reference to the given []CoreLink and assigns it to the Links field.
-func (o *FlagStatusRep) SetLinks(v []CoreLink) {
+// SetLinks gets a reference to the given map[string]CoreLink and assigns it to the Links field.
+func (o *FlagStatusRep) SetLinks(v map[string]CoreLink) {
 	o.Links = &v
 }
 

@@ -18,7 +18,7 @@ import (
 // MultiEnvDependentFlagsCollectionRep struct for MultiEnvDependentFlagsCollectionRep
 type MultiEnvDependentFlagsCollectionRep struct {
 	Items []DependentFlagWithEnvs `json:"items"`
-	Links []CoreLink `json:"_links"`
+	Links map[string]CoreLink `json:"_links"`
 	Site CoreLink `json:"_site"`
 }
 
@@ -26,7 +26,7 @@ type MultiEnvDependentFlagsCollectionRep struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMultiEnvDependentFlagsCollectionRep(items []DependentFlagWithEnvs, links []CoreLink, site CoreLink) *MultiEnvDependentFlagsCollectionRep {
+func NewMultiEnvDependentFlagsCollectionRep(items []DependentFlagWithEnvs, links map[string]CoreLink, site CoreLink) *MultiEnvDependentFlagsCollectionRep {
 	this := MultiEnvDependentFlagsCollectionRep{}
 	this.Items = items
 	this.Links = links
@@ -67,9 +67,9 @@ func (o *MultiEnvDependentFlagsCollectionRep) SetItems(v []DependentFlagWithEnvs
 }
 
 // GetLinks returns the Links field value
-func (o *MultiEnvDependentFlagsCollectionRep) GetLinks() []CoreLink {
+func (o *MultiEnvDependentFlagsCollectionRep) GetLinks() map[string]CoreLink {
 	if o == nil {
-		var ret []CoreLink
+		var ret map[string]CoreLink
 		return ret
 	}
 
@@ -78,7 +78,7 @@ func (o *MultiEnvDependentFlagsCollectionRep) GetLinks() []CoreLink {
 
 // GetLinksOk returns a tuple with the Links field value
 // and a boolean to check if the value has been set.
-func (o *MultiEnvDependentFlagsCollectionRep) GetLinksOk() (*[]CoreLink, bool) {
+func (o *MultiEnvDependentFlagsCollectionRep) GetLinksOk() (*map[string]CoreLink, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -86,7 +86,7 @@ func (o *MultiEnvDependentFlagsCollectionRep) GetLinksOk() (*[]CoreLink, bool) {
 }
 
 // SetLinks sets field value
-func (o *MultiEnvDependentFlagsCollectionRep) SetLinks(v []CoreLink) {
+func (o *MultiEnvDependentFlagsCollectionRep) SetLinks(v map[string]CoreLink) {
 	o.Links = v
 }
 

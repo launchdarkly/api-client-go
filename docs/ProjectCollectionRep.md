@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Links** | Pointer to [**[]CoreLink**](CoreLink.md) | A link to this resource. | [optional] 
+**Links** | Pointer to [**map[string]CoreLink**](CoreLink.md) | A link to this resource. | [optional] 
 **Items** | Pointer to [**[]ProjectRep**](ProjectRep.md) | List of projects. | [optional] 
 
 ## Methods
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetLinks
 
-`func (o *ProjectCollectionRep) GetLinks() []CoreLink`
+`func (o *ProjectCollectionRep) GetLinks() map[string]CoreLink`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *ProjectCollectionRep) GetLinksOk() (*[]CoreLink, bool)`
+`func (o *ProjectCollectionRep) GetLinksOk() (*map[string]CoreLink, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *ProjectCollectionRep) SetLinks(v []CoreLink)`
+`func (o *ProjectCollectionRep) SetLinks(v map[string]CoreLink)`
 
 SetLinks sets Links field to given value.
 

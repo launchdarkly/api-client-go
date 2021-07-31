@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** |  | [optional] 
-**Links** | Pointer to [**[]CoreLink**](CoreLink.md) |  | [optional] 
+**Links** | Pointer to [**map[string]CoreLink**](CoreLink.md) |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **Kind** | Pointer to **string** |  | [optional] 
 **Version** | Pointer to **float32** |  | [optional] 
@@ -59,20 +59,20 @@ HasId returns a boolean if a field has been set.
 
 ### GetLinks
 
-`func (o *DestinationRep) GetLinks() []CoreLink`
+`func (o *DestinationRep) GetLinks() map[string]CoreLink`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *DestinationRep) GetLinksOk() (*[]CoreLink, bool)`
+`func (o *DestinationRep) GetLinksOk() (*map[string]CoreLink, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *DestinationRep) SetLinks(v []CoreLink)`
+`func (o *DestinationRep) SetLinks(v map[string]CoreLink)`
 
 SetLinks sets Links field to given value.
 

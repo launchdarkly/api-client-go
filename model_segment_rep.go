@@ -24,7 +24,7 @@ type SegmentRep struct {
 	Key string `json:"key"`
 	Included []string `json:"included"`
 	Excluded []string `json:"excluded"`
-	Links []CoreLink `json:"_links"`
+	Links map[string]CoreLink `json:"_links"`
 	Rules []SegmentRuleRep `json:"rules"`
 	Version int32 `json:"version"`
 	Deleted bool `json:"deleted"`
@@ -41,7 +41,7 @@ type SegmentRep struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSegmentRep(name string, tags []string, creationDate int64, key string, included []string, excluded []string, links []CoreLink, rules []SegmentRuleRep, version int32, deleted bool, generation int32) *SegmentRep {
+func NewSegmentRep(name string, tags []string, creationDate int64, key string, included []string, excluded []string, links map[string]CoreLink, rules []SegmentRuleRep, version int32, deleted bool, generation int32) *SegmentRep {
 	this := SegmentRep{}
 	this.Name = name
 	this.Tags = tags
@@ -242,9 +242,9 @@ func (o *SegmentRep) SetExcluded(v []string) {
 }
 
 // GetLinks returns the Links field value
-func (o *SegmentRep) GetLinks() []CoreLink {
+func (o *SegmentRep) GetLinks() map[string]CoreLink {
 	if o == nil {
-		var ret []CoreLink
+		var ret map[string]CoreLink
 		return ret
 	}
 
@@ -253,7 +253,7 @@ func (o *SegmentRep) GetLinks() []CoreLink {
 
 // GetLinksOk returns a tuple with the Links field value
 // and a boolean to check if the value has been set.
-func (o *SegmentRep) GetLinksOk() (*[]CoreLink, bool) {
+func (o *SegmentRep) GetLinksOk() (*map[string]CoreLink, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -261,7 +261,7 @@ func (o *SegmentRep) GetLinksOk() (*[]CoreLink, bool) {
 }
 
 // SetLinks sets field value
-func (o *SegmentRep) SetLinks(v []CoreLink) {
+func (o *SegmentRep) SetLinks(v map[string]CoreLink) {
 	o.Links = v
 }
 

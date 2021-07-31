@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 **Status** | Pointer to **string** |  | [optional] 
 **Instructions** | Pointer to **[]map[string]interface{}** |  | [optional] 
 **Conflicts** | Pointer to [**[]WebConflict**](WebConflict.md) |  | [optional] 
-**Links** | Pointer to [**[]CoreLink**](CoreLink.md) |  | [optional] 
+**Links** | Pointer to [**map[string]CoreLink**](CoreLink.md) |  | [optional] 
 **ExecutionDate** | Pointer to **int64** |  | [optional] 
 **OperatingOnId** | Pointer to **string** |  | [optional] 
 **IntegrationMetadata** | Pointer to [**WebIntegrationMetadata**](WebIntegrationMetadata.md) |  | [optional] 
@@ -395,20 +395,20 @@ HasConflicts returns a boolean if a field has been set.
 
 ### GetLinks
 
-`func (o *WebFlagConfigApprovalRequestResponse) GetLinks() []CoreLink`
+`func (o *WebFlagConfigApprovalRequestResponse) GetLinks() map[string]CoreLink`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *WebFlagConfigApprovalRequestResponse) GetLinksOk() (*[]CoreLink, bool)`
+`func (o *WebFlagConfigApprovalRequestResponse) GetLinksOk() (*map[string]CoreLink, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *WebFlagConfigApprovalRequestResponse) SetLinks(v []CoreLink)`
+`func (o *WebFlagConfigApprovalRequestResponse) SetLinks(v map[string]CoreLink)`
 
 SetLinks sets Links field to given value.
 

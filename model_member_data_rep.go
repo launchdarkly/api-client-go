@@ -17,7 +17,7 @@ import (
 
 // MemberDataRep struct for MemberDataRep
 type MemberDataRep struct {
-	Links *[]CoreLink `json:"_links,omitempty"`
+	Links *map[string]CoreLink `json:"_links,omitempty"`
 	Id *string `json:"_id,omitempty"`
 	Email *string `json:"email,omitempty"`
 	FirstName *string `json:"firstName,omitempty"`
@@ -42,9 +42,9 @@ func NewMemberDataRepWithDefaults() *MemberDataRep {
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
-func (o *MemberDataRep) GetLinks() []CoreLink {
+func (o *MemberDataRep) GetLinks() map[string]CoreLink {
 	if o == nil || o.Links == nil {
-		var ret []CoreLink
+		var ret map[string]CoreLink
 		return ret
 	}
 	return *o.Links
@@ -52,7 +52,7 @@ func (o *MemberDataRep) GetLinks() []CoreLink {
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MemberDataRep) GetLinksOk() (*[]CoreLink, bool) {
+func (o *MemberDataRep) GetLinksOk() (*map[string]CoreLink, bool) {
 	if o == nil || o.Links == nil {
 		return nil, false
 	}
@@ -68,8 +68,8 @@ func (o *MemberDataRep) HasLinks() bool {
 	return false
 }
 
-// SetLinks gets a reference to the given []CoreLink and assigns it to the Links field.
-func (o *MemberDataRep) SetLinks(v []CoreLink) {
+// SetLinks gets a reference to the given map[string]CoreLink and assigns it to the Links field.
+func (o *MemberDataRep) SetLinks(v map[string]CoreLink) {
 	o.Links = &v
 }
 

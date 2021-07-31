@@ -5,14 +5,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Items** | [**[]DependentFlagWithEnvs**](DependentFlagWithEnvs.md) |  | 
-**Links** | [**[]CoreLink**](CoreLink.md) |  | 
+**Links** | [**map[string]CoreLink**](CoreLink.md) |  | 
 **Site** | [**CoreLink**](CoreLink.md) |  | 
 
 ## Methods
 
 ### NewMultiEnvDependentFlagsCollectionRep
 
-`func NewMultiEnvDependentFlagsCollectionRep(items []DependentFlagWithEnvs, links []CoreLink, site CoreLink, ) *MultiEnvDependentFlagsCollectionRep`
+`func NewMultiEnvDependentFlagsCollectionRep(items []DependentFlagWithEnvs, links map[string]CoreLink, site CoreLink, ) *MultiEnvDependentFlagsCollectionRep`
 
 NewMultiEnvDependentFlagsCollectionRep instantiates a new MultiEnvDependentFlagsCollectionRep object
 This constructor will assign default values to properties that have it defined,
@@ -49,20 +49,20 @@ SetItems sets Items field to given value.
 
 ### GetLinks
 
-`func (o *MultiEnvDependentFlagsCollectionRep) GetLinks() []CoreLink`
+`func (o *MultiEnvDependentFlagsCollectionRep) GetLinks() map[string]CoreLink`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *MultiEnvDependentFlagsCollectionRep) GetLinksOk() (*[]CoreLink, bool)`
+`func (o *MultiEnvDependentFlagsCollectionRep) GetLinksOk() (*map[string]CoreLink, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *MultiEnvDependentFlagsCollectionRep) SetLinks(v []CoreLink)`
+`func (o *MultiEnvDependentFlagsCollectionRep) SetLinks(v map[string]CoreLink)`
 
 SetLinks sets Links field to given value.
 

@@ -31,7 +31,7 @@ type WebFlagConfigApprovalRequestResponse struct {
 	Status *string `json:"status,omitempty"`
 	Instructions *[]map[string]interface{} `json:"instructions,omitempty"`
 	Conflicts *[]WebConflict `json:"conflicts,omitempty"`
-	Links *[]CoreLink `json:"_links,omitempty"`
+	Links *map[string]CoreLink `json:"_links,omitempty"`
 	ExecutionDate *int64 `json:"executionDate,omitempty"`
 	OperatingOnId *string `json:"operatingOnId,omitempty"`
 	IntegrationMetadata *WebIntegrationMetadata `json:"integrationMetadata,omitempty"`
@@ -504,9 +504,9 @@ func (o *WebFlagConfigApprovalRequestResponse) SetConflicts(v []WebConflict) {
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
-func (o *WebFlagConfigApprovalRequestResponse) GetLinks() []CoreLink {
+func (o *WebFlagConfigApprovalRequestResponse) GetLinks() map[string]CoreLink {
 	if o == nil || o.Links == nil {
-		var ret []CoreLink
+		var ret map[string]CoreLink
 		return ret
 	}
 	return *o.Links
@@ -514,7 +514,7 @@ func (o *WebFlagConfigApprovalRequestResponse) GetLinks() []CoreLink {
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WebFlagConfigApprovalRequestResponse) GetLinksOk() (*[]CoreLink, bool) {
+func (o *WebFlagConfigApprovalRequestResponse) GetLinksOk() (*map[string]CoreLink, bool) {
 	if o == nil || o.Links == nil {
 		return nil, false
 	}
@@ -530,8 +530,8 @@ func (o *WebFlagConfigApprovalRequestResponse) HasLinks() bool {
 	return false
 }
 
-// SetLinks gets a reference to the given []CoreLink and assigns it to the Links field.
-func (o *WebFlagConfigApprovalRequestResponse) SetLinks(v []CoreLink) {
+// SetLinks gets a reference to the given map[string]CoreLink and assigns it to the Links field.
+func (o *WebFlagConfigApprovalRequestResponse) SetLinks(v map[string]CoreLink) {
 	o.Links = &v
 }
 

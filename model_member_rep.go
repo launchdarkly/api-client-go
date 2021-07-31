@@ -17,7 +17,7 @@ import (
 
 // MemberRep struct for MemberRep
 type MemberRep struct {
-	Links []CoreLink `json:"_links"`
+	Links map[string]CoreLink `json:"_links"`
 	// The member's ID
 	Id string `json:"_id"`
 	// The member's first name
@@ -49,7 +49,7 @@ type MemberRep struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMemberRep(links []CoreLink, id string, role string, email string, pendingInvite bool, verified bool, customRoles []string, mfa string, excludedDashboards []string, lastSeen int64) *MemberRep {
+func NewMemberRep(links map[string]CoreLink, id string, role string, email string, pendingInvite bool, verified bool, customRoles []string, mfa string, excludedDashboards []string, lastSeen int64) *MemberRep {
 	this := MemberRep{}
 	this.Links = links
 	this.Id = id
@@ -73,9 +73,9 @@ func NewMemberRepWithDefaults() *MemberRep {
 }
 
 // GetLinks returns the Links field value
-func (o *MemberRep) GetLinks() []CoreLink {
+func (o *MemberRep) GetLinks() map[string]CoreLink {
 	if o == nil {
-		var ret []CoreLink
+		var ret map[string]CoreLink
 		return ret
 	}
 
@@ -84,7 +84,7 @@ func (o *MemberRep) GetLinks() []CoreLink {
 
 // GetLinksOk returns a tuple with the Links field value
 // and a boolean to check if the value has been set.
-func (o *MemberRep) GetLinksOk() (*[]CoreLink, bool) {
+func (o *MemberRep) GetLinksOk() (*map[string]CoreLink, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -92,7 +92,7 @@ func (o *MemberRep) GetLinksOk() (*[]CoreLink, bool) {
 }
 
 // SetLinks sets field value
-func (o *MemberRep) SetLinks(v []CoreLink) {
+func (o *MemberRep) SetLinks(v map[string]CoreLink) {
 	o.Links = v
 }
 

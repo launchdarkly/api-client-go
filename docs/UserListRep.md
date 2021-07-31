@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Links** | Pointer to [**[]CoreLink**](CoreLink.md) |  | [optional] 
+**Links** | Pointer to [**map[string]CoreLink**](CoreLink.md) |  | [optional] 
 **TotalCount** | Pointer to **int32** |  | [optional] 
 **Items** | Pointer to [**[]UserRep**](UserRep.md) |  | [optional] 
 
@@ -29,20 +29,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetLinks
 
-`func (o *UserListRep) GetLinks() []CoreLink`
+`func (o *UserListRep) GetLinks() map[string]CoreLink`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *UserListRep) GetLinksOk() (*[]CoreLink, bool)`
+`func (o *UserListRep) GetLinksOk() (*map[string]CoreLink, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *UserListRep) SetLinks(v []CoreLink)`
+`func (o *UserListRep) SetLinks(v map[string]CoreLink)`
 
 SetLinks sets Links field to given value.
 

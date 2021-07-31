@@ -18,7 +18,7 @@ import (
 // DestinationRep struct for DestinationRep
 type DestinationRep struct {
 	Id *string `json:"_id,omitempty"`
-	Links *[]CoreLink `json:"_links,omitempty"`
+	Links *map[string]CoreLink `json:"_links,omitempty"`
 	Name *string `json:"name,omitempty"`
 	Kind *string `json:"kind,omitempty"`
 	Version *float32 `json:"version,omitempty"`
@@ -77,9 +77,9 @@ func (o *DestinationRep) SetId(v string) {
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
-func (o *DestinationRep) GetLinks() []CoreLink {
+func (o *DestinationRep) GetLinks() map[string]CoreLink {
 	if o == nil || o.Links == nil {
-		var ret []CoreLink
+		var ret map[string]CoreLink
 		return ret
 	}
 	return *o.Links
@@ -87,7 +87,7 @@ func (o *DestinationRep) GetLinks() []CoreLink {
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DestinationRep) GetLinksOk() (*[]CoreLink, bool) {
+func (o *DestinationRep) GetLinksOk() (*map[string]CoreLink, bool) {
 	if o == nil || o.Links == nil {
 		return nil, false
 	}
@@ -103,8 +103,8 @@ func (o *DestinationRep) HasLinks() bool {
 	return false
 }
 
-// SetLinks gets a reference to the given []CoreLink and assigns it to the Links field.
-func (o *DestinationRep) SetLinks(v []CoreLink) {
+// SetLinks gets a reference to the given map[string]CoreLink and assigns it to the Links field.
+func (o *DestinationRep) SetLinks(v map[string]CoreLink) {
 	o.Links = &v
 }
 

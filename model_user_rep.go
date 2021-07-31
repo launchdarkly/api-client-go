@@ -23,7 +23,7 @@ type UserRep struct {
 	OwnerId *string `json:"ownerId,omitempty"`
 	User *ModelsUser `json:"user,omitempty"`
 	SortValue interface{} `json:"sortValue,omitempty"`
-	Links *[]CoreLink `json:"_links,omitempty"`
+	Links *map[string]CoreLink `json:"_links,omitempty"`
 	Access *AccessRep `json:"_access,omitempty"`
 }
 
@@ -206,9 +206,9 @@ func (o *UserRep) SetSortValue(v interface{}) {
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
-func (o *UserRep) GetLinks() []CoreLink {
+func (o *UserRep) GetLinks() map[string]CoreLink {
 	if o == nil || o.Links == nil {
-		var ret []CoreLink
+		var ret map[string]CoreLink
 		return ret
 	}
 	return *o.Links
@@ -216,7 +216,7 @@ func (o *UserRep) GetLinks() []CoreLink {
 
 // GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UserRep) GetLinksOk() (*[]CoreLink, bool) {
+func (o *UserRep) GetLinksOk() (*map[string]CoreLink, bool) {
 	if o == nil || o.Links == nil {
 		return nil, false
 	}
@@ -232,8 +232,8 @@ func (o *UserRep) HasLinks() bool {
 	return false
 }
 
-// SetLinks gets a reference to the given []CoreLink and assigns it to the Links field.
-func (o *UserRep) SetLinks(v []CoreLink) {
+// SetLinks gets a reference to the given map[string]CoreLink and assigns it to the Links field.
+func (o *UserRep) SetLinks(v map[string]CoreLink) {
 	o.Links = &v
 }
 

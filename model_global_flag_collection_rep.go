@@ -18,7 +18,7 @@ import (
 // GlobalFlagCollectionRep struct for GlobalFlagCollectionRep
 type GlobalFlagCollectionRep struct {
 	Items []GlobalFlagRep `json:"items"`
-	Links []CoreLink `json:"_links"`
+	Links map[string]CoreLink `json:"_links"`
 	TotalCount *int32 `json:"totalCount,omitempty"`
 }
 
@@ -26,7 +26,7 @@ type GlobalFlagCollectionRep struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGlobalFlagCollectionRep(items []GlobalFlagRep, links []CoreLink) *GlobalFlagCollectionRep {
+func NewGlobalFlagCollectionRep(items []GlobalFlagRep, links map[string]CoreLink) *GlobalFlagCollectionRep {
 	this := GlobalFlagCollectionRep{}
 	this.Items = items
 	this.Links = links
@@ -66,9 +66,9 @@ func (o *GlobalFlagCollectionRep) SetItems(v []GlobalFlagRep) {
 }
 
 // GetLinks returns the Links field value
-func (o *GlobalFlagCollectionRep) GetLinks() []CoreLink {
+func (o *GlobalFlagCollectionRep) GetLinks() map[string]CoreLink {
 	if o == nil {
-		var ret []CoreLink
+		var ret map[string]CoreLink
 		return ret
 	}
 
@@ -77,7 +77,7 @@ func (o *GlobalFlagCollectionRep) GetLinks() []CoreLink {
 
 // GetLinksOk returns a tuple with the Links field value
 // and a boolean to check if the value has been set.
-func (o *GlobalFlagCollectionRep) GetLinksOk() (*[]CoreLink, bool) {
+func (o *GlobalFlagCollectionRep) GetLinksOk() (*map[string]CoreLink, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -85,7 +85,7 @@ func (o *GlobalFlagCollectionRep) GetLinksOk() (*[]CoreLink, bool) {
 }
 
 // SetLinks sets field value
-func (o *GlobalFlagCollectionRep) SetLinks(v []CoreLink) {
+func (o *GlobalFlagCollectionRep) SetLinks(v map[string]CoreLink) {
 	o.Links = v
 }
 
