@@ -6,14 +6,14 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | Pointer to **string** |  | [optional] 
 **Key** | **string** |  | 
-**Links** | [**map[string]CoreLink**](CoreLink.md) |  | 
-**Site** | [**CoreLink**](CoreLink.md) |  | 
+**Links** | [**map[string]Link**](Link.md) |  | 
+**Site** | [**Link**](Link.md) |  | 
 
 ## Methods
 
 ### NewDependentFlagEnvironment
 
-`func NewDependentFlagEnvironment(key string, links map[string]CoreLink, site CoreLink, ) *DependentFlagEnvironment`
+`func NewDependentFlagEnvironment(key string, links map[string]Link, site Link, ) *DependentFlagEnvironment`
 
 NewDependentFlagEnvironment instantiates a new DependentFlagEnvironment object
 This constructor will assign default values to properties that have it defined,
@@ -75,40 +75,40 @@ SetKey sets Key field to given value.
 
 ### GetLinks
 
-`func (o *DependentFlagEnvironment) GetLinks() map[string]CoreLink`
+`func (o *DependentFlagEnvironment) GetLinks() map[string]Link`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *DependentFlagEnvironment) GetLinksOk() (*map[string]CoreLink, bool)`
+`func (o *DependentFlagEnvironment) GetLinksOk() (*map[string]Link, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *DependentFlagEnvironment) SetLinks(v map[string]CoreLink)`
+`func (o *DependentFlagEnvironment) SetLinks(v map[string]Link)`
 
 SetLinks sets Links field to given value.
 
 
 ### GetSite
 
-`func (o *DependentFlagEnvironment) GetSite() CoreLink`
+`func (o *DependentFlagEnvironment) GetSite() Link`
 
 GetSite returns the Site field if non-nil, zero value otherwise.
 
 ### GetSiteOk
 
-`func (o *DependentFlagEnvironment) GetSiteOk() (*CoreLink, bool)`
+`func (o *DependentFlagEnvironment) GetSiteOk() (*Link, bool)`
 
 GetSiteOk returns a tuple with the Site field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSite
 
-`func (o *DependentFlagEnvironment) SetSite(v CoreLink)`
+`func (o *DependentFlagEnvironment) SetSite(v Link)`
 
 SetSite sets Site field to given value.
 

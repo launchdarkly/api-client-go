@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**UsingEnvironmentId** | Pointer to **bool** |  | [optional] 
-**UsingMobileKey** | Pointer to **bool** |  | [optional] 
+**UsingEnvironmentId** | **bool** |  | 
+**UsingMobileKey** | **bool** |  | 
 
 ## Methods
 
 ### NewDefaultClientSideAvailabilityPost
 
-`func NewDefaultClientSideAvailabilityPost() *DefaultClientSideAvailabilityPost`
+`func NewDefaultClientSideAvailabilityPost(usingEnvironmentId bool, usingMobileKey bool, ) *DefaultClientSideAvailabilityPost`
 
 NewDefaultClientSideAvailabilityPost instantiates a new DefaultClientSideAvailabilityPost object
 This constructor will assign default values to properties that have it defined,
@@ -45,11 +45,6 @@ and a boolean to check if the value has been set.
 
 SetUsingEnvironmentId sets UsingEnvironmentId field to given value.
 
-### HasUsingEnvironmentId
-
-`func (o *DefaultClientSideAvailabilityPost) HasUsingEnvironmentId() bool`
-
-HasUsingEnvironmentId returns a boolean if a field has been set.
 
 ### GetUsingMobileKey
 
@@ -70,11 +65,6 @@ and a boolean to check if the value has been set.
 
 SetUsingMobileKey sets UsingMobileKey field to given value.
 
-### HasUsingMobileKey
-
-`func (o *DefaultClientSideAvailabilityPost) HasUsingMobileKey() bool`
-
-HasUsingMobileKey returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

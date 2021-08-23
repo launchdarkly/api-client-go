@@ -4,18 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Revision** | Pointer to **string** |  | [optional] 
+**Revision** | **string** |  | 
 **Message** | Pointer to **string** |  | [optional] 
-**Time** | Pointer to **int64** |  | [optional] 
-**FlagKey** | Pointer to **string** |  | [optional] 
-**ProjectKey** | Pointer to **string** |  | [optional] 
-**RepoName** | Pointer to **string** |  | [optional] 
+**Time** | **int64** |  | 
+**FlagKey** | **string** |  | 
+**ProjectKey** | **string** |  | 
 
 ## Methods
 
 ### NewInlineObject
 
-`func NewInlineObject() *InlineObject`
+`func NewInlineObject(revision string, time int64, flagKey string, projectKey string, ) *InlineObject`
 
 NewInlineObject instantiates a new InlineObject object
 This constructor will assign default values to properties that have it defined,
@@ -49,11 +48,6 @@ and a boolean to check if the value has been set.
 
 SetRevision sets Revision field to given value.
 
-### HasRevision
-
-`func (o *InlineObject) HasRevision() bool`
-
-HasRevision returns a boolean if a field has been set.
 
 ### GetMessage
 
@@ -99,11 +93,6 @@ and a boolean to check if the value has been set.
 
 SetTime sets Time field to given value.
 
-### HasTime
-
-`func (o *InlineObject) HasTime() bool`
-
-HasTime returns a boolean if a field has been set.
 
 ### GetFlagKey
 
@@ -124,11 +113,6 @@ and a boolean to check if the value has been set.
 
 SetFlagKey sets FlagKey field to given value.
 
-### HasFlagKey
-
-`func (o *InlineObject) HasFlagKey() bool`
-
-HasFlagKey returns a boolean if a field has been set.
 
 ### GetProjectKey
 
@@ -149,36 +133,6 @@ and a boolean to check if the value has been set.
 
 SetProjectKey sets ProjectKey field to given value.
 
-### HasProjectKey
-
-`func (o *InlineObject) HasProjectKey() bool`
-
-HasProjectKey returns a boolean if a field has been set.
-
-### GetRepoName
-
-`func (o *InlineObject) GetRepoName() string`
-
-GetRepoName returns the RepoName field if non-nil, zero value otherwise.
-
-### GetRepoNameOk
-
-`func (o *InlineObject) GetRepoNameOk() (*string, bool)`
-
-GetRepoNameOk returns a tuple with the RepoName field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRepoName
-
-`func (o *InlineObject) SetRepoName(v string)`
-
-SetRepoName sets RepoName field to given value.
-
-### HasRepoName
-
-`func (o *InlineObject) HasRepoName() bool`
-
-HasRepoName returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

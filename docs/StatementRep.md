@@ -4,18 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Resources** | Pointer to **[]map[string]interface{}** |  | [optional] 
-**NotResources** | Pointer to **[]map[string]interface{}** |  | [optional] 
-**Actions** | Pointer to **[]string** |  | [optional] 
-**NotActions** | Pointer to **[]string** |  | [optional] 
-**Effect** | **string** |  | 
-**RoleName** | Pointer to **string** |  | [optional] 
+**Resources** | Pointer to **[]map[string]interface{}** | Resource specifier strings | [optional] 
+**NotResources** | Pointer to **[]map[string]interface{}** | Targeted resources are the resources NOT in this list. The \&quot;resources\&quot; field must be empty to use this field. | [optional] 
+**Actions** | Pointer to **[]string** | Actions to perform on a resource | [optional] 
+**NotActions** | Pointer to **[]string** | Targeted actions are the actions NOT in this list. The \&quot;actions\&quot; field must be empty to use this field. | [optional] 
+**Effect** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
 ### NewStatementRep
 
-`func NewStatementRep(effect string, ) *StatementRep`
+`func NewStatementRep() *StatementRep`
 
 NewStatementRep instantiates a new StatementRep object
 This constructor will assign default values to properties that have it defined,
@@ -149,31 +148,11 @@ and a boolean to check if the value has been set.
 
 SetEffect sets Effect field to given value.
 
+### HasEffect
 
-### GetRoleName
+`func (o *StatementRep) HasEffect() bool`
 
-`func (o *StatementRep) GetRoleName() string`
-
-GetRoleName returns the RoleName field if non-nil, zero value otherwise.
-
-### GetRoleNameOk
-
-`func (o *StatementRep) GetRoleNameOk() (*string, bool)`
-
-GetRoleNameOk returns a tuple with the RoleName field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRoleName
-
-`func (o *StatementRep) SetRoleName(v string)`
-
-SetRoleName sets RoleName field to given value.
-
-### HasRoleName
-
-`func (o *StatementRep) HasRoleName() bool`
-
-HasRoleName returns a boolean if a field has been set.
+HasEffect returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

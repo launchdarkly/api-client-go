@@ -7,10 +7,8 @@ Name | Type | Description | Notes
 **LastPing** | Pointer to **time.Time** |  | [optional] 
 **EnvironmentId** | Pointer to **string** |  | [optional] 
 **OwnerId** | Pointer to **string** |  | [optional] 
-**User** | Pointer to [**ModelsUser**](ModelsUser.md) |  | [optional] 
+**User** | Pointer to [**User**](User.md) |  | [optional] 
 **SortValue** | Pointer to **interface{}** |  | [optional] 
-**Links** | Pointer to [**map[string]CoreLink**](CoreLink.md) |  | [optional] 
-**Access** | Pointer to [**AccessRep**](AccessRep.md) |  | [optional] 
 
 ## Methods
 
@@ -108,20 +106,20 @@ HasOwnerId returns a boolean if a field has been set.
 
 ### GetUser
 
-`func (o *UserRecord) GetUser() ModelsUser`
+`func (o *UserRecord) GetUser() User`
 
 GetUser returns the User field if non-nil, zero value otherwise.
 
 ### GetUserOk
 
-`func (o *UserRecord) GetUserOk() (*ModelsUser, bool)`
+`func (o *UserRecord) GetUserOk() (*User, bool)`
 
 GetUserOk returns a tuple with the User field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUser
 
-`func (o *UserRecord) SetUser(v ModelsUser)`
+`func (o *UserRecord) SetUser(v User)`
 
 SetUser sets User field to given value.
 
@@ -166,56 +164,6 @@ HasSortValue returns a boolean if a field has been set.
 `func (o *UserRecord) UnsetSortValue()`
 
 UnsetSortValue ensures that no value is present for SortValue, not even an explicit nil
-### GetLinks
-
-`func (o *UserRecord) GetLinks() map[string]CoreLink`
-
-GetLinks returns the Links field if non-nil, zero value otherwise.
-
-### GetLinksOk
-
-`func (o *UserRecord) GetLinksOk() (*map[string]CoreLink, bool)`
-
-GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetLinks
-
-`func (o *UserRecord) SetLinks(v map[string]CoreLink)`
-
-SetLinks sets Links field to given value.
-
-### HasLinks
-
-`func (o *UserRecord) HasLinks() bool`
-
-HasLinks returns a boolean if a field has been set.
-
-### GetAccess
-
-`func (o *UserRecord) GetAccess() AccessRep`
-
-GetAccess returns the Access field if non-nil, zero value otherwise.
-
-### GetAccessOk
-
-`func (o *UserRecord) GetAccessOk() (*AccessRep, bool)`
-
-GetAccessOk returns a tuple with the Access field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetAccess
-
-`func (o *UserRecord) SetAccess(v AccessRep)`
-
-SetAccess sets Access field to given value.
-
-### HasAccess
-
-`func (o *UserRecord) HasAccess() bool`
-
-HasAccess returns a boolean if a field has been set.
-
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

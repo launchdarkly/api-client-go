@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Links** | Pointer to [**map[string]CoreLink**](CoreLink.md) |  | [optional] 
+**Links** | Pointer to [**map[string]Link**](Link.md) |  | [optional] 
 **Metadata** | Pointer to [**[]ExperimentMetadataRep**](ExperimentMetadataRep.md) |  | [optional] 
 **Totals** | Pointer to [**[]ExperimentTotalsRep**](ExperimentTotalsRep.md) |  | [optional] 
 **Series** | Pointer to [**[]ExperimentTimeSeriesSlice**](ExperimentTimeSeriesSlice.md) |  | [optional] 
@@ -32,20 +32,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetLinks
 
-`func (o *ExperimentResultsRep) GetLinks() map[string]CoreLink`
+`func (o *ExperimentResultsRep) GetLinks() map[string]Link`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *ExperimentResultsRep) GetLinksOk() (*map[string]CoreLink, bool)`
+`func (o *ExperimentResultsRep) GetLinksOk() (*map[string]Link, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *ExperimentResultsRep) SetLinks(v map[string]CoreLink)`
+`func (o *ExperimentResultsRep) SetLinks(v map[string]Link)`
 
 SetLinks sets Links field to given value.
 

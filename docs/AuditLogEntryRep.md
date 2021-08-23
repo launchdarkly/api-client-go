@@ -4,6 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Links** | [**map[string]Link**](Link.md) |  | 
+**Id** | **string** |  | 
+**AccountId** | **string** |  | 
+**Date** | **int64** |  | 
+**Accesses** | [**[]ResourceAccess**](ResourceAccess.md) |  | 
+**Kind** | **string** |  | 
+**Name** | **string** |  | 
+**Description** | **string** |  | 
+**ShortDescription** | **string** |  | 
+**Comment** | Pointer to **string** |  | [optional] 
 **Subject** | Pointer to [**SubjectDataRep**](SubjectDataRep.md) |  | [optional] 
 **Member** | Pointer to [**MemberDataRep**](MemberDataRep.md) |  | [optional] 
 **Token** | Pointer to [**TokenDataRep**](TokenDataRep.md) |  | [optional] 
@@ -23,7 +33,7 @@ Name | Type | Description | Notes
 
 ### NewAuditLogEntryRep
 
-`func NewAuditLogEntryRep() *AuditLogEntryRep`
+`func NewAuditLogEntryRep(links map[string]Link, id string, accountId string, date int64, accesses []ResourceAccess, kind string, name string, description string, shortDescription string, ) *AuditLogEntryRep`
 
 NewAuditLogEntryRep instantiates a new AuditLogEntryRep object
 This constructor will assign default values to properties that have it defined,
@@ -37,6 +47,211 @@ will change when the set of required properties is changed
 NewAuditLogEntryRepWithDefaults instantiates a new AuditLogEntryRep object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetLinks
+
+`func (o *AuditLogEntryRep) GetLinks() map[string]Link`
+
+GetLinks returns the Links field if non-nil, zero value otherwise.
+
+### GetLinksOk
+
+`func (o *AuditLogEntryRep) GetLinksOk() (*map[string]Link, bool)`
+
+GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLinks
+
+`func (o *AuditLogEntryRep) SetLinks(v map[string]Link)`
+
+SetLinks sets Links field to given value.
+
+
+### GetId
+
+`func (o *AuditLogEntryRep) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *AuditLogEntryRep) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *AuditLogEntryRep) SetId(v string)`
+
+SetId sets Id field to given value.
+
+
+### GetAccountId
+
+`func (o *AuditLogEntryRep) GetAccountId() string`
+
+GetAccountId returns the AccountId field if non-nil, zero value otherwise.
+
+### GetAccountIdOk
+
+`func (o *AuditLogEntryRep) GetAccountIdOk() (*string, bool)`
+
+GetAccountIdOk returns a tuple with the AccountId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAccountId
+
+`func (o *AuditLogEntryRep) SetAccountId(v string)`
+
+SetAccountId sets AccountId field to given value.
+
+
+### GetDate
+
+`func (o *AuditLogEntryRep) GetDate() int64`
+
+GetDate returns the Date field if non-nil, zero value otherwise.
+
+### GetDateOk
+
+`func (o *AuditLogEntryRep) GetDateOk() (*int64, bool)`
+
+GetDateOk returns a tuple with the Date field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDate
+
+`func (o *AuditLogEntryRep) SetDate(v int64)`
+
+SetDate sets Date field to given value.
+
+
+### GetAccesses
+
+`func (o *AuditLogEntryRep) GetAccesses() []ResourceAccess`
+
+GetAccesses returns the Accesses field if non-nil, zero value otherwise.
+
+### GetAccessesOk
+
+`func (o *AuditLogEntryRep) GetAccessesOk() (*[]ResourceAccess, bool)`
+
+GetAccessesOk returns a tuple with the Accesses field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAccesses
+
+`func (o *AuditLogEntryRep) SetAccesses(v []ResourceAccess)`
+
+SetAccesses sets Accesses field to given value.
+
+
+### GetKind
+
+`func (o *AuditLogEntryRep) GetKind() string`
+
+GetKind returns the Kind field if non-nil, zero value otherwise.
+
+### GetKindOk
+
+`func (o *AuditLogEntryRep) GetKindOk() (*string, bool)`
+
+GetKindOk returns a tuple with the Kind field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetKind
+
+`func (o *AuditLogEntryRep) SetKind(v string)`
+
+SetKind sets Kind field to given value.
+
+
+### GetName
+
+`func (o *AuditLogEntryRep) GetName() string`
+
+GetName returns the Name field if non-nil, zero value otherwise.
+
+### GetNameOk
+
+`func (o *AuditLogEntryRep) GetNameOk() (*string, bool)`
+
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetName
+
+`func (o *AuditLogEntryRep) SetName(v string)`
+
+SetName sets Name field to given value.
+
+
+### GetDescription
+
+`func (o *AuditLogEntryRep) GetDescription() string`
+
+GetDescription returns the Description field if non-nil, zero value otherwise.
+
+### GetDescriptionOk
+
+`func (o *AuditLogEntryRep) GetDescriptionOk() (*string, bool)`
+
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescription
+
+`func (o *AuditLogEntryRep) SetDescription(v string)`
+
+SetDescription sets Description field to given value.
+
+
+### GetShortDescription
+
+`func (o *AuditLogEntryRep) GetShortDescription() string`
+
+GetShortDescription returns the ShortDescription field if non-nil, zero value otherwise.
+
+### GetShortDescriptionOk
+
+`func (o *AuditLogEntryRep) GetShortDescriptionOk() (*string, bool)`
+
+GetShortDescriptionOk returns a tuple with the ShortDescription field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetShortDescription
+
+`func (o *AuditLogEntryRep) SetShortDescription(v string)`
+
+SetShortDescription sets ShortDescription field to given value.
+
+
+### GetComment
+
+`func (o *AuditLogEntryRep) GetComment() string`
+
+GetComment returns the Comment field if non-nil, zero value otherwise.
+
+### GetCommentOk
+
+`func (o *AuditLogEntryRep) GetCommentOk() (*string, bool)`
+
+GetCommentOk returns a tuple with the Comment field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetComment
+
+`func (o *AuditLogEntryRep) SetComment(v string)`
+
+SetComment sets Comment field to given value.
+
+### HasComment
+
+`func (o *AuditLogEntryRep) HasComment() bool`
+
+HasComment returns a boolean if a field has been set.
 
 ### GetSubject
 

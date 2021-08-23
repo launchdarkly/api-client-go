@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## GetIps
 
-> Api2IpList GetIps(ctx).Execute()
+> IpList GetIps(ctx).Execute()
 
 Gets the public IP list
 
@@ -40,7 +40,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `OtherApi.GetIps``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetIps`: Api2IpList
+    // response from `GetIps`: IpList
     fmt.Fprintf(os.Stdout, "Response from `OtherApi.GetIps`: %v\n", resp)
 }
 ```
@@ -56,7 +56,7 @@ Other parameters are passed through a pointer to a apiGetIpsRequest struct via t
 
 ### Return type
 
-[**Api2IpList**](Api2IpList.md)
+[**IpList**](IpList.md)
 
 ### Authorization
 

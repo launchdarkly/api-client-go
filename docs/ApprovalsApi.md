@@ -6,7 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**DeleteApprovalRequest**](ApprovalsApi.md#DeleteApprovalRequest) | **Delete** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id} | Delete approval request
 [**GetApproval**](ApprovalsApi.md#GetApproval) | **Get** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id} | Get approval request
-[**GetApprovals**](ApprovalsApi.md#GetApprovals) | **Get** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests | Get all approval requests
+[**GetApprovals**](ApprovalsApi.md#GetApprovals) | **Get** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests | List all approval requests
 [**PostApprovalRequest**](ApprovalsApi.md#PostApprovalRequest) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests | Create approval request
 [**PostApprovalRequestApplyRequest**](ApprovalsApi.md#PostApprovalRequestApplyRequest) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id}/apply | Apply approval request
 [**PostApprovalRequestReview**](ApprovalsApi.md#PostApprovalRequestReview) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id}/reviews | Review approval request
@@ -93,7 +93,7 @@ Name | Type | Description  | Notes
 
 ## GetApproval
 
-> WebFlagConfigApprovalRequestResponse GetApproval(ctx, projectKey, featureFlagKey, environmentKey, id).Execute()
+> FlagConfigApprovalRequestResponse GetApproval(ctx, projectKey, featureFlagKey, environmentKey, id).Execute()
 
 Get approval request
 
@@ -124,7 +124,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.GetApproval``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetApproval`: WebFlagConfigApprovalRequestResponse
+    // response from `GetApproval`: FlagConfigApprovalRequestResponse
     fmt.Fprintf(os.Stdout, "Response from `ApprovalsApi.GetApproval`: %v\n", resp)
 }
 ```
@@ -154,7 +154,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**WebFlagConfigApprovalRequestResponse**](WebFlagConfigApprovalRequestResponse.md)
+[**FlagConfigApprovalRequestResponse**](FlagConfigApprovalRequestResponse.md)
 
 ### Authorization
 
@@ -172,9 +172,9 @@ Name | Type | Description  | Notes
 
 ## GetApprovals
 
-> WebFlagConfigApprovalRequestResponse GetApprovals(ctx, projectKey, featureFlagKey, environmentKey).Execute()
+> FlagConfigApprovalRequestsResponse GetApprovals(ctx, projectKey, featureFlagKey, environmentKey).Execute()
 
-Get all approval requests
+List all approval requests
 
 
 
@@ -202,7 +202,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.GetApprovals``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetApprovals`: WebFlagConfigApprovalRequestResponse
+    // response from `GetApprovals`: FlagConfigApprovalRequestsResponse
     fmt.Fprintf(os.Stdout, "Response from `ApprovalsApi.GetApprovals`: %v\n", resp)
 }
 ```
@@ -230,7 +230,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**WebFlagConfigApprovalRequestResponse**](WebFlagConfigApprovalRequestResponse.md)
+[**FlagConfigApprovalRequestsResponse**](FlagConfigApprovalRequestsResponse.md)
 
 ### Authorization
 
@@ -248,7 +248,7 @@ Name | Type | Description  | Notes
 
 ## PostApprovalRequest
 
-> WebFlagConfigApprovalRequestResponse PostApprovalRequest(ctx, projectKey, featureFlagKey, environmentKey).ApprovalsEndpointsCreateFlagConfigApprovalRequestRequest(approvalsEndpointsCreateFlagConfigApprovalRequestRequest).Execute()
+> FlagConfigApprovalRequestResponse PostApprovalRequest(ctx, projectKey, featureFlagKey, environmentKey).CreateFlagConfigApprovalRequestRequest(createFlagConfigApprovalRequestRequest).Execute()
 
 Create approval request
 
@@ -270,16 +270,16 @@ func main() {
     projectKey := "projectKey_example" // string | The project key
     featureFlagKey := "featureFlagKey_example" // string | The feature flag's key
     environmentKey := "environmentKey_example" // string | The environment key
-    approvalsEndpointsCreateFlagConfigApprovalRequestRequest := *openapiclient.NewApprovalsEndpointsCreateFlagConfigApprovalRequestRequest() // ApprovalsEndpointsCreateFlagConfigApprovalRequestRequest | 
+    createFlagConfigApprovalRequestRequest := *openapiclient.NewCreateFlagConfigApprovalRequestRequest("Description_example", []map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}, []string{"NotifyMemberIds_example"}) // CreateFlagConfigApprovalRequestRequest | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ApprovalsApi.PostApprovalRequest(context.Background(), projectKey, featureFlagKey, environmentKey).ApprovalsEndpointsCreateFlagConfigApprovalRequestRequest(approvalsEndpointsCreateFlagConfigApprovalRequestRequest).Execute()
+    resp, r, err := api_client.ApprovalsApi.PostApprovalRequest(context.Background(), projectKey, featureFlagKey, environmentKey).CreateFlagConfigApprovalRequestRequest(createFlagConfigApprovalRequestRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.PostApprovalRequest``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostApprovalRequest`: WebFlagConfigApprovalRequestResponse
+    // response from `PostApprovalRequest`: FlagConfigApprovalRequestResponse
     fmt.Fprintf(os.Stdout, "Response from `ApprovalsApi.PostApprovalRequest`: %v\n", resp)
 }
 ```
@@ -304,11 +304,11 @@ Name | Type | Description  | Notes
 
 
 
- **approvalsEndpointsCreateFlagConfigApprovalRequestRequest** | [**ApprovalsEndpointsCreateFlagConfigApprovalRequestRequest**](ApprovalsEndpointsCreateFlagConfigApprovalRequestRequest.md) |  | 
+ **createFlagConfigApprovalRequestRequest** | [**CreateFlagConfigApprovalRequestRequest**](CreateFlagConfigApprovalRequestRequest.md) |  | 
 
 ### Return type
 
-[**WebFlagConfigApprovalRequestResponse**](WebFlagConfigApprovalRequestResponse.md)
+[**FlagConfigApprovalRequestResponse**](FlagConfigApprovalRequestResponse.md)
 
 ### Authorization
 
@@ -326,7 +326,7 @@ Name | Type | Description  | Notes
 
 ## PostApprovalRequestApplyRequest
 
-> WebFlagConfigApprovalRequestResponse PostApprovalRequestApplyRequest(ctx, projectKey, featureFlagKey, environmentKey, id).ApprovalsEndpointsPostApprovalRequestApplyRequest(approvalsEndpointsPostApprovalRequestApplyRequest).Execute()
+> FlagConfigApprovalRequestResponse PostApprovalRequestApplyRequest(ctx, projectKey, featureFlagKey, environmentKey, id).PostApprovalRequestApplyRequest(postApprovalRequestApplyRequest).Execute()
 
 Apply approval request
 
@@ -349,16 +349,16 @@ func main() {
     featureFlagKey := "featureFlagKey_example" // string | The feature flag's key
     environmentKey := "environmentKey_example" // string | The environment key
     id := "id_example" // string | The feature flag approval request ID
-    approvalsEndpointsPostApprovalRequestApplyRequest := *openapiclient.NewApprovalsEndpointsPostApprovalRequestApplyRequest() // ApprovalsEndpointsPostApprovalRequestApplyRequest | 
+    postApprovalRequestApplyRequest := *openapiclient.NewPostApprovalRequestApplyRequest() // PostApprovalRequestApplyRequest | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ApprovalsApi.PostApprovalRequestApplyRequest(context.Background(), projectKey, featureFlagKey, environmentKey, id).ApprovalsEndpointsPostApprovalRequestApplyRequest(approvalsEndpointsPostApprovalRequestApplyRequest).Execute()
+    resp, r, err := api_client.ApprovalsApi.PostApprovalRequestApplyRequest(context.Background(), projectKey, featureFlagKey, environmentKey, id).PostApprovalRequestApplyRequest(postApprovalRequestApplyRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.PostApprovalRequestApplyRequest``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostApprovalRequestApplyRequest`: WebFlagConfigApprovalRequestResponse
+    // response from `PostApprovalRequestApplyRequest`: FlagConfigApprovalRequestResponse
     fmt.Fprintf(os.Stdout, "Response from `ApprovalsApi.PostApprovalRequestApplyRequest`: %v\n", resp)
 }
 ```
@@ -385,11 +385,11 @@ Name | Type | Description  | Notes
 
 
 
- **approvalsEndpointsPostApprovalRequestApplyRequest** | [**ApprovalsEndpointsPostApprovalRequestApplyRequest**](ApprovalsEndpointsPostApprovalRequestApplyRequest.md) |  | 
+ **postApprovalRequestApplyRequest** | [**PostApprovalRequestApplyRequest**](PostApprovalRequestApplyRequest.md) |  | 
 
 ### Return type
 
-[**WebFlagConfigApprovalRequestResponse**](WebFlagConfigApprovalRequestResponse.md)
+[**FlagConfigApprovalRequestResponse**](FlagConfigApprovalRequestResponse.md)
 
 ### Authorization
 
@@ -407,7 +407,7 @@ Name | Type | Description  | Notes
 
 ## PostApprovalRequestReview
 
-> WebFlagConfigApprovalRequestResponse PostApprovalRequestReview(ctx, projectKey, featureFlagKey, environmentKey, id).ApprovalsEndpointsPostApprovalRequestReviewRequest(approvalsEndpointsPostApprovalRequestReviewRequest).Execute()
+> FlagConfigApprovalRequestResponse PostApprovalRequestReview(ctx, projectKey, featureFlagKey, environmentKey, id).PostApprovalRequestReviewRequest(postApprovalRequestReviewRequest).Execute()
 
 Review approval request
 
@@ -430,16 +430,16 @@ func main() {
     featureFlagKey := "featureFlagKey_example" // string | The feature flag's key
     environmentKey := "environmentKey_example" // string | The environment key
     id := "id_example" // string | The feature flag approval request ID
-    approvalsEndpointsPostApprovalRequestReviewRequest := *openapiclient.NewApprovalsEndpointsPostApprovalRequestReviewRequest() // ApprovalsEndpointsPostApprovalRequestReviewRequest | 
+    postApprovalRequestReviewRequest := *openapiclient.NewPostApprovalRequestReviewRequest() // PostApprovalRequestReviewRequest | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ApprovalsApi.PostApprovalRequestReview(context.Background(), projectKey, featureFlagKey, environmentKey, id).ApprovalsEndpointsPostApprovalRequestReviewRequest(approvalsEndpointsPostApprovalRequestReviewRequest).Execute()
+    resp, r, err := api_client.ApprovalsApi.PostApprovalRequestReview(context.Background(), projectKey, featureFlagKey, environmentKey, id).PostApprovalRequestReviewRequest(postApprovalRequestReviewRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.PostApprovalRequestReview``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostApprovalRequestReview`: WebFlagConfigApprovalRequestResponse
+    // response from `PostApprovalRequestReview`: FlagConfigApprovalRequestResponse
     fmt.Fprintf(os.Stdout, "Response from `ApprovalsApi.PostApprovalRequestReview`: %v\n", resp)
 }
 ```
@@ -466,11 +466,11 @@ Name | Type | Description  | Notes
 
 
 
- **approvalsEndpointsPostApprovalRequestReviewRequest** | [**ApprovalsEndpointsPostApprovalRequestReviewRequest**](ApprovalsEndpointsPostApprovalRequestReviewRequest.md) |  | 
+ **postApprovalRequestReviewRequest** | [**PostApprovalRequestReviewRequest**](PostApprovalRequestReviewRequest.md) |  | 
 
 ### Return type
 
-[**WebFlagConfigApprovalRequestResponse**](WebFlagConfigApprovalRequestResponse.md)
+[**FlagConfigApprovalRequestResponse**](FlagConfigApprovalRequestResponse.md)
 
 ### Authorization
 
@@ -488,7 +488,7 @@ Name | Type | Description  | Notes
 
 ## PostFlagCopyConfigApprovalRequest
 
-> WebFlagConfigApprovalRequestResponse PostFlagCopyConfigApprovalRequest(ctx, projectKey, featureFlagKey, environmentKey).ApprovalsEndpointsCreateCopyFlagConfigApprovalRequestRequest(approvalsEndpointsCreateCopyFlagConfigApprovalRequestRequest).Execute()
+> FlagConfigApprovalRequestResponse PostFlagCopyConfigApprovalRequest(ctx, projectKey, featureFlagKey, environmentKey).CreateCopyFlagConfigApprovalRequestRequest(createCopyFlagConfigApprovalRequestRequest).Execute()
 
 Create approval request to copy flag configurations across environments
 
@@ -510,16 +510,16 @@ func main() {
     projectKey := "projectKey_example" // string | The project key
     featureFlagKey := "featureFlagKey_example" // string | The feature flag's key
     environmentKey := "environmentKey_example" // string | The environment key
-    approvalsEndpointsCreateCopyFlagConfigApprovalRequestRequest := *openapiclient.NewApprovalsEndpointsCreateCopyFlagConfigApprovalRequestRequest() // ApprovalsEndpointsCreateCopyFlagConfigApprovalRequestRequest | 
+    createCopyFlagConfigApprovalRequestRequest := *openapiclient.NewCreateCopyFlagConfigApprovalRequestRequest([]string{"NotifyMemberIds_example"}, *openapiclient.NewSourceFlag("Key_example")) // CreateCopyFlagConfigApprovalRequestRequest | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ApprovalsApi.PostFlagCopyConfigApprovalRequest(context.Background(), projectKey, featureFlagKey, environmentKey).ApprovalsEndpointsCreateCopyFlagConfigApprovalRequestRequest(approvalsEndpointsCreateCopyFlagConfigApprovalRequestRequest).Execute()
+    resp, r, err := api_client.ApprovalsApi.PostFlagCopyConfigApprovalRequest(context.Background(), projectKey, featureFlagKey, environmentKey).CreateCopyFlagConfigApprovalRequestRequest(createCopyFlagConfigApprovalRequestRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.PostFlagCopyConfigApprovalRequest``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostFlagCopyConfigApprovalRequest`: WebFlagConfigApprovalRequestResponse
+    // response from `PostFlagCopyConfigApprovalRequest`: FlagConfigApprovalRequestResponse
     fmt.Fprintf(os.Stdout, "Response from `ApprovalsApi.PostFlagCopyConfigApprovalRequest`: %v\n", resp)
 }
 ```
@@ -544,11 +544,11 @@ Name | Type | Description  | Notes
 
 
 
- **approvalsEndpointsCreateCopyFlagConfigApprovalRequestRequest** | [**ApprovalsEndpointsCreateCopyFlagConfigApprovalRequestRequest**](ApprovalsEndpointsCreateCopyFlagConfigApprovalRequestRequest.md) |  | 
+ **createCopyFlagConfigApprovalRequestRequest** | [**CreateCopyFlagConfigApprovalRequestRequest**](CreateCopyFlagConfigApprovalRequestRequest.md) |  | 
 
 ### Return type
 
-[**WebFlagConfigApprovalRequestResponse**](WebFlagConfigApprovalRequestResponse.md)
+[**FlagConfigApprovalRequestResponse**](FlagConfigApprovalRequestResponse.md)
 
 ### Authorization
 

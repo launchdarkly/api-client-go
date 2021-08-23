@@ -82,7 +82,7 @@ Name | Type | Description  | Notes
 
 ## GetCustomRole
 
-> CustomRoleRep GetCustomRole(ctx, key).Execute()
+> CustomRolePost GetCustomRole(ctx, key).Execute()
 
 Get custom role
 
@@ -101,7 +101,7 @@ import (
 )
 
 func main() {
-    key := "key_example" // string | The custom role's key
+    key := "key_example" // string | The custom role's key or ID
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -110,7 +110,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `CustomRolesApi.GetCustomRole``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetCustomRole`: CustomRoleRep
+    // response from `GetCustomRole`: CustomRolePost
     fmt.Fprintf(os.Stdout, "Response from `CustomRolesApi.GetCustomRole`: %v\n", resp)
 }
 ```
@@ -121,7 +121,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**key** | **string** | The custom role&#39;s key | 
+**key** | **string** | The custom role&#39;s key or ID | 
 
 ### Other Parameters
 
@@ -134,7 +134,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CustomRoleRep**](CustomRoleRep.md)
+[**CustomRolePost**](CustomRolePost.md)
 
 ### Authorization
 
@@ -152,7 +152,7 @@ Name | Type | Description  | Notes
 
 ## GetCustomRoles
 
-> CustomRoleCollectionRep GetCustomRoles(ctx).Execute()
+> CustomRoles GetCustomRoles(ctx).Execute()
 
 List custom roles
 
@@ -179,7 +179,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `CustomRolesApi.GetCustomRoles``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetCustomRoles`: CustomRoleCollectionRep
+    // response from `GetCustomRoles`: CustomRoles
     fmt.Fprintf(os.Stdout, "Response from `CustomRolesApi.GetCustomRoles`: %v\n", resp)
 }
 ```
@@ -195,7 +195,7 @@ Other parameters are passed through a pointer to a apiGetCustomRolesRequest stru
 
 ### Return type
 
-[**CustomRoleCollectionRep**](CustomRoleCollectionRep.md)
+[**CustomRoles**](CustomRoles.md)
 
 ### Authorization
 
@@ -213,7 +213,7 @@ Other parameters are passed through a pointer to a apiGetCustomRolesRequest stru
 
 ## PatchCustomRole
 
-> CustomRoleRep PatchCustomRole(ctx, key).JSONPatchElt(jSONPatchElt).Execute()
+> CustomRole PatchCustomRole(ctx, key).PatchWithComment(patchWithComment).Execute()
 
 Update custom role
 
@@ -233,16 +233,16 @@ import (
 
 func main() {
     key := "key_example" // string | The key of the custom role to update
-    jSONPatchElt := []openapiclient.JSONPatchElt{*openapiclient.NewJSONPatchElt("replace", "/biscuits", interface{}(Chocolate Digestive))} // []JSONPatchElt | 
+    patchWithComment := *openapiclient.NewPatchWithComment([]openapiclient.JSONPatchElt{*openapiclient.NewJSONPatchElt("replace", "/biscuits", interface{}(Chocolate Digestive))}) // PatchWithComment | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CustomRolesApi.PatchCustomRole(context.Background(), key).JSONPatchElt(jSONPatchElt).Execute()
+    resp, r, err := api_client.CustomRolesApi.PatchCustomRole(context.Background(), key).PatchWithComment(patchWithComment).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CustomRolesApi.PatchCustomRole``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PatchCustomRole`: CustomRoleRep
+    // response from `PatchCustomRole`: CustomRole
     fmt.Fprintf(os.Stdout, "Response from `CustomRolesApi.PatchCustomRole`: %v\n", resp)
 }
 ```
@@ -263,11 +263,11 @@ Other parameters are passed through a pointer to a apiPatchCustomRoleRequest str
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **jSONPatchElt** | [**[]JSONPatchElt**](JSONPatchElt.md) |  | 
+ **patchWithComment** | [**PatchWithComment**](PatchWithComment.md) |  | 
 
 ### Return type
 
-[**CustomRoleRep**](CustomRoleRep.md)
+[**CustomRole**](CustomRole.md)
 
 ### Authorization
 
@@ -285,7 +285,7 @@ Name | Type | Description  | Notes
 
 ## PostCustomRole
 
-> CustomRoleRep PostCustomRole(ctx).RolesStatementPost(rolesStatementPost).Execute()
+> CustomRole PostCustomRole(ctx).StatementPost(statementPost).Execute()
 
 Create custom role
 
@@ -304,16 +304,16 @@ import (
 )
 
 func main() {
-    rolesStatementPost := []openapiclient.RolesStatementPost{*openapiclient.NewRolesStatementPost()} // []RolesStatementPost | 
+    statementPost := []openapiclient.StatementPost{*openapiclient.NewStatementPost("Effect_example")} // []StatementPost | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CustomRolesApi.PostCustomRole(context.Background()).RolesStatementPost(rolesStatementPost).Execute()
+    resp, r, err := api_client.CustomRolesApi.PostCustomRole(context.Background()).StatementPost(statementPost).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CustomRolesApi.PostCustomRole``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostCustomRole`: CustomRoleRep
+    // response from `PostCustomRole`: CustomRole
     fmt.Fprintf(os.Stdout, "Response from `CustomRolesApi.PostCustomRole`: %v\n", resp)
 }
 ```
@@ -329,11 +329,11 @@ Other parameters are passed through a pointer to a apiPostCustomRoleRequest stru
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **rolesStatementPost** | [**[]RolesStatementPost**](RolesStatementPost.md) |  | 
+ **statementPost** | [**[]StatementPost**](StatementPost.md) |  | 
 
 ### Return type
 
-[**CustomRoleRep**](CustomRoleRep.md)
+[**CustomRole**](CustomRole.md)
 
 ### Authorization
 

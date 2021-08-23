@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Links** | Pointer to [**map[string]CoreLink**](CoreLink.md) |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**LastRequested** | Pointer to **time.Time** |  | [optional] 
-**Default** | Pointer to **interface{}** |  | [optional] 
+**Links** | [**map[string]Link**](Link.md) |  | 
+**Name** | Pointer to **string** | Status of the flag | [optional] 
+**LastRequested** | Pointer to **time.Time** | Timestamp of last time flag was requested | [optional] 
+**Default** | Pointer to **interface{}** | Default value seen from code | [optional] 
 
 ## Methods
 
 ### NewFlagStatusRep
 
-`func NewFlagStatusRep() *FlagStatusRep`
+`func NewFlagStatusRep(links map[string]Link, ) *FlagStatusRep`
 
 NewFlagStatusRep instantiates a new FlagStatusRep object
 This constructor will assign default values to properties that have it defined,
@@ -30,28 +30,23 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetLinks
 
-`func (o *FlagStatusRep) GetLinks() map[string]CoreLink`
+`func (o *FlagStatusRep) GetLinks() map[string]Link`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *FlagStatusRep) GetLinksOk() (*map[string]CoreLink, bool)`
+`func (o *FlagStatusRep) GetLinksOk() (*map[string]Link, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *FlagStatusRep) SetLinks(v map[string]CoreLink)`
+`func (o *FlagStatusRep) SetLinks(v map[string]Link)`
 
 SetLinks sets Links field to given value.
 
-### HasLinks
-
-`func (o *FlagStatusRep) HasLinks() bool`
-
-HasLinks returns a boolean if a field has been set.
 
 ### GetName
 

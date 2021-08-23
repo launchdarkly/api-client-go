@@ -4,17 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** |  | [optional] 
-**Key** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**Kind** | Pointer to **string** |  | [optional] 
+**Id** | **string** |  | 
+**Key** | **string** |  | 
+**Name** | **string** |  | 
+**Kind** | **string** |  | 
 **AttachedFlagCount** | Pointer to **int32** |  | [optional] 
-**Links** | Pointer to [**map[string]CoreLink**](CoreLink.md) |  | [optional] 
-**Site** | Pointer to [**CoreLink**](CoreLink.md) |  | [optional] 
+**Links** | [**map[string]Link**](Link.md) |  | 
+**Site** | Pointer to [**Link**](Link.md) |  | [optional] 
 **Access** | Pointer to [**AccessRep**](AccessRep.md) |  | [optional] 
-**Tags** | Pointer to **[]string** |  | [optional] 
-**CreationDate** | Pointer to **int64** |  | [optional] 
-**LastModified** | Pointer to [**GoalsModification**](GoalsModification.md) |  | [optional] 
+**Tags** | **[]string** |  | 
+**CreationDate** | **int64** |  | 
+**LastModified** | Pointer to [**Modification**](Modification.md) |  | [optional] 
 **MaintainerId** | Pointer to **string** |  | [optional] 
 **Maintainer** | Pointer to [**MemberSummaryRep**](MemberSummaryRep.md) |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
@@ -32,7 +32,7 @@ Name | Type | Description | Notes
 
 ### NewMetricRep
 
-`func NewMetricRep() *MetricRep`
+`func NewMetricRep(id string, key string, name string, kind string, links map[string]Link, tags []string, creationDate int64, ) *MetricRep`
 
 NewMetricRep instantiates a new MetricRep object
 This constructor will assign default values to properties that have it defined,
@@ -66,11 +66,6 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
-### HasId
-
-`func (o *MetricRep) HasId() bool`
-
-HasId returns a boolean if a field has been set.
 
 ### GetKey
 
@@ -91,11 +86,6 @@ and a boolean to check if the value has been set.
 
 SetKey sets Key field to given value.
 
-### HasKey
-
-`func (o *MetricRep) HasKey() bool`
-
-HasKey returns a boolean if a field has been set.
 
 ### GetName
 
@@ -116,11 +106,6 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
-### HasName
-
-`func (o *MetricRep) HasName() bool`
-
-HasName returns a boolean if a field has been set.
 
 ### GetKind
 
@@ -141,11 +126,6 @@ and a boolean to check if the value has been set.
 
 SetKind sets Kind field to given value.
 
-### HasKind
-
-`func (o *MetricRep) HasKind() bool`
-
-HasKind returns a boolean if a field has been set.
 
 ### GetAttachedFlagCount
 
@@ -174,45 +154,40 @@ HasAttachedFlagCount returns a boolean if a field has been set.
 
 ### GetLinks
 
-`func (o *MetricRep) GetLinks() map[string]CoreLink`
+`func (o *MetricRep) GetLinks() map[string]Link`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *MetricRep) GetLinksOk() (*map[string]CoreLink, bool)`
+`func (o *MetricRep) GetLinksOk() (*map[string]Link, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *MetricRep) SetLinks(v map[string]CoreLink)`
+`func (o *MetricRep) SetLinks(v map[string]Link)`
 
 SetLinks sets Links field to given value.
 
-### HasLinks
-
-`func (o *MetricRep) HasLinks() bool`
-
-HasLinks returns a boolean if a field has been set.
 
 ### GetSite
 
-`func (o *MetricRep) GetSite() CoreLink`
+`func (o *MetricRep) GetSite() Link`
 
 GetSite returns the Site field if non-nil, zero value otherwise.
 
 ### GetSiteOk
 
-`func (o *MetricRep) GetSiteOk() (*CoreLink, bool)`
+`func (o *MetricRep) GetSiteOk() (*Link, bool)`
 
 GetSiteOk returns a tuple with the Site field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSite
 
-`func (o *MetricRep) SetSite(v CoreLink)`
+`func (o *MetricRep) SetSite(v Link)`
 
 SetSite sets Site field to given value.
 
@@ -266,11 +241,6 @@ and a boolean to check if the value has been set.
 
 SetTags sets Tags field to given value.
 
-### HasTags
-
-`func (o *MetricRep) HasTags() bool`
-
-HasTags returns a boolean if a field has been set.
 
 ### GetCreationDate
 
@@ -291,28 +261,23 @@ and a boolean to check if the value has been set.
 
 SetCreationDate sets CreationDate field to given value.
 
-### HasCreationDate
-
-`func (o *MetricRep) HasCreationDate() bool`
-
-HasCreationDate returns a boolean if a field has been set.
 
 ### GetLastModified
 
-`func (o *MetricRep) GetLastModified() GoalsModification`
+`func (o *MetricRep) GetLastModified() Modification`
 
 GetLastModified returns the LastModified field if non-nil, zero value otherwise.
 
 ### GetLastModifiedOk
 
-`func (o *MetricRep) GetLastModifiedOk() (*GoalsModification, bool)`
+`func (o *MetricRep) GetLastModifiedOk() (*Modification, bool)`
 
 GetLastModifiedOk returns a tuple with the LastModified field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLastModified
 
-`func (o *MetricRep) SetLastModified(v GoalsModification)`
+`func (o *MetricRep) SetLastModified(v Modification)`
 
 SetLastModified sets LastModified field to given value.
 

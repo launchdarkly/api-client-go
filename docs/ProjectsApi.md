@@ -4,10 +4,10 @@ All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteProject**](ProjectsApi.md#DeleteProject) | **Delete** /api/v2/projects/{projectKey} | Delete project by key
-[**GetProject**](ProjectsApi.md#GetProject) | **Get** /api/v2/projects/{projectKey} | Get project by key
-[**GetProjects**](ProjectsApi.md#GetProjects) | **Get** /api/v2/projects | Get all projects
-[**PatchProject**](ProjectsApi.md#PatchProject) | **Patch** /api/v2/projects/{projectKey} | Patch project by key
+[**DeleteProject**](ProjectsApi.md#DeleteProject) | **Delete** /api/v2/projects/{projectKey} | Delete project
+[**GetProject**](ProjectsApi.md#GetProject) | **Get** /api/v2/projects/{projectKey} | Get project
+[**GetProjects**](ProjectsApi.md#GetProjects) | **Get** /api/v2/projects | List projects
+[**PatchProject**](ProjectsApi.md#PatchProject) | **Patch** /api/v2/projects/{projectKey} | Update project
 [**PostProject**](ProjectsApi.md#PostProject) | **Post** /api/v2/projects | Create project
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > DeleteProject(ctx, projectKey).Execute()
 
-Delete project by key
+Delete project
 
 
 
@@ -82,9 +82,9 @@ Name | Type | Description  | Notes
 
 ## GetProject
 
-> ProjectRep GetProject(ctx, projectKey).Execute()
+> Project GetProject(ctx, projectKey).Execute()
 
-Get project by key
+Get project
 
 
 
@@ -110,7 +110,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `ProjectsApi.GetProject``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetProject`: ProjectRep
+    // response from `GetProject`: Project
     fmt.Fprintf(os.Stdout, "Response from `ProjectsApi.GetProject`: %v\n", resp)
 }
 ```
@@ -134,7 +134,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ProjectRep**](ProjectRep.md)
+[**Project**](Project.md)
 
 ### Authorization
 
@@ -152,9 +152,9 @@ Name | Type | Description  | Notes
 
 ## GetProjects
 
-> ProjectCollectionRep GetProjects(ctx).Execute()
+> Projects GetProjects(ctx).Execute()
 
-Get all projects
+List projects
 
 
 
@@ -179,7 +179,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `ProjectsApi.GetProjects``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetProjects`: ProjectCollectionRep
+    // response from `GetProjects`: Projects
     fmt.Fprintf(os.Stdout, "Response from `ProjectsApi.GetProjects`: %v\n", resp)
 }
 ```
@@ -195,7 +195,7 @@ Other parameters are passed through a pointer to a apiGetProjectsRequest struct 
 
 ### Return type
 
-[**ProjectCollectionRep**](ProjectCollectionRep.md)
+[**Projects**](Projects.md)
 
 ### Authorization
 
@@ -213,9 +213,9 @@ Other parameters are passed through a pointer to a apiGetProjectsRequest struct 
 
 ## PatchProject
 
-> ProjectRep PatchProject(ctx, projectKey).JSONPatchElt(jSONPatchElt).Execute()
+> Project PatchProject(ctx, projectKey).JSONPatchElt(jSONPatchElt).Execute()
 
-Patch project by key
+Update project
 
 
 
@@ -242,7 +242,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `ProjectsApi.PatchProject``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PatchProject`: ProjectRep
+    // response from `PatchProject`: Project
     fmt.Fprintf(os.Stdout, "Response from `ProjectsApi.PatchProject`: %v\n", resp)
 }
 ```
@@ -267,7 +267,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ProjectRep**](ProjectRep.md)
+[**Project**](Project.md)
 
 ### Authorization
 
@@ -285,7 +285,7 @@ Name | Type | Description  | Notes
 
 ## PostProject
 
-> ProjectRep PostProject(ctx).ProjectPost(projectPost).Execute()
+> Project PostProject(ctx).ProjectPost(projectPost).Execute()
 
 Create project
 
@@ -313,7 +313,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `ProjectsApi.PostProject``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostProject`: ProjectRep
+    // response from `PostProject`: Project
     fmt.Fprintf(os.Stdout, "Response from `ProjectsApi.PostProject`: %v\n", resp)
 }
 ```
@@ -333,7 +333,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ProjectRep**](ProjectRep.md)
+[**Project**](Project.md)
 
 ### Authorization
 

@@ -6,8 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** |  | 
 **Key** | **string** |  | 
-**Links** | Pointer to [**map[string]CoreLink**](CoreLink.md) |  | [optional] 
-**Site** | Pointer to [**CoreLink**](CoreLink.md) |  | [optional] 
+**Links** | Pointer to [**map[string]Link**](Link.md) |  | [optional] 
+**Site** | Pointer to [**Link**](Link.md) |  | [optional] 
 
 ## Methods
 
@@ -70,20 +70,20 @@ SetKey sets Key field to given value.
 
 ### GetLinks
 
-`func (o *FlagListingRep) GetLinks() map[string]CoreLink`
+`func (o *FlagListingRep) GetLinks() map[string]Link`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *FlagListingRep) GetLinksOk() (*map[string]CoreLink, bool)`
+`func (o *FlagListingRep) GetLinksOk() (*map[string]Link, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *FlagListingRep) SetLinks(v map[string]CoreLink)`
+`func (o *FlagListingRep) SetLinks(v map[string]Link)`
 
 SetLinks sets Links field to given value.
 
@@ -95,20 +95,20 @@ HasLinks returns a boolean if a field has been set.
 
 ### GetSite
 
-`func (o *FlagListingRep) GetSite() CoreLink`
+`func (o *FlagListingRep) GetSite() Link`
 
 GetSite returns the Site field if non-nil, zero value otherwise.
 
 ### GetSiteOk
 
-`func (o *FlagListingRep) GetSiteOk() (*CoreLink, bool)`
+`func (o *FlagListingRep) GetSiteOk() (*Link, bool)`
 
 GetSiteOk returns a tuple with the Site field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSite
 
-`func (o *FlagListingRep) SetSite(v CoreLink)`
+`func (o *FlagListingRep) SetSite(v Link)`
 
 SetSite sets Site field to given value.
 

@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | Pointer to **string** | A human-friendly name for the new environment. | [optional] 
-**Key** | Pointer to **string** | A project-unique key for the new environment. | [optional] 
-**Color** | Pointer to **string** | A color to indicate this environment in the UI. | [optional] 
+**Name** | **string** | A human-friendly name for the new environment. | 
+**Key** | **string** | A project-unique key for the new environment. | 
+**Color** | **string** | A color to indicate this environment in the UI. | 
 **DefaultTtl** | Pointer to **int32** | The default time (in minutes) that the PHP SDK can cache feature flag rules locally. | [optional] 
 **SecureMode** | Pointer to **bool** | Secure mode ensures that a user of the client-side SDK cannot impersonate another user. | [optional] 
 **DefaultTrackEvents** | Pointer to **bool** | Enables tracking detailed information for new flags by default. | [optional] 
@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 
 ### NewEnvironmentPost
 
-`func NewEnvironmentPost() *EnvironmentPost`
+`func NewEnvironmentPost(name string, key string, color string, ) *EnvironmentPost`
 
 NewEnvironmentPost instantiates a new EnvironmentPost object
 This constructor will assign default values to properties that have it defined,
@@ -52,11 +52,6 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
-### HasName
-
-`func (o *EnvironmentPost) HasName() bool`
-
-HasName returns a boolean if a field has been set.
 
 ### GetKey
 
@@ -77,11 +72,6 @@ and a boolean to check if the value has been set.
 
 SetKey sets Key field to given value.
 
-### HasKey
-
-`func (o *EnvironmentPost) HasKey() bool`
-
-HasKey returns a boolean if a field has been set.
 
 ### GetColor
 
@@ -102,11 +92,6 @@ and a boolean to check if the value has been set.
 
 SetColor sets Color field to given value.
 
-### HasColor
-
-`func (o *EnvironmentPost) HasColor() bool`
-
-HasColor returns a boolean if a field has been set.
 
 ### GetDefaultTtl
 

@@ -6,14 +6,14 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | Pointer to **string** |  | [optional] 
 **Key** | **string** |  | 
-**Links** | [**map[string]CoreLink**](CoreLink.md) |  | 
-**Site** | [**CoreLink**](CoreLink.md) |  | 
+**Links** | [**map[string]Link**](Link.md) |  | 
+**Site** | [**Link**](Link.md) |  | 
 
 ## Methods
 
 ### NewDependentFlag
 
-`func NewDependentFlag(key string, links map[string]CoreLink, site CoreLink, ) *DependentFlag`
+`func NewDependentFlag(key string, links map[string]Link, site Link, ) *DependentFlag`
 
 NewDependentFlag instantiates a new DependentFlag object
 This constructor will assign default values to properties that have it defined,
@@ -75,40 +75,40 @@ SetKey sets Key field to given value.
 
 ### GetLinks
 
-`func (o *DependentFlag) GetLinks() map[string]CoreLink`
+`func (o *DependentFlag) GetLinks() map[string]Link`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *DependentFlag) GetLinksOk() (*map[string]CoreLink, bool)`
+`func (o *DependentFlag) GetLinksOk() (*map[string]Link, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *DependentFlag) SetLinks(v map[string]CoreLink)`
+`func (o *DependentFlag) SetLinks(v map[string]Link)`
 
 SetLinks sets Links field to given value.
 
 
 ### GetSite
 
-`func (o *DependentFlag) GetSite() CoreLink`
+`func (o *DependentFlag) GetSite() Link`
 
 GetSite returns the Site field if non-nil, zero value otherwise.
 
 ### GetSiteOk
 
-`func (o *DependentFlag) GetSiteOk() (*CoreLink, bool)`
+`func (o *DependentFlag) GetSiteOk() (*Link, bool)`
 
 GetSiteOk returns a tuple with the Site field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSite
 
-`func (o *DependentFlag) SetSite(v CoreLink)`
+`func (o *DependentFlag) SetSite(v Link)`
 
 SetSite sets Site field to given value.
 

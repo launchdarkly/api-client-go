@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Items** | Pointer to [**[]AuditLogEntryListingRep**](AuditLogEntryListingRep.md) |  | [optional] 
-**Links** | Pointer to [**map[string]CoreLink**](CoreLink.md) |  | [optional] 
+**Items** | [**[]AuditLogEntryListingRep**](AuditLogEntryListingRep.md) |  | 
+**Links** | [**map[string]Link**](Link.md) |  | 
 
 ## Methods
 
 ### NewAuditLogEntryListingRepCollection
 
-`func NewAuditLogEntryListingRepCollection() *AuditLogEntryListingRepCollection`
+`func NewAuditLogEntryListingRepCollection(items []AuditLogEntryListingRep, links map[string]Link, ) *AuditLogEntryListingRepCollection`
 
 NewAuditLogEntryListingRepCollection instantiates a new AuditLogEntryListingRepCollection object
 This constructor will assign default values to properties that have it defined,
@@ -45,36 +45,26 @@ and a boolean to check if the value has been set.
 
 SetItems sets Items field to given value.
 
-### HasItems
-
-`func (o *AuditLogEntryListingRepCollection) HasItems() bool`
-
-HasItems returns a boolean if a field has been set.
 
 ### GetLinks
 
-`func (o *AuditLogEntryListingRepCollection) GetLinks() map[string]CoreLink`
+`func (o *AuditLogEntryListingRepCollection) GetLinks() map[string]Link`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *AuditLogEntryListingRepCollection) GetLinksOk() (*map[string]CoreLink, bool)`
+`func (o *AuditLogEntryListingRepCollection) GetLinksOk() (*map[string]Link, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *AuditLogEntryListingRepCollection) SetLinks(v map[string]CoreLink)`
+`func (o *AuditLogEntryListingRepCollection) SetLinks(v map[string]Link)`
 
 SetLinks sets Links field to given value.
 
-### HasLinks
-
-`func (o *AuditLogEntryListingRepCollection) HasLinks() bool`
-
-HasLinks returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

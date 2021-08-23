@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Time** | Pointer to **interface{}** |  | [optional] 
-**VariationData** | Pointer to **interface{}** |  | [optional] 
+**Time** | Pointer to **int64** |  | [optional] 
+**VariationData** | Pointer to [**[]ExperimentTimeSeriesVariationSlice**](ExperimentTimeSeriesVariationSlice.md) |  | [optional] 
 
 ## Methods
 
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetTime
 
-`func (o *ExperimentTimeSeriesSlice) GetTime() interface{}`
+`func (o *ExperimentTimeSeriesSlice) GetTime() int64`
 
 GetTime returns the Time field if non-nil, zero value otherwise.
 
 ### GetTimeOk
 
-`func (o *ExperimentTimeSeriesSlice) GetTimeOk() (*interface{}, bool)`
+`func (o *ExperimentTimeSeriesSlice) GetTimeOk() (*int64, bool)`
 
 GetTimeOk returns a tuple with the Time field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTime
 
-`func (o *ExperimentTimeSeriesSlice) SetTime(v interface{})`
+`func (o *ExperimentTimeSeriesSlice) SetTime(v int64)`
 
 SetTime sets Time field to given value.
 
@@ -51,32 +51,22 @@ SetTime sets Time field to given value.
 
 HasTime returns a boolean if a field has been set.
 
-### SetTimeNil
-
-`func (o *ExperimentTimeSeriesSlice) SetTimeNil(b bool)`
-
- SetTimeNil sets the value for Time to be an explicit nil
-
-### UnsetTime
-`func (o *ExperimentTimeSeriesSlice) UnsetTime()`
-
-UnsetTime ensures that no value is present for Time, not even an explicit nil
 ### GetVariationData
 
-`func (o *ExperimentTimeSeriesSlice) GetVariationData() interface{}`
+`func (o *ExperimentTimeSeriesSlice) GetVariationData() []ExperimentTimeSeriesVariationSlice`
 
 GetVariationData returns the VariationData field if non-nil, zero value otherwise.
 
 ### GetVariationDataOk
 
-`func (o *ExperimentTimeSeriesSlice) GetVariationDataOk() (*interface{}, bool)`
+`func (o *ExperimentTimeSeriesSlice) GetVariationDataOk() (*[]ExperimentTimeSeriesVariationSlice, bool)`
 
 GetVariationDataOk returns a tuple with the VariationData field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVariationData
 
-`func (o *ExperimentTimeSeriesSlice) SetVariationData(v interface{})`
+`func (o *ExperimentTimeSeriesSlice) SetVariationData(v []ExperimentTimeSeriesVariationSlice)`
 
 SetVariationData sets VariationData field to given value.
 
@@ -86,16 +76,6 @@ SetVariationData sets VariationData field to given value.
 
 HasVariationData returns a boolean if a field has been set.
 
-### SetVariationDataNil
-
-`func (o *ExperimentTimeSeriesSlice) SetVariationDataNil(b bool)`
-
- SetVariationDataNil sets the value for VariationData to be an explicit nil
-
-### UnsetVariationData
-`func (o *ExperimentTimeSeriesSlice) UnsetVariationData()`
-
-UnsetVariationData ensures that no value is present for VariationData, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

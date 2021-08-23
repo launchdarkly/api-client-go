@@ -35,7 +35,7 @@ import (
 func main() {
     projKey := "projKey_example" // string | The project key
     envKey := "envKey_example" // string | The environment key
-    id := "id_example" // string | The data export destination ID
+    id := "id_example" // string | The Data Export destination ID
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -55,7 +55,7 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **projKey** | **string** | The project key | 
 **envKey** | **string** | The environment key | 
-**id** | **string** | The data export destination ID | 
+**id** | **string** | The Data Export destination ID | 
 
 ### Other Parameters
 
@@ -88,7 +88,7 @@ Name | Type | Description  | Notes
 
 ## GetDestination
 
-> DestinationRep GetDestination(ctx, projKey, envKey, id).Execute()
+> Destination GetDestination(ctx, projKey, envKey, id).Execute()
 
 Get destination
 
@@ -118,7 +118,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `DataExportDestinationsApi.GetDestination``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetDestination`: DestinationRep
+    // response from `GetDestination`: Destination
     fmt.Fprintf(os.Stdout, "Response from `DataExportDestinationsApi.GetDestination`: %v\n", resp)
 }
 ```
@@ -146,7 +146,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DestinationRep**](DestinationRep.md)
+[**Destination**](Destination.md)
 
 ### Authorization
 
@@ -164,7 +164,7 @@ Name | Type | Description  | Notes
 
 ## GetDestinations
 
-> DestinationCollectionRep GetDestinations(ctx).Execute()
+> Destinations GetDestinations(ctx).Execute()
 
 List destinations
 
@@ -191,7 +191,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `DataExportDestinationsApi.GetDestinations``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetDestinations`: DestinationCollectionRep
+    // response from `GetDestinations`: Destinations
     fmt.Fprintf(os.Stdout, "Response from `DataExportDestinationsApi.GetDestinations`: %v\n", resp)
 }
 ```
@@ -207,7 +207,7 @@ Other parameters are passed through a pointer to a apiGetDestinationsRequest str
 
 ### Return type
 
-[**DestinationCollectionRep**](DestinationCollectionRep.md)
+[**Destinations**](Destinations.md)
 
 ### Authorization
 
@@ -225,7 +225,7 @@ Other parameters are passed through a pointer to a apiGetDestinationsRequest str
 
 ## PatchDestination
 
-> DestinationRep PatchDestination(ctx, projKey, envKey, id).JSONPatchElt(jSONPatchElt).Execute()
+> Destination PatchDestination(ctx, projKey, envKey, id).JSONPatchElt(jSONPatchElt).Execute()
 
 Update Data Export destination
 
@@ -256,7 +256,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `DataExportDestinationsApi.PatchDestination``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PatchDestination`: DestinationRep
+    // response from `PatchDestination`: Destination
     fmt.Fprintf(os.Stdout, "Response from `DataExportDestinationsApi.PatchDestination`: %v\n", resp)
 }
 ```
@@ -285,7 +285,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DestinationRep**](DestinationRep.md)
+[**Destination**](Destination.md)
 
 ### Authorization
 
@@ -303,7 +303,7 @@ Name | Type | Description  | Notes
 
 ## PostDestination
 
-> DestinationRep PostDestination(ctx, projKey, envKey).DestinationPostRep(destinationPostRep).Execute()
+> Destination PostDestination(ctx, projKey, envKey).DestinationPost(destinationPost).Execute()
 
 Create data export destination
 
@@ -324,16 +324,16 @@ import (
 func main() {
     projKey := "projKey_example" // string | The project key
     envKey := "envKey_example" // string | The environment key
-    destinationPostRep := *openapiclient.NewDestinationPostRep() // DestinationPostRep | 
+    destinationPost := *openapiclient.NewDestinationPost() // DestinationPost | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DataExportDestinationsApi.PostDestination(context.Background(), projKey, envKey).DestinationPostRep(destinationPostRep).Execute()
+    resp, r, err := api_client.DataExportDestinationsApi.PostDestination(context.Background(), projKey, envKey).DestinationPost(destinationPost).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DataExportDestinationsApi.PostDestination``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostDestination`: DestinationRep
+    // response from `PostDestination`: Destination
     fmt.Fprintf(os.Stdout, "Response from `DataExportDestinationsApi.PostDestination`: %v\n", resp)
 }
 ```
@@ -356,11 +356,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **destinationPostRep** | [**DestinationPostRep**](DestinationPostRep.md) |  | 
+ **destinationPost** | [**DestinationPost**](DestinationPost.md) |  | 
 
 ### Return type
 
-[**DestinationRep**](DestinationRep.md)
+[**Destination**](Destination.md)
 
 ### Authorization
 

@@ -92,7 +92,7 @@ Name | Type | Description  | Notes
 
 ## GetFeatureFlagScheduledChange
 
-> ScheduledChangesRep GetFeatureFlagScheduledChange(ctx, projectKey, featureFlagKey, environmentKey, id).Execute()
+> ScheduledChange GetFeatureFlagScheduledChange(ctx, projectKey, featureFlagKey, environmentKey, id).Execute()
 
 Get a scheduled change
 
@@ -123,7 +123,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `ScheduledChangesApi.GetFeatureFlagScheduledChange``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetFeatureFlagScheduledChange`: ScheduledChangesRep
+    // response from `GetFeatureFlagScheduledChange`: ScheduledChange
     fmt.Fprintf(os.Stdout, "Response from `ScheduledChangesApi.GetFeatureFlagScheduledChange`: %v\n", resp)
 }
 ```
@@ -153,7 +153,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ScheduledChangesRep**](ScheduledChangesRep.md)
+[**ScheduledChange**](ScheduledChange.md)
 
 ### Authorization
 
@@ -171,7 +171,7 @@ Name | Type | Description  | Notes
 
 ## GetFlagConfigScheduledChanges
 
-> ScheduledChangesCollectionRep GetFlagConfigScheduledChanges(ctx, projectKey, featureFlagKey, environmentKey).Execute()
+> ScheduledChanges GetFlagConfigScheduledChanges(ctx, projectKey, featureFlagKey, environmentKey).Execute()
 
 List scheduled changes
 
@@ -201,7 +201,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `ScheduledChangesApi.GetFlagConfigScheduledChanges``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetFlagConfigScheduledChanges`: ScheduledChangesCollectionRep
+    // response from `GetFlagConfigScheduledChanges`: ScheduledChanges
     fmt.Fprintf(os.Stdout, "Response from `ScheduledChangesApi.GetFlagConfigScheduledChanges`: %v\n", resp)
 }
 ```
@@ -229,7 +229,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ScheduledChangesCollectionRep**](ScheduledChangesCollectionRep.md)
+[**ScheduledChanges**](ScheduledChanges.md)
 
 ### Authorization
 
@@ -247,7 +247,7 @@ Name | Type | Description  | Notes
 
 ## GetFlagConfigScheduledChangesConflicts
 
-> WebConflictResponse GetFlagConfigScheduledChangesConflicts(ctx, projectKey, featureFlagKey, environmentKey).WebReportFlagScheduledChangesInput(webReportFlagScheduledChangesInput).Execute()
+> ConflictResponse GetFlagConfigScheduledChangesConflicts(ctx, projectKey, featureFlagKey, environmentKey).ReportFlagScheduledChangesInput(reportFlagScheduledChangesInput).Execute()
 
 List conflicts for proposed instructions
 
@@ -269,16 +269,16 @@ func main() {
     projectKey := "projectKey_example" // string | The project key
     featureFlagKey := "featureFlagKey_example" // string | The feature flag's key
     environmentKey := "environmentKey_example" // string | The environment key
-    webReportFlagScheduledChangesInput := *openapiclient.NewWebReportFlagScheduledChangesInput() // WebReportFlagScheduledChangesInput | 
+    reportFlagScheduledChangesInput := *openapiclient.NewReportFlagScheduledChangesInput(int64(123), []map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}) // ReportFlagScheduledChangesInput | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ScheduledChangesApi.GetFlagConfigScheduledChangesConflicts(context.Background(), projectKey, featureFlagKey, environmentKey).WebReportFlagScheduledChangesInput(webReportFlagScheduledChangesInput).Execute()
+    resp, r, err := api_client.ScheduledChangesApi.GetFlagConfigScheduledChangesConflicts(context.Background(), projectKey, featureFlagKey, environmentKey).ReportFlagScheduledChangesInput(reportFlagScheduledChangesInput).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ScheduledChangesApi.GetFlagConfigScheduledChangesConflicts``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetFlagConfigScheduledChangesConflicts`: WebConflictResponse
+    // response from `GetFlagConfigScheduledChangesConflicts`: ConflictResponse
     fmt.Fprintf(os.Stdout, "Response from `ScheduledChangesApi.GetFlagConfigScheduledChangesConflicts`: %v\n", resp)
 }
 ```
@@ -303,11 +303,11 @@ Name | Type | Description  | Notes
 
 
 
- **webReportFlagScheduledChangesInput** | [**WebReportFlagScheduledChangesInput**](WebReportFlagScheduledChangesInput.md) |  | 
+ **reportFlagScheduledChangesInput** | [**ReportFlagScheduledChangesInput**](ReportFlagScheduledChangesInput.md) |  | 
 
 ### Return type
 
-[**WebConflictResponse**](WebConflictResponse.md)
+[**ConflictResponse**](ConflictResponse.md)
 
 ### Authorization
 
@@ -325,7 +325,7 @@ Name | Type | Description  | Notes
 
 ## PatchFlagConfigScheduledChange
 
-> ScheduledChangesRep PatchFlagConfigScheduledChange(ctx, projectKey, featureFlagKey, environmentKey, id).WebFlagScheduledChangesInput(webFlagScheduledChangesInput).Execute()
+> ScheduledChange PatchFlagConfigScheduledChange(ctx, projectKey, featureFlagKey, environmentKey, id).FlagScheduledChangesInput(flagScheduledChangesInput).IgnoreConflicts(ignoreConflicts).Execute()
 
 Update scheduled changes workflow
 
@@ -347,17 +347,18 @@ func main() {
     projectKey := "projectKey_example" // string | The project key
     featureFlagKey := "featureFlagKey_example" // string | The feature flag's key
     environmentKey := "environmentKey_example" // string | The environment key
-    id := "id_example" // string | The scheduled change id
-    webFlagScheduledChangesInput := *openapiclient.NewWebFlagScheduledChangesInput() // WebFlagScheduledChangesInput | 
+    id := "id_example" // string | The scheduled change ID
+    flagScheduledChangesInput := *openapiclient.NewFlagScheduledChangesInput([]map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}) // FlagScheduledChangesInput | 
+    ignoreConflicts := true // bool | Whether or not to succeed or fail when the new instructions conflict with existing scheduled changes (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ScheduledChangesApi.PatchFlagConfigScheduledChange(context.Background(), projectKey, featureFlagKey, environmentKey, id).WebFlagScheduledChangesInput(webFlagScheduledChangesInput).Execute()
+    resp, r, err := api_client.ScheduledChangesApi.PatchFlagConfigScheduledChange(context.Background(), projectKey, featureFlagKey, environmentKey, id).FlagScheduledChangesInput(flagScheduledChangesInput).IgnoreConflicts(ignoreConflicts).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ScheduledChangesApi.PatchFlagConfigScheduledChange``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PatchFlagConfigScheduledChange`: ScheduledChangesRep
+    // response from `PatchFlagConfigScheduledChange`: ScheduledChange
     fmt.Fprintf(os.Stdout, "Response from `ScheduledChangesApi.PatchFlagConfigScheduledChange`: %v\n", resp)
 }
 ```
@@ -371,7 +372,7 @@ Name | Type | Description  | Notes
 **projectKey** | **string** | The project key | 
 **featureFlagKey** | **string** | The feature flag&#39;s key | 
 **environmentKey** | **string** | The environment key | 
-**id** | **string** | The scheduled change id | 
+**id** | **string** | The scheduled change ID | 
 
 ### Other Parameters
 
@@ -384,11 +385,12 @@ Name | Type | Description  | Notes
 
 
 
- **webFlagScheduledChangesInput** | [**WebFlagScheduledChangesInput**](WebFlagScheduledChangesInput.md) |  | 
+ **flagScheduledChangesInput** | [**FlagScheduledChangesInput**](FlagScheduledChangesInput.md) |  | 
+ **ignoreConflicts** | **bool** | Whether or not to succeed or fail when the new instructions conflict with existing scheduled changes | 
 
 ### Return type
 
-[**ScheduledChangesRep**](ScheduledChangesRep.md)
+[**ScheduledChange**](ScheduledChange.md)
 
 ### Authorization
 
@@ -406,7 +408,7 @@ Name | Type | Description  | Notes
 
 ## PostFlagConfigScheduledChanges
 
-> ScheduledChangesRep PostFlagConfigScheduledChanges(ctx, projectKey, featureFlagKey, environmentKey).WebPostFlagScheduledChangesInput(webPostFlagScheduledChangesInput).IgnoreConflicts(ignoreConflicts).Execute()
+> ScheduledChange PostFlagConfigScheduledChanges(ctx, projectKey, featureFlagKey, environmentKey).PostFlagScheduledChangesInput(postFlagScheduledChangesInput).IgnoreConflicts(ignoreConflicts).Execute()
 
 Create scheduled changes workflow
 
@@ -428,17 +430,17 @@ func main() {
     projectKey := "projectKey_example" // string | The project key
     featureFlagKey := "featureFlagKey_example" // string | The feature flag's key
     environmentKey := "environmentKey_example" // string | The environment key
-    webPostFlagScheduledChangesInput := *openapiclient.NewWebPostFlagScheduledChangesInput() // WebPostFlagScheduledChangesInput | 
-    ignoreConflicts := true // bool | Pass in true to error on conflicts with current flag state or existing scheduled changes (optional)
+    postFlagScheduledChangesInput := *openapiclient.NewPostFlagScheduledChangesInput(int64(123), []map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}) // PostFlagScheduledChangesInput | 
+    ignoreConflicts := true // bool | Whether or not to succeed or fail when the new instructions conflict with existing scheduled changes (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ScheduledChangesApi.PostFlagConfigScheduledChanges(context.Background(), projectKey, featureFlagKey, environmentKey).WebPostFlagScheduledChangesInput(webPostFlagScheduledChangesInput).IgnoreConflicts(ignoreConflicts).Execute()
+    resp, r, err := api_client.ScheduledChangesApi.PostFlagConfigScheduledChanges(context.Background(), projectKey, featureFlagKey, environmentKey).PostFlagScheduledChangesInput(postFlagScheduledChangesInput).IgnoreConflicts(ignoreConflicts).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ScheduledChangesApi.PostFlagConfigScheduledChanges``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostFlagConfigScheduledChanges`: ScheduledChangesRep
+    // response from `PostFlagConfigScheduledChanges`: ScheduledChange
     fmt.Fprintf(os.Stdout, "Response from `ScheduledChangesApi.PostFlagConfigScheduledChanges`: %v\n", resp)
 }
 ```
@@ -463,12 +465,12 @@ Name | Type | Description  | Notes
 
 
 
- **webPostFlagScheduledChangesInput** | [**WebPostFlagScheduledChangesInput**](WebPostFlagScheduledChangesInput.md) |  | 
- **ignoreConflicts** | **bool** | Pass in true to error on conflicts with current flag state or existing scheduled changes | 
+ **postFlagScheduledChangesInput** | [**PostFlagScheduledChangesInput**](PostFlagScheduledChangesInput.md) |  | 
+ **ignoreConflicts** | **bool** | Whether or not to succeed or fail when the new instructions conflict with existing scheduled changes | 
 
 ### Return type
 
-[**ScheduledChangesRep**](ScheduledChangesRep.md)
+[**ScheduledChange**](ScheduledChange.md)
 
 ### Authorization
 

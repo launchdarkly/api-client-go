@@ -4,17 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** |  | [optional] 
-**Key** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**Kind** | Pointer to **string** |  | [optional] 
+**Id** | **string** |  | 
+**Key** | **string** |  | 
+**Name** | **string** |  | 
+**Kind** | **string** |  | 
 **AttachedFlagCount** | Pointer to **int32** |  | [optional] 
-**Links** | Pointer to [**map[string]CoreLink**](CoreLink.md) |  | [optional] 
-**Site** | Pointer to [**CoreLink**](CoreLink.md) |  | [optional] 
+**Links** | [**map[string]Link**](Link.md) |  | 
+**Site** | Pointer to [**Link**](Link.md) |  | [optional] 
 **Access** | Pointer to [**AccessRep**](AccessRep.md) |  | [optional] 
-**Tags** | Pointer to **[]string** |  | [optional] 
-**CreationDate** | Pointer to **int64** |  | [optional] 
-**LastModified** | Pointer to [**GoalsModification**](GoalsModification.md) |  | [optional] 
+**Tags** | **[]string** |  | 
+**CreationDate** | **int64** |  | 
+**LastModified** | Pointer to [**Modification**](Modification.md) |  | [optional] 
 **MaintainerId** | Pointer to **string** |  | [optional] 
 **Maintainer** | Pointer to [**MemberSummaryRep**](MemberSummaryRep.md) |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
@@ -22,17 +22,12 @@ Name | Type | Description | Notes
 **SuccessCriteria** | Pointer to **int32** |  | [optional] 
 **Unit** | Pointer to **string** |  | [optional] 
 **EventKey** | Pointer to **string** |  | [optional] 
-**IsActive** | Pointer to **bool** |  | [optional] 
-**AttachedFeatures** | Pointer to [**[]FlagListingRep**](FlagListingRep.md) |  | [optional] 
-**Version** | Pointer to **int32** |  | [optional] 
-**Selector** | Pointer to **string** |  | [optional] 
-**Urls** | Pointer to **[]interface{}** |  | [optional] 
 
 ## Methods
 
 ### NewMetricListingRep
 
-`func NewMetricListingRep() *MetricListingRep`
+`func NewMetricListingRep(id string, key string, name string, kind string, links map[string]Link, tags []string, creationDate int64, ) *MetricListingRep`
 
 NewMetricListingRep instantiates a new MetricListingRep object
 This constructor will assign default values to properties that have it defined,
@@ -66,11 +61,6 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
-### HasId
-
-`func (o *MetricListingRep) HasId() bool`
-
-HasId returns a boolean if a field has been set.
 
 ### GetKey
 
@@ -91,11 +81,6 @@ and a boolean to check if the value has been set.
 
 SetKey sets Key field to given value.
 
-### HasKey
-
-`func (o *MetricListingRep) HasKey() bool`
-
-HasKey returns a boolean if a field has been set.
 
 ### GetName
 
@@ -116,11 +101,6 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
-### HasName
-
-`func (o *MetricListingRep) HasName() bool`
-
-HasName returns a boolean if a field has been set.
 
 ### GetKind
 
@@ -141,11 +121,6 @@ and a boolean to check if the value has been set.
 
 SetKind sets Kind field to given value.
 
-### HasKind
-
-`func (o *MetricListingRep) HasKind() bool`
-
-HasKind returns a boolean if a field has been set.
 
 ### GetAttachedFlagCount
 
@@ -174,45 +149,40 @@ HasAttachedFlagCount returns a boolean if a field has been set.
 
 ### GetLinks
 
-`func (o *MetricListingRep) GetLinks() map[string]CoreLink`
+`func (o *MetricListingRep) GetLinks() map[string]Link`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *MetricListingRep) GetLinksOk() (*map[string]CoreLink, bool)`
+`func (o *MetricListingRep) GetLinksOk() (*map[string]Link, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *MetricListingRep) SetLinks(v map[string]CoreLink)`
+`func (o *MetricListingRep) SetLinks(v map[string]Link)`
 
 SetLinks sets Links field to given value.
 
-### HasLinks
-
-`func (o *MetricListingRep) HasLinks() bool`
-
-HasLinks returns a boolean if a field has been set.
 
 ### GetSite
 
-`func (o *MetricListingRep) GetSite() CoreLink`
+`func (o *MetricListingRep) GetSite() Link`
 
 GetSite returns the Site field if non-nil, zero value otherwise.
 
 ### GetSiteOk
 
-`func (o *MetricListingRep) GetSiteOk() (*CoreLink, bool)`
+`func (o *MetricListingRep) GetSiteOk() (*Link, bool)`
 
 GetSiteOk returns a tuple with the Site field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSite
 
-`func (o *MetricListingRep) SetSite(v CoreLink)`
+`func (o *MetricListingRep) SetSite(v Link)`
 
 SetSite sets Site field to given value.
 
@@ -266,11 +236,6 @@ and a boolean to check if the value has been set.
 
 SetTags sets Tags field to given value.
 
-### HasTags
-
-`func (o *MetricListingRep) HasTags() bool`
-
-HasTags returns a boolean if a field has been set.
 
 ### GetCreationDate
 
@@ -291,28 +256,23 @@ and a boolean to check if the value has been set.
 
 SetCreationDate sets CreationDate field to given value.
 
-### HasCreationDate
-
-`func (o *MetricListingRep) HasCreationDate() bool`
-
-HasCreationDate returns a boolean if a field has been set.
 
 ### GetLastModified
 
-`func (o *MetricListingRep) GetLastModified() GoalsModification`
+`func (o *MetricListingRep) GetLastModified() Modification`
 
 GetLastModified returns the LastModified field if non-nil, zero value otherwise.
 
 ### GetLastModifiedOk
 
-`func (o *MetricListingRep) GetLastModifiedOk() (*GoalsModification, bool)`
+`func (o *MetricListingRep) GetLastModifiedOk() (*Modification, bool)`
 
 GetLastModifiedOk returns a tuple with the LastModified field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLastModified
 
-`func (o *MetricListingRep) SetLastModified(v GoalsModification)`
+`func (o *MetricListingRep) SetLastModified(v Modification)`
 
 SetLastModified sets LastModified field to given value.
 
@@ -496,131 +456,6 @@ SetEventKey sets EventKey field to given value.
 `func (o *MetricListingRep) HasEventKey() bool`
 
 HasEventKey returns a boolean if a field has been set.
-
-### GetIsActive
-
-`func (o *MetricListingRep) GetIsActive() bool`
-
-GetIsActive returns the IsActive field if non-nil, zero value otherwise.
-
-### GetIsActiveOk
-
-`func (o *MetricListingRep) GetIsActiveOk() (*bool, bool)`
-
-GetIsActiveOk returns a tuple with the IsActive field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetIsActive
-
-`func (o *MetricListingRep) SetIsActive(v bool)`
-
-SetIsActive sets IsActive field to given value.
-
-### HasIsActive
-
-`func (o *MetricListingRep) HasIsActive() bool`
-
-HasIsActive returns a boolean if a field has been set.
-
-### GetAttachedFeatures
-
-`func (o *MetricListingRep) GetAttachedFeatures() []FlagListingRep`
-
-GetAttachedFeatures returns the AttachedFeatures field if non-nil, zero value otherwise.
-
-### GetAttachedFeaturesOk
-
-`func (o *MetricListingRep) GetAttachedFeaturesOk() (*[]FlagListingRep, bool)`
-
-GetAttachedFeaturesOk returns a tuple with the AttachedFeatures field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetAttachedFeatures
-
-`func (o *MetricListingRep) SetAttachedFeatures(v []FlagListingRep)`
-
-SetAttachedFeatures sets AttachedFeatures field to given value.
-
-### HasAttachedFeatures
-
-`func (o *MetricListingRep) HasAttachedFeatures() bool`
-
-HasAttachedFeatures returns a boolean if a field has been set.
-
-### GetVersion
-
-`func (o *MetricListingRep) GetVersion() int32`
-
-GetVersion returns the Version field if non-nil, zero value otherwise.
-
-### GetVersionOk
-
-`func (o *MetricListingRep) GetVersionOk() (*int32, bool)`
-
-GetVersionOk returns a tuple with the Version field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetVersion
-
-`func (o *MetricListingRep) SetVersion(v int32)`
-
-SetVersion sets Version field to given value.
-
-### HasVersion
-
-`func (o *MetricListingRep) HasVersion() bool`
-
-HasVersion returns a boolean if a field has been set.
-
-### GetSelector
-
-`func (o *MetricListingRep) GetSelector() string`
-
-GetSelector returns the Selector field if non-nil, zero value otherwise.
-
-### GetSelectorOk
-
-`func (o *MetricListingRep) GetSelectorOk() (*string, bool)`
-
-GetSelectorOk returns a tuple with the Selector field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetSelector
-
-`func (o *MetricListingRep) SetSelector(v string)`
-
-SetSelector sets Selector field to given value.
-
-### HasSelector
-
-`func (o *MetricListingRep) HasSelector() bool`
-
-HasSelector returns a boolean if a field has been set.
-
-### GetUrls
-
-`func (o *MetricListingRep) GetUrls() []interface{}`
-
-GetUrls returns the Urls field if non-nil, zero value otherwise.
-
-### GetUrlsOk
-
-`func (o *MetricListingRep) GetUrlsOk() (*[]interface{}, bool)`
-
-GetUrlsOk returns a tuple with the Urls field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetUrls
-
-`func (o *MetricListingRep) SetUrls(v []interface{})`
-
-SetUrls sets Urls field to given value.
-
-### HasUrls
-
-`func (o *MetricListingRep) HasUrls() bool`
-
-HasUrls returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

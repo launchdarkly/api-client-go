@@ -14,7 +14,7 @@ Method | HTTP request | Description
 [**GetRootStatistic**](CodeReferencesApi.md#GetRootStatistic) | **Get** /api/v2/code-refs/statistics | Get number of code references for flags
 [**GetStatistics**](CodeReferencesApi.md#GetStatistics) | **Get** /api/v2/code-refs/statistics/{projKey} | Get number of code references for flags
 [**PatchRepository**](CodeReferencesApi.md#PatchRepository) | **Patch** /api/v2/code-refs/repositories/{repo} | Update repository
-[**PostExtinction**](CodeReferencesApi.md#PostExtinction) | **Post** /api/v2/code-refs/repositories/{repo}/branches/{branch} | Post extinction
+[**PostExtinction**](CodeReferencesApi.md#PostExtinction) | **Post** /api/v2/code-refs/repositories/{repo}/branches/{branch} | Create extinction
 [**PostRepository**](CodeReferencesApi.md#PostRepository) | **Post** /api/v2/code-refs/repositories | Create repository
 [**PutBranch**](CodeReferencesApi.md#PutBranch) | **Put** /api/v2/code-refs/repositories/{repo}/branches/{branch} | Upsert branch
 
@@ -41,7 +41,7 @@ import (
 )
 
 func main() {
-    repo := "repo_example" // string | The repo name to delete branches for.
+    repo := "repo_example" // string | The repository name to delete branches for.
     requestBody := []string{"Property_example"} // []string | 
 
     configuration := openapiclient.NewConfiguration()
@@ -60,7 +60,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**repo** | **string** | The repo name to delete branches for. | 
+**repo** | **string** | The repository name to delete branches for. | 
 
 ### Other Parameters
 
@@ -160,7 +160,7 @@ Name | Type | Description  | Notes
 
 ## GetBranch
 
-> ApiBranchRep GetBranch(ctx, repo, branch).ProjKey(projKey).FlagKey(flagKey).Execute()
+> BranchRep GetBranch(ctx, repo, branch).ProjKey(projKey).FlagKey(flagKey).Execute()
 
 Get branch
 
@@ -191,7 +191,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `CodeReferencesApi.GetBranch``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetBranch`: ApiBranchRep
+    // response from `GetBranch`: BranchRep
     fmt.Fprintf(os.Stdout, "Response from `CodeReferencesApi.GetBranch`: %v\n", resp)
 }
 ```
@@ -219,7 +219,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiBranchRep**](ApiBranchRep.md)
+[**BranchRep**](BranchRep.md)
 
 ### Authorization
 
@@ -237,7 +237,7 @@ Name | Type | Description  | Notes
 
 ## GetBranches
 
-> ApiBranchCollectionRep GetBranches(ctx, repo).Execute()
+> BranchCollectionRep GetBranches(ctx, repo).Execute()
 
 List branches
 
@@ -265,7 +265,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `CodeReferencesApi.GetBranches``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetBranches`: ApiBranchCollectionRep
+    // response from `GetBranches`: BranchCollectionRep
     fmt.Fprintf(os.Stdout, "Response from `CodeReferencesApi.GetBranches`: %v\n", resp)
 }
 ```
@@ -289,7 +289,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiBranchCollectionRep**](ApiBranchCollectionRep.md)
+[**BranchCollectionRep**](BranchCollectionRep.md)
 
 ### Authorization
 
@@ -307,7 +307,7 @@ Name | Type | Description  | Notes
 
 ## GetExtinctions
 
-> ApiExtinctionCollectionRep GetExtinctions(ctx).RepoName(repoName).BranchName(branchName).ProjKey(projKey).FlagKey(flagKey).Execute()
+> ExtinctionCollectionRep GetExtinctions(ctx).RepoName(repoName).BranchName(branchName).ProjKey(projKey).FlagKey(flagKey).Execute()
 
 List extinctions
 
@@ -338,7 +338,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `CodeReferencesApi.GetExtinctions``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetExtinctions`: ApiExtinctionCollectionRep
+    // response from `GetExtinctions`: ExtinctionCollectionRep
     fmt.Fprintf(os.Stdout, "Response from `CodeReferencesApi.GetExtinctions`: %v\n", resp)
 }
 ```
@@ -361,7 +361,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiExtinctionCollectionRep**](ApiExtinctionCollectionRep.md)
+[**ExtinctionCollectionRep**](ExtinctionCollectionRep.md)
 
 ### Authorization
 
@@ -379,7 +379,7 @@ Name | Type | Description  | Notes
 
 ## GetRepositories
 
-> ApiRepositoryCollectionRep GetRepositories(ctx).WithBranches(withBranches).WithReferencesForDefaultBranch(withReferencesForDefaultBranch).ProjKey(projKey).FlagKey(flagKey).Execute()
+> RepositoryCollectionRep GetRepositories(ctx).WithBranches(withBranches).WithReferencesForDefaultBranch(withReferencesForDefaultBranch).ProjKey(projKey).FlagKey(flagKey).Execute()
 
 List repositories
 
@@ -410,7 +410,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `CodeReferencesApi.GetRepositories``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetRepositories`: ApiRepositoryCollectionRep
+    // response from `GetRepositories`: RepositoryCollectionRep
     fmt.Fprintf(os.Stdout, "Response from `CodeReferencesApi.GetRepositories`: %v\n", resp)
 }
 ```
@@ -433,7 +433,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiRepositoryCollectionRep**](ApiRepositoryCollectionRep.md)
+[**RepositoryCollectionRep**](RepositoryCollectionRep.md)
 
 ### Authorization
 
@@ -451,7 +451,7 @@ Name | Type | Description  | Notes
 
 ## GetRepository
 
-> ApiRepositoryRep GetRepository(ctx, repo).Execute()
+> RepositoryRep GetRepository(ctx, repo).Execute()
 
 Get repository
 
@@ -479,7 +479,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `CodeReferencesApi.GetRepository``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetRepository`: ApiRepositoryRep
+    // response from `GetRepository`: RepositoryRep
     fmt.Fprintf(os.Stdout, "Response from `CodeReferencesApi.GetRepository`: %v\n", resp)
 }
 ```
@@ -503,7 +503,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiRepositoryRep**](ApiRepositoryRep.md)
+[**RepositoryRep**](RepositoryRep.md)
 
 ### Authorization
 
@@ -521,7 +521,7 @@ Name | Type | Description  | Notes
 
 ## GetRootStatistic
 
-> ApiStatisticsRoot GetRootStatistic(ctx).Execute()
+> StatisticsRoot GetRootStatistic(ctx).Execute()
 
 Get number of code references for flags
 
@@ -548,7 +548,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `CodeReferencesApi.GetRootStatistic``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetRootStatistic`: ApiStatisticsRoot
+    // response from `GetRootStatistic`: StatisticsRoot
     fmt.Fprintf(os.Stdout, "Response from `CodeReferencesApi.GetRootStatistic`: %v\n", resp)
 }
 ```
@@ -564,7 +564,7 @@ Other parameters are passed through a pointer to a apiGetRootStatisticRequest st
 
 ### Return type
 
-[**ApiStatisticsRoot**](ApiStatisticsRoot.md)
+[**StatisticsRoot**](StatisticsRoot.md)
 
 ### Authorization
 
@@ -582,7 +582,7 @@ Other parameters are passed through a pointer to a apiGetRootStatisticRequest st
 
 ## GetStatistics
 
-> ApiStatisticCollectionRep GetStatistics(ctx, projKey).FlagKey(flagKey).Execute()
+> StatisticCollectionRep GetStatistics(ctx, projKey).FlagKey(flagKey).Execute()
 
 Get number of code references for flags
 
@@ -602,7 +602,7 @@ import (
 
 func main() {
     projKey := "projKey_example" // string | The project key
-    flagKey := "flagKey_example" // string | The feature flag key (optional)
+    flagKey := "flagKey_example" // string | Filter results to a specific flag key (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -611,7 +611,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `CodeReferencesApi.GetStatistics``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetStatistics`: ApiStatisticCollectionRep
+    // response from `GetStatistics`: StatisticCollectionRep
     fmt.Fprintf(os.Stdout, "Response from `CodeReferencesApi.GetStatistics`: %v\n", resp)
 }
 ```
@@ -632,11 +632,11 @@ Other parameters are passed through a pointer to a apiGetStatisticsRequest struc
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **flagKey** | **string** | The feature flag key | 
+ **flagKey** | **string** | Filter results to a specific flag key | 
 
 ### Return type
 
-[**ApiStatisticCollectionRep**](ApiStatisticCollectionRep.md)
+[**StatisticCollectionRep**](StatisticCollectionRep.md)
 
 ### Authorization
 
@@ -654,7 +654,7 @@ Name | Type | Description  | Notes
 
 ## PatchRepository
 
-> ApiRepositoryRep PatchRepository(ctx, repo).JSONPatchElt(jSONPatchElt).Execute()
+> RepositoryRep PatchRepository(ctx, repo).JSONPatchElt(jSONPatchElt).Execute()
 
 Update repository
 
@@ -683,7 +683,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `CodeReferencesApi.PatchRepository``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PatchRepository`: ApiRepositoryRep
+    // response from `PatchRepository`: RepositoryRep
     fmt.Fprintf(os.Stdout, "Response from `CodeReferencesApi.PatchRepository`: %v\n", resp)
 }
 ```
@@ -708,7 +708,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApiRepositoryRep**](ApiRepositoryRep.md)
+[**RepositoryRep**](RepositoryRep.md)
 
 ### Authorization
 
@@ -728,7 +728,7 @@ Name | Type | Description  | Notes
 
 > PostExtinction(ctx, repo, branch).InlineObject(inlineObject).Execute()
 
-Post extinction
+Create extinction
 
 
 
@@ -747,7 +747,7 @@ import (
 func main() {
     repo := "repo_example" // string | The repository name
     branch := "branch_example" // string | The url-encoded branch name
-    inlineObject := []openapiclient.InlineObject{*openapiclient.NewInlineObject()} // []InlineObject | 
+    inlineObject := []openapiclient.InlineObject{*openapiclient.NewInlineObject("Revision_example", int64(123), "FlagKey_example", "ProjectKey_example")} // []InlineObject | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -799,7 +799,7 @@ Name | Type | Description  | Notes
 
 ## PostRepository
 
-> PostRepository(ctx).ApiRepositoryPost(apiRepositoryPost).Execute()
+> PostRepository(ctx).RepositoryPost(repositoryPost).Execute()
 
 Create repository
 
@@ -818,11 +818,11 @@ import (
 )
 
 func main() {
-    apiRepositoryPost := *openapiclient.NewApiRepositoryPost() // ApiRepositoryPost | 
+    repositoryPost := *openapiclient.NewRepositoryPost("Name_example") // RepositoryPost | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CodeReferencesApi.PostRepository(context.Background()).ApiRepositoryPost(apiRepositoryPost).Execute()
+    resp, r, err := api_client.CodeReferencesApi.PostRepository(context.Background()).RepositoryPost(repositoryPost).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CodeReferencesApi.PostRepository``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -841,7 +841,7 @@ Other parameters are passed through a pointer to a apiPostRepositoryRequest stru
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **apiRepositoryPost** | [**ApiRepositoryPost**](ApiRepositoryPost.md) |  | 
+ **repositoryPost** | [**RepositoryPost**](RepositoryPost.md) |  | 
 
 ### Return type
 
@@ -863,7 +863,7 @@ Name | Type | Description  | Notes
 
 ## PutBranch
 
-> PutBranch(ctx, repo, branch).CoderefsBranch(coderefsBranch).Execute()
+> PutBranch(ctx, repo, branch).BranchRep(branchRep).Execute()
 
 Upsert branch
 
@@ -884,11 +884,11 @@ import (
 func main() {
     repo := "repo_example" // string | The repository name
     branch := "branch_example" // string | The url-encoded branch name
-    coderefsBranch := *openapiclient.NewCoderefsBranch() // CoderefsBranch | 
+    branchRep := *openapiclient.NewBranchRep() // BranchRep | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CodeReferencesApi.PutBranch(context.Background(), repo, branch).CoderefsBranch(coderefsBranch).Execute()
+    resp, r, err := api_client.CodeReferencesApi.PutBranch(context.Background(), repo, branch).BranchRep(branchRep).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CodeReferencesApi.PutBranch``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -914,7 +914,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **coderefsBranch** | [**CoderefsBranch**](CoderefsBranch.md) |  | 
+ **branchRep** | [**BranchRep**](BranchRep.md) |  | 
 
 ### Return type
 

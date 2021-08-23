@@ -4,34 +4,33 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** |  | 
-**Kind** | **string** |  | 
-**Description** | Pointer to **string** |  | [optional] 
-**Key** | **string** |  | 
-**Version** | **int32** |  | 
+**Name** | **string** | A human-friendly name for the feature flag | 
+**Kind** | **string** | Kind of feature flag | 
+**Description** | Pointer to **string** | Description of the feature flag | [optional] 
+**Key** | **string** | A unique key used to reference the flag in your code | 
+**Version** | **int32** | Version of the feature flag | 
 **CreationDate** | **int64** |  | 
-**IncludeInSnippet** | Pointer to **bool** |  | [optional] 
-**ClientSideAvailability** | Pointer to [**AccountsClientSideAvailability**](AccountsClientSideAvailability.md) |  | [optional] 
-**Variations** | [**[]VariateRep**](VariateRep.md) |  | 
+**IncludeInSnippet** | Pointer to **bool** | Deprecated, use clientSideAvailability. Whether or not this flag should be made available to the client-side JavaScript SDK | [optional] 
+**ClientSideAvailability** | Pointer to [**ClientSideAvailability**](ClientSideAvailability.md) |  | [optional] 
+**Variations** | [**[]Variation**](Variation.md) | An array of possible variations for the flag | 
 **VariationJsonSchema** | Pointer to **interface{}** |  | [optional] 
-**Temporary** | **bool** |  | 
-**Tags** | **[]string** |  | 
-**Links** | [**map[string]CoreLink**](CoreLink.md) |  | 
-**MaintainerId** | Pointer to **string** |  | [optional] 
+**Temporary** | **bool** | Whether or not the flag is a temporary flag | 
+**Tags** | **[]string** | Tags for the feature flag | 
+**Links** | [**map[string]Link**](Link.md) |  | 
+**MaintainerId** | Pointer to **string** | Associated maintainerId for the feature flag | [optional] 
 **Maintainer** | Pointer to [**MemberSummaryRep**](MemberSummaryRep.md) |  | [optional] 
 **GoalIds** | Pointer to **[]string** |  | [optional] 
 **Experiments** | [**ExperimentInfoRep**](ExperimentInfoRep.md) |  | 
 **CustomProperties** | [**map[string]CustomProperty**](CustomProperty.md) |  | 
-**Archived** | **bool** |  | 
+**Archived** | **bool** | Boolean indicating if the feature flag is archived | 
 **ArchivedDate** | Pointer to **int64** |  | [optional] 
-**Defaults** | Pointer to [**FlagDefaultsRep**](FlagDefaultsRep.md) |  | [optional] 
-**Environments** | Pointer to [**map[string]FlagConfigurationRep**](FlagConfigurationRep.md) |  | [optional] 
+**Defaults** | Pointer to [**Defaults**](Defaults.md) |  | [optional] 
 
 ## Methods
 
 ### NewFlagGlobalAttributesRep
 
-`func NewFlagGlobalAttributesRep(name string, kind string, key string, version int32, creationDate int64, variations []VariateRep, temporary bool, tags []string, links map[string]CoreLink, experiments ExperimentInfoRep, customProperties map[string]CustomProperty, archived bool, ) *FlagGlobalAttributesRep`
+`func NewFlagGlobalAttributesRep(name string, kind string, key string, version int32, creationDate int64, variations []Variation, temporary bool, tags []string, links map[string]Link, experiments ExperimentInfoRep, customProperties map[string]CustomProperty, archived bool, ) *FlagGlobalAttributesRep`
 
 NewFlagGlobalAttributesRep instantiates a new FlagGlobalAttributesRep object
 This constructor will assign default values to properties that have it defined,
@@ -198,20 +197,20 @@ HasIncludeInSnippet returns a boolean if a field has been set.
 
 ### GetClientSideAvailability
 
-`func (o *FlagGlobalAttributesRep) GetClientSideAvailability() AccountsClientSideAvailability`
+`func (o *FlagGlobalAttributesRep) GetClientSideAvailability() ClientSideAvailability`
 
 GetClientSideAvailability returns the ClientSideAvailability field if non-nil, zero value otherwise.
 
 ### GetClientSideAvailabilityOk
 
-`func (o *FlagGlobalAttributesRep) GetClientSideAvailabilityOk() (*AccountsClientSideAvailability, bool)`
+`func (o *FlagGlobalAttributesRep) GetClientSideAvailabilityOk() (*ClientSideAvailability, bool)`
 
 GetClientSideAvailabilityOk returns a tuple with the ClientSideAvailability field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetClientSideAvailability
 
-`func (o *FlagGlobalAttributesRep) SetClientSideAvailability(v AccountsClientSideAvailability)`
+`func (o *FlagGlobalAttributesRep) SetClientSideAvailability(v ClientSideAvailability)`
 
 SetClientSideAvailability sets ClientSideAvailability field to given value.
 
@@ -223,20 +222,20 @@ HasClientSideAvailability returns a boolean if a field has been set.
 
 ### GetVariations
 
-`func (o *FlagGlobalAttributesRep) GetVariations() []VariateRep`
+`func (o *FlagGlobalAttributesRep) GetVariations() []Variation`
 
 GetVariations returns the Variations field if non-nil, zero value otherwise.
 
 ### GetVariationsOk
 
-`func (o *FlagGlobalAttributesRep) GetVariationsOk() (*[]VariateRep, bool)`
+`func (o *FlagGlobalAttributesRep) GetVariationsOk() (*[]Variation, bool)`
 
 GetVariationsOk returns a tuple with the Variations field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVariations
 
-`func (o *FlagGlobalAttributesRep) SetVariations(v []VariateRep)`
+`func (o *FlagGlobalAttributesRep) SetVariations(v []Variation)`
 
 SetVariations sets Variations field to given value.
 
@@ -318,20 +317,20 @@ SetTags sets Tags field to given value.
 
 ### GetLinks
 
-`func (o *FlagGlobalAttributesRep) GetLinks() map[string]CoreLink`
+`func (o *FlagGlobalAttributesRep) GetLinks() map[string]Link`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *FlagGlobalAttributesRep) GetLinksOk() (*map[string]CoreLink, bool)`
+`func (o *FlagGlobalAttributesRep) GetLinksOk() (*map[string]Link, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *FlagGlobalAttributesRep) SetLinks(v map[string]CoreLink)`
+`func (o *FlagGlobalAttributesRep) SetLinks(v map[string]Link)`
 
 SetLinks sets Links field to given value.
 
@@ -498,20 +497,20 @@ HasArchivedDate returns a boolean if a field has been set.
 
 ### GetDefaults
 
-`func (o *FlagGlobalAttributesRep) GetDefaults() FlagDefaultsRep`
+`func (o *FlagGlobalAttributesRep) GetDefaults() Defaults`
 
 GetDefaults returns the Defaults field if non-nil, zero value otherwise.
 
 ### GetDefaultsOk
 
-`func (o *FlagGlobalAttributesRep) GetDefaultsOk() (*FlagDefaultsRep, bool)`
+`func (o *FlagGlobalAttributesRep) GetDefaultsOk() (*Defaults, bool)`
 
 GetDefaultsOk returns a tuple with the Defaults field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDefaults
 
-`func (o *FlagGlobalAttributesRep) SetDefaults(v FlagDefaultsRep)`
+`func (o *FlagGlobalAttributesRep) SetDefaults(v Defaults)`
 
 SetDefaults sets Defaults field to given value.
 
@@ -520,31 +519,6 @@ SetDefaults sets Defaults field to given value.
 `func (o *FlagGlobalAttributesRep) HasDefaults() bool`
 
 HasDefaults returns a boolean if a field has been set.
-
-### GetEnvironments
-
-`func (o *FlagGlobalAttributesRep) GetEnvironments() map[string]FlagConfigurationRep`
-
-GetEnvironments returns the Environments field if non-nil, zero value otherwise.
-
-### GetEnvironmentsOk
-
-`func (o *FlagGlobalAttributesRep) GetEnvironmentsOk() (*map[string]FlagConfigurationRep, bool)`
-
-GetEnvironmentsOk returns a tuple with the Environments field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetEnvironments
-
-`func (o *FlagGlobalAttributesRep) SetEnvironments(v map[string]FlagConfigurationRep)`
-
-SetEnvironments sets Environments field to given value.
-
-### HasEnvironments
-
-`func (o *FlagGlobalAttributesRep) HasEnvironments() bool`
-
-HasEnvironments returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

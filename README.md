@@ -6,16 +6,16 @@ This REST API is for custom integrations, data export, or automating your featur
 
 # Authentication
 
-All REST API resources are authenticated with [personal access tokens](https://docs.launchdarkly.com/home/account-security/api-access-tokens) or session cookies. Other authentication mechanisms are not supported. You can manage personal access tokens on your [Account settings](https://app.launchdarkly.com/settings/tokens) page. 
+All REST API resources are authenticated with either [personal or service access tokens](https://docs.launchdarkly.com/home/account-security/api-access-tokens), or session cookies. Other authentication mechanisms are not supported. You can manage personal access tokens on your [Account settings](https://app.launchdarkly.com/settings/tokens) page.
 
-LaunchDarkly also has SDK keys, mobile keys, and client-side IDs that are used by our server-side SDKs, mobile SDKs, and client-side JavaScript SDKs, respectively. **These keys cannot be used to access our REST API**. These keys are environment-specific, and can only perform read-only operations (fetching feature flag settings).
+LaunchDarkly also has SDK keys, mobile keys, and client-side IDs that are used by our server-side SDKs, mobile SDKs, and client-side SDKs, respectively. **These keys cannot be used to access our REST API**. These keys are environment-specific, and can only perform read-only operations (fetching feature flag settings).
 
-| Auth mechanism | Allowed resources | Use cases |
-| -------------- | ----------------- | --------- |
-| [Personal access tokens](https://docs.launchdarkly.com/home/account-security/api-access-tokens) | Can be customized on a per-token basis | Building scripts, custom integrations, data export |
-| SDK keys | Can only access read-only SDK-specific resources and the firehose, restricted to a single environment | Server-side SDKs, Firehose API |
-| Mobile keys | Can only access read-only mobile SDK-specific resources, restricted to a single environment | Mobile SDKs |
-| Client-side ID | Single environment, only flags marked available to client-side | Client-side JavaScript |
+| Auth mechanism                                                                                  | Allowed resources                                                                                     | Use cases                                          |
+| ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | -------------------------------------------------- |
+| [Personal access tokens](https://docs.launchdarkly.com/home/account-security/api-access-tokens) | Can be customized on a per-token basis                                                                | Building scripts, custom integrations, data export |
+| SDK keys                                                                                        | Can only access read-only SDK-specific resources and the firehose, restricted to a single environment | Server-side SDKs, Firehose API                     |
+| Mobile keys                                                                                     | Can only access read-only mobile SDK-specific resources, restricted to a single environment           | Mobile SDKs                                        |
+| Client-side ID                                                                                  | Single environment, only flags marked available to client-side                                        | Client-side JavaScript                             |
 
 <blockquote>
     <h3><span>❗️</span>Keep your access tokens and SDK keys private</h3>
@@ -37,16 +37,16 @@ If you have a [role](https://docs.launchdarkly.com/home/team/built-in-roles) oth
 
 <blockquote>
     <h3><span>❗️</span>Modifying the Origin header causes an error</h3>
-    <p>We validate that the Origin header for any API request authenticated by a session cookie matches the expected Origin header. The expected Origin header is `https://app.launchdarkly.com`.</p>
+    <p>We validate that the Origin header for any API request authenticated by a session cookie matches the expected Origin header. The expected Origin header is <code>https://app.launchdarkly.com</code>.</p>
     <p>If the Origin header does not match what's expected, LaunchDarkly returns an error. This error can prevent the LaunchDarkly app from working correctly. </p>
-    <p>Any browser extension that intentionally changes the Origin header can cause this problem. For example, the `Allow-Control-Allow-Origin: *` Chrome extension changes the Origin header to http://evil.com and causes the app to fail.</p>
+    <p>Any browser extension that intentionally changes the Origin header can cause this problem. For example, the <code>Allow-Control-Allow-Origin: *</code> Chrome extension changes the Origin header to http://evil.com and causes the app to fail.</p>
     <p>To prevent this error, do not modify your Origin header.</p>
     <p>LaunchDarkly does not require origin matching when authenticating with an Access Token, so this issue does not affect normal API usage.</p>
 </blockquote>
 
 # Representations
 
-All resources expect and return JSON response bodies. Error responses will also send a JSON body. Read [Errors](#section/Errors) for a more detailed description of the error format used by the API. 
+All resources expect and return JSON response bodies. Error responses will also send a JSON body. Read [Errors](#section/Errors) for a more detailed description of the error format used by the API.
 
 In practice this means that you always get a response with a `Content-Type` header set to `application/json`.
 
@@ -54,7 +54,7 @@ In addition, request bodies for `PUT`, `POST`, `REPORT` and `PATCH` requests mus
 
 ## Summary and detailed representations
 
-When you fetch a list of resources, the response includes only the most important attributes of each resource. This is a *summary representation* of the resource. When you fetch an individual resource (for example, a single feature flag), you receive a *detailed representation* containing all of the attributes of the resource.
+When you fetch a list of resources, the response includes only the most important attributes of each resource. This is a _summary representation_ of the resource. When you fetch an individual resource (for example, a single feature flag), you receive a _detailed representation_ containing all of the attributes of the resource.
 
 The best way to find a detailed representation is to follow links. Every summary representation includes a link to its detailed representation.
 
@@ -62,27 +62,27 @@ The best way to find a detailed representation is to follow links. Every summary
 
 The best way to navigate the API is by following links. These are attributes in representations that link to other resources. The API always uses the same format for links:
 
-* Links to other resources within the API are encapsulated in a `_links` object.
-* If the resource has a corresponding link to HTML content on the site, it is stored in a special `_site` link.
+- Links to other resources within the API are encapsulated in a `_links` object.
+- If the resource has a corresponding link to HTML content on the site, it is stored in a special `_site` link.
 
 Each link has two attributes: an href (the URL) and a type (the content type). For example, a feature resource might return the following:
 
 ```json
 {
-    \"_links\": {
-        \"parent\": {
-            \"href\": \"/api/features\",
-            \"type\": \"application/json\"
-        },
-        \"self\": {
-            \"href\":\"/api/features/sort.order\",
-            \"type\":\"application/json\"
-        }
+  \"_links\": {
+    \"parent\": {
+      \"href\": \"/api/features\",
+      \"type\": \"application/json\"
     },
-    \"_site\":{
-        \"href\":\"/features/sort.order\",
-        \"type\":\"text/html\"
+    \"self\": {
+      \"href\": \"/api/features/sort.order\",
+      \"type\": \"application/json\"
     }
+  },
+  \"_site\": {
+    \"href\": \"/features/sort.order\",
+    \"type\": \"text/html\"
+  }
 }
 ```
 
@@ -112,17 +112,15 @@ Resources that accept partial updates use the `PATCH` verb, and support the [JSO
 You can change the feature flag's description with the following patch document:
 
 ```json
-[
-    { \"op\": \"replace\", \"path\": \"/description\", \"value\": \"This is the new description\"}
-]
+[{ \"op\": \"replace\", \"path\": \"/description\", \"value\": \"This is the new description\" }]
 ```
 
 JSON Patch documents are always arrays. You can specify multiple modifications to perform in a single request. You can also test that certain preconditions are met before applying the patch:
 
 ```json
 [
-    { \"op\": \"test\", \"path\": \"/version\", \"value\": 10 },
-    { \"op\": \"replace\", \"path\": \"/description\", \"value\": \"The new description\" }
+  { \"op\": \"test\", \"path\": \"/version\", \"value\": 10 },
+  { \"op\": \"replace\", \"path\": \"/description\", \"value\": \"The new description\" }
 ]
 ```
 
@@ -132,26 +130,26 @@ Attributes that aren't editable, like a resource's `_links`, have names that sta
 
 ## Updates via JSON Merge Patch
 
-The API also supports the [JSON Merge Patch](https://tools.ietf.org/html/rfc7386) format, as well as the [Update feature flag](#operation/patchFeatureFlag) resource. 
+The API also supports the [JSON Merge Patch](https://tools.ietf.org/html/rfc7386) format, as well as the [Update feature flag](/tag/Feature-flags#operation/patchFeatureFlag) resource.
 
 JSON Merge Patch is less expressive than JSON Patch but in many cases, it is simpler to construct a merge patch document. For example, you can change a feature flag's description with the following merge patch document:
 
 ```json
 {
-    \"description\": \"New flag description\"
+  \"description\": \"New flag description\"
 }
 ```
 
 ## Updates with comments
 
-You can submit optional comments with `PATCH` changes. The [Update feature flag](#operation/patchFeatureFlag) resource supports comments.
+You can submit optional comments with `PATCH` changes. The [Update feature flag](/tag/Feature-flags#operation/patchFeatureFlag) resource supports comments.
 
 To submit a comment along with a JSON Patch document, use the following format:
 
 ```json
 {
-    \"comment\": \"This is a comment string\",
-    \"patch\": [ {\"op\": \"replace\", \"path\": \"/description\", \"value\": \"The new description\" } ]
+  \"comment\": \"This is a comment string\",
+  \"patch\": [{ \"op\": \"replace\", \"path\": \"/description\", \"value\": \"The new description\" }]
 }
 ```
 
@@ -159,14 +157,14 @@ To submit a comment along with a JSON Merge Patch document, use the following fo
 
 ```json
 {
-    \"comment\": \"This is a comment string\",
-    \"merge\": { \"description\": \"New flag description\"}
+  \"comment\": \"This is a comment string\",
+  \"merge\": { \"description\": \"New flag description\" }
 }
 ```
 
 ## Updates via semantic patches
 
-The API also supports the Semantic patch format. A semantic `PATCH` is a way to specify the modifications to perform on a resource as a set of executable instructions. 
+The API also supports the Semantic patch format. A semantic `PATCH` is a way to specify the modifications to perform on a resource as a set of executable instructions.
 
 JSON Patch uses paths and a limited set of operations to describe how to transform the current state of the resource into a new state. Semantic patch allows you to be explicit about intent using precise, custom instructions. In many cases, semantic patch instructions can also be defined independently of the current state of the resource. This can be useful when defining a change that may be applied at a future date.
 
@@ -220,26 +218,26 @@ You can add a date you want a user to be removed from the feature flag's user ta
 
 ```json
 {
-    \"comment\": \"update expiring user targets\",
-    \"instructions\": [
-        {
-            \"kind\": \"removeExpireUserTargetDate\",
-            \"userKey\": \"userKey\",
-            \"variationId\": \"978d53f9-7fe3-4a63-992d-97bcb4535dc8\",
-        },
-        {
-            \"kind\": \"updateExpireUserTargetDate\",
-            \"userKey\": \"userKey2\",
-            \"variationId\": \"978d53f9-7fe3-4a63-992d-97bcb4535dc8\",
-            \"value\": 1587582000000
-        },
-        {
-            \"kind\": \"addExpireUserTargetDate\",
-            \"userKey\": \"userKey3\",
-            \"variationId\": \"978d53f9-7fe3-4a63-992d-97bcb4535dc8\",
-            \"value\": 1594247266386
-        }
-    ]
+  \"comment\": \"update expiring user targets\",
+  \"instructions\": [
+    {
+      \"kind\": \"removeExpireUserTargetDate\",
+      \"userKey\": \"userKey\",
+      \"variationId\": \"978d53f9-7fe3-4a63-992d-97bcb4535dc8\"
+    },
+    {
+      \"kind\": \"updateExpireUserTargetDate\",
+      \"userKey\": \"userKey2\",
+      \"variationId\": \"978d53f9-7fe3-4a63-992d-97bcb4535dc8\",
+      \"value\": 1587582000000
+    },
+    {
+      \"kind\": \"addExpireUserTargetDate\",
+      \"userKey\": \"userKey3\",
+      \"variationId\": \"978d53f9-7fe3-4a63-992d-97bcb4535dc8\",
+      \"value\": 1594247266386
+    }
+  ]
 }
 ```
 
@@ -247,13 +245,13 @@ Here is another example. In this feature flag configuration:
 
 ```json
 {
-    \"name\": \"New recommendations engine\",
-    \"key\": \"engine.enable\",
-    \"environments\": {
-        \"test\": {
-            \"on\": true
-        }
+  \"name\": \"New recommendations engine\",
+  \"key\": \"engine.enable\",
+  \"environments\": {
+    \"test\": {
+      \"on\": true
     }
+  }
 }
 ```
 
@@ -261,28 +259,28 @@ You can change the feature flag's description with the following patch document 
 
 ```json
 {
-    \"comment\": \"\",
-    \"instructions\": [
-        {
-            \"kind\": \"removeUserTargets\",
-            \"values\": [\"438580d8-02ee-418d-9eec-0085cab2bdf0\"],
-            \"variationId\": \"852cb784-54ff-46b9-8c35-5498d2e4f270\"
-        },
-        {
-            \"kind\": \"addUserTargets\",
-            \"values\": [\"438580d8-02ee-418d-9eec-0085cab2bdf0\"],
-            \"variationId\": \"1bb18465-33b6-49aa-a3bd-eeb6650b33ad\"
-        }
-    ]
+  \"comment\": \"\",
+  \"instructions\": [
+    {
+      \"kind\": \"removeUserTargets\",
+      \"values\": [\"438580d8-02ee-418d-9eec-0085cab2bdf0\"],
+      \"variationId\": \"852cb784-54ff-46b9-8c35-5498d2e4f270\"
+    },
+    {
+      \"kind\": \"addUserTargets\",
+      \"values\": [\"438580d8-02ee-418d-9eec-0085cab2bdf0\"],
+      \"variationId\": \"1bb18465-33b6-49aa-a3bd-eeb6650b33ad\"
+    }
+  ]
 }
 ```
 
 <blockquote>
     <h3><span>📘</span>Supported semantic patch API endpoints</h3>
-    <p>TODO: update these links</p>
-    <p><a href=\"#operation/patchFeatureFlag\">Update feature flag</a></p>
-    <p><a href=\"\">Update expiring user targets on feature flag</a></p>
-    <p><a href=\"\">Update expiring user target for flags</a></p>
+    <p><a href=\"/tag/Feature-flags#operation/patchFeatureFlag\">Update feature flag</a></p>
+    <p><a href=\"/tag/Feature-flags#operation/patchExpiringUserTargets\">Update expiring user targets on feature flag</a></p>
+    <p><a href=\"/tag/User-Settings#operation/patchExpiringFlagsForUser\">Update expiring user target for flags</a></p>
+    <p><a href=\"/tag/Segments#operation/patchExpiringUserTargetsOnSegment\">Update expiring user targets on segment</a></p>
 </blockquote>
 
 # Errors
@@ -291,9 +289,9 @@ The API always returns errors in a common format. Here's an example:
 
 ```json
 {
-    \"code\": \"invalid_request\",
-    \"message\": \"A feature with that key already exists\",
-    \"id\": \"30ce6058-87da-11e4-b116-123b93f75cba\"
+  \"code\": \"invalid_request\",
+  \"message\": \"A feature with that key already exists\",
+  \"id\": \"30ce6058-87da-11e4-b116-123b93f75cba\"
 }
 ```
 
@@ -301,13 +299,13 @@ The general class of error is indicated by the `code`. The `message` is a human-
 
 ## HTTP Status - Error Response Codes
 
-| Code | Definition | Desc. | Possible Solution |
-| ---- | ---------- | ----- | ----------------- |
-| 400  | Bad Request | A request that fails may return this HTTP response code. | Ensure JSON syntax in request body is correct. |
-| 401  | Unauthorized | User doesn't have permission to an API call. | Ensure your SDK key is good. |
-| 403  | Forbidden | User does not have permission for operation. | Ensure that the user or access token has proper permissions set. |
-| 409  | Conflict | The API request could not be completed because it conflicted with a concurrent API request. | Retry your request. |
-| 429  | Too many requests | See [Rate limiting](ref:rate-limiting). | Wait and try again later. |
+| Code | Definition        | Desc.                                                                                       | Possible Solution                                                |
+| ---- | ----------------- | ------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| 400  | Bad Request       | A request that fails may return this HTTP response code.                                    | Ensure JSON syntax in request body is correct.                   |
+| 401  | Unauthorized      | User doesn't have permission to an API call.                                                | Ensure your SDK key is good.                                     |
+| 403  | Forbidden         | User does not have permission for operation.                                                | Ensure that the user or access token has proper permissions set. |
+| 409  | Conflict          | The API request could not be completed because it conflicted with a concurrent API request. | Retry your request.                                              |
+| 429  | Too many requests | See [Rate limiting](/#section/Rate-limiting).                                               | Wait and try again later.                                        |
 
 # CORS
 
@@ -336,10 +334,10 @@ We use several rate limiting strategies to ensure the availability of our APIs. 
 
 Authenticated requests are subject to a global limit. This is the maximum number of calls that can be made to the API per ten seconds. All personal access tokens on the account share this limit, so exceeding the limit with one access token will impact other tokens. Calls that are subject to global rate limits will return the headers below:
 
-| Header name | Description |
-| ----------- | ----------- |
+| Header name                    | Description                                                                      |
+| ------------------------------ | -------------------------------------------------------------------------------- |
 | `X-Ratelimit-Global-Remaining` | The maximum number of requests the account is permitted to make per ten seconds. |
-| `X-Ratelimit-Reset` | The time at which the current rate limit window resets in epoch milliseconds. |
+| `X-Ratelimit-Reset`            | The time at which the current rate limit window resets in epoch milliseconds.    |
 
 We do not publicly document the specific number of calls that can be made globally. This limit may change, and we encourage clients to program against the specification, relying on the two headers defined above, rather than hardcoding to the current limit.
 
@@ -347,12 +345,12 @@ We do not publicly document the specific number of calls that can be made global
 
 Some authenticated routes have custom rate limits. These also reset every ten seconds. Any access tokens hitting the same route share this limit, so exceeding the limit with one access token may impact other tokens. Calls that are subject to route-level rate limits will return the headers below:
 
-| Header name | Description |
-| ----------- | ----------- |
+| Header name                   | Description                                                                                           |
+| ----------------------------- | ----------------------------------------------------------------------------------------------------- |
 | `X-Ratelimit-Route-Remaining` | The maximum number of requests to the current route the account is permitted to make per ten seconds. |
-| `X-Ratelimit-Reset` | The time at which the current rate limit window resets in epoch milliseconds. |
+| `X-Ratelimit-Reset`           | The time at which the current rate limit window resets in epoch milliseconds.                         |
 
-A *route* represents a specific URL pattern and verb. For example, the [Delete environment](#operation/deleteEnvironment) endpoint is considered a single route, and each call to delete an environment counts against your route-level rate limit for that route. 
+A _route_ represents a specific URL pattern and verb. For example, the [Delete environment](/tag/Environments#operation/deleteEnvironment) endpoint is considered a single route, and each call to delete an environment counts against your route-level rate limit for that route.
 
 We do not publicly document the specific number of calls that can be made to each endpoint per ten seconds. These limits may change, and we encourage clients to program against the specification, relying on the two headers defined above, rather than hardcoding to the current limits.
 
@@ -364,7 +362,9 @@ We also employ IP-based rate limiting on some API routes. If you hit an IP-based
 
 We have a [complete OpenAPI (Swagger) specification](https://app.launchdarkly.com/api/v2/openapi.json) for our API.
 
-You can use this specification to generate client libraries to interact with our REST API in your language of choice. 
+You can use this specification to generate client libraries to interact with our REST API in your language of choice.
+
+This specification is supported by several API-based tools such as Postman and Insomnia. In many cases, you can directly import our specification to ease use in navigating the APIs in the tooling.
 
 # Client libraries
 
@@ -374,29 +374,30 @@ We auto-generate multiple client libraries based on our OpenAPI specification. T
 
 Some firewalls and HTTP clients restrict the use of verbs other than `GET` and `POST`. In those environments, our API endpoints that use `PUT`, `PATCH`, and `DELETE` verbs will be inaccessible.
 
-To avoid this issue, our API supports the `X-HTTP-Method-Override` header, allowing clients to \"tunnel\" `PUT`, `PATCH`, and `DELETE` requests via a `POST` request. 
+To avoid this issue, our API supports the `X-HTTP-Method-Override` header, allowing clients to \"tunnel\" `PUT`, `PATCH`, and `DELETE` requests via a `POST` request.
 
 For example, if you wish to call one of our `PATCH` resources via a `POST` request, you can include `X-HTTP-Method-Override:PATCH` as a header.
 
 # Beta resources
 
-We sometimes release new API resources in **beta** status before we release them with general availability. 
+We sometimes release new API resources in **beta** status before we release them with general availability.
 
-Resources that are in beta are still undergoing testing and development. They may change without notice, including becoming backwards incompatible. 
+Resources that are in beta are still undergoing testing and development. They may change without notice, including becoming backwards incompatible.
 
 We try to promote resources into general availability as quickly as possible. This happens after sufficient testing and when we're satisfied that we no longer need to make backwards-incompatible changes.
 
 We mark beta resources with a \"Beta\" callout in our documentation, pictured below:
+
 <blockquote>
     <h3><span>📘</span>Beta</h3>
-    <p>**This feature is in beta.** You must include a specific header to use it.\\n\\nTo learn more, read [Beta resources](ref:beta-resources).</p>
+    <p><b>This feature is in beta.</b> You must include a specific header to use it.</br></br>To learn more, read <a href=\"/#section/Beta-resources\">Beta resources</a>.</p>
 </blockquote>
 
 ## Using beta resources
 
 To use a beta resource, you must include a header in the request. If you call a beta resource without this header, you'll receive a `403` response.
 
-Use this header: 
+Use this header:
 
 ```
 LD-API-Version: beta
@@ -404,11 +405,9 @@ LD-API-Version: beta
 
 # Versioning
 
-We try hard to keep our REST API backwards compatible, but we occasionally have to make backwards-incompatible changes in the process of shipping new features. These breaking changes can cause unexpected behavior if you don't prepare for them accordingly. 
+We try hard to keep our REST API backwards compatible, but we occasionally have to make backwards-incompatible changes in the process of shipping new features. These breaking changes can cause unexpected behavior if you don't prepare for them accordingly.
 
-Updates to our REST API include support for the latest features in LaunchDarkly. We also release a new version of our REST API every time we make a breaking change. We provide simultaneous support for multiple API versions so you can migrate from your current API version to a new version at your own pace. 
-
-See new versions in the [Changelog](ref:changelog).
+Updates to our REST API include support for the latest features in LaunchDarkly. We also release a new version of our REST API every time we make a breaking change. We provide simultaneous support for multiple API versions so you can migrate from your current API version to a new version at your own pace.
 
 ## Setting the API version per request
 
@@ -418,7 +417,7 @@ You can set the API version on a specific request by sending an `LD-API-Version`
 LD-API-Version: 20191212
 ```
 
-The header value is the version number of the API version you'd like to request. The number for each version corresponds to the date the version was released. In the example above the version `20191212` corresponds to December 12, 2019. 
+The header value is the version number of the API version you'd like to request. The number for each version corresponds to the date the version was released. In the example above the version `20191212` corresponds to December 12, 2019.
 
 ## Setting the API version per access token
 
@@ -436,7 +435,7 @@ If you would like to upgrade your integration to use a new API version, you can 
 
 <blockquote>
     <h3><span>🚧</span>API Path Versioning</h3>
-    <p>In the past, we've used path-based API versioning. For example, versioning resources by adding `v2` to endpoint URLs. We don't foresee the need to do this again, but may do so if we need to make major revisions to the API.</p>
+    <p>In the past, we've used path-based API versioning. For example, versioning resources by adding <code>v2</code> to endpoint URLs. We don't foresee the need to do this again, but may do so if we need to make major revisions to the API.</p>
 </blockquote>
 
 
@@ -523,9 +522,22 @@ Class | Method | HTTP request | Description
 *AccessTokensApi* | [**PatchToken**](docs/AccessTokensApi.md#patchtoken) | **Patch** /api/v2/tokens/{id} | Patch access token
 *AccessTokensApi* | [**PostToken**](docs/AccessTokensApi.md#posttoken) | **Post** /api/v2/tokens | Create access token
 *AccessTokensApi* | [**ResetToken**](docs/AccessTokensApi.md#resettoken) | **Post** /api/v2/tokens/{id}/reset | Reset access token
+*AccountMembersApi* | [**DeleteMember**](docs/AccountMembersApi.md#deletemember) | **Delete** /api/v2/members/{id} | Delete account member
+*AccountMembersApi* | [**GetMember**](docs/AccountMembersApi.md#getmember) | **Get** /api/v2/members/{id} | Get account member
+*AccountMembersApi* | [**GetMembers**](docs/AccountMembersApi.md#getmembers) | **Get** /api/v2/members | List account members
+*AccountMembersApi* | [**PatchMember**](docs/AccountMembersApi.md#patchmember) | **Patch** /api/v2/members/{id} | Modify an account member
+*AccountMembersApi* | [**PostMembers**](docs/AccountMembersApi.md#postmembers) | **Post** /api/v2/members | Invite new members
+*AccountUsageBetaApi* | [**GetEvaluationsUsage**](docs/AccountUsageBetaApi.md#getevaluationsusage) | **Get** /api/v2/usage/evaluations/{projKey}/{envKey}/{flagKey} | Get evaluations usage
+*AccountUsageBetaApi* | [**GetEventsUsage**](docs/AccountUsageBetaApi.md#geteventsusage) | **Get** /api/v2/usage/events/{type} | Get events usage
+*AccountUsageBetaApi* | [**GetMauSdksByType**](docs/AccountUsageBetaApi.md#getmausdksbytype) | **Get** /api/v2/usage/mau/sdks | Get MAU SDKs by type
+*AccountUsageBetaApi* | [**GetMauUsage**](docs/AccountUsageBetaApi.md#getmauusage) | **Get** /api/v2/usage/mau | Get MAU usage
+*AccountUsageBetaApi* | [**GetMauUsageByCategory**](docs/AccountUsageBetaApi.md#getmauusagebycategory) | **Get** /api/v2/usage/mau/bycategory | Get MAU usage by category
+*AccountUsageBetaApi* | [**GetStreamUsage**](docs/AccountUsageBetaApi.md#getstreamusage) | **Get** /api/v2/usage/streams/{source} | Get stream usage
+*AccountUsageBetaApi* | [**GetStreamUsageBySdkVersion**](docs/AccountUsageBetaApi.md#getstreamusagebysdkversion) | **Get** /api/v2/usage/streams/{source}/bysdkversion | Get stream usage by SDK version
+*AccountUsageBetaApi* | [**GetStreamUsageSdkversion**](docs/AccountUsageBetaApi.md#getstreamusagesdkversion) | **Get** /api/v2/usage/streams/{source}/sdkversions | Get stream usage SDK versions
 *ApprovalsApi* | [**DeleteApprovalRequest**](docs/ApprovalsApi.md#deleteapprovalrequest) | **Delete** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id} | Delete approval request
 *ApprovalsApi* | [**GetApproval**](docs/ApprovalsApi.md#getapproval) | **Get** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id} | Get approval request
-*ApprovalsApi* | [**GetApprovals**](docs/ApprovalsApi.md#getapprovals) | **Get** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests | Get all approval requests
+*ApprovalsApi* | [**GetApprovals**](docs/ApprovalsApi.md#getapprovals) | **Get** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests | List all approval requests
 *ApprovalsApi* | [**PostApprovalRequest**](docs/ApprovalsApi.md#postapprovalrequest) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests | Create approval request
 *ApprovalsApi* | [**PostApprovalRequestApplyRequest**](docs/ApprovalsApi.md#postapprovalrequestapplyrequest) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id}/apply | Apply approval request
 *ApprovalsApi* | [**PostApprovalRequestReview**](docs/ApprovalsApi.md#postapprovalrequestreview) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id}/reviews | Review approval request
@@ -542,7 +554,7 @@ Class | Method | HTTP request | Description
 *CodeReferencesApi* | [**GetRootStatistic**](docs/CodeReferencesApi.md#getrootstatistic) | **Get** /api/v2/code-refs/statistics | Get number of code references for flags
 *CodeReferencesApi* | [**GetStatistics**](docs/CodeReferencesApi.md#getstatistics) | **Get** /api/v2/code-refs/statistics/{projKey} | Get number of code references for flags
 *CodeReferencesApi* | [**PatchRepository**](docs/CodeReferencesApi.md#patchrepository) | **Patch** /api/v2/code-refs/repositories/{repo} | Update repository
-*CodeReferencesApi* | [**PostExtinction**](docs/CodeReferencesApi.md#postextinction) | **Post** /api/v2/code-refs/repositories/{repo}/branches/{branch} | Post extinction
+*CodeReferencesApi* | [**PostExtinction**](docs/CodeReferencesApi.md#postextinction) | **Post** /api/v2/code-refs/repositories/{repo}/branches/{branch} | Create extinction
 *CodeReferencesApi* | [**PostRepository**](docs/CodeReferencesApi.md#postrepository) | **Post** /api/v2/code-refs/repositories | Create repository
 *CodeReferencesApi* | [**PutBranch**](docs/CodeReferencesApi.md#putbranch) | **Put** /api/v2/code-refs/repositories/{repo}/branches/{branch} | Upsert branch
 *CustomRolesApi* | [**DeleteCustomRole**](docs/CustomRolesApi.md#deletecustomrole) | **Delete** /api/v2/roles/{key} | Delete custom role
@@ -555,30 +567,26 @@ Class | Method | HTTP request | Description
 *DataExportDestinationsApi* | [**GetDestinations**](docs/DataExportDestinationsApi.md#getdestinations) | **Get** /api/v2/destinations | List destinations
 *DataExportDestinationsApi* | [**PatchDestination**](docs/DataExportDestinationsApi.md#patchdestination) | **Patch** /api/v2/destinations/{projKey}/{envKey}/{id} | Update Data Export destination
 *DataExportDestinationsApi* | [**PostDestination**](docs/DataExportDestinationsApi.md#postdestination) | **Post** /api/v2/destinations/{projKey}/{envKey} | Create data export destination
-*EnvironmentsApi* | [**DeleteEnvironment**](docs/EnvironmentsApi.md#deleteenvironment) | **Delete** /api/v2/projects/{projectKey}/environments/{environmentKey} | Delete environment by key
-*EnvironmentsApi* | [**GetEnvironment**](docs/EnvironmentsApi.md#getenvironment) | **Get** /api/v2/projects/{projectKey}/environments/{environmentKey} | Get environment by key
-*EnvironmentsApi* | [**PatchEnvironment**](docs/EnvironmentsApi.md#patchenvironment) | **Patch** /api/v2/projects/{projectKey}/environments/{environmentKey} | Patch environment by key
+*EnvironmentsApi* | [**DeleteEnvironment**](docs/EnvironmentsApi.md#deleteenvironment) | **Delete** /api/v2/projects/{projectKey}/environments/{environmentKey} | Delete environment
+*EnvironmentsApi* | [**GetEnvironment**](docs/EnvironmentsApi.md#getenvironment) | **Get** /api/v2/projects/{projectKey}/environments/{environmentKey} | Get environment
+*EnvironmentsApi* | [**PatchEnvironment**](docs/EnvironmentsApi.md#patchenvironment) | **Patch** /api/v2/projects/{projectKey}/environments/{environmentKey} | Update environment
 *EnvironmentsApi* | [**PostEnvironment**](docs/EnvironmentsApi.md#postenvironment) | **Post** /api/v2/projects/{projectKey}/environments | Create environment
-*ExperimentsApi* | [**GetExperiment**](docs/ExperimentsApi.md#getexperiment) | **Get** /api/v2/projects/{projKey}/{flagKey}/experiments/{envKey}/{metricKey} | Get experiment results
-*ExperimentsApi* | [**PostExperiment**](docs/ExperimentsApi.md#postexperiment) | **Post** /api/v2/projects/{projKey}/experiments | Create experiment
-*ExperimentsApi* | [**ResetExperiment**](docs/ExperimentsApi.md#resetexperiment) | **Delete** /api/v2/flags/{projKey}/{flagKey}/experiments/{envKey}/{metricKey}/results | Reset experiment results
+*EnvironmentsApi* | [**PostEnvironmentKey**](docs/EnvironmentsApi.md#postenvironmentkey) | **Post** /api/v2/projects/{projectKey}/environments/{envKey}/apiKey | Create environment SDK key
+*ExperimentsBetaApi* | [**GetExperiment**](docs/ExperimentsBetaApi.md#getexperiment) | **Get** /api/v2/flags/{projKey}/{flagKey}/experiments/{envKey}/{metricKey} | Get experiment results
+*ExperimentsBetaApi* | [**ResetExperiment**](docs/ExperimentsBetaApi.md#resetexperiment) | **Delete** /api/v2/flags/{projKey}/{flagKey}/experiments/{envKey}/{metricKey}/results | Reset experiment results
 *FeatureFlagsApi* | [**CopyFeatureFlag**](docs/FeatureFlagsApi.md#copyfeatureflag) | **Post** /api/v2/flags/{projKey}/{featureFlagKey}/copy | Copy feature flag
-*FeatureFlagsApi* | [**DeleteFeatureFlag**](docs/FeatureFlagsApi.md#deletefeatureflag) | **Delete** /api/v2/flags/{projKey}/{key} | Delete flag by key
-*FeatureFlagsApi* | [**GetDependentFlags**](docs/FeatureFlagsApi.md#getdependentflags) | **Get** /api/v2/flags/{projKey}/{flagKey}/dependent-flags | List dependent feature flags
-*FeatureFlagsApi* | [**GetDependentFlagsByEnv**](docs/FeatureFlagsApi.md#getdependentflagsbyenv) | **Get** /api/v2/flags/{projKey}/{envKey}/{flagKey}/dependent-flags | List dependent feature flags by environment
+*FeatureFlagsApi* | [**DeleteFeatureFlag**](docs/FeatureFlagsApi.md#deletefeatureflag) | **Delete** /api/v2/flags/{projKey}/{key} | Delete feature flag
+*FeatureFlagsApi* | [**GetExpiringUserTargets**](docs/FeatureFlagsApi.md#getexpiringusertargets) | **Get** /api/v2/flags/{projKey}/{flagKey}/expiring-user-targets/{envKey} | Get expiring user targets for feature flag
 *FeatureFlagsApi* | [**GetFeatureFlag**](docs/FeatureFlagsApi.md#getfeatureflag) | **Get** /api/v2/flags/{projKey}/{key} | Get feature flag
-*FeatureFlagsApi* | [**GetFeatureFlagStatus**](docs/FeatureFlagsApi.md#getfeatureflagstatus) | **Get** /api/v2/flag-statuses/{projKey}/{envKey}/{key} | List feature flag statuses
-*FeatureFlagsApi* | [**GetFeatureFlagStatusAcrossEnvironments**](docs/FeatureFlagsApi.md#getfeatureflagstatusacrossenvironments) | **Get** /api/v2/flag-status/{projKey}/{key} | Get feature flag status
+*FeatureFlagsApi* | [**GetFeatureFlagStatus**](docs/FeatureFlagsApi.md#getfeatureflagstatus) | **Get** /api/v2/flag-statuses/{projKey}/{envKey}/{key} | Get feature flag status
+*FeatureFlagsApi* | [**GetFeatureFlagStatusAcrossEnvironments**](docs/FeatureFlagsApi.md#getfeatureflagstatusacrossenvironments) | **Get** /api/v2/flag-status/{projKey}/{key} | Get flag status across environments
 *FeatureFlagsApi* | [**GetFeatureFlagStatuses**](docs/FeatureFlagsApi.md#getfeatureflagstatuses) | **Get** /api/v2/flag-statuses/{projKey}/{envKey} | List feature flag statuses
 *FeatureFlagsApi* | [**GetFeatureFlags**](docs/FeatureFlagsApi.md#getfeatureflags) | **Get** /api/v2/flags/{projKey} | List feature flags
+*FeatureFlagsApi* | [**PatchExpiringUserTargets**](docs/FeatureFlagsApi.md#patchexpiringusertargets) | **Patch** /api/v2/flags/{projKey}/{flagKey}/expiring-user-targets/{envKey} | Update expiring user targets on feature flag
 *FeatureFlagsApi* | [**PatchFeatureFlag**](docs/FeatureFlagsApi.md#patchfeatureflag) | **Patch** /api/v2/flags/{projKey}/{key} | Update feature flag
 *FeatureFlagsApi* | [**PostFeatureFlag**](docs/FeatureFlagsApi.md#postfeatureflag) | **Post** /api/v2/flags/{projKey} | Create a feature flag
-*IntegrationsApi* | [**CreateSubscription**](docs/IntegrationsApi.md#createsubscription) | **Post** /api/v2/integrations/{integrationKey} | Create integration configuration
-*IntegrationsApi* | [**DeleteSubscription**](docs/IntegrationsApi.md#deletesubscription) | **Delete** /api/v2/integrations/{integrationKey}/{id} | Delete integration configuration
-*IntegrationsApi* | [**GetConfigurations**](docs/IntegrationsApi.md#getconfigurations) | **Get** /api/v2/integrations | List integration configurations
-*IntegrationsApi* | [**GetIntegrationSubscriptionByID**](docs/IntegrationsApi.md#getintegrationsubscriptionbyid) | **Get** /api/v2/integrations/{integrationKey}/{id} | Get configured integration by ID
-*IntegrationsApi* | [**UpdateSubscription**](docs/IntegrationsApi.md#updatesubscription) | **Patch** /api/v2/integrations/{integrationKey} | Update subscription
-*IntegrationsBetaApi* | [**ValidateConnection**](docs/IntegrationsBetaApi.md#validateconnection) | **Post** /integrations/{integrationKey}/{id}/validate | Validate connection
+*FeatureFlagsBetaApi* | [**GetDependentFlags**](docs/FeatureFlagsBetaApi.md#getdependentflags) | **Get** /api/v2/flags/{projKey}/{flagKey}/dependent-flags | List dependent feature flags
+*FeatureFlagsBetaApi* | [**GetDependentFlagsByEnv**](docs/FeatureFlagsBetaApi.md#getdependentflagsbyenv) | **Get** /api/v2/flags/{projKey}/{envKey}/{flagKey}/dependent-flags | List dependent feature flags by environment
 *MetricsApi* | [**DeleteMetric**](docs/MetricsApi.md#deletemetric) | **Delete** /api/v2/metrics/{projectKey}/{key} | Delete metric
 *MetricsApi* | [**GetMetric**](docs/MetricsApi.md#getmetric) | **Get** /api/v2/metrics/{projectKey}/{key} | Get metric
 *MetricsApi* | [**GetMetrics**](docs/MetricsApi.md#getmetrics) | **Get** /api/v2/metrics/{projectKey} | List metrics
@@ -588,11 +596,17 @@ Class | Method | HTTP request | Description
 *OtherApi* | [**GetOpenapiSpec**](docs/OtherApi.md#getopenapispec) | **Get** /api/v2/openapi.json | Gets the OpenAPI spec in json
 *OtherApi* | [**GetRoot**](docs/OtherApi.md#getroot) | **Get** /api/v2 | Root resource
 *OtherApi* | [**GetVersions**](docs/OtherApi.md#getversions) | **Get** /api/v2/versions | Get version information
-*ProjectsApi* | [**DeleteProject**](docs/ProjectsApi.md#deleteproject) | **Delete** /api/v2/projects/{projectKey} | Delete project by key
-*ProjectsApi* | [**GetProject**](docs/ProjectsApi.md#getproject) | **Get** /api/v2/projects/{projectKey} | Get project by key
-*ProjectsApi* | [**GetProjects**](docs/ProjectsApi.md#getprojects) | **Get** /api/v2/projects | Get all projects
-*ProjectsApi* | [**PatchProject**](docs/ProjectsApi.md#patchproject) | **Patch** /api/v2/projects/{projectKey} | Patch project by key
+*ProjectsApi* | [**DeleteProject**](docs/ProjectsApi.md#deleteproject) | **Delete** /api/v2/projects/{projectKey} | Delete project
+*ProjectsApi* | [**GetProject**](docs/ProjectsApi.md#getproject) | **Get** /api/v2/projects/{projectKey} | Get project
+*ProjectsApi* | [**GetProjects**](docs/ProjectsApi.md#getprojects) | **Get** /api/v2/projects | List projects
+*ProjectsApi* | [**PatchProject**](docs/ProjectsApi.md#patchproject) | **Patch** /api/v2/projects/{projectKey} | Update project
 *ProjectsApi* | [**PostProject**](docs/ProjectsApi.md#postproject) | **Post** /api/v2/projects | Create project
+*RelayProxyConfigurationsApi* | [**DeleteRelayAutoConfig**](docs/RelayProxyConfigurationsApi.md#deleterelayautoconfig) | **Delete** /api/v2/account/relay-auto-configs/{id} | Delete Relay Proxy config by ID
+*RelayProxyConfigurationsApi* | [**GetRelayProxyConfig**](docs/RelayProxyConfigurationsApi.md#getrelayproxyconfig) | **Get** /api/v2/account/relay-auto-configs/{id} | Get Relay Proxy config
+*RelayProxyConfigurationsApi* | [**GetRelayProxyConfigs**](docs/RelayProxyConfigurationsApi.md#getrelayproxyconfigs) | **Get** /api/v2/account/relay-auto-configs | List Relay Proxy configs
+*RelayProxyConfigurationsApi* | [**PatchRelayAutoConfig**](docs/RelayProxyConfigurationsApi.md#patchrelayautoconfig) | **Patch** /api/v2/account/relay-auto-configs/{id} | Update a Relay Proxy config
+*RelayProxyConfigurationsApi* | [**PostRelayAutoConfig**](docs/RelayProxyConfigurationsApi.md#postrelayautoconfig) | **Post** /api/v2/account/relay-auto-configs | Create a new Relay Proxy config
+*RelayProxyConfigurationsApi* | [**ResetRelayAutoConfig**](docs/RelayProxyConfigurationsApi.md#resetrelayautoconfig) | **Post** /api/v2/account/relay-auto-configs/{id}/reset | Reset Relay Proxy configuration key
 *ScheduledChangesApi* | [**DeleteFlagConfigScheduledChanges**](docs/ScheduledChangesApi.md#deleteflagconfigscheduledchanges) | **Delete** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/scheduled-changes/{id} | Delete scheduled changes workflow
 *ScheduledChangesApi* | [**GetFeatureFlagScheduledChange**](docs/ScheduledChangesApi.md#getfeatureflagscheduledchange) | **Get** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/scheduled-changes/{id} | Get a scheduled change
 *ScheduledChangesApi* | [**GetFlagConfigScheduledChanges**](docs/ScheduledChangesApi.md#getflagconfigscheduledchanges) | **Get** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/scheduled-changes | List scheduled changes
@@ -600,25 +614,29 @@ Class | Method | HTTP request | Description
 *ScheduledChangesApi* | [**PatchFlagConfigScheduledChange**](docs/ScheduledChangesApi.md#patchflagconfigscheduledchange) | **Patch** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/scheduled-changes/{id} | Update scheduled changes workflow
 *ScheduledChangesApi* | [**PostFlagConfigScheduledChanges**](docs/ScheduledChangesApi.md#postflagconfigscheduledchanges) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/scheduled-changes | Create scheduled changes workflow
 *SegmentsApi* | [**DeleteSegment**](docs/SegmentsApi.md#deletesegment) | **Delete** /api/v2/segments/{projKey}/{envKey}/{key} | Delete segment
-*SegmentsApi* | [**GetBigSegmentTarget**](docs/SegmentsApi.md#getbigsegmenttarget) | **Get** /segments/{projKey}/{envKey}/{key}/users/{userKey} | Get user in big segment
+*SegmentsApi* | [**GetBigSegmentTarget**](docs/SegmentsApi.md#getbigsegmenttarget) | **Get** /api/v2/segments/{projKey}/{envKey}/{key}/users/{userKey} | Get user in Big Segment
 *SegmentsApi* | [**GetExpiringUserTargetsOnSegment**](docs/SegmentsApi.md#getexpiringusertargetsonsegment) | **Get** /api/v2/segments/{projKey}/{segmentKey}/expiring-user-targets/{envKey} | Get expiring user targets for segment
 *SegmentsApi* | [**GetSegment**](docs/SegmentsApi.md#getsegment) | **Get** /api/v2/segments/{projKey}/{envKey}/{key} | Get segment
 *SegmentsApi* | [**GetSegments**](docs/SegmentsApi.md#getsegments) | **Get** /api/v2/segments/{projKey}/{envKey} | List segments
 *SegmentsApi* | [**PatchExpiringUserTargetsOnSegment**](docs/SegmentsApi.md#patchexpiringusertargetsonsegment) | **Patch** /api/v2/segments/{projKey}/{segmentKey}/expiring-user-targets/{envKey} | Update expiring user targets on segment
 *SegmentsApi* | [**PatchSegment**](docs/SegmentsApi.md#patchsegment) | **Patch** /api/v2/segments/{projKey}/{envKey}/{key} | Patch segment
 *SegmentsApi* | [**PostSegment**](docs/SegmentsApi.md#postsegment) | **Post** /api/v2/segments/{projKey}/{envKey} | Create segment
-*SegmentsApi* | [**UpdateBigSegmentTargets**](docs/SegmentsApi.md#updatebigsegmenttargets) | **Post** /segments/{projKey}/{envKey}/{key}/users | Update targets on a big segment
-*TeamMembersApi* | [**DeleteMember**](docs/TeamMembersApi.md#deletemember) | **Delete** /api/v2/members/{id} | Delete team member by ID
-*TeamMembersApi* | [**GetMember**](docs/TeamMembersApi.md#getmember) | **Get** /api/v2/members/{id} | Get team member by ID
-*TeamMembersApi* | [**PatchMember**](docs/TeamMembersApi.md#patchmember) | **Patch** /api/v2/members/{id} | Modify a team member by ID
-*TeamMembersApi* | [**PostMembers**](docs/TeamMembersApi.md#postmembers) | **Post** /api/v2/members | Invite new members
+*SegmentsApi* | [**UpdateBigSegmentTargets**](docs/SegmentsApi.md#updatebigsegmenttargets) | **Post** /api/v2/segments/{projKey}/{envKey}/{key}/users | Update targets on a Big Segment
+*UserSettingsApi* | [**GetExpiringFlagsForUser**](docs/UserSettingsApi.md#getexpiringflagsforuser) | **Get** /api/v2/users/{projKey}/{userKey}/expiring-user-targets/{envKey} | Get expiring dates on flags for user
 *UserSettingsApi* | [**GetUserFlagSetting**](docs/UserSettingsApi.md#getuserflagsetting) | **Get** /api/v2/users/{projKey}/{envKey}/{key}/flags/{featureKey} | Get flag setting for user
 *UserSettingsApi* | [**GetUserFlagSettings**](docs/UserSettingsApi.md#getuserflagsettings) | **Get** /api/v2/users/{projKey}/{envKey}/{key}/flags | List flag settings for user
+*UserSettingsApi* | [**PatchExpiringFlagsForUser**](docs/UserSettingsApi.md#patchexpiringflagsforuser) | **Patch** /api/v2/users/{projKey}/{userKey}/expiring-user-targets/{envKey} | Update expiring user target for flags
 *UserSettingsApi* | [**PutFlagSetting**](docs/UserSettingsApi.md#putflagsetting) | **Put** /api/v2/users/{projKey}/{envKey}/{key}/flags/{featureKey} | Update flag settings for user
 *UsersApi* | [**DeleteUser**](docs/UsersApi.md#deleteuser) | **Delete** /api/v2/users/{projKey}/{envKey}/{key} | Delete user
 *UsersApi* | [**GetSearchUsers**](docs/UsersApi.md#getsearchusers) | **Get** /api/v2/user-search/{projKey}/{envKey} | Find users
 *UsersApi* | [**GetUser**](docs/UsersApi.md#getuser) | **Get** /api/v2/users/{projKey}/{envKey}/{key} | Get user
 *UsersApi* | [**GetUsers**](docs/UsersApi.md#getusers) | **Get** /api/v2/users/{projKey}/{envKey} | List users
+*UsersBetaApi* | [**GetUserAttributeNames**](docs/UsersBetaApi.md#getuserattributenames) | **Get** /api/v2/user-attributes/{projectKey}/{environmentKey} | Get user attribute names
+*WebhooksApi* | [**DeleteWebhook**](docs/WebhooksApi.md#deletewebhook) | **Delete** /api/v2/webhooks/{id} | Delete webhook
+*WebhooksApi* | [**GetAllWebhooks**](docs/WebhooksApi.md#getallwebhooks) | **Get** /api/v2/webhooks | List webhooks
+*WebhooksApi* | [**GetWebhook**](docs/WebhooksApi.md#getwebhook) | **Get** /api/v2/webhooks/{id} | Get webhook
+*WebhooksApi* | [**PatchWebhook**](docs/WebhooksApi.md#patchwebhook) | **Patch** /api/v2/webhooks/{id} | Update webhook
+*WebhooksApi* | [**PostWebhook**](docs/WebhooksApi.md#postwebhook) | **Post** /api/v2/webhooks | Creates a webhook
 
 
 ## Documentation For Models
@@ -626,180 +644,169 @@ Class | Method | HTTP request | Description
  - [AccessDeniedReasonRep](docs/AccessDeniedReasonRep.md)
  - [AccessDeniedRep](docs/AccessDeniedRep.md)
  - [AccessRep](docs/AccessRep.md)
- - [AccessTokenCollectionRep](docs/AccessTokenCollectionRep.md)
- - [AccessTokenRep](docs/AccessTokenRep.md)
- - [AccessTokensAccessTokenPost](docs/AccessTokensAccessTokenPost.md)
- - [AccessTokensAccessTokenPostInlineRole](docs/AccessTokensAccessTokenPostInlineRole.md)
- - [AccountsClientSideAvailability](docs/AccountsClientSideAvailability.md)
- - [AccountsIntegrationSubscriptionMetadata](docs/AccountsIntegrationSubscriptionMetadata.md)
- - [Api2IpList](docs/Api2IpList.md)
- - [Api2ValuePut](docs/Api2ValuePut.md)
- - [ApiBranchCollectionRep](docs/ApiBranchCollectionRep.md)
- - [ApiBranchRep](docs/ApiBranchRep.md)
- - [ApiExtinctionCollectionRep](docs/ApiExtinctionCollectionRep.md)
- - [ApiExtinctionRep](docs/ApiExtinctionRep.md)
- - [ApiHunkRep](docs/ApiHunkRep.md)
- - [ApiNewMemberForm](docs/ApiNewMemberForm.md)
- - [ApiReferenceRep](docs/ApiReferenceRep.md)
- - [ApiRepositoryCollectionRep](docs/ApiRepositoryCollectionRep.md)
- - [ApiRepositoryPost](docs/ApiRepositoryPost.md)
- - [ApiRepositoryRep](docs/ApiRepositoryRep.md)
- - [ApiStatisticCollectionRep](docs/ApiStatisticCollectionRep.md)
- - [ApiStatisticRep](docs/ApiStatisticRep.md)
- - [ApiStatisticsRoot](docs/ApiStatisticsRoot.md)
- - [ApprovalSettingsRep](docs/ApprovalSettingsRep.md)
- - [ApprovalsEndpointsCreateCopyFlagConfigApprovalRequestRequest](docs/ApprovalsEndpointsCreateCopyFlagConfigApprovalRequestRequest.md)
- - [ApprovalsEndpointsCreateFlagConfigApprovalRequestRequest](docs/ApprovalsEndpointsCreateFlagConfigApprovalRequestRequest.md)
- - [ApprovalsEndpointsPostApprovalRequestApplyRequest](docs/ApprovalsEndpointsPostApprovalRequestApplyRequest.md)
- - [ApprovalsEndpointsPostApprovalRequestReviewRequest](docs/ApprovalsEndpointsPostApprovalRequestReviewRequest.md)
- - [ApprovalsEndpointsSourceFlag](docs/ApprovalsEndpointsSourceFlag.md)
+ - [AccessTokenPost](docs/AccessTokenPost.md)
+ - [ApprovalSettings](docs/ApprovalSettings.md)
  - [AuditLogEntryListingRep](docs/AuditLogEntryListingRep.md)
  - [AuditLogEntryListingRepCollection](docs/AuditLogEntryListingRepCollection.md)
  - [AuditLogEntryRep](docs/AuditLogEntryRep.md)
  - [AuthorizedAppDataRep](docs/AuthorizedAppDataRep.md)
- - [ClausesClause](docs/ClausesClause.md)
+ - [BigSegmentTargetChanges](docs/BigSegmentTargetChanges.md)
+ - [BranchCollectionRep](docs/BranchCollectionRep.md)
+ - [BranchRep](docs/BranchRep.md)
+ - [Clause](docs/Clause.md)
+ - [ClientSideAvailability](docs/ClientSideAvailability.md)
  - [ClientSideAvailabilityPost](docs/ClientSideAvailabilityPost.md)
- - [CoderefsBranch](docs/CoderefsBranch.md)
- - [CoderefsExtinction](docs/CoderefsExtinction.md)
- - [CoderefsHunk](docs/CoderefsHunk.md)
- - [CoderefsReferenceFile](docs/CoderefsReferenceFile.md)
  - [ConfidenceIntervalRep](docs/ConfidenceIntervalRep.md)
- - [CoreLink](docs/CoreLink.md)
+ - [Conflict](docs/Conflict.md)
+ - [ConflictResponse](docs/ConflictResponse.md)
+ - [ConflictResponseConflict](docs/ConflictResponseConflict.md)
+ - [ConflictResponseInstruction](docs/ConflictResponseInstruction.md)
+ - [CopiedFromEnv](docs/CopiedFromEnv.md)
+ - [CreateCopyFlagConfigApprovalRequestRequest](docs/CreateCopyFlagConfigApprovalRequestRequest.md)
+ - [CreateFlagConfigApprovalRequestRequest](docs/CreateFlagConfigApprovalRequestRequest.md)
  - [CustomProperty](docs/CustomProperty.md)
- - [CustomRoleCollectionRep](docs/CustomRoleCollectionRep.md)
- - [CustomRoleRep](docs/CustomRoleRep.md)
+ - [CustomRole](docs/CustomRole.md)
+ - [CustomRolePost](docs/CustomRolePost.md)
+ - [CustomRolePostData](docs/CustomRolePostData.md)
+ - [CustomRoles](docs/CustomRoles.md)
  - [DefaultClientSideAvailabilityPost](docs/DefaultClientSideAvailabilityPost.md)
+ - [Defaults](docs/Defaults.md)
  - [DependentFlag](docs/DependentFlag.md)
  - [DependentFlagEnvironment](docs/DependentFlagEnvironment.md)
- - [DependentFlagWithEnvs](docs/DependentFlagWithEnvs.md)
- - [DependentFlagsCollectionRep](docs/DependentFlagsCollectionRep.md)
- - [DestinationCollectionRep](docs/DestinationCollectionRep.md)
- - [DestinationPostRep](docs/DestinationPostRep.md)
- - [DestinationRep](docs/DestinationRep.md)
+ - [DependentFlagsByEnvironment](docs/DependentFlagsByEnvironment.md)
+ - [Destination](docs/Destination.md)
+ - [DestinationPost](docs/DestinationPost.md)
+ - [Destinations](docs/Destinations.md)
+ - [Environment](docs/Environment.md)
  - [EnvironmentPost](docs/EnvironmentPost.md)
- - [EnvironmentRep](docs/EnvironmentRep.md)
  - [ExperimentAllocationRep](docs/ExperimentAllocationRep.md)
  - [ExperimentEnabledPeriodRep](docs/ExperimentEnabledPeriodRep.md)
  - [ExperimentEnvironmentSettingRep](docs/ExperimentEnvironmentSettingRep.md)
- - [ExperimentFlagRep](docs/ExperimentFlagRep.md)
  - [ExperimentInfoRep](docs/ExperimentInfoRep.md)
  - [ExperimentMetadataRep](docs/ExperimentMetadataRep.md)
- - [ExperimentPost](docs/ExperimentPost.md)
  - [ExperimentRep](docs/ExperimentRep.md)
  - [ExperimentResultsRep](docs/ExperimentResultsRep.md)
  - [ExperimentStatsRep](docs/ExperimentStatsRep.md)
- - [ExperimentSummaryRep](docs/ExperimentSummaryRep.md)
  - [ExperimentTimeSeriesSlice](docs/ExperimentTimeSeriesSlice.md)
  - [ExperimentTimeSeriesVariationSlice](docs/ExperimentTimeSeriesVariationSlice.md)
  - [ExperimentTotalsRep](docs/ExperimentTotalsRep.md)
- - [ExpiringUserTargetsEndpointsPatchSegmentInstruction](docs/ExpiringUserTargetsEndpointsPatchSegmentInstruction.md)
- - [ExpiringUserTargetsEndpointsPatchSegmentRequest](docs/ExpiringUserTargetsEndpointsPatchSegmentRequest.md)
- - [FlagConfigurationRep](docs/FlagConfigurationRep.md)
- - [FlagConfigurationRepPrerequisites](docs/FlagConfigurationRepPrerequisites.md)
- - [FlagConfigurationRepTargets](docs/FlagConfigurationRepTargets.md)
- - [FlagDefaultsRep](docs/FlagDefaultsRep.md)
+ - [ExpiringUserTargetError](docs/ExpiringUserTargetError.md)
+ - [ExpiringUserTargetGetResponse](docs/ExpiringUserTargetGetResponse.md)
+ - [ExpiringUserTargetItem](docs/ExpiringUserTargetItem.md)
+ - [ExpiringUserTargetPatchResponse](docs/ExpiringUserTargetPatchResponse.md)
+ - [Extinction](docs/Extinction.md)
+ - [ExtinctionCollectionRep](docs/ExtinctionCollectionRep.md)
+ - [ExtinctionRep](docs/ExtinctionRep.md)
+ - [FeatureFlag](docs/FeatureFlag.md)
+ - [FeatureFlagConfig](docs/FeatureFlagConfig.md)
+ - [FeatureFlagStatus](docs/FeatureFlagStatus.md)
+ - [FeatureFlagStatusAcrossEnvironments](docs/FeatureFlagStatusAcrossEnvironments.md)
+ - [FeatureFlagStatuses](docs/FeatureFlagStatuses.md)
+ - [FeatureFlags](docs/FeatureFlags.md)
+ - [FlagConfigApprovalRequestResponse](docs/FlagConfigApprovalRequestResponse.md)
+ - [FlagConfigApprovalRequestsResponse](docs/FlagConfigApprovalRequestsResponse.md)
+ - [FlagCopyConfigEnvironment](docs/FlagCopyConfigEnvironment.md)
+ - [FlagCopyConfigPost](docs/FlagCopyConfigPost.md)
  - [FlagGlobalAttributesRep](docs/FlagGlobalAttributesRep.md)
  - [FlagListingRep](docs/FlagListingRep.md)
  - [FlagPost](docs/FlagPost.md)
- - [FlagPostVariations](docs/FlagPostVariations.md)
- - [FlagStatusCollectionRep](docs/FlagStatusCollectionRep.md)
+ - [FlagScheduledChangesInput](docs/FlagScheduledChangesInput.md)
  - [FlagStatusRep](docs/FlagStatusRep.md)
- - [FlagStatusRepFromEnvSummaries](docs/FlagStatusRepFromEnvSummaries.md)
- - [FlagStatusesRep](docs/FlagStatusesRep.md)
  - [FlagSummary](docs/FlagSummary.md)
- - [FlagsFlagCopyConfigEnvironment](docs/FlagsFlagCopyConfigEnvironment.md)
- - [FlagsFlagCopyConfigPost](docs/FlagsFlagCopyConfigPost.md)
- - [FlagsPrerequisite](docs/FlagsPrerequisite.md)
- - [FlagsTarget](docs/FlagsTarget.md)
- - [FlagsVariate](docs/FlagsVariate.md)
- - [GlobalFlagCollectionRep](docs/GlobalFlagCollectionRep.md)
- - [GlobalFlagRep](docs/GlobalFlagRep.md)
- - [GlobalSegmentCollectionRep](docs/GlobalSegmentCollectionRep.md)
- - [GoalsModification](docs/GoalsModification.md)
+ - [HunkRep](docs/HunkRep.md)
  - [InlineObject](docs/InlineObject.md)
  - [InlineObject1](docs/InlineObject1.md)
  - [InlineResponse200](docs/InlineResponse200.md)
- - [InlineResponse2001](docs/InlineResponse2001.md)
- - [IntegrationStatusRep](docs/IntegrationStatusRep.md)
- - [IntegrationSubscriptionRep](docs/IntegrationSubscriptionRep.md)
- - [IntegrationSubscriptionRepCollection](docs/IntegrationSubscriptionRepCollection.md)
- - [IntegrationSubscriptionStatusRep](docs/IntegrationSubscriptionStatusRep.md)
- - [IntegrationSubscriptionTestEventRep](docs/IntegrationSubscriptionTestEventRep.md)
- - [IntegrationsSubscriptionPost](docs/IntegrationsSubscriptionPost.md)
+ - [IntegrationMetadata](docs/IntegrationMetadata.md)
+ - [IntegrationStatus](docs/IntegrationStatus.md)
+ - [IpList](docs/IpList.md)
  - [JSONPatchElt](docs/JSONPatchElt.md)
  - [LastSeenMetadata](docs/LastSeenMetadata.md)
- - [MemberCollectionRep](docs/MemberCollectionRep.md)
+ - [Link](docs/Link.md)
+ - [Member](docs/Member.md)
  - [MemberDataRep](docs/MemberDataRep.md)
- - [MemberRep](docs/MemberRep.md)
  - [MemberSummaryRep](docs/MemberSummaryRep.md)
  - [MemberTeamSummaryRep](docs/MemberTeamSummaryRep.md)
+ - [Members](docs/Members.md)
  - [MetricCollectionRep](docs/MetricCollectionRep.md)
  - [MetricListingRep](docs/MetricListingRep.md)
+ - [MetricPost](docs/MetricPost.md)
  - [MetricRep](docs/MetricRep.md)
- - [MetricsMetricPost](docs/MetricsMetricPost.md)
- - [MetricsMetricPostUrls](docs/MetricsMetricPostUrls.md)
- - [ModelsDerivedAttribute](docs/ModelsDerivedAttribute.md)
- - [ModelsUser](docs/ModelsUser.md)
- - [MultiEnvDependentFlagsCollectionRep](docs/MultiEnvDependentFlagsCollectionRep.md)
+ - [Modification](docs/Modification.md)
+ - [MultiEnvironmentDependentFlag](docs/MultiEnvironmentDependentFlag.md)
+ - [MultiEnvironmentDependentFlags](docs/MultiEnvironmentDependentFlags.md)
+ - [NewMemberForm](docs/NewMemberForm.md)
  - [ParentResourceRep](docs/ParentResourceRep.md)
+ - [PatchSegmentInstruction](docs/PatchSegmentInstruction.md)
+ - [PatchSegmentRequest](docs/PatchSegmentRequest.md)
  - [PatchWithComment](docs/PatchWithComment.md)
- - [ProjectCollectionRep](docs/ProjectCollectionRep.md)
+ - [PostApprovalRequestApplyRequest](docs/PostApprovalRequestApplyRequest.md)
+ - [PostApprovalRequestReviewRequest](docs/PostApprovalRequestReviewRequest.md)
+ - [PostFlagScheduledChangesInput](docs/PostFlagScheduledChangesInput.md)
+ - [Prerequisite](docs/Prerequisite.md)
+ - [Project](docs/Project.md)
  - [ProjectListingRep](docs/ProjectListingRep.md)
  - [ProjectPost](docs/ProjectPost.md)
- - [ProjectRep](docs/ProjectRep.md)
+ - [Projects](docs/Projects.md)
  - [PubNubDetailRep](docs/PubNubDetailRep.md)
- - [RolesActionList](docs/RolesActionList.md)
- - [RolesResourceAccess](docs/RolesResourceAccess.md)
- - [RolesResourceList](docs/RolesResourceList.md)
- - [RolesStatement](docs/RolesStatement.md)
- - [RolesStatementPost](docs/RolesStatementPost.md)
- - [RolesStatementPostData](docs/RolesStatementPostData.md)
- - [RolloutRep](docs/RolloutRep.md)
- - [RuleRep](docs/RuleRep.md)
- - [RuleRepClauses](docs/RuleRepClauses.md)
- - [ScheduledChangesCollectionRep](docs/ScheduledChangesCollectionRep.md)
- - [ScheduledChangesRep](docs/ScheduledChangesRep.md)
- - [SegmentRep](docs/SegmentRep.md)
- - [SegmentRuleRep](docs/SegmentRuleRep.md)
- - [SegmentsSegmentPost](docs/SegmentsSegmentPost.md)
- - [SegmentsUnboundedTargetRep](docs/SegmentsUnboundedTargetRep.md)
- - [SharedUrlPost](docs/SharedUrlPost.md)
+ - [ReferenceRep](docs/ReferenceRep.md)
+ - [RelayAutoConfigCollectionRep](docs/RelayAutoConfigCollectionRep.md)
+ - [RelayAutoConfigPost](docs/RelayAutoConfigPost.md)
+ - [RelayAutoConfigRep](docs/RelayAutoConfigRep.md)
+ - [ReportFlagScheduledChangesInput](docs/ReportFlagScheduledChangesInput.md)
+ - [RepositoryCollectionRep](docs/RepositoryCollectionRep.md)
+ - [RepositoryPost](docs/RepositoryPost.md)
+ - [RepositoryRep](docs/RepositoryRep.md)
+ - [ResourceAccess](docs/ResourceAccess.md)
+ - [ResourceIDResponse](docs/ResourceIDResponse.md)
+ - [ReviewResponse](docs/ReviewResponse.md)
+ - [Rollout](docs/Rollout.md)
+ - [Rule](docs/Rule.md)
+ - [ScheduledChange](docs/ScheduledChange.md)
+ - [ScheduledChanges](docs/ScheduledChanges.md)
+ - [SdkListRep](docs/SdkListRep.md)
+ - [SdkVersionListRep](docs/SdkVersionListRep.md)
+ - [SdkVersionRep](docs/SdkVersionRep.md)
+ - [SegmentMetadata](docs/SegmentMetadata.md)
+ - [SegmentPost](docs/SegmentPost.md)
+ - [SegmentUserList](docs/SegmentUserList.md)
+ - [SegmentUserState](docs/SegmentUserState.md)
+ - [SeriesListRep](docs/SeriesListRep.md)
+ - [SourceFlag](docs/SourceFlag.md)
+ - [Statement](docs/Statement.md)
+ - [StatementPost](docs/StatementPost.md)
+ - [StatementPostData](docs/StatementPostData.md)
  - [StatementRep](docs/StatementRep.md)
- - [StatementStatementPost](docs/StatementStatementPost.md)
- - [StatementStatementPostData](docs/StatementStatementPostData.md)
+ - [StatisticCollectionRep](docs/StatisticCollectionRep.md)
+ - [StatisticRep](docs/StatisticRep.md)
+ - [StatisticsRoot](docs/StatisticsRoot.md)
  - [SubjectDataRep](docs/SubjectDataRep.md)
+ - [Target](docs/Target.md)
  - [TargetResourceRep](docs/TargetResourceRep.md)
  - [TitleRep](docs/TitleRep.md)
+ - [Token](docs/Token.md)
  - [TokenDataRep](docs/TokenDataRep.md)
- - [UnboundedSegmentMetadata](docs/UnboundedSegmentMetadata.md)
- - [UnboundedSegmentUserList](docs/UnboundedSegmentUserList.md)
- - [UnboundedSegmentUserState](docs/UnboundedSegmentUserState.md)
- - [UserListRep](docs/UserListRep.md)
+ - [Tokens](docs/Tokens.md)
+ - [UrlPost](docs/UrlPost.md)
+ - [User](docs/User.md)
+ - [UserAttributeNamesRep](docs/UserAttributeNamesRep.md)
+ - [UserFlagSetting](docs/UserFlagSetting.md)
+ - [UserFlagSettings](docs/UserFlagSettings.md)
  - [UserRecord](docs/UserRecord.md)
- - [UserRep](docs/UserRep.md)
- - [UserSettingRep](docs/UserSettingRep.md)
- - [UserSettingsCollection](docs/UserSettingsCollection.md)
- - [VariateRep](docs/VariateRep.md)
+ - [UserSegment](docs/UserSegment.md)
+ - [UserSegmentRule](docs/UserSegmentRule.md)
+ - [UserSegments](docs/UserSegments.md)
+ - [Users](docs/Users.md)
+ - [ValuePut](docs/ValuePut.md)
+ - [Variate](docs/Variate.md)
+ - [Variation](docs/Variation.md)
  - [VariationOrRolloutRep](docs/VariationOrRolloutRep.md)
  - [VariationSummary](docs/VariationSummary.md)
  - [VersionsRep](docs/VersionsRep.md)
- - [WebConflict](docs/WebConflict.md)
- - [WebConflictResponse](docs/WebConflictResponse.md)
- - [WebConflictResponseConflict](docs/WebConflictResponseConflict.md)
- - [WebConflictResponseInstruction](docs/WebConflictResponseInstruction.md)
- - [WebCopiedFromEnv](docs/WebCopiedFromEnv.md)
- - [WebExpiringUserTargetError](docs/WebExpiringUserTargetError.md)
- - [WebExpiringUserTargetItem](docs/WebExpiringUserTargetItem.md)
- - [WebExpiringUserTargetResponse](docs/WebExpiringUserTargetResponse.md)
- - [WebFlagConfigApprovalRequestResponse](docs/WebFlagConfigApprovalRequestResponse.md)
- - [WebFlagScheduledChangesInput](docs/WebFlagScheduledChangesInput.md)
- - [WebIntegrationMetadata](docs/WebIntegrationMetadata.md)
- - [WebIntegrationStatus](docs/WebIntegrationStatus.md)
- - [WebPostFlagScheduledChangesInput](docs/WebPostFlagScheduledChangesInput.md)
- - [WebReportFlagScheduledChangesInput](docs/WebReportFlagScheduledChangesInput.md)
- - [WebResourceIDResponse](docs/WebResourceIDResponse.md)
- - [WebReviewResponse](docs/WebReviewResponse.md)
- - [WeightedVariationRep](docs/WeightedVariationRep.md)
+ - [Webhook](docs/Webhook.md)
+ - [WebhookPost](docs/WebhookPost.md)
+ - [Webhooks](docs/Webhooks.md)
+ - [WeightedVariation](docs/WeightedVariation.md)
 
 
 ## Documentation For Authorization
@@ -869,23 +876,23 @@ func main() {
 	valOne := map[string]interface{}{"one": valOneVal}
 	valTwoVal := []int{4, 5}
 	valTwo := map[string]interface{}{"two": valTwoVal}
-	body := ldapi.Reps2GlobalFlagRep{
-		Name: &flagName,
-		Key:  &flagKey,
-		Variations: &[]ldapi.Reps2VariateRep{
+	body := ldapi.FlagPost{
+		Name: flagName,
+		Key:  flagKey,
+		Variations: &[]ldapi.FlagPostVariations{
 			{Value: &valOne},
 			{Value: &valTwo},
 		},
 	}
-	flag, resp, err := client.FeatureFlagsApi.PostFeatureFlag(ctx, "openapi").Reps2GlobalFlagRep(body).Execute()
+	flag, resp, err := client.FeatureFlagsApi.PostFeatureFlag(ctx, "openapi").FlagPost(body).Execute()
 	if err != nil {
 		if resp.StatusCode != 409 {
 			panic(fmt.Errorf("create failed: %s", err))
 		} else {
-			if _, err := client.FeatureFlagsApi.DeleteFeatureFlag(ctx, "openapi", *body.Key).Execute(); err != nil {
+			if _, err := client.FeatureFlagsApi.DeleteFeatureFlag(ctx, "openapi", body.Key).Execute(); err != nil {
 				panic(fmt.Errorf("delete failed: %s", err))
 			}
-			flag, resp, err = client.FeatureFlagsApi.PostFeatureFlag(ctx, "openapi").Reps2GlobalFlagRep(body).Execute()
+			flag, resp, err = client.FeatureFlagsApi.PostFeatureFlag(ctx, "openapi").FlagPost(body).Execute()
 			if err != nil {
 				panic(fmt.Errorf("create failed: %s", err))
 			}
@@ -894,7 +901,7 @@ func main() {
 	fmt.Printf("Created flag: %+v\n", flag)
 	// Clean up new flag
 	defer func() {
-		if _, err := client.FeatureFlagsApi.DeleteFeatureFlag(ctx, "openapi", *body.Key).Execute(); err != nil {
+		if _, err := client.FeatureFlagsApi.DeleteFeatureFlag(ctx, "openapi", body.Key).Execute(); err != nil {
 			panic(fmt.Errorf("delete failed: %s", err))
 		}
 	}()

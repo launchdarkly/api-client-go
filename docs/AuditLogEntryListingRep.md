@@ -4,6 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Links** | [**map[string]Link**](Link.md) |  | 
+**Id** | **string** |  | 
+**AccountId** | **string** |  | 
+**Date** | **int64** |  | 
+**Accesses** | [**[]ResourceAccess**](ResourceAccess.md) |  | 
+**Kind** | **string** |  | 
+**Name** | **string** |  | 
+**Description** | **string** |  | 
+**ShortDescription** | **string** |  | 
+**Comment** | Pointer to **string** |  | [optional] 
 **Subject** | Pointer to [**SubjectDataRep**](SubjectDataRep.md) |  | [optional] 
 **Member** | Pointer to [**MemberDataRep**](MemberDataRep.md) |  | [optional] 
 **Token** | Pointer to [**TokenDataRep**](TokenDataRep.md) |  | [optional] 
@@ -12,18 +22,12 @@ Name | Type | Description | Notes
 **Title** | Pointer to **string** |  | [optional] 
 **Target** | Pointer to [**TargetResourceRep**](TargetResourceRep.md) |  | [optional] 
 **Parent** | Pointer to [**ParentResourceRep**](ParentResourceRep.md) |  | [optional] 
-**Delta** | Pointer to **interface{}** |  | [optional] 
-**TriggerBody** | Pointer to **interface{}** |  | [optional] 
-**Merge** | Pointer to **interface{}** |  | [optional] 
-**PreviousVersion** | Pointer to **interface{}** |  | [optional] 
-**CurrentVersion** | Pointer to **interface{}** |  | [optional] 
-**Subentries** | Pointer to [**[]AuditLogEntryListingRep**](AuditLogEntryListingRep.md) |  | [optional] 
 
 ## Methods
 
 ### NewAuditLogEntryListingRep
 
-`func NewAuditLogEntryListingRep() *AuditLogEntryListingRep`
+`func NewAuditLogEntryListingRep(links map[string]Link, id string, accountId string, date int64, accesses []ResourceAccess, kind string, name string, description string, shortDescription string, ) *AuditLogEntryListingRep`
 
 NewAuditLogEntryListingRep instantiates a new AuditLogEntryListingRep object
 This constructor will assign default values to properties that have it defined,
@@ -37,6 +41,211 @@ will change when the set of required properties is changed
 NewAuditLogEntryListingRepWithDefaults instantiates a new AuditLogEntryListingRep object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetLinks
+
+`func (o *AuditLogEntryListingRep) GetLinks() map[string]Link`
+
+GetLinks returns the Links field if non-nil, zero value otherwise.
+
+### GetLinksOk
+
+`func (o *AuditLogEntryListingRep) GetLinksOk() (*map[string]Link, bool)`
+
+GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLinks
+
+`func (o *AuditLogEntryListingRep) SetLinks(v map[string]Link)`
+
+SetLinks sets Links field to given value.
+
+
+### GetId
+
+`func (o *AuditLogEntryListingRep) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *AuditLogEntryListingRep) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *AuditLogEntryListingRep) SetId(v string)`
+
+SetId sets Id field to given value.
+
+
+### GetAccountId
+
+`func (o *AuditLogEntryListingRep) GetAccountId() string`
+
+GetAccountId returns the AccountId field if non-nil, zero value otherwise.
+
+### GetAccountIdOk
+
+`func (o *AuditLogEntryListingRep) GetAccountIdOk() (*string, bool)`
+
+GetAccountIdOk returns a tuple with the AccountId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAccountId
+
+`func (o *AuditLogEntryListingRep) SetAccountId(v string)`
+
+SetAccountId sets AccountId field to given value.
+
+
+### GetDate
+
+`func (o *AuditLogEntryListingRep) GetDate() int64`
+
+GetDate returns the Date field if non-nil, zero value otherwise.
+
+### GetDateOk
+
+`func (o *AuditLogEntryListingRep) GetDateOk() (*int64, bool)`
+
+GetDateOk returns a tuple with the Date field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDate
+
+`func (o *AuditLogEntryListingRep) SetDate(v int64)`
+
+SetDate sets Date field to given value.
+
+
+### GetAccesses
+
+`func (o *AuditLogEntryListingRep) GetAccesses() []ResourceAccess`
+
+GetAccesses returns the Accesses field if non-nil, zero value otherwise.
+
+### GetAccessesOk
+
+`func (o *AuditLogEntryListingRep) GetAccessesOk() (*[]ResourceAccess, bool)`
+
+GetAccessesOk returns a tuple with the Accesses field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAccesses
+
+`func (o *AuditLogEntryListingRep) SetAccesses(v []ResourceAccess)`
+
+SetAccesses sets Accesses field to given value.
+
+
+### GetKind
+
+`func (o *AuditLogEntryListingRep) GetKind() string`
+
+GetKind returns the Kind field if non-nil, zero value otherwise.
+
+### GetKindOk
+
+`func (o *AuditLogEntryListingRep) GetKindOk() (*string, bool)`
+
+GetKindOk returns a tuple with the Kind field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetKind
+
+`func (o *AuditLogEntryListingRep) SetKind(v string)`
+
+SetKind sets Kind field to given value.
+
+
+### GetName
+
+`func (o *AuditLogEntryListingRep) GetName() string`
+
+GetName returns the Name field if non-nil, zero value otherwise.
+
+### GetNameOk
+
+`func (o *AuditLogEntryListingRep) GetNameOk() (*string, bool)`
+
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetName
+
+`func (o *AuditLogEntryListingRep) SetName(v string)`
+
+SetName sets Name field to given value.
+
+
+### GetDescription
+
+`func (o *AuditLogEntryListingRep) GetDescription() string`
+
+GetDescription returns the Description field if non-nil, zero value otherwise.
+
+### GetDescriptionOk
+
+`func (o *AuditLogEntryListingRep) GetDescriptionOk() (*string, bool)`
+
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescription
+
+`func (o *AuditLogEntryListingRep) SetDescription(v string)`
+
+SetDescription sets Description field to given value.
+
+
+### GetShortDescription
+
+`func (o *AuditLogEntryListingRep) GetShortDescription() string`
+
+GetShortDescription returns the ShortDescription field if non-nil, zero value otherwise.
+
+### GetShortDescriptionOk
+
+`func (o *AuditLogEntryListingRep) GetShortDescriptionOk() (*string, bool)`
+
+GetShortDescriptionOk returns a tuple with the ShortDescription field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetShortDescription
+
+`func (o *AuditLogEntryListingRep) SetShortDescription(v string)`
+
+SetShortDescription sets ShortDescription field to given value.
+
+
+### GetComment
+
+`func (o *AuditLogEntryListingRep) GetComment() string`
+
+GetComment returns the Comment field if non-nil, zero value otherwise.
+
+### GetCommentOk
+
+`func (o *AuditLogEntryListingRep) GetCommentOk() (*string, bool)`
+
+GetCommentOk returns a tuple with the Comment field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetComment
+
+`func (o *AuditLogEntryListingRep) SetComment(v string)`
+
+SetComment sets Comment field to given value.
+
+### HasComment
+
+`func (o *AuditLogEntryListingRep) HasComment() bool`
+
+HasComment returns a boolean if a field has been set.
 
 ### GetSubject
 
@@ -237,206 +446,6 @@ SetParent sets Parent field to given value.
 `func (o *AuditLogEntryListingRep) HasParent() bool`
 
 HasParent returns a boolean if a field has been set.
-
-### GetDelta
-
-`func (o *AuditLogEntryListingRep) GetDelta() interface{}`
-
-GetDelta returns the Delta field if non-nil, zero value otherwise.
-
-### GetDeltaOk
-
-`func (o *AuditLogEntryListingRep) GetDeltaOk() (*interface{}, bool)`
-
-GetDeltaOk returns a tuple with the Delta field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDelta
-
-`func (o *AuditLogEntryListingRep) SetDelta(v interface{})`
-
-SetDelta sets Delta field to given value.
-
-### HasDelta
-
-`func (o *AuditLogEntryListingRep) HasDelta() bool`
-
-HasDelta returns a boolean if a field has been set.
-
-### SetDeltaNil
-
-`func (o *AuditLogEntryListingRep) SetDeltaNil(b bool)`
-
- SetDeltaNil sets the value for Delta to be an explicit nil
-
-### UnsetDelta
-`func (o *AuditLogEntryListingRep) UnsetDelta()`
-
-UnsetDelta ensures that no value is present for Delta, not even an explicit nil
-### GetTriggerBody
-
-`func (o *AuditLogEntryListingRep) GetTriggerBody() interface{}`
-
-GetTriggerBody returns the TriggerBody field if non-nil, zero value otherwise.
-
-### GetTriggerBodyOk
-
-`func (o *AuditLogEntryListingRep) GetTriggerBodyOk() (*interface{}, bool)`
-
-GetTriggerBodyOk returns a tuple with the TriggerBody field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetTriggerBody
-
-`func (o *AuditLogEntryListingRep) SetTriggerBody(v interface{})`
-
-SetTriggerBody sets TriggerBody field to given value.
-
-### HasTriggerBody
-
-`func (o *AuditLogEntryListingRep) HasTriggerBody() bool`
-
-HasTriggerBody returns a boolean if a field has been set.
-
-### SetTriggerBodyNil
-
-`func (o *AuditLogEntryListingRep) SetTriggerBodyNil(b bool)`
-
- SetTriggerBodyNil sets the value for TriggerBody to be an explicit nil
-
-### UnsetTriggerBody
-`func (o *AuditLogEntryListingRep) UnsetTriggerBody()`
-
-UnsetTriggerBody ensures that no value is present for TriggerBody, not even an explicit nil
-### GetMerge
-
-`func (o *AuditLogEntryListingRep) GetMerge() interface{}`
-
-GetMerge returns the Merge field if non-nil, zero value otherwise.
-
-### GetMergeOk
-
-`func (o *AuditLogEntryListingRep) GetMergeOk() (*interface{}, bool)`
-
-GetMergeOk returns a tuple with the Merge field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetMerge
-
-`func (o *AuditLogEntryListingRep) SetMerge(v interface{})`
-
-SetMerge sets Merge field to given value.
-
-### HasMerge
-
-`func (o *AuditLogEntryListingRep) HasMerge() bool`
-
-HasMerge returns a boolean if a field has been set.
-
-### SetMergeNil
-
-`func (o *AuditLogEntryListingRep) SetMergeNil(b bool)`
-
- SetMergeNil sets the value for Merge to be an explicit nil
-
-### UnsetMerge
-`func (o *AuditLogEntryListingRep) UnsetMerge()`
-
-UnsetMerge ensures that no value is present for Merge, not even an explicit nil
-### GetPreviousVersion
-
-`func (o *AuditLogEntryListingRep) GetPreviousVersion() interface{}`
-
-GetPreviousVersion returns the PreviousVersion field if non-nil, zero value otherwise.
-
-### GetPreviousVersionOk
-
-`func (o *AuditLogEntryListingRep) GetPreviousVersionOk() (*interface{}, bool)`
-
-GetPreviousVersionOk returns a tuple with the PreviousVersion field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPreviousVersion
-
-`func (o *AuditLogEntryListingRep) SetPreviousVersion(v interface{})`
-
-SetPreviousVersion sets PreviousVersion field to given value.
-
-### HasPreviousVersion
-
-`func (o *AuditLogEntryListingRep) HasPreviousVersion() bool`
-
-HasPreviousVersion returns a boolean if a field has been set.
-
-### SetPreviousVersionNil
-
-`func (o *AuditLogEntryListingRep) SetPreviousVersionNil(b bool)`
-
- SetPreviousVersionNil sets the value for PreviousVersion to be an explicit nil
-
-### UnsetPreviousVersion
-`func (o *AuditLogEntryListingRep) UnsetPreviousVersion()`
-
-UnsetPreviousVersion ensures that no value is present for PreviousVersion, not even an explicit nil
-### GetCurrentVersion
-
-`func (o *AuditLogEntryListingRep) GetCurrentVersion() interface{}`
-
-GetCurrentVersion returns the CurrentVersion field if non-nil, zero value otherwise.
-
-### GetCurrentVersionOk
-
-`func (o *AuditLogEntryListingRep) GetCurrentVersionOk() (*interface{}, bool)`
-
-GetCurrentVersionOk returns a tuple with the CurrentVersion field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCurrentVersion
-
-`func (o *AuditLogEntryListingRep) SetCurrentVersion(v interface{})`
-
-SetCurrentVersion sets CurrentVersion field to given value.
-
-### HasCurrentVersion
-
-`func (o *AuditLogEntryListingRep) HasCurrentVersion() bool`
-
-HasCurrentVersion returns a boolean if a field has been set.
-
-### SetCurrentVersionNil
-
-`func (o *AuditLogEntryListingRep) SetCurrentVersionNil(b bool)`
-
- SetCurrentVersionNil sets the value for CurrentVersion to be an explicit nil
-
-### UnsetCurrentVersion
-`func (o *AuditLogEntryListingRep) UnsetCurrentVersion()`
-
-UnsetCurrentVersion ensures that no value is present for CurrentVersion, not even an explicit nil
-### GetSubentries
-
-`func (o *AuditLogEntryListingRep) GetSubentries() []AuditLogEntryListingRep`
-
-GetSubentries returns the Subentries field if non-nil, zero value otherwise.
-
-### GetSubentriesOk
-
-`func (o *AuditLogEntryListingRep) GetSubentriesOk() (*[]AuditLogEntryListingRep, bool)`
-
-GetSubentriesOk returns a tuple with the Subentries field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetSubentries
-
-`func (o *AuditLogEntryListingRep) SetSubentries(v []AuditLogEntryListingRep)`
-
-SetSubentries sets Subentries field to given value.
-
-### HasSubentries
-
-`func (o *AuditLogEntryListingRep) HasSubentries() bool`
-
-HasSubentries returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

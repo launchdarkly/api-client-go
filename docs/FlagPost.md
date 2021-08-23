@@ -4,17 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** |  | 
-**Key** | **string** |  | 
-**Description** | Pointer to **string** |  | [optional] 
-**IncludeInSnippet** | Pointer to **bool** |  | [optional] 
+**Name** | **string** | A human-friendly name for the feature flag | 
+**Key** | **string** | A unique key to reference the flag in your code | 
+**Description** | Pointer to **string** | Description of the feature flag | [optional] 
+**IncludeInSnippet** | Pointer to **bool** | Deprecated, use clientSideAvailability. Whether or not this flag should be made available to the client-side JavaScript SDK | [optional] 
 **ClientSideAvailability** | Pointer to [**ClientSideAvailabilityPost**](ClientSideAvailabilityPost.md) |  | [optional] 
-**Variations** | Pointer to [**[]FlagPostVariations**](FlagPostVariations.md) |  | [optional] 
+**Variations** | Pointer to [**[]Variate**](Variate.md) | An array of possible variations for the flag | [optional] 
 **VariationJsonSchema** | Pointer to **interface{}** |  | [optional] 
-**Temporary** | Pointer to **bool** |  | [optional] 
-**Tags** | Pointer to **[]string** |  | [optional] 
+**Temporary** | Pointer to **bool** | Whether or not the flag is a temporary flag | [optional] 
+**Tags** | Pointer to **[]string** | Tags for the feature flag | [optional] 
 **CustomProperties** | Pointer to [**map[string]CustomProperty**](CustomProperty.md) |  | [optional] 
-**Defaults** | Pointer to [**FlagDefaultsRep**](FlagDefaultsRep.md) |  | [optional] 
+**Defaults** | Pointer to [**Defaults**](Defaults.md) |  | [optional] 
 
 ## Methods
 
@@ -152,20 +152,20 @@ HasClientSideAvailability returns a boolean if a field has been set.
 
 ### GetVariations
 
-`func (o *FlagPost) GetVariations() []FlagPostVariations`
+`func (o *FlagPost) GetVariations() []Variate`
 
 GetVariations returns the Variations field if non-nil, zero value otherwise.
 
 ### GetVariationsOk
 
-`func (o *FlagPost) GetVariationsOk() (*[]FlagPostVariations, bool)`
+`func (o *FlagPost) GetVariationsOk() (*[]Variate, bool)`
 
 GetVariationsOk returns a tuple with the Variations field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVariations
 
-`func (o *FlagPost) SetVariations(v []FlagPostVariations)`
+`func (o *FlagPost) SetVariations(v []Variate)`
 
 SetVariations sets Variations field to given value.
 
@@ -287,20 +287,20 @@ HasCustomProperties returns a boolean if a field has been set.
 
 ### GetDefaults
 
-`func (o *FlagPost) GetDefaults() FlagDefaultsRep`
+`func (o *FlagPost) GetDefaults() Defaults`
 
 GetDefaults returns the Defaults field if non-nil, zero value otherwise.
 
 ### GetDefaultsOk
 
-`func (o *FlagPost) GetDefaultsOk() (*FlagDefaultsRep, bool)`
+`func (o *FlagPost) GetDefaultsOk() (*Defaults, bool)`
 
 GetDefaultsOk returns a tuple with the Defaults field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDefaults
 
-`func (o *FlagPost) SetDefaults(v FlagDefaultsRep)`
+`func (o *FlagPost) SetDefaults(v Defaults)`
 
 SetDefaults sets Defaults field to given value.
 

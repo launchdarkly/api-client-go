@@ -83,7 +83,7 @@ Name | Type | Description  | Notes
 
 ## GetToken
 
-> AccessTokenRep GetToken(ctx, id).Execute()
+> Token GetToken(ctx, id).Execute()
 
 Get access token
 
@@ -111,7 +111,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `AccessTokensApi.GetToken``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetToken`: AccessTokenRep
+    // response from `GetToken`: Token
     fmt.Fprintf(os.Stdout, "Response from `AccessTokensApi.GetToken`: %v\n", resp)
 }
 ```
@@ -135,7 +135,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AccessTokenRep**](AccessTokenRep.md)
+[**Token**](Token.md)
 
 ### Authorization
 
@@ -153,7 +153,7 @@ Name | Type | Description  | Notes
 
 ## GetTokens
 
-> AccessTokenCollectionRep GetTokens(ctx).ShowAll(showAll).Execute()
+> Tokens GetTokens(ctx).ShowAll(showAll).Execute()
 
 List access tokens
 
@@ -181,7 +181,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `AccessTokensApi.GetTokens``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetTokens`: AccessTokenCollectionRep
+    // response from `GetTokens`: Tokens
     fmt.Fprintf(os.Stdout, "Response from `AccessTokensApi.GetTokens`: %v\n", resp)
 }
 ```
@@ -201,7 +201,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AccessTokenCollectionRep**](AccessTokenCollectionRep.md)
+[**Tokens**](Tokens.md)
 
 ### Authorization
 
@@ -219,7 +219,7 @@ Name | Type | Description  | Notes
 
 ## PatchToken
 
-> AccessTokenRep PatchToken(ctx, id).JSONPatchElt(jSONPatchElt).Execute()
+> Token PatchToken(ctx, id).JSONPatchElt(jSONPatchElt).Execute()
 
 Patch access token
 
@@ -248,7 +248,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `AccessTokensApi.PatchToken``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PatchToken`: AccessTokenRep
+    // response from `PatchToken`: Token
     fmt.Fprintf(os.Stdout, "Response from `AccessTokensApi.PatchToken`: %v\n", resp)
 }
 ```
@@ -273,7 +273,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AccessTokenRep**](AccessTokenRep.md)
+[**Token**](Token.md)
 
 ### Authorization
 
@@ -291,7 +291,7 @@ Name | Type | Description  | Notes
 
 ## PostToken
 
-> AccessTokenRep PostToken(ctx).AccessTokensAccessTokenPost(accessTokensAccessTokenPost).Execute()
+> Token PostToken(ctx).AccessTokenPost(accessTokenPost).Execute()
 
 Create access token
 
@@ -310,16 +310,16 @@ import (
 )
 
 func main() {
-    accessTokensAccessTokenPost := *openapiclient.NewAccessTokensAccessTokenPost() // AccessTokensAccessTokenPost | 
+    accessTokenPost := *openapiclient.NewAccessTokenPost() // AccessTokenPost | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AccessTokensApi.PostToken(context.Background()).AccessTokensAccessTokenPost(accessTokensAccessTokenPost).Execute()
+    resp, r, err := api_client.AccessTokensApi.PostToken(context.Background()).AccessTokenPost(accessTokenPost).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AccessTokensApi.PostToken``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostToken`: AccessTokenRep
+    // response from `PostToken`: Token
     fmt.Fprintf(os.Stdout, "Response from `AccessTokensApi.PostToken`: %v\n", resp)
 }
 ```
@@ -335,11 +335,11 @@ Other parameters are passed through a pointer to a apiPostTokenRequest struct vi
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **accessTokensAccessTokenPost** | [**AccessTokensAccessTokenPost**](AccessTokensAccessTokenPost.md) |  | 
+ **accessTokenPost** | [**AccessTokenPost**](AccessTokenPost.md) |  | 
 
 ### Return type
 
-[**AccessTokenRep**](AccessTokenRep.md)
+[**Token**](Token.md)
 
 ### Authorization
 
@@ -357,7 +357,7 @@ Name | Type | Description  | Notes
 
 ## ResetToken
 
-> AccessTokenRep ResetToken(ctx, id).Expiry(expiry).Execute()
+> Token ResetToken(ctx, id).Expiry(expiry).Execute()
 
 Reset access token
 
@@ -386,7 +386,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `AccessTokensApi.ResetToken``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `ResetToken`: AccessTokenRep
+    // response from `ResetToken`: Token
     fmt.Fprintf(os.Stdout, "Response from `AccessTokensApi.ResetToken`: %v\n", resp)
 }
 ```
@@ -411,7 +411,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AccessTokenRep**](AccessTokenRep.md)
+[**Token**](Token.md)
 
 ### Authorization
 

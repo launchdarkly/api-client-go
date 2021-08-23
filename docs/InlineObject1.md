@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Email** | **string** |  | 
-**Password** | Pointer to **string** |  | [optional] 
-**FirstName** | Pointer to **string** |  | [optional] 
-**LastName** | Pointer to **string** |  | [optional] 
-**Role** | Pointer to **string** |  | [optional] 
-**CustomRoles** | Pointer to **[]string** |  | [optional] 
+**Email** | **string** | The member&#39;s email | 
+**Password** | Pointer to **string** | The member&#39;s password | [optional] 
+**FirstName** | Pointer to **string** | The member&#39;s first name | [optional] 
+**LastName** | Pointer to **string** | The member&#39;s last name | [optional] 
+**Role** | Pointer to **string** | The member&#39;s built-in role | [optional] 
+**CustomRoles** | Pointer to **[]string** | The member&#39;s custom role | [optional] 
 
 ## Methods
 
