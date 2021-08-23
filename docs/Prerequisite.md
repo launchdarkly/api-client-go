@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Key** | Pointer to **string** |  | [optional] 
-**Variation** | Pointer to **int32** |  | [optional] 
+**Key** | **string** |  | 
+**Variation** | **int32** |  | 
 
 ## Methods
 
 ### NewPrerequisite
 
-`func NewPrerequisite() *Prerequisite`
+`func NewPrerequisite(key string, variation int32, ) *Prerequisite`
 
 NewPrerequisite instantiates a new Prerequisite object
 This constructor will assign default values to properties that have it defined,
@@ -45,11 +45,6 @@ and a boolean to check if the value has been set.
 
 SetKey sets Key field to given value.
 
-### HasKey
-
-`func (o *Prerequisite) HasKey() bool`
-
-HasKey returns a boolean if a field has been set.
 
 ### GetVariation
 
@@ -70,11 +65,6 @@ and a boolean to check if the value has been set.
 
 SetVariation sets Variation field to given value.
 
-### HasVariation
-
-`func (o *Prerequisite) HasVariation() bool`
-
-HasVariation returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

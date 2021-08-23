@@ -15,154 +15,454 @@ import (
 	"encoding/json"
 )
 
-// BigSegmentTargetChanges struct for BigSegmentTargetChanges
-type BigSegmentTargetChanges struct {
-	// The user key
-	UserKey string `json:"userKey"`
-	// Whether or not the user is included in the segment
-	Included bool `json:"included"`
-	// Whether or not the user is excluded from the segment
-	Excluded bool `json:"excluded"`
+// FeatureFlagBody struct for FeatureFlagBody
+type FeatureFlagBody struct {
+	// A human-friendly name for the feature flag
+	Name string `json:"name"`
+	// A unique key to reference the flag in your code
+	Key string `json:"key"`
+	// Description of the feature flag
+	Description *string `json:"description,omitempty"`
+	// Deprecated, use clientSideAvailability. Whether or not this flag should be made available to the client-side JavaScript SDK
+	IncludeInSnippet *bool `json:"includeInSnippet,omitempty"`
+	ClientSideAvailability *ClientSideAvailabilityPost `json:"clientSideAvailability,omitempty"`
+	// An array of possible variations for the flag
+	Variations *[]Variate `json:"variations,omitempty"`
+	VariationJsonSchema interface{} `json:"variationJsonSchema,omitempty"`
+	// Whether or not the flag is a temporary flag
+	Temporary *bool `json:"temporary,omitempty"`
+	// Tags for the feature flag
+	Tags *[]string `json:"tags,omitempty"`
+	CustomProperties *map[string]CustomProperty `json:"customProperties,omitempty"`
+	Defaults *Defaults `json:"defaults,omitempty"`
 }
 
-// NewBigSegmentTargetChanges instantiates a new BigSegmentTargetChanges object
+// NewFeatureFlagBody instantiates a new FeatureFlagBody object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBigSegmentTargetChanges(userKey string, included bool, excluded bool) *BigSegmentTargetChanges {
-	this := BigSegmentTargetChanges{}
-	this.UserKey = userKey
-	this.Included = included
-	this.Excluded = excluded
+func NewFeatureFlagBody(name string, key string) *FeatureFlagBody {
+	this := FeatureFlagBody{}
+	this.Name = name
+	this.Key = key
 	return &this
 }
 
-// NewBigSegmentTargetChangesWithDefaults instantiates a new BigSegmentTargetChanges object
+// NewFeatureFlagBodyWithDefaults instantiates a new FeatureFlagBody object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewBigSegmentTargetChangesWithDefaults() *BigSegmentTargetChanges {
-	this := BigSegmentTargetChanges{}
+func NewFeatureFlagBodyWithDefaults() *FeatureFlagBody {
+	this := FeatureFlagBody{}
 	return &this
 }
 
-// GetUserKey returns the UserKey field value
-func (o *BigSegmentTargetChanges) GetUserKey() string {
+// GetName returns the Name field value
+func (o *FeatureFlagBody) GetName() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.UserKey
+	return o.Name
 }
 
-// GetUserKeyOk returns a tuple with the UserKey field value
+// GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
-func (o *BigSegmentTargetChanges) GetUserKeyOk() (*string, bool) {
+func (o *FeatureFlagBody) GetNameOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return &o.UserKey, true
+	return &o.Name, true
 }
 
-// SetUserKey sets field value
-func (o *BigSegmentTargetChanges) SetUserKey(v string) {
-	o.UserKey = v
+// SetName sets field value
+func (o *FeatureFlagBody) SetName(v string) {
+	o.Name = v
 }
 
-// GetIncluded returns the Included field value
-func (o *BigSegmentTargetChanges) GetIncluded() bool {
+// GetKey returns the Key field value
+func (o *FeatureFlagBody) GetKey() string {
 	if o == nil {
-		var ret bool
+		var ret string
 		return ret
 	}
 
-	return o.Included
+	return o.Key
 }
 
-// GetIncludedOk returns a tuple with the Included field value
+// GetKeyOk returns a tuple with the Key field value
 // and a boolean to check if the value has been set.
-func (o *BigSegmentTargetChanges) GetIncludedOk() (*bool, bool) {
+func (o *FeatureFlagBody) GetKeyOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return &o.Included, true
+	return &o.Key, true
 }
 
-// SetIncluded sets field value
-func (o *BigSegmentTargetChanges) SetIncluded(v bool) {
-	o.Included = v
+// SetKey sets field value
+func (o *FeatureFlagBody) SetKey(v string) {
+	o.Key = v
 }
 
-// GetExcluded returns the Excluded field value
-func (o *BigSegmentTargetChanges) GetExcluded() bool {
-	if o == nil {
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *FeatureFlagBody) GetDescription() string {
+	if o == nil || o.Description == nil {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FeatureFlagBody) GetDescriptionOk() (*string, bool) {
+	if o == nil || o.Description == nil {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *FeatureFlagBody) HasDescription() bool {
+	if o != nil && o.Description != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *FeatureFlagBody) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetIncludeInSnippet returns the IncludeInSnippet field value if set, zero value otherwise.
+func (o *FeatureFlagBody) GetIncludeInSnippet() bool {
+	if o == nil || o.IncludeInSnippet == nil {
 		var ret bool
 		return ret
 	}
-
-	return o.Excluded
+	return *o.IncludeInSnippet
 }
 
-// GetExcludedOk returns a tuple with the Excluded field value
+// GetIncludeInSnippetOk returns a tuple with the IncludeInSnippet field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BigSegmentTargetChanges) GetExcludedOk() (*bool, bool) {
-	if o == nil  {
+func (o *FeatureFlagBody) GetIncludeInSnippetOk() (*bool, bool) {
+	if o == nil || o.IncludeInSnippet == nil {
 		return nil, false
 	}
-	return &o.Excluded, true
+	return o.IncludeInSnippet, true
 }
 
-// SetExcluded sets field value
-func (o *BigSegmentTargetChanges) SetExcluded(v bool) {
-	o.Excluded = v
+// HasIncludeInSnippet returns a boolean if a field has been set.
+func (o *FeatureFlagBody) HasIncludeInSnippet() bool {
+	if o != nil && o.IncludeInSnippet != nil {
+		return true
+	}
+
+	return false
 }
 
-func (o BigSegmentTargetChanges) MarshalJSON() ([]byte, error) {
+// SetIncludeInSnippet gets a reference to the given bool and assigns it to the IncludeInSnippet field.
+func (o *FeatureFlagBody) SetIncludeInSnippet(v bool) {
+	o.IncludeInSnippet = &v
+}
+
+// GetClientSideAvailability returns the ClientSideAvailability field value if set, zero value otherwise.
+func (o *FeatureFlagBody) GetClientSideAvailability() ClientSideAvailabilityPost {
+	if o == nil || o.ClientSideAvailability == nil {
+		var ret ClientSideAvailabilityPost
+		return ret
+	}
+	return *o.ClientSideAvailability
+}
+
+// GetClientSideAvailabilityOk returns a tuple with the ClientSideAvailability field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FeatureFlagBody) GetClientSideAvailabilityOk() (*ClientSideAvailabilityPost, bool) {
+	if o == nil || o.ClientSideAvailability == nil {
+		return nil, false
+	}
+	return o.ClientSideAvailability, true
+}
+
+// HasClientSideAvailability returns a boolean if a field has been set.
+func (o *FeatureFlagBody) HasClientSideAvailability() bool {
+	if o != nil && o.ClientSideAvailability != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetClientSideAvailability gets a reference to the given ClientSideAvailabilityPost and assigns it to the ClientSideAvailability field.
+func (o *FeatureFlagBody) SetClientSideAvailability(v ClientSideAvailabilityPost) {
+	o.ClientSideAvailability = &v
+}
+
+// GetVariations returns the Variations field value if set, zero value otherwise.
+func (o *FeatureFlagBody) GetVariations() []Variate {
+	if o == nil || o.Variations == nil {
+		var ret []Variate
+		return ret
+	}
+	return *o.Variations
+}
+
+// GetVariationsOk returns a tuple with the Variations field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FeatureFlagBody) GetVariationsOk() (*[]Variate, bool) {
+	if o == nil || o.Variations == nil {
+		return nil, false
+	}
+	return o.Variations, true
+}
+
+// HasVariations returns a boolean if a field has been set.
+func (o *FeatureFlagBody) HasVariations() bool {
+	if o != nil && o.Variations != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetVariations gets a reference to the given []Variate and assigns it to the Variations field.
+func (o *FeatureFlagBody) SetVariations(v []Variate) {
+	o.Variations = &v
+}
+
+// GetVariationJsonSchema returns the VariationJsonSchema field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FeatureFlagBody) GetVariationJsonSchema() interface{} {
+	if o == nil  {
+		var ret interface{}
+		return ret
+	}
+	return o.VariationJsonSchema
+}
+
+// GetVariationJsonSchemaOk returns a tuple with the VariationJsonSchema field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FeatureFlagBody) GetVariationJsonSchemaOk() (*interface{}, bool) {
+	if o == nil || o.VariationJsonSchema == nil {
+		return nil, false
+	}
+	return &o.VariationJsonSchema, true
+}
+
+// HasVariationJsonSchema returns a boolean if a field has been set.
+func (o *FeatureFlagBody) HasVariationJsonSchema() bool {
+	if o != nil && o.VariationJsonSchema != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetVariationJsonSchema gets a reference to the given interface{} and assigns it to the VariationJsonSchema field.
+func (o *FeatureFlagBody) SetVariationJsonSchema(v interface{}) {
+	o.VariationJsonSchema = v
+}
+
+// GetTemporary returns the Temporary field value if set, zero value otherwise.
+func (o *FeatureFlagBody) GetTemporary() bool {
+	if o == nil || o.Temporary == nil {
+		var ret bool
+		return ret
+	}
+	return *o.Temporary
+}
+
+// GetTemporaryOk returns a tuple with the Temporary field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FeatureFlagBody) GetTemporaryOk() (*bool, bool) {
+	if o == nil || o.Temporary == nil {
+		return nil, false
+	}
+	return o.Temporary, true
+}
+
+// HasTemporary returns a boolean if a field has been set.
+func (o *FeatureFlagBody) HasTemporary() bool {
+	if o != nil && o.Temporary != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTemporary gets a reference to the given bool and assigns it to the Temporary field.
+func (o *FeatureFlagBody) SetTemporary(v bool) {
+	o.Temporary = &v
+}
+
+// GetTags returns the Tags field value if set, zero value otherwise.
+func (o *FeatureFlagBody) GetTags() []string {
+	if o == nil || o.Tags == nil {
+		var ret []string
+		return ret
+	}
+	return *o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FeatureFlagBody) GetTagsOk() (*[]string, bool) {
+	if o == nil || o.Tags == nil {
+		return nil, false
+	}
+	return o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *FeatureFlagBody) HasTags() bool {
+	if o != nil && o.Tags != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given []string and assigns it to the Tags field.
+func (o *FeatureFlagBody) SetTags(v []string) {
+	o.Tags = &v
+}
+
+// GetCustomProperties returns the CustomProperties field value if set, zero value otherwise.
+func (o *FeatureFlagBody) GetCustomProperties() map[string]CustomProperty {
+	if o == nil || o.CustomProperties == nil {
+		var ret map[string]CustomProperty
+		return ret
+	}
+	return *o.CustomProperties
+}
+
+// GetCustomPropertiesOk returns a tuple with the CustomProperties field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FeatureFlagBody) GetCustomPropertiesOk() (*map[string]CustomProperty, bool) {
+	if o == nil || o.CustomProperties == nil {
+		return nil, false
+	}
+	return o.CustomProperties, true
+}
+
+// HasCustomProperties returns a boolean if a field has been set.
+func (o *FeatureFlagBody) HasCustomProperties() bool {
+	if o != nil && o.CustomProperties != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCustomProperties gets a reference to the given map[string]CustomProperty and assigns it to the CustomProperties field.
+func (o *FeatureFlagBody) SetCustomProperties(v map[string]CustomProperty) {
+	o.CustomProperties = &v
+}
+
+// GetDefaults returns the Defaults field value if set, zero value otherwise.
+func (o *FeatureFlagBody) GetDefaults() Defaults {
+	if o == nil || o.Defaults == nil {
+		var ret Defaults
+		return ret
+	}
+	return *o.Defaults
+}
+
+// GetDefaultsOk returns a tuple with the Defaults field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FeatureFlagBody) GetDefaultsOk() (*Defaults, bool) {
+	if o == nil || o.Defaults == nil {
+		return nil, false
+	}
+	return o.Defaults, true
+}
+
+// HasDefaults returns a boolean if a field has been set.
+func (o *FeatureFlagBody) HasDefaults() bool {
+	if o != nil && o.Defaults != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDefaults gets a reference to the given Defaults and assigns it to the Defaults field.
+func (o *FeatureFlagBody) SetDefaults(v Defaults) {
+	o.Defaults = &v
+}
+
+func (o FeatureFlagBody) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["userKey"] = o.UserKey
+		toSerialize["name"] = o.Name
 	}
 	if true {
-		toSerialize["included"] = o.Included
+		toSerialize["key"] = o.Key
 	}
-	if true {
-		toSerialize["excluded"] = o.Excluded
+	if o.Description != nil {
+		toSerialize["description"] = o.Description
+	}
+	if o.IncludeInSnippet != nil {
+		toSerialize["includeInSnippet"] = o.IncludeInSnippet
+	}
+	if o.ClientSideAvailability != nil {
+		toSerialize["clientSideAvailability"] = o.ClientSideAvailability
+	}
+	if o.Variations != nil {
+		toSerialize["variations"] = o.Variations
+	}
+	if o.VariationJsonSchema != nil {
+		toSerialize["variationJsonSchema"] = o.VariationJsonSchema
+	}
+	if o.Temporary != nil {
+		toSerialize["temporary"] = o.Temporary
+	}
+	if o.Tags != nil {
+		toSerialize["tags"] = o.Tags
+	}
+	if o.CustomProperties != nil {
+		toSerialize["customProperties"] = o.CustomProperties
+	}
+	if o.Defaults != nil {
+		toSerialize["defaults"] = o.Defaults
 	}
 	return json.Marshal(toSerialize)
 }
 
-type NullableBigSegmentTargetChanges struct {
-	value *BigSegmentTargetChanges
+type NullableFeatureFlagBody struct {
+	value *FeatureFlagBody
 	isSet bool
 }
 
-func (v NullableBigSegmentTargetChanges) Get() *BigSegmentTargetChanges {
+func (v NullableFeatureFlagBody) Get() *FeatureFlagBody {
 	return v.value
 }
 
-func (v *NullableBigSegmentTargetChanges) Set(val *BigSegmentTargetChanges) {
+func (v *NullableFeatureFlagBody) Set(val *FeatureFlagBody) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableBigSegmentTargetChanges) IsSet() bool {
+func (v NullableFeatureFlagBody) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableBigSegmentTargetChanges) Unset() {
+func (v *NullableFeatureFlagBody) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableBigSegmentTargetChanges(val *BigSegmentTargetChanges) *NullableBigSegmentTargetChanges {
-	return &NullableBigSegmentTargetChanges{value: val, isSet: true}
+func NewNullableFeatureFlagBody(val *FeatureFlagBody) *NullableFeatureFlagBody {
+	return &NullableFeatureFlagBody{value: val, isSet: true}
 }
 
-func (v NullableBigSegmentTargetChanges) MarshalJSON() ([]byte, error) {
+func (v NullableFeatureFlagBody) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableBigSegmentTargetChanges) UnmarshalJSON(src []byte) error {
+func (v *NullableFeatureFlagBody) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

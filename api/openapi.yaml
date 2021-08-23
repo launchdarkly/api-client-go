@@ -2423,7 +2423,7 @@ paths:
               key: my-flag
               name: My Flag
             schema:
-              $ref: '#/components/schemas/FlagPost'
+              $ref: '#/components/schemas/FeatureFlagBody'
         required: true
       responses:
         "201":
@@ -5309,7 +5309,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BigSegmentTargetChanges'
+                $ref: '#/components/schemas/BigSegmentTarget'
           description: Unbounded target response
         "400":
           description: Invalid Big Segment
@@ -7883,7 +7883,7 @@ components:
         maintainerName:
           type: string
       type: object
-    BigSegmentTargetChanges:
+    BigSegmentTarget:
       example:
         excluded: true
         included: true
@@ -8089,6 +8089,7 @@ components:
         negate:
           type: boolean
       required:
+      - attribute
       - negate
       - op
       - values
@@ -10255,6 +10256,78 @@ components:
       - temporary
       - variations
       type: object
+    FeatureFlagBody:
+      example:
+        temporary: true
+        includeInSnippet: true
+        customProperties:
+          key:
+            name: name
+            value:
+            - value
+            - value
+        clientSideAvailability:
+          usingEnvironmentId: true
+          usingMobileKey: true
+        defaults:
+          onVariation: 2
+          offVariation: 4
+        variations:
+        - name: name
+          description: description
+          id: id
+          value: ""
+        - name: name
+          description: description
+          id: id
+          value: ""
+        name: name
+        description: description
+        key: key
+        variationJsonSchema: ""
+        tags:
+        - tags
+        - tags
+      properties:
+        name:
+          description: A human-friendly name for the feature flag
+          type: string
+        key:
+          description: A unique key to reference the flag in your code
+          type: string
+        description:
+          description: Description of the feature flag
+          type: string
+        includeInSnippet:
+          description: Deprecated, use clientSideAvailability. Whether or not this
+            flag should be made available to the client-side JavaScript SDK
+          type: boolean
+        clientSideAvailability:
+          $ref: '#/components/schemas/ClientSideAvailabilityPost'
+        variations:
+          description: An array of possible variations for the flag
+          items:
+            $ref: '#/components/schemas/Variate'
+          type: array
+        variationJsonSchema: {}
+        temporary:
+          description: Whether or not the flag is a temporary flag
+          type: boolean
+        tags:
+          description: Tags for the feature flag
+          items:
+            type: string
+          type: array
+        customProperties:
+          additionalProperties:
+            $ref: '#/components/schemas/customProperty'
+          type: object
+        defaults:
+          $ref: '#/components/schemas/Defaults'
+      required:
+      - key
+      - name
+      type: object
     FeatureFlagConfig:
       properties:
         "on":
@@ -10413,6 +10486,8 @@ components:
           items:
             $ref: '#/components/schemas/FlagStatusRep'
           type: array
+      required:
+      - _links
       type: object
     FeatureFlags:
       example:
@@ -11367,78 +11442,6 @@ components:
       - key
       - name
       type: object
-    FlagPost:
-      example:
-        temporary: true
-        includeInSnippet: true
-        customProperties:
-          key:
-            name: name
-            value:
-            - value
-            - value
-        clientSideAvailability:
-          usingEnvironmentId: true
-          usingMobileKey: true
-        defaults:
-          onVariation: 2
-          offVariation: 4
-        variations:
-        - name: name
-          description: description
-          id: id
-          value: ""
-        - name: name
-          description: description
-          id: id
-          value: ""
-        name: name
-        description: description
-        key: key
-        variationJsonSchema: ""
-        tags:
-        - tags
-        - tags
-      properties:
-        name:
-          description: A human-friendly name for the feature flag
-          type: string
-        key:
-          description: A unique key to reference the flag in your code
-          type: string
-        description:
-          description: Description of the feature flag
-          type: string
-        includeInSnippet:
-          description: Deprecated, use clientSideAvailability. Whether or not this
-            flag should be made available to the client-side JavaScript SDK
-          type: boolean
-        clientSideAvailability:
-          $ref: '#/components/schemas/ClientSideAvailabilityPost'
-        variations:
-          description: An array of possible variations for the flag
-          items:
-            $ref: '#/components/schemas/Variate'
-          type: array
-        variationJsonSchema: {}
-        temporary:
-          description: Whether or not the flag is a temporary flag
-          type: boolean
-        tags:
-          description: Tags for the feature flag
-          items:
-            type: string
-          type: array
-        customProperties:
-          additionalProperties:
-            $ref: '#/components/schemas/customProperty'
-          type: object
-        defaults:
-          $ref: '#/components/schemas/Defaults'
-      required:
-      - key
-      - name
-      type: object
     FlagScheduledChangesInput:
       example:
         instructions:
@@ -11572,31 +11575,8 @@ components:
       type: object
     JSONPatch:
       items:
-        $ref: '#/components/schemas/JSONPatchElt'
+        $ref: '#/components/schemas/PatchOperation'
       type: array
-    JSONPatchElt:
-      example:
-        op: replace
-        path: /biscuits
-        value: Chocolate Digestive
-      properties:
-        op:
-          description: The type of operation to perform
-          example: replace
-          type: string
-        path:
-          description: A JSON Pointer string specifying the part of the document to
-            operate on
-          example: /biscuits
-          type: string
-        value:
-          description: A JSON value used in "add", "replace", and "test" operations
-          example: Chocolate Digestive
-      required:
-      - op
-      - path
-      - value
-      type: object
     LastSeenMetadata:
       example:
         tokenId: 5b52207f8ca8e631d31fdb2b
@@ -12620,6 +12600,29 @@ components:
           type: string
         resource: {}
       type: object
+    PatchOperation:
+      example:
+        op: replace
+        path: /biscuits
+        value: Chocolate Digestive
+      properties:
+        op:
+          description: The type of operation to perform
+          example: replace
+          type: string
+        path:
+          description: A JSON Pointer string specifying the part of the document to
+            operate on
+          example: /biscuits
+          type: string
+        value:
+          description: A JSON value used in "add", "replace", and "test" operations
+          example: Chocolate Digestive
+      required:
+      - op
+      - path
+      - value
+      type: object
     PatchWithComment:
       example:
         patch:
@@ -12633,7 +12636,7 @@ components:
       properties:
         patch:
           items:
-            $ref: '#/components/schemas/JSONPatchElt'
+            $ref: '#/components/schemas/PatchOperation'
           type: array
         comment:
           type: string
@@ -12667,6 +12670,9 @@ components:
           type: string
         variation:
           type: integer
+      required:
+      - key
+      - variation
       type: object
     Project:
       example:
@@ -14495,6 +14501,9 @@ components:
           type: array
         variation:
           type: integer
+      required:
+      - values
+      - variation
       type: object
     TargetResourceRep:
       example:
@@ -15266,6 +15275,8 @@ components:
           type: integer
         bucketBy:
           type: string
+      required:
+      - clauses
       type: object
     UserSegments:
       example:

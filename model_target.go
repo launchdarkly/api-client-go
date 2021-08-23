@@ -17,16 +17,18 @@ import (
 
 // Target struct for Target
 type Target struct {
-	Values *[]string `json:"values,omitempty"`
-	Variation *int32 `json:"variation,omitempty"`
+	Values []string `json:"values"`
+	Variation int32 `json:"variation"`
 }
 
 // NewTarget instantiates a new Target object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTarget() *Target {
+func NewTarget(values []string, variation int32) *Target {
 	this := Target{}
+	this.Values = values
+	this.Variation = variation
 	return &this
 }
 
@@ -38,76 +40,60 @@ func NewTargetWithDefaults() *Target {
 	return &this
 }
 
-// GetValues returns the Values field value if set, zero value otherwise.
+// GetValues returns the Values field value
 func (o *Target) GetValues() []string {
-	if o == nil || o.Values == nil {
+	if o == nil {
 		var ret []string
 		return ret
 	}
-	return *o.Values
+
+	return o.Values
 }
 
-// GetValuesOk returns a tuple with the Values field value if set, nil otherwise
+// GetValuesOk returns a tuple with the Values field value
 // and a boolean to check if the value has been set.
 func (o *Target) GetValuesOk() (*[]string, bool) {
-	if o == nil || o.Values == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Values, true
+	return &o.Values, true
 }
 
-// HasValues returns a boolean if a field has been set.
-func (o *Target) HasValues() bool {
-	if o != nil && o.Values != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetValues gets a reference to the given []string and assigns it to the Values field.
+// SetValues sets field value
 func (o *Target) SetValues(v []string) {
-	o.Values = &v
+	o.Values = v
 }
 
-// GetVariation returns the Variation field value if set, zero value otherwise.
+// GetVariation returns the Variation field value
 func (o *Target) GetVariation() int32 {
-	if o == nil || o.Variation == nil {
+	if o == nil {
 		var ret int32
 		return ret
 	}
-	return *o.Variation
+
+	return o.Variation
 }
 
-// GetVariationOk returns a tuple with the Variation field value if set, nil otherwise
+// GetVariationOk returns a tuple with the Variation field value
 // and a boolean to check if the value has been set.
 func (o *Target) GetVariationOk() (*int32, bool) {
-	if o == nil || o.Variation == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Variation, true
+	return &o.Variation, true
 }
 
-// HasVariation returns a boolean if a field has been set.
-func (o *Target) HasVariation() bool {
-	if o != nil && o.Variation != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetVariation gets a reference to the given int32 and assigns it to the Variation field.
+// SetVariation sets field value
 func (o *Target) SetVariation(v int32) {
-	o.Variation = &v
+	o.Variation = v
 }
 
 func (o Target) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Values != nil {
+	if true {
 		toSerialize["values"] = o.Values
 	}
-	if o.Variation != nil {
+	if true {
 		toSerialize["variation"] = o.Variation
 	}
 	return json.Marshal(toSerialize)

@@ -395,11 +395,11 @@ type ApiPatchDestinationRequest struct {
 	projKey string
 	envKey string
 	id string
-	jSONPatchElt *[]JSONPatchElt
+	patchOperation *[]PatchOperation
 }
 
-func (r ApiPatchDestinationRequest) JSONPatchElt(jSONPatchElt []JSONPatchElt) ApiPatchDestinationRequest {
-	r.jSONPatchElt = &jSONPatchElt
+func (r ApiPatchDestinationRequest) PatchOperation(patchOperation []PatchOperation) ApiPatchDestinationRequest {
+	r.patchOperation = &patchOperation
 	return r
 }
 
@@ -453,8 +453,8 @@ func (a *DataExportDestinationsApiService) PatchDestinationExecute(r ApiPatchDes
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-	if r.jSONPatchElt == nil {
-		return localVarReturnValue, nil, reportError("jSONPatchElt is required and must be specified")
+	if r.patchOperation == nil {
+		return localVarReturnValue, nil, reportError("patchOperation is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -475,7 +475,7 @@ func (a *DataExportDestinationsApiService) PatchDestinationExecute(r ApiPatchDes
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.jSONPatchElt
+	localVarPostBody = r.patchOperation
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {

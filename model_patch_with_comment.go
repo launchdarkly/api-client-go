@@ -17,7 +17,7 @@ import (
 
 // PatchWithComment struct for PatchWithComment
 type PatchWithComment struct {
-	Patch []JSONPatchElt `json:"patch"`
+	Patch []PatchOperation `json:"patch"`
 	Comment *string `json:"comment,omitempty"`
 }
 
@@ -25,7 +25,7 @@ type PatchWithComment struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPatchWithComment(patch []JSONPatchElt) *PatchWithComment {
+func NewPatchWithComment(patch []PatchOperation) *PatchWithComment {
 	this := PatchWithComment{}
 	this.Patch = patch
 	return &this
@@ -40,9 +40,9 @@ func NewPatchWithCommentWithDefaults() *PatchWithComment {
 }
 
 // GetPatch returns the Patch field value
-func (o *PatchWithComment) GetPatch() []JSONPatchElt {
+func (o *PatchWithComment) GetPatch() []PatchOperation {
 	if o == nil {
-		var ret []JSONPatchElt
+		var ret []PatchOperation
 		return ret
 	}
 
@@ -51,7 +51,7 @@ func (o *PatchWithComment) GetPatch() []JSONPatchElt {
 
 // GetPatchOk returns a tuple with the Patch field value
 // and a boolean to check if the value has been set.
-func (o *PatchWithComment) GetPatchOk() (*[]JSONPatchElt, bool) {
+func (o *PatchWithComment) GetPatchOk() (*[]PatchOperation, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -59,7 +59,7 @@ func (o *PatchWithComment) GetPatchOk() (*[]JSONPatchElt, bool) {
 }
 
 // SetPatch sets field value
-func (o *PatchWithComment) SetPatch(v []JSONPatchElt) {
+func (o *PatchWithComment) SetPatch(v []PatchOperation) {
 	o.Patch = v
 }
 

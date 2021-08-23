@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Links** | Pointer to [**map[string]Link**](Link.md) |  | [optional] 
+**Links** | [**map[string]Link**](Link.md) |  | 
 **Items** | Pointer to [**[]FlagStatusRep**](FlagStatusRep.md) |  | [optional] 
 
 ## Methods
 
 ### NewFeatureFlagStatuses
 
-`func NewFeatureFlagStatuses() *FeatureFlagStatuses`
+`func NewFeatureFlagStatuses(links map[string]Link, ) *FeatureFlagStatuses`
 
 NewFeatureFlagStatuses instantiates a new FeatureFlagStatuses object
 This constructor will assign default values to properties that have it defined,
@@ -45,11 +45,6 @@ and a boolean to check if the value has been set.
 
 SetLinks sets Links field to given value.
 
-### HasLinks
-
-`func (o *FeatureFlagStatuses) HasLinks() bool`
-
-HasLinks returns a boolean if a field has been set.
 
 ### GetItems
 

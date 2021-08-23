@@ -155,7 +155,7 @@ type ApiGetBigSegmentTargetRequest struct {
 }
 
 
-func (r ApiGetBigSegmentTargetRequest) Execute() (BigSegmentTargetChanges, *_nethttp.Response, error) {
+func (r ApiGetBigSegmentTargetRequest) Execute() (BigSegmentTarget, *_nethttp.Response, error) {
 	return r.ApiService.GetBigSegmentTargetExecute(r)
 }
 
@@ -183,15 +183,15 @@ func (a *SegmentsApiService) GetBigSegmentTarget(ctx _context.Context, projKey s
 }
 
 // Execute executes the request
-//  @return BigSegmentTargetChanges
-func (a *SegmentsApiService) GetBigSegmentTargetExecute(r ApiGetBigSegmentTargetRequest) (BigSegmentTargetChanges, *_nethttp.Response, error) {
+//  @return BigSegmentTarget
+func (a *SegmentsApiService) GetBigSegmentTargetExecute(r ApiGetBigSegmentTargetRequest) (BigSegmentTarget, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  BigSegmentTargetChanges
+		localVarReturnValue  BigSegmentTarget
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SegmentsApiService.GetBigSegmentTarget")

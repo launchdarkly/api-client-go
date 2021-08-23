@@ -219,7 +219,7 @@ Name | Type | Description  | Notes
 
 ## PatchToken
 
-> Token PatchToken(ctx, id).JSONPatchElt(jSONPatchElt).Execute()
+> Token PatchToken(ctx, id).PatchOperation(patchOperation).Execute()
 
 Patch access token
 
@@ -239,11 +239,11 @@ import (
 
 func main() {
     id := "id_example" // string | The ID of the access token to update
-    jSONPatchElt := []openapiclient.JSONPatchElt{*openapiclient.NewJSONPatchElt("replace", "/biscuits", interface{}(Chocolate Digestive))} // []JSONPatchElt | 
+    patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/biscuits", interface{}(Chocolate Digestive))} // []PatchOperation | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AccessTokensApi.PatchToken(context.Background(), id).JSONPatchElt(jSONPatchElt).Execute()
+    resp, r, err := api_client.AccessTokensApi.PatchToken(context.Background(), id).PatchOperation(patchOperation).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AccessTokensApi.PatchToken``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -269,7 +269,7 @@ Other parameters are passed through a pointer to a apiPatchTokenRequest struct v
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **jSONPatchElt** | [**[]JSONPatchElt**](JSONPatchElt.md) |  | 
+ **patchOperation** | [**[]PatchOperation**](PatchOperation.md) |  | 
 
 ### Return type
 

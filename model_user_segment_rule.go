@@ -18,7 +18,7 @@ import (
 // UserSegmentRule struct for UserSegmentRule
 type UserSegmentRule struct {
 	Id *string `json:"_id,omitempty"`
-	Clauses *[]Clause `json:"clauses,omitempty"`
+	Clauses []Clause `json:"clauses"`
 	Weight *int32 `json:"weight,omitempty"`
 	BucketBy *string `json:"bucketBy,omitempty"`
 }
@@ -27,8 +27,9 @@ type UserSegmentRule struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUserSegmentRule() *UserSegmentRule {
+func NewUserSegmentRule(clauses []Clause) *UserSegmentRule {
 	this := UserSegmentRule{}
+	this.Clauses = clauses
 	return &this
 }
 
@@ -72,36 +73,28 @@ func (o *UserSegmentRule) SetId(v string) {
 	o.Id = &v
 }
 
-// GetClauses returns the Clauses field value if set, zero value otherwise.
+// GetClauses returns the Clauses field value
 func (o *UserSegmentRule) GetClauses() []Clause {
-	if o == nil || o.Clauses == nil {
+	if o == nil {
 		var ret []Clause
 		return ret
 	}
-	return *o.Clauses
+
+	return o.Clauses
 }
 
-// GetClausesOk returns a tuple with the Clauses field value if set, nil otherwise
+// GetClausesOk returns a tuple with the Clauses field value
 // and a boolean to check if the value has been set.
 func (o *UserSegmentRule) GetClausesOk() (*[]Clause, bool) {
-	if o == nil || o.Clauses == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Clauses, true
+	return &o.Clauses, true
 }
 
-// HasClauses returns a boolean if a field has been set.
-func (o *UserSegmentRule) HasClauses() bool {
-	if o != nil && o.Clauses != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetClauses gets a reference to the given []Clause and assigns it to the Clauses field.
+// SetClauses sets field value
 func (o *UserSegmentRule) SetClauses(v []Clause) {
-	o.Clauses = &v
+	o.Clauses = v
 }
 
 // GetWeight returns the Weight field value if set, zero value otherwise.
@@ -173,7 +166,7 @@ func (o UserSegmentRule) MarshalJSON() ([]byte, error) {
 	if o.Id != nil {
 		toSerialize["_id"] = o.Id
 	}
-	if o.Clauses != nil {
+	if true {
 		toSerialize["clauses"] = o.Clauses
 	}
 	if o.Weight != nil {

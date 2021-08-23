@@ -234,7 +234,7 @@ import (
 
 func main() {
     id := "id_example" // string | The relay auto config id
-    patchWithComment := *openapiclient.NewPatchWithComment([]openapiclient.JSONPatchElt{*openapiclient.NewJSONPatchElt("replace", "/biscuits", interface{}(Chocolate Digestive))}) // PatchWithComment | 
+    patchWithComment := *openapiclient.NewPatchWithComment([]openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/biscuits", interface{}(Chocolate Digestive))}) // PatchWithComment | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)

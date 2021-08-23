@@ -17,7 +17,7 @@ import (
 
 // FeatureFlagStatuses struct for FeatureFlagStatuses
 type FeatureFlagStatuses struct {
-	Links *map[string]Link `json:"_links,omitempty"`
+	Links map[string]Link `json:"_links"`
 	Items *[]FlagStatusRep `json:"items,omitempty"`
 }
 
@@ -25,8 +25,9 @@ type FeatureFlagStatuses struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFeatureFlagStatuses() *FeatureFlagStatuses {
+func NewFeatureFlagStatuses(links map[string]Link) *FeatureFlagStatuses {
 	this := FeatureFlagStatuses{}
+	this.Links = links
 	return &this
 }
 
@@ -38,36 +39,28 @@ func NewFeatureFlagStatusesWithDefaults() *FeatureFlagStatuses {
 	return &this
 }
 
-// GetLinks returns the Links field value if set, zero value otherwise.
+// GetLinks returns the Links field value
 func (o *FeatureFlagStatuses) GetLinks() map[string]Link {
-	if o == nil || o.Links == nil {
+	if o == nil {
 		var ret map[string]Link
 		return ret
 	}
-	return *o.Links
+
+	return o.Links
 }
 
-// GetLinksOk returns a tuple with the Links field value if set, nil otherwise
+// GetLinksOk returns a tuple with the Links field value
 // and a boolean to check if the value has been set.
 func (o *FeatureFlagStatuses) GetLinksOk() (*map[string]Link, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Links, true
+	return &o.Links, true
 }
 
-// HasLinks returns a boolean if a field has been set.
-func (o *FeatureFlagStatuses) HasLinks() bool {
-	if o != nil && o.Links != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetLinks gets a reference to the given map[string]Link and assigns it to the Links field.
+// SetLinks sets field value
 func (o *FeatureFlagStatuses) SetLinks(v map[string]Link) {
-	o.Links = &v
+	o.Links = v
 }
 
 // GetItems returns the Items field value if set, zero value otherwise.
@@ -104,7 +97,7 @@ func (o *FeatureFlagStatuses) SetItems(v []FlagStatusRep) {
 
 func (o FeatureFlagStatuses) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Links != nil {
+	if true {
 		toSerialize["_links"] = o.Links
 	}
 	if o.Items != nil {

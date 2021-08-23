@@ -15,156 +15,154 @@ import (
 	"encoding/json"
 )
 
-// JSONPatchElt struct for JSONPatchElt
-type JSONPatchElt struct {
-	// The type of operation to perform
-	Op string `json:"op"`
-	// A JSON Pointer string specifying the part of the document to operate on
-	Path string `json:"path"`
-	// A JSON value used in \"add\", \"replace\", and \"test\" operations
-	Value interface{} `json:"value"`
+// BigSegmentTarget struct for BigSegmentTarget
+type BigSegmentTarget struct {
+	// The user key
+	UserKey string `json:"userKey"`
+	// Whether or not the user is included in the segment
+	Included bool `json:"included"`
+	// Whether or not the user is excluded from the segment
+	Excluded bool `json:"excluded"`
 }
 
-// NewJSONPatchElt instantiates a new JSONPatchElt object
+// NewBigSegmentTarget instantiates a new BigSegmentTarget object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewJSONPatchElt(op string, path string, value interface{}) *JSONPatchElt {
-	this := JSONPatchElt{}
-	this.Op = op
-	this.Path = path
-	this.Value = value
+func NewBigSegmentTarget(userKey string, included bool, excluded bool) *BigSegmentTarget {
+	this := BigSegmentTarget{}
+	this.UserKey = userKey
+	this.Included = included
+	this.Excluded = excluded
 	return &this
 }
 
-// NewJSONPatchEltWithDefaults instantiates a new JSONPatchElt object
+// NewBigSegmentTargetWithDefaults instantiates a new BigSegmentTarget object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewJSONPatchEltWithDefaults() *JSONPatchElt {
-	this := JSONPatchElt{}
+func NewBigSegmentTargetWithDefaults() *BigSegmentTarget {
+	this := BigSegmentTarget{}
 	return &this
 }
 
-// GetOp returns the Op field value
-func (o *JSONPatchElt) GetOp() string {
+// GetUserKey returns the UserKey field value
+func (o *BigSegmentTarget) GetUserKey() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Op
+	return o.UserKey
 }
 
-// GetOpOk returns a tuple with the Op field value
+// GetUserKeyOk returns a tuple with the UserKey field value
 // and a boolean to check if the value has been set.
-func (o *JSONPatchElt) GetOpOk() (*string, bool) {
+func (o *BigSegmentTarget) GetUserKeyOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return &o.Op, true
+	return &o.UserKey, true
 }
 
-// SetOp sets field value
-func (o *JSONPatchElt) SetOp(v string) {
-	o.Op = v
+// SetUserKey sets field value
+func (o *BigSegmentTarget) SetUserKey(v string) {
+	o.UserKey = v
 }
 
-// GetPath returns the Path field value
-func (o *JSONPatchElt) GetPath() string {
+// GetIncluded returns the Included field value
+func (o *BigSegmentTarget) GetIncluded() bool {
 	if o == nil {
-		var ret string
+		var ret bool
 		return ret
 	}
 
-	return o.Path
+	return o.Included
 }
 
-// GetPathOk returns a tuple with the Path field value
+// GetIncludedOk returns a tuple with the Included field value
 // and a boolean to check if the value has been set.
-func (o *JSONPatchElt) GetPathOk() (*string, bool) {
+func (o *BigSegmentTarget) GetIncludedOk() (*bool, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return &o.Path, true
+	return &o.Included, true
 }
 
-// SetPath sets field value
-func (o *JSONPatchElt) SetPath(v string) {
-	o.Path = v
+// SetIncluded sets field value
+func (o *BigSegmentTarget) SetIncluded(v bool) {
+	o.Included = v
 }
 
-// GetValue returns the Value field value
-// If the value is explicit nil, the zero value for interface{} will be returned
-func (o *JSONPatchElt) GetValue() interface{} {
+// GetExcluded returns the Excluded field value
+func (o *BigSegmentTarget) GetExcluded() bool {
 	if o == nil {
-		var ret interface{}
+		var ret bool
 		return ret
 	}
 
-	return o.Value
+	return o.Excluded
 }
 
-// GetValueOk returns a tuple with the Value field value
+// GetExcludedOk returns a tuple with the Excluded field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *JSONPatchElt) GetValueOk() (*interface{}, bool) {
-	if o == nil || o.Value == nil {
+func (o *BigSegmentTarget) GetExcludedOk() (*bool, bool) {
+	if o == nil  {
 		return nil, false
 	}
-	return &o.Value, true
+	return &o.Excluded, true
 }
 
-// SetValue sets field value
-func (o *JSONPatchElt) SetValue(v interface{}) {
-	o.Value = v
+// SetExcluded sets field value
+func (o *BigSegmentTarget) SetExcluded(v bool) {
+	o.Excluded = v
 }
 
-func (o JSONPatchElt) MarshalJSON() ([]byte, error) {
+func (o BigSegmentTarget) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["op"] = o.Op
+		toSerialize["userKey"] = o.UserKey
 	}
 	if true {
-		toSerialize["path"] = o.Path
+		toSerialize["included"] = o.Included
 	}
-	if o.Value != nil {
-		toSerialize["value"] = o.Value
+	if true {
+		toSerialize["excluded"] = o.Excluded
 	}
 	return json.Marshal(toSerialize)
 }
 
-type NullableJSONPatchElt struct {
-	value *JSONPatchElt
+type NullableBigSegmentTarget struct {
+	value *BigSegmentTarget
 	isSet bool
 }
 
-func (v NullableJSONPatchElt) Get() *JSONPatchElt {
+func (v NullableBigSegmentTarget) Get() *BigSegmentTarget {
 	return v.value
 }
 
-func (v *NullableJSONPatchElt) Set(val *JSONPatchElt) {
+func (v *NullableBigSegmentTarget) Set(val *BigSegmentTarget) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableJSONPatchElt) IsSet() bool {
+func (v NullableBigSegmentTarget) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableJSONPatchElt) Unset() {
+func (v *NullableBigSegmentTarget) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableJSONPatchElt(val *JSONPatchElt) *NullableJSONPatchElt {
-	return &NullableJSONPatchElt{value: val, isSet: true}
+func NewNullableBigSegmentTarget(val *BigSegmentTarget) *NullableBigSegmentTarget {
+	return &NullableBigSegmentTarget{value: val, isSet: true}
 }
 
-func (v NullableJSONPatchElt) MarshalJSON() ([]byte, error) {
+func (v NullableBigSegmentTarget) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableJSONPatchElt) UnmarshalJSON(src []byte) error {
+func (v *NullableBigSegmentTarget) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

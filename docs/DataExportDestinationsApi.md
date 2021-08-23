@@ -225,7 +225,7 @@ Other parameters are passed through a pointer to a apiGetDestinationsRequest str
 
 ## PatchDestination
 
-> Destination PatchDestination(ctx, projKey, envKey, id).JSONPatchElt(jSONPatchElt).Execute()
+> Destination PatchDestination(ctx, projKey, envKey, id).PatchOperation(patchOperation).Execute()
 
 Update Data Export destination
 
@@ -247,11 +247,11 @@ func main() {
     projKey := "projKey_example" // string | The project key
     envKey := "envKey_example" // string | The environment key
     id := "id_example" // string | The Data Export destination ID
-    jSONPatchElt := []openapiclient.JSONPatchElt{*openapiclient.NewJSONPatchElt("replace", "/biscuits", interface{}(Chocolate Digestive))} // []JSONPatchElt | 
+    patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/biscuits", interface{}(Chocolate Digestive))} // []PatchOperation | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DataExportDestinationsApi.PatchDestination(context.Background(), projKey, envKey, id).JSONPatchElt(jSONPatchElt).Execute()
+    resp, r, err := api_client.DataExportDestinationsApi.PatchDestination(context.Background(), projKey, envKey, id).PatchOperation(patchOperation).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DataExportDestinationsApi.PatchDestination``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -281,7 +281,7 @@ Name | Type | Description  | Notes
 
 
 
- **jSONPatchElt** | [**[]JSONPatchElt**](JSONPatchElt.md) |  | 
+ **patchOperation** | [**[]PatchOperation**](PatchOperation.md) |  | 
 
 ### Return type
 

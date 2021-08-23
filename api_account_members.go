@@ -436,11 +436,11 @@ type ApiPatchMemberRequest struct {
 	ctx _context.Context
 	ApiService *AccountMembersApiService
 	id string
-	jSONPatchElt *[]JSONPatchElt
+	patchOperation *[]PatchOperation
 }
 
-func (r ApiPatchMemberRequest) JSONPatchElt(jSONPatchElt []JSONPatchElt) ApiPatchMemberRequest {
-	r.jSONPatchElt = &jSONPatchElt
+func (r ApiPatchMemberRequest) PatchOperation(patchOperation []PatchOperation) ApiPatchMemberRequest {
+	r.patchOperation = &patchOperation
 	return r
 }
 
@@ -488,8 +488,8 @@ func (a *AccountMembersApiService) PatchMemberExecute(r ApiPatchMemberRequest) (
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-	if r.jSONPatchElt == nil {
-		return localVarReturnValue, nil, reportError("jSONPatchElt is required and must be specified")
+	if r.patchOperation == nil {
+		return localVarReturnValue, nil, reportError("patchOperation is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -510,7 +510,7 @@ func (a *AccountMembersApiService) PatchMemberExecute(r ApiPatchMemberRequest) (
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.jSONPatchElt
+	localVarPostBody = r.patchOperation
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {

@@ -17,16 +17,18 @@ import (
 
 // Prerequisite struct for Prerequisite
 type Prerequisite struct {
-	Key *string `json:"key,omitempty"`
-	Variation *int32 `json:"variation,omitempty"`
+	Key string `json:"key"`
+	Variation int32 `json:"variation"`
 }
 
 // NewPrerequisite instantiates a new Prerequisite object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPrerequisite() *Prerequisite {
+func NewPrerequisite(key string, variation int32) *Prerequisite {
 	this := Prerequisite{}
+	this.Key = key
+	this.Variation = variation
 	return &this
 }
 
@@ -38,76 +40,60 @@ func NewPrerequisiteWithDefaults() *Prerequisite {
 	return &this
 }
 
-// GetKey returns the Key field value if set, zero value otherwise.
+// GetKey returns the Key field value
 func (o *Prerequisite) GetKey() string {
-	if o == nil || o.Key == nil {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Key
+
+	return o.Key
 }
 
-// GetKeyOk returns a tuple with the Key field value if set, nil otherwise
+// GetKeyOk returns a tuple with the Key field value
 // and a boolean to check if the value has been set.
 func (o *Prerequisite) GetKeyOk() (*string, bool) {
-	if o == nil || o.Key == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Key, true
+	return &o.Key, true
 }
 
-// HasKey returns a boolean if a field has been set.
-func (o *Prerequisite) HasKey() bool {
-	if o != nil && o.Key != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetKey gets a reference to the given string and assigns it to the Key field.
+// SetKey sets field value
 func (o *Prerequisite) SetKey(v string) {
-	o.Key = &v
+	o.Key = v
 }
 
-// GetVariation returns the Variation field value if set, zero value otherwise.
+// GetVariation returns the Variation field value
 func (o *Prerequisite) GetVariation() int32 {
-	if o == nil || o.Variation == nil {
+	if o == nil {
 		var ret int32
 		return ret
 	}
-	return *o.Variation
+
+	return o.Variation
 }
 
-// GetVariationOk returns a tuple with the Variation field value if set, nil otherwise
+// GetVariationOk returns a tuple with the Variation field value
 // and a boolean to check if the value has been set.
 func (o *Prerequisite) GetVariationOk() (*int32, bool) {
-	if o == nil || o.Variation == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Variation, true
+	return &o.Variation, true
 }
 
-// HasVariation returns a boolean if a field has been set.
-func (o *Prerequisite) HasVariation() bool {
-	if o != nil && o.Variation != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetVariation gets a reference to the given int32 and assigns it to the Variation field.
+// SetVariation sets field value
 func (o *Prerequisite) SetVariation(v int32) {
-	o.Variation = &v
+	o.Variation = v
 }
 
 func (o Prerequisite) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Key != nil {
+	if true {
 		toSerialize["key"] = o.Key
 	}
-	if o.Variation != nil {
+	if true {
 		toSerialize["variation"] = o.Variation
 	}
 	return json.Marshal(toSerialize)

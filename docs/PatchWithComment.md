@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Patch** | [**[]JSONPatchElt**](JSONPatchElt.md) |  | 
+**Patch** | [**[]PatchOperation**](PatchOperation.md) |  | 
 **Comment** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
 ### NewPatchWithComment
 
-`func NewPatchWithComment(patch []JSONPatchElt, ) *PatchWithComment`
+`func NewPatchWithComment(patch []PatchOperation, ) *PatchWithComment`
 
 NewPatchWithComment instantiates a new PatchWithComment object
 This constructor will assign default values to properties that have it defined,
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetPatch
 
-`func (o *PatchWithComment) GetPatch() []JSONPatchElt`
+`func (o *PatchWithComment) GetPatch() []PatchOperation`
 
 GetPatch returns the Patch field if non-nil, zero value otherwise.
 
 ### GetPatchOk
 
-`func (o *PatchWithComment) GetPatchOk() (*[]JSONPatchElt, bool)`
+`func (o *PatchWithComment) GetPatchOk() (*[]PatchOperation, bool)`
 
 GetPatchOk returns a tuple with the Patch field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPatch
 
-`func (o *PatchWithComment) SetPatch(v []JSONPatchElt)`
+`func (o *PatchWithComment) SetPatch(v []PatchOperation)`
 
 SetPatch sets Patch field to given value.
 

@@ -15,454 +15,156 @@ import (
 	"encoding/json"
 )
 
-// FlagPost struct for FlagPost
-type FlagPost struct {
-	// A human-friendly name for the feature flag
-	Name string `json:"name"`
-	// A unique key to reference the flag in your code
-	Key string `json:"key"`
-	// Description of the feature flag
-	Description *string `json:"description,omitempty"`
-	// Deprecated, use clientSideAvailability. Whether or not this flag should be made available to the client-side JavaScript SDK
-	IncludeInSnippet *bool `json:"includeInSnippet,omitempty"`
-	ClientSideAvailability *ClientSideAvailabilityPost `json:"clientSideAvailability,omitempty"`
-	// An array of possible variations for the flag
-	Variations *[]Variate `json:"variations,omitempty"`
-	VariationJsonSchema interface{} `json:"variationJsonSchema,omitempty"`
-	// Whether or not the flag is a temporary flag
-	Temporary *bool `json:"temporary,omitempty"`
-	// Tags for the feature flag
-	Tags *[]string `json:"tags,omitempty"`
-	CustomProperties *map[string]CustomProperty `json:"customProperties,omitempty"`
-	Defaults *Defaults `json:"defaults,omitempty"`
+// PatchOperation struct for PatchOperation
+type PatchOperation struct {
+	// The type of operation to perform
+	Op string `json:"op"`
+	// A JSON Pointer string specifying the part of the document to operate on
+	Path string `json:"path"`
+	// A JSON value used in \"add\", \"replace\", and \"test\" operations
+	Value interface{} `json:"value"`
 }
 
-// NewFlagPost instantiates a new FlagPost object
+// NewPatchOperation instantiates a new PatchOperation object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFlagPost(name string, key string) *FlagPost {
-	this := FlagPost{}
-	this.Name = name
-	this.Key = key
+func NewPatchOperation(op string, path string, value interface{}) *PatchOperation {
+	this := PatchOperation{}
+	this.Op = op
+	this.Path = path
+	this.Value = value
 	return &this
 }
 
-// NewFlagPostWithDefaults instantiates a new FlagPost object
+// NewPatchOperationWithDefaults instantiates a new PatchOperation object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewFlagPostWithDefaults() *FlagPost {
-	this := FlagPost{}
+func NewPatchOperationWithDefaults() *PatchOperation {
+	this := PatchOperation{}
 	return &this
 }
 
-// GetName returns the Name field value
-func (o *FlagPost) GetName() string {
+// GetOp returns the Op field value
+func (o *PatchOperation) GetOp() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Name
+	return o.Op
 }
 
-// GetNameOk returns a tuple with the Name field value
+// GetOpOk returns a tuple with the Op field value
 // and a boolean to check if the value has been set.
-func (o *FlagPost) GetNameOk() (*string, bool) {
+func (o *PatchOperation) GetOpOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return &o.Name, true
+	return &o.Op, true
 }
 
-// SetName sets field value
-func (o *FlagPost) SetName(v string) {
-	o.Name = v
+// SetOp sets field value
+func (o *PatchOperation) SetOp(v string) {
+	o.Op = v
 }
 
-// GetKey returns the Key field value
-func (o *FlagPost) GetKey() string {
+// GetPath returns the Path field value
+func (o *PatchOperation) GetPath() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Key
+	return o.Path
 }
 
-// GetKeyOk returns a tuple with the Key field value
+// GetPathOk returns a tuple with the Path field value
 // and a boolean to check if the value has been set.
-func (o *FlagPost) GetKeyOk() (*string, bool) {
+func (o *PatchOperation) GetPathOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return &o.Key, true
+	return &o.Path, true
 }
 
-// SetKey sets field value
-func (o *FlagPost) SetKey(v string) {
-	o.Key = v
+// SetPath sets field value
+func (o *PatchOperation) SetPath(v string) {
+	o.Path = v
 }
 
-// GetDescription returns the Description field value if set, zero value otherwise.
-func (o *FlagPost) GetDescription() string {
-	if o == nil || o.Description == nil {
-		var ret string
-		return ret
-	}
-	return *o.Description
-}
-
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FlagPost) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
-		return nil, false
-	}
-	return o.Description, true
-}
-
-// HasDescription returns a boolean if a field has been set.
-func (o *FlagPost) HasDescription() bool {
-	if o != nil && o.Description != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *FlagPost) SetDescription(v string) {
-	o.Description = &v
-}
-
-// GetIncludeInSnippet returns the IncludeInSnippet field value if set, zero value otherwise.
-func (o *FlagPost) GetIncludeInSnippet() bool {
-	if o == nil || o.IncludeInSnippet == nil {
-		var ret bool
-		return ret
-	}
-	return *o.IncludeInSnippet
-}
-
-// GetIncludeInSnippetOk returns a tuple with the IncludeInSnippet field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FlagPost) GetIncludeInSnippetOk() (*bool, bool) {
-	if o == nil || o.IncludeInSnippet == nil {
-		return nil, false
-	}
-	return o.IncludeInSnippet, true
-}
-
-// HasIncludeInSnippet returns a boolean if a field has been set.
-func (o *FlagPost) HasIncludeInSnippet() bool {
-	if o != nil && o.IncludeInSnippet != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetIncludeInSnippet gets a reference to the given bool and assigns it to the IncludeInSnippet field.
-func (o *FlagPost) SetIncludeInSnippet(v bool) {
-	o.IncludeInSnippet = &v
-}
-
-// GetClientSideAvailability returns the ClientSideAvailability field value if set, zero value otherwise.
-func (o *FlagPost) GetClientSideAvailability() ClientSideAvailabilityPost {
-	if o == nil || o.ClientSideAvailability == nil {
-		var ret ClientSideAvailabilityPost
-		return ret
-	}
-	return *o.ClientSideAvailability
-}
-
-// GetClientSideAvailabilityOk returns a tuple with the ClientSideAvailability field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FlagPost) GetClientSideAvailabilityOk() (*ClientSideAvailabilityPost, bool) {
-	if o == nil || o.ClientSideAvailability == nil {
-		return nil, false
-	}
-	return o.ClientSideAvailability, true
-}
-
-// HasClientSideAvailability returns a boolean if a field has been set.
-func (o *FlagPost) HasClientSideAvailability() bool {
-	if o != nil && o.ClientSideAvailability != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetClientSideAvailability gets a reference to the given ClientSideAvailabilityPost and assigns it to the ClientSideAvailability field.
-func (o *FlagPost) SetClientSideAvailability(v ClientSideAvailabilityPost) {
-	o.ClientSideAvailability = &v
-}
-
-// GetVariations returns the Variations field value if set, zero value otherwise.
-func (o *FlagPost) GetVariations() []Variate {
-	if o == nil || o.Variations == nil {
-		var ret []Variate
-		return ret
-	}
-	return *o.Variations
-}
-
-// GetVariationsOk returns a tuple with the Variations field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FlagPost) GetVariationsOk() (*[]Variate, bool) {
-	if o == nil || o.Variations == nil {
-		return nil, false
-	}
-	return o.Variations, true
-}
-
-// HasVariations returns a boolean if a field has been set.
-func (o *FlagPost) HasVariations() bool {
-	if o != nil && o.Variations != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetVariations gets a reference to the given []Variate and assigns it to the Variations field.
-func (o *FlagPost) SetVariations(v []Variate) {
-	o.Variations = &v
-}
-
-// GetVariationJsonSchema returns the VariationJsonSchema field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *FlagPost) GetVariationJsonSchema() interface{} {
-	if o == nil  {
+// GetValue returns the Value field value
+// If the value is explicit nil, the zero value for interface{} will be returned
+func (o *PatchOperation) GetValue() interface{} {
+	if o == nil {
 		var ret interface{}
 		return ret
 	}
-	return o.VariationJsonSchema
+
+	return o.Value
 }
 
-// GetVariationJsonSchemaOk returns a tuple with the VariationJsonSchema field value if set, nil otherwise
+// GetValueOk returns a tuple with the Value field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *FlagPost) GetVariationJsonSchemaOk() (*interface{}, bool) {
-	if o == nil || o.VariationJsonSchema == nil {
+func (o *PatchOperation) GetValueOk() (*interface{}, bool) {
+	if o == nil || o.Value == nil {
 		return nil, false
 	}
-	return &o.VariationJsonSchema, true
+	return &o.Value, true
 }
 
-// HasVariationJsonSchema returns a boolean if a field has been set.
-func (o *FlagPost) HasVariationJsonSchema() bool {
-	if o != nil && o.VariationJsonSchema != nil {
-		return true
-	}
-
-	return false
+// SetValue sets field value
+func (o *PatchOperation) SetValue(v interface{}) {
+	o.Value = v
 }
 
-// SetVariationJsonSchema gets a reference to the given interface{} and assigns it to the VariationJsonSchema field.
-func (o *FlagPost) SetVariationJsonSchema(v interface{}) {
-	o.VariationJsonSchema = v
-}
-
-// GetTemporary returns the Temporary field value if set, zero value otherwise.
-func (o *FlagPost) GetTemporary() bool {
-	if o == nil || o.Temporary == nil {
-		var ret bool
-		return ret
-	}
-	return *o.Temporary
-}
-
-// GetTemporaryOk returns a tuple with the Temporary field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FlagPost) GetTemporaryOk() (*bool, bool) {
-	if o == nil || o.Temporary == nil {
-		return nil, false
-	}
-	return o.Temporary, true
-}
-
-// HasTemporary returns a boolean if a field has been set.
-func (o *FlagPost) HasTemporary() bool {
-	if o != nil && o.Temporary != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTemporary gets a reference to the given bool and assigns it to the Temporary field.
-func (o *FlagPost) SetTemporary(v bool) {
-	o.Temporary = &v
-}
-
-// GetTags returns the Tags field value if set, zero value otherwise.
-func (o *FlagPost) GetTags() []string {
-	if o == nil || o.Tags == nil {
-		var ret []string
-		return ret
-	}
-	return *o.Tags
-}
-
-// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FlagPost) GetTagsOk() (*[]string, bool) {
-	if o == nil || o.Tags == nil {
-		return nil, false
-	}
-	return o.Tags, true
-}
-
-// HasTags returns a boolean if a field has been set.
-func (o *FlagPost) HasTags() bool {
-	if o != nil && o.Tags != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTags gets a reference to the given []string and assigns it to the Tags field.
-func (o *FlagPost) SetTags(v []string) {
-	o.Tags = &v
-}
-
-// GetCustomProperties returns the CustomProperties field value if set, zero value otherwise.
-func (o *FlagPost) GetCustomProperties() map[string]CustomProperty {
-	if o == nil || o.CustomProperties == nil {
-		var ret map[string]CustomProperty
-		return ret
-	}
-	return *o.CustomProperties
-}
-
-// GetCustomPropertiesOk returns a tuple with the CustomProperties field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FlagPost) GetCustomPropertiesOk() (*map[string]CustomProperty, bool) {
-	if o == nil || o.CustomProperties == nil {
-		return nil, false
-	}
-	return o.CustomProperties, true
-}
-
-// HasCustomProperties returns a boolean if a field has been set.
-func (o *FlagPost) HasCustomProperties() bool {
-	if o != nil && o.CustomProperties != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetCustomProperties gets a reference to the given map[string]CustomProperty and assigns it to the CustomProperties field.
-func (o *FlagPost) SetCustomProperties(v map[string]CustomProperty) {
-	o.CustomProperties = &v
-}
-
-// GetDefaults returns the Defaults field value if set, zero value otherwise.
-func (o *FlagPost) GetDefaults() Defaults {
-	if o == nil || o.Defaults == nil {
-		var ret Defaults
-		return ret
-	}
-	return *o.Defaults
-}
-
-// GetDefaultsOk returns a tuple with the Defaults field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FlagPost) GetDefaultsOk() (*Defaults, bool) {
-	if o == nil || o.Defaults == nil {
-		return nil, false
-	}
-	return o.Defaults, true
-}
-
-// HasDefaults returns a boolean if a field has been set.
-func (o *FlagPost) HasDefaults() bool {
-	if o != nil && o.Defaults != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetDefaults gets a reference to the given Defaults and assigns it to the Defaults field.
-func (o *FlagPost) SetDefaults(v Defaults) {
-	o.Defaults = &v
-}
-
-func (o FlagPost) MarshalJSON() ([]byte, error) {
+func (o PatchOperation) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["name"] = o.Name
+		toSerialize["op"] = o.Op
 	}
 	if true {
-		toSerialize["key"] = o.Key
+		toSerialize["path"] = o.Path
 	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.IncludeInSnippet != nil {
-		toSerialize["includeInSnippet"] = o.IncludeInSnippet
-	}
-	if o.ClientSideAvailability != nil {
-		toSerialize["clientSideAvailability"] = o.ClientSideAvailability
-	}
-	if o.Variations != nil {
-		toSerialize["variations"] = o.Variations
-	}
-	if o.VariationJsonSchema != nil {
-		toSerialize["variationJsonSchema"] = o.VariationJsonSchema
-	}
-	if o.Temporary != nil {
-		toSerialize["temporary"] = o.Temporary
-	}
-	if o.Tags != nil {
-		toSerialize["tags"] = o.Tags
-	}
-	if o.CustomProperties != nil {
-		toSerialize["customProperties"] = o.CustomProperties
-	}
-	if o.Defaults != nil {
-		toSerialize["defaults"] = o.Defaults
+	if o.Value != nil {
+		toSerialize["value"] = o.Value
 	}
 	return json.Marshal(toSerialize)
 }
 
-type NullableFlagPost struct {
-	value *FlagPost
+type NullablePatchOperation struct {
+	value *PatchOperation
 	isSet bool
 }
 
-func (v NullableFlagPost) Get() *FlagPost {
+func (v NullablePatchOperation) Get() *PatchOperation {
 	return v.value
 }
 
-func (v *NullableFlagPost) Set(val *FlagPost) {
+func (v *NullablePatchOperation) Set(val *PatchOperation) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableFlagPost) IsSet() bool {
+func (v NullablePatchOperation) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableFlagPost) Unset() {
+func (v *NullablePatchOperation) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableFlagPost(val *FlagPost) *NullableFlagPost {
-	return &NullableFlagPost{value: val, isSet: true}
+func NewNullablePatchOperation(val *PatchOperation) *NullablePatchOperation {
+	return &NullablePatchOperation{value: val, isSet: true}
 }
 
-func (v NullableFlagPost) MarshalJSON() ([]byte, error) {
+func (v NullablePatchOperation) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableFlagPost) UnmarshalJSON(src []byte) error {
+func (v *NullablePatchOperation) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

@@ -158,7 +158,7 @@ Name | Type | Description  | Notes
 
 ## PatchEnvironment
 
-> Environment PatchEnvironment(ctx, projectKey, environmentKey).JSONPatchElt(jSONPatchElt).Execute()
+> Environment PatchEnvironment(ctx, projectKey, environmentKey).PatchOperation(patchOperation).Execute()
 
 Update environment
 
@@ -179,11 +179,11 @@ import (
 func main() {
     projectKey := "projectKey_example" // string | The project key
     environmentKey := "environmentKey_example" // string | The environment key
-    jSONPatchElt := []openapiclient.JSONPatchElt{*openapiclient.NewJSONPatchElt("replace", "/biscuits", interface{}(Chocolate Digestive))} // []JSONPatchElt | 
+    patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/biscuits", interface{}(Chocolate Digestive))} // []PatchOperation | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.EnvironmentsApi.PatchEnvironment(context.Background(), projectKey, environmentKey).JSONPatchElt(jSONPatchElt).Execute()
+    resp, r, err := api_client.EnvironmentsApi.PatchEnvironment(context.Background(), projectKey, environmentKey).PatchOperation(patchOperation).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `EnvironmentsApi.PatchEnvironment``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -211,7 +211,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **jSONPatchElt** | [**[]JSONPatchElt**](JSONPatchElt.md) |  | 
+ **patchOperation** | [**[]PatchOperation**](PatchOperation.md) |  | 
 
 ### Return type
 

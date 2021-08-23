@@ -213,7 +213,7 @@ Other parameters are passed through a pointer to a apiGetProjectsRequest struct 
 
 ## PatchProject
 
-> Project PatchProject(ctx, projectKey).JSONPatchElt(jSONPatchElt).Execute()
+> Project PatchProject(ctx, projectKey).PatchOperation(patchOperation).Execute()
 
 Update project
 
@@ -233,11 +233,11 @@ import (
 
 func main() {
     projectKey := "projectKey_example" // string | The project key
-    jSONPatchElt := []openapiclient.JSONPatchElt{*openapiclient.NewJSONPatchElt("replace", "/biscuits", interface{}(Chocolate Digestive))} // []JSONPatchElt | 
+    patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/biscuits", interface{}(Chocolate Digestive))} // []PatchOperation | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ProjectsApi.PatchProject(context.Background(), projectKey).JSONPatchElt(jSONPatchElt).Execute()
+    resp, r, err := api_client.ProjectsApi.PatchProject(context.Background(), projectKey).PatchOperation(patchOperation).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ProjectsApi.PatchProject``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -263,7 +263,7 @@ Other parameters are passed through a pointer to a apiPatchProjectRequest struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **jSONPatchElt** | [**[]JSONPatchElt**](JSONPatchElt.md) |  | 
+ **patchOperation** | [**[]PatchOperation**](PatchOperation.md) |  | 
 
 ### Return type
 

@@ -651,7 +651,7 @@ func main() {
     projKey := "projKey_example" // string | The project key. This connects flags within one project so you can manage them together.
     envKey := "envKey_example" // string | The environment key. This connects flag configurations and users within one environment so you can manage them together.
     flagKey := "flagKey_example" // string | The feature flag key.
-    patchWithComment := *openapiclient.NewPatchWithComment([]openapiclient.JSONPatchElt{*openapiclient.NewJSONPatchElt("replace", "/biscuits", interface{}(Chocolate Digestive))}) // PatchWithComment | 
+    patchWithComment := *openapiclient.NewPatchWithComment([]openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/biscuits", interface{}(Chocolate Digestive))}) // PatchWithComment | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -728,7 +728,7 @@ import (
 func main() {
     projKey := "projKey_example" // string | The project key. This connects flags within one project so you can manage them together.
     key := "key_example" // string | The feature flag's key. The key identifies the flag in your code.
-    patchWithComment := *openapiclient.NewPatchWithComment([]openapiclient.JSONPatchElt{*openapiclient.NewJSONPatchElt("replace", "/biscuits", interface{}(Chocolate Digestive))}) // PatchWithComment | 
+    patchWithComment := *openapiclient.NewPatchWithComment([]openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/biscuits", interface{}(Chocolate Digestive))}) // PatchWithComment | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -782,7 +782,7 @@ Name | Type | Description  | Notes
 
 ## PostFeatureFlag
 
-> FeatureFlag PostFeatureFlag(ctx, projKey).FlagPost(flagPost).Clone(clone).Execute()
+> FeatureFlag PostFeatureFlag(ctx, projKey).FeatureFlagBody(featureFlagBody).Clone(clone).Execute()
 
 Create a feature flag
 
@@ -802,12 +802,12 @@ import (
 
 func main() {
     projKey := "projKey_example" // string | The project key. This connects flags within one project so you can manage them together.
-    flagPost := *openapiclient.NewFlagPost("Name_example", "Key_example") // FlagPost | 
+    featureFlagBody := *openapiclient.NewFeatureFlagBody("Name_example", "Key_example") // FeatureFlagBody | 
     clone := "clone_example" // string | The key of the feature flag to be cloned. The key identifies the flag in your code. For example, setting `clone=flagKey` copies the full targeting configuration for all environments, including `on/off` state, from the original flag to the new flag. (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.FeatureFlagsApi.PostFeatureFlag(context.Background(), projKey).FlagPost(flagPost).Clone(clone).Execute()
+    resp, r, err := api_client.FeatureFlagsApi.PostFeatureFlag(context.Background(), projKey).FeatureFlagBody(featureFlagBody).Clone(clone).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.PostFeatureFlag``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -833,7 +833,7 @@ Other parameters are passed through a pointer to a apiPostFeatureFlagRequest str
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **flagPost** | [**FlagPost**](FlagPost.md) |  | 
+ **featureFlagBody** | [**FeatureFlagBody**](FeatureFlagBody.md) |  | 
  **clone** | **string** | The key of the feature flag to be cloned. The key identifies the flag in your code. For example, setting &#x60;clone&#x3D;flagKey&#x60; copies the full targeting configuration for all environments, including &#x60;on/off&#x60; state, from the original flag to the new flag. | 
 
 ### Return type

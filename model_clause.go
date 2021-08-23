@@ -18,7 +18,7 @@ import (
 // Clause struct for Clause
 type Clause struct {
 	Id *string `json:"_id,omitempty"`
-	Attribute *string `json:"attribute,omitempty"`
+	Attribute string `json:"attribute"`
 	Op string `json:"op"`
 	Values []interface{} `json:"values"`
 	Negate bool `json:"negate"`
@@ -28,8 +28,9 @@ type Clause struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewClause(op string, values []interface{}, negate bool) *Clause {
+func NewClause(attribute string, op string, values []interface{}, negate bool) *Clause {
 	this := Clause{}
+	this.Attribute = attribute
 	this.Op = op
 	this.Values = values
 	this.Negate = negate
@@ -76,36 +77,28 @@ func (o *Clause) SetId(v string) {
 	o.Id = &v
 }
 
-// GetAttribute returns the Attribute field value if set, zero value otherwise.
+// GetAttribute returns the Attribute field value
 func (o *Clause) GetAttribute() string {
-	if o == nil || o.Attribute == nil {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Attribute
+
+	return o.Attribute
 }
 
-// GetAttributeOk returns a tuple with the Attribute field value if set, nil otherwise
+// GetAttributeOk returns a tuple with the Attribute field value
 // and a boolean to check if the value has been set.
 func (o *Clause) GetAttributeOk() (*string, bool) {
-	if o == nil || o.Attribute == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Attribute, true
+	return &o.Attribute, true
 }
 
-// HasAttribute returns a boolean if a field has been set.
-func (o *Clause) HasAttribute() bool {
-	if o != nil && o.Attribute != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetAttribute gets a reference to the given string and assigns it to the Attribute field.
+// SetAttribute sets field value
 func (o *Clause) SetAttribute(v string) {
-	o.Attribute = &v
+	o.Attribute = v
 }
 
 // GetOp returns the Op field value
@@ -185,7 +178,7 @@ func (o Clause) MarshalJSON() ([]byte, error) {
 	if o.Id != nil {
 		toSerialize["_id"] = o.Id
 	}
-	if o.Attribute != nil {
+	if true {
 		toSerialize["attribute"] = o.Attribute
 	}
 	if true {

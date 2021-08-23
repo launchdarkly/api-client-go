@@ -267,7 +267,7 @@ func main() {
     projKey := "projKey_example" // string | The project key. This connects flags within one project so you can manage them together.
     userKey := "userKey_example" // string | The user key.
     envKey := "envKey_example" // string | The environment key. This connects flag configurations and users within one environment so you can manage them together.
-    patchWithComment := *openapiclient.NewPatchWithComment([]openapiclient.JSONPatchElt{*openapiclient.NewJSONPatchElt("replace", "/biscuits", interface{}(Chocolate Digestive))}) // PatchWithComment | 
+    patchWithComment := *openapiclient.NewPatchWithComment([]openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/biscuits", interface{}(Chocolate Digestive))}) // PatchWithComment | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)

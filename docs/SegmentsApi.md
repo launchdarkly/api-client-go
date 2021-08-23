@@ -92,7 +92,7 @@ Name | Type | Description  | Notes
 
 ## GetBigSegmentTarget
 
-> BigSegmentTargetChanges GetBigSegmentTarget(ctx, projKey, envKey, key, userKey).Execute()
+> BigSegmentTarget GetBigSegmentTarget(ctx, projKey, envKey, key, userKey).Execute()
 
 Get user in Big Segment
 
@@ -123,7 +123,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.GetBigSegmentTarget``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetBigSegmentTarget`: BigSegmentTargetChanges
+    // response from `GetBigSegmentTarget`: BigSegmentTarget
     fmt.Fprintf(os.Stdout, "Response from `SegmentsApi.GetBigSegmentTarget`: %v\n", resp)
 }
 ```
@@ -153,7 +153,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**BigSegmentTargetChanges**](BigSegmentTargetChanges.md)
+[**BigSegmentTarget**](BigSegmentTarget.md)
 
 ### Authorization
 
@@ -496,7 +496,7 @@ func main() {
     projKey := "projKey_example" // string | The project key. This connects flags within one project so you can manage them together.
     envKey := "envKey_example" // string | The environment key. This connects flag configurations and users under one environment so you can manage them together.
     key := "key_example" // string | The user segment key. The key identifies the user segment in your code.
-    patchWithComment := *openapiclient.NewPatchWithComment([]openapiclient.JSONPatchElt{*openapiclient.NewJSONPatchElt("replace", "/biscuits", interface{}(Chocolate Digestive))}) // PatchWithComment | 
+    patchWithComment := *openapiclient.NewPatchWithComment([]openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/biscuits", interface{}(Chocolate Digestive))}) // PatchWithComment | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)

@@ -213,7 +213,7 @@ Name | Type | Description  | Notes
 
 ## PatchWebhook
 
-> Webhook PatchWebhook(ctx, id).JSONPatchElt(jSONPatchElt).Execute()
+> Webhook PatchWebhook(ctx, id).PatchOperation(patchOperation).Execute()
 
 Update webhook
 
@@ -233,11 +233,11 @@ import (
 
 func main() {
     id := "id_example" // string | The ID of the webhook to update
-    jSONPatchElt := []openapiclient.JSONPatchElt{*openapiclient.NewJSONPatchElt("replace", "/biscuits", interface{}(Chocolate Digestive))} // []JSONPatchElt | 
+    patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/biscuits", interface{}(Chocolate Digestive))} // []PatchOperation | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.WebhooksApi.PatchWebhook(context.Background(), id).JSONPatchElt(jSONPatchElt).Execute()
+    resp, r, err := api_client.WebhooksApi.PatchWebhook(context.Background(), id).PatchOperation(patchOperation).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `WebhooksApi.PatchWebhook``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -263,7 +263,7 @@ Other parameters are passed through a pointer to a apiPatchWebhookRequest struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **jSONPatchElt** | [**[]JSONPatchElt**](JSONPatchElt.md) |  | 
+ **patchOperation** | [**[]PatchOperation**](PatchOperation.md) |  | 
 
 ### Return type
 

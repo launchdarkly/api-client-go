@@ -1398,12 +1398,12 @@ type ApiPostFeatureFlagRequest struct {
 	ctx _context.Context
 	ApiService *FeatureFlagsApiService
 	projKey string
-	flagPost *FlagPost
+	featureFlagBody *FeatureFlagBody
 	clone *string
 }
 
-func (r ApiPostFeatureFlagRequest) FlagPost(flagPost FlagPost) ApiPostFeatureFlagRequest {
-	r.flagPost = &flagPost
+func (r ApiPostFeatureFlagRequest) FeatureFlagBody(featureFlagBody FeatureFlagBody) ApiPostFeatureFlagRequest {
+	r.featureFlagBody = &featureFlagBody
 	return r
 }
 // The key of the feature flag to be cloned. The key identifies the flag in your code. For example, setting &#x60;clone&#x3D;flagKey&#x60; copies the full targeting configuration for all environments, including &#x60;on/off&#x60; state, from the original flag to the new flag.
@@ -1456,8 +1456,8 @@ func (a *FeatureFlagsApiService) PostFeatureFlagExecute(r ApiPostFeatureFlagRequ
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-	if r.flagPost == nil {
-		return localVarReturnValue, nil, reportError("flagPost is required and must be specified")
+	if r.featureFlagBody == nil {
+		return localVarReturnValue, nil, reportError("featureFlagBody is required and must be specified")
 	}
 
 	if r.clone != nil {
@@ -1481,7 +1481,7 @@ func (a *FeatureFlagsApiService) PostFeatureFlagExecute(r ApiPostFeatureFlagRequ
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.flagPost
+	localVarPostBody = r.featureFlagBody
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {

@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Values** | Pointer to **[]string** |  | [optional] 
-**Variation** | Pointer to **int32** |  | [optional] 
+**Values** | **[]string** |  | 
+**Variation** | **int32** |  | 
 
 ## Methods
 
 ### NewTarget
 
-`func NewTarget() *Target`
+`func NewTarget(values []string, variation int32, ) *Target`
 
 NewTarget instantiates a new Target object
 This constructor will assign default values to properties that have it defined,
@@ -45,11 +45,6 @@ and a boolean to check if the value has been set.
 
 SetValues sets Values field to given value.
 
-### HasValues
-
-`func (o *Target) HasValues() bool`
-
-HasValues returns a boolean if a field has been set.
 
 ### GetVariation
 
@@ -70,11 +65,6 @@ and a boolean to check if the value has been set.
 
 SetVariation sets Variation field to given value.
 
-### HasVariation
-
-`func (o *Target) HasVariation() bool`
-
-HasVariation returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

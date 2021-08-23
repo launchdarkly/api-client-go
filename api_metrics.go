@@ -390,11 +390,11 @@ type ApiPatchMetricRequest struct {
 	ApiService *MetricsApiService
 	projectKey string
 	key string
-	jSONPatchElt *[]JSONPatchElt
+	patchOperation *[]PatchOperation
 }
 
-func (r ApiPatchMetricRequest) JSONPatchElt(jSONPatchElt []JSONPatchElt) ApiPatchMetricRequest {
-	r.jSONPatchElt = &jSONPatchElt
+func (r ApiPatchMetricRequest) PatchOperation(patchOperation []PatchOperation) ApiPatchMetricRequest {
+	r.patchOperation = &patchOperation
 	return r
 }
 
@@ -445,8 +445,8 @@ func (a *MetricsApiService) PatchMetricExecute(r ApiPatchMetricRequest) (MetricR
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-	if r.jSONPatchElt == nil {
-		return localVarReturnValue, nil, reportError("jSONPatchElt is required and must be specified")
+	if r.patchOperation == nil {
+		return localVarReturnValue, nil, reportError("patchOperation is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -467,7 +467,7 @@ func (a *MetricsApiService) PatchMetricExecute(r ApiPatchMetricRequest) (MetricR
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.jSONPatchElt
+	localVarPostBody = r.patchOperation
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {

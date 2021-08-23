@@ -228,7 +228,7 @@ Name | Type | Description  | Notes
 
 ## PatchMetric
 
-> MetricRep PatchMetric(ctx, projectKey, key).JSONPatchElt(jSONPatchElt).Execute()
+> MetricRep PatchMetric(ctx, projectKey, key).PatchOperation(patchOperation).Execute()
 
 Update metric
 
@@ -249,11 +249,11 @@ import (
 func main() {
     projectKey := "projectKey_example" // string | The project key
     key := "key_example" // string | The metric key
-    jSONPatchElt := []openapiclient.JSONPatchElt{*openapiclient.NewJSONPatchElt("replace", "/biscuits", interface{}(Chocolate Digestive))} // []JSONPatchElt | 
+    patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/biscuits", interface{}(Chocolate Digestive))} // []PatchOperation | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.MetricsApi.PatchMetric(context.Background(), projectKey, key).JSONPatchElt(jSONPatchElt).Execute()
+    resp, r, err := api_client.MetricsApi.PatchMetric(context.Background(), projectKey, key).PatchOperation(patchOperation).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MetricsApi.PatchMetric``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -281,7 +281,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **jSONPatchElt** | [**[]JSONPatchElt**](JSONPatchElt.md) |  | 
+ **patchOperation** | [**[]PatchOperation**](PatchOperation.md) |  | 
 
 ### Return type
 

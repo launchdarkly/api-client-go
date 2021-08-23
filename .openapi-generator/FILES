@@ -40,7 +40,7 @@ docs/AuditLogEntryListingRep.md
 docs/AuditLogEntryListingRepCollection.md
 docs/AuditLogEntryRep.md
 docs/AuthorizedAppDataRep.md
-docs/BigSegmentTargetChanges.md
+docs/BigSegmentTarget.md
 docs/BranchCollectionRep.md
 docs/BranchRep.md
 docs/Clause.md
@@ -93,6 +93,7 @@ docs/Extinction.md
 docs/ExtinctionCollectionRep.md
 docs/ExtinctionRep.md
 docs/FeatureFlag.md
+docs/FeatureFlagBody.md
 docs/FeatureFlagConfig.md
 docs/FeatureFlagStatus.md
 docs/FeatureFlagStatusAcrossEnvironments.md
@@ -106,7 +107,6 @@ docs/FlagCopyConfigEnvironment.md
 docs/FlagCopyConfigPost.md
 docs/FlagGlobalAttributesRep.md
 docs/FlagListingRep.md
-docs/FlagPost.md
 docs/FlagScheduledChangesInput.md
 docs/FlagStatusRep.md
 docs/FlagSummary.md
@@ -117,7 +117,6 @@ docs/InlineResponse200.md
 docs/IntegrationMetadata.md
 docs/IntegrationStatus.md
 docs/IpList.md
-docs/JSONPatchElt.md
 docs/LastSeenMetadata.md
 docs/Link.md
 docs/Member.md
@@ -136,6 +135,7 @@ docs/MultiEnvironmentDependentFlags.md
 docs/NewMemberForm.md
 docs/OtherApi.md
 docs/ParentResourceRep.md
+docs/PatchOperation.md
 docs/PatchSegmentInstruction.md
 docs/PatchSegmentRequest.md
 docs/PatchWithComment.md
@@ -226,7 +226,7 @@ model_audit_log_entry_listing_rep.go
 model_audit_log_entry_listing_rep_collection.go
 model_audit_log_entry_rep.go
 model_authorized_app_data_rep.go
-model_big_segment_target_changes.go
+model_big_segment_target.go
 model_branch_collection_rep.go
 model_branch_rep.go
 model_clause.go
@@ -274,6 +274,7 @@ model_extinction.go
 model_extinction_collection_rep.go
 model_extinction_rep.go
 model_feature_flag.go
+model_feature_flag_body.go
 model_feature_flag_config.go
 model_feature_flag_status.go
 model_feature_flag_status_across_environments.go
@@ -285,7 +286,6 @@ model_flag_copy_config_environment.go
 model_flag_copy_config_post.go
 model_flag_global_attributes_rep.go
 model_flag_listing_rep.go
-model_flag_post.go
 model_flag_scheduled_changes_input.go
 model_flag_status_rep.go
 model_flag_summary.go
@@ -296,7 +296,6 @@ model_inline_response_200.go
 model_integration_metadata.go
 model_integration_status.go
 model_ip_list.go
-model_json_patch_elt.go
 model_last_seen_metadata.go
 model_link.go
 model_member.go
@@ -313,6 +312,7 @@ model_multi_environment_dependent_flag.go
 model_multi_environment_dependent_flags.go
 model_new_member_form.go
 model_parent_resource_rep.go
+model_patch_operation.go
 model_patch_segment_instruction.go
 model_patch_segment_request.go
 model_patch_with_comment.go

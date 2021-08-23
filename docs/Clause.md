@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** |  | [optional] 
-**Attribute** | Pointer to **string** |  | [optional] 
+**Attribute** | **string** |  | 
 **Op** | **string** |  | 
 **Values** | **[]interface{}** |  | 
 **Negate** | **bool** |  | 
@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 
 ### NewClause
 
-`func NewClause(op string, values []interface{}, negate bool, ) *Clause`
+`func NewClause(attribute string, op string, values []interface{}, negate bool, ) *Clause`
 
 NewClause instantiates a new Clause object
 This constructor will assign default values to properties that have it defined,
@@ -73,11 +73,6 @@ and a boolean to check if the value has been set.
 
 SetAttribute sets Attribute field to given value.
 
-### HasAttribute
-
-`func (o *Clause) HasAttribute() bool`
-
-HasAttribute returns a boolean if a field has been set.
 
 ### GetOp
 

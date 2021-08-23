@@ -654,7 +654,7 @@ Name | Type | Description  | Notes
 
 ## PatchRepository
 
-> RepositoryRep PatchRepository(ctx, repo).JSONPatchElt(jSONPatchElt).Execute()
+> RepositoryRep PatchRepository(ctx, repo).PatchOperation(patchOperation).Execute()
 
 Update repository
 
@@ -674,11 +674,11 @@ import (
 
 func main() {
     repo := "repo_example" // string | The repository name
-    jSONPatchElt := []openapiclient.JSONPatchElt{*openapiclient.NewJSONPatchElt("replace", "/biscuits", interface{}(Chocolate Digestive))} // []JSONPatchElt | 
+    patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/biscuits", interface{}(Chocolate Digestive))} // []PatchOperation | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CodeReferencesApi.PatchRepository(context.Background(), repo).JSONPatchElt(jSONPatchElt).Execute()
+    resp, r, err := api_client.CodeReferencesApi.PatchRepository(context.Background(), repo).PatchOperation(patchOperation).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CodeReferencesApi.PatchRepository``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -704,7 +704,7 @@ Other parameters are passed through a pointer to a apiPatchRepositoryRequest str
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **jSONPatchElt** | [**[]JSONPatchElt**](JSONPatchElt.md) |  | 
+ **patchOperation** | [**[]PatchOperation**](PatchOperation.md) |  | 
 
 ### Return type
 

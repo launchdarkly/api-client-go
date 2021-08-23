@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** |  | [optional] 
-**Clauses** | Pointer to [**[]Clause**](Clause.md) |  | [optional] 
+**Clauses** | [**[]Clause**](Clause.md) |  | 
 **Weight** | Pointer to **int32** |  | [optional] 
 **BucketBy** | Pointer to **string** |  | [optional] 
 
@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 
 ### NewUserSegmentRule
 
-`func NewUserSegmentRule() *UserSegmentRule`
+`func NewUserSegmentRule(clauses []Clause, ) *UserSegmentRule`
 
 NewUserSegmentRule instantiates a new UserSegmentRule object
 This constructor will assign default values to properties that have it defined,
@@ -72,11 +72,6 @@ and a boolean to check if the value has been set.
 
 SetClauses sets Clauses field to given value.
 
-### HasClauses
-
-`func (o *UserSegmentRule) HasClauses() bool`
-
-HasClauses returns a boolean if a field has been set.
 
 ### GetWeight
 
