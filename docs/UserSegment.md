@@ -9,8 +9,8 @@ Name | Type | Description | Notes
 **Tags** | **[]string** | Tags for the segment | 
 **CreationDate** | **int64** |  | 
 **Key** | **string** | A unique key used to reference the segment | 
-**Included** | **[]string** |  | 
-**Excluded** | **[]string** |  | 
+**Included** | Pointer to **[]string** | Included users are always segment members, regardless of segment rules. For Big Segments this array is either empty or omitted entirely. | [optional] 
+**Excluded** | Pointer to **[]string** | Segment rules bypass excluded users, so they will never be included based on rules. Excluded users may still be included explicitly. This value is omitted for Big Segments. | [optional] 
 **Links** | [**map[string]Link**](Link.md) |  | 
 **Rules** | [**[]UserSegmentRule**](UserSegmentRule.md) |  | 
 **Version** | **int32** |  | 
@@ -27,7 +27,7 @@ Name | Type | Description | Notes
 
 ### NewUserSegment
 
-`func NewUserSegment(name string, tags []string, creationDate int64, key string, included []string, excluded []string, links map[string]Link, rules []UserSegmentRule, version int32, deleted bool, generation int32, ) *UserSegment`
+`func NewUserSegment(name string, tags []string, creationDate int64, key string, links map[string]Link, rules []UserSegmentRule, version int32, deleted bool, generation int32, ) *UserSegment`
 
 NewUserSegment instantiates a new UserSegment object
 This constructor will assign default values to properties that have it defined,
@@ -166,6 +166,11 @@ and a boolean to check if the value has been set.
 
 SetIncluded sets Included field to given value.
 
+### HasIncluded
+
+`func (o *UserSegment) HasIncluded() bool`
+
+HasIncluded returns a boolean if a field has been set.
 
 ### GetExcluded
 
@@ -186,6 +191,11 @@ and a boolean to check if the value has been set.
 
 SetExcluded sets Excluded field to given value.
 
+### HasExcluded
+
+`func (o *UserSegment) HasExcluded() bool`
+
+HasExcluded returns a boolean if a field has been set.
 
 ### GetLinks
 

@@ -1078,7 +1078,7 @@ paths:
               $ref: '#/components/schemas/PatchWithComment'
         required: true
       responses:
-        "201":
+        "200":
           content:
             application/json:
               schema:
@@ -1092,6 +1092,8 @@ paths:
           description: Invalid resource identifier
         "409":
           description: Status conflict
+        "422":
+          description: Invalid patch content
         "429":
           description: Rate limited
       summary: Update a Relay Proxy config
@@ -1232,7 +1234,7 @@ paths:
       summary: List audit log feature flag entries
       tags:
       - Audit log
-  /api/v2/auditlog/{resourceId}:
+  /api/v2/auditlog/{id}:
     get:
       description: |
         Fetch a detailed audit log entry representation. The detailed representation includes several fields that are not present in the summary representation:
@@ -1245,7 +1247,7 @@ paths:
       - description: The ID of the audit log entry
         explode: false
         in: path
-        name: resourceId
+        name: id
         required: true
         schema:
           description: The ID of the audit log entry
@@ -2142,8 +2144,13 @@ paths:
       - Feature flags
   /api/v2/flag-statuses/{projKey}/{envKey}:
     get:
-      description: Get a list of statuses for all feature flags. The status includes
-        the last time the feature flag was requested and the state of the flags.
+      description: |
+        Get a list of statuses for all feature flags. The status includes the last time the feature flag was requested, as well as a state, which is one of the following:
+
+        - `new`: the feature flag was created within the last seven days, and has not been requested yet
+        - `active`: the feature flag was requested by your servers or clients within the last seven days
+        - `inactive`: the feature flag was created more than seven days ago, and hasn't been requested by your servers or clients within the past seven days
+        - `launched`: one variation of the feature flag has been rolled out to all your users for at least 7 days
       operationId: getFeatureFlagStatuses
       parameters:
       - description: The project key
@@ -2239,11 +2246,24 @@ paths:
       - Feature flags
   /api/v2/flags/{projKey}:
     get:
-      description: Get a list of all features in the given project. By default, each
-        feature includes configurations for each environment. You can filter environments
-        with the `env` query parameter. For example, setting `env=production` only
-        returns configurations in the `production` environment. You can also filter
-        feature flags by tag with the `tag` query parameter.
+      description: |
+        Get a list of all features in the given project. By default, each feature includes configurations for each environment. You can filter environments with the env query parameter. For example, setting `env=production` restricts the returned configurations to just your production environment. You can also filter feature flags by tag with the tag query parameter.
+
+        We support the following fields for filters:
+
+        - `query` is a string that matches against the flags' keys and names. It is not case sensitive.
+        - `archived` is a boolean to filter the list to archived flags. When this is absent, only unarchived flags are returned.
+        - `type` is a string allowing filtering to `temporary` or `permanent` flags.
+        - `status` is a string allowing filtering to `new`, `inactive`, `active`, or `launched` flags in the specified environment. This filter also requires a `filterEnv` field to be set to a valid environment. For example: `filter=status:active,filterEnv:production`.
+        - `tags` is a + separated list of tags. It filters the list to members who have all of the tags in the list.
+        - `hasExperiment` is a boolean with values of true or false and returns any flags that have an attached metric.
+        - `hasDataExport` is a boolean with values of true or false and returns any flags that are currently exporting data in the specified environment. This includes flags that are exporting data via Experimentation. This filter also requires a `filterEnv` field to be set to a valid environment key. e.g. `filter=hasExperiment:true,filterEnv:production`
+        - `evaluated` is an object that contains a key of `after` and a value in Unix time in milliseconds. This returns all flags that have been evaluated since the time you specify in the environment provided. This filter also requires a `filterEnv` field to be set to a valid environment. For example: `filter=evaluated:{"after": 1590768455282},filterEnv:production`.
+        - `filterEnv` is a string with the key of a valid environment. The filterEnv field is used for filters that are environment specific. If there are multiple environment specific filters you should only declare this parameter once. For example: `filter=evaluated:{"after": 1590768455282},filterEnv:production,status:active`.
+
+        An example filter is `query:abc,tags:foo+bar`. This matches flags with the string `abc` in their key or name, ignoring case, which also have the tags `foo` and `bar`.
+
+        By default, this returns all flags. You can page through the list with the `limit` parameter and by following the `first`, `prev`, `next`, and `last` links in the returned `_links` field. These links will not be present if the pages they refer to don't exist. For example, the `first` and `prev` links will be missing from the response on the first page.
       operationId: getFeatureFlags
       parameters:
       - description: The project key
@@ -2388,15 +2408,13 @@ paths:
       description: Create a feature flag with the given name, key, and variations
       operationId: postFeatureFlag
       parameters:
-      - description: The project key. This connects flags within one project so you
-          can manage them together.
+      - description: The project key.
         explode: false
         in: path
         name: projKey
         required: true
         schema:
-          description: The project key. This connects flags within one project so
-            you can manage them together.
+          description: The project key.
           format: string
           type: string
         style: simple
@@ -2500,19 +2518,28 @@ paths:
       - Feature flags (beta)
   /api/v2/flags/{projKey}/{featureFlagKey}/copy:
     post:
-      description: Copy the feature flag configuration from one environment and create
-        a feature flag with that configuration in another environment
+      description: "The includedActions and excludedActions define the parts of the\
+        \ flag configuration that are copied or not copied. By default, the entire\
+        \ flag configuration is copied.\n\nYou can have either `includedActions` or\
+        \ `excludedActions` but not both.\n\nValid `includedActions` and `excludedActions`\
+        \ include:\n\n- `updateOn`\n- `updatePrerequisites`\n- `updateTargets`\n-\
+        \ `updateRules`\n- `updateFallthrough`\n- `updateOffVariation`\n \n The `source`\
+        \ and `target` must be JSON objects if using curl, specifying the environment\
+        \ key and (optional) current flag configuration version in that environment.\
+        \ For example:\n\n```json\n{\n  \"key\": \"production\",\n  \"currentVersion\"\
+        : 3\n}\n```\n\nIf target is specified as above, the API will test to ensure\
+        \ that the current flag version in the `production` environment is `3`, and\
+        \ reject attempts to copy settings to `production` otherwise. You can use\
+        \ this to enforce optimistic locking on copy attempts.\n"
       operationId: copyFeatureFlag
       parameters:
-      - description: The project key. This connects flags within one project so you
-          can manage them together.
+      - description: The project key.
         explode: false
         in: path
         name: projKey
         required: true
         schema:
-          description: The project key. This connects flags within one project so
-            you can manage them together.
+          description: The project key.
           format: string
           type: string
         style: simple
@@ -2753,27 +2780,23 @@ paths:
         for removal.
       operationId: getExpiringUserTargets
       parameters:
-      - description: The project key. This connects flags within one project so you
-          can manage them together.
+      - description: The project key.
         explode: false
         in: path
         name: projKey
         required: true
         schema:
-          description: The project key. This connects flags within one project so
-            you can manage them together.
+          description: The project key.
           format: string
           type: string
         style: simple
-      - description: The environment key. This connects flag configurations and users
-          within one environment so you can manage them together.
+      - description: The environment key.
         explode: false
         in: path
         name: envKey
         required: true
         schema:
-          description: The environment key. This connects flag configurations and
-            users within one environment so you can manage them together.
+          description: The environment key.
           format: string
           type: string
         style: simple
@@ -2810,27 +2833,23 @@ paths:
         for removal.
       operationId: patchExpiringUserTargets
       parameters:
-      - description: The project key. This connects flags within one project so you
-          can manage them together.
+      - description: The project key.
         explode: false
         in: path
         name: projKey
         required: true
         schema:
-          description: The project key. This connects flags within one project so
-            you can manage them together.
+          description: The project key.
           format: string
           type: string
         style: simple
-      - description: The environment key. This connects flag configurations and users
-          within one environment so you can manage them together.
+      - description: The environment key.
         explode: false
         in: path
         name: envKey
         required: true
         schema:
-          description: The environment key. This connects flag configurations and
-            users within one environment so you can manage them together.
+          description: The environment key.
           format: string
           type: string
         style: simple
@@ -2876,15 +2895,13 @@ paths:
         delete feature flags your application no longer uses.'
       operationId: deleteFeatureFlag
       parameters:
-      - description: The project key. This connects flags within one project so you
-          can manage them together.
+      - description: The project key.
         explode: false
         in: path
         name: projKey
         required: true
         schema:
-          description: The project key. This connects flags within one project so
-            you can manage them together.
+          description: The project key.
           format: string
           type: string
         style: simple
@@ -2970,15 +2987,13 @@ paths:
       description: Perform a partial update to a feature
       operationId: patchFeatureFlag
       parameters:
-      - description: The project key. This connects flags within one project so you
-          can manage them together.
+      - description: The project key.
         explode: false
         in: path
         name: projKey
         required: true
         schema:
-          description: The project key. This connects flags within one project so
-            you can manage them together.
+          description: The project key.
           format: string
           type: string
         style: simple
@@ -3706,9 +3721,9 @@ paths:
       - Environments
   /api/v2/projects/{projectKey}/environments/{envKey}/apiKey:
     post:
-      description: Create an environment's SDK key. Each environment has its own SDK
-        key, which is used to connect the LaunchDarkly SDK to a specific environment.
-      operationId: postEnvironmentKey
+      description: Reset an environment's SDK key with an optional expiry time for
+        the old key.
+      operationId: resetEnvironmentSDKKey
       parameters:
       - description: The project key
         explode: false
@@ -3759,7 +3774,54 @@ paths:
           description: Invalid resource specifier
         "429":
           description: Rate limited
-      summary: Create environment SDK key
+      summary: Reset environment SDK key
+      tags:
+      - Environments
+  /api/v2/projects/{projectKey}/environments/{envKey}/mobileKey:
+    post:
+      description: Reset an environment's mobile key. The optional expiry for the
+        old key is deprecated for this endpoint, so the old key will always expire
+        immediately.
+      operationId: resetEnvironmentMobileKey
+      parameters:
+      - description: The project key
+        explode: false
+        in: path
+        name: projectKey
+        required: true
+        schema:
+          description: The project key
+          format: string
+          type: string
+        style: simple
+      - description: The environment key
+        explode: false
+        in: path
+        name: envKey
+        required: true
+        schema:
+          description: The environment key
+          format: string
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Environment'
+          description: Successful environment response
+        "400":
+          description: Invalid request
+        "401":
+          description: Invalid access token
+        "403":
+          description: Forbidden
+        "404":
+          description: Invalid resource specifier
+        "429":
+          description: Rate limited
+      summary: Reset environment mobile SDK key
       tags:
       - Environments
   /api/v2/projects/{projectKey}/environments/{environmentKey}:
@@ -4382,7 +4444,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ScheduledChanges'
+                $ref: '#/components/schemas/FeatureFlagScheduledChanges'
           description: Scheduled changes collection response
         "400":
           description: Invalid request body
@@ -4456,7 +4518,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ScheduledChange'
+                $ref: '#/components/schemas/FeatureFlagScheduledChange'
           description: Successful scheduled changes response
         "400":
           description: Invalid request body
@@ -4473,72 +4535,6 @@ paths:
         "429":
           description: Rate limited
       summary: Create scheduled changes workflow
-      tags:
-      - Scheduled changes
-  /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/scheduled-changes-conflicts:
-    post:
-      description: Compare the proposed instructions with each other and the existing
-        scheduled changes. This finds conflicts that would prevent the existing scheduled
-        changes from executing correctly if the proposed instructions were saved.
-        This requires the WebDAV REPORT method and not the POST method.<br /><br />Requires
-        a semantic patch representation of the desired changes to the resource. To
-        learn more about semantic patches, read [Updates](/#section/Updates/Updates-via-semantic-patches)
-      operationId: getFlagConfigScheduledChangesConflicts
-      parameters:
-      - description: The project key
-        explode: false
-        in: path
-        name: projectKey
-        required: true
-        schema:
-          description: The project key
-          format: string
-          type: string
-        style: simple
-      - description: The feature flag's key
-        explode: false
-        in: path
-        name: featureFlagKey
-        required: true
-        schema:
-          description: The feature flag's key
-          format: string
-          type: string
-        style: simple
-      - description: The environment key
-        explode: false
-        in: path
-        name: environmentKey
-        required: true
-        schema:
-          description: The environment key
-          format: string
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ReportFlagScheduledChangesInput'
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ConflictResponse'
-          description: Conflicts response
-        "400":
-          description: Invalid request body
-        "401":
-          description: Invalid access token
-        "403":
-          description: Forbidden
-        "404":
-          description: Invalid resource identifier
-        "429":
-          description: Rate limited
-      summary: List conflicts for proposed instructions
       tags:
       - Scheduled changes
   /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/scheduled-changes/{id}:
@@ -4654,7 +4650,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ScheduledChange'
+                $ref: '#/components/schemas/FeatureFlagScheduledChange'
           description: Scheduled change response
         "401":
           description: Invalid access token
@@ -4734,7 +4730,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ScheduledChange'
+                $ref: '#/components/schemas/FeatureFlagScheduledChange'
           description: Successful scheduled changes response
         "400":
           description: Invalid request body
@@ -4932,27 +4928,23 @@ paths:
       description: Get a list of all user segments in the given project
       operationId: getSegments
       parameters:
-      - description: The project key. This connects flags within one project so you
-          can manage them together.
+      - description: The project key.
         explode: false
         in: path
         name: projKey
         required: true
         schema:
-          description: The project key. This connects flags within one project so
-            you can manage them together.
+          description: The project key.
           format: string
           type: string
         style: simple
-      - description: The environment key. This connects flag configurations and users
-          within one environment so you can manage them together.
+      - description: The environment key.
         explode: false
         in: path
         name: envKey
         required: true
         schema:
-          description: The environment key. This connects flag configurations and
-            users within one environment so you can manage them together.
+          description: The environment key.
           format: string
           type: string
         style: simple
@@ -4974,27 +4966,23 @@ paths:
       description: Create a new user segment
       operationId: postSegment
       parameters:
-      - description: The project key. This connects flags within one project so you
-          can manage them together.
+      - description: The project key.
         explode: false
         in: path
         name: projKey
         required: true
         schema:
-          description: The project key. This connects flags within one project so
-            you can manage them together.
+          description: The project key.
           format: string
           type: string
         style: simple
-      - description: The environment key. This connects flag configurations and users
-          within one environment so you can manage them together.
+      - description: The environment key.
         explode: false
         in: path
         name: envKey
         required: true
         schema:
-          description: The environment key. This connects flag configurations and
-            users within one environment so you can manage them together.
+          description: The environment key.
           format: string
           type: string
         style: simple
@@ -5002,7 +4990,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/SegmentPost'
+              $ref: '#/components/schemas/SegmentBody'
         required: true
       responses:
         "201":
@@ -5029,39 +5017,33 @@ paths:
       description: Delete a user segment.
       operationId: deleteSegment
       parameters:
-      - description: The project key. This connects flags within one project so you
-          can manage them together.
+      - description: The project key.
         explode: false
         in: path
         name: projKey
         required: true
         schema:
-          description: The project key. This connects flags within one project so
-            you can manage them together.
+          description: The project key.
           format: string
           type: string
         style: simple
-      - description: The environment key. This connects flag configurations and users
-          within one environment so you can manage them together.
+      - description: The environment key.
         explode: false
         in: path
         name: envKey
         required: true
         schema:
-          description: The environment key. This connects flag configurations and
-            users within one environment so you can manage them together.
+          description: The environment key.
           format: string
           type: string
         style: simple
-      - description: The user segment key. The key identifies the user segment in
-          your code.
+      - description: The user segment key.
         explode: false
         in: path
         name: key
         required: true
         schema:
-          description: The user segment key. The key identifies the user segment in
-            your code.
+          description: The user segment key.
           format: string
           type: string
         style: simple
@@ -5085,27 +5067,23 @@ paths:
       description: Get a single user segment by key
       operationId: getSegment
       parameters:
-      - description: The project key. This connects flags within one project so you
-          can manage them together.
+      - description: The project key.
         explode: false
         in: path
         name: projKey
         required: true
         schema:
-          description: The project key. This connects flags within one project so
-            you can manage them together.
+          description: The project key.
           format: string
           type: string
         style: simple
-      - description: The environment key. This connects flag configurations and users
-          under one environment so you can manage them together.
+      - description: The environment key.
         explode: false
         in: path
         name: envKey
         required: true
         schema:
-          description: The environment key. This connects flag configurations and
-            users under one environment so you can manage them together.
+          description: The environment key.
           format: string
           type: string
         style: simple
@@ -5140,39 +5118,33 @@ paths:
         or JSON merge patch document. To learn more about semantic patches, read [Updates](/#section/Updates).
       operationId: patchSegment
       parameters:
-      - description: The project key. This connects flags within one project so you
-          can manage them together.
+      - description: The project key.
         explode: false
         in: path
         name: projKey
         required: true
         schema:
-          description: The project key. This connects flags within one project so
-            you can manage them together.
+          description: The project key.
           format: string
           type: string
         style: simple
-      - description: The environment key. This connects flag configurations and users
-          under one environment so you can manage them together.
+      - description: The environment key.
         explode: false
         in: path
         name: envKey
         required: true
         schema:
-          description: The environment key. This connects flag configurations and
-            users under one environment so you can manage them together.
+          description: The environment key.
           format: string
           type: string
         style: simple
-      - description: The user segment key. The key identifies the user segment in
-          your code.
+      - description: The user segment key.
         explode: false
         in: path
         name: key
         required: true
         schema:
-          description: The user segment key. The key identifies the user segment in
-            your code.
+          description: The user segment key.
           format: string
           type: string
         style: simple
@@ -5261,8 +5233,9 @@ paths:
       - Segments
   /api/v2/segments/{projKey}/{envKey}/{key}/users/{userKey}:
     get:
-      description: Get whether a given userKey is included or excluded from this segment.
-      operationId: getBigSegmentTarget
+      description: Returns the membership status (included/excluded) for a given user
+        in this segment. Note this operation
+      operationId: getSegmentMembershipForUser
       parameters:
       - description: The project key.
         explode: false
@@ -5310,56 +5283,50 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BigSegmentTarget'
-          description: Unbounded target response
+          description: Segment membership for user response
         "400":
-          description: Invalid Big Segment
+          description: Invalid segment
         "401":
           description: Invalid access token
         "404":
           description: Unknown segment key
         "429":
           description: Rate limited
-      summary: Get user in Big Segment
+      summary: Get Big Segment membership for user
       tags:
       - Segments
   /api/v2/segments/{projKey}/{segmentKey}/expiring-user-targets/{envKey}:
     get:
       description: Get a list of a segment's user targets that are scheduled for removal
-      operationId: getExpiringUserTargetsOnSegment
+      operationId: getExpiringUserTargetsForSegment
       parameters:
-      - description: The project key. This connects flags within one project so you
-          can manage them together.
+      - description: The project key.
         explode: false
         in: path
         name: projKey
         required: true
         schema:
-          description: The project key. This connects flags within one project so
-            you can manage them together.
+          description: The project key.
           format: string
           type: string
         style: simple
-      - description: The environment key. This connects flag configurations and users
-          within one environment so you can manage them together.
+      - description: The environment key.
         explode: false
         in: path
         name: envKey
         required: true
         schema:
-          description: The environment key. This connects flag configurations and
-            users within one environment so you can manage them together.
+          description: The environment key.
           format: string
           type: string
         style: simple
-      - description: The user segment key. The key identifies the user segment in
-          your code.
+      - description: The segment key.
         explode: false
         in: path
         name: segmentKey
         required: true
         schema:
-          description: The user segment key. The key identifies the user segment in
-            your code.
+          description: The segment key.
           format: string
           type: string
         style: simple
@@ -5382,42 +5349,39 @@ paths:
     patch:
       description: Update the list of a segment's user targets that are scheduled
         for removal<br /><br />Requires a semantic patch representation of the desired
-        changes to the resource. To learn more about semantic patches, read [Updates](/#section/Updates/Updates-via-semantic-patches)
-      operationId: patchExpiringUserTargetsOnSegment
+        changes to the resource. To learn more about semantic patches, read [Updates](/#section/Updates/Updates-via-semantic-patches).<br
+        /><br />If the request is well-formed but any of its instructions failed to
+        process, this operation returns status code `200`. In this case, the response
+        `errors` array will be non-empty.
+      operationId: patchExpiringUserTargetsForSegment
       parameters:
-      - description: The project key. This connects flags within one project so you
-          can manage them together.
+      - description: The project key.
         explode: false
         in: path
         name: projKey
         required: true
         schema:
-          description: The project key. This connects flags within one project so
-            you can manage them together.
+          description: The project key.
           format: string
           type: string
         style: simple
-      - description: The environment key. This connects flag configurations and users
-          within one environment so you can manage them together.
+      - description: The environment key.
         explode: false
         in: path
         name: envKey
         required: true
         schema:
-          description: The environment key. This connects flag configurations and
-            users within one environment so you can manage them together.
+          description: The environment key.
           format: string
           type: string
         style: simple
-      - description: The user segment key. The key identifies the user segment in
-          your code.
+      - description: The user segment key.
         explode: false
         in: path
         name: segmentKey
         required: true
         schema:
-          description: The user segment key. The key identifies the user segment in
-            your code.
+          description: The user segment key.
           format: string
           type: string
         style: simple
@@ -5433,7 +5397,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ExpiringUserTargetPatchResponse'
-          description: Expiring user target response
+          description: Expiring user target response.
         "400":
           description: Invalid request body
         "401":
@@ -5446,7 +5410,7 @@ paths:
           description: Status conflict
         "429":
           description: Rate limited
-      summary: Update expiring user targets on segment
+      summary: Update expiring user targets for segment
       tags:
       - Segments
   /api/v2/tokens:
@@ -5612,6 +5576,10 @@ paths:
           description: Forbidden
         "404":
           description: Invalid resource identifier
+        "409":
+          description: Status conflict
+        "422":
+          description: Invalid patch content
         "429":
           description: Rate limited
       summary: Patch access token
@@ -5849,6 +5817,87 @@ paths:
         schema:
           description: The series of data returned ends at this timestamp. Defaults
             to the current time.
+          format: string
+          type: string
+        style: form
+      - description: A project key to filter results to. Can be specified multiple
+          times, one query parameter per project key, to view data for multiple projects.
+        explode: true
+        in: query
+        name: project
+        required: false
+        schema:
+          description: A project key to filter results to. Can be specified multiple
+            times, one query parameter per project key, to view data for multiple
+            projects.
+          format: string
+          type: string
+        style: form
+      - description: An environment key to filter results to. When using this parameter,
+          exactly one project key must also be set. Can be specified multiple times
+          as separate query parameters to view data for multiple environments within
+          a single project.
+        explode: true
+        in: query
+        name: environment
+        required: false
+        schema:
+          description: An environment key to filter results to. When using this parameter,
+            exactly one project key must also be set. Can be specified multiple times
+            as separate query parameters to view data for multiple environments within
+            a single project.
+          format: string
+          type: string
+        style: form
+      - description: 'An SDK type to filter results to. Can be specified multiple
+          times, one query parameter per SDK type. Valid values: client, server'
+        explode: true
+        in: query
+        name: sdktype
+        required: false
+        schema:
+          description: 'An SDK type to filter results to. Can be specified multiple
+            times, one query parameter per SDK type. Valid values: client, server'
+          format: string
+          type: string
+        style: form
+      - description: An SDK name to filter results to. Can be specified multiple times,
+          one query parameter per SDK.
+        explode: true
+        in: query
+        name: sdk
+        required: false
+        schema:
+          description: An SDK name to filter results to. Can be specified multiple
+            times, one query parameter per SDK.
+          format: string
+          type: string
+        style: form
+      - description: If specified, filters results to either anonymous or nonanonymous
+          users.
+        explode: true
+        in: query
+        name: anonymous
+        required: false
+        schema:
+          description: If specified, filters results to either anonymous or nonanonymous
+            users.
+          format: string
+          type: string
+        style: form
+      - description: 'If specified, returns data for each distinct value of the given
+          field. Can be specified multiple times to group data by multiple dimensions
+          (for example, to group by both project and SDK). Valid values: project,
+          environment, sdktype, sdk, anonymous'
+        explode: true
+        in: query
+        name: groupby
+        required: false
+        schema:
+          description: 'If specified, returns data for each distinct value of the
+            given field. Can be specified multiple times to group data by multiple
+            dimensions (for example, to group by both project and SDK). Valid values:
+            project, environment, sdktype, sdk, anonymous'
           format: string
           type: string
         style: form
@@ -6755,15 +6804,13 @@ paths:
       description: Get a list of flags for which the given user is scheduled for removal.
       operationId: getExpiringFlagsForUser
       parameters:
-      - description: The project key. This connects flags within one project so you
-          can manage them together.
+      - description: The project key.
         explode: false
         in: path
         name: projKey
         required: true
         schema:
-          description: The project key. This connects flags within one project so
-            you can manage them together.
+          description: The project key.
           format: string
           type: string
         style: simple
@@ -6777,15 +6824,13 @@ paths:
           format: string
           type: string
         style: simple
-      - description: The environment key. This connects flag configurations and users
-          within one environment so you can manage them together.
+      - description: The environment key.
         explode: false
         in: path
         name: envKey
         required: true
         schema:
-          description: The environment key. This connects flag configurations and
-            users within one environment so you can manage them together.
+          description: The environment key.
           format: string
           type: string
         style: simple
@@ -6816,15 +6861,13 @@ paths:
         If you previously patched the flag, and the patch included the user's data, LaunchDarkly continues to use that data. If LaunchDarkly has never encountered the user's key before, it calculates the flag values based on the user key alone.
       operationId: patchExpiringFlagsForUser
       parameters:
-      - description: The project key. This connects flags within one project so you
-          can manage them together.
+      - description: The project key.
         explode: false
         in: path
         name: projKey
         required: true
         schema:
-          description: The project key. This connects flags within one project so
-            you can manage them together.
+          description: The project key.
           format: string
           type: string
         style: simple
@@ -6838,15 +6881,13 @@ paths:
           format: string
           type: string
         style: simple
-      - description: The environment key. This connects flag configurations and users
-          within one environment so you can manage them together.
+      - description: The environment key.
         explode: false
         in: path
         name: envKey
         required: true
         schema:
-          description: The environment key. This connects flag configurations and
-            users within one environment so you can manage them together.
+          description: The environment key.
           format: string
           type: string
         style: simple
@@ -7893,10 +7934,13 @@ components:
           description: The user key
           type: string
         included:
-          description: Whether or not the user is included in the segment
+          description: Indicates whether the user is included.<br />Included users
+            are always segment members, regardless of segment rules.
           type: boolean
         excluded:
-          description: Whether or not the user is excluded from the segment
+          description: Indicates whether the user is excluded.<br />Segment rules
+            bypass excluded users, so they will never be included based on rules.
+            Excluded users may still be included explicitly.
           type: boolean
       required:
       - excluded
@@ -8139,71 +8183,6 @@ components:
         reason:
           description: Reason why the conflict exists
           type: string
-      type: object
-    ConflictResponse:
-      example:
-        items:
-        - kind: kind
-          conflicts:
-          - reason: reason
-            pendingChangeWillFail: true
-            _id: _id
-          - reason: reason
-            pendingChangeWillFail: true
-            _id: _id
-        - kind: kind
-          conflicts:
-          - reason: reason
-            pendingChangeWillFail: true
-            _id: _id
-          - reason: reason
-            pendingChangeWillFail: true
-            _id: _id
-      properties:
-        items:
-          items:
-            $ref: '#/components/schemas/ConflictResponseInstruction'
-          type: array
-      required:
-      - items
-      type: object
-    ConflictResponseConflict:
-      example:
-        reason: reason
-        pendingChangeWillFail: true
-        _id: _id
-      properties:
-        _id:
-          type: string
-        reason:
-          type: string
-        pendingChangeWillFail:
-          type: boolean
-      required:
-      - _id
-      - pendingChangeWillFail
-      - reason
-      type: object
-    ConflictResponseInstruction:
-      example:
-        kind: kind
-        conflicts:
-        - reason: reason
-          pendingChangeWillFail: true
-          _id: _id
-        - reason: reason
-          pendingChangeWillFail: true
-          _id: _id
-      properties:
-        kind:
-          type: string
-        conflicts:
-          items:
-            $ref: '#/components/schemas/ConflictResponseConflict'
-          type: array
-      required:
-      - conflicts
-      - kind
       type: object
     CopiedFromEnv:
       example:
@@ -10390,6 +10369,96 @@ components:
       - trackEventsFallthrough
       - version
       type: object
+    FeatureFlagScheduledChange:
+      example:
+        instructions:
+        - null
+        - null
+        _maintainerId: _maintainerId
+        _links:
+          key:
+            href: href
+            type: type
+        executionDate: 1
+        conflicts: ""
+        _id: _id
+        _creationDate: 0
+        _version: 6
+      properties:
+        _id:
+          type: string
+        _creationDate:
+          format: int64
+          type: integer
+        _maintainerId:
+          type: string
+        _version:
+          type: integer
+        executionDate:
+          format: int64
+          type: integer
+        instructions:
+          items:
+            $ref: '#/components/schemas/Instruction'
+          type: array
+        conflicts: {}
+        _links:
+          additionalProperties:
+            $ref: '#/components/schemas/Link'
+          type: object
+      required:
+      - _creationDate
+      - _id
+      - _maintainerId
+      - _version
+      - executionDate
+      - instructions
+      type: object
+    FeatureFlagScheduledChanges:
+      example:
+        _links:
+          key:
+            href: href
+            type: type
+        items:
+        - instructions:
+          - null
+          - null
+          _maintainerId: _maintainerId
+          _links:
+            key:
+              href: href
+              type: type
+          executionDate: 1
+          conflicts: ""
+          _id: _id
+          _creationDate: 0
+          _version: 6
+        - instructions:
+          - null
+          - null
+          _maintainerId: _maintainerId
+          _links:
+            key:
+              href: href
+              type: type
+          executionDate: 1
+          conflicts: ""
+          _id: _id
+          _creationDate: 0
+          _version: 6
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/FeatureFlagScheduledChange'
+          type: array
+        _links:
+          additionalProperties:
+            $ref: '#/components/schemas/Link'
+          type: object
+      required:
+      - items
+      type: object
     FeatureFlagStatus:
       properties:
         name:
@@ -11284,11 +11353,11 @@ components:
           key: key
           currentVersion: 0
         excludedActions:
-        - excludedActions
-        - excludedActions
+        - updateOn
+        - updateOn
         includedActions:
-        - includedActions
-        - includedActions
+        - updateOn
+        - updateOn
         target:
           key: key
           currentVersion: 0
@@ -11301,10 +11370,24 @@ components:
           type: string
         includedActions:
           items:
+            enum:
+            - updateOn
+            - updateRules
+            - updateFallthrough
+            - updateOffVariation
+            - updatePrerequisites
+            - updateTargets
             type: string
           type: array
         excludedActions:
           items:
+            enum:
+            - updateOn
+            - updateRules
+            - updateFallthrough
+            - updateOffVariation
+            - updatePrerequisites
+            - updateTargets
             type: string
           type: array
       required:
@@ -13388,24 +13471,6 @@ components:
       - name
       - policy
       type: object
-    ReportFlagScheduledChangesInput:
-      example:
-        instructions:
-        - null
-        - null
-        executionDate: 0
-      properties:
-        executionDate:
-          format: int64
-          type: integer
-        instructions:
-          items:
-            $ref: '#/components/schemas/Instruction'
-          type: array
-      required:
-      - executionDate
-      - instructions
-      type: object
     RepositoryCollectionRep:
       example:
         _links:
@@ -13948,96 +14013,6 @@ components:
       - clauses
       - trackEvents
       type: object
-    ScheduledChange:
-      example:
-        instructions:
-        - null
-        - null
-        _maintainerId: _maintainerId
-        _links:
-          key:
-            href: href
-            type: type
-        executionDate: 1
-        conflicts: ""
-        _id: _id
-        _creationDate: 0
-        _version: 6
-      properties:
-        _id:
-          type: string
-        _creationDate:
-          format: int64
-          type: integer
-        _maintainerId:
-          type: string
-        _version:
-          type: integer
-        executionDate:
-          format: int64
-          type: integer
-        instructions:
-          items:
-            $ref: '#/components/schemas/Instruction'
-          type: array
-        conflicts: {}
-        _links:
-          additionalProperties:
-            $ref: '#/components/schemas/Link'
-          type: object
-      required:
-      - _creationDate
-      - _id
-      - _maintainerId
-      - _version
-      - executionDate
-      - instructions
-      type: object
-    ScheduledChanges:
-      example:
-        _links:
-          key:
-            href: href
-            type: type
-        items:
-        - instructions:
-          - null
-          - null
-          _maintainerId: _maintainerId
-          _links:
-            key:
-              href: href
-              type: type
-          executionDate: 1
-          conflicts: ""
-          _id: _id
-          _creationDate: 0
-          _version: 6
-        - instructions:
-          - null
-          - null
-          _maintainerId: _maintainerId
-          _links:
-            key:
-              href: href
-              type: type
-          executionDate: 1
-          conflicts: ""
-          _id: _id
-          _creationDate: 0
-          _version: 6
-      properties:
-        items:
-          items:
-            $ref: '#/components/schemas/ScheduledChange'
-          type: array
-        _links:
-          additionalProperties:
-            $ref: '#/components/schemas/Link'
-          type: object
-      required:
-      - items
-      type: object
     SdkListRep:
       example:
         _links:
@@ -14091,31 +14066,7 @@ components:
       - sdk
       - version
       type: object
-    SegmentId:
-      type: string
-    SegmentMetadata:
-      example:
-        deleted: true
-        segmentId: segmentId
-        includedCount: 2
-        envId: envId
-        excludedCount: 7
-        version: 5
-      properties:
-        envId:
-          type: string
-        segmentId:
-          type: string
-        version:
-          type: integer
-        includedCount:
-          type: integer
-        excludedCount:
-          type: integer
-        deleted:
-          type: boolean
-      type: object
-    SegmentPost:
+    SegmentBody:
       example:
         name: name
         description: description
@@ -14145,6 +14096,30 @@ components:
       required:
       - key
       - name
+      type: object
+    SegmentId:
+      type: string
+    SegmentMetadata:
+      example:
+        deleted: true
+        segmentId: segmentId
+        includedCount: 2
+        envId: envId
+        excludedCount: 7
+        version: 5
+      properties:
+        envId:
+          type: string
+        segmentId:
+          type: string
+        version:
+          type: integer
+        includedCount:
+          type: integer
+        excludedCount:
+          type: integer
+        deleted:
+          type: boolean
       type: object
     SegmentUserList:
       example:
@@ -15196,10 +15171,15 @@ components:
           description: A unique key used to reference the segment
           type: string
         included:
+          description: Included users are always segment members, regardless of segment
+            rules. For Big Segments this array is either empty or omitted entirely.
           items:
             type: string
           type: array
         excluded:
+          description: Segment rules bypass excluded users, so they will never be
+            included based on rules. Excluded users may still be included explicitly.
+            This value is omitted for Big Segments.
           items:
             type: string
           type: array
@@ -15235,9 +15215,7 @@ components:
       - _links
       - creationDate
       - deleted
-      - excluded
       - generation
-      - included
       - key
       - name
       - rules

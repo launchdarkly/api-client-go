@@ -15,33 +15,34 @@ import (
 	"encoding/json"
 )
 
-// ConflictResponse struct for ConflictResponse
-type ConflictResponse struct {
-	Items []ConflictResponseInstruction `json:"items"`
+// FeatureFlagScheduledChanges struct for FeatureFlagScheduledChanges
+type FeatureFlagScheduledChanges struct {
+	Items []FeatureFlagScheduledChange `json:"items"`
+	Links *map[string]Link `json:"_links,omitempty"`
 }
 
-// NewConflictResponse instantiates a new ConflictResponse object
+// NewFeatureFlagScheduledChanges instantiates a new FeatureFlagScheduledChanges object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewConflictResponse(items []ConflictResponseInstruction) *ConflictResponse {
-	this := ConflictResponse{}
+func NewFeatureFlagScheduledChanges(items []FeatureFlagScheduledChange) *FeatureFlagScheduledChanges {
+	this := FeatureFlagScheduledChanges{}
 	this.Items = items
 	return &this
 }
 
-// NewConflictResponseWithDefaults instantiates a new ConflictResponse object
+// NewFeatureFlagScheduledChangesWithDefaults instantiates a new FeatureFlagScheduledChanges object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewConflictResponseWithDefaults() *ConflictResponse {
-	this := ConflictResponse{}
+func NewFeatureFlagScheduledChangesWithDefaults() *FeatureFlagScheduledChanges {
+	this := FeatureFlagScheduledChanges{}
 	return &this
 }
 
 // GetItems returns the Items field value
-func (o *ConflictResponse) GetItems() []ConflictResponseInstruction {
+func (o *FeatureFlagScheduledChanges) GetItems() []FeatureFlagScheduledChange {
 	if o == nil {
-		var ret []ConflictResponseInstruction
+		var ret []FeatureFlagScheduledChange
 		return ret
 	}
 
@@ -50,7 +51,7 @@ func (o *ConflictResponse) GetItems() []ConflictResponseInstruction {
 
 // GetItemsOk returns a tuple with the Items field value
 // and a boolean to check if the value has been set.
-func (o *ConflictResponse) GetItemsOk() (*[]ConflictResponseInstruction, bool) {
+func (o *FeatureFlagScheduledChanges) GetItemsOk() (*[]FeatureFlagScheduledChange, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -58,50 +59,85 @@ func (o *ConflictResponse) GetItemsOk() (*[]ConflictResponseInstruction, bool) {
 }
 
 // SetItems sets field value
-func (o *ConflictResponse) SetItems(v []ConflictResponseInstruction) {
+func (o *FeatureFlagScheduledChanges) SetItems(v []FeatureFlagScheduledChange) {
 	o.Items = v
 }
 
-func (o ConflictResponse) MarshalJSON() ([]byte, error) {
+// GetLinks returns the Links field value if set, zero value otherwise.
+func (o *FeatureFlagScheduledChanges) GetLinks() map[string]Link {
+	if o == nil || o.Links == nil {
+		var ret map[string]Link
+		return ret
+	}
+	return *o.Links
+}
+
+// GetLinksOk returns a tuple with the Links field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FeatureFlagScheduledChanges) GetLinksOk() (*map[string]Link, bool) {
+	if o == nil || o.Links == nil {
+		return nil, false
+	}
+	return o.Links, true
+}
+
+// HasLinks returns a boolean if a field has been set.
+func (o *FeatureFlagScheduledChanges) HasLinks() bool {
+	if o != nil && o.Links != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLinks gets a reference to the given map[string]Link and assigns it to the Links field.
+func (o *FeatureFlagScheduledChanges) SetLinks(v map[string]Link) {
+	o.Links = &v
+}
+
+func (o FeatureFlagScheduledChanges) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
 		toSerialize["items"] = o.Items
 	}
+	if o.Links != nil {
+		toSerialize["_links"] = o.Links
+	}
 	return json.Marshal(toSerialize)
 }
 
-type NullableConflictResponse struct {
-	value *ConflictResponse
+type NullableFeatureFlagScheduledChanges struct {
+	value *FeatureFlagScheduledChanges
 	isSet bool
 }
 
-func (v NullableConflictResponse) Get() *ConflictResponse {
+func (v NullableFeatureFlagScheduledChanges) Get() *FeatureFlagScheduledChanges {
 	return v.value
 }
 
-func (v *NullableConflictResponse) Set(val *ConflictResponse) {
+func (v *NullableFeatureFlagScheduledChanges) Set(val *FeatureFlagScheduledChanges) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableConflictResponse) IsSet() bool {
+func (v NullableFeatureFlagScheduledChanges) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableConflictResponse) Unset() {
+func (v *NullableFeatureFlagScheduledChanges) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableConflictResponse(val *ConflictResponse) *NullableConflictResponse {
-	return &NullableConflictResponse{value: val, isSet: true}
+func NewNullableFeatureFlagScheduledChanges(val *FeatureFlagScheduledChanges) *NullableFeatureFlagScheduledChanges {
+	return &NullableFeatureFlagScheduledChanges{value: val, isSet: true}
 }
 
-func (v NullableConflictResponse) MarshalJSON() ([]byte, error) {
+func (v NullableFeatureFlagScheduledChanges) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableConflictResponse) UnmarshalJSON(src []byte) error {
+func (v *NullableFeatureFlagScheduledChanges) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

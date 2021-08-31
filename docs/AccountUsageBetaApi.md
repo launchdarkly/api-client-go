@@ -243,7 +243,7 @@ Name | Type | Description  | Notes
 
 ## GetMauUsage
 
-> SeriesListRep GetMauUsage(ctx).From(from).To(to).Execute()
+> SeriesListRep GetMauUsage(ctx).From(from).To(to).Project(project).Environment(environment).Sdktype(sdktype).Sdk(sdk).Anonymous(anonymous).Groupby(groupby).Execute()
 
 Get MAU usage
 
@@ -264,10 +264,16 @@ import (
 func main() {
     from := "from_example" // string | The series of data returned starts from this timestamp. Defaults to 30 days ago. (optional)
     to := "to_example" // string | The series of data returned ends at this timestamp. Defaults to the current time. (optional)
+    project := "project_example" // string | A project key to filter results to. Can be specified multiple times, one query parameter per project key, to view data for multiple projects. (optional)
+    environment := "environment_example" // string | An environment key to filter results to. When using this parameter, exactly one project key must also be set. Can be specified multiple times as separate query parameters to view data for multiple environments within a single project. (optional)
+    sdktype := "sdktype_example" // string | An SDK type to filter results to. Can be specified multiple times, one query parameter per SDK type. Valid values: client, server (optional)
+    sdk := "sdk_example" // string | An SDK name to filter results to. Can be specified multiple times, one query parameter per SDK. (optional)
+    anonymous := "anonymous_example" // string | If specified, filters results to either anonymous or nonanonymous users. (optional)
+    groupby := "groupby_example" // string | If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions (for example, to group by both project and SDK). Valid values: project, environment, sdktype, sdk, anonymous (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AccountUsageBetaApi.GetMauUsage(context.Background()).From(from).To(to).Execute()
+    resp, r, err := api_client.AccountUsageBetaApi.GetMauUsage(context.Background()).From(from).To(to).Project(project).Environment(environment).Sdktype(sdktype).Sdk(sdk).Anonymous(anonymous).Groupby(groupby).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AccountUsageBetaApi.GetMauUsage``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -290,6 +296,12 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **from** | **string** | The series of data returned starts from this timestamp. Defaults to 30 days ago. | 
  **to** | **string** | The series of data returned ends at this timestamp. Defaults to the current time. | 
+ **project** | **string** | A project key to filter results to. Can be specified multiple times, one query parameter per project key, to view data for multiple projects. | 
+ **environment** | **string** | An environment key to filter results to. When using this parameter, exactly one project key must also be set. Can be specified multiple times as separate query parameters to view data for multiple environments within a single project. | 
+ **sdktype** | **string** | An SDK type to filter results to. Can be specified multiple times, one query parameter per SDK type. Valid values: client, server | 
+ **sdk** | **string** | An SDK name to filter results to. Can be specified multiple times, one query parameter per SDK. | 
+ **anonymous** | **string** | If specified, filters results to either anonymous or nonanonymous users. | 
+ **groupby** | **string** | If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions (for example, to group by both project and SDK). Valid values: project, environment, sdktype, sdk, anonymous | 
 
 ### Return type
 

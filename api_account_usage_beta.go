@@ -469,6 +469,12 @@ type ApiGetMauUsageRequest struct {
 	ApiService *AccountUsageBetaApiService
 	from *string
 	to *string
+	project *string
+	environment *string
+	sdktype *string
+	sdk *string
+	anonymous *string
+	groupby *string
 }
 
 // The series of data returned starts from this timestamp. Defaults to 30 days ago.
@@ -479,6 +485,36 @@ func (r ApiGetMauUsageRequest) From(from string) ApiGetMauUsageRequest {
 // The series of data returned ends at this timestamp. Defaults to the current time.
 func (r ApiGetMauUsageRequest) To(to string) ApiGetMauUsageRequest {
 	r.to = &to
+	return r
+}
+// A project key to filter results to. Can be specified multiple times, one query parameter per project key, to view data for multiple projects.
+func (r ApiGetMauUsageRequest) Project(project string) ApiGetMauUsageRequest {
+	r.project = &project
+	return r
+}
+// An environment key to filter results to. When using this parameter, exactly one project key must also be set. Can be specified multiple times as separate query parameters to view data for multiple environments within a single project.
+func (r ApiGetMauUsageRequest) Environment(environment string) ApiGetMauUsageRequest {
+	r.environment = &environment
+	return r
+}
+// An SDK type to filter results to. Can be specified multiple times, one query parameter per SDK type. Valid values: client, server
+func (r ApiGetMauUsageRequest) Sdktype(sdktype string) ApiGetMauUsageRequest {
+	r.sdktype = &sdktype
+	return r
+}
+// An SDK name to filter results to. Can be specified multiple times, one query parameter per SDK.
+func (r ApiGetMauUsageRequest) Sdk(sdk string) ApiGetMauUsageRequest {
+	r.sdk = &sdk
+	return r
+}
+// If specified, filters results to either anonymous or nonanonymous users.
+func (r ApiGetMauUsageRequest) Anonymous(anonymous string) ApiGetMauUsageRequest {
+	r.anonymous = &anonymous
+	return r
+}
+// If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions (for example, to group by both project and SDK). Valid values: project, environment, sdktype, sdk, anonymous
+func (r ApiGetMauUsageRequest) Groupby(groupby string) ApiGetMauUsageRequest {
+	r.groupby = &groupby
 	return r
 }
 
@@ -529,6 +565,24 @@ func (a *AccountUsageBetaApiService) GetMauUsageExecute(r ApiGetMauUsageRequest)
 	}
 	if r.to != nil {
 		localVarQueryParams.Add("to", parameterToString(*r.to, ""))
+	}
+	if r.project != nil {
+		localVarQueryParams.Add("project", parameterToString(*r.project, ""))
+	}
+	if r.environment != nil {
+		localVarQueryParams.Add("environment", parameterToString(*r.environment, ""))
+	}
+	if r.sdktype != nil {
+		localVarQueryParams.Add("sdktype", parameterToString(*r.sdktype, ""))
+	}
+	if r.sdk != nil {
+		localVarQueryParams.Add("sdk", parameterToString(*r.sdk, ""))
+	}
+	if r.anonymous != nil {
+		localVarQueryParams.Add("anonymous", parameterToString(*r.anonymous, ""))
+	}
+	if r.groupby != nil {
+		localVarQueryParams.Add("groupby", parameterToString(*r.groupby, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

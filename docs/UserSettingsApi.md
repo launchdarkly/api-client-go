@@ -33,9 +33,9 @@ import (
 )
 
 func main() {
-    projKey := "projKey_example" // string | The project key. This connects flags within one project so you can manage them together.
+    projKey := "projKey_example" // string | The project key.
     userKey := "userKey_example" // string | The user key.
-    envKey := "envKey_example" // string | The environment key. This connects flag configurations and users within one environment so you can manage them together.
+    envKey := "envKey_example" // string | The environment key.
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -55,9 +55,9 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projKey** | **string** | The project key. This connects flags within one project so you can manage them together. | 
+**projKey** | **string** | The project key. | 
 **userKey** | **string** | The user key. | 
-**envKey** | **string** | The environment key. This connects flag configurations and users within one environment so you can manage them together. | 
+**envKey** | **string** | The environment key. | 
 
 ### Other Parameters
 
@@ -264,9 +264,9 @@ import (
 )
 
 func main() {
-    projKey := "projKey_example" // string | The project key. This connects flags within one project so you can manage them together.
+    projKey := "projKey_example" // string | The project key.
     userKey := "userKey_example" // string | The user key.
-    envKey := "envKey_example" // string | The environment key. This connects flag configurations and users within one environment so you can manage them together.
+    envKey := "envKey_example" // string | The environment key.
     patchWithComment := *openapiclient.NewPatchWithComment([]openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/biscuits", interface{}(Chocolate Digestive))}) // PatchWithComment | 
 
     configuration := openapiclient.NewConfiguration()
@@ -287,9 +287,9 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projKey** | **string** | The project key. This connects flags within one project so you can manage them together. | 
+**projKey** | **string** | The project key. | 
 **userKey** | **string** | The user key. | 
-**envKey** | **string** | The environment key. This connects flag configurations and users within one environment so you can manage them together. | 
+**envKey** | **string** | The environment key. | 
 
 ### Other Parameters
 

@@ -47,9 +47,9 @@ GetExpiringFlagsForUser Get expiring dates on flags for user
 Get a list of flags for which the given user is scheduled for removal.
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param projKey The project key. This connects flags within one project so you can manage them together.
+ @param projKey The project key.
  @param userKey The user key.
- @param envKey The environment key. This connects flag configurations and users within one environment so you can manage them together.
+ @param envKey The environment key.
  @return ApiGetExpiringFlagsForUserRequest
 */
 func (a *UserSettingsApiService) GetExpiringFlagsForUser(ctx _context.Context, projKey string, userKey string, envKey string) ApiGetExpiringFlagsForUserRequest {
@@ -445,9 +445,9 @@ If you previously patched the flag, and the patch included the user's data, Laun
 
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param projKey The project key. This connects flags within one project so you can manage them together.
+ @param projKey The project key.
  @param userKey The user key.
- @param envKey The environment key. This connects flag configurations and users within one environment so you can manage them together.
+ @param envKey The environment key.
  @return ApiPatchExpiringFlagsForUserRequest
 */
 func (a *UserSettingsApiService) PatchExpiringFlagsForUser(ctx _context.Context, projKey string, userKey string, envKey string) ApiPatchExpiringFlagsForUserRequest {

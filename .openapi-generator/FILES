@@ -49,9 +49,6 @@ docs/ClientSideAvailabilityPost.md
 docs/CodeReferencesApi.md
 docs/ConfidenceIntervalRep.md
 docs/Conflict.md
-docs/ConflictResponse.md
-docs/ConflictResponseConflict.md
-docs/ConflictResponseInstruction.md
 docs/CopiedFromEnv.md
 docs/CreateCopyFlagConfigApprovalRequestRequest.md
 docs/CreateFlagConfigApprovalRequestRequest.md
@@ -95,6 +92,8 @@ docs/ExtinctionRep.md
 docs/FeatureFlag.md
 docs/FeatureFlagBody.md
 docs/FeatureFlagConfig.md
+docs/FeatureFlagScheduledChange.md
+docs/FeatureFlagScheduledChanges.md
 docs/FeatureFlagStatus.md
 docs/FeatureFlagStatusAcrossEnvironments.md
 docs/FeatureFlagStatuses.md
@@ -154,7 +153,6 @@ docs/RelayAutoConfigCollectionRep.md
 docs/RelayAutoConfigPost.md
 docs/RelayAutoConfigRep.md
 docs/RelayProxyConfigurationsApi.md
-docs/ReportFlagScheduledChangesInput.md
 docs/RepositoryCollectionRep.md
 docs/RepositoryPost.md
 docs/RepositoryRep.md
@@ -163,14 +161,12 @@ docs/ResourceIDResponse.md
 docs/ReviewResponse.md
 docs/Rollout.md
 docs/Rule.md
-docs/ScheduledChange.md
-docs/ScheduledChanges.md
 docs/ScheduledChangesApi.md
 docs/SdkListRep.md
 docs/SdkVersionListRep.md
 docs/SdkVersionRep.md
+docs/SegmentBody.md
 docs/SegmentMetadata.md
-docs/SegmentPost.md
 docs/SegmentUserList.md
 docs/SegmentUserState.md
 docs/SegmentsApi.md
@@ -234,9 +230,6 @@ model_client_side_availability.go
 model_client_side_availability_post.go
 model_confidence_interval_rep.go
 model_conflict.go
-model_conflict_response.go
-model_conflict_response_conflict.go
-model_conflict_response_instruction.go
 model_copied_from_env.go
 model_create_copy_flag_config_approval_request_request.go
 model_create_flag_config_approval_request_request.go
@@ -276,6 +269,8 @@ model_extinction_rep.go
 model_feature_flag.go
 model_feature_flag_body.go
 model_feature_flag_config.go
+model_feature_flag_scheduled_change.go
+model_feature_flag_scheduled_changes.go
 model_feature_flag_status.go
 model_feature_flag_status_across_environments.go
 model_feature_flag_statuses.go
@@ -329,7 +324,6 @@ model_reference_rep.go
 model_relay_auto_config_collection_rep.go
 model_relay_auto_config_post.go
 model_relay_auto_config_rep.go
-model_report_flag_scheduled_changes_input.go
 model_repository_collection_rep.go
 model_repository_post.go
 model_repository_rep.go
@@ -338,13 +332,11 @@ model_resource_id_response.go
 model_review_response.go
 model_rollout.go
 model_rule.go
-model_scheduled_change.go
-model_scheduled_changes.go
 model_sdk_list_rep.go
 model_sdk_version_list_rep.go
 model_sdk_version_rep.go
+model_segment_body.go
 model_segment_metadata.go
-model_segment_post.go
 model_segment_user_list.go
 model_segment_user_state.go
 model_series_list_rep.go

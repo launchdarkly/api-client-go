@@ -192,7 +192,7 @@ func (a *AuditLogApiService) GetAuditLogEntriesExecute(r ApiGetAuditLogEntriesRe
 type ApiGetAuditLogEntryRequest struct {
 	ctx _context.Context
 	ApiService *AuditLogApiService
-	resourceId string
+	id string
 }
 
 
@@ -211,14 +211,14 @@ Fetch a detailed audit log entry representation. The detailed representation inc
 
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param resourceId The ID of the audit log entry
+ @param id The ID of the audit log entry
  @return ApiGetAuditLogEntryRequest
 */
-func (a *AuditLogApiService) GetAuditLogEntry(ctx _context.Context, resourceId string) ApiGetAuditLogEntryRequest {
+func (a *AuditLogApiService) GetAuditLogEntry(ctx _context.Context, id string) ApiGetAuditLogEntryRequest {
 	return ApiGetAuditLogEntryRequest{
 		ApiService: a,
 		ctx: ctx,
-		resourceId: resourceId,
+		id: id,
 	}
 }
 
@@ -239,8 +239,8 @@ func (a *AuditLogApiService) GetAuditLogEntryExecute(r ApiGetAuditLogEntryReques
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v2/auditlog/{resourceId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"resourceId"+"}", _neturl.PathEscape(parameterToString(r.resourceId, "")), -1)
+	localVarPath := localBasePath + "/api/v2/auditlog/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", _neturl.PathEscape(parameterToString(r.id, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}

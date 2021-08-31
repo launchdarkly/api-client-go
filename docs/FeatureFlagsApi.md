@@ -39,7 +39,7 @@ import (
 )
 
 func main() {
-    projKey := "projKey_example" // string | The project key. This connects flags within one project so you can manage them together.
+    projKey := "projKey_example" // string | The project key.
     featureFlagKey := "featureFlagKey_example" // string | The feature flag's key. The key identifies the flag in your code.
     flagCopyConfigPost := *openapiclient.NewFlagCopyConfigPost(*openapiclient.NewFlagCopyConfigEnvironment("Key_example"), *openapiclient.NewFlagCopyConfigEnvironment("Key_example")) // FlagCopyConfigPost | 
 
@@ -61,7 +61,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projKey** | **string** | The project key. This connects flags within one project so you can manage them together. | 
+**projKey** | **string** | The project key. | 
 **featureFlagKey** | **string** | The feature flag&#39;s key. The key identifies the flag in your code. | 
 
 ### Other Parameters
@@ -114,7 +114,7 @@ import (
 )
 
 func main() {
-    projKey := "projKey_example" // string | The project key. This connects flags within one project so you can manage them together.
+    projKey := "projKey_example" // string | The project key.
     key := "key_example" // string | The feature flag's key. The key identifies the flag in your code.
 
     configuration := openapiclient.NewConfiguration()
@@ -133,7 +133,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projKey** | **string** | The project key. This connects flags within one project so you can manage them together. | 
+**projKey** | **string** | The project key. | 
 **key** | **string** | The feature flag&#39;s key. The key identifies the flag in your code. | 
 
 ### Other Parameters
@@ -185,8 +185,8 @@ import (
 )
 
 func main() {
-    projKey := "projKey_example" // string | The project key. This connects flags within one project so you can manage them together.
-    envKey := "envKey_example" // string | The environment key. This connects flag configurations and users within one environment so you can manage them together.
+    projKey := "projKey_example" // string | The project key.
+    envKey := "envKey_example" // string | The environment key.
     flagKey := "flagKey_example" // string | The feature flag key.
 
     configuration := openapiclient.NewConfiguration()
@@ -207,8 +207,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projKey** | **string** | The project key. This connects flags within one project so you can manage them together. | 
-**envKey** | **string** | The environment key. This connects flag configurations and users within one environment so you can manage them together. | 
+**projKey** | **string** | The project key. | 
+**envKey** | **string** | The environment key. | 
 **flagKey** | **string** | The feature flag key. | 
 
 ### Other Parameters
@@ -648,8 +648,8 @@ import (
 )
 
 func main() {
-    projKey := "projKey_example" // string | The project key. This connects flags within one project so you can manage them together.
-    envKey := "envKey_example" // string | The environment key. This connects flag configurations and users within one environment so you can manage them together.
+    projKey := "projKey_example" // string | The project key.
+    envKey := "envKey_example" // string | The environment key.
     flagKey := "flagKey_example" // string | The feature flag key.
     patchWithComment := *openapiclient.NewPatchWithComment([]openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/biscuits", interface{}(Chocolate Digestive))}) // PatchWithComment | 
 
@@ -671,8 +671,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projKey** | **string** | The project key. This connects flags within one project so you can manage them together. | 
-**envKey** | **string** | The environment key. This connects flag configurations and users within one environment so you can manage them together. | 
+**projKey** | **string** | The project key. | 
+**envKey** | **string** | The environment key. | 
 **flagKey** | **string** | The feature flag key. | 
 
 ### Other Parameters
@@ -726,7 +726,7 @@ import (
 )
 
 func main() {
-    projKey := "projKey_example" // string | The project key. This connects flags within one project so you can manage them together.
+    projKey := "projKey_example" // string | The project key.
     key := "key_example" // string | The feature flag's key. The key identifies the flag in your code.
     patchWithComment := *openapiclient.NewPatchWithComment([]openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/biscuits", interface{}(Chocolate Digestive))}) // PatchWithComment | 
 
@@ -748,7 +748,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projKey** | **string** | The project key. This connects flags within one project so you can manage them together. | 
+**projKey** | **string** | The project key. | 
 **key** | **string** | The feature flag&#39;s key. The key identifies the flag in your code. | 
 
 ### Other Parameters
@@ -801,7 +801,7 @@ import (
 )
 
 func main() {
-    projKey := "projKey_example" // string | The project key. This connects flags within one project so you can manage them together.
+    projKey := "projKey_example" // string | The project key.
     featureFlagBody := *openapiclient.NewFeatureFlagBody("Name_example", "Key_example") // FeatureFlagBody | 
     clone := "clone_example" // string | The key of the feature flag to be cloned. The key identifies the flag in your code. For example, setting `clone=flagKey` copies the full targeting configuration for all environments, including `on/off` state, from the original flag to the new flag. (optional)
 
@@ -823,7 +823,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projKey** | **string** | The project key. This connects flags within one project so you can manage them together. | 
+**projKey** | **string** | The project key. | 
 
 ### Other Parameters
 

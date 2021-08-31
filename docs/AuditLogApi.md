@@ -5,7 +5,7 @@ All URIs are relative to *https://app.launchdarkly.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**GetAuditLogEntries**](AuditLogApi.md#GetAuditLogEntries) | **Get** /api/v2/auditlog | List audit log feature flag entries
-[**GetAuditLogEntry**](AuditLogApi.md#GetAuditLogEntry) | **Get** /api/v2/auditlog/{resourceId} | Get audit log entry
+[**GetAuditLogEntry**](AuditLogApi.md#GetAuditLogEntry) | **Get** /api/v2/auditlog/{id} | Get audit log entry
 
 
 
@@ -85,7 +85,7 @@ Name | Type | Description  | Notes
 
 ## GetAuditLogEntry
 
-> AuditLogEntryRep GetAuditLogEntry(ctx, resourceId).Execute()
+> AuditLogEntryRep GetAuditLogEntry(ctx, id).Execute()
 
 Get audit log entry
 
@@ -104,11 +104,11 @@ import (
 )
 
 func main() {
-    resourceId := "resourceId_example" // string | The ID of the audit log entry
+    id := "id_example" // string | The ID of the audit log entry
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AuditLogApi.GetAuditLogEntry(context.Background(), resourceId).Execute()
+    resp, r, err := api_client.AuditLogApi.GetAuditLogEntry(context.Background(), id).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AuditLogApi.GetAuditLogEntry``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -124,7 +124,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**resourceId** | **string** | The ID of the audit log entry | 
+**id** | **string** | The ID of the audit log entry | 
 
 ### Other Parameters
 

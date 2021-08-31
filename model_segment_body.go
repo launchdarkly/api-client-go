@@ -15,129 +15,234 @@ import (
 	"encoding/json"
 )
 
-// ScheduledChanges struct for ScheduledChanges
-type ScheduledChanges struct {
-	Items []ScheduledChange `json:"items"`
-	Links *map[string]Link `json:"_links,omitempty"`
+// SegmentBody struct for SegmentBody
+type SegmentBody struct {
+	// A human-friendly name for the segment
+	Name string `json:"name"`
+	// A unique key used to reference the segment
+	Key string `json:"key"`
+	// A description of the segment's purpose
+	Description *string `json:"description,omitempty"`
+	// Tags for the segment
+	Tags *[]string `json:"tags,omitempty"`
+	Unbounded *bool `json:"unbounded,omitempty"`
 }
 
-// NewScheduledChanges instantiates a new ScheduledChanges object
+// NewSegmentBody instantiates a new SegmentBody object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewScheduledChanges(items []ScheduledChange) *ScheduledChanges {
-	this := ScheduledChanges{}
-	this.Items = items
+func NewSegmentBody(name string, key string) *SegmentBody {
+	this := SegmentBody{}
+	this.Name = name
+	this.Key = key
 	return &this
 }
 
-// NewScheduledChangesWithDefaults instantiates a new ScheduledChanges object
+// NewSegmentBodyWithDefaults instantiates a new SegmentBody object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewScheduledChangesWithDefaults() *ScheduledChanges {
-	this := ScheduledChanges{}
+func NewSegmentBodyWithDefaults() *SegmentBody {
+	this := SegmentBody{}
 	return &this
 }
 
-// GetItems returns the Items field value
-func (o *ScheduledChanges) GetItems() []ScheduledChange {
+// GetName returns the Name field value
+func (o *SegmentBody) GetName() string {
 	if o == nil {
-		var ret []ScheduledChange
+		var ret string
 		return ret
 	}
 
-	return o.Items
+	return o.Name
 }
 
-// GetItemsOk returns a tuple with the Items field value
+// GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
-func (o *ScheduledChanges) GetItemsOk() (*[]ScheduledChange, bool) {
+func (o *SegmentBody) GetNameOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return &o.Items, true
+	return &o.Name, true
 }
 
-// SetItems sets field value
-func (o *ScheduledChanges) SetItems(v []ScheduledChange) {
-	o.Items = v
+// SetName sets field value
+func (o *SegmentBody) SetName(v string) {
+	o.Name = v
 }
 
-// GetLinks returns the Links field value if set, zero value otherwise.
-func (o *ScheduledChanges) GetLinks() map[string]Link {
-	if o == nil || o.Links == nil {
-		var ret map[string]Link
+// GetKey returns the Key field value
+func (o *SegmentBody) GetKey() string {
+	if o == nil {
+		var ret string
 		return ret
 	}
-	return *o.Links
+
+	return o.Key
 }
 
-// GetLinksOk returns a tuple with the Links field value if set, nil otherwise
+// GetKeyOk returns a tuple with the Key field value
 // and a boolean to check if the value has been set.
-func (o *ScheduledChanges) GetLinksOk() (*map[string]Link, bool) {
-	if o == nil || o.Links == nil {
+func (o *SegmentBody) GetKeyOk() (*string, bool) {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Links, true
+	return &o.Key, true
 }
 
-// HasLinks returns a boolean if a field has been set.
-func (o *ScheduledChanges) HasLinks() bool {
-	if o != nil && o.Links != nil {
+// SetKey sets field value
+func (o *SegmentBody) SetKey(v string) {
+	o.Key = v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *SegmentBody) GetDescription() string {
+	if o == nil || o.Description == nil {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SegmentBody) GetDescriptionOk() (*string, bool) {
+	if o == nil || o.Description == nil {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *SegmentBody) HasDescription() bool {
+	if o != nil && o.Description != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetLinks gets a reference to the given map[string]Link and assigns it to the Links field.
-func (o *ScheduledChanges) SetLinks(v map[string]Link) {
-	o.Links = &v
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *SegmentBody) SetDescription(v string) {
+	o.Description = &v
 }
 
-func (o ScheduledChanges) MarshalJSON() ([]byte, error) {
+// GetTags returns the Tags field value if set, zero value otherwise.
+func (o *SegmentBody) GetTags() []string {
+	if o == nil || o.Tags == nil {
+		var ret []string
+		return ret
+	}
+	return *o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SegmentBody) GetTagsOk() (*[]string, bool) {
+	if o == nil || o.Tags == nil {
+		return nil, false
+	}
+	return o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *SegmentBody) HasTags() bool {
+	if o != nil && o.Tags != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given []string and assigns it to the Tags field.
+func (o *SegmentBody) SetTags(v []string) {
+	o.Tags = &v
+}
+
+// GetUnbounded returns the Unbounded field value if set, zero value otherwise.
+func (o *SegmentBody) GetUnbounded() bool {
+	if o == nil || o.Unbounded == nil {
+		var ret bool
+		return ret
+	}
+	return *o.Unbounded
+}
+
+// GetUnboundedOk returns a tuple with the Unbounded field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SegmentBody) GetUnboundedOk() (*bool, bool) {
+	if o == nil || o.Unbounded == nil {
+		return nil, false
+	}
+	return o.Unbounded, true
+}
+
+// HasUnbounded returns a boolean if a field has been set.
+func (o *SegmentBody) HasUnbounded() bool {
+	if o != nil && o.Unbounded != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetUnbounded gets a reference to the given bool and assigns it to the Unbounded field.
+func (o *SegmentBody) SetUnbounded(v bool) {
+	o.Unbounded = &v
+}
+
+func (o SegmentBody) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["items"] = o.Items
+		toSerialize["name"] = o.Name
 	}
-	if o.Links != nil {
-		toSerialize["_links"] = o.Links
+	if true {
+		toSerialize["key"] = o.Key
+	}
+	if o.Description != nil {
+		toSerialize["description"] = o.Description
+	}
+	if o.Tags != nil {
+		toSerialize["tags"] = o.Tags
+	}
+	if o.Unbounded != nil {
+		toSerialize["unbounded"] = o.Unbounded
 	}
 	return json.Marshal(toSerialize)
 }
 
-type NullableScheduledChanges struct {
-	value *ScheduledChanges
+type NullableSegmentBody struct {
+	value *SegmentBody
 	isSet bool
 }
 
-func (v NullableScheduledChanges) Get() *ScheduledChanges {
+func (v NullableSegmentBody) Get() *SegmentBody {
 	return v.value
 }
 
-func (v *NullableScheduledChanges) Set(val *ScheduledChanges) {
+func (v *NullableSegmentBody) Set(val *SegmentBody) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableScheduledChanges) IsSet() bool {
+func (v NullableSegmentBody) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableScheduledChanges) Unset() {
+func (v *NullableSegmentBody) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableScheduledChanges(val *ScheduledChanges) *NullableScheduledChanges {
-	return &NullableScheduledChanges{value: val, isSet: true}
+func NewNullableSegmentBody(val *SegmentBody) *NullableSegmentBody {
+	return &NullableSegmentBody{value: val, isSet: true}
 }
 
-func (v NullableScheduledChanges) MarshalJSON() ([]byte, error) {
+func (v NullableSegmentBody) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableScheduledChanges) UnmarshalJSON(src []byte) error {
+func (v *NullableSegmentBody) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

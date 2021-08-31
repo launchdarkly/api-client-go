@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **UserKey** | **string** | The user key | 
-**Included** | **bool** | Whether or not the user is included in the segment | 
-**Excluded** | **bool** | Whether or not the user is excluded from the segment | 
+**Included** | **bool** | Indicates whether the user is included.&lt;br /&gt;Included users are always segment members, regardless of segment rules. | 
+**Excluded** | **bool** | Indicates whether the user is excluded.&lt;br /&gt;Segment rules bypass excluded users, so they will never be included based on rules. Excluded users may still be included explicitly. | 
 
 ## Methods
 

@@ -15,234 +15,311 @@ import (
 	"encoding/json"
 )
 
-// SegmentPost struct for SegmentPost
-type SegmentPost struct {
-	// A human-friendly name for the segment
-	Name string `json:"name"`
-	// A unique key used to reference the segment
-	Key string `json:"key"`
-	// A description of the segment's purpose
-	Description *string `json:"description,omitempty"`
-	// Tags for the segment
-	Tags *[]string `json:"tags,omitempty"`
-	Unbounded *bool `json:"unbounded,omitempty"`
+// FeatureFlagScheduledChange struct for FeatureFlagScheduledChange
+type FeatureFlagScheduledChange struct {
+	Id string `json:"_id"`
+	CreationDate int64 `json:"_creationDate"`
+	MaintainerId string `json:"_maintainerId"`
+	Version int32 `json:"_version"`
+	ExecutionDate int64 `json:"executionDate"`
+	Instructions []map[string]interface{} `json:"instructions"`
+	Conflicts interface{} `json:"conflicts,omitempty"`
+	Links *map[string]Link `json:"_links,omitempty"`
 }
 
-// NewSegmentPost instantiates a new SegmentPost object
+// NewFeatureFlagScheduledChange instantiates a new FeatureFlagScheduledChange object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSegmentPost(name string, key string) *SegmentPost {
-	this := SegmentPost{}
-	this.Name = name
-	this.Key = key
+func NewFeatureFlagScheduledChange(id string, creationDate int64, maintainerId string, version int32, executionDate int64, instructions []map[string]interface{}) *FeatureFlagScheduledChange {
+	this := FeatureFlagScheduledChange{}
+	this.Id = id
+	this.CreationDate = creationDate
+	this.MaintainerId = maintainerId
+	this.Version = version
+	this.ExecutionDate = executionDate
+	this.Instructions = instructions
 	return &this
 }
 
-// NewSegmentPostWithDefaults instantiates a new SegmentPost object
+// NewFeatureFlagScheduledChangeWithDefaults instantiates a new FeatureFlagScheduledChange object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewSegmentPostWithDefaults() *SegmentPost {
-	this := SegmentPost{}
+func NewFeatureFlagScheduledChangeWithDefaults() *FeatureFlagScheduledChange {
+	this := FeatureFlagScheduledChange{}
 	return &this
 }
 
-// GetName returns the Name field value
-func (o *SegmentPost) GetName() string {
+// GetId returns the Id field value
+func (o *FeatureFlagScheduledChange) GetId() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Name
+	return o.Id
 }
 
-// GetNameOk returns a tuple with the Name field value
+// GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
-func (o *SegmentPost) GetNameOk() (*string, bool) {
+func (o *FeatureFlagScheduledChange) GetIdOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return &o.Name, true
+	return &o.Id, true
 }
 
-// SetName sets field value
-func (o *SegmentPost) SetName(v string) {
-	o.Name = v
+// SetId sets field value
+func (o *FeatureFlagScheduledChange) SetId(v string) {
+	o.Id = v
 }
 
-// GetKey returns the Key field value
-func (o *SegmentPost) GetKey() string {
+// GetCreationDate returns the CreationDate field value
+func (o *FeatureFlagScheduledChange) GetCreationDate() int64 {
+	if o == nil {
+		var ret int64
+		return ret
+	}
+
+	return o.CreationDate
+}
+
+// GetCreationDateOk returns a tuple with the CreationDate field value
+// and a boolean to check if the value has been set.
+func (o *FeatureFlagScheduledChange) GetCreationDateOk() (*int64, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.CreationDate, true
+}
+
+// SetCreationDate sets field value
+func (o *FeatureFlagScheduledChange) SetCreationDate(v int64) {
+	o.CreationDate = v
+}
+
+// GetMaintainerId returns the MaintainerId field value
+func (o *FeatureFlagScheduledChange) GetMaintainerId() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Key
+	return o.MaintainerId
 }
 
-// GetKeyOk returns a tuple with the Key field value
+// GetMaintainerIdOk returns a tuple with the MaintainerId field value
 // and a boolean to check if the value has been set.
-func (o *SegmentPost) GetKeyOk() (*string, bool) {
+func (o *FeatureFlagScheduledChange) GetMaintainerIdOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return &o.Key, true
+	return &o.MaintainerId, true
 }
 
-// SetKey sets field value
-func (o *SegmentPost) SetKey(v string) {
-	o.Key = v
+// SetMaintainerId sets field value
+func (o *FeatureFlagScheduledChange) SetMaintainerId(v string) {
+	o.MaintainerId = v
 }
 
-// GetDescription returns the Description field value if set, zero value otherwise.
-func (o *SegmentPost) GetDescription() string {
-	if o == nil || o.Description == nil {
-		var ret string
+// GetVersion returns the Version field value
+func (o *FeatureFlagScheduledChange) GetVersion() int32 {
+	if o == nil {
+		var ret int32
 		return ret
 	}
-	return *o.Description
+
+	return o.Version
 }
 
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// GetVersionOk returns a tuple with the Version field value
 // and a boolean to check if the value has been set.
-func (o *SegmentPost) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+func (o *FeatureFlagScheduledChange) GetVersionOk() (*int32, bool) {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Description, true
+	return &o.Version, true
 }
 
-// HasDescription returns a boolean if a field has been set.
-func (o *SegmentPost) HasDescription() bool {
-	if o != nil && o.Description != nil {
+// SetVersion sets field value
+func (o *FeatureFlagScheduledChange) SetVersion(v int32) {
+	o.Version = v
+}
+
+// GetExecutionDate returns the ExecutionDate field value
+func (o *FeatureFlagScheduledChange) GetExecutionDate() int64 {
+	if o == nil {
+		var ret int64
+		return ret
+	}
+
+	return o.ExecutionDate
+}
+
+// GetExecutionDateOk returns a tuple with the ExecutionDate field value
+// and a boolean to check if the value has been set.
+func (o *FeatureFlagScheduledChange) GetExecutionDateOk() (*int64, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.ExecutionDate, true
+}
+
+// SetExecutionDate sets field value
+func (o *FeatureFlagScheduledChange) SetExecutionDate(v int64) {
+	o.ExecutionDate = v
+}
+
+// GetInstructions returns the Instructions field value
+func (o *FeatureFlagScheduledChange) GetInstructions() []map[string]interface{} {
+	if o == nil {
+		var ret []map[string]interface{}
+		return ret
+	}
+
+	return o.Instructions
+}
+
+// GetInstructionsOk returns a tuple with the Instructions field value
+// and a boolean to check if the value has been set.
+func (o *FeatureFlagScheduledChange) GetInstructionsOk() (*[]map[string]interface{}, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.Instructions, true
+}
+
+// SetInstructions sets field value
+func (o *FeatureFlagScheduledChange) SetInstructions(v []map[string]interface{}) {
+	o.Instructions = v
+}
+
+// GetConflicts returns the Conflicts field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FeatureFlagScheduledChange) GetConflicts() interface{} {
+	if o == nil  {
+		var ret interface{}
+		return ret
+	}
+	return o.Conflicts
+}
+
+// GetConflictsOk returns a tuple with the Conflicts field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FeatureFlagScheduledChange) GetConflictsOk() (*interface{}, bool) {
+	if o == nil || o.Conflicts == nil {
+		return nil, false
+	}
+	return &o.Conflicts, true
+}
+
+// HasConflicts returns a boolean if a field has been set.
+func (o *FeatureFlagScheduledChange) HasConflicts() bool {
+	if o != nil && o.Conflicts != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *SegmentPost) SetDescription(v string) {
-	o.Description = &v
+// SetConflicts gets a reference to the given interface{} and assigns it to the Conflicts field.
+func (o *FeatureFlagScheduledChange) SetConflicts(v interface{}) {
+	o.Conflicts = v
 }
 
-// GetTags returns the Tags field value if set, zero value otherwise.
-func (o *SegmentPost) GetTags() []string {
-	if o == nil || o.Tags == nil {
-		var ret []string
+// GetLinks returns the Links field value if set, zero value otherwise.
+func (o *FeatureFlagScheduledChange) GetLinks() map[string]Link {
+	if o == nil || o.Links == nil {
+		var ret map[string]Link
 		return ret
 	}
-	return *o.Tags
+	return *o.Links
 }
 
-// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// GetLinksOk returns a tuple with the Links field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SegmentPost) GetTagsOk() (*[]string, bool) {
-	if o == nil || o.Tags == nil {
+func (o *FeatureFlagScheduledChange) GetLinksOk() (*map[string]Link, bool) {
+	if o == nil || o.Links == nil {
 		return nil, false
 	}
-	return o.Tags, true
+	return o.Links, true
 }
 
-// HasTags returns a boolean if a field has been set.
-func (o *SegmentPost) HasTags() bool {
-	if o != nil && o.Tags != nil {
+// HasLinks returns a boolean if a field has been set.
+func (o *FeatureFlagScheduledChange) HasLinks() bool {
+	if o != nil && o.Links != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetTags gets a reference to the given []string and assigns it to the Tags field.
-func (o *SegmentPost) SetTags(v []string) {
-	o.Tags = &v
+// SetLinks gets a reference to the given map[string]Link and assigns it to the Links field.
+func (o *FeatureFlagScheduledChange) SetLinks(v map[string]Link) {
+	o.Links = &v
 }
 
-// GetUnbounded returns the Unbounded field value if set, zero value otherwise.
-func (o *SegmentPost) GetUnbounded() bool {
-	if o == nil || o.Unbounded == nil {
-		var ret bool
-		return ret
-	}
-	return *o.Unbounded
-}
-
-// GetUnboundedOk returns a tuple with the Unbounded field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SegmentPost) GetUnboundedOk() (*bool, bool) {
-	if o == nil || o.Unbounded == nil {
-		return nil, false
-	}
-	return o.Unbounded, true
-}
-
-// HasUnbounded returns a boolean if a field has been set.
-func (o *SegmentPost) HasUnbounded() bool {
-	if o != nil && o.Unbounded != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetUnbounded gets a reference to the given bool and assigns it to the Unbounded field.
-func (o *SegmentPost) SetUnbounded(v bool) {
-	o.Unbounded = &v
-}
-
-func (o SegmentPost) MarshalJSON() ([]byte, error) {
+func (o FeatureFlagScheduledChange) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["name"] = o.Name
+		toSerialize["_id"] = o.Id
 	}
 	if true {
-		toSerialize["key"] = o.Key
+		toSerialize["_creationDate"] = o.CreationDate
 	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
+	if true {
+		toSerialize["_maintainerId"] = o.MaintainerId
 	}
-	if o.Tags != nil {
-		toSerialize["tags"] = o.Tags
+	if true {
+		toSerialize["_version"] = o.Version
 	}
-	if o.Unbounded != nil {
-		toSerialize["unbounded"] = o.Unbounded
+	if true {
+		toSerialize["executionDate"] = o.ExecutionDate
+	}
+	if true {
+		toSerialize["instructions"] = o.Instructions
+	}
+	if o.Conflicts != nil {
+		toSerialize["conflicts"] = o.Conflicts
+	}
+	if o.Links != nil {
+		toSerialize["_links"] = o.Links
 	}
 	return json.Marshal(toSerialize)
 }
 
-type NullableSegmentPost struct {
-	value *SegmentPost
+type NullableFeatureFlagScheduledChange struct {
+	value *FeatureFlagScheduledChange
 	isSet bool
 }
 
-func (v NullableSegmentPost) Get() *SegmentPost {
+func (v NullableFeatureFlagScheduledChange) Get() *FeatureFlagScheduledChange {
 	return v.value
 }
 
-func (v *NullableSegmentPost) Set(val *SegmentPost) {
+func (v *NullableFeatureFlagScheduledChange) Set(val *FeatureFlagScheduledChange) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableSegmentPost) IsSet() bool {
+func (v NullableFeatureFlagScheduledChange) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableSegmentPost) Unset() {
+func (v *NullableFeatureFlagScheduledChange) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableSegmentPost(val *SegmentPost) *NullableSegmentPost {
-	return &NullableSegmentPost{value: val, isSet: true}
+func NewNullableFeatureFlagScheduledChange(val *FeatureFlagScheduledChange) *NullableFeatureFlagScheduledChange {
+	return &NullableFeatureFlagScheduledChange{value: val, isSet: true}
 }
 
-func (v NullableSegmentPost) MarshalJSON() ([]byte, error) {
+func (v NullableFeatureFlagScheduledChange) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableSegmentPost) UnmarshalJSON(src []byte) error {
+func (v *NullableFeatureFlagScheduledChange) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

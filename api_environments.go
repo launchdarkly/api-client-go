@@ -547,36 +547,30 @@ func (a *EnvironmentsApiService) PostEnvironmentExecute(r ApiPostEnvironmentRequ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPostEnvironmentKeyRequest struct {
+type ApiResetEnvironmentMobileKeyRequest struct {
 	ctx _context.Context
 	ApiService *EnvironmentsApiService
 	projectKey string
 	envKey string
-	expiry *int64
 }
 
-// The time at which you want the old SDK key to expire, in UNIX milliseconds. By default, the key expires immediately.
-func (r ApiPostEnvironmentKeyRequest) Expiry(expiry int64) ApiPostEnvironmentKeyRequest {
-	r.expiry = &expiry
-	return r
-}
 
-func (r ApiPostEnvironmentKeyRequest) Execute() (Environment, *_nethttp.Response, error) {
-	return r.ApiService.PostEnvironmentKeyExecute(r)
+func (r ApiResetEnvironmentMobileKeyRequest) Execute() (Environment, *_nethttp.Response, error) {
+	return r.ApiService.ResetEnvironmentMobileKeyExecute(r)
 }
 
 /*
-PostEnvironmentKey Create environment SDK key
+ResetEnvironmentMobileKey Reset environment mobile SDK key
 
-Create an environment's SDK key. Each environment has its own SDK key, which is used to connect the LaunchDarkly SDK to a specific environment.
+Reset an environment's mobile key. The optional expiry for the old key is deprecated for this endpoint, so the old key will always expire immediately.
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param projectKey The project key
  @param envKey The environment key
- @return ApiPostEnvironmentKeyRequest
+ @return ApiResetEnvironmentMobileKeyRequest
 */
-func (a *EnvironmentsApiService) PostEnvironmentKey(ctx _context.Context, projectKey string, envKey string) ApiPostEnvironmentKeyRequest {
-	return ApiPostEnvironmentKeyRequest{
+func (a *EnvironmentsApiService) ResetEnvironmentMobileKey(ctx _context.Context, projectKey string, envKey string) ApiResetEnvironmentMobileKeyRequest {
+	return ApiResetEnvironmentMobileKeyRequest{
 		ApiService: a,
 		ctx: ctx,
 		projectKey: projectKey,
@@ -586,7 +580,7 @@ func (a *EnvironmentsApiService) PostEnvironmentKey(ctx _context.Context, projec
 
 // Execute executes the request
 //  @return Environment
-func (a *EnvironmentsApiService) PostEnvironmentKeyExecute(r ApiPostEnvironmentKeyRequest) (Environment, *_nethttp.Response, error) {
+func (a *EnvironmentsApiService) ResetEnvironmentMobileKeyExecute(r ApiResetEnvironmentMobileKeyRequest) (Environment, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -596,7 +590,137 @@ func (a *EnvironmentsApiService) PostEnvironmentKeyExecute(r ApiPostEnvironmentK
 		localVarReturnValue  Environment
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EnvironmentsApiService.PostEnvironmentKey")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EnvironmentsApiService.ResetEnvironmentMobileKey")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v2/projects/{projectKey}/environments/{envKey}/mobileKey"
+	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", _neturl.PathEscape(parameterToString(r.projectKey, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"envKey"+"}", _neturl.PathEscape(parameterToString(r.envKey, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["ApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiResetEnvironmentSDKKeyRequest struct {
+	ctx _context.Context
+	ApiService *EnvironmentsApiService
+	projectKey string
+	envKey string
+	expiry *int64
+}
+
+// The time at which you want the old SDK key to expire, in UNIX milliseconds. By default, the key expires immediately.
+func (r ApiResetEnvironmentSDKKeyRequest) Expiry(expiry int64) ApiResetEnvironmentSDKKeyRequest {
+	r.expiry = &expiry
+	return r
+}
+
+func (r ApiResetEnvironmentSDKKeyRequest) Execute() (Environment, *_nethttp.Response, error) {
+	return r.ApiService.ResetEnvironmentSDKKeyExecute(r)
+}
+
+/*
+ResetEnvironmentSDKKey Reset environment SDK key
+
+Reset an environment's SDK key with an optional expiry time for the old key.
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param projectKey The project key
+ @param envKey The environment key
+ @return ApiResetEnvironmentSDKKeyRequest
+*/
+func (a *EnvironmentsApiService) ResetEnvironmentSDKKey(ctx _context.Context, projectKey string, envKey string) ApiResetEnvironmentSDKKeyRequest {
+	return ApiResetEnvironmentSDKKeyRequest{
+		ApiService: a,
+		ctx: ctx,
+		projectKey: projectKey,
+		envKey: envKey,
+	}
+}
+
+// Execute executes the request
+//  @return Environment
+func (a *EnvironmentsApiService) ResetEnvironmentSDKKeyExecute(r ApiResetEnvironmentSDKKeyRequest) (Environment, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  Environment
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EnvironmentsApiService.ResetEnvironmentSDKKey")
 	if err != nil {
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}

@@ -8,7 +8,8 @@ Method | HTTP request | Description
 [**GetEnvironment**](EnvironmentsApi.md#GetEnvironment) | **Get** /api/v2/projects/{projectKey}/environments/{environmentKey} | Get environment
 [**PatchEnvironment**](EnvironmentsApi.md#PatchEnvironment) | **Patch** /api/v2/projects/{projectKey}/environments/{environmentKey} | Update environment
 [**PostEnvironment**](EnvironmentsApi.md#PostEnvironment) | **Post** /api/v2/projects/{projectKey}/environments | Create environment
-[**PostEnvironmentKey**](EnvironmentsApi.md#PostEnvironmentKey) | **Post** /api/v2/projects/{projectKey}/environments/{envKey}/apiKey | Create environment SDK key
+[**ResetEnvironmentMobileKey**](EnvironmentsApi.md#ResetEnvironmentMobileKey) | **Post** /api/v2/projects/{projectKey}/environments/{envKey}/mobileKey | Reset environment mobile SDK key
+[**ResetEnvironmentSDKKey**](EnvironmentsApi.md#ResetEnvironmentSDKKey) | **Post** /api/v2/projects/{projectKey}/environments/{envKey}/apiKey | Reset environment SDK key
 
 
 
@@ -303,11 +304,84 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PostEnvironmentKey
+## ResetEnvironmentMobileKey
 
-> Environment PostEnvironmentKey(ctx, projectKey, envKey).Expiry(expiry).Execute()
+> Environment ResetEnvironmentMobileKey(ctx, projectKey, envKey).Execute()
 
-Create environment SDK key
+Reset environment mobile SDK key
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    projectKey := "projectKey_example" // string | The project key
+    envKey := "envKey_example" // string | The environment key
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.EnvironmentsApi.ResetEnvironmentMobileKey(context.Background(), projectKey, envKey).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `EnvironmentsApi.ResetEnvironmentMobileKey``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ResetEnvironmentMobileKey`: Environment
+    fmt.Fprintf(os.Stdout, "Response from `EnvironmentsApi.ResetEnvironmentMobileKey`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projectKey** | **string** | The project key | 
+**envKey** | **string** | The environment key | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiResetEnvironmentMobileKeyRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+[**Environment**](Environment.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ResetEnvironmentSDKKey
+
+> Environment ResetEnvironmentSDKKey(ctx, projectKey, envKey).Expiry(expiry).Execute()
+
+Reset environment SDK key
 
 
 
@@ -330,13 +404,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.EnvironmentsApi.PostEnvironmentKey(context.Background(), projectKey, envKey).Expiry(expiry).Execute()
+    resp, r, err := api_client.EnvironmentsApi.ResetEnvironmentSDKKey(context.Background(), projectKey, envKey).Expiry(expiry).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `EnvironmentsApi.PostEnvironmentKey``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `EnvironmentsApi.ResetEnvironmentSDKKey``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostEnvironmentKey`: Environment
-    fmt.Fprintf(os.Stdout, "Response from `EnvironmentsApi.PostEnvironmentKey`: %v\n", resp)
+    // response from `ResetEnvironmentSDKKey`: Environment
+    fmt.Fprintf(os.Stdout, "Response from `EnvironmentsApi.ResetEnvironmentSDKKey`: %v\n", resp)
 }
 ```
 
@@ -351,7 +425,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPostEnvironmentKeyRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiResetEnvironmentSDKKeyRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

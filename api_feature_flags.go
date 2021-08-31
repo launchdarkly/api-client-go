@@ -48,10 +48,33 @@ func (r ApiCopyFeatureFlagRequest) Execute() (FeatureFlag, *_nethttp.Response, e
 /*
 CopyFeatureFlag Copy feature flag
 
-Copy the feature flag configuration from one environment and create a feature flag with that configuration in another environment
+The includedActions and excludedActions define the parts of the flag configuration that are copied or not copied. By default, the entire flag configuration is copied.
+
+You can have either `includedActions` or `excludedActions` but not both.
+
+Valid `includedActions` and `excludedActions` include:
+
+- `updateOn`
+- `updatePrerequisites`
+- `updateTargets`
+- `updateRules`
+- `updateFallthrough`
+- `updateOffVariation`
+ 
+ The `source` and `target` must be JSON objects if using curl, specifying the environment key and (optional) current flag configuration version in that environment. For example:
+
+```json
+{
+  "key": "production",
+  "currentVersion": 3
+}
+```
+
+If target is specified as above, the API will test to ensure that the current flag version in the `production` environment is `3`, and reject attempts to copy settings to `production` otherwise. You can use this to enforce optimistic locking on copy attempts.
+
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param projKey The project key. This connects flags within one project so you can manage them together.
+ @param projKey The project key.
  @param featureFlagKey The feature flag's key. The key identifies the flag in your code.
  @return ApiCopyFeatureFlagRequest
 */
@@ -180,7 +203,7 @@ DeleteFeatureFlag Delete feature flag
 Delete a feature flag in all environments. Use with caution: only delete feature flags your application no longer uses.
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param projKey The project key. This connects flags within one project so you can manage them together.
+ @param projKey The project key.
  @param key The feature flag's key. The key identifies the flag in your code.
  @return ApiDeleteFeatureFlagRequest
 */
@@ -294,8 +317,8 @@ GetExpiringUserTargets Get expiring user targets for feature flag
 Get a list of user targets on a feature flag that are scheduled for removal.
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param projKey The project key. This connects flags within one project so you can manage them together.
- @param envKey The environment key. This connects flag configurations and users within one environment so you can manage them together.
+ @param projKey The project key.
+ @param envKey The environment key.
  @param flagKey The feature flag key.
  @return ApiGetExpiringUserTargetsRequest
 */
@@ -812,7 +835,13 @@ func (r ApiGetFeatureFlagStatusesRequest) Execute() (FeatureFlagStatuses, *_neth
 /*
 GetFeatureFlagStatuses List feature flag statuses
 
-Get a list of statuses for all feature flags. The status includes the last time the feature flag was requested and the state of the flags.
+Get a list of statuses for all feature flags. The status includes the last time the feature flag was requested, as well as a state, which is one of the following:
+
+- `new`: the feature flag was created within the last seven days, and has not been requested yet
+- `active`: the feature flag was requested by your servers or clients within the last seven days
+- `inactive`: the feature flag was created more than seven days ago, and hasn't been requested by your servers or clients within the past seven days
+- `launched`: one variation of the feature flag has been rolled out to all your users for at least 7 days
+
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param projKey The project key
@@ -989,7 +1018,24 @@ func (r ApiGetFeatureFlagsRequest) Execute() (FeatureFlags, *_nethttp.Response, 
 /*
 GetFeatureFlags List feature flags
 
-Get a list of all features in the given project. By default, each feature includes configurations for each environment. You can filter environments with the `env` query parameter. For example, setting `env=production` only returns configurations in the `production` environment. You can also filter feature flags by tag with the `tag` query parameter.
+Get a list of all features in the given project. By default, each feature includes configurations for each environment. You can filter environments with the env query parameter. For example, setting `env=production` restricts the returned configurations to just your production environment. You can also filter feature flags by tag with the tag query parameter.
+
+We support the following fields for filters:
+
+- `query` is a string that matches against the flags' keys and names. It is not case sensitive.
+- `archived` is a boolean to filter the list to archived flags. When this is absent, only unarchived flags are returned.
+- `type` is a string allowing filtering to `temporary` or `permanent` flags.
+- `status` is a string allowing filtering to `new`, `inactive`, `active`, or `launched` flags in the specified environment. This filter also requires a `filterEnv` field to be set to a valid environment. For example: `filter=status:active,filterEnv:production`.
+- `tags` is a + separated list of tags. It filters the list to members who have all of the tags in the list.
+- `hasExperiment` is a boolean with values of true or false and returns any flags that have an attached metric.
+- `hasDataExport` is a boolean with values of true or false and returns any flags that are currently exporting data in the specified environment. This includes flags that are exporting data via Experimentation. This filter also requires a `filterEnv` field to be set to a valid environment key. e.g. `filter=hasExperiment:true,filterEnv:production`
+- `evaluated` is an object that contains a key of `after` and a value in Unix time in milliseconds. This returns all flags that have been evaluated since the time you specify in the environment provided. This filter also requires a `filterEnv` field to be set to a valid environment. For example: `filter=evaluated:{"after": 1590768455282},filterEnv:production`.
+- `filterEnv` is a string with the key of a valid environment. The filterEnv field is used for filters that are environment specific. If there are multiple environment specific filters you should only declare this parameter once. For example: `filter=evaluated:{"after": 1590768455282},filterEnv:production,status:active`.
+
+An example filter is `query:abc,tags:foo+bar`. This matches flags with the string `abc` in their key or name, ignoring case, which also have the tags `foo` and `bar`.
+
+By default, this returns all flags. You can page through the list with the `limit` parameter and by following the `first`, `prev`, `next`, and `last` links in the returned `_links` field. These links will not be present if the pages they refer to don't exist. For example, the `first` and `prev` links will be missing from the response on the first page.
+
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param projKey The project key
@@ -1146,8 +1192,8 @@ PatchExpiringUserTargets Update expiring user targets on feature flag
 Update the list of user targets on a feature flag that are scheduled for removal.
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param projKey The project key. This connects flags within one project so you can manage them together.
- @param envKey The environment key. This connects flag configurations and users within one environment so you can manage them together.
+ @param projKey The project key.
+ @param envKey The environment key.
  @param flagKey The feature flag key.
  @return ApiPatchExpiringUserTargetsRequest
 */
@@ -1283,7 +1329,7 @@ PatchFeatureFlag Update feature flag
 Perform a partial update to a feature
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param projKey The project key. This connects flags within one project so you can manage them together.
+ @param projKey The project key.
  @param key The feature flag's key. The key identifies the flag in your code.
  @return ApiPatchFeatureFlagRequest
 */
@@ -1422,7 +1468,7 @@ PostFeatureFlag Create a feature flag
 Create a feature flag with the given name, key, and variations
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param projKey The project key. This connects flags within one project so you can manage them together.
+ @param projKey The project key.
  @return ApiPostFeatureFlagRequest
 */
 func (a *FeatureFlagsApiService) PostFeatureFlag(ctx _context.Context, projKey string) ApiPostFeatureFlagRequest {

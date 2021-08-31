@@ -19,9 +19,9 @@ import (
 type BigSegmentTarget struct {
 	// The user key
 	UserKey string `json:"userKey"`
-	// Whether or not the user is included in the segment
+	// Indicates whether the user is included.<br />Included users are always segment members, regardless of segment rules.
 	Included bool `json:"included"`
-	// Whether or not the user is excluded from the segment
+	// Indicates whether the user is excluded.<br />Segment rules bypass excluded users, so they will never be included based on rules. Excluded users may still be included explicitly.
 	Excluded bool `json:"excluded"`
 }
 

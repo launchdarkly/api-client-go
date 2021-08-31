@@ -543,7 +543,7 @@ Class | Method | HTTP request | Description
 *ApprovalsApi* | [**PostApprovalRequestReview**](docs/ApprovalsApi.md#postapprovalrequestreview) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id}/reviews | Review approval request
 *ApprovalsApi* | [**PostFlagCopyConfigApprovalRequest**](docs/ApprovalsApi.md#postflagcopyconfigapprovalrequest) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/copy/environments/{environmentKey}/approval-requests-flag-copy | Create approval request to copy flag configurations across environments
 *AuditLogApi* | [**GetAuditLogEntries**](docs/AuditLogApi.md#getauditlogentries) | **Get** /api/v2/auditlog | List audit log feature flag entries
-*AuditLogApi* | [**GetAuditLogEntry**](docs/AuditLogApi.md#getauditlogentry) | **Get** /api/v2/auditlog/{resourceId} | Get audit log entry
+*AuditLogApi* | [**GetAuditLogEntry**](docs/AuditLogApi.md#getauditlogentry) | **Get** /api/v2/auditlog/{id} | Get audit log entry
 *CodeReferencesApi* | [**DeleteBranches**](docs/CodeReferencesApi.md#deletebranches) | **Post** /api/v2/code-refs/repositories/{repo}/branch-delete-tasks | Delete branches
 *CodeReferencesApi* | [**DeleteRepository**](docs/CodeReferencesApi.md#deleterepository) | **Delete** /api/v2/code-refs/repositories/{repo} | Delete repository
 *CodeReferencesApi* | [**GetBranch**](docs/CodeReferencesApi.md#getbranch) | **Get** /api/v2/code-refs/repositories/{repo}/branches/{branch} | Get branch
@@ -571,7 +571,8 @@ Class | Method | HTTP request | Description
 *EnvironmentsApi* | [**GetEnvironment**](docs/EnvironmentsApi.md#getenvironment) | **Get** /api/v2/projects/{projectKey}/environments/{environmentKey} | Get environment
 *EnvironmentsApi* | [**PatchEnvironment**](docs/EnvironmentsApi.md#patchenvironment) | **Patch** /api/v2/projects/{projectKey}/environments/{environmentKey} | Update environment
 *EnvironmentsApi* | [**PostEnvironment**](docs/EnvironmentsApi.md#postenvironment) | **Post** /api/v2/projects/{projectKey}/environments | Create environment
-*EnvironmentsApi* | [**PostEnvironmentKey**](docs/EnvironmentsApi.md#postenvironmentkey) | **Post** /api/v2/projects/{projectKey}/environments/{envKey}/apiKey | Create environment SDK key
+*EnvironmentsApi* | [**ResetEnvironmentMobileKey**](docs/EnvironmentsApi.md#resetenvironmentmobilekey) | **Post** /api/v2/projects/{projectKey}/environments/{envKey}/mobileKey | Reset environment mobile SDK key
+*EnvironmentsApi* | [**ResetEnvironmentSDKKey**](docs/EnvironmentsApi.md#resetenvironmentsdkkey) | **Post** /api/v2/projects/{projectKey}/environments/{envKey}/apiKey | Reset environment SDK key
 *ExperimentsBetaApi* | [**GetExperiment**](docs/ExperimentsBetaApi.md#getexperiment) | **Get** /api/v2/flags/{projKey}/{flagKey}/experiments/{envKey}/{metricKey} | Get experiment results
 *ExperimentsBetaApi* | [**ResetExperiment**](docs/ExperimentsBetaApi.md#resetexperiment) | **Delete** /api/v2/flags/{projKey}/{flagKey}/experiments/{envKey}/{metricKey}/results | Reset experiment results
 *FeatureFlagsApi* | [**CopyFeatureFlag**](docs/FeatureFlagsApi.md#copyfeatureflag) | **Post** /api/v2/flags/{projKey}/{featureFlagKey}/copy | Copy feature flag
@@ -610,15 +611,14 @@ Class | Method | HTTP request | Description
 *ScheduledChangesApi* | [**DeleteFlagConfigScheduledChanges**](docs/ScheduledChangesApi.md#deleteflagconfigscheduledchanges) | **Delete** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/scheduled-changes/{id} | Delete scheduled changes workflow
 *ScheduledChangesApi* | [**GetFeatureFlagScheduledChange**](docs/ScheduledChangesApi.md#getfeatureflagscheduledchange) | **Get** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/scheduled-changes/{id} | Get a scheduled change
 *ScheduledChangesApi* | [**GetFlagConfigScheduledChanges**](docs/ScheduledChangesApi.md#getflagconfigscheduledchanges) | **Get** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/scheduled-changes | List scheduled changes
-*ScheduledChangesApi* | [**GetFlagConfigScheduledChangesConflicts**](docs/ScheduledChangesApi.md#getflagconfigscheduledchangesconflicts) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/scheduled-changes-conflicts | List conflicts for proposed instructions
 *ScheduledChangesApi* | [**PatchFlagConfigScheduledChange**](docs/ScheduledChangesApi.md#patchflagconfigscheduledchange) | **Patch** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/scheduled-changes/{id} | Update scheduled changes workflow
 *ScheduledChangesApi* | [**PostFlagConfigScheduledChanges**](docs/ScheduledChangesApi.md#postflagconfigscheduledchanges) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/scheduled-changes | Create scheduled changes workflow
 *SegmentsApi* | [**DeleteSegment**](docs/SegmentsApi.md#deletesegment) | **Delete** /api/v2/segments/{projKey}/{envKey}/{key} | Delete segment
-*SegmentsApi* | [**GetBigSegmentTarget**](docs/SegmentsApi.md#getbigsegmenttarget) | **Get** /api/v2/segments/{projKey}/{envKey}/{key}/users/{userKey} | Get user in Big Segment
-*SegmentsApi* | [**GetExpiringUserTargetsOnSegment**](docs/SegmentsApi.md#getexpiringusertargetsonsegment) | **Get** /api/v2/segments/{projKey}/{segmentKey}/expiring-user-targets/{envKey} | Get expiring user targets for segment
+*SegmentsApi* | [**GetExpiringUserTargetsForSegment**](docs/SegmentsApi.md#getexpiringusertargetsforsegment) | **Get** /api/v2/segments/{projKey}/{segmentKey}/expiring-user-targets/{envKey} | Get expiring user targets for segment
 *SegmentsApi* | [**GetSegment**](docs/SegmentsApi.md#getsegment) | **Get** /api/v2/segments/{projKey}/{envKey}/{key} | Get segment
+*SegmentsApi* | [**GetSegmentMembershipForUser**](docs/SegmentsApi.md#getsegmentmembershipforuser) | **Get** /api/v2/segments/{projKey}/{envKey}/{key}/users/{userKey} | Get Big Segment membership for user
 *SegmentsApi* | [**GetSegments**](docs/SegmentsApi.md#getsegments) | **Get** /api/v2/segments/{projKey}/{envKey} | List segments
-*SegmentsApi* | [**PatchExpiringUserTargetsOnSegment**](docs/SegmentsApi.md#patchexpiringusertargetsonsegment) | **Patch** /api/v2/segments/{projKey}/{segmentKey}/expiring-user-targets/{envKey} | Update expiring user targets on segment
+*SegmentsApi* | [**PatchExpiringUserTargetsForSegment**](docs/SegmentsApi.md#patchexpiringusertargetsforsegment) | **Patch** /api/v2/segments/{projKey}/{segmentKey}/expiring-user-targets/{envKey} | Update expiring user targets for segment
 *SegmentsApi* | [**PatchSegment**](docs/SegmentsApi.md#patchsegment) | **Patch** /api/v2/segments/{projKey}/{envKey}/{key} | Patch segment
 *SegmentsApi* | [**PostSegment**](docs/SegmentsApi.md#postsegment) | **Post** /api/v2/segments/{projKey}/{envKey} | Create segment
 *SegmentsApi* | [**UpdateBigSegmentTargets**](docs/SegmentsApi.md#updatebigsegmenttargets) | **Post** /api/v2/segments/{projKey}/{envKey}/{key}/users | Update targets on a Big Segment
@@ -658,9 +658,6 @@ Class | Method | HTTP request | Description
  - [ClientSideAvailabilityPost](docs/ClientSideAvailabilityPost.md)
  - [ConfidenceIntervalRep](docs/ConfidenceIntervalRep.md)
  - [Conflict](docs/Conflict.md)
- - [ConflictResponse](docs/ConflictResponse.md)
- - [ConflictResponseConflict](docs/ConflictResponseConflict.md)
- - [ConflictResponseInstruction](docs/ConflictResponseInstruction.md)
  - [CopiedFromEnv](docs/CopiedFromEnv.md)
  - [CreateCopyFlagConfigApprovalRequestRequest](docs/CreateCopyFlagConfigApprovalRequestRequest.md)
  - [CreateFlagConfigApprovalRequestRequest](docs/CreateFlagConfigApprovalRequestRequest.md)
@@ -700,6 +697,8 @@ Class | Method | HTTP request | Description
  - [FeatureFlag](docs/FeatureFlag.md)
  - [FeatureFlagBody](docs/FeatureFlagBody.md)
  - [FeatureFlagConfig](docs/FeatureFlagConfig.md)
+ - [FeatureFlagScheduledChange](docs/FeatureFlagScheduledChange.md)
+ - [FeatureFlagScheduledChanges](docs/FeatureFlagScheduledChanges.md)
  - [FeatureFlagStatus](docs/FeatureFlagStatus.md)
  - [FeatureFlagStatusAcrossEnvironments](docs/FeatureFlagStatusAcrossEnvironments.md)
  - [FeatureFlagStatuses](docs/FeatureFlagStatuses.md)
@@ -753,7 +752,6 @@ Class | Method | HTTP request | Description
  - [RelayAutoConfigCollectionRep](docs/RelayAutoConfigCollectionRep.md)
  - [RelayAutoConfigPost](docs/RelayAutoConfigPost.md)
  - [RelayAutoConfigRep](docs/RelayAutoConfigRep.md)
- - [ReportFlagScheduledChangesInput](docs/ReportFlagScheduledChangesInput.md)
  - [RepositoryCollectionRep](docs/RepositoryCollectionRep.md)
  - [RepositoryPost](docs/RepositoryPost.md)
  - [RepositoryRep](docs/RepositoryRep.md)
@@ -762,13 +760,11 @@ Class | Method | HTTP request | Description
  - [ReviewResponse](docs/ReviewResponse.md)
  - [Rollout](docs/Rollout.md)
  - [Rule](docs/Rule.md)
- - [ScheduledChange](docs/ScheduledChange.md)
- - [ScheduledChanges](docs/ScheduledChanges.md)
  - [SdkListRep](docs/SdkListRep.md)
  - [SdkVersionListRep](docs/SdkVersionListRep.md)
  - [SdkVersionRep](docs/SdkVersionRep.md)
+ - [SegmentBody](docs/SegmentBody.md)
  - [SegmentMetadata](docs/SegmentMetadata.md)
- - [SegmentPost](docs/SegmentPost.md)
  - [SegmentUserList](docs/SegmentUserList.md)
  - [SegmentUserState](docs/SegmentUserState.md)
  - [SeriesListRep](docs/SeriesListRep.md)
@@ -876,15 +872,15 @@ func main() {
 	valOne := map[string]interface{}{"one": valOneVal}
 	valTwoVal := []int{4, 5}
 	valTwo := map[string]interface{}{"two": valTwoVal}
-	body := ldapi.FlagPost{
+	body := ldapi.FeatureFlagBody{
 		Name: flagName,
 		Key:  flagKey,
-		Variations: &[]ldapi.FlagPostVariations{
+		Variations: &[]ldapi.Variate{
 			{Value: &valOne},
 			{Value: &valTwo},
 		},
 	}
-	flag, resp, err := client.FeatureFlagsApi.PostFeatureFlag(ctx, "openapi").FlagPost(body).Execute()
+	flag, resp, err := client.FeatureFlagsApi.PostFeatureFlag(ctx, "openapi").FeatureFlagBody(body).Execute()
 	if err != nil {
 		if resp.StatusCode != 409 {
 			panic(fmt.Errorf("create failed: %s", err))
@@ -892,7 +888,7 @@ func main() {
 			if _, err := client.FeatureFlagsApi.DeleteFeatureFlag(ctx, "openapi", body.Key).Execute(); err != nil {
 				panic(fmt.Errorf("delete failed: %s", err))
 			}
-			flag, resp, err = client.FeatureFlagsApi.PostFeatureFlag(ctx, "openapi").FlagPost(body).Execute()
+			flag, resp, err = client.FeatureFlagsApi.PostFeatureFlag(ctx, "openapi").FeatureFlagBody(body).Execute()
 			if err != nil {
 				panic(fmt.Errorf("create failed: %s", err))
 			}

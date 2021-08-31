@@ -47,9 +47,9 @@ DeleteSegment Delete segment
 Delete a user segment.
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param projKey The project key. This connects flags within one project so you can manage them together.
- @param envKey The environment key. This connects flag configurations and users within one environment so you can manage them together.
- @param key The user segment key. The key identifies the user segment in your code.
+ @param projKey The project key.
+ @param envKey The environment key.
+ @param key The user segment key.
  @return ApiDeleteSegmentRequest
 */
 func (a *SegmentsApiService) DeleteSegment(ctx _context.Context, projKey string, envKey string, key string) ApiDeleteSegmentRequest {
@@ -145,139 +145,7 @@ func (a *SegmentsApiService) DeleteSegmentExecute(r ApiDeleteSegmentRequest) (*_
 	return localVarHTTPResponse, nil
 }
 
-type ApiGetBigSegmentTargetRequest struct {
-	ctx _context.Context
-	ApiService *SegmentsApiService
-	projKey string
-	envKey string
-	key string
-	userKey string
-}
-
-
-func (r ApiGetBigSegmentTargetRequest) Execute() (BigSegmentTarget, *_nethttp.Response, error) {
-	return r.ApiService.GetBigSegmentTargetExecute(r)
-}
-
-/*
-GetBigSegmentTarget Get user in Big Segment
-
-Get whether a given userKey is included or excluded from this segment.
-
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param projKey The project key.
- @param envKey The environment key.
- @param key The segment key.
- @param userKey The user key.
- @return ApiGetBigSegmentTargetRequest
-*/
-func (a *SegmentsApiService) GetBigSegmentTarget(ctx _context.Context, projKey string, envKey string, key string, userKey string) ApiGetBigSegmentTargetRequest {
-	return ApiGetBigSegmentTargetRequest{
-		ApiService: a,
-		ctx: ctx,
-		projKey: projKey,
-		envKey: envKey,
-		key: key,
-		userKey: userKey,
-	}
-}
-
-// Execute executes the request
-//  @return BigSegmentTarget
-func (a *SegmentsApiService) GetBigSegmentTargetExecute(r ApiGetBigSegmentTargetRequest) (BigSegmentTarget, *_nethttp.Response, error) {
-	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  BigSegmentTarget
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SegmentsApiService.GetBigSegmentTarget")
-	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v2/segments/{projKey}/{envKey}/{key}/users/{userKey}"
-	localVarPath = strings.Replace(localVarPath, "{"+"projKey"+"}", _neturl.PathEscape(parameterToString(r.projKey, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"envKey"+"}", _neturl.PathEscape(parameterToString(r.envKey, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"key"+"}", _neturl.PathEscape(parameterToString(r.key, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"userKey"+"}", _neturl.PathEscape(parameterToString(r.userKey, "")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["ApiKey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["Authorization"] = key
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiGetExpiringUserTargetsOnSegmentRequest struct {
+type ApiGetExpiringUserTargetsForSegmentRequest struct {
 	ctx _context.Context
 	ApiService *SegmentsApiService
 	projKey string
@@ -286,23 +154,23 @@ type ApiGetExpiringUserTargetsOnSegmentRequest struct {
 }
 
 
-func (r ApiGetExpiringUserTargetsOnSegmentRequest) Execute() (ExpiringUserTargetGetResponse, *_nethttp.Response, error) {
-	return r.ApiService.GetExpiringUserTargetsOnSegmentExecute(r)
+func (r ApiGetExpiringUserTargetsForSegmentRequest) Execute() (ExpiringUserTargetGetResponse, *_nethttp.Response, error) {
+	return r.ApiService.GetExpiringUserTargetsForSegmentExecute(r)
 }
 
 /*
-GetExpiringUserTargetsOnSegment Get expiring user targets for segment
+GetExpiringUserTargetsForSegment Get expiring user targets for segment
 
 Get a list of a segment's user targets that are scheduled for removal
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param projKey The project key. This connects flags within one project so you can manage them together.
- @param envKey The environment key. This connects flag configurations and users within one environment so you can manage them together.
- @param segmentKey The user segment key. The key identifies the user segment in your code.
- @return ApiGetExpiringUserTargetsOnSegmentRequest
+ @param projKey The project key.
+ @param envKey The environment key.
+ @param segmentKey The segment key.
+ @return ApiGetExpiringUserTargetsForSegmentRequest
 */
-func (a *SegmentsApiService) GetExpiringUserTargetsOnSegment(ctx _context.Context, projKey string, envKey string, segmentKey string) ApiGetExpiringUserTargetsOnSegmentRequest {
-	return ApiGetExpiringUserTargetsOnSegmentRequest{
+func (a *SegmentsApiService) GetExpiringUserTargetsForSegment(ctx _context.Context, projKey string, envKey string, segmentKey string) ApiGetExpiringUserTargetsForSegmentRequest {
+	return ApiGetExpiringUserTargetsForSegmentRequest{
 		ApiService: a,
 		ctx: ctx,
 		projKey: projKey,
@@ -313,7 +181,7 @@ func (a *SegmentsApiService) GetExpiringUserTargetsOnSegment(ctx _context.Contex
 
 // Execute executes the request
 //  @return ExpiringUserTargetGetResponse
-func (a *SegmentsApiService) GetExpiringUserTargetsOnSegmentExecute(r ApiGetExpiringUserTargetsOnSegmentRequest) (ExpiringUserTargetGetResponse, *_nethttp.Response, error) {
+func (a *SegmentsApiService) GetExpiringUserTargetsForSegmentExecute(r ApiGetExpiringUserTargetsForSegmentRequest) (ExpiringUserTargetGetResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -323,7 +191,7 @@ func (a *SegmentsApiService) GetExpiringUserTargetsOnSegmentExecute(r ApiGetExpi
 		localVarReturnValue  ExpiringUserTargetGetResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SegmentsApiService.GetExpiringUserTargetsOnSegment")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SegmentsApiService.GetExpiringUserTargetsForSegment")
 	if err != nil {
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
@@ -424,8 +292,8 @@ GetSegment Get segment
 Get a single user segment by key
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param projKey The project key. This connects flags within one project so you can manage them together.
- @param envKey The environment key. This connects flag configurations and users under one environment so you can manage them together.
+ @param projKey The project key.
+ @param envKey The environment key.
  @param key The segment key
  @return ApiGetSegmentRequest
 */
@@ -533,6 +401,138 @@ func (a *SegmentsApiService) GetSegmentExecute(r ApiGetSegmentRequest) (UserSegm
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiGetSegmentMembershipForUserRequest struct {
+	ctx _context.Context
+	ApiService *SegmentsApiService
+	projKey string
+	envKey string
+	key string
+	userKey string
+}
+
+
+func (r ApiGetSegmentMembershipForUserRequest) Execute() (BigSegmentTarget, *_nethttp.Response, error) {
+	return r.ApiService.GetSegmentMembershipForUserExecute(r)
+}
+
+/*
+GetSegmentMembershipForUser Get Big Segment membership for user
+
+Returns the membership status (included/excluded) for a given user in this segment. Note this operation
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param projKey The project key.
+ @param envKey The environment key.
+ @param key The segment key.
+ @param userKey The user key.
+ @return ApiGetSegmentMembershipForUserRequest
+*/
+func (a *SegmentsApiService) GetSegmentMembershipForUser(ctx _context.Context, projKey string, envKey string, key string, userKey string) ApiGetSegmentMembershipForUserRequest {
+	return ApiGetSegmentMembershipForUserRequest{
+		ApiService: a,
+		ctx: ctx,
+		projKey: projKey,
+		envKey: envKey,
+		key: key,
+		userKey: userKey,
+	}
+}
+
+// Execute executes the request
+//  @return BigSegmentTarget
+func (a *SegmentsApiService) GetSegmentMembershipForUserExecute(r ApiGetSegmentMembershipForUserRequest) (BigSegmentTarget, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  BigSegmentTarget
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SegmentsApiService.GetSegmentMembershipForUser")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v2/segments/{projKey}/{envKey}/{key}/users/{userKey}"
+	localVarPath = strings.Replace(localVarPath, "{"+"projKey"+"}", _neturl.PathEscape(parameterToString(r.projKey, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"envKey"+"}", _neturl.PathEscape(parameterToString(r.envKey, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"key"+"}", _neturl.PathEscape(parameterToString(r.key, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"userKey"+"}", _neturl.PathEscape(parameterToString(r.userKey, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["ApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiGetSegmentsRequest struct {
 	ctx _context.Context
 	ApiService *SegmentsApiService
@@ -551,8 +551,8 @@ GetSegments List segments
 Get a list of all user segments in the given project
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param projKey The project key. This connects flags within one project so you can manage them together.
- @param envKey The environment key. This connects flag configurations and users within one environment so you can manage them together.
+ @param projKey The project key.
+ @param envKey The environment key.
  @return ApiGetSegmentsRequest
 */
 func (a *SegmentsApiService) GetSegments(ctx _context.Context, projKey string, envKey string) ApiGetSegmentsRequest {
@@ -657,7 +657,7 @@ func (a *SegmentsApiService) GetSegmentsExecute(r ApiGetSegmentsRequest) (UserSe
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiPatchExpiringUserTargetsOnSegmentRequest struct {
+type ApiPatchExpiringUserTargetsForSegmentRequest struct {
 	ctx _context.Context
 	ApiService *SegmentsApiService
 	projKey string
@@ -666,28 +666,28 @@ type ApiPatchExpiringUserTargetsOnSegmentRequest struct {
 	patchSegmentRequest *PatchSegmentRequest
 }
 
-func (r ApiPatchExpiringUserTargetsOnSegmentRequest) PatchSegmentRequest(patchSegmentRequest PatchSegmentRequest) ApiPatchExpiringUserTargetsOnSegmentRequest {
+func (r ApiPatchExpiringUserTargetsForSegmentRequest) PatchSegmentRequest(patchSegmentRequest PatchSegmentRequest) ApiPatchExpiringUserTargetsForSegmentRequest {
 	r.patchSegmentRequest = &patchSegmentRequest
 	return r
 }
 
-func (r ApiPatchExpiringUserTargetsOnSegmentRequest) Execute() (ExpiringUserTargetPatchResponse, *_nethttp.Response, error) {
-	return r.ApiService.PatchExpiringUserTargetsOnSegmentExecute(r)
+func (r ApiPatchExpiringUserTargetsForSegmentRequest) Execute() (ExpiringUserTargetPatchResponse, *_nethttp.Response, error) {
+	return r.ApiService.PatchExpiringUserTargetsForSegmentExecute(r)
 }
 
 /*
-PatchExpiringUserTargetsOnSegment Update expiring user targets on segment
+PatchExpiringUserTargetsForSegment Update expiring user targets for segment
 
-Update the list of a segment's user targets that are scheduled for removal<br /><br />Requires a semantic patch representation of the desired changes to the resource. To learn more about semantic patches, read [Updates](/#section/Updates/Updates-via-semantic-patches)
+Update the list of a segment's user targets that are scheduled for removal<br /><br />Requires a semantic patch representation of the desired changes to the resource. To learn more about semantic patches, read [Updates](/#section/Updates/Updates-via-semantic-patches).<br /><br />If the request is well-formed but any of its instructions failed to process, this operation returns status code `200`. In this case, the response `errors` array will be non-empty.
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param projKey The project key. This connects flags within one project so you can manage them together.
- @param envKey The environment key. This connects flag configurations and users within one environment so you can manage them together.
- @param segmentKey The user segment key. The key identifies the user segment in your code.
- @return ApiPatchExpiringUserTargetsOnSegmentRequest
+ @param projKey The project key.
+ @param envKey The environment key.
+ @param segmentKey The user segment key.
+ @return ApiPatchExpiringUserTargetsForSegmentRequest
 */
-func (a *SegmentsApiService) PatchExpiringUserTargetsOnSegment(ctx _context.Context, projKey string, envKey string, segmentKey string) ApiPatchExpiringUserTargetsOnSegmentRequest {
-	return ApiPatchExpiringUserTargetsOnSegmentRequest{
+func (a *SegmentsApiService) PatchExpiringUserTargetsForSegment(ctx _context.Context, projKey string, envKey string, segmentKey string) ApiPatchExpiringUserTargetsForSegmentRequest {
+	return ApiPatchExpiringUserTargetsForSegmentRequest{
 		ApiService: a,
 		ctx: ctx,
 		projKey: projKey,
@@ -698,7 +698,7 @@ func (a *SegmentsApiService) PatchExpiringUserTargetsOnSegment(ctx _context.Cont
 
 // Execute executes the request
 //  @return ExpiringUserTargetPatchResponse
-func (a *SegmentsApiService) PatchExpiringUserTargetsOnSegmentExecute(r ApiPatchExpiringUserTargetsOnSegmentRequest) (ExpiringUserTargetPatchResponse, *_nethttp.Response, error) {
+func (a *SegmentsApiService) PatchExpiringUserTargetsForSegmentExecute(r ApiPatchExpiringUserTargetsForSegmentRequest) (ExpiringUserTargetPatchResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPatch
 		localVarPostBody     interface{}
@@ -708,7 +708,7 @@ func (a *SegmentsApiService) PatchExpiringUserTargetsOnSegmentExecute(r ApiPatch
 		localVarReturnValue  ExpiringUserTargetPatchResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SegmentsApiService.PatchExpiringUserTargetsOnSegment")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SegmentsApiService.PatchExpiringUserTargetsForSegment")
 	if err != nil {
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
@@ -819,9 +819,9 @@ PatchSegment Patch segment
 Update a user segment. The request body must be a valid JSON patch or JSON merge patch document. To learn more about semantic patches, read [Updates](/#section/Updates).
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param projKey The project key. This connects flags within one project so you can manage them together.
- @param envKey The environment key. This connects flag configurations and users under one environment so you can manage them together.
- @param key The user segment key. The key identifies the user segment in your code.
+ @param projKey The project key.
+ @param envKey The environment key.
+ @param key The user segment key.
  @return ApiPatchSegmentRequest
 */
 func (a *SegmentsApiService) PatchSegment(ctx _context.Context, projKey string, envKey string, key string) ApiPatchSegmentRequest {
@@ -938,11 +938,11 @@ type ApiPostSegmentRequest struct {
 	ApiService *SegmentsApiService
 	projKey string
 	envKey string
-	segmentPost *SegmentPost
+	segmentBody *SegmentBody
 }
 
-func (r ApiPostSegmentRequest) SegmentPost(segmentPost SegmentPost) ApiPostSegmentRequest {
-	r.segmentPost = &segmentPost
+func (r ApiPostSegmentRequest) SegmentBody(segmentBody SegmentBody) ApiPostSegmentRequest {
+	r.segmentBody = &segmentBody
 	return r
 }
 
@@ -956,8 +956,8 @@ PostSegment Create segment
 Create a new user segment
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param projKey The project key. This connects flags within one project so you can manage them together.
- @param envKey The environment key. This connects flag configurations and users within one environment so you can manage them together.
+ @param projKey The project key.
+ @param envKey The environment key.
  @return ApiPostSegmentRequest
 */
 func (a *SegmentsApiService) PostSegment(ctx _context.Context, projKey string, envKey string) ApiPostSegmentRequest {
@@ -993,8 +993,8 @@ func (a *SegmentsApiService) PostSegmentExecute(r ApiPostSegmentRequest) (UserSe
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-	if r.segmentPost == nil {
-		return localVarReturnValue, nil, reportError("segmentPost is required and must be specified")
+	if r.segmentBody == nil {
+		return localVarReturnValue, nil, reportError("segmentBody is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1015,7 +1015,7 @@ func (a *SegmentsApiService) PostSegmentExecute(r ApiPostSegmentRequest) (UserSe
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.segmentPost
+	localVarPostBody = r.segmentBody
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {

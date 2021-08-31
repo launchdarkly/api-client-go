@@ -26,8 +26,10 @@ type UserSegment struct {
 	CreationDate int64 `json:"creationDate"`
 	// A unique key used to reference the segment
 	Key string `json:"key"`
-	Included []string `json:"included"`
-	Excluded []string `json:"excluded"`
+	// Included users are always segment members, regardless of segment rules. For Big Segments this array is either empty or omitted entirely.
+	Included *[]string `json:"included,omitempty"`
+	// Segment rules bypass excluded users, so they will never be included based on rules. Excluded users may still be included explicitly. This value is omitted for Big Segments.
+	Excluded *[]string `json:"excluded,omitempty"`
 	Links map[string]Link `json:"_links"`
 	Rules []UserSegmentRule `json:"rules"`
 	Version int32 `json:"version"`
@@ -45,14 +47,12 @@ type UserSegment struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUserSegment(name string, tags []string, creationDate int64, key string, included []string, excluded []string, links map[string]Link, rules []UserSegmentRule, version int32, deleted bool, generation int32) *UserSegment {
+func NewUserSegment(name string, tags []string, creationDate int64, key string, links map[string]Link, rules []UserSegmentRule, version int32, deleted bool, generation int32) *UserSegment {
 	this := UserSegment{}
 	this.Name = name
 	this.Tags = tags
 	this.CreationDate = creationDate
 	this.Key = key
-	this.Included = included
-	this.Excluded = excluded
 	this.Links = links
 	this.Rules = rules
 	this.Version = version
@@ -197,52 +197,68 @@ func (o *UserSegment) SetKey(v string) {
 	o.Key = v
 }
 
-// GetIncluded returns the Included field value
+// GetIncluded returns the Included field value if set, zero value otherwise.
 func (o *UserSegment) GetIncluded() []string {
-	if o == nil {
+	if o == nil || o.Included == nil {
 		var ret []string
 		return ret
 	}
-
-	return o.Included
+	return *o.Included
 }
 
-// GetIncludedOk returns a tuple with the Included field value
+// GetIncludedOk returns a tuple with the Included field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSegment) GetIncludedOk() (*[]string, bool) {
-	if o == nil  {
+	if o == nil || o.Included == nil {
 		return nil, false
 	}
-	return &o.Included, true
+	return o.Included, true
 }
 
-// SetIncluded sets field value
+// HasIncluded returns a boolean if a field has been set.
+func (o *UserSegment) HasIncluded() bool {
+	if o != nil && o.Included != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetIncluded gets a reference to the given []string and assigns it to the Included field.
 func (o *UserSegment) SetIncluded(v []string) {
-	o.Included = v
+	o.Included = &v
 }
 
-// GetExcluded returns the Excluded field value
+// GetExcluded returns the Excluded field value if set, zero value otherwise.
 func (o *UserSegment) GetExcluded() []string {
-	if o == nil {
+	if o == nil || o.Excluded == nil {
 		var ret []string
 		return ret
 	}
-
-	return o.Excluded
+	return *o.Excluded
 }
 
-// GetExcludedOk returns a tuple with the Excluded field value
+// GetExcludedOk returns a tuple with the Excluded field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserSegment) GetExcludedOk() (*[]string, bool) {
-	if o == nil  {
+	if o == nil || o.Excluded == nil {
 		return nil, false
 	}
-	return &o.Excluded, true
+	return o.Excluded, true
 }
 
-// SetExcluded sets field value
+// HasExcluded returns a boolean if a field has been set.
+func (o *UserSegment) HasExcluded() bool {
+	if o != nil && o.Excluded != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetExcluded gets a reference to the given []string and assigns it to the Excluded field.
 func (o *UserSegment) SetExcluded(v []string) {
-	o.Excluded = v
+	o.Excluded = &v
 }
 
 // GetLinks returns the Links field value
@@ -574,10 +590,10 @@ func (o UserSegment) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["key"] = o.Key
 	}
-	if true {
+	if o.Included != nil {
 		toSerialize["included"] = o.Included
 	}
-	if true {
+	if o.Excluded != nil {
 		toSerialize["excluded"] = o.Excluded
 	}
 	if true {

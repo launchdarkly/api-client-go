@@ -159,7 +159,7 @@ type ApiGetFeatureFlagScheduledChangeRequest struct {
 }
 
 
-func (r ApiGetFeatureFlagScheduledChangeRequest) Execute() (ScheduledChange, *_nethttp.Response, error) {
+func (r ApiGetFeatureFlagScheduledChangeRequest) Execute() (FeatureFlagScheduledChange, *_nethttp.Response, error) {
 	return r.ApiService.GetFeatureFlagScheduledChangeExecute(r)
 }
 
@@ -187,15 +187,15 @@ func (a *ScheduledChangesApiService) GetFeatureFlagScheduledChange(ctx _context.
 }
 
 // Execute executes the request
-//  @return ScheduledChange
-func (a *ScheduledChangesApiService) GetFeatureFlagScheduledChangeExecute(r ApiGetFeatureFlagScheduledChangeRequest) (ScheduledChange, *_nethttp.Response, error) {
+//  @return FeatureFlagScheduledChange
+func (a *ScheduledChangesApiService) GetFeatureFlagScheduledChangeExecute(r ApiGetFeatureFlagScheduledChangeRequest) (FeatureFlagScheduledChange, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  ScheduledChange
+		localVarReturnValue  FeatureFlagScheduledChange
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ScheduledChangesApiService.GetFeatureFlagScheduledChange")
@@ -290,7 +290,7 @@ type ApiGetFlagConfigScheduledChangesRequest struct {
 }
 
 
-func (r ApiGetFlagConfigScheduledChangesRequest) Execute() (ScheduledChanges, *_nethttp.Response, error) {
+func (r ApiGetFlagConfigScheduledChangesRequest) Execute() (FeatureFlagScheduledChanges, *_nethttp.Response, error) {
 	return r.ApiService.GetFlagConfigScheduledChangesExecute(r)
 }
 
@@ -316,15 +316,15 @@ func (a *ScheduledChangesApiService) GetFlagConfigScheduledChanges(ctx _context.
 }
 
 // Execute executes the request
-//  @return ScheduledChanges
-func (a *ScheduledChangesApiService) GetFlagConfigScheduledChangesExecute(r ApiGetFlagConfigScheduledChangesRequest) (ScheduledChanges, *_nethttp.Response, error) {
+//  @return FeatureFlagScheduledChanges
+func (a *ScheduledChangesApiService) GetFlagConfigScheduledChangesExecute(r ApiGetFlagConfigScheduledChangesRequest) (FeatureFlagScheduledChanges, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  ScheduledChanges
+		localVarReturnValue  FeatureFlagScheduledChanges
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ScheduledChangesApiService.GetFlagConfigScheduledChanges")
@@ -409,144 +409,6 @@ func (a *ScheduledChangesApiService) GetFlagConfigScheduledChangesExecute(r ApiG
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetFlagConfigScheduledChangesConflictsRequest struct {
-	ctx _context.Context
-	ApiService *ScheduledChangesApiService
-	projectKey string
-	featureFlagKey string
-	environmentKey string
-	reportFlagScheduledChangesInput *ReportFlagScheduledChangesInput
-}
-
-func (r ApiGetFlagConfigScheduledChangesConflictsRequest) ReportFlagScheduledChangesInput(reportFlagScheduledChangesInput ReportFlagScheduledChangesInput) ApiGetFlagConfigScheduledChangesConflictsRequest {
-	r.reportFlagScheduledChangesInput = &reportFlagScheduledChangesInput
-	return r
-}
-
-func (r ApiGetFlagConfigScheduledChangesConflictsRequest) Execute() (ConflictResponse, *_nethttp.Response, error) {
-	return r.ApiService.GetFlagConfigScheduledChangesConflictsExecute(r)
-}
-
-/*
-GetFlagConfigScheduledChangesConflicts List conflicts for proposed instructions
-
-Compare the proposed instructions with each other and the existing scheduled changes. This finds conflicts that would prevent the existing scheduled changes from executing correctly if the proposed instructions were saved. This requires the WebDAV REPORT method and not the POST method.<br /><br />Requires a semantic patch representation of the desired changes to the resource. To learn more about semantic patches, read [Updates](/#section/Updates/Updates-via-semantic-patches)
-
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param projectKey The project key
- @param featureFlagKey The feature flag's key
- @param environmentKey The environment key
- @return ApiGetFlagConfigScheduledChangesConflictsRequest
-*/
-func (a *ScheduledChangesApiService) GetFlagConfigScheduledChangesConflicts(ctx _context.Context, projectKey string, featureFlagKey string, environmentKey string) ApiGetFlagConfigScheduledChangesConflictsRequest {
-	return ApiGetFlagConfigScheduledChangesConflictsRequest{
-		ApiService: a,
-		ctx: ctx,
-		projectKey: projectKey,
-		featureFlagKey: featureFlagKey,
-		environmentKey: environmentKey,
-	}
-}
-
-// Execute executes the request
-//  @return ConflictResponse
-func (a *ScheduledChangesApiService) GetFlagConfigScheduledChangesConflictsExecute(r ApiGetFlagConfigScheduledChangesConflictsRequest) (ConflictResponse, *_nethttp.Response, error) {
-	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  ConflictResponse
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ScheduledChangesApiService.GetFlagConfigScheduledChangesConflicts")
-	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/scheduled-changes-conflicts"
-	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", _neturl.PathEscape(parameterToString(r.projectKey, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"featureFlagKey"+"}", _neturl.PathEscape(parameterToString(r.featureFlagKey, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"environmentKey"+"}", _neturl.PathEscape(parameterToString(r.environmentKey, "")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
-	if r.reportFlagScheduledChangesInput == nil {
-		return localVarReturnValue, nil, reportError("reportFlagScheduledChangesInput is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.reportFlagScheduledChangesInput
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["ApiKey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["Authorization"] = key
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
 type ApiPatchFlagConfigScheduledChangeRequest struct {
 	ctx _context.Context
 	ApiService *ScheduledChangesApiService
@@ -568,7 +430,7 @@ func (r ApiPatchFlagConfigScheduledChangeRequest) IgnoreConflicts(ignoreConflict
 	return r
 }
 
-func (r ApiPatchFlagConfigScheduledChangeRequest) Execute() (ScheduledChange, *_nethttp.Response, error) {
+func (r ApiPatchFlagConfigScheduledChangeRequest) Execute() (FeatureFlagScheduledChange, *_nethttp.Response, error) {
 	return r.ApiService.PatchFlagConfigScheduledChangeExecute(r)
 }
 
@@ -596,15 +458,15 @@ func (a *ScheduledChangesApiService) PatchFlagConfigScheduledChange(ctx _context
 }
 
 // Execute executes the request
-//  @return ScheduledChange
-func (a *ScheduledChangesApiService) PatchFlagConfigScheduledChangeExecute(r ApiPatchFlagConfigScheduledChangeRequest) (ScheduledChange, *_nethttp.Response, error) {
+//  @return FeatureFlagScheduledChange
+func (a *ScheduledChangesApiService) PatchFlagConfigScheduledChangeExecute(r ApiPatchFlagConfigScheduledChangeRequest) (FeatureFlagScheduledChange, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPatch
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  ScheduledChange
+		localVarReturnValue  FeatureFlagScheduledChange
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ScheduledChangesApiService.PatchFlagConfigScheduledChange")
@@ -718,7 +580,7 @@ func (r ApiPostFlagConfigScheduledChangesRequest) IgnoreConflicts(ignoreConflict
 	return r
 }
 
-func (r ApiPostFlagConfigScheduledChangesRequest) Execute() (ScheduledChange, *_nethttp.Response, error) {
+func (r ApiPostFlagConfigScheduledChangesRequest) Execute() (FeatureFlagScheduledChange, *_nethttp.Response, error) {
 	return r.ApiService.PostFlagConfigScheduledChangesExecute(r)
 }
 
@@ -744,15 +606,15 @@ func (a *ScheduledChangesApiService) PostFlagConfigScheduledChanges(ctx _context
 }
 
 // Execute executes the request
-//  @return ScheduledChange
-func (a *ScheduledChangesApiService) PostFlagConfigScheduledChangesExecute(r ApiPostFlagConfigScheduledChangesRequest) (ScheduledChange, *_nethttp.Response, error) {
+//  @return FeatureFlagScheduledChange
+func (a *ScheduledChangesApiService) PostFlagConfigScheduledChangesExecute(r ApiPostFlagConfigScheduledChangesRequest) (FeatureFlagScheduledChange, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  ScheduledChange
+		localVarReturnValue  FeatureFlagScheduledChange
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ScheduledChangesApiService.PostFlagConfigScheduledChanges")
