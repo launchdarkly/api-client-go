@@ -1,27 +1,71 @@
 # \UsersApi
 
-All URIs are relative to *https://app.launchdarkly.com/api/v2*
+All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteUser**](UsersApi.md#DeleteUser) | **Delete** /users/{projectKey}/{environmentKey}/{userKey} | Delete a user by ID.
-[**GetSearchUsers**](UsersApi.md#GetSearchUsers) | **Get** /user-search/{projectKey}/{environmentKey} | Search users in LaunchDarkly based on their last active date, or a search query. It should not be used to enumerate all users in LaunchDarkly-- use the List users API resource.
-[**GetUser**](UsersApi.md#GetUser) | **Get** /users/{projectKey}/{environmentKey}/{userKey} | Get a user by key.
-[**GetUsers**](UsersApi.md#GetUsers) | **Get** /users/{projectKey}/{environmentKey} | List all users in the environment. Includes the total count of users. In each page, there will be up to &#39;limit&#39; users returned (default 20). This is useful for exporting all users in the system for further analysis. Paginated collections will include a next link containing a URL with the next set of elements in the collection.
+[**DeleteUser**](UsersApi.md#DeleteUser) | **Delete** /api/v2/users/{projKey}/{envKey}/{key} | Delete user
+[**GetSearchUsers**](UsersApi.md#GetSearchUsers) | **Get** /api/v2/user-search/{projKey}/{envKey} | Find users
+[**GetUser**](UsersApi.md#GetUser) | **Get** /api/v2/users/{projKey}/{envKey}/{key} | Get user
+[**GetUsers**](UsersApi.md#GetUsers) | **Get** /api/v2/users/{projKey}/{envKey} | List users
 
 
-# **DeleteUser**
-> DeleteUser(ctx, projectKey, environmentKey, userKey)
-Delete a user by ID.
 
-### Required Parameters
+## DeleteUser
+
+> DeleteUser(ctx, projKey, envKey, key).Execute()
+
+Delete user
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    projKey := "projKey_example" // string | The project key
+    envKey := "envKey_example" // string | The environment key
+    key := "key_example" // string | The user key
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UsersApi.DeleteUser(context.Background(), projKey, envKey, key).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UsersApi.DeleteUser``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
-  **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
-  **userKey** | **string**| The user&#39;s key. | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projKey** | **string** | The project key | 
+**envKey** | **string** | The environment key | 
+**key** | **string** | The user key | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteUserRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
 
 ### Return type
 
@@ -29,39 +73,82 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Token](../README.md#Token)
+[ApiKey](../README.md#ApiKey)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: Not defined
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **GetSearchUsers**
-> Users GetSearchUsers(ctx, projectKey, environmentKey, optional)
-Search users in LaunchDarkly based on their last active date, or a search query. It should not be used to enumerate all users in LaunchDarkly-- use the List users API resource.
 
-### Required Parameters
+## GetSearchUsers
+
+> Users GetSearchUsers(ctx, projKey, envKey).Q(q).Limit(limit).Offset(offset).After(after).SearchAfter(searchAfter).Execute()
+
+Find users
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    projKey := "projKey_example" // string | The project key
+    envKey := "envKey_example" // string | The environment key
+    q := "q_example" // string | Full-text search for users based on name, first name, last name, e-mail address, or key (optional)
+    limit := int64(789) // int64 | Specifies the maximum number of items in the collection to return (max: 50, default: 20) (optional)
+    offset := int64(789) // int64 | Specifies the first item to return in the collection (optional)
+    after := int64(789) // int64 | A unix epoch time in milliseconds specifying the maximum last time a user requested a feature flag from LaunchDarkly (optional)
+    searchAfter := "searchAfter_example" // string | Limits results to users with sort values after the value you specify. You can use this for pagination, but we recommend using the `next` link we provide instead. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UsersApi.GetSearchUsers(context.Background(), projKey, envKey).Q(q).Limit(limit).Offset(offset).After(after).SearchAfter(searchAfter).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UsersApi.GetSearchUsers``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetSearchUsers`: Users
+    fmt.Fprintf(os.Stdout, "Response from `UsersApi.GetSearchUsers`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
-  **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
- **optional** | ***UsersApiGetSearchUsersOpts** | optional parameters | nil if no parameters
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projKey** | **string** | The project key | 
+**envKey** | **string** | The environment key | 
 
-### Optional Parameters
-Optional parameters are passed through a pointer to a UsersApiGetSearchUsersOpts struct
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetSearchUsersRequest struct via the builder pattern
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **q** | **optional.String**| Search query. | 
- **limit** | **optional.Int32**| Pagination limit. | 
- **offset** | **optional.Int32**| Specifies the first item to return in the collection. | 
- **after** | **optional.Int64**| A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries returned will have occurred after this timestamp. | 
+ **q** | **string** | Full-text search for users based on name, first name, last name, e-mail address, or key | 
+ **limit** | **int64** | Specifies the maximum number of items in the collection to return (max: 50, default: 20) | 
+ **offset** | **int64** | Specifies the first item to return in the collection | 
+ **after** | **int64** | A unix epoch time in milliseconds specifying the maximum last time a user requested a feature flag from LaunchDarkly | 
+ **searchAfter** | **string** | Limits results to users with sort values after the value you specify. You can use this for pagination, but we recommend using the &#x60;next&#x60; link we provide instead. | 
 
 ### Return type
 
@@ -69,66 +156,152 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Token](../README.md#Token)
+[ApiKey](../README.md#ApiKey)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **GetUser**
-> UserRecord GetUser(ctx, projectKey, environmentKey, userKey)
-Get a user by key.
 
-### Required Parameters
+## GetUser
+
+> User GetUser(ctx, projKey, envKey, key).Execute()
+
+Get user
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    projKey := "projKey_example" // string | The project key
+    envKey := "envKey_example" // string | The environment key
+    key := "key_example" // string | The user key
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UsersApi.GetUser(context.Background(), projKey, envKey, key).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UsersApi.GetUser``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetUser`: User
+    fmt.Fprintf(os.Stdout, "Response from `UsersApi.GetUser`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
-  **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
-  **userKey** | **string**| The user&#39;s key. | 
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projKey** | **string** | The project key | 
+**envKey** | **string** | The environment key | 
+**key** | **string** | The user key | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetUserRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
 
 ### Return type
 
-[**UserRecord**](UserRecord.md)
+[**User**](User.md)
 
 ### Authorization
 
-[Token](../README.md#Token)
+[ApiKey](../README.md#ApiKey)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
-# **GetUsers**
-> Users GetUsers(ctx, projectKey, environmentKey, optional)
-List all users in the environment. Includes the total count of users. In each page, there will be up to 'limit' users returned (default 20). This is useful for exporting all users in the system for further analysis. Paginated collections will include a next link containing a URL with the next set of elements in the collection.
 
-### Required Parameters
+## GetUsers
+
+> Users GetUsers(ctx, projKey, envKey).Limit(limit).SearchAfter(searchAfter).Execute()
+
+List users
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    projKey := "projKey_example" // string | The project key
+    envKey := "envKey_example" // string | The environment key
+    limit := int64(789) // int64 | The number of elements to return per page (optional)
+    searchAfter := "searchAfter_example" // string | Limits results to users with sort values after the value you specify. You can use this for pagination, but we recommend using the `next` link we provide instead. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UsersApi.GetUsers(context.Background(), projKey, envKey).Limit(limit).SearchAfter(searchAfter).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UsersApi.GetUsers``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetUsers`: Users
+    fmt.Fprintf(os.Stdout, "Response from `UsersApi.GetUsers`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-  **projectKey** | **string**| The project key, used to tie the flags together under one project so they can be managed together. | 
-  **environmentKey** | **string**| The environment key, used to tie together flag configuration and users under one environment so they can be managed together. | 
- **optional** | ***UsersApiGetUsersOpts** | optional parameters | nil if no parameters
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projKey** | **string** | The project key | 
+**envKey** | **string** | The environment key | 
 
-### Optional Parameters
-Optional parameters are passed through a pointer to a UsersApiGetUsersOpts struct
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetUsersRequest struct via the builder pattern
+
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **limit** | **optional.Int32**| Pagination limit. | 
- **h** | **optional.String**| This parameter is required when following \&quot;next\&quot; links. | 
- **scrollId** | **optional.String**| This parameter is required when following \&quot;next\&quot; links. | 
+ **limit** | **int64** | The number of elements to return per page | 
+ **searchAfter** | **string** | Limits results to users with sort values after the value you specify. You can use this for pagination, but we recommend using the &#x60;next&#x60; link we provide instead. | 
 
 ### Return type
 
@@ -136,12 +309,14 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[Token](../README.md#Token)
+[ApiKey](../README.md#ApiKey)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
