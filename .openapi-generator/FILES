@@ -21,6 +21,7 @@ api_projects.go
 api_relay_proxy_configurations.go
 api_scheduled_changes.go
 api_segments.go
+api_teams_beta.go
 api_user_settings.go
 api_users.go
 api_users_beta.go
@@ -59,6 +60,8 @@ docs/CustomRolePost.md
 docs/CustomRolePostData.md
 docs/CustomRoles.md
 docs/CustomRolesApi.md
+docs/CustomWorkflowMeta.md
+docs/CustomWorkflowStageMeta.md
 docs/DataExportDestinationsApi.md
 docs/DefaultClientSideAvailabilityPost.md
 docs/Defaults.md
@@ -140,6 +143,8 @@ docs/PatchOperation.md
 docs/PatchSegmentInstruction.md
 docs/PatchSegmentRequest.md
 docs/PatchWithComment.md
+docs/PermissionGrantInput.md
+docs/PermissionGrantRep.md
 docs/PostApprovalRequestApplyRequest.md
 docs/PostApprovalRequestReviewRequest.md
 docs/PostFlagScheduledChangesInput.md
@@ -184,6 +189,11 @@ docs/StatisticsRoot.md
 docs/SubjectDataRep.md
 docs/Target.md
 docs/TargetResourceRep.md
+docs/TeamCollectionRep.md
+docs/TeamPatchInput.md
+docs/TeamPostInput.md
+docs/TeamRep.md
+docs/TeamsBetaApi.md
 docs/TitleRep.md
 docs/Token.md
 docs/TokenDataRep.md
@@ -240,6 +250,8 @@ model_custom_role.go
 model_custom_role_post.go
 model_custom_role_post_data.go
 model_custom_roles.go
+model_custom_workflow_meta.go
+model_custom_workflow_stage_meta.go
 model_default_client_side_availability_post.go
 model_defaults.go
 model_dependent_flag.go
@@ -314,6 +326,8 @@ model_patch_operation.go
 model_patch_segment_instruction.go
 model_patch_segment_request.go
 model_patch_with_comment.go
+model_permission_grant_input.go
+model_permission_grant_rep.go
 model_post_approval_request_apply_request.go
 model_post_approval_request_review_request.go
 model_post_flag_scheduled_changes_input.go
@@ -354,6 +368,10 @@ model_statistics_root.go
 model_subject_data_rep.go
 model_target.go
 model_target_resource_rep.go
+model_team_collection_rep.go
+model_team_patch_input.go
+model_team_post_input.go
+model_team_rep.go
 model_title_rep.go
 model_token.go
 model_token_data_rep.go

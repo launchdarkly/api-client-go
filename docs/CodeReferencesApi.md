@@ -11,7 +11,7 @@ Method | HTTP request | Description
 [**GetExtinctions**](CodeReferencesApi.md#GetExtinctions) | **Get** /api/v2/code-refs/extinctions | List extinctions
 [**GetRepositories**](CodeReferencesApi.md#GetRepositories) | **Get** /api/v2/code-refs/repositories | List repositories
 [**GetRepository**](CodeReferencesApi.md#GetRepository) | **Get** /api/v2/code-refs/repositories/{repo} | Get repository
-[**GetRootStatistic**](CodeReferencesApi.md#GetRootStatistic) | **Get** /api/v2/code-refs/statistics | Get number of code references for flags
+[**GetRootStatistic**](CodeReferencesApi.md#GetRootStatistic) | **Get** /api/v2/code-refs/statistics | Get links to code reference repositories for each project
 [**GetStatistics**](CodeReferencesApi.md#GetStatistics) | **Get** /api/v2/code-refs/statistics/{projKey} | Get number of code references for flags
 [**PatchRepository**](CodeReferencesApi.md#PatchRepository) | **Patch** /api/v2/code-refs/repositories/{repo} | Update repository
 [**PostExtinction**](CodeReferencesApi.md#PostExtinction) | **Post** /api/v2/code-refs/repositories/{repo}/branches/{branch} | Create extinction
@@ -523,7 +523,7 @@ Name | Type | Description  | Notes
 
 > StatisticsRoot GetRootStatistic(ctx).Execute()
 
-Get number of code references for flags
+Get links to code reference repositories for each project
 
 
 
