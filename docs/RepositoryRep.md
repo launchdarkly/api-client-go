@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** |  | 
-**SourceLink** | Pointer to **string** |  | [optional] 
-**CommitUrlTemplate** | Pointer to **string** |  | [optional] 
-**HunkUrlTemplate** | Pointer to **string** |  | [optional] 
-**Type** | **string** |  | 
-**DefaultBranch** | **string** |  | 
-**Enabled** | **bool** |  | 
-**Version** | **int32** |  | 
-**Branches** | Pointer to [**[]BranchRep**](BranchRep.md) |  | [optional] 
+**Name** | **string** | The repository name | 
+**SourceLink** | Pointer to **string** | A URL to access the repository | [optional] 
+**CommitUrlTemplate** | Pointer to **string** | A template for constructing a valid URL to view the commit | [optional] 
+**HunkUrlTemplate** | Pointer to **string** | A template for constructing a valid URL to view the hunk | [optional] 
+**Type** | **string** | The type of repository | 
+**DefaultBranch** | **string** | The repository&#39;s default branch | 
+**Enabled** | **bool** | Whether or not a repository is enabled for code reference scanning | 
+**Version** | **int32** | The version of the repository&#39;s saved information | 
+**Branches** | Pointer to [**[]BranchRep**](BranchRep.md) | An array of the repository&#39;s branches that have been scanned for code references | [optional] 
 **Links** | **map[string]interface{}** |  | 
 **Access** | Pointer to [**AccessRep**](AccessRep.md) |  | [optional] 
 

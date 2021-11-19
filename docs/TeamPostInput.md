@@ -4,18 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CustomRoleKeys** | Pointer to **[]string** |  | [optional] 
-**Description** | Pointer to **string** |  | [optional] 
-**Key** | Pointer to **string** |  | [optional] 
-**MemberIDs** | Pointer to **[]string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**PermissionGrants** | Pointer to [**[]PermissionGrantInput**](PermissionGrantInput.md) |  | [optional] 
+**CustomRoleKeys** | Pointer to **[]string** | List of custom role keys the team will access | [optional] 
+**Description** | Pointer to **string** | A description of the team | [optional] 
+**Key** | **string** | The team&#39;s key or ID | 
+**MemberIDs** | Pointer to **[]string** | A list of member IDs who belong to the team | [optional] 
+**Name** | **string** | A human-friendly name for the team | 
+**PermissionGrants** | Pointer to [**[]PermissionGrantInput**](PermissionGrantInput.md) | A list of permission grants to apply to the team. Can use \&quot;maintainTeam\&quot; to add team maintainers | [optional] 
 
 ## Methods
 
 ### NewTeamPostInput
 
-`func NewTeamPostInput() *TeamPostInput`
+`func NewTeamPostInput(key string, name string, ) *TeamPostInput`
 
 NewTeamPostInput instantiates a new TeamPostInput object
 This constructor will assign default values to properties that have it defined,
@@ -99,11 +99,6 @@ and a boolean to check if the value has been set.
 
 SetKey sets Key field to given value.
 
-### HasKey
-
-`func (o *TeamPostInput) HasKey() bool`
-
-HasKey returns a boolean if a field has been set.
 
 ### GetMemberIDs
 
@@ -149,11 +144,6 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
-### HasName
-
-`func (o *TeamPostInput) HasName() bool`
-
-HasName returns a boolean if a field has been set.
 
 ### GetPermissionGrants
 

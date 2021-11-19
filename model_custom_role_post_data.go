@@ -24,6 +24,7 @@ type CustomRolePostData struct {
 	// Description of custom role
 	Description *string `json:"description,omitempty"`
 	Policy []StatementPost `json:"policy"`
+	BasePermissions *string `json:"basePermissions,omitempty"`
 }
 
 // NewCustomRolePostData instantiates a new CustomRolePostData object
@@ -150,6 +151,38 @@ func (o *CustomRolePostData) SetPolicy(v []StatementPost) {
 	o.Policy = v
 }
 
+// GetBasePermissions returns the BasePermissions field value if set, zero value otherwise.
+func (o *CustomRolePostData) GetBasePermissions() string {
+	if o == nil || o.BasePermissions == nil {
+		var ret string
+		return ret
+	}
+	return *o.BasePermissions
+}
+
+// GetBasePermissionsOk returns a tuple with the BasePermissions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CustomRolePostData) GetBasePermissionsOk() (*string, bool) {
+	if o == nil || o.BasePermissions == nil {
+		return nil, false
+	}
+	return o.BasePermissions, true
+}
+
+// HasBasePermissions returns a boolean if a field has been set.
+func (o *CustomRolePostData) HasBasePermissions() bool {
+	if o != nil && o.BasePermissions != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetBasePermissions gets a reference to the given string and assigns it to the BasePermissions field.
+func (o *CustomRolePostData) SetBasePermissions(v string) {
+	o.BasePermissions = &v
+}
+
 func (o CustomRolePostData) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -163,6 +196,9 @@ func (o CustomRolePostData) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["policy"] = o.Policy
+	}
+	if o.BasePermissions != nil {
+		toSerialize["basePermissions"] = o.BasePermissions
 	}
 	return json.Marshal(toSerialize)
 }

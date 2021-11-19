@@ -17,25 +17,26 @@ import (
 
 // CustomRole struct for CustomRole
 type CustomRole struct {
-	Links map[string]Link `json:"_links"`
-	Name string `json:"name"`
-	Key string `json:"key"`
-	Description *string `json:"description,omitempty"`
 	Id string `json:"_id"`
-	Policy []Statement `json:"policy"`
+	Links map[string]Link `json:"_links"`
 	Access *AccessRep `json:"_access,omitempty"`
+	Description *string `json:"description,omitempty"`
+	Key string `json:"key"`
+	Name string `json:"name"`
+	Policy []Statement `json:"policy"`
+	BasePermissions *string `json:"basePermissions,omitempty"`
 }
 
 // NewCustomRole instantiates a new CustomRole object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCustomRole(links map[string]Link, name string, key string, id string, policy []Statement) *CustomRole {
+func NewCustomRole(id string, links map[string]Link, key string, name string, policy []Statement) *CustomRole {
 	this := CustomRole{}
-	this.Links = links
-	this.Name = name
-	this.Key = key
 	this.Id = id
+	this.Links = links
+	this.Key = key
+	this.Name = name
 	this.Policy = policy
 	return &this
 }
@@ -46,110 +47,6 @@ func NewCustomRole(links map[string]Link, name string, key string, id string, po
 func NewCustomRoleWithDefaults() *CustomRole {
 	this := CustomRole{}
 	return &this
-}
-
-// GetLinks returns the Links field value
-func (o *CustomRole) GetLinks() map[string]Link {
-	if o == nil {
-		var ret map[string]Link
-		return ret
-	}
-
-	return o.Links
-}
-
-// GetLinksOk returns a tuple with the Links field value
-// and a boolean to check if the value has been set.
-func (o *CustomRole) GetLinksOk() (*map[string]Link, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.Links, true
-}
-
-// SetLinks sets field value
-func (o *CustomRole) SetLinks(v map[string]Link) {
-	o.Links = v
-}
-
-// GetName returns the Name field value
-func (o *CustomRole) GetName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Name
-}
-
-// GetNameOk returns a tuple with the Name field value
-// and a boolean to check if the value has been set.
-func (o *CustomRole) GetNameOk() (*string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.Name, true
-}
-
-// SetName sets field value
-func (o *CustomRole) SetName(v string) {
-	o.Name = v
-}
-
-// GetKey returns the Key field value
-func (o *CustomRole) GetKey() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Key
-}
-
-// GetKeyOk returns a tuple with the Key field value
-// and a boolean to check if the value has been set.
-func (o *CustomRole) GetKeyOk() (*string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.Key, true
-}
-
-// SetKey sets field value
-func (o *CustomRole) SetKey(v string) {
-	o.Key = v
-}
-
-// GetDescription returns the Description field value if set, zero value otherwise.
-func (o *CustomRole) GetDescription() string {
-	if o == nil || o.Description == nil {
-		var ret string
-		return ret
-	}
-	return *o.Description
-}
-
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CustomRole) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
-		return nil, false
-	}
-	return o.Description, true
-}
-
-// HasDescription returns a boolean if a field has been set.
-func (o *CustomRole) HasDescription() bool {
-	if o != nil && o.Description != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *CustomRole) SetDescription(v string) {
-	o.Description = &v
 }
 
 // GetId returns the Id field value
@@ -176,28 +73,28 @@ func (o *CustomRole) SetId(v string) {
 	o.Id = v
 }
 
-// GetPolicy returns the Policy field value
-func (o *CustomRole) GetPolicy() []Statement {
+// GetLinks returns the Links field value
+func (o *CustomRole) GetLinks() map[string]Link {
 	if o == nil {
-		var ret []Statement
+		var ret map[string]Link
 		return ret
 	}
 
-	return o.Policy
+	return o.Links
 }
 
-// GetPolicyOk returns a tuple with the Policy field value
+// GetLinksOk returns a tuple with the Links field value
 // and a boolean to check if the value has been set.
-func (o *CustomRole) GetPolicyOk() (*[]Statement, bool) {
+func (o *CustomRole) GetLinksOk() (*map[string]Link, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return &o.Policy, true
+	return &o.Links, true
 }
 
-// SetPolicy sets field value
-func (o *CustomRole) SetPolicy(v []Statement) {
-	o.Policy = v
+// SetLinks sets field value
+func (o *CustomRole) SetLinks(v map[string]Link) {
+	o.Links = v
 }
 
 // GetAccess returns the Access field value if set, zero value otherwise.
@@ -232,28 +129,167 @@ func (o *CustomRole) SetAccess(v AccessRep) {
 	o.Access = &v
 }
 
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *CustomRole) GetDescription() string {
+	if o == nil || o.Description == nil {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CustomRole) GetDescriptionOk() (*string, bool) {
+	if o == nil || o.Description == nil {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *CustomRole) HasDescription() bool {
+	if o != nil && o.Description != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *CustomRole) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetKey returns the Key field value
+func (o *CustomRole) GetKey() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Key
+}
+
+// GetKeyOk returns a tuple with the Key field value
+// and a boolean to check if the value has been set.
+func (o *CustomRole) GetKeyOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.Key, true
+}
+
+// SetKey sets field value
+func (o *CustomRole) SetKey(v string) {
+	o.Key = v
+}
+
+// GetName returns the Name field value
+func (o *CustomRole) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *CustomRole) GetNameOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *CustomRole) SetName(v string) {
+	o.Name = v
+}
+
+// GetPolicy returns the Policy field value
+func (o *CustomRole) GetPolicy() []Statement {
+	if o == nil {
+		var ret []Statement
+		return ret
+	}
+
+	return o.Policy
+}
+
+// GetPolicyOk returns a tuple with the Policy field value
+// and a boolean to check if the value has been set.
+func (o *CustomRole) GetPolicyOk() (*[]Statement, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.Policy, true
+}
+
+// SetPolicy sets field value
+func (o *CustomRole) SetPolicy(v []Statement) {
+	o.Policy = v
+}
+
+// GetBasePermissions returns the BasePermissions field value if set, zero value otherwise.
+func (o *CustomRole) GetBasePermissions() string {
+	if o == nil || o.BasePermissions == nil {
+		var ret string
+		return ret
+	}
+	return *o.BasePermissions
+}
+
+// GetBasePermissionsOk returns a tuple with the BasePermissions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CustomRole) GetBasePermissionsOk() (*string, bool) {
+	if o == nil || o.BasePermissions == nil {
+		return nil, false
+	}
+	return o.BasePermissions, true
+}
+
+// HasBasePermissions returns a boolean if a field has been set.
+func (o *CustomRole) HasBasePermissions() bool {
+	if o != nil && o.BasePermissions != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetBasePermissions gets a reference to the given string and assigns it to the BasePermissions field.
+func (o *CustomRole) SetBasePermissions(v string) {
+	o.BasePermissions = &v
+}
+
 func (o CustomRole) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
+		toSerialize["_id"] = o.Id
+	}
+	if true {
 		toSerialize["_links"] = o.Links
 	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["key"] = o.Key
+	if o.Access != nil {
+		toSerialize["_access"] = o.Access
 	}
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}
 	if true {
-		toSerialize["_id"] = o.Id
+		toSerialize["key"] = o.Key
+	}
+	if true {
+		toSerialize["name"] = o.Name
 	}
 	if true {
 		toSerialize["policy"] = o.Policy
 	}
-	if o.Access != nil {
-		toSerialize["_access"] = o.Access
+	if o.BasePermissions != nil {
+		toSerialize["basePermissions"] = o.BasePermissions
 	}
 	return json.Marshal(toSerialize)
 }

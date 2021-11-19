@@ -10,7 +10,7 @@ Method | HTTP request | Description
 [**PostApprovalRequest**](ApprovalsApi.md#PostApprovalRequest) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests | Create approval request
 [**PostApprovalRequestApplyRequest**](ApprovalsApi.md#PostApprovalRequestApplyRequest) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id}/apply | Apply approval request
 [**PostApprovalRequestReview**](ApprovalsApi.md#PostApprovalRequestReview) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id}/reviews | Review approval request
-[**PostFlagCopyConfigApprovalRequest**](ApprovalsApi.md#PostFlagCopyConfigApprovalRequest) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/copy/environments/{environmentKey}/approval-requests-flag-copy | Create approval request to copy flag configurations across environments
+[**PostFlagCopyConfigApprovalRequest**](ApprovalsApi.md#PostFlagCopyConfigApprovalRequest) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests-flag-copy | Create approval request to copy flag configurations across environments
 
 
 
@@ -84,7 +84,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

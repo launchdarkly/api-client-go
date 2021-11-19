@@ -14,7 +14,7 @@ Method | HTTP request | Description
 [**GetRootStatistic**](CodeReferencesApi.md#GetRootStatistic) | **Get** /api/v2/code-refs/statistics | Get links to code reference repositories for each project
 [**GetStatistics**](CodeReferencesApi.md#GetStatistics) | **Get** /api/v2/code-refs/statistics/{projKey} | Get number of code references for flags
 [**PatchRepository**](CodeReferencesApi.md#PatchRepository) | **Patch** /api/v2/code-refs/repositories/{repo} | Update repository
-[**PostExtinction**](CodeReferencesApi.md#PostExtinction) | **Post** /api/v2/code-refs/repositories/{repo}/branches/{branch} | Create extinction
+[**PostExtinction**](CodeReferencesApi.md#PostExtinction) | **Post** /api/v2/code-refs/repositories/{repo}/branches/{branch}/extinction-events | Create extinction
 [**PostRepository**](CodeReferencesApi.md#PostRepository) | **Post** /api/v2/code-refs/repositories | Create repository
 [**PutBranch**](CodeReferencesApi.md#PutBranch) | **Put** /api/v2/code-refs/repositories/{repo}/branches/{branch} | Upsert branch
 
@@ -83,7 +83,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -151,7 +151,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -327,7 +327,7 @@ import (
 
 func main() {
     repoName := "repoName_example" // string | Filter results to a specific repository (optional)
-    branchName := "branchName_example" // string | Filter results to a specific branch (optional)
+    branchName := "branchName_example" // string | Filter results to a specific branch. By default, only the default branch will be queried for extinctions. (optional)
     projKey := "projKey_example" // string | Filter results to a specific project (optional)
     flagKey := "flagKey_example" // string | Filter results to a specific flag key (optional)
 
@@ -355,7 +355,7 @@ Other parameters are passed through a pointer to a apiGetExtinctionsRequest stru
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **repoName** | **string** | Filter results to a specific repository | 
- **branchName** | **string** | Filter results to a specific branch | 
+ **branchName** | **string** | Filter results to a specific branch. By default, only the default branch will be queried for extinctions. | 
  **projKey** | **string** | Filter results to a specific project | 
  **flagKey** | **string** | Filter results to a specific flag key | 
 
@@ -726,7 +726,7 @@ Name | Type | Description  | Notes
 
 ## PostExtinction
 
-> PostExtinction(ctx, repo, branch).InlineObject(inlineObject).Execute()
+> PostExtinction(ctx, repo, branch).ExtinctionRep(extinctionRep).Execute()
 
 Create extinction
 
@@ -747,11 +747,11 @@ import (
 func main() {
     repo := "repo_example" // string | The repository name
     branch := "branch_example" // string | The url-encoded branch name
-    inlineObject := []openapiclient.InlineObject{*openapiclient.NewInlineObject("Revision_example", int64(123), "FlagKey_example", "ProjectKey_example")} // []InlineObject | 
+    extinctionRep := []openapiclient.ExtinctionRep{*openapiclient.NewExtinctionRep("a94a8fe5ccb19ba61c4c0873d391e987982fbbd3", "Remove flag for launched feature", int64(123), "enable-feature", "default")} // []ExtinctionRep | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CodeReferencesApi.PostExtinction(context.Background(), repo, branch).InlineObject(inlineObject).Execute()
+    resp, r, err := api_client.CodeReferencesApi.PostExtinction(context.Background(), repo, branch).ExtinctionRep(extinctionRep).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CodeReferencesApi.PostExtinction``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -777,7 +777,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **inlineObject** | [**[]InlineObject**](InlineObject.md) |  | 
+ **extinctionRep** | [**[]ExtinctionRep**](ExtinctionRep.md) |  | 
 
 ### Return type
 
@@ -790,7 +790,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -799,7 +799,7 @@ Name | Type | Description  | Notes
 
 ## PostRepository
 
-> PostRepository(ctx).RepositoryPost(repositoryPost).Execute()
+> RepositoryRep PostRepository(ctx).RepositoryPost(repositoryPost).Execute()
 
 Create repository
 
@@ -818,7 +818,7 @@ import (
 )
 
 func main() {
-    repositoryPost := *openapiclient.NewRepositoryPost("Name_example") // RepositoryPost | 
+    repositoryPost := *openapiclient.NewRepositoryPost("LaunchDarkly-Docs") // RepositoryPost | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -827,6 +827,8 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `CodeReferencesApi.PostRepository``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
+    // response from `PostRepository`: RepositoryRep
+    fmt.Fprintf(os.Stdout, "Response from `CodeReferencesApi.PostRepository`: %v\n", resp)
 }
 ```
 
@@ -845,7 +847,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**RepositoryRep**](RepositoryRep.md)
 
 ### Authorization
 
@@ -854,7 +856,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -863,7 +865,7 @@ Name | Type | Description  | Notes
 
 ## PutBranch
 
-> PutBranch(ctx, repo, branch).BranchRep(branchRep).Execute()
+> PutBranch(ctx, repo, branch).PutBranch(putBranch).Execute()
 
 Upsert branch
 
@@ -884,11 +886,11 @@ import (
 func main() {
     repo := "repo_example" // string | The repository name
     branch := "branch_example" // string | The url-encoded branch name
-    branchRep := *openapiclient.NewBranchRep() // BranchRep | 
+    putBranch := *openapiclient.NewPutBranch("main", "a94a8fe5ccb19ba61c4c0873d391e987982fbbd3", int64(123)) // PutBranch | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CodeReferencesApi.PutBranch(context.Background(), repo, branch).BranchRep(branchRep).Execute()
+    resp, r, err := api_client.CodeReferencesApi.PutBranch(context.Background(), repo, branch).PutBranch(putBranch).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CodeReferencesApi.PutBranch``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -914,7 +916,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **branchRep** | [**BranchRep**](BranchRep.md) |  | 
+ **putBranch** | [**PutBranch**](PutBranch.md) |  | 
 
 ### Return type
 
@@ -927,7 +929,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

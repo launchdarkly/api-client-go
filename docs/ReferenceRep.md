@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Path** | Pointer to **string** |  | [optional] 
-**Hint** | Pointer to **string** |  | [optional] 
-**Hunks** | Pointer to [**[]HunkRep**](HunkRep.md) |  | [optional] 
+**Path** | **string** | File path of the reference | 
+**Hint** | Pointer to **string** | Programming language used in the file | [optional] 
+**Hunks** | [**[]HunkRep**](HunkRep.md) |  | 
 
 ## Methods
 
 ### NewReferenceRep
 
-`func NewReferenceRep() *ReferenceRep`
+`func NewReferenceRep(path string, hunks []HunkRep, ) *ReferenceRep`
 
 NewReferenceRep instantiates a new ReferenceRep object
 This constructor will assign default values to properties that have it defined,
@@ -46,11 +46,6 @@ and a boolean to check if the value has been set.
 
 SetPath sets Path field to given value.
 
-### HasPath
-
-`func (o *ReferenceRep) HasPath() bool`
-
-HasPath returns a boolean if a field has been set.
 
 ### GetHint
 
@@ -96,11 +91,6 @@ and a boolean to check if the value has been set.
 
 SetHunks sets Hunks field to given value.
 
-### HasHunks
-
-`func (o *ReferenceRep) HasHunks() bool`
-
-HasHunks returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

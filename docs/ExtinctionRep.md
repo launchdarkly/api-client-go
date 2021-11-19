@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Revision** | **string** |  | 
-**Message** | **string** |  | 
+**Revision** | **string** | The identifier for the revision where flag became extinct. For example, a commit SHA. | 
+**Message** | **string** | Description of the extinction. For example, the commit message for the revision. | 
 **Time** | **int64** |  | 
-**FlagKey** | **string** |  | 
-**ProjKey** | **string** |  | 
+**FlagKey** | **string** | The feature flag key | 
+**ProjKey** | **string** | The project key | 
 
 ## Methods
 

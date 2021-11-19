@@ -4,17 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**StartingLineNumber** | Pointer to **int32** |  | [optional] 
-**Lines** | Pointer to **string** |  | [optional] 
-**ProjKey** | Pointer to **string** |  | [optional] 
-**FlagKey** | Pointer to **string** |  | [optional] 
-**Aliases** | Pointer to **[]string** |  | [optional] 
+**StartingLineNumber** | **int32** | Line number of beginning of code reference hunk | 
+**Lines** | Pointer to **string** | Contextual lines of code that include the referenced feature flag | [optional] 
+**ProjKey** | Pointer to **string** | The project key | [optional] 
+**FlagKey** | Pointer to **string** | The feature flag key | [optional] 
+**Aliases** | Pointer to **[]string** | An array of flag key aliases | [optional] 
 
 ## Methods
 
 ### NewHunkRep
 
-`func NewHunkRep() *HunkRep`
+`func NewHunkRep(startingLineNumber int32, ) *HunkRep`
 
 NewHunkRep instantiates a new HunkRep object
 This constructor will assign default values to properties that have it defined,
@@ -48,11 +48,6 @@ and a boolean to check if the value has been set.
 
 SetStartingLineNumber sets StartingLineNumber field to given value.
 
-### HasStartingLineNumber
-
-`func (o *HunkRep) HasStartingLineNumber() bool`
-
-HasStartingLineNumber returns a boolean if a field has been set.
 
 ### GetLines
 

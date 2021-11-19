@@ -17,20 +17,28 @@ import (
 
 // BranchRep struct for BranchRep
 type BranchRep struct {
-	Name *string `json:"name,omitempty"`
-	Head *string `json:"head,omitempty"`
+	// The branch name
+	Name string `json:"name"`
+	// An ID representing the branch HEAD. For example, a commit SHA.
+	Head string `json:"head"`
+	// An optional ID used to prevent older data from overwriting newer data
 	UpdateSequenceId *int64 `json:"updateSequenceId,omitempty"`
-	SyncTime *int64 `json:"syncTime,omitempty"`
+	SyncTime int64 `json:"syncTime"`
+	// An array of flag references found on the branch
 	References *[]ReferenceRep `json:"references,omitempty"`
-	Links *map[string]interface{} `json:"_links,omitempty"`
+	Links map[string]interface{} `json:"_links"`
 }
 
 // NewBranchRep instantiates a new BranchRep object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBranchRep() *BranchRep {
+func NewBranchRep(name string, head string, syncTime int64, links map[string]interface{}) *BranchRep {
 	this := BranchRep{}
+	this.Name = name
+	this.Head = head
+	this.SyncTime = syncTime
+	this.Links = links
 	return &this
 }
 
@@ -42,68 +50,52 @@ func NewBranchRepWithDefaults() *BranchRep {
 	return &this
 }
 
-// GetName returns the Name field value if set, zero value otherwise.
+// GetName returns the Name field value
 func (o *BranchRep) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Name
+
+	return o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *BranchRep) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Name, true
+	return &o.Name, true
 }
 
-// HasName returns a boolean if a field has been set.
-func (o *BranchRep) HasName() bool {
-	if o != nil && o.Name != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetName gets a reference to the given string and assigns it to the Name field.
+// SetName sets field value
 func (o *BranchRep) SetName(v string) {
-	o.Name = &v
+	o.Name = v
 }
 
-// GetHead returns the Head field value if set, zero value otherwise.
+// GetHead returns the Head field value
 func (o *BranchRep) GetHead() string {
-	if o == nil || o.Head == nil {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Head
+
+	return o.Head
 }
 
-// GetHeadOk returns a tuple with the Head field value if set, nil otherwise
+// GetHeadOk returns a tuple with the Head field value
 // and a boolean to check if the value has been set.
 func (o *BranchRep) GetHeadOk() (*string, bool) {
-	if o == nil || o.Head == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Head, true
+	return &o.Head, true
 }
 
-// HasHead returns a boolean if a field has been set.
-func (o *BranchRep) HasHead() bool {
-	if o != nil && o.Head != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetHead gets a reference to the given string and assigns it to the Head field.
+// SetHead sets field value
 func (o *BranchRep) SetHead(v string) {
-	o.Head = &v
+	o.Head = v
 }
 
 // GetUpdateSequenceId returns the UpdateSequenceId field value if set, zero value otherwise.
@@ -138,36 +130,28 @@ func (o *BranchRep) SetUpdateSequenceId(v int64) {
 	o.UpdateSequenceId = &v
 }
 
-// GetSyncTime returns the SyncTime field value if set, zero value otherwise.
+// GetSyncTime returns the SyncTime field value
 func (o *BranchRep) GetSyncTime() int64 {
-	if o == nil || o.SyncTime == nil {
+	if o == nil {
 		var ret int64
 		return ret
 	}
-	return *o.SyncTime
+
+	return o.SyncTime
 }
 
-// GetSyncTimeOk returns a tuple with the SyncTime field value if set, nil otherwise
+// GetSyncTimeOk returns a tuple with the SyncTime field value
 // and a boolean to check if the value has been set.
 func (o *BranchRep) GetSyncTimeOk() (*int64, bool) {
-	if o == nil || o.SyncTime == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.SyncTime, true
+	return &o.SyncTime, true
 }
 
-// HasSyncTime returns a boolean if a field has been set.
-func (o *BranchRep) HasSyncTime() bool {
-	if o != nil && o.SyncTime != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetSyncTime gets a reference to the given int64 and assigns it to the SyncTime field.
+// SetSyncTime sets field value
 func (o *BranchRep) SetSyncTime(v int64) {
-	o.SyncTime = &v
+	o.SyncTime = v
 }
 
 // GetReferences returns the References field value if set, zero value otherwise.
@@ -202,56 +186,48 @@ func (o *BranchRep) SetReferences(v []ReferenceRep) {
 	o.References = &v
 }
 
-// GetLinks returns the Links field value if set, zero value otherwise.
+// GetLinks returns the Links field value
 func (o *BranchRep) GetLinks() map[string]interface{} {
-	if o == nil || o.Links == nil {
+	if o == nil {
 		var ret map[string]interface{}
 		return ret
 	}
-	return *o.Links
+
+	return o.Links
 }
 
-// GetLinksOk returns a tuple with the Links field value if set, nil otherwise
+// GetLinksOk returns a tuple with the Links field value
 // and a boolean to check if the value has been set.
 func (o *BranchRep) GetLinksOk() (*map[string]interface{}, bool) {
-	if o == nil || o.Links == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Links, true
+	return &o.Links, true
 }
 
-// HasLinks returns a boolean if a field has been set.
-func (o *BranchRep) HasLinks() bool {
-	if o != nil && o.Links != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetLinks gets a reference to the given map[string]interface{} and assigns it to the Links field.
+// SetLinks sets field value
 func (o *BranchRep) SetLinks(v map[string]interface{}) {
-	o.Links = &v
+	o.Links = v
 }
 
 func (o BranchRep) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
+	if true {
 		toSerialize["name"] = o.Name
 	}
-	if o.Head != nil {
+	if true {
 		toSerialize["head"] = o.Head
 	}
 	if o.UpdateSequenceId != nil {
 		toSerialize["updateSequenceId"] = o.UpdateSequenceId
 	}
-	if o.SyncTime != nil {
+	if true {
 		toSerialize["syncTime"] = o.SyncTime
 	}
 	if o.References != nil {
 		toSerialize["references"] = o.References
 	}
-	if o.Links != nil {
+	if true {
 		toSerialize["_links"] = o.Links
 	}
 	return json.Marshal(toSerialize)

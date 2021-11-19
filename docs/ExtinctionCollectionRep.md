@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Links** | [**map[string]Link**](Link.md) |  | 
-**Items** | [**map[string][]ExtinctionRep**](array.md) |  | 
+**Items** | [**map[string][]ExtinctionRep**](array.md) | An array of extinction events | 
 
 ## Methods
 

@@ -18,7 +18,7 @@ import (
 // ApprovalSettings struct for ApprovalSettings
 type ApprovalSettings struct {
 	// If approvals are required for this environment.
-	Required bool `json:"Required"`
+	Required bool `json:"required"`
 	BypassApprovalsForPendingChanges bool `json:"bypassApprovalsForPendingChanges"`
 	// Sets the amount of approvals required before a member can apply a change. The minimum is one and the maximum is five.
 	MinNumApprovals int32 `json:"minNumApprovals"`
@@ -253,7 +253,7 @@ func (o *ApprovalSettings) SetRequiredApprovalTags(v []string) {
 func (o ApprovalSettings) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["Required"] = o.Required
+		toSerialize["required"] = o.Required
 	}
 	if true {
 		toSerialize["bypassApprovalsForPendingChanges"] = o.BypassApprovalsForPendingChanges

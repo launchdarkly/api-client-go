@@ -26,6 +26,7 @@ api_user_settings.go
 api_users.go
 api_users_beta.go
 api_webhooks.go
+api_workflows_beta.go
 client.go
 configuration.go
 docs/AccessDeniedReasonRep.md
@@ -35,6 +36,10 @@ docs/AccessTokenPost.md
 docs/AccessTokensApi.md
 docs/AccountMembersApi.md
 docs/AccountUsageBetaApi.md
+docs/ActionInputRep.md
+docs/ActionOutputRep.md
+docs/ApprovalConditionInputRep.md
+docs/ApprovalConditionOutputRep.md
 docs/ApprovalSettings.md
 docs/ApprovalsApi.md
 docs/AuditLogApi.md
@@ -49,8 +54,12 @@ docs/Clause.md
 docs/ClientSideAvailability.md
 docs/ClientSideAvailabilityPost.md
 docs/CodeReferencesApi.md
+docs/ConditionBaseOutputRep.md
+docs/ConditionInputRep.md
+docs/ConditionOutputRep.md
 docs/ConfidenceIntervalRep.md
 docs/Conflict.md
+docs/ConflictOutputRep.md
 docs/CopiedFromEnv.md
 docs/CreateCopyFlagConfigApprovalRequestRequest.md
 docs/CreateFlagConfigApprovalRequestRequest.md
@@ -60,8 +69,11 @@ docs/CustomRolePost.md
 docs/CustomRolePostData.md
 docs/CustomRoles.md
 docs/CustomRolesApi.md
+docs/CustomWorkflowInputRep.md
 docs/CustomWorkflowMeta.md
+docs/CustomWorkflowOutputRep.md
 docs/CustomWorkflowStageMeta.md
+docs/CustomWorkflowsListingOutputRep.md
 docs/DataExportDestinationsApi.md
 docs/DefaultClientSideAvailabilityPost.md
 docs/Defaults.md
@@ -74,6 +86,7 @@ docs/Destinations.md
 docs/Environment.md
 docs/EnvironmentPost.md
 docs/EnvironmentsApi.md
+docs/ExecutionOutputRep.md
 docs/ExperimentAllocationRep.md
 docs/ExperimentEnabledPeriodRep.md
 docs/ExperimentEnvironmentSettingRep.md
@@ -90,7 +103,6 @@ docs/ExpiringUserTargetError.md
 docs/ExpiringUserTargetGetResponse.md
 docs/ExpiringUserTargetItem.md
 docs/ExpiringUserTargetPatchResponse.md
-docs/Extinction.md
 docs/ExtinctionCollectionRep.md
 docs/ExtinctionRep.md
 docs/FeatureFlag.md
@@ -113,12 +125,12 @@ docs/FlagListingRep.md
 docs/FlagScheduledChangesInput.md
 docs/FlagStatusRep.md
 docs/FlagSummary.md
+docs/ForbiddenErrorRep.md
 docs/HunkRep.md
-docs/InlineObject.md
-docs/InlineObject1.md
 docs/InlineResponse200.md
 docs/IntegrationMetadata.md
 docs/IntegrationStatus.md
+docs/InvalidRequestErrorRep.md
 docs/IpList.md
 docs/LastSeenMetadata.md
 docs/Link.md
@@ -128,6 +140,7 @@ docs/MemberPermissionGrantSummaryRep.md
 docs/MemberSummaryRep.md
 docs/MemberTeamSummaryRep.md
 docs/Members.md
+docs/MethodNotAllowedErrorRep.md
 docs/MetricCollectionRep.md
 docs/MetricListingRep.md
 docs/MetricPost.md
@@ -137,8 +150,10 @@ docs/Modification.md
 docs/MultiEnvironmentDependentFlag.md
 docs/MultiEnvironmentDependentFlags.md
 docs/NewMemberForm.md
+docs/NotFoundErrorRep.md
 docs/OtherApi.md
 docs/ParentResourceRep.md
+docs/PatchFailedErrorRep.md
 docs/PatchOperation.md
 docs/PatchSegmentInstruction.md
 docs/PatchSegmentRequest.md
@@ -155,6 +170,8 @@ docs/ProjectPost.md
 docs/Projects.md
 docs/ProjectsApi.md
 docs/PubNubDetailRep.md
+docs/PutBranch.md
+docs/RateLimitedErrorRep.md
 docs/ReferenceRep.md
 docs/RelayAutoConfigCollectionRep.md
 docs/RelayAutoConfigPost.md
@@ -165,9 +182,12 @@ docs/RepositoryPost.md
 docs/RepositoryRep.md
 docs/ResourceAccess.md
 docs/ResourceIDResponse.md
+docs/ReviewOutputRep.md
 docs/ReviewResponse.md
 docs/Rollout.md
 docs/Rule.md
+docs/ScheduleConditionInputRep.md
+docs/ScheduleConditionOutputRep.md
 docs/ScheduledChangesApi.md
 docs/SdkListRep.md
 docs/SdkVersionListRep.md
@@ -179,6 +199,8 @@ docs/SegmentUserState.md
 docs/SegmentsApi.md
 docs/SeriesListRep.md
 docs/SourceFlag.md
+docs/StageInputRep.md
+docs/StageOutputRep.md
 docs/Statement.md
 docs/StatementPost.md
 docs/StatementPostData.md
@@ -186,6 +208,7 @@ docs/StatementRep.md
 docs/StatisticCollectionRep.md
 docs/StatisticRep.md
 docs/StatisticsRoot.md
+docs/StatusConflictErrorRep.md
 docs/SubjectDataRep.md
 docs/Target.md
 docs/TargetResourceRep.md
@@ -198,6 +221,7 @@ docs/TitleRep.md
 docs/Token.md
 docs/TokenDataRep.md
 docs/Tokens.md
+docs/UnauthorizedErrorRep.md
 docs/UrlPost.md
 docs/User.md
 docs/UserAttributeNamesRep.md
@@ -222,6 +246,7 @@ docs/WebhookPost.md
 docs/Webhooks.md
 docs/WebhooksApi.md
 docs/WeightedVariation.md
+docs/WorkflowsBetaApi.md
 git_push.sh
 go.mod
 go.sum
@@ -229,6 +254,10 @@ model_access_denied_reason_rep.go
 model_access_denied_rep.go
 model_access_rep.go
 model_access_token_post.go
+model_action_input_rep.go
+model_action_output_rep.go
+model_approval_condition_input_rep.go
+model_approval_condition_output_rep.go
 model_approval_settings.go
 model_audit_log_entry_listing_rep.go
 model_audit_log_entry_listing_rep_collection.go
@@ -240,8 +269,12 @@ model_branch_rep.go
 model_clause.go
 model_client_side_availability.go
 model_client_side_availability_post.go
+model_condition_base_output_rep.go
+model_condition_input_rep.go
+model_condition_output_rep.go
 model_confidence_interval_rep.go
 model_conflict.go
+model_conflict_output_rep.go
 model_copied_from_env.go
 model_create_copy_flag_config_approval_request_request.go
 model_create_flag_config_approval_request_request.go
@@ -250,8 +283,11 @@ model_custom_role.go
 model_custom_role_post.go
 model_custom_role_post_data.go
 model_custom_roles.go
+model_custom_workflow_input_rep.go
 model_custom_workflow_meta.go
+model_custom_workflow_output_rep.go
 model_custom_workflow_stage_meta.go
+model_custom_workflows_listing_output_rep.go
 model_default_client_side_availability_post.go
 model_defaults.go
 model_dependent_flag.go
@@ -262,6 +298,7 @@ model_destination_post.go
 model_destinations.go
 model_environment.go
 model_environment_post.go
+model_execution_output_rep.go
 model_experiment_allocation_rep.go
 model_experiment_enabled_period_rep.go
 model_experiment_environment_setting_rep.go
@@ -277,7 +314,6 @@ model_expiring_user_target_error.go
 model_expiring_user_target_get_response.go
 model_expiring_user_target_item.go
 model_expiring_user_target_patch_response.go
-model_extinction.go
 model_extinction_collection_rep.go
 model_extinction_rep.go
 model_feature_flag.go
@@ -298,12 +334,12 @@ model_flag_listing_rep.go
 model_flag_scheduled_changes_input.go
 model_flag_status_rep.go
 model_flag_summary.go
+model_forbidden_error_rep.go
 model_hunk_rep.go
-model_inline_object.go
-model_inline_object_1.go
 model_inline_response_200.go
 model_integration_metadata.go
 model_integration_status.go
+model_invalid_request_error_rep.go
 model_ip_list.go
 model_last_seen_metadata.go
 model_link.go
@@ -313,6 +349,7 @@ model_member_permission_grant_summary_rep.go
 model_member_summary_rep.go
 model_member_team_summary_rep.go
 model_members.go
+model_method_not_allowed_error_rep.go
 model_metric_collection_rep.go
 model_metric_listing_rep.go
 model_metric_post.go
@@ -321,7 +358,9 @@ model_modification.go
 model_multi_environment_dependent_flag.go
 model_multi_environment_dependent_flags.go
 model_new_member_form.go
+model_not_found_error_rep.go
 model_parent_resource_rep.go
+model_patch_failed_error_rep.go
 model_patch_operation.go
 model_patch_segment_instruction.go
 model_patch_segment_request.go
@@ -337,6 +376,8 @@ model_project_listing_rep.go
 model_project_post.go
 model_projects.go
 model_pub_nub_detail_rep.go
+model_put_branch.go
+model_rate_limited_error_rep.go
 model_reference_rep.go
 model_relay_auto_config_collection_rep.go
 model_relay_auto_config_post.go
@@ -346,9 +387,12 @@ model_repository_post.go
 model_repository_rep.go
 model_resource_access.go
 model_resource_id_response.go
+model_review_output_rep.go
 model_review_response.go
 model_rollout.go
 model_rule.go
+model_schedule_condition_input_rep.go
+model_schedule_condition_output_rep.go
 model_sdk_list_rep.go
 model_sdk_version_list_rep.go
 model_sdk_version_rep.go
@@ -358,6 +402,8 @@ model_segment_user_list.go
 model_segment_user_state.go
 model_series_list_rep.go
 model_source_flag.go
+model_stage_input_rep.go
+model_stage_output_rep.go
 model_statement.go
 model_statement_post.go
 model_statement_post_data.go
@@ -365,6 +411,7 @@ model_statement_rep.go
 model_statistic_collection_rep.go
 model_statistic_rep.go
 model_statistics_root.go
+model_status_conflict_error_rep.go
 model_subject_data_rep.go
 model_target.go
 model_target_resource_rep.go
@@ -376,6 +423,7 @@ model_title_rep.go
 model_token.go
 model_token_data_rep.go
 model_tokens.go
+model_unauthorized_error_rep.go
 model_url_post.go
 model_user.go
 model_user_attribute_names_rep.go

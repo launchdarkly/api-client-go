@@ -17,17 +17,21 @@ import (
 
 // ReferenceRep struct for ReferenceRep
 type ReferenceRep struct {
-	Path *string `json:"path,omitempty"`
+	// File path of the reference
+	Path string `json:"path"`
+	// Programming language used in the file
 	Hint *string `json:"hint,omitempty"`
-	Hunks *[]HunkRep `json:"hunks,omitempty"`
+	Hunks []HunkRep `json:"hunks"`
 }
 
 // NewReferenceRep instantiates a new ReferenceRep object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewReferenceRep() *ReferenceRep {
+func NewReferenceRep(path string, hunks []HunkRep) *ReferenceRep {
 	this := ReferenceRep{}
+	this.Path = path
+	this.Hunks = hunks
 	return &this
 }
 
@@ -39,36 +43,28 @@ func NewReferenceRepWithDefaults() *ReferenceRep {
 	return &this
 }
 
-// GetPath returns the Path field value if set, zero value otherwise.
+// GetPath returns the Path field value
 func (o *ReferenceRep) GetPath() string {
-	if o == nil || o.Path == nil {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Path
+
+	return o.Path
 }
 
-// GetPathOk returns a tuple with the Path field value if set, nil otherwise
+// GetPathOk returns a tuple with the Path field value
 // and a boolean to check if the value has been set.
 func (o *ReferenceRep) GetPathOk() (*string, bool) {
-	if o == nil || o.Path == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Path, true
+	return &o.Path, true
 }
 
-// HasPath returns a boolean if a field has been set.
-func (o *ReferenceRep) HasPath() bool {
-	if o != nil && o.Path != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetPath gets a reference to the given string and assigns it to the Path field.
+// SetPath sets field value
 func (o *ReferenceRep) SetPath(v string) {
-	o.Path = &v
+	o.Path = v
 }
 
 // GetHint returns the Hint field value if set, zero value otherwise.
@@ -103,47 +99,39 @@ func (o *ReferenceRep) SetHint(v string) {
 	o.Hint = &v
 }
 
-// GetHunks returns the Hunks field value if set, zero value otherwise.
+// GetHunks returns the Hunks field value
 func (o *ReferenceRep) GetHunks() []HunkRep {
-	if o == nil || o.Hunks == nil {
+	if o == nil {
 		var ret []HunkRep
 		return ret
 	}
-	return *o.Hunks
+
+	return o.Hunks
 }
 
-// GetHunksOk returns a tuple with the Hunks field value if set, nil otherwise
+// GetHunksOk returns a tuple with the Hunks field value
 // and a boolean to check if the value has been set.
 func (o *ReferenceRep) GetHunksOk() (*[]HunkRep, bool) {
-	if o == nil || o.Hunks == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Hunks, true
+	return &o.Hunks, true
 }
 
-// HasHunks returns a boolean if a field has been set.
-func (o *ReferenceRep) HasHunks() bool {
-	if o != nil && o.Hunks != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetHunks gets a reference to the given []HunkRep and assigns it to the Hunks field.
+// SetHunks sets field value
 func (o *ReferenceRep) SetHunks(v []HunkRep) {
-	o.Hunks = &v
+	o.Hunks = v
 }
 
 func (o ReferenceRep) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Path != nil {
+	if true {
 		toSerialize["path"] = o.Path
 	}
 	if o.Hint != nil {
 		toSerialize["hint"] = o.Hint
 	}
-	if o.Hunks != nil {
+	if true {
 		toSerialize["hunks"] = o.Hunks
 	}
 	return json.Marshal(toSerialize)

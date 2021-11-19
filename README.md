@@ -539,7 +539,7 @@ Class | Method | HTTP request | Description
 *ApprovalsApi* | [**PostApprovalRequest**](docs/ApprovalsApi.md#postapprovalrequest) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests | Create approval request
 *ApprovalsApi* | [**PostApprovalRequestApplyRequest**](docs/ApprovalsApi.md#postapprovalrequestapplyrequest) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id}/apply | Apply approval request
 *ApprovalsApi* | [**PostApprovalRequestReview**](docs/ApprovalsApi.md#postapprovalrequestreview) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id}/reviews | Review approval request
-*ApprovalsApi* | [**PostFlagCopyConfigApprovalRequest**](docs/ApprovalsApi.md#postflagcopyconfigapprovalrequest) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/copy/environments/{environmentKey}/approval-requests-flag-copy | Create approval request to copy flag configurations across environments
+*ApprovalsApi* | [**PostFlagCopyConfigApprovalRequest**](docs/ApprovalsApi.md#postflagcopyconfigapprovalrequest) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests-flag-copy | Create approval request to copy flag configurations across environments
 *AuditLogApi* | [**GetAuditLogEntries**](docs/AuditLogApi.md#getauditlogentries) | **Get** /api/v2/auditlog | List audit log feature flag entries
 *AuditLogApi* | [**GetAuditLogEntry**](docs/AuditLogApi.md#getauditlogentry) | **Get** /api/v2/auditlog/{id} | Get audit log entry
 *CodeReferencesApi* | [**DeleteBranches**](docs/CodeReferencesApi.md#deletebranches) | **Post** /api/v2/code-refs/repositories/{repo}/branch-delete-tasks | Delete branches
@@ -552,7 +552,7 @@ Class | Method | HTTP request | Description
 *CodeReferencesApi* | [**GetRootStatistic**](docs/CodeReferencesApi.md#getrootstatistic) | **Get** /api/v2/code-refs/statistics | Get links to code reference repositories for each project
 *CodeReferencesApi* | [**GetStatistics**](docs/CodeReferencesApi.md#getstatistics) | **Get** /api/v2/code-refs/statistics/{projKey} | Get number of code references for flags
 *CodeReferencesApi* | [**PatchRepository**](docs/CodeReferencesApi.md#patchrepository) | **Patch** /api/v2/code-refs/repositories/{repo} | Update repository
-*CodeReferencesApi* | [**PostExtinction**](docs/CodeReferencesApi.md#postextinction) | **Post** /api/v2/code-refs/repositories/{repo}/branches/{branch} | Create extinction
+*CodeReferencesApi* | [**PostExtinction**](docs/CodeReferencesApi.md#postextinction) | **Post** /api/v2/code-refs/repositories/{repo}/branches/{branch}/extinction-events | Create extinction
 *CodeReferencesApi* | [**PostRepository**](docs/CodeReferencesApi.md#postrepository) | **Post** /api/v2/code-refs/repositories | Create repository
 *CodeReferencesApi* | [**PutBranch**](docs/CodeReferencesApi.md#putbranch) | **Put** /api/v2/code-refs/repositories/{repo}/branches/{branch} | Upsert branch
 *CustomRolesApi* | [**DeleteCustomRole**](docs/CustomRolesApi.md#deletecustomrole) | **Delete** /api/v2/roles/{key} | Delete custom role
@@ -620,10 +620,10 @@ Class | Method | HTTP request | Description
 *SegmentsApi* | [**PatchSegment**](docs/SegmentsApi.md#patchsegment) | **Patch** /api/v2/segments/{projKey}/{envKey}/{key} | Patch segment
 *SegmentsApi* | [**PostSegment**](docs/SegmentsApi.md#postsegment) | **Post** /api/v2/segments/{projKey}/{envKey} | Create segment
 *SegmentsApi* | [**UpdateBigSegmentTargets**](docs/SegmentsApi.md#updatebigsegmenttargets) | **Post** /api/v2/segments/{projKey}/{envKey}/{key}/users | Update targets on a Big Segment
-*TeamsBetaApi* | [**DeleteTeam**](docs/TeamsBetaApi.md#deleteteam) | **Delete** /api/v2/teams/{key} | Delete team by key
-*TeamsBetaApi* | [**GetTeam**](docs/TeamsBetaApi.md#getteam) | **Get** /api/v2/teams/{key} | Get team by key
-*TeamsBetaApi* | [**GetTeams**](docs/TeamsBetaApi.md#getteams) | **Get** /api/v2/teams | Get all teams
-*TeamsBetaApi* | [**PatchTeam**](docs/TeamsBetaApi.md#patchteam) | **Patch** /api/v2/teams/{key} | Patch team by key
+*TeamsBetaApi* | [**DeleteTeam**](docs/TeamsBetaApi.md#deleteteam) | **Delete** /api/v2/teams/{key} | Delete team
+*TeamsBetaApi* | [**GetTeam**](docs/TeamsBetaApi.md#getteam) | **Get** /api/v2/teams/{key} | Get team
+*TeamsBetaApi* | [**GetTeams**](docs/TeamsBetaApi.md#getteams) | **Get** /api/v2/teams | List teams
+*TeamsBetaApi* | [**PatchTeam**](docs/TeamsBetaApi.md#patchteam) | **Patch** /api/v2/teams/{key} | Update team
 *TeamsBetaApi* | [**PostTeam**](docs/TeamsBetaApi.md#postteam) | **Post** /api/v2/teams | Create team
 *UserSettingsApi* | [**GetExpiringFlagsForUser**](docs/UserSettingsApi.md#getexpiringflagsforuser) | **Get** /api/v2/users/{projKey}/{userKey}/expiring-user-targets/{envKey} | Get expiring dates on flags for user
 *UserSettingsApi* | [**GetUserFlagSetting**](docs/UserSettingsApi.md#getuserflagsetting) | **Get** /api/v2/users/{projKey}/{envKey}/{key}/flags/{featureKey} | Get flag setting for user
@@ -640,6 +640,9 @@ Class | Method | HTTP request | Description
 *WebhooksApi* | [**GetWebhook**](docs/WebhooksApi.md#getwebhook) | **Get** /api/v2/webhooks/{id} | Get webhook
 *WebhooksApi* | [**PatchWebhook**](docs/WebhooksApi.md#patchwebhook) | **Patch** /api/v2/webhooks/{id} | Update webhook
 *WebhooksApi* | [**PostWebhook**](docs/WebhooksApi.md#postwebhook) | **Post** /api/v2/webhooks | Creates a webhook
+*WorkflowsBetaApi* | [**DeleteWorkflow**](docs/WorkflowsBetaApi.md#deleteworkflow) | **Delete** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/workflows/{workflowId} | Delete workflow
+*WorkflowsBetaApi* | [**GetWorkflows**](docs/WorkflowsBetaApi.md#getworkflows) | **Get** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/workflows | Get workflows
+*WorkflowsBetaApi* | [**PostWorkflow**](docs/WorkflowsBetaApi.md#postworkflow) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/workflows | Create workflow
 
 
 ## Documentation For Models
@@ -648,6 +651,10 @@ Class | Method | HTTP request | Description
  - [AccessDeniedRep](docs/AccessDeniedRep.md)
  - [AccessRep](docs/AccessRep.md)
  - [AccessTokenPost](docs/AccessTokenPost.md)
+ - [ActionInputRep](docs/ActionInputRep.md)
+ - [ActionOutputRep](docs/ActionOutputRep.md)
+ - [ApprovalConditionInputRep](docs/ApprovalConditionInputRep.md)
+ - [ApprovalConditionOutputRep](docs/ApprovalConditionOutputRep.md)
  - [ApprovalSettings](docs/ApprovalSettings.md)
  - [AuditLogEntryListingRep](docs/AuditLogEntryListingRep.md)
  - [AuditLogEntryListingRepCollection](docs/AuditLogEntryListingRepCollection.md)
@@ -659,8 +666,12 @@ Class | Method | HTTP request | Description
  - [Clause](docs/Clause.md)
  - [ClientSideAvailability](docs/ClientSideAvailability.md)
  - [ClientSideAvailabilityPost](docs/ClientSideAvailabilityPost.md)
+ - [ConditionBaseOutputRep](docs/ConditionBaseOutputRep.md)
+ - [ConditionInputRep](docs/ConditionInputRep.md)
+ - [ConditionOutputRep](docs/ConditionOutputRep.md)
  - [ConfidenceIntervalRep](docs/ConfidenceIntervalRep.md)
  - [Conflict](docs/Conflict.md)
+ - [ConflictOutputRep](docs/ConflictOutputRep.md)
  - [CopiedFromEnv](docs/CopiedFromEnv.md)
  - [CreateCopyFlagConfigApprovalRequestRequest](docs/CreateCopyFlagConfigApprovalRequestRequest.md)
  - [CreateFlagConfigApprovalRequestRequest](docs/CreateFlagConfigApprovalRequestRequest.md)
@@ -669,8 +680,11 @@ Class | Method | HTTP request | Description
  - [CustomRolePost](docs/CustomRolePost.md)
  - [CustomRolePostData](docs/CustomRolePostData.md)
  - [CustomRoles](docs/CustomRoles.md)
+ - [CustomWorkflowInputRep](docs/CustomWorkflowInputRep.md)
  - [CustomWorkflowMeta](docs/CustomWorkflowMeta.md)
+ - [CustomWorkflowOutputRep](docs/CustomWorkflowOutputRep.md)
  - [CustomWorkflowStageMeta](docs/CustomWorkflowStageMeta.md)
+ - [CustomWorkflowsListingOutputRep](docs/CustomWorkflowsListingOutputRep.md)
  - [DefaultClientSideAvailabilityPost](docs/DefaultClientSideAvailabilityPost.md)
  - [Defaults](docs/Defaults.md)
  - [DependentFlag](docs/DependentFlag.md)
@@ -681,6 +695,7 @@ Class | Method | HTTP request | Description
  - [Destinations](docs/Destinations.md)
  - [Environment](docs/Environment.md)
  - [EnvironmentPost](docs/EnvironmentPost.md)
+ - [ExecutionOutputRep](docs/ExecutionOutputRep.md)
  - [ExperimentAllocationRep](docs/ExperimentAllocationRep.md)
  - [ExperimentEnabledPeriodRep](docs/ExperimentEnabledPeriodRep.md)
  - [ExperimentEnvironmentSettingRep](docs/ExperimentEnvironmentSettingRep.md)
@@ -696,7 +711,6 @@ Class | Method | HTTP request | Description
  - [ExpiringUserTargetGetResponse](docs/ExpiringUserTargetGetResponse.md)
  - [ExpiringUserTargetItem](docs/ExpiringUserTargetItem.md)
  - [ExpiringUserTargetPatchResponse](docs/ExpiringUserTargetPatchResponse.md)
- - [Extinction](docs/Extinction.md)
  - [ExtinctionCollectionRep](docs/ExtinctionCollectionRep.md)
  - [ExtinctionRep](docs/ExtinctionRep.md)
  - [FeatureFlag](docs/FeatureFlag.md)
@@ -717,12 +731,12 @@ Class | Method | HTTP request | Description
  - [FlagScheduledChangesInput](docs/FlagScheduledChangesInput.md)
  - [FlagStatusRep](docs/FlagStatusRep.md)
  - [FlagSummary](docs/FlagSummary.md)
+ - [ForbiddenErrorRep](docs/ForbiddenErrorRep.md)
  - [HunkRep](docs/HunkRep.md)
- - [InlineObject](docs/InlineObject.md)
- - [InlineObject1](docs/InlineObject1.md)
  - [InlineResponse200](docs/InlineResponse200.md)
  - [IntegrationMetadata](docs/IntegrationMetadata.md)
  - [IntegrationStatus](docs/IntegrationStatus.md)
+ - [InvalidRequestErrorRep](docs/InvalidRequestErrorRep.md)
  - [IpList](docs/IpList.md)
  - [LastSeenMetadata](docs/LastSeenMetadata.md)
  - [Link](docs/Link.md)
@@ -732,6 +746,7 @@ Class | Method | HTTP request | Description
  - [MemberSummaryRep](docs/MemberSummaryRep.md)
  - [MemberTeamSummaryRep](docs/MemberTeamSummaryRep.md)
  - [Members](docs/Members.md)
+ - [MethodNotAllowedErrorRep](docs/MethodNotAllowedErrorRep.md)
  - [MetricCollectionRep](docs/MetricCollectionRep.md)
  - [MetricListingRep](docs/MetricListingRep.md)
  - [MetricPost](docs/MetricPost.md)
@@ -740,7 +755,9 @@ Class | Method | HTTP request | Description
  - [MultiEnvironmentDependentFlag](docs/MultiEnvironmentDependentFlag.md)
  - [MultiEnvironmentDependentFlags](docs/MultiEnvironmentDependentFlags.md)
  - [NewMemberForm](docs/NewMemberForm.md)
+ - [NotFoundErrorRep](docs/NotFoundErrorRep.md)
  - [ParentResourceRep](docs/ParentResourceRep.md)
+ - [PatchFailedErrorRep](docs/PatchFailedErrorRep.md)
  - [PatchOperation](docs/PatchOperation.md)
  - [PatchSegmentInstruction](docs/PatchSegmentInstruction.md)
  - [PatchSegmentRequest](docs/PatchSegmentRequest.md)
@@ -756,6 +773,8 @@ Class | Method | HTTP request | Description
  - [ProjectPost](docs/ProjectPost.md)
  - [Projects](docs/Projects.md)
  - [PubNubDetailRep](docs/PubNubDetailRep.md)
+ - [PutBranch](docs/PutBranch.md)
+ - [RateLimitedErrorRep](docs/RateLimitedErrorRep.md)
  - [ReferenceRep](docs/ReferenceRep.md)
  - [RelayAutoConfigCollectionRep](docs/RelayAutoConfigCollectionRep.md)
  - [RelayAutoConfigPost](docs/RelayAutoConfigPost.md)
@@ -765,9 +784,12 @@ Class | Method | HTTP request | Description
  - [RepositoryRep](docs/RepositoryRep.md)
  - [ResourceAccess](docs/ResourceAccess.md)
  - [ResourceIDResponse](docs/ResourceIDResponse.md)
+ - [ReviewOutputRep](docs/ReviewOutputRep.md)
  - [ReviewResponse](docs/ReviewResponse.md)
  - [Rollout](docs/Rollout.md)
  - [Rule](docs/Rule.md)
+ - [ScheduleConditionInputRep](docs/ScheduleConditionInputRep.md)
+ - [ScheduleConditionOutputRep](docs/ScheduleConditionOutputRep.md)
  - [SdkListRep](docs/SdkListRep.md)
  - [SdkVersionListRep](docs/SdkVersionListRep.md)
  - [SdkVersionRep](docs/SdkVersionRep.md)
@@ -777,6 +799,8 @@ Class | Method | HTTP request | Description
  - [SegmentUserState](docs/SegmentUserState.md)
  - [SeriesListRep](docs/SeriesListRep.md)
  - [SourceFlag](docs/SourceFlag.md)
+ - [StageInputRep](docs/StageInputRep.md)
+ - [StageOutputRep](docs/StageOutputRep.md)
  - [Statement](docs/Statement.md)
  - [StatementPost](docs/StatementPost.md)
  - [StatementPostData](docs/StatementPostData.md)
@@ -784,6 +808,7 @@ Class | Method | HTTP request | Description
  - [StatisticCollectionRep](docs/StatisticCollectionRep.md)
  - [StatisticRep](docs/StatisticRep.md)
  - [StatisticsRoot](docs/StatisticsRoot.md)
+ - [StatusConflictErrorRep](docs/StatusConflictErrorRep.md)
  - [SubjectDataRep](docs/SubjectDataRep.md)
  - [Target](docs/Target.md)
  - [TargetResourceRep](docs/TargetResourceRep.md)
@@ -795,6 +820,7 @@ Class | Method | HTTP request | Description
  - [Token](docs/Token.md)
  - [TokenDataRep](docs/TokenDataRep.md)
  - [Tokens](docs/Tokens.md)
+ - [UnauthorizedErrorRep](docs/UnauthorizedErrorRep.md)
  - [UrlPost](docs/UrlPost.md)
  - [User](docs/User.md)
  - [UserAttributeNamesRep](docs/UserAttributeNamesRep.md)

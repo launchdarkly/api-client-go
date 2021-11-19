@@ -23,7 +23,7 @@ Name | Type | Description | Notes
 **OperatingOnId** | Pointer to **string** | ID of scheduled change to edit or delete | [optional] 
 **IntegrationMetadata** | Pointer to [**IntegrationMetadata**](IntegrationMetadata.md) |  | [optional] 
 **Source** | Pointer to [**CopiedFromEnv**](CopiedFromEnv.md) |  | [optional] 
-**CustomWorkflowMetaData** | Pointer to [**CustomWorkflowMeta**](CustomWorkflowMeta.md) |  | [optional] 
+**CustomWorkflowMetadata** | Pointer to [**CustomWorkflowMeta**](CustomWorkflowMeta.md) |  | [optional] 
 
 ## Methods
 
@@ -464,30 +464,30 @@ SetSource sets Source field to given value.
 
 HasSource returns a boolean if a field has been set.
 
-### GetCustomWorkflowMetaData
+### GetCustomWorkflowMetadata
 
-`func (o *FlagConfigApprovalRequestResponse) GetCustomWorkflowMetaData() CustomWorkflowMeta`
+`func (o *FlagConfigApprovalRequestResponse) GetCustomWorkflowMetadata() CustomWorkflowMeta`
 
-GetCustomWorkflowMetaData returns the CustomWorkflowMetaData field if non-nil, zero value otherwise.
+GetCustomWorkflowMetadata returns the CustomWorkflowMetadata field if non-nil, zero value otherwise.
 
-### GetCustomWorkflowMetaDataOk
+### GetCustomWorkflowMetadataOk
 
-`func (o *FlagConfigApprovalRequestResponse) GetCustomWorkflowMetaDataOk() (*CustomWorkflowMeta, bool)`
+`func (o *FlagConfigApprovalRequestResponse) GetCustomWorkflowMetadataOk() (*CustomWorkflowMeta, bool)`
 
-GetCustomWorkflowMetaDataOk returns a tuple with the CustomWorkflowMetaData field if it's non-nil, zero value otherwise
+GetCustomWorkflowMetadataOk returns a tuple with the CustomWorkflowMetadata field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetCustomWorkflowMetaData
+### SetCustomWorkflowMetadata
 
-`func (o *FlagConfigApprovalRequestResponse) SetCustomWorkflowMetaData(v CustomWorkflowMeta)`
+`func (o *FlagConfigApprovalRequestResponse) SetCustomWorkflowMetadata(v CustomWorkflowMeta)`
 
-SetCustomWorkflowMetaData sets CustomWorkflowMetaData field to given value.
+SetCustomWorkflowMetadata sets CustomWorkflowMetadata field to given value.
 
-### HasCustomWorkflowMetaData
+### HasCustomWorkflowMetadata
 
-`func (o *FlagConfigApprovalRequestResponse) HasCustomWorkflowMetaData() bool`
+`func (o *FlagConfigApprovalRequestResponse) HasCustomWorkflowMetadata() bool`
 
-HasCustomWorkflowMetaData returns a boolean if a field has been set.
+HasCustomWorkflowMetadata returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -17,14 +17,23 @@ import (
 
 // RepositoryRep struct for RepositoryRep
 type RepositoryRep struct {
+	// The repository name
 	Name string `json:"name"`
+	// A URL to access the repository
 	SourceLink *string `json:"sourceLink,omitempty"`
+	// A template for constructing a valid URL to view the commit
 	CommitUrlTemplate *string `json:"commitUrlTemplate,omitempty"`
+	// A template for constructing a valid URL to view the hunk
 	HunkUrlTemplate *string `json:"hunkUrlTemplate,omitempty"`
+	// The type of repository
 	Type string `json:"type"`
+	// The repository's default branch
 	DefaultBranch string `json:"defaultBranch"`
+	// Whether or not a repository is enabled for code reference scanning
 	Enabled bool `json:"enabled"`
+	// The version of the repository's saved information
 	Version int32 `json:"version"`
+	// An array of the repository's branches that have been scanned for code references
 	Branches *[]BranchRep `json:"branches,omitempty"`
 	Links map[string]interface{} `json:"_links"`
 	Access *AccessRep `json:"_access,omitempty"`

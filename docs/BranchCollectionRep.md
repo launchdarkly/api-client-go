@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Links** | [**map[string]Link**](Link.md) |  | 
-**Items** | [**[]BranchRep**](BranchRep.md) |  | 
+**Items** | [**[]BranchRep**](BranchRep.md) | An array of branches | 
 
 ## Methods
 

@@ -78,7 +78,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -87,7 +87,7 @@ Name | Type | Description  | Notes
 
 ## GetSearchUsers
 
-> Users GetSearchUsers(ctx, projKey, envKey).Q(q).Limit(limit).Offset(offset).After(after).SearchAfter(searchAfter).Execute()
+> Users GetSearchUsers(ctx, projKey, envKey).Q(q).Limit(limit).Offset(offset).After(after).Sort(sort).SearchAfter(searchAfter).Filter(filter).Execute()
 
 Find users
 
@@ -112,11 +112,13 @@ func main() {
     limit := int64(789) // int64 | Specifies the maximum number of items in the collection to return (max: 50, default: 20) (optional)
     offset := int64(789) // int64 | Specifies the first item to return in the collection (optional)
     after := int64(789) // int64 | A unix epoch time in milliseconds specifying the maximum last time a user requested a feature flag from LaunchDarkly (optional)
+    sort := "sort_example" // string | Specifies a field by which to sort. LaunchDarkly supports the `userKey` and `lastSeen` fields. Fields prefixed by a dash ( - ) sort in descending order. (optional)
     searchAfter := "searchAfter_example" // string | Limits results to users with sort values after the value you specify. You can use this for pagination, but we recommend using the `next` link we provide instead. (optional)
+    filter := "filter_example" // string | A comma-separated list of user attribute filters. Each filter is in the form of attributeKey:attributeValue (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.UsersApi.GetSearchUsers(context.Background(), projKey, envKey).Q(q).Limit(limit).Offset(offset).After(after).SearchAfter(searchAfter).Execute()
+    resp, r, err := api_client.UsersApi.GetSearchUsers(context.Background(), projKey, envKey).Q(q).Limit(limit).Offset(offset).After(after).Sort(sort).SearchAfter(searchAfter).Filter(filter).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UsersApi.GetSearchUsers``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -148,7 +150,9 @@ Name | Type | Description  | Notes
  **limit** | **int64** | Specifies the maximum number of items in the collection to return (max: 50, default: 20) | 
  **offset** | **int64** | Specifies the first item to return in the collection | 
  **after** | **int64** | A unix epoch time in milliseconds specifying the maximum last time a user requested a feature flag from LaunchDarkly | 
+ **sort** | **string** | Specifies a field by which to sort. LaunchDarkly supports the &#x60;userKey&#x60; and &#x60;lastSeen&#x60; fields. Fields prefixed by a dash ( - ) sort in descending order. | 
  **searchAfter** | **string** | Limits results to users with sort values after the value you specify. You can use this for pagination, but we recommend using the &#x60;next&#x60; link we provide instead. | 
+ **filter** | **string** | A comma-separated list of user attribute filters. Each filter is in the form of attributeKey:attributeValue | 
 
 ### Return type
 

@@ -21,12 +21,13 @@ Name | Type | Description | Notes
 **IntegrationMetadata** | Pointer to [**IntegrationMetadata**](IntegrationMetadata.md) |  | [optional] 
 **Teams** | Pointer to [**[]MemberTeamSummaryRep**](MemberTeamSummaryRep.md) |  | [optional] 
 **PermissionGrants** | Pointer to [**[]MemberPermissionGrantSummaryRep**](MemberPermissionGrantSummaryRep.md) |  | [optional] 
+**CreationDate** | **int64** |  | 
 
 ## Methods
 
 ### NewMember
 
-`func NewMember(links map[string]Link, id string, role string, email string, pendingInvite bool, verified bool, customRoles []string, mfa string, excludedDashboards []string, lastSeen int64, ) *Member`
+`func NewMember(links map[string]Link, id string, role string, email string, pendingInvite bool, verified bool, customRoles []string, mfa string, excludedDashboards []string, lastSeen int64, creationDate int64, ) *Member`
 
 NewMember instantiates a new Member object
 This constructor will assign default values to properties that have it defined,
@@ -415,6 +416,26 @@ SetPermissionGrants sets PermissionGrants field to given value.
 `func (o *Member) HasPermissionGrants() bool`
 
 HasPermissionGrants returns a boolean if a field has been set.
+
+### GetCreationDate
+
+`func (o *Member) GetCreationDate() int64`
+
+GetCreationDate returns the CreationDate field if non-nil, zero value otherwise.
+
+### GetCreationDateOk
+
+`func (o *Member) GetCreationDateOk() (*int64, bool)`
+
+GetCreationDateOk returns a tuple with the CreationDate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreationDate
+
+`func (o *Member) SetCreationDate(v int64)`
+
+SetCreationDate sets CreationDate field to given value.
+
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

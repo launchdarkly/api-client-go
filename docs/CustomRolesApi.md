@@ -73,7 +73,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -82,7 +82,7 @@ Name | Type | Description  | Notes
 
 ## GetCustomRole
 
-> CustomRolePost GetCustomRole(ctx, key).Execute()
+> CustomRole GetCustomRole(ctx, key).Execute()
 
 Get custom role
 
@@ -110,7 +110,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `CustomRolesApi.GetCustomRole``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetCustomRole`: CustomRolePost
+    // response from `GetCustomRole`: CustomRole
     fmt.Fprintf(os.Stdout, "Response from `CustomRolesApi.GetCustomRole`: %v\n", resp)
 }
 ```
@@ -134,7 +134,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CustomRolePost**](CustomRolePost.md)
+[**CustomRole**](CustomRole.md)
 
 ### Authorization
 
@@ -285,7 +285,7 @@ Name | Type | Description  | Notes
 
 ## PostCustomRole
 
-> CustomRole PostCustomRole(ctx).StatementPost(statementPost).Execute()
+> CustomRole PostCustomRole(ctx).CustomRolePost(customRolePost).Execute()
 
 Create custom role
 
@@ -304,11 +304,11 @@ import (
 )
 
 func main() {
-    statementPost := []openapiclient.StatementPost{*openapiclient.NewStatementPost("Effect_example")} // []StatementPost | 
+    customRolePost := *openapiclient.NewCustomRolePost("Name_example", "Key_example", []openapiclient.StatementPost{*openapiclient.NewStatementPost([]string{"Resources_example"}, []string{"Actions_example"}, "Effect_example")}) // CustomRolePost | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CustomRolesApi.PostCustomRole(context.Background()).StatementPost(statementPost).Execute()
+    resp, r, err := api_client.CustomRolesApi.PostCustomRole(context.Background()).CustomRolePost(customRolePost).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CustomRolesApi.PostCustomRole``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -329,7 +329,7 @@ Other parameters are passed through a pointer to a apiPostCustomRoleRequest stru
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **statementPost** | [**[]StatementPost**](StatementPost.md) |  | 
+ **customRolePost** | [**CustomRolePost**](CustomRolePost.md) |  | 
 
 ### Return type
 

@@ -4,18 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | Pointer to **string** |  | [optional] 
-**Head** | Pointer to **string** |  | [optional] 
-**UpdateSequenceId** | Pointer to **int64** |  | [optional] 
-**SyncTime** | Pointer to **int64** |  | [optional] 
-**References** | Pointer to [**[]ReferenceRep**](ReferenceRep.md) |  | [optional] 
-**Links** | Pointer to **map[string]interface{}** |  | [optional] 
+**Name** | **string** | The branch name | 
+**Head** | **string** | An ID representing the branch HEAD. For example, a commit SHA. | 
+**UpdateSequenceId** | Pointer to **int64** | An optional ID used to prevent older data from overwriting newer data | [optional] 
+**SyncTime** | **int64** |  | 
+**References** | Pointer to [**[]ReferenceRep**](ReferenceRep.md) | An array of flag references found on the branch | [optional] 
+**Links** | **map[string]interface{}** |  | 
 
 ## Methods
 
 ### NewBranchRep
 
-`func NewBranchRep() *BranchRep`
+`func NewBranchRep(name string, head string, syncTime int64, links map[string]interface{}, ) *BranchRep`
 
 NewBranchRep instantiates a new BranchRep object
 This constructor will assign default values to properties that have it defined,
@@ -49,11 +49,6 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
-### HasName
-
-`func (o *BranchRep) HasName() bool`
-
-HasName returns a boolean if a field has been set.
 
 ### GetHead
 
@@ -74,11 +69,6 @@ and a boolean to check if the value has been set.
 
 SetHead sets Head field to given value.
 
-### HasHead
-
-`func (o *BranchRep) HasHead() bool`
-
-HasHead returns a boolean if a field has been set.
 
 ### GetUpdateSequenceId
 
@@ -124,11 +114,6 @@ and a boolean to check if the value has been set.
 
 SetSyncTime sets SyncTime field to given value.
 
-### HasSyncTime
-
-`func (o *BranchRep) HasSyncTime() bool`
-
-HasSyncTime returns a boolean if a field has been set.
 
 ### GetReferences
 
@@ -174,11 +159,6 @@ and a boolean to check if the value has been set.
 
 SetLinks sets Links field to given value.
 
-### HasLinks
-
-`func (o *BranchRep) HasLinks() bool`
-
-HasLinks returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

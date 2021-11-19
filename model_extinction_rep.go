@@ -17,10 +17,14 @@ import (
 
 // ExtinctionRep struct for ExtinctionRep
 type ExtinctionRep struct {
+	// The identifier for the revision where flag became extinct. For example, a commit SHA.
 	Revision string `json:"revision"`
+	// Description of the extinction. For example, the commit message for the revision.
 	Message string `json:"message"`
 	Time int64 `json:"time"`
+	// The feature flag key
 	FlagKey string `json:"flagKey"`
+	// The project key
 	ProjKey string `json:"projKey"`
 }
 

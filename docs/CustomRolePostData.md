@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **Key** | **string** | The custom role key | 
 **Description** | Pointer to **string** | Description of custom role | [optional] 
 **Policy** | [**[]StatementPost**](StatementPost.md) |  | 
+**BasePermissions** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -112,6 +113,31 @@ and a boolean to check if the value has been set.
 
 SetPolicy sets Policy field to given value.
 
+
+### GetBasePermissions
+
+`func (o *CustomRolePostData) GetBasePermissions() string`
+
+GetBasePermissions returns the BasePermissions field if non-nil, zero value otherwise.
+
+### GetBasePermissionsOk
+
+`func (o *CustomRolePostData) GetBasePermissionsOk() (*string, bool)`
+
+GetBasePermissionsOk returns a tuple with the BasePermissions field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBasePermissions
+
+`func (o *CustomRolePostData) SetBasePermissions(v string)`
+
+SetBasePermissions sets BasePermissions field to given value.
+
+### HasBasePermissions
+
+`func (o *CustomRolePostData) HasBasePermissions() bool`
+
+HasBasePermissions returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

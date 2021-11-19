@@ -39,7 +39,7 @@ type FlagConfigApprovalRequestResponse struct {
 	OperatingOnId *string `json:"operatingOnId,omitempty"`
 	IntegrationMetadata *IntegrationMetadata `json:"integrationMetadata,omitempty"`
 	Source *CopiedFromEnv `json:"source,omitempty"`
-	CustomWorkflowMetaData *CustomWorkflowMeta `json:"customWorkflowMetaData,omitempty"`
+	CustomWorkflowMetadata *CustomWorkflowMeta `json:"customWorkflowMetadata,omitempty"`
 }
 
 // NewFlagConfigApprovalRequestResponse instantiates a new FlagConfigApprovalRequestResponse object
@@ -590,36 +590,36 @@ func (o *FlagConfigApprovalRequestResponse) SetSource(v CopiedFromEnv) {
 	o.Source = &v
 }
 
-// GetCustomWorkflowMetaData returns the CustomWorkflowMetaData field value if set, zero value otherwise.
-func (o *FlagConfigApprovalRequestResponse) GetCustomWorkflowMetaData() CustomWorkflowMeta {
-	if o == nil || o.CustomWorkflowMetaData == nil {
+// GetCustomWorkflowMetadata returns the CustomWorkflowMetadata field value if set, zero value otherwise.
+func (o *FlagConfigApprovalRequestResponse) GetCustomWorkflowMetadata() CustomWorkflowMeta {
+	if o == nil || o.CustomWorkflowMetadata == nil {
 		var ret CustomWorkflowMeta
 		return ret
 	}
-	return *o.CustomWorkflowMetaData
+	return *o.CustomWorkflowMetadata
 }
 
-// GetCustomWorkflowMetaDataOk returns a tuple with the CustomWorkflowMetaData field value if set, nil otherwise
+// GetCustomWorkflowMetadataOk returns a tuple with the CustomWorkflowMetadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FlagConfigApprovalRequestResponse) GetCustomWorkflowMetaDataOk() (*CustomWorkflowMeta, bool) {
-	if o == nil || o.CustomWorkflowMetaData == nil {
+func (o *FlagConfigApprovalRequestResponse) GetCustomWorkflowMetadataOk() (*CustomWorkflowMeta, bool) {
+	if o == nil || o.CustomWorkflowMetadata == nil {
 		return nil, false
 	}
-	return o.CustomWorkflowMetaData, true
+	return o.CustomWorkflowMetadata, true
 }
 
-// HasCustomWorkflowMetaData returns a boolean if a field has been set.
-func (o *FlagConfigApprovalRequestResponse) HasCustomWorkflowMetaData() bool {
-	if o != nil && o.CustomWorkflowMetaData != nil {
+// HasCustomWorkflowMetadata returns a boolean if a field has been set.
+func (o *FlagConfigApprovalRequestResponse) HasCustomWorkflowMetadata() bool {
+	if o != nil && o.CustomWorkflowMetadata != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetCustomWorkflowMetaData gets a reference to the given CustomWorkflowMeta and assigns it to the CustomWorkflowMetaData field.
-func (o *FlagConfigApprovalRequestResponse) SetCustomWorkflowMetaData(v CustomWorkflowMeta) {
-	o.CustomWorkflowMetaData = &v
+// SetCustomWorkflowMetadata gets a reference to the given CustomWorkflowMeta and assigns it to the CustomWorkflowMetadata field.
+func (o *FlagConfigApprovalRequestResponse) SetCustomWorkflowMetadata(v CustomWorkflowMeta) {
+	o.CustomWorkflowMetadata = &v
 }
 
 func (o FlagConfigApprovalRequestResponse) MarshalJSON() ([]byte, error) {
@@ -681,8 +681,8 @@ func (o FlagConfigApprovalRequestResponse) MarshalJSON() ([]byte, error) {
 	if o.Source != nil {
 		toSerialize["source"] = o.Source
 	}
-	if o.CustomWorkflowMetaData != nil {
-		toSerialize["customWorkflowMetaData"] = o.CustomWorkflowMetaData
+	if o.CustomWorkflowMetadata != nil {
+		toSerialize["customWorkflowMetadata"] = o.CustomWorkflowMetadata
 	}
 	return json.Marshal(toSerialize)
 }

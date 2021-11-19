@@ -4,10 +4,10 @@ All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteTeam**](TeamsBetaApi.md#DeleteTeam) | **Delete** /api/v2/teams/{key} | Delete team by key
-[**GetTeam**](TeamsBetaApi.md#GetTeam) | **Get** /api/v2/teams/{key} | Get team by key
-[**GetTeams**](TeamsBetaApi.md#GetTeams) | **Get** /api/v2/teams | Get all teams
-[**PatchTeam**](TeamsBetaApi.md#PatchTeam) | **Patch** /api/v2/teams/{key} | Patch team by key
+[**DeleteTeam**](TeamsBetaApi.md#DeleteTeam) | **Delete** /api/v2/teams/{key} | Delete team
+[**GetTeam**](TeamsBetaApi.md#GetTeam) | **Get** /api/v2/teams/{key} | Get team
+[**GetTeams**](TeamsBetaApi.md#GetTeams) | **Get** /api/v2/teams | List teams
+[**PatchTeam**](TeamsBetaApi.md#PatchTeam) | **Patch** /api/v2/teams/{key} | Update team
 [**PostTeam**](TeamsBetaApi.md#PostTeam) | **Post** /api/v2/teams | Create team
 
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 > DeleteTeam(ctx, key).Execute()
 
-Delete team by key
+Delete team
 
 
 
@@ -73,7 +73,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -84,7 +84,7 @@ Name | Type | Description  | Notes
 
 > TeamRep GetTeam(ctx, key).Execute()
 
-Get team by key
+Get team
 
 
 
@@ -152,9 +152,9 @@ Name | Type | Description  | Notes
 
 ## GetTeams
 
-> TeamCollectionRep GetTeams(ctx).Execute()
+> TeamCollectionRep GetTeams(ctx).Limit(limit).Offset(offset).Filter(filter).Execute()
 
-Get all teams
+List teams
 
 
 
@@ -171,10 +171,13 @@ import (
 )
 
 func main() {
+    limit := int64(789) // int64 | The number of teams to return in the response. Defaults to 20. (optional)
+    offset := int64(789) // int64 | Where to start in the list. This is for use with pagination. For example, an offset of 10 would skip the first ten items and then return the next `limit` items. (optional)
+    filter := "filter_example" // string | A comma-separated list of filters. Each filter is of the form `field:value`. Supported fields are explained above. (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.TeamsBetaApi.GetTeams(context.Background()).Execute()
+    resp, r, err := api_client.TeamsBetaApi.GetTeams(context.Background()).Limit(limit).Offset(offset).Filter(filter).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TeamsBetaApi.GetTeams``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -186,12 +189,18 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiGetTeamsRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **limit** | **int64** | The number of teams to return in the response. Defaults to 20. | 
+ **offset** | **int64** | Where to start in the list. This is for use with pagination. For example, an offset of 10 would skip the first ten items and then return the next &#x60;limit&#x60; items. | 
+ **filter** | **string** | A comma-separated list of filters. Each filter is of the form &#x60;field:value&#x60;. Supported fields are explained above. | 
 
 ### Return type
 
@@ -215,7 +224,7 @@ Other parameters are passed through a pointer to a apiGetTeamsRequest struct via
 
 > TeamCollectionRep PatchTeam(ctx, key).TeamPatchInput(teamPatchInput).Execute()
 
-Patch team by key
+Update team
 
 
 
@@ -304,7 +313,7 @@ import (
 )
 
 func main() {
-    teamPostInput := *openapiclient.NewTeamPostInput() // TeamPostInput | 
+    teamPostInput := *openapiclient.NewTeamPostInput("Key_example", "Name_example") // TeamPostInput | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)

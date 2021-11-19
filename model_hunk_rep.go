@@ -17,10 +17,15 @@ import (
 
 // HunkRep struct for HunkRep
 type HunkRep struct {
-	StartingLineNumber *int32 `json:"startingLineNumber,omitempty"`
+	// Line number of beginning of code reference hunk
+	StartingLineNumber int32 `json:"startingLineNumber"`
+	// Contextual lines of code that include the referenced feature flag
 	Lines *string `json:"lines,omitempty"`
+	// The project key
 	ProjKey *string `json:"projKey,omitempty"`
+	// The feature flag key
 	FlagKey *string `json:"flagKey,omitempty"`
+	// An array of flag key aliases
 	Aliases *[]string `json:"aliases,omitempty"`
 }
 
@@ -28,8 +33,9 @@ type HunkRep struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewHunkRep() *HunkRep {
+func NewHunkRep(startingLineNumber int32) *HunkRep {
 	this := HunkRep{}
+	this.StartingLineNumber = startingLineNumber
 	return &this
 }
 
@@ -41,36 +47,28 @@ func NewHunkRepWithDefaults() *HunkRep {
 	return &this
 }
 
-// GetStartingLineNumber returns the StartingLineNumber field value if set, zero value otherwise.
+// GetStartingLineNumber returns the StartingLineNumber field value
 func (o *HunkRep) GetStartingLineNumber() int32 {
-	if o == nil || o.StartingLineNumber == nil {
+	if o == nil {
 		var ret int32
 		return ret
 	}
-	return *o.StartingLineNumber
+
+	return o.StartingLineNumber
 }
 
-// GetStartingLineNumberOk returns a tuple with the StartingLineNumber field value if set, nil otherwise
+// GetStartingLineNumberOk returns a tuple with the StartingLineNumber field value
 // and a boolean to check if the value has been set.
 func (o *HunkRep) GetStartingLineNumberOk() (*int32, bool) {
-	if o == nil || o.StartingLineNumber == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.StartingLineNumber, true
+	return &o.StartingLineNumber, true
 }
 
-// HasStartingLineNumber returns a boolean if a field has been set.
-func (o *HunkRep) HasStartingLineNumber() bool {
-	if o != nil && o.StartingLineNumber != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetStartingLineNumber gets a reference to the given int32 and assigns it to the StartingLineNumber field.
+// SetStartingLineNumber sets field value
 func (o *HunkRep) SetStartingLineNumber(v int32) {
-	o.StartingLineNumber = &v
+	o.StartingLineNumber = v
 }
 
 // GetLines returns the Lines field value if set, zero value otherwise.
@@ -203,7 +201,7 @@ func (o *HunkRep) SetAliases(v []string) {
 
 func (o HunkRep) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.StartingLineNumber != nil {
+	if true {
 		toSerialize["startingLineNumber"] = o.StartingLineNumber
 	}
 	if o.Lines != nil {

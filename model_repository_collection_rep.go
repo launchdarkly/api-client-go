@@ -18,6 +18,7 @@ import (
 // RepositoryCollectionRep struct for RepositoryCollectionRep
 type RepositoryCollectionRep struct {
 	Links map[string]Link `json:"_links"`
+	// An array of repositories
 	Items []RepositoryRep `json:"items"`
 }
 

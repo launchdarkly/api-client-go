@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Links** | [**map[string]Link**](Link.md) |  | 
-**Items** | [**[]RepositoryRep**](RepositoryRep.md) |  | 
+**Items** | [**[]RepositoryRep**](RepositoryRep.md) | An array of repositories | 
 
 ## Methods
 

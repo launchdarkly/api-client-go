@@ -19,7 +19,9 @@ import (
 type RepositoryPost struct {
 	Name string `json:"name"`
 	SourceLink *string `json:"sourceLink,omitempty"`
+	// A template for constructing a valid URL to view the commit
 	CommitUrlTemplate *string `json:"commitUrlTemplate,omitempty"`
+	// A template for constructing a valid URL to view the hunk
 	HunkUrlTemplate *string `json:"hunkUrlTemplate,omitempty"`
 	// Optionally specify a repository type. The default value is <code>custom</code>
 	Type *string `json:"type,omitempty"`

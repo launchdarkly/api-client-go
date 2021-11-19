@@ -44,13 +44,14 @@ type Member struct {
 	IntegrationMetadata *IntegrationMetadata `json:"_integrationMetadata,omitempty"`
 	Teams *[]MemberTeamSummaryRep `json:"teams,omitempty"`
 	PermissionGrants *[]MemberPermissionGrantSummaryRep `json:"permissionGrants,omitempty"`
+	CreationDate int64 `json:"creationDate"`
 }
 
 // NewMember instantiates a new Member object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMember(links map[string]Link, id string, role string, email string, pendingInvite bool, verified bool, customRoles []string, mfa string, excludedDashboards []string, lastSeen int64) *Member {
+func NewMember(links map[string]Link, id string, role string, email string, pendingInvite bool, verified bool, customRoles []string, mfa string, excludedDashboards []string, lastSeen int64, creationDate int64) *Member {
 	this := Member{}
 	this.Links = links
 	this.Id = id
@@ -62,6 +63,7 @@ func NewMember(links map[string]Link, id string, role string, email string, pend
 	this.Mfa = mfa
 	this.ExcludedDashboards = excludedDashboards
 	this.LastSeen = lastSeen
+	this.CreationDate = creationDate
 	return &this
 }
 
@@ -537,6 +539,30 @@ func (o *Member) SetPermissionGrants(v []MemberPermissionGrantSummaryRep) {
 	o.PermissionGrants = &v
 }
 
+// GetCreationDate returns the CreationDate field value
+func (o *Member) GetCreationDate() int64 {
+	if o == nil {
+		var ret int64
+		return ret
+	}
+
+	return o.CreationDate
+}
+
+// GetCreationDateOk returns a tuple with the CreationDate field value
+// and a boolean to check if the value has been set.
+func (o *Member) GetCreationDateOk() (*int64, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.CreationDate, true
+}
+
+// SetCreationDate sets field value
+func (o *Member) SetCreationDate(v int64) {
+	o.CreationDate = v
+}
+
 func (o Member) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -589,6 +615,9 @@ func (o Member) MarshalJSON() ([]byte, error) {
 	}
 	if o.PermissionGrants != nil {
 		toSerialize["permissionGrants"] = o.PermissionGrants
+	}
+	if true {
+		toSerialize["creationDate"] = o.CreationDate
 	}
 	return json.Marshal(toSerialize)
 }

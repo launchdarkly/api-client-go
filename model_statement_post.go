@@ -18,11 +18,11 @@ import (
 // StatementPost struct for StatementPost
 type StatementPost struct {
 	// Resource specifier strings
-	Resources *[]string `json:"resources,omitempty"`
+	Resources []string `json:"resources"`
 	// Targeted resources are the resources NOT in this list. The \"resources\" field must be empty to use this field.
 	NotResources *[]string `json:"notResources,omitempty"`
 	// Actions to perform on a resource
-	Actions *[]string `json:"actions,omitempty"`
+	Actions []string `json:"actions"`
 	// Targeted actions are the actions NOT in this list. The \"actions\" field must be empty to use this field.
 	NotActions *[]string `json:"notActions,omitempty"`
 	Effect string `json:"effect"`
@@ -32,8 +32,10 @@ type StatementPost struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewStatementPost(effect string) *StatementPost {
+func NewStatementPost(resources []string, actions []string, effect string) *StatementPost {
 	this := StatementPost{}
+	this.Resources = resources
+	this.Actions = actions
 	this.Effect = effect
 	return &this
 }
@@ -46,36 +48,28 @@ func NewStatementPostWithDefaults() *StatementPost {
 	return &this
 }
 
-// GetResources returns the Resources field value if set, zero value otherwise.
+// GetResources returns the Resources field value
 func (o *StatementPost) GetResources() []string {
-	if o == nil || o.Resources == nil {
+	if o == nil {
 		var ret []string
 		return ret
 	}
-	return *o.Resources
+
+	return o.Resources
 }
 
-// GetResourcesOk returns a tuple with the Resources field value if set, nil otherwise
+// GetResourcesOk returns a tuple with the Resources field value
 // and a boolean to check if the value has been set.
 func (o *StatementPost) GetResourcesOk() (*[]string, bool) {
-	if o == nil || o.Resources == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Resources, true
+	return &o.Resources, true
 }
 
-// HasResources returns a boolean if a field has been set.
-func (o *StatementPost) HasResources() bool {
-	if o != nil && o.Resources != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetResources gets a reference to the given []string and assigns it to the Resources field.
+// SetResources sets field value
 func (o *StatementPost) SetResources(v []string) {
-	o.Resources = &v
+	o.Resources = v
 }
 
 // GetNotResources returns the NotResources field value if set, zero value otherwise.
@@ -110,36 +104,28 @@ func (o *StatementPost) SetNotResources(v []string) {
 	o.NotResources = &v
 }
 
-// GetActions returns the Actions field value if set, zero value otherwise.
+// GetActions returns the Actions field value
 func (o *StatementPost) GetActions() []string {
-	if o == nil || o.Actions == nil {
+	if o == nil {
 		var ret []string
 		return ret
 	}
-	return *o.Actions
+
+	return o.Actions
 }
 
-// GetActionsOk returns a tuple with the Actions field value if set, nil otherwise
+// GetActionsOk returns a tuple with the Actions field value
 // and a boolean to check if the value has been set.
 func (o *StatementPost) GetActionsOk() (*[]string, bool) {
-	if o == nil || o.Actions == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Actions, true
+	return &o.Actions, true
 }
 
-// HasActions returns a boolean if a field has been set.
-func (o *StatementPost) HasActions() bool {
-	if o != nil && o.Actions != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetActions gets a reference to the given []string and assigns it to the Actions field.
+// SetActions sets field value
 func (o *StatementPost) SetActions(v []string) {
-	o.Actions = &v
+	o.Actions = v
 }
 
 // GetNotActions returns the NotActions field value if set, zero value otherwise.
@@ -200,13 +186,13 @@ func (o *StatementPost) SetEffect(v string) {
 
 func (o StatementPost) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Resources != nil {
+	if true {
 		toSerialize["resources"] = o.Resources
 	}
 	if o.NotResources != nil {
 		toSerialize["notResources"] = o.NotResources
 	}
-	if o.Actions != nil {
+	if true {
 		toSerialize["actions"] = o.Actions
 	}
 	if o.NotActions != nil {

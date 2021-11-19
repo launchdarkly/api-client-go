@@ -18,6 +18,7 @@ import (
 // ExtinctionCollectionRep struct for ExtinctionCollectionRep
 type ExtinctionCollectionRep struct {
 	Links map[string]Link `json:"_links"`
+	// An array of extinction events
 	Items map[string][]ExtinctionRep `json:"items"`
 }
 

@@ -41,6 +41,7 @@ type UserSegment struct {
 	UnboundedMetadata *SegmentMetadata `json:"_unboundedMetadata,omitempty"`
 	External *string `json:"_external,omitempty"`
 	ExternalLink *string `json:"_externalLink,omitempty"`
+	ImportInProgress *bool `json:"_importInProgress,omitempty"`
 }
 
 // NewUserSegment instantiates a new UserSegment object
@@ -573,6 +574,38 @@ func (o *UserSegment) SetExternalLink(v string) {
 	o.ExternalLink = &v
 }
 
+// GetImportInProgress returns the ImportInProgress field value if set, zero value otherwise.
+func (o *UserSegment) GetImportInProgress() bool {
+	if o == nil || o.ImportInProgress == nil {
+		var ret bool
+		return ret
+	}
+	return *o.ImportInProgress
+}
+
+// GetImportInProgressOk returns a tuple with the ImportInProgress field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UserSegment) GetImportInProgressOk() (*bool, bool) {
+	if o == nil || o.ImportInProgress == nil {
+		return nil, false
+	}
+	return o.ImportInProgress, true
+}
+
+// HasImportInProgress returns a boolean if a field has been set.
+func (o *UserSegment) HasImportInProgress() bool {
+	if o != nil && o.ImportInProgress != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetImportInProgress gets a reference to the given bool and assigns it to the ImportInProgress field.
+func (o *UserSegment) SetImportInProgress(v bool) {
+	o.ImportInProgress = &v
+}
+
 func (o UserSegment) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -628,6 +661,9 @@ func (o UserSegment) MarshalJSON() ([]byte, error) {
 	}
 	if o.ExternalLink != nil {
 		toSerialize["_externalLink"] = o.ExternalLink
+	}
+	if o.ImportInProgress != nil {
+		toSerialize["_importInProgress"] = o.ImportInProgress
 	}
 	return json.Marshal(toSerialize)
 }

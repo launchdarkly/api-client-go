@@ -18,6 +18,7 @@ import (
 // BranchCollectionRep struct for BranchCollectionRep
 type BranchCollectionRep struct {
 	Links map[string]Link `json:"_links"`
+	// An array of branches
 	Items []BranchRep `json:"items"`
 }
 

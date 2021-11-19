@@ -73,7 +73,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -173,7 +173,7 @@ import (
 func main() {
     limit := int64(789) // int64 | The number of members to return in the response. Defaults to 20. (optional)
     offset := int64(789) // int64 | Where to start in the list. This is for use with pagination. For example, an offset of 10 would skip the first ten items and then return the next `limit` items. (optional)
-    filter := "filter_example" // string | A comma-separated list of filters. Each filter is of the form `field:value`. Supported fields are explained below. (optional)
+    filter := "filter_example" // string | A comma-separated list of filters. Each filter is of the form `field:value`. Supported fields are explained above. (optional)
     sort := "sort_example" // string | A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order. (optional)
 
     configuration := openapiclient.NewConfiguration()
@@ -201,7 +201,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **limit** | **int64** | The number of members to return in the response. Defaults to 20. | 
  **offset** | **int64** | Where to start in the list. This is for use with pagination. For example, an offset of 10 would skip the first ten items and then return the next &#x60;limit&#x60; items. | 
- **filter** | **string** | A comma-separated list of filters. Each filter is of the form &#x60;field:value&#x60;. Supported fields are explained below. | 
+ **filter** | **string** | A comma-separated list of filters. Each filter is of the form &#x60;field:value&#x60;. Supported fields are explained above. | 
  **sort** | **string** | A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order. | 
 
 ### Return type
@@ -296,7 +296,7 @@ Name | Type | Description  | Notes
 
 ## PostMembers
 
-> Members PostMembers(ctx).InlineObject1(inlineObject1).Execute()
+> Members PostMembers(ctx).NewMemberForm(newMemberForm).Execute()
 
 Invite new members
 
@@ -315,11 +315,11 @@ import (
 )
 
 func main() {
-    inlineObject1 := []openapiclient.InlineObject1{*openapiclient.NewInlineObject1("Email_example")} // []InlineObject1 | 
+    newMemberForm := []openapiclient.NewMemberForm{*openapiclient.NewNewMemberForm("Email_example")} // []NewMemberForm | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AccountMembersApi.PostMembers(context.Background()).InlineObject1(inlineObject1).Execute()
+    resp, r, err := api_client.AccountMembersApi.PostMembers(context.Background()).NewMemberForm(newMemberForm).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AccountMembersApi.PostMembers``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -340,7 +340,7 @@ Other parameters are passed through a pointer to a apiPostMembersRequest struct 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **inlineObject1** | [**[]InlineObject1**](InlineObject1.md) |  | 
+ **newMemberForm** | [**[]NewMemberForm**](NewMemberForm.md) |  | 
 
 ### Return type
 

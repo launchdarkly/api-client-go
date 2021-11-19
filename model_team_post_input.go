@@ -17,11 +17,17 @@ import (
 
 // TeamPostInput struct for TeamPostInput
 type TeamPostInput struct {
+	// List of custom role keys the team will access
 	CustomRoleKeys *[]string `json:"customRoleKeys,omitempty"`
+	// A description of the team
 	Description *string `json:"description,omitempty"`
-	Key *string `json:"key,omitempty"`
+	// The team's key or ID
+	Key string `json:"key"`
+	// A list of member IDs who belong to the team
 	MemberIDs *[]string `json:"memberIDs,omitempty"`
-	Name *string `json:"name,omitempty"`
+	// A human-friendly name for the team
+	Name string `json:"name"`
+	// A list of permission grants to apply to the team. Can use \"maintainTeam\" to add team maintainers
 	PermissionGrants *[]PermissionGrantInput `json:"permissionGrants,omitempty"`
 }
 
@@ -29,8 +35,10 @@ type TeamPostInput struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTeamPostInput() *TeamPostInput {
+func NewTeamPostInput(key string, name string) *TeamPostInput {
 	this := TeamPostInput{}
+	this.Key = key
+	this.Name = name
 	return &this
 }
 
@@ -106,36 +114,28 @@ func (o *TeamPostInput) SetDescription(v string) {
 	o.Description = &v
 }
 
-// GetKey returns the Key field value if set, zero value otherwise.
+// GetKey returns the Key field value
 func (o *TeamPostInput) GetKey() string {
-	if o == nil || o.Key == nil {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Key
+
+	return o.Key
 }
 
-// GetKeyOk returns a tuple with the Key field value if set, nil otherwise
+// GetKeyOk returns a tuple with the Key field value
 // and a boolean to check if the value has been set.
 func (o *TeamPostInput) GetKeyOk() (*string, bool) {
-	if o == nil || o.Key == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Key, true
+	return &o.Key, true
 }
 
-// HasKey returns a boolean if a field has been set.
-func (o *TeamPostInput) HasKey() bool {
-	if o != nil && o.Key != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetKey gets a reference to the given string and assigns it to the Key field.
+// SetKey sets field value
 func (o *TeamPostInput) SetKey(v string) {
-	o.Key = &v
+	o.Key = v
 }
 
 // GetMemberIDs returns the MemberIDs field value if set, zero value otherwise.
@@ -170,36 +170,28 @@ func (o *TeamPostInput) SetMemberIDs(v []string) {
 	o.MemberIDs = &v
 }
 
-// GetName returns the Name field value if set, zero value otherwise.
+// GetName returns the Name field value
 func (o *TeamPostInput) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Name
+
+	return o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *TeamPostInput) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Name, true
+	return &o.Name, true
 }
 
-// HasName returns a boolean if a field has been set.
-func (o *TeamPostInput) HasName() bool {
-	if o != nil && o.Name != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetName gets a reference to the given string and assigns it to the Name field.
+// SetName sets field value
 func (o *TeamPostInput) SetName(v string) {
-	o.Name = &v
+	o.Name = v
 }
 
 // GetPermissionGrants returns the PermissionGrants field value if set, zero value otherwise.
@@ -242,13 +234,13 @@ func (o TeamPostInput) MarshalJSON() ([]byte, error) {
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}
-	if o.Key != nil {
+	if true {
 		toSerialize["key"] = o.Key
 	}
 	if o.MemberIDs != nil {
 		toSerialize["memberIDs"] = o.MemberIDs
 	}
-	if o.Name != nil {
+	if true {
 		toSerialize["name"] = o.Name
 	}
 	if o.PermissionGrants != nil {
