@@ -26,7 +26,7 @@ type ProjectPost struct {
 	DefaultClientSideAvailability *DefaultClientSideAvailabilityPost `json:"defaultClientSideAvailability,omitempty"`
 	Tags *[]string `json:"tags,omitempty"`
 	// Creates the provided environments for this project. If omitted default environments will be created instead.
-	Environments *[]map[string]interface{} `json:"environments,omitempty"`
+	Environments *[]EnvironmentPost `json:"environments,omitempty"`
 }
 
 // NewProjectPost instantiates a new ProjectPost object
@@ -193,9 +193,9 @@ func (o *ProjectPost) SetTags(v []string) {
 }
 
 // GetEnvironments returns the Environments field value if set, zero value otherwise.
-func (o *ProjectPost) GetEnvironments() []map[string]interface{} {
+func (o *ProjectPost) GetEnvironments() []EnvironmentPost {
 	if o == nil || o.Environments == nil {
-		var ret []map[string]interface{}
+		var ret []EnvironmentPost
 		return ret
 	}
 	return *o.Environments
@@ -203,7 +203,7 @@ func (o *ProjectPost) GetEnvironments() []map[string]interface{} {
 
 // GetEnvironmentsOk returns a tuple with the Environments field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProjectPost) GetEnvironmentsOk() (*[]map[string]interface{}, bool) {
+func (o *ProjectPost) GetEnvironmentsOk() (*[]EnvironmentPost, bool) {
 	if o == nil || o.Environments == nil {
 		return nil, false
 	}
@@ -219,8 +219,8 @@ func (o *ProjectPost) HasEnvironments() bool {
 	return false
 }
 
-// SetEnvironments gets a reference to the given []map[string]interface{} and assigns it to the Environments field.
-func (o *ProjectPost) SetEnvironments(v []map[string]interface{}) {
+// SetEnvironments gets a reference to the given []EnvironmentPost and assigns it to the Environments field.
+func (o *ProjectPost) SetEnvironments(v []EnvironmentPost) {
 	o.Environments = &v
 }
 

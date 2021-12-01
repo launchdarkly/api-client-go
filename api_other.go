@@ -254,7 +254,7 @@ type ApiGetRootRequest struct {
 }
 
 
-func (r ApiGetRootRequest) Execute() (map[string]InlineResponse200, *_nethttp.Response, error) {
+func (r ApiGetRootRequest) Execute() (map[string]Link, *_nethttp.Response, error) {
 	return r.ApiService.GetRootExecute(r)
 }
 
@@ -274,15 +274,15 @@ func (a *OtherApiService) GetRoot(ctx _context.Context) ApiGetRootRequest {
 }
 
 // Execute executes the request
-//  @return map[string]InlineResponse200
-func (a *OtherApiService) GetRootExecute(r ApiGetRootRequest) (map[string]InlineResponse200, *_nethttp.Response, error) {
+//  @return map[string]Link
+func (a *OtherApiService) GetRootExecute(r ApiGetRootRequest) (map[string]Link, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  map[string]InlineResponse200
+		localVarReturnValue  map[string]Link
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "OtherApiService.GetRoot")

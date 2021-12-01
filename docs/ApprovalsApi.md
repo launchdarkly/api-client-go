@@ -510,7 +510,7 @@ func main() {
     projectKey := "projectKey_example" // string | The project key
     featureFlagKey := "featureFlagKey_example" // string | The feature flag's key
     environmentKey := "environmentKey_example" // string | The environment key
-    createCopyFlagConfigApprovalRequestRequest := *openapiclient.NewCreateCopyFlagConfigApprovalRequestRequest([]string{"NotifyMemberIds_example"}, *openapiclient.NewSourceFlag("Key_example")) // CreateCopyFlagConfigApprovalRequestRequest | 
+    createCopyFlagConfigApprovalRequestRequest := *openapiclient.NewCreateCopyFlagConfigApprovalRequestRequest("Description_example", []string{"NotifyMemberIds_example"}, *openapiclient.NewSourceFlag("Key_example")) // CreateCopyFlagConfigApprovalRequestRequest | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)

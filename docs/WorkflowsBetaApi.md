@@ -5,6 +5,7 @@ All URIs are relative to *https://app.launchdarkly.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**DeleteWorkflow**](WorkflowsBetaApi.md#DeleteWorkflow) | **Delete** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/workflows/{workflowId} | Delete workflow
+[**GetCustomWorkflow**](WorkflowsBetaApi.md#GetCustomWorkflow) | **Get** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/workflows/{workflowId} | Get custom workflow
 [**GetWorkflows**](WorkflowsBetaApi.md#GetWorkflows) | **Get** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/workflows | Get workflows
 [**PostWorkflow**](WorkflowsBetaApi.md#PostWorkflow) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/workflows | Create workflow
 
@@ -72,6 +73,85 @@ Name | Type | Description  | Notes
 ### Return type
 
  (empty response body)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetCustomWorkflow
+
+> CustomWorkflowOutputRep GetCustomWorkflow(ctx, projectKey, featureFlagKey, environmentKey, workflowId).Execute()
+
+Get custom workflow
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    projectKey := "projectKey_example" // string | The project key
+    featureFlagKey := "featureFlagKey_example" // string | The feature flag's key
+    environmentKey := "environmentKey_example" // string | The environment key
+    workflowId := "workflowId_example" // string | The workflow ID
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.WorkflowsBetaApi.GetCustomWorkflow(context.Background(), projectKey, featureFlagKey, environmentKey, workflowId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `WorkflowsBetaApi.GetCustomWorkflow``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetCustomWorkflow`: CustomWorkflowOutputRep
+    fmt.Fprintf(os.Stdout, "Response from `WorkflowsBetaApi.GetCustomWorkflow`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projectKey** | **string** | The project key | 
+**featureFlagKey** | **string** | The feature flag&#39;s key | 
+**environmentKey** | **string** | The environment key | 
+**workflowId** | **string** | The workflow ID | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetCustomWorkflowRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+
+
+### Return type
+
+[**CustomWorkflowOutputRep**](CustomWorkflowOutputRep.md)
 
 ### Authorization
 
@@ -187,7 +267,7 @@ func main() {
     projectKey := "projectKey_example" // string | The project key
     featureFlagKey := "featureFlagKey_example" // string | The feature flag's key
     environmentKey := "environmentKey_example" // string | The environment key
-    customWorkflowInputRep := *openapiclient.NewCustomWorkflowInputRep() // CustomWorkflowInputRep | 
+    customWorkflowInputRep := *openapiclient.NewCustomWorkflowInputRep("Description_example") // CustomWorkflowInputRep | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)

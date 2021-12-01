@@ -27,7 +27,7 @@ type FeatureFlagBody struct {
 	IncludeInSnippet *bool `json:"includeInSnippet,omitempty"`
 	ClientSideAvailability *ClientSideAvailabilityPost `json:"clientSideAvailability,omitempty"`
 	// An array of possible variations for the flag
-	Variations *[]Variate `json:"variations,omitempty"`
+	Variations *[]Variation `json:"variations,omitempty"`
 	VariationJsonSchema interface{} `json:"variationJsonSchema,omitempty"`
 	// Whether or not the flag is a temporary flag
 	Temporary *bool `json:"temporary,omitempty"`
@@ -201,9 +201,9 @@ func (o *FeatureFlagBody) SetClientSideAvailability(v ClientSideAvailabilityPost
 }
 
 // GetVariations returns the Variations field value if set, zero value otherwise.
-func (o *FeatureFlagBody) GetVariations() []Variate {
+func (o *FeatureFlagBody) GetVariations() []Variation {
 	if o == nil || o.Variations == nil {
-		var ret []Variate
+		var ret []Variation
 		return ret
 	}
 	return *o.Variations
@@ -211,7 +211,7 @@ func (o *FeatureFlagBody) GetVariations() []Variate {
 
 // GetVariationsOk returns a tuple with the Variations field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FeatureFlagBody) GetVariationsOk() (*[]Variate, bool) {
+func (o *FeatureFlagBody) GetVariationsOk() (*[]Variation, bool) {
 	if o == nil || o.Variations == nil {
 		return nil, false
 	}
@@ -227,8 +227,8 @@ func (o *FeatureFlagBody) HasVariations() bool {
 	return false
 }
 
-// SetVariations gets a reference to the given []Variate and assigns it to the Variations field.
-func (o *FeatureFlagBody) SetVariations(v []Variate) {
+// SetVariations gets a reference to the given []Variation and assigns it to the Variations field.
+func (o *FeatureFlagBody) SetVariations(v []Variation) {
 	o.Variations = &v
 }
 

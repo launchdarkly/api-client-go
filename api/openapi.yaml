@@ -1001,9 +1001,7 @@ paths:
           content:
             application/json:
               schema:
-                additionalProperties:
-                  $ref: '#/components/schemas/inline_response_200'
-                type: object
+                $ref: '#/components/schemas/RootResponse'
           description: Root response
       summary: Root resource
       tags:
@@ -2134,9 +2132,7 @@ paths:
         content:
           application/json:
             schema:
-              items:
-                $ref: '#/components/schemas/ExtinctionRep'
-              type: array
+              $ref: '#/components/schemas/ExtinctionListPost'
         required: true
       responses:
         "200":
@@ -4355,9 +4351,7 @@ paths:
         content:
           application/json:
             schema:
-              items:
-                $ref: '#/components/schemas/NewMemberForm'
-              type: array
+              $ref: '#/components/schemas/NewMemberFormListPost'
         required: true
       responses:
         "201":
@@ -6783,6 +6777,83 @@ paths:
                 $ref: '#/components/schemas/RateLimitedErrorRep'
           description: Rate limited
       summary: Delete workflow
+      tags:
+      - Workflows (beta)
+    get:
+      description: Get a specific workflow by ID
+      operationId: getCustomWorkflow
+      parameters:
+      - description: The project key
+        explode: false
+        in: path
+        name: projectKey
+        required: true
+        schema:
+          description: The project key
+          format: string
+          type: string
+        style: simple
+      - description: The feature flag's key
+        explode: false
+        in: path
+        name: featureFlagKey
+        required: true
+        schema:
+          description: The feature flag's key
+          format: string
+          type: string
+        style: simple
+      - description: The environment key
+        explode: false
+        in: path
+        name: environmentKey
+        required: true
+        schema:
+          description: The environment key
+          format: string
+          type: string
+        style: simple
+      - description: The workflow ID
+        explode: false
+        in: path
+        name: workflowId
+        required: true
+        schema:
+          description: The workflow ID
+          format: string
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomWorkflowOutputRep'
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedErrorRep'
+          description: Invalid access token
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenErrorRep'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundErrorRep'
+          description: Invalid resource identifier
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitedErrorRep'
+          description: Rate limited
+      summary: Get custom workflow
       tags:
       - Workflows (beta)
   /api/v2/public-ip-list:
@@ -11948,6 +12019,8 @@ components:
           items:
             $ref: '#/components/schemas/StageInputRep'
           type: array
+      required:
+      - description
       type: object
     CustomWorkflowMeta:
       example:
@@ -12773,15 +12846,17 @@ components:
           self:
             href: /api/v2/projects/my-project/environments/my-environment
             type: application/json
+        confirmChanges: true
+        requireComments: true
+        mobileKey: XYZ
+        defaultTrackEvents: false
+        tags:
+        - ops
         name: My Environment
         defaultTtl: 5
         _id: 57be1db38b75bf0772d11384
-        mobileKey: XYZ
         secureMode: true
-        defaultTrackEvents: false
         key: my-environment
-        tags:
-        - ops
       properties:
         _links:
           additionalProperties:
@@ -12829,6 +12904,10 @@ components:
           description: Enables tracking detailed information for new flags by default.
           example: false
           type: boolean
+        requireComments:
+          type: boolean
+        confirmChanges:
+          type: boolean
         tags:
           example:
           - ops
@@ -12842,11 +12921,13 @@ components:
       - _links
       - apiKey
       - color
+      - confirmChanges
       - defaultTrackEvents
       - defaultTtl
       - key
       - mobileKey
       - name
+      - requireComments
       - secureMode
       - tags
       type: object
@@ -13259,6 +13340,9 @@ components:
       type: object
     ExperimentResultsRep:
       example:
+        metricSeen:
+          ever: true
+          minutesAgo: 5
         metadata:
         - key: ""
         - key: ""
@@ -13367,6 +13451,8 @@ components:
           $ref: '#/components/schemas/ExperimentStatsRep'
         granularity:
           type: string
+        metricSeen:
+          $ref: '#/components/schemas/MetricSeen'
       type: object
     ExperimentStatsRep:
       example:
@@ -13685,6 +13771,10 @@ components:
       - _links
       - items
       type: object
+    ExtinctionListPost:
+      items:
+        $ref: '#/components/schemas/ExtinctionRep'
+      type: array
     ExtinctionRep:
       example:
         time: 0
@@ -14136,11 +14226,11 @@ components:
         variations:
         - name: name
           description: description
-          id: id
+          _id: _id
           value: ""
         - name: name
           description: description
-          id: id
+          _id: _id
           value: ""
         name: name
         description: description
@@ -14168,7 +14258,7 @@ components:
         variations:
           description: An array of possible variations for the flag
           items:
-            $ref: '#/components/schemas/Variate'
+            $ref: '#/components/schemas/Variation'
           type: array
         variationJsonSchema: {}
         temporary:
@@ -16530,6 +16620,17 @@ components:
       - name
       - tags
       type: object
+    MetricSeen:
+      example:
+        ever: true
+        minutesAgo: 5
+      properties:
+        ever:
+          type: boolean
+        minutesAgo:
+          format: int64
+          type: integer
+      type: object
     Modification:
       example:
         date: 2021-08-05T19:46:31.148082Z
@@ -16677,6 +16778,10 @@ components:
       required:
       - email
       type: object
+    NewMemberFormListPost:
+      items:
+        $ref: '#/components/schemas/NewMemberForm'
+      type: array
     NotFoundErrorRep:
       properties:
         code:
@@ -16858,15 +16963,17 @@ components:
             self:
               href: /api/v2/projects/my-project/environments/my-environment
               type: application/json
+          confirmChanges: true
+          requireComments: true
+          mobileKey: XYZ
+          defaultTrackEvents: false
+          tags:
+          - ops
           name: My Environment
           defaultTtl: 5
           _id: 57be1db38b75bf0772d11384
-          mobileKey: XYZ
           secureMode: true
-          defaultTrackEvents: false
           key: my-environment
-          tags:
-          - ops
         - approvalSettings:
             serviceKind: launchdarkly
             canReviewOwnRequest: false
@@ -16883,15 +16990,17 @@ components:
             self:
               href: /api/v2/projects/my-project/environments/my-environment
               type: application/json
+          confirmChanges: true
+          requireComments: true
+          mobileKey: XYZ
+          defaultTrackEvents: false
+          tags:
+          - ops
           name: My Environment
           defaultTtl: 5
           _id: 57be1db38b75bf0772d11384
-          mobileKey: XYZ
           secureMode: true
-          defaultTrackEvents: false
           key: my-environment
-          tags:
-          - ops
         defaultClientSideAvailability:
           usingEnvironmentId: true
           usingMobileKey: true
@@ -16990,8 +17099,26 @@ components:
       example:
         includeInSnippetByDefault: true
         environments:
-        - '{}'
-        - '{}'
+        - color: F5A623
+          confirmChanges: false
+          name: My Environment
+          defaultTtl: 5
+          requireComments: false
+          secureMode: true
+          defaultTrackEvents: false
+          key: my-environment
+          tags:
+          - ops
+        - color: F5A623
+          confirmChanges: false
+          name: My Environment
+          defaultTtl: 5
+          requireComments: false
+          secureMode: true
+          defaultTrackEvents: false
+          key: my-environment
+          tags:
+          - ops
         defaultClientSideAvailability:
           usingEnvironmentId: true
           usingMobileKey: true
@@ -17025,7 +17152,7 @@ components:
           description: Creates the provided environments for this project. If omitted
             default environments will be created instead.
           items:
-            type: object
+            $ref: '#/components/schemas/EnvironmentPost'
           type: array
       required:
       - key
@@ -17063,15 +17190,17 @@ components:
               self:
                 href: /api/v2/projects/my-project/environments/my-environment
                 type: application/json
+            confirmChanges: true
+            requireComments: true
+            mobileKey: XYZ
+            defaultTrackEvents: false
+            tags:
+            - ops
             name: My Environment
             defaultTtl: 5
             _id: 57be1db38b75bf0772d11384
-            mobileKey: XYZ
             secureMode: true
-            defaultTrackEvents: false
             key: my-environment
-            tags:
-            - ops
           - approvalSettings:
               serviceKind: launchdarkly
               canReviewOwnRequest: false
@@ -17088,15 +17217,17 @@ components:
               self:
                 href: /api/v2/projects/my-project/environments/my-environment
                 type: application/json
+            confirmChanges: true
+            requireComments: true
+            mobileKey: XYZ
+            defaultTrackEvents: false
+            tags:
+            - ops
             name: My Environment
             defaultTtl: 5
             _id: 57be1db38b75bf0772d11384
-            mobileKey: XYZ
             secureMode: true
-            defaultTrackEvents: false
             key: my-environment
-            tags:
-            - ops
           defaultClientSideAvailability:
             usingEnvironmentId: true
             usingMobileKey: true
@@ -17130,15 +17261,17 @@ components:
               self:
                 href: /api/v2/projects/my-project/environments/my-environment
                 type: application/json
+            confirmChanges: true
+            requireComments: true
+            mobileKey: XYZ
+            defaultTrackEvents: false
+            tags:
+            - ops
             name: My Environment
             defaultTtl: 5
             _id: 57be1db38b75bf0772d11384
-            mobileKey: XYZ
             secureMode: true
-            defaultTrackEvents: false
             key: my-environment
-            tags:
-            - ops
           - approvalSettings:
               serviceKind: launchdarkly
               canReviewOwnRequest: false
@@ -17155,15 +17288,17 @@ components:
               self:
                 href: /api/v2/projects/my-project/environments/my-environment
                 type: application/json
+            confirmChanges: true
+            requireComments: true
+            mobileKey: XYZ
+            defaultTrackEvents: false
+            tags:
+            - ops
             name: My Environment
             defaultTtl: 5
             _id: 57be1db38b75bf0772d11384
-            mobileKey: XYZ
             secureMode: true
-            defaultTrackEvents: false
             key: my-environment
-            tags:
-            - ops
           defaultClientSideAvailability:
             usingEnvironmentId: true
             usingMobileKey: true
@@ -18128,6 +18263,10 @@ components:
           type: string
       required:
       - variations
+      type: object
+    RootResponse:
+      additionalProperties:
+        $ref: '#/components/schemas/Link'
       type: object
     Rule:
       properties:
@@ -20185,24 +20324,12 @@ components:
         comment:
           type: string
       type: object
-    Variate:
+    Variation:
       example:
         name: name
         description: description
-        id: id
+        _id: _id
         value: ""
-      properties:
-        id:
-          type: string
-        value: {}
-        description:
-          type: string
-        name:
-          type: string
-      required:
-      - value
-      type: object
-    Variation:
       properties:
         _id:
           type: string
@@ -20577,6 +20704,7 @@ components:
             type: string
           type: array
       required:
+      - description
       - notifyMemberIds
       - source
       type: object
@@ -20861,13 +20989,6 @@ components:
       - "on"
       - sign
       - url
-      type: object
-    inline_response_200:
-      properties:
-        href:
-          type: string
-        type:
-          type: string
       type: object
   securitySchemes:
     ApiKey:

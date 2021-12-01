@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Comment** | Pointer to **string** | A comment describing the approval request | [optional] 
-**Description** | Pointer to **string** |  | [optional] 
+**Description** | **string** |  | 
 **NotifyMemberIds** | **[]string** | An array of member IDs. These members are notified to review the approval request. | 
 **Source** | [**SourceFlag**](SourceFlag.md) |  | 
 **IncludedActions** | Pointer to **[]string** |  | [optional] 
@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 
 ### NewCreateCopyFlagConfigApprovalRequestRequest
 
-`func NewCreateCopyFlagConfigApprovalRequestRequest(notifyMemberIds []string, source SourceFlag, ) *CreateCopyFlagConfigApprovalRequestRequest`
+`func NewCreateCopyFlagConfigApprovalRequestRequest(description string, notifyMemberIds []string, source SourceFlag, ) *CreateCopyFlagConfigApprovalRequestRequest`
 
 NewCreateCopyFlagConfigApprovalRequestRequest instantiates a new CreateCopyFlagConfigApprovalRequestRequest object
 This constructor will assign default values to properties that have it defined,
@@ -74,11 +74,6 @@ and a boolean to check if the value has been set.
 
 SetDescription sets Description field to given value.
 
-### HasDescription
-
-`func (o *CreateCopyFlagConfigApprovalRequestRequest) HasDescription() bool`
-
-HasDescription returns a boolean if a field has been set.
 
 ### GetNotifyMemberIds
 

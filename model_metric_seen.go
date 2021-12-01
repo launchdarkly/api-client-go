@@ -15,203 +15,136 @@ import (
 	"encoding/json"
 )
 
-// Variate struct for Variate
-type Variate struct {
-	Id *string `json:"id,omitempty"`
-	Value interface{} `json:"value"`
-	Description *string `json:"description,omitempty"`
-	Name *string `json:"name,omitempty"`
+// MetricSeen struct for MetricSeen
+type MetricSeen struct {
+	Ever *bool `json:"ever,omitempty"`
+	MinutesAgo *int64 `json:"minutesAgo,omitempty"`
 }
 
-// NewVariate instantiates a new Variate object
+// NewMetricSeen instantiates a new MetricSeen object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewVariate(value interface{}) *Variate {
-	this := Variate{}
-	this.Value = value
+func NewMetricSeen() *MetricSeen {
+	this := MetricSeen{}
 	return &this
 }
 
-// NewVariateWithDefaults instantiates a new Variate object
+// NewMetricSeenWithDefaults instantiates a new MetricSeen object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewVariateWithDefaults() *Variate {
-	this := Variate{}
+func NewMetricSeenWithDefaults() *MetricSeen {
+	this := MetricSeen{}
 	return &this
 }
 
-// GetId returns the Id field value if set, zero value otherwise.
-func (o *Variate) GetId() string {
-	if o == nil || o.Id == nil {
-		var ret string
+// GetEver returns the Ever field value if set, zero value otherwise.
+func (o *MetricSeen) GetEver() bool {
+	if o == nil || o.Ever == nil {
+		var ret bool
 		return ret
 	}
-	return *o.Id
+	return *o.Ever
 }
 
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// GetEverOk returns a tuple with the Ever field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Variate) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+func (o *MetricSeen) GetEverOk() (*bool, bool) {
+	if o == nil || o.Ever == nil {
 		return nil, false
 	}
-	return o.Id, true
+	return o.Ever, true
 }
 
-// HasId returns a boolean if a field has been set.
-func (o *Variate) HasId() bool {
-	if o != nil && o.Id != nil {
+// HasEver returns a boolean if a field has been set.
+func (o *MetricSeen) HasEver() bool {
+	if o != nil && o.Ever != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetId gets a reference to the given string and assigns it to the Id field.
-func (o *Variate) SetId(v string) {
-	o.Id = &v
+// SetEver gets a reference to the given bool and assigns it to the Ever field.
+func (o *MetricSeen) SetEver(v bool) {
+	o.Ever = &v
 }
 
-// GetValue returns the Value field value
-// If the value is explicit nil, the zero value for interface{} will be returned
-func (o *Variate) GetValue() interface{} {
-	if o == nil {
-		var ret interface{}
+// GetMinutesAgo returns the MinutesAgo field value if set, zero value otherwise.
+func (o *MetricSeen) GetMinutesAgo() int64 {
+	if o == nil || o.MinutesAgo == nil {
+		var ret int64
 		return ret
 	}
-
-	return o.Value
+	return *o.MinutesAgo
 }
 
-// GetValueOk returns a tuple with the Value field value
+// GetMinutesAgoOk returns a tuple with the MinutesAgo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Variate) GetValueOk() (*interface{}, bool) {
-	if o == nil || o.Value == nil {
+func (o *MetricSeen) GetMinutesAgoOk() (*int64, bool) {
+	if o == nil || o.MinutesAgo == nil {
 		return nil, false
 	}
-	return &o.Value, true
+	return o.MinutesAgo, true
 }
 
-// SetValue sets field value
-func (o *Variate) SetValue(v interface{}) {
-	o.Value = v
-}
-
-// GetDescription returns the Description field value if set, zero value otherwise.
-func (o *Variate) GetDescription() string {
-	if o == nil || o.Description == nil {
-		var ret string
-		return ret
-	}
-	return *o.Description
-}
-
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Variate) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
-		return nil, false
-	}
-	return o.Description, true
-}
-
-// HasDescription returns a boolean if a field has been set.
-func (o *Variate) HasDescription() bool {
-	if o != nil && o.Description != nil {
+// HasMinutesAgo returns a boolean if a field has been set.
+func (o *MetricSeen) HasMinutesAgo() bool {
+	if o != nil && o.MinutesAgo != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *Variate) SetDescription(v string) {
-	o.Description = &v
+// SetMinutesAgo gets a reference to the given int64 and assigns it to the MinutesAgo field.
+func (o *MetricSeen) SetMinutesAgo(v int64) {
+	o.MinutesAgo = &v
 }
 
-// GetName returns the Name field value if set, zero value otherwise.
-func (o *Variate) GetName() string {
-	if o == nil || o.Name == nil {
-		var ret string
-		return ret
-	}
-	return *o.Name
-}
-
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Variate) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
-		return nil, false
-	}
-	return o.Name, true
-}
-
-// HasName returns a boolean if a field has been set.
-func (o *Variate) HasName() bool {
-	if o != nil && o.Name != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetName gets a reference to the given string and assigns it to the Name field.
-func (o *Variate) SetName(v string) {
-	o.Name = &v
-}
-
-func (o Variate) MarshalJSON() ([]byte, error) {
+func (o MetricSeen) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
-		toSerialize["id"] = o.Id
+	if o.Ever != nil {
+		toSerialize["ever"] = o.Ever
 	}
-	if o.Value != nil {
-		toSerialize["value"] = o.Value
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
+	if o.MinutesAgo != nil {
+		toSerialize["minutesAgo"] = o.MinutesAgo
 	}
 	return json.Marshal(toSerialize)
 }
 
-type NullableVariate struct {
-	value *Variate
+type NullableMetricSeen struct {
+	value *MetricSeen
 	isSet bool
 }
 
-func (v NullableVariate) Get() *Variate {
+func (v NullableMetricSeen) Get() *MetricSeen {
 	return v.value
 }
 
-func (v *NullableVariate) Set(val *Variate) {
+func (v *NullableMetricSeen) Set(val *MetricSeen) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableVariate) IsSet() bool {
+func (v NullableMetricSeen) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableVariate) Unset() {
+func (v *NullableMetricSeen) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableVariate(val *Variate) *NullableVariate {
-	return &NullableVariate{value: val, isSet: true}
+func NewNullableMetricSeen(val *MetricSeen) *NullableMetricSeen {
+	return &NullableMetricSeen{value: val, isSet: true}
 }
 
-func (v NullableVariate) MarshalJSON() ([]byte, error) {
+func (v NullableMetricSeen) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableVariate) UnmarshalJSON(src []byte) error {
+func (v *NullableMetricSeen) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

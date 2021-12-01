@@ -23,6 +23,7 @@ type ExperimentResultsRep struct {
 	Series *[]ExperimentTimeSeriesSlice `json:"series,omitempty"`
 	Stats *ExperimentStatsRep `json:"stats,omitempty"`
 	Granularity *string `json:"granularity,omitempty"`
+	MetricSeen *MetricSeen `json:"metricSeen,omitempty"`
 }
 
 // NewExperimentResultsRep instantiates a new ExperimentResultsRep object
@@ -234,6 +235,38 @@ func (o *ExperimentResultsRep) SetGranularity(v string) {
 	o.Granularity = &v
 }
 
+// GetMetricSeen returns the MetricSeen field value if set, zero value otherwise.
+func (o *ExperimentResultsRep) GetMetricSeen() MetricSeen {
+	if o == nil || o.MetricSeen == nil {
+		var ret MetricSeen
+		return ret
+	}
+	return *o.MetricSeen
+}
+
+// GetMetricSeenOk returns a tuple with the MetricSeen field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ExperimentResultsRep) GetMetricSeenOk() (*MetricSeen, bool) {
+	if o == nil || o.MetricSeen == nil {
+		return nil, false
+	}
+	return o.MetricSeen, true
+}
+
+// HasMetricSeen returns a boolean if a field has been set.
+func (o *ExperimentResultsRep) HasMetricSeen() bool {
+	if o != nil && o.MetricSeen != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMetricSeen gets a reference to the given MetricSeen and assigns it to the MetricSeen field.
+func (o *ExperimentResultsRep) SetMetricSeen(v MetricSeen) {
+	o.MetricSeen = &v
+}
+
 func (o ExperimentResultsRep) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Links != nil {
@@ -253,6 +286,9 @@ func (o ExperimentResultsRep) MarshalJSON() ([]byte, error) {
 	}
 	if o.Granularity != nil {
 		toSerialize["granularity"] = o.Granularity
+	}
+	if o.MetricSeen != nil {
+		toSerialize["metricSeen"] = o.MetricSeen
 	}
 	return json.Marshal(toSerialize)
 }

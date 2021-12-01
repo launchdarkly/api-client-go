@@ -36,6 +36,8 @@ type Environment struct {
 	SecureMode bool `json:"secureMode"`
 	// Enables tracking detailed information for new flags by default.
 	DefaultTrackEvents bool `json:"defaultTrackEvents"`
+	RequireComments bool `json:"requireComments"`
+	ConfirmChanges bool `json:"confirmChanges"`
 	Tags []string `json:"tags"`
 	ApprovalSettings *ApprovalSettings `json:"approvalSettings,omitempty"`
 }
@@ -44,7 +46,7 @@ type Environment struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEnvironment(links map[string]Link, id string, key string, name string, apiKey string, mobileKey string, color string, defaultTtl int32, secureMode bool, defaultTrackEvents bool, tags []string) *Environment {
+func NewEnvironment(links map[string]Link, id string, key string, name string, apiKey string, mobileKey string, color string, defaultTtl int32, secureMode bool, defaultTrackEvents bool, requireComments bool, confirmChanges bool, tags []string) *Environment {
 	this := Environment{}
 	this.Links = links
 	this.Id = id
@@ -56,6 +58,8 @@ func NewEnvironment(links map[string]Link, id string, key string, name string, a
 	this.DefaultTtl = defaultTtl
 	this.SecureMode = secureMode
 	this.DefaultTrackEvents = defaultTrackEvents
+	this.RequireComments = requireComments
+	this.ConfirmChanges = confirmChanges
 	this.Tags = tags
 	return &this
 }
@@ -308,6 +312,54 @@ func (o *Environment) SetDefaultTrackEvents(v bool) {
 	o.DefaultTrackEvents = v
 }
 
+// GetRequireComments returns the RequireComments field value
+func (o *Environment) GetRequireComments() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.RequireComments
+}
+
+// GetRequireCommentsOk returns a tuple with the RequireComments field value
+// and a boolean to check if the value has been set.
+func (o *Environment) GetRequireCommentsOk() (*bool, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.RequireComments, true
+}
+
+// SetRequireComments sets field value
+func (o *Environment) SetRequireComments(v bool) {
+	o.RequireComments = v
+}
+
+// GetConfirmChanges returns the ConfirmChanges field value
+func (o *Environment) GetConfirmChanges() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.ConfirmChanges
+}
+
+// GetConfirmChangesOk returns a tuple with the ConfirmChanges field value
+// and a boolean to check if the value has been set.
+func (o *Environment) GetConfirmChangesOk() (*bool, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.ConfirmChanges, true
+}
+
+// SetConfirmChanges sets field value
+func (o *Environment) SetConfirmChanges(v bool) {
+	o.ConfirmChanges = v
+}
+
 // GetTags returns the Tags field value
 func (o *Environment) GetTags() []string {
 	if o == nil {
@@ -395,6 +447,12 @@ func (o Environment) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["defaultTrackEvents"] = o.DefaultTrackEvents
+	}
+	if true {
+		toSerialize["requireComments"] = o.RequireComments
+	}
+	if true {
+		toSerialize["confirmChanges"] = o.ConfirmChanges
 	}
 	if true {
 		toSerialize["tags"] = o.Tags

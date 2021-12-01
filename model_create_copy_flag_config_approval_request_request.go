@@ -19,7 +19,7 @@ import (
 type CreateCopyFlagConfigApprovalRequestRequest struct {
 	// A comment describing the approval request
 	Comment *string `json:"comment,omitempty"`
-	Description *string `json:"description,omitempty"`
+	Description string `json:"description"`
 	// An array of member IDs. These members are notified to review the approval request.
 	NotifyMemberIds []string `json:"notifyMemberIds"`
 	Source SourceFlag `json:"source"`
@@ -31,8 +31,9 @@ type CreateCopyFlagConfigApprovalRequestRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateCopyFlagConfigApprovalRequestRequest(notifyMemberIds []string, source SourceFlag) *CreateCopyFlagConfigApprovalRequestRequest {
+func NewCreateCopyFlagConfigApprovalRequestRequest(description string, notifyMemberIds []string, source SourceFlag) *CreateCopyFlagConfigApprovalRequestRequest {
 	this := CreateCopyFlagConfigApprovalRequestRequest{}
+	this.Description = description
 	this.NotifyMemberIds = notifyMemberIds
 	this.Source = source
 	return &this
@@ -78,36 +79,28 @@ func (o *CreateCopyFlagConfigApprovalRequestRequest) SetComment(v string) {
 	o.Comment = &v
 }
 
-// GetDescription returns the Description field value if set, zero value otherwise.
+// GetDescription returns the Description field value
 func (o *CreateCopyFlagConfigApprovalRequestRequest) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Description
+
+	return o.Description
 }
 
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// GetDescriptionOk returns a tuple with the Description field value
 // and a boolean to check if the value has been set.
 func (o *CreateCopyFlagConfigApprovalRequestRequest) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Description, true
+	return &o.Description, true
 }
 
-// HasDescription returns a boolean if a field has been set.
-func (o *CreateCopyFlagConfigApprovalRequestRequest) HasDescription() bool {
-	if o != nil && o.Description != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetDescription gets a reference to the given string and assigns it to the Description field.
+// SetDescription sets field value
 func (o *CreateCopyFlagConfigApprovalRequestRequest) SetDescription(v string) {
-	o.Description = &v
+	o.Description = v
 }
 
 // GetNotifyMemberIds returns the NotifyMemberIds field value
@@ -227,7 +220,7 @@ func (o CreateCopyFlagConfigApprovalRequestRequest) MarshalJSON() ([]byte, error
 	if o.Comment != nil {
 		toSerialize["comment"] = o.Comment
 	}
-	if o.Description != nil {
+	if true {
 		toSerialize["description"] = o.Description
 	}
 	if true {
