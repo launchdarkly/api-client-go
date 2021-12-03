@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Resources** | Pointer to **[]map[string]interface{}** |  | [optional] 
-**NotResources** | Pointer to **[]map[string]interface{}** |  | [optional] 
-**Actions** | Pointer to **[]string** |  | [optional] 
-**NotActions** | Pointer to **[]string** |  | [optional] 
+**Resources** | Pointer to **[]string** | Resource specifier strings | [optional] 
+**NotResources** | Pointer to **[]string** | Targeted resources are the resources NOT in this list. The \&quot;resources\&quot; field must be empty to use this field. | [optional] 
+**Actions** | Pointer to **[]string** | Actions to perform on a resource | [optional] 
+**NotActions** | Pointer to **[]string** | Targeted actions are the actions NOT in this list. The \&quot;actions\&quot; field must be empty to use this field. | [optional] 
 **Effect** | **string** |  | 
 
 ## Methods
@@ -31,20 +31,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetResources
 
-`func (o *Statement) GetResources() []map[string]interface{}`
+`func (o *Statement) GetResources() []string`
 
 GetResources returns the Resources field if non-nil, zero value otherwise.
 
 ### GetResourcesOk
 
-`func (o *Statement) GetResourcesOk() (*[]map[string]interface{}, bool)`
+`func (o *Statement) GetResourcesOk() (*[]string, bool)`
 
 GetResourcesOk returns a tuple with the Resources field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetResources
 
-`func (o *Statement) SetResources(v []map[string]interface{})`
+`func (o *Statement) SetResources(v []string)`
 
 SetResources sets Resources field to given value.
 
@@ -56,20 +56,20 @@ HasResources returns a boolean if a field has been set.
 
 ### GetNotResources
 
-`func (o *Statement) GetNotResources() []map[string]interface{}`
+`func (o *Statement) GetNotResources() []string`
 
 GetNotResources returns the NotResources field if non-nil, zero value otherwise.
 
 ### GetNotResourcesOk
 
-`func (o *Statement) GetNotResourcesOk() (*[]map[string]interface{}, bool)`
+`func (o *Statement) GetNotResourcesOk() (*[]string, bool)`
 
 GetNotResourcesOk returns a tuple with the NotResources field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNotResources
 
-`func (o *Statement) SetNotResources(v []map[string]interface{})`
+`func (o *Statement) SetNotResources(v []string)`
 
 SetNotResources sets NotResources field to given value.
 

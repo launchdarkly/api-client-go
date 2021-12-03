@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **IncludeInSnippetByDefault** | Pointer to **bool** | Whether or not flags created in this project are made available to the client-side JavaScript SDK by default. | [optional] 
 **DefaultClientSideAvailability** | Pointer to [**DefaultClientSideAvailabilityPost**](DefaultClientSideAvailabilityPost.md) |  | [optional] 
 **Tags** | Pointer to **[]string** |  | [optional] 
-**Environments** | Pointer to **[]map[string]interface{}** | Creates the provided environments for this project. If omitted default environments will be created instead. | [optional] 
+**Environments** | Pointer to [**[]EnvironmentPost**](EnvironmentPost.md) | Creates the provided environments for this project. If omitted default environments will be created instead. | [optional] 
 
 ## Methods
 
@@ -147,20 +147,20 @@ HasTags returns a boolean if a field has been set.
 
 ### GetEnvironments
 
-`func (o *ProjectPost) GetEnvironments() []map[string]interface{}`
+`func (o *ProjectPost) GetEnvironments() []EnvironmentPost`
 
 GetEnvironments returns the Environments field if non-nil, zero value otherwise.
 
 ### GetEnvironmentsOk
 
-`func (o *ProjectPost) GetEnvironmentsOk() (*[]map[string]interface{}, bool)`
+`func (o *ProjectPost) GetEnvironmentsOk() (*[]EnvironmentPost, bool)`
 
 GetEnvironmentsOk returns a tuple with the Environments field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEnvironments
 
-`func (o *ProjectPost) SetEnvironments(v []map[string]interface{})`
+`func (o *ProjectPost) SetEnvironments(v []EnvironmentPost)`
 
 SetEnvironments sets Environments field to given value.
 

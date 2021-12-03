@@ -4,17 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Resources** | Pointer to **[]map[string]interface{}** | Resource specifier strings | [optional] 
-**NotResources** | Pointer to **[]map[string]interface{}** | Targeted resources are the resources NOT in this list. The \&quot;resources\&quot; field must be empty to use this field. | [optional] 
+**Resources** | Pointer to **[]string** | Resource specifier strings | [optional] 
+**NotResources** | Pointer to **[]string** | Targeted resources are the resources NOT in this list. The \&quot;resources\&quot; field must be empty to use this field. | [optional] 
 **Actions** | Pointer to **[]string** | Actions to perform on a resource | [optional] 
 **NotActions** | Pointer to **[]string** | Targeted actions are the actions NOT in this list. The \&quot;actions\&quot; field must be empty to use this field. | [optional] 
-**Effect** | Pointer to **string** |  | [optional] 
+**Effect** | **string** |  | 
 
 ## Methods
 
 ### NewStatementRep
 
-`func NewStatementRep() *StatementRep`
+`func NewStatementRep(effect string, ) *StatementRep`
 
 NewStatementRep instantiates a new StatementRep object
 This constructor will assign default values to properties that have it defined,
@@ -31,20 +31,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetResources
 
-`func (o *StatementRep) GetResources() []map[string]interface{}`
+`func (o *StatementRep) GetResources() []string`
 
 GetResources returns the Resources field if non-nil, zero value otherwise.
 
 ### GetResourcesOk
 
-`func (o *StatementRep) GetResourcesOk() (*[]map[string]interface{}, bool)`
+`func (o *StatementRep) GetResourcesOk() (*[]string, bool)`
 
 GetResourcesOk returns a tuple with the Resources field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetResources
 
-`func (o *StatementRep) SetResources(v []map[string]interface{})`
+`func (o *StatementRep) SetResources(v []string)`
 
 SetResources sets Resources field to given value.
 
@@ -56,20 +56,20 @@ HasResources returns a boolean if a field has been set.
 
 ### GetNotResources
 
-`func (o *StatementRep) GetNotResources() []map[string]interface{}`
+`func (o *StatementRep) GetNotResources() []string`
 
 GetNotResources returns the NotResources field if non-nil, zero value otherwise.
 
 ### GetNotResourcesOk
 
-`func (o *StatementRep) GetNotResourcesOk() (*[]map[string]interface{}, bool)`
+`func (o *StatementRep) GetNotResourcesOk() (*[]string, bool)`
 
 GetNotResourcesOk returns a tuple with the NotResources field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNotResources
 
-`func (o *StatementRep) SetNotResources(v []map[string]interface{})`
+`func (o *StatementRep) SetNotResources(v []string)`
 
 SetNotResources sets NotResources field to given value.
 
@@ -148,11 +148,6 @@ and a boolean to check if the value has been set.
 
 SetEffect sets Effect field to given value.
 
-### HasEffect
-
-`func (o *StatementRep) HasEffect() bool`
-
-HasEffect returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

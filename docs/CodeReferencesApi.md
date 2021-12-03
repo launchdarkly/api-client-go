@@ -726,7 +726,7 @@ Name | Type | Description  | Notes
 
 ## PostExtinction
 
-> PostExtinction(ctx, repo, branch).ExtinctionRep(extinctionRep).Execute()
+> PostExtinction(ctx, repo, branch).Extinction(extinction).Execute()
 
 Create extinction
 
@@ -747,11 +747,11 @@ import (
 func main() {
     repo := "repo_example" // string | The repository name
     branch := "branch_example" // string | The url-encoded branch name
-    extinctionRep := []openapiclient.ExtinctionRep{*openapiclient.NewExtinctionRep("a94a8fe5ccb19ba61c4c0873d391e987982fbbd3", "Remove flag for launched feature", int64(123), "enable-feature", "default")} // []ExtinctionRep | 
+    extinction := []openapiclient.Extinction{*openapiclient.NewExtinction("a94a8fe5ccb19ba61c4c0873d391e987982fbbd3", "Remove flag for launched feature", int64(123), "enable-feature", "default")} // []Extinction | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CodeReferencesApi.PostExtinction(context.Background(), repo, branch).ExtinctionRep(extinctionRep).Execute()
+    resp, r, err := api_client.CodeReferencesApi.PostExtinction(context.Background(), repo, branch).Extinction(extinction).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CodeReferencesApi.PostExtinction``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -777,7 +777,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **extinctionRep** | [**[]ExtinctionRep**](ExtinctionRep.md) |  | 
+ **extinction** | [**[]Extinction**](Extinction.md) |  | 
 
 ### Return type
 

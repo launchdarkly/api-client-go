@@ -14,6 +14,8 @@ Name | Type | Description | Notes
 **DefaultTtl** | **int32** | The default time (in minutes) that the PHP SDK can cache feature flag rules locally. | 
 **SecureMode** | **bool** | Secure mode ensures that a user of the client-side SDK cannot impersonate another user. | 
 **DefaultTrackEvents** | **bool** | Enables tracking detailed information for new flags by default. | 
+**RequireComments** | **bool** |  | 
+**ConfirmChanges** | **bool** |  | 
 **Tags** | **[]string** |  | 
 **ApprovalSettings** | Pointer to [**ApprovalSettings**](ApprovalSettings.md) |  | [optional] 
 
@@ -21,7 +23,7 @@ Name | Type | Description | Notes
 
 ### NewEnvironment
 
-`func NewEnvironment(links map[string]Link, id string, key string, name string, apiKey string, mobileKey string, color string, defaultTtl int32, secureMode bool, defaultTrackEvents bool, tags []string, ) *Environment`
+`func NewEnvironment(links map[string]Link, id string, key string, name string, apiKey string, mobileKey string, color string, defaultTtl int32, secureMode bool, defaultTrackEvents bool, requireComments bool, confirmChanges bool, tags []string, ) *Environment`
 
 NewEnvironment instantiates a new Environment object
 This constructor will assign default values to properties that have it defined,
@@ -234,6 +236,46 @@ and a boolean to check if the value has been set.
 `func (o *Environment) SetDefaultTrackEvents(v bool)`
 
 SetDefaultTrackEvents sets DefaultTrackEvents field to given value.
+
+
+### GetRequireComments
+
+`func (o *Environment) GetRequireComments() bool`
+
+GetRequireComments returns the RequireComments field if non-nil, zero value otherwise.
+
+### GetRequireCommentsOk
+
+`func (o *Environment) GetRequireCommentsOk() (*bool, bool)`
+
+GetRequireCommentsOk returns a tuple with the RequireComments field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRequireComments
+
+`func (o *Environment) SetRequireComments(v bool)`
+
+SetRequireComments sets RequireComments field to given value.
+
+
+### GetConfirmChanges
+
+`func (o *Environment) GetConfirmChanges() bool`
+
+GetConfirmChanges returns the ConfirmChanges field if non-nil, zero value otherwise.
+
+### GetConfirmChangesOk
+
+`func (o *Environment) GetConfirmChangesOk() (*bool, bool)`
+
+GetConfirmChangesOk returns a tuple with the ConfirmChanges field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetConfirmChanges
+
+`func (o *Environment) SetConfirmChanges(v bool)`
+
+SetConfirmChanges sets ConfirmChanges field to given value.
 
 
 ### GetTags

@@ -6,14 +6,14 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **MaintainerId** | Pointer to **string** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
-**Description** | Pointer to **string** |  | [optional] 
+**Description** | **string** |  | 
 **Stages** | Pointer to [**[]StageInputRep**](StageInputRep.md) |  | [optional] 
 
 ## Methods
 
 ### NewCustomWorkflowInputRep
 
-`func NewCustomWorkflowInputRep() *CustomWorkflowInputRep`
+`func NewCustomWorkflowInputRep(description string, ) *CustomWorkflowInputRep`
 
 NewCustomWorkflowInputRep instantiates a new CustomWorkflowInputRep object
 This constructor will assign default values to properties that have it defined,
@@ -97,11 +97,6 @@ and a boolean to check if the value has been set.
 
 SetDescription sets Description field to given value.
 
-### HasDescription
-
-`func (o *CustomWorkflowInputRep) HasDescription() bool`
-
-HasDescription returns a boolean if a field has been set.
 
 ### GetStages
 

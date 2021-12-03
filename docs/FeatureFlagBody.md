@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** | Description of the feature flag | [optional] 
 **IncludeInSnippet** | Pointer to **bool** | Deprecated, use clientSideAvailability. Whether or not this flag should be made available to the client-side JavaScript SDK | [optional] 
 **ClientSideAvailability** | Pointer to [**ClientSideAvailabilityPost**](ClientSideAvailabilityPost.md) |  | [optional] 
-**Variations** | Pointer to [**[]Variate**](Variate.md) | An array of possible variations for the flag | [optional] 
+**Variations** | Pointer to [**[]Variation**](Variation.md) | An array of possible variations for the flag | [optional] 
 **VariationJsonSchema** | Pointer to **interface{}** |  | [optional] 
 **Temporary** | Pointer to **bool** | Whether or not the flag is a temporary flag | [optional] 
 **Tags** | Pointer to **[]string** | Tags for the feature flag | [optional] 
@@ -152,20 +152,20 @@ HasClientSideAvailability returns a boolean if a field has been set.
 
 ### GetVariations
 
-`func (o *FeatureFlagBody) GetVariations() []Variate`
+`func (o *FeatureFlagBody) GetVariations() []Variation`
 
 GetVariations returns the Variations field if non-nil, zero value otherwise.
 
 ### GetVariationsOk
 
-`func (o *FeatureFlagBody) GetVariationsOk() (*[]Variate, bool)`
+`func (o *FeatureFlagBody) GetVariationsOk() (*[]Variation, bool)`
 
 GetVariationsOk returns a tuple with the Variations field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVariations
 
-`func (o *FeatureFlagBody) SetVariations(v []Variate)`
+`func (o *FeatureFlagBody) SetVariations(v []Variation)`
 
 SetVariations sets Variations field to given value.
 

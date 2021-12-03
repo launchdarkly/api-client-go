@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Links** | [**map[string]Link**](Link.md) |  | 
-**Items** | [**map[string][]ExtinctionRep**](array.md) | An array of extinction events | 
+**Items** | [**map[string][]Extinction**](array.md) | An array of extinction events | 
 
 ## Methods
 
 ### NewExtinctionCollectionRep
 
-`func NewExtinctionCollectionRep(links map[string]Link, items map[string][]ExtinctionRep, ) *ExtinctionCollectionRep`
+`func NewExtinctionCollectionRep(links map[string]Link, items map[string][]Extinction, ) *ExtinctionCollectionRep`
 
 NewExtinctionCollectionRep instantiates a new ExtinctionCollectionRep object
 This constructor will assign default values to properties that have it defined,
@@ -48,20 +48,20 @@ SetLinks sets Links field to given value.
 
 ### GetItems
 
-`func (o *ExtinctionCollectionRep) GetItems() map[string][]ExtinctionRep`
+`func (o *ExtinctionCollectionRep) GetItems() map[string][]Extinction`
 
 GetItems returns the Items field if non-nil, zero value otherwise.
 
 ### GetItemsOk
 
-`func (o *ExtinctionCollectionRep) GetItemsOk() (*map[string][]ExtinctionRep, bool)`
+`func (o *ExtinctionCollectionRep) GetItemsOk() (*map[string][]Extinction, bool)`
 
 GetItemsOk returns a tuple with the Items field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetItems
 
-`func (o *ExtinctionCollectionRep) SetItems(v map[string][]ExtinctionRep)`
+`func (o *ExtinctionCollectionRep) SetItems(v map[string][]Extinction)`
 
 SetItems sets Items field to given value.
 

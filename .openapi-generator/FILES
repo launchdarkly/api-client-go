@@ -80,6 +80,7 @@ docs/Defaults.md
 docs/DependentFlag.md
 docs/DependentFlagEnvironment.md
 docs/DependentFlagsByEnvironment.md
+docs/DerivedAttribute.md
 docs/Destination.md
 docs/DestinationPost.md
 docs/Destinations.md
@@ -103,8 +104,8 @@ docs/ExpiringUserTargetError.md
 docs/ExpiringUserTargetGetResponse.md
 docs/ExpiringUserTargetItem.md
 docs/ExpiringUserTargetPatchResponse.md
+docs/Extinction.md
 docs/ExtinctionCollectionRep.md
-docs/ExtinctionRep.md
 docs/FeatureFlag.md
 docs/FeatureFlagBody.md
 docs/FeatureFlagConfig.md
@@ -127,7 +128,6 @@ docs/FlagStatusRep.md
 docs/FlagSummary.md
 docs/ForbiddenErrorRep.md
 docs/HunkRep.md
-docs/InlineResponse200.md
 docs/IntegrationMetadata.md
 docs/IntegrationStatus.md
 docs/InvalidRequestErrorRep.md
@@ -145,6 +145,7 @@ docs/MetricCollectionRep.md
 docs/MetricListingRep.md
 docs/MetricPost.md
 docs/MetricRep.md
+docs/MetricSeen.md
 docs/MetricsApi.md
 docs/Modification.md
 docs/MultiEnvironmentDependentFlag.md
@@ -228,6 +229,7 @@ docs/UserAttributeNamesRep.md
 docs/UserFlagSetting.md
 docs/UserFlagSettings.md
 docs/UserRecord.md
+docs/UserRecordRep.md
 docs/UserSegment.md
 docs/UserSegmentRule.md
 docs/UserSegments.md
@@ -236,7 +238,6 @@ docs/Users.md
 docs/UsersApi.md
 docs/UsersBetaApi.md
 docs/ValuePut.md
-docs/Variate.md
 docs/Variation.md
 docs/VariationOrRolloutRep.md
 docs/VariationSummary.md
@@ -293,6 +294,7 @@ model_defaults.go
 model_dependent_flag.go
 model_dependent_flag_environment.go
 model_dependent_flags_by_environment.go
+model_derived_attribute.go
 model_destination.go
 model_destination_post.go
 model_destinations.go
@@ -314,8 +316,8 @@ model_expiring_user_target_error.go
 model_expiring_user_target_get_response.go
 model_expiring_user_target_item.go
 model_expiring_user_target_patch_response.go
+model_extinction.go
 model_extinction_collection_rep.go
-model_extinction_rep.go
 model_feature_flag.go
 model_feature_flag_body.go
 model_feature_flag_config.go
@@ -336,7 +338,6 @@ model_flag_status_rep.go
 model_flag_summary.go
 model_forbidden_error_rep.go
 model_hunk_rep.go
-model_inline_response_200.go
 model_integration_metadata.go
 model_integration_status.go
 model_invalid_request_error_rep.go
@@ -354,6 +355,7 @@ model_metric_collection_rep.go
 model_metric_listing_rep.go
 model_metric_post.go
 model_metric_rep.go
+model_metric_seen.go
 model_modification.go
 model_multi_environment_dependent_flag.go
 model_multi_environment_dependent_flags.go
@@ -430,12 +432,12 @@ model_user_attribute_names_rep.go
 model_user_flag_setting.go
 model_user_flag_settings.go
 model_user_record.go
+model_user_record_rep.go
 model_user_segment.go
 model_user_segment_rule.go
 model_user_segments.go
 model_users.go
 model_value_put.go
-model_variate.go
 model_variation.go
 model_variation_or_rollout_rep.go
 model_variation_summary.go

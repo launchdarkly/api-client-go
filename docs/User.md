@@ -4,13 +4,19 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**LastPing** | Pointer to **time.Time** |  | [optional] 
-**EnvironmentId** | Pointer to **string** |  | [optional] 
-**OwnerId** | Pointer to **string** |  | [optional] 
-**User** | Pointer to [**User**](User.md) |  | [optional] 
-**SortValue** | Pointer to **interface{}** |  | [optional] 
-**Links** | Pointer to [**map[string]Link**](Link.md) |  | [optional] 
-**Access** | Pointer to [**AccessRep**](AccessRep.md) |  | [optional] 
+**Key** | Pointer to **string** |  | [optional] 
+**Secondary** | Pointer to **string** |  | [optional] 
+**Ip** | Pointer to **string** |  | [optional] 
+**Country** | Pointer to **string** |  | [optional] 
+**Email** | Pointer to **string** |  | [optional] 
+**FirstName** | Pointer to **string** |  | [optional] 
+**LastName** | Pointer to **string** |  | [optional] 
+**Avatar** | Pointer to **string** |  | [optional] 
+**Name** | Pointer to **string** |  | [optional] 
+**Anonymous** | Pointer to **bool** |  | [optional] 
+**Custom** | Pointer to **map[string]interface{}** |  | [optional] 
+**Derived** | Pointer to [**map[string]DerivedAttribute**](DerivedAttribute.md) |  | [optional] 
+**PrivateAttrs** | Pointer to **[]string** |  | [optional] 
 
 ## Methods
 
@@ -31,190 +37,330 @@ NewUserWithDefaults instantiates a new User object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetLastPing
+### GetKey
 
-`func (o *User) GetLastPing() time.Time`
+`func (o *User) GetKey() string`
 
-GetLastPing returns the LastPing field if non-nil, zero value otherwise.
+GetKey returns the Key field if non-nil, zero value otherwise.
 
-### GetLastPingOk
+### GetKeyOk
 
-`func (o *User) GetLastPingOk() (*time.Time, bool)`
+`func (o *User) GetKeyOk() (*string, bool)`
 
-GetLastPingOk returns a tuple with the LastPing field if it's non-nil, zero value otherwise
+GetKeyOk returns a tuple with the Key field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetLastPing
+### SetKey
 
-`func (o *User) SetLastPing(v time.Time)`
+`func (o *User) SetKey(v string)`
 
-SetLastPing sets LastPing field to given value.
+SetKey sets Key field to given value.
 
-### HasLastPing
+### HasKey
 
-`func (o *User) HasLastPing() bool`
+`func (o *User) HasKey() bool`
 
-HasLastPing returns a boolean if a field has been set.
+HasKey returns a boolean if a field has been set.
 
-### GetEnvironmentId
+### GetSecondary
 
-`func (o *User) GetEnvironmentId() string`
+`func (o *User) GetSecondary() string`
 
-GetEnvironmentId returns the EnvironmentId field if non-nil, zero value otherwise.
+GetSecondary returns the Secondary field if non-nil, zero value otherwise.
 
-### GetEnvironmentIdOk
+### GetSecondaryOk
 
-`func (o *User) GetEnvironmentIdOk() (*string, bool)`
+`func (o *User) GetSecondaryOk() (*string, bool)`
 
-GetEnvironmentIdOk returns a tuple with the EnvironmentId field if it's non-nil, zero value otherwise
+GetSecondaryOk returns a tuple with the Secondary field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetEnvironmentId
+### SetSecondary
 
-`func (o *User) SetEnvironmentId(v string)`
+`func (o *User) SetSecondary(v string)`
 
-SetEnvironmentId sets EnvironmentId field to given value.
+SetSecondary sets Secondary field to given value.
 
-### HasEnvironmentId
+### HasSecondary
 
-`func (o *User) HasEnvironmentId() bool`
+`func (o *User) HasSecondary() bool`
 
-HasEnvironmentId returns a boolean if a field has been set.
+HasSecondary returns a boolean if a field has been set.
 
-### GetOwnerId
+### GetIp
 
-`func (o *User) GetOwnerId() string`
+`func (o *User) GetIp() string`
 
-GetOwnerId returns the OwnerId field if non-nil, zero value otherwise.
+GetIp returns the Ip field if non-nil, zero value otherwise.
 
-### GetOwnerIdOk
+### GetIpOk
 
-`func (o *User) GetOwnerIdOk() (*string, bool)`
+`func (o *User) GetIpOk() (*string, bool)`
 
-GetOwnerIdOk returns a tuple with the OwnerId field if it's non-nil, zero value otherwise
+GetIpOk returns a tuple with the Ip field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetOwnerId
+### SetIp
 
-`func (o *User) SetOwnerId(v string)`
+`func (o *User) SetIp(v string)`
 
-SetOwnerId sets OwnerId field to given value.
+SetIp sets Ip field to given value.
 
-### HasOwnerId
+### HasIp
 
-`func (o *User) HasOwnerId() bool`
+`func (o *User) HasIp() bool`
 
-HasOwnerId returns a boolean if a field has been set.
+HasIp returns a boolean if a field has been set.
 
-### GetUser
+### GetCountry
 
-`func (o *User) GetUser() User`
+`func (o *User) GetCountry() string`
 
-GetUser returns the User field if non-nil, zero value otherwise.
+GetCountry returns the Country field if non-nil, zero value otherwise.
 
-### GetUserOk
+### GetCountryOk
 
-`func (o *User) GetUserOk() (*User, bool)`
+`func (o *User) GetCountryOk() (*string, bool)`
 
-GetUserOk returns a tuple with the User field if it's non-nil, zero value otherwise
+GetCountryOk returns a tuple with the Country field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetUser
+### SetCountry
 
-`func (o *User) SetUser(v User)`
+`func (o *User) SetCountry(v string)`
 
-SetUser sets User field to given value.
+SetCountry sets Country field to given value.
 
-### HasUser
+### HasCountry
 
-`func (o *User) HasUser() bool`
+`func (o *User) HasCountry() bool`
 
-HasUser returns a boolean if a field has been set.
+HasCountry returns a boolean if a field has been set.
 
-### GetSortValue
+### GetEmail
 
-`func (o *User) GetSortValue() interface{}`
+`func (o *User) GetEmail() string`
 
-GetSortValue returns the SortValue field if non-nil, zero value otherwise.
+GetEmail returns the Email field if non-nil, zero value otherwise.
 
-### GetSortValueOk
+### GetEmailOk
 
-`func (o *User) GetSortValueOk() (*interface{}, bool)`
+`func (o *User) GetEmailOk() (*string, bool)`
 
-GetSortValueOk returns a tuple with the SortValue field if it's non-nil, zero value otherwise
+GetEmailOk returns a tuple with the Email field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetSortValue
+### SetEmail
 
-`func (o *User) SetSortValue(v interface{})`
+`func (o *User) SetEmail(v string)`
 
-SetSortValue sets SortValue field to given value.
+SetEmail sets Email field to given value.
 
-### HasSortValue
+### HasEmail
 
-`func (o *User) HasSortValue() bool`
+`func (o *User) HasEmail() bool`
 
-HasSortValue returns a boolean if a field has been set.
+HasEmail returns a boolean if a field has been set.
 
-### SetSortValueNil
+### GetFirstName
 
-`func (o *User) SetSortValueNil(b bool)`
+`func (o *User) GetFirstName() string`
 
- SetSortValueNil sets the value for SortValue to be an explicit nil
+GetFirstName returns the FirstName field if non-nil, zero value otherwise.
 
-### UnsetSortValue
-`func (o *User) UnsetSortValue()`
+### GetFirstNameOk
 
-UnsetSortValue ensures that no value is present for SortValue, not even an explicit nil
-### GetLinks
+`func (o *User) GetFirstNameOk() (*string, bool)`
 
-`func (o *User) GetLinks() map[string]Link`
-
-GetLinks returns the Links field if non-nil, zero value otherwise.
-
-### GetLinksOk
-
-`func (o *User) GetLinksOk() (*map[string]Link, bool)`
-
-GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
+GetFirstNameOk returns a tuple with the FirstName field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetLinks
+### SetFirstName
 
-`func (o *User) SetLinks(v map[string]Link)`
+`func (o *User) SetFirstName(v string)`
 
-SetLinks sets Links field to given value.
+SetFirstName sets FirstName field to given value.
 
-### HasLinks
+### HasFirstName
 
-`func (o *User) HasLinks() bool`
+`func (o *User) HasFirstName() bool`
 
-HasLinks returns a boolean if a field has been set.
+HasFirstName returns a boolean if a field has been set.
 
-### GetAccess
+### GetLastName
 
-`func (o *User) GetAccess() AccessRep`
+`func (o *User) GetLastName() string`
 
-GetAccess returns the Access field if non-nil, zero value otherwise.
+GetLastName returns the LastName field if non-nil, zero value otherwise.
 
-### GetAccessOk
+### GetLastNameOk
 
-`func (o *User) GetAccessOk() (*AccessRep, bool)`
+`func (o *User) GetLastNameOk() (*string, bool)`
 
-GetAccessOk returns a tuple with the Access field if it's non-nil, zero value otherwise
+GetLastNameOk returns a tuple with the LastName field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetAccess
+### SetLastName
 
-`func (o *User) SetAccess(v AccessRep)`
+`func (o *User) SetLastName(v string)`
 
-SetAccess sets Access field to given value.
+SetLastName sets LastName field to given value.
 
-### HasAccess
+### HasLastName
 
-`func (o *User) HasAccess() bool`
+`func (o *User) HasLastName() bool`
 
-HasAccess returns a boolean if a field has been set.
+HasLastName returns a boolean if a field has been set.
+
+### GetAvatar
+
+`func (o *User) GetAvatar() string`
+
+GetAvatar returns the Avatar field if non-nil, zero value otherwise.
+
+### GetAvatarOk
+
+`func (o *User) GetAvatarOk() (*string, bool)`
+
+GetAvatarOk returns a tuple with the Avatar field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAvatar
+
+`func (o *User) SetAvatar(v string)`
+
+SetAvatar sets Avatar field to given value.
+
+### HasAvatar
+
+`func (o *User) HasAvatar() bool`
+
+HasAvatar returns a boolean if a field has been set.
+
+### GetName
+
+`func (o *User) GetName() string`
+
+GetName returns the Name field if non-nil, zero value otherwise.
+
+### GetNameOk
+
+`func (o *User) GetNameOk() (*string, bool)`
+
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetName
+
+`func (o *User) SetName(v string)`
+
+SetName sets Name field to given value.
+
+### HasName
+
+`func (o *User) HasName() bool`
+
+HasName returns a boolean if a field has been set.
+
+### GetAnonymous
+
+`func (o *User) GetAnonymous() bool`
+
+GetAnonymous returns the Anonymous field if non-nil, zero value otherwise.
+
+### GetAnonymousOk
+
+`func (o *User) GetAnonymousOk() (*bool, bool)`
+
+GetAnonymousOk returns a tuple with the Anonymous field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAnonymous
+
+`func (o *User) SetAnonymous(v bool)`
+
+SetAnonymous sets Anonymous field to given value.
+
+### HasAnonymous
+
+`func (o *User) HasAnonymous() bool`
+
+HasAnonymous returns a boolean if a field has been set.
+
+### GetCustom
+
+`func (o *User) GetCustom() map[string]interface{}`
+
+GetCustom returns the Custom field if non-nil, zero value otherwise.
+
+### GetCustomOk
+
+`func (o *User) GetCustomOk() (*map[string]interface{}, bool)`
+
+GetCustomOk returns a tuple with the Custom field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCustom
+
+`func (o *User) SetCustom(v map[string]interface{})`
+
+SetCustom sets Custom field to given value.
+
+### HasCustom
+
+`func (o *User) HasCustom() bool`
+
+HasCustom returns a boolean if a field has been set.
+
+### GetDerived
+
+`func (o *User) GetDerived() map[string]DerivedAttribute`
+
+GetDerived returns the Derived field if non-nil, zero value otherwise.
+
+### GetDerivedOk
+
+`func (o *User) GetDerivedOk() (*map[string]DerivedAttribute, bool)`
+
+GetDerivedOk returns a tuple with the Derived field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDerived
+
+`func (o *User) SetDerived(v map[string]DerivedAttribute)`
+
+SetDerived sets Derived field to given value.
+
+### HasDerived
+
+`func (o *User) HasDerived() bool`
+
+HasDerived returns a boolean if a field has been set.
+
+### GetPrivateAttrs
+
+`func (o *User) GetPrivateAttrs() []string`
+
+GetPrivateAttrs returns the PrivateAttrs field if non-nil, zero value otherwise.
+
+### GetPrivateAttrsOk
+
+`func (o *User) GetPrivateAttrsOk() (*[]string, bool)`
+
+GetPrivateAttrsOk returns a tuple with the PrivateAttrs field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPrivateAttrs
+
+`func (o *User) SetPrivateAttrs(v []string)`
+
+SetPrivateAttrs sets PrivateAttrs field to given value.
+
+### HasPrivateAttrs
+
+`func (o *User) HasPrivateAttrs() bool`
+
+HasPrivateAttrs returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

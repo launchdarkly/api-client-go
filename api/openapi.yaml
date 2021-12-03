@@ -100,11 +100,11 @@ info:
 
     ## Updates
 
-    Resources that accept partial updates use the `PATCH` verb, and support the [JSON Patch](http://tools.ietf.org/html/rfc6902) format. Some resources also support the [JSON Merge Patch](https://tools.ietf.org/html/rfc7386) format. In addition, some resources support optional comments that can be submitted with updates. Comments appear in outgoing webhooks, the audit log, and other integrations.
+    Resources that accept partial updates use the `PATCH` verb, and support the [JSON Patch](https://datatracker.ietf.org/doc/html/rfc6902) format. Some resources also support the [JSON Merge Patch](https://datatracker.ietf.org/doc/html/rfc7386) format. In addition, some resources support optional comments that can be submitted with updates. Comments appear in outgoing webhooks, the audit log, and other integrations.
 
     ### Updates via JSON Patch
 
-    [JSON Patch](http://tools.ietf.org/html/rfc6902) is a way to specify the modifications to perform on a resource. For example, in this feature flag representation:
+    [JSON Patch](https://datatracker.ietf.org/doc/html/rfc6902) is a way to specify the modifications to perform on a resource. For example, in this feature flag representation:
 
     ```json
     {
@@ -136,7 +136,7 @@ info:
 
     ### Updates via JSON Merge Patch
 
-    The API also supports the [JSON Merge Patch](https://tools.ietf.org/html/rfc7386) format, as well as the [Update feature flag](/tag/Feature-flags#operation/patchFeatureFlag) resource.
+    The API also supports the [JSON Merge Patch](https://datatracker.ietf.org/doc/html/rfc7386) format, as well as the [Update feature flag](/tag/Feature-flags#operation/patchFeatureFlag) resource.
 
     JSON Merge Patch is less expressive than JSON Patch but in many cases, it is simpler to construct a merge patch document. For example, you can change a feature flag's description with the following merge patch document:
 
@@ -1001,9 +1001,7 @@ paths:
           content:
             application/json:
               schema:
-                additionalProperties:
-                  $ref: '#/components/schemas/inline_response_200'
-                type: object
+                $ref: '#/components/schemas/RootResponse'
           description: Root response
       summary: Root resource
       tags:
@@ -2134,9 +2132,7 @@ paths:
         content:
           application/json:
             schema:
-              items:
-                $ref: '#/components/schemas/ExtinctionRep'
-              type: array
+              $ref: '#/components/schemas/ExtinctionListPost'
         required: true
       responses:
         "200":
@@ -4355,9 +4351,7 @@ paths:
         content:
           application/json:
             schema:
-              items:
-                $ref: '#/components/schemas/NewMemberForm'
-              type: array
+              $ref: '#/components/schemas/NewMemberFormListPost'
         required: true
       responses:
         "201":
@@ -5058,7 +5052,7 @@ paths:
       tags:
       - Projects
     patch:
-      description: Update a project. Requires a [JSON Patch](http://tools.ietf.org/html/rfc6902)
+      description: Update a project. Requires a [JSON Patch](https://datatracker.ietf.org/doc/html/rfc6902)
         representation of the desired changes to the project.
       operationId: patchProject
       parameters:
@@ -6783,6 +6777,83 @@ paths:
                 $ref: '#/components/schemas/RateLimitedErrorRep'
           description: Rate limited
       summary: Delete workflow
+      tags:
+      - Workflows (beta)
+    get:
+      description: Get a specific workflow by ID
+      operationId: getCustomWorkflow
+      parameters:
+      - description: The project key
+        explode: false
+        in: path
+        name: projectKey
+        required: true
+        schema:
+          description: The project key
+          format: string
+          type: string
+        style: simple
+      - description: The feature flag's key
+        explode: false
+        in: path
+        name: featureFlagKey
+        required: true
+        schema:
+          description: The feature flag's key
+          format: string
+          type: string
+        style: simple
+      - description: The environment key
+        explode: false
+        in: path
+        name: environmentKey
+        required: true
+        schema:
+          description: The environment key
+          format: string
+          type: string
+        style: simple
+      - description: The workflow ID
+        explode: false
+        in: path
+        name: workflowId
+        required: true
+        schema:
+          description: The workflow ID
+          format: string
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomWorkflowOutputRep'
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedErrorRep'
+          description: Invalid access token
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenErrorRep'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundErrorRep'
+          description: Invalid resource identifier
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitedErrorRep'
+          description: Rate limited
+      summary: Get custom workflow
       tags:
       - Workflows (beta)
   /api/v2/public-ip-list:
@@ -9543,7 +9614,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: '#/components/schemas/UserRecord'
           description: User response
         "400":
           content:
@@ -10281,29 +10352,35 @@ components:
         - null
         - null
         notResources:
-        - {}
-        - {}
+        - notResources
+        - notResources
         effect: effect
         resources:
-        - {}
-        - {}
+        - resources
+        - resources
         actions:
         - null
         - null
       properties:
         resources:
+          description: Resource specifier strings
           items:
-            $ref: '#/components/schemas/ResourceSpecifierImpl'
+            type: string
           type: array
         notResources:
+          description: Targeted resources are the resources NOT in this list. The
+            "resources" field must be empty to use this field.
           items:
-            $ref: '#/components/schemas/ResourceSpecifierImpl'
+            type: string
           type: array
         actions:
+          description: Actions to perform on a resource
           items:
             $ref: '#/components/schemas/ActionSpecifier'
           type: array
         notActions:
+          description: Targeted actions are the actions NOT in this list. The "actions"
+            field must be empty to use this field.
           items:
             $ref: '#/components/schemas/ActionSpecifier'
           type: array
@@ -10322,12 +10399,12 @@ components:
           - null
           - null
           notResources:
-          - {}
-          - {}
+          - notResources
+          - notResources
           effect: effect
           resources:
-          - {}
-          - {}
+          - resources
+          - resources
           actions:
           - null
           - null
@@ -10350,12 +10427,12 @@ components:
             - null
             - null
             notResources:
-            - {}
-            - {}
+            - notResources
+            - notResources
             effect: effect
             resources:
-            - {}
-            - {}
+            - resources
+            - resources
             actions:
             - null
             - null
@@ -10366,12 +10443,12 @@ components:
             - null
             - null
             notResources:
-            - {}
-            - {}
+            - notResources
+            - notResources
             effect: effect
             resources:
-            - {}
-            - {}
+            - resources
+            - resources
             actions:
             - null
             - null
@@ -11572,12 +11649,12 @@ components:
               - null
               - null
               notResources:
-              - {}
-              - {}
+              - notResources
+              - notResources
               effect: effect
               resources:
-              - {}
-              - {}
+              - resources
+              - resources
               actions:
               - null
               - null
@@ -11588,12 +11665,12 @@ components:
               - null
               - null
               notResources:
-              - {}
-              - {}
+              - notResources
+              - notResources
               effect: effect
               resources:
-              - {}
-              - {}
+              - resources
+              - resources
               actions:
               - null
               - null
@@ -11612,12 +11689,12 @@ components:
           - null
           - null
           notResources:
-          - {}
-          - {}
+          - notResources
+          - notResources
           effect: effect
           resources:
-          - {}
-          - {}
+          - resources
+          - resources
           actions:
           - null
           - null
@@ -11625,12 +11702,12 @@ components:
           - null
           - null
           notResources:
-          - {}
-          - {}
+          - notResources
+          - notResources
           effect: effect
           resources:
-          - {}
-          - {}
+          - resources
+          - resources
           actions:
           - null
           - null
@@ -11753,12 +11830,12 @@ components:
                 - null
                 - null
                 notResources:
-                - {}
-                - {}
+                - notResources
+                - notResources
                 effect: effect
                 resources:
-                - {}
-                - {}
+                - resources
+                - resources
                 actions:
                 - null
                 - null
@@ -11769,12 +11846,12 @@ components:
                 - null
                 - null
                 notResources:
-                - {}
-                - {}
+                - notResources
+                - notResources
                 effect: effect
                 resources:
-                - {}
-                - {}
+                - resources
+                - resources
                 actions:
                 - null
                 - null
@@ -11793,12 +11870,12 @@ components:
             - null
             - null
             notResources:
-            - {}
-            - {}
+            - notResources
+            - notResources
             effect: effect
             resources:
-            - {}
-            - {}
+            - resources
+            - resources
             actions:
             - null
             - null
@@ -11806,12 +11883,12 @@ components:
             - null
             - null
             notResources:
-            - {}
-            - {}
+            - notResources
+            - notResources
             effect: effect
             resources:
-            - {}
-            - {}
+            - resources
+            - resources
             actions:
             - null
             - null
@@ -11823,12 +11900,12 @@ components:
                 - null
                 - null
                 notResources:
-                - {}
-                - {}
+                - notResources
+                - notResources
                 effect: effect
                 resources:
-                - {}
-                - {}
+                - resources
+                - resources
                 actions:
                 - null
                 - null
@@ -11839,12 +11916,12 @@ components:
                 - null
                 - null
                 notResources:
-                - {}
-                - {}
+                - notResources
+                - notResources
                 effect: effect
                 resources:
-                - {}
-                - {}
+                - resources
+                - resources
                 actions:
                 - null
                 - null
@@ -11863,12 +11940,12 @@ components:
             - null
             - null
             notResources:
-            - {}
-            - {}
+            - notResources
+            - notResources
             effect: effect
             resources:
-            - {}
-            - {}
+            - resources
+            - resources
             actions:
             - null
             - null
@@ -11876,12 +11953,12 @@ components:
             - null
             - null
             notResources:
-            - {}
-            - {}
+            - notResources
+            - notResources
             effect: effect
             resources:
-            - {}
-            - {}
+            - resources
+            - resources
             actions:
             - null
             - null
@@ -11948,6 +12025,8 @@ components:
           items:
             $ref: '#/components/schemas/StageInputRep'
           type: array
+      required:
+      - description
       type: object
     CustomWorkflowMeta:
       example:
@@ -12531,6 +12610,16 @@ components:
       - _site
       - items
       type: object
+    DerivedAttribute:
+      example:
+        lastDerived: 2000-01-23T04:56:07.000+00:00
+        value: ""
+      properties:
+        value: {}
+        lastDerived:
+          format: date-time
+          type: string
+      type: object
     Destination:
       example:
         _access:
@@ -12541,12 +12630,12 @@ components:
               - null
               - null
               notResources:
-              - {}
-              - {}
+              - notResources
+              - notResources
               effect: effect
               resources:
-              - {}
-              - {}
+              - resources
+              - resources
               actions:
               - null
               - null
@@ -12557,12 +12646,12 @@ components:
               - null
               - null
               notResources:
-              - {}
-              - {}
+              - notResources
+              - notResources
               effect: effect
               resources:
-              - {}
-              - {}
+              - resources
+              - resources
               actions:
               - null
               - null
@@ -12653,12 +12742,12 @@ components:
                 - null
                 - null
                 notResources:
-                - {}
-                - {}
+                - notResources
+                - notResources
                 effect: effect
                 resources:
-                - {}
-                - {}
+                - resources
+                - resources
                 actions:
                 - null
                 - null
@@ -12669,12 +12758,12 @@ components:
                 - null
                 - null
                 notResources:
-                - {}
-                - {}
+                - notResources
+                - notResources
                 effect: effect
                 resources:
-                - {}
-                - {}
+                - resources
+                - resources
                 actions:
                 - null
                 - null
@@ -12700,12 +12789,12 @@ components:
                 - null
                 - null
                 notResources:
-                - {}
-                - {}
+                - notResources
+                - notResources
                 effect: effect
                 resources:
-                - {}
-                - {}
+                - resources
+                - resources
                 actions:
                 - null
                 - null
@@ -12716,12 +12805,12 @@ components:
                 - null
                 - null
                 notResources:
-                - {}
-                - {}
+                - notResources
+                - notResources
                 effect: effect
                 resources:
-                - {}
-                - {}
+                - resources
+                - resources
                 actions:
                 - null
                 - null
@@ -12773,15 +12862,17 @@ components:
           self:
             href: /api/v2/projects/my-project/environments/my-environment
             type: application/json
+        confirmChanges: true
+        requireComments: true
+        mobileKey: XYZ
+        defaultTrackEvents: false
+        tags:
+        - ops
         name: My Environment
         defaultTtl: 5
         _id: 57be1db38b75bf0772d11384
-        mobileKey: XYZ
         secureMode: true
-        defaultTrackEvents: false
         key: my-environment
-        tags:
-        - ops
       properties:
         _links:
           additionalProperties:
@@ -12829,6 +12920,10 @@ components:
           description: Enables tracking detailed information for new flags by default.
           example: false
           type: boolean
+        requireComments:
+          type: boolean
+        confirmChanges:
+          type: boolean
         tags:
           example:
           - ops
@@ -12842,11 +12937,13 @@ components:
       - _links
       - apiKey
       - color
+      - confirmChanges
       - defaultTrackEvents
       - defaultTtl
       - key
       - mobileKey
       - name
+      - requireComments
       - secureMode
       - tags
       type: object
@@ -13014,12 +13111,12 @@ components:
                   - null
                   - null
                   notResources:
-                  - {}
-                  - {}
+                  - notResources
+                  - notResources
                   effect: effect
                   resources:
-                  - {}
-                  - {}
+                  - resources
+                  - resources
                   actions:
                   - null
                   - null
@@ -13030,12 +13127,12 @@ components:
                   - null
                   - null
                   notResources:
-                  - {}
-                  - {}
+                  - notResources
+                  - notResources
                   effect: effect
                   resources:
-                  - {}
-                  - {}
+                  - resources
+                  - resources
                   actions:
                   - null
                   - null
@@ -13098,12 +13195,12 @@ components:
                   - null
                   - null
                   notResources:
-                  - {}
-                  - {}
+                  - notResources
+                  - notResources
                   effect: effect
                   resources:
-                  - {}
-                  - {}
+                  - resources
+                  - resources
                   actions:
                   - null
                   - null
@@ -13114,12 +13211,12 @@ components:
                   - null
                   - null
                   notResources:
-                  - {}
-                  - {}
+                  - notResources
+                  - notResources
                   effect: effect
                   resources:
-                  - {}
-                  - {}
+                  - resources
+                  - resources
                   actions:
                   - null
                   - null
@@ -13201,12 +13298,12 @@ components:
                 - null
                 - null
                 notResources:
-                - {}
-                - {}
+                - notResources
+                - notResources
                 effect: effect
                 resources:
-                - {}
-                - {}
+                - resources
+                - resources
                 actions:
                 - null
                 - null
@@ -13217,12 +13314,12 @@ components:
                 - null
                 - null
                 notResources:
-                - {}
-                - {}
+                - notResources
+                - notResources
                 effect: effect
                 resources:
-                - {}
-                - {}
+                - resources
+                - resources
                 actions:
                 - null
                 - null
@@ -13259,6 +13356,9 @@ components:
       type: object
     ExperimentResultsRep:
       example:
+        metricSeen:
+          ever: true
+          minutesAgo: 5
         metadata:
         - key: ""
         - key: ""
@@ -13367,6 +13467,8 @@ components:
           $ref: '#/components/schemas/ExperimentStatsRep'
         granularity:
           type: string
+        metricSeen:
+          $ref: '#/components/schemas/MetricSeen'
       type: object
     ExperimentStatsRep:
       example:
@@ -13651,41 +13753,7 @@ components:
       required:
       - items
       type: object
-    ExtinctionCollectionRep:
-      example:
-        _links:
-          key:
-            href: href
-            type: type
-        items:
-          key:
-          - time: 0
-            message: Remove flag for launched feature
-            projKey: default
-            flagKey: enable-feature
-            revision: a94a8fe5ccb19ba61c4c0873d391e987982fbbd3
-          - time: 0
-            message: Remove flag for launched feature
-            projKey: default
-            flagKey: enable-feature
-            revision: a94a8fe5ccb19ba61c4c0873d391e987982fbbd3
-      properties:
-        _links:
-          additionalProperties:
-            $ref: '#/components/schemas/Link'
-          type: object
-        items:
-          additionalProperties:
-            items:
-              $ref: '#/components/schemas/ExtinctionRep'
-            type: array
-          description: An array of extinction events
-          type: object
-      required:
-      - _links
-      - items
-      type: object
-    ExtinctionRep:
+    Extinction:
       example:
         time: 0
         message: Remove flag for launched feature
@@ -13721,6 +13789,44 @@ components:
       - revision
       - time
       type: object
+    ExtinctionCollectionRep:
+      example:
+        _links:
+          key:
+            href: href
+            type: type
+        items:
+          key:
+          - time: 0
+            message: Remove flag for launched feature
+            projKey: default
+            flagKey: enable-feature
+            revision: a94a8fe5ccb19ba61c4c0873d391e987982fbbd3
+          - time: 0
+            message: Remove flag for launched feature
+            projKey: default
+            flagKey: enable-feature
+            revision: a94a8fe5ccb19ba61c4c0873d391e987982fbbd3
+      properties:
+        _links:
+          additionalProperties:
+            $ref: '#/components/schemas/Link'
+          type: object
+        items:
+          additionalProperties:
+            items:
+              $ref: '#/components/schemas/Extinction'
+            type: array
+          description: An array of extinction events
+          type: object
+      required:
+      - _links
+      - items
+      type: object
+    ExtinctionListPost:
+      items:
+        $ref: '#/components/schemas/Extinction'
+      type: array
     FeatureFlag:
       example:
         archivedDate: 3
@@ -13829,12 +13935,12 @@ components:
                     - null
                     - null
                     notResources:
-                    - {}
-                    - {}
+                    - notResources
+                    - notResources
                     effect: effect
                     resources:
-                    - {}
-                    - {}
+                    - resources
+                    - resources
                     actions:
                     - null
                     - null
@@ -13845,12 +13951,12 @@ components:
                     - null
                     - null
                     notResources:
-                    - {}
-                    - {}
+                    - notResources
+                    - notResources
                     effect: effect
                     resources:
-                    - {}
-                    - {}
+                    - resources
+                    - resources
                     actions:
                     - null
                     - null
@@ -13913,12 +14019,12 @@ components:
                     - null
                     - null
                     notResources:
-                    - {}
-                    - {}
+                    - notResources
+                    - notResources
                     effect: effect
                     resources:
-                    - {}
-                    - {}
+                    - resources
+                    - resources
                     actions:
                     - null
                     - null
@@ -13929,12 +14035,12 @@ components:
                     - null
                     - null
                     notResources:
-                    - {}
-                    - {}
+                    - notResources
+                    - notResources
                     effect: effect
                     resources:
-                    - {}
-                    - {}
+                    - resources
+                    - resources
                     actions:
                     - null
                     - null
@@ -14136,11 +14242,11 @@ components:
         variations:
         - name: name
           description: description
-          id: id
+          _id: _id
           value: ""
         - name: name
           description: description
-          id: id
+          _id: _id
           value: ""
         name: name
         description: description
@@ -14168,7 +14274,7 @@ components:
         variations:
           description: An array of possible variations for the flag
           items:
-            $ref: '#/components/schemas/Variate'
+            $ref: '#/components/schemas/Variation'
           type: array
         variationJsonSchema: {}
         temporary:
@@ -14554,12 +14660,12 @@ components:
                       - null
                       - null
                       notResources:
-                      - {}
-                      - {}
+                      - notResources
+                      - notResources
                       effect: effect
                       resources:
-                      - {}
-                      - {}
+                      - resources
+                      - resources
                       actions:
                       - null
                       - null
@@ -14570,12 +14676,12 @@ components:
                       - null
                       - null
                       notResources:
-                      - {}
-                      - {}
+                      - notResources
+                      - notResources
                       effect: effect
                       resources:
-                      - {}
-                      - {}
+                      - resources
+                      - resources
                       actions:
                       - null
                       - null
@@ -14638,12 +14744,12 @@ components:
                       - null
                       - null
                       notResources:
-                      - {}
-                      - {}
+                      - notResources
+                      - notResources
                       effect: effect
                       resources:
-                      - {}
-                      - {}
+                      - resources
+                      - resources
                       actions:
                       - null
                       - null
@@ -14654,12 +14760,12 @@ components:
                       - null
                       - null
                       notResources:
-                      - {}
-                      - {}
+                      - notResources
+                      - notResources
                       effect: effect
                       resources:
-                      - {}
-                      - {}
+                      - resources
+                      - resources
                       actions:
                       - null
                       - null
@@ -14806,12 +14912,12 @@ components:
                       - null
                       - null
                       notResources:
-                      - {}
-                      - {}
+                      - notResources
+                      - notResources
                       effect: effect
                       resources:
-                      - {}
-                      - {}
+                      - resources
+                      - resources
                       actions:
                       - null
                       - null
@@ -14822,12 +14928,12 @@ components:
                       - null
                       - null
                       notResources:
-                      - {}
-                      - {}
+                      - notResources
+                      - notResources
                       effect: effect
                       resources:
-                      - {}
-                      - {}
+                      - resources
+                      - resources
                       actions:
                       - null
                       - null
@@ -14890,12 +14996,12 @@ components:
                       - null
                       - null
                       notResources:
-                      - {}
-                      - {}
+                      - notResources
+                      - notResources
                       effect: effect
                       resources:
-                      - {}
-                      - {}
+                      - resources
+                      - resources
                       actions:
                       - null
                       - null
@@ -14906,12 +15012,12 @@ components:
                       - null
                       - null
                       notResources:
-                      - {}
-                      - {}
+                      - notResources
+                      - notResources
                       effect: effect
                       resources:
-                      - {}
-                      - {}
+                      - resources
+                      - resources
                       actions:
                       - null
                       - null
@@ -16029,12 +16135,12 @@ components:
                 - null
                 - null
                 notResources:
-                - {}
-                - {}
+                - notResources
+                - notResources
                 effect: effect
                 resources:
-                - {}
-                - {}
+                - resources
+                - resources
                 actions:
                 - null
                 - null
@@ -16045,12 +16151,12 @@ components:
                 - null
                 - null
                 notResources:
-                - {}
-                - {}
+                - notResources
+                - notResources
                 effect: effect
                 resources:
-                - {}
-                - {}
+                - resources
+                - resources
                 actions:
                 - null
                 - null
@@ -16098,12 +16204,12 @@ components:
                 - null
                 - null
                 notResources:
-                - {}
-                - {}
+                - notResources
+                - notResources
                 effect: effect
                 resources:
-                - {}
-                - {}
+                - resources
+                - resources
                 actions:
                 - null
                 - null
@@ -16114,12 +16220,12 @@ components:
                 - null
                 - null
                 notResources:
-                - {}
-                - {}
+                - notResources
+                - notResources
                 effect: effect
                 resources:
-                - {}
-                - {}
+                - resources
+                - resources
                 actions:
                 - null
                 - null
@@ -16183,12 +16289,12 @@ components:
               - null
               - null
               notResources:
-              - {}
-              - {}
+              - notResources
+              - notResources
               effect: effect
               resources:
-              - {}
-              - {}
+              - resources
+              - resources
               actions:
               - null
               - null
@@ -16199,12 +16305,12 @@ components:
               - null
               - null
               notResources:
-              - {}
-              - {}
+              - notResources
+              - notResources
               effect: effect
               resources:
-              - {}
-              - {}
+              - resources
+              - resources
               actions:
               - null
               - null
@@ -16390,12 +16496,12 @@ components:
               - null
               - null
               notResources:
-              - {}
-              - {}
+              - notResources
+              - notResources
               effect: effect
               resources:
-              - {}
-              - {}
+              - resources
+              - resources
               actions:
               - null
               - null
@@ -16406,12 +16512,12 @@ components:
               - null
               - null
               notResources:
-              - {}
-              - {}
+              - notResources
+              - notResources
               effect: effect
               resources:
-              - {}
-              - {}
+              - resources
+              - resources
               actions:
               - null
               - null
@@ -16529,6 +16635,17 @@ components:
       - kind
       - name
       - tags
+      type: object
+    MetricSeen:
+      example:
+        ever: true
+        minutesAgo: 5
+      properties:
+        ever:
+          type: boolean
+        minutesAgo:
+          format: int64
+          type: integer
       type: object
     Modification:
       example:
@@ -16677,6 +16794,10 @@ components:
       required:
       - email
       type: object
+    NewMemberFormListPost:
+      items:
+        $ref: '#/components/schemas/NewMemberForm'
+      type: array
     NotFoundErrorRep:
       properties:
         code:
@@ -16858,15 +16979,17 @@ components:
             self:
               href: /api/v2/projects/my-project/environments/my-environment
               type: application/json
+          confirmChanges: true
+          requireComments: true
+          mobileKey: XYZ
+          defaultTrackEvents: false
+          tags:
+          - ops
           name: My Environment
           defaultTtl: 5
           _id: 57be1db38b75bf0772d11384
-          mobileKey: XYZ
           secureMode: true
-          defaultTrackEvents: false
           key: my-environment
-          tags:
-          - ops
         - approvalSettings:
             serviceKind: launchdarkly
             canReviewOwnRequest: false
@@ -16883,15 +17006,17 @@ components:
             self:
               href: /api/v2/projects/my-project/environments/my-environment
               type: application/json
+          confirmChanges: true
+          requireComments: true
+          mobileKey: XYZ
+          defaultTrackEvents: false
+          tags:
+          - ops
           name: My Environment
           defaultTtl: 5
           _id: 57be1db38b75bf0772d11384
-          mobileKey: XYZ
           secureMode: true
-          defaultTrackEvents: false
           key: my-environment
-          tags:
-          - ops
         defaultClientSideAvailability:
           usingEnvironmentId: true
           usingMobileKey: true
@@ -16990,8 +17115,26 @@ components:
       example:
         includeInSnippetByDefault: true
         environments:
-        - '{}'
-        - '{}'
+        - color: F5A623
+          confirmChanges: false
+          name: My Environment
+          defaultTtl: 5
+          requireComments: false
+          secureMode: true
+          defaultTrackEvents: false
+          key: my-environment
+          tags:
+          - ops
+        - color: F5A623
+          confirmChanges: false
+          name: My Environment
+          defaultTtl: 5
+          requireComments: false
+          secureMode: true
+          defaultTrackEvents: false
+          key: my-environment
+          tags:
+          - ops
         defaultClientSideAvailability:
           usingEnvironmentId: true
           usingMobileKey: true
@@ -17025,7 +17168,7 @@ components:
           description: Creates the provided environments for this project. If omitted
             default environments will be created instead.
           items:
-            type: object
+            $ref: '#/components/schemas/EnvironmentPost'
           type: array
       required:
       - key
@@ -17063,15 +17206,17 @@ components:
               self:
                 href: /api/v2/projects/my-project/environments/my-environment
                 type: application/json
+            confirmChanges: true
+            requireComments: true
+            mobileKey: XYZ
+            defaultTrackEvents: false
+            tags:
+            - ops
             name: My Environment
             defaultTtl: 5
             _id: 57be1db38b75bf0772d11384
-            mobileKey: XYZ
             secureMode: true
-            defaultTrackEvents: false
             key: my-environment
-            tags:
-            - ops
           - approvalSettings:
               serviceKind: launchdarkly
               canReviewOwnRequest: false
@@ -17088,15 +17233,17 @@ components:
               self:
                 href: /api/v2/projects/my-project/environments/my-environment
                 type: application/json
+            confirmChanges: true
+            requireComments: true
+            mobileKey: XYZ
+            defaultTrackEvents: false
+            tags:
+            - ops
             name: My Environment
             defaultTtl: 5
             _id: 57be1db38b75bf0772d11384
-            mobileKey: XYZ
             secureMode: true
-            defaultTrackEvents: false
             key: my-environment
-            tags:
-            - ops
           defaultClientSideAvailability:
             usingEnvironmentId: true
             usingMobileKey: true
@@ -17130,15 +17277,17 @@ components:
               self:
                 href: /api/v2/projects/my-project/environments/my-environment
                 type: application/json
+            confirmChanges: true
+            requireComments: true
+            mobileKey: XYZ
+            defaultTrackEvents: false
+            tags:
+            - ops
             name: My Environment
             defaultTtl: 5
             _id: 57be1db38b75bf0772d11384
-            mobileKey: XYZ
             secureMode: true
-            defaultTrackEvents: false
             key: my-environment
-            tags:
-            - ops
           - approvalSettings:
               serviceKind: launchdarkly
               canReviewOwnRequest: false
@@ -17155,15 +17304,17 @@ components:
               self:
                 href: /api/v2/projects/my-project/environments/my-environment
                 type: application/json
+            confirmChanges: true
+            requireComments: true
+            mobileKey: XYZ
+            defaultTrackEvents: false
+            tags:
+            - ops
             name: My Environment
             defaultTtl: 5
             _id: 57be1db38b75bf0772d11384
-            mobileKey: XYZ
             secureMode: true
-            defaultTrackEvents: false
             key: my-environment
-            tags:
-            - ops
           defaultClientSideAvailability:
             usingEnvironmentId: true
             usingMobileKey: true
@@ -17265,12 +17416,12 @@ components:
                 - null
                 - null
                 notResources:
-                - {}
-                - {}
+                - notResources
+                - notResources
                 effect: effect
                 resources:
-                - {}
-                - {}
+                - resources
+                - resources
                 actions:
                 - null
                 - null
@@ -17281,12 +17432,12 @@ components:
                 - null
                 - null
                 notResources:
-                - {}
-                - {}
+                - notResources
+                - notResources
                 effect: effect
                 resources:
-                - {}
-                - {}
+                - resources
+                - resources
                 actions:
                 - null
                 - null
@@ -17301,12 +17452,12 @@ components:
             - null
             - null
             notResources:
-            - {}
-            - {}
+            - notResources
+            - notResources
             effect: effect
             resources:
-            - {}
-            - {}
+            - resources
+            - resources
             actions:
             - null
             - null
@@ -17314,12 +17465,12 @@ components:
             - null
             - null
             notResources:
-            - {}
-            - {}
+            - notResources
+            - notResources
             effect: effect
             resources:
-            - {}
-            - {}
+            - resources
+            - resources
             actions:
             - null
             - null
@@ -17342,12 +17493,12 @@ components:
                 - null
                 - null
                 notResources:
-                - {}
-                - {}
+                - notResources
+                - notResources
                 effect: effect
                 resources:
-                - {}
-                - {}
+                - resources
+                - resources
                 actions:
                 - null
                 - null
@@ -17358,12 +17509,12 @@ components:
                 - null
                 - null
                 notResources:
-                - {}
-                - {}
+                - notResources
+                - notResources
                 effect: effect
                 resources:
-                - {}
-                - {}
+                - resources
+                - resources
                 actions:
                 - null
                 - null
@@ -17378,12 +17529,12 @@ components:
             - null
             - null
             notResources:
-            - {}
-            - {}
+            - notResources
+            - notResources
             effect: effect
             resources:
-            - {}
-            - {}
+            - resources
+            - resources
             actions:
             - null
             - null
@@ -17391,12 +17542,12 @@ components:
             - null
             - null
             notResources:
-            - {}
-            - {}
+            - notResources
+            - notResources
             effect: effect
             resources:
-            - {}
-            - {}
+            - resources
+            - resources
             actions:
             - null
             - null
@@ -17416,12 +17567,12 @@ components:
           - null
           - null
           notResources:
-          - {}
-          - {}
+          - notResources
+          - notResources
           effect: effect
           resources:
-          - {}
-          - {}
+          - resources
+          - resources
           actions:
           - null
           - null
@@ -17429,12 +17580,12 @@ components:
           - null
           - null
           notResources:
-          - {}
-          - {}
+          - notResources
+          - notResources
           effect: effect
           resources:
-          - {}
-          - {}
+          - resources
+          - resources
           actions:
           - null
           - null
@@ -17471,12 +17622,12 @@ components:
               - null
               - null
               notResources:
-              - {}
-              - {}
+              - notResources
+              - notResources
               effect: effect
               resources:
-              - {}
-              - {}
+              - resources
+              - resources
               actions:
               - null
               - null
@@ -17487,12 +17638,12 @@ components:
               - null
               - null
               notResources:
-              - {}
-              - {}
+              - notResources
+              - notResources
               effect: effect
               resources:
-              - {}
-              - {}
+              - resources
+              - resources
               actions:
               - null
               - null
@@ -17507,12 +17658,12 @@ components:
           - null
           - null
           notResources:
-          - {}
-          - {}
+          - notResources
+          - notResources
           effect: effect
           resources:
-          - {}
-          - {}
+          - resources
+          - resources
           actions:
           - null
           - null
@@ -17520,12 +17671,12 @@ components:
           - null
           - null
           notResources:
-          - {}
-          - {}
+          - notResources
+          - notResources
           effect: effect
           resources:
-          - {}
-          - {}
+          - resources
+          - resources
           actions:
           - null
           - null
@@ -17576,12 +17727,12 @@ components:
                 - null
                 - null
                 notResources:
-                - {}
-                - {}
+                - notResources
+                - notResources
                 effect: effect
                 resources:
-                - {}
-                - {}
+                - resources
+                - resources
                 actions:
                 - null
                 - null
@@ -17592,12 +17743,12 @@ components:
                 - null
                 - null
                 notResources:
-                - {}
-                - {}
+                - notResources
+                - notResources
                 effect: effect
                 resources:
-                - {}
-                - {}
+                - resources
+                - resources
                 actions:
                 - null
                 - null
@@ -17703,12 +17854,12 @@ components:
                 - null
                 - null
                 notResources:
-                - {}
-                - {}
+                - notResources
+                - notResources
                 effect: effect
                 resources:
-                - {}
-                - {}
+                - resources
+                - resources
                 actions:
                 - null
                 - null
@@ -17719,12 +17870,12 @@ components:
                 - null
                 - null
                 notResources:
-                - {}
-                - {}
+                - notResources
+                - notResources
                 effect: effect
                 resources:
-                - {}
-                - {}
+                - resources
+                - resources
                 actions:
                 - null
                 - null
@@ -17846,12 +17997,12 @@ components:
               - null
               - null
               notResources:
-              - {}
-              - {}
+              - notResources
+              - notResources
               effect: effect
               resources:
-              - {}
-              - {}
+              - resources
+              - resources
               actions:
               - null
               - null
@@ -17862,12 +18013,12 @@ components:
               - null
               - null
               notResources:
-              - {}
-              - {}
+              - notResources
+              - notResources
               effect: effect
               resources:
-              - {}
-              - {}
+              - resources
+              - resources
               actions:
               - null
               - null
@@ -18052,11 +18203,6 @@ components:
     ResourceIdentifier: {}
     ResourceKind:
       type: string
-    ResourceSpecifier: {}
-    ResourceSpecifierImpl:
-      example: {}
-      properties: {}
-      type: object
     ReviewOutputRep:
       example:
         kind: kind
@@ -18128,6 +18274,10 @@ components:
           type: string
       required:
       - variations
+      type: object
+    RootResponse:
+      additionalProperties:
+        $ref: '#/components/schemas/Link'
       type: object
     Rule:
       properties:
@@ -18456,29 +18606,35 @@ components:
         - null
         - null
         notResources:
-        - {}
-        - {}
+        - notResources
+        - notResources
         effect: effect
         resources:
-        - {}
-        - {}
+        - resources
+        - resources
         actions:
         - null
         - null
       properties:
         resources:
+          description: Resource specifier strings
           items:
-            $ref: '#/components/schemas/ResourceSpecifierImpl'
+            type: string
           type: array
         notResources:
+          description: Targeted resources are the resources NOT in this list. The
+            "resources" field must be empty to use this field.
           items:
-            $ref: '#/components/schemas/ResourceSpecifierImpl'
+            type: string
           type: array
         actions:
+          description: Actions to perform on a resource
           items:
             $ref: '#/components/schemas/ActionSpecifier'
           type: array
         notActions:
+          description: Targeted actions are the actions NOT in this list. The "actions"
+            field must be empty to use this field.
           items:
             $ref: '#/components/schemas/ActionSpecifier'
           type: array
@@ -18573,12 +18729,12 @@ components:
         - null
         - null
         notResources:
-        - {}
-        - {}
+        - notResources
+        - notResources
         effect: effect
         resources:
-        - {}
-        - {}
+        - resources
+        - resources
         actions:
         - null
         - null
@@ -18586,13 +18742,13 @@ components:
         resources:
           description: Resource specifier strings
           items:
-            $ref: '#/components/schemas/ResourceSpecifierImpl'
+            type: string
           type: array
         notResources:
           description: Targeted resources are the resources NOT in this list. The
             "resources" field must be empty to use this field.
           items:
-            $ref: '#/components/schemas/ResourceSpecifierImpl'
+            type: string
           type: array
         actions:
           description: Actions to perform on a resource
@@ -18607,6 +18763,8 @@ components:
           type: array
         effect:
           type: string
+      required:
+      - effect
       type: object
     StatisticCollectionRep:
       example:
@@ -18803,12 +18961,12 @@ components:
                 - null
                 - null
                 notResources:
-                - {}
-                - {}
+                - notResources
+                - notResources
                 effect: effect
                 resources:
-                - {}
-                - {}
+                - resources
+                - resources
                 actions:
                 - null
                 - null
@@ -18819,12 +18977,12 @@ components:
                 - null
                 - null
                 notResources:
-                - {}
-                - {}
+                - notResources
+                - notResources
                 effect: effect
                 resources:
-                - {}
-                - {}
+                - resources
+                - resources
                 actions:
                 - null
                 - null
@@ -18873,12 +19031,12 @@ components:
                 - null
                 - null
                 notResources:
-                - {}
-                - {}
+                - notResources
+                - notResources
                 effect: effect
                 resources:
-                - {}
-                - {}
+                - resources
+                - resources
                 actions:
                 - null
                 - null
@@ -18889,12 +19047,12 @@ components:
                 - null
                 - null
                 notResources:
-                - {}
-                - {}
+                - notResources
+                - notResources
                 effect: effect
                 resources:
-                - {}
-                - {}
+                - resources
+                - resources
                 actions:
                 - null
                 - null
@@ -18957,12 +19115,12 @@ components:
               - null
               - null
               notResources:
-              - {}
-              - {}
+              - notResources
+              - notResources
               effect: effect
               resources:
-              - {}
-              - {}
+              - resources
+              - resources
               actions:
               - null
               - null
@@ -18973,12 +19131,12 @@ components:
               - null
               - null
               notResources:
-              - {}
-              - {}
+              - notResources
+              - notResources
               effect: effect
               resources:
-              - {}
-              - {}
+              - resources
+              - resources
               actions:
               - null
               - null
@@ -19092,12 +19250,12 @@ components:
           - null
           - null
           notResources:
-          - {}
-          - {}
+          - notResources
+          - notResources
           effect: effect
           resources:
-          - {}
-          - {}
+          - resources
+          - resources
           actions:
           - null
           - null
@@ -19105,12 +19263,12 @@ components:
           - null
           - null
           notResources:
-          - {}
-          - {}
+          - notResources
+          - notResources
           effect: effect
           resources:
-          - {}
-          - {}
+          - resources
+          - resources
           actions:
           - null
           - null
@@ -19241,12 +19399,12 @@ components:
             - null
             - null
             notResources:
-            - {}
-            - {}
+            - notResources
+            - notResources
             effect: effect
             resources:
-            - {}
-            - {}
+            - resources
+            - resources
             actions:
             - null
             - null
@@ -19254,12 +19412,12 @@ components:
             - null
             - null
             notResources:
-            - {}
-            - {}
+            - notResources
+            - notResources
             effect: effect
             resources:
-            - {}
-            - {}
+            - resources
+            - resources
             actions:
             - null
             - null
@@ -19300,12 +19458,12 @@ components:
             - null
             - null
             notResources:
-            - {}
-            - {}
+            - notResources
+            - notResources
             effect: effect
             resources:
-            - {}
-            - {}
+            - resources
+            - resources
             actions:
             - null
             - null
@@ -19313,12 +19471,12 @@ components:
             - null
             - null
             notResources:
-            - {}
-            - {}
+            - notResources
+            - notResources
             effect: effect
             resources:
-            - {}
-            - {}
+            - resources
+            - resources
             actions:
             - null
             - null
@@ -19378,65 +19536,57 @@ components:
       type: object
     User:
       example:
-        sortValue: ""
-        environmentId: environmentId
-        _access:
-          denied:
-          - reason:
-              role_name: role_name
-              notActions:
-              - null
-              - null
-              notResources:
-              - {}
-              - {}
-              effect: effect
-              resources:
-              - {}
-              - {}
-              actions:
-              - null
-              - null
-            action: action
-          - reason:
-              role_name: role_name
-              notActions:
-              - null
-              - null
-              notResources:
-              - {}
-              - {}
-              effect: effect
-              resources:
-              - {}
-              - {}
-              actions:
-              - null
-              - null
-            action: action
-        _links:
+        country: country
+        lastName: lastName
+        ip: ip
+        custom:
+          key: ""
+        avatar: avatar
+        secondary: secondary
+        firstName: firstName
+        name: name
+        anonymous: true
+        privateAttrs:
+        - privateAttrs
+        - privateAttrs
+        derived:
           key:
-            href: href
-            type: type
-        lastPing: 2000-01-23T04:56:07.000+00:00
-        ownerId: ownerId
+            lastDerived: 2000-01-23T04:56:07.000+00:00
+            value: ""
+        key: key
+        email: email
       properties:
-        lastPing:
-          format: date-time
+        key:
           type: string
-        environmentId:
+        secondary:
           type: string
-        ownerId:
+        ip:
           type: string
-        user:
-          $ref: '#/components/schemas/User'
-        sortValue: {}
-        _links:
-          additionalProperties:
-            $ref: '#/components/schemas/Link'
+        country:
+          type: string
+        email:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        avatar:
+          type: string
+        name:
+          type: string
+        anonymous:
+          type: boolean
+        custom:
+          additionalProperties: {}
           type: object
-        _access:
-          $ref: '#/components/schemas/AccessRep'
+        derived:
+          additionalProperties:
+            $ref: '#/components/schemas/DerivedAttribute'
+          type: object
+        privateAttrs:
+          items:
+            type: string
+          type: array
       type: object
     UserAttributeNamesRep:
       example:
@@ -19565,6 +19715,88 @@ components:
       - items
       type: object
     UserRecord:
+      example:
+        sortValue: ""
+        environmentId: environmentId
+        _access:
+          denied:
+          - reason:
+              role_name: role_name
+              notActions:
+              - null
+              - null
+              notResources:
+              - notResources
+              - notResources
+              effect: effect
+              resources:
+              - resources
+              - resources
+              actions:
+              - null
+              - null
+            action: action
+          - reason:
+              role_name: role_name
+              notActions:
+              - null
+              - null
+              notResources:
+              - notResources
+              - notResources
+              effect: effect
+              resources:
+              - resources
+              - resources
+              actions:
+              - null
+              - null
+            action: action
+        _links:
+          key:
+            href: href
+            type: type
+        lastPing: 2000-01-23T04:56:07.000+00:00
+        ownerId: ownerId
+        user:
+          country: country
+          lastName: lastName
+          ip: ip
+          custom:
+            key: ""
+          avatar: avatar
+          secondary: secondary
+          firstName: firstName
+          name: name
+          anonymous: true
+          privateAttrs:
+          - privateAttrs
+          - privateAttrs
+          derived:
+            key:
+              lastDerived: 2000-01-23T04:56:07.000+00:00
+              value: ""
+          key: key
+          email: email
+      properties:
+        lastPing:
+          format: date-time
+          type: string
+        environmentId:
+          type: string
+        ownerId:
+          type: string
+        user:
+          $ref: '#/components/schemas/User'
+        sortValue: {}
+        _links:
+          additionalProperties:
+            $ref: '#/components/schemas/Link'
+          type: object
+        _access:
+          $ref: '#/components/schemas/AccessRep'
+      type: object
+    UserRecordRep:
       properties:
         lastPing:
           format: date-time
@@ -19667,12 +19899,12 @@ components:
               - null
               - null
               notResources:
-              - {}
-              - {}
+              - notResources
+              - notResources
               effect: effect
               resources:
-              - {}
-              - {}
+              - resources
+              - resources
               actions:
               - null
               - null
@@ -19683,12 +19915,12 @@ components:
               - null
               - null
               notResources:
-              - {}
-              - {}
+              - notResources
+              - notResources
               effect: effect
               resources:
-              - {}
-              - {}
+              - resources
+              - resources
               actions:
               - null
               - null
@@ -19901,12 +20133,12 @@ components:
                 - null
                 - null
                 notResources:
-                - {}
-                - {}
+                - notResources
+                - notResources
                 effect: effect
                 resources:
-                - {}
-                - {}
+                - resources
+                - resources
                 actions:
                 - null
                 - null
@@ -19917,12 +20149,12 @@ components:
                 - null
                 - null
                 notResources:
-                - {}
-                - {}
+                - notResources
+                - notResources
                 effect: effect
                 resources:
-                - {}
-                - {}
+                - resources
+                - resources
                 actions:
                 - null
                 - null
@@ -20022,12 +20254,12 @@ components:
                 - null
                 - null
                 notResources:
-                - {}
-                - {}
+                - notResources
+                - notResources
                 effect: effect
                 resources:
-                - {}
-                - {}
+                - resources
+                - resources
                 actions:
                 - null
                 - null
@@ -20038,12 +20270,12 @@ components:
                 - null
                 - null
                 notResources:
-                - {}
-                - {}
+                - notResources
+                - notResources
                 effect: effect
                 resources:
-                - {}
-                - {}
+                - resources
+                - resources
                 actions:
                 - null
                 - null
@@ -20086,12 +20318,12 @@ components:
                 - null
                 - null
                 notResources:
-                - {}
-                - {}
+                - notResources
+                - notResources
                 effect: effect
                 resources:
-                - {}
-                - {}
+                - resources
+                - resources
                 actions:
                 - null
                 - null
@@ -20102,12 +20334,12 @@ components:
                 - null
                 - null
                 notResources:
-                - {}
-                - {}
+                - notResources
+                - notResources
                 effect: effect
                 resources:
-                - {}
-                - {}
+                - resources
+                - resources
                 actions:
                 - null
                 - null
@@ -20118,6 +20350,26 @@ components:
               type: type
           lastPing: 2000-01-23T04:56:07.000+00:00
           ownerId: ownerId
+          user:
+            country: country
+            lastName: lastName
+            ip: ip
+            custom:
+              key: ""
+            avatar: avatar
+            secondary: secondary
+            firstName: firstName
+            name: name
+            anonymous: true
+            privateAttrs:
+            - privateAttrs
+            - privateAttrs
+            derived:
+              key:
+                lastDerived: 2000-01-23T04:56:07.000+00:00
+                value: ""
+            key: key
+            email: email
         - sortValue: ""
           environmentId: environmentId
           _access:
@@ -20128,12 +20380,12 @@ components:
                 - null
                 - null
                 notResources:
-                - {}
-                - {}
+                - notResources
+                - notResources
                 effect: effect
                 resources:
-                - {}
-                - {}
+                - resources
+                - resources
                 actions:
                 - null
                 - null
@@ -20144,12 +20396,12 @@ components:
                 - null
                 - null
                 notResources:
-                - {}
-                - {}
+                - notResources
+                - notResources
                 effect: effect
                 resources:
-                - {}
-                - {}
+                - resources
+                - resources
                 actions:
                 - null
                 - null
@@ -20160,6 +20412,26 @@ components:
               type: type
           lastPing: 2000-01-23T04:56:07.000+00:00
           ownerId: ownerId
+          user:
+            country: country
+            lastName: lastName
+            ip: ip
+            custom:
+              key: ""
+            avatar: avatar
+            secondary: secondary
+            firstName: firstName
+            name: name
+            anonymous: true
+            privateAttrs:
+            - privateAttrs
+            - privateAttrs
+            derived:
+              key:
+                lastDerived: 2000-01-23T04:56:07.000+00:00
+                value: ""
+            key: key
+            email: email
       properties:
         _links:
           additionalProperties:
@@ -20169,7 +20441,7 @@ components:
           type: integer
         items:
           items:
-            $ref: '#/components/schemas/User'
+            $ref: '#/components/schemas/UserRecord'
           type: array
       required:
       - items
@@ -20185,24 +20457,12 @@ components:
         comment:
           type: string
       type: object
-    Variate:
+    Variation:
       example:
         name: name
         description: description
-        id: id
+        _id: _id
         value: ""
-      properties:
-        id:
-          type: string
-        value: {}
-        description:
-          type: string
-        name:
-          type: string
-      required:
-      - value
-      type: object
-    Variation:
       properties:
         _id:
           type: string
@@ -20278,12 +20538,12 @@ components:
               - null
               - null
               notResources:
-              - {}
-              - {}
+              - notResources
+              - notResources
               effect: effect
               resources:
-              - {}
-              - {}
+              - resources
+              - resources
               actions:
               - null
               - null
@@ -20294,12 +20554,12 @@ components:
               - null
               - null
               notResources:
-              - {}
-              - {}
+              - notResources
+              - notResources
               effect: effect
               resources:
-              - {}
-              - {}
+              - resources
+              - resources
               actions:
               - null
               - null
@@ -20314,12 +20574,12 @@ components:
           - null
           - null
           notResources:
-          - {}
-          - {}
+          - notResources
+          - notResources
           effect: effect
           resources:
-          - {}
-          - {}
+          - resources
+          - resources
           actions:
           - null
           - null
@@ -20327,12 +20587,12 @@ components:
           - null
           - null
           notResources:
-          - {}
-          - {}
+          - notResources
+          - notResources
           effect: effect
           resources:
-          - {}
-          - {}
+          - resources
+          - resources
           actions:
           - null
           - null
@@ -20394,12 +20654,12 @@ components:
                 - null
                 - null
                 notResources:
-                - {}
-                - {}
+                - notResources
+                - notResources
                 effect: effect
                 resources:
-                - {}
-                - {}
+                - resources
+                - resources
                 actions:
                 - null
                 - null
@@ -20410,12 +20670,12 @@ components:
                 - null
                 - null
                 notResources:
-                - {}
-                - {}
+                - notResources
+                - notResources
                 effect: effect
                 resources:
-                - {}
-                - {}
+                - resources
+                - resources
                 actions:
                 - null
                 - null
@@ -20430,12 +20690,12 @@ components:
             - null
             - null
             notResources:
-            - {}
-            - {}
+            - notResources
+            - notResources
             effect: effect
             resources:
-            - {}
-            - {}
+            - resources
+            - resources
             actions:
             - null
             - null
@@ -20443,12 +20703,12 @@ components:
             - null
             - null
             notResources:
-            - {}
-            - {}
+            - notResources
+            - notResources
             effect: effect
             resources:
-            - {}
-            - {}
+            - resources
+            - resources
             actions:
             - null
             - null
@@ -20465,12 +20725,12 @@ components:
                 - null
                 - null
                 notResources:
-                - {}
-                - {}
+                - notResources
+                - notResources
                 effect: effect
                 resources:
-                - {}
-                - {}
+                - resources
+                - resources
                 actions:
                 - null
                 - null
@@ -20481,12 +20741,12 @@ components:
                 - null
                 - null
                 notResources:
-                - {}
-                - {}
+                - notResources
+                - notResources
                 effect: effect
                 resources:
-                - {}
-                - {}
+                - resources
+                - resources
                 actions:
                 - null
                 - null
@@ -20501,12 +20761,12 @@ components:
             - null
             - null
             notResources:
-            - {}
-            - {}
+            - notResources
+            - notResources
             effect: effect
             resources:
-            - {}
-            - {}
+            - resources
+            - resources
             actions:
             - null
             - null
@@ -20514,12 +20774,12 @@ components:
             - null
             - null
             notResources:
-            - {}
-            - {}
+            - notResources
+            - notResources
             effect: effect
             resources:
-            - {}
-            - {}
+            - resources
+            - resources
             actions:
             - null
             - null
@@ -20577,6 +20837,7 @@ components:
             type: string
           type: array
       required:
+      - description
       - notifyMemberIds
       - source
       type: object
@@ -20861,13 +21122,6 @@ components:
       - "on"
       - sign
       - url
-      type: object
-    inline_response_200:
-      properties:
-        href:
-          type: string
-        type:
-          type: string
       type: object
   securitySchemes:
     ApiKey:

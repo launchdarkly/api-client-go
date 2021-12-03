@@ -4,17 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Revision** | **string** |  | 
-**Message** | Pointer to **string** |  | [optional] 
+**Revision** | **string** | The identifier for the revision where flag became extinct. For example, a commit SHA. | 
+**Message** | **string** | Description of the extinction. For example, the commit message for the revision. | 
 **Time** | **int64** |  | 
-**FlagKey** | **string** |  | 
-**ProjectKey** | **string** |  | 
+**FlagKey** | **string** | The feature flag key | 
+**ProjKey** | **string** | The project key | 
 
 ## Methods
 
 ### NewExtinction
 
-`func NewExtinction(revision string, time int64, flagKey string, projectKey string, ) *Extinction`
+`func NewExtinction(revision string, message string, time int64, flagKey string, projKey string, ) *Extinction`
 
 NewExtinction instantiates a new Extinction object
 This constructor will assign default values to properties that have it defined,
@@ -68,11 +68,6 @@ and a boolean to check if the value has been set.
 
 SetMessage sets Message field to given value.
 
-### HasMessage
-
-`func (o *Extinction) HasMessage() bool`
-
-HasMessage returns a boolean if a field has been set.
 
 ### GetTime
 
@@ -114,24 +109,24 @@ and a boolean to check if the value has been set.
 SetFlagKey sets FlagKey field to given value.
 
 
-### GetProjectKey
+### GetProjKey
 
-`func (o *Extinction) GetProjectKey() string`
+`func (o *Extinction) GetProjKey() string`
 
-GetProjectKey returns the ProjectKey field if non-nil, zero value otherwise.
+GetProjKey returns the ProjKey field if non-nil, zero value otherwise.
 
-### GetProjectKeyOk
+### GetProjKeyOk
 
-`func (o *Extinction) GetProjectKeyOk() (*string, bool)`
+`func (o *Extinction) GetProjKeyOk() (*string, bool)`
 
-GetProjectKeyOk returns a tuple with the ProjectKey field if it's non-nil, zero value otherwise
+GetProjKeyOk returns a tuple with the ProjKey field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetProjectKey
+### SetProjKey
 
-`func (o *Extinction) SetProjectKey(v string)`
+`func (o *Extinction) SetProjKey(v string)`
 
-SetProjectKey sets ProjectKey field to given value.
+SetProjKey sets ProjKey field to given value.
 
 
 

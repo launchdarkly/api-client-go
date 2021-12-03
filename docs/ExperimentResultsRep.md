@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **Series** | Pointer to [**[]ExperimentTimeSeriesSlice**](ExperimentTimeSeriesSlice.md) |  | [optional] 
 **Stats** | Pointer to [**ExperimentStatsRep**](ExperimentStatsRep.md) |  | [optional] 
 **Granularity** | Pointer to **string** |  | [optional] 
+**MetricSeen** | Pointer to [**MetricSeen**](MetricSeen.md) |  | [optional] 
 
 ## Methods
 
@@ -179,6 +180,31 @@ SetGranularity sets Granularity field to given value.
 `func (o *ExperimentResultsRep) HasGranularity() bool`
 
 HasGranularity returns a boolean if a field has been set.
+
+### GetMetricSeen
+
+`func (o *ExperimentResultsRep) GetMetricSeen() MetricSeen`
+
+GetMetricSeen returns the MetricSeen field if non-nil, zero value otherwise.
+
+### GetMetricSeenOk
+
+`func (o *ExperimentResultsRep) GetMetricSeenOk() (*MetricSeen, bool)`
+
+GetMetricSeenOk returns a tuple with the MetricSeen field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMetricSeen
+
+`func (o *ExperimentResultsRep) SetMetricSeen(v MetricSeen)`
+
+SetMetricSeen sets MetricSeen field to given value.
+
+### HasMetricSeen
+
+`func (o *ExperimentResultsRep) HasMetricSeen() bool`
+
+HasMetricSeen returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

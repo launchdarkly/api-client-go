@@ -174,7 +174,7 @@ Name | Type | Description  | Notes
 
 ## GetUser
 
-> User GetUser(ctx, projKey, envKey, key).Execute()
+> UserRecord GetUser(ctx, projKey, envKey, key).Execute()
 
 Get user
 
@@ -204,7 +204,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `UsersApi.GetUser``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetUser`: User
+    // response from `GetUser`: UserRecord
     fmt.Fprintf(os.Stdout, "Response from `UsersApi.GetUser`: %v\n", resp)
 }
 ```
@@ -232,7 +232,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**User**](User.md)
+[**UserRecord**](UserRecord.md)
 
 ### Authorization
 

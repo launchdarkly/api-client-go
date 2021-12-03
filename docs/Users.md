@@ -6,13 +6,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Links** | Pointer to [**map[string]Link**](Link.md) |  | [optional] 
 **TotalCount** | **int32** |  | 
-**Items** | [**[]User**](User.md) |  | 
+**Items** | [**[]UserRecord**](UserRecord.md) |  | 
 
 ## Methods
 
 ### NewUsers
 
-`func NewUsers(totalCount int32, items []User, ) *Users`
+`func NewUsers(totalCount int32, items []UserRecord, ) *Users`
 
 NewUsers instantiates a new Users object
 This constructor will assign default values to properties that have it defined,
@@ -74,20 +74,20 @@ SetTotalCount sets TotalCount field to given value.
 
 ### GetItems
 
-`func (o *Users) GetItems() []User`
+`func (o *Users) GetItems() []UserRecord`
 
 GetItems returns the Items field if non-nil, zero value otherwise.
 
 ### GetItemsOk
 
-`func (o *Users) GetItemsOk() (*[]User, bool)`
+`func (o *Users) GetItemsOk() (*[]UserRecord, bool)`
 
 GetItemsOk returns a tuple with the Items field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetItems
 
-`func (o *Users) SetItems(v []User)`
+`func (o *Users) SetItems(v []UserRecord)`
 
 SetItems sets Items field to given value.
 
