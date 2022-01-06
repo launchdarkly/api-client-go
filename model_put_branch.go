@@ -26,6 +26,7 @@ type PutBranch struct {
 	SyncTime int64 `json:"syncTime"`
 	// An array of flag references found on the branch
 	References *[]ReferenceRep `json:"references,omitempty"`
+	CommitTime *int64 `json:"commitTime,omitempty"`
 }
 
 // NewPutBranch instantiates a new PutBranch object
@@ -184,6 +185,38 @@ func (o *PutBranch) SetReferences(v []ReferenceRep) {
 	o.References = &v
 }
 
+// GetCommitTime returns the CommitTime field value if set, zero value otherwise.
+func (o *PutBranch) GetCommitTime() int64 {
+	if o == nil || o.CommitTime == nil {
+		var ret int64
+		return ret
+	}
+	return *o.CommitTime
+}
+
+// GetCommitTimeOk returns a tuple with the CommitTime field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PutBranch) GetCommitTimeOk() (*int64, bool) {
+	if o == nil || o.CommitTime == nil {
+		return nil, false
+	}
+	return o.CommitTime, true
+}
+
+// HasCommitTime returns a boolean if a field has been set.
+func (o *PutBranch) HasCommitTime() bool {
+	if o != nil && o.CommitTime != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCommitTime gets a reference to the given int64 and assigns it to the CommitTime field.
+func (o *PutBranch) SetCommitTime(v int64) {
+	o.CommitTime = &v
+}
+
 func (o PutBranch) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -200,6 +233,9 @@ func (o PutBranch) MarshalJSON() ([]byte, error) {
 	}
 	if o.References != nil {
 		toSerialize["references"] = o.References
+	}
+	if o.CommitTime != nil {
+		toSerialize["commitTime"] = o.CommitTime
 	}
 	return json.Marshal(toSerialize)
 }

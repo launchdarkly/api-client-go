@@ -23,6 +23,7 @@ type Rule struct {
 	Clauses []Clause `json:"clauses"`
 	TrackEvents bool `json:"trackEvents"`
 	Description *string `json:"description,omitempty"`
+	Ref *string `json:"ref,omitempty"`
 }
 
 // NewRule instantiates a new Rule object
@@ -220,6 +221,38 @@ func (o *Rule) SetDescription(v string) {
 	o.Description = &v
 }
 
+// GetRef returns the Ref field value if set, zero value otherwise.
+func (o *Rule) GetRef() string {
+	if o == nil || o.Ref == nil {
+		var ret string
+		return ret
+	}
+	return *o.Ref
+}
+
+// GetRefOk returns a tuple with the Ref field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Rule) GetRefOk() (*string, bool) {
+	if o == nil || o.Ref == nil {
+		return nil, false
+	}
+	return o.Ref, true
+}
+
+// HasRef returns a boolean if a field has been set.
+func (o *Rule) HasRef() bool {
+	if o != nil && o.Ref != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRef gets a reference to the given string and assigns it to the Ref field.
+func (o *Rule) SetRef(v string) {
+	o.Ref = &v
+}
+
 func (o Rule) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Id != nil {
@@ -239,6 +272,9 @@ func (o Rule) MarshalJSON() ([]byte, error) {
 	}
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
+	}
+	if o.Ref != nil {
+		toSerialize["ref"] = o.Ref
 	}
 	return json.Marshal(toSerialize)
 }

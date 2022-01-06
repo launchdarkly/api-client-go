@@ -32,7 +32,7 @@ type MetricListingRep struct {
 	Maintainer *MemberSummaryRep `json:"_maintainer,omitempty"`
 	Description *string `json:"description,omitempty"`
 	IsNumeric *bool `json:"isNumeric,omitempty"`
-	SuccessCriteria *int32 `json:"successCriteria,omitempty"`
+	SuccessCriteria *string `json:"successCriteria,omitempty"`
 	Unit *string `json:"unit,omitempty"`
 	EventKey *string `json:"eventKey,omitempty"`
 }
@@ -486,9 +486,9 @@ func (o *MetricListingRep) SetIsNumeric(v bool) {
 }
 
 // GetSuccessCriteria returns the SuccessCriteria field value if set, zero value otherwise.
-func (o *MetricListingRep) GetSuccessCriteria() int32 {
+func (o *MetricListingRep) GetSuccessCriteria() string {
 	if o == nil || o.SuccessCriteria == nil {
-		var ret int32
+		var ret string
 		return ret
 	}
 	return *o.SuccessCriteria
@@ -496,7 +496,7 @@ func (o *MetricListingRep) GetSuccessCriteria() int32 {
 
 // GetSuccessCriteriaOk returns a tuple with the SuccessCriteria field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MetricListingRep) GetSuccessCriteriaOk() (*int32, bool) {
+func (o *MetricListingRep) GetSuccessCriteriaOk() (*string, bool) {
 	if o == nil || o.SuccessCriteria == nil {
 		return nil, false
 	}
@@ -512,8 +512,8 @@ func (o *MetricListingRep) HasSuccessCriteria() bool {
 	return false
 }
 
-// SetSuccessCriteria gets a reference to the given int32 and assigns it to the SuccessCriteria field.
-func (o *MetricListingRep) SetSuccessCriteria(v int32) {
+// SetSuccessCriteria gets a reference to the given string and assigns it to the SuccessCriteria field.
+func (o *MetricListingRep) SetSuccessCriteria(v string) {
 	o.SuccessCriteria = &v
 }
 

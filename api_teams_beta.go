@@ -18,6 +18,7 @@ import (
 	_nethttp "net/http"
 	_neturl "net/url"
 	"strings"
+	"os"
 )
 
 // Linger please
@@ -173,7 +174,7 @@ type ApiGetTeamRequest struct {
 }
 
 
-func (r ApiGetTeamRequest) Execute() (TeamRep, *_nethttp.Response, error) {
+func (r ApiGetTeamRequest) Execute() (ExpandedTeamRep, *_nethttp.Response, error) {
 	return r.ApiService.GetTeamExecute(r)
 }
 
@@ -195,15 +196,15 @@ func (a *TeamsBetaApiService) GetTeam(ctx _context.Context, key string) ApiGetTe
 }
 
 // Execute executes the request
-//  @return TeamRep
-func (a *TeamsBetaApiService) GetTeamExecute(r ApiGetTeamRequest) (TeamRep, *_nethttp.Response, error) {
+//  @return ExpandedTeamRep
+func (a *TeamsBetaApiService) GetTeamExecute(r ApiGetTeamRequest) (ExpandedTeamRep, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  TeamRep
+		localVarReturnValue  ExpandedTeamRep
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamsBetaApiService.GetTeam")
@@ -536,7 +537,7 @@ func (r ApiPatchTeamRequest) TeamPatchInput(teamPatchInput TeamPatchInput) ApiPa
 	return r
 }
 
-func (r ApiPatchTeamRequest) Execute() (TeamCollectionRep, *_nethttp.Response, error) {
+func (r ApiPatchTeamRequest) Execute() (ExpandedTeamRep, *_nethttp.Response, error) {
 	return r.ApiService.PatchTeamExecute(r)
 }
 
@@ -636,15 +637,15 @@ func (a *TeamsBetaApiService) PatchTeam(ctx _context.Context, key string) ApiPat
 }
 
 // Execute executes the request
-//  @return TeamCollectionRep
-func (a *TeamsBetaApiService) PatchTeamExecute(r ApiPatchTeamRequest) (TeamCollectionRep, *_nethttp.Response, error) {
+//  @return ExpandedTeamRep
+func (a *TeamsBetaApiService) PatchTeamExecute(r ApiPatchTeamRequest) (ExpandedTeamRep, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPatch
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  TeamCollectionRep
+		localVarReturnValue  ExpandedTeamRep
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamsBetaApiService.PatchTeam")
@@ -866,6 +867,241 @@ func (a *TeamsBetaApiService) PostTeamExecute(r ApiPostTeamRequest) (TeamRep, *_
 	}
 	// body params
 	localVarPostBody = r.teamPostInput
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["ApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v InvalidRequestErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v UnauthorizedErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 405 {
+			var v MethodNotAllowedErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v RateLimitedErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiPostTeamMembersRequest struct {
+	ctx _context.Context
+	ApiService *TeamsBetaApiService
+	key string
+	file **os.File
+}
+
+// CSV file containing email addresses
+func (r ApiPostTeamMembersRequest) File(file *os.File) ApiPostTeamMembersRequest {
+	r.file = &file
+	return r
+}
+
+func (r ApiPostTeamMembersRequest) Execute() (TeamImportsRep, *_nethttp.Response, error) {
+	return r.ApiService.PostTeamMembersExecute(r)
+}
+
+/*
+PostTeamMembers Add members to team
+
+Add multiple members to an existing team by uploading a CSV file of member email addresses. Your CSV file must include email addresses in the first column. You can include data in additional columns, but LaunchDarkly ignores all data outside the first column. Headers are optional.
+
+**Members are only added on a `201` response.** A `207` indicates the CSV file contains a combination of valid and invalid entries and will _not_ result in any members being added to the team.
+
+On a `207` response, if an entry contains bad user input the `message` field will contain the row number as well as the reason for the error. The `message` field will be omitted if the entry is valid.
+
+Example `207` response:
+```json
+{
+  "items": [
+    {
+      "status": "success",
+      "value": "a-valid-email@launchdarkly.com"
+    },
+    {
+      "message": "Line 2: empty row",
+      "status": "error",
+      "value": ""
+    },
+    {
+      "message": "Line 3: email already exists in the specified team",
+      "status": "error",
+      "value": "existing-team-member@launchdarkly.com"
+    },
+    {
+      "message": "Line 4: invalid email formatting",
+      "status": "error",
+      "value": "invalid email format"
+    }
+  ]
+}
+```
+
+Message | Resolution
+--- | ---
+Empty row | This line is blank. Add an email address and try again.
+Duplicate entry | This email address appears in the file twice. Remove the email from the file and try again.
+Email already exists in the specified team | This member is already on your team. Remove the email from the file and try again.
+Invalid formatting | This email address is not formatted correctly. Fix the formatting and try again.
+Email does not belong to a LaunchDarkly member | The email address doesn't belong to a LaunchDarkly account member. Invite them to LaunchDarkly, then re-add them to the team.
+
+On a `400` response, the `message` field may contain errors specific to this endpoint.
+
+Example `400` response:
+```json
+{
+  "code": "invalid_request",
+  "message": "Unable to process file"
+}
+```
+
+Message | Resolution
+--- | ---
+Unable to process file | LaunchDarkly could not process the file for an unspecified reason. Review your file for errors and try again.
+File exceeds 25mb | Break up your file into multiple files of less than 25mbs each.
+All emails have invalid formatting | None of the email addresses in the file are in the correct format. Fix the formatting and try again.
+All emails belong to existing team members | All listed members are already on this team. Populate the file with member emails that do not belong to the team and try again.
+File is empty | The CSV file does not contain any email addresses. Populate the file and try again.
+No emails belong to members of your LaunchDarkly organization | None of the email addresses belong to members of your LaunchDarkly account. Invite these members to LaunchDarkly, then re-add them to the team.
+
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param key The team key
+ @return ApiPostTeamMembersRequest
+*/
+func (a *TeamsBetaApiService) PostTeamMembers(ctx _context.Context, key string) ApiPostTeamMembersRequest {
+	return ApiPostTeamMembersRequest{
+		ApiService: a,
+		ctx: ctx,
+		key: key,
+	}
+}
+
+// Execute executes the request
+//  @return TeamImportsRep
+func (a *TeamsBetaApiService) PostTeamMembersExecute(r ApiPostTeamMembersRequest) (TeamImportsRep, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  TeamImportsRep
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "TeamsBetaApiService.PostTeamMembers")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v2/teams/{key}/members"
+	localVarPath = strings.Replace(localVarPath, "{"+"key"+"}", _neturl.PathEscape(parameterToString(r.key, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"multipart/form-data"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	localVarFormFileName = "file"
+	var localVarFile *os.File
+	if r.file != nil {
+		localVarFile = *r.file
+	}
+	if localVarFile != nil {
+		fbs, _ := _ioutil.ReadAll(localVarFile)
+		localVarFileBytes = fbs
+		localVarFileName = localVarFile.Name()
+		localVarFile.Close()
+	}
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {

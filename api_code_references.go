@@ -721,6 +721,8 @@ type ApiGetExtinctionsRequest struct {
 	branchName *string
 	projKey *string
 	flagKey *string
+	from *int64
+	to *int64
 }
 
 // Filter results to a specific repository
@@ -741,6 +743,16 @@ func (r ApiGetExtinctionsRequest) ProjKey(projKey string) ApiGetExtinctionsReque
 // Filter results to a specific flag key
 func (r ApiGetExtinctionsRequest) FlagKey(flagKey string) ApiGetExtinctionsRequest {
 	r.flagKey = &flagKey
+	return r
+}
+// Filter results to a specific timeframe based on commit time, expressed as a Unix epoch time in milliseconds. Must be used with &#x60;to&#x60;.
+func (r ApiGetExtinctionsRequest) From(from int64) ApiGetExtinctionsRequest {
+	r.from = &from
+	return r
+}
+// Filter results to a specific timeframe based on commit time, expressed as a Unix epoch time in milliseconds. Must be used with &#x60;from&#x60;.
+func (r ApiGetExtinctionsRequest) To(to int64) ApiGetExtinctionsRequest {
+	r.to = &to
 	return r
 }
 
@@ -797,6 +809,12 @@ func (a *CodeReferencesApiService) GetExtinctionsExecute(r ApiGetExtinctionsRequ
 	}
 	if r.flagKey != nil {
 		localVarQueryParams.Add("flagKey", parameterToString(*r.flagKey, ""))
+	}
+	if r.from != nil {
+		localVarQueryParams.Add("from", parameterToString(*r.from, ""))
+	}
+	if r.to != nil {
+		localVarQueryParams.Add("to", parameterToString(*r.to, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

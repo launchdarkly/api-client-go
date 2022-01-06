@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 **Maintainer** | Pointer to [**MemberSummaryRep**](MemberSummaryRep.md) |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
 **IsNumeric** | Pointer to **bool** |  | [optional] 
-**SuccessCriteria** | Pointer to **int32** |  | [optional] 
+**SuccessCriteria** | Pointer to **string** |  | [optional] 
 **Unit** | Pointer to **string** |  | [optional] 
 **EventKey** | Pointer to **string** |  | [optional] 
 **IsActive** | Pointer to **bool** |  | [optional] 
@@ -389,20 +389,20 @@ HasIsNumeric returns a boolean if a field has been set.
 
 ### GetSuccessCriteria
 
-`func (o *MetricRep) GetSuccessCriteria() int32`
+`func (o *MetricRep) GetSuccessCriteria() string`
 
 GetSuccessCriteria returns the SuccessCriteria field if non-nil, zero value otherwise.
 
 ### GetSuccessCriteriaOk
 
-`func (o *MetricRep) GetSuccessCriteriaOk() (*int32, bool)`
+`func (o *MetricRep) GetSuccessCriteriaOk() (*string, bool)`
 
 GetSuccessCriteriaOk returns a tuple with the SuccessCriteria field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSuccessCriteria
 
-`func (o *MetricRep) SetSuccessCriteria(v int32)`
+`func (o *MetricRep) SetSuccessCriteria(v string)`
 
 SetSuccessCriteria sets SuccessCriteria field to given value.
 

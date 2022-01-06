@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**GetTeams**](TeamsBetaApi.md#GetTeams) | **Get** /api/v2/teams | List teams
 [**PatchTeam**](TeamsBetaApi.md#PatchTeam) | **Patch** /api/v2/teams/{key} | Update team
 [**PostTeam**](TeamsBetaApi.md#PostTeam) | **Post** /api/v2/teams | Create team
+[**PostTeamMembers**](TeamsBetaApi.md#PostTeamMembers) | **Post** /api/v2/teams/{key}/members | Add members to team
 
 
 
@@ -82,7 +83,7 @@ Name | Type | Description  | Notes
 
 ## GetTeam
 
-> TeamRep GetTeam(ctx, key).Execute()
+> ExpandedTeamRep GetTeam(ctx, key).Execute()
 
 Get team
 
@@ -110,7 +111,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `TeamsBetaApi.GetTeam``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetTeam`: TeamRep
+    // response from `GetTeam`: ExpandedTeamRep
     fmt.Fprintf(os.Stdout, "Response from `TeamsBetaApi.GetTeam`: %v\n", resp)
 }
 ```
@@ -134,7 +135,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TeamRep**](TeamRep.md)
+[**ExpandedTeamRep**](ExpandedTeamRep.md)
 
 ### Authorization
 
@@ -222,7 +223,7 @@ Name | Type | Description  | Notes
 
 ## PatchTeam
 
-> TeamCollectionRep PatchTeam(ctx, key).TeamPatchInput(teamPatchInput).Execute()
+> ExpandedTeamRep PatchTeam(ctx, key).TeamPatchInput(teamPatchInput).Execute()
 
 Update team
 
@@ -251,7 +252,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `TeamsBetaApi.PatchTeam``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PatchTeam`: TeamCollectionRep
+    // response from `PatchTeam`: ExpandedTeamRep
     fmt.Fprintf(os.Stdout, "Response from `TeamsBetaApi.PatchTeam`: %v\n", resp)
 }
 ```
@@ -276,7 +277,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TeamCollectionRep**](TeamCollectionRep.md)
+[**ExpandedTeamRep**](ExpandedTeamRep.md)
 
 ### Authorization
 
@@ -351,6 +352,78 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostTeamMembers
+
+> TeamImportsRep PostTeamMembers(ctx, key).File(file).Execute()
+
+Add members to team
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    key := "key_example" // string | The team key
+    file := os.NewFile(1234, "some_file") // *os.File | CSV file containing email addresses (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.TeamsBetaApi.PostTeamMembers(context.Background(), key).File(file).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `TeamsBetaApi.PostTeamMembers``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PostTeamMembers`: TeamImportsRep
+    fmt.Fprintf(os.Stdout, "Response from `TeamsBetaApi.PostTeamMembers`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**key** | **string** | The team key | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostTeamMembersRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **file** | ***os.File** | CSV file containing email addresses | 
+
+### Return type
+
+[**TeamImportsRep**](TeamImportsRep.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: multipart/form-data
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

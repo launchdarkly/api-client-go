@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **Clauses** | [**[]Clause**](Clause.md) |  | 
 **TrackEvents** | **bool** |  | 
 **Description** | Pointer to **string** |  | [optional] 
+**Ref** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -169,6 +170,31 @@ SetDescription sets Description field to given value.
 `func (o *Rule) HasDescription() bool`
 
 HasDescription returns a boolean if a field has been set.
+
+### GetRef
+
+`func (o *Rule) GetRef() string`
+
+GetRef returns the Ref field if non-nil, zero value otherwise.
+
+### GetRefOk
+
+`func (o *Rule) GetRefOk() (*string, bool)`
+
+GetRefOk returns a tuple with the Ref field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRef
+
+`func (o *Rule) SetRef(v string)`
+
+SetRef sets Ref field to given value.
+
+### HasRef
+
+`func (o *Rule) HasRef() bool`
+
+HasRef returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

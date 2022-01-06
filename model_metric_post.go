@@ -30,7 +30,7 @@ type MetricPost struct {
 	Unit *string `json:"unit,omitempty"`
 	// Required for custom metrics
 	EventKey *string `json:"eventKey,omitempty"`
-	SuccessCriteria *int32 `json:"successCriteria,omitempty"`
+	SuccessCriteria *string `json:"successCriteria,omitempty"`
 	Tags *[]string `json:"tags,omitempty"`
 }
 
@@ -358,9 +358,9 @@ func (o *MetricPost) SetEventKey(v string) {
 }
 
 // GetSuccessCriteria returns the SuccessCriteria field value if set, zero value otherwise.
-func (o *MetricPost) GetSuccessCriteria() int32 {
+func (o *MetricPost) GetSuccessCriteria() string {
 	if o == nil || o.SuccessCriteria == nil {
-		var ret int32
+		var ret string
 		return ret
 	}
 	return *o.SuccessCriteria
@@ -368,7 +368,7 @@ func (o *MetricPost) GetSuccessCriteria() int32 {
 
 // GetSuccessCriteriaOk returns a tuple with the SuccessCriteria field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MetricPost) GetSuccessCriteriaOk() (*int32, bool) {
+func (o *MetricPost) GetSuccessCriteriaOk() (*string, bool) {
 	if o == nil || o.SuccessCriteria == nil {
 		return nil, false
 	}
@@ -384,8 +384,8 @@ func (o *MetricPost) HasSuccessCriteria() bool {
 	return false
 }
 
-// SetSuccessCriteria gets a reference to the given int32 and assigns it to the SuccessCriteria field.
-func (o *MetricPost) SetSuccessCriteria(v int32) {
+// SetSuccessCriteria gets a reference to the given string and assigns it to the SuccessCriteria field.
+func (o *MetricPost) SetSuccessCriteria(v string) {
 	o.SuccessCriteria = &v
 }
 

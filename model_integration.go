@@ -12,613 +12,501 @@ Contact: support@launchdarkly.com
 package ldapi
 
 import (
-	"bytes"
-	"context"
 	"encoding/json"
-	"encoding/xml"
-	"errors"
-	"fmt"
-	"io"
-	"io/ioutil"
-	"log"
-	"mime/multipart"
-	"net/http"
-	"net/http/httputil"
-	"net/url"
-	"os"
-	"path/filepath"
-	"reflect"
-	"regexp"
-	"strconv"
-	"strings"
-	"time"
-	"unicode/utf8"
-
-	"golang.org/x/oauth2"
 )
 
-var (
-	jsonCheck = regexp.MustCompile(`(?i:(?:application|text)/(?:vnd\.[^;]+\+)?json)`)
-	xmlCheck  = regexp.MustCompile(`(?i:(?:application|text)/xml)`)
-)
-
-// APIClient manages communication with the LaunchDarkly REST API API v2.0
-// In most cases there should be only one, shared, APIClient.
-type APIClient struct {
-	cfg    *Configuration
-	common service // Reuse a single struct instead of allocating one for each service on the heap.
-
-	// API Services
-
-	AccessTokensApi *AccessTokensApiService
-
-	AccountMembersApi *AccountMembersApiService
-
-	AccountUsageBetaApi *AccountUsageBetaApiService
-
-	ApprovalsApi *ApprovalsApiService
-
-	AuditLogApi *AuditLogApiService
-
-	CodeReferencesApi *CodeReferencesApiService
-
-	CustomRolesApi *CustomRolesApiService
-
-	DataExportDestinationsApi *DataExportDestinationsApiService
-
-	EnvironmentsApi *EnvironmentsApiService
-
-	ExperimentsBetaApi *ExperimentsBetaApiService
-
-	FeatureFlagsApi *FeatureFlagsApiService
-
-	FeatureFlagsBetaApi *FeatureFlagsBetaApiService
-
-	FlagTriggersApi *FlagTriggersApiService
-
-	IntegrationAuditLogSubscriptionsApi *IntegrationAuditLogSubscriptionsApiService
-
-	MetricsApi *MetricsApiService
-
-	OtherApi *OtherApiService
-
-	ProjectsApi *ProjectsApiService
-
-	RelayProxyConfigurationsApi *RelayProxyConfigurationsApiService
-
-	ScheduledChangesApi *ScheduledChangesApiService
-
-	SegmentsApi *SegmentsApiService
-
-	TeamsBetaApi *TeamsBetaApiService
-
-	UserSettingsApi *UserSettingsApiService
-
-	UsersApi *UsersApiService
-
-	UsersBetaApi *UsersBetaApiService
-
-	WebhooksApi *WebhooksApiService
-
-	WorkflowsBetaApi *WorkflowsBetaApiService
+// Integration struct for Integration
+type Integration struct {
+	Links *map[string]Link `json:"_links,omitempty"`
+	Id *string `json:"_id,omitempty"`
+	Kind *string `json:"kind,omitempty"`
+	Name *string `json:"name,omitempty"`
+	Config *map[string]interface{} `json:"config,omitempty"`
+	Statements *[]StatementRep `json:"statements,omitempty"`
+	On *bool `json:"on,omitempty"`
+	Tags *[]string `json:"tags,omitempty"`
+	Access *AccessRep `json:"_access,omitempty"`
+	Status *IntegrationSubscriptionStatusRep `json:"_status,omitempty"`
+	Url *string `json:"url,omitempty"`
+	ApiKey *string `json:"apiKey,omitempty"`
 }
 
-type service struct {
-	client *APIClient
+// NewIntegration instantiates a new Integration object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewIntegration() *Integration {
+	this := Integration{}
+	return &this
 }
 
-// NewAPIClient creates a new API client. Requires a userAgent string describing your application.
-// optionally a custom http.Client to allow for advanced features such as caching.
-func NewAPIClient(cfg *Configuration) *APIClient {
-	if cfg.HTTPClient == nil {
-		cfg.HTTPClient = http.DefaultClient
-	}
-
-	c := &APIClient{}
-	c.cfg = cfg
-	c.common.client = c
-
-	// API Services
-	c.AccessTokensApi = (*AccessTokensApiService)(&c.common)
-	c.AccountMembersApi = (*AccountMembersApiService)(&c.common)
-	c.AccountUsageBetaApi = (*AccountUsageBetaApiService)(&c.common)
-	c.ApprovalsApi = (*ApprovalsApiService)(&c.common)
-	c.AuditLogApi = (*AuditLogApiService)(&c.common)
-	c.CodeReferencesApi = (*CodeReferencesApiService)(&c.common)
-	c.CustomRolesApi = (*CustomRolesApiService)(&c.common)
-	c.DataExportDestinationsApi = (*DataExportDestinationsApiService)(&c.common)
-	c.EnvironmentsApi = (*EnvironmentsApiService)(&c.common)
-	c.ExperimentsBetaApi = (*ExperimentsBetaApiService)(&c.common)
-	c.FeatureFlagsApi = (*FeatureFlagsApiService)(&c.common)
-	c.FeatureFlagsBetaApi = (*FeatureFlagsBetaApiService)(&c.common)
-	c.FlagTriggersApi = (*FlagTriggersApiService)(&c.common)
-	c.IntegrationAuditLogSubscriptionsApi = (*IntegrationAuditLogSubscriptionsApiService)(&c.common)
-	c.MetricsApi = (*MetricsApiService)(&c.common)
-	c.OtherApi = (*OtherApiService)(&c.common)
-	c.ProjectsApi = (*ProjectsApiService)(&c.common)
-	c.RelayProxyConfigurationsApi = (*RelayProxyConfigurationsApiService)(&c.common)
-	c.ScheduledChangesApi = (*ScheduledChangesApiService)(&c.common)
-	c.SegmentsApi = (*SegmentsApiService)(&c.common)
-	c.TeamsBetaApi = (*TeamsBetaApiService)(&c.common)
-	c.UserSettingsApi = (*UserSettingsApiService)(&c.common)
-	c.UsersApi = (*UsersApiService)(&c.common)
-	c.UsersBetaApi = (*UsersBetaApiService)(&c.common)
-	c.WebhooksApi = (*WebhooksApiService)(&c.common)
-	c.WorkflowsBetaApi = (*WorkflowsBetaApiService)(&c.common)
-
-	return c
+// NewIntegrationWithDefaults instantiates a new Integration object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewIntegrationWithDefaults() *Integration {
+	this := Integration{}
+	return &this
 }
 
-func atoi(in string) (int, error) {
-	return strconv.Atoi(in)
+// GetLinks returns the Links field value if set, zero value otherwise.
+func (o *Integration) GetLinks() map[string]Link {
+	if o == nil || o.Links == nil {
+		var ret map[string]Link
+		return ret
+	}
+	return *o.Links
 }
 
-// selectHeaderContentType select a content type from the available list.
-func selectHeaderContentType(contentTypes []string) string {
-	if len(contentTypes) == 0 {
-		return ""
+// GetLinksOk returns a tuple with the Links field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Integration) GetLinksOk() (*map[string]Link, bool) {
+	if o == nil || o.Links == nil {
+		return nil, false
 	}
-	if contains(contentTypes, "application/json") {
-		return "application/json"
-	}
-	return contentTypes[0] // use the first content type specified in 'consumes'
+	return o.Links, true
 }
 
-// selectHeaderAccept join all accept types and return
-func selectHeaderAccept(accepts []string) string {
-	if len(accepts) == 0 {
-		return ""
+// HasLinks returns a boolean if a field has been set.
+func (o *Integration) HasLinks() bool {
+	if o != nil && o.Links != nil {
+		return true
 	}
 
-	if contains(accepts, "application/json") {
-		return "application/json"
-	}
-
-	return strings.Join(accepts, ",")
-}
-
-// contains is a case insensitive match, finding needle in a haystack
-func contains(haystack []string, needle string) bool {
-	for _, a := range haystack {
-		if strings.ToLower(a) == strings.ToLower(needle) {
-			return true
-		}
-	}
 	return false
 }
 
-// Verify optional parameters are of the correct type.
-func typeCheckParameter(obj interface{}, expected string, name string) error {
-	// Make sure there is an object.
-	if obj == nil {
-		return nil
-	}
-
-	// Check the type is as expected.
-	if reflect.TypeOf(obj).String() != expected {
-		return fmt.Errorf("Expected %s to be of type %s but received %s.", name, expected, reflect.TypeOf(obj).String())
-	}
-	return nil
+// SetLinks gets a reference to the given map[string]Link and assigns it to the Links field.
+func (o *Integration) SetLinks(v map[string]Link) {
+	o.Links = &v
 }
 
-// parameterToString convert interface{} parameters to string, using a delimiter if format is provided.
-func parameterToString(obj interface{}, collectionFormat string) string {
-	var delimiter string
-
-	switch collectionFormat {
-	case "pipes":
-		delimiter = "|"
-	case "ssv":
-		delimiter = " "
-	case "tsv":
-		delimiter = "\t"
-	case "csv":
-		delimiter = ","
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *Integration) GetId() string {
+	if o == nil || o.Id == nil {
+		var ret string
+		return ret
 	}
-
-	if reflect.TypeOf(obj).Kind() == reflect.Slice {
-		return strings.Trim(strings.Replace(fmt.Sprint(obj), " ", delimiter, -1), "[]")
-	} else if t, ok := obj.(time.Time); ok {
-		return t.Format(time.RFC3339)
-	}
-
-	return fmt.Sprintf("%v", obj)
+	return *o.Id
 }
 
-// helper for converting interface{} parameters to json strings
-func parameterToJson(obj interface{}) (string, error) {
-	jsonBuf, err := json.Marshal(obj)
-	if err != nil {
-		return "", err
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Integration) GetIdOk() (*string, bool) {
+	if o == nil || o.Id == nil {
+		return nil, false
 	}
-	return string(jsonBuf), err
+	return o.Id, true
 }
 
-// callAPI do the request.
-func (c *APIClient) callAPI(request *http.Request) (*http.Response, error) {
-	if c.cfg.Debug {
-		dump, err := httputil.DumpRequestOut(request, true)
-		if err != nil {
-			return nil, err
-		}
-		log.Printf("\n%s\n", string(dump))
+// HasId returns a boolean if a field has been set.
+func (o *Integration) HasId() bool {
+	if o != nil && o.Id != nil {
+		return true
 	}
 
-	resp, err := c.cfg.HTTPClient.Do(request)
-	if err != nil {
-		return resp, err
-	}
-
-	if c.cfg.Debug {
-		dump, err := httputil.DumpResponse(resp, true)
-		if err != nil {
-			return resp, err
-		}
-		log.Printf("\n%s\n", string(dump))
-	}
-	return resp, err
+	return false
 }
 
-// Allow modification of underlying config for alternate implementations and testing
-// Caution: modifying the configuration while live can cause data races and potentially unwanted behavior
-func (c *APIClient) GetConfig() *Configuration {
-	return c.cfg
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *Integration) SetId(v string) {
+	o.Id = &v
 }
 
-// prepareRequest build the request
-func (c *APIClient) prepareRequest(
-	ctx context.Context,
-	path string, method string,
-	postBody interface{},
-	headerParams map[string]string,
-	queryParams url.Values,
-	formParams url.Values,
-	formFileName string,
-	fileName string,
-	fileBytes []byte) (localVarRequest *http.Request, err error) {
-
-	var body *bytes.Buffer
-
-	// Detect postBody type and post.
-	if postBody != nil {
-		contentType := headerParams["Content-Type"]
-		if contentType == "" {
-			contentType = detectContentType(postBody)
-			headerParams["Content-Type"] = contentType
-		}
-
-		body, err = setBody(postBody, contentType)
-		if err != nil {
-			return nil, err
-		}
+// GetKind returns the Kind field value if set, zero value otherwise.
+func (o *Integration) GetKind() string {
+	if o == nil || o.Kind == nil {
+		var ret string
+		return ret
 	}
-
-	// add form parameters and file if available.
-	if strings.HasPrefix(headerParams["Content-Type"], "multipart/form-data") && len(formParams) > 0 || (len(fileBytes) > 0 && fileName != "") {
-		if body != nil {
-			return nil, errors.New("Cannot specify postBody and multipart form at the same time.")
-		}
-		body = &bytes.Buffer{}
-		w := multipart.NewWriter(body)
-
-		for k, v := range formParams {
-			for _, iv := range v {
-				if strings.HasPrefix(k, "@") { // file
-					err = addFile(w, k[1:], iv)
-					if err != nil {
-						return nil, err
-					}
-				} else { // form value
-					w.WriteField(k, iv)
-				}
-			}
-		}
-		if len(fileBytes) > 0 && fileName != "" {
-			w.Boundary()
-			//_, fileNm := filepath.Split(fileName)
-			part, err := w.CreateFormFile(formFileName, filepath.Base(fileName))
-			if err != nil {
-				return nil, err
-			}
-			_, err = part.Write(fileBytes)
-			if err != nil {
-				return nil, err
-			}
-		}
-
-		// Set the Boundary in the Content-Type
-		headerParams["Content-Type"] = w.FormDataContentType()
-
-		// Set Content-Length
-		headerParams["Content-Length"] = fmt.Sprintf("%d", body.Len())
-		w.Close()
-	}
-
-	if strings.HasPrefix(headerParams["Content-Type"], "application/x-www-form-urlencoded") && len(formParams) > 0 {
-		if body != nil {
-			return nil, errors.New("Cannot specify postBody and x-www-form-urlencoded form at the same time.")
-		}
-		body = &bytes.Buffer{}
-		body.WriteString(formParams.Encode())
-		// Set Content-Length
-		headerParams["Content-Length"] = fmt.Sprintf("%d", body.Len())
-	}
-
-	// Setup path and query parameters
-	url, err := url.Parse(path)
-	if err != nil {
-		return nil, err
-	}
-
-	// Override request host, if applicable
-	if c.cfg.Host != "" {
-		url.Host = c.cfg.Host
-	}
-
-	// Override request scheme, if applicable
-	if c.cfg.Scheme != "" {
-		url.Scheme = c.cfg.Scheme
-	}
-
-	// Adding Query Param
-	query := url.Query()
-	for k, v := range queryParams {
-		for _, iv := range v {
-			query.Add(k, iv)
-		}
-	}
-
-	// Encode the parameters.
-	url.RawQuery = query.Encode()
-
-	// Generate a new request
-	if body != nil {
-		localVarRequest, err = http.NewRequest(method, url.String(), body)
-	} else {
-		localVarRequest, err = http.NewRequest(method, url.String(), nil)
-	}
-	if err != nil {
-		return nil, err
-	}
-
-	// add header parameters, if any
-	if len(headerParams) > 0 {
-		headers := http.Header{}
-		for h, v := range headerParams {
-			headers.Set(h, v)
-		}
-		localVarRequest.Header = headers
-	}
-
-	// Add the user agent to the request.
-	localVarRequest.Header.Add("User-Agent", c.cfg.UserAgent)
-
-	if ctx != nil {
-		// add context to the request
-		localVarRequest = localVarRequest.WithContext(ctx)
-
-		// Walk through any authentication.
-
-		// OAuth2 authentication
-		if tok, ok := ctx.Value(ContextOAuth2).(oauth2.TokenSource); ok {
-			// We were able to grab an oauth2 token from the context
-			var latestToken *oauth2.Token
-			if latestToken, err = tok.Token(); err != nil {
-				return nil, err
-			}
-
-			latestToken.SetAuthHeader(localVarRequest)
-		}
-
-		// Basic HTTP Authentication
-		if auth, ok := ctx.Value(ContextBasicAuth).(BasicAuth); ok {
-			localVarRequest.SetBasicAuth(auth.UserName, auth.Password)
-		}
-
-		// AccessToken Authentication
-		if auth, ok := ctx.Value(ContextAccessToken).(string); ok {
-			localVarRequest.Header.Add("Authorization", "Bearer "+auth)
-		}
-
-	}
-
-	for header, value := range c.cfg.DefaultHeader {
-		localVarRequest.Header.Add(header, value)
-	}
-	return localVarRequest, nil
+	return *o.Kind
 }
 
-func (c *APIClient) decode(v interface{}, b []byte, contentType string) (err error) {
-	if len(b) == 0 {
-		return nil
+// GetKindOk returns a tuple with the Kind field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Integration) GetKindOk() (*string, bool) {
+	if o == nil || o.Kind == nil {
+		return nil, false
 	}
-	if s, ok := v.(*string); ok {
-		*s = string(b)
-		return nil
-	}
-	if f, ok := v.(**os.File); ok {
-		*f, err = ioutil.TempFile("", "HttpClientFile")
-		if err != nil {
-			return
-		}
-		_, err = (*f).Write(b)
-		if err != nil {
-			return
-		}
-		_, err = (*f).Seek(0, io.SeekStart)
-		return
-	}
-	if xmlCheck.MatchString(contentType) {
-		if err = xml.Unmarshal(b, v); err != nil {
-			return err
-		}
-		return nil
-	}
-	if jsonCheck.MatchString(contentType) {
-		if actualObj, ok := v.(interface{ GetActualInstance() interface{} }); ok { // oneOf, anyOf schemas
-			if unmarshalObj, ok := actualObj.(interface{ UnmarshalJSON([]byte) error }); ok { // make sure it has UnmarshalJSON defined
-				if err = unmarshalObj.UnmarshalJSON(b); err != nil {
-					return err
-				}
-			} else {
-				return errors.New("Unknown type with GetActualInstance but no unmarshalObj.UnmarshalJSON defined")
-			}
-		} else if err = json.Unmarshal(b, v); err != nil { // simple model
-			return err
-		}
-		return nil
-	}
-	return errors.New("undefined response type")
+	return o.Kind, true
 }
 
-// Add a file to the multipart request
-func addFile(w *multipart.Writer, fieldName, path string) error {
-	file, err := os.Open(path)
-	if err != nil {
-		return err
-	}
-	defer file.Close()
-
-	part, err := w.CreateFormFile(fieldName, filepath.Base(path))
-	if err != nil {
-		return err
-	}
-	_, err = io.Copy(part, file)
-
-	return err
-}
-
-// Prevent trying to import "fmt"
-func reportError(format string, a ...interface{}) error {
-	return fmt.Errorf(format, a...)
-}
-
-// Set request body from an interface{}
-func setBody(body interface{}, contentType string) (bodyBuf *bytes.Buffer, err error) {
-	if bodyBuf == nil {
-		bodyBuf = &bytes.Buffer{}
+// HasKind returns a boolean if a field has been set.
+func (o *Integration) HasKind() bool {
+	if o != nil && o.Kind != nil {
+		return true
 	}
 
-	if reader, ok := body.(io.Reader); ok {
-		_, err = bodyBuf.ReadFrom(reader)
-	} else if fp, ok := body.(**os.File); ok {
-		_, err = bodyBuf.ReadFrom(*fp)
-	} else if b, ok := body.([]byte); ok {
-		_, err = bodyBuf.Write(b)
-	} else if s, ok := body.(string); ok {
-		_, err = bodyBuf.WriteString(s)
-	} else if s, ok := body.(*string); ok {
-		_, err = bodyBuf.WriteString(*s)
-	} else if jsonCheck.MatchString(contentType) {
-		err = json.NewEncoder(bodyBuf).Encode(body)
-	} else if xmlCheck.MatchString(contentType) {
-		err = xml.NewEncoder(bodyBuf).Encode(body)
+	return false
+}
+
+// SetKind gets a reference to the given string and assigns it to the Kind field.
+func (o *Integration) SetKind(v string) {
+	o.Kind = &v
+}
+
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *Integration) GetName() string {
+	if o == nil || o.Name == nil {
+		var ret string
+		return ret
+	}
+	return *o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Integration) GetNameOk() (*string, bool) {
+	if o == nil || o.Name == nil {
+		return nil, false
+	}
+	return o.Name, true
+}
+
+// HasName returns a boolean if a field has been set.
+func (o *Integration) HasName() bool {
+	if o != nil && o.Name != nil {
+		return true
 	}
 
-	if err != nil {
-		return nil, err
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *Integration) SetName(v string) {
+	o.Name = &v
+}
+
+// GetConfig returns the Config field value if set, zero value otherwise.
+func (o *Integration) GetConfig() map[string]interface{} {
+	if o == nil || o.Config == nil {
+		var ret map[string]interface{}
+		return ret
+	}
+	return *o.Config
+}
+
+// GetConfigOk returns a tuple with the Config field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Integration) GetConfigOk() (*map[string]interface{}, bool) {
+	if o == nil || o.Config == nil {
+		return nil, false
+	}
+	return o.Config, true
+}
+
+// HasConfig returns a boolean if a field has been set.
+func (o *Integration) HasConfig() bool {
+	if o != nil && o.Config != nil {
+		return true
 	}
 
-	if bodyBuf.Len() == 0 {
-		err = fmt.Errorf("Invalid body type %s\n", contentType)
-		return nil, err
+	return false
+}
+
+// SetConfig gets a reference to the given map[string]interface{} and assigns it to the Config field.
+func (o *Integration) SetConfig(v map[string]interface{}) {
+	o.Config = &v
+}
+
+// GetStatements returns the Statements field value if set, zero value otherwise.
+func (o *Integration) GetStatements() []StatementRep {
+	if o == nil || o.Statements == nil {
+		var ret []StatementRep
+		return ret
 	}
-	return bodyBuf, nil
+	return *o.Statements
 }
 
-// detectContentType method is used to figure out `Request.Body` content type for request header
-func detectContentType(body interface{}) string {
-	contentType := "text/plain; charset=utf-8"
-	kind := reflect.TypeOf(body).Kind()
+// GetStatementsOk returns a tuple with the Statements field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Integration) GetStatementsOk() (*[]StatementRep, bool) {
+	if o == nil || o.Statements == nil {
+		return nil, false
+	}
+	return o.Statements, true
+}
 
-	switch kind {
-	case reflect.Struct, reflect.Map, reflect.Ptr:
-		contentType = "application/json; charset=utf-8"
-	case reflect.String:
-		contentType = "text/plain; charset=utf-8"
-	default:
-		if b, ok := body.([]byte); ok {
-			contentType = http.DetectContentType(b)
-		} else if kind == reflect.Slice {
-			contentType = "application/json; charset=utf-8"
-		}
+// HasStatements returns a boolean if a field has been set.
+func (o *Integration) HasStatements() bool {
+	if o != nil && o.Statements != nil {
+		return true
 	}
 
-	return contentType
+	return false
 }
 
-// Ripped from https://github.com/gregjones/httpcache/blob/master/httpcache.go
-type cacheControl map[string]string
+// SetStatements gets a reference to the given []StatementRep and assigns it to the Statements field.
+func (o *Integration) SetStatements(v []StatementRep) {
+	o.Statements = &v
+}
 
-func parseCacheControl(headers http.Header) cacheControl {
-	cc := cacheControl{}
-	ccHeader := headers.Get("Cache-Control")
-	for _, part := range strings.Split(ccHeader, ",") {
-		part = strings.Trim(part, " ")
-		if part == "" {
-			continue
-		}
-		if strings.ContainsRune(part, '=') {
-			keyval := strings.Split(part, "=")
-			cc[strings.Trim(keyval[0], " ")] = strings.Trim(keyval[1], ",")
-		} else {
-			cc[part] = ""
-		}
+// GetOn returns the On field value if set, zero value otherwise.
+func (o *Integration) GetOn() bool {
+	if o == nil || o.On == nil {
+		var ret bool
+		return ret
 	}
-	return cc
+	return *o.On
 }
 
-// CacheExpires helper function to determine remaining time before repeating a request.
-func CacheExpires(r *http.Response) time.Time {
-	// Figure out when the cache expires.
-	var expires time.Time
-	now, err := time.Parse(time.RFC1123, r.Header.Get("date"))
-	if err != nil {
-		return time.Now()
+// GetOnOk returns a tuple with the On field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Integration) GetOnOk() (*bool, bool) {
+	if o == nil || o.On == nil {
+		return nil, false
 	}
-	respCacheControl := parseCacheControl(r.Header)
+	return o.On, true
+}
 
-	if maxAge, ok := respCacheControl["max-age"]; ok {
-		lifetime, err := time.ParseDuration(maxAge + "s")
-		if err != nil {
-			expires = now
-		} else {
-			expires = now.Add(lifetime)
-		}
-	} else {
-		expiresHeader := r.Header.Get("Expires")
-		if expiresHeader != "" {
-			expires, err = time.Parse(time.RFC1123, expiresHeader)
-			if err != nil {
-				expires = now
-			}
-		}
+// HasOn returns a boolean if a field has been set.
+func (o *Integration) HasOn() bool {
+	if o != nil && o.On != nil {
+		return true
 	}
-	return expires
+
+	return false
 }
 
-func strlen(s string) int {
-	return utf8.RuneCountInString(s)
+// SetOn gets a reference to the given bool and assigns it to the On field.
+func (o *Integration) SetOn(v bool) {
+	o.On = &v
 }
 
-// GenericOpenAPIError Provides access to the body, error and model on returned errors.
-type GenericOpenAPIError struct {
-	body  []byte
-	error string
-	model interface{}
+// GetTags returns the Tags field value if set, zero value otherwise.
+func (o *Integration) GetTags() []string {
+	if o == nil || o.Tags == nil {
+		var ret []string
+		return ret
+	}
+	return *o.Tags
 }
 
-// Error returns non-empty string if there was an error.
-func (e GenericOpenAPIError) Error() string {
-	return e.error
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Integration) GetTagsOk() (*[]string, bool) {
+	if o == nil || o.Tags == nil {
+		return nil, false
+	}
+	return o.Tags, true
 }
 
-// Body returns the raw bytes of the response
-func (e GenericOpenAPIError) Body() []byte {
-	return e.body
+// HasTags returns a boolean if a field has been set.
+func (o *Integration) HasTags() bool {
+	if o != nil && o.Tags != nil {
+		return true
+	}
+
+	return false
 }
 
-// Model returns the unpacked model of the error
-func (e GenericOpenAPIError) Model() interface{} {
-	return e.model
+// SetTags gets a reference to the given []string and assigns it to the Tags field.
+func (o *Integration) SetTags(v []string) {
+	o.Tags = &v
 }
+
+// GetAccess returns the Access field value if set, zero value otherwise.
+func (o *Integration) GetAccess() AccessRep {
+	if o == nil || o.Access == nil {
+		var ret AccessRep
+		return ret
+	}
+	return *o.Access
+}
+
+// GetAccessOk returns a tuple with the Access field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Integration) GetAccessOk() (*AccessRep, bool) {
+	if o == nil || o.Access == nil {
+		return nil, false
+	}
+	return o.Access, true
+}
+
+// HasAccess returns a boolean if a field has been set.
+func (o *Integration) HasAccess() bool {
+	if o != nil && o.Access != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAccess gets a reference to the given AccessRep and assigns it to the Access field.
+func (o *Integration) SetAccess(v AccessRep) {
+	o.Access = &v
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *Integration) GetStatus() IntegrationSubscriptionStatusRep {
+	if o == nil || o.Status == nil {
+		var ret IntegrationSubscriptionStatusRep
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Integration) GetStatusOk() (*IntegrationSubscriptionStatusRep, bool) {
+	if o == nil || o.Status == nil {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *Integration) HasStatus() bool {
+	if o != nil && o.Status != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given IntegrationSubscriptionStatusRep and assigns it to the Status field.
+func (o *Integration) SetStatus(v IntegrationSubscriptionStatusRep) {
+	o.Status = &v
+}
+
+// GetUrl returns the Url field value if set, zero value otherwise.
+func (o *Integration) GetUrl() string {
+	if o == nil || o.Url == nil {
+		var ret string
+		return ret
+	}
+	return *o.Url
+}
+
+// GetUrlOk returns a tuple with the Url field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Integration) GetUrlOk() (*string, bool) {
+	if o == nil || o.Url == nil {
+		return nil, false
+	}
+	return o.Url, true
+}
+
+// HasUrl returns a boolean if a field has been set.
+func (o *Integration) HasUrl() bool {
+	if o != nil && o.Url != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetUrl gets a reference to the given string and assigns it to the Url field.
+func (o *Integration) SetUrl(v string) {
+	o.Url = &v
+}
+
+// GetApiKey returns the ApiKey field value if set, zero value otherwise.
+func (o *Integration) GetApiKey() string {
+	if o == nil || o.ApiKey == nil {
+		var ret string
+		return ret
+	}
+	return *o.ApiKey
+}
+
+// GetApiKeyOk returns a tuple with the ApiKey field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Integration) GetApiKeyOk() (*string, bool) {
+	if o == nil || o.ApiKey == nil {
+		return nil, false
+	}
+	return o.ApiKey, true
+}
+
+// HasApiKey returns a boolean if a field has been set.
+func (o *Integration) HasApiKey() bool {
+	if o != nil && o.ApiKey != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetApiKey gets a reference to the given string and assigns it to the ApiKey field.
+func (o *Integration) SetApiKey(v string) {
+	o.ApiKey = &v
+}
+
+func (o Integration) MarshalJSON() ([]byte, error) {
+	toSerialize := map[string]interface{}{}
+	if o.Links != nil {
+		toSerialize["_links"] = o.Links
+	}
+	if o.Id != nil {
+		toSerialize["_id"] = o.Id
+	}
+	if o.Kind != nil {
+		toSerialize["kind"] = o.Kind
+	}
+	if o.Name != nil {
+		toSerialize["name"] = o.Name
+	}
+	if o.Config != nil {
+		toSerialize["config"] = o.Config
+	}
+	if o.Statements != nil {
+		toSerialize["statements"] = o.Statements
+	}
+	if o.On != nil {
+		toSerialize["on"] = o.On
+	}
+	if o.Tags != nil {
+		toSerialize["tags"] = o.Tags
+	}
+	if o.Access != nil {
+		toSerialize["_access"] = o.Access
+	}
+	if o.Status != nil {
+		toSerialize["_status"] = o.Status
+	}
+	if o.Url != nil {
+		toSerialize["url"] = o.Url
+	}
+	if o.ApiKey != nil {
+		toSerialize["apiKey"] = o.ApiKey
+	}
+	return json.Marshal(toSerialize)
+}
+
+type NullableIntegration struct {
+	value *Integration
+	isSet bool
+}
+
+func (v NullableIntegration) Get() *Integration {
+	return v.value
+}
+
+func (v *NullableIntegration) Set(val *Integration) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableIntegration) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableIntegration) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableIntegration(val *Integration) *NullableIntegration {
+	return &NullableIntegration{value: val, isSet: true}
+}
+
+func (v NullableIntegration) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableIntegration) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}
+
+

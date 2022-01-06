@@ -307,7 +307,7 @@ Name | Type | Description  | Notes
 
 ## GetExtinctions
 
-> ExtinctionCollectionRep GetExtinctions(ctx).RepoName(repoName).BranchName(branchName).ProjKey(projKey).FlagKey(flagKey).Execute()
+> ExtinctionCollectionRep GetExtinctions(ctx).RepoName(repoName).BranchName(branchName).ProjKey(projKey).FlagKey(flagKey).From(from).To(to).Execute()
 
 List extinctions
 
@@ -330,10 +330,12 @@ func main() {
     branchName := "branchName_example" // string | Filter results to a specific branch. By default, only the default branch will be queried for extinctions. (optional)
     projKey := "projKey_example" // string | Filter results to a specific project (optional)
     flagKey := "flagKey_example" // string | Filter results to a specific flag key (optional)
+    from := int64(789) // int64 | Filter results to a specific timeframe based on commit time, expressed as a Unix epoch time in milliseconds. Must be used with `to`. (optional)
+    to := int64(789) // int64 | Filter results to a specific timeframe based on commit time, expressed as a Unix epoch time in milliseconds. Must be used with `from`. (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CodeReferencesApi.GetExtinctions(context.Background()).RepoName(repoName).BranchName(branchName).ProjKey(projKey).FlagKey(flagKey).Execute()
+    resp, r, err := api_client.CodeReferencesApi.GetExtinctions(context.Background()).RepoName(repoName).BranchName(branchName).ProjKey(projKey).FlagKey(flagKey).From(from).To(to).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CodeReferencesApi.GetExtinctions``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -358,6 +360,8 @@ Name | Type | Description  | Notes
  **branchName** | **string** | Filter results to a specific branch. By default, only the default branch will be queried for extinctions. | 
  **projKey** | **string** | Filter results to a specific project | 
  **flagKey** | **string** | Filter results to a specific flag key | 
+ **from** | **int64** | Filter results to a specific timeframe based on commit time, expressed as a Unix epoch time in milliseconds. Must be used with &#x60;to&#x60;. | 
+ **to** | **int64** | Filter results to a specific timeframe based on commit time, expressed as a Unix epoch time in milliseconds. Must be used with &#x60;from&#x60;. | 
 
 ### Return type
 

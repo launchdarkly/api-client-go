@@ -1231,7 +1231,6 @@ type ApiGetFeatureFlagsRequest struct {
 	tag *string
 	limit *int64
 	offset *int64
-	query *string
 	archived *bool
 	summary *bool
 	filter *string
@@ -1256,11 +1255,6 @@ func (r ApiGetFeatureFlagsRequest) Limit(limit int64) ApiGetFeatureFlagsRequest 
 // Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next limit items
 func (r ApiGetFeatureFlagsRequest) Offset(offset int64) ApiGetFeatureFlagsRequest {
 	r.offset = &offset
-	return r
-}
-// A string that matches against the flags&#39; keys and names. It is not case sensitive
-func (r ApiGetFeatureFlagsRequest) Query(query string) ApiGetFeatureFlagsRequest {
-	r.query = &query
 	return r
 }
 // A boolean to filter the list to archived flags. When this is absent, only unarchived flags will be returned
@@ -1357,9 +1351,6 @@ func (a *FeatureFlagsApiService) GetFeatureFlagsExecute(r ApiGetFeatureFlagsRequ
 	}
 	if r.offset != nil {
 		localVarQueryParams.Add("offset", parameterToString(*r.offset, ""))
-	}
-	if r.query != nil {
-		localVarQueryParams.Add("query", parameterToString(*r.query, ""))
 	}
 	if r.archived != nil {
 		localVarQueryParams.Add("archived", parameterToString(*r.archived, ""))
@@ -1727,7 +1718,7 @@ If a flag variation does not already have users individually targeted, the path 
 
 ## Using semantic patches on a feature flag
 
-To use a [semantic patch](/#section/Updates/Updates-via-semantic-patches) on a feature flag resource, you must include a header in the request. If you call a semantic patch resource without this header, you receive a `400` response as your semantic patch will be interpreted as a JSON patch.
+To use a [semantic patch](/reference#updates-via-semantic-patches) on a feature flag resource, you must include a header in the request. If you call a semantic patch resource without this header, you will receive a `400` response because your semantic patch will be interpreted as a JSON patch.
 
 Use this header:
 
@@ -2101,7 +2092,7 @@ Updates the variation served when the flag's targeting is off to the variation i
 
 ## Using JSON patches on a feature flag
 
-If you do not include the header described above, you can use [JSON patch](/#section/Updates/Updates-via-JSON-Patch).
+If you do not include the header described above, you can use [JSON patch](/reference#updates-via-json-patch).
 
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().

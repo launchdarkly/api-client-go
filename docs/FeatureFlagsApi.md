@@ -541,7 +541,7 @@ Name | Type | Description  | Notes
 
 ## GetFeatureFlags
 
-> FeatureFlags GetFeatureFlags(ctx, projKey).Env(env).Tag(tag).Limit(limit).Offset(offset).Query(query).Archived(archived).Summary(summary).Filter(filter).Sort(sort).Execute()
+> FeatureFlags GetFeatureFlags(ctx, projKey).Env(env).Tag(tag).Limit(limit).Offset(offset).Archived(archived).Summary(summary).Filter(filter).Sort(sort).Execute()
 
 List feature flags
 
@@ -565,7 +565,6 @@ func main() {
     tag := "tag_example" // string | Filter feature flags by tag (optional)
     limit := int64(789) // int64 | The number of feature flags to return. Defaults to -1, which returns all flags (optional)
     offset := int64(789) // int64 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next limit items (optional)
-    query := "query_example" // string | A string that matches against the flags' keys and names. It is not case sensitive (optional)
     archived := true // bool | A boolean to filter the list to archived flags. When this is absent, only unarchived flags will be returned (optional)
     summary := true // bool | By default in API version >= 1, flags will _not_ include their list of prerequisites, targets or rules.  Set summary=0 to include these fields for each flag returned (optional)
     filter := "filter_example" // string | A comma-separated list of filters. Each filter is of the form field:value (optional)
@@ -573,7 +572,7 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.FeatureFlagsApi.GetFeatureFlags(context.Background(), projKey).Env(env).Tag(tag).Limit(limit).Offset(offset).Query(query).Archived(archived).Summary(summary).Filter(filter).Sort(sort).Execute()
+    resp, r, err := api_client.FeatureFlagsApi.GetFeatureFlags(context.Background(), projKey).Env(env).Tag(tag).Limit(limit).Offset(offset).Archived(archived).Summary(summary).Filter(filter).Sort(sort).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.GetFeatureFlags``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -603,7 +602,6 @@ Name | Type | Description  | Notes
  **tag** | **string** | Filter feature flags by tag | 
  **limit** | **int64** | The number of feature flags to return. Defaults to -1, which returns all flags | 
  **offset** | **int64** | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next limit items | 
- **query** | **string** | A string that matches against the flags&#39; keys and names. It is not case sensitive | 
  **archived** | **bool** | A boolean to filter the list to archived flags. When this is absent, only unarchived flags will be returned | 
  **summary** | **bool** | By default in API version &gt;&#x3D; 1, flags will _not_ include their list of prerequisites, targets or rules.  Set summary&#x3D;0 to include these fields for each flag returned | 
  **filter** | **string** | A comma-separated list of filters. Each filter is of the form field:value | 

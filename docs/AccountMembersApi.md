@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**GetMember**](AccountMembersApi.md#GetMember) | **Get** /api/v2/members/{id} | Get account member
 [**GetMembers**](AccountMembersApi.md#GetMembers) | **Get** /api/v2/members | List account members
 [**PatchMember**](AccountMembersApi.md#PatchMember) | **Patch** /api/v2/members/{id} | Modify an account member
+[**PostMemberTeams**](AccountMembersApi.md#PostMemberTeams) | **Post** /api/v2/members/{id}/teams | Add member to teams
 [**PostMembers**](AccountMembersApi.md#PostMembers) | **Post** /api/v2/members | Invite new members
 
 
@@ -275,6 +276,78 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **patchOperation** | [**[]PatchOperation**](PatchOperation.md) |  | 
+
+### Return type
+
+[**Member**](Member.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostMemberTeams
+
+> Member PostMemberTeams(ctx, id).MemberTeamsFormPost(memberTeamsFormPost).Execute()
+
+Add member to teams
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    id := "id_example" // string | The member ID
+    memberTeamsFormPost := *openapiclient.NewMemberTeamsFormPost([]string{"TeamKeys_example"}) // MemberTeamsFormPost | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.AccountMembersApi.PostMemberTeams(context.Background(), id).MemberTeamsFormPost(memberTeamsFormPost).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AccountMembersApi.PostMemberTeams``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PostMemberTeams`: Member
+    fmt.Fprintf(os.Stdout, "Response from `AccountMembersApi.PostMemberTeams`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | The member ID | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostMemberTeamsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **memberTeamsFormPost** | [**MemberTeamsFormPost**](MemberTeamsFormPost.md) |  | 
 
 ### Return type
 

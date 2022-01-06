@@ -18,7 +18,7 @@ import (
 // MetricSeen struct for MetricSeen
 type MetricSeen struct {
 	Ever *bool `json:"ever,omitempty"`
-	MinutesAgo *int64 `json:"minutesAgo,omitempty"`
+	Timestamp *int64 `json:"timestamp,omitempty"`
 }
 
 // NewMetricSeen instantiates a new MetricSeen object
@@ -70,36 +70,36 @@ func (o *MetricSeen) SetEver(v bool) {
 	o.Ever = &v
 }
 
-// GetMinutesAgo returns the MinutesAgo field value if set, zero value otherwise.
-func (o *MetricSeen) GetMinutesAgo() int64 {
-	if o == nil || o.MinutesAgo == nil {
+// GetTimestamp returns the Timestamp field value if set, zero value otherwise.
+func (o *MetricSeen) GetTimestamp() int64 {
+	if o == nil || o.Timestamp == nil {
 		var ret int64
 		return ret
 	}
-	return *o.MinutesAgo
+	return *o.Timestamp
 }
 
-// GetMinutesAgoOk returns a tuple with the MinutesAgo field value if set, nil otherwise
+// GetTimestampOk returns a tuple with the Timestamp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MetricSeen) GetMinutesAgoOk() (*int64, bool) {
-	if o == nil || o.MinutesAgo == nil {
+func (o *MetricSeen) GetTimestampOk() (*int64, bool) {
+	if o == nil || o.Timestamp == nil {
 		return nil, false
 	}
-	return o.MinutesAgo, true
+	return o.Timestamp, true
 }
 
-// HasMinutesAgo returns a boolean if a field has been set.
-func (o *MetricSeen) HasMinutesAgo() bool {
-	if o != nil && o.MinutesAgo != nil {
+// HasTimestamp returns a boolean if a field has been set.
+func (o *MetricSeen) HasTimestamp() bool {
+	if o != nil && o.Timestamp != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetMinutesAgo gets a reference to the given int64 and assigns it to the MinutesAgo field.
-func (o *MetricSeen) SetMinutesAgo(v int64) {
-	o.MinutesAgo = &v
+// SetTimestamp gets a reference to the given int64 and assigns it to the Timestamp field.
+func (o *MetricSeen) SetTimestamp(v int64) {
+	o.Timestamp = &v
 }
 
 func (o MetricSeen) MarshalJSON() ([]byte, error) {
@@ -107,8 +107,8 @@ func (o MetricSeen) MarshalJSON() ([]byte, error) {
 	if o.Ever != nil {
 		toSerialize["ever"] = o.Ever
 	}
-	if o.MinutesAgo != nil {
-		toSerialize["minutesAgo"] = o.MinutesAgo
+	if o.Timestamp != nil {
+		toSerialize["timestamp"] = o.Timestamp
 	}
 	return json.Marshal(toSerialize)
 }

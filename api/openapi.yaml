@@ -465,6 +465,8 @@ tags:
     The Account Members API allows you to invite new members to an account by making a `POST` request to `/api/v2/members`. When you invite a new member to an account, an invitation is sent to the email you provided. Members with "admin" or "owner" roles may create new members, as well as anyone with a "createMember" permission for "member/\*".
 
     Any member may request the complete list of account members with a `GET` to `/api/v2/members`.
+
+    Valid built-in role names that you can provide for the `role` field include `reader`, `writer`, `admin`, `owner/admin`, and `no_access`. To learn more about built-in roles, read [LaunchDarkly's built-in roles](https://docs.launchdarkly.com/home/members/built-in-roles).
   name: Account members
 - description: |
     > ### This feature is in beta
@@ -498,7 +500,7 @@ tags:
 
     The custom roles API allows you to create, update and delete custom roles. You can also use the API to list all of your custom roles or get a custom role by ID.
 
-    For more information about custom roles and the syntax for custom role policies, read the product documentation for [Custom roles](https://docs.launchdarkly.com/docs/custom-roles).
+    For more information about custom roles and the syntax for custom role policies, read the product documentation for [Custom roles](https://docs.launchdarkly.com/home/members/custom-roles).
   name: Custom roles
 - description: |
     > ### Data Export is an add-on feature
@@ -509,7 +511,7 @@ tags:
 
     _Data Export Destinations_ are locations that receive exported data. The Data Export Destinations API allows you to configure destinations so that your data can be exported.
 
-    To learn more, read [Data Export](https://docs.launchdarkly.com/docs/data-export).
+    To learn more, read [Data Export](https://docs.launchdarkly.com/home/data-export).
   name: Data Export destinations
 - description: |
     Environments allow you to maintain separate rollout rules in different contexts, from local development to QA, staging, and production. With the LaunchDarkly Environments API, you can programmatically create, delete, and update environments.
@@ -840,6 +842,20 @@ tags:
     > To use this feature, pass in a header including the `LD-API-Version` key with value set to `beta`. Use this header with each call. To learn more, read [Beta resources](/#section/Beta-resources).
   name: Feature flags (beta)
 - description: |
+    Flag triggers let you initiate flag changes remotely using a unique webhook URL. For example, you can integrate triggers with your existing tools to enable or disable flags when you hit specific operational health thresholds or receive certain alerts.
+
+    Using the Flag triggers API, you can create, delete, and manage triggers.
+  name: Flag triggers
+- description: |
+    Audit log integration subscriptions allow you to send audit log events hooks to one of dozens of external tools. For example, you can send flag change event webhooks to external third party software.
+
+    You can use the integrations subscriptions API to create, delete, and manage your integration audit log subscriptions.
+
+    Each of these operations requires an `integrationKey` that refers to the type of integration (ex. `datadog`, `appdynamics`, `webhooks`), a full list of which can be found [here](https://github.com/launchdarkly/integration-framework/tree/master/integrations). The required `config` fields to create a subscription vary depending on the `integrationKey`. You can find a full list of the fields for each integration in the `"formVariables"` section of the corresponding manifest.json.
+
+    Please note that these endpoints only create configuration resources for integrations with the `"auditLogEventsHook"` capability configured in the corresponding manifest.json.
+  name: Integration audit log subscriptions
+- description: |
     Metrics track flag behavior over time when an experiment is running. The data generated from experiments gives you more insight into the impact of a particular flag.
 
     Using the Metrics API, you can create, delete, and manage metrics.
@@ -989,7 +1005,8 @@ tags:
 
     You can create multiple stages of a flag release workflow. Unique stages are defined by their conditions: either approvals and/or scheduled changes.
   name: Workflows (beta)
-- name: Other
+- description: "Other requests available in the LaunchDarkly API. \n"
+  name: Other
 paths:
   /api/v2:
     get:
@@ -1501,6 +1518,30 @@ paths:
           description: Filter results to a specific flag key
           format: string
           type: string
+        style: form
+      - description: Filter results to a specific timeframe based on commit time,
+          expressed as a Unix epoch time in milliseconds. Must be used with `to`.
+        explode: true
+        in: query
+        name: from
+        required: false
+        schema:
+          description: Filter results to a specific timeframe based on commit time,
+            expressed as a Unix epoch time in milliseconds. Must be used with `to`.
+          format: int64
+          type: integer
+        style: form
+      - description: Filter results to a specific timeframe based on commit time,
+          expressed as a Unix epoch time in milliseconds. Must be used with `from`.
+        explode: true
+        in: query
+        name: to
+        required: false
+        schema:
+          description: Filter results to a specific timeframe based on commit time,
+            expressed as a Unix epoch time in milliseconds. Must be used with `from`.
+          format: int64
+          type: integer
         style: form
       responses:
         "200":
@@ -2888,18 +2929,6 @@ paths:
           format: int64
           type: integer
         style: form
-      - description: A string that matches against the flags' keys and names. It is
-          not case sensitive
-        explode: true
-        in: query
-        name: query
-        required: false
-        schema:
-          description: A string that matches against the flags' keys and names. It
-            is not case sensitive
-          format: string
-          type: string
-        style: form
       - description: A boolean to filter the list to archived flags. When this is
           absent, only unarchived flags will be returned
         explode: true
@@ -3615,6 +3644,406 @@ paths:
       summary: Update expiring user targets on feature flag
       tags:
       - Feature flags
+  /api/v2/flags/{projKey}/{flagKey}/triggers/{envKey}:
+    get:
+      description: Get a list of all flag triggers.
+      operationId: getTriggerWorkflows
+      parameters:
+      - description: The project key
+        explode: false
+        in: path
+        name: projKey
+        required: true
+        schema:
+          description: The project key
+          format: string
+          type: string
+        style: simple
+      - description: The environment key
+        explode: false
+        in: path
+        name: envKey
+        required: true
+        schema:
+          description: The environment key
+          format: string
+          type: string
+        style: simple
+      - description: The flag key
+        explode: false
+        in: path
+        name: flagKey
+        required: true
+        schema:
+          description: The flag key
+          format: string
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TriggerWorkflowCollectionRep'
+          description: Flag trigger collection response JSON
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedErrorRep'
+          description: Invalid access token
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenErrorRep'
+          description: Forbidden
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitedErrorRep'
+          description: Rate limited
+      summary: List flag triggers
+      tags:
+      - Flag triggers
+    post:
+      description: Create a new flag trigger. Triggers let you initiate changes to
+        flag targeting remotely using a unique webhook URL.
+      operationId: createTriggerWorkflow
+      parameters:
+      - description: The project key
+        explode: false
+        in: path
+        name: projKey
+        required: true
+        schema:
+          description: The project key
+          format: string
+          type: string
+        style: simple
+      - description: The environment key
+        explode: false
+        in: path
+        name: envKey
+        required: true
+        schema:
+          description: The environment key
+          format: string
+          type: string
+        style: simple
+      - description: The flag key
+        explode: false
+        in: path
+        name: flagKey
+        required: true
+        schema:
+          description: The flag key
+          format: string
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/triggerPost'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TriggerWorkflowRep'
+          description: Successful flag trigger response
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequestErrorRep'
+          description: Invalid request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedErrorRep'
+          description: Invalid access token
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenErrorRep'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundErrorRep'
+          description: Invalid resource identifier
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitedErrorRep'
+          description: Rate limited
+      summary: Create flag trigger
+      tags:
+      - Flag triggers
+  /api/v2/flags/{projKey}/{flagKey}/triggers/{envKey}/{id}:
+    delete:
+      description: Delete a flag trigger by ID.
+      operationId: deleteTriggerWorkflow
+      parameters:
+      - description: The project key
+        explode: false
+        in: path
+        name: projKey
+        required: true
+        schema:
+          description: The project key
+          format: string
+          type: string
+        style: simple
+      - description: The environment key
+        explode: false
+        in: path
+        name: envKey
+        required: true
+        schema:
+          description: The environment key
+          format: string
+          type: string
+        style: simple
+      - description: The flag key
+        explode: false
+        in: path
+        name: flagKey
+        required: true
+        schema:
+          description: The flag key
+          format: string
+          type: string
+        style: simple
+      - description: The flag trigger ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          description: The flag trigger ID
+          format: string
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: Action succeeded
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequestErrorRep'
+          description: Invalid request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedErrorRep'
+          description: Invalid access token
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenErrorRep'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundErrorRep'
+          description: Invalid resource identifier
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitedErrorRep'
+          description: Rate limited
+      summary: Delete flag trigger
+      tags:
+      - Flag triggers
+    get:
+      description: Get a flag trigger by ID.
+      operationId: getTriggerWorkflowById
+      parameters:
+      - description: The project key
+        explode: false
+        in: path
+        name: projKey
+        required: true
+        schema:
+          description: The project key
+          format: string
+          type: string
+        style: simple
+      - description: The flag key
+        explode: false
+        in: path
+        name: flagKey
+        required: true
+        schema:
+          description: The flag key
+          format: string
+          type: string
+        style: simple
+      - description: The environment key
+        explode: false
+        in: path
+        name: envKey
+        required: true
+        schema:
+          description: The environment key
+          format: string
+          type: string
+        style: simple
+      - description: The flag trigger ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          description: The flag trigger ID
+          format: string
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TriggerWorkflowRep'
+          description: Flag trigger response
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedErrorRep'
+          description: Invalid access token
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenErrorRep'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundErrorRep'
+          description: Invalid resource identifier
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitedErrorRep'
+          description: Rate limited
+      summary: Get flag trigger by ID
+      tags:
+      - Flag triggers
+    patch:
+      description: Update a flag trigger. The request body must be a valid JSON patch
+        or JSON merge patch document. To learn more, read [Updates](/#section/Overview/Updates).
+      operationId: patchTriggerWorkflow
+      parameters:
+      - description: The project key
+        explode: false
+        in: path
+        name: projKey
+        required: true
+        schema:
+          description: The project key
+          format: string
+          type: string
+        style: simple
+      - description: The environment key
+        explode: false
+        in: path
+        name: envKey
+        required: true
+        schema:
+          description: The environment key
+          format: string
+          type: string
+        style: simple
+      - description: The flag key
+        explode: false
+        in: path
+        name: flagKey
+        required: true
+        schema:
+          description: The flag key
+          format: string
+          type: string
+        style: simple
+      - description: The flag trigger ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          description: The flag trigger ID
+          format: string
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlagTriggerInput'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TriggerWorkflowRep'
+          description: Flag trigger response
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequestErrorRep'
+          description: Invalid request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedErrorRep'
+          description: Invalid access token
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenErrorRep'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundErrorRep'
+          description: Invalid resource identifier
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusConflictErrorRep'
+          description: Status conflict
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitedErrorRep'
+          description: Rate limited
+      summary: Update flag trigger
+      tags:
+      - Flag triggers
   /api/v2/flags/{projKey}/{key}:
     delete:
       description: 'Delete a feature flag in all environments. Use with caution: only
@@ -3769,7 +4198,7 @@ paths:
 
         ## Using semantic patches on a feature flag
 
-        To use a [semantic patch](/#section/Updates/Updates-via-semantic-patches) on a feature flag resource, you must include a header in the request. If you call a semantic patch resource without this header, you receive a `400` response as your semantic patch will be interpreted as a JSON patch.
+        To use a [semantic patch](/reference#updates-via-semantic-patches) on a feature flag resource, you must include a header in the request. If you call a semantic patch resource without this header, you will receive a `400` response because your semantic patch will be interpreted as a JSON patch.
 
         Use this header:
 
@@ -4143,7 +4572,7 @@ paths:
 
         ## Using JSON patches on a feature flag
 
-        If you do not include the header described above, you can use [JSON patch](/#section/Updates/Updates-via-JSON-Patch).
+        If you do not include the header described above, you can use [JSON patch](/reference#updates-via-json-patch).
       operationId: patchFeatureFlag
       parameters:
       - description: The project key.
@@ -4213,6 +4642,300 @@ paths:
       summary: Update feature flag
       tags:
       - Feature flags
+  /api/v2/integrations/{integrationKey}:
+    get:
+      description: Get all audit log subscriptions associated with a given integration.
+      operationId: getSubscriptions
+      parameters:
+      - description: The integration key
+        explode: false
+        in: path
+        name: integrationKey
+        required: true
+        schema:
+          description: The integration key
+          format: string
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Integrations'
+          description: Successful integrations response
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedErrorRep'
+          description: Invalid access token
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenErrorRep'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundErrorRep'
+          description: Invalid resource identifier
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitedErrorRep'
+          description: Rate limited
+      summary: Get audit log subscriptions by integration
+      tags:
+      - Integration audit log subscriptions
+    post:
+      description: Create an audit log subscription.
+      operationId: createSubscription
+      parameters:
+      - description: The integration key
+        explode: false
+        in: path
+        name: integrationKey
+        required: true
+        schema:
+          description: The integration key
+          format: string
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/subscriptionPost'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Integration'
+          description: Successful integration
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequestErrorRep'
+          description: Invalid request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedErrorRep'
+          description: Invalid access token
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenErrorRep'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundErrorRep'
+          description: Invalid resource identifier
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitedErrorRep'
+          description: Rate limited
+      summary: Create audit log subscription
+      tags:
+      - Integration audit log subscriptions
+  /api/v2/integrations/{integrationKey}/{id}:
+    delete:
+      description: Delete an audit log subscription.
+      operationId: deleteSubscription
+      parameters:
+      - description: The integration key
+        explode: false
+        in: path
+        name: integrationKey
+        required: true
+        schema:
+          description: The integration key
+          format: string
+          type: string
+        style: simple
+      - description: The subscription ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          description: The subscription ID
+          format: string
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: Action succeeded
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedErrorRep'
+          description: Invalid access token
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenErrorRep'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundErrorRep'
+          description: Invalid resource identifier
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitedErrorRep'
+          description: Rate limited
+      summary: Delete audit log subscription
+      tags:
+      - Integration audit log subscriptions
+    get:
+      description: Get an audit log subscription by ID.
+      operationId: getSubscriptionByID
+      parameters:
+      - description: The integration key
+        explode: false
+        in: path
+        name: integrationKey
+        required: true
+        schema:
+          description: The integration key
+          format: string
+          type: string
+        style: simple
+      - description: The subscription ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          description: The subscription ID
+          format: string
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Integration'
+          description: Successful integrations response
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedErrorRep'
+          description: Invalid access token
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenErrorRep'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundErrorRep'
+          description: Invalid resource identifier
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitedErrorRep'
+          description: Rate limited
+      summary: Get audit log subscription by ID
+      tags:
+      - Integration audit log subscriptions
+    patch:
+      description: Update an audit log subscription configuration. Requires a [JSON
+        Patch](https://datatracker.ietf.org/doc/html/rfc6902) representation of the
+        desired changes to the audit log subscription.
+      operationId: updateSubscription
+      parameters:
+      - description: The integration key
+        explode: false
+        in: path
+        name: integrationKey
+        required: true
+        schema:
+          description: The integration key
+          format: string
+          type: string
+        style: simple
+      - description: The ID of the audit log subscription
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          description: The ID of the audit log subscription
+          format: string
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JSONPatch'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Integration'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequestErrorRep'
+          description: Invalid request
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenErrorRep'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundErrorRep'
+          description: Invalid resource identifier
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusConflictErrorRep'
+          description: Status conflict
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitedErrorRep'
+          description: Rate limited
+      summary: Update audit log subscription
+      tags:
+      - Integration audit log subscriptions
   /api/v2/members:
     get:
       description: |
@@ -4494,9 +5217,23 @@ paths:
       tags:
       - Account members
     patch:
-      description: Update a single account member. The request should be a valid JSON
-        Patch document describing the changes to be made to the member. Requests to
-        update account members will not work if SCIM is enabled for the account.
+      description: |2
+
+        Update a single account member. The request should be a valid JSON Patch document describing the changes to be made to the member.
+
+        To update fields in the account member object that are arrays, set the `path` to the name of the field and then append `/<array index>`. Using `/0` appends to the beginning of the array. For example, to add a new custom role to a member, use the following request body:
+
+        ```
+          [
+            {
+              "op": "add",
+              "path": "/customRoles/0",
+              "value": "some-role-id"
+            }
+          ]
+        ```
+
+        Requests to update account members will not work if SCIM is enabled for the account.
       operationId: patchMember
       parameters:
       - description: The member ID
@@ -4559,6 +5296,67 @@ paths:
                 $ref: '#/components/schemas/RateLimitedErrorRep'
           description: Rate limited
       summary: Modify an account member
+      tags:
+      - Account members
+  /api/v2/members/{id}/teams:
+    post:
+      description: Add member to team(s)
+      operationId: postMemberTeams
+      parameters:
+      - description: The member ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          description: The member ID
+          format: string
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MemberTeamsFormPost'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Member'
+          description: Member response JSON
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequestErrorRep'
+          description: Invalid request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedErrorRep'
+          description: Invalid access token
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenErrorRep'
+          description: Forbidden
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusConflictErrorRep'
+          description: Status conflict
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitedErrorRep'
+          description: Rate limited
+      summary: Add member to teams
       tags:
       - Account members
   /api/v2/metrics/{projectKey}:
@@ -6437,7 +7235,7 @@ paths:
     patch:
       description: Update a scheduled change, overriding existing instructions with
         the new ones.<br /><br />Requires a semantic patch representation of the desired
-        changes to the resource. To learn more about semantic patches, read [Updates](/#section/Updates/Updates-via-semantic-patches)
+        changes to the resource. To learn more about semantic patches, read [Updates](/reference#updates-via-semantic-patches).
       operationId: patchFlagConfigScheduledChange
       parameters:
       - description: The project key
@@ -7362,7 +8160,7 @@ paths:
       - Segments
     patch:
       description: Update a user segment. The request body must be a valid JSON patch
-        or JSON merge patch document. To learn more about semantic patches, read [Updates](/#section/Updates).
+        or JSON merge patch document. To learn more about semantic patches, read [Updates](/#section/Overview/Updates).
       operationId: patchSegment
       parameters:
       - description: The project key.
@@ -7664,7 +8462,7 @@ paths:
     patch:
       description: Update the list of a segment's user targets that are scheduled
         for removal<br /><br />Requires a semantic patch representation of the desired
-        changes to the resource. To learn more about semantic patches, read [Updates](/#section/Updates/Updates-via-semantic-patches).<br
+        changes to the resource. To learn more about semantic patches, read [Updates](/reference#updates-via-semantic-patches).<br
         /><br />If the request is well-formed but any of its instructions failed to
         process, this operation returns status code `200`. In this case, the response
         `errors` array will be non-empty.
@@ -7930,8 +8728,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TeamRep'
-          description: Team response JSON
+                $ref: '#/components/schemas/ExpandedTeamRep'
+          description: Teams response JSON
         "400":
           content:
             application/json:
@@ -8074,8 +8872,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TeamCollectionRep'
-          description: Teams collection response JSON
+                $ref: '#/components/schemas/ExpandedTeamRep'
+          description: Teams response JSON
         "400":
           content:
             application/json:
@@ -8113,6 +8911,132 @@ paths:
                 $ref: '#/components/schemas/RateLimitedErrorRep'
           description: Rate limited
       summary: Update team
+      tags:
+      - Teams (beta)
+  /api/v2/teams/{key}/members:
+    post:
+      description: |
+        Add multiple members to an existing team by uploading a CSV file of member email addresses. Your CSV file must include email addresses in the first column. You can include data in additional columns, but LaunchDarkly ignores all data outside the first column. Headers are optional.
+
+        **Members are only added on a `201` response.** A `207` indicates the CSV file contains a combination of valid and invalid entries and will _not_ result in any members being added to the team.
+
+        On a `207` response, if an entry contains bad user input the `message` field will contain the row number as well as the reason for the error. The `message` field will be omitted if the entry is valid.
+
+        Example `207` response:
+        ```json
+        {
+          "items": [
+            {
+              "status": "success",
+              "value": "a-valid-email@launchdarkly.com"
+            },
+            {
+              "message": "Line 2: empty row",
+              "status": "error",
+              "value": ""
+            },
+            {
+              "message": "Line 3: email already exists in the specified team",
+              "status": "error",
+              "value": "existing-team-member@launchdarkly.com"
+            },
+            {
+              "message": "Line 4: invalid email formatting",
+              "status": "error",
+              "value": "invalid email format"
+            }
+          ]
+        }
+        ```
+
+        Message | Resolution
+        --- | ---
+        Empty row | This line is blank. Add an email address and try again.
+        Duplicate entry | This email address appears in the file twice. Remove the email from the file and try again.
+        Email already exists in the specified team | This member is already on your team. Remove the email from the file and try again.
+        Invalid formatting | This email address is not formatted correctly. Fix the formatting and try again.
+        Email does not belong to a LaunchDarkly member | The email address doesn't belong to a LaunchDarkly account member. Invite them to LaunchDarkly, then re-add them to the team.
+
+        On a `400` response, the `message` field may contain errors specific to this endpoint.
+
+        Example `400` response:
+        ```json
+        {
+          "code": "invalid_request",
+          "message": "Unable to process file"
+        }
+        ```
+
+        Message | Resolution
+        --- | ---
+        Unable to process file | LaunchDarkly could not process the file for an unspecified reason. Review your file for errors and try again.
+        File exceeds 25mb | Break up your file into multiple files of less than 25mbs each.
+        All emails have invalid formatting | None of the email addresses in the file are in the correct format. Fix the formatting and try again.
+        All emails belong to existing team members | All listed members are already on this team. Populate the file with member emails that do not belong to the team and try again.
+        File is empty | The CSV file does not contain any email addresses. Populate the file and try again.
+        No emails belong to members of your LaunchDarkly organization | None of the email addresses belong to members of your LaunchDarkly account. Invite these members to LaunchDarkly, then re-add them to the team.
+      operationId: postTeamMembers
+      parameters:
+      - description: The team key
+        explode: false
+        in: path
+        name: key
+        required: true
+        schema:
+          description: The team key
+          format: string
+          type: string
+        style: simple
+      requestBody:
+        $ref: '#/components/requestBodies/inline_object'
+        content:
+          multipart/form-data:
+            schema:
+              properties:
+                file:
+                  description: CSV file containing email addresses
+                  format: binary
+                  type: string
+              type: object
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamImportsRep'
+          description: Team member imports response JSON
+        "207":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamImportsRep'
+          description: Partial Success
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequestErrorRep'
+          description: Invalid request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedErrorRep'
+          description: Invalid access token
+        "405":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MethodNotAllowedErrorRep'
+          description: Method not allowed
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitedErrorRep'
+          description: Rate limited
+      summary: Add members to team
       tags:
       - Teams (beta)
   /api/v2/tokens:
@@ -10344,6 +11268,13 @@ paths:
       tags:
       - Webhooks
 components:
+  requestBodies:
+    inline_object:
+      content:
+        multipart/form-data:
+          schema:
+            $ref: '#/components/schemas/inline_object'
+      required: true
   schemas:
     AccessDeniedReasonRep:
       example:
@@ -11972,6 +12903,27 @@ components:
             $ref: '#/components/schemas/CustomRole'
           type: array
       type: object
+    CustomRolesRep:
+      example:
+        appliedOn: 0
+        projects:
+        - projects
+        - projects
+        name: name
+        key: key
+      properties:
+        key:
+          type: string
+        name:
+          type: string
+        projects:
+          items:
+            type: string
+          type: array
+        appliedOn:
+          format: int64
+          type: integer
+      type: object
     CustomWorkflowInputRep:
       example:
         maintainerId: maintainerId
@@ -12501,8 +13453,8 @@ components:
       type: object
     Defaults:
       example:
-        onVariation: 2
-        offVariation: 4
+        onVariation: 3
+        offVariation: 2
       properties:
         onVariation:
           type: integer
@@ -13017,6 +13969,156 @@ components:
       required:
       - status
       type: object
+    ExpandedTeamRep:
+      example:
+        permissionGrants:
+        - resource: resource
+          actionSet: actionSet
+          actions:
+          - actions
+          - actions
+          memberIDs:
+          - memberIDs
+          - memberIDs
+        - resource: resource
+          actionSet: actionSet
+          actions:
+          - actions
+          - actions
+          memberIDs:
+          - memberIDs
+          - memberIDs
+        teamMaintainers:
+        - firstName: An
+          lastName: Example
+          role: owner
+          _links:
+            self:
+              href: /api/v2/members/569f183514f4432160000007
+              type: application/json
+          _id: 569f183514f4432160000007
+          email: a.example@example.com
+        - firstName: An
+          lastName: Example
+          role: owner
+          _links:
+            self:
+              href: /api/v2/members/569f183514f4432160000007
+              type: application/json
+          _id: 569f183514f4432160000007
+          email: a.example@example.com
+        _links:
+          key:
+            href: href
+            type: type
+        description: description
+        _access:
+          denied:
+          - reason:
+              role_name: role_name
+              notActions:
+              - null
+              - null
+              notResources:
+              - notResources
+              - notResources
+              effect: effect
+              resources:
+              - resources
+              - resources
+              actions:
+              - null
+              - null
+            action: action
+          - reason:
+              role_name: role_name
+              notActions:
+              - null
+              - null
+              notResources:
+              - notResources
+              - notResources
+              effect: effect
+              resources:
+              - resources
+              - resources
+              actions:
+              - null
+              - null
+            action: action
+        _createdAt: 6
+        name: name
+        customRoleKeys:
+        - customRoleKeys
+        - customRoleKeys
+        projectKeys:
+        - projectKeys
+        - projectKeys
+        _updatedAt: 1
+        _version: 5
+        key: key
+        memberIDs:
+        - memberIDs
+        - memberIDs
+        customRoles:
+        - appliedOn: 0
+          projects:
+          - projects
+          - projects
+          name: name
+          key: key
+        - appliedOn: 0
+          projects:
+          - projects
+          - projects
+          name: name
+          key: key
+      properties:
+        customRoles:
+          items:
+            $ref: '#/components/schemas/CustomRolesRep'
+          type: array
+        teamMaintainers:
+          items:
+            $ref: '#/components/schemas/MemberSummaryRep'
+          type: array
+        customRoleKeys:
+          items:
+            type: string
+          type: array
+        description:
+          type: string
+        key:
+          type: string
+        memberIDs:
+          items:
+            type: string
+          type: array
+        name:
+          type: string
+        permissionGrants:
+          items:
+            $ref: '#/components/schemas/PermissionGrantRep'
+          type: array
+        projectKeys:
+          items:
+            type: string
+          type: array
+        _access:
+          $ref: '#/components/schemas/AccessRep'
+        _createdAt:
+          format: int64
+          type: integer
+        _links:
+          additionalProperties:
+            $ref: '#/components/schemas/Link'
+          type: object
+        _updatedAt:
+          format: int64
+          type: integer
+        _version:
+          type: integer
+      type: object
     ExperimentAllocationRep:
       properties:
         defaultVariation:
@@ -13029,8 +14131,8 @@ components:
       type: object
     ExperimentEnabledPeriodRep:
       example:
-        startDate: 7
-        stopDate: 9
+        startDate: 2
+        stopDate: 7
       properties:
         startDate:
           format: int64
@@ -13042,12 +14144,12 @@ components:
     ExperimentEnvironmentSettingRep:
       example:
         startDate: 5
-        stopDate: 2
+        stopDate: 5
         enabledPeriods:
-        - startDate: 7
-          stopDate: 9
-        - startDate: 7
-          stopDate: 9
+        - startDate: 2
+          stopDate: 7
+        - startDate: 2
+          stopDate: 7
       properties:
         startDate:
           format: int64
@@ -13072,12 +14174,12 @@ components:
           _environmentSettings:
             key:
               startDate: 5
-              stopDate: 2
+              stopDate: 5
               enabledPeriods:
-              - startDate: 7
-                stopDate: 9
-              - startDate: 7
-                stopDate: 9
+              - startDate: 2
+                stopDate: 7
+              - startDate: 2
+                stopDate: 7
           _metric:
             _maintainer:
               firstName: An
@@ -13137,7 +14239,7 @@ components:
                   - null
                   - null
                 action: action
-            successCriteria: 5
+            successCriteria: HigherThanBaseline
             _site:
               href: href
               type: type
@@ -13156,12 +14258,12 @@ components:
           _environmentSettings:
             key:
               startDate: 5
-              stopDate: 2
+              stopDate: 5
               enabledPeriods:
-              - startDate: 7
-                stopDate: 9
-              - startDate: 7
-                stopDate: 9
+              - startDate: 2
+                stopDate: 7
+              - startDate: 2
+                stopDate: 7
           _metric:
             _maintainer:
               firstName: An
@@ -13221,7 +14323,7 @@ components:
                   - null
                   - null
                 action: action
-            successCriteria: 5
+            successCriteria: HigherThanBaseline
             _site:
               href: href
               type: type
@@ -13259,12 +14361,12 @@ components:
         _environmentSettings:
           key:
             startDate: 5
-            stopDate: 2
+            stopDate: 5
             enabledPeriods:
-            - startDate: 7
-              stopDate: 9
-            - startDate: 7
-              stopDate: 9
+            - startDate: 2
+              stopDate: 7
+            - startDate: 2
+              stopDate: 7
         _metric:
           _maintainer:
             firstName: An
@@ -13324,7 +14426,7 @@ components:
                 - null
                 - null
               action: action
-          successCriteria: 5
+          successCriteria: HigherThanBaseline
           _site:
             href: href
             type: type
@@ -13358,7 +14460,7 @@ components:
       example:
         metricSeen:
           ever: true
-          minutesAgo: 5
+          timestamp: 5
         metadata:
         - key: ""
         - key: ""
@@ -13829,7 +14931,7 @@ components:
       type: array
     FeatureFlag:
       example:
-        archivedDate: 3
+        archivedDate: 9
         temporary: true
         _maintainer:
           firstName: An
@@ -13896,12 +14998,12 @@ components:
             _environmentSettings:
               key:
                 startDate: 5
-                stopDate: 2
+                stopDate: 5
                 enabledPeriods:
-                - startDate: 7
-                  stopDate: 9
-                - startDate: 7
-                  stopDate: 9
+                - startDate: 2
+                  stopDate: 7
+                - startDate: 2
+                  stopDate: 7
             _metric:
               _maintainer:
                 firstName: An
@@ -13961,7 +15063,7 @@ components:
                     - null
                     - null
                   action: action
-              successCriteria: 5
+              successCriteria: HigherThanBaseline
               _site:
                 href: href
                 type: type
@@ -13980,12 +15082,12 @@ components:
             _environmentSettings:
               key:
                 startDate: 5
-                stopDate: 2
+                stopDate: 5
                 enabledPeriods:
-                - startDate: 7
-                  stopDate: 9
-                - startDate: 7
-                  stopDate: 9
+                - startDate: 2
+                  stopDate: 7
+                - startDate: 2
+                  stopDate: 7
             _metric:
               _maintainer:
                 firstName: An
@@ -14045,7 +15147,7 @@ components:
                     - null
                     - null
                   action: action
-              successCriteria: 5
+              successCriteria: HigherThanBaseline
               _site:
                 href: href
                 type: type
@@ -14070,8 +15172,8 @@ components:
             - value
             - value
         defaults:
-          onVariation: 2
-          offVariation: 4
+          onVariation: 3
+          offVariation: 2
         variations:
         - _id: e432f62b-55f6-49dd-a02f-eb24acf39d05
           value: true
@@ -14237,8 +15339,8 @@ components:
           usingEnvironmentId: true
           usingMobileKey: true
         defaults:
-          onVariation: 2
-          offVariation: 4
+          onVariation: 3
+          offVariation: 2
         variations:
         - name: name
           description: description
@@ -14554,7 +15656,7 @@ components:
             type: application/json
         totalCount: 1
         items:
-        - archivedDate: 3
+        - archivedDate: 9
           temporary: true
           _maintainer:
             firstName: An
@@ -14621,12 +15723,12 @@ components:
               _environmentSettings:
                 key:
                   startDate: 5
-                  stopDate: 2
+                  stopDate: 5
                   enabledPeriods:
-                  - startDate: 7
-                    stopDate: 9
-                  - startDate: 7
-                    stopDate: 9
+                  - startDate: 2
+                    stopDate: 7
+                  - startDate: 2
+                    stopDate: 7
               _metric:
                 _maintainer:
                   firstName: An
@@ -14686,7 +15788,7 @@ components:
                       - null
                       - null
                     action: action
-                successCriteria: 5
+                successCriteria: HigherThanBaseline
                 _site:
                   href: href
                   type: type
@@ -14705,12 +15807,12 @@ components:
               _environmentSettings:
                 key:
                   startDate: 5
-                  stopDate: 2
+                  stopDate: 5
                   enabledPeriods:
-                  - startDate: 7
-                    stopDate: 9
-                  - startDate: 7
-                    stopDate: 9
+                  - startDate: 2
+                    stopDate: 7
+                  - startDate: 2
+                    stopDate: 7
               _metric:
                 _maintainer:
                   firstName: An
@@ -14770,7 +15872,7 @@ components:
                       - null
                       - null
                     action: action
-                successCriteria: 5
+                successCriteria: HigherThanBaseline
                 _site:
                   href: href
                   type: type
@@ -14795,8 +15897,8 @@ components:
               - value
               - value
           defaults:
-            onVariation: 2
-            offVariation: 4
+            onVariation: 3
+            offVariation: 2
           variations:
           - _id: e432f62b-55f6-49dd-a02f-eb24acf39d05
             value: true
@@ -14806,7 +15908,7 @@ components:
           _version: 1
           key: my-flag
           variationJsonSchema: ""
-        - archivedDate: 3
+        - archivedDate: 9
           temporary: true
           _maintainer:
             firstName: An
@@ -14873,12 +15975,12 @@ components:
               _environmentSettings:
                 key:
                   startDate: 5
-                  stopDate: 2
+                  stopDate: 5
                   enabledPeriods:
-                  - startDate: 7
-                    stopDate: 9
-                  - startDate: 7
-                    stopDate: 9
+                  - startDate: 2
+                    stopDate: 7
+                  - startDate: 2
+                    stopDate: 7
               _metric:
                 _maintainer:
                   firstName: An
@@ -14938,7 +16040,7 @@ components:
                       - null
                       - null
                     action: action
-                successCriteria: 5
+                successCriteria: HigherThanBaseline
                 _site:
                   href: href
                   type: type
@@ -14957,12 +16059,12 @@ components:
               _environmentSettings:
                 key:
                   startDate: 5
-                  stopDate: 2
+                  stopDate: 5
                   enabledPeriods:
-                  - startDate: 7
-                    stopDate: 9
-                  - startDate: 7
-                    stopDate: 9
+                  - startDate: 2
+                    stopDate: 7
+                  - startDate: 2
+                    stopDate: 7
               _metric:
                 _maintainer:
                   firstName: An
@@ -15022,7 +16124,7 @@ components:
                       - null
                       - null
                     action: action
-                successCriteria: 5
+                successCriteria: HigherThanBaseline
                 _site:
                   href: href
                   type: type
@@ -15047,8 +16149,8 @@ components:
               - value
               - value
           defaults:
-            onVariation: 2
-            offVariation: 4
+            onVariation: 3
+            offVariation: 2
           variations:
           - _id: e432f62b-55f6-49dd-a02f-eb24acf39d05
             value: true
@@ -15591,6 +16693,23 @@ components:
       required:
       - prerequisites
       type: object
+    FlagTriggerInput:
+      example:
+        instructions:
+        - null
+        - null
+        comment: comment
+      properties:
+        comment:
+          type: string
+        instructions:
+          description: 'The action to perform when triggering. It should pass an array
+            with a single {"kind": <flag_action>} object. Currently supported flag
+            actions are "turnFlagOn" and "turnFlagOff".'
+          items:
+            $ref: '#/components/schemas/Instruction'
+          type: array
+      type: object
     ForbiddenErrorRep:
       properties:
         code:
@@ -15648,6 +16767,129 @@ components:
       items:
         $ref: '#/components/schemas/Instruction'
       type: array
+    Integration:
+      example:
+        _access:
+          denied:
+          - reason:
+              role_name: role_name
+              notActions:
+              - null
+              - null
+              notResources:
+              - notResources
+              - notResources
+              effect: effect
+              resources:
+              - resources
+              - resources
+              actions:
+              - null
+              - null
+            action: action
+          - reason:
+              role_name: role_name
+              notActions:
+              - null
+              - null
+              notResources:
+              - notResources
+              - notResources
+              effect: effect
+              resources:
+              - resources
+              - resources
+              actions:
+              - null
+              - null
+            action: action
+        apiKey: apiKey
+        _links:
+          key:
+            href: href
+            type: type
+        kind: kind
+        name: name
+        statements:
+        - notActions:
+          - null
+          - null
+          notResources:
+          - notResources
+          - notResources
+          effect: effect
+          resources:
+          - resources
+          - resources
+          actions:
+          - null
+          - null
+        - notActions:
+          - null
+          - null
+          notResources:
+          - notResources
+          - notResources
+          effect: effect
+          resources:
+          - resources
+          - resources
+          actions:
+          - null
+          - null
+        _id: _id
+        _status:
+          lastError: 1
+          successCount: 0
+          lastSuccess: 6
+          errorCount: 5
+          errors:
+          - responseBody: responseBody
+            statusCode: 5
+            timestamp: 2
+          - responseBody: responseBody
+            statusCode: 5
+            timestamp: 2
+        config:
+          key: ""
+        url: url
+        "on": true
+        tags:
+        - tags
+        - tags
+      properties:
+        _links:
+          additionalProperties:
+            $ref: '#/components/schemas/Link'
+          type: object
+        _id:
+          type: string
+        kind:
+          type: string
+        name:
+          type: string
+        config:
+          additionalProperties: {}
+          type: object
+        statements:
+          items:
+            $ref: '#/components/schemas/StatementRep'
+          type: array
+        "on":
+          type: boolean
+        tags:
+          items:
+            type: string
+          type: array
+        _access:
+          $ref: '#/components/schemas/AccessRep'
+        _status:
+          $ref: '#/components/schemas/IntegrationSubscriptionStatusRep'
+        url:
+          type: string
+        apiKey:
+          type: string
+      type: object
     IntegrationMetadata:
       example:
         externalUrl: externalUrl
@@ -15684,6 +16926,245 @@ components:
       required:
       - display
       - value
+      type: object
+    IntegrationStatusRep:
+      example:
+        responseBody: responseBody
+        statusCode: 5
+        timestamp: 2
+      properties:
+        statusCode:
+          type: integer
+        responseBody:
+          type: string
+        timestamp:
+          format: int64
+          type: integer
+      type: object
+    IntegrationSubscriptionStatusRep:
+      example:
+        lastError: 1
+        successCount: 0
+        lastSuccess: 6
+        errorCount: 5
+        errors:
+        - responseBody: responseBody
+          statusCode: 5
+          timestamp: 2
+        - responseBody: responseBody
+          statusCode: 5
+          timestamp: 2
+      properties:
+        successCount:
+          type: integer
+        lastSuccess:
+          format: int64
+          type: integer
+        lastError:
+          format: int64
+          type: integer
+        errorCount:
+          type: integer
+        errors:
+          items:
+            $ref: '#/components/schemas/IntegrationStatusRep'
+          type: array
+      type: object
+    Integrations:
+      example:
+        _links:
+          key:
+            href: href
+            type: type
+        items:
+        - _access:
+            denied:
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: effect
+                resources:
+                - resources
+                - resources
+                actions:
+                - null
+                - null
+              action: action
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: effect
+                resources:
+                - resources
+                - resources
+                actions:
+                - null
+                - null
+              action: action
+          apiKey: apiKey
+          _links:
+            key:
+              href: href
+              type: type
+          kind: kind
+          name: name
+          statements:
+          - notActions:
+            - null
+            - null
+            notResources:
+            - notResources
+            - notResources
+            effect: effect
+            resources:
+            - resources
+            - resources
+            actions:
+            - null
+            - null
+          - notActions:
+            - null
+            - null
+            notResources:
+            - notResources
+            - notResources
+            effect: effect
+            resources:
+            - resources
+            - resources
+            actions:
+            - null
+            - null
+          _id: _id
+          _status:
+            lastError: 1
+            successCount: 0
+            lastSuccess: 6
+            errorCount: 5
+            errors:
+            - responseBody: responseBody
+              statusCode: 5
+              timestamp: 2
+            - responseBody: responseBody
+              statusCode: 5
+              timestamp: 2
+          config:
+            key: ""
+          url: url
+          "on": true
+          tags:
+          - tags
+          - tags
+        - _access:
+            denied:
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: effect
+                resources:
+                - resources
+                - resources
+                actions:
+                - null
+                - null
+              action: action
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: effect
+                resources:
+                - resources
+                - resources
+                actions:
+                - null
+                - null
+              action: action
+          apiKey: apiKey
+          _links:
+            key:
+              href: href
+              type: type
+          kind: kind
+          name: name
+          statements:
+          - notActions:
+            - null
+            - null
+            notResources:
+            - notResources
+            - notResources
+            effect: effect
+            resources:
+            - resources
+            - resources
+            actions:
+            - null
+            - null
+          - notActions:
+            - null
+            - null
+            notResources:
+            - notResources
+            - notResources
+            effect: effect
+            resources:
+            - resources
+            - resources
+            actions:
+            - null
+            - null
+          _id: _id
+          _status:
+            lastError: 1
+            successCount: 0
+            lastSuccess: 6
+            errorCount: 5
+            errors:
+            - responseBody: responseBody
+              statusCode: 5
+              timestamp: 2
+            - responseBody: responseBody
+              statusCode: 5
+              timestamp: 2
+          config:
+            key: ""
+          url: url
+          "on": true
+          tags:
+          - tags
+          - tags
+        key: key
+      properties:
+        _links:
+          additionalProperties:
+            $ref: '#/components/schemas/Link'
+          type: object
+        items:
+          items:
+            $ref: '#/components/schemas/Integration'
+          type: array
+        key:
+          type: string
       type: object
     InvalidRequestErrorRep:
       properties:
@@ -15877,6 +17358,22 @@ components:
         lastName:
           type: string
       type: object
+    MemberImportItemRep:
+      example:
+        message: message
+        value: value
+        status: status
+      properties:
+        message:
+          type: string
+        status:
+          type: string
+        value:
+          type: string
+      required:
+      - status
+      - value
+      type: object
     MemberPermissionGrantSummaryRep:
       example:
         resource: resource
@@ -15959,6 +17456,20 @@ components:
       - customRoleKeys
       - key
       - name
+      type: object
+    MemberTeamsFormPost:
+      example:
+        teamKeys:
+        - teamKeys
+        - teamKeys
+      properties:
+        teamKeys:
+          description: List of team keys
+          items:
+            type: string
+          type: array
+      required:
+      - teamKeys
       type: object
     Members:
       example:
@@ -16161,7 +17672,7 @@ components:
                 - null
                 - null
               action: action
-          successCriteria: 5
+          successCriteria: HigherThanBaseline
           _site:
             href: href
             type: type
@@ -16230,7 +17741,7 @@ components:
                 - null
                 - null
               action: action
-          successCriteria: 5
+          successCriteria: HigherThanBaseline
           _site:
             href: href
             type: type
@@ -16315,7 +17826,7 @@ components:
               - null
               - null
             action: action
-        successCriteria: 5
+        successCriteria: HigherThanBaseline
         _site:
           href: href
           type: type
@@ -16380,7 +17891,10 @@ components:
         isNumeric:
           type: boolean
         successCriteria:
-          type: integer
+          enum:
+          - HigherThanBaseline
+          - LowerThanBaseline
+          type: string
         unit:
           type: string
         eventKey:
@@ -16406,7 +17920,7 @@ components:
           url: url
           substring: substring
         unit: unit
-        successCriteria: 0
+        successCriteria: HigherThanBaseline
         kind: pageview
         isNumeric: true
         eventKey: eventKey
@@ -16449,7 +17963,10 @@ components:
           description: Required for custom metrics
           type: string
         successCriteria:
-          type: integer
+          enum:
+          - HigherThanBaseline
+          - LowerThanBaseline
+          type: string
         tags:
           items:
             type: string
@@ -16522,7 +18039,7 @@ components:
               - null
               - null
             action: action
-        successCriteria: 6
+        successCriteria: HigherThanBaseline
         _site:
           href: href
           type: type
@@ -16552,7 +18069,7 @@ components:
         _id: 5902deadbeef667524a01290
         lastModified:
           date: 2021-08-05T19:46:31.148082Z
-        _version: 1
+        _version: 6
         key: my-metric
       properties:
         _id:
@@ -16608,7 +18125,10 @@ components:
         isNumeric:
           type: boolean
         successCriteria:
-          type: integer
+          enum:
+          - HigherThanBaseline
+          - LowerThanBaseline
+          type: string
         unit:
           type: string
         eventKey:
@@ -16639,11 +18159,11 @@ components:
     MetricSeen:
       example:
         ever: true
-        minutesAgo: 5
+        timestamp: 5
       properties:
         ever:
           type: boolean
-        minutesAgo:
+        timestamp:
           format: int64
           type: integer
       type: object
@@ -17357,6 +18877,19 @@ components:
         message:
           example: You've exceeded the API rate limit. Try again later.
           type: string
+      type: object
+    RecentTriggerBody:
+      example:
+        jsonBody:
+          key: ""
+        timestamp: 5
+      properties:
+        timestamp:
+          format: int64
+          type: integer
+        jsonBody:
+          additionalProperties: {}
+          type: object
       type: object
     ReferenceRep:
       example:
@@ -18295,6 +19828,8 @@ components:
           type: boolean
         description:
           type: string
+        ref:
+          type: string
       required:
       - clauses
       - trackEvents
@@ -19088,6 +20623,21 @@ components:
         totalCount:
           type: integer
       type: object
+    TeamImportsRep:
+      example:
+        items:
+        - message: message
+          value: value
+          status: status
+        - message: message
+          value: value
+          status: status
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/MemberImportItemRep'
+          type: array
+      type: object
     TeamRep:
       example:
         permissionGrants:
@@ -19491,6 +21041,160 @@ components:
           items:
             $ref: '#/components/schemas/Token'
           type: array
+        _links:
+          additionalProperties:
+            $ref: '#/components/schemas/Link'
+          type: object
+      type: object
+    TriggerWorkflowCollectionRep:
+      example:
+        _links:
+          key:
+            href: href
+            type: type
+        items:
+        - instructions:
+          - null
+          - null
+          _maintainer:
+            firstName: An
+            lastName: Example
+            role: owner
+            _links:
+              self:
+                href: /api/v2/members/569f183514f4432160000007
+                type: application/json
+            _id: 569f183514f4432160000007
+            email: a.example@example.com
+          _lastTriggeredAt: 1
+          _links:
+            key:
+              href: href
+              type: type
+          _creationDate: 6
+          enabled: true
+          _triggerCount: 5
+          triggerURL: triggerURL
+          _maintainerId: _maintainerId
+          _id: _id
+          _integrationKey: _integrationKey
+          _recentTriggerBodies:
+          - jsonBody:
+              key: ""
+            timestamp: 5
+          - jsonBody:
+              key: ""
+            timestamp: 5
+          _version: 0
+        - instructions:
+          - null
+          - null
+          _maintainer:
+            firstName: An
+            lastName: Example
+            role: owner
+            _links:
+              self:
+                href: /api/v2/members/569f183514f4432160000007
+                type: application/json
+            _id: 569f183514f4432160000007
+            email: a.example@example.com
+          _lastTriggeredAt: 1
+          _links:
+            key:
+              href: href
+              type: type
+          _creationDate: 6
+          enabled: true
+          _triggerCount: 5
+          triggerURL: triggerURL
+          _maintainerId: _maintainerId
+          _id: _id
+          _integrationKey: _integrationKey
+          _recentTriggerBodies:
+          - jsonBody:
+              key: ""
+            timestamp: 5
+          - jsonBody:
+              key: ""
+            timestamp: 5
+          _version: 0
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/TriggerWorkflowRep'
+          type: array
+        _links:
+          additionalProperties:
+            $ref: '#/components/schemas/Link'
+          type: object
+      type: object
+    TriggerWorkflowRep:
+      example:
+        instructions:
+        - null
+        - null
+        _maintainer:
+          firstName: An
+          lastName: Example
+          role: owner
+          _links:
+            self:
+              href: /api/v2/members/569f183514f4432160000007
+              type: application/json
+          _id: 569f183514f4432160000007
+          email: a.example@example.com
+        _lastTriggeredAt: 1
+        _links:
+          key:
+            href: href
+            type: type
+        _creationDate: 6
+        enabled: true
+        _triggerCount: 5
+        triggerURL: triggerURL
+        _maintainerId: _maintainerId
+        _id: _id
+        _integrationKey: _integrationKey
+        _recentTriggerBodies:
+        - jsonBody:
+            key: ""
+          timestamp: 5
+        - jsonBody:
+            key: ""
+          timestamp: 5
+        _version: 0
+      properties:
+        _id:
+          type: string
+        _version:
+          type: integer
+        _creationDate:
+          format: int64
+          type: integer
+        _maintainerId:
+          type: string
+        _maintainer:
+          $ref: '#/components/schemas/MemberSummaryRep'
+        enabled:
+          type: boolean
+        _integrationKey:
+          type: string
+        instructions:
+          items:
+            $ref: '#/components/schemas/Instruction'
+          type: array
+        _lastTriggeredAt:
+          format: int64
+          type: integer
+        _recentTriggerBodies:
+          items:
+            $ref: '#/components/schemas/RecentTriggerBody'
+          type: array
+        _triggerCount:
+          type: integer
+        triggerURL:
+          type: string
         _links:
           additionalProperties:
             $ref: '#/components/schemas/Link'
@@ -20995,6 +22699,9 @@ components:
           items:
             $ref: '#/components/schemas/ReferenceRep'
           type: array
+        commitTime:
+          format: int64
+          type: integer
       required:
       - head
       - name
@@ -21044,6 +22751,42 @@ components:
       required:
       - key
       type: object
+    subscriptionPost:
+      properties:
+        name:
+          description: A human-friendly name for your audit log subscription.
+          type: string
+        statements:
+          items:
+            $ref: '#/components/schemas/StatementPost'
+          type: array
+        "on":
+          description: Whether or not you want your subscription to actively send
+            events.
+          type: boolean
+        tags:
+          items:
+            type: string
+          type: array
+        config:
+          additionalProperties: {}
+          description: The unique set of fields required to configure an audit log
+            subscription integration of this type. Refer to the "formVariables" field
+            in the corresponding manifest.json  at https://github.com/launchdarkly/integration-framework/tree/master/integrations
+            for a full list of fields for the integration you wish to configure.
+          type: object
+        url:
+          description: Slack webhook receiver URL. Only necessary for legacy Slack
+            webhook integrations.
+          type: string
+        apiKey:
+          description: Datadog API key. Only necessary for legacy Datadog webhook
+            subscriptions.
+          type: string
+      required:
+      - config
+      - name
+      type: object
     teamPatchInput:
       properties:
         Comment:
@@ -21084,6 +22827,25 @@ components:
       - key
       - name
       type: object
+    triggerPost:
+      properties:
+        comment:
+          type: string
+        instructions:
+          description: 'The action to perform when triggering. It should pass an array
+            with a single {"kind": <flag_action>} object. Currently supported flag
+            actions are "turnFlagOn" and "turnFlagOff".'
+          items:
+            $ref: '#/components/schemas/Instruction'
+          type: array
+        integrationKey:
+          description: The unique identifier of the integration you intend to set
+            your trigger up with. "generic-trigger" should be used for integrations
+            not explicitly supported.
+          type: string
+      required:
+      - integrationKey
+      type: object
     webhookPost:
       properties:
         name:
@@ -21122,6 +22884,13 @@ components:
       - "on"
       - sign
       - url
+      type: object
+    inline_object:
+      properties:
+        file:
+          description: CSV file containing email addresses
+          format: binary
+          type: string
       type: object
   securitySchemes:
     ApiKey:

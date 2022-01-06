@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Ever** | Pointer to **bool** |  | [optional] 
-**MinutesAgo** | Pointer to **int64** |  | [optional] 
+**Timestamp** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 
@@ -51,30 +51,30 @@ SetEver sets Ever field to given value.
 
 HasEver returns a boolean if a field has been set.
 
-### GetMinutesAgo
+### GetTimestamp
 
-`func (o *MetricSeen) GetMinutesAgo() int64`
+`func (o *MetricSeen) GetTimestamp() int64`
 
-GetMinutesAgo returns the MinutesAgo field if non-nil, zero value otherwise.
+GetTimestamp returns the Timestamp field if non-nil, zero value otherwise.
 
-### GetMinutesAgoOk
+### GetTimestampOk
 
-`func (o *MetricSeen) GetMinutesAgoOk() (*int64, bool)`
+`func (o *MetricSeen) GetTimestampOk() (*int64, bool)`
 
-GetMinutesAgoOk returns a tuple with the MinutesAgo field if it's non-nil, zero value otherwise
+GetTimestampOk returns a tuple with the Timestamp field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetMinutesAgo
+### SetTimestamp
 
-`func (o *MetricSeen) SetMinutesAgo(v int64)`
+`func (o *MetricSeen) SetTimestamp(v int64)`
 
-SetMinutesAgo sets MinutesAgo field to given value.
+SetTimestamp sets Timestamp field to given value.
 
-### HasMinutesAgo
+### HasTimestamp
 
-`func (o *MetricSeen) HasMinutesAgo() bool`
+`func (o *MetricSeen) HasTimestamp() bool`
 
-HasMinutesAgo returns a boolean if a field has been set.
+HasTimestamp returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
