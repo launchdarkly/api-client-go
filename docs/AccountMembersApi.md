@@ -297,7 +297,7 @@ Name | Type | Description  | Notes
 
 ## PostMemberTeams
 
-> Member PostMemberTeams(ctx, id).MemberTeamsFormPost(memberTeamsFormPost).Execute()
+> Member PostMemberTeams(ctx, id).MemberTeamsPostInput(memberTeamsPostInput).Execute()
 
 Add member to teams
 
@@ -317,11 +317,11 @@ import (
 
 func main() {
     id := "id_example" // string | The member ID
-    memberTeamsFormPost := *openapiclient.NewMemberTeamsFormPost([]string{"TeamKeys_example"}) // MemberTeamsFormPost | 
+    memberTeamsPostInput := *openapiclient.NewMemberTeamsPostInput([]string{"TeamKeys_example"}) // MemberTeamsPostInput | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AccountMembersApi.PostMemberTeams(context.Background(), id).MemberTeamsFormPost(memberTeamsFormPost).Execute()
+    resp, r, err := api_client.AccountMembersApi.PostMemberTeams(context.Background(), id).MemberTeamsPostInput(memberTeamsPostInput).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AccountMembersApi.PostMemberTeams``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -347,7 +347,7 @@ Other parameters are passed through a pointer to a apiPostMemberTeamsRequest str
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **memberTeamsFormPost** | [**MemberTeamsFormPost**](MemberTeamsFormPost.md) |  | 
+ **memberTeamsPostInput** | [**MemberTeamsPostInput**](MemberTeamsPostInput.md) |  | 
 
 ### Return type
 

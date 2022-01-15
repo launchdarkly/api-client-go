@@ -768,11 +768,11 @@ type ApiPostMemberTeamsRequest struct {
 	ctx _context.Context
 	ApiService *AccountMembersApiService
 	id string
-	memberTeamsFormPost *MemberTeamsFormPost
+	memberTeamsPostInput *MemberTeamsPostInput
 }
 
-func (r ApiPostMemberTeamsRequest) MemberTeamsFormPost(memberTeamsFormPost MemberTeamsFormPost) ApiPostMemberTeamsRequest {
-	r.memberTeamsFormPost = &memberTeamsFormPost
+func (r ApiPostMemberTeamsRequest) MemberTeamsPostInput(memberTeamsPostInput MemberTeamsPostInput) ApiPostMemberTeamsRequest {
+	r.memberTeamsPostInput = &memberTeamsPostInput
 	return r
 }
 
@@ -820,8 +820,8 @@ func (a *AccountMembersApiService) PostMemberTeamsExecute(r ApiPostMemberTeamsRe
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-	if r.memberTeamsFormPost == nil {
-		return localVarReturnValue, nil, reportError("memberTeamsFormPost is required and must be specified")
+	if r.memberTeamsPostInput == nil {
+		return localVarReturnValue, nil, reportError("memberTeamsPostInput is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -842,7 +842,7 @@ func (a *AccountMembersApiService) PostMemberTeamsExecute(r ApiPostMemberTeamsRe
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.memberTeamsFormPost
+	localVarPostBody = r.memberTeamsPostInput
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {

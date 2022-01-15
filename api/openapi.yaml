@@ -1829,6 +1829,10 @@ paths:
       requestBody:
         content:
           application/json:
+            example:
+            - op: replace
+              path: /defaultBranch
+              value: main
             schema:
               $ref: '#/components/schemas/JSONPatch'
         required: true
@@ -4893,6 +4897,10 @@ paths:
       requestBody:
         content:
           application/json:
+            example:
+            - op: replace
+              path: /on
+              value: false
             schema:
               $ref: '#/components/schemas/JSONPatch'
         required: true
@@ -5249,6 +5257,10 @@ paths:
       requestBody:
         content:
           application/json:
+            example:
+            - op: add
+              path: /role
+              value: writer
             schema:
               $ref: '#/components/schemas/JSONPatch'
         required: true
@@ -5317,7 +5329,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/MemberTeamsFormPost'
+              $ref: '#/components/schemas/MemberTeamsPostInput'
         required: true
       responses:
         "201":
@@ -5583,7 +5595,7 @@ paths:
       tags:
       - Metrics
     patch:
-      description: Patch a environment by key.
+      description: Patch a metric by key.
       operationId: patchMetric
       parameters:
       - description: The project key
@@ -5609,6 +5621,10 @@ paths:
       requestBody:
         content:
           application/json:
+            example:
+            - op: replace
+              path: /name
+              value: my-updated-metric
             schema:
               $ref: '#/components/schemas/JSONPatch'
         required: true
@@ -5867,6 +5883,10 @@ paths:
       requestBody:
         content:
           application/json:
+            example:
+            - op: add
+              path: /tags/0
+              value: another-tag
             schema:
               $ref: '#/components/schemas/JSONPatch'
         required: true
@@ -6258,14 +6278,19 @@ paths:
       tags:
       - Environments
     patch:
-      description: |
-        > ### Approval settings
-        >
-        > The `approvalSettings` key is only returned when the Flag Approvals feature is enabled.
-        >
-        > Only the `canReviewOwnRequest`, `canApplyDeclinedChanges`, `minNumApprovals`, `required` and `requiredApprovalTagsfields` are editable.
-        >
-        > If you try to patch the environment by setting both `required` and `requiredApprovalTags`, it fails and an error appears. Users can specify either required approvals for all flags in an environment or those with specific tags, but not both. Only customers on an Enterprise plan can require approval for flag updates by either mechanism.
+      description: |2
+
+        Update an environment. Requires a [JSON Patch](https://datatracker.ietf.org/doc/html/rfc6902) representation of the desired changes to the environment.
+
+        To update fields in the environment object that are arrays, set the `path` to the name of the field and then append `/<array index>`. Using `/0` appends to the beginning of the array.
+
+        ### Approval settings
+
+        This request only returns the `approvalSettings` key if the [Flag Approvals](https://docs.launchdarkly.com/home/feature-workflows/approvals) feature is enabled.
+
+        Only the `canReviewOwnRequest`, `canApplyDeclinedChanges`, `minNumApprovals`, `required` and `requiredApprovalTagsfields` are editable.
+
+        If you try to patch the environment by setting both `required` and `requiredApprovalTags`, the request fails and an error appears. You can specify either required approvals for all flags in an environment or those with specific tags, but not both. Only customers on a Pro or Enterprise plan can require approval for flag updates by either mechanism.
       operationId: patchEnvironment
       parameters:
       - description: The project key
@@ -6291,6 +6316,10 @@ paths:
       requestBody:
         content:
           application/json:
+            example:
+            - op: replace
+              path: /requireComments
+              value: true
             schema:
               $ref: '#/components/schemas/JSONPatch'
         required: true
@@ -11224,6 +11253,10 @@ paths:
       requestBody:
         content:
           application/json:
+            example:
+            - op: replace
+              path: /on
+              value: false
             schema:
               $ref: '#/components/schemas/JSONPatch'
         required: true
@@ -17457,7 +17490,7 @@ components:
       - key
       - name
       type: object
-    MemberTeamsFormPost:
+    MemberTeamsPostInput:
       example:
         teamKeys:
         - teamKeys
@@ -20219,9 +20252,7 @@ components:
         effect:
           type: string
       required:
-      - actions
       - effect
-      - resources
       type: object
     StatementPostData:
       properties:
@@ -20250,9 +20281,7 @@ components:
         effect:
           type: string
       required:
-      - actions
       - effect
-      - resources
       type: object
     StatementPostList:
       items:

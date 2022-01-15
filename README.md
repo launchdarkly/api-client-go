@@ -766,7 +766,7 @@ Class | Method | HTTP request | Description
  - [MemberPermissionGrantSummaryRep](docs/MemberPermissionGrantSummaryRep.md)
  - [MemberSummaryRep](docs/MemberSummaryRep.md)
  - [MemberTeamSummaryRep](docs/MemberTeamSummaryRep.md)
- - [MemberTeamsFormPost](docs/MemberTeamsFormPost.md)
+ - [MemberTeamsPostInput](docs/MemberTeamsPostInput.md)
  - [Members](docs/Members.md)
  - [MethodNotAllowedErrorRep](docs/MethodNotAllowedErrorRep.md)
  - [MetricCollectionRep](docs/MetricCollectionRep.md)

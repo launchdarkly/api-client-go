@@ -15,241 +15,94 @@ import (
 	"encoding/json"
 )
 
-// StatementPostData struct for StatementPostData
-type StatementPostData struct {
-	// Resource specifier strings
-	Resources *[]string `json:"resources,omitempty"`
-	// Targeted resources are the resources NOT in this list. The \"resources\" field must be empty to use this field.
-	NotResources *[]string `json:"notResources,omitempty"`
-	// Actions to perform on a resource
-	Actions *[]string `json:"actions,omitempty"`
-	// Targeted actions are the actions NOT in this list. The \"actions\" field must be empty to use this field.
-	NotActions *[]string `json:"notActions,omitempty"`
-	Effect string `json:"effect"`
+// MemberTeamsPostInput struct for MemberTeamsPostInput
+type MemberTeamsPostInput struct {
+	// List of team keys
+	TeamKeys []string `json:"teamKeys"`
 }
 
-// NewStatementPostData instantiates a new StatementPostData object
+// NewMemberTeamsPostInput instantiates a new MemberTeamsPostInput object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewStatementPostData(effect string) *StatementPostData {
-	this := StatementPostData{}
-	this.Effect = effect
+func NewMemberTeamsPostInput(teamKeys []string) *MemberTeamsPostInput {
+	this := MemberTeamsPostInput{}
+	this.TeamKeys = teamKeys
 	return &this
 }
 
-// NewStatementPostDataWithDefaults instantiates a new StatementPostData object
+// NewMemberTeamsPostInputWithDefaults instantiates a new MemberTeamsPostInput object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewStatementPostDataWithDefaults() *StatementPostData {
-	this := StatementPostData{}
+func NewMemberTeamsPostInputWithDefaults() *MemberTeamsPostInput {
+	this := MemberTeamsPostInput{}
 	return &this
 }
 
-// GetResources returns the Resources field value if set, zero value otherwise.
-func (o *StatementPostData) GetResources() []string {
-	if o == nil || o.Resources == nil {
-		var ret []string
-		return ret
-	}
-	return *o.Resources
-}
-
-// GetResourcesOk returns a tuple with the Resources field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *StatementPostData) GetResourcesOk() (*[]string, bool) {
-	if o == nil || o.Resources == nil {
-		return nil, false
-	}
-	return o.Resources, true
-}
-
-// HasResources returns a boolean if a field has been set.
-func (o *StatementPostData) HasResources() bool {
-	if o != nil && o.Resources != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetResources gets a reference to the given []string and assigns it to the Resources field.
-func (o *StatementPostData) SetResources(v []string) {
-	o.Resources = &v
-}
-
-// GetNotResources returns the NotResources field value if set, zero value otherwise.
-func (o *StatementPostData) GetNotResources() []string {
-	if o == nil || o.NotResources == nil {
-		var ret []string
-		return ret
-	}
-	return *o.NotResources
-}
-
-// GetNotResourcesOk returns a tuple with the NotResources field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *StatementPostData) GetNotResourcesOk() (*[]string, bool) {
-	if o == nil || o.NotResources == nil {
-		return nil, false
-	}
-	return o.NotResources, true
-}
-
-// HasNotResources returns a boolean if a field has been set.
-func (o *StatementPostData) HasNotResources() bool {
-	if o != nil && o.NotResources != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetNotResources gets a reference to the given []string and assigns it to the NotResources field.
-func (o *StatementPostData) SetNotResources(v []string) {
-	o.NotResources = &v
-}
-
-// GetActions returns the Actions field value if set, zero value otherwise.
-func (o *StatementPostData) GetActions() []string {
-	if o == nil || o.Actions == nil {
-		var ret []string
-		return ret
-	}
-	return *o.Actions
-}
-
-// GetActionsOk returns a tuple with the Actions field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *StatementPostData) GetActionsOk() (*[]string, bool) {
-	if o == nil || o.Actions == nil {
-		return nil, false
-	}
-	return o.Actions, true
-}
-
-// HasActions returns a boolean if a field has been set.
-func (o *StatementPostData) HasActions() bool {
-	if o != nil && o.Actions != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetActions gets a reference to the given []string and assigns it to the Actions field.
-func (o *StatementPostData) SetActions(v []string) {
-	o.Actions = &v
-}
-
-// GetNotActions returns the NotActions field value if set, zero value otherwise.
-func (o *StatementPostData) GetNotActions() []string {
-	if o == nil || o.NotActions == nil {
-		var ret []string
-		return ret
-	}
-	return *o.NotActions
-}
-
-// GetNotActionsOk returns a tuple with the NotActions field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *StatementPostData) GetNotActionsOk() (*[]string, bool) {
-	if o == nil || o.NotActions == nil {
-		return nil, false
-	}
-	return o.NotActions, true
-}
-
-// HasNotActions returns a boolean if a field has been set.
-func (o *StatementPostData) HasNotActions() bool {
-	if o != nil && o.NotActions != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetNotActions gets a reference to the given []string and assigns it to the NotActions field.
-func (o *StatementPostData) SetNotActions(v []string) {
-	o.NotActions = &v
-}
-
-// GetEffect returns the Effect field value
-func (o *StatementPostData) GetEffect() string {
+// GetTeamKeys returns the TeamKeys field value
+func (o *MemberTeamsPostInput) GetTeamKeys() []string {
 	if o == nil {
-		var ret string
+		var ret []string
 		return ret
 	}
 
-	return o.Effect
+	return o.TeamKeys
 }
 
-// GetEffectOk returns a tuple with the Effect field value
+// GetTeamKeysOk returns a tuple with the TeamKeys field value
 // and a boolean to check if the value has been set.
-func (o *StatementPostData) GetEffectOk() (*string, bool) {
+func (o *MemberTeamsPostInput) GetTeamKeysOk() (*[]string, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return &o.Effect, true
+	return &o.TeamKeys, true
 }
 
-// SetEffect sets field value
-func (o *StatementPostData) SetEffect(v string) {
-	o.Effect = v
+// SetTeamKeys sets field value
+func (o *MemberTeamsPostInput) SetTeamKeys(v []string) {
+	o.TeamKeys = v
 }
 
-func (o StatementPostData) MarshalJSON() ([]byte, error) {
+func (o MemberTeamsPostInput) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Resources != nil {
-		toSerialize["resources"] = o.Resources
-	}
-	if o.NotResources != nil {
-		toSerialize["notResources"] = o.NotResources
-	}
-	if o.Actions != nil {
-		toSerialize["actions"] = o.Actions
-	}
-	if o.NotActions != nil {
-		toSerialize["notActions"] = o.NotActions
-	}
 	if true {
-		toSerialize["effect"] = o.Effect
+		toSerialize["teamKeys"] = o.TeamKeys
 	}
 	return json.Marshal(toSerialize)
 }
 
-type NullableStatementPostData struct {
-	value *StatementPostData
+type NullableMemberTeamsPostInput struct {
+	value *MemberTeamsPostInput
 	isSet bool
 }
 
-func (v NullableStatementPostData) Get() *StatementPostData {
+func (v NullableMemberTeamsPostInput) Get() *MemberTeamsPostInput {
 	return v.value
 }
 
-func (v *NullableStatementPostData) Set(val *StatementPostData) {
+func (v *NullableMemberTeamsPostInput) Set(val *MemberTeamsPostInput) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableStatementPostData) IsSet() bool {
+func (v NullableMemberTeamsPostInput) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableStatementPostData) Unset() {
+func (v *NullableMemberTeamsPostInput) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableStatementPostData(val *StatementPostData) *NullableStatementPostData {
-	return &NullableStatementPostData{value: val, isSet: true}
+func NewNullableMemberTeamsPostInput(val *MemberTeamsPostInput) *NullableMemberTeamsPostInput {
+	return &NullableMemberTeamsPostInput{value: val, isSet: true}
 }
 
-func (v NullableStatementPostData) MarshalJSON() ([]byte, error) {
+func (v NullableMemberTeamsPostInput) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableStatementPostData) UnmarshalJSON(src []byte) error {
+func (v *NullableMemberTeamsPostInput) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

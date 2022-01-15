@@ -151,7 +151,7 @@ docs/MemberImportItemRep.md
 docs/MemberPermissionGrantSummaryRep.md
 docs/MemberSummaryRep.md
 docs/MemberTeamSummaryRep.md
-docs/MemberTeamsFormPost.md
+docs/MemberTeamsPostInput.md
 docs/Members.md
 docs/MethodNotAllowedErrorRep.md
 docs/MetricCollectionRep.md
@@ -376,7 +376,7 @@ model_member_import_item_rep.go
 model_member_permission_grant_summary_rep.go
 model_member_summary_rep.go
 model_member_team_summary_rep.go
-model_member_teams_form_post.go
+model_member_teams_post_input.go
 model_members.go
 model_method_not_allowed_error_rep.go
 model_metric_collection_rep.go

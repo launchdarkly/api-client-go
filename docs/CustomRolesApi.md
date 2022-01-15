@@ -304,7 +304,7 @@ import (
 )
 
 func main() {
-    customRolePost := *openapiclient.NewCustomRolePost("Name_example", "Key_example", []openapiclient.StatementPost{*openapiclient.NewStatementPost([]string{"Resources_example"}, []string{"Actions_example"}, "Effect_example")}) // CustomRolePost | 
+    customRolePost := *openapiclient.NewCustomRolePost("Name_example", "Key_example", []openapiclient.StatementPost{*openapiclient.NewStatementPost("Effect_example")}) // CustomRolePost | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)

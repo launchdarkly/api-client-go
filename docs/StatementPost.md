@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Resources** | **[]string** | Resource specifier strings | 
+**Resources** | Pointer to **[]string** | Resource specifier strings | [optional] 
 **NotResources** | Pointer to **[]string** | Targeted resources are the resources NOT in this list. The \&quot;resources\&quot; field must be empty to use this field. | [optional] 
-**Actions** | **[]string** | Actions to perform on a resource | 
+**Actions** | Pointer to **[]string** | Actions to perform on a resource | [optional] 
 **NotActions** | Pointer to **[]string** | Targeted actions are the actions NOT in this list. The \&quot;actions\&quot; field must be empty to use this field. | [optional] 
 **Effect** | **string** |  | 
 
@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 
 ### NewStatementPost
 
-`func NewStatementPost(resources []string, actions []string, effect string, ) *StatementPost`
+`func NewStatementPost(effect string, ) *StatementPost`
 
 NewStatementPost instantiates a new StatementPost object
 This constructor will assign default values to properties that have it defined,
@@ -48,6 +48,11 @@ and a boolean to check if the value has been set.
 
 SetResources sets Resources field to given value.
 
+### HasResources
+
+`func (o *StatementPost) HasResources() bool`
+
+HasResources returns a boolean if a field has been set.
 
 ### GetNotResources
 
@@ -93,6 +98,11 @@ and a boolean to check if the value has been set.
 
 SetActions sets Actions field to given value.
 
+### HasActions
+
+`func (o *StatementPost) HasActions() bool`
+
+HasActions returns a boolean if a field has been set.
 
 ### GetNotActions
 

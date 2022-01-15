@@ -502,7 +502,7 @@ func (r ApiPatchMetricRequest) Execute() (MetricRep, *_nethttp.Response, error) 
 /*
 PatchMetric Update metric
 
-Patch a environment by key.
+Patch a metric by key.
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param projectKey The project key
