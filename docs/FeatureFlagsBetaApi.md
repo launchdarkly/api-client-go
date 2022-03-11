@@ -4,14 +4,14 @@ All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetDependentFlags**](FeatureFlagsBetaApi.md#GetDependentFlags) | **Get** /api/v2/flags/{projKey}/{flagKey}/dependent-flags | List dependent feature flags
-[**GetDependentFlagsByEnv**](FeatureFlagsBetaApi.md#GetDependentFlagsByEnv) | **Get** /api/v2/flags/{projKey}/{envKey}/{flagKey}/dependent-flags | List dependent feature flags by environment
+[**GetDependentFlags**](FeatureFlagsBetaApi.md#GetDependentFlags) | **Get** /api/v2/flags/{projectKey}/{featureFlagKey}/dependent-flags | List dependent feature flags
+[**GetDependentFlagsByEnv**](FeatureFlagsBetaApi.md#GetDependentFlagsByEnv) | **Get** /api/v2/flags/{projectKey}/{environmentKey}/{featureFlagKey}/dependent-flags | List dependent feature flags by environment
 
 
 
 ## GetDependentFlags
 
-> MultiEnvironmentDependentFlags GetDependentFlags(ctx, projKey, flagKey).Execute()
+> MultiEnvironmentDependentFlags GetDependentFlags(ctx, projectKey, featureFlagKey).Execute()
 
 List dependent feature flags
 
@@ -30,12 +30,12 @@ import (
 )
 
 func main() {
-    projKey := "projKey_example" // string | The project key
-    flagKey := "flagKey_example" // string | The flag key
+    projectKey := "projectKey_example" // string | The project key
+    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.FeatureFlagsBetaApi.GetDependentFlags(context.Background(), projKey, flagKey).Execute()
+    resp, r, err := api_client.FeatureFlagsBetaApi.GetDependentFlags(context.Background(), projectKey, featureFlagKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsBetaApi.GetDependentFlags``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -51,8 +51,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projKey** | **string** | The project key | 
-**flagKey** | **string** | The flag key | 
+**projectKey** | **string** | The project key | 
+**featureFlagKey** | **string** | The feature flag key | 
 
 ### Other Parameters
 
@@ -84,7 +84,7 @@ Name | Type | Description  | Notes
 
 ## GetDependentFlagsByEnv
 
-> DependentFlagsByEnvironment GetDependentFlagsByEnv(ctx, projKey, envKey, flagKey).Execute()
+> DependentFlagsByEnvironment GetDependentFlagsByEnv(ctx, projectKey, environmentKey, featureFlagKey).Execute()
 
 List dependent feature flags by environment
 
@@ -103,13 +103,13 @@ import (
 )
 
 func main() {
-    projKey := "projKey_example" // string | The project key
-    envKey := "envKey_example" // string | The environment key
-    flagKey := "flagKey_example" // string | The flag key
+    projectKey := "projectKey_example" // string | The project key
+    environmentKey := "environmentKey_example" // string | The environment key
+    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.FeatureFlagsBetaApi.GetDependentFlagsByEnv(context.Background(), projKey, envKey, flagKey).Execute()
+    resp, r, err := api_client.FeatureFlagsBetaApi.GetDependentFlagsByEnv(context.Background(), projectKey, environmentKey, featureFlagKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsBetaApi.GetDependentFlagsByEnv``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -125,9 +125,9 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projKey** | **string** | The project key | 
-**envKey** | **string** | The environment key | 
-**flagKey** | **string** | The flag key | 
+**projectKey** | **string** | The project key | 
+**environmentKey** | **string** | The environment key | 
+**featureFlagKey** | **string** | The feature flag key | 
 
 ### Other Parameters
 

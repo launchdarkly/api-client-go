@@ -4,7 +4,7 @@ All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetEvaluationsUsage**](AccountUsageBetaApi.md#GetEvaluationsUsage) | **Get** /api/v2/usage/evaluations/{projKey}/{envKey}/{flagKey} | Get evaluations usage
+[**GetEvaluationsUsage**](AccountUsageBetaApi.md#GetEvaluationsUsage) | **Get** /api/v2/usage/evaluations/{projectKey}/{environmentKey}/{featureFlagKey} | Get evaluations usage
 [**GetEventsUsage**](AccountUsageBetaApi.md#GetEventsUsage) | **Get** /api/v2/usage/events/{type} | Get events usage
 [**GetMauSdksByType**](AccountUsageBetaApi.md#GetMauSdksByType) | **Get** /api/v2/usage/mau/sdks | Get MAU SDKs by type
 [**GetMauUsage**](AccountUsageBetaApi.md#GetMauUsage) | **Get** /api/v2/usage/mau | Get MAU usage
@@ -17,7 +17,7 @@ Method | HTTP request | Description
 
 ## GetEvaluationsUsage
 
-> SeriesListRep GetEvaluationsUsage(ctx, projKey, envKey, flagKey).From(from).To(to).Tz(tz).Execute()
+> SeriesListRep GetEvaluationsUsage(ctx, projectKey, environmentKey, featureFlagKey).From(from).To(to).Tz(tz).Execute()
 
 Get evaluations usage
 
@@ -36,16 +36,16 @@ import (
 )
 
 func main() {
-    projKey := "projKey_example" // string | The project key.
-    envKey := "envKey_example" // string | The environment key.
-    flagKey := "flagKey_example" // string | The feature flag's key.
+    projectKey := "projectKey_example" // string | The project key
+    environmentKey := "environmentKey_example" // string | The environment key
+    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
     from := "from_example" // string | The series of data returned starts from this timestamp. Defaults to 30 days ago. (optional)
     to := "to_example" // string | The series of data returned ends at this timestamp. Defaults to the current time. (optional)
     tz := "tz_example" // string | The timezone to use for breaks between days when returning daily data. (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AccountUsageBetaApi.GetEvaluationsUsage(context.Background(), projKey, envKey, flagKey).From(from).To(to).Tz(tz).Execute()
+    resp, r, err := api_client.AccountUsageBetaApi.GetEvaluationsUsage(context.Background(), projectKey, environmentKey, featureFlagKey).From(from).To(to).Tz(tz).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AccountUsageBetaApi.GetEvaluationsUsage``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -61,9 +61,9 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projKey** | **string** | The project key. | 
-**envKey** | **string** | The environment key. | 
-**flagKey** | **string** | The feature flag&#39;s key. | 
+**projectKey** | **string** | The project key | 
+**environmentKey** | **string** | The environment key | 
+**featureFlagKey** | **string** | The feature flag key | 
 
 ### Other Parameters
 

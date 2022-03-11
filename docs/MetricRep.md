@@ -11,12 +11,12 @@ Name | Type | Description | Notes
 **AttachedFlagCount** | Pointer to **int32** |  | [optional] 
 **Links** | [**map[string]Link**](Link.md) |  | 
 **Site** | Pointer to [**Link**](Link.md) |  | [optional] 
-**Access** | Pointer to [**AccessRep**](AccessRep.md) |  | [optional] 
+**Access** | Pointer to [**Access**](Access.md) |  | [optional] 
 **Tags** | **[]string** |  | 
 **CreationDate** | **int64** |  | 
 **LastModified** | Pointer to [**Modification**](Modification.md) |  | [optional] 
 **MaintainerId** | Pointer to **string** |  | [optional] 
-**Maintainer** | Pointer to [**MemberSummaryRep**](MemberSummaryRep.md) |  | [optional] 
+**Maintainer** | Pointer to [**MemberSummary**](MemberSummary.md) |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
 **IsNumeric** | Pointer to **bool** |  | [optional] 
 **SuccessCriteria** | Pointer to **string** |  | [optional] 
@@ -199,20 +199,20 @@ HasSite returns a boolean if a field has been set.
 
 ### GetAccess
 
-`func (o *MetricRep) GetAccess() AccessRep`
+`func (o *MetricRep) GetAccess() Access`
 
 GetAccess returns the Access field if non-nil, zero value otherwise.
 
 ### GetAccessOk
 
-`func (o *MetricRep) GetAccessOk() (*AccessRep, bool)`
+`func (o *MetricRep) GetAccessOk() (*Access, bool)`
 
 GetAccessOk returns a tuple with the Access field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAccess
 
-`func (o *MetricRep) SetAccess(v AccessRep)`
+`func (o *MetricRep) SetAccess(v Access)`
 
 SetAccess sets Access field to given value.
 
@@ -314,20 +314,20 @@ HasMaintainerId returns a boolean if a field has been set.
 
 ### GetMaintainer
 
-`func (o *MetricRep) GetMaintainer() MemberSummaryRep`
+`func (o *MetricRep) GetMaintainer() MemberSummary`
 
 GetMaintainer returns the Maintainer field if non-nil, zero value otherwise.
 
 ### GetMaintainerOk
 
-`func (o *MetricRep) GetMaintainerOk() (*MemberSummaryRep, bool)`
+`func (o *MetricRep) GetMaintainerOk() (*MemberSummary, bool)`
 
 GetMaintainerOk returns a tuple with the Maintainer field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMaintainer
 
-`func (o *MetricRep) SetMaintainer(v MemberSummaryRep)`
+`func (o *MetricRep) SetMaintainer(v MemberSummary)`
 
 SetMaintainer sets Maintainer field to given value.
 

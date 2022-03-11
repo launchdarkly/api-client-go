@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **Version** | Pointer to **float32** |  | [optional] 
 **Config** | Pointer to **interface{}** |  | [optional] 
 **On** | Pointer to **bool** |  | [optional] 
-**Access** | Pointer to [**AccessRep**](AccessRep.md) |  | [optional] 
+**Access** | Pointer to [**Access**](Access.md) |  | [optional] 
 
 ## Methods
 
@@ -219,20 +219,20 @@ HasOn returns a boolean if a field has been set.
 
 ### GetAccess
 
-`func (o *Destination) GetAccess() AccessRep`
+`func (o *Destination) GetAccess() Access`
 
 GetAccess returns the Access field if non-nil, zero value otherwise.
 
 ### GetAccessOk
 
-`func (o *Destination) GetAccessOk() (*AccessRep, bool)`
+`func (o *Destination) GetAccessOk() (*Access, bool)`
 
 GetAccessOk returns a tuple with the Access field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAccess
 
-`func (o *Destination) SetAccess(v AccessRep)`
+`func (o *Destination) SetAccess(v Access)`
 
 SetAccess sets Access field to given value.
 

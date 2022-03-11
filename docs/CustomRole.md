@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** |  | 
 **Links** | [**map[string]Link**](Link.md) |  | 
-**Access** | Pointer to [**AccessRep**](AccessRep.md) |  | [optional] 
+**Access** | Pointer to [**Access**](Access.md) |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
 **Key** | **string** |  | 
 **Name** | **string** |  | 
@@ -74,20 +74,20 @@ SetLinks sets Links field to given value.
 
 ### GetAccess
 
-`func (o *CustomRole) GetAccess() AccessRep`
+`func (o *CustomRole) GetAccess() Access`
 
 GetAccess returns the Access field if non-nil, zero value otherwise.
 
 ### GetAccessOk
 
-`func (o *CustomRole) GetAccessOk() (*AccessRep, bool)`
+`func (o *CustomRole) GetAccessOk() (*Access, bool)`
 
 GetAccessOk returns a tuple with the Access field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAccess
 
-`func (o *CustomRole) SetAccess(v AccessRep)`
+`func (o *CustomRole) SetAccess(v Access)`
 
 SetAccess sets Access field to given value.
 

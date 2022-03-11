@@ -4,17 +4,17 @@ All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateTriggerWorkflow**](FlagTriggersApi.md#CreateTriggerWorkflow) | **Post** /api/v2/flags/{projKey}/{flagKey}/triggers/{envKey} | Create flag trigger
-[**DeleteTriggerWorkflow**](FlagTriggersApi.md#DeleteTriggerWorkflow) | **Delete** /api/v2/flags/{projKey}/{flagKey}/triggers/{envKey}/{id} | Delete flag trigger
-[**GetTriggerWorkflowById**](FlagTriggersApi.md#GetTriggerWorkflowById) | **Get** /api/v2/flags/{projKey}/{flagKey}/triggers/{envKey}/{id} | Get flag trigger by ID
-[**GetTriggerWorkflows**](FlagTriggersApi.md#GetTriggerWorkflows) | **Get** /api/v2/flags/{projKey}/{flagKey}/triggers/{envKey} | List flag triggers
-[**PatchTriggerWorkflow**](FlagTriggersApi.md#PatchTriggerWorkflow) | **Patch** /api/v2/flags/{projKey}/{flagKey}/triggers/{envKey}/{id} | Update flag trigger
+[**CreateTriggerWorkflow**](FlagTriggersApi.md#CreateTriggerWorkflow) | **Post** /api/v2/flags/{projectKey}/{featureFlagKey}/triggers/{environmentKey} | Create flag trigger
+[**DeleteTriggerWorkflow**](FlagTriggersApi.md#DeleteTriggerWorkflow) | **Delete** /api/v2/flags/{projectKey}/{featureFlagKey}/triggers/{environmentKey}/{id} | Delete flag trigger
+[**GetTriggerWorkflowById**](FlagTriggersApi.md#GetTriggerWorkflowById) | **Get** /api/v2/flags/{projectKey}/{featureFlagKey}/triggers/{environmentKey}/{id} | Get flag trigger by ID
+[**GetTriggerWorkflows**](FlagTriggersApi.md#GetTriggerWorkflows) | **Get** /api/v2/flags/{projectKey}/{featureFlagKey}/triggers/{environmentKey} | List flag triggers
+[**PatchTriggerWorkflow**](FlagTriggersApi.md#PatchTriggerWorkflow) | **Patch** /api/v2/flags/{projectKey}/{featureFlagKey}/triggers/{environmentKey}/{id} | Update flag trigger
 
 
 
 ## CreateTriggerWorkflow
 
-> TriggerWorkflowRep CreateTriggerWorkflow(ctx, projKey, envKey, flagKey).TriggerPost(triggerPost).Execute()
+> TriggerWorkflowRep CreateTriggerWorkflow(ctx, projectKey, environmentKey, featureFlagKey).TriggerPost(triggerPost).Execute()
 
 Create flag trigger
 
@@ -33,14 +33,14 @@ import (
 )
 
 func main() {
-    projKey := "projKey_example" // string | The project key
-    envKey := "envKey_example" // string | The environment key
-    flagKey := "flagKey_example" // string | The flag key
+    projectKey := "projectKey_example" // string | The project key
+    environmentKey := "environmentKey_example" // string | The environment key
+    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
     triggerPost := *openapiclient.NewTriggerPost("IntegrationKey_example") // TriggerPost | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.FlagTriggersApi.CreateTriggerWorkflow(context.Background(), projKey, envKey, flagKey).TriggerPost(triggerPost).Execute()
+    resp, r, err := api_client.FlagTriggersApi.CreateTriggerWorkflow(context.Background(), projectKey, environmentKey, featureFlagKey).TriggerPost(triggerPost).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FlagTriggersApi.CreateTriggerWorkflow``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -56,9 +56,9 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projKey** | **string** | The project key | 
-**envKey** | **string** | The environment key | 
-**flagKey** | **string** | The flag key | 
+**projectKey** | **string** | The project key | 
+**environmentKey** | **string** | The environment key | 
+**featureFlagKey** | **string** | The feature flag key | 
 
 ### Other Parameters
 
@@ -92,7 +92,7 @@ Name | Type | Description  | Notes
 
 ## DeleteTriggerWorkflow
 
-> DeleteTriggerWorkflow(ctx, projKey, envKey, flagKey, id).Execute()
+> DeleteTriggerWorkflow(ctx, projectKey, environmentKey, featureFlagKey, id).Execute()
 
 Delete flag trigger
 
@@ -111,14 +111,14 @@ import (
 )
 
 func main() {
-    projKey := "projKey_example" // string | The project key
-    envKey := "envKey_example" // string | The environment key
-    flagKey := "flagKey_example" // string | The flag key
+    projectKey := "projectKey_example" // string | The project key
+    environmentKey := "environmentKey_example" // string | The environment key
+    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
     id := "id_example" // string | The flag trigger ID
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.FlagTriggersApi.DeleteTriggerWorkflow(context.Background(), projKey, envKey, flagKey, id).Execute()
+    resp, r, err := api_client.FlagTriggersApi.DeleteTriggerWorkflow(context.Background(), projectKey, environmentKey, featureFlagKey, id).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FlagTriggersApi.DeleteTriggerWorkflow``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -132,9 +132,9 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projKey** | **string** | The project key | 
-**envKey** | **string** | The environment key | 
-**flagKey** | **string** | The flag key | 
+**projectKey** | **string** | The project key | 
+**environmentKey** | **string** | The environment key | 
+**featureFlagKey** | **string** | The feature flag key | 
 **id** | **string** | The flag trigger ID | 
 
 ### Other Parameters
@@ -169,7 +169,7 @@ Name | Type | Description  | Notes
 
 ## GetTriggerWorkflowById
 
-> TriggerWorkflowRep GetTriggerWorkflowById(ctx, projKey, flagKey, envKey, id).Execute()
+> TriggerWorkflowRep GetTriggerWorkflowById(ctx, projectKey, featureFlagKey, environmentKey, id).Execute()
 
 Get flag trigger by ID
 
@@ -188,14 +188,14 @@ import (
 )
 
 func main() {
-    projKey := "projKey_example" // string | The project key
-    flagKey := "flagKey_example" // string | The flag key
-    envKey := "envKey_example" // string | The environment key
+    projectKey := "projectKey_example" // string | The project key
+    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
+    environmentKey := "environmentKey_example" // string | The environment key
     id := "id_example" // string | The flag trigger ID
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.FlagTriggersApi.GetTriggerWorkflowById(context.Background(), projKey, flagKey, envKey, id).Execute()
+    resp, r, err := api_client.FlagTriggersApi.GetTriggerWorkflowById(context.Background(), projectKey, featureFlagKey, environmentKey, id).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FlagTriggersApi.GetTriggerWorkflowById``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -211,9 +211,9 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projKey** | **string** | The project key | 
-**flagKey** | **string** | The flag key | 
-**envKey** | **string** | The environment key | 
+**projectKey** | **string** | The project key | 
+**featureFlagKey** | **string** | The feature flag key | 
+**environmentKey** | **string** | The environment key | 
 **id** | **string** | The flag trigger ID | 
 
 ### Other Parameters
@@ -248,7 +248,7 @@ Name | Type | Description  | Notes
 
 ## GetTriggerWorkflows
 
-> TriggerWorkflowCollectionRep GetTriggerWorkflows(ctx, projKey, envKey, flagKey).Execute()
+> TriggerWorkflowCollectionRep GetTriggerWorkflows(ctx, projectKey, environmentKey, featureFlagKey).Execute()
 
 List flag triggers
 
@@ -267,13 +267,13 @@ import (
 )
 
 func main() {
-    projKey := "projKey_example" // string | The project key
-    envKey := "envKey_example" // string | The environment key
-    flagKey := "flagKey_example" // string | The flag key
+    projectKey := "projectKey_example" // string | The project key
+    environmentKey := "environmentKey_example" // string | The environment key
+    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.FlagTriggersApi.GetTriggerWorkflows(context.Background(), projKey, envKey, flagKey).Execute()
+    resp, r, err := api_client.FlagTriggersApi.GetTriggerWorkflows(context.Background(), projectKey, environmentKey, featureFlagKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FlagTriggersApi.GetTriggerWorkflows``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -289,9 +289,9 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projKey** | **string** | The project key | 
-**envKey** | **string** | The environment key | 
-**flagKey** | **string** | The flag key | 
+**projectKey** | **string** | The project key | 
+**environmentKey** | **string** | The environment key | 
+**featureFlagKey** | **string** | The feature flag key | 
 
 ### Other Parameters
 
@@ -324,7 +324,7 @@ Name | Type | Description  | Notes
 
 ## PatchTriggerWorkflow
 
-> TriggerWorkflowRep PatchTriggerWorkflow(ctx, projKey, envKey, flagKey, id).FlagTriggerInput(flagTriggerInput).Execute()
+> TriggerWorkflowRep PatchTriggerWorkflow(ctx, projectKey, environmentKey, featureFlagKey, id).FlagTriggerInput(flagTriggerInput).Execute()
 
 Update flag trigger
 
@@ -343,15 +343,15 @@ import (
 )
 
 func main() {
-    projKey := "projKey_example" // string | The project key
-    envKey := "envKey_example" // string | The environment key
-    flagKey := "flagKey_example" // string | The flag key
+    projectKey := "projectKey_example" // string | The project key
+    environmentKey := "environmentKey_example" // string | The environment key
+    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
     id := "id_example" // string | The flag trigger ID
     flagTriggerInput := *openapiclient.NewFlagTriggerInput() // FlagTriggerInput | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.FlagTriggersApi.PatchTriggerWorkflow(context.Background(), projKey, envKey, flagKey, id).FlagTriggerInput(flagTriggerInput).Execute()
+    resp, r, err := api_client.FlagTriggersApi.PatchTriggerWorkflow(context.Background(), projectKey, environmentKey, featureFlagKey, id).FlagTriggerInput(flagTriggerInput).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FlagTriggersApi.PatchTriggerWorkflow``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -367,9 +367,9 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projKey** | **string** | The project key | 
-**envKey** | **string** | The environment key | 
-**flagKey** | **string** | The flag key | 
+**projectKey** | **string** | The project key | 
+**environmentKey** | **string** | The environment key | 
+**featureFlagKey** | **string** | The feature flag key | 
 **id** | **string** | The flag trigger ID | 
 
 ### Other Parameters

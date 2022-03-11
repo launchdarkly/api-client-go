@@ -36,7 +36,7 @@ import (
 
 func main() {
     projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag's key
+    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
     environmentKey := "environmentKey_example" // string | The environment key
     id := "id_example" // string | The feature flag approval request ID
 
@@ -57,7 +57,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **projectKey** | **string** | The project key | 
-**featureFlagKey** | **string** | The feature flag&#39;s key | 
+**featureFlagKey** | **string** | The feature flag key | 
 **environmentKey** | **string** | The environment key | 
 **id** | **string** | The feature flag approval request ID | 
 
@@ -113,7 +113,7 @@ import (
 
 func main() {
     projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag's key
+    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
     environmentKey := "environmentKey_example" // string | The environment key
     id := "id_example" // string | The feature flag approval request ID
 
@@ -136,7 +136,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **projectKey** | **string** | The project key | 
-**featureFlagKey** | **string** | The feature flag&#39;s key | 
+**featureFlagKey** | **string** | The feature flag key | 
 **environmentKey** | **string** | The environment key | 
 **id** | **string** | The feature flag approval request ID | 
 
@@ -192,7 +192,7 @@ import (
 
 func main() {
     projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag's key
+    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
     environmentKey := "environmentKey_example" // string | The environment key
 
     configuration := openapiclient.NewConfiguration()
@@ -214,7 +214,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **projectKey** | **string** | The project key | 
-**featureFlagKey** | **string** | The feature flag&#39;s key | 
+**featureFlagKey** | **string** | The feature flag key | 
 **environmentKey** | **string** | The environment key | 
 
 ### Other Parameters
@@ -268,7 +268,7 @@ import (
 
 func main() {
     projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag's key
+    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
     environmentKey := "environmentKey_example" // string | The environment key
     createFlagConfigApprovalRequestRequest := *openapiclient.NewCreateFlagConfigApprovalRequestRequest("Description_example", []map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}, []string{"NotifyMemberIds_example"}) // CreateFlagConfigApprovalRequestRequest | 
 
@@ -291,7 +291,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **projectKey** | **string** | The project key | 
-**featureFlagKey** | **string** | The feature flag&#39;s key | 
+**featureFlagKey** | **string** | The feature flag key | 
 **environmentKey** | **string** | The environment key | 
 
 ### Other Parameters
@@ -346,7 +346,7 @@ import (
 
 func main() {
     projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag's key
+    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
     environmentKey := "environmentKey_example" // string | The environment key
     id := "id_example" // string | The feature flag approval request ID
     postApprovalRequestApplyRequest := *openapiclient.NewPostApprovalRequestApplyRequest() // PostApprovalRequestApplyRequest | 
@@ -370,7 +370,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **projectKey** | **string** | The project key | 
-**featureFlagKey** | **string** | The feature flag&#39;s key | 
+**featureFlagKey** | **string** | The feature flag key | 
 **environmentKey** | **string** | The environment key | 
 **id** | **string** | The feature flag approval request ID | 
 
@@ -427,7 +427,7 @@ import (
 
 func main() {
     projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag's key
+    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
     environmentKey := "environmentKey_example" // string | The environment key
     id := "id_example" // string | The feature flag approval request ID
     postApprovalRequestReviewRequest := *openapiclient.NewPostApprovalRequestReviewRequest() // PostApprovalRequestReviewRequest | 
@@ -451,7 +451,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **projectKey** | **string** | The project key | 
-**featureFlagKey** | **string** | The feature flag&#39;s key | 
+**featureFlagKey** | **string** | The feature flag key | 
 **environmentKey** | **string** | The environment key | 
 **id** | **string** | The feature flag approval request ID | 
 
@@ -508,7 +508,7 @@ import (
 
 func main() {
     projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag's key
+    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
     environmentKey := "environmentKey_example" // string | The environment key
     createCopyFlagConfigApprovalRequestRequest := *openapiclient.NewCreateCopyFlagConfigApprovalRequestRequest("Description_example", []string{"NotifyMemberIds_example"}, *openapiclient.NewSourceFlag("Key_example")) // CreateCopyFlagConfigApprovalRequestRequest | 
 
@@ -531,7 +531,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **projectKey** | **string** | The project key | 
-**featureFlagKey** | **string** | The feature flag&#39;s key | 
+**featureFlagKey** | **string** | The feature flag key | 
 **environmentKey** | **string** | The environment key | 
 
 ### Other Parameters

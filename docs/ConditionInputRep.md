@@ -4,7 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**ScheduleKind** | Pointer to **string** |  | [optional] 
 **ExecutionDate** | Pointer to **int64** |  | [optional] 
+**WaitDuration** | Pointer to **int32** |  | [optional] 
+**WaitDurationUnit** | Pointer to **string** |  | [optional] 
 **ExecuteNow** | Pointer to **bool** |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
 **NotifyMemberIds** | Pointer to **[]string** |  | [optional] 
@@ -28,6 +31,31 @@ will change when the set of required properties is changed
 NewConditionInputRepWithDefaults instantiates a new ConditionInputRep object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetScheduleKind
+
+`func (o *ConditionInputRep) GetScheduleKind() string`
+
+GetScheduleKind returns the ScheduleKind field if non-nil, zero value otherwise.
+
+### GetScheduleKindOk
+
+`func (o *ConditionInputRep) GetScheduleKindOk() (*string, bool)`
+
+GetScheduleKindOk returns a tuple with the ScheduleKind field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetScheduleKind
+
+`func (o *ConditionInputRep) SetScheduleKind(v string)`
+
+SetScheduleKind sets ScheduleKind field to given value.
+
+### HasScheduleKind
+
+`func (o *ConditionInputRep) HasScheduleKind() bool`
+
+HasScheduleKind returns a boolean if a field has been set.
 
 ### GetExecutionDate
 
@@ -53,6 +81,56 @@ SetExecutionDate sets ExecutionDate field to given value.
 `func (o *ConditionInputRep) HasExecutionDate() bool`
 
 HasExecutionDate returns a boolean if a field has been set.
+
+### GetWaitDuration
+
+`func (o *ConditionInputRep) GetWaitDuration() int32`
+
+GetWaitDuration returns the WaitDuration field if non-nil, zero value otherwise.
+
+### GetWaitDurationOk
+
+`func (o *ConditionInputRep) GetWaitDurationOk() (*int32, bool)`
+
+GetWaitDurationOk returns a tuple with the WaitDuration field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetWaitDuration
+
+`func (o *ConditionInputRep) SetWaitDuration(v int32)`
+
+SetWaitDuration sets WaitDuration field to given value.
+
+### HasWaitDuration
+
+`func (o *ConditionInputRep) HasWaitDuration() bool`
+
+HasWaitDuration returns a boolean if a field has been set.
+
+### GetWaitDurationUnit
+
+`func (o *ConditionInputRep) GetWaitDurationUnit() string`
+
+GetWaitDurationUnit returns the WaitDurationUnit field if non-nil, zero value otherwise.
+
+### GetWaitDurationUnitOk
+
+`func (o *ConditionInputRep) GetWaitDurationUnitOk() (*string, bool)`
+
+GetWaitDurationUnitOk returns a tuple with the WaitDurationUnit field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetWaitDurationUnit
+
+`func (o *ConditionInputRep) SetWaitDurationUnit(v string)`
+
+SetWaitDurationUnit sets WaitDurationUnit field to given value.
+
+### HasWaitDurationUnit
+
+`func (o *ConditionInputRep) HasWaitDurationUnit() bool`
+
+HasWaitDurationUnit returns a boolean if a field has been set.
 
 ### GetExecuteNow
 

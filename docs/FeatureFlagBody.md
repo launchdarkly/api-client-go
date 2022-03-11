@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** | Description of the feature flag | [optional] 
 **IncludeInSnippet** | Pointer to **bool** | Deprecated, use clientSideAvailability. Whether or not this flag should be made available to the client-side JavaScript SDK | [optional] 
 **ClientSideAvailability** | Pointer to [**ClientSideAvailabilityPost**](ClientSideAvailabilityPost.md) |  | [optional] 
-**Variations** | Pointer to [**[]Variation**](Variation.md) | An array of possible variations for the flag | [optional] 
+**Variations** | Pointer to [**[]Variation**](Variation.md) | An array of possible variations for the flag. The variation values must be unique. | [optional] 
 **VariationJsonSchema** | Pointer to **interface{}** |  | [optional] 
 **Temporary** | Pointer to **bool** | Whether or not the flag is a temporary flag | [optional] 
 **Tags** | Pointer to **[]string** | Tags for the feature flag | [optional] 

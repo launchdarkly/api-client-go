@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **Version** | **int32** | The version of the repository&#39;s saved information | 
 **Branches** | Pointer to [**[]BranchRep**](BranchRep.md) | An array of the repository&#39;s branches that have been scanned for code references | [optional] 
 **Links** | **map[string]interface{}** |  | 
-**Access** | Pointer to [**AccessRep**](AccessRep.md) |  | [optional] 
+**Access** | Pointer to [**Access**](Access.md) |  | [optional] 
 
 ## Methods
 
@@ -257,20 +257,20 @@ SetLinks sets Links field to given value.
 
 ### GetAccess
 
-`func (o *RepositoryRep) GetAccess() AccessRep`
+`func (o *RepositoryRep) GetAccess() Access`
 
 GetAccess returns the Access field if non-nil, zero value otherwise.
 
 ### GetAccessOk
 
-`func (o *RepositoryRep) GetAccessOk() (*AccessRep, bool)`
+`func (o *RepositoryRep) GetAccessOk() (*Access, bool)`
 
 GetAccessOk returns a tuple with the Access field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAccess
 
-`func (o *RepositoryRep) SetAccess(v AccessRep)`
+`func (o *RepositoryRep) SetAccess(v Access)`
 
 SetAccess sets Access field to given value.
 

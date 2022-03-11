@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **Statements** | Pointer to [**[]StatementRep**](StatementRep.md) |  | [optional] 
 **On** | **bool** |  | 
 **Tags** | **[]string** |  | 
-**Access** | Pointer to [**AccessRep**](AccessRep.md) |  | [optional] 
+**Access** | Pointer to [**Access**](Access.md) |  | [optional] 
 
 ## Methods
 
@@ -210,20 +210,20 @@ SetTags sets Tags field to given value.
 
 ### GetAccess
 
-`func (o *Webhook) GetAccess() AccessRep`
+`func (o *Webhook) GetAccess() Access`
 
 GetAccess returns the Access field if non-nil, zero value otherwise.
 
 ### GetAccessOk
 
-`func (o *Webhook) GetAccessOk() (*AccessRep, bool)`
+`func (o *Webhook) GetAccessOk() (*Access, bool)`
 
 GetAccessOk returns a tuple with the Access field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAccess
 
-`func (o *Webhook) SetAccess(v AccessRep)`
+`func (o *Webhook) SetAccess(v Access)`
 
 SetAccess sets Access field to given value.
 

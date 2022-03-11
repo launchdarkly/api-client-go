@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **Statements** | Pointer to [**[]StatementRep**](StatementRep.md) |  | [optional] 
 **On** | Pointer to **bool** |  | [optional] 
 **Tags** | Pointer to **[]string** |  | [optional] 
-**Access** | Pointer to [**AccessRep**](AccessRep.md) |  | [optional] 
+**Access** | Pointer to [**Access**](Access.md) |  | [optional] 
 **Status** | Pointer to [**IntegrationSubscriptionStatusRep**](IntegrationSubscriptionStatusRep.md) |  | [optional] 
 **Url** | Pointer to **string** |  | [optional] 
 **ApiKey** | Pointer to **string** |  | [optional] 
@@ -238,20 +238,20 @@ HasTags returns a boolean if a field has been set.
 
 ### GetAccess
 
-`func (o *Integration) GetAccess() AccessRep`
+`func (o *Integration) GetAccess() Access`
 
 GetAccess returns the Access field if non-nil, zero value otherwise.
 
 ### GetAccessOk
 
-`func (o *Integration) GetAccessOk() (*AccessRep, bool)`
+`func (o *Integration) GetAccessOk() (*Access, bool)`
 
 GetAccessOk returns a tuple with the Access field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAccess
 
-`func (o *Integration) SetAccess(v AccessRep)`
+`func (o *Integration) SetAccess(v Access)`
 
 SetAccess sets Access field to given value.
 

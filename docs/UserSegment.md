@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **Rules** | [**[]UserSegmentRule**](UserSegmentRule.md) |  | 
 **Version** | **int32** |  | 
 **Deleted** | **bool** |  | 
-**Access** | Pointer to [**AccessRep**](AccessRep.md) |  | [optional] 
+**Access** | Pointer to [**Access**](Access.md) |  | [optional] 
 **Flags** | Pointer to [**[]FlagListingRep**](FlagListingRep.md) |  | [optional] 
 **Unbounded** | Pointer to **bool** |  | [optional] 
 **Generation** | **int32** |  | 
@@ -280,20 +280,20 @@ SetDeleted sets Deleted field to given value.
 
 ### GetAccess
 
-`func (o *UserSegment) GetAccess() AccessRep`
+`func (o *UserSegment) GetAccess() Access`
 
 GetAccess returns the Access field if non-nil, zero value otherwise.
 
 ### GetAccessOk
 
-`func (o *UserSegment) GetAccessOk() (*AccessRep, bool)`
+`func (o *UserSegment) GetAccessOk() (*Access, bool)`
 
 GetAccessOk returns a tuple with the Access field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAccess
 
-`func (o *UserSegment) SetAccess(v AccessRep)`
+`func (o *UserSegment) SetAccess(v Access)`
 
 SetAccess sets Access field to given value.
 

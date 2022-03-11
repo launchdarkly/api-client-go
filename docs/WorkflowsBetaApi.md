@@ -33,7 +33,7 @@ import (
 
 func main() {
     projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag's key
+    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
     environmentKey := "environmentKey_example" // string | The environment key
     workflowId := "workflowId_example" // string | The workflow id
 
@@ -54,7 +54,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **projectKey** | **string** | The project key | 
-**featureFlagKey** | **string** | The feature flag&#39;s key | 
+**featureFlagKey** | **string** | The feature flag key | 
 **environmentKey** | **string** | The environment key | 
 **workflowId** | **string** | The workflow id | 
 
@@ -110,7 +110,7 @@ import (
 
 func main() {
     projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag's key
+    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
     environmentKey := "environmentKey_example" // string | The environment key
     workflowId := "workflowId_example" // string | The workflow ID
 
@@ -133,7 +133,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **projectKey** | **string** | The project key | 
-**featureFlagKey** | **string** | The feature flag&#39;s key | 
+**featureFlagKey** | **string** | The feature flag key | 
 **environmentKey** | **string** | The environment key | 
 **workflowId** | **string** | The workflow ID | 
 
@@ -189,7 +189,7 @@ import (
 
 func main() {
     projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag's key
+    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
     environmentKey := "environmentKey_example" // string | The environment key
 
     configuration := openapiclient.NewConfiguration()
@@ -211,7 +211,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **projectKey** | **string** | The project key | 
-**featureFlagKey** | **string** | The feature flag&#39;s key | 
+**featureFlagKey** | **string** | The feature flag key | 
 **environmentKey** | **string** | The environment key | 
 
 ### Other Parameters
@@ -265,7 +265,7 @@ import (
 
 func main() {
     projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag's key
+    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
     environmentKey := "environmentKey_example" // string | The environment key
     customWorkflowInputRep := *openapiclient.NewCustomWorkflowInputRep("Description_example") // CustomWorkflowInputRep | 
 
@@ -288,7 +288,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **projectKey** | **string** | The project key | 
-**featureFlagKey** | **string** | The feature flag&#39;s key | 
+**featureFlagKey** | **string** | The feature flag key | 
 **environmentKey** | **string** | The environment key | 
 
 ### Other Parameters

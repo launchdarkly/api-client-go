@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **OffVariation** | Pointer to **int32** |  | [optional] 
 **Prerequisites** | [**[]Prerequisite**](Prerequisite.md) |  | 
 **Site** | [**Link**](Link.md) |  | 
-**Access** | Pointer to [**AccessRep**](AccessRep.md) |  | [optional] 
+**Access** | Pointer to [**Access**](Access.md) |  | [optional] 
 **EnvironmentName** | **string** |  | 
 **TrackEvents** | **bool** |  | 
 **TrackEventsFallthrough** | **bool** |  | 
@@ -289,20 +289,20 @@ SetSite sets Site field to given value.
 
 ### GetAccess
 
-`func (o *FeatureFlagConfig) GetAccess() AccessRep`
+`func (o *FeatureFlagConfig) GetAccess() Access`
 
 GetAccess returns the Access field if non-nil, zero value otherwise.
 
 ### GetAccessOk
 
-`func (o *FeatureFlagConfig) GetAccessOk() (*AccessRep, bool)`
+`func (o *FeatureFlagConfig) GetAccessOk() (*Access, bool)`
 
 GetAccessOk returns a tuple with the Access field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAccess
 
-`func (o *FeatureFlagConfig) SetAccess(v AccessRep)`
+`func (o *FeatureFlagConfig) SetAccess(v Access)`
 
 SetAccess sets Access field to given value.
 

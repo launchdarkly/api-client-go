@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Items** | Pointer to [**[]MemberImportItemRep**](MemberImportItemRep.md) |  | [optional] 
+**Items** | Pointer to [**[]MemberImportItem**](MemberImportItem.md) |  | [optional] 
 
 ## Methods
 
@@ -27,20 +27,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetItems
 
-`func (o *TeamImportsRep) GetItems() []MemberImportItemRep`
+`func (o *TeamImportsRep) GetItems() []MemberImportItem`
 
 GetItems returns the Items field if non-nil, zero value otherwise.
 
 ### GetItemsOk
 
-`func (o *TeamImportsRep) GetItemsOk() (*[]MemberImportItemRep, bool)`
+`func (o *TeamImportsRep) GetItemsOk() (*[]MemberImportItem, bool)`
 
 GetItemsOk returns a tuple with the Items field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetItems
 
-`func (o *TeamImportsRep) SetItems(v []MemberImportItemRep)`
+`func (o *TeamImportsRep) SetItems(v []MemberImportItem)`
 
 SetItems sets Items field to given value.
 

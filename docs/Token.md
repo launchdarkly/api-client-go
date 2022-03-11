@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Id** | **string** |  | 
 **OwnerId** | **string** |  | 
 **MemberId** | **string** |  | 
-**Member** | Pointer to [**MemberSummaryRep**](MemberSummaryRep.md) |  | [optional] 
+**Member** | Pointer to [**MemberSummary**](MemberSummary.md) |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
 **CreationDate** | **int64** |  | 
@@ -102,20 +102,20 @@ SetMemberId sets MemberId field to given value.
 
 ### GetMember
 
-`func (o *Token) GetMember() MemberSummaryRep`
+`func (o *Token) GetMember() MemberSummary`
 
 GetMember returns the Member field if non-nil, zero value otherwise.
 
 ### GetMemberOk
 
-`func (o *Token) GetMemberOk() (*MemberSummaryRep, bool)`
+`func (o *Token) GetMemberOk() (*MemberSummary, bool)`
 
 GetMemberOk returns a tuple with the Member field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMember
 
-`func (o *Token) SetMember(v MemberSummaryRep)`
+`func (o *Token) SetMember(v MemberSummary)`
 
 SetMember sets Member field to given value.
 

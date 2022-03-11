@@ -12,7 +12,7 @@ Method | HTTP request | Description
 [**GetRepositories**](CodeReferencesApi.md#GetRepositories) | **Get** /api/v2/code-refs/repositories | List repositories
 [**GetRepository**](CodeReferencesApi.md#GetRepository) | **Get** /api/v2/code-refs/repositories/{repo} | Get repository
 [**GetRootStatistic**](CodeReferencesApi.md#GetRootStatistic) | **Get** /api/v2/code-refs/statistics | Get links to code reference repositories for each project
-[**GetStatistics**](CodeReferencesApi.md#GetStatistics) | **Get** /api/v2/code-refs/statistics/{projKey} | Get number of code references for flags
+[**GetStatistics**](CodeReferencesApi.md#GetStatistics) | **Get** /api/v2/code-refs/statistics/{projectKey} | Get number of code references for flags
 [**PatchRepository**](CodeReferencesApi.md#PatchRepository) | **Patch** /api/v2/code-refs/repositories/{repo} | Update repository
 [**PostExtinction**](CodeReferencesApi.md#PostExtinction) | **Post** /api/v2/code-refs/repositories/{repo}/branches/{branch}/extinction-events | Create extinction
 [**PostRepository**](CodeReferencesApi.md#PostRepository) | **Post** /api/v2/code-refs/repositories | Create repository
@@ -586,7 +586,7 @@ Other parameters are passed through a pointer to a apiGetRootStatisticRequest st
 
 ## GetStatistics
 
-> StatisticCollectionRep GetStatistics(ctx, projKey).FlagKey(flagKey).Execute()
+> StatisticCollectionRep GetStatistics(ctx, projectKey).FlagKey(flagKey).Execute()
 
 Get number of code references for flags
 
@@ -605,12 +605,12 @@ import (
 )
 
 func main() {
-    projKey := "projKey_example" // string | The project key
+    projectKey := "projectKey_example" // string | The project key
     flagKey := "flagKey_example" // string | Filter results to a specific flag key (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CodeReferencesApi.GetStatistics(context.Background(), projKey).FlagKey(flagKey).Execute()
+    resp, r, err := api_client.CodeReferencesApi.GetStatistics(context.Background(), projectKey).FlagKey(flagKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CodeReferencesApi.GetStatistics``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -626,7 +626,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projKey** | **string** | The project key | 
+**projectKey** | **string** | The project key | 
 
 ### Other Parameters
 
@@ -678,7 +678,7 @@ import (
 
 func main() {
     repo := "repo_example" // string | The repository name
-    patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/biscuits", interface{}(Chocolate Digestive))} // []PatchOperation | 
+    patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField", interface{}(new example value))} // []PatchOperation | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)

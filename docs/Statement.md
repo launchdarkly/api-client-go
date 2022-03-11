@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Resources** | Pointer to **[]string** | Resource specifier strings | [optional] 
-**NotResources** | Pointer to **[]string** | Targeted resources are the resources NOT in this list. The \&quot;resources\&quot; field must be empty to use this field. | [optional] 
+**NotResources** | Pointer to **[]string** | Targeted resources are the resources NOT in this list. The \&quot;resources\&quot; and \&quot;notActions\&quot; fields must be empty to use this field. | [optional] 
 **Actions** | Pointer to **[]string** | Actions to perform on a resource | [optional] 
-**NotActions** | Pointer to **[]string** | Targeted actions are the actions NOT in this list. The \&quot;actions\&quot; field must be empty to use this field. | [optional] 
+**NotActions** | Pointer to **[]string** | Targeted actions are the actions NOT in this list. The \&quot;actions\&quot; and \&quot;notResources\&quot; fields must be empty to use this field. | [optional] 
 **Effect** | **string** |  | 
 
 ## Methods

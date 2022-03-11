@@ -7,7 +7,10 @@ Name | Type | Description | Notes
 **Id** | **string** |  | 
 **Kind** | Pointer to **string** |  | [optional] 
 **Execution** | [**ExecutionOutputRep**](ExecutionOutputRep.md) |  | 
+**ScheduleKind** | Pointer to **string** |  | [optional] 
 **ExecutionDate** | Pointer to **int64** |  | [optional] 
+**WaitDuration** | Pointer to **int32** |  | [optional] 
+**WaitDurationUnit** | Pointer to **string** |  | [optional] 
 **Description** | **string** |  | 
 **NotifyMemberIds** | **[]string** |  | 
 **AllReviews** | [**[]ReviewOutputRep**](ReviewOutputRep.md) |  | 
@@ -98,6 +101,31 @@ and a boolean to check if the value has been set.
 SetExecution sets Execution field to given value.
 
 
+### GetScheduleKind
+
+`func (o *ConditionOutputRep) GetScheduleKind() string`
+
+GetScheduleKind returns the ScheduleKind field if non-nil, zero value otherwise.
+
+### GetScheduleKindOk
+
+`func (o *ConditionOutputRep) GetScheduleKindOk() (*string, bool)`
+
+GetScheduleKindOk returns a tuple with the ScheduleKind field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetScheduleKind
+
+`func (o *ConditionOutputRep) SetScheduleKind(v string)`
+
+SetScheduleKind sets ScheduleKind field to given value.
+
+### HasScheduleKind
+
+`func (o *ConditionOutputRep) HasScheduleKind() bool`
+
+HasScheduleKind returns a boolean if a field has been set.
+
 ### GetExecutionDate
 
 `func (o *ConditionOutputRep) GetExecutionDate() int64`
@@ -122,6 +150,56 @@ SetExecutionDate sets ExecutionDate field to given value.
 `func (o *ConditionOutputRep) HasExecutionDate() bool`
 
 HasExecutionDate returns a boolean if a field has been set.
+
+### GetWaitDuration
+
+`func (o *ConditionOutputRep) GetWaitDuration() int32`
+
+GetWaitDuration returns the WaitDuration field if non-nil, zero value otherwise.
+
+### GetWaitDurationOk
+
+`func (o *ConditionOutputRep) GetWaitDurationOk() (*int32, bool)`
+
+GetWaitDurationOk returns a tuple with the WaitDuration field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetWaitDuration
+
+`func (o *ConditionOutputRep) SetWaitDuration(v int32)`
+
+SetWaitDuration sets WaitDuration field to given value.
+
+### HasWaitDuration
+
+`func (o *ConditionOutputRep) HasWaitDuration() bool`
+
+HasWaitDuration returns a boolean if a field has been set.
+
+### GetWaitDurationUnit
+
+`func (o *ConditionOutputRep) GetWaitDurationUnit() string`
+
+GetWaitDurationUnit returns the WaitDurationUnit field if non-nil, zero value otherwise.
+
+### GetWaitDurationUnitOk
+
+`func (o *ConditionOutputRep) GetWaitDurationUnitOk() (*string, bool)`
+
+GetWaitDurationUnitOk returns a tuple with the WaitDurationUnit field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetWaitDurationUnit
+
+`func (o *ConditionOutputRep) SetWaitDurationUnit(v string)`
+
+SetWaitDurationUnit sets WaitDurationUnit field to given value.
+
+### HasWaitDurationUnit
+
+`func (o *ConditionOutputRep) HasWaitDurationUnit() bool`
+
+HasWaitDurationUnit returns a boolean if a field has been set.
 
 ### GetDescription
 

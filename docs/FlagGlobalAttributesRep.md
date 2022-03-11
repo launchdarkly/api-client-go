@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 **Tags** | **[]string** | Tags for the feature flag | 
 **Links** | [**map[string]Link**](Link.md) |  | 
 **MaintainerId** | Pointer to **string** | Associated maintainerId for the feature flag | [optional] 
-**Maintainer** | Pointer to [**MemberSummaryRep**](MemberSummaryRep.md) |  | [optional] 
+**Maintainer** | Pointer to [**MemberSummary**](MemberSummary.md) |  | [optional] 
 **GoalIds** | Pointer to **[]string** |  | [optional] 
 **Experiments** | [**ExperimentInfoRep**](ExperimentInfoRep.md) |  | 
 **CustomProperties** | [**map[string]CustomProperty**](CustomProperty.md) |  | 
@@ -362,20 +362,20 @@ HasMaintainerId returns a boolean if a field has been set.
 
 ### GetMaintainer
 
-`func (o *FlagGlobalAttributesRep) GetMaintainer() MemberSummaryRep`
+`func (o *FlagGlobalAttributesRep) GetMaintainer() MemberSummary`
 
 GetMaintainer returns the Maintainer field if non-nil, zero value otherwise.
 
 ### GetMaintainerOk
 
-`func (o *FlagGlobalAttributesRep) GetMaintainerOk() (*MemberSummaryRep, bool)`
+`func (o *FlagGlobalAttributesRep) GetMaintainerOk() (*MemberSummary, bool)`
 
 GetMaintainerOk returns a tuple with the Maintainer field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMaintainer
 
-`func (o *FlagGlobalAttributesRep) SetMaintainer(v MemberSummaryRep)`
+`func (o *FlagGlobalAttributesRep) SetMaintainer(v MemberSummary)`
 
 SetMaintainer sets Maintainer field to given value.
 

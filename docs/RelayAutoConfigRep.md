@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** |  | 
-**Creator** | Pointer to [**MemberSummaryRep**](MemberSummaryRep.md) |  | [optional] 
-**Access** | Pointer to [**AccessRep**](AccessRep.md) |  | [optional] 
+**Creator** | Pointer to [**MemberSummary**](MemberSummary.md) |  | [optional] 
+**Access** | Pointer to [**Access**](Access.md) |  | [optional] 
 **Name** | **string** |  | 
 **Policy** | [**[]StatementRep**](StatementRep.md) |  | 
 **FullKey** | **string** |  | 
@@ -55,20 +55,20 @@ SetId sets Id field to given value.
 
 ### GetCreator
 
-`func (o *RelayAutoConfigRep) GetCreator() MemberSummaryRep`
+`func (o *RelayAutoConfigRep) GetCreator() MemberSummary`
 
 GetCreator returns the Creator field if non-nil, zero value otherwise.
 
 ### GetCreatorOk
 
-`func (o *RelayAutoConfigRep) GetCreatorOk() (*MemberSummaryRep, bool)`
+`func (o *RelayAutoConfigRep) GetCreatorOk() (*MemberSummary, bool)`
 
 GetCreatorOk returns a tuple with the Creator field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreator
 
-`func (o *RelayAutoConfigRep) SetCreator(v MemberSummaryRep)`
+`func (o *RelayAutoConfigRep) SetCreator(v MemberSummary)`
 
 SetCreator sets Creator field to given value.
 
@@ -80,20 +80,20 @@ HasCreator returns a boolean if a field has been set.
 
 ### GetAccess
 
-`func (o *RelayAutoConfigRep) GetAccess() AccessRep`
+`func (o *RelayAutoConfigRep) GetAccess() Access`
 
 GetAccess returns the Access field if non-nil, zero value otherwise.
 
 ### GetAccessOk
 
-`func (o *RelayAutoConfigRep) GetAccessOk() (*AccessRep, bool)`
+`func (o *RelayAutoConfigRep) GetAccessOk() (*Access, bool)`
 
 GetAccessOk returns a tuple with the Access field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAccess
 
-`func (o *RelayAutoConfigRep) SetAccess(v AccessRep)`
+`func (o *RelayAutoConfigRep) SetAccess(v Access)`
 
 SetAccess sets Access field to given value.
 

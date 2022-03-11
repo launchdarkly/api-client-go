@@ -8,8 +8,8 @@ Method | HTTP request | Description
 [**GetEnvironment**](EnvironmentsApi.md#GetEnvironment) | **Get** /api/v2/projects/{projectKey}/environments/{environmentKey} | Get environment
 [**PatchEnvironment**](EnvironmentsApi.md#PatchEnvironment) | **Patch** /api/v2/projects/{projectKey}/environments/{environmentKey} | Update environment
 [**PostEnvironment**](EnvironmentsApi.md#PostEnvironment) | **Post** /api/v2/projects/{projectKey}/environments | Create environment
-[**ResetEnvironmentMobileKey**](EnvironmentsApi.md#ResetEnvironmentMobileKey) | **Post** /api/v2/projects/{projectKey}/environments/{envKey}/mobileKey | Reset environment mobile SDK key
-[**ResetEnvironmentSDKKey**](EnvironmentsApi.md#ResetEnvironmentSDKKey) | **Post** /api/v2/projects/{projectKey}/environments/{envKey}/apiKey | Reset environment SDK key
+[**ResetEnvironmentMobileKey**](EnvironmentsApi.md#ResetEnvironmentMobileKey) | **Post** /api/v2/projects/{projectKey}/environments/{environmentKey}/mobileKey | Reset environment mobile SDK key
+[**ResetEnvironmentSDKKey**](EnvironmentsApi.md#ResetEnvironmentSDKKey) | **Post** /api/v2/projects/{projectKey}/environments/{environmentKey}/apiKey | Reset environment SDK key
 
 
 
@@ -180,7 +180,7 @@ import (
 func main() {
     projectKey := "projectKey_example" // string | The project key
     environmentKey := "environmentKey_example" // string | The environment key
-    patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/biscuits", interface{}(Chocolate Digestive))} // []PatchOperation | 
+    patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField", interface{}(new example value))} // []PatchOperation | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -306,7 +306,7 @@ Name | Type | Description  | Notes
 
 ## ResetEnvironmentMobileKey
 
-> Environment ResetEnvironmentMobileKey(ctx, projectKey, envKey).Execute()
+> Environment ResetEnvironmentMobileKey(ctx, projectKey, environmentKey).Execute()
 
 Reset environment mobile SDK key
 
@@ -326,11 +326,11 @@ import (
 
 func main() {
     projectKey := "projectKey_example" // string | The project key
-    envKey := "envKey_example" // string | The environment key
+    environmentKey := "environmentKey_example" // string | The environment key
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.EnvironmentsApi.ResetEnvironmentMobileKey(context.Background(), projectKey, envKey).Execute()
+    resp, r, err := api_client.EnvironmentsApi.ResetEnvironmentMobileKey(context.Background(), projectKey, environmentKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `EnvironmentsApi.ResetEnvironmentMobileKey``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -347,7 +347,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **projectKey** | **string** | The project key | 
-**envKey** | **string** | The environment key | 
+**environmentKey** | **string** | The environment key | 
 
 ### Other Parameters
 
@@ -379,7 +379,7 @@ Name | Type | Description  | Notes
 
 ## ResetEnvironmentSDKKey
 
-> Environment ResetEnvironmentSDKKey(ctx, projectKey, envKey).Expiry(expiry).Execute()
+> Environment ResetEnvironmentSDKKey(ctx, projectKey, environmentKey).Expiry(expiry).Execute()
 
 Reset environment SDK key
 
@@ -399,12 +399,12 @@ import (
 
 func main() {
     projectKey := "projectKey_example" // string | The project key
-    envKey := "envKey_example" // string | The environment key
+    environmentKey := "environmentKey_example" // string | The environment key
     expiry := int64(789) // int64 | The time at which you want the old SDK key to expire, in UNIX milliseconds. By default, the key expires immediately. (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.EnvironmentsApi.ResetEnvironmentSDKKey(context.Background(), projectKey, envKey).Expiry(expiry).Execute()
+    resp, r, err := api_client.EnvironmentsApi.ResetEnvironmentSDKKey(context.Background(), projectKey, environmentKey).Expiry(expiry).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `EnvironmentsApi.ResetEnvironmentSDKKey``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -421,7 +421,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **projectKey** | **string** | The project key | 
-**envKey** | **string** | The environment key | 
+**environmentKey** | **string** | The environment key | 
 
 ### Other Parameters
 

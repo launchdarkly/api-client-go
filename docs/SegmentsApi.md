@@ -4,21 +4,21 @@ All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteSegment**](SegmentsApi.md#DeleteSegment) | **Delete** /api/v2/segments/{projKey}/{envKey}/{key} | Delete segment
-[**GetExpiringUserTargetsForSegment**](SegmentsApi.md#GetExpiringUserTargetsForSegment) | **Get** /api/v2/segments/{projKey}/{segmentKey}/expiring-user-targets/{envKey} | Get expiring user targets for segment
-[**GetSegment**](SegmentsApi.md#GetSegment) | **Get** /api/v2/segments/{projKey}/{envKey}/{key} | Get segment
-[**GetSegmentMembershipForUser**](SegmentsApi.md#GetSegmentMembershipForUser) | **Get** /api/v2/segments/{projKey}/{envKey}/{key}/users/{userKey} | Get Big Segment membership for user
-[**GetSegments**](SegmentsApi.md#GetSegments) | **Get** /api/v2/segments/{projKey}/{envKey} | List segments
-[**PatchExpiringUserTargetsForSegment**](SegmentsApi.md#PatchExpiringUserTargetsForSegment) | **Patch** /api/v2/segments/{projKey}/{segmentKey}/expiring-user-targets/{envKey} | Update expiring user targets for segment
-[**PatchSegment**](SegmentsApi.md#PatchSegment) | **Patch** /api/v2/segments/{projKey}/{envKey}/{key} | Patch segment
-[**PostSegment**](SegmentsApi.md#PostSegment) | **Post** /api/v2/segments/{projKey}/{envKey} | Create segment
-[**UpdateBigSegmentTargets**](SegmentsApi.md#UpdateBigSegmentTargets) | **Post** /api/v2/segments/{projKey}/{envKey}/{key}/users | Update targets on a Big Segment
+[**DeleteSegment**](SegmentsApi.md#DeleteSegment) | **Delete** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey} | Delete segment
+[**GetExpiringUserTargetsForSegment**](SegmentsApi.md#GetExpiringUserTargetsForSegment) | **Get** /api/v2/segments/{projectKey}/{segmentKey}/expiring-user-targets/{environmentKey} | Get expiring user targets for segment
+[**GetSegment**](SegmentsApi.md#GetSegment) | **Get** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey} | Get segment
+[**GetSegmentMembershipForUser**](SegmentsApi.md#GetSegmentMembershipForUser) | **Get** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/users/{userKey} | Get Big Segment membership for user
+[**GetSegments**](SegmentsApi.md#GetSegments) | **Get** /api/v2/segments/{projectKey}/{environmentKey} | List segments
+[**PatchExpiringUserTargetsForSegment**](SegmentsApi.md#PatchExpiringUserTargetsForSegment) | **Patch** /api/v2/segments/{projectKey}/{segmentKey}/expiring-user-targets/{environmentKey} | Update expiring user targets for segment
+[**PatchSegment**](SegmentsApi.md#PatchSegment) | **Patch** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey} | Patch segment
+[**PostSegment**](SegmentsApi.md#PostSegment) | **Post** /api/v2/segments/{projectKey}/{environmentKey} | Create segment
+[**UpdateBigSegmentTargets**](SegmentsApi.md#UpdateBigSegmentTargets) | **Post** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/users | Update targets on a Big Segment
 
 
 
 ## DeleteSegment
 
-> DeleteSegment(ctx, projKey, envKey, key).Execute()
+> DeleteSegment(ctx, projectKey, environmentKey, segmentKey).Execute()
 
 Delete segment
 
@@ -37,13 +37,13 @@ import (
 )
 
 func main() {
-    projKey := "projKey_example" // string | The project key.
-    envKey := "envKey_example" // string | The environment key.
-    key := "key_example" // string | The user segment key.
+    projectKey := "projectKey_example" // string | The project key
+    environmentKey := "environmentKey_example" // string | The environment key
+    segmentKey := "segmentKey_example" // string | The segment key
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SegmentsApi.DeleteSegment(context.Background(), projKey, envKey, key).Execute()
+    resp, r, err := api_client.SegmentsApi.DeleteSegment(context.Background(), projectKey, environmentKey, segmentKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.DeleteSegment``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -57,9 +57,9 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projKey** | **string** | The project key. | 
-**envKey** | **string** | The environment key. | 
-**key** | **string** | The user segment key. | 
+**projectKey** | **string** | The project key | 
+**environmentKey** | **string** | The environment key | 
+**segmentKey** | **string** | The segment key | 
 
 ### Other Parameters
 
@@ -92,7 +92,7 @@ Name | Type | Description  | Notes
 
 ## GetExpiringUserTargetsForSegment
 
-> ExpiringUserTargetGetResponse GetExpiringUserTargetsForSegment(ctx, projKey, envKey, segmentKey).Execute()
+> ExpiringUserTargetGetResponse GetExpiringUserTargetsForSegment(ctx, projectKey, environmentKey, segmentKey).Execute()
 
 Get expiring user targets for segment
 
@@ -111,13 +111,13 @@ import (
 )
 
 func main() {
-    projKey := "projKey_example" // string | The project key.
-    envKey := "envKey_example" // string | The environment key.
-    segmentKey := "segmentKey_example" // string | The segment key.
+    projectKey := "projectKey_example" // string | The project key
+    environmentKey := "environmentKey_example" // string | The environment key
+    segmentKey := "segmentKey_example" // string | The segment key
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SegmentsApi.GetExpiringUserTargetsForSegment(context.Background(), projKey, envKey, segmentKey).Execute()
+    resp, r, err := api_client.SegmentsApi.GetExpiringUserTargetsForSegment(context.Background(), projectKey, environmentKey, segmentKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.GetExpiringUserTargetsForSegment``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -133,9 +133,9 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projKey** | **string** | The project key. | 
-**envKey** | **string** | The environment key. | 
-**segmentKey** | **string** | The segment key. | 
+**projectKey** | **string** | The project key | 
+**environmentKey** | **string** | The environment key | 
+**segmentKey** | **string** | The segment key | 
 
 ### Other Parameters
 
@@ -168,7 +168,7 @@ Name | Type | Description  | Notes
 
 ## GetSegment
 
-> UserSegment GetSegment(ctx, projKey, envKey, key).Execute()
+> UserSegment GetSegment(ctx, projectKey, environmentKey, segmentKey).Execute()
 
 Get segment
 
@@ -187,13 +187,13 @@ import (
 )
 
 func main() {
-    projKey := "projKey_example" // string | The project key.
-    envKey := "envKey_example" // string | The environment key.
-    key := "key_example" // string | The segment key
+    projectKey := "projectKey_example" // string | The project key
+    environmentKey := "environmentKey_example" // string | The environment key
+    segmentKey := "segmentKey_example" // string | The segment key
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SegmentsApi.GetSegment(context.Background(), projKey, envKey, key).Execute()
+    resp, r, err := api_client.SegmentsApi.GetSegment(context.Background(), projectKey, environmentKey, segmentKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.GetSegment``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -209,9 +209,9 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projKey** | **string** | The project key. | 
-**envKey** | **string** | The environment key. | 
-**key** | **string** | The segment key | 
+**projectKey** | **string** | The project key | 
+**environmentKey** | **string** | The environment key | 
+**segmentKey** | **string** | The segment key | 
 
 ### Other Parameters
 
@@ -244,7 +244,7 @@ Name | Type | Description  | Notes
 
 ## GetSegmentMembershipForUser
 
-> BigSegmentTarget GetSegmentMembershipForUser(ctx, projKey, envKey, key, userKey).Execute()
+> BigSegmentTarget GetSegmentMembershipForUser(ctx, projectKey, environmentKey, segmentKey, userKey).Execute()
 
 Get Big Segment membership for user
 
@@ -263,14 +263,14 @@ import (
 )
 
 func main() {
-    projKey := "projKey_example" // string | The project key.
-    envKey := "envKey_example" // string | The environment key.
-    key := "key_example" // string | The segment key.
-    userKey := "userKey_example" // string | The user key.
+    projectKey := "projectKey_example" // string | The project key
+    environmentKey := "environmentKey_example" // string | The environment key
+    segmentKey := "segmentKey_example" // string | The segment key
+    userKey := "userKey_example" // string | The user key
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SegmentsApi.GetSegmentMembershipForUser(context.Background(), projKey, envKey, key, userKey).Execute()
+    resp, r, err := api_client.SegmentsApi.GetSegmentMembershipForUser(context.Background(), projectKey, environmentKey, segmentKey, userKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.GetSegmentMembershipForUser``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -286,10 +286,10 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projKey** | **string** | The project key. | 
-**envKey** | **string** | The environment key. | 
-**key** | **string** | The segment key. | 
-**userKey** | **string** | The user key. | 
+**projectKey** | **string** | The project key | 
+**environmentKey** | **string** | The environment key | 
+**segmentKey** | **string** | The segment key | 
+**userKey** | **string** | The user key | 
 
 ### Other Parameters
 
@@ -323,7 +323,7 @@ Name | Type | Description  | Notes
 
 ## GetSegments
 
-> UserSegments GetSegments(ctx, projKey, envKey).Execute()
+> UserSegments GetSegments(ctx, projectKey, environmentKey).Execute()
 
 List segments
 
@@ -342,12 +342,12 @@ import (
 )
 
 func main() {
-    projKey := "projKey_example" // string | The project key.
-    envKey := "envKey_example" // string | The environment key.
+    projectKey := "projectKey_example" // string | The project key
+    environmentKey := "environmentKey_example" // string | The environment key
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SegmentsApi.GetSegments(context.Background(), projKey, envKey).Execute()
+    resp, r, err := api_client.SegmentsApi.GetSegments(context.Background(), projectKey, environmentKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.GetSegments``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -363,8 +363,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projKey** | **string** | The project key. | 
-**envKey** | **string** | The environment key. | 
+**projectKey** | **string** | The project key | 
+**environmentKey** | **string** | The environment key | 
 
 ### Other Parameters
 
@@ -396,7 +396,7 @@ Name | Type | Description  | Notes
 
 ## PatchExpiringUserTargetsForSegment
 
-> ExpiringUserTargetPatchResponse PatchExpiringUserTargetsForSegment(ctx, projKey, envKey, segmentKey).PatchSegmentRequest(patchSegmentRequest).Execute()
+> ExpiringUserTargetPatchResponse PatchExpiringUserTargetsForSegment(ctx, projectKey, environmentKey, segmentKey).PatchSegmentRequest(patchSegmentRequest).Execute()
 
 Update expiring user targets for segment
 
@@ -415,14 +415,14 @@ import (
 )
 
 func main() {
-    projKey := "projKey_example" // string | The project key.
-    envKey := "envKey_example" // string | The environment key.
-    segmentKey := "segmentKey_example" // string | The user segment key.
+    projectKey := "projectKey_example" // string | The project key
+    environmentKey := "environmentKey_example" // string | The environment key
+    segmentKey := "segmentKey_example" // string | The segment key
     patchSegmentRequest := *openapiclient.NewPatchSegmentRequest([]openapiclient.PatchSegmentInstruction{*openapiclient.NewPatchSegmentInstruction("Kind_example", "UserKey_example", "TargetType_example")}) // PatchSegmentRequest | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SegmentsApi.PatchExpiringUserTargetsForSegment(context.Background(), projKey, envKey, segmentKey).PatchSegmentRequest(patchSegmentRequest).Execute()
+    resp, r, err := api_client.SegmentsApi.PatchExpiringUserTargetsForSegment(context.Background(), projectKey, environmentKey, segmentKey).PatchSegmentRequest(patchSegmentRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.PatchExpiringUserTargetsForSegment``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -438,9 +438,9 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projKey** | **string** | The project key. | 
-**envKey** | **string** | The environment key. | 
-**segmentKey** | **string** | The user segment key. | 
+**projectKey** | **string** | The project key | 
+**environmentKey** | **string** | The environment key | 
+**segmentKey** | **string** | The segment key | 
 
 ### Other Parameters
 
@@ -474,7 +474,7 @@ Name | Type | Description  | Notes
 
 ## PatchSegment
 
-> UserSegment PatchSegment(ctx, projKey, envKey, key).PatchWithComment(patchWithComment).Execute()
+> UserSegment PatchSegment(ctx, projectKey, environmentKey, segmentKey).PatchWithComment(patchWithComment).Execute()
 
 Patch segment
 
@@ -493,14 +493,14 @@ import (
 )
 
 func main() {
-    projKey := "projKey_example" // string | The project key.
-    envKey := "envKey_example" // string | The environment key.
-    key := "key_example" // string | The user segment key.
-    patchWithComment := *openapiclient.NewPatchWithComment([]openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/biscuits", interface{}(Chocolate Digestive))}) // PatchWithComment | 
+    projectKey := "projectKey_example" // string | The project key
+    environmentKey := "environmentKey_example" // string | The environment key
+    segmentKey := "segmentKey_example" // string | The segment key
+    patchWithComment := *openapiclient.NewPatchWithComment([]openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField", interface{}(new example value))}) // PatchWithComment | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SegmentsApi.PatchSegment(context.Background(), projKey, envKey, key).PatchWithComment(patchWithComment).Execute()
+    resp, r, err := api_client.SegmentsApi.PatchSegment(context.Background(), projectKey, environmentKey, segmentKey).PatchWithComment(patchWithComment).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.PatchSegment``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -516,9 +516,9 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projKey** | **string** | The project key. | 
-**envKey** | **string** | The environment key. | 
-**key** | **string** | The user segment key. | 
+**projectKey** | **string** | The project key | 
+**environmentKey** | **string** | The environment key | 
+**segmentKey** | **string** | The segment key | 
 
 ### Other Parameters
 
@@ -552,7 +552,7 @@ Name | Type | Description  | Notes
 
 ## PostSegment
 
-> UserSegment PostSegment(ctx, projKey, envKey).SegmentBody(segmentBody).Execute()
+> UserSegment PostSegment(ctx, projectKey, environmentKey).SegmentBody(segmentBody).Execute()
 
 Create segment
 
@@ -571,13 +571,13 @@ import (
 )
 
 func main() {
-    projKey := "projKey_example" // string | The project key.
-    envKey := "envKey_example" // string | The environment key.
+    projectKey := "projectKey_example" // string | The project key
+    environmentKey := "environmentKey_example" // string | The environment key
     segmentBody := *openapiclient.NewSegmentBody("Name_example", "Key_example") // SegmentBody | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SegmentsApi.PostSegment(context.Background(), projKey, envKey).SegmentBody(segmentBody).Execute()
+    resp, r, err := api_client.SegmentsApi.PostSegment(context.Background(), projectKey, environmentKey).SegmentBody(segmentBody).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.PostSegment``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -593,8 +593,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projKey** | **string** | The project key. | 
-**envKey** | **string** | The environment key. | 
+**projectKey** | **string** | The project key | 
+**environmentKey** | **string** | The environment key | 
 
 ### Other Parameters
 
@@ -627,7 +627,7 @@ Name | Type | Description  | Notes
 
 ## UpdateBigSegmentTargets
 
-> UpdateBigSegmentTargets(ctx, projKey, envKey, key).SegmentUserState(segmentUserState).Execute()
+> UpdateBigSegmentTargets(ctx, projectKey, environmentKey, segmentKey).SegmentUserState(segmentUserState).Execute()
 
 Update targets on a Big Segment
 
@@ -646,14 +646,14 @@ import (
 )
 
 func main() {
-    projKey := "projKey_example" // string | The project key.
-    envKey := "envKey_example" // string | The environment key.
-    key := "key_example" // string | The segment key.
+    projectKey := "projectKey_example" // string | The project key
+    environmentKey := "environmentKey_example" // string | The environment key
+    segmentKey := "segmentKey_example" // string | The segment key
     segmentUserState := *openapiclient.NewSegmentUserState() // SegmentUserState | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SegmentsApi.UpdateBigSegmentTargets(context.Background(), projKey, envKey, key).SegmentUserState(segmentUserState).Execute()
+    resp, r, err := api_client.SegmentsApi.UpdateBigSegmentTargets(context.Background(), projectKey, environmentKey, segmentKey).SegmentUserState(segmentUserState).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.UpdateBigSegmentTargets``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -667,9 +667,9 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projKey** | **string** | The project key. | 
-**envKey** | **string** | The environment key. | 
-**key** | **string** | The segment key. | 
+**projectKey** | **string** | The project key | 
+**environmentKey** | **string** | The environment key | 
+**segmentKey** | **string** | The segment key | 
 
 ### Other Parameters
 

@@ -4,17 +4,17 @@ All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteDestination**](DataExportDestinationsApi.md#DeleteDestination) | **Delete** /api/v2/destinations/{projKey}/{envKey}/{id} | Delete Data Export destination
-[**GetDestination**](DataExportDestinationsApi.md#GetDestination) | **Get** /api/v2/destinations/{projKey}/{envKey}/{id} | Get destination
+[**DeleteDestination**](DataExportDestinationsApi.md#DeleteDestination) | **Delete** /api/v2/destinations/{projectKey}/{environmentKey}/{id} | Delete Data Export destination
+[**GetDestination**](DataExportDestinationsApi.md#GetDestination) | **Get** /api/v2/destinations/{projectKey}/{environmentKey}/{id} | Get destination
 [**GetDestinations**](DataExportDestinationsApi.md#GetDestinations) | **Get** /api/v2/destinations | List destinations
-[**PatchDestination**](DataExportDestinationsApi.md#PatchDestination) | **Patch** /api/v2/destinations/{projKey}/{envKey}/{id} | Update Data Export destination
-[**PostDestination**](DataExportDestinationsApi.md#PostDestination) | **Post** /api/v2/destinations/{projKey}/{envKey} | Create data export destination
+[**PatchDestination**](DataExportDestinationsApi.md#PatchDestination) | **Patch** /api/v2/destinations/{projectKey}/{environmentKey}/{id} | Update Data Export destination
+[**PostDestination**](DataExportDestinationsApi.md#PostDestination) | **Post** /api/v2/destinations/{projectKey}/{environmentKey} | Create data export destination
 
 
 
 ## DeleteDestination
 
-> DeleteDestination(ctx, projKey, envKey, id).Execute()
+> DeleteDestination(ctx, projectKey, environmentKey, id).Execute()
 
 Delete Data Export destination
 
@@ -33,13 +33,13 @@ import (
 )
 
 func main() {
-    projKey := "projKey_example" // string | The project key
-    envKey := "envKey_example" // string | The environment key
+    projectKey := "projectKey_example" // string | The project key
+    environmentKey := "environmentKey_example" // string | The environment key
     id := "id_example" // string | The Data Export destination ID
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DataExportDestinationsApi.DeleteDestination(context.Background(), projKey, envKey, id).Execute()
+    resp, r, err := api_client.DataExportDestinationsApi.DeleteDestination(context.Background(), projectKey, environmentKey, id).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DataExportDestinationsApi.DeleteDestination``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -53,8 +53,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projKey** | **string** | The project key | 
-**envKey** | **string** | The environment key | 
+**projectKey** | **string** | The project key | 
+**environmentKey** | **string** | The environment key | 
 **id** | **string** | The Data Export destination ID | 
 
 ### Other Parameters
@@ -88,7 +88,7 @@ Name | Type | Description  | Notes
 
 ## GetDestination
 
-> Destination GetDestination(ctx, projKey, envKey, id).Execute()
+> Destination GetDestination(ctx, projectKey, environmentKey, id).Execute()
 
 Get destination
 
@@ -107,13 +107,13 @@ import (
 )
 
 func main() {
-    projKey := "projKey_example" // string | The project key
-    envKey := "envKey_example" // string | The environment key
+    projectKey := "projectKey_example" // string | The project key
+    environmentKey := "environmentKey_example" // string | The environment key
     id := "id_example" // string | The Data Export destination ID
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DataExportDestinationsApi.GetDestination(context.Background(), projKey, envKey, id).Execute()
+    resp, r, err := api_client.DataExportDestinationsApi.GetDestination(context.Background(), projectKey, environmentKey, id).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DataExportDestinationsApi.GetDestination``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -129,8 +129,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projKey** | **string** | The project key | 
-**envKey** | **string** | The environment key | 
+**projectKey** | **string** | The project key | 
+**environmentKey** | **string** | The environment key | 
 **id** | **string** | The Data Export destination ID | 
 
 ### Other Parameters
@@ -225,7 +225,7 @@ Other parameters are passed through a pointer to a apiGetDestinationsRequest str
 
 ## PatchDestination
 
-> Destination PatchDestination(ctx, projKey, envKey, id).PatchOperation(patchOperation).Execute()
+> Destination PatchDestination(ctx, projectKey, environmentKey, id).PatchOperation(patchOperation).Execute()
 
 Update Data Export destination
 
@@ -244,14 +244,14 @@ import (
 )
 
 func main() {
-    projKey := "projKey_example" // string | The project key
-    envKey := "envKey_example" // string | The environment key
+    projectKey := "projectKey_example" // string | The project key
+    environmentKey := "environmentKey_example" // string | The environment key
     id := "id_example" // string | The Data Export destination ID
-    patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/biscuits", interface{}(Chocolate Digestive))} // []PatchOperation | 
+    patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField", interface{}(new example value))} // []PatchOperation | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DataExportDestinationsApi.PatchDestination(context.Background(), projKey, envKey, id).PatchOperation(patchOperation).Execute()
+    resp, r, err := api_client.DataExportDestinationsApi.PatchDestination(context.Background(), projectKey, environmentKey, id).PatchOperation(patchOperation).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DataExportDestinationsApi.PatchDestination``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -267,8 +267,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projKey** | **string** | The project key | 
-**envKey** | **string** | The environment key | 
+**projectKey** | **string** | The project key | 
+**environmentKey** | **string** | The environment key | 
 **id** | **string** | The Data Export destination ID | 
 
 ### Other Parameters
@@ -303,7 +303,7 @@ Name | Type | Description  | Notes
 
 ## PostDestination
 
-> Destination PostDestination(ctx, projKey, envKey).DestinationPost(destinationPost).Execute()
+> Destination PostDestination(ctx, projectKey, environmentKey).DestinationPost(destinationPost).Execute()
 
 Create data export destination
 
@@ -322,13 +322,13 @@ import (
 )
 
 func main() {
-    projKey := "projKey_example" // string | The project key
-    envKey := "envKey_example" // string | The environment key
+    projectKey := "projectKey_example" // string | The project key
+    environmentKey := "environmentKey_example" // string | The environment key
     destinationPost := *openapiclient.NewDestinationPost() // DestinationPost | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DataExportDestinationsApi.PostDestination(context.Background(), projKey, envKey).DestinationPost(destinationPost).Execute()
+    resp, r, err := api_client.DataExportDestinationsApi.PostDestination(context.Background(), projectKey, environmentKey).DestinationPost(destinationPost).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DataExportDestinationsApi.PostDestination``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -344,8 +344,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projKey** | **string** | The project key | 
-**envKey** | **string** | The environment key | 
+**projectKey** | **string** | The project key | 
+**environmentKey** | **string** | The environment key | 
 
 ### Other Parameters
 

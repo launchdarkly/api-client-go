@@ -15,7 +15,6 @@ Name | Type | Description | Notes
 **Name** | Pointer to **string** |  | [optional] 
 **Anonymous** | Pointer to **bool** |  | [optional] 
 **Custom** | Pointer to **map[string]interface{}** |  | [optional] 
-**Derived** | Pointer to [**map[string]DerivedAttribute**](DerivedAttribute.md) |  | [optional] 
 **PrivateAttrs** | Pointer to **[]string** |  | [optional] 
 
 ## Methods
@@ -311,31 +310,6 @@ SetCustom sets Custom field to given value.
 `func (o *User) HasCustom() bool`
 
 HasCustom returns a boolean if a field has been set.
-
-### GetDerived
-
-`func (o *User) GetDerived() map[string]DerivedAttribute`
-
-GetDerived returns the Derived field if non-nil, zero value otherwise.
-
-### GetDerivedOk
-
-`func (o *User) GetDerivedOk() (*map[string]DerivedAttribute, bool)`
-
-GetDerivedOk returns a tuple with the Derived field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDerived
-
-`func (o *User) SetDerived(v map[string]DerivedAttribute)`
-
-SetDerived sets Derived field to given value.
-
-### HasDerived
-
-`func (o *User) HasDerived() bool`
-
-HasDerived returns a boolean if a field has been set.
 
 ### GetPrivateAttrs
 

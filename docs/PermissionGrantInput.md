@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**MemberIDs** | Pointer to **[]string** |  | [optional] 
-**Actions** | Pointer to **[]string** |  | [optional] 
 **ActionSet** | Pointer to **string** |  | [optional] 
+**Actions** | Pointer to **[]string** |  | [optional] 
+**MemberIDs** | Pointer to **[]string** |  | [optional] 
 
 ## Methods
 
@@ -27,30 +27,30 @@ NewPermissionGrantInputWithDefaults instantiates a new PermissionGrantInput obje
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetMemberIDs
+### GetActionSet
 
-`func (o *PermissionGrantInput) GetMemberIDs() []string`
+`func (o *PermissionGrantInput) GetActionSet() string`
 
-GetMemberIDs returns the MemberIDs field if non-nil, zero value otherwise.
+GetActionSet returns the ActionSet field if non-nil, zero value otherwise.
 
-### GetMemberIDsOk
+### GetActionSetOk
 
-`func (o *PermissionGrantInput) GetMemberIDsOk() (*[]string, bool)`
+`func (o *PermissionGrantInput) GetActionSetOk() (*string, bool)`
 
-GetMemberIDsOk returns a tuple with the MemberIDs field if it's non-nil, zero value otherwise
+GetActionSetOk returns a tuple with the ActionSet field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetMemberIDs
+### SetActionSet
 
-`func (o *PermissionGrantInput) SetMemberIDs(v []string)`
+`func (o *PermissionGrantInput) SetActionSet(v string)`
 
-SetMemberIDs sets MemberIDs field to given value.
+SetActionSet sets ActionSet field to given value.
 
-### HasMemberIDs
+### HasActionSet
 
-`func (o *PermissionGrantInput) HasMemberIDs() bool`
+`func (o *PermissionGrantInput) HasActionSet() bool`
 
-HasMemberIDs returns a boolean if a field has been set.
+HasActionSet returns a boolean if a field has been set.
 
 ### GetActions
 
@@ -77,30 +77,30 @@ SetActions sets Actions field to given value.
 
 HasActions returns a boolean if a field has been set.
 
-### GetActionSet
+### GetMemberIDs
 
-`func (o *PermissionGrantInput) GetActionSet() string`
+`func (o *PermissionGrantInput) GetMemberIDs() []string`
 
-GetActionSet returns the ActionSet field if non-nil, zero value otherwise.
+GetMemberIDs returns the MemberIDs field if non-nil, zero value otherwise.
 
-### GetActionSetOk
+### GetMemberIDsOk
 
-`func (o *PermissionGrantInput) GetActionSetOk() (*string, bool)`
+`func (o *PermissionGrantInput) GetMemberIDsOk() (*[]string, bool)`
 
-GetActionSetOk returns a tuple with the ActionSet field if it's non-nil, zero value otherwise
+GetMemberIDsOk returns a tuple with the MemberIDs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetActionSet
+### SetMemberIDs
 
-`func (o *PermissionGrantInput) SetActionSet(v string)`
+`func (o *PermissionGrantInput) SetMemberIDs(v []string)`
 
-SetActionSet sets ActionSet field to given value.
+SetMemberIDs sets MemberIDs field to given value.
 
-### HasActionSet
+### HasMemberIDs
 
-`func (o *PermissionGrantInput) HasActionSet() bool`
+`func (o *PermissionGrantInput) HasMemberIDs() bool`
 
-HasActionSet returns a boolean if a field has been set.
+HasMemberIDs returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

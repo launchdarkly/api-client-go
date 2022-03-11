@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Version** | Pointer to **int32** |  | [optional] 
 **CreationDate** | Pointer to **int64** |  | [optional] 
 **MaintainerId** | Pointer to **string** |  | [optional] 
-**Maintainer** | Pointer to [**MemberSummaryRep**](MemberSummaryRep.md) |  | [optional] 
+**Maintainer** | Pointer to [**MemberSummary**](MemberSummary.md) |  | [optional] 
 **Enabled** | Pointer to **bool** |  | [optional] 
 **IntegrationKey** | Pointer to **string** |  | [optional] 
 **Instructions** | Pointer to **[]map[string]interface{}** |  | [optional] 
@@ -139,20 +139,20 @@ HasMaintainerId returns a boolean if a field has been set.
 
 ### GetMaintainer
 
-`func (o *TriggerWorkflowRep) GetMaintainer() MemberSummaryRep`
+`func (o *TriggerWorkflowRep) GetMaintainer() MemberSummary`
 
 GetMaintainer returns the Maintainer field if non-nil, zero value otherwise.
 
 ### GetMaintainerOk
 
-`func (o *TriggerWorkflowRep) GetMaintainerOk() (*MemberSummaryRep, bool)`
+`func (o *TriggerWorkflowRep) GetMaintainerOk() (*MemberSummary, bool)`
 
 GetMaintainerOk returns a tuple with the Maintainer field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMaintainer
 
-`func (o *TriggerWorkflowRep) SetMaintainer(v MemberSummaryRep)`
+`func (o *TriggerWorkflowRep) SetMaintainer(v MemberSummary)`
 
 SetMaintainer sets Maintainer field to given value.
 

@@ -4,14 +4,14 @@ All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetExperiment**](ExperimentsBetaApi.md#GetExperiment) | **Get** /api/v2/flags/{projKey}/{flagKey}/experiments/{envKey}/{metricKey} | Get experiment results
-[**ResetExperiment**](ExperimentsBetaApi.md#ResetExperiment) | **Delete** /api/v2/flags/{projKey}/{flagKey}/experiments/{envKey}/{metricKey}/results | Reset experiment results
+[**GetExperiment**](ExperimentsBetaApi.md#GetExperiment) | **Get** /api/v2/flags/{projectKey}/{featureFlagKey}/experiments/{environmentKey}/{metricKey} | Get experiment results
+[**ResetExperiment**](ExperimentsBetaApi.md#ResetExperiment) | **Delete** /api/v2/flags/{projectKey}/{featureFlagKey}/experiments/{environmentKey}/{metricKey}/results | Reset experiment results
 
 
 
 ## GetExperiment
 
-> ExperimentResultsRep GetExperiment(ctx, projKey, flagKey, envKey, metricKey).From(from).To(to).Execute()
+> ExperimentResultsRep GetExperiment(ctx, projectKey, featureFlagKey, environmentKey, metricKey).From(from).To(to).Execute()
 
 Get experiment results
 
@@ -30,16 +30,16 @@ import (
 )
 
 func main() {
-    projKey := "projKey_example" // string | The project key
-    flagKey := "flagKey_example" // string | The flag key
-    envKey := "envKey_example" // string | The environment key
+    projectKey := "projectKey_example" // string | The project key
+    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
+    environmentKey := "environmentKey_example" // string | The environment key
     metricKey := "metricKey_example" // string | The metric key
     from := int64(789) // int64 | A timestamp denoting the start of the data collection period, expressed as a Unix epoch time in milliseconds. (optional)
     to := int64(789) // int64 | A timestamp denoting the end of the data collection period, expressed as a Unix epoch time in milliseconds. (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ExperimentsBetaApi.GetExperiment(context.Background(), projKey, flagKey, envKey, metricKey).From(from).To(to).Execute()
+    resp, r, err := api_client.ExperimentsBetaApi.GetExperiment(context.Background(), projectKey, featureFlagKey, environmentKey, metricKey).From(from).To(to).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsBetaApi.GetExperiment``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -55,9 +55,9 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projKey** | **string** | The project key | 
-**flagKey** | **string** | The flag key | 
-**envKey** | **string** | The environment key | 
+**projectKey** | **string** | The project key | 
+**featureFlagKey** | **string** | The feature flag key | 
+**environmentKey** | **string** | The environment key | 
 **metricKey** | **string** | The metric key | 
 
 ### Other Parameters
@@ -94,7 +94,7 @@ Name | Type | Description  | Notes
 
 ## ResetExperiment
 
-> ResetExperiment(ctx, projKey, flagKey, envKey, metricKey).Execute()
+> ResetExperiment(ctx, projectKey, featureFlagKey, environmentKey, metricKey).Execute()
 
 Reset experiment results
 
@@ -113,14 +113,14 @@ import (
 )
 
 func main() {
-    projKey := "projKey_example" // string | The project key
-    flagKey := "flagKey_example" // string | The feature flag's key
-    envKey := "envKey_example" // string | The environment key
+    projectKey := "projectKey_example" // string | The project key
+    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
+    environmentKey := "environmentKey_example" // string | The environment key
     metricKey := "metricKey_example" // string | The metric's key
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ExperimentsBetaApi.ResetExperiment(context.Background(), projKey, flagKey, envKey, metricKey).Execute()
+    resp, r, err := api_client.ExperimentsBetaApi.ResetExperiment(context.Background(), projectKey, featureFlagKey, environmentKey, metricKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsBetaApi.ResetExperiment``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -134,9 +134,9 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projKey** | **string** | The project key | 
-**flagKey** | **string** | The feature flag&#39;s key | 
-**envKey** | **string** | The environment key | 
+**projectKey** | **string** | The project key | 
+**featureFlagKey** | **string** | The feature flag key | 
+**environmentKey** | **string** | The environment key | 
 **metricKey** | **string** | The metric&#39;s key | 
 
 ### Other Parameters
