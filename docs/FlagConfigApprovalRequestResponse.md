@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **AppliedDate** | Pointer to **int64** |  | [optional] 
 **AppliedByMemberId** | Pointer to **string** |  | [optional] 
 **Status** | **string** |  | 
-**Instructions** | **[]map[string]interface{}** |  | 
+**Instructions** | **[]interface{}** |  | 
 **Conflicts** | [**[]Conflict**](Conflict.md) |  | 
 **Links** | [**map[string]Link**](Link.md) |  | 
 **ExecutionDate** | Pointer to **int64** |  | [optional] 
@@ -29,7 +29,7 @@ Name | Type | Description | Notes
 
 ### NewFlagConfigApprovalRequestResponse
 
-`func NewFlagConfigApprovalRequestResponse(id string, version int32, creationDate int64, serviceKind string, reviewStatus string, allReviews []ReviewResponse, notifyMemberIds []string, status string, instructions []map[string]interface{}, conflicts []Conflict, links map[string]Link, ) *FlagConfigApprovalRequestResponse`
+`func NewFlagConfigApprovalRequestResponse(id string, version int32, creationDate int64, serviceKind string, reviewStatus string, allReviews []ReviewResponse, notifyMemberIds []string, status string, instructions []interface{}, conflicts []Conflict, links map[string]Link, ) *FlagConfigApprovalRequestResponse`
 
 NewFlagConfigApprovalRequestResponse instantiates a new FlagConfigApprovalRequestResponse object
 This constructor will assign default values to properties that have it defined,
@@ -306,20 +306,20 @@ SetStatus sets Status field to given value.
 
 ### GetInstructions
 
-`func (o *FlagConfigApprovalRequestResponse) GetInstructions() []map[string]interface{}`
+`func (o *FlagConfigApprovalRequestResponse) GetInstructions() []interface{}`
 
 GetInstructions returns the Instructions field if non-nil, zero value otherwise.
 
 ### GetInstructionsOk
 
-`func (o *FlagConfigApprovalRequestResponse) GetInstructionsOk() (*[]map[string]interface{}, bool)`
+`func (o *FlagConfigApprovalRequestResponse) GetInstructionsOk() (*[]interface{}, bool)`
 
 GetInstructionsOk returns a tuple with the Instructions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInstructions
 
-`func (o *FlagConfigApprovalRequestResponse) SetInstructions(v []map[string]interface{})`
+`func (o *FlagConfigApprovalRequestResponse) SetInstructions(v []interface{})`
 
 SetInstructions sets Instructions field to given value.
 

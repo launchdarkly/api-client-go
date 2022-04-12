@@ -6,13 +6,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Comment** | Pointer to **string** |  | [optional] 
 **ExecutionDate** | **int64** |  | 
-**Instructions** | **[]map[string]interface{}** |  | 
+**Instructions** | **[]interface{}** |  | 
 
 ## Methods
 
 ### NewPostFlagScheduledChangesInput
 
-`func NewPostFlagScheduledChangesInput(executionDate int64, instructions []map[string]interface{}, ) *PostFlagScheduledChangesInput`
+`func NewPostFlagScheduledChangesInput(executionDate int64, instructions []interface{}, ) *PostFlagScheduledChangesInput`
 
 NewPostFlagScheduledChangesInput instantiates a new PostFlagScheduledChangesInput object
 This constructor will assign default values to properties that have it defined,
@@ -74,20 +74,20 @@ SetExecutionDate sets ExecutionDate field to given value.
 
 ### GetInstructions
 
-`func (o *PostFlagScheduledChangesInput) GetInstructions() []map[string]interface{}`
+`func (o *PostFlagScheduledChangesInput) GetInstructions() []interface{}`
 
 GetInstructions returns the Instructions field if non-nil, zero value otherwise.
 
 ### GetInstructionsOk
 
-`func (o *PostFlagScheduledChangesInput) GetInstructionsOk() (*[]map[string]interface{}, bool)`
+`func (o *PostFlagScheduledChangesInput) GetInstructionsOk() (*[]interface{}, bool)`
 
 GetInstructionsOk returns a tuple with the Instructions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInstructions
 
-`func (o *PostFlagScheduledChangesInput) SetInstructions(v []map[string]interface{})`
+`func (o *PostFlagScheduledChangesInput) SetInstructions(v []interface{})`
 
 SetInstructions sets Instructions field to given value.
 

@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **MaintainerId** | **string** |  | 
 **Version** | **int32** |  | 
 **ExecutionDate** | **int64** |  | 
-**Instructions** | **[]map[string]interface{}** |  | 
+**Instructions** | **[]interface{}** |  | 
 **Conflicts** | Pointer to **interface{}** |  | [optional] 
 **Links** | Pointer to [**map[string]Link**](Link.md) |  | [optional] 
 
@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 
 ### NewFeatureFlagScheduledChange
 
-`func NewFeatureFlagScheduledChange(id string, creationDate int64, maintainerId string, version int32, executionDate int64, instructions []map[string]interface{}, ) *FeatureFlagScheduledChange`
+`func NewFeatureFlagScheduledChange(id string, creationDate int64, maintainerId string, version int32, executionDate int64, instructions []interface{}, ) *FeatureFlagScheduledChange`
 
 NewFeatureFlagScheduledChange instantiates a new FeatureFlagScheduledChange object
 This constructor will assign default values to properties that have it defined,
@@ -134,20 +134,20 @@ SetExecutionDate sets ExecutionDate field to given value.
 
 ### GetInstructions
 
-`func (o *FeatureFlagScheduledChange) GetInstructions() []map[string]interface{}`
+`func (o *FeatureFlagScheduledChange) GetInstructions() []interface{}`
 
 GetInstructions returns the Instructions field if non-nil, zero value otherwise.
 
 ### GetInstructionsOk
 
-`func (o *FeatureFlagScheduledChange) GetInstructionsOk() (*[]map[string]interface{}, bool)`
+`func (o *FeatureFlagScheduledChange) GetInstructionsOk() (*[]interface{}, bool)`
 
 GetInstructionsOk returns a tuple with the Instructions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInstructions
 
-`func (o *FeatureFlagScheduledChange) SetInstructions(v []map[string]interface{})`
+`func (o *FeatureFlagScheduledChange) SetInstructions(v []interface{})`
 
 SetInstructions sets Instructions field to given value.
 

@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | Pointer to **string** |  | [optional] 
+**ExecuteConditionsInSequence** | Pointer to **bool** |  | [optional] 
 **Conditions** | Pointer to [**[]ConditionInputRep**](ConditionInputRep.md) |  | [optional] 
 **Action** | Pointer to [**ActionInputRep**](ActionInputRep.md) |  | [optional] 
 
@@ -51,6 +52,31 @@ SetName sets Name field to given value.
 `func (o *StageInputRep) HasName() bool`
 
 HasName returns a boolean if a field has been set.
+
+### GetExecuteConditionsInSequence
+
+`func (o *StageInputRep) GetExecuteConditionsInSequence() bool`
+
+GetExecuteConditionsInSequence returns the ExecuteConditionsInSequence field if non-nil, zero value otherwise.
+
+### GetExecuteConditionsInSequenceOk
+
+`func (o *StageInputRep) GetExecuteConditionsInSequenceOk() (*bool, bool)`
+
+GetExecuteConditionsInSequenceOk returns a tuple with the ExecuteConditionsInSequence field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExecuteConditionsInSequence
+
+`func (o *StageInputRep) SetExecuteConditionsInSequence(v bool)`
+
+SetExecuteConditionsInSequence sets ExecuteConditionsInSequence field to given value.
+
+### HasExecuteConditionsInSequence
+
+`func (o *StageInputRep) HasExecuteConditionsInSequence() bool`
+
+HasExecuteConditionsInSequence returns a boolean if a field has been set.
 
 ### GetConditions
 

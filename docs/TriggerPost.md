@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Comment** | Pointer to **string** |  | [optional] 
-**Instructions** | Pointer to **[]map[string]interface{}** | The action to perform when triggering. It should pass an array with a single {\&quot;kind\&quot;: &lt;flag_action&gt;} object. Currently supported flag actions are \&quot;turnFlagOn\&quot; and \&quot;turnFlagOff\&quot;. | [optional] 
+**Instructions** | Pointer to **[]interface{}** | The action to perform when triggering. It should pass an array with a single {\&quot;kind\&quot;: &lt;flag_action&gt;} object. Currently supported flag actions are \&quot;turnFlagOn\&quot; and \&quot;turnFlagOff\&quot;. | [optional] 
 **IntegrationKey** | **string** | The unique identifier of the integration you intend to set your trigger up with. \&quot;generic-trigger\&quot; should be used for integrations not explicitly supported. | 
 
 ## Methods
@@ -54,20 +54,20 @@ HasComment returns a boolean if a field has been set.
 
 ### GetInstructions
 
-`func (o *TriggerPost) GetInstructions() []map[string]interface{}`
+`func (o *TriggerPost) GetInstructions() []interface{}`
 
 GetInstructions returns the Instructions field if non-nil, zero value otherwise.
 
 ### GetInstructionsOk
 
-`func (o *TriggerPost) GetInstructionsOk() (*[]map[string]interface{}, bool)`
+`func (o *TriggerPost) GetInstructionsOk() (*[]interface{}, bool)`
 
 GetInstructionsOk returns a tuple with the Instructions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInstructions
 
-`func (o *TriggerPost) SetInstructions(v []map[string]interface{})`
+`func (o *TriggerPost) SetInstructions(v []interface{})`
 
 SetInstructions sets Instructions field to given value.
 

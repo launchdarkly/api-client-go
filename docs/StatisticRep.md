@@ -10,13 +10,14 @@ Name | Type | Description | Notes
 **Enabled** | **bool** |  | 
 **Version** | **int32** |  | 
 **HunkCount** | **int32** |  | 
+**FileCount** | **int32** |  | 
 **Links** | [**map[string]Link**](Link.md) |  | 
 
 ## Methods
 
 ### NewStatisticRep
 
-`func NewStatisticRep(name string, sourceLink string, defaultBranch string, enabled bool, version int32, hunkCount int32, links map[string]Link, ) *StatisticRep`
+`func NewStatisticRep(name string, sourceLink string, defaultBranch string, enabled bool, version int32, hunkCount int32, fileCount int32, links map[string]Link, ) *StatisticRep`
 
 NewStatisticRep instantiates a new StatisticRep object
 This constructor will assign default values to properties that have it defined,
@@ -149,6 +150,26 @@ and a boolean to check if the value has been set.
 `func (o *StatisticRep) SetHunkCount(v int32)`
 
 SetHunkCount sets HunkCount field to given value.
+
+
+### GetFileCount
+
+`func (o *StatisticRep) GetFileCount() int32`
+
+GetFileCount returns the FileCount field if non-nil, zero value otherwise.
+
+### GetFileCountOk
+
+`func (o *StatisticRep) GetFileCountOk() (*int32, bool)`
+
+GetFileCountOk returns a tuple with the FileCount field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFileCount
+
+`func (o *StatisticRep) SetFileCount(v int32)`
+
+SetFileCount sets FileCount field to given value.
 
 
 ### GetLinks

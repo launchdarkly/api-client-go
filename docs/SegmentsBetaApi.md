@@ -87,7 +87,7 @@ Name | Type | Description  | Notes
 
 ## CreateBigSegmentImport
 
-> CreateBigSegmentImport(ctx, projectKey, environmentKey, segmentKey).Execute()
+> CreateBigSegmentImport(ctx, projectKey, environmentKey, segmentKey).File(file).Mode(mode).Execute()
 
 Create Big Segment import
 
@@ -109,10 +109,12 @@ func main() {
     projectKey := "projectKey_example" // string | The project key
     environmentKey := "environmentKey_example" // string | The environment key
     segmentKey := "segmentKey_example" // string | The segment key
+    file := os.NewFile(1234, "some_file") // *os.File | CSV file containing keys (optional)
+    mode := "mode_example" // string | Import mode. Use either `merge` or `replace` (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SegmentsBetaApi.CreateBigSegmentImport(context.Background(), projectKey, environmentKey, segmentKey).Execute()
+    resp, r, err := api_client.SegmentsBetaApi.CreateBigSegmentImport(context.Background(), projectKey, environmentKey, segmentKey).File(file).Mode(mode).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SegmentsBetaApi.CreateBigSegmentImport``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -140,6 +142,8 @@ Name | Type | Description  | Notes
 
 
 
+ **file** | ***os.File** | CSV file containing keys | 
+ **mode** | **string** | Import mode. Use either &#x60;merge&#x60; or &#x60;replace&#x60; | 
 
 ### Return type
 
@@ -151,7 +155,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: multipart/form-data
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

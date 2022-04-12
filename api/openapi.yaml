@@ -60,9 +60,11 @@ info:
 
     ### Summary and detailed representations
 
-    When you fetch a list of resources, the response includes only the most important attributes of each resource. This is a _summary representation_ of the resource. When you fetch an individual resource (for example, a single feature flag), you receive a _detailed representation_ containing all of the attributes of the resource.
+    When you fetch a list of resources, the response includes only the most important attributes of each resource. This is a _summary representation_ of the resource. When you fetch an individual resource, such as a single feature flag, you receive a _detailed representation_ of the resource.
 
     The best way to find a detailed representation is to follow links. Every summary representation includes a link to its detailed representation.
+
+    In most cases, the detailed representation contains all of the attributes of the resource. In a few cases, the detailed representation contains many, but not all, of the attributes of the resource. Typically this happens when an attribute of the requested resource is itself paginated. You can request that the response include a particular attribute by using the `expand` request parameter.
 
     ### Links and addressability
 
@@ -97,6 +99,12 @@ info:
     Collections are always represented as a JSON object with an `items` attribute containing an array of representations. Like all other representations, collections have `_links` defined at the top level.
 
     Paginated collections include `first`, `last`, `next`, and `prev` links containing a URL with the respective set of elements in the collection.
+
+    ### Expanding responses
+
+    Sometimes the detailed representation of a resource does not include all of the attributes of the resource by default. If this is the case, the request method will clearly document this and describe which attributes you can include in an expanded response.
+
+    To include the additional attributes, append the `expand` request parameter to your request and add a comma-separated list of the attributes to include. For example, when you append `?expand=members,roles` to the [Get team](/tag/Teams-(beta)#operation/getTeam) endpoint, the expanded response includes both of these attributes.
 
     ## Updates
 
@@ -395,7 +403,7 @@ info:
 
     > ### This feature is in beta
     >
-    > To use this feature, pass in a header including the `LD-API-Version` key with value set to `beta`. Use this header with each call. To learn more, read [Beta resources](/#section/Beta-resources).
+    > To use this feature, pass in a header including the `LD-API-Version` key with value set to `beta`. Use this header with each call. To learn more, read [Beta resources](/#section/Overview/Beta-resources).
 
     ### Using beta resources
 
@@ -479,7 +487,7 @@ tags:
 - description: |
     > ### This feature is in beta
     >
-    > To use this feature, pass in a header including the `LD-API-Version` key with value set to `beta`. Use this header with each call. To learn more, read [Beta resources](/#section/Beta-resources).
+    > To use this feature, pass in a header including the `LD-API-Version` key with value set to `beta`. Use this header with each call. To learn more, read [Beta resources](/#section/Overview/Beta-resources).
 
     The Account Usage API lets you query for metrics about how your account is using LaunchDarkly.
     Each endpoint returns time-series data in the form of an array of data points with timestamps. Each one contains data for that time from one or more series. It also includes a metadata array describing what each of the series is.
@@ -527,7 +535,7 @@ tags:
 - description: |
     > ### This feature is in beta
     >
-    > To use this feature, pass in a header including the `LD-API-Version` key with value set to `beta`. Use this header with each call. To learn more, read [Beta resources](/#section/Beta-resources).
+    > To use this feature, pass in a header including the `LD-API-Version` key with value set to `beta`. Use this header with each call. To learn more, read [Beta resources](/#section/Overview/Beta-resources).
 
     An experiment is a running tally of user behaviors based on which variation of a feature flag they receive. In LaunchDarkly, an experiment requires two things: a metric that defines what user behaviors to track, and at least one flag associated with that metric.
 
@@ -847,7 +855,7 @@ tags:
 - description: |
     > ### This feature is in beta
     >
-    > To use this feature, pass in a header including the `LD-API-Version` key with value set to `beta`. Use this header with each call. To learn more, read [Beta resources](/#section/Beta-resources).
+    > To use this feature, pass in a header including the `LD-API-Version` key with value set to `beta`. Use this header with each call. To learn more, read [Beta resources](/#section/Overview/Beta-resources).
   name: Feature flags (beta)
 - description: |
     > ### This feature is in beta
@@ -1076,7 +1084,7 @@ tags:
 - description: |
     > ### This feature is in beta
     >
-    > To use this feature, pass in a header including the `LD-API-Version` key with value set to `beta`. Use this header with each call. To learn more, read [Beta resources](/#section/Beta-resources).
+    > To use this feature, pass in a header including the `LD-API-Version` key with value set to `beta`. Use this header with each call. To learn more, read [Beta resources](/#section/Overview/Beta-resources).
   name: Integration delivery configurations (beta)
 - description: |
     Metrics track flag behavior over time when an experiment is running. The data generated from experiments gives you more insight into the impact of a particular flag.
@@ -1124,7 +1132,7 @@ tags:
 - description: |
     > ### This feature is in beta
     >
-    > To use this feature, pass in a header including the `LD-API-Version` key with value set to `beta`. Use this header with each call. To learn more, read [Beta resources](/#section/Beta-resources).
+    > To use this feature, pass in a header including the `LD-API-Version` key with value set to `beta`. Use this header with each call. To learn more, read [Beta resources](/#section/Overview/Beta-resources).
 
     LaunchDarkly creates a record for each user passed in to `variation` calls. This record powers the autocomplete functionality on the Feature Flag management page, as well as the Users page.
 
@@ -3847,32 +3855,6 @@ paths:
       description: |
         Perform a partial update to a feature flag.
 
-        ## Using JSON Patches on a feature flag
-
-        When using the update feature flag endpoint to add individual users to a specific variation, there are two different patch documents, depending on whether users are already being individually targeted for the variation.
-
-        If a flag variation already has users individually targeted, the path for the JSON Patch operation is:
-
-        ```json
-        {
-          "op": "add",
-          "path": "/environments/devint/targets/0/values/-",
-          "value": "TestClient10"
-        }
-        ```
-
-        If a flag variation does not already have users individually targeted, the path for the JSON Patch operation is:
-
-        ```json
-        [
-          {
-            "op": "add",
-            "path": "/environments/devint/targets/-",
-            "value": { "variation": 0, "values": ["TestClient10"] }
-          }
-        ]
-        ```
-
         ## Using semantic patches on a feature flag
 
         To use a [semantic patch](/reference#updates-via-semantic-patches) on a feature flag resource, you must include a header in the request. If you call a semantic patch resource without this header, you will receive a `400` response because your semantic patch will be interpreted as a JSON patch.
@@ -4265,9 +4247,40 @@ paths:
         }
         ```
 
-        ## Using JSON patches on a feature flag
-
+        ## Using JSON Patches on a feature flag
         If you do not include the header described above, you can use [JSON patch](/reference#updates-via-json-patch).
+
+        When using the update feature flag endpoint to add individual users to a specific variation, there are two different patch documents, depending on whether users are already being individually targeted for the variation.
+
+        If a flag variation already has users individually targeted, the path for the JSON Patch operation is:
+
+        ```json
+        {
+          "op": "add",
+          "path": "/environments/devint/targets/0/values/-",
+          "value": "TestClient10"
+        }
+        ```
+
+        If a flag variation does not already have users individually targeted, the path for the JSON Patch operation is:
+
+        ```json
+        [
+          {
+            "op": "add",
+            "path": "/environments/devint/targets/-",
+            "value": { "variation": 0, "values": ["TestClient10"] }
+          }
+        ]
+        ```
+
+
+        ## Required approvals
+        If a request attempts to alter a flag configuration in an environment where approvals are required for the flag, the request will fail with a 405. Changes to the flag configuration in that environment will required creating an [approval request](/tag/Approvals) or a [workflow](/tag/Workflows-(beta)).
+        This behavior can be bypassed by users and access tokens that have a [custom role](https://docs.launchdarkly.com/home/members/custom-roles) with permission to perform the `bypassRequiredApproval` action on the flag.
+
+        ## Conflicts
+        If a flag configuration change made through this endpoint would cause a pending scheduled change or approval request to fail, this endpoint will return a 400. You can ignore this check by adding an `ignoreConflicts` query parameter set to `true`.
       operationId: patchFeatureFlag
       parameters:
       - description: The project key
@@ -4326,6 +4339,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotFoundErrorRep'
           description: Invalid resource identifier
+        "405":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MethodNotAllowedErrorRep'
+          description: Approval is required to make this request
         "409":
           content:
             application/json:
@@ -4487,8 +4506,8 @@ paths:
       - Feature flags (beta)
   /api/v2/flags/{projectKey}/{featureFlagKey}/experiments/{environmentKey}/{metricKey}:
     get:
-      description: Get detailed experiment result data
-      operationId: getExperiment
+      description: Get detailed experiment result data for legacy experiments
+      operationId: getLegacyExperimentResults
       parameters:
       - description: The project key
         explode: false
@@ -4559,7 +4578,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ExperimentResultsRep'
+                $ref: '#/components/schemas/ExperimentResults'
           description: Experiment results response
         "400":
           content:
@@ -4591,7 +4610,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/RateLimitedErrorRep'
           description: Rate limited
-      summary: Get experiment results
+      summary: Get legacy experiment results (deprecated)
       tags:
       - Experiments (beta)
   /api/v2/flags/{projectKey}/{featureFlagKey}/experiments/{environmentKey}/{metricKey}/results:
@@ -7381,6 +7400,474 @@ paths:
       summary: Reset environment SDK key
       tags:
       - Environments
+  /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments:
+    get:
+      description: Get details about all experiments in an environment
+      operationId: getExperiments
+      parameters:
+      - description: The project key
+        explode: false
+        in: path
+        name: projectKey
+        required: true
+        schema:
+          description: The project key
+          format: string
+          type: string
+        style: simple
+      - description: The environment key
+        explode: false
+        in: path
+        name: environmentKey
+        required: true
+        schema:
+          description: The environment key
+          format: string
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExperimentCollectionRep'
+          description: Experiment response JSON
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequestErrorRep'
+          description: Invalid request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedErrorRep'
+          description: Invalid access token
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenErrorRep'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundErrorRep'
+          description: Invalid resource identifier
+        "405":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MethodNotAllowedErrorRep'
+          description: Method not allowed
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitedErrorRep'
+          description: Rate limited
+      summary: Get experiments
+      tags:
+      - Experiments (beta)
+    post:
+      description: Create an experiment
+      operationId: createExperiment
+      parameters:
+      - description: The project key
+        explode: false
+        in: path
+        name: projectKey
+        required: true
+        schema:
+          description: The project key
+          format: string
+          type: string
+        style: simple
+      - description: The environment key
+        explode: false
+        in: path
+        name: environmentKey
+        required: true
+        schema:
+          description: The environment key
+          format: string
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExperimentPost'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExperimentRep'
+          description: Experiment response JSON
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequestErrorRep'
+          description: Invalid request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedErrorRep'
+          description: Invalid access token
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenErrorRep'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundErrorRep'
+          description: Invalid resource identifier
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitedErrorRep'
+          description: Rate limited
+      summary: Create experiment
+      tags:
+      - Experiments (beta)
+  /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey}:
+    get:
+      description: Get details about an experiment
+      operationId: getExperiment
+      parameters:
+      - description: The project key
+        explode: false
+        in: path
+        name: projectKey
+        required: true
+        schema:
+          description: The project key
+          format: string
+          type: string
+        style: simple
+      - description: The environment key
+        explode: false
+        in: path
+        name: environmentKey
+        required: true
+        schema:
+          description: The environment key
+          format: string
+          type: string
+        style: simple
+      - description: The experiment key
+        explode: false
+        in: path
+        name: experimentKey
+        required: true
+        schema:
+          description: The experiment key
+          format: string
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExperimentRep'
+          description: Experiment response JSON
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequestErrorRep'
+          description: Invalid request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedErrorRep'
+          description: Invalid access token
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenErrorRep'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundErrorRep'
+          description: Invalid resource identifier
+        "405":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MethodNotAllowedErrorRep'
+          description: Method not allowed
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitedErrorRep'
+          description: Rate limited
+      summary: Get experiment
+      tags:
+      - Experiments (beta)
+    patch:
+      description: Patch an Experiment
+      operationId: patchExperiment
+      parameters:
+      - description: The project key
+        explode: false
+        in: path
+        name: projectKey
+        required: true
+        schema:
+          description: The project key
+          format: string
+          type: string
+        style: simple
+      - description: The environment key
+        explode: false
+        in: path
+        name: environmentKey
+        required: true
+        schema:
+          description: The environment key
+          format: string
+          type: string
+        style: simple
+      - description: The experiment key
+        explode: false
+        in: path
+        name: experimentKey
+        required: true
+        schema:
+          description: The experiment key
+          format: string
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExperimentPatchInput'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExperimentRep'
+          description: Experiment response JSON
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequestErrorRep'
+          description: Invalid request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedErrorRep'
+          description: Invalid access token
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenErrorRep'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundErrorRep'
+          description: Invalid resource identifier
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitedErrorRep'
+          description: Rate limited
+      summary: Patch experiment
+      tags:
+      - Experiments (beta)
+  /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey}/iterations:
+    post:
+      description: Create an experiment iteration
+      operationId: createIteration
+      parameters:
+      - description: The project key
+        explode: false
+        in: path
+        name: projectKey
+        required: true
+        schema:
+          description: The project key
+          format: string
+          type: string
+        style: simple
+      - description: The environment key
+        explode: false
+        in: path
+        name: environmentKey
+        required: true
+        schema:
+          description: The environment key
+          format: string
+          type: string
+        style: simple
+      - description: The experiment key
+        explode: false
+        in: path
+        name: experimentKey
+        required: true
+        schema:
+          description: The experiment key
+          format: string
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IterationInput'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IterationRep'
+          description: Iteration response JSON
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequestErrorRep'
+          description: Invalid request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedErrorRep'
+          description: Invalid access token
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenErrorRep'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundErrorRep'
+          description: Invalid resource identifier
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitedErrorRep'
+          description: Rate limited
+      summary: Create iteration
+      tags:
+      - Experiments (beta)
+  /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey}/metrics/{metricKey}/results:
+    get:
+      description: Get results from an experiment for a particular metric
+      operationId: getExperimentResults
+      parameters:
+      - description: The project key
+        explode: false
+        in: path
+        name: projectKey
+        required: true
+        schema:
+          description: The project key
+          format: string
+          type: string
+        style: simple
+      - description: The environment key
+        explode: false
+        in: path
+        name: environmentKey
+        required: true
+        schema:
+          description: The environment key
+          format: string
+          type: string
+        style: simple
+      - description: The experiment key
+        explode: false
+        in: path
+        name: experimentKey
+        required: true
+        schema:
+          description: The experiment key
+          format: string
+          type: string
+        style: simple
+      - description: The metric key
+        explode: false
+        in: path
+        name: metricKey
+        required: true
+        schema:
+          description: The metric key
+          format: string
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExperimentResults'
+          description: Experiment results response JSON
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequestErrorRep'
+          description: Invalid request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedErrorRep'
+          description: Invalid access token
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenErrorRep'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundErrorRep'
+          description: Invalid resource identifier
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitedErrorRep'
+          description: Rate limited
+      summary: Get experiment results
+      tags:
+      - Experiments (beta)
   /api/v2/projects/{projectKey}/environments/{environmentKey}/mobileKey:
     post:
       description: Reset an environment's mobile key. The optional expiry for the
@@ -9662,9 +10149,25 @@ paths:
           format: string
           type: string
         style: simple
+      requestBody:
+        $ref: '#/components/requestBodies/inline_object'
+        content:
+          multipart/form-data:
+            schema:
+              properties:
+                file:
+                  description: CSV file containing keys
+                  format: binary
+                  type: string
+                mode:
+                  description: Import mode. Use either `merge` or `replace`
+                  format: string
+                  type: string
+              type: object
+        required: true
       responses:
-        "200":
-          description: Action succeeded
+        "204":
+          description: Import request submitted successfully
         "400":
           content:
             application/json:
@@ -10672,7 +11175,7 @@ paths:
           type: string
         style: simple
       requestBody:
-        $ref: '#/components/requestBodies/inline_object'
+        $ref: '#/components/requestBodies/inline_object_1'
         content:
           multipart/form-data:
             schema:
@@ -13057,6 +13560,12 @@ paths:
       - Webhooks
 components:
   requestBodies:
+    inline_object_1:
+      content:
+        multipart/form-data:
+          schema:
+            $ref: '#/components/schemas/inline_object_1'
+      required: true
     inline_object:
       content:
         multipart/form-data:
@@ -14447,12 +14956,9 @@ components:
     Conflict:
       example:
         reason: reason
-        instruction:
-          key: ""
+        instruction: ""
       properties:
-        instruction:
-          additionalProperties: {}
-          type: object
+        instruction: {}
         reason:
           description: Reason why the conflict exists
           type: string
@@ -14924,7 +15430,8 @@ components:
         maintainerId: maintainerId
         name: name
         stages:
-        - name: name
+        - executeConditionsInSequence: true
+          name: name
           action:
             instructions: ""
           conditions:
@@ -14948,7 +15455,8 @@ components:
             description: description
             scheduleKind: scheduleKind
             waitDurationUnit: waitDurationUnit
-        - name: name
+        - executeConditionsInSequence: true
+          name: name
           action:
             instructions: ""
           conditions:
@@ -15481,6 +15989,15 @@ components:
       type: object
     DateVersion:
       type: integer
+    Decimal:
+      example:
+        exp: 5
+        value: ""
+      properties:
+        value: {}
+        exp:
+          type: integer
+      type: object
     DefaultClientSideAvailabilityPost:
       example:
         usingEnvironmentId: true
@@ -16099,6 +16616,44 @@ components:
       - key
       - name
       type: object
+    EvaluationReason:
+      example:
+        ruleIndex: 3
+        kind: "OFF"
+        prerequisiteKey: someotherflagkey
+        ruleID: "1234567890"
+        errorKind: USER_NOT_SPECIFIED
+        inExperiment: true
+      properties:
+        kind:
+          description: Describes the general reason that LaunchDarkly selected this
+            variation.
+          example: "OFF"
+          type: string
+        ruleIndex:
+          description: The positional index of the matching rule if the kind is 'RULE_MATCH'.
+            The index is 0-based.
+          example: 3
+          type: integer
+        ruleID:
+          description: The unique identifier of the matching rule if the kind is 'RULE_MATCH'.
+          example: "1234567890"
+          type: string
+        prerequisiteKey:
+          description: The key of the flag that failed if the kind is 'PREREQUISITE_FAILED'.
+          example: someotherflagkey
+          type: string
+        inExperiment:
+          description: Indicates whether the user was evaluated as part of an experiment.
+          example: true
+          type: boolean
+        errorKind:
+          description: The specific error type if the kind is 'ERROR'.
+          example: USER_NOT_SPECIFIED
+          type: string
+      required:
+      - kind
+      type: object
     ExecutionOutputRep:
       example:
         status: status
@@ -16117,6 +16672,260 @@ components:
       required:
       - canReshuffle
       - defaultVariation
+      type: object
+    ExperimentCollectionRep:
+      example:
+        _links:
+          key:
+            href: href
+            type: type
+        total_count: 0
+        items:
+        - metricKey: my-metric
+          environments:
+          - production
+          - test
+          - my-environment
+          _environmentSettings:
+            key:
+              startDate: 5
+              stopDate: 5
+              enabledPeriods:
+              - startDate: 2
+                stopDate: 7
+              - startDate: 2
+                stopDate: 7
+          _metric:
+            _maintainer:
+              firstName: An
+              lastName: Example
+              role: owner
+              _links:
+                self:
+                  href: /api/v2/members/569f183514f4432160000007
+                  type: application/json
+              _id: 569f183514f4432160000007
+              email: a.example@example.com
+            _links:
+              parent:
+                href: /api/v2/metrics/my-project
+                type: application/json
+              self:
+                href: /api/v2/metrics/my-project/my-metric
+                type: application/json
+            kind: pageview
+            _attachedFlagCount: 0
+            description: description
+            _creationDate: 1
+            tags: []
+            maintainerId: 569fdeadbeef1644facecafe
+            unit: unit
+            _access:
+              allowed:
+              - reason:
+                  role_name: role_name
+                  notActions:
+                  - null
+                  - null
+                  notResources:
+                  - notResources
+                  - notResources
+                  effect: effect
+                  resources:
+                  - resources
+                  - resources
+                  actions:
+                  - null
+                  - null
+                action: action
+              - reason:
+                  role_name: role_name
+                  notActions:
+                  - null
+                  - null
+                  notResources:
+                  - notResources
+                  - notResources
+                  effect: effect
+                  resources:
+                  - resources
+                  - resources
+                  actions:
+                  - null
+                  - null
+                action: action
+              denied:
+              - reason:
+                  role_name: role_name
+                  notActions:
+                  - null
+                  - null
+                  notResources:
+                  - notResources
+                  - notResources
+                  effect: effect
+                  resources:
+                  - resources
+                  - resources
+                  actions:
+                  - null
+                  - null
+                action: action
+              - reason:
+                  role_name: role_name
+                  notActions:
+                  - null
+                  - null
+                  notResources:
+                  - notResources
+                  - notResources
+                  effect: effect
+                  resources:
+                  - resources
+                  - resources
+                  actions:
+                  - null
+                  - null
+                action: action
+            successCriteria: HigherThanBaseline
+            _site:
+              href: href
+              type: type
+            isNumeric: true
+            eventKey: eventKey
+            name: my-metric
+            _id: 5902deadbeef667524a01290
+            lastModified:
+              date: 2021-08-05T19:46:31.148082Z
+            key: my-metric
+        - metricKey: my-metric
+          environments:
+          - production
+          - test
+          - my-environment
+          _environmentSettings:
+            key:
+              startDate: 5
+              stopDate: 5
+              enabledPeriods:
+              - startDate: 2
+                stopDate: 7
+              - startDate: 2
+                stopDate: 7
+          _metric:
+            _maintainer:
+              firstName: An
+              lastName: Example
+              role: owner
+              _links:
+                self:
+                  href: /api/v2/members/569f183514f4432160000007
+                  type: application/json
+              _id: 569f183514f4432160000007
+              email: a.example@example.com
+            _links:
+              parent:
+                href: /api/v2/metrics/my-project
+                type: application/json
+              self:
+                href: /api/v2/metrics/my-project/my-metric
+                type: application/json
+            kind: pageview
+            _attachedFlagCount: 0
+            description: description
+            _creationDate: 1
+            tags: []
+            maintainerId: 569fdeadbeef1644facecafe
+            unit: unit
+            _access:
+              allowed:
+              - reason:
+                  role_name: role_name
+                  notActions:
+                  - null
+                  - null
+                  notResources:
+                  - notResources
+                  - notResources
+                  effect: effect
+                  resources:
+                  - resources
+                  - resources
+                  actions:
+                  - null
+                  - null
+                action: action
+              - reason:
+                  role_name: role_name
+                  notActions:
+                  - null
+                  - null
+                  notResources:
+                  - notResources
+                  - notResources
+                  effect: effect
+                  resources:
+                  - resources
+                  - resources
+                  actions:
+                  - null
+                  - null
+                action: action
+              denied:
+              - reason:
+                  role_name: role_name
+                  notActions:
+                  - null
+                  - null
+                  notResources:
+                  - notResources
+                  - notResources
+                  effect: effect
+                  resources:
+                  - resources
+                  - resources
+                  actions:
+                  - null
+                  - null
+                action: action
+              - reason:
+                  role_name: role_name
+                  notActions:
+                  - null
+                  - null
+                  notResources:
+                  - notResources
+                  - notResources
+                  effect: effect
+                  resources:
+                  - resources
+                  - resources
+                  actions:
+                  - null
+                  - null
+                action: action
+            successCriteria: HigherThanBaseline
+            _site:
+              href: href
+              type: type
+            isNumeric: true
+            eventKey: eventKey
+            name: my-metric
+            _id: 5902deadbeef667524a01290
+            lastModified:
+              date: 2021-08-05T19:46:31.148082Z
+            key: my-metric
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/ExperimentRep'
+          type: array
+        total_count:
+          type: integer
+        _links:
+          additionalProperties:
+            $ref: '#/components/schemas/Link'
+          type: object
       type: object
     ExperimentEnabledPeriodRep:
       example:
@@ -16406,6 +17215,73 @@ components:
       properties:
         key: {}
       type: object
+    ExperimentPatchInput:
+      example:
+        Comment: Comment
+        Instructions:
+        - null
+        - null
+      properties:
+        Comment:
+          type: string
+        Instructions:
+          items:
+            $ref: '#/components/schemas/Instruction'
+          type: array
+      type: object
+    ExperimentPost:
+      example:
+        maintainerId: maintainerId
+        name: name
+        description: description
+        iteration:
+          canReshuffleTraffic: true
+          flags:
+            key:
+              flagConfigVersion: 0
+              ruleId: ruleId
+          metrics:
+          - key: key
+            primary: true
+          - key: key
+            primary: true
+          hypothesis: hypothesis
+          treatments:
+          - name: name
+            baseline: true
+            parameters:
+            - variationId: variationId
+              flagKey: flagKey
+            - variationId: variationId
+              flagKey: flagKey
+            allocationPercent: allocationPercent
+          - name: name
+            baseline: true
+            parameters:
+            - variationId: variationId
+              flagKey: flagKey
+            - variationId: variationId
+              flagKey: flagKey
+            allocationPercent: allocationPercent
+        key: key
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        maintainerId:
+          type: string
+        key:
+          type: string
+        iteration:
+          $ref: '#/components/schemas/IterationInput'
+      required:
+      - description
+      - iteration
+      - key
+      - maintainerId
+      - name
+      type: object
     ExperimentRep:
       example:
         metricKey: my-metric
@@ -16544,7 +17420,7 @@ components:
             $ref: '#/components/schemas/ExperimentEnvironmentSettingRep'
           type: object
       type: object
-    ExperimentResultsRep:
+    ExperimentResults:
       example:
         metricSeen:
           ever: true
@@ -18574,11 +19450,9 @@ components:
           lastChecked: 6
         conflicts:
         - reason: reason
-          instruction:
-            key: ""
+          instruction: ""
         - reason: reason
-          instruction:
-            key: ""
+          instruction: ""
         reviewStatus: reviewStatus
         appliedByMemberId: appliedByMemberId
         operatingOnId: operatingOnId
@@ -18707,11 +19581,9 @@ components:
             lastChecked: 6
           conflicts:
           - reason: reason
-            instruction:
-              key: ""
+            instruction: ""
           - reason: reason
-            instruction:
-              key: ""
+            instruction: ""
           reviewStatus: reviewStatus
           appliedByMemberId: appliedByMemberId
           operatingOnId: operatingOnId
@@ -18762,11 +19634,9 @@ components:
             lastChecked: 6
           conflicts:
           - reason: reason
-            instruction:
-              key: ""
+            instruction: ""
           - reason: reason
-            instruction:
-              key: ""
+            instruction: ""
           reviewStatus: reviewStatus
           appliedByMemberId: appliedByMemberId
           operatingOnId: operatingOnId
@@ -18951,6 +19821,19 @@ components:
       - tags
       - temporary
       - variations
+      type: object
+    FlagInput:
+      example:
+        flagConfigVersion: 0
+        ruleId: ruleId
+      properties:
+        ruleId:
+          type: string
+        flagConfigVersion:
+          type: integer
+      required:
+      - flagConfigVersion
+      - ruleId
       type: object
     FlagLinkCollectionRep:
       example:
@@ -19137,6 +20020,30 @@ components:
       - key
       - name
       type: object
+    FlagRep:
+      example:
+        flagConfigVersion: 1
+        _links:
+          self:
+            href: /api/v2/flags/my-project/my-flag
+            type: application/json
+        targetingRule: targetingRule
+      properties:
+        targetingRule:
+          type: string
+        flagConfigVersion:
+          type: integer
+        _links:
+          additionalProperties:
+            $ref: '#/components/schemas/Link'
+          example:
+            self:
+              href: /api/v2/flags/my-project/my-flag
+              type: application/json
+          type: object
+      required:
+      - _links
+      type: object
     FlagScheduledChangesInput:
       example:
         instructions:
@@ -19214,6 +20121,10 @@ components:
           items:
             $ref: '#/components/schemas/Instruction'
           type: array
+      type: object
+    FlagsInput:
+      additionalProperties:
+        $ref: '#/components/schemas/FlagInput'
       type: object
     ForbiddenErrorRep:
       properties:
@@ -19319,9 +20230,7 @@ components:
         email:
           type: string
       type: object
-    Instruction:
-      additionalProperties: {}
-      type: object
+    Instruction: {}
     Instructions:
       items:
         $ref: '#/components/schemas/Instruction'
@@ -20265,6 +21174,169 @@ components:
           example: invalid request body
           type: string
       type: object
+    IterationExpandableProperties:
+      properties:
+        treatments:
+          items:
+            $ref: '#/components/schemas/TreatmentRep'
+          type: array
+        secondaryMetrics:
+          items:
+            $ref: '#/components/schemas/MetricRep'
+          type: array
+      type: object
+    IterationInput:
+      example:
+        canReshuffleTraffic: true
+        flags:
+          key:
+            flagConfigVersion: 0
+            ruleId: ruleId
+        metrics:
+        - key: key
+          primary: true
+        - key: key
+          primary: true
+        hypothesis: hypothesis
+        treatments:
+        - name: name
+          baseline: true
+          parameters:
+          - variationId: variationId
+            flagKey: flagKey
+          - variationId: variationId
+            flagKey: flagKey
+          allocationPercent: allocationPercent
+        - name: name
+          baseline: true
+          parameters:
+          - variationId: variationId
+            flagKey: flagKey
+          - variationId: variationId
+            flagKey: flagKey
+          allocationPercent: allocationPercent
+      properties:
+        hypothesis:
+          type: string
+        canReshuffleTraffic:
+          type: boolean
+        metrics:
+          items:
+            $ref: '#/components/schemas/MetricInput'
+          type: array
+        treatments:
+          items:
+            $ref: '#/components/schemas/TreatmentInput'
+          type: array
+        flags:
+          additionalProperties:
+            $ref: '#/components/schemas/FlagInput'
+          type: object
+      required:
+      - flags
+      - hypothesis
+      - metrics
+      - treatments
+      type: object
+    IterationRep:
+      example:
+        primaryMetric:
+          _links:
+            self:
+              href: /api/v2/metrics/my-project/my-metric
+              type: application/json
+          name: name
+          key: key
+        winningTreatmentId: winningTreatmentId
+        endedAt: 6
+        canReshuffleTraffic: true
+        flags:
+          key:
+            flagConfigVersion: 1
+            _links:
+              self:
+                href: /api/v2/flags/my-project/my-flag
+                type: application/json
+            targetingRule: targetingRule
+        startedAt: 0
+        _id: _id
+        secondaryMetrics:
+        - _links:
+            self:
+              href: /api/v2/metrics/my-project/my-metric
+              type: application/json
+          name: name
+          key: key
+        - _links:
+            self:
+              href: /api/v2/metrics/my-project/my-metric
+              type: application/json
+          name: name
+          key: key
+        hypothesis: hypothesis
+        treatments:
+        - name: name
+          _id: _id
+          baseline: true
+          parameters:
+          - variationId: variationId
+            flagKey: flagKey
+          - variationId: variationId
+            flagKey: flagKey
+          allocationPercent:
+            Decimal:
+              exp: 5
+              value: ""
+            Valid: true
+        - name: name
+          _id: _id
+          baseline: true
+          parameters:
+          - variationId: variationId
+            flagKey: flagKey
+          - variationId: variationId
+            flagKey: flagKey
+          allocationPercent:
+            Decimal:
+              exp: 5
+              value: ""
+            Valid: true
+        status: status
+      properties:
+        _id:
+          type: string
+        hypothesis:
+          type: string
+        status:
+          type: string
+        startedAt:
+          format: int64
+          type: integer
+        endedAt:
+          format: int64
+          type: integer
+        winningTreatmentId:
+          type: string
+        canReshuffleTraffic:
+          type: boolean
+        flags:
+          additionalProperties:
+            $ref: '#/components/schemas/FlagRep'
+          type: object
+        primaryMetric:
+          $ref: '#/components/schemas/MetricRep'
+        treatments:
+          items:
+            $ref: '#/components/schemas/TreatmentRep'
+          type: array
+        secondaryMetrics:
+          items:
+            $ref: '#/components/schemas/MetricRep'
+          type: array
+      required:
+      - hypothesis
+      - status
+      type: object
     JSONPatch:
       items:
         $ref: '#/components/schemas/PatchOperation'
@@ -20922,6 +21994,19 @@ components:
               type: application/json
           type: object
       type: object
+    MetricInput:
+      example:
+        key: key
+        primary: true
+      properties:
+        key:
+          type: string
+        primary:
+          type: boolean
+      required:
+      - key
+      - primary
+      type: object
     MetricListingRep:
       example:
         _maintainer:
@@ -21166,217 +22251,29 @@ components:
       type: object
     MetricRep:
       example:
-        _maintainer:
-          firstName: An
-          lastName: Example
-          role: owner
-          _links:
-            self:
-              href: /api/v2/members/569f183514f4432160000007
-              type: application/json
-          _id: 569f183514f4432160000007
-          email: a.example@example.com
         _links:
-          parent:
-            href: /api/v2/metrics/my-project
-            type: application/json
           self:
             href: /api/v2/metrics/my-project/my-metric
             type: application/json
-        kind: pageview
-        _attachedFlagCount: 0
-        description: description
-        _creationDate: 0
-        isActive: true
-        tags: []
-        maintainerId: 569fdeadbeef1644facecafe
-        unit: unit
-        urls:
-        - null
-        - null
-        _access:
-          allowed:
-          - reason:
-              role_name: role_name
-              notActions:
-              - null
-              - null
-              notResources:
-              - notResources
-              - notResources
-              effect: effect
-              resources:
-              - resources
-              - resources
-              actions:
-              - null
-              - null
-            action: action
-          - reason:
-              role_name: role_name
-              notActions:
-              - null
-              - null
-              notResources:
-              - notResources
-              - notResources
-              effect: effect
-              resources:
-              - resources
-              - resources
-              actions:
-              - null
-              - null
-            action: action
-          denied:
-          - reason:
-              role_name: role_name
-              notActions:
-              - null
-              - null
-              notResources:
-              - notResources
-              - notResources
-              effect: effect
-              resources:
-              - resources
-              - resources
-              actions:
-              - null
-              - null
-            action: action
-          - reason:
-              role_name: role_name
-              notActions:
-              - null
-              - null
-              notResources:
-              - notResources
-              - notResources
-              effect: effect
-              resources:
-              - resources
-              - resources
-              actions:
-              - null
-              - null
-            action: action
-        successCriteria: HigherThanBaseline
-        _site:
-          href: href
-          type: type
-        isNumeric: true
-        eventKey: eventKey
-        _attachedFeatures:
-        - _links:
-            key:
-              href: href
-              type: type
-          _site:
-            href: href
-            type: type
-          name: name
-          key: key
-        - _links:
-            key:
-              href: href
-              type: type
-          _site:
-            href: href
-            type: type
-          name: name
-          key: key
-        name: my-metric
-        selector: selector
-        _id: 5902deadbeef667524a01290
-        lastModified:
-          date: 2021-08-05T19:46:31.148082Z
-        _version: 6
-        key: my-metric
+        name: name
+        key: key
       properties:
-        _id:
-          example: 5902deadbeef667524a01290
-          type: string
         key:
-          example: my-metric
           type: string
         name:
-          example: my-metric
           type: string
-        kind:
-          enum:
-          - pageview
-          - click
-          - custom
-          type: string
-        _attachedFlagCount:
-          example: 0
-          type: integer
         _links:
           additionalProperties:
             $ref: '#/components/schemas/Link'
           example:
-            parent:
-              href: /api/v2/metrics/my-project
-              type: application/json
             self:
               href: /api/v2/metrics/my-project/my-metric
               type: application/json
           type: object
-        _site:
-          $ref: '#/components/schemas/Link'
-        _access:
-          $ref: '#/components/schemas/Access'
-        tags:
-          example: []
-          items:
-            type: string
-          type: array
-        _creationDate:
-          format: int64
-          type: integer
-        lastModified:
-          $ref: '#/components/schemas/Modification'
-        maintainerId:
-          example: 569fdeadbeef1644facecafe
-          type: string
-        _maintainer:
-          $ref: '#/components/schemas/MemberSummary'
-        description:
-          type: string
-        isNumeric:
-          type: boolean
-        successCriteria:
-          enum:
-          - HigherThanBaseline
-          - LowerThanBaseline
-          type: string
-        unit:
-          type: string
-        eventKey:
-          type: string
-        isActive:
-          type: boolean
-        _attachedFeatures:
-          items:
-            $ref: '#/components/schemas/FlagListingRep'
-          type: array
-        _version:
-          type: integer
-        selector:
-          type: string
-        urls:
-          items:
-            $ref: '#/components/schemas/UrlMatcher'
-          type: array
       required:
-      - _creationDate
-      - _id
       - _links
       - key
-      - kind
       - name
-      - tags
       type: object
     MetricSeen:
       example:
@@ -21389,6 +22286,10 @@ components:
           format: int64
           type: integer
       type: object
+    MetricsInput:
+      items:
+        $ref: '#/components/schemas/MetricInput'
+      type: array
     Modification:
       example:
         date: 2021-08-05T19:46:31.148082Z
@@ -21549,10 +22450,32 @@ components:
           example: resource not found
           type: string
       type: object
+    NullDecimal:
+      example:
+        Decimal:
+          exp: 5
+          value: ""
+        Valid: true
+      properties:
+        Decimal:
+          $ref: '#/components/schemas/Decimal'
+        Valid:
+          type: boolean
+      type: object
     ObjectId:
       type: string
     Operator:
       type: string
+    ParameterRep:
+      example:
+        variationId: variationId
+        flagKey: flagKey
+      properties:
+        variationId:
+          type: string
+        flagKey:
+          type: string
+      type: object
     ParentResourceRep:
       example:
         _links:
@@ -23511,6 +24434,7 @@ components:
       type: object
     StageInputRep:
       example:
+        executeConditionsInSequence: true
         name: name
         action:
           instructions: ""
@@ -23538,6 +24462,8 @@ components:
       properties:
         name:
           type: string
+        executeConditionsInSequence:
+          type: boolean
         conditions:
           items:
             $ref: '#/components/schemas/ConditionInputRep'
@@ -23805,6 +24731,7 @@ components:
             sourceLink: sourceLink
             hunkCount: 6
             version: 0
+            fileCount: 1
             enabled: true
           - _links:
               key:
@@ -23815,6 +24742,7 @@ components:
             sourceLink: sourceLink
             hunkCount: 6
             version: 0
+            fileCount: 1
             enabled: true
       properties:
         flags:
@@ -23842,6 +24770,7 @@ components:
         sourceLink: sourceLink
         hunkCount: 6
         version: 0
+        fileCount: 1
         enabled: true
       properties:
         name:
@@ -23856,6 +24785,8 @@ components:
           type: integer
         hunkCount:
           type: integer
+        fileCount:
+          type: integer
         _links:
           additionalProperties:
             $ref: '#/components/schemas/Link'
@@ -23864,6 +24795,7 @@ components:
       - _links
       - defaultBranch
       - enabled
+      - fileCount
       - hunkCount
       - name
       - sourceLink
@@ -24736,6 +25668,82 @@ components:
             $ref: '#/components/schemas/Link'
           type: object
       type: object
+    TreatmentInput:
+      example:
+        name: name
+        baseline: true
+        parameters:
+        - variationId: variationId
+          flagKey: flagKey
+        - variationId: variationId
+          flagKey: flagKey
+        allocationPercent: allocationPercent
+      properties:
+        name:
+          type: string
+        baseline:
+          type: boolean
+        allocationPercent:
+          type: string
+        parameters:
+          items:
+            $ref: '#/components/schemas/TreatmentParameterInput'
+          type: array
+      required:
+      - allocationPercent
+      - baseline
+      - name
+      - parameters
+      type: object
+    TreatmentParameterInput:
+      example:
+        variationId: variationId
+        flagKey: flagKey
+      properties:
+        flagKey:
+          type: string
+        variationId:
+          type: string
+      required:
+      - flagKey
+      - variationId
+      type: object
+    TreatmentRep:
+      example:
+        name: name
+        _id: _id
+        baseline: true
+        parameters:
+        - variationId: variationId
+          flagKey: flagKey
+        - variationId: variationId
+          flagKey: flagKey
+        allocationPercent:
+          Decimal:
+            exp: 5
+            value: ""
+          Valid: true
+      properties:
+        _id:
+          type: string
+        name:
+          type: string
+        allocationPercent:
+          $ref: '#/components/schemas/NullDecimal'
+        baseline:
+          type: boolean
+        parameters:
+          items:
+            $ref: '#/components/schemas/ParameterRep'
+          type: array
+      required:
+      - allocationPercent
+      - name
+      type: object
+    TreatmentsInput:
+      items:
+        $ref: '#/components/schemas/TreatmentInput'
+      type: array
     TriggerWorkflowCollectionRep:
       example:
         _links:
@@ -24903,10 +25911,6 @@ components:
       format: int64
       type: integer
     UrlMatcher: {}
-    UrlMatchers:
-      items:
-        $ref: '#/components/schemas/UrlMatcher'
-      type: array
     UrlPost:
       example:
         kind: exact
@@ -25023,6 +26027,13 @@ components:
       type: object
     UserFlagSetting:
       example:
+        reason:
+          ruleIndex: 3
+          kind: "OFF"
+          prerequisiteKey: someotherflagkey
+          ruleID: "1234567890"
+          errorKind: USER_NOT_SPECIFIED
+          inExperiment: true
         _links:
           sort.order:
             href: /api/v2/users/lacuna/production/Abbie_Braun/flags/sort.order
@@ -25042,6 +26053,8 @@ components:
           example: "true"
         setting:
           example: "null"
+        reason:
+          $ref: '#/components/schemas/EvaluationReason'
       required:
       - _links
       - _value
@@ -26886,6 +27899,17 @@ components:
       - url
       type: object
     inline_object:
+      properties:
+        file:
+          description: CSV file containing keys
+          format: binary
+          type: string
+        mode:
+          description: Import mode. Use either `merge` or `replace`
+          format: string
+          type: string
+      type: object
+    inline_object_1:
       properties:
         file:
           description: CSV file containing email addresses

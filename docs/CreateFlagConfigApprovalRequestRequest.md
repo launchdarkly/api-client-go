@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Comment** | Pointer to **string** | A comment describing the approval request | [optional] 
 **Description** | **string** | A human-friendly name for the approval request | 
-**Instructions** | **[]map[string]interface{}** |  | 
+**Instructions** | **[]interface{}** |  | 
 **NotifyMemberIds** | **[]string** | An array of member IDs. These members are notified to review the approval request | 
 **ExecutionDate** | Pointer to **int64** |  | [optional] 
 **OperatingOnId** | Pointer to **string** | ID of scheduled change to edit or delete | [optional] 
@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 
 ### NewCreateFlagConfigApprovalRequestRequest
 
-`func NewCreateFlagConfigApprovalRequestRequest(description string, instructions []map[string]interface{}, notifyMemberIds []string, ) *CreateFlagConfigApprovalRequestRequest`
+`func NewCreateFlagConfigApprovalRequestRequest(description string, instructions []interface{}, notifyMemberIds []string, ) *CreateFlagConfigApprovalRequestRequest`
 
 NewCreateFlagConfigApprovalRequestRequest instantiates a new CreateFlagConfigApprovalRequestRequest object
 This constructor will assign default values to properties that have it defined,
@@ -78,20 +78,20 @@ SetDescription sets Description field to given value.
 
 ### GetInstructions
 
-`func (o *CreateFlagConfigApprovalRequestRequest) GetInstructions() []map[string]interface{}`
+`func (o *CreateFlagConfigApprovalRequestRequest) GetInstructions() []interface{}`
 
 GetInstructions returns the Instructions field if non-nil, zero value otherwise.
 
 ### GetInstructionsOk
 
-`func (o *CreateFlagConfigApprovalRequestRequest) GetInstructionsOk() (*[]map[string]interface{}, bool)`
+`func (o *CreateFlagConfigApprovalRequestRequest) GetInstructionsOk() (*[]interface{}, bool)`
 
 GetInstructionsOk returns a tuple with the Instructions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInstructions
 
-`func (o *CreateFlagConfigApprovalRequestRequest) SetInstructions(v []map[string]interface{})`
+`func (o *CreateFlagConfigApprovalRequestRequest) SetInstructions(v []interface{})`
 
 SetInstructions sets Instructions field to given value.
 

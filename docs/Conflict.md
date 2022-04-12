@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Instruction** | Pointer to **map[string]interface{}** |  | [optional] 
+**Instruction** | Pointer to **interface{}** |  | [optional] 
 **Reason** | Pointer to **string** | Reason why the conflict exists | [optional] 
 
 ## Methods
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetInstruction
 
-`func (o *Conflict) GetInstruction() map[string]interface{}`
+`func (o *Conflict) GetInstruction() interface{}`
 
 GetInstruction returns the Instruction field if non-nil, zero value otherwise.
 
 ### GetInstructionOk
 
-`func (o *Conflict) GetInstructionOk() (*map[string]interface{}, bool)`
+`func (o *Conflict) GetInstructionOk() (*interface{}, bool)`
 
 GetInstructionOk returns a tuple with the Instruction field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInstruction
 
-`func (o *Conflict) SetInstruction(v map[string]interface{})`
+`func (o *Conflict) SetInstruction(v interface{})`
 
 SetInstruction sets Instruction field to given value.
 
@@ -51,6 +51,16 @@ SetInstruction sets Instruction field to given value.
 
 HasInstruction returns a boolean if a field has been set.
 
+### SetInstructionNil
+
+`func (o *Conflict) SetInstructionNil(b bool)`
+
+ SetInstructionNil sets the value for Instruction to be an explicit nil
+
+### UnsetInstruction
+`func (o *Conflict) UnsetInstruction()`
+
+UnsetInstruction ensures that no value is present for Instruction, not even an explicit nil
 ### GetReason
 
 `func (o *Conflict) GetReason() string`

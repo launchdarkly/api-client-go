@@ -269,7 +269,7 @@ func main() {
     featureFlagKey := "featureFlagKey_example" // string | The feature flag key
     environmentKey := "environmentKey_example" // string | The environment key
     id := "id_example" // string | The scheduled change ID
-    flagScheduledChangesInput := *openapiclient.NewFlagScheduledChangesInput([]map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}) // FlagScheduledChangesInput | 
+    flagScheduledChangesInput := *openapiclient.NewFlagScheduledChangesInput([]interface{}{nil}) // FlagScheduledChangesInput | 
     ignoreConflicts := true // bool | Whether or not to succeed or fail when the new instructions conflict with existing scheduled changes (optional)
 
     configuration := openapiclient.NewConfiguration()
@@ -351,7 +351,7 @@ func main() {
     projectKey := "projectKey_example" // string | The project key
     featureFlagKey := "featureFlagKey_example" // string | The feature flag key
     environmentKey := "environmentKey_example" // string | The environment key
-    postFlagScheduledChangesInput := *openapiclient.NewPostFlagScheduledChangesInput(int64(123), []map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}) // PostFlagScheduledChangesInput | 
+    postFlagScheduledChangesInput := *openapiclient.NewPostFlagScheduledChangesInput(int64(123), []interface{}{nil}) // PostFlagScheduledChangesInput | 
     ignoreConflicts := true // bool | Whether or not to succeed or fail when the new instructions conflict with existing scheduled changes (optional)
 
     configuration := openapiclient.NewConfiguration()
