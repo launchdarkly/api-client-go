@@ -636,7 +636,7 @@ func (r ApiGetUsersRequest) SearchAfter(searchAfter string) ApiGetUsersRequest {
 	return r
 }
 
-func (r ApiGetUsersRequest) Execute() (Users, *_nethttp.Response, error) {
+func (r ApiGetUsersRequest) Execute() (UsersRep, *_nethttp.Response, error) {
 	return r.ApiService.GetUsersExecute(r)
 }
 
@@ -661,15 +661,15 @@ func (a *UsersApiService) GetUsers(ctx _context.Context, projectKey string, envi
 }
 
 // Execute executes the request
-//  @return Users
-func (a *UsersApiService) GetUsersExecute(r ApiGetUsersRequest) (Users, *_nethttp.Response, error) {
+//  @return UsersRep
+func (a *UsersApiService) GetUsersExecute(r ApiGetUsersRequest) (UsersRep, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  Users
+		localVarReturnValue  UsersRep
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UsersApiService.GetUsers")

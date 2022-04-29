@@ -8,7 +8,7 @@ Method | HTTP request | Description
 [**GetMember**](AccountMembersApi.md#GetMember) | **Get** /api/v2/members/{id} | Get account member
 [**GetMembers**](AccountMembersApi.md#GetMembers) | **Get** /api/v2/members | List account members
 [**PatchMember**](AccountMembersApi.md#PatchMember) | **Patch** /api/v2/members/{id} | Modify an account member
-[**PostMemberTeams**](AccountMembersApi.md#PostMemberTeams) | **Post** /api/v2/members/{id}/teams | Add member to teams
+[**PostMemberTeams**](AccountMembersApi.md#PostMemberTeams) | **Post** /api/v2/members/{id}/teams | Add a member to teams
 [**PostMembers**](AccountMembersApi.md#PostMembers) | **Post** /api/v2/members | Invite new members
 
 
@@ -299,7 +299,7 @@ Name | Type | Description  | Notes
 
 > Member PostMemberTeams(ctx, id).MemberTeamsPostInput(memberTeamsPostInput).Execute()
 
-Add member to teams
+Add a member to teams
 
 
 

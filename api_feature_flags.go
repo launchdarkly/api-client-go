@@ -2131,7 +2131,6 @@ If a flag variation does not already have users individually targeted, the path 
 
 ## Required approvals
 If a request attempts to alter a flag configuration in an environment where approvals are required for the flag, the request will fail with a 405. Changes to the flag configuration in that environment will required creating an [approval request](/tag/Approvals) or a [workflow](/tag/Workflows-(beta)).
-This behavior can be bypassed by users and access tokens that have a [custom role](https://docs.launchdarkly.com/home/members/custom-roles) with permission to perform the `bypassRequiredApproval` action on the flag.
 
 ## Conflicts
 If a flag configuration change made through this endpoint would cause a pending scheduled change or approval request to fail, this endpoint will return a 400. You can ignore this check by adding an `ignoreConflicts` query parameter set to `true`.

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Treatments** | Pointer to [**[]TreatmentRep**](TreatmentRep.md) |  | [optional] 
-**SecondaryMetrics** | Pointer to [**[]MetricRep**](MetricRep.md) |  | [optional] 
+**SecondaryMetrics** | Pointer to [**[]MetricV2Rep**](MetricV2Rep.md) |  | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasTreatments returns a boolean if a field has been set.
 
 ### GetSecondaryMetrics
 
-`func (o *IterationExpandableProperties) GetSecondaryMetrics() []MetricRep`
+`func (o *IterationExpandableProperties) GetSecondaryMetrics() []MetricV2Rep`
 
 GetSecondaryMetrics returns the SecondaryMetrics field if non-nil, zero value otherwise.
 
 ### GetSecondaryMetricsOk
 
-`func (o *IterationExpandableProperties) GetSecondaryMetricsOk() (*[]MetricRep, bool)`
+`func (o *IterationExpandableProperties) GetSecondaryMetricsOk() (*[]MetricV2Rep, bool)`
 
 GetSecondaryMetricsOk returns a tuple with the SecondaryMetrics field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSecondaryMetrics
 
-`func (o *IterationExpandableProperties) SetSecondaryMetrics(v []MetricRep)`
+`func (o *IterationExpandableProperties) SetSecondaryMetrics(v []MetricV2Rep)`
 
 SetSecondaryMetrics sets SecondaryMetrics field to given value.
 

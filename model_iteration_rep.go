@@ -23,11 +23,12 @@ type IterationRep struct {
 	StartedAt *int64 `json:"startedAt,omitempty"`
 	EndedAt *int64 `json:"endedAt,omitempty"`
 	WinningTreatmentId *string `json:"winningTreatmentId,omitempty"`
+	WinningReason *string `json:"winningReason,omitempty"`
 	CanReshuffleTraffic *bool `json:"canReshuffleTraffic,omitempty"`
 	Flags *map[string]FlagRep `json:"flags,omitempty"`
-	PrimaryMetric *MetricRep `json:"primaryMetric,omitempty"`
+	PrimaryMetric *MetricV2Rep `json:"primaryMetric,omitempty"`
 	Treatments *[]TreatmentRep `json:"treatments,omitempty"`
-	SecondaryMetrics *[]MetricRep `json:"secondaryMetrics,omitempty"`
+	SecondaryMetrics *[]MetricV2Rep `json:"secondaryMetrics,omitempty"`
 }
 
 // NewIterationRep instantiates a new IterationRep object
@@ -225,6 +226,38 @@ func (o *IterationRep) SetWinningTreatmentId(v string) {
 	o.WinningTreatmentId = &v
 }
 
+// GetWinningReason returns the WinningReason field value if set, zero value otherwise.
+func (o *IterationRep) GetWinningReason() string {
+	if o == nil || o.WinningReason == nil {
+		var ret string
+		return ret
+	}
+	return *o.WinningReason
+}
+
+// GetWinningReasonOk returns a tuple with the WinningReason field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IterationRep) GetWinningReasonOk() (*string, bool) {
+	if o == nil || o.WinningReason == nil {
+		return nil, false
+	}
+	return o.WinningReason, true
+}
+
+// HasWinningReason returns a boolean if a field has been set.
+func (o *IterationRep) HasWinningReason() bool {
+	if o != nil && o.WinningReason != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetWinningReason gets a reference to the given string and assigns it to the WinningReason field.
+func (o *IterationRep) SetWinningReason(v string) {
+	o.WinningReason = &v
+}
+
 // GetCanReshuffleTraffic returns the CanReshuffleTraffic field value if set, zero value otherwise.
 func (o *IterationRep) GetCanReshuffleTraffic() bool {
 	if o == nil || o.CanReshuffleTraffic == nil {
@@ -290,9 +323,9 @@ func (o *IterationRep) SetFlags(v map[string]FlagRep) {
 }
 
 // GetPrimaryMetric returns the PrimaryMetric field value if set, zero value otherwise.
-func (o *IterationRep) GetPrimaryMetric() MetricRep {
+func (o *IterationRep) GetPrimaryMetric() MetricV2Rep {
 	if o == nil || o.PrimaryMetric == nil {
-		var ret MetricRep
+		var ret MetricV2Rep
 		return ret
 	}
 	return *o.PrimaryMetric
@@ -300,7 +333,7 @@ func (o *IterationRep) GetPrimaryMetric() MetricRep {
 
 // GetPrimaryMetricOk returns a tuple with the PrimaryMetric field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IterationRep) GetPrimaryMetricOk() (*MetricRep, bool) {
+func (o *IterationRep) GetPrimaryMetricOk() (*MetricV2Rep, bool) {
 	if o == nil || o.PrimaryMetric == nil {
 		return nil, false
 	}
@@ -316,8 +349,8 @@ func (o *IterationRep) HasPrimaryMetric() bool {
 	return false
 }
 
-// SetPrimaryMetric gets a reference to the given MetricRep and assigns it to the PrimaryMetric field.
-func (o *IterationRep) SetPrimaryMetric(v MetricRep) {
+// SetPrimaryMetric gets a reference to the given MetricV2Rep and assigns it to the PrimaryMetric field.
+func (o *IterationRep) SetPrimaryMetric(v MetricV2Rep) {
 	o.PrimaryMetric = &v
 }
 
@@ -354,9 +387,9 @@ func (o *IterationRep) SetTreatments(v []TreatmentRep) {
 }
 
 // GetSecondaryMetrics returns the SecondaryMetrics field value if set, zero value otherwise.
-func (o *IterationRep) GetSecondaryMetrics() []MetricRep {
+func (o *IterationRep) GetSecondaryMetrics() []MetricV2Rep {
 	if o == nil || o.SecondaryMetrics == nil {
-		var ret []MetricRep
+		var ret []MetricV2Rep
 		return ret
 	}
 	return *o.SecondaryMetrics
@@ -364,7 +397,7 @@ func (o *IterationRep) GetSecondaryMetrics() []MetricRep {
 
 // GetSecondaryMetricsOk returns a tuple with the SecondaryMetrics field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IterationRep) GetSecondaryMetricsOk() (*[]MetricRep, bool) {
+func (o *IterationRep) GetSecondaryMetricsOk() (*[]MetricV2Rep, bool) {
 	if o == nil || o.SecondaryMetrics == nil {
 		return nil, false
 	}
@@ -380,8 +413,8 @@ func (o *IterationRep) HasSecondaryMetrics() bool {
 	return false
 }
 
-// SetSecondaryMetrics gets a reference to the given []MetricRep and assigns it to the SecondaryMetrics field.
-func (o *IterationRep) SetSecondaryMetrics(v []MetricRep) {
+// SetSecondaryMetrics gets a reference to the given []MetricV2Rep and assigns it to the SecondaryMetrics field.
+func (o *IterationRep) SetSecondaryMetrics(v []MetricV2Rep) {
 	o.SecondaryMetrics = &v
 }
 
@@ -404,6 +437,9 @@ func (o IterationRep) MarshalJSON() ([]byte, error) {
 	}
 	if o.WinningTreatmentId != nil {
 		toSerialize["winningTreatmentId"] = o.WinningTreatmentId
+	}
+	if o.WinningReason != nil {
+		toSerialize["winningReason"] = o.WinningReason
 	}
 	if o.CanReshuffleTraffic != nil {
 		toSerialize["canReshuffleTraffic"] = o.CanReshuffleTraffic

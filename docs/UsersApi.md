@@ -250,7 +250,7 @@ Name | Type | Description  | Notes
 
 ## GetUsers
 
-> Users GetUsers(ctx, projectKey, environmentKey).Limit(limit).SearchAfter(searchAfter).Execute()
+> UsersRep GetUsers(ctx, projectKey, environmentKey).Limit(limit).SearchAfter(searchAfter).Execute()
 
 List users
 
@@ -281,7 +281,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `UsersApi.GetUsers``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetUsers`: Users
+    // response from `GetUsers`: UsersRep
     fmt.Fprintf(os.Stdout, "Response from `UsersApi.GetUsers`: %v\n", resp)
 }
 ```
@@ -309,7 +309,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Users**](Users.md)
+[**UsersRep**](UsersRep.md)
 
 ### Authorization
 

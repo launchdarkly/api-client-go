@@ -43,7 +43,7 @@ func (r ApiDeleteTeamRequest) Execute() (*_nethttp.Response, error) {
 /*
 DeleteTeam Delete team
 
-Delete a team by key
+Delete a team by key. To learn more, read [Deleting a team](https://docs.launchdarkly.com/home/teams/managing#deleting-a-team).
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param teamKey The team key
@@ -372,7 +372,7 @@ func (r ApiGetTeamMaintainersRequest) Execute() (TeamMaintainers, *_nethttp.Resp
 /*
 GetTeamMaintainers Get team maintainers
 
-Fetch the maintainers that have been assigned to the team.
+Fetch the maintainers that have been assigned to the team. To learn more, read [Managing team maintainers](https://docs.launchdarkly.com/home/teams/managing#managing-team-maintainers).
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param teamKey The team key
@@ -569,7 +569,7 @@ func (r ApiGetTeamRolesRequest) Execute() (TeamCustomRoles, *_nethttp.Response, 
 /*
 GetTeamRoles Get team custom roles
 
-Fetch the custom roles that have been assigned to the team.
+Fetch the custom roles that have been assigned to the team. To learn more, read [Managing team permissions](https://docs.launchdarkly.com/home/teams/managing#managing-team-permissions).
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param teamKey The team key
@@ -1204,7 +1204,7 @@ func (r ApiPostTeamRequest) Execute() (Team, *_nethttp.Response, error) {
 /*
 PostTeam Create team
 
-Create a team
+Create a team. To learn more, read [Creating a team](https://docs.launchdarkly.com/home/teams/creating).
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiPostTeamRequest
@@ -1369,9 +1369,9 @@ func (r ApiPostTeamMembersRequest) Execute() (TeamImportsRep, *_nethttp.Response
 }
 
 /*
-PostTeamMembers Add members to team
+PostTeamMembers Add multiple members to team
 
-Add multiple members to an existing team by uploading a CSV file of member email addresses. Your CSV file must include email addresses in the first column. You can include data in additional columns, but LaunchDarkly ignores all data outside the first column. Headers are optional.
+Add multiple members to an existing team by uploading a CSV file of member email addresses. Your CSV file must include email addresses in the first column. You can include data in additional columns, but LaunchDarkly ignores all data outside the first column. Headers are optional. To learn more, read [Managing team members](https://docs.launchdarkly.com/home/teams/managing#managing-team-members).
 
 **Members are only added on a `201` response.** A `207` indicates the CSV file contains a combination of valid and invalid entries and will _not_ result in any members being added to the team.
 

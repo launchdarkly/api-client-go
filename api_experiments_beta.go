@@ -41,7 +41,7 @@ func (r ApiCreateExperimentRequest) ExperimentPost(experimentPost ExperimentPost
 	return r
 }
 
-func (r ApiCreateExperimentRequest) Execute() (ExperimentRep, *_nethttp.Response, error) {
+func (r ApiCreateExperimentRequest) Execute() (Experiment, *_nethttp.Response, error) {
 	return r.ApiService.CreateExperimentExecute(r)
 }
 
@@ -65,15 +65,15 @@ func (a *ExperimentsBetaApiService) CreateExperiment(ctx _context.Context, proje
 }
 
 // Execute executes the request
-//  @return ExperimentRep
-func (a *ExperimentsBetaApiService) CreateExperimentExecute(r ApiCreateExperimentRequest) (ExperimentRep, *_nethttp.Response, error) {
+//  @return Experiment
+func (a *ExperimentsBetaApiService) CreateExperimentExecute(r ApiCreateExperimentRequest) (Experiment, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  ExperimentRep
+		localVarReturnValue  Experiment
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExperimentsBetaApiService.CreateExperiment")
@@ -407,7 +407,7 @@ type ApiGetExperimentRequest struct {
 }
 
 
-func (r ApiGetExperimentRequest) Execute() (ExperimentRep, *_nethttp.Response, error) {
+func (r ApiGetExperimentRequest) Execute() (Experiment, *_nethttp.Response, error) {
 	return r.ApiService.GetExperimentExecute(r)
 }
 
@@ -433,15 +433,15 @@ func (a *ExperimentsBetaApiService) GetExperiment(ctx _context.Context, projectK
 }
 
 // Execute executes the request
-//  @return ExperimentRep
-func (a *ExperimentsBetaApiService) GetExperimentExecute(r ApiGetExperimentRequest) (ExperimentRep, *_nethttp.Response, error) {
+//  @return Experiment
+func (a *ExperimentsBetaApiService) GetExperimentExecute(r ApiGetExperimentRequest) (Experiment, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  ExperimentRep
+		localVarReturnValue  Experiment
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExperimentsBetaApiService.GetExperiment")
@@ -1162,7 +1162,7 @@ func (r ApiPatchExperimentRequest) ExperimentPatchInput(experimentPatchInput Exp
 	return r
 }
 
-func (r ApiPatchExperimentRequest) Execute() (ExperimentRep, *_nethttp.Response, error) {
+func (r ApiPatchExperimentRequest) Execute() (Experiment, *_nethttp.Response, error) {
 	return r.ApiService.PatchExperimentExecute(r)
 }
 
@@ -1188,15 +1188,15 @@ func (a *ExperimentsBetaApiService) PatchExperiment(ctx _context.Context, projec
 }
 
 // Execute executes the request
-//  @return ExperimentRep
-func (a *ExperimentsBetaApiService) PatchExperimentExecute(r ApiPatchExperimentRequest) (ExperimentRep, *_nethttp.Response, error) {
+//  @return Experiment
+func (a *ExperimentsBetaApiService) PatchExperimentExecute(r ApiPatchExperimentRequest) (Experiment, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPatch
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  ExperimentRep
+		localVarReturnValue  Experiment
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ExperimentsBetaApiService.PatchExperiment")

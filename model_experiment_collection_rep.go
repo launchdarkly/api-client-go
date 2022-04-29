@@ -17,7 +17,7 @@ import (
 
 // ExperimentCollectionRep struct for ExperimentCollectionRep
 type ExperimentCollectionRep struct {
-	Items *[]ExperimentRep `json:"items,omitempty"`
+	Items *[]Experiment `json:"items,omitempty"`
 	TotalCount *int32 `json:"total_count,omitempty"`
 	Links *map[string]Link `json:"_links,omitempty"`
 }
@@ -40,9 +40,9 @@ func NewExperimentCollectionRepWithDefaults() *ExperimentCollectionRep {
 }
 
 // GetItems returns the Items field value if set, zero value otherwise.
-func (o *ExperimentCollectionRep) GetItems() []ExperimentRep {
+func (o *ExperimentCollectionRep) GetItems() []Experiment {
 	if o == nil || o.Items == nil {
-		var ret []ExperimentRep
+		var ret []Experiment
 		return ret
 	}
 	return *o.Items
@@ -50,7 +50,7 @@ func (o *ExperimentCollectionRep) GetItems() []ExperimentRep {
 
 // GetItemsOk returns a tuple with the Items field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ExperimentCollectionRep) GetItemsOk() (*[]ExperimentRep, bool) {
+func (o *ExperimentCollectionRep) GetItemsOk() (*[]Experiment, bool) {
 	if o == nil || o.Items == nil {
 		return nil, false
 	}
@@ -66,8 +66,8 @@ func (o *ExperimentCollectionRep) HasItems() bool {
 	return false
 }
 
-// SetItems gets a reference to the given []ExperimentRep and assigns it to the Items field.
-func (o *ExperimentCollectionRep) SetItems(v []ExperimentRep) {
+// SetItems gets a reference to the given []Experiment and assigns it to the Items field.
+func (o *ExperimentCollectionRep) SetItems(v []Experiment) {
 	o.Items = &v
 }
 

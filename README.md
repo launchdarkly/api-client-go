@@ -540,7 +540,7 @@ Class | Method | HTTP request | Description
 *AccountMembersApi* | [**GetMember**](docs/AccountMembersApi.md#getmember) | **Get** /api/v2/members/{id} | Get account member
 *AccountMembersApi* | [**GetMembers**](docs/AccountMembersApi.md#getmembers) | **Get** /api/v2/members | List account members
 *AccountMembersApi* | [**PatchMember**](docs/AccountMembersApi.md#patchmember) | **Patch** /api/v2/members/{id} | Modify an account member
-*AccountMembersApi* | [**PostMemberTeams**](docs/AccountMembersApi.md#postmemberteams) | **Post** /api/v2/members/{id}/teams | Add member to teams
+*AccountMembersApi* | [**PostMemberTeams**](docs/AccountMembersApi.md#postmemberteams) | **Post** /api/v2/members/{id}/teams | Add a member to teams
 *AccountMembersApi* | [**PostMembers**](docs/AccountMembersApi.md#postmembers) | **Post** /api/v2/members | Invite new members
 *AccountUsageBetaApi* | [**GetEvaluationsUsage**](docs/AccountUsageBetaApi.md#getevaluationsusage) | **Get** /api/v2/usage/evaluations/{projectKey}/{environmentKey}/{featureFlagKey} | Get evaluations usage
 *AccountUsageBetaApi* | [**GetEventsUsage**](docs/AccountUsageBetaApi.md#geteventsusage) | **Get** /api/v2/usage/events/{type} | Get events usage
@@ -676,7 +676,7 @@ Class | Method | HTTP request | Description
 *TeamsBetaApi* | [**GetTeams**](docs/TeamsBetaApi.md#getteams) | **Get** /api/v2/teams | List teams
 *TeamsBetaApi* | [**PatchTeam**](docs/TeamsBetaApi.md#patchteam) | **Patch** /api/v2/teams/{teamKey} | Update team
 *TeamsBetaApi* | [**PostTeam**](docs/TeamsBetaApi.md#postteam) | **Post** /api/v2/teams | Create team
-*TeamsBetaApi* | [**PostTeamMembers**](docs/TeamsBetaApi.md#postteammembers) | **Post** /api/v2/teams/{teamKey}/members | Add members to team
+*TeamsBetaApi* | [**PostTeamMembers**](docs/TeamsBetaApi.md#postteammembers) | **Post** /api/v2/teams/{teamKey}/members | Add multiple members to team
 *UserSettingsApi* | [**GetExpiringFlagsForUser**](docs/UserSettingsApi.md#getexpiringflagsforuser) | **Get** /api/v2/users/{projectKey}/{userKey}/expiring-user-targets/{environmentKey} | Get expiring dates on flags for user
 *UserSettingsApi* | [**GetUserFlagSetting**](docs/UserSettingsApi.md#getuserflagsetting) | **Get** /api/v2/users/{projectKey}/{environmentKey}/{userKey}/flags/{featureFlagKey} | Get flag setting for user
 *UserSettingsApi* | [**GetUserFlagSettings**](docs/UserSettingsApi.md#getuserflagsettings) | **Get** /api/v2/users/{projectKey}/{environmentKey}/{userKey}/flags | List flag settings for user
@@ -740,7 +740,6 @@ Class | Method | HTTP request | Description
  - [CustomWorkflowOutputRep](docs/CustomWorkflowOutputRep.md)
  - [CustomWorkflowStageMeta](docs/CustomWorkflowStageMeta.md)
  - [CustomWorkflowsListingOutputRep](docs/CustomWorkflowsListingOutputRep.md)
- - [Decimal](docs/Decimal.md)
  - [DefaultClientSideAvailabilityPost](docs/DefaultClientSideAvailabilityPost.md)
  - [Defaults](docs/Defaults.md)
  - [DependentFlag](docs/DependentFlag.md)
@@ -753,15 +752,16 @@ Class | Method | HTTP request | Description
  - [EnvironmentPost](docs/EnvironmentPost.md)
  - [EvaluationReason](docs/EvaluationReason.md)
  - [ExecutionOutputRep](docs/ExecutionOutputRep.md)
+ - [Experiment](docs/Experiment.md)
  - [ExperimentAllocationRep](docs/ExperimentAllocationRep.md)
  - [ExperimentCollectionRep](docs/ExperimentCollectionRep.md)
  - [ExperimentEnabledPeriodRep](docs/ExperimentEnabledPeriodRep.md)
  - [ExperimentEnvironmentSettingRep](docs/ExperimentEnvironmentSettingRep.md)
+ - [ExperimentExpandableProperties](docs/ExperimentExpandableProperties.md)
  - [ExperimentInfoRep](docs/ExperimentInfoRep.md)
  - [ExperimentMetadataRep](docs/ExperimentMetadataRep.md)
  - [ExperimentPatchInput](docs/ExperimentPatchInput.md)
  - [ExperimentPost](docs/ExperimentPost.md)
- - [ExperimentRep](docs/ExperimentRep.md)
  - [ExperimentResults](docs/ExperimentResults.md)
  - [ExperimentStatsRep](docs/ExperimentStatsRep.md)
  - [ExperimentTimeSeriesSlice](docs/ExperimentTimeSeriesSlice.md)
@@ -822,6 +822,7 @@ Class | Method | HTTP request | Description
  - [IterationInput](docs/IterationInput.md)
  - [IterationRep](docs/IterationRep.md)
  - [LastSeenMetadata](docs/LastSeenMetadata.md)
+ - [LegacyExperimentRep](docs/LegacyExperimentRep.md)
  - [Link](docs/Link.md)
  - [Member](docs/Member.md)
  - [MemberDataRep](docs/MemberDataRep.md)
@@ -838,12 +839,12 @@ Class | Method | HTTP request | Description
  - [MetricPost](docs/MetricPost.md)
  - [MetricRep](docs/MetricRep.md)
  - [MetricSeen](docs/MetricSeen.md)
+ - [MetricV2Rep](docs/MetricV2Rep.md)
  - [Modification](docs/Modification.md)
  - [MultiEnvironmentDependentFlag](docs/MultiEnvironmentDependentFlag.md)
  - [MultiEnvironmentDependentFlags](docs/MultiEnvironmentDependentFlags.md)
  - [NewMemberForm](docs/NewMemberForm.md)
  - [NotFoundErrorRep](docs/NotFoundErrorRep.md)
- - [NullDecimal](docs/NullDecimal.md)
  - [ParameterRep](docs/ParameterRep.md)
  - [ParentResourceRep](docs/ParentResourceRep.md)
  - [PatchFailedErrorRep](docs/PatchFailedErrorRep.md)
@@ -903,6 +904,7 @@ Class | Method | HTTP request | Description
  - [StatementRep](docs/StatementRep.md)
  - [StatisticCollectionRep](docs/StatisticCollectionRep.md)
  - [StatisticRep](docs/StatisticRep.md)
+ - [StatisticsRep](docs/StatisticsRep.md)
  - [StatisticsRoot](docs/StatisticsRoot.md)
  - [StatusConflictErrorRep](docs/StatusConflictErrorRep.md)
  - [SubjectDataRep](docs/SubjectDataRep.md)
@@ -942,6 +944,7 @@ Class | Method | HTTP request | Description
  - [UserSegmentRule](docs/UserSegmentRule.md)
  - [UserSegments](docs/UserSegments.md)
  - [Users](docs/Users.md)
+ - [UsersRep](docs/UsersRep.md)
  - [ValuePut](docs/ValuePut.md)
  - [Variation](docs/Variation.md)
  - [VariationOrRolloutRep](docs/VariationOrRolloutRep.md)

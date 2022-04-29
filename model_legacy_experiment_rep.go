@@ -12,366 +12,213 @@ Contact: support@launchdarkly.com
 package ldapi
 
 import (
-	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
-	"strings"
+	"encoding/json"
 )
 
-// Linger please
-var (
-	_ _context.Context
-)
+// LegacyExperimentRep struct for LegacyExperimentRep
+type LegacyExperimentRep struct {
+	MetricKey *string `json:"metricKey,omitempty"`
+	Metric *MetricListingRep `json:"_metric,omitempty"`
+	Environments *[]string `json:"environments,omitempty"`
+	EnvironmentSettings *map[string]ExperimentEnvironmentSettingRep `json:"_environmentSettings,omitempty"`
+}
 
-// FeatureFlagsBetaApiService FeatureFlagsBetaApi service
-type FeatureFlagsBetaApiService service
+// NewLegacyExperimentRep instantiates a new LegacyExperimentRep object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewLegacyExperimentRep() *LegacyExperimentRep {
+	this := LegacyExperimentRep{}
+	return &this
+}
 
-type ApiGetDependentFlagsRequest struct {
-	ctx _context.Context
-	ApiService *FeatureFlagsBetaApiService
-	projectKey string
-	featureFlagKey string
+// NewLegacyExperimentRepWithDefaults instantiates a new LegacyExperimentRep object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewLegacyExperimentRepWithDefaults() *LegacyExperimentRep {
+	this := LegacyExperimentRep{}
+	return &this
+}
+
+// GetMetricKey returns the MetricKey field value if set, zero value otherwise.
+func (o *LegacyExperimentRep) GetMetricKey() string {
+	if o == nil || o.MetricKey == nil {
+		var ret string
+		return ret
+	}
+	return *o.MetricKey
+}
+
+// GetMetricKeyOk returns a tuple with the MetricKey field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LegacyExperimentRep) GetMetricKeyOk() (*string, bool) {
+	if o == nil || o.MetricKey == nil {
+		return nil, false
+	}
+	return o.MetricKey, true
+}
+
+// HasMetricKey returns a boolean if a field has been set.
+func (o *LegacyExperimentRep) HasMetricKey() bool {
+	if o != nil && o.MetricKey != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMetricKey gets a reference to the given string and assigns it to the MetricKey field.
+func (o *LegacyExperimentRep) SetMetricKey(v string) {
+	o.MetricKey = &v
+}
+
+// GetMetric returns the Metric field value if set, zero value otherwise.
+func (o *LegacyExperimentRep) GetMetric() MetricListingRep {
+	if o == nil || o.Metric == nil {
+		var ret MetricListingRep
+		return ret
+	}
+	return *o.Metric
+}
+
+// GetMetricOk returns a tuple with the Metric field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LegacyExperimentRep) GetMetricOk() (*MetricListingRep, bool) {
+	if o == nil || o.Metric == nil {
+		return nil, false
+	}
+	return o.Metric, true
+}
+
+// HasMetric returns a boolean if a field has been set.
+func (o *LegacyExperimentRep) HasMetric() bool {
+	if o != nil && o.Metric != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMetric gets a reference to the given MetricListingRep and assigns it to the Metric field.
+func (o *LegacyExperimentRep) SetMetric(v MetricListingRep) {
+	o.Metric = &v
+}
+
+// GetEnvironments returns the Environments field value if set, zero value otherwise.
+func (o *LegacyExperimentRep) GetEnvironments() []string {
+	if o == nil || o.Environments == nil {
+		var ret []string
+		return ret
+	}
+	return *o.Environments
+}
+
+// GetEnvironmentsOk returns a tuple with the Environments field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LegacyExperimentRep) GetEnvironmentsOk() (*[]string, bool) {
+	if o == nil || o.Environments == nil {
+		return nil, false
+	}
+	return o.Environments, true
+}
+
+// HasEnvironments returns a boolean if a field has been set.
+func (o *LegacyExperimentRep) HasEnvironments() bool {
+	if o != nil && o.Environments != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetEnvironments gets a reference to the given []string and assigns it to the Environments field.
+func (o *LegacyExperimentRep) SetEnvironments(v []string) {
+	o.Environments = &v
+}
+
+// GetEnvironmentSettings returns the EnvironmentSettings field value if set, zero value otherwise.
+func (o *LegacyExperimentRep) GetEnvironmentSettings() map[string]ExperimentEnvironmentSettingRep {
+	if o == nil || o.EnvironmentSettings == nil {
+		var ret map[string]ExperimentEnvironmentSettingRep
+		return ret
+	}
+	return *o.EnvironmentSettings
+}
+
+// GetEnvironmentSettingsOk returns a tuple with the EnvironmentSettings field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LegacyExperimentRep) GetEnvironmentSettingsOk() (*map[string]ExperimentEnvironmentSettingRep, bool) {
+	if o == nil || o.EnvironmentSettings == nil {
+		return nil, false
+	}
+	return o.EnvironmentSettings, true
+}
+
+// HasEnvironmentSettings returns a boolean if a field has been set.
+func (o *LegacyExperimentRep) HasEnvironmentSettings() bool {
+	if o != nil && o.EnvironmentSettings != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetEnvironmentSettings gets a reference to the given map[string]ExperimentEnvironmentSettingRep and assigns it to the EnvironmentSettings field.
+func (o *LegacyExperimentRep) SetEnvironmentSettings(v map[string]ExperimentEnvironmentSettingRep) {
+	o.EnvironmentSettings = &v
+}
+
+func (o LegacyExperimentRep) MarshalJSON() ([]byte, error) {
+	toSerialize := map[string]interface{}{}
+	if o.MetricKey != nil {
+		toSerialize["metricKey"] = o.MetricKey
+	}
+	if o.Metric != nil {
+		toSerialize["_metric"] = o.Metric
+	}
+	if o.Environments != nil {
+		toSerialize["environments"] = o.Environments
+	}
+	if o.EnvironmentSettings != nil {
+		toSerialize["_environmentSettings"] = o.EnvironmentSettings
+	}
+	return json.Marshal(toSerialize)
+}
+
+type NullableLegacyExperimentRep struct {
+	value *LegacyExperimentRep
+	isSet bool
+}
+
+func (v NullableLegacyExperimentRep) Get() *LegacyExperimentRep {
+	return v.value
+}
+
+func (v *NullableLegacyExperimentRep) Set(val *LegacyExperimentRep) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableLegacyExperimentRep) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableLegacyExperimentRep) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableLegacyExperimentRep(val *LegacyExperimentRep) *NullableLegacyExperimentRep {
+	return &NullableLegacyExperimentRep{value: val, isSet: true}
+}
+
+func (v NullableLegacyExperimentRep) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableLegacyExperimentRep) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
 }
 
 
-func (r ApiGetDependentFlagsRequest) Execute() (MultiEnvironmentDependentFlags, *_nethttp.Response, error) {
-	return r.ApiService.GetDependentFlagsExecute(r)
-}
-
-/*
-GetDependentFlags List dependent feature flags
-
-> ### Flag prerequisites is an Enterprise feature
->
-> Flag prerequisites is available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
-
-> ### This feature is in beta
->
-> To use this feature, pass in a header including the `LD-API-Version` key with value set to `beta`. Use this header with each call. To learn more, read [Beta resources](/#section/Overview/Beta-resources).
-
-List dependent flags across all environments for the flag specified in the path parameters. A dependent flag is a flag that uses another flag as a prerequisite. To learn more, read [Flag prerequisites](https://docs.launchdarkly.com/home/flags/prerequisites).
-
-
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param projectKey The project key
- @param featureFlagKey The feature flag key
- @return ApiGetDependentFlagsRequest
-*/
-func (a *FeatureFlagsBetaApiService) GetDependentFlags(ctx _context.Context, projectKey string, featureFlagKey string) ApiGetDependentFlagsRequest {
-	return ApiGetDependentFlagsRequest{
-		ApiService: a,
-		ctx: ctx,
-		projectKey: projectKey,
-		featureFlagKey: featureFlagKey,
-	}
-}
-
-// Execute executes the request
-//  @return MultiEnvironmentDependentFlags
-func (a *FeatureFlagsBetaApiService) GetDependentFlagsExecute(r ApiGetDependentFlagsRequest) (MultiEnvironmentDependentFlags, *_nethttp.Response, error) {
-	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  MultiEnvironmentDependentFlags
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FeatureFlagsBetaApiService.GetDependentFlags")
-	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v2/flags/{projectKey}/{featureFlagKey}/dependent-flags"
-	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", _neturl.PathEscape(parameterToString(r.projectKey, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"featureFlagKey"+"}", _neturl.PathEscape(parameterToString(r.featureFlagKey, "")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["ApiKey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["Authorization"] = key
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v UnauthorizedErrorRep
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 403 {
-			var v ForbiddenErrorRep
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 404 {
-			var v NotFoundErrorRep
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v RateLimitedErrorRep
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiGetDependentFlagsByEnvRequest struct {
-	ctx _context.Context
-	ApiService *FeatureFlagsBetaApiService
-	projectKey string
-	environmentKey string
-	featureFlagKey string
-}
-
-
-func (r ApiGetDependentFlagsByEnvRequest) Execute() (DependentFlagsByEnvironment, *_nethttp.Response, error) {
-	return r.ApiService.GetDependentFlagsByEnvExecute(r)
-}
-
-/*
-GetDependentFlagsByEnv List dependent feature flags by environment
-
-> ### Flag prerequisites is an Enterprise feature
->
-> Flag prerequisites is available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
-
-> ### This feature is in beta
->
-> To use this feature, pass in a header including the `LD-API-Version` key with value set to `beta`. Use this header with each call. To learn more, read [Beta resources](/#section/Overview/Beta-resources).
-
-List dependent flags across all environments for the flag specified in the path parameters. A dependent flag is a flag that uses another flag as a prerequisite. To learn more, read [Flag prerequisites](https://docs.launchdarkly.com/home/flags/prerequisites).
-
-
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param projectKey The project key
- @param environmentKey The environment key
- @param featureFlagKey The feature flag key
- @return ApiGetDependentFlagsByEnvRequest
-*/
-func (a *FeatureFlagsBetaApiService) GetDependentFlagsByEnv(ctx _context.Context, projectKey string, environmentKey string, featureFlagKey string) ApiGetDependentFlagsByEnvRequest {
-	return ApiGetDependentFlagsByEnvRequest{
-		ApiService: a,
-		ctx: ctx,
-		projectKey: projectKey,
-		environmentKey: environmentKey,
-		featureFlagKey: featureFlagKey,
-	}
-}
-
-// Execute executes the request
-//  @return DependentFlagsByEnvironment
-func (a *FeatureFlagsBetaApiService) GetDependentFlagsByEnvExecute(r ApiGetDependentFlagsByEnvRequest) (DependentFlagsByEnvironment, *_nethttp.Response, error) {
-	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  DependentFlagsByEnvironment
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FeatureFlagsBetaApiService.GetDependentFlagsByEnv")
-	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v2/flags/{projectKey}/{environmentKey}/{featureFlagKey}/dependent-flags"
-	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", _neturl.PathEscape(parameterToString(r.projectKey, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"environmentKey"+"}", _neturl.PathEscape(parameterToString(r.environmentKey, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"featureFlagKey"+"}", _neturl.PathEscape(parameterToString(r.featureFlagKey, "")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["ApiKey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["Authorization"] = key
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v UnauthorizedErrorRep
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 403 {
-			var v ForbiddenErrorRep
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 404 {
-			var v NotFoundErrorRep
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v RateLimitedErrorRep
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}

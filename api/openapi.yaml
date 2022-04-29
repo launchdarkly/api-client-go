@@ -478,7 +478,7 @@ tags:
     \nTo learn more about access tokens, read [API access tokens](https://docs.launchdarkly.com/home/account-security/api-access-tokens).\n"
   name: Access tokens
 - description: |
-    The Account Members API allows you to invite new members to an account by making a `POST` request to `/api/v2/members`. When you invite a new member to an account, an invitation is sent to the email you provided. Members with "admin" or "owner" roles may create new members, as well as anyone with a "createMember" permission for "member/\*".
+    The account members API allows you to invite new members to an account by making a `POST` request to `/api/v2/members`. When you invite a new member to an account, an invitation is sent to the email you provided. Members with "admin" or "owner" roles may create new members, as well as anyone with a "createMember" permission for "member/\*". To learn more, read [LaunchDarkly account members](https://docs.launchdarkly.com/home/members/managing).
 
     Any member may request the complete list of account members with a `GET` to `/api/v2/members`.
 
@@ -489,23 +489,28 @@ tags:
     >
     > To use this feature, pass in a header including the `LD-API-Version` key with value set to `beta`. Use this header with each call. To learn more, read [Beta resources](/#section/Overview/Beta-resources).
 
-    The Account Usage API lets you query for metrics about how your account is using LaunchDarkly.
+    The account usage API lets you query for metrics about how your account is using LaunchDarkly. To learn more, read [Account usage metrics](https://docs.launchdarkly.com/home/billing/usage-metrics).
+
     Each endpoint returns time-series data in the form of an array of data points with timestamps. Each one contains data for that time from one or more series. It also includes a metadata array describing what each of the series is.
   name: Account usage (beta)
 - description: |
-    You may create an approval request for updating a flag and request approval from a team member before applying the changes. You may to select up to ten reviewers to be notified via email, however, anyone with the sufficient permissions can review a pending approval request. At least one approval is needed to allow the changes to be applied.
+    You may create an approval request for updating a flag and request approval from a team member before applying the changes. You may to select up to ten reviewers to be notified by email, however, anyone with the sufficient permissions can review a pending approval request. At least one approval is needed to allow the changes to be applied. To learn more, read [Approvals](https://docs.launchdarkly.com/home/feature-workflows/approvals).
 
     Change instructions that are in a conflict state will fail if approved and applied, and the flag will not be updated.
   name: Approvals
 - description: |
-    The audit log contains a record of all the changes made to any resource in the system. You can filter the audit log by timestamps, or use a custom policy to select which entries to receive.
+    The audit log contains a record of all the changes made to any resource in the system. You can filter the audit log by timestamps, or use a custom policy to select which entries to receive. To learn more, read [The audit log and history tabs](https://docs.launchdarkly.com/home/flags/audit-log-history/).
   name: Audit log
 - description: |
+    > ### Code references is an Enterprise feature
+    >
+    > Code references is available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
     > ### Use ld-find-code-refs
     >
     > LaunchDarkly provides the [ld-find-code-refs utility](https://github.com/launchdarkly/ld-find-code-refs) that creates repository connections, generates code reference data, and creates calls to the code references API. Most customers do not need to call this API directly.
 
-    The [code references](https://docs.launchdarkly.com/home/code/code-references) API provides access to all resources related to connected repository, and associated feature flag code reference data for all branches.
+    The code references API provides access to all resources related to connected repository, and associated feature flag code reference data for all branches. To learn more, read [Code references](https://docs.launchdarkly.com/home/code/code-references).
   name: Code references
 - description: |
     > ### Custom roles is an Enterprise feature
@@ -530,16 +535,20 @@ tags:
     To learn more, read [Data Export](https://docs.launchdarkly.com/home/data-export).
   name: Data Export destinations
 - description: |
-    Environments allow you to maintain separate rollout rules in different contexts, from local development to QA, staging, and production. With the LaunchDarkly Environments API, you can programmatically create, delete, and update environments.
+    Environments allow you to maintain separate rollout rules in different contexts, from local development to QA, staging, and production. With the LaunchDarkly Environments API, you can programmatically create, delete, and update environments. To learn more, read [Environments](https://docs.launchdarkly.com/home/organize/environments).
   name: Environments
 - description: |
+    > Experimentation is an add-on feature
+    >
+    > Experimentation is available as an add-on for customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
     > ### This feature is in beta
     >
     > To use this feature, pass in a header including the `LD-API-Version` key with value set to `beta`. Use this header with each call. To learn more, read [Beta resources](/#section/Overview/Beta-resources).
 
-    An experiment is a running tally of user behaviors based on which variation of a feature flag they receive. In LaunchDarkly, an experiment requires two things: a metric that defines what user behaviors to track, and at least one flag associated with that metric.
+    An experiment is a running tally of user behaviors based on which variation of a feature flag they receive. In LaunchDarkly, an experiment requires two things: a metric that defines what user behaviors to track, and at least one flag associated with that metric. To learn more, read [Experimentation](https://docs.launchdarkly.com/home/experimentation).
 
-    Experiments are largely managed via PATCH requests to the Flags API. There are also dedicated API resources for getting and deleting experiment data.
+    Experiments are largely managed by making PATCH requests to the flags API. There are also dedicated API resources for getting and deleting experiment data.
 
     ## Adding an experiment
 
@@ -629,7 +638,7 @@ tags:
 
     ## Sample feature flag representation
 
-    Every feature flag has a set of top-level attributes, as well as an `environments` map containing the flag rollout and targeting rules specific to each environment. Top-level attributes include things like the flag's name, description, tags, and creation date.
+    Every feature flag has a set of top-level attributes, as well as an `environments` map containing the flag rollout and targeting rules specific to each environment. Top-level attributes include things like the flag's name, description, tags, and creation date. To learn more, read [Using feature flags](https://docs.launchdarkly.com/home/flags).
 
     For reference, here's a complete feature flag representation. Below we break this down and explain each attribute in detail.
 
@@ -803,7 +812,7 @@ tags:
 
     ## Per-environment configurations
 
-    Each entry in the `environments` map contains a JSON object that represents the environment-specific flag configuration data that you see on the [Targeting](https://docs.launchdarkly.com/home/flags/targeting-users) tab of your Manage Feature page. For example, to toggle off a feature flag in your production environment, use the following JSON patch operation:
+    Each entry in the `environments` map contains a JSON object that represents the environment-specific flag configuration data available in the flag's Targeting tab. For example, to toggle off a feature flag in your production environment, use the following JSON patch operation:
 
     ```json
     [
@@ -811,11 +820,15 @@ tags:
     ]
     ```
 
+    To learn more, read [Targeting users](https://docs.launchdarkly.com/home/flags/targeting-users).
+
     Each section of the Targeting tab corresponds to a different attribute of the per-environment configuration data, as shown here:
 
     ## Individual user targets
 
-    The `targets` array in the per-environment configuration data represents the individual user targeting rules on the Targeting tab. Each object in the `targets` array represents a list of user keys assigned to a particular variation. For example:
+    The `targets` array in the per-environment configuration data represents the individual user targeting rules on the Targeting tab. To learn more, read [Targeting users](https://docs.launchdarkly.com/home/flags/targeting-users).
+
+    Each object in the `targets` array represents a list of user keys assigned to a particular variation. For example:
 
     ```json
     {
@@ -838,7 +851,7 @@ tags:
 
     ## Targeting rules
 
-    The `rules` array corresponds to the custom targeting rules section of the Targeting tab. This is where you can express complex rules on attributes with conditions and operators. For example, a rule like "roll out the `true` variation to 80% of users whose email address ends with `gmail.com` could be expressed here.
+    The `rules` array corresponds to the custom targeting rules section of the Targeting tab. This is where you can express complex rules on attributes with conditions and operators. For example, a rule like "roll out the `true` variation to 80% of users whose email address ends with `gmail.com` could be expressed here. To learn more, read [Creating targeting rules](https://docs.launchdarkly.com/home/flags/targeting-users#creating-targeting-rules).
 
     ## The fallthrough rule
 
@@ -862,19 +875,23 @@ tags:
     >
     > To use this feature, pass in a header including the `LD-API-Version` key with value set to `beta`. Use this header with each call. To learn more, read [Beta resources](#section/Overview/Beta-resources).
 
-    Flag links let you view external mentions of flags from other tools and services. Links to external conversations and references to your flags allow you to collaborate more easily and quickly review relevant flag contexts.
+    Flag links let you view external mentions of flags from other tools and services. Links to external conversations and references to your flags allow you to collaborate more easily and quickly review relevant flag contexts. To learn more, read [Flag links](https://docs.launchdarkly.com/home/flags/links).
 
-    You can create custom flag links by associating an external URL with a feature flag. Once you've created a flag link, it applies across all your environments. You should exercise caution when deleting a flag link, as it will be deleted from all your environments.
+    You can create custom flag links by associating an external URL with a feature flag. After you create a flag link, it applies across all your environments. You should exercise caution when deleting a flag link, as it will be deleted from all your environments.
 
     Using the flag links API, you can view, create, update, and delete links to flags.
   name: Flag links (beta)
 - description: |
-    Flag triggers let you initiate flag changes remotely using a unique webhook URL. For example, you can integrate triggers with your existing tools to enable or disable flags when you hit specific operational health thresholds or receive certain alerts.
+    > ### Flag triggers is an Enterprise feature
+    >
+    > Flag triggers is available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+    Flag triggers let you initiate flag changes remotely using a unique webhook URL. For example, you can integrate triggers with your existing tools to enable or disable flags when you hit specific operational health thresholds or receive certain alerts. To learn more, read [Flag triggers](https://docs.launchdarkly.com/home/feature-workflows/triggers).
 
     Using the Flag triggers API, you can create, delete, and manage triggers.
   name: Flag triggers
 - description: |
-    Audit log integration subscriptions allow you to send audit log events hooks to one of dozens of external tools. For example, you can send flag change event webhooks to external third party software.
+    Audit log integration subscriptions allow you to send audit log events hooks to one of dozens of external tools. For example, you can send flag change event webhooks to external third party software. To learn more, read [Building your own integrations](https://docs.launchdarkly.com/integrations/building-integrations#building-your-own-integrations).
 
     You can use the integrations subscriptions API to create, delete, and manage your integration audit log subscriptions.
 
@@ -1087,43 +1104,63 @@ tags:
     > To use this feature, pass in a header including the `LD-API-Version` key with value set to `beta`. Use this header with each call. To learn more, read [Beta resources](/#section/Overview/Beta-resources).
   name: Integration delivery configurations (beta)
 - description: |
-    Metrics track flag behavior over time when an experiment is running. The data generated from experiments gives you more insight into the impact of a particular flag.
+    > ### Experimentation is an add-on feature
+    >
+    > Metrics are necessary components of experiments. Experimentation is available as an add-on for customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
 
-    Using the Metrics API, you can create, delete, and manage metrics.
+    Metrics track flag behavior over time when an experiment is running. The data generated from experiments gives you more insight into the impact of a particular flag. To learn more, read [Creating metrics](https://docs.launchdarkly.com/home/experimentation/creating-metrics).
+
+    Using the metrics API, you can create, delete, and manage metrics.
   name: Metrics
 - description: |
-    Projects allow you to manage multiple different software projects under one LaunchDarkly account. Each project has its own unique set of environments and feature flags.
+    Projects allow you to manage multiple different software projects under one LaunchDarkly account. Each project has its own unique set of environments and feature flags. To learn more, read [Projects](https://docs.launchdarkly.com/home/organize/projects).
 
-    Using the Projects API, you can create, destroy, and manage projects.
+    Using the projects API, you can create, destroy, and manage projects.
   name: Projects
-- description: "The [Relay Proxy automatic configuration](https://docs.launchdarkly.com/home/relay-proxy/automatic-configuration)\
-    \ API provides access to all resources related to Relay tokens. \n"
+- description: |
+    The Relay Proxy automatic configuration API provides access to all resources related to Relay tokens. To learn more, read [Automatic configuration](https://docs.launchdarkly.com/home/relay-proxy/automatic-configuration).
   name: Relay Proxy configurations
 - description: |
-    Schedule the specified flag targeting changes to take effect at the selected time. You may schedule multiple changes for a flag each with a different `ExecutionDate`.
+    > ### Scheduled flag changes is an add-on feature
+    >
+    > Scheduled flag changes is available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+    Schedule the specified flag targeting changes to take effect at the selected time. You may schedule multiple changes for a flag each with a different `ExecutionDate`. To learn more, read [Scheduled flag changes](https://docs.launchdarkly.com/home/feature-workflows/scheduled-changes).
   name: Scheduled changes
 - description: |
-    Segments allow you to create targeting rules and lists of users that can be shared by one or more feature flags in an environment. Creating a segment is a lot like creating a flag. You can include individual users from a segment. You can also create targeting rules, same as those for flags, that include or exclude users based on attributes your application has provided about those users. Finally, you can explicitly exclude users that would otherwise be included by those rules.
+    > ### Big Segments is an add-on feature
+    >
+    > Big Segments is available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+    Segments allow you to create targeting rules and lists of users that can be shared by one or more feature flags in an environment. Creating a segment is a lot like creating a flag. You can include individual users from a segment. You can also create targeting rules, same as those for flags, that include or exclude users based on attributes your application has provided about those users. Finally, you can explicitly exclude users that would otherwise be included by those rules. To learn more, read [Building user segments](https://docs.launchdarkly.com/home/users/segments).
 
     The segments API allows you to list, create, modify, and delete segments programmatically.
   name: Segments
 - description: |
-    Segments allow you to create targeting rules and lists of users that can be shared by one or more feature flags in an environment. Creating a segment is a lot like creating a flag. You can include individual users from a segment. You can also create targeting rules, same as those for flags, that include or exclude users based on attributes your application has provided about those users. Finally, you can explicitly exclude users that would otherwise be included by those rules.
+    > ### Big Segments is an add-on feature
+    >
+    > Big Segments is available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+    Segments allow you to create targeting rules and lists of users that can be shared by one or more feature flags in an environment. Creating a segment is a lot like creating a flag. You can include individual users from a segment. You can also create targeting rules, same as those for flags, that include or exclude users based on attributes your application has provided about those users. Finally, you can explicitly exclude users that would otherwise be included by those rules. To learn more, read [Building user segments](https://docs.launchdarkly.com/home/users/segments).
 
     The segments API allows you to list, create, modify, and delete segments programmatically.
   name: Segments (beta)
 - description: |
-    Tags are simple strings that you can attach to most resources in LaunchDarkly. Tags are useful for grouping resources into a set that you can name in a resource specifier.
+    Tags are simple strings that you can attach to most resources in LaunchDarkly. Tags are useful for grouping resources into a set that you can name in a resource specifier. To learn more, read [Custom role concepts](https://docs.launchdarkly.com/home/members/role-concepts#tags).
 
-    Using the Tags API, you can list existing tags for resources.
+    Using the tags API, you can list existing tags for resources.
   name: Tags
 - description: |
-    A team is a group of members in your LaunchDarkly account. A team can have maintainers who are able to add and remove team members. It also can have custom roles assigned to it that allows shared access to those roles for all team members.
+    > ### Teams is an add-on feature
+    >
+    > Teams is available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+    A team is a group of members in your LaunchDarkly account. A team can have maintainers who are able to add and remove team members. It also can have custom roles assigned to it that allows shared access to those roles for all team members. To learn more, read [Teams](https://docs.launchdarkly.com/home/teams).
 
     The Teams API allows you to create, read, update, and delete a team.
   name: Teams (beta)
 - description: |
-    LaunchDarkly creates a record for each user passed in to `variation` calls. This record powers the autocomplete functionality on the Feature Flag management page, as well as the Users page.
+    LaunchDarkly creates a record for each user passed in to `variation` calls. This record powers the autocomplete functionality on the feature flag dashboard, as well as the Users page. To learn more, read [Users and user segments](https://docs.launchdarkly.com/home/users)
 
     LaunchDarkly also offers an API that lets you tap into this data. You can use the users API to see what user data is available to LaunchDarkly, as well as determine which flag values a user will receive. You can also explicitly set which flag value a user will receive via this API.
 
@@ -1134,16 +1171,16 @@ tags:
     >
     > To use this feature, pass in a header including the `LD-API-Version` key with value set to `beta`. Use this header with each call. To learn more, read [Beta resources](/#section/Overview/Beta-resources).
 
-    LaunchDarkly creates a record for each user passed in to `variation` calls. This record powers the autocomplete functionality on the Feature Flag management page, as well as the Users page.
+    LaunchDarkly creates a record for each user passed in to `variation` calls. This record powers the autocomplete functionality on the feature flag dashboard, as well as the Users page. To learn more, read [Users and user segments](https://docs.launchdarkly.com/home/users)
 
     LaunchDarkly also offers an API that lets you tap into this data. You can use the users API to see what user data is available to LaunchDarkly, as well as determine which flag values a user will receive. You can also explicitly set which flag value a user will receive via this API.
 
     Users are always scoped within a project and environment. In other words, each environment has its own set of user records.
   name: Users (beta)
 - description: |
-    LaunchDarkly's User Settings API provides a picture of all feature flags and their current values for a specific user. This gives you instant visibility of how a particular user is experiencing your site or application.
+    LaunchDarkly's User Settings API provides a picture of all feature flags and their current values for a specific user. This gives you instant visibility of how a particular user is experiencing your site or application. To learn more, read [Viewing and managing users](https://docs.launchdarkly.com/home/users/attributes#viewing-and-managing-users).
 
-    The User Settings API can also be used to assign a user to a specific variation for any feature flag.
+    You can also use the user settings API to assign a user to a specific variation for any feature flag.
   name: User settings
 - description: |
     The webhooks API lets you build your own integrations that subscribe to activities in LaunchDarkly. When you generate an activity in LaunchDarkly, such as when you change a flag or you create a project, LaunchDarkly sends an HTTP POST payload to the webhook's URL. Use webhooks to update external issue trackers, update support tickets, notify customers of new feature rollouts, and more.
@@ -1235,7 +1272,11 @@ tags:
     If LaunchDarkly receives a non-`2xx` response to a webhook `POST`, it will retry the delivery one time. Webhook delivery is not guaranteed. If you build an integration on webhooks, make sure it is tolerant of delivery failures.
   name: Webhooks
 - description: |
-    A workflow is a set of actions that you can schedule in advance to make changes to a feature flag. You can also include approval requests at different stages of a workflow.
+    > ### Workflows is an add-on feature
+    >
+    > Workflows is available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+    A workflow is a set of actions that you can schedule in advance to make changes to a feature flag. You can also include approval requests at different stages of a workflow. To learn more, read [Workflows](https://docs.launchdarkly.com/home/feature-workflows/workflows).
 
     The actions supported are as follows:
 
@@ -3655,9 +3696,16 @@ paths:
       - Feature flags
   /api/v2/flags/{projectKey}/{environmentKey}/{featureFlagKey}/dependent-flags:
     get:
-      description: List dependent flags across all environments for the flag specified
-        in the path parameters. A dependent flag is a flag that uses another flag
-        as a prerequisite.
+      description: |
+        > ### Flag prerequisites is an Enterprise feature
+        >
+        > Flag prerequisites is available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+        > ### This feature is in beta
+        >
+        > To use this feature, pass in a header including the `LD-API-Version` key with value set to `beta`. Use this header with each call. To learn more, read [Beta resources](/#section/Overview/Beta-resources).
+
+        List dependent flags across all environments for the flag specified in the path parameters. A dependent flag is a flag that uses another flag as a prerequisite. To learn more, read [Flag prerequisites](https://docs.launchdarkly.com/home/flags/prerequisites).
       operationId: getDependentFlagsByEnv
       parameters:
       - description: The project key
@@ -4277,7 +4325,6 @@ paths:
 
         ## Required approvals
         If a request attempts to alter a flag configuration in an environment where approvals are required for the flag, the request will fail with a 405. Changes to the flag configuration in that environment will required creating an [approval request](/tag/Approvals) or a [workflow](/tag/Workflows-(beta)).
-        This behavior can be bypassed by users and access tokens that have a [custom role](https://docs.launchdarkly.com/home/members/custom-roles) with permission to perform the `bypassRequiredApproval` action on the flag.
 
         ## Conflicts
         If a flag configuration change made through this endpoint would cause a pending scheduled change or approval request to fail, this endpoint will return a 400. You can ignore this check by adding an `ignoreConflicts` query parameter set to `true`.
@@ -4445,9 +4492,16 @@ paths:
       - Feature flags
   /api/v2/flags/{projectKey}/{featureFlagKey}/dependent-flags:
     get:
-      description: List dependent flags across all environments for the flag specified
-        in the path parameters. A dependent flag is a flag that uses another flag
-        as a prerequisite.
+      description: |
+        > ### Flag prerequisites is an Enterprise feature
+        >
+        > Flag prerequisites is available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+        > ### This feature is in beta
+        >
+        > To use this feature, pass in a header including the `LD-API-Version` key with value set to `beta`. Use this header with each call. To learn more, read [Beta resources](/#section/Overview/Beta-resources).
+
+        List dependent flags across all environments for the flag specified in the path parameters. A dependent flag is a flag that uses another flag as a prerequisite. To learn more, read [Flag prerequisites](https://docs.launchdarkly.com/home/flags/prerequisites).
       operationId: getDependentFlags
       parameters:
       - description: The project key
@@ -6281,7 +6335,10 @@ paths:
       tags:
       - Account members
     get:
-      description: Get a single account member by ID
+      description: |
+        Get a single account member by ID.
+
+        `me` is a reserved value for the `id` parameter and returns the caller's member information.
       operationId: getMember
       parameters:
       - description: The member ID
@@ -6416,7 +6473,7 @@ paths:
       - Account members
   /api/v2/members/{id}/teams:
     post:
-      description: Add member to team(s)
+      description: Add one member to one or more teams.
       operationId: postMemberTeams
       parameters:
       - description: The member ID
@@ -6472,7 +6529,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/RateLimitedErrorRep'
           description: Rate limited
-      summary: Add member to teams
+      summary: Add a member to teams
       tags:
       - Account members
   /api/v2/metrics/{projectKey}:
@@ -7249,7 +7306,7 @@ paths:
 
         Only the `canReviewOwnRequest`, `canApplyDeclinedChanges`, `minNumApprovals`, `required` and `requiredApprovalTagsfields` are editable.
 
-        If you try to patch the environment by setting both `required` and `requiredApprovalTags`, the request fails and an error appears. You can specify either required approvals for all flags in an environment or those with specific tags, but not both. Only customers on a Pro or Enterprise plan can require approval for flag updates by either mechanism.
+        If you try to patch the environment by setting both `required` and `requiredApprovalTags`, the request fails and an error appears. You can specify either required approvals for all flags in an environment or those with specific tags, but not both.
       operationId: patchEnvironment
       parameters:
       - description: The project key
@@ -7506,7 +7563,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ExperimentRep'
+                $ref: '#/components/schemas/Experiment'
           description: Experiment response JSON
         "400":
           content:
@@ -7581,7 +7638,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ExperimentRep'
+                $ref: '#/components/schemas/Experiment'
           description: Experiment response JSON
         "400":
           content:
@@ -7667,7 +7724,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ExperimentRep'
+                $ref: '#/components/schemas/Experiment'
           description: Experiment response JSON
         "400":
           content:
@@ -9262,8 +9319,8 @@ paths:
         endpoint returns a JSON object with two attributes: `addresses` and `outboundAddresses`.
         The `addresses` element contains the IP addresses LaunchDarkly''s service
         uses. The `outboundAddresses` element contains the IP addresses outgoing webhook
-        notifications use.<br /><br />We post upcoming changes to this list in advance
-        on our [status page](https://status.launchdarkly.com/).'
+        notifications use. To learn more, read [Public IP list](https://docs.launchdarkly.com/home/advanced/public-ip-list).<br
+        /><br />We post upcoming changes to this list in advance on our [status page](https://status.launchdarkly.com/).'
       operationId: getIps
       responses:
         "200":
@@ -10719,7 +10776,7 @@ paths:
       tags:
       - Teams (beta)
     post:
-      description: Create a team
+      description: Create a team. To learn more, read [Creating a team](https://docs.launchdarkly.com/home/teams/creating).
       operationId: postTeam
       requestBody:
         content:
@@ -10772,7 +10829,7 @@ paths:
       - Teams (beta)
   /api/v2/teams/{teamKey}:
     delete:
-      description: Delete a team by key
+      description: Delete a team by key. To learn more, read [Deleting a team](https://docs.launchdarkly.com/home/teams/managing#deleting-a-team).
       operationId: deleteTeam
       parameters:
       - description: The team key
@@ -11015,7 +11072,8 @@ paths:
       - Teams (beta)
   /api/v2/teams/{teamKey}/maintainers:
     get:
-      description: Fetch the maintainers that have been assigned to the team.
+      description: Fetch the maintainers that have been assigned to the team. To learn
+        more, read [Managing team maintainers](https://docs.launchdarkly.com/home/teams/managing#managing-team-maintainers).
       operationId: getTeamMaintainers
       parameters:
       - description: The team key
@@ -11103,7 +11161,7 @@ paths:
   /api/v2/teams/{teamKey}/members:
     post:
       description: |
-        Add multiple members to an existing team by uploading a CSV file of member email addresses. Your CSV file must include email addresses in the first column. You can include data in additional columns, but LaunchDarkly ignores all data outside the first column. Headers are optional.
+        Add multiple members to an existing team by uploading a CSV file of member email addresses. Your CSV file must include email addresses in the first column. You can include data in additional columns, but LaunchDarkly ignores all data outside the first column. Headers are optional. To learn more, read [Managing team members](https://docs.launchdarkly.com/home/teams/managing#managing-team-members).
 
         **Members are only added on a `201` response.** A `207` indicates the CSV file contains a combination of valid and invalid entries and will _not_ result in any members being added to the team.
 
@@ -11223,12 +11281,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/RateLimitedErrorRep'
           description: Rate limited
-      summary: Add members to team
+      summary: Add multiple members to team
       tags:
       - Teams (beta)
   /api/v2/teams/{teamKey}/roles:
     get:
-      description: Fetch the custom roles that have been assigned to the team.
+      description: Fetch the custom roles that have been assigned to the team. To
+        learn more, read [Managing team permissions](https://docs.launchdarkly.com/home/teams/managing#managing-team-permissions).
       operationId: getTeamRoles
       parameters:
       - description: The team key
@@ -12667,7 +12726,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Users'
+                $ref: '#/components/schemas/UsersRep'
           description: Users collection response
         "400":
           content:
@@ -15989,15 +16048,6 @@ components:
       type: object
     DateVersion:
       type: integer
-    Decimal:
-      example:
-        exp: 5
-        value: ""
-      properties:
-        value: {}
-        exp:
-          type: integer
-      type: object
     DefaultClientSideAvailabilityPost:
       example:
         usingEnvironmentId: true
@@ -16663,6 +16713,284 @@ components:
       required:
       - status
       type: object
+    Experiment:
+      example:
+        currentIteration:
+          winningReason: winningReason
+          primaryMetric:
+            _links:
+              self:
+                href: /api/v2/metrics/my-project/my-metric
+                type: application/json
+            name: name
+            key: key
+          winningTreatmentId: winningTreatmentId
+          endedAt: 1
+          canReshuffleTraffic: true
+          flags:
+            key:
+              flagConfigVersion: 5
+              _links:
+                self:
+                  href: /api/v2/flags/my-project/my-flag
+                  type: application/json
+              targetingRule: targetingRule
+          startedAt: 6
+          _id: _id
+          secondaryMetrics:
+          - _links:
+              self:
+                href: /api/v2/metrics/my-project/my-metric
+                type: application/json
+            name: name
+            key: key
+          - _links:
+              self:
+                href: /api/v2/metrics/my-project/my-metric
+                type: application/json
+            name: name
+            key: key
+          hypothesis: hypothesis
+          treatments:
+          - name: name
+            _id: _id
+            baseline: true
+            parameters:
+            - variationId: variationId
+              flagKey: flagKey
+            - variationId: variationId
+              flagKey: flagKey
+            allocationPercent: allocationPercent
+          - name: name
+            _id: _id
+            baseline: true
+            parameters:
+            - variationId: variationId
+              flagKey: flagKey
+            - variationId: variationId
+              flagKey: flagKey
+            allocationPercent: allocationPercent
+          status: status
+        _maintainerId: _maintainerId
+        draftIteration:
+          winningReason: winningReason
+          primaryMetric:
+            _links:
+              self:
+                href: /api/v2/metrics/my-project/my-metric
+                type: application/json
+            name: name
+            key: key
+          winningTreatmentId: winningTreatmentId
+          endedAt: 1
+          canReshuffleTraffic: true
+          flags:
+            key:
+              flagConfigVersion: 5
+              _links:
+                self:
+                  href: /api/v2/flags/my-project/my-flag
+                  type: application/json
+              targetingRule: targetingRule
+          startedAt: 6
+          _id: _id
+          secondaryMetrics:
+          - _links:
+              self:
+                href: /api/v2/metrics/my-project/my-metric
+                type: application/json
+            name: name
+            key: key
+          - _links:
+              self:
+                href: /api/v2/metrics/my-project/my-metric
+                type: application/json
+            name: name
+            key: key
+          hypothesis: hypothesis
+          treatments:
+          - name: name
+            _id: _id
+            baseline: true
+            parameters:
+            - variationId: variationId
+              flagKey: flagKey
+            - variationId: variationId
+              flagKey: flagKey
+            allocationPercent: allocationPercent
+          - name: name
+            _id: _id
+            baseline: true
+            parameters:
+            - variationId: variationId
+              flagKey: flagKey
+            - variationId: variationId
+              flagKey: flagKey
+            allocationPercent: allocationPercent
+          status: status
+        _links:
+          parent:
+            href: /api/v2/projects/my-project/environments/my-environment
+            type: application/json
+          self:
+            href: /api/v2/projects/my-project/environments/my-environment/experiments/my-experiment
+            type: application/json
+        name: name
+        description: description
+        _id: _id
+        previousIterations:
+        - winningReason: winningReason
+          primaryMetric:
+            _links:
+              self:
+                href: /api/v2/metrics/my-project/my-metric
+                type: application/json
+            name: name
+            key: key
+          winningTreatmentId: winningTreatmentId
+          endedAt: 1
+          canReshuffleTraffic: true
+          flags:
+            key:
+              flagConfigVersion: 5
+              _links:
+                self:
+                  href: /api/v2/flags/my-project/my-flag
+                  type: application/json
+              targetingRule: targetingRule
+          startedAt: 6
+          _id: _id
+          secondaryMetrics:
+          - _links:
+              self:
+                href: /api/v2/metrics/my-project/my-metric
+                type: application/json
+            name: name
+            key: key
+          - _links:
+              self:
+                href: /api/v2/metrics/my-project/my-metric
+                type: application/json
+            name: name
+            key: key
+          hypothesis: hypothesis
+          treatments:
+          - name: name
+            _id: _id
+            baseline: true
+            parameters:
+            - variationId: variationId
+              flagKey: flagKey
+            - variationId: variationId
+              flagKey: flagKey
+            allocationPercent: allocationPercent
+          - name: name
+            _id: _id
+            baseline: true
+            parameters:
+            - variationId: variationId
+              flagKey: flagKey
+            - variationId: variationId
+              flagKey: flagKey
+            allocationPercent: allocationPercent
+          status: status
+        - winningReason: winningReason
+          primaryMetric:
+            _links:
+              self:
+                href: /api/v2/metrics/my-project/my-metric
+                type: application/json
+            name: name
+            key: key
+          winningTreatmentId: winningTreatmentId
+          endedAt: 1
+          canReshuffleTraffic: true
+          flags:
+            key:
+              flagConfigVersion: 5
+              _links:
+                self:
+                  href: /api/v2/flags/my-project/my-flag
+                  type: application/json
+              targetingRule: targetingRule
+          startedAt: 6
+          _id: _id
+          secondaryMetrics:
+          - _links:
+              self:
+                href: /api/v2/metrics/my-project/my-metric
+                type: application/json
+            name: name
+            key: key
+          - _links:
+              self:
+                href: /api/v2/metrics/my-project/my-metric
+                type: application/json
+            name: name
+            key: key
+          hypothesis: hypothesis
+          treatments:
+          - name: name
+            _id: _id
+            baseline: true
+            parameters:
+            - variationId: variationId
+              flagKey: flagKey
+            - variationId: variationId
+              flagKey: flagKey
+            allocationPercent: allocationPercent
+          - name: name
+            _id: _id
+            baseline: true
+            parameters:
+            - variationId: variationId
+              flagKey: flagKey
+            - variationId: variationId
+              flagKey: flagKey
+            allocationPercent: allocationPercent
+          status: status
+        _creationDate: 0
+        key: key
+      properties:
+        _id:
+          type: string
+        key:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        _maintainerId:
+          type: string
+        _creationDate:
+          format: int64
+          type: integer
+        _links:
+          additionalProperties:
+            $ref: '#/components/schemas/Link'
+          example:
+            parent:
+              href: /api/v2/projects/my-project/environments/my-environment
+              type: application/json
+            self:
+              href: /api/v2/projects/my-project/environments/my-environment/experiments/my-experiment
+              type: application/json
+          type: object
+        currentIteration:
+          $ref: '#/components/schemas/IterationRep'
+        draftIteration:
+          $ref: '#/components/schemas/IterationRep'
+        previousIterations:
+          items:
+            $ref: '#/components/schemas/IterationRep'
+          type: array
+      required:
+      - _creationDate
+      - _links
+      - _maintainerId
+      - key
+      - name
+      type: object
     ExperimentAllocationRep:
       properties:
         defaultVariation:
@@ -16679,246 +17007,484 @@ components:
           key:
             href: href
             type: type
-        total_count: 0
+        total_count: 5
         items:
-        - metricKey: my-metric
-          environments:
-          - production
-          - test
-          - my-environment
-          _environmentSettings:
-            key:
-              startDate: 5
-              stopDate: 5
-              enabledPeriods:
-              - startDate: 2
-                stopDate: 7
-              - startDate: 2
-                stopDate: 7
-          _metric:
-            _maintainer:
-              firstName: An
-              lastName: Example
-              role: owner
+        - currentIteration:
+            winningReason: winningReason
+            primaryMetric:
               _links:
                 self:
-                  href: /api/v2/members/569f183514f4432160000007
+                  href: /api/v2/metrics/my-project/my-metric
                   type: application/json
-              _id: 569f183514f4432160000007
-              email: a.example@example.com
-            _links:
-              parent:
-                href: /api/v2/metrics/my-project
-                type: application/json
-              self:
-                href: /api/v2/metrics/my-project/my-metric
-                type: application/json
-            kind: pageview
-            _attachedFlagCount: 0
-            description: description
-            _creationDate: 1
-            tags: []
-            maintainerId: 569fdeadbeef1644facecafe
-            unit: unit
-            _access:
-              allowed:
-              - reason:
-                  role_name: role_name
-                  notActions:
-                  - null
-                  - null
-                  notResources:
-                  - notResources
-                  - notResources
-                  effect: effect
-                  resources:
-                  - resources
-                  - resources
-                  actions:
-                  - null
-                  - null
-                action: action
-              - reason:
-                  role_name: role_name
-                  notActions:
-                  - null
-                  - null
-                  notResources:
-                  - notResources
-                  - notResources
-                  effect: effect
-                  resources:
-                  - resources
-                  - resources
-                  actions:
-                  - null
-                  - null
-                action: action
-              denied:
-              - reason:
-                  role_name: role_name
-                  notActions:
-                  - null
-                  - null
-                  notResources:
-                  - notResources
-                  - notResources
-                  effect: effect
-                  resources:
-                  - resources
-                  - resources
-                  actions:
-                  - null
-                  - null
-                action: action
-              - reason:
-                  role_name: role_name
-                  notActions:
-                  - null
-                  - null
-                  notResources:
-                  - notResources
-                  - notResources
-                  effect: effect
-                  resources:
-                  - resources
-                  - resources
-                  actions:
-                  - null
-                  - null
-                action: action
-            successCriteria: HigherThanBaseline
-            _site:
-              href: href
-              type: type
-            isNumeric: true
-            eventKey: eventKey
-            name: my-metric
-            _id: 5902deadbeef667524a01290
-            lastModified:
-              date: 2021-08-05T19:46:31.148082Z
-            key: my-metric
-        - metricKey: my-metric
-          environments:
-          - production
-          - test
-          - my-environment
-          _environmentSettings:
-            key:
-              startDate: 5
-              stopDate: 5
-              enabledPeriods:
-              - startDate: 2
-                stopDate: 7
-              - startDate: 2
-                stopDate: 7
-          _metric:
-            _maintainer:
-              firstName: An
-              lastName: Example
-              role: owner
+              name: name
+              key: key
+            winningTreatmentId: winningTreatmentId
+            endedAt: 1
+            canReshuffleTraffic: true
+            flags:
+              key:
+                flagConfigVersion: 5
+                _links:
+                  self:
+                    href: /api/v2/flags/my-project/my-flag
+                    type: application/json
+                targetingRule: targetingRule
+            startedAt: 6
+            _id: _id
+            secondaryMetrics:
+            - _links:
+                self:
+                  href: /api/v2/metrics/my-project/my-metric
+                  type: application/json
+              name: name
+              key: key
+            - _links:
+                self:
+                  href: /api/v2/metrics/my-project/my-metric
+                  type: application/json
+              name: name
+              key: key
+            hypothesis: hypothesis
+            treatments:
+            - name: name
+              _id: _id
+              baseline: true
+              parameters:
+              - variationId: variationId
+                flagKey: flagKey
+              - variationId: variationId
+                flagKey: flagKey
+              allocationPercent: allocationPercent
+            - name: name
+              _id: _id
+              baseline: true
+              parameters:
+              - variationId: variationId
+                flagKey: flagKey
+              - variationId: variationId
+                flagKey: flagKey
+              allocationPercent: allocationPercent
+            status: status
+          _maintainerId: _maintainerId
+          draftIteration:
+            winningReason: winningReason
+            primaryMetric:
               _links:
                 self:
-                  href: /api/v2/members/569f183514f4432160000007
+                  href: /api/v2/metrics/my-project/my-metric
                   type: application/json
-              _id: 569f183514f4432160000007
-              email: a.example@example.com
-            _links:
-              parent:
-                href: /api/v2/metrics/my-project
-                type: application/json
-              self:
-                href: /api/v2/metrics/my-project/my-metric
-                type: application/json
-            kind: pageview
-            _attachedFlagCount: 0
-            description: description
-            _creationDate: 1
-            tags: []
-            maintainerId: 569fdeadbeef1644facecafe
-            unit: unit
-            _access:
-              allowed:
-              - reason:
-                  role_name: role_name
-                  notActions:
-                  - null
-                  - null
-                  notResources:
-                  - notResources
-                  - notResources
-                  effect: effect
-                  resources:
-                  - resources
-                  - resources
-                  actions:
-                  - null
-                  - null
-                action: action
-              - reason:
-                  role_name: role_name
-                  notActions:
-                  - null
-                  - null
-                  notResources:
-                  - notResources
-                  - notResources
-                  effect: effect
-                  resources:
-                  - resources
-                  - resources
-                  actions:
-                  - null
-                  - null
-                action: action
-              denied:
-              - reason:
-                  role_name: role_name
-                  notActions:
-                  - null
-                  - null
-                  notResources:
-                  - notResources
-                  - notResources
-                  effect: effect
-                  resources:
-                  - resources
-                  - resources
-                  actions:
-                  - null
-                  - null
-                action: action
-              - reason:
-                  role_name: role_name
-                  notActions:
-                  - null
-                  - null
-                  notResources:
-                  - notResources
-                  - notResources
-                  effect: effect
-                  resources:
-                  - resources
-                  - resources
-                  actions:
-                  - null
-                  - null
-                action: action
-            successCriteria: HigherThanBaseline
-            _site:
-              href: href
-              type: type
-            isNumeric: true
-            eventKey: eventKey
-            name: my-metric
-            _id: 5902deadbeef667524a01290
-            lastModified:
-              date: 2021-08-05T19:46:31.148082Z
-            key: my-metric
+              name: name
+              key: key
+            winningTreatmentId: winningTreatmentId
+            endedAt: 1
+            canReshuffleTraffic: true
+            flags:
+              key:
+                flagConfigVersion: 5
+                _links:
+                  self:
+                    href: /api/v2/flags/my-project/my-flag
+                    type: application/json
+                targetingRule: targetingRule
+            startedAt: 6
+            _id: _id
+            secondaryMetrics:
+            - _links:
+                self:
+                  href: /api/v2/metrics/my-project/my-metric
+                  type: application/json
+              name: name
+              key: key
+            - _links:
+                self:
+                  href: /api/v2/metrics/my-project/my-metric
+                  type: application/json
+              name: name
+              key: key
+            hypothesis: hypothesis
+            treatments:
+            - name: name
+              _id: _id
+              baseline: true
+              parameters:
+              - variationId: variationId
+                flagKey: flagKey
+              - variationId: variationId
+                flagKey: flagKey
+              allocationPercent: allocationPercent
+            - name: name
+              _id: _id
+              baseline: true
+              parameters:
+              - variationId: variationId
+                flagKey: flagKey
+              - variationId: variationId
+                flagKey: flagKey
+              allocationPercent: allocationPercent
+            status: status
+          _links:
+            parent:
+              href: /api/v2/projects/my-project/environments/my-environment
+              type: application/json
+            self:
+              href: /api/v2/projects/my-project/environments/my-environment/experiments/my-experiment
+              type: application/json
+          name: name
+          description: description
+          _id: _id
+          previousIterations:
+          - winningReason: winningReason
+            primaryMetric:
+              _links:
+                self:
+                  href: /api/v2/metrics/my-project/my-metric
+                  type: application/json
+              name: name
+              key: key
+            winningTreatmentId: winningTreatmentId
+            endedAt: 1
+            canReshuffleTraffic: true
+            flags:
+              key:
+                flagConfigVersion: 5
+                _links:
+                  self:
+                    href: /api/v2/flags/my-project/my-flag
+                    type: application/json
+                targetingRule: targetingRule
+            startedAt: 6
+            _id: _id
+            secondaryMetrics:
+            - _links:
+                self:
+                  href: /api/v2/metrics/my-project/my-metric
+                  type: application/json
+              name: name
+              key: key
+            - _links:
+                self:
+                  href: /api/v2/metrics/my-project/my-metric
+                  type: application/json
+              name: name
+              key: key
+            hypothesis: hypothesis
+            treatments:
+            - name: name
+              _id: _id
+              baseline: true
+              parameters:
+              - variationId: variationId
+                flagKey: flagKey
+              - variationId: variationId
+                flagKey: flagKey
+              allocationPercent: allocationPercent
+            - name: name
+              _id: _id
+              baseline: true
+              parameters:
+              - variationId: variationId
+                flagKey: flagKey
+              - variationId: variationId
+                flagKey: flagKey
+              allocationPercent: allocationPercent
+            status: status
+          - winningReason: winningReason
+            primaryMetric:
+              _links:
+                self:
+                  href: /api/v2/metrics/my-project/my-metric
+                  type: application/json
+              name: name
+              key: key
+            winningTreatmentId: winningTreatmentId
+            endedAt: 1
+            canReshuffleTraffic: true
+            flags:
+              key:
+                flagConfigVersion: 5
+                _links:
+                  self:
+                    href: /api/v2/flags/my-project/my-flag
+                    type: application/json
+                targetingRule: targetingRule
+            startedAt: 6
+            _id: _id
+            secondaryMetrics:
+            - _links:
+                self:
+                  href: /api/v2/metrics/my-project/my-metric
+                  type: application/json
+              name: name
+              key: key
+            - _links:
+                self:
+                  href: /api/v2/metrics/my-project/my-metric
+                  type: application/json
+              name: name
+              key: key
+            hypothesis: hypothesis
+            treatments:
+            - name: name
+              _id: _id
+              baseline: true
+              parameters:
+              - variationId: variationId
+                flagKey: flagKey
+              - variationId: variationId
+                flagKey: flagKey
+              allocationPercent: allocationPercent
+            - name: name
+              _id: _id
+              baseline: true
+              parameters:
+              - variationId: variationId
+                flagKey: flagKey
+              - variationId: variationId
+                flagKey: flagKey
+              allocationPercent: allocationPercent
+            status: status
+          _creationDate: 0
+          key: key
+        - currentIteration:
+            winningReason: winningReason
+            primaryMetric:
+              _links:
+                self:
+                  href: /api/v2/metrics/my-project/my-metric
+                  type: application/json
+              name: name
+              key: key
+            winningTreatmentId: winningTreatmentId
+            endedAt: 1
+            canReshuffleTraffic: true
+            flags:
+              key:
+                flagConfigVersion: 5
+                _links:
+                  self:
+                    href: /api/v2/flags/my-project/my-flag
+                    type: application/json
+                targetingRule: targetingRule
+            startedAt: 6
+            _id: _id
+            secondaryMetrics:
+            - _links:
+                self:
+                  href: /api/v2/metrics/my-project/my-metric
+                  type: application/json
+              name: name
+              key: key
+            - _links:
+                self:
+                  href: /api/v2/metrics/my-project/my-metric
+                  type: application/json
+              name: name
+              key: key
+            hypothesis: hypothesis
+            treatments:
+            - name: name
+              _id: _id
+              baseline: true
+              parameters:
+              - variationId: variationId
+                flagKey: flagKey
+              - variationId: variationId
+                flagKey: flagKey
+              allocationPercent: allocationPercent
+            - name: name
+              _id: _id
+              baseline: true
+              parameters:
+              - variationId: variationId
+                flagKey: flagKey
+              - variationId: variationId
+                flagKey: flagKey
+              allocationPercent: allocationPercent
+            status: status
+          _maintainerId: _maintainerId
+          draftIteration:
+            winningReason: winningReason
+            primaryMetric:
+              _links:
+                self:
+                  href: /api/v2/metrics/my-project/my-metric
+                  type: application/json
+              name: name
+              key: key
+            winningTreatmentId: winningTreatmentId
+            endedAt: 1
+            canReshuffleTraffic: true
+            flags:
+              key:
+                flagConfigVersion: 5
+                _links:
+                  self:
+                    href: /api/v2/flags/my-project/my-flag
+                    type: application/json
+                targetingRule: targetingRule
+            startedAt: 6
+            _id: _id
+            secondaryMetrics:
+            - _links:
+                self:
+                  href: /api/v2/metrics/my-project/my-metric
+                  type: application/json
+              name: name
+              key: key
+            - _links:
+                self:
+                  href: /api/v2/metrics/my-project/my-metric
+                  type: application/json
+              name: name
+              key: key
+            hypothesis: hypothesis
+            treatments:
+            - name: name
+              _id: _id
+              baseline: true
+              parameters:
+              - variationId: variationId
+                flagKey: flagKey
+              - variationId: variationId
+                flagKey: flagKey
+              allocationPercent: allocationPercent
+            - name: name
+              _id: _id
+              baseline: true
+              parameters:
+              - variationId: variationId
+                flagKey: flagKey
+              - variationId: variationId
+                flagKey: flagKey
+              allocationPercent: allocationPercent
+            status: status
+          _links:
+            parent:
+              href: /api/v2/projects/my-project/environments/my-environment
+              type: application/json
+            self:
+              href: /api/v2/projects/my-project/environments/my-environment/experiments/my-experiment
+              type: application/json
+          name: name
+          description: description
+          _id: _id
+          previousIterations:
+          - winningReason: winningReason
+            primaryMetric:
+              _links:
+                self:
+                  href: /api/v2/metrics/my-project/my-metric
+                  type: application/json
+              name: name
+              key: key
+            winningTreatmentId: winningTreatmentId
+            endedAt: 1
+            canReshuffleTraffic: true
+            flags:
+              key:
+                flagConfigVersion: 5
+                _links:
+                  self:
+                    href: /api/v2/flags/my-project/my-flag
+                    type: application/json
+                targetingRule: targetingRule
+            startedAt: 6
+            _id: _id
+            secondaryMetrics:
+            - _links:
+                self:
+                  href: /api/v2/metrics/my-project/my-metric
+                  type: application/json
+              name: name
+              key: key
+            - _links:
+                self:
+                  href: /api/v2/metrics/my-project/my-metric
+                  type: application/json
+              name: name
+              key: key
+            hypothesis: hypothesis
+            treatments:
+            - name: name
+              _id: _id
+              baseline: true
+              parameters:
+              - variationId: variationId
+                flagKey: flagKey
+              - variationId: variationId
+                flagKey: flagKey
+              allocationPercent: allocationPercent
+            - name: name
+              _id: _id
+              baseline: true
+              parameters:
+              - variationId: variationId
+                flagKey: flagKey
+              - variationId: variationId
+                flagKey: flagKey
+              allocationPercent: allocationPercent
+            status: status
+          - winningReason: winningReason
+            primaryMetric:
+              _links:
+                self:
+                  href: /api/v2/metrics/my-project/my-metric
+                  type: application/json
+              name: name
+              key: key
+            winningTreatmentId: winningTreatmentId
+            endedAt: 1
+            canReshuffleTraffic: true
+            flags:
+              key:
+                flagConfigVersion: 5
+                _links:
+                  self:
+                    href: /api/v2/flags/my-project/my-flag
+                    type: application/json
+                targetingRule: targetingRule
+            startedAt: 6
+            _id: _id
+            secondaryMetrics:
+            - _links:
+                self:
+                  href: /api/v2/metrics/my-project/my-metric
+                  type: application/json
+              name: name
+              key: key
+            - _links:
+                self:
+                  href: /api/v2/metrics/my-project/my-metric
+                  type: application/json
+              name: name
+              key: key
+            hypothesis: hypothesis
+            treatments:
+            - name: name
+              _id: _id
+              baseline: true
+              parameters:
+              - variationId: variationId
+                flagKey: flagKey
+              - variationId: variationId
+                flagKey: flagKey
+              allocationPercent: allocationPercent
+            - name: name
+              _id: _id
+              baseline: true
+              parameters:
+              - variationId: variationId
+                flagKey: flagKey
+              - variationId: variationId
+                flagKey: flagKey
+              allocationPercent: allocationPercent
+            status: status
+          _creationDate: 0
+          key: key
       properties:
         items:
           items:
-            $ref: '#/components/schemas/ExperimentRep'
+            $ref: '#/components/schemas/Experiment'
           type: array
         total_count:
           type: integer
@@ -16958,6 +17524,15 @@ components:
         enabledPeriods:
           items:
             $ref: '#/components/schemas/ExperimentEnabledPeriodRep'
+          type: array
+      type: object
+    ExperimentExpandableProperties:
+      properties:
+        draftIteration:
+          $ref: '#/components/schemas/IterationRep'
+        previousIterations:
+          items:
+            $ref: '#/components/schemas/IterationRep'
           type: array
       type: object
     ExperimentInfoRep:
@@ -17203,7 +17778,7 @@ components:
           type: integer
         items:
           items:
-            $ref: '#/components/schemas/ExperimentRep'
+            $ref: '#/components/schemas/LegacyExperimentRep'
           type: array
       required:
       - baselineIdx
@@ -17281,144 +17856,6 @@ components:
       - key
       - maintainerId
       - name
-      type: object
-    ExperimentRep:
-      example:
-        metricKey: my-metric
-        environments:
-        - production
-        - test
-        - my-environment
-        _environmentSettings:
-          key:
-            startDate: 5
-            stopDate: 5
-            enabledPeriods:
-            - startDate: 2
-              stopDate: 7
-            - startDate: 2
-              stopDate: 7
-        _metric:
-          _maintainer:
-            firstName: An
-            lastName: Example
-            role: owner
-            _links:
-              self:
-                href: /api/v2/members/569f183514f4432160000007
-                type: application/json
-            _id: 569f183514f4432160000007
-            email: a.example@example.com
-          _links:
-            parent:
-              href: /api/v2/metrics/my-project
-              type: application/json
-            self:
-              href: /api/v2/metrics/my-project/my-metric
-              type: application/json
-          kind: pageview
-          _attachedFlagCount: 0
-          description: description
-          _creationDate: 1
-          tags: []
-          maintainerId: 569fdeadbeef1644facecafe
-          unit: unit
-          _access:
-            allowed:
-            - reason:
-                role_name: role_name
-                notActions:
-                - null
-                - null
-                notResources:
-                - notResources
-                - notResources
-                effect: effect
-                resources:
-                - resources
-                - resources
-                actions:
-                - null
-                - null
-              action: action
-            - reason:
-                role_name: role_name
-                notActions:
-                - null
-                - null
-                notResources:
-                - notResources
-                - notResources
-                effect: effect
-                resources:
-                - resources
-                - resources
-                actions:
-                - null
-                - null
-              action: action
-            denied:
-            - reason:
-                role_name: role_name
-                notActions:
-                - null
-                - null
-                notResources:
-                - notResources
-                - notResources
-                effect: effect
-                resources:
-                - resources
-                - resources
-                actions:
-                - null
-                - null
-              action: action
-            - reason:
-                role_name: role_name
-                notActions:
-                - null
-                - null
-                notResources:
-                - notResources
-                - notResources
-                effect: effect
-                resources:
-                - resources
-                - resources
-                actions:
-                - null
-                - null
-              action: action
-          successCriteria: HigherThanBaseline
-          _site:
-            href: href
-            type: type
-          isNumeric: true
-          eventKey: eventKey
-          name: my-metric
-          _id: 5902deadbeef667524a01290
-          lastModified:
-            date: 2021-08-05T19:46:31.148082Z
-          key: my-metric
-      properties:
-        metricKey:
-          example: my-metric
-          type: string
-        _metric:
-          $ref: '#/components/schemas/MetricListingRep'
-        environments:
-          example:
-          - production
-          - test
-          - my-environment
-          items:
-            type: string
-          type: array
-        _environmentSettings:
-          additionalProperties:
-            $ref: '#/components/schemas/ExperimentEnvironmentSettingRep'
-          type: object
       type: object
     ExperimentResults:
       example:
@@ -20022,7 +20459,7 @@ components:
       type: object
     FlagRep:
       example:
-        flagConfigVersion: 1
+        flagConfigVersion: 5
         _links:
           self:
             href: /api/v2/flags/my-project/my-flag
@@ -21182,7 +21619,7 @@ components:
           type: array
         secondaryMetrics:
           items:
-            $ref: '#/components/schemas/MetricRep'
+            $ref: '#/components/schemas/MetricV2Rep'
           type: array
       type: object
     IterationInput:
@@ -21240,6 +21677,7 @@ components:
       type: object
     IterationRep:
       example:
+        winningReason: winningReason
         primaryMetric:
           _links:
             self:
@@ -21248,17 +21686,17 @@ components:
           name: name
           key: key
         winningTreatmentId: winningTreatmentId
-        endedAt: 6
+        endedAt: 1
         canReshuffleTraffic: true
         flags:
           key:
-            flagConfigVersion: 1
+            flagConfigVersion: 5
             _links:
               self:
                 href: /api/v2/flags/my-project/my-flag
                 type: application/json
             targetingRule: targetingRule
-        startedAt: 0
+        startedAt: 6
         _id: _id
         secondaryMetrics:
         - _links:
@@ -21283,11 +21721,7 @@ components:
             flagKey: flagKey
           - variationId: variationId
             flagKey: flagKey
-          allocationPercent:
-            Decimal:
-              exp: 5
-              value: ""
-            Valid: true
+          allocationPercent: allocationPercent
         - name: name
           _id: _id
           baseline: true
@@ -21296,11 +21730,7 @@ components:
             flagKey: flagKey
           - variationId: variationId
             flagKey: flagKey
-          allocationPercent:
-            Decimal:
-              exp: 5
-              value: ""
-            Valid: true
+          allocationPercent: allocationPercent
         status: status
       properties:
         _id:
@@ -21317,6 +21747,8 @@ components:
           type: integer
         winningTreatmentId:
           type: string
+        winningReason:
+          type: string
         canReshuffleTraffic:
           type: boolean
         flags:
@@ -21324,14 +21756,14 @@ components:
             $ref: '#/components/schemas/FlagRep'
           type: object
         primaryMetric:
-          $ref: '#/components/schemas/MetricRep'
+          $ref: '#/components/schemas/MetricV2Rep'
         treatments:
           items:
             $ref: '#/components/schemas/TreatmentRep'
           type: array
         secondaryMetrics:
           items:
-            $ref: '#/components/schemas/MetricRep'
+            $ref: '#/components/schemas/MetricV2Rep'
           type: array
       required:
       - hypothesis
@@ -21349,6 +21781,144 @@ components:
           description: The ID of the token used in the member's last session
           example: 5b52207f8ca8e631d31fdb2b
           type: string
+      type: object
+    LegacyExperimentRep:
+      example:
+        metricKey: my-metric
+        environments:
+        - production
+        - test
+        - my-environment
+        _environmentSettings:
+          key:
+            startDate: 5
+            stopDate: 5
+            enabledPeriods:
+            - startDate: 2
+              stopDate: 7
+            - startDate: 2
+              stopDate: 7
+        _metric:
+          _maintainer:
+            firstName: An
+            lastName: Example
+            role: owner
+            _links:
+              self:
+                href: /api/v2/members/569f183514f4432160000007
+                type: application/json
+            _id: 569f183514f4432160000007
+            email: a.example@example.com
+          _links:
+            parent:
+              href: /api/v2/metrics/my-project
+              type: application/json
+            self:
+              href: /api/v2/metrics/my-project/my-metric
+              type: application/json
+          kind: pageview
+          _attachedFlagCount: 0
+          description: description
+          _creationDate: 1
+          tags: []
+          maintainerId: 569fdeadbeef1644facecafe
+          unit: unit
+          _access:
+            allowed:
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: effect
+                resources:
+                - resources
+                - resources
+                actions:
+                - null
+                - null
+              action: action
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: effect
+                resources:
+                - resources
+                - resources
+                actions:
+                - null
+                - null
+              action: action
+            denied:
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: effect
+                resources:
+                - resources
+                - resources
+                actions:
+                - null
+                - null
+              action: action
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: effect
+                resources:
+                - resources
+                - resources
+                actions:
+                - null
+                - null
+              action: action
+          successCriteria: HigherThanBaseline
+          _site:
+            href: href
+            type: type
+          isNumeric: true
+          eventKey: eventKey
+          name: my-metric
+          _id: 5902deadbeef667524a01290
+          lastModified:
+            date: 2021-08-05T19:46:31.148082Z
+          key: my-metric
+      properties:
+        metricKey:
+          example: my-metric
+          type: string
+        _metric:
+          $ref: '#/components/schemas/MetricListingRep'
+        environments:
+          example:
+          - production
+          - test
+          - my-environment
+          items:
+            type: string
+          type: array
+        _environmentSettings:
+          additionalProperties:
+            $ref: '#/components/schemas/ExperimentEnvironmentSettingRep'
+          type: object
       type: object
     Link:
       example:
@@ -22251,6 +22821,231 @@ components:
       type: object
     MetricRep:
       example:
+        _maintainer:
+          firstName: An
+          lastName: Example
+          role: owner
+          _links:
+            self:
+              href: /api/v2/members/569f183514f4432160000007
+              type: application/json
+          _id: 569f183514f4432160000007
+          email: a.example@example.com
+        _links:
+          parent:
+            href: /api/v2/metrics/my-project
+            type: application/json
+          self:
+            href: /api/v2/metrics/my-project/my-metric
+            type: application/json
+        kind: pageview
+        _attachedFlagCount: 0
+        description: description
+        _creationDate: 0
+        isActive: true
+        tags: []
+        maintainerId: 569fdeadbeef1644facecafe
+        unit: unit
+        urls:
+        - null
+        - null
+        _access:
+          allowed:
+          - reason:
+              role_name: role_name
+              notActions:
+              - null
+              - null
+              notResources:
+              - notResources
+              - notResources
+              effect: effect
+              resources:
+              - resources
+              - resources
+              actions:
+              - null
+              - null
+            action: action
+          - reason:
+              role_name: role_name
+              notActions:
+              - null
+              - null
+              notResources:
+              - notResources
+              - notResources
+              effect: effect
+              resources:
+              - resources
+              - resources
+              actions:
+              - null
+              - null
+            action: action
+          denied:
+          - reason:
+              role_name: role_name
+              notActions:
+              - null
+              - null
+              notResources:
+              - notResources
+              - notResources
+              effect: effect
+              resources:
+              - resources
+              - resources
+              actions:
+              - null
+              - null
+            action: action
+          - reason:
+              role_name: role_name
+              notActions:
+              - null
+              - null
+              notResources:
+              - notResources
+              - notResources
+              effect: effect
+              resources:
+              - resources
+              - resources
+              actions:
+              - null
+              - null
+            action: action
+        successCriteria: HigherThanBaseline
+        _site:
+          href: href
+          type: type
+        isNumeric: true
+        eventKey: eventKey
+        _attachedFeatures:
+        - _links:
+            key:
+              href: href
+              type: type
+          _site:
+            href: href
+            type: type
+          name: name
+          key: key
+        - _links:
+            key:
+              href: href
+              type: type
+          _site:
+            href: href
+            type: type
+          name: name
+          key: key
+        name: my-metric
+        selector: selector
+        _id: 5902deadbeef667524a01290
+        lastModified:
+          date: 2021-08-05T19:46:31.148082Z
+        _version: 6
+        key: my-metric
+      properties:
+        _id:
+          example: 5902deadbeef667524a01290
+          type: string
+        key:
+          example: my-metric
+          type: string
+        name:
+          example: my-metric
+          type: string
+        kind:
+          enum:
+          - pageview
+          - click
+          - custom
+          type: string
+        _attachedFlagCount:
+          example: 0
+          type: integer
+        _links:
+          additionalProperties:
+            $ref: '#/components/schemas/Link'
+          example:
+            parent:
+              href: /api/v2/metrics/my-project
+              type: application/json
+            self:
+              href: /api/v2/metrics/my-project/my-metric
+              type: application/json
+          type: object
+        _site:
+          $ref: '#/components/schemas/Link'
+        _access:
+          $ref: '#/components/schemas/Access'
+        tags:
+          example: []
+          items:
+            type: string
+          type: array
+        _creationDate:
+          format: int64
+          type: integer
+        lastModified:
+          $ref: '#/components/schemas/Modification'
+        maintainerId:
+          example: 569fdeadbeef1644facecafe
+          type: string
+        _maintainer:
+          $ref: '#/components/schemas/MemberSummary'
+        description:
+          type: string
+        isNumeric:
+          type: boolean
+        successCriteria:
+          enum:
+          - HigherThanBaseline
+          - LowerThanBaseline
+          type: string
+        unit:
+          type: string
+        eventKey:
+          type: string
+        isActive:
+          type: boolean
+        _attachedFeatures:
+          items:
+            $ref: '#/components/schemas/FlagListingRep'
+          type: array
+        _version:
+          type: integer
+        selector:
+          type: string
+        urls:
+          items:
+            $ref: '#/components/schemas/UrlMatcher'
+          type: array
+      required:
+      - _creationDate
+      - _id
+      - _links
+      - key
+      - kind
+      - name
+      - tags
+      type: object
+    MetricSeen:
+      example:
+        ever: true
+        timestamp: 5
+      properties:
+        ever:
+          type: boolean
+        timestamp:
+          format: int64
+          type: integer
+      type: object
+    MetricV2Rep:
+      example:
         _links:
           self:
             href: /api/v2/metrics/my-project/my-metric
@@ -22274,17 +23069,6 @@ components:
       - _links
       - key
       - name
-      type: object
-    MetricSeen:
-      example:
-        ever: true
-        timestamp: 5
-      properties:
-        ever:
-          type: boolean
-        timestamp:
-          format: int64
-          type: integer
       type: object
     MetricsInput:
       items:
@@ -22449,18 +23233,6 @@ components:
         message:
           example: resource not found
           type: string
-      type: object
-    NullDecimal:
-      example:
-        Decimal:
-          exp: 5
-          value: ""
-        Valid: true
-      properties:
-        Decimal:
-          $ref: '#/components/schemas/Decimal'
-        Valid:
-          type: boolean
       type: object
     ObjectId:
       type: string
@@ -24345,6 +25117,9 @@ components:
         deleted:
           type: boolean
       type: object
+    SegmentTarget:
+      properties: {}
+      type: object
     SegmentUserList:
       example:
         add:
@@ -24800,6 +25575,17 @@ components:
       - name
       - sourceLink
       - version
+      type: object
+    StatisticsRep:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/StatisticRep'
+          type: array
+        _links:
+          additionalProperties:
+            $ref: '#/components/schemas/Link'
+          type: object
       type: object
     StatisticsRoot:
       example:
@@ -25718,18 +26504,14 @@ components:
           flagKey: flagKey
         - variationId: variationId
           flagKey: flagKey
-        allocationPercent:
-          Decimal:
-            exp: 5
-            value: ""
-          Valid: true
+        allocationPercent: allocationPercent
       properties:
         _id:
           type: string
         name:
           type: string
         allocationPercent:
-          $ref: '#/components/schemas/NullDecimal'
+          type: string
         baseline:
           type: boolean
         parameters:
@@ -25911,6 +26693,10 @@ components:
       format: int64
       type: integer
     UrlMatcher: {}
+    UrlMatchers:
+      items:
+        $ref: '#/components/schemas/UrlMatcher'
+      type: array
     UrlPost:
       example:
         kind: exact
@@ -26185,9 +26971,18 @@ components:
               - null
             action: action
         _links:
-          key:
-            href: href
-            type: type
+          parent:
+            href: /api/v2/users/my-project/my-environment
+            type: application/json
+          self:
+            href: /api/v2/users/my-project/my-environment/my-user
+            type: application/json
+          settings:
+            href: /api/v2/users/my-project/my-environment/my-user/flags
+            type: text/html
+          site:
+            href: /my-project/my-environment/users/my-user
+            type: text/html
         lastPing: 2000-01-23T04:56:07.000+00:00
         ownerId: ownerId
         user:
@@ -26220,6 +27015,19 @@ components:
         _links:
           additionalProperties:
             $ref: '#/components/schemas/Link'
+          example:
+            parent:
+              href: /api/v2/users/my-project/my-environment
+              type: application/json
+            self:
+              href: /api/v2/users/my-project/my-environment/my-user
+              type: application/json
+            settings:
+              href: /api/v2/users/my-project/my-environment/my-user/flags
+              type: text/html
+            site:
+              href: /my-project/my-environment/users/my-user
+              type: text/html
           type: object
         _access:
           $ref: '#/components/schemas/Access'
@@ -26830,9 +27638,12 @@ components:
     Users:
       example:
         _links:
-          key:
-            href: href
-            type: type
+          next:
+            href: /api/v2/user-search/my-project/my-environment?after=1647993600000&limit=20&searchAfter=my-user&sort=userKey
+            type: application/json
+          self:
+            href: /api/v2/user-search/my-project/my-environment?after=1647993600000&limit=20&sort=userKey
+            type: application/json
         totalCount: 0
         items:
         - sortValue: ""
@@ -26905,9 +27716,18 @@ components:
                 - null
               action: action
           _links:
-            key:
-              href: href
-              type: type
+            parent:
+              href: /api/v2/users/my-project/my-environment
+              type: application/json
+            self:
+              href: /api/v2/users/my-project/my-environment/my-user
+              type: application/json
+            settings:
+              href: /api/v2/users/my-project/my-environment/my-user/flags
+              type: text/html
+            site:
+              href: /my-project/my-environment/users/my-user
+              type: text/html
           lastPing: 2000-01-23T04:56:07.000+00:00
           ownerId: ownerId
           user:
@@ -26996,9 +27816,18 @@ components:
                 - null
               action: action
           _links:
-            key:
-              href: href
-              type: type
+            parent:
+              href: /api/v2/users/my-project/my-environment
+              type: application/json
+            self:
+              href: /api/v2/users/my-project/my-environment/my-user
+              type: application/json
+            settings:
+              href: /api/v2/users/my-project/my-environment/my-user/flags
+              type: text/html
+            site:
+              href: /my-project/my-environment/users/my-user
+              type: text/html
           lastPing: 2000-01-23T04:56:07.000+00:00
           ownerId: ownerId
           user:
@@ -27021,6 +27850,246 @@ components:
         _links:
           additionalProperties:
             $ref: '#/components/schemas/Link'
+          example:
+            next:
+              href: /api/v2/user-search/my-project/my-environment?after=1647993600000&limit=20&searchAfter=my-user&sort=userKey
+              type: application/json
+            self:
+              href: /api/v2/user-search/my-project/my-environment?after=1647993600000&limit=20&sort=userKey
+              type: application/json
+          type: object
+        totalCount:
+          type: integer
+        items:
+          items:
+            $ref: '#/components/schemas/UserRecord'
+          type: array
+      required:
+      - items
+      - totalCount
+      type: object
+    UsersRep:
+      example:
+        _links:
+          next:
+            href: /api/v2/users/my-project/my-environment?after=1647993600000&limit=20&searchAfter=my-user
+            type: application/json
+          self:
+            href: /api/v2/users/my-project/my-environment?after=1647993600000&limit=20
+            type: application/json
+        totalCount: 0
+        items:
+        - sortValue: ""
+          environmentId: environmentId
+          _access:
+            allowed:
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: effect
+                resources:
+                - resources
+                - resources
+                actions:
+                - null
+                - null
+              action: action
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: effect
+                resources:
+                - resources
+                - resources
+                actions:
+                - null
+                - null
+              action: action
+            denied:
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: effect
+                resources:
+                - resources
+                - resources
+                actions:
+                - null
+                - null
+              action: action
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: effect
+                resources:
+                - resources
+                - resources
+                actions:
+                - null
+                - null
+              action: action
+          _links:
+            parent:
+              href: /api/v2/users/my-project/my-environment
+              type: application/json
+            self:
+              href: /api/v2/users/my-project/my-environment/my-user
+              type: application/json
+            settings:
+              href: /api/v2/users/my-project/my-environment/my-user/flags
+              type: text/html
+            site:
+              href: /my-project/my-environment/users/my-user
+              type: text/html
+          lastPing: 2000-01-23T04:56:07.000+00:00
+          ownerId: ownerId
+          user:
+            secondary: secondary
+            country: country
+            firstName: firstName
+            lastName: lastName
+            ip: ip
+            custom:
+              key: ""
+            name: name
+            anonymous: true
+            avatar: avatar
+            privateAttrs:
+            - privateAttrs
+            - privateAttrs
+            key: key
+            email: email
+        - sortValue: ""
+          environmentId: environmentId
+          _access:
+            allowed:
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: effect
+                resources:
+                - resources
+                - resources
+                actions:
+                - null
+                - null
+              action: action
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: effect
+                resources:
+                - resources
+                - resources
+                actions:
+                - null
+                - null
+              action: action
+            denied:
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: effect
+                resources:
+                - resources
+                - resources
+                actions:
+                - null
+                - null
+              action: action
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: effect
+                resources:
+                - resources
+                - resources
+                actions:
+                - null
+                - null
+              action: action
+          _links:
+            parent:
+              href: /api/v2/users/my-project/my-environment
+              type: application/json
+            self:
+              href: /api/v2/users/my-project/my-environment/my-user
+              type: application/json
+            settings:
+              href: /api/v2/users/my-project/my-environment/my-user/flags
+              type: text/html
+            site:
+              href: /my-project/my-environment/users/my-user
+              type: text/html
+          lastPing: 2000-01-23T04:56:07.000+00:00
+          ownerId: ownerId
+          user:
+            secondary: secondary
+            country: country
+            firstName: firstName
+            lastName: lastName
+            ip: ip
+            custom:
+              key: ""
+            name: name
+            anonymous: true
+            avatar: avatar
+            privateAttrs:
+            - privateAttrs
+            - privateAttrs
+            key: key
+            email: email
+      properties:
+        _links:
+          additionalProperties:
+            $ref: '#/components/schemas/Link'
+          example:
+            next:
+              href: /api/v2/users/my-project/my-environment?after=1647993600000&limit=20&searchAfter=my-user
+              type: application/json
+            self:
+              href: /api/v2/users/my-project/my-environment?after=1647993600000&limit=20
+              type: application/json
           type: object
         totalCount:
           type: integer

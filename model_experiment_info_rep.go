@@ -18,14 +18,14 @@ import (
 // ExperimentInfoRep struct for ExperimentInfoRep
 type ExperimentInfoRep struct {
 	BaselineIdx int32 `json:"baselineIdx"`
-	Items []ExperimentRep `json:"items"`
+	Items []LegacyExperimentRep `json:"items"`
 }
 
 // NewExperimentInfoRep instantiates a new ExperimentInfoRep object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewExperimentInfoRep(baselineIdx int32, items []ExperimentRep) *ExperimentInfoRep {
+func NewExperimentInfoRep(baselineIdx int32, items []LegacyExperimentRep) *ExperimentInfoRep {
 	this := ExperimentInfoRep{}
 	this.BaselineIdx = baselineIdx
 	this.Items = items
@@ -65,9 +65,9 @@ func (o *ExperimentInfoRep) SetBaselineIdx(v int32) {
 }
 
 // GetItems returns the Items field value
-func (o *ExperimentInfoRep) GetItems() []ExperimentRep {
+func (o *ExperimentInfoRep) GetItems() []LegacyExperimentRep {
 	if o == nil {
-		var ret []ExperimentRep
+		var ret []LegacyExperimentRep
 		return ret
 	}
 
@@ -76,7 +76,7 @@ func (o *ExperimentInfoRep) GetItems() []ExperimentRep {
 
 // GetItemsOk returns a tuple with the Items field value
 // and a boolean to check if the value has been set.
-func (o *ExperimentInfoRep) GetItemsOk() (*[]ExperimentRep, bool) {
+func (o *ExperimentInfoRep) GetItemsOk() (*[]LegacyExperimentRep, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -84,7 +84,7 @@ func (o *ExperimentInfoRep) GetItemsOk() (*[]ExperimentRep, bool) {
 }
 
 // SetItems sets field value
-func (o *ExperimentInfoRep) SetItems(v []ExperimentRep) {
+func (o *ExperimentInfoRep) SetItems(v []LegacyExperimentRep) {
 	o.Items = v
 }
 

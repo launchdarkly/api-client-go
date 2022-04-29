@@ -11,7 +11,7 @@ Method | HTTP request | Description
 [**GetTeams**](TeamsBetaApi.md#GetTeams) | **Get** /api/v2/teams | List teams
 [**PatchTeam**](TeamsBetaApi.md#PatchTeam) | **Patch** /api/v2/teams/{teamKey} | Update team
 [**PostTeam**](TeamsBetaApi.md#PostTeam) | **Post** /api/v2/teams | Create team
-[**PostTeamMembers**](TeamsBetaApi.md#PostTeamMembers) | **Post** /api/v2/teams/{teamKey}/members | Add members to team
+[**PostTeamMembers**](TeamsBetaApi.md#PostTeamMembers) | **Post** /api/v2/teams/{teamKey}/members | Add multiple members to team
 
 
 
@@ -513,7 +513,7 @@ Name | Type | Description  | Notes
 
 > TeamImportsRep PostTeamMembers(ctx, teamKey).File(file).Execute()
 
-Add members to team
+Add multiple members to team
 
 
 

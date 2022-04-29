@@ -19,7 +19,7 @@ import (
 type TreatmentRep struct {
 	Id *string `json:"_id,omitempty"`
 	Name string `json:"name"`
-	AllocationPercent NullDecimal `json:"allocationPercent"`
+	AllocationPercent string `json:"allocationPercent"`
 	Baseline *bool `json:"baseline,omitempty"`
 	Parameters *[]ParameterRep `json:"parameters,omitempty"`
 }
@@ -28,7 +28,7 @@ type TreatmentRep struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTreatmentRep(name string, allocationPercent NullDecimal) *TreatmentRep {
+func NewTreatmentRep(name string, allocationPercent string) *TreatmentRep {
 	this := TreatmentRep{}
 	this.Name = name
 	this.AllocationPercent = allocationPercent
@@ -100,9 +100,9 @@ func (o *TreatmentRep) SetName(v string) {
 }
 
 // GetAllocationPercent returns the AllocationPercent field value
-func (o *TreatmentRep) GetAllocationPercent() NullDecimal {
+func (o *TreatmentRep) GetAllocationPercent() string {
 	if o == nil {
-		var ret NullDecimal
+		var ret string
 		return ret
 	}
 
@@ -111,7 +111,7 @@ func (o *TreatmentRep) GetAllocationPercent() NullDecimal {
 
 // GetAllocationPercentOk returns a tuple with the AllocationPercent field value
 // and a boolean to check if the value has been set.
-func (o *TreatmentRep) GetAllocationPercentOk() (*NullDecimal, bool) {
+func (o *TreatmentRep) GetAllocationPercentOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -119,7 +119,7 @@ func (o *TreatmentRep) GetAllocationPercentOk() (*NullDecimal, bool) {
 }
 
 // SetAllocationPercent sets field value
-func (o *TreatmentRep) SetAllocationPercent(v NullDecimal) {
+func (o *TreatmentRep) SetAllocationPercent(v string) {
 	o.AllocationPercent = v
 }
 

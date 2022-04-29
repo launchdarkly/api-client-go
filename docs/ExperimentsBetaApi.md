@@ -17,7 +17,7 @@ Method | HTTP request | Description
 
 ## CreateExperiment
 
-> ExperimentRep CreateExperiment(ctx, projectKey, environmentKey).ExperimentPost(experimentPost).Execute()
+> Experiment CreateExperiment(ctx, projectKey, environmentKey).ExperimentPost(experimentPost).Execute()
 
 Create experiment
 
@@ -47,7 +47,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsBetaApi.CreateExperiment``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `CreateExperiment`: ExperimentRep
+    // response from `CreateExperiment`: Experiment
     fmt.Fprintf(os.Stdout, "Response from `ExperimentsBetaApi.CreateExperiment`: %v\n", resp)
 }
 ```
@@ -74,7 +74,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ExperimentRep**](ExperimentRep.md)
+[**Experiment**](Experiment.md)
 
 ### Authorization
 
@@ -170,7 +170,7 @@ Name | Type | Description  | Notes
 
 ## GetExperiment
 
-> ExperimentRep GetExperiment(ctx, projectKey, environmentKey, experimentKey).Execute()
+> Experiment GetExperiment(ctx, projectKey, environmentKey, experimentKey).Execute()
 
 Get experiment
 
@@ -200,7 +200,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsBetaApi.GetExperiment``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetExperiment`: ExperimentRep
+    // response from `GetExperiment`: Experiment
     fmt.Fprintf(os.Stdout, "Response from `ExperimentsBetaApi.GetExperiment`: %v\n", resp)
 }
 ```
@@ -228,7 +228,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ExperimentRep**](ExperimentRep.md)
+[**Experiment**](Experiment.md)
 
 ### Authorization
 
@@ -481,7 +481,7 @@ Name | Type | Description  | Notes
 
 ## PatchExperiment
 
-> ExperimentRep PatchExperiment(ctx, projectKey, environmentKey, experimentKey).ExperimentPatchInput(experimentPatchInput).Execute()
+> Experiment PatchExperiment(ctx, projectKey, environmentKey, experimentKey).ExperimentPatchInput(experimentPatchInput).Execute()
 
 Patch experiment
 
@@ -512,7 +512,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsBetaApi.PatchExperiment``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PatchExperiment`: ExperimentRep
+    // response from `PatchExperiment`: Experiment
     fmt.Fprintf(os.Stdout, "Response from `ExperimentsBetaApi.PatchExperiment`: %v\n", resp)
 }
 ```
@@ -541,7 +541,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ExperimentRep**](ExperimentRep.md)
+[**Experiment**](Experiment.md)
 
 ### Authorization
 

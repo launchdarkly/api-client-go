@@ -18,7 +18,7 @@ import (
 // IterationExpandableProperties struct for IterationExpandableProperties
 type IterationExpandableProperties struct {
 	Treatments *[]TreatmentRep `json:"treatments,omitempty"`
-	SecondaryMetrics *[]MetricRep `json:"secondaryMetrics,omitempty"`
+	SecondaryMetrics *[]MetricV2Rep `json:"secondaryMetrics,omitempty"`
 }
 
 // NewIterationExpandableProperties instantiates a new IterationExpandableProperties object
@@ -71,9 +71,9 @@ func (o *IterationExpandableProperties) SetTreatments(v []TreatmentRep) {
 }
 
 // GetSecondaryMetrics returns the SecondaryMetrics field value if set, zero value otherwise.
-func (o *IterationExpandableProperties) GetSecondaryMetrics() []MetricRep {
+func (o *IterationExpandableProperties) GetSecondaryMetrics() []MetricV2Rep {
 	if o == nil || o.SecondaryMetrics == nil {
-		var ret []MetricRep
+		var ret []MetricV2Rep
 		return ret
 	}
 	return *o.SecondaryMetrics
@@ -81,7 +81,7 @@ func (o *IterationExpandableProperties) GetSecondaryMetrics() []MetricRep {
 
 // GetSecondaryMetricsOk returns a tuple with the SecondaryMetrics field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IterationExpandableProperties) GetSecondaryMetricsOk() (*[]MetricRep, bool) {
+func (o *IterationExpandableProperties) GetSecondaryMetricsOk() (*[]MetricV2Rep, bool) {
 	if o == nil || o.SecondaryMetrics == nil {
 		return nil, false
 	}
@@ -97,8 +97,8 @@ func (o *IterationExpandableProperties) HasSecondaryMetrics() bool {
 	return false
 }
 
-// SetSecondaryMetrics gets a reference to the given []MetricRep and assigns it to the SecondaryMetrics field.
-func (o *IterationExpandableProperties) SetSecondaryMetrics(v []MetricRep) {
+// SetSecondaryMetrics gets a reference to the given []MetricV2Rep and assigns it to the SecondaryMetrics field.
+func (o *IterationExpandableProperties) SetSecondaryMetrics(v []MetricV2Rep) {
 	o.SecondaryMetrics = &v
 }
 

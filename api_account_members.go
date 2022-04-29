@@ -200,7 +200,10 @@ func (r ApiGetMemberRequest) Execute() (Member, *_nethttp.Response, error) {
 /*
 GetMember Get account member
 
-Get a single account member by ID
+Get a single account member by ID.
+
+`me` is a reserved value for the `id` parameter and returns the caller's member information.
+
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param id The member ID
@@ -781,9 +784,9 @@ func (r ApiPostMemberTeamsRequest) Execute() (Member, *_nethttp.Response, error)
 }
 
 /*
-PostMemberTeams Add member to teams
+PostMemberTeams Add a member to teams
 
-Add member to team(s)
+Add one member to one or more teams.
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param id The member ID

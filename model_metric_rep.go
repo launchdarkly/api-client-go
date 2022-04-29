@@ -17,20 +17,44 @@ import (
 
 // MetricRep struct for MetricRep
 type MetricRep struct {
+	Id string `json:"_id"`
 	Key string `json:"key"`
 	Name string `json:"name"`
+	Kind string `json:"kind"`
+	AttachedFlagCount *int32 `json:"_attachedFlagCount,omitempty"`
 	Links map[string]Link `json:"_links"`
+	Site *Link `json:"_site,omitempty"`
+	Access *Access `json:"_access,omitempty"`
+	Tags []string `json:"tags"`
+	CreationDate int64 `json:"_creationDate"`
+	LastModified *Modification `json:"lastModified,omitempty"`
+	MaintainerId *string `json:"maintainerId,omitempty"`
+	Maintainer *MemberSummary `json:"_maintainer,omitempty"`
+	Description *string `json:"description,omitempty"`
+	IsNumeric *bool `json:"isNumeric,omitempty"`
+	SuccessCriteria *string `json:"successCriteria,omitempty"`
+	Unit *string `json:"unit,omitempty"`
+	EventKey *string `json:"eventKey,omitempty"`
+	IsActive *bool `json:"isActive,omitempty"`
+	AttachedFeatures *[]FlagListingRep `json:"_attachedFeatures,omitempty"`
+	Version *int32 `json:"_version,omitempty"`
+	Selector *string `json:"selector,omitempty"`
+	Urls *[]interface{} `json:"urls,omitempty"`
 }
 
 // NewMetricRep instantiates a new MetricRep object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMetricRep(key string, name string, links map[string]Link) *MetricRep {
+func NewMetricRep(id string, key string, name string, kind string, links map[string]Link, tags []string, creationDate int64) *MetricRep {
 	this := MetricRep{}
+	this.Id = id
 	this.Key = key
 	this.Name = name
+	this.Kind = kind
 	this.Links = links
+	this.Tags = tags
+	this.CreationDate = creationDate
 	return &this
 }
 
@@ -40,6 +64,30 @@ func NewMetricRep(key string, name string, links map[string]Link) *MetricRep {
 func NewMetricRepWithDefaults() *MetricRep {
 	this := MetricRep{}
 	return &this
+}
+
+// GetId returns the Id field value
+func (o *MetricRep) GetId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value
+// and a boolean to check if the value has been set.
+func (o *MetricRep) GetIdOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.Id, true
+}
+
+// SetId sets field value
+func (o *MetricRep) SetId(v string) {
+	o.Id = v
 }
 
 // GetKey returns the Key field value
@@ -90,6 +138,62 @@ func (o *MetricRep) SetName(v string) {
 	o.Name = v
 }
 
+// GetKind returns the Kind field value
+func (o *MetricRep) GetKind() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Kind
+}
+
+// GetKindOk returns a tuple with the Kind field value
+// and a boolean to check if the value has been set.
+func (o *MetricRep) GetKindOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.Kind, true
+}
+
+// SetKind sets field value
+func (o *MetricRep) SetKind(v string) {
+	o.Kind = v
+}
+
+// GetAttachedFlagCount returns the AttachedFlagCount field value if set, zero value otherwise.
+func (o *MetricRep) GetAttachedFlagCount() int32 {
+	if o == nil || o.AttachedFlagCount == nil {
+		var ret int32
+		return ret
+	}
+	return *o.AttachedFlagCount
+}
+
+// GetAttachedFlagCountOk returns a tuple with the AttachedFlagCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MetricRep) GetAttachedFlagCountOk() (*int32, bool) {
+	if o == nil || o.AttachedFlagCount == nil {
+		return nil, false
+	}
+	return o.AttachedFlagCount, true
+}
+
+// HasAttachedFlagCount returns a boolean if a field has been set.
+func (o *MetricRep) HasAttachedFlagCount() bool {
+	if o != nil && o.AttachedFlagCount != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAttachedFlagCount gets a reference to the given int32 and assigns it to the AttachedFlagCount field.
+func (o *MetricRep) SetAttachedFlagCount(v int32) {
+	o.AttachedFlagCount = &v
+}
+
 // GetLinks returns the Links field value
 func (o *MetricRep) GetLinks() map[string]Link {
 	if o == nil {
@@ -114,8 +218,539 @@ func (o *MetricRep) SetLinks(v map[string]Link) {
 	o.Links = v
 }
 
+// GetSite returns the Site field value if set, zero value otherwise.
+func (o *MetricRep) GetSite() Link {
+	if o == nil || o.Site == nil {
+		var ret Link
+		return ret
+	}
+	return *o.Site
+}
+
+// GetSiteOk returns a tuple with the Site field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MetricRep) GetSiteOk() (*Link, bool) {
+	if o == nil || o.Site == nil {
+		return nil, false
+	}
+	return o.Site, true
+}
+
+// HasSite returns a boolean if a field has been set.
+func (o *MetricRep) HasSite() bool {
+	if o != nil && o.Site != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSite gets a reference to the given Link and assigns it to the Site field.
+func (o *MetricRep) SetSite(v Link) {
+	o.Site = &v
+}
+
+// GetAccess returns the Access field value if set, zero value otherwise.
+func (o *MetricRep) GetAccess() Access {
+	if o == nil || o.Access == nil {
+		var ret Access
+		return ret
+	}
+	return *o.Access
+}
+
+// GetAccessOk returns a tuple with the Access field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MetricRep) GetAccessOk() (*Access, bool) {
+	if o == nil || o.Access == nil {
+		return nil, false
+	}
+	return o.Access, true
+}
+
+// HasAccess returns a boolean if a field has been set.
+func (o *MetricRep) HasAccess() bool {
+	if o != nil && o.Access != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAccess gets a reference to the given Access and assigns it to the Access field.
+func (o *MetricRep) SetAccess(v Access) {
+	o.Access = &v
+}
+
+// GetTags returns the Tags field value
+func (o *MetricRep) GetTags() []string {
+	if o == nil {
+		var ret []string
+		return ret
+	}
+
+	return o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value
+// and a boolean to check if the value has been set.
+func (o *MetricRep) GetTagsOk() (*[]string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.Tags, true
+}
+
+// SetTags sets field value
+func (o *MetricRep) SetTags(v []string) {
+	o.Tags = v
+}
+
+// GetCreationDate returns the CreationDate field value
+func (o *MetricRep) GetCreationDate() int64 {
+	if o == nil {
+		var ret int64
+		return ret
+	}
+
+	return o.CreationDate
+}
+
+// GetCreationDateOk returns a tuple with the CreationDate field value
+// and a boolean to check if the value has been set.
+func (o *MetricRep) GetCreationDateOk() (*int64, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.CreationDate, true
+}
+
+// SetCreationDate sets field value
+func (o *MetricRep) SetCreationDate(v int64) {
+	o.CreationDate = v
+}
+
+// GetLastModified returns the LastModified field value if set, zero value otherwise.
+func (o *MetricRep) GetLastModified() Modification {
+	if o == nil || o.LastModified == nil {
+		var ret Modification
+		return ret
+	}
+	return *o.LastModified
+}
+
+// GetLastModifiedOk returns a tuple with the LastModified field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MetricRep) GetLastModifiedOk() (*Modification, bool) {
+	if o == nil || o.LastModified == nil {
+		return nil, false
+	}
+	return o.LastModified, true
+}
+
+// HasLastModified returns a boolean if a field has been set.
+func (o *MetricRep) HasLastModified() bool {
+	if o != nil && o.LastModified != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLastModified gets a reference to the given Modification and assigns it to the LastModified field.
+func (o *MetricRep) SetLastModified(v Modification) {
+	o.LastModified = &v
+}
+
+// GetMaintainerId returns the MaintainerId field value if set, zero value otherwise.
+func (o *MetricRep) GetMaintainerId() string {
+	if o == nil || o.MaintainerId == nil {
+		var ret string
+		return ret
+	}
+	return *o.MaintainerId
+}
+
+// GetMaintainerIdOk returns a tuple with the MaintainerId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MetricRep) GetMaintainerIdOk() (*string, bool) {
+	if o == nil || o.MaintainerId == nil {
+		return nil, false
+	}
+	return o.MaintainerId, true
+}
+
+// HasMaintainerId returns a boolean if a field has been set.
+func (o *MetricRep) HasMaintainerId() bool {
+	if o != nil && o.MaintainerId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMaintainerId gets a reference to the given string and assigns it to the MaintainerId field.
+func (o *MetricRep) SetMaintainerId(v string) {
+	o.MaintainerId = &v
+}
+
+// GetMaintainer returns the Maintainer field value if set, zero value otherwise.
+func (o *MetricRep) GetMaintainer() MemberSummary {
+	if o == nil || o.Maintainer == nil {
+		var ret MemberSummary
+		return ret
+	}
+	return *o.Maintainer
+}
+
+// GetMaintainerOk returns a tuple with the Maintainer field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MetricRep) GetMaintainerOk() (*MemberSummary, bool) {
+	if o == nil || o.Maintainer == nil {
+		return nil, false
+	}
+	return o.Maintainer, true
+}
+
+// HasMaintainer returns a boolean if a field has been set.
+func (o *MetricRep) HasMaintainer() bool {
+	if o != nil && o.Maintainer != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMaintainer gets a reference to the given MemberSummary and assigns it to the Maintainer field.
+func (o *MetricRep) SetMaintainer(v MemberSummary) {
+	o.Maintainer = &v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *MetricRep) GetDescription() string {
+	if o == nil || o.Description == nil {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MetricRep) GetDescriptionOk() (*string, bool) {
+	if o == nil || o.Description == nil {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *MetricRep) HasDescription() bool {
+	if o != nil && o.Description != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *MetricRep) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetIsNumeric returns the IsNumeric field value if set, zero value otherwise.
+func (o *MetricRep) GetIsNumeric() bool {
+	if o == nil || o.IsNumeric == nil {
+		var ret bool
+		return ret
+	}
+	return *o.IsNumeric
+}
+
+// GetIsNumericOk returns a tuple with the IsNumeric field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MetricRep) GetIsNumericOk() (*bool, bool) {
+	if o == nil || o.IsNumeric == nil {
+		return nil, false
+	}
+	return o.IsNumeric, true
+}
+
+// HasIsNumeric returns a boolean if a field has been set.
+func (o *MetricRep) HasIsNumeric() bool {
+	if o != nil && o.IsNumeric != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetIsNumeric gets a reference to the given bool and assigns it to the IsNumeric field.
+func (o *MetricRep) SetIsNumeric(v bool) {
+	o.IsNumeric = &v
+}
+
+// GetSuccessCriteria returns the SuccessCriteria field value if set, zero value otherwise.
+func (o *MetricRep) GetSuccessCriteria() string {
+	if o == nil || o.SuccessCriteria == nil {
+		var ret string
+		return ret
+	}
+	return *o.SuccessCriteria
+}
+
+// GetSuccessCriteriaOk returns a tuple with the SuccessCriteria field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MetricRep) GetSuccessCriteriaOk() (*string, bool) {
+	if o == nil || o.SuccessCriteria == nil {
+		return nil, false
+	}
+	return o.SuccessCriteria, true
+}
+
+// HasSuccessCriteria returns a boolean if a field has been set.
+func (o *MetricRep) HasSuccessCriteria() bool {
+	if o != nil && o.SuccessCriteria != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSuccessCriteria gets a reference to the given string and assigns it to the SuccessCriteria field.
+func (o *MetricRep) SetSuccessCriteria(v string) {
+	o.SuccessCriteria = &v
+}
+
+// GetUnit returns the Unit field value if set, zero value otherwise.
+func (o *MetricRep) GetUnit() string {
+	if o == nil || o.Unit == nil {
+		var ret string
+		return ret
+	}
+	return *o.Unit
+}
+
+// GetUnitOk returns a tuple with the Unit field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MetricRep) GetUnitOk() (*string, bool) {
+	if o == nil || o.Unit == nil {
+		return nil, false
+	}
+	return o.Unit, true
+}
+
+// HasUnit returns a boolean if a field has been set.
+func (o *MetricRep) HasUnit() bool {
+	if o != nil && o.Unit != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetUnit gets a reference to the given string and assigns it to the Unit field.
+func (o *MetricRep) SetUnit(v string) {
+	o.Unit = &v
+}
+
+// GetEventKey returns the EventKey field value if set, zero value otherwise.
+func (o *MetricRep) GetEventKey() string {
+	if o == nil || o.EventKey == nil {
+		var ret string
+		return ret
+	}
+	return *o.EventKey
+}
+
+// GetEventKeyOk returns a tuple with the EventKey field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MetricRep) GetEventKeyOk() (*string, bool) {
+	if o == nil || o.EventKey == nil {
+		return nil, false
+	}
+	return o.EventKey, true
+}
+
+// HasEventKey returns a boolean if a field has been set.
+func (o *MetricRep) HasEventKey() bool {
+	if o != nil && o.EventKey != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetEventKey gets a reference to the given string and assigns it to the EventKey field.
+func (o *MetricRep) SetEventKey(v string) {
+	o.EventKey = &v
+}
+
+// GetIsActive returns the IsActive field value if set, zero value otherwise.
+func (o *MetricRep) GetIsActive() bool {
+	if o == nil || o.IsActive == nil {
+		var ret bool
+		return ret
+	}
+	return *o.IsActive
+}
+
+// GetIsActiveOk returns a tuple with the IsActive field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MetricRep) GetIsActiveOk() (*bool, bool) {
+	if o == nil || o.IsActive == nil {
+		return nil, false
+	}
+	return o.IsActive, true
+}
+
+// HasIsActive returns a boolean if a field has been set.
+func (o *MetricRep) HasIsActive() bool {
+	if o != nil && o.IsActive != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetIsActive gets a reference to the given bool and assigns it to the IsActive field.
+func (o *MetricRep) SetIsActive(v bool) {
+	o.IsActive = &v
+}
+
+// GetAttachedFeatures returns the AttachedFeatures field value if set, zero value otherwise.
+func (o *MetricRep) GetAttachedFeatures() []FlagListingRep {
+	if o == nil || o.AttachedFeatures == nil {
+		var ret []FlagListingRep
+		return ret
+	}
+	return *o.AttachedFeatures
+}
+
+// GetAttachedFeaturesOk returns a tuple with the AttachedFeatures field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MetricRep) GetAttachedFeaturesOk() (*[]FlagListingRep, bool) {
+	if o == nil || o.AttachedFeatures == nil {
+		return nil, false
+	}
+	return o.AttachedFeatures, true
+}
+
+// HasAttachedFeatures returns a boolean if a field has been set.
+func (o *MetricRep) HasAttachedFeatures() bool {
+	if o != nil && o.AttachedFeatures != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAttachedFeatures gets a reference to the given []FlagListingRep and assigns it to the AttachedFeatures field.
+func (o *MetricRep) SetAttachedFeatures(v []FlagListingRep) {
+	o.AttachedFeatures = &v
+}
+
+// GetVersion returns the Version field value if set, zero value otherwise.
+func (o *MetricRep) GetVersion() int32 {
+	if o == nil || o.Version == nil {
+		var ret int32
+		return ret
+	}
+	return *o.Version
+}
+
+// GetVersionOk returns a tuple with the Version field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MetricRep) GetVersionOk() (*int32, bool) {
+	if o == nil || o.Version == nil {
+		return nil, false
+	}
+	return o.Version, true
+}
+
+// HasVersion returns a boolean if a field has been set.
+func (o *MetricRep) HasVersion() bool {
+	if o != nil && o.Version != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetVersion gets a reference to the given int32 and assigns it to the Version field.
+func (o *MetricRep) SetVersion(v int32) {
+	o.Version = &v
+}
+
+// GetSelector returns the Selector field value if set, zero value otherwise.
+func (o *MetricRep) GetSelector() string {
+	if o == nil || o.Selector == nil {
+		var ret string
+		return ret
+	}
+	return *o.Selector
+}
+
+// GetSelectorOk returns a tuple with the Selector field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MetricRep) GetSelectorOk() (*string, bool) {
+	if o == nil || o.Selector == nil {
+		return nil, false
+	}
+	return o.Selector, true
+}
+
+// HasSelector returns a boolean if a field has been set.
+func (o *MetricRep) HasSelector() bool {
+	if o != nil && o.Selector != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSelector gets a reference to the given string and assigns it to the Selector field.
+func (o *MetricRep) SetSelector(v string) {
+	o.Selector = &v
+}
+
+// GetUrls returns the Urls field value if set, zero value otherwise.
+func (o *MetricRep) GetUrls() []interface{} {
+	if o == nil || o.Urls == nil {
+		var ret []interface{}
+		return ret
+	}
+	return *o.Urls
+}
+
+// GetUrlsOk returns a tuple with the Urls field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MetricRep) GetUrlsOk() (*[]interface{}, bool) {
+	if o == nil || o.Urls == nil {
+		return nil, false
+	}
+	return o.Urls, true
+}
+
+// HasUrls returns a boolean if a field has been set.
+func (o *MetricRep) HasUrls() bool {
+	if o != nil && o.Urls != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetUrls gets a reference to the given []interface{} and assigns it to the Urls field.
+func (o *MetricRep) SetUrls(v []interface{}) {
+	o.Urls = &v
+}
+
 func (o MetricRep) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
+	if true {
+		toSerialize["_id"] = o.Id
+	}
 	if true {
 		toSerialize["key"] = o.Key
 	}
@@ -123,7 +758,64 @@ func (o MetricRep) MarshalJSON() ([]byte, error) {
 		toSerialize["name"] = o.Name
 	}
 	if true {
+		toSerialize["kind"] = o.Kind
+	}
+	if o.AttachedFlagCount != nil {
+		toSerialize["_attachedFlagCount"] = o.AttachedFlagCount
+	}
+	if true {
 		toSerialize["_links"] = o.Links
+	}
+	if o.Site != nil {
+		toSerialize["_site"] = o.Site
+	}
+	if o.Access != nil {
+		toSerialize["_access"] = o.Access
+	}
+	if true {
+		toSerialize["tags"] = o.Tags
+	}
+	if true {
+		toSerialize["_creationDate"] = o.CreationDate
+	}
+	if o.LastModified != nil {
+		toSerialize["lastModified"] = o.LastModified
+	}
+	if o.MaintainerId != nil {
+		toSerialize["maintainerId"] = o.MaintainerId
+	}
+	if o.Maintainer != nil {
+		toSerialize["_maintainer"] = o.Maintainer
+	}
+	if o.Description != nil {
+		toSerialize["description"] = o.Description
+	}
+	if o.IsNumeric != nil {
+		toSerialize["isNumeric"] = o.IsNumeric
+	}
+	if o.SuccessCriteria != nil {
+		toSerialize["successCriteria"] = o.SuccessCriteria
+	}
+	if o.Unit != nil {
+		toSerialize["unit"] = o.Unit
+	}
+	if o.EventKey != nil {
+		toSerialize["eventKey"] = o.EventKey
+	}
+	if o.IsActive != nil {
+		toSerialize["isActive"] = o.IsActive
+	}
+	if o.AttachedFeatures != nil {
+		toSerialize["_attachedFeatures"] = o.AttachedFeatures
+	}
+	if o.Version != nil {
+		toSerialize["_version"] = o.Version
+	}
+	if o.Selector != nil {
+		toSerialize["selector"] = o.Selector
+	}
+	if o.Urls != nil {
+		toSerialize["urls"] = o.Urls
 	}
 	return json.Marshal(toSerialize)
 }
