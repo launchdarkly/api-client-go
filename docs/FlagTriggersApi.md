@@ -36,7 +36,7 @@ func main() {
     projectKey := "projectKey_example" // string | The project key
     environmentKey := "environmentKey_example" // string | The environment key
     featureFlagKey := "featureFlagKey_example" // string | The feature flag key
-    triggerPost := *openapiclient.NewTriggerPost("IntegrationKey_example") // TriggerPost | 
+    triggerPost := *openapiclient.NewTriggerPost("generic-trigger") // TriggerPost | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)

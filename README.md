@@ -107,11 +107,13 @@ To include the additional attributes, append the `expand` request parameter to y
 
 ## Updates
 
-Resources that accept partial updates use the `PATCH` verb, and support the [JSON Patch](https://datatracker.ietf.org/doc/html/rfc6902) format. Some resources also support the [JSON Merge Patch](https://datatracker.ietf.org/doc/html/rfc7386) format. In addition, some resources support optional comments that can be submitted with updates. Comments appear in outgoing webhooks, the audit log, and other integrations.
+Resources that accept partial updates use the `PATCH` verb. Most resources support the [JSON Patch](https://datatracker.ietf.org/doc/html/rfc6902) format. Some resources also support the [JSON Merge Patch](https://datatracker.ietf.org/doc/html/rfc7386) format, and some resources support the [semantic patch](/reference#updates-using-semantic-patch) format, which is a way to specify the modifications to perform as a set of executable instructions. Each resource supports optional [comments](/reference#updates-with-comments) that you can submit with updates. Comments appear in outgoing webhooks, the audit log, and other integrations.
 
-### Updates via JSON Patch
+### Updates using JSON patch
 
-[JSON Patch](https://datatracker.ietf.org/doc/html/rfc6902) is a way to specify the modifications to perform on a resource. For example, in this feature flag representation:
+[JSON Patch](https://datatracker.ietf.org/doc/html/rfc6902) is a way to specify the modifications to perform on a resource. JSON patch uses paths and a limited set of operations to describe how to transform the current state of the resource into a new state. JSON patch documents are always arrays, where each element contains an operation, a path to the field to update, and the new value.
+
+For example, in this feature flag representation:
 
 ```json
 {
@@ -121,14 +123,13 @@ Resources that accept partial updates use the `PATCH` verb, and support the [JSO
     ...
 }
 ```
-
 You can change the feature flag's description with the following patch document:
 
 ```json
 [{ \"op\": \"replace\", \"path\": \"/description\", \"value\": \"This is the new description\" }]
 ```
 
-JSON Patch documents are always arrays. You can specify multiple modifications to perform in a single request. You can also test that certain preconditions are met before applying the patch:
+You can specify multiple modifications to perform in a single request. You can also test that certain preconditions are met before applying the patch:
 
 ```json
 [
@@ -141,11 +142,9 @@ The above patch request tests whether the feature flag's `version` is `10`, and 
 
 Attributes that aren't editable, like a resource's `_links`, have names that start with an underscore.
 
-### Updates via JSON Merge Patch
+### Updates using JSON merge patch
 
-The API also supports the [JSON Merge Patch](https://datatracker.ietf.org/doc/html/rfc7386) format, as well as the [Update feature flag](/tag/Feature-flags#operation/patchFeatureFlag) resource.
-
-JSON Merge Patch is less expressive than JSON Patch but in many cases, it is simpler to construct a merge patch document. For example, you can change a feature flag's description with the following merge patch document:
+[JSON merge patch](https://datatracker.ietf.org/doc/html/rfc7386) is another format for specifying the modifications to perform on a resource. JSON merge patch is less expressive than JSON patch but in many cases, it is simpler to construct a merge patch document. For example, you can change a feature flag's description with the following merge patch document:
 
 ```json
 {
@@ -153,9 +152,54 @@ JSON Merge Patch is less expressive than JSON Patch but in many cases, it is sim
 }
 ```
 
+### Updates using semantic patch
+
+The API also supports the semantic patch format. A semantic `PATCH` is a way to specify the modifications to perform on a resource as a set of executable instructions.
+
+Semantic patch allows you to be explicit about intent using precise, custom instructions. In many cases, you can define semantic patch instructions independently of the current state of the resource. This can be useful when defining a change that may be applied at a future date.
+
+To make a semantic patch request, you must append `domain-model=launchdarkly.semanticpatch` to your `Content-Type` header.
+
+Here's how:
+
+```
+Content-Type: application/json; domain-model=launchdarkly.semanticpatch
+```
+
+If you call a semantic patch resource without this header, you will receive a `400` response because your semantic patch will be interpreted as a JSON patch.
+
+The body of a semantic patch request takes the following properties:
+
+* `comment` (string): (Optional) A description of the update.
+* `environmentKey` (string): (Required for some resources only) The environment key.
+* `instructions` (array): (Required) A list of actions the update should perform. Each action in the list must be an object with a `kind` property that indicates the instruction. If the action requires parameters, you must include those parameters as additional fields in the object. The documentation for each resource that supports semantic patch includes the available instructions and any additional parameters.
+
+For example:
+
+```json
+{
+  \"comment\": \"optional comment\",
+  \"instructions\": [ {\"kind\": \"turnFlagOn\"} ]
+}
+```
+
+If any instruction in the patch encounters an error, the endpoint returns an error and will not change the resource. In general, each instruction silently does nothing if the resource is already in the state you request.
+
+> ### Supported semantic patch API endpoints
+>
+> - [Patch experiment](/tag/Experiments-(beta)#operation/patchExperiment)
+> - [Patch segment](/tag/Segments#operation/patchSegment)
+> - [Update feature flag](/tag/Feature-flags#operation/patchFeatureFlag)
+> - [Update flag trigger](/tag/Flag-triggers#operation/patchTriggerWorkflow)
+> - [Update expiring user targets on feature flag](/tag/Feature-flags#operation/patchExpiringUserTargets)
+> - [Update expiring user target for flags](/tag/User-settings#operation/patchExpiringFlagsForUser)
+> - [Update expiring user targets for segment](/tag/Segments#operation/patchExpiringUserTargetsForSegment)
+> - [Update scheduled changes workflow](/tag/Scheduled-changes#operation/patchFlagConfigScheduledChange)
+> - [Update team](/tag/Teams-(beta)#operation/patchTeam)
+
 ### Updates with comments
 
-You can submit optional comments with `PATCH` changes. The [Update feature flag](/tag/Feature-flags#operation/patchFeatureFlag) resource supports comments.
+You can submit optional comments with `PATCH` changes.
 
 To submit a comment along with a JSON Patch document, use the following format:
 
@@ -166,7 +210,7 @@ To submit a comment along with a JSON Patch document, use the following format:
 }
 ```
 
-To submit a comment along with a JSON Merge Patch document, use the following format:
+To submit a comment along with a JSON merge patch document, use the following format:
 
 ```json
 {
@@ -175,125 +219,14 @@ To submit a comment along with a JSON Merge Patch document, use the following fo
 }
 ```
 
-### Updates via semantic patches
-
-The API also supports the Semantic patch format. A semantic `PATCH` is a way to specify the modifications to perform on a resource as a set of executable instructions.
-
-JSON Patch uses paths and a limited set of operations to describe how to transform the current state of the resource into a new state. Semantic patch allows you to be explicit about intent using precise, custom instructions. In many cases, semantic patch instructions can also be defined independently of the current state of the resource. This can be useful when defining a change that may be applied at a future date.
-
-For example, in this feature flag configuration in environment Production:
+To submit a comment along with a semantic patch, use the following format:
 
 ```json
 {
-    \"name\": \"Alternate sort order\",
-    \"kind\": \"boolean\",
-    \"key\": \"sort.order\",
-   ...
-    \"environments\": {
-        \"production\": {
-            \"on\": true,
-            \"archived\": false,
-            \"salt\": \"c29ydC5vcmRlcg==\",
-            \"sel\": \"8de1085cb7354b0ab41c0e778376dfd3\",
-            \"lastModified\": 1469131558260,
-            \"version\": 81,
-            \"targets\": [
-                {
-                    \"values\": [
-                        \"Gerhard.Little@yahoo.com\"
-                    ],
-                    \"variation\": 0
-                },
-                {
-                    \"values\": [
-                        \"1461797806429-33-861961230\",
-                        \"438580d8-02ee-418d-9eec-0085cab2bdf0\"
-                    ],
-                    \"variation\": 1
-                }
-            ],
-            \"rules\": [],
-            \"fallthrough\": {
-                \"variation\": 0
-            },
-            \"offVariation\": 1,
-            \"prerequisites\": [],
-            \"_site\": {
-                \"href\": \"/default/production/features/sort.order\",
-                \"type\": \"text/html\"
-            }
-       }
-    }
+  \"comment\": \"This is a comment string\",
+  \"instructions\": [ {\"kind\": \"turnFlagOn\"} ]
 }
 ```
-
-You can add a date you want a user to be removed from the feature flag's user targets. For example, “remove user 1461797806429-33-861961230 from the user target for variation 0 on the Alternate sort order flag in the production environment on Wed Jul 08 2020 at 15:27:41 pm”. This is done using the following:
-
-```json
-{
-  \"comment\": \"update expiring user targets\",
-  \"instructions\": [
-    {
-      \"kind\": \"removeExpireUserTargetDate\",
-      \"userKey\": \"userKey\",
-      \"variationId\": \"978d53f9-7fe3-4a63-992d-97bcb4535dc8\"
-    },
-    {
-      \"kind\": \"updateExpireUserTargetDate\",
-      \"userKey\": \"userKey2\",
-      \"variationId\": \"978d53f9-7fe3-4a63-992d-97bcb4535dc8\",
-      \"value\": 1587582000000
-    },
-    {
-      \"kind\": \"addExpireUserTargetDate\",
-      \"userKey\": \"userKey3\",
-      \"variationId\": \"978d53f9-7fe3-4a63-992d-97bcb4535dc8\",
-      \"value\": 1594247266386
-    }
-  ]
-}
-```
-
-Here is another example. In this feature flag configuration:
-
-```json
-{
-  \"name\": \"New recommendations engine\",
-  \"key\": \"engine.enable\",
-  \"environments\": {
-    \"test\": {
-      \"on\": true
-    }
-  }
-}
-```
-
-You can change the feature flag's description with the following patch document as a set of executable instructions. For example, “add user X to targets for variation Y and remove user A from targets for variation B for test flag”:
-
-```json
-{
-  \"comment\": \"\",
-  \"instructions\": [
-    {
-      \"kind\": \"removeUserTargets\",
-      \"values\": [\"438580d8-02ee-418d-9eec-0085cab2bdf0\"],
-      \"variationId\": \"852cb784-54ff-46b9-8c35-5498d2e4f270\"
-    },
-    {
-      \"kind\": \"addUserTargets\",
-      \"values\": [\"438580d8-02ee-418d-9eec-0085cab2bdf0\"],
-      \"variationId\": \"1bb18465-33b6-49aa-a3bd-eeb6650b33ad\"
-    }
-  ]
-}
-```
-
-> ### Supported semantic patch API endpoints
->
-> - [Update feature flag](/tag/Feature-flags#operation/patchFeatureFlag)
-> - [Update expiring user targets on feature flag](/tag/Feature-flags#operation/patchExpiringUserTargets)
-> - [Update expiring user target for flags](/tag/User-settings#operation/patchExpiringFlagsForUser)
-> - [Update expiring user targets on segment](/tag/Segments#operation/patchExpiringUserTargetsForSegment)
 
 ## Errors
 
@@ -339,8 +272,6 @@ We use several rate limiting strategies to ensure the availability of our APIs. 
 > ### Rate limiting and SDKs
 >
 > LaunchDarkly SDKs are never rate limited and do not use the API endpoints defined here. LaunchDarkly uses a different set of approaches, including streaming/server-sent events and a global CDN, to ensure availability to the routes used by LaunchDarkly SDKs.
->
-> The client-side ID is safe to embed in untrusted contexts. It's designed for use in client-side JavaScript.
 
 ### Global rate limits
 
@@ -457,7 +388,7 @@ If you would like to upgrade your integration to use a new API version, you can 
 This API client was generated by the [OpenAPI Generator](https://openapi-generator.tech) project.  By using the [OpenAPI-spec](https://www.openapis.org/) from a remote server, you can easily generate an API client.
 
 - API version: 2.0
-- Package version: 9
+- Package version: 0
 - Build package: org.openapitools.codegen.languages.GoClientCodegen
 For more information, please visit [https://support.launchdarkly.com](https://support.launchdarkly.com)
 
@@ -540,7 +471,7 @@ Class | Method | HTTP request | Description
 *AccountMembersApi* | [**GetMember**](docs/AccountMembersApi.md#getmember) | **Get** /api/v2/members/{id} | Get account member
 *AccountMembersApi* | [**GetMembers**](docs/AccountMembersApi.md#getmembers) | **Get** /api/v2/members | List account members
 *AccountMembersApi* | [**PatchMember**](docs/AccountMembersApi.md#patchmember) | **Patch** /api/v2/members/{id} | Modify an account member
-*AccountMembersApi* | [**PostMemberTeams**](docs/AccountMembersApi.md#postmemberteams) | **Post** /api/v2/members/{id}/teams | Add member to teams
+*AccountMembersApi* | [**PostMemberTeams**](docs/AccountMembersApi.md#postmemberteams) | **Post** /api/v2/members/{id}/teams | Add a member to teams
 *AccountMembersApi* | [**PostMembers**](docs/AccountMembersApi.md#postmembers) | **Post** /api/v2/members | Invite new members
 *AccountUsageBetaApi* | [**GetEvaluationsUsage**](docs/AccountUsageBetaApi.md#getevaluationsusage) | **Get** /api/v2/usage/evaluations/{projectKey}/{environmentKey}/{featureFlagKey} | Get evaluations usage
 *AccountUsageBetaApi* | [**GetEventsUsage**](docs/AccountUsageBetaApi.md#geteventsusage) | **Get** /api/v2/usage/events/{type} | Get events usage
@@ -618,6 +549,9 @@ Class | Method | HTTP request | Description
 *FlagTriggersApi* | [**GetTriggerWorkflowById**](docs/FlagTriggersApi.md#gettriggerworkflowbyid) | **Get** /api/v2/flags/{projectKey}/{featureFlagKey}/triggers/{environmentKey}/{id} | Get flag trigger by ID
 *FlagTriggersApi* | [**GetTriggerWorkflows**](docs/FlagTriggersApi.md#gettriggerworkflows) | **Get** /api/v2/flags/{projectKey}/{featureFlagKey}/triggers/{environmentKey} | List flag triggers
 *FlagTriggersApi* | [**PatchTriggerWorkflow**](docs/FlagTriggersApi.md#patchtriggerworkflow) | **Patch** /api/v2/flags/{projectKey}/{featureFlagKey}/triggers/{environmentKey}/{id} | Update flag trigger
+*FollowFlagsBetaApi* | [**DeleteFlagFollowers**](docs/FollowFlagsBetaApi.md#deleteflagfollowers) | **Delete** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/followers/{memberId} | Remove a member as a follower to a flag in a project and environment
+*FollowFlagsBetaApi* | [**GetFlagFollowers**](docs/FollowFlagsBetaApi.md#getflagfollowers) | **Get** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/followers | Get followers of a flag in a project and environment
+*FollowFlagsBetaApi* | [**PutFlagFollowers**](docs/FollowFlagsBetaApi.md#putflagfollowers) | **Put** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/followers/{memberId} | Add a member as a follower to a flag in a project and environment
 *IntegrationAuditLogSubscriptionsApi* | [**CreateSubscription**](docs/IntegrationAuditLogSubscriptionsApi.md#createsubscription) | **Post** /api/v2/integrations/{integrationKey} | Create audit log subscription
 *IntegrationAuditLogSubscriptionsApi* | [**DeleteSubscription**](docs/IntegrationAuditLogSubscriptionsApi.md#deletesubscription) | **Delete** /api/v2/integrations/{integrationKey}/{id} | Delete audit log subscription
 *IntegrationAuditLogSubscriptionsApi* | [**GetSubscriptionByID**](docs/IntegrationAuditLogSubscriptionsApi.md#getsubscriptionbyid) | **Get** /api/v2/integrations/{integrationKey}/{id} | Get audit log subscription by ID
@@ -669,14 +603,14 @@ Class | Method | HTTP request | Description
 *SegmentsBetaApi* | [**GetBigSegmentExport**](docs/SegmentsBetaApi.md#getbigsegmentexport) | **Get** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/exports/{exportID} | Get Big Segment export
 *SegmentsBetaApi* | [**GetBigSegmentImport**](docs/SegmentsBetaApi.md#getbigsegmentimport) | **Get** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/imports/{importID} | Get Big Segment import
 *TagsApi* | [**GetTags**](docs/TagsApi.md#gettags) | **Get** /api/v2/tags | List tags
-*TeamsBetaApi* | [**DeleteTeam**](docs/TeamsBetaApi.md#deleteteam) | **Delete** /api/v2/teams/{teamKey} | Delete team
-*TeamsBetaApi* | [**GetTeam**](docs/TeamsBetaApi.md#getteam) | **Get** /api/v2/teams/{teamKey} | Get team
-*TeamsBetaApi* | [**GetTeamMaintainers**](docs/TeamsBetaApi.md#getteammaintainers) | **Get** /api/v2/teams/{teamKey}/maintainers | Get team maintainers
-*TeamsBetaApi* | [**GetTeamRoles**](docs/TeamsBetaApi.md#getteamroles) | **Get** /api/v2/teams/{teamKey}/roles | Get team custom roles
-*TeamsBetaApi* | [**GetTeams**](docs/TeamsBetaApi.md#getteams) | **Get** /api/v2/teams | List teams
-*TeamsBetaApi* | [**PatchTeam**](docs/TeamsBetaApi.md#patchteam) | **Patch** /api/v2/teams/{teamKey} | Update team
-*TeamsBetaApi* | [**PostTeam**](docs/TeamsBetaApi.md#postteam) | **Post** /api/v2/teams | Create team
-*TeamsBetaApi* | [**PostTeamMembers**](docs/TeamsBetaApi.md#postteammembers) | **Post** /api/v2/teams/{teamKey}/members | Add members to team
+*TeamsApi* | [**DeleteTeam**](docs/TeamsApi.md#deleteteam) | **Delete** /api/v2/teams/{teamKey} | Delete team
+*TeamsApi* | [**GetTeam**](docs/TeamsApi.md#getteam) | **Get** /api/v2/teams/{teamKey} | Get team
+*TeamsApi* | [**GetTeamMaintainers**](docs/TeamsApi.md#getteammaintainers) | **Get** /api/v2/teams/{teamKey}/maintainers | Get team maintainers
+*TeamsApi* | [**GetTeamRoles**](docs/TeamsApi.md#getteamroles) | **Get** /api/v2/teams/{teamKey}/roles | Get team custom roles
+*TeamsApi* | [**GetTeams**](docs/TeamsApi.md#getteams) | **Get** /api/v2/teams | List teams
+*TeamsApi* | [**PatchTeam**](docs/TeamsApi.md#patchteam) | **Patch** /api/v2/teams/{teamKey} | Update team
+*TeamsApi* | [**PostTeam**](docs/TeamsApi.md#postteam) | **Post** /api/v2/teams | Create team
+*TeamsApi* | [**PostTeamMembers**](docs/TeamsApi.md#postteammembers) | **Post** /api/v2/teams/{teamKey}/members | Add multiple members to team
 *UserSettingsApi* | [**GetExpiringFlagsForUser**](docs/UserSettingsApi.md#getexpiringflagsforuser) | **Get** /api/v2/users/{projectKey}/{userKey}/expiring-user-targets/{environmentKey} | Get expiring dates on flags for user
 *UserSettingsApi* | [**GetUserFlagSetting**](docs/UserSettingsApi.md#getuserflagsetting) | **Get** /api/v2/users/{projectKey}/{environmentKey}/{userKey}/flags/{featureFlagKey} | Get flag setting for user
 *UserSettingsApi* | [**GetUserFlagSettings**](docs/UserSettingsApi.md#getuserflagsettings) | **Get** /api/v2/users/{projectKey}/{environmentKey}/{userKey}/flags | List flag settings for user
@@ -730,6 +664,7 @@ Class | Method | HTTP request | Description
  - [CopiedFromEnv](docs/CopiedFromEnv.md)
  - [CreateCopyFlagConfigApprovalRequestRequest](docs/CreateCopyFlagConfigApprovalRequestRequest.md)
  - [CreateFlagConfigApprovalRequestRequest](docs/CreateFlagConfigApprovalRequestRequest.md)
+ - [CredibleIntervalRep](docs/CredibleIntervalRep.md)
  - [CustomProperty](docs/CustomProperty.md)
  - [CustomRole](docs/CustomRole.md)
  - [CustomRolePost](docs/CustomRolePost.md)
@@ -740,7 +675,6 @@ Class | Method | HTTP request | Description
  - [CustomWorkflowOutputRep](docs/CustomWorkflowOutputRep.md)
  - [CustomWorkflowStageMeta](docs/CustomWorkflowStageMeta.md)
  - [CustomWorkflowsListingOutputRep](docs/CustomWorkflowsListingOutputRep.md)
- - [Decimal](docs/Decimal.md)
  - [DefaultClientSideAvailabilityPost](docs/DefaultClientSideAvailabilityPost.md)
  - [Defaults](docs/Defaults.md)
  - [DependentFlag](docs/DependentFlag.md)
@@ -753,15 +687,17 @@ Class | Method | HTTP request | Description
  - [EnvironmentPost](docs/EnvironmentPost.md)
  - [EvaluationReason](docs/EvaluationReason.md)
  - [ExecutionOutputRep](docs/ExecutionOutputRep.md)
+ - [Experiment](docs/Experiment.md)
  - [ExperimentAllocationRep](docs/ExperimentAllocationRep.md)
+ - [ExperimentBayesianResultsRep](docs/ExperimentBayesianResultsRep.md)
  - [ExperimentCollectionRep](docs/ExperimentCollectionRep.md)
  - [ExperimentEnabledPeriodRep](docs/ExperimentEnabledPeriodRep.md)
  - [ExperimentEnvironmentSettingRep](docs/ExperimentEnvironmentSettingRep.md)
+ - [ExperimentExpandableProperties](docs/ExperimentExpandableProperties.md)
  - [ExperimentInfoRep](docs/ExperimentInfoRep.md)
  - [ExperimentMetadataRep](docs/ExperimentMetadataRep.md)
  - [ExperimentPatchInput](docs/ExperimentPatchInput.md)
  - [ExperimentPost](docs/ExperimentPost.md)
- - [ExperimentRep](docs/ExperimentRep.md)
  - [ExperimentResults](docs/ExperimentResults.md)
  - [ExperimentStatsRep](docs/ExperimentStatsRep.md)
  - [ExperimentTimeSeriesSlice](docs/ExperimentTimeSeriesSlice.md)
@@ -788,6 +724,7 @@ Class | Method | HTTP request | Description
  - [FlagConfigApprovalRequestsResponse](docs/FlagConfigApprovalRequestsResponse.md)
  - [FlagCopyConfigEnvironment](docs/FlagCopyConfigEnvironment.md)
  - [FlagCopyConfigPost](docs/FlagCopyConfigPost.md)
+ - [FlagFollowersGetRep](docs/FlagFollowersGetRep.md)
  - [FlagGlobalAttributesRep](docs/FlagGlobalAttributesRep.md)
  - [FlagInput](docs/FlagInput.md)
  - [FlagLinkCollectionRep](docs/FlagLinkCollectionRep.md)
@@ -800,10 +737,12 @@ Class | Method | HTTP request | Description
  - [FlagStatusRep](docs/FlagStatusRep.md)
  - [FlagSummary](docs/FlagSummary.md)
  - [FlagTriggerInput](docs/FlagTriggerInput.md)
+ - [FollowFlagMember](docs/FollowFlagMember.md)
  - [ForbiddenErrorRep](docs/ForbiddenErrorRep.md)
  - [HunkRep](docs/HunkRep.md)
  - [Import](docs/Import.md)
  - [InitiatorRep](docs/InitiatorRep.md)
+ - [InstructionUserRequest](docs/InstructionUserRequest.md)
  - [Integration](docs/Integration.md)
  - [IntegrationDeliveryConfiguration](docs/IntegrationDeliveryConfiguration.md)
  - [IntegrationDeliveryConfigurationCollection](docs/IntegrationDeliveryConfigurationCollection.md)
@@ -822,6 +761,7 @@ Class | Method | HTTP request | Description
  - [IterationInput](docs/IterationInput.md)
  - [IterationRep](docs/IterationRep.md)
  - [LastSeenMetadata](docs/LastSeenMetadata.md)
+ - [LegacyExperimentRep](docs/LegacyExperimentRep.md)
  - [Link](docs/Link.md)
  - [Member](docs/Member.md)
  - [MemberDataRep](docs/MemberDataRep.md)
@@ -838,18 +778,21 @@ Class | Method | HTTP request | Description
  - [MetricPost](docs/MetricPost.md)
  - [MetricRep](docs/MetricRep.md)
  - [MetricSeen](docs/MetricSeen.md)
+ - [MetricV2Rep](docs/MetricV2Rep.md)
  - [Modification](docs/Modification.md)
  - [MultiEnvironmentDependentFlag](docs/MultiEnvironmentDependentFlag.md)
  - [MultiEnvironmentDependentFlags](docs/MultiEnvironmentDependentFlags.md)
  - [NewMemberForm](docs/NewMemberForm.md)
  - [NotFoundErrorRep](docs/NotFoundErrorRep.md)
- - [NullDecimal](docs/NullDecimal.md)
+ - [ParameterDefault](docs/ParameterDefault.md)
  - [ParameterRep](docs/ParameterRep.md)
  - [ParentResourceRep](docs/ParentResourceRep.md)
  - [PatchFailedErrorRep](docs/PatchFailedErrorRep.md)
+ - [PatchFlagsRequest](docs/PatchFlagsRequest.md)
  - [PatchOperation](docs/PatchOperation.md)
  - [PatchSegmentInstruction](docs/PatchSegmentInstruction.md)
  - [PatchSegmentRequest](docs/PatchSegmentRequest.md)
+ - [PatchUsersRequest](docs/PatchUsersRequest.md)
  - [PatchWithComment](docs/PatchWithComment.md)
  - [PermissionGrantInput](docs/PermissionGrantInput.md)
  - [PostApprovalRequestApplyRequest](docs/PostApprovalRequestApplyRequest.md)
@@ -866,6 +809,7 @@ Class | Method | HTTP request | Description
  - [RateLimitedErrorRep](docs/RateLimitedErrorRep.md)
  - [RecentTriggerBody](docs/RecentTriggerBody.md)
  - [ReferenceRep](docs/ReferenceRep.md)
+ - [RelativeDifferenceRep](docs/RelativeDifferenceRep.md)
  - [RelayAutoConfigCollectionRep](docs/RelayAutoConfigCollectionRep.md)
  - [RelayAutoConfigPost](docs/RelayAutoConfigPost.md)
  - [RelayAutoConfigRep](docs/RelayAutoConfigRep.md)
@@ -903,6 +847,7 @@ Class | Method | HTTP request | Description
  - [StatementRep](docs/StatementRep.md)
  - [StatisticCollectionRep](docs/StatisticCollectionRep.md)
  - [StatisticRep](docs/StatisticRep.md)
+ - [StatisticsRep](docs/StatisticsRep.md)
  - [StatisticsRoot](docs/StatisticsRoot.md)
  - [StatusConflictErrorRep](docs/StatusConflictErrorRep.md)
  - [SubjectDataRep](docs/SubjectDataRep.md)
@@ -915,9 +860,11 @@ Class | Method | HTTP request | Description
  - [TeamCustomRoles](docs/TeamCustomRoles.md)
  - [TeamImportsRep](docs/TeamImportsRep.md)
  - [TeamMaintainers](docs/TeamMaintainers.md)
+ - [TeamMembers](docs/TeamMembers.md)
  - [TeamPatchInput](docs/TeamPatchInput.md)
  - [TeamPostInput](docs/TeamPostInput.md)
  - [TeamProjects](docs/TeamProjects.md)
+ - [TeamRepExpandableProperties](docs/TeamRepExpandableProperties.md)
  - [Teams](docs/Teams.md)
  - [TimestampRep](docs/TimestampRep.md)
  - [TitleRep](docs/TitleRep.md)
@@ -927,6 +874,7 @@ Class | Method | HTTP request | Description
  - [TreatmentInput](docs/TreatmentInput.md)
  - [TreatmentParameterInput](docs/TreatmentParameterInput.md)
  - [TreatmentRep](docs/TreatmentRep.md)
+ - [TreatmentResultRep](docs/TreatmentResultRep.md)
  - [TriggerPost](docs/TriggerPost.md)
  - [TriggerWorkflowCollectionRep](docs/TriggerWorkflowCollectionRep.md)
  - [TriggerWorkflowRep](docs/TriggerWorkflowRep.md)
@@ -942,6 +890,7 @@ Class | Method | HTTP request | Description
  - [UserSegmentRule](docs/UserSegmentRule.md)
  - [UserSegments](docs/UserSegments.md)
  - [Users](docs/Users.md)
+ - [UsersRep](docs/UsersRep.md)
  - [ValuePut](docs/ValuePut.md)
  - [Variation](docs/Variation.md)
  - [VariationOrRolloutRep](docs/VariationOrRolloutRep.md)
@@ -951,6 +900,8 @@ Class | Method | HTTP request | Description
  - [WebhookPost](docs/WebhookPost.md)
  - [Webhooks](docs/Webhooks.md)
  - [WeightedVariation](docs/WeightedVariation.md)
+ - [WorkflowTemplateMetadata](docs/WorkflowTemplateMetadata.md)
+ - [WorkflowTemplateParameter](docs/WorkflowTemplateParameter.md)
 
 
 ## Documentation For Authorization

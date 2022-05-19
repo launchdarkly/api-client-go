@@ -245,7 +245,7 @@ Name | Type | Description  | Notes
 
 ## PatchExpiringFlagsForUser
 
-> ExpiringUserTargetPatchResponse PatchExpiringFlagsForUser(ctx, projectKey, userKey, environmentKey).PatchWithComment(patchWithComment).Execute()
+> ExpiringUserTargetPatchResponse PatchExpiringFlagsForUser(ctx, projectKey, userKey, environmentKey).PatchUsersRequest(patchUsersRequest).Execute()
 
 Update expiring user target for flags
 
@@ -267,11 +267,11 @@ func main() {
     projectKey := "projectKey_example" // string | The project key
     userKey := "userKey_example" // string | The user key
     environmentKey := "environmentKey_example" // string | The environment key
-    patchWithComment := *openapiclient.NewPatchWithComment([]openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField", interface{}(new example value))}) // PatchWithComment | 
+    patchUsersRequest := *openapiclient.NewPatchUsersRequest([]openapiclient.InstructionUserRequest{*openapiclient.NewInstructionUserRequest("Kind_example", "FlagKey_example", "VariationId_example")}) // PatchUsersRequest | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.UserSettingsApi.PatchExpiringFlagsForUser(context.Background(), projectKey, userKey, environmentKey).PatchWithComment(patchWithComment).Execute()
+    resp, r, err := api_client.UserSettingsApi.PatchExpiringFlagsForUser(context.Background(), projectKey, userKey, environmentKey).PatchUsersRequest(patchUsersRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserSettingsApi.PatchExpiringFlagsForUser``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -301,7 +301,7 @@ Name | Type | Description  | Notes
 
 
 
- **patchWithComment** | [**PatchWithComment**](PatchWithComment.md) |  | 
+ **patchUsersRequest** | [**PatchUsersRequest**](PatchUsersRequest.md) |  | 
 
 ### Return type
 

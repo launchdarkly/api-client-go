@@ -270,7 +270,7 @@ func main() {
     projectKey := "projectKey_example" // string | The project key
     featureFlagKey := "featureFlagKey_example" // string | The feature flag key
     environmentKey := "environmentKey_example" // string | The environment key
-    createFlagConfigApprovalRequestRequest := *openapiclient.NewCreateFlagConfigApprovalRequestRequest("Description_example", []interface{}{nil}, []string{"NotifyMemberIds_example"}) // CreateFlagConfigApprovalRequestRequest | 
+    createFlagConfigApprovalRequestRequest := *openapiclient.NewCreateFlagConfigApprovalRequestRequest("Description_example", []map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}, []string{"NotifyMemberIds_example"}) // CreateFlagConfigApprovalRequestRequest | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)

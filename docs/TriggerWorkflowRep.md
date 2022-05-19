@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **Maintainer** | Pointer to [**MemberSummary**](MemberSummary.md) |  | [optional] 
 **Enabled** | Pointer to **bool** |  | [optional] 
 **IntegrationKey** | Pointer to **string** |  | [optional] 
-**Instructions** | Pointer to **[]interface{}** |  | [optional] 
+**Instructions** | Pointer to **[]map[string]interface{}** |  | [optional] 
 **LastTriggeredAt** | Pointer to **int64** |  | [optional] 
 **RecentTriggerBodies** | Pointer to [**[]RecentTriggerBody**](RecentTriggerBody.md) |  | [optional] 
 **TriggerCount** | Pointer to **int32** |  | [optional] 
@@ -214,20 +214,20 @@ HasIntegrationKey returns a boolean if a field has been set.
 
 ### GetInstructions
 
-`func (o *TriggerWorkflowRep) GetInstructions() []interface{}`
+`func (o *TriggerWorkflowRep) GetInstructions() []map[string]interface{}`
 
 GetInstructions returns the Instructions field if non-nil, zero value otherwise.
 
 ### GetInstructionsOk
 
-`func (o *TriggerWorkflowRep) GetInstructionsOk() (*[]interface{}, bool)`
+`func (o *TriggerWorkflowRep) GetInstructionsOk() (*[]map[string]interface{}, bool)`
 
 GetInstructionsOk returns a tuple with the Instructions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInstructions
 
-`func (o *TriggerWorkflowRep) SetInstructions(v []interface{})`
+`func (o *TriggerWorkflowRep) SetInstructions(v []map[string]interface{})`
 
 SetInstructions sets Instructions field to given value.
 

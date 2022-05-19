@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** |  | [optional] 
 **Name** | **string** |  | 
-**AllocationPercent** | [**NullDecimal**](NullDecimal.md) |  | 
+**AllocationPercent** | **string** |  | 
 **Baseline** | Pointer to **bool** |  | [optional] 
 **Parameters** | Pointer to [**[]ParameterRep**](ParameterRep.md) |  | [optional] 
 
@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 
 ### NewTreatmentRep
 
-`func NewTreatmentRep(name string, allocationPercent NullDecimal, ) *TreatmentRep`
+`func NewTreatmentRep(name string, allocationPercent string, ) *TreatmentRep`
 
 NewTreatmentRep instantiates a new TreatmentRep object
 This constructor will assign default values to properties that have it defined,
@@ -76,20 +76,20 @@ SetName sets Name field to given value.
 
 ### GetAllocationPercent
 
-`func (o *TreatmentRep) GetAllocationPercent() NullDecimal`
+`func (o *TreatmentRep) GetAllocationPercent() string`
 
 GetAllocationPercent returns the AllocationPercent field if non-nil, zero value otherwise.
 
 ### GetAllocationPercentOk
 
-`func (o *TreatmentRep) GetAllocationPercentOk() (*NullDecimal, bool)`
+`func (o *TreatmentRep) GetAllocationPercentOk() (*string, bool)`
 
 GetAllocationPercentOk returns a tuple with the AllocationPercent field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAllocationPercent
 
-`func (o *TreatmentRep) SetAllocationPercent(v NullDecimal)`
+`func (o *TreatmentRep) SetAllocationPercent(v string)`
 
 SetAllocationPercent sets AllocationPercent field to given value.
 

@@ -12,6 +12,10 @@ Name | Type | Description | Notes
 **Links** | Pointer to [**map[string]Link**](Link.md) |  | [optional] 
 **LastModified** | Pointer to **int64** |  | [optional] 
 **Version** | Pointer to **int32** |  | [optional] 
+**Roles** | Pointer to [**TeamCustomRoles**](TeamCustomRoles.md) |  | [optional] 
+**Members** | Pointer to [**TeamMembers**](TeamMembers.md) |  | [optional] 
+**Projects** | Pointer to [**TeamProjects**](TeamProjects.md) |  | [optional] 
+**Maintainers** | Pointer to [**TeamMaintainers**](TeamMaintainers.md) |  | [optional] 
 
 ## Methods
 
@@ -231,6 +235,106 @@ SetVersion sets Version field to given value.
 `func (o *Team) HasVersion() bool`
 
 HasVersion returns a boolean if a field has been set.
+
+### GetRoles
+
+`func (o *Team) GetRoles() TeamCustomRoles`
+
+GetRoles returns the Roles field if non-nil, zero value otherwise.
+
+### GetRolesOk
+
+`func (o *Team) GetRolesOk() (*TeamCustomRoles, bool)`
+
+GetRolesOk returns a tuple with the Roles field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRoles
+
+`func (o *Team) SetRoles(v TeamCustomRoles)`
+
+SetRoles sets Roles field to given value.
+
+### HasRoles
+
+`func (o *Team) HasRoles() bool`
+
+HasRoles returns a boolean if a field has been set.
+
+### GetMembers
+
+`func (o *Team) GetMembers() TeamMembers`
+
+GetMembers returns the Members field if non-nil, zero value otherwise.
+
+### GetMembersOk
+
+`func (o *Team) GetMembersOk() (*TeamMembers, bool)`
+
+GetMembersOk returns a tuple with the Members field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMembers
+
+`func (o *Team) SetMembers(v TeamMembers)`
+
+SetMembers sets Members field to given value.
+
+### HasMembers
+
+`func (o *Team) HasMembers() bool`
+
+HasMembers returns a boolean if a field has been set.
+
+### GetProjects
+
+`func (o *Team) GetProjects() TeamProjects`
+
+GetProjects returns the Projects field if non-nil, zero value otherwise.
+
+### GetProjectsOk
+
+`func (o *Team) GetProjectsOk() (*TeamProjects, bool)`
+
+GetProjectsOk returns a tuple with the Projects field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProjects
+
+`func (o *Team) SetProjects(v TeamProjects)`
+
+SetProjects sets Projects field to given value.
+
+### HasProjects
+
+`func (o *Team) HasProjects() bool`
+
+HasProjects returns a boolean if a field has been set.
+
+### GetMaintainers
+
+`func (o *Team) GetMaintainers() TeamMaintainers`
+
+GetMaintainers returns the Maintainers field if non-nil, zero value otherwise.
+
+### GetMaintainersOk
+
+`func (o *Team) GetMaintainersOk() (*TeamMaintainers, bool)`
+
+GetMaintainersOk returns a tuple with the Maintainers field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMaintainers
+
+`func (o *Team) SetMaintainers(v TeamMaintainers)`
+
+SetMaintainers sets Maintainers field to given value.
+
+### HasMaintainers
+
+`func (o *Team) HasMaintainers() bool`
+
+HasMaintainers returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

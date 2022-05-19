@@ -8,7 +8,7 @@ Method | HTTP request | Description
 [**GetMember**](AccountMembersApi.md#GetMember) | **Get** /api/v2/members/{id} | Get account member
 [**GetMembers**](AccountMembersApi.md#GetMembers) | **Get** /api/v2/members | List account members
 [**PatchMember**](AccountMembersApi.md#PatchMember) | **Patch** /api/v2/members/{id} | Modify an account member
-[**PostMemberTeams**](AccountMembersApi.md#PostMemberTeams) | **Post** /api/v2/members/{id}/teams | Add member to teams
+[**PostMemberTeams**](AccountMembersApi.md#PostMemberTeams) | **Post** /api/v2/members/{id}/teams | Add a member to teams
 [**PostMembers**](AccountMembersApi.md#PostMembers) | **Post** /api/v2/members | Invite new members
 
 
@@ -173,7 +173,7 @@ import (
 
 func main() {
     limit := int64(789) // int64 | The number of members to return in the response. Defaults to 20. (optional)
-    offset := int64(789) // int64 | Where to start in the list. This is for use with pagination. For example, an offset of 10 would skip the first ten items and then return the next `limit` items. (optional)
+    offset := int64(789) // int64 | Where to start in the list. This is for use with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
     filter := "filter_example" // string | A comma-separated list of filters. Each filter is of the form `field:value`. Supported fields are explained above. (optional)
     sort := "sort_example" // string | A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order. (optional)
 
@@ -201,7 +201,7 @@ Other parameters are passed through a pointer to a apiGetMembersRequest struct v
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **limit** | **int64** | The number of members to return in the response. Defaults to 20. | 
- **offset** | **int64** | Where to start in the list. This is for use with pagination. For example, an offset of 10 would skip the first ten items and then return the next &#x60;limit&#x60; items. | 
+ **offset** | **int64** | Where to start in the list. This is for use with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | 
  **filter** | **string** | A comma-separated list of filters. Each filter is of the form &#x60;field:value&#x60;. Supported fields are explained above. | 
  **sort** | **string** | A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order. | 
 
@@ -299,7 +299,7 @@ Name | Type | Description  | Notes
 
 > Member PostMemberTeams(ctx, id).MemberTeamsPostInput(memberTeamsPostInput).Execute()
 
-Add member to teams
+Add a member to teams
 
 
 

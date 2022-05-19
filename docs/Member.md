@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **PendingEmail** | Pointer to **string** |  | [optional] 
 **CustomRoles** | **[]string** | The set of custom roles (as keys) assigned to the member | 
 **Mfa** | **string** | Whether or not multi-factor authentication is enabled for this member | 
-**ExcludedDashboards** | **[]string** | Default dashboards that the member has chosen to ignore | 
+**ExcludedDashboards** | Pointer to **[]string** | Default dashboards that the member has chosen to ignore | [optional] 
 **LastSeen** | **int64** |  | 
 **LastSeenMetadata** | Pointer to [**LastSeenMetadata**](LastSeenMetadata.md) |  | [optional] 
 **IntegrationMetadata** | Pointer to [**IntegrationMetadata**](IntegrationMetadata.md) |  | [optional] 
@@ -27,7 +27,7 @@ Name | Type | Description | Notes
 
 ### NewMember
 
-`func NewMember(links map[string]Link, id string, role string, email string, pendingInvite bool, verified bool, customRoles []string, mfa string, excludedDashboards []string, lastSeen int64, creationDate int64, ) *Member`
+`func NewMember(links map[string]Link, id string, role string, email string, pendingInvite bool, verified bool, customRoles []string, mfa string, lastSeen int64, creationDate int64, ) *Member`
 
 NewMember instantiates a new Member object
 This constructor will assign default values to properties that have it defined,
@@ -296,6 +296,11 @@ and a boolean to check if the value has been set.
 
 SetExcludedDashboards sets ExcludedDashboards field to given value.
 
+### HasExcludedDashboards
+
+`func (o *Member) HasExcludedDashboards() bool`
+
+HasExcludedDashboards returns a boolean if a field has been set.
 
 ### GetLastSeen
 

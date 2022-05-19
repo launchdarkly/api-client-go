@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Items** | Pointer to [**[]ExperimentRep**](ExperimentRep.md) |  | [optional] 
+**Items** | Pointer to [**[]Experiment**](Experiment.md) |  | [optional] 
 **TotalCount** | Pointer to **int32** |  | [optional] 
 **Links** | Pointer to [**map[string]Link**](Link.md) |  | [optional] 
 
@@ -29,20 +29,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetItems
 
-`func (o *ExperimentCollectionRep) GetItems() []ExperimentRep`
+`func (o *ExperimentCollectionRep) GetItems() []Experiment`
 
 GetItems returns the Items field if non-nil, zero value otherwise.
 
 ### GetItemsOk
 
-`func (o *ExperimentCollectionRep) GetItemsOk() (*[]ExperimentRep, bool)`
+`func (o *ExperimentCollectionRep) GetItemsOk() (*[]Experiment, bool)`
 
 GetItemsOk returns a tuple with the Items field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetItems
 
-`func (o *ExperimentCollectionRep) SetItems(v []ExperimentRep)`
+`func (o *ExperimentCollectionRep) SetItems(v []Experiment)`
 
 SetItems sets Items field to given value.
 

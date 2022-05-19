@@ -564,7 +564,7 @@ func main() {
     env := "env_example" // string | Filter configurations by environment (optional)
     tag := "tag_example" // string | Filter feature flags by tag (optional)
     limit := int64(789) // int64 | The number of feature flags to return. Defaults to -1, which returns all flags (optional)
-    offset := int64(789) // int64 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next limit items (optional)
+    offset := int64(789) // int64 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
     archived := true // bool | A boolean to filter the list to archived flags. When this is absent, only unarchived flags will be returned (optional)
     summary := true // bool | By default in API version >= 1, flags will _not_ include their list of prerequisites, targets or rules.  Set summary=0 to include these fields for each flag returned (optional)
     filter := "filter_example" // string | A comma-separated list of filters. Each filter is of the form field:value (optional)
@@ -602,7 +602,7 @@ Name | Type | Description  | Notes
  **env** | **string** | Filter configurations by environment | 
  **tag** | **string** | Filter feature flags by tag | 
  **limit** | **int64** | The number of feature flags to return. Defaults to -1, which returns all flags | 
- **offset** | **int64** | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next limit items | 
+ **offset** | **int64** | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | 
  **archived** | **bool** | A boolean to filter the list to archived flags. When this is absent, only unarchived flags will be returned | 
  **summary** | **bool** | By default in API version &gt;&#x3D; 1, flags will _not_ include their list of prerequisites, targets or rules.  Set summary&#x3D;0 to include these fields for each flag returned | 
  **filter** | **string** | A comma-separated list of filters. Each filter is of the form field:value | 
@@ -629,7 +629,7 @@ Name | Type | Description  | Notes
 
 ## PatchExpiringUserTargets
 
-> ExpiringUserTargetPatchResponse PatchExpiringUserTargets(ctx, projectKey, environmentKey, featureFlagKey).PatchWithComment(patchWithComment).Execute()
+> ExpiringUserTargetPatchResponse PatchExpiringUserTargets(ctx, projectKey, environmentKey, featureFlagKey).PatchFlagsRequest(patchFlagsRequest).Execute()
 
 Update expiring user targets on feature flag
 
@@ -651,11 +651,11 @@ func main() {
     projectKey := "projectKey_example" // string | The project key
     environmentKey := "environmentKey_example" // string | The environment key
     featureFlagKey := "featureFlagKey_example" // string | The feature flag key
-    patchWithComment := *openapiclient.NewPatchWithComment([]openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField", interface{}(new example value))}) // PatchWithComment | 
+    patchFlagsRequest := *openapiclient.NewPatchFlagsRequest([]map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}) // PatchFlagsRequest | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.FeatureFlagsApi.PatchExpiringUserTargets(context.Background(), projectKey, environmentKey, featureFlagKey).PatchWithComment(patchWithComment).Execute()
+    resp, r, err := api_client.FeatureFlagsApi.PatchExpiringUserTargets(context.Background(), projectKey, environmentKey, featureFlagKey).PatchFlagsRequest(patchFlagsRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.PatchExpiringUserTargets``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -685,7 +685,7 @@ Name | Type | Description  | Notes
 
 
 
- **patchWithComment** | [**PatchWithComment**](PatchWithComment.md) |  | 
+ **patchFlagsRequest** | [**PatchFlagsRequest**](PatchFlagsRequest.md) |  | 
 
 ### Return type
 

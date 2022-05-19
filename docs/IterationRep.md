@@ -10,11 +10,12 @@ Name | Type | Description | Notes
 **StartedAt** | Pointer to **int64** |  | [optional] 
 **EndedAt** | Pointer to **int64** |  | [optional] 
 **WinningTreatmentId** | Pointer to **string** |  | [optional] 
+**WinningReason** | Pointer to **string** |  | [optional] 
 **CanReshuffleTraffic** | Pointer to **bool** |  | [optional] 
 **Flags** | Pointer to [**map[string]FlagRep**](FlagRep.md) |  | [optional] 
-**PrimaryMetric** | Pointer to [**MetricRep**](MetricRep.md) |  | [optional] 
+**PrimaryMetric** | Pointer to [**MetricV2Rep**](MetricV2Rep.md) |  | [optional] 
 **Treatments** | Pointer to [**[]TreatmentRep**](TreatmentRep.md) |  | [optional] 
-**SecondaryMetrics** | Pointer to [**[]MetricRep**](MetricRep.md) |  | [optional] 
+**SecondaryMetrics** | Pointer to [**[]MetricV2Rep**](MetricV2Rep.md) |  | [optional] 
 
 ## Methods
 
@@ -175,6 +176,31 @@ SetWinningTreatmentId sets WinningTreatmentId field to given value.
 
 HasWinningTreatmentId returns a boolean if a field has been set.
 
+### GetWinningReason
+
+`func (o *IterationRep) GetWinningReason() string`
+
+GetWinningReason returns the WinningReason field if non-nil, zero value otherwise.
+
+### GetWinningReasonOk
+
+`func (o *IterationRep) GetWinningReasonOk() (*string, bool)`
+
+GetWinningReasonOk returns a tuple with the WinningReason field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetWinningReason
+
+`func (o *IterationRep) SetWinningReason(v string)`
+
+SetWinningReason sets WinningReason field to given value.
+
+### HasWinningReason
+
+`func (o *IterationRep) HasWinningReason() bool`
+
+HasWinningReason returns a boolean if a field has been set.
+
 ### GetCanReshuffleTraffic
 
 `func (o *IterationRep) GetCanReshuffleTraffic() bool`
@@ -227,20 +253,20 @@ HasFlags returns a boolean if a field has been set.
 
 ### GetPrimaryMetric
 
-`func (o *IterationRep) GetPrimaryMetric() MetricRep`
+`func (o *IterationRep) GetPrimaryMetric() MetricV2Rep`
 
 GetPrimaryMetric returns the PrimaryMetric field if non-nil, zero value otherwise.
 
 ### GetPrimaryMetricOk
 
-`func (o *IterationRep) GetPrimaryMetricOk() (*MetricRep, bool)`
+`func (o *IterationRep) GetPrimaryMetricOk() (*MetricV2Rep, bool)`
 
 GetPrimaryMetricOk returns a tuple with the PrimaryMetric field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPrimaryMetric
 
-`func (o *IterationRep) SetPrimaryMetric(v MetricRep)`
+`func (o *IterationRep) SetPrimaryMetric(v MetricV2Rep)`
 
 SetPrimaryMetric sets PrimaryMetric field to given value.
 
@@ -277,20 +303,20 @@ HasTreatments returns a boolean if a field has been set.
 
 ### GetSecondaryMetrics
 
-`func (o *IterationRep) GetSecondaryMetrics() []MetricRep`
+`func (o *IterationRep) GetSecondaryMetrics() []MetricV2Rep`
 
 GetSecondaryMetrics returns the SecondaryMetrics field if non-nil, zero value otherwise.
 
 ### GetSecondaryMetricsOk
 
-`func (o *IterationRep) GetSecondaryMetricsOk() (*[]MetricRep, bool)`
+`func (o *IterationRep) GetSecondaryMetricsOk() (*[]MetricV2Rep, bool)`
 
 GetSecondaryMetricsOk returns a tuple with the SecondaryMetrics field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSecondaryMetrics
 
-`func (o *IterationRep) SetSecondaryMetrics(v []MetricRep)`
+`func (o *IterationRep) SetSecondaryMetrics(v []MetricV2Rep)`
 
 SetSecondaryMetrics sets SecondaryMetrics field to given value.
 

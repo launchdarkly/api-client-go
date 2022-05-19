@@ -10,14 +10,14 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** |  | [optional] 
 **Key** | **string** |  | 
 **Name** | **string** |  | 
-**Policy** | [**[]Statement**](Statement.md) |  | 
+**Policy** | [**[]StatementRep**](StatementRep.md) |  | 
 **BasePermissions** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
 ### NewCustomRole
 
-`func NewCustomRole(id string, links map[string]Link, key string, name string, policy []Statement, ) *CustomRole`
+`func NewCustomRole(id string, links map[string]Link, key string, name string, policy []StatementRep, ) *CustomRole`
 
 NewCustomRole instantiates a new CustomRole object
 This constructor will assign default values to properties that have it defined,
@@ -164,20 +164,20 @@ SetName sets Name field to given value.
 
 ### GetPolicy
 
-`func (o *CustomRole) GetPolicy() []Statement`
+`func (o *CustomRole) GetPolicy() []StatementRep`
 
 GetPolicy returns the Policy field if non-nil, zero value otherwise.
 
 ### GetPolicyOk
 
-`func (o *CustomRole) GetPolicyOk() (*[]Statement, bool)`
+`func (o *CustomRole) GetPolicyOk() (*[]StatementRep, bool)`
 
 GetPolicyOk returns a tuple with the Policy field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPolicy
 
-`func (o *CustomRole) SetPolicy(v []Statement)`
+`func (o *CustomRole) SetPolicy(v []StatementRep)`
 
 SetPolicy sets Policy field to given value.
 

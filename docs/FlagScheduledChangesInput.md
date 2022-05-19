@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Comment** | Pointer to **string** |  | [optional] 
-**Instructions** | **[]interface{}** |  | 
+**Instructions** | **[]map[string]interface{}** |  | 
 
 ## Methods
 
 ### NewFlagScheduledChangesInput
 
-`func NewFlagScheduledChangesInput(instructions []interface{}, ) *FlagScheduledChangesInput`
+`func NewFlagScheduledChangesInput(instructions []map[string]interface{}, ) *FlagScheduledChangesInput`
 
 NewFlagScheduledChangesInput instantiates a new FlagScheduledChangesInput object
 This constructor will assign default values to properties that have it defined,
@@ -53,20 +53,20 @@ HasComment returns a boolean if a field has been set.
 
 ### GetInstructions
 
-`func (o *FlagScheduledChangesInput) GetInstructions() []interface{}`
+`func (o *FlagScheduledChangesInput) GetInstructions() []map[string]interface{}`
 
 GetInstructions returns the Instructions field if non-nil, zero value otherwise.
 
 ### GetInstructionsOk
 
-`func (o *FlagScheduledChangesInput) GetInstructionsOk() (*[]interface{}, bool)`
+`func (o *FlagScheduledChangesInput) GetInstructionsOk() (*[]map[string]interface{}, bool)`
 
 GetInstructionsOk returns a tuple with the Instructions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInstructions
 
-`func (o *FlagScheduledChangesInput) SetInstructions(v []interface{})`
+`func (o *FlagScheduledChangesInput) SetInstructions(v []map[string]interface{})`
 
 SetInstructions sets Instructions field to given value.
 
