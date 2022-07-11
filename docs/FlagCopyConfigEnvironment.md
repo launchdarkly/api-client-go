@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Key** | **string** |  | 
-**CurrentVersion** | Pointer to **int32** |  | [optional] 
+**Key** | **string** | The environment key | 
+**CurrentVersion** | Pointer to **int32** | Optional flag version. If you include this, the operation only succeeds if the current flag version in the environment matches this version. | [optional] 
 
 ## Methods
 

@@ -36,8 +36,8 @@ func main() {
     projectKey := "projectKey_example" // string | The project key
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ProjectsApi.DeleteProject(context.Background(), projectKey).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ProjectsApi.DeleteProject(context.Background(), projectKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ProjectsApi.DeleteProject``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -82,7 +82,7 @@ Name | Type | Description  | Notes
 
 ## GetProject
 
-> Project GetProject(ctx, projectKey).Execute()
+> Project GetProject(ctx, projectKey).Expand(expand).Execute()
 
 Get project
 
@@ -101,11 +101,12 @@ import (
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
+    projectKey := "projectKey_example" // string | The project key.
+    expand := "expand_example" // string | A comma-separated list of properties that can reveal additional information in the response. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ProjectsApi.GetProject(context.Background(), projectKey).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ProjectsApi.GetProject(context.Background(), projectKey).Expand(expand).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ProjectsApi.GetProject``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -121,7 +122,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** | The project key | 
+**projectKey** | **string** | The project key. | 
 
 ### Other Parameters
 
@@ -131,6 +132,7 @@ Other parameters are passed through a pointer to a apiGetProjectRequest struct v
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **expand** | **string** | A comma-separated list of properties that can reveal additional information in the response. | 
 
 ### Return type
 
@@ -152,7 +154,7 @@ Name | Type | Description  | Notes
 
 ## GetProjects
 
-> Projects GetProjects(ctx).Execute()
+> Projects GetProjects(ctx).Limit(limit).Offset(offset).Filter(filter).Expand(expand).Execute()
 
 List projects
 
@@ -171,10 +173,14 @@ import (
 )
 
 func main() {
+    limit := int64(789) // int64 | The number of projects to return in the response. Defaults to 20. (optional)
+    offset := int64(789) // int64 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and returns the next `limit` items. (optional)
+    filter := "filter_example" // string | A comma-separated list of filters. Each filter is constructed as `field:value`. (optional)
+    expand := "expand_example" // string | A comma-separated list of properties that can reveal additional information in the response. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ProjectsApi.GetProjects(context.Background()).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ProjectsApi.GetProjects(context.Background()).Limit(limit).Offset(offset).Filter(filter).Expand(expand).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ProjectsApi.GetProjects``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -186,12 +192,19 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiGetProjectsRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **limit** | **int64** | The number of projects to return in the response. Defaults to 20. | 
+ **offset** | **int64** | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and returns the next &#x60;limit&#x60; items. | 
+ **filter** | **string** | A comma-separated list of filters. Each filter is constructed as &#x60;field:value&#x60;. | 
+ **expand** | **string** | A comma-separated list of properties that can reveal additional information in the response. | 
 
 ### Return type
 
@@ -213,7 +226,7 @@ Other parameters are passed through a pointer to a apiGetProjectsRequest struct 
 
 ## PatchProject
 
-> Project PatchProject(ctx, projectKey).PatchOperation(patchOperation).Execute()
+> ProjectRep PatchProject(ctx, projectKey).PatchOperation(patchOperation).Execute()
 
 Update project
 
@@ -236,13 +249,13 @@ func main() {
     patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField", interface{}(new example value))} // []PatchOperation | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ProjectsApi.PatchProject(context.Background(), projectKey).PatchOperation(patchOperation).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ProjectsApi.PatchProject(context.Background(), projectKey).PatchOperation(patchOperation).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ProjectsApi.PatchProject``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PatchProject`: Project
+    // response from `PatchProject`: ProjectRep
     fmt.Fprintf(os.Stdout, "Response from `ProjectsApi.PatchProject`: %v\n", resp)
 }
 ```
@@ -267,7 +280,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Project**](Project.md)
+[**ProjectRep**](ProjectRep.md)
 
 ### Authorization
 
@@ -285,7 +298,7 @@ Name | Type | Description  | Notes
 
 ## PostProject
 
-> Project PostProject(ctx).ProjectPost(projectPost).Execute()
+> ProjectRep PostProject(ctx).ProjectPost(projectPost).Execute()
 
 Create project
 
@@ -307,13 +320,13 @@ func main() {
     projectPost := *openapiclient.NewProjectPost("My Project", "my-project") // ProjectPost | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ProjectsApi.PostProject(context.Background()).ProjectPost(projectPost).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ProjectsApi.PostProject(context.Background()).ProjectPost(projectPost).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ProjectsApi.PostProject``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostProject`: Project
+    // response from `PostProject`: ProjectRep
     fmt.Fprintf(os.Stdout, "Response from `ProjectsApi.PostProject`: %v\n", resp)
 }
 ```
@@ -333,7 +346,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Project**](Project.md)
+[**ProjectRep**](ProjectRep.md)
 
 ### Authorization
 

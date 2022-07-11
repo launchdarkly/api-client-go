@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Links** | [**map[string]Link**](Link.md) | A link to this resource. | 
 **Items** | [**[]Project**](Project.md) | List of projects. | 
+**TotalCount** | Pointer to **int32** |  | [optional] 
 
 ## Methods
 
@@ -65,6 +66,31 @@ and a boolean to check if the value has been set.
 
 SetItems sets Items field to given value.
 
+
+### GetTotalCount
+
+`func (o *Projects) GetTotalCount() int32`
+
+GetTotalCount returns the TotalCount field if non-nil, zero value otherwise.
+
+### GetTotalCountOk
+
+`func (o *Projects) GetTotalCountOk() (*int32, bool)`
+
+GetTotalCountOk returns a tuple with the TotalCount field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTotalCount
+
+`func (o *Projects) SetTotalCount(v int32)`
+
+SetTotalCount sets TotalCount field to given value.
+
+### HasTotalCount
+
+`func (o *Projects) HasTotalCount() bool`
+
+HasTotalCount returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

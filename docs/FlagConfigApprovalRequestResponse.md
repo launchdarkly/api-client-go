@@ -4,21 +4,21 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** |  | 
-**Version** | **int32** |  | 
+**Id** | **string** | The ID of this approval request | 
+**Version** | **int32** | Version of the approval request | 
 **CreationDate** | **int64** |  | 
 **ServiceKind** | **string** |  | 
-**RequestorId** | Pointer to **string** |  | [optional] 
+**RequestorId** | Pointer to **string** | The ID of the member who requested the approval | [optional] 
 **Description** | Pointer to **string** | A human-friendly name for the approval request | [optional] 
-**ReviewStatus** | **string** |  | 
-**AllReviews** | [**[]ReviewResponse**](ReviewResponse.md) |  | 
+**ReviewStatus** | **string** | Current status of the review of this approval request | 
+**AllReviews** | [**[]ReviewResponse**](ReviewResponse.md) | An array of individual reviews of this approval request | 
 **NotifyMemberIds** | **[]string** | An array of member IDs. These members are notified to review the approval request. | 
 **AppliedDate** | Pointer to **int64** |  | [optional] 
-**AppliedByMemberId** | Pointer to **string** |  | [optional] 
-**Status** | **string** |  | 
-**Instructions** | **[]interface{}** |  | 
-**Conflicts** | [**[]Conflict**](Conflict.md) |  | 
-**Links** | [**map[string]Link**](Link.md) |  | 
+**AppliedByMemberId** | Pointer to **string** | The member ID of the member who applied the approval request | [optional] 
+**Status** | **string** | Current status of the approval request | 
+**Instructions** | **[]map[string]interface{}** |  | 
+**Conflicts** | [**[]Conflict**](Conflict.md) | Details on any conflicting approval requests | 
+**Links** | [**map[string]Link**](Link.md) | Links to other resources within the API. Includes the URL and content type of those resources. | 
 **ExecutionDate** | Pointer to **int64** |  | [optional] 
 **OperatingOnId** | Pointer to **string** | ID of scheduled change to edit or delete | [optional] 
 **IntegrationMetadata** | Pointer to [**IntegrationMetadata**](IntegrationMetadata.md) |  | [optional] 
@@ -29,7 +29,7 @@ Name | Type | Description | Notes
 
 ### NewFlagConfigApprovalRequestResponse
 
-`func NewFlagConfigApprovalRequestResponse(id string, version int32, creationDate int64, serviceKind string, reviewStatus string, allReviews []ReviewResponse, notifyMemberIds []string, status string, instructions []interface{}, conflicts []Conflict, links map[string]Link, ) *FlagConfigApprovalRequestResponse`
+`func NewFlagConfigApprovalRequestResponse(id string, version int32, creationDate int64, serviceKind string, reviewStatus string, allReviews []ReviewResponse, notifyMemberIds []string, status string, instructions []map[string]interface{}, conflicts []Conflict, links map[string]Link, ) *FlagConfigApprovalRequestResponse`
 
 NewFlagConfigApprovalRequestResponse instantiates a new FlagConfigApprovalRequestResponse object
 This constructor will assign default values to properties that have it defined,
@@ -306,20 +306,20 @@ SetStatus sets Status field to given value.
 
 ### GetInstructions
 
-`func (o *FlagConfigApprovalRequestResponse) GetInstructions() []interface{}`
+`func (o *FlagConfigApprovalRequestResponse) GetInstructions() []map[string]interface{}`
 
 GetInstructions returns the Instructions field if non-nil, zero value otherwise.
 
 ### GetInstructionsOk
 
-`func (o *FlagConfigApprovalRequestResponse) GetInstructionsOk() (*[]interface{}, bool)`
+`func (o *FlagConfigApprovalRequestResponse) GetInstructionsOk() (*[]map[string]interface{}, bool)`
 
 GetInstructionsOk returns a tuple with the Instructions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInstructions
 
-`func (o *FlagConfigApprovalRequestResponse) SetInstructions(v []interface{})`
+`func (o *FlagConfigApprovalRequestResponse) SetInstructions(v []map[string]interface{})`
 
 SetInstructions sets Instructions field to given value.
 

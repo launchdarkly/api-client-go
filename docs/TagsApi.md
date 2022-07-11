@@ -33,8 +33,8 @@ func main() {
     pre := "pre_example" // string | Return tags with the specified prefix (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.TagsApi.GetTags(context.Background()).Kind(kind).Pre(pre).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.TagsApi.GetTags(context.Background()).Kind(kind).Pre(pre).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TagsApi.GetTags``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

@@ -37,8 +37,8 @@ func main() {
     id := "id_example" // string | The member ID
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AccountMembersApi.DeleteMember(context.Background(), id).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AccountMembersApi.DeleteMember(context.Background(), id).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AccountMembersApi.DeleteMember``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -105,8 +105,8 @@ func main() {
     id := "id_example" // string | The member ID
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AccountMembersApi.GetMember(context.Background(), id).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AccountMembersApi.GetMember(context.Background(), id).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AccountMembersApi.GetMember``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -173,13 +173,13 @@ import (
 
 func main() {
     limit := int64(789) // int64 | The number of members to return in the response. Defaults to 20. (optional)
-    offset := int64(789) // int64 | Where to start in the list. This is for use with pagination. For example, an offset of 10 would skip the first ten items and then return the next `limit` items. (optional)
+    offset := int64(789) // int64 | Where to start in the list. This is for use with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
     filter := "filter_example" // string | A comma-separated list of filters. Each filter is of the form `field:value`. Supported fields are explained above. (optional)
     sort := "sort_example" // string | A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AccountMembersApi.GetMembers(context.Background()).Limit(limit).Offset(offset).Filter(filter).Sort(sort).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AccountMembersApi.GetMembers(context.Background()).Limit(limit).Offset(offset).Filter(filter).Sort(sort).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AccountMembersApi.GetMembers``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -201,7 +201,7 @@ Other parameters are passed through a pointer to a apiGetMembersRequest struct v
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **limit** | **int64** | The number of members to return in the response. Defaults to 20. | 
- **offset** | **int64** | Where to start in the list. This is for use with pagination. For example, an offset of 10 would skip the first ten items and then return the next &#x60;limit&#x60; items. | 
+ **offset** | **int64** | Where to start in the list. This is for use with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | 
  **filter** | **string** | A comma-separated list of filters. Each filter is of the form &#x60;field:value&#x60;. Supported fields are explained above. | 
  **sort** | **string** | A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order. | 
 
@@ -248,8 +248,8 @@ func main() {
     patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField", interface{}(new example value))} // []PatchOperation | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AccountMembersApi.PatchMember(context.Background(), id).PatchOperation(patchOperation).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AccountMembersApi.PatchMember(context.Background(), id).PatchOperation(patchOperation).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AccountMembersApi.PatchMember``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -320,8 +320,8 @@ func main() {
     memberTeamsPostInput := *openapiclient.NewMemberTeamsPostInput([]string{"TeamKeys_example"}) // MemberTeamsPostInput | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AccountMembersApi.PostMemberTeams(context.Background(), id).MemberTeamsPostInput(memberTeamsPostInput).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AccountMembersApi.PostMemberTeams(context.Background(), id).MemberTeamsPostInput(memberTeamsPostInput).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AccountMembersApi.PostMemberTeams``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -388,11 +388,11 @@ import (
 )
 
 func main() {
-    newMemberForm := []openapiclient.NewMemberForm{*openapiclient.NewNewMemberForm("Email_example")} // []NewMemberForm | 
+    newMemberForm := []openapiclient.NewMemberForm{*openapiclient.NewNewMemberForm("sandy@acme.com")} // []NewMemberForm | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AccountMembersApi.PostMembers(context.Background()).NewMemberForm(newMemberForm).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AccountMembersApi.PostMembers(context.Background()).NewMemberForm(newMemberForm).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AccountMembersApi.PostMembers``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

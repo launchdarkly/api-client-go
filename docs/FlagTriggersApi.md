@@ -36,11 +36,11 @@ func main() {
     projectKey := "projectKey_example" // string | The project key
     environmentKey := "environmentKey_example" // string | The environment key
     featureFlagKey := "featureFlagKey_example" // string | The feature flag key
-    triggerPost := *openapiclient.NewTriggerPost("IntegrationKey_example") // TriggerPost | 
+    triggerPost := *openapiclient.NewTriggerPost("generic-trigger") // TriggerPost | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.FlagTriggersApi.CreateTriggerWorkflow(context.Background(), projectKey, environmentKey, featureFlagKey).TriggerPost(triggerPost).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.FlagTriggersApi.CreateTriggerWorkflow(context.Background(), projectKey, environmentKey, featureFlagKey).TriggerPost(triggerPost).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FlagTriggersApi.CreateTriggerWorkflow``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -117,8 +117,8 @@ func main() {
     id := "id_example" // string | The flag trigger ID
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.FlagTriggersApi.DeleteTriggerWorkflow(context.Background(), projectKey, environmentKey, featureFlagKey, id).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.FlagTriggersApi.DeleteTriggerWorkflow(context.Background(), projectKey, environmentKey, featureFlagKey, id).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FlagTriggersApi.DeleteTriggerWorkflow``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -194,8 +194,8 @@ func main() {
     id := "id_example" // string | The flag trigger ID
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.FlagTriggersApi.GetTriggerWorkflowById(context.Background(), projectKey, featureFlagKey, environmentKey, id).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.FlagTriggersApi.GetTriggerWorkflowById(context.Background(), projectKey, featureFlagKey, environmentKey, id).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FlagTriggersApi.GetTriggerWorkflowById``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -272,8 +272,8 @@ func main() {
     featureFlagKey := "featureFlagKey_example" // string | The feature flag key
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.FlagTriggersApi.GetTriggerWorkflows(context.Background(), projectKey, environmentKey, featureFlagKey).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.FlagTriggersApi.GetTriggerWorkflows(context.Background(), projectKey, environmentKey, featureFlagKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FlagTriggersApi.GetTriggerWorkflows``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -350,8 +350,8 @@ func main() {
     flagTriggerInput := *openapiclient.NewFlagTriggerInput() // FlagTriggerInput | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.FlagTriggersApi.PatchTriggerWorkflow(context.Background(), projectKey, environmentKey, featureFlagKey, id).FlagTriggerInput(flagTriggerInput).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.FlagTriggersApi.PatchTriggerWorkflow(context.Background(), projectKey, environmentKey, featureFlagKey, id).FlagTriggerInput(flagTriggerInput).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FlagTriggersApi.PatchTriggerWorkflow``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

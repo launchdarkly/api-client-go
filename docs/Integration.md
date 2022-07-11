@@ -4,18 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Links** | Pointer to [**map[string]Link**](Link.md) |  | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
-**Kind** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**Config** | Pointer to **map[string]interface{}** |  | [optional] 
-**Statements** | Pointer to [**[]StatementRep**](StatementRep.md) |  | [optional] 
-**On** | Pointer to **bool** |  | [optional] 
-**Tags** | Pointer to **[]string** |  | [optional] 
+**Links** | Pointer to [**map[string]Link**](Link.md) | Links to other resources within the API. Includes the URL and content type of those resources. | [optional] 
+**Id** | Pointer to **string** | The ID for this integration audit log subscription | [optional] 
+**Kind** | Pointer to **string** | The type of integration | [optional] 
+**Name** | Pointer to **string** | A human-friendly name for the integration | [optional] 
+**Config** | Pointer to **map[string]interface{}** | Details on configuration for an integration of this type. Refer to the &lt;code&gt;formVariables&lt;/code&gt; field in the corresponding &lt;code&gt;manifest.json&lt;/code&gt; for a full list of fields for each integration. | [optional] 
+**Statements** | Pointer to [**[]Statement**](Statement.md) | Represents a Custom role policy, defining a resource kinds filter the integration audit log subscription responds to. | [optional] 
+**On** | Pointer to **bool** | Whether the integration is currently active | [optional] 
+**Tags** | Pointer to **[]string** | An array of tags for this integration | [optional] 
 **Access** | Pointer to [**Access**](Access.md) |  | [optional] 
 **Status** | Pointer to [**IntegrationSubscriptionStatusRep**](IntegrationSubscriptionStatusRep.md) |  | [optional] 
-**Url** | Pointer to **string** |  | [optional] 
-**ApiKey** | Pointer to **string** |  | [optional] 
+**Url** | Pointer to **string** | Slack webhook receiver URL. Only used for legacy Slack webhook integrations. | [optional] 
+**ApiKey** | Pointer to **string** | Datadog API key. Only used for legacy Datadog webhook integrations. | [optional] 
 
 ## Methods
 
@@ -163,20 +163,20 @@ HasConfig returns a boolean if a field has been set.
 
 ### GetStatements
 
-`func (o *Integration) GetStatements() []StatementRep`
+`func (o *Integration) GetStatements() []Statement`
 
 GetStatements returns the Statements field if non-nil, zero value otherwise.
 
 ### GetStatementsOk
 
-`func (o *Integration) GetStatementsOk() (*[]StatementRep, bool)`
+`func (o *Integration) GetStatementsOk() (*[]Statement, bool)`
 
 GetStatementsOk returns a tuple with the Statements field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStatements
 
-`func (o *Integration) SetStatements(v []StatementRep)`
+`func (o *Integration) SetStatements(v []Statement)`
 
 SetStatements sets Statements field to given value.
 

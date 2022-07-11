@@ -38,11 +38,11 @@ import (
 func main() {
     projectKey := "projectKey_example" // string | The project key
     environmentKey := "environmentKey_example" // string | The environment key
-    experimentPost := *openapiclient.NewExperimentPost("Name_example", "Description_example", "MaintainerId_example", "Key_example", *openapiclient.NewIterationInput("Hypothesis_example", []openapiclient.MetricInput{*openapiclient.NewMetricInput("Key_example", false)}, []openapiclient.TreatmentInput{*openapiclient.NewTreatmentInput("Name_example", false, "AllocationPercent_example", []openapiclient.TreatmentParameterInput{*openapiclient.NewTreatmentParameterInput("FlagKey_example", "VariationId_example")})}, map[string]FlagInput{"key": *openapiclient.NewFlagInput("RuleId_example", int32(123))})) // ExperimentPost | 
+    experimentPost := *openapiclient.NewExperimentPost("Name_example", "MaintainerId_example", "Key_example", *openapiclient.NewIterationInput("Hypothesis_example", []openapiclient.MetricInput{*openapiclient.NewMetricInput("Key_example", false)}, []openapiclient.TreatmentInput{*openapiclient.NewTreatmentInput("Name_example", false, "AllocationPercent_example", []openapiclient.TreatmentParameterInput{*openapiclient.NewTreatmentParameterInput("FlagKey_example", "VariationId_example")})}, map[string]FlagInput{"key": *openapiclient.NewFlagInput("RuleId_example", int32(123))})) // ExperimentPost | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ExperimentsBetaApi.CreateExperiment(context.Background(), projectKey, environmentKey).ExperimentPost(experimentPost).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ExperimentsBetaApi.CreateExperiment(context.Background(), projectKey, environmentKey).ExperimentPost(experimentPost).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsBetaApi.CreateExperiment``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -117,8 +117,8 @@ func main() {
     iterationInput := *openapiclient.NewIterationInput("Hypothesis_example", []openapiclient.MetricInput{*openapiclient.NewMetricInput("Key_example", false)}, []openapiclient.TreatmentInput{*openapiclient.NewTreatmentInput("Name_example", false, "AllocationPercent_example", []openapiclient.TreatmentParameterInput{*openapiclient.NewTreatmentParameterInput("FlagKey_example", "VariationId_example")})}, map[string]FlagInput{"key": *openapiclient.NewFlagInput("RuleId_example", int32(123))}) // IterationInput | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ExperimentsBetaApi.CreateIteration(context.Background(), projectKey, environmentKey, experimentKey).IterationInput(iterationInput).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ExperimentsBetaApi.CreateIteration(context.Background(), projectKey, environmentKey, experimentKey).IterationInput(iterationInput).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsBetaApi.CreateIteration``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -194,8 +194,8 @@ func main() {
     experimentKey := "experimentKey_example" // string | The experiment key
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ExperimentsBetaApi.GetExperiment(context.Background(), projectKey, environmentKey, experimentKey).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ExperimentsBetaApi.GetExperiment(context.Background(), projectKey, environmentKey, experimentKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsBetaApi.GetExperiment``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -246,7 +246,7 @@ Name | Type | Description  | Notes
 
 ## GetExperimentResults
 
-> ExperimentResults GetExperimentResults(ctx, projectKey, environmentKey, experimentKey, metricKey).Execute()
+> ExperimentBayesianResultsRep GetExperimentResults(ctx, projectKey, environmentKey, experimentKey, metricKey).Execute()
 
 Get experiment results
 
@@ -271,13 +271,13 @@ func main() {
     metricKey := "metricKey_example" // string | The metric key
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ExperimentsBetaApi.GetExperimentResults(context.Background(), projectKey, environmentKey, experimentKey, metricKey).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ExperimentsBetaApi.GetExperimentResults(context.Background(), projectKey, environmentKey, experimentKey, metricKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsBetaApi.GetExperimentResults``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetExperimentResults`: ExperimentResults
+    // response from `GetExperimentResults`: ExperimentBayesianResultsRep
     fmt.Fprintf(os.Stdout, "Response from `ExperimentsBetaApi.GetExperimentResults`: %v\n", resp)
 }
 ```
@@ -307,7 +307,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ExperimentResults**](ExperimentResults.md)
+[**ExperimentBayesianResultsRep**](ExperimentBayesianResultsRep.md)
 
 ### Authorization
 
@@ -325,7 +325,7 @@ Name | Type | Description  | Notes
 
 ## GetExperiments
 
-> ExperimentCollectionRep GetExperiments(ctx, projectKey, environmentKey).Execute()
+> ExperimentCollectionRep GetExperiments(ctx, projectKey, environmentKey).Limit(limit).Offset(offset).Filter(filter).Expand(expand).Execute()
 
 Get experiments
 
@@ -346,10 +346,14 @@ import (
 func main() {
     projectKey := "projectKey_example" // string | The project key
     environmentKey := "environmentKey_example" // string | The environment key
+    limit := int64(789) // int64 | The maximum number of experiments to return. Defaults to 20 (optional)
+    offset := int64(789) // int64 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
+    filter := "filter_example" // string | A comma-separated list of filters. Each filter is of the form `field:value`. Supported fields are explained above. (optional)
+    expand := "expand_example" // string | A comma-separated list of properties that can reveal additional information in the response. Supported fields are explained above. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ExperimentsBetaApi.GetExperiments(context.Background(), projectKey, environmentKey).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ExperimentsBetaApi.GetExperiments(context.Background(), projectKey, environmentKey).Limit(limit).Offset(offset).Filter(filter).Expand(expand).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsBetaApi.GetExperiments``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -377,6 +381,10 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **limit** | **int64** | The maximum number of experiments to return. Defaults to 20 | 
+ **offset** | **int64** | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | 
+ **filter** | **string** | A comma-separated list of filters. Each filter is of the form &#x60;field:value&#x60;. Supported fields are explained above. | 
+ **expand** | **string** | A comma-separated list of properties that can reveal additional information in the response. Supported fields are explained above. | 
 
 ### Return type
 
@@ -425,8 +433,8 @@ func main() {
     to := int64(789) // int64 | A timestamp denoting the end of the data collection period, expressed as a Unix epoch time in milliseconds. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ExperimentsBetaApi.GetLegacyExperimentResults(context.Background(), projectKey, featureFlagKey, environmentKey, metricKey).From(from).To(to).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ExperimentsBetaApi.GetLegacyExperimentResults(context.Background(), projectKey, featureFlagKey, environmentKey, metricKey).From(from).To(to).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsBetaApi.GetLegacyExperimentResults``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -503,11 +511,11 @@ func main() {
     projectKey := "projectKey_example" // string | The project key
     environmentKey := "environmentKey_example" // string | The environment key
     experimentKey := "experimentKey_example" // string | The experiment key
-    experimentPatchInput := *openapiclient.NewExperimentPatchInput() // ExperimentPatchInput | 
+    experimentPatchInput := *openapiclient.NewExperimentPatchInput([]map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}) // ExperimentPatchInput | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ExperimentsBetaApi.PatchExperiment(context.Background(), projectKey, environmentKey, experimentKey).ExperimentPatchInput(experimentPatchInput).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ExperimentsBetaApi.PatchExperiment(context.Background(), projectKey, environmentKey, experimentKey).ExperimentPatchInput(experimentPatchInput).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsBetaApi.PatchExperiment``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -584,8 +592,8 @@ func main() {
     metricKey := "metricKey_example" // string | The metric's key
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ExperimentsBetaApi.ResetExperiment(context.Background(), projectKey, featureFlagKey, environmentKey, metricKey).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ExperimentsBetaApi.ResetExperiment(context.Background(), projectKey, featureFlagKey, environmentKey, metricKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsBetaApi.ResetExperiment``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

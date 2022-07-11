@@ -1,7 +1,7 @@
 /*
 LaunchDarkly REST API
 
-# Overview  ## Authentication  All REST API resources are authenticated with either [personal or service access tokens](https://docs.launchdarkly.com/home/account-security/api-access-tokens), or session cookies. Other authentication mechanisms are not supported. You can manage personal access tokens on your [Account settings](https://app.launchdarkly.com/settings/tokens) page.  LaunchDarkly also has SDK keys, mobile keys, and client-side IDs that are used by our server-side SDKs, mobile SDKs, and client-side SDKs, respectively. **These keys cannot be used to access our REST API**. These keys are environment-specific, and can only perform read-only operations (fetching feature flag settings).  | Auth mechanism                                                                                  | Allowed resources                                                                                     | Use cases                                          | | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | -------------------------------------------------- | | [Personal access tokens](https://docs.launchdarkly.com/home/account-security/api-access-tokens) | Can be customized on a per-token basis                                                                | Building scripts, custom integrations, data export | | SDK keys                                                                                        | Can only access read-only SDK-specific resources and the firehose, restricted to a single environment | Server-side SDKs, Firehose API                     | | Mobile keys                                                                                     | Can only access read-only mobile SDK-specific resources, restricted to a single environment           | Mobile SDKs                                        | | Client-side ID                                                                                  | Single environment, only flags marked available to client-side                                        | Client-side JavaScript                             |  > #### Keep your access tokens and SDK keys private > > Access tokens should _never_ be exposed in untrusted contexts. Never put an access token in client-side JavaScript, or embed it in a mobile application. LaunchDarkly has special mobile keys that you can embed in mobile apps. If you accidentally expose an access token or SDK key, you can reset it from your [Account Settings](https://app.launchdarkly.com/settings#/tokens) page. > > The client-side ID is safe to embed in untrusted contexts. It's designed for use in client-side JavaScript.  ### Via request header  The preferred way to authenticate with the API is by adding an `Authorization` header containing your access token to your requests. The value of the `Authorization` header must be your access token.  Manage personal access tokens from the [Account Settings](https://app.launchdarkly.com/settings/tokens) page.  ### Via session cookie  For testing purposes, you can make API calls directly from your web browser. If you're logged in to the application, the API will use your existing session to authenticate calls.  If you have a [role](https://docs.launchdarkly.com/home/team/built-in-roles) other than Admin, or have a [custom role](https://docs.launchdarkly.com/home/team/custom-roles) defined, you may not have permission to perform some API calls. You will receive a `401` response code in that case.  > ### Modifying the Origin header causes an error > > LaunchDarkly validates that the Origin header for any API request authenticated by a session cookie matches the expected Origin header. The expected Origin header is `https://app.launchdarkly.com`. > > If the Origin header does not match what's expected, LaunchDarkly returns an error. This error can prevent the LaunchDarkly app from working correctly. > > Any browser extension that intentionally changes the Origin header can cause this problem. For example, the `Allow-Control-Allow-Origin: *` Chrome extension changes the Origin header to `http://evil.com` and causes the app to fail. > > To prevent this error, do not modify your Origin header. > > LaunchDarkly does not require origin matching when authenticating with an access token, so this issue does not affect normal API usage.  ## Representations  All resources expect and return JSON response bodies. Error responses will also send a JSON body. Read [Errors](#section/Errors) for a more detailed description of the error format used by the API.  In practice this means that you always get a response with a `Content-Type` header set to `application/json`.  In addition, request bodies for `PUT`, `POST`, `REPORT` and `PATCH` requests must be encoded as JSON with a `Content-Type` header set to `application/json`.  ### Summary and detailed representations  When you fetch a list of resources, the response includes only the most important attributes of each resource. This is a _summary representation_ of the resource. When you fetch an individual resource, such as a single feature flag, you receive a _detailed representation_ of the resource.  The best way to find a detailed representation is to follow links. Every summary representation includes a link to its detailed representation.  In most cases, the detailed representation contains all of the attributes of the resource. In a few cases, the detailed representation contains many, but not all, of the attributes of the resource. Typically this happens when an attribute of the requested resource is itself paginated. You can request that the response include a particular attribute by using the `expand` request parameter.  ### Links and addressability  The best way to navigate the API is by following links. These are attributes in representations that link to other resources. The API always uses the same format for links:  - Links to other resources within the API are encapsulated in a `_links` object. - If the resource has a corresponding link to HTML content on the site, it is stored in a special `_site` link.  Each link has two attributes: an href (the URL) and a type (the content type). For example, a feature resource might return the following:  ```json {   \"_links\": {     \"parent\": {       \"href\": \"/api/features\",       \"type\": \"application/json\"     },     \"self\": {       \"href\": \"/api/features/sort.order\",       \"type\": \"application/json\"     }   },   \"_site\": {     \"href\": \"/features/sort.order\",     \"type\": \"text/html\"   } } ```  From this, you can navigate to the parent collection of features by following the `parent` link, or navigate to the site page for the feature by following the `_site` link.  Collections are always represented as a JSON object with an `items` attribute containing an array of representations. Like all other representations, collections have `_links` defined at the top level.  Paginated collections include `first`, `last`, `next`, and `prev` links containing a URL with the respective set of elements in the collection.  ### Expanding responses  Sometimes the detailed representation of a resource does not include all of the attributes of the resource by default. If this is the case, the request method will clearly document this and describe which attributes you can include in an expanded response.  To include the additional attributes, append the `expand` request parameter to your request and add a comma-separated list of the attributes to include. For example, when you append `?expand=members,roles` to the [Get team](/tag/Teams-(beta)#operation/getTeam) endpoint, the expanded response includes both of these attributes.  ## Updates  Resources that accept partial updates use the `PATCH` verb, and support the [JSON Patch](https://datatracker.ietf.org/doc/html/rfc6902) format. Some resources also support the [JSON Merge Patch](https://datatracker.ietf.org/doc/html/rfc7386) format. In addition, some resources support optional comments that can be submitted with updates. Comments appear in outgoing webhooks, the audit log, and other integrations.  ### Updates via JSON Patch  [JSON Patch](https://datatracker.ietf.org/doc/html/rfc6902) is a way to specify the modifications to perform on a resource. For example, in this feature flag representation:  ```json {     \"name\": \"New recommendations engine\",     \"key\": \"engine.enable\",     \"description\": \"This is the description\",     ... } ```  You can change the feature flag's description with the following patch document:  ```json [{ \"op\": \"replace\", \"path\": \"/description\", \"value\": \"This is the new description\" }] ```  JSON Patch documents are always arrays. You can specify multiple modifications to perform in a single request. You can also test that certain preconditions are met before applying the patch:  ```json [   { \"op\": \"test\", \"path\": \"/version\", \"value\": 10 },   { \"op\": \"replace\", \"path\": \"/description\", \"value\": \"The new description\" } ] ```  The above patch request tests whether the feature flag's `version` is `10`, and if so, changes the feature flag's description.  Attributes that aren't editable, like a resource's `_links`, have names that start with an underscore.  ### Updates via JSON Merge Patch  The API also supports the [JSON Merge Patch](https://datatracker.ietf.org/doc/html/rfc7386) format, as well as the [Update feature flag](/tag/Feature-flags#operation/patchFeatureFlag) resource.  JSON Merge Patch is less expressive than JSON Patch but in many cases, it is simpler to construct a merge patch document. For example, you can change a feature flag's description with the following merge patch document:  ```json {   \"description\": \"New flag description\" } ```  ### Updates with comments  You can submit optional comments with `PATCH` changes. The [Update feature flag](/tag/Feature-flags#operation/patchFeatureFlag) resource supports comments.  To submit a comment along with a JSON Patch document, use the following format:  ```json {   \"comment\": \"This is a comment string\",   \"patch\": [{ \"op\": \"replace\", \"path\": \"/description\", \"value\": \"The new description\" }] } ```  To submit a comment along with a JSON Merge Patch document, use the following format:  ```json {   \"comment\": \"This is a comment string\",   \"merge\": { \"description\": \"New flag description\" } } ```  ### Updates via semantic patches  The API also supports the Semantic patch format. A semantic `PATCH` is a way to specify the modifications to perform on a resource as a set of executable instructions.  JSON Patch uses paths and a limited set of operations to describe how to transform the current state of the resource into a new state. Semantic patch allows you to be explicit about intent using precise, custom instructions. In many cases, semantic patch instructions can also be defined independently of the current state of the resource. This can be useful when defining a change that may be applied at a future date.  For example, in this feature flag configuration in environment Production:  ```json {     \"name\": \"Alternate sort order\",     \"kind\": \"boolean\",     \"key\": \"sort.order\",    ...     \"environments\": {         \"production\": {             \"on\": true,             \"archived\": false,             \"salt\": \"c29ydC5vcmRlcg==\",             \"sel\": \"8de1085cb7354b0ab41c0e778376dfd3\",             \"lastModified\": 1469131558260,             \"version\": 81,             \"targets\": [                 {                     \"values\": [                         \"Gerhard.Little@yahoo.com\"                     ],                     \"variation\": 0                 },                 {                     \"values\": [                         \"1461797806429-33-861961230\",                         \"438580d8-02ee-418d-9eec-0085cab2bdf0\"                     ],                     \"variation\": 1                 }             ],             \"rules\": [],             \"fallthrough\": {                 \"variation\": 0             },             \"offVariation\": 1,             \"prerequisites\": [],             \"_site\": {                 \"href\": \"/default/production/features/sort.order\",                 \"type\": \"text/html\"             }        }     } } ```  You can add a date you want a user to be removed from the feature flag's user targets. For example, “remove user 1461797806429-33-861961230 from the user target for variation 0 on the Alternate sort order flag in the production environment on Wed Jul 08 2020 at 15:27:41 pm”. This is done using the following:  ```json {   \"comment\": \"update expiring user targets\",   \"instructions\": [     {       \"kind\": \"removeExpireUserTargetDate\",       \"userKey\": \"userKey\",       \"variationId\": \"978d53f9-7fe3-4a63-992d-97bcb4535dc8\"     },     {       \"kind\": \"updateExpireUserTargetDate\",       \"userKey\": \"userKey2\",       \"variationId\": \"978d53f9-7fe3-4a63-992d-97bcb4535dc8\",       \"value\": 1587582000000     },     {       \"kind\": \"addExpireUserTargetDate\",       \"userKey\": \"userKey3\",       \"variationId\": \"978d53f9-7fe3-4a63-992d-97bcb4535dc8\",       \"value\": 1594247266386     }   ] } ```  Here is another example. In this feature flag configuration:  ```json {   \"name\": \"New recommendations engine\",   \"key\": \"engine.enable\",   \"environments\": {     \"test\": {       \"on\": true     }   } } ```  You can change the feature flag's description with the following patch document as a set of executable instructions. For example, “add user X to targets for variation Y and remove user A from targets for variation B for test flag”:  ```json {   \"comment\": \"\",   \"instructions\": [     {       \"kind\": \"removeUserTargets\",       \"values\": [\"438580d8-02ee-418d-9eec-0085cab2bdf0\"],       \"variationId\": \"852cb784-54ff-46b9-8c35-5498d2e4f270\"     },     {       \"kind\": \"addUserTargets\",       \"values\": [\"438580d8-02ee-418d-9eec-0085cab2bdf0\"],       \"variationId\": \"1bb18465-33b6-49aa-a3bd-eeb6650b33ad\"     }   ] } ```  > ### Supported semantic patch API endpoints > > - [Update feature flag](/tag/Feature-flags#operation/patchFeatureFlag) > - [Update expiring user targets on feature flag](/tag/Feature-flags#operation/patchExpiringUserTargets) > - [Update expiring user target for flags](/tag/User-settings#operation/patchExpiringFlagsForUser) > - [Update expiring user targets on segment](/tag/Segments#operation/patchExpiringUserTargetsForSegment)  ## Errors  The API always returns errors in a common format. Here's an example:  ```json {   \"code\": \"invalid_request\",   \"message\": \"A feature with that key already exists\",   \"id\": \"30ce6058-87da-11e4-b116-123b93f75cba\" } ```  The general class of error is indicated by the `code`. The `message` is a human-readable explanation of what went wrong. The `id` is a unique identifier. Use it when you're working with LaunchDarkly support to debug a problem with a specific API call.  ### HTTP Status - Error Response Codes  | Code | Definition        | Desc.                                                                                       | Possible Solution                                                | | ---- | ----------------- | ------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- | | 400  | Bad Request       | A request that fails may return this HTTP response code.                                    | Ensure JSON syntax in request body is correct.                   | | 401  | Unauthorized      | User doesn't have permission to an API call.                                                | Ensure your SDK key is good.                                     | | 403  | Forbidden         | User does not have permission for operation.                                                | Ensure that the user or access token has proper permissions set. | | 409  | Conflict          | The API request could not be completed because it conflicted with a concurrent API request. | Retry your request.                                              | | 429  | Too many requests | See [Rate limiting](/#section/Rate-limiting).                                               | Wait and try again later.                                        |  ## CORS  The LaunchDarkly API supports Cross Origin Resource Sharing (CORS) for AJAX requests from any origin. If an `Origin` header is given in a request, it will be echoed as an explicitly allowed origin. Otherwise, a wildcard is returned: `Access-Control-Allow-Origin: *`. For more information on CORS, see the [CORS W3C Recommendation](http://www.w3.org/TR/cors). Example CORS headers might look like:  ```http Access-Control-Allow-Headers: Accept, Content-Type, Content-Length, Accept-Encoding, Authorization Access-Control-Allow-Methods: OPTIONS, GET, DELETE, PATCH Access-Control-Allow-Origin: * Access-Control-Max-Age: 300 ```  You can make authenticated CORS calls just as you would make same-origin calls, using either [token or session-based authentication](#section/Authentication). If you’re using session auth, you should set the `withCredentials` property for your `xhr` request to `true`. You should never expose your access tokens to untrusted users.  ## Rate limiting  We use several rate limiting strategies to ensure the availability of our APIs. Rate-limited calls to our APIs will return a `429` status code. Calls to our APIs will include headers indicating the current rate limit status. The specific headers returned depend on the API route being called. The limits differ based on the route, authentication mechanism, and other factors. Routes that are not rate limited may not contain any of the headers described below.  > ### Rate limiting and SDKs > > LaunchDarkly SDKs are never rate limited and do not use the API endpoints defined here. LaunchDarkly uses a different set of approaches, including streaming/server-sent events and a global CDN, to ensure availability to the routes used by LaunchDarkly SDKs. > > The client-side ID is safe to embed in untrusted contexts. It's designed for use in client-side JavaScript.  ### Global rate limits  Authenticated requests are subject to a global limit. This is the maximum number of calls that can be made to the API per ten seconds. All personal access tokens on the account share this limit, so exceeding the limit with one access token will impact other tokens. Calls that are subject to global rate limits will return the headers below:  | Header name                    | Description                                                                      | | ------------------------------ | -------------------------------------------------------------------------------- | | `X-Ratelimit-Global-Remaining` | The maximum number of requests the account is permitted to make per ten seconds. | | `X-Ratelimit-Reset`            | The time at which the current rate limit window resets in epoch milliseconds.    |  We do not publicly document the specific number of calls that can be made globally. This limit may change, and we encourage clients to program against the specification, relying on the two headers defined above, rather than hardcoding to the current limit.  ### Route-level rate limits  Some authenticated routes have custom rate limits. These also reset every ten seconds. Any access tokens hitting the same route share this limit, so exceeding the limit with one access token may impact other tokens. Calls that are subject to route-level rate limits will return the headers below:  | Header name                   | Description                                                                                           | | ----------------------------- | ----------------------------------------------------------------------------------------------------- | | `X-Ratelimit-Route-Remaining` | The maximum number of requests to the current route the account is permitted to make per ten seconds. | | `X-Ratelimit-Reset`           | The time at which the current rate limit window resets in epoch milliseconds.                         |  A _route_ represents a specific URL pattern and verb. For example, the [Delete environment](/tag/Environments#operation/deleteEnvironment) endpoint is considered a single route, and each call to delete an environment counts against your route-level rate limit for that route.  We do not publicly document the specific number of calls that can be made to each endpoint per ten seconds. These limits may change, and we encourage clients to program against the specification, relying on the two headers defined above, rather than hardcoding to the current limits.  ### IP-based rate limiting  We also employ IP-based rate limiting on some API routes. If you hit an IP-based rate limit, your API response will include a `Retry-After` header indicating how long to wait before re-trying the call. Clients must wait at least `Retry-After` seconds before making additional calls to our API, and should employ jitter and backoff strategies to avoid triggering rate limits again.  ## OpenAPI (Swagger)  We have a [complete OpenAPI (Swagger) specification](https://app.launchdarkly.com/api/v2/openapi.json) for our API.  You can use this specification to generate client libraries to interact with our REST API in your language of choice.  This specification is supported by several API-based tools such as Postman and Insomnia. In many cases, you can directly import our specification to ease use in navigating the APIs in the tooling.  ## Client libraries  We auto-generate multiple client libraries based on our OpenAPI specification. To learn more, visit [GitHub](https://github.com/search?q=topic%3Alaunchdarkly-api+org%3Alaunchdarkly&type=Repositories).  ## Method Overriding  Some firewalls and HTTP clients restrict the use of verbs other than `GET` and `POST`. In those environments, our API endpoints that use `PUT`, `PATCH`, and `DELETE` verbs will be inaccessible.  To avoid this issue, our API supports the `X-HTTP-Method-Override` header, allowing clients to \"tunnel\" `PUT`, `PATCH`, and `DELETE` requests via a `POST` request.  For example, if you wish to call one of our `PATCH` resources via a `POST` request, you can include `X-HTTP-Method-Override:PATCH` as a header.  ## Beta resources  We sometimes release new API resources in **beta** status before we release them with general availability.  Resources that are in beta are still undergoing testing and development. They may change without notice, including becoming backwards incompatible.  We try to promote resources into general availability as quickly as possible. This happens after sufficient testing and when we're satisfied that we no longer need to make backwards-incompatible changes.  We mark beta resources with a \"Beta\" callout in our documentation, pictured below:  > ### This feature is in beta > > To use this feature, pass in a header including the `LD-API-Version` key with value set to `beta`. Use this header with each call. To learn more, read [Beta resources](/#section/Overview/Beta-resources).  ### Using beta resources  To use a beta resource, you must include a header in the request. If you call a beta resource without this header, you'll receive a `403` response.  Use this header:  ``` LD-API-Version: beta ```  ## Versioning  We try hard to keep our REST API backwards compatible, but we occasionally have to make backwards-incompatible changes in the process of shipping new features. These breaking changes can cause unexpected behavior if you don't prepare for them accordingly.  Updates to our REST API include support for the latest features in LaunchDarkly. We also release a new version of our REST API every time we make a breaking change. We provide simultaneous support for multiple API versions so you can migrate from your current API version to a new version at your own pace.  ### Setting the API version per request  You can set the API version on a specific request by sending an `LD-API-Version` header, as shown in the example below:  ``` LD-API-Version: 20210729 ```  The header value is the version number of the API version you'd like to request. The number for each version corresponds to the date the version was released in yyyymmdd format. In the example above the version `20210729` corresponds to July 29, 2021.  ### Setting the API version per access token  When creating an access token, you must specify a specific version of the API to use. This ensures that integrations using this token cannot be broken by version changes.  Tokens created before versioning was released have their version set to `20160426` (the version of the API that existed before versioning) so that they continue working the same way they did before versioning.  If you would like to upgrade your integration to use a new API version, you can explicitly set the header described above.  > ### Best practice: Set the header for every client or integration > > We recommend that you set the API version header explicitly in any client or integration you build. > > Only rely on the access token API version during manual testing.  ### API version changelog  | Version | Changes | |---|---| | `20210729` | <ul><li>Changed the [create approval request](/tag/Approvals#operation/postApprovalRequest) return value. It now returns HTTP Status Code `201` instead of `200`.</li><li> Changed the [get users](/tag/Users#operation/getUser) return value. It now returns a user record, not a user. </li><li> Added additional optional fields to environment, segments, flags, members, and segments, including the ability to create Big Segments. </li><li> Added default values for flag variations when new environments are created. </li><li> Added filtering and pagination for getting flags and members, including `limit`, `number`, `filter`, and `sort` query parameters. </li><li> Added endpoints for expiring user targets for flags and segments, scheduled changes, access tokens, Relay Proxy configuration, integrations and subscriptions, and approvals. </li></ul> | | `20191212` | <ul><li>[List feature flags](/tag/Feature-flags#operation/getFeatureFlags) now defaults to sending summaries of feature flag configurations, equivalent to setting the query parameter `summary=true`. Summaries omit flag targeting rules and individual user targets from the payload. </li><li> Added endpoints for flags, flag status, projects, environments, users, audit logs, members, users, custom roles, segments, usage, streams, events, and data export. </li></ul> | | `20160426` | <ul><li>Initial versioning of API. Tokens created before versioning have their version set to this.</li></ul> | 
+# Overview  ## Authentication  All REST API resources are authenticated with either [personal or service access tokens](https://docs.launchdarkly.com/home/account-security/api-access-tokens), or session cookies. Other authentication mechanisms are not supported. You can manage personal access tokens on your [Account settings](https://app.launchdarkly.com/settings/tokens) page.  LaunchDarkly also has SDK keys, mobile keys, and client-side IDs that are used by our server-side SDKs, mobile SDKs, and client-side SDKs, respectively. **These keys cannot be used to access our REST API**. These keys are environment-specific, and can only perform read-only operations (fetching feature flag settings).  | Auth mechanism                                                                                  | Allowed resources                                                                                     | Use cases                                          | | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | -------------------------------------------------- | | [Personal access tokens](https://docs.launchdarkly.com/home/account-security/api-access-tokens) | Can be customized on a per-token basis                                                                | Building scripts, custom integrations, data export | | SDK keys                                                                                        | Can only access read-only SDK-specific resources and the firehose, restricted to a single environment | Server-side SDKs, Firehose API                     | | Mobile keys                                                                                     | Can only access read-only mobile SDK-specific resources, restricted to a single environment           | Mobile SDKs                                        | | Client-side ID                                                                                  | Single environment, only flags marked available to client-side                                        | Client-side JavaScript                             |  > #### Keep your access tokens and SDK keys private > > Access tokens should _never_ be exposed in untrusted contexts. Never put an access token in client-side JavaScript, or embed it in a mobile application. LaunchDarkly has special mobile keys that you can embed in mobile apps. If you accidentally expose an access token or SDK key, you can reset it from your [Account Settings](https://app.launchdarkly.com/settings#/tokens) page. > > The client-side ID is safe to embed in untrusted contexts. It's designed for use in client-side JavaScript.  ### Via request header  The preferred way to authenticate with the API is by adding an `Authorization` header containing your access token to your requests. The value of the `Authorization` header must be your access token.  Manage personal access tokens from the [Account Settings](https://app.launchdarkly.com/settings/tokens) page.  ### Via session cookie  For testing purposes, you can make API calls directly from your web browser. If you're logged in to the application, the API will use your existing session to authenticate calls.  If you have a [role](https://docs.launchdarkly.com/home/team/built-in-roles) other than Admin, or have a [custom role](https://docs.launchdarkly.com/home/team/custom-roles) defined, you may not have permission to perform some API calls. You will receive a `401` response code in that case.  > ### Modifying the Origin header causes an error > > LaunchDarkly validates that the Origin header for any API request authenticated by a session cookie matches the expected Origin header. The expected Origin header is `https://app.launchdarkly.com`. > > If the Origin header does not match what's expected, LaunchDarkly returns an error. This error can prevent the LaunchDarkly app from working correctly. > > Any browser extension that intentionally changes the Origin header can cause this problem. For example, the `Allow-Control-Allow-Origin: *` Chrome extension changes the Origin header to `http://evil.com` and causes the app to fail. > > To prevent this error, do not modify your Origin header. > > LaunchDarkly does not require origin matching when authenticating with an access token, so this issue does not affect normal API usage.  ## Representations  All resources expect and return JSON response bodies. Error responses will also send a JSON body. Read [Errors](#section/Errors) for a more detailed description of the error format used by the API.  In practice this means that you always get a response with a `Content-Type` header set to `application/json`.  In addition, request bodies for `PUT`, `POST`, `REPORT` and `PATCH` requests must be encoded as JSON with a `Content-Type` header set to `application/json`.  ### Summary and detailed representations  When you fetch a list of resources, the response includes only the most important attributes of each resource. This is a _summary representation_ of the resource. When you fetch an individual resource, such as a single feature flag, you receive a _detailed representation_ of the resource.  The best way to find a detailed representation is to follow links. Every summary representation includes a link to its detailed representation.  In most cases, the detailed representation contains all of the attributes of the resource. In a few cases, the detailed representation contains many, but not all, of the attributes of the resource. Typically this happens when an attribute of the requested resource is itself paginated. You can request that the response include a particular attribute by using the `expand` request parameter.  ### Links and addressability  The best way to navigate the API is by following links. These are attributes in representations that link to other resources. The API always uses the same format for links:  - Links to other resources within the API are encapsulated in a `_links` object. - If the resource has a corresponding link to HTML content on the site, it is stored in a special `_site` link.  Each link has two attributes: an href (the URL) and a type (the content type). For example, a feature resource might return the following:  ```json {   \"_links\": {     \"parent\": {       \"href\": \"/api/features\",       \"type\": \"application/json\"     },     \"self\": {       \"href\": \"/api/features/sort.order\",       \"type\": \"application/json\"     }   },   \"_site\": {     \"href\": \"/features/sort.order\",     \"type\": \"text/html\"   } } ```  From this, you can navigate to the parent collection of features by following the `parent` link, or navigate to the site page for the feature by following the `_site` link.  Collections are always represented as a JSON object with an `items` attribute containing an array of representations. Like all other representations, collections have `_links` defined at the top level.  Paginated collections include `first`, `last`, `next`, and `prev` links containing a URL with the respective set of elements in the collection.  ### Expanding responses  Sometimes the detailed representation of a resource does not include all of the attributes of the resource by default. If this is the case, the request method will clearly document this and describe which attributes you can include in an expanded response.  To include the additional attributes, append the `expand` request parameter to your request and add a comma-separated list of the attributes to include. For example, when you append `?expand=members,roles` to the [Get team](/tag/Teams-(beta)#operation/getTeam) endpoint, the expanded response includes both of these attributes.  ## Updates  Resources that accept partial updates use the `PATCH` verb. Most resources support the [JSON Patch](https://datatracker.ietf.org/doc/html/rfc6902) format. Some resources also support the [JSON Merge Patch](https://datatracker.ietf.org/doc/html/rfc7386) format, and some resources support the [semantic patch](/reference#updates-using-semantic-patch) format, which is a way to specify the modifications to perform as a set of executable instructions. Each resource supports optional [comments](/reference#updates-with-comments) that you can submit with updates. Comments appear in outgoing webhooks, the audit log, and other integrations.  ### Updates using JSON patch  [JSON Patch](https://datatracker.ietf.org/doc/html/rfc6902) is a way to specify the modifications to perform on a resource. JSON patch uses paths and a limited set of operations to describe how to transform the current state of the resource into a new state. JSON patch documents are always arrays, where each element contains an operation, a path to the field to update, and the new value.  For example, in this feature flag representation:  ```json {     \"name\": \"New recommendations engine\",     \"key\": \"engine.enable\",     \"description\": \"This is the description\",     ... } ``` You can change the feature flag's description with the following patch document:  ```json [{ \"op\": \"replace\", \"path\": \"/description\", \"value\": \"This is the new description\" }] ```  You can specify multiple modifications to perform in a single request. You can also test that certain preconditions are met before applying the patch:  ```json [   { \"op\": \"test\", \"path\": \"/version\", \"value\": 10 },   { \"op\": \"replace\", \"path\": \"/description\", \"value\": \"The new description\" } ] ```  The above patch request tests whether the feature flag's `version` is `10`, and if so, changes the feature flag's description.  Attributes that aren't editable, like a resource's `_links`, have names that start with an underscore.  ### Updates using JSON merge patch  [JSON merge patch](https://datatracker.ietf.org/doc/html/rfc7386) is another format for specifying the modifications to perform on a resource. JSON merge patch is less expressive than JSON patch but in many cases, it is simpler to construct a merge patch document. For example, you can change a feature flag's description with the following merge patch document:  ```json {   \"description\": \"New flag description\" } ```  ### Updates using semantic patch  The API also supports the semantic patch format. A semantic `PATCH` is a way to specify the modifications to perform on a resource as a set of executable instructions.  Semantic patch allows you to be explicit about intent using precise, custom instructions. In many cases, you can define semantic patch instructions independently of the current state of the resource. This can be useful when defining a change that may be applied at a future date.  To make a semantic patch request, you must append `domain-model=launchdarkly.semanticpatch` to your `Content-Type` header.  Here's how:  ``` Content-Type: application/json; domain-model=launchdarkly.semanticpatch ```  If you call a semantic patch resource without this header, you will receive a `400` response because your semantic patch will be interpreted as a JSON patch.  The body of a semantic patch request takes the following properties:  * `comment` (string): (Optional) A description of the update. * `environmentKey` (string): (Required for some resources only) The environment key. * `instructions` (array): (Required) A list of actions the update should perform. Each action in the list must be an object with a `kind` property that indicates the instruction. If the action requires parameters, you must include those parameters as additional fields in the object. The documentation for each resource that supports semantic patch includes the available instructions and any additional parameters.  For example:  ```json {   \"comment\": \"optional comment\",   \"instructions\": [ {\"kind\": \"turnFlagOn\"} ] } ```  If any instruction in the patch encounters an error, the endpoint returns an error and will not change the resource. In general, each instruction silently does nothing if the resource is already in the state you request.  > ### Supported semantic patch API endpoints > > - [Patch experiment](/tag/Experiments-(beta)#operation/patchExperiment) > - [Patch segment](/tag/Segments#operation/patchSegment) > - [Update feature flag](/tag/Feature-flags#operation/patchFeatureFlag) > - [Update flag trigger](/tag/Flag-triggers#operation/patchTriggerWorkflow) > - [Update expiring user targets on feature flag](/tag/Feature-flags#operation/patchExpiringUserTargets) > - [Update expiring user target for flags](/tag/User-settings#operation/patchExpiringFlagsForUser) > - [Update expiring user targets for segment](/tag/Segments#operation/patchExpiringUserTargetsForSegment) > - [Update scheduled changes workflow](/tag/Scheduled-changes#operation/patchFlagConfigScheduledChange) > - [Update team](/tag/Teams-(beta)#operation/patchTeam)  ### Updates with comments  You can submit optional comments with `PATCH` changes.  To submit a comment along with a JSON Patch document, use the following format:  ```json {   \"comment\": \"This is a comment string\",   \"patch\": [{ \"op\": \"replace\", \"path\": \"/description\", \"value\": \"The new description\" }] } ```  To submit a comment along with a JSON merge patch document, use the following format:  ```json {   \"comment\": \"This is a comment string\",   \"merge\": { \"description\": \"New flag description\" } } ```  To submit a comment along with a semantic patch, use the following format:  ```json {   \"comment\": \"This is a comment string\",   \"instructions\": [ {\"kind\": \"turnFlagOn\"} ] } ```  ## Errors  The API always returns errors in a common format. Here's an example:  ```json {   \"code\": \"invalid_request\",   \"message\": \"A feature with that key already exists\",   \"id\": \"30ce6058-87da-11e4-b116-123b93f75cba\" } ```  The general class of error is indicated by the `code`. The `message` is a human-readable explanation of what went wrong. The `id` is a unique identifier. Use it when you're working with LaunchDarkly support to debug a problem with a specific API call.  ### HTTP Status - Error Response Codes  | Code | Definition        | Description                                                                                       | Possible Solution                                                | | ---- | ----------------- | ------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- | | 400  | Invalid request       | The request cannot be understood.                                    | Ensure JSON syntax in request body is correct.                   | | 401  | Invalid access token      | User is unauthorized or does not have permission for this API call.                                                | Ensure your API access token is valid and has the appropriate permissions.                                     | | 403  | Forbidden         | User does not have access to this resource.                                                | Ensure that the user or access token has proper permissions set. | | 404  | Invalid resource identifier | The requested resource is not valid. | Ensure that the resource is correctly identified by id or key. | | 405  | Method not allowed | The request method is not allowed on this resource. | Ensure that the HTTP verb is correct. | | 409  | Conflict          | The API request can not be completed because it conflicted with a concurrent API request. | Retry your request.                                              | | 422  | Unprocessable entity | The API request can not be completed because the update description can not be understood. | Ensure that the request body is correct for the type of patch you are using (JSON patch or semantic patch). | 429  | Too many requests | Read [Rate limiting](/#section/Rate-limiting).                                               | Wait and try again later.                                        |  ## CORS  The LaunchDarkly API supports Cross Origin Resource Sharing (CORS) for AJAX requests from any origin. If an `Origin` header is given in a request, it will be echoed as an explicitly allowed origin. Otherwise, a wildcard is returned: `Access-Control-Allow-Origin: *`. For more information on CORS, see the [CORS W3C Recommendation](http://www.w3.org/TR/cors). Example CORS headers might look like:  ```http Access-Control-Allow-Headers: Accept, Content-Type, Content-Length, Accept-Encoding, Authorization Access-Control-Allow-Methods: OPTIONS, GET, DELETE, PATCH Access-Control-Allow-Origin: * Access-Control-Max-Age: 300 ```  You can make authenticated CORS calls just as you would make same-origin calls, using either [token or session-based authentication](#section/Authentication). If you’re using session auth, you should set the `withCredentials` property for your `xhr` request to `true`. You should never expose your access tokens to untrusted users.  ## Rate limiting  We use several rate limiting strategies to ensure the availability of our APIs. Rate-limited calls to our APIs will return a `429` status code. Calls to our APIs will include headers indicating the current rate limit status. The specific headers returned depend on the API route being called. The limits differ based on the route, authentication mechanism, and other factors. Routes that are not rate limited may not contain any of the headers described below.  > ### Rate limiting and SDKs > > LaunchDarkly SDKs are never rate limited and do not use the API endpoints defined here. LaunchDarkly uses a different set of approaches, including streaming/server-sent events and a global CDN, to ensure availability to the routes used by LaunchDarkly SDKs.  ### Global rate limits  Authenticated requests are subject to a global limit. This is the maximum number of calls that can be made to the API per ten seconds. All personal access tokens on the account share this limit, so exceeding the limit with one access token will impact other tokens. Calls that are subject to global rate limits will return the headers below:  | Header name                    | Description                                                                      | | ------------------------------ | -------------------------------------------------------------------------------- | | `X-Ratelimit-Global-Remaining` | The maximum number of requests the account is permitted to make per ten seconds. | | `X-Ratelimit-Reset`            | The time at which the current rate limit window resets in epoch milliseconds.    |  We do not publicly document the specific number of calls that can be made globally. This limit may change, and we encourage clients to program against the specification, relying on the two headers defined above, rather than hardcoding to the current limit.  ### Route-level rate limits  Some authenticated routes have custom rate limits. These also reset every ten seconds. Any access tokens hitting the same route share this limit, so exceeding the limit with one access token may impact other tokens. Calls that are subject to route-level rate limits will return the headers below:  | Header name                   | Description                                                                                           | | ----------------------------- | ----------------------------------------------------------------------------------------------------- | | `X-Ratelimit-Route-Remaining` | The maximum number of requests to the current route the account is permitted to make per ten seconds. | | `X-Ratelimit-Reset`           | The time at which the current rate limit window resets in epoch milliseconds.                         |  A _route_ represents a specific URL pattern and verb. For example, the [Delete environment](/tag/Environments#operation/deleteEnvironment) endpoint is considered a single route, and each call to delete an environment counts against your route-level rate limit for that route.  We do not publicly document the specific number of calls that can be made to each endpoint per ten seconds. These limits may change, and we encourage clients to program against the specification, relying on the two headers defined above, rather than hardcoding to the current limits.  ### IP-based rate limiting  We also employ IP-based rate limiting on some API routes. If you hit an IP-based rate limit, your API response will include a `Retry-After` header indicating how long to wait before re-trying the call. Clients must wait at least `Retry-After` seconds before making additional calls to our API, and should employ jitter and backoff strategies to avoid triggering rate limits again.  ## OpenAPI (Swagger)  We have a [complete OpenAPI (Swagger) specification](https://app.launchdarkly.com/api/v2/openapi.json) for our API.  You can use this specification to generate client libraries to interact with our REST API in your language of choice.  This specification is supported by several API-based tools such as Postman and Insomnia. In many cases, you can directly import our specification to ease use in navigating the APIs in the tooling.  ## Client libraries  We auto-generate multiple client libraries based on our OpenAPI specification. To learn more, visit [GitHub](https://github.com/search?q=topic%3Alaunchdarkly-api+org%3Alaunchdarkly&type=Repositories).  ## Method Overriding  Some firewalls and HTTP clients restrict the use of verbs other than `GET` and `POST`. In those environments, our API endpoints that use `PUT`, `PATCH`, and `DELETE` verbs will be inaccessible.  To avoid this issue, our API supports the `X-HTTP-Method-Override` header, allowing clients to \"tunnel\" `PUT`, `PATCH`, and `DELETE` requests via a `POST` request.  For example, if you wish to call one of our `PATCH` resources via a `POST` request, you can include `X-HTTP-Method-Override:PATCH` as a header.  ## Beta resources  We sometimes release new API resources in **beta** status before we release them with general availability.  Resources that are in beta are still undergoing testing and development. They may change without notice, including becoming backwards incompatible.  We try to promote resources into general availability as quickly as possible. This happens after sufficient testing and when we're satisfied that we no longer need to make backwards-incompatible changes.  We mark beta resources with a \"Beta\" callout in our documentation, pictured below:  > ### This feature is in beta > > To use this feature, pass in a header including the `LD-API-Version` key with value set to `beta`. Use this header with each call. To learn more, read [Beta resources](/#section/Overview/Beta-resources).  ### Using beta resources  To use a beta resource, you must include a header in the request. If you call a beta resource without this header, you'll receive a `403` response.  Use this header:  ``` LD-API-Version: beta ```  ## Versioning  We try hard to keep our REST API backwards compatible, but we occasionally have to make backwards-incompatible changes in the process of shipping new features. These breaking changes can cause unexpected behavior if you don't prepare for them accordingly.  Updates to our REST API include support for the latest features in LaunchDarkly. We also release a new version of our REST API every time we make a breaking change. We provide simultaneous support for multiple API versions so you can migrate from your current API version to a new version at your own pace.  ### Setting the API version per request  You can set the API version on a specific request by sending an `LD-API-Version` header, as shown in the example below:  ``` LD-API-Version: 20220603 ```  The header value is the version number of the API version you'd like to request. The number for each version corresponds to the date the version was released in yyyymmdd format. In the example above the version `20220603` corresponds to June 03, 2022.  ### Setting the API version per access token  When creating an access token, you must specify a specific version of the API to use. This ensures that integrations using this token cannot be broken by version changes.  Tokens created before versioning was released have their version set to `20160426` (the version of the API that existed before versioning) so that they continue working the same way they did before versioning.  If you would like to upgrade your integration to use a new API version, you can explicitly set the header described above.  > ### Best practice: Set the header for every client or integration > > We recommend that you set the API version header explicitly in any client or integration you build. > > Only rely on the access token API version during manual testing.  ### API version changelog  |<div style=\"width:75px\">Version</div> | Changes | |---|---| | `20220603` | <ul><li>Changed the [list projects](tag/Projects#operation/getProjects) return value:<ul><li>Response is now paginated with a default limit of `20`.</li><li>Added support for filter and sort.</li><li>The project `environments` field is now expandable. This field is omitted by default.</li></ul></li><li>Changed the [get project](tag/Projects#operation/getProject) return value:<ul><li>The `environments` field is now expandable. This field is omitted by default.</li></ul></li></ul> | | `20210729` | <ul><li>Changed the [create approval request](/tag/Approvals#operation/postApprovalRequest) return value. It now returns HTTP Status Code `201` instead of `200`.</li><li> Changed the [get users](/tag/Users#operation/getUser) return value. It now returns a user record, not a user. </li><li> Added additional optional fields to environment, segments, flags, members, and segments, including the ability to create Big Segments. </li><li> Added default values for flag variations when new environments are created. </li><li> Added filtering and pagination for getting flags and members, including `limit`, `number`, `filter`, and `sort` query parameters. </li><li> Added endpoints for expiring user targets for flags and segments, scheduled changes, access tokens, Relay Proxy configuration, integrations and subscriptions, and approvals. </li></ul> | | `20191212` | <ul><li>[List feature flags](/tag/Feature-flags#operation/getFeatureFlags) now defaults to sending summaries of feature flag configurations, equivalent to setting the query parameter `summary=true`. Summaries omit flag targeting rules and individual user targets from the payload. </li><li> Added endpoints for flags, flag status, projects, environments, users, audit logs, members, users, custom roles, segments, usage, streams, events, and data export. </li></ul> | | `20160426` | <ul><li>Initial versioning of API. Tokens created before versioning have their version set to this.</li></ul> | 
 
 API version: 2.0
 Contact: support@launchdarkly.com
@@ -13,23 +13,19 @@ package ldapi
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
 )
 
-// Linger please
-var (
-	_ _context.Context
-)
 
 // FeatureFlagsApiService FeatureFlagsApi service
 type FeatureFlagsApiService service
 
 type ApiCopyFeatureFlagRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *FeatureFlagsApiService
 	projectKey string
 	featureFlagKey string
@@ -41,44 +37,27 @@ func (r ApiCopyFeatureFlagRequest) FlagCopyConfigPost(flagCopyConfigPost FlagCop
 	return r
 }
 
-func (r ApiCopyFeatureFlagRequest) Execute() (FeatureFlag, *_nethttp.Response, error) {
+func (r ApiCopyFeatureFlagRequest) Execute() (*FeatureFlag, *http.Response, error) {
 	return r.ApiService.CopyFeatureFlagExecute(r)
 }
 
 /*
 CopyFeatureFlag Copy feature flag
 
-The includedActions and excludedActions define the parts of the flag configuration that are copied or not copied. By default, the entire flag configuration is copied.
 
-You can have either `includedActions` or `excludedActions` but not both.
+Copy flag settings from a source environment to a target environment.
 
-Valid `includedActions` and `excludedActions` include:
+By default, this operation copies the entire flag configuration. You can use the `includedActions` or `excludedActions` to specify that only part of the flag configuration is copied.
 
-- `updateOn`
-- `updatePrerequisites`
-- `updateTargets`
-- `updateRules`
-- `updateFallthrough`
-- `updateOffVariation`
- 
- The `source` and `target` must be JSON objects if using curl, specifying the environment key and (optional) current flag configuration version in that environment. For example:
-
-```json
-{
-  "key": "production",
-  "currentVersion": 3
-}
-```
-
-If target is specified as above, the API will test to ensure that the current flag version in the `production` environment is `3`, and reject attempts to copy settings to `production` otherwise. You can use this to enforce optimistic locking on copy attempts.
+If you provide the optional `currentVersion` of a flag, this operation tests to ensure that the current flag version in the environment matches the version you've specified. The operation rejects attempts to copy flag settings if the environment's current version  of the flag does not match the version you've specified. You can use this to enforce optimistic locking on copy attempts.
 
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param projectKey The project key
  @param featureFlagKey The feature flag key. The key identifies the flag in your code.
  @return ApiCopyFeatureFlagRequest
 */
-func (a *FeatureFlagsApiService) CopyFeatureFlag(ctx _context.Context, projectKey string, featureFlagKey string) ApiCopyFeatureFlagRequest {
+func (a *FeatureFlagsApiService) CopyFeatureFlag(ctx context.Context, projectKey string, featureFlagKey string) ApiCopyFeatureFlagRequest {
 	return ApiCopyFeatureFlagRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -89,28 +68,26 @@ func (a *FeatureFlagsApiService) CopyFeatureFlag(ctx _context.Context, projectKe
 
 // Execute executes the request
 //  @return FeatureFlag
-func (a *FeatureFlagsApiService) CopyFeatureFlagExecute(r ApiCopyFeatureFlagRequest) (FeatureFlag, *_nethttp.Response, error) {
+func (a *FeatureFlagsApiService) CopyFeatureFlagExecute(r ApiCopyFeatureFlagRequest) (*FeatureFlag, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  FeatureFlag
+		formFiles            []formFile
+		localVarReturnValue  *FeatureFlag
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FeatureFlagsApiService.CopyFeatureFlag")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/v2/flags/{projectKey}/{featureFlagKey}/copy"
-	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", _neturl.PathEscape(parameterToString(r.projectKey, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"featureFlagKey"+"}", _neturl.PathEscape(parameterToString(r.featureFlagKey, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", url.PathEscape(parameterToString(r.projectKey, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"featureFlagKey"+"}", url.PathEscape(parameterToString(r.featureFlagKey, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.flagCopyConfigPost == nil {
 		return localVarReturnValue, nil, reportError("flagCopyConfigPost is required and must be specified")
 	}
@@ -148,7 +125,7 @@ func (a *FeatureFlagsApiService) CopyFeatureFlagExecute(r ApiCopyFeatureFlagRequ
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -158,15 +135,15 @@ func (a *FeatureFlagsApiService) CopyFeatureFlagExecute(r ApiCopyFeatureFlagRequ
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -224,7 +201,7 @@ func (a *FeatureFlagsApiService) CopyFeatureFlagExecute(r ApiCopyFeatureFlagRequ
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -235,14 +212,13 @@ func (a *FeatureFlagsApiService) CopyFeatureFlagExecute(r ApiCopyFeatureFlagRequ
 }
 
 type ApiDeleteFeatureFlagRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *FeatureFlagsApiService
 	projectKey string
 	featureFlagKey string
 }
 
-
-func (r ApiDeleteFeatureFlagRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiDeleteFeatureFlagRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteFeatureFlagExecute(r)
 }
 
@@ -251,12 +227,12 @@ DeleteFeatureFlag Delete feature flag
 
 Delete a feature flag in all environments. Use with caution: only delete feature flags your application no longer uses.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param projectKey The project key
  @param featureFlagKey The feature flag key. The key identifies the flag in your code.
  @return ApiDeleteFeatureFlagRequest
 */
-func (a *FeatureFlagsApiService) DeleteFeatureFlag(ctx _context.Context, projectKey string, featureFlagKey string) ApiDeleteFeatureFlagRequest {
+func (a *FeatureFlagsApiService) DeleteFeatureFlag(ctx context.Context, projectKey string, featureFlagKey string) ApiDeleteFeatureFlagRequest {
 	return ApiDeleteFeatureFlagRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -266,27 +242,25 @@ func (a *FeatureFlagsApiService) DeleteFeatureFlag(ctx _context.Context, project
 }
 
 // Execute executes the request
-func (a *FeatureFlagsApiService) DeleteFeatureFlagExecute(r ApiDeleteFeatureFlagRequest) (*_nethttp.Response, error) {
+func (a *FeatureFlagsApiService) DeleteFeatureFlagExecute(r ApiDeleteFeatureFlagRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FeatureFlagsApiService.DeleteFeatureFlag")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/v2/flags/{projectKey}/{featureFlagKey}"
-	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", _neturl.PathEscape(parameterToString(r.projectKey, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"featureFlagKey"+"}", _neturl.PathEscape(parameterToString(r.featureFlagKey, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", url.PathEscape(parameterToString(r.projectKey, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"featureFlagKey"+"}", url.PathEscape(parameterToString(r.featureFlagKey, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -319,7 +293,7 @@ func (a *FeatureFlagsApiService) DeleteFeatureFlagExecute(r ApiDeleteFeatureFlag
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -329,15 +303,15 @@ func (a *FeatureFlagsApiService) DeleteFeatureFlagExecute(r ApiDeleteFeatureFlag
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -387,15 +361,14 @@ func (a *FeatureFlagsApiService) DeleteFeatureFlagExecute(r ApiDeleteFeatureFlag
 }
 
 type ApiGetExpiringUserTargetsRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *FeatureFlagsApiService
 	projectKey string
 	environmentKey string
 	featureFlagKey string
 }
 
-
-func (r ApiGetExpiringUserTargetsRequest) Execute() (ExpiringUserTargetGetResponse, *_nethttp.Response, error) {
+func (r ApiGetExpiringUserTargetsRequest) Execute() (*ExpiringUserTargetGetResponse, *http.Response, error) {
 	return r.ApiService.GetExpiringUserTargetsExecute(r)
 }
 
@@ -404,13 +377,13 @@ GetExpiringUserTargets Get expiring user targets for feature flag
 
 Get a list of user targets on a feature flag that are scheduled for removal.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param projectKey The project key
  @param environmentKey The environment key
  @param featureFlagKey The feature flag key
  @return ApiGetExpiringUserTargetsRequest
 */
-func (a *FeatureFlagsApiService) GetExpiringUserTargets(ctx _context.Context, projectKey string, environmentKey string, featureFlagKey string) ApiGetExpiringUserTargetsRequest {
+func (a *FeatureFlagsApiService) GetExpiringUserTargets(ctx context.Context, projectKey string, environmentKey string, featureFlagKey string) ApiGetExpiringUserTargetsRequest {
 	return ApiGetExpiringUserTargetsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -422,29 +395,27 @@ func (a *FeatureFlagsApiService) GetExpiringUserTargets(ctx _context.Context, pr
 
 // Execute executes the request
 //  @return ExpiringUserTargetGetResponse
-func (a *FeatureFlagsApiService) GetExpiringUserTargetsExecute(r ApiGetExpiringUserTargetsRequest) (ExpiringUserTargetGetResponse, *_nethttp.Response, error) {
+func (a *FeatureFlagsApiService) GetExpiringUserTargetsExecute(r ApiGetExpiringUserTargetsRequest) (*ExpiringUserTargetGetResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  ExpiringUserTargetGetResponse
+		formFiles            []formFile
+		localVarReturnValue  *ExpiringUserTargetGetResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FeatureFlagsApiService.GetExpiringUserTargets")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/v2/flags/{projectKey}/{featureFlagKey}/expiring-user-targets/{environmentKey}"
-	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", _neturl.PathEscape(parameterToString(r.projectKey, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"environmentKey"+"}", _neturl.PathEscape(parameterToString(r.environmentKey, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"featureFlagKey"+"}", _neturl.PathEscape(parameterToString(r.featureFlagKey, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", url.PathEscape(parameterToString(r.projectKey, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"environmentKey"+"}", url.PathEscape(parameterToString(r.environmentKey, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"featureFlagKey"+"}", url.PathEscape(parameterToString(r.featureFlagKey, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -477,7 +448,7 @@ func (a *FeatureFlagsApiService) GetExpiringUserTargetsExecute(r ApiGetExpiringU
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -487,15 +458,15 @@ func (a *FeatureFlagsApiService) GetExpiringUserTargetsExecute(r ApiGetExpiringU
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -543,7 +514,7 @@ func (a *FeatureFlagsApiService) GetExpiringUserTargetsExecute(r ApiGetExpiringU
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -554,7 +525,7 @@ func (a *FeatureFlagsApiService) GetExpiringUserTargetsExecute(r ApiGetExpiringU
 }
 
 type ApiGetFeatureFlagRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *FeatureFlagsApiService
 	projectKey string
 	featureFlagKey string
@@ -567,7 +538,7 @@ func (r ApiGetFeatureFlagRequest) Env(env string) ApiGetFeatureFlagRequest {
 	return r
 }
 
-func (r ApiGetFeatureFlagRequest) Execute() (FeatureFlag, *_nethttp.Response, error) {
+func (r ApiGetFeatureFlagRequest) Execute() (*FeatureFlag, *http.Response, error) {
 	return r.ApiService.GetFeatureFlagExecute(r)
 }
 
@@ -576,12 +547,12 @@ GetFeatureFlag Get feature flag
 
 Get a single feature flag by key. By default, this returns the configurations for all environments. You can filter environments with the `env` query parameter. For example, setting `env=production` restricts the returned configurations to just the `production` environment.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param projectKey The project key
  @param featureFlagKey The feature flag key
  @return ApiGetFeatureFlagRequest
 */
-func (a *FeatureFlagsApiService) GetFeatureFlag(ctx _context.Context, projectKey string, featureFlagKey string) ApiGetFeatureFlagRequest {
+func (a *FeatureFlagsApiService) GetFeatureFlag(ctx context.Context, projectKey string, featureFlagKey string) ApiGetFeatureFlagRequest {
 	return ApiGetFeatureFlagRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -592,28 +563,26 @@ func (a *FeatureFlagsApiService) GetFeatureFlag(ctx _context.Context, projectKey
 
 // Execute executes the request
 //  @return FeatureFlag
-func (a *FeatureFlagsApiService) GetFeatureFlagExecute(r ApiGetFeatureFlagRequest) (FeatureFlag, *_nethttp.Response, error) {
+func (a *FeatureFlagsApiService) GetFeatureFlagExecute(r ApiGetFeatureFlagRequest) (*FeatureFlag, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  FeatureFlag
+		formFiles            []formFile
+		localVarReturnValue  *FeatureFlag
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FeatureFlagsApiService.GetFeatureFlag")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/v2/flags/{projectKey}/{featureFlagKey}"
-	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", _neturl.PathEscape(parameterToString(r.projectKey, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"featureFlagKey"+"}", _neturl.PathEscape(parameterToString(r.featureFlagKey, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", url.PathEscape(parameterToString(r.projectKey, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"featureFlagKey"+"}", url.PathEscape(parameterToString(r.featureFlagKey, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.env != nil {
 		localVarQueryParams.Add("env", parameterToString(*r.env, ""))
@@ -649,7 +618,7 @@ func (a *FeatureFlagsApiService) GetFeatureFlagExecute(r ApiGetFeatureFlagReques
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -659,15 +628,15 @@ func (a *FeatureFlagsApiService) GetFeatureFlagExecute(r ApiGetFeatureFlagReques
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -715,7 +684,7 @@ func (a *FeatureFlagsApiService) GetFeatureFlagExecute(r ApiGetFeatureFlagReques
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -726,15 +695,14 @@ func (a *FeatureFlagsApiService) GetFeatureFlagExecute(r ApiGetFeatureFlagReques
 }
 
 type ApiGetFeatureFlagStatusRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *FeatureFlagsApiService
 	projectKey string
 	environmentKey string
 	featureFlagKey string
 }
 
-
-func (r ApiGetFeatureFlagStatusRequest) Execute() (FlagStatusRep, *_nethttp.Response, error) {
+func (r ApiGetFeatureFlagStatusRequest) Execute() (*FlagStatusRep, *http.Response, error) {
 	return r.ApiService.GetFeatureFlagStatusExecute(r)
 }
 
@@ -743,13 +711,13 @@ GetFeatureFlagStatus Get feature flag status
 
 Get the status for a particular feature flag.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param projectKey The project key
  @param environmentKey The environment key
  @param featureFlagKey The feature flag key
  @return ApiGetFeatureFlagStatusRequest
 */
-func (a *FeatureFlagsApiService) GetFeatureFlagStatus(ctx _context.Context, projectKey string, environmentKey string, featureFlagKey string) ApiGetFeatureFlagStatusRequest {
+func (a *FeatureFlagsApiService) GetFeatureFlagStatus(ctx context.Context, projectKey string, environmentKey string, featureFlagKey string) ApiGetFeatureFlagStatusRequest {
 	return ApiGetFeatureFlagStatusRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -761,29 +729,27 @@ func (a *FeatureFlagsApiService) GetFeatureFlagStatus(ctx _context.Context, proj
 
 // Execute executes the request
 //  @return FlagStatusRep
-func (a *FeatureFlagsApiService) GetFeatureFlagStatusExecute(r ApiGetFeatureFlagStatusRequest) (FlagStatusRep, *_nethttp.Response, error) {
+func (a *FeatureFlagsApiService) GetFeatureFlagStatusExecute(r ApiGetFeatureFlagStatusRequest) (*FlagStatusRep, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  FlagStatusRep
+		formFiles            []formFile
+		localVarReturnValue  *FlagStatusRep
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FeatureFlagsApiService.GetFeatureFlagStatus")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/v2/flag-statuses/{projectKey}/{environmentKey}/{featureFlagKey}"
-	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", _neturl.PathEscape(parameterToString(r.projectKey, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"environmentKey"+"}", _neturl.PathEscape(parameterToString(r.environmentKey, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"featureFlagKey"+"}", _neturl.PathEscape(parameterToString(r.featureFlagKey, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", url.PathEscape(parameterToString(r.projectKey, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"environmentKey"+"}", url.PathEscape(parameterToString(r.environmentKey, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"featureFlagKey"+"}", url.PathEscape(parameterToString(r.featureFlagKey, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -816,7 +782,7 @@ func (a *FeatureFlagsApiService) GetFeatureFlagStatusExecute(r ApiGetFeatureFlag
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -826,15 +792,15 @@ func (a *FeatureFlagsApiService) GetFeatureFlagStatusExecute(r ApiGetFeatureFlag
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -882,7 +848,7 @@ func (a *FeatureFlagsApiService) GetFeatureFlagStatusExecute(r ApiGetFeatureFlag
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -893,7 +859,7 @@ func (a *FeatureFlagsApiService) GetFeatureFlagStatusExecute(r ApiGetFeatureFlag
 }
 
 type ApiGetFeatureFlagStatusAcrossEnvironmentsRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *FeatureFlagsApiService
 	projectKey string
 	featureFlagKey string
@@ -906,7 +872,7 @@ func (r ApiGetFeatureFlagStatusAcrossEnvironmentsRequest) Env(env string) ApiGet
 	return r
 }
 
-func (r ApiGetFeatureFlagStatusAcrossEnvironmentsRequest) Execute() (FeatureFlagStatusAcrossEnvironments, *_nethttp.Response, error) {
+func (r ApiGetFeatureFlagStatusAcrossEnvironmentsRequest) Execute() (*FeatureFlagStatusAcrossEnvironments, *http.Response, error) {
 	return r.ApiService.GetFeatureFlagStatusAcrossEnvironmentsExecute(r)
 }
 
@@ -915,12 +881,12 @@ GetFeatureFlagStatusAcrossEnvironments Get flag status across environments
 
 Get the status for a particular feature flag across environments.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param projectKey The project key
  @param featureFlagKey The feature flag key
  @return ApiGetFeatureFlagStatusAcrossEnvironmentsRequest
 */
-func (a *FeatureFlagsApiService) GetFeatureFlagStatusAcrossEnvironments(ctx _context.Context, projectKey string, featureFlagKey string) ApiGetFeatureFlagStatusAcrossEnvironmentsRequest {
+func (a *FeatureFlagsApiService) GetFeatureFlagStatusAcrossEnvironments(ctx context.Context, projectKey string, featureFlagKey string) ApiGetFeatureFlagStatusAcrossEnvironmentsRequest {
 	return ApiGetFeatureFlagStatusAcrossEnvironmentsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -931,28 +897,26 @@ func (a *FeatureFlagsApiService) GetFeatureFlagStatusAcrossEnvironments(ctx _con
 
 // Execute executes the request
 //  @return FeatureFlagStatusAcrossEnvironments
-func (a *FeatureFlagsApiService) GetFeatureFlagStatusAcrossEnvironmentsExecute(r ApiGetFeatureFlagStatusAcrossEnvironmentsRequest) (FeatureFlagStatusAcrossEnvironments, *_nethttp.Response, error) {
+func (a *FeatureFlagsApiService) GetFeatureFlagStatusAcrossEnvironmentsExecute(r ApiGetFeatureFlagStatusAcrossEnvironmentsRequest) (*FeatureFlagStatusAcrossEnvironments, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  FeatureFlagStatusAcrossEnvironments
+		formFiles            []formFile
+		localVarReturnValue  *FeatureFlagStatusAcrossEnvironments
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FeatureFlagsApiService.GetFeatureFlagStatusAcrossEnvironments")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/v2/flag-status/{projectKey}/{featureFlagKey}"
-	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", _neturl.PathEscape(parameterToString(r.projectKey, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"featureFlagKey"+"}", _neturl.PathEscape(parameterToString(r.featureFlagKey, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", url.PathEscape(parameterToString(r.projectKey, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"featureFlagKey"+"}", url.PathEscape(parameterToString(r.featureFlagKey, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.env != nil {
 		localVarQueryParams.Add("env", parameterToString(*r.env, ""))
@@ -988,7 +952,7 @@ func (a *FeatureFlagsApiService) GetFeatureFlagStatusAcrossEnvironmentsExecute(r
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -998,15 +962,15 @@ func (a *FeatureFlagsApiService) GetFeatureFlagStatusAcrossEnvironmentsExecute(r
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1054,7 +1018,7 @@ func (a *FeatureFlagsApiService) GetFeatureFlagStatusAcrossEnvironmentsExecute(r
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1065,14 +1029,13 @@ func (a *FeatureFlagsApiService) GetFeatureFlagStatusAcrossEnvironmentsExecute(r
 }
 
 type ApiGetFeatureFlagStatusesRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *FeatureFlagsApiService
 	projectKey string
 	environmentKey string
 }
 
-
-func (r ApiGetFeatureFlagStatusesRequest) Execute() (FeatureFlagStatuses, *_nethttp.Response, error) {
+func (r ApiGetFeatureFlagStatusesRequest) Execute() (*FeatureFlagStatuses, *http.Response, error) {
 	return r.ApiService.GetFeatureFlagStatusesExecute(r)
 }
 
@@ -1087,12 +1050,12 @@ Get a list of statuses for all feature flags. The status includes the last time 
 - `launched`: one variation of the feature flag has been rolled out to all your users for at least 7 days
 
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param projectKey The project key
  @param environmentKey The environment key
  @return ApiGetFeatureFlagStatusesRequest
 */
-func (a *FeatureFlagsApiService) GetFeatureFlagStatuses(ctx _context.Context, projectKey string, environmentKey string) ApiGetFeatureFlagStatusesRequest {
+func (a *FeatureFlagsApiService) GetFeatureFlagStatuses(ctx context.Context, projectKey string, environmentKey string) ApiGetFeatureFlagStatusesRequest {
 	return ApiGetFeatureFlagStatusesRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1103,28 +1066,26 @@ func (a *FeatureFlagsApiService) GetFeatureFlagStatuses(ctx _context.Context, pr
 
 // Execute executes the request
 //  @return FeatureFlagStatuses
-func (a *FeatureFlagsApiService) GetFeatureFlagStatusesExecute(r ApiGetFeatureFlagStatusesRequest) (FeatureFlagStatuses, *_nethttp.Response, error) {
+func (a *FeatureFlagsApiService) GetFeatureFlagStatusesExecute(r ApiGetFeatureFlagStatusesRequest) (*FeatureFlagStatuses, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  FeatureFlagStatuses
+		formFiles            []formFile
+		localVarReturnValue  *FeatureFlagStatuses
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FeatureFlagsApiService.GetFeatureFlagStatuses")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/v2/flag-statuses/{projectKey}/{environmentKey}"
-	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", _neturl.PathEscape(parameterToString(r.projectKey, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"environmentKey"+"}", _neturl.PathEscape(parameterToString(r.environmentKey, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", url.PathEscape(parameterToString(r.projectKey, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"environmentKey"+"}", url.PathEscape(parameterToString(r.environmentKey, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1157,7 +1118,7 @@ func (a *FeatureFlagsApiService) GetFeatureFlagStatusesExecute(r ApiGetFeatureFl
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -1167,15 +1128,15 @@ func (a *FeatureFlagsApiService) GetFeatureFlagStatusesExecute(r ApiGetFeatureFl
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1223,7 +1184,7 @@ func (a *FeatureFlagsApiService) GetFeatureFlagStatusesExecute(r ApiGetFeatureFl
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1234,7 +1195,7 @@ func (a *FeatureFlagsApiService) GetFeatureFlagStatusesExecute(r ApiGetFeatureFl
 }
 
 type ApiGetFeatureFlagsRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *FeatureFlagsApiService
 	projectKey string
 	env *string
@@ -1253,48 +1214,56 @@ func (r ApiGetFeatureFlagsRequest) Env(env string) ApiGetFeatureFlagsRequest {
 	r.env = &env
 	return r
 }
+
 // Filter feature flags by tag
 func (r ApiGetFeatureFlagsRequest) Tag(tag string) ApiGetFeatureFlagsRequest {
 	r.tag = &tag
 	return r
 }
+
 // The number of feature flags to return. Defaults to -1, which returns all flags
 func (r ApiGetFeatureFlagsRequest) Limit(limit int64) ApiGetFeatureFlagsRequest {
 	r.limit = &limit
 	return r
 }
-// Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next limit items
+
+// Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;.
 func (r ApiGetFeatureFlagsRequest) Offset(offset int64) ApiGetFeatureFlagsRequest {
 	r.offset = &offset
 	return r
 }
+
 // A boolean to filter the list to archived flags. When this is absent, only unarchived flags will be returned
 func (r ApiGetFeatureFlagsRequest) Archived(archived bool) ApiGetFeatureFlagsRequest {
 	r.archived = &archived
 	return r
 }
+
 // By default in API version &gt;&#x3D; 1, flags will _not_ include their list of prerequisites, targets or rules.  Set summary&#x3D;0 to include these fields for each flag returned
 func (r ApiGetFeatureFlagsRequest) Summary(summary bool) ApiGetFeatureFlagsRequest {
 	r.summary = &summary
 	return r
 }
+
 // A comma-separated list of filters. Each filter is of the form field:value
 func (r ApiGetFeatureFlagsRequest) Filter(filter string) ApiGetFeatureFlagsRequest {
 	r.filter = &filter
 	return r
 }
+
 // A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order
 func (r ApiGetFeatureFlagsRequest) Sort(sort string) ApiGetFeatureFlagsRequest {
 	r.sort = &sort
 	return r
 }
+
 // A boolean to filter results by only flags that have differences between environments
 func (r ApiGetFeatureFlagsRequest) Compare(compare bool) ApiGetFeatureFlagsRequest {
 	r.compare = &compare
 	return r
 }
 
-func (r ApiGetFeatureFlagsRequest) Execute() (FeatureFlags, *_nethttp.Response, error) {
+func (r ApiGetFeatureFlagsRequest) Execute() (*FeatureFlags, *http.Response, error) {
 	return r.ApiService.GetFeatureFlagsExecute(r)
 }
 
@@ -1311,20 +1280,20 @@ We support the following fields for filters:
 - `status` is a string allowing filtering to `new`, `inactive`, `active`, or `launched` flags in the specified environment. This filter also requires a `filterEnv` field to be set to a valid environment. For example: `filter=status:active,filterEnv:production`.
 - `tags` is a + separated list of tags. It filters the list to members who have all of the tags in the list.
 - `hasExperiment` is a boolean with values of true or false and returns any flags that have an attached metric.
-- `hasDataExport` is a boolean with values of true or false and returns any flags that are currently exporting data in the specified environment. This includes flags that are exporting data via Experimentation. This filter also requires a `filterEnv` field to be set to a valid environment key. e.g. `filter=hasExperiment:true,filterEnv:production`
-- `evaluated` is an object that contains a key of `after` and a value in Unix time in milliseconds. This returns all flags that have been evaluated since the time you specify in the environment provided. This filter also requires a `filterEnv` field to be set to a valid environment. For example: `filter=evaluated:{"after": 1590768455282},filterEnv:production`.
-- `filterEnv` is a string with the key of a valid environment. The filterEnv field is used for filters that are environment specific. If there are multiple environment specific filters you should only declare this parameter once. For example: `filter=evaluated:{"after": 1590768455282},filterEnv:production,status:active`.
+- `hasDataExport` is a boolean with values of true or false and returns any flags that are exporting data in the specified environment. This includes flags that are exporting data from Experimentation. This filter also requires that you set a `filterEnv` field to a valid environment key. For example: `filter=hasDataExport:true,filterEnv:production`
+- `evaluated` is an object that contains a key of `after` and a value in Unix time in milliseconds. This returns all flags that have been evaluated since the time you specify in the environment provided. This filter also requires you to set a `filterEnv` field to a valid environment. For example: `filter=evaluated:{"after": 1590768455282},filterEnv:production`.
+- `filterEnv` is a string with the key of a valid environment. You can use the filterEnv field for filters that are environment-specific. If there are multiple environment-specific filters, you should only declare this parameter once. For example: `filter=evaluated:{"after": 1590768455282},filterEnv:production,status:active`.
 
 An example filter is `query:abc,tags:foo+bar`. This matches flags with the string `abc` in their key or name, ignoring case, which also have the tags `foo` and `bar`.
 
 By default, this returns all flags. You can page through the list with the `limit` parameter and by following the `first`, `prev`, `next`, and `last` links in the returned `_links` field. These links will not be present if the pages they refer to don't exist. For example, the `first` and `prev` links will be missing from the response on the first page.
 
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param projectKey The project key
  @return ApiGetFeatureFlagsRequest
 */
-func (a *FeatureFlagsApiService) GetFeatureFlags(ctx _context.Context, projectKey string) ApiGetFeatureFlagsRequest {
+func (a *FeatureFlagsApiService) GetFeatureFlags(ctx context.Context, projectKey string) ApiGetFeatureFlagsRequest {
 	return ApiGetFeatureFlagsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1334,27 +1303,25 @@ func (a *FeatureFlagsApiService) GetFeatureFlags(ctx _context.Context, projectKe
 
 // Execute executes the request
 //  @return FeatureFlags
-func (a *FeatureFlagsApiService) GetFeatureFlagsExecute(r ApiGetFeatureFlagsRequest) (FeatureFlags, *_nethttp.Response, error) {
+func (a *FeatureFlagsApiService) GetFeatureFlagsExecute(r ApiGetFeatureFlagsRequest) (*FeatureFlags, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  FeatureFlags
+		formFiles            []formFile
+		localVarReturnValue  *FeatureFlags
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FeatureFlagsApiService.GetFeatureFlags")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/v2/flags/{projectKey}"
-	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", _neturl.PathEscape(parameterToString(r.projectKey, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", url.PathEscape(parameterToString(r.projectKey, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.env != nil {
 		localVarQueryParams.Add("env", parameterToString(*r.env, ""))
@@ -1414,7 +1381,7 @@ func (a *FeatureFlagsApiService) GetFeatureFlagsExecute(r ApiGetFeatureFlagsRequ
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -1424,15 +1391,15 @@ func (a *FeatureFlagsApiService) GetFeatureFlagsExecute(r ApiGetFeatureFlagsRequ
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1490,7 +1457,7 @@ func (a *FeatureFlagsApiService) GetFeatureFlagsExecute(r ApiGetFeatureFlagsRequ
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1501,35 +1468,71 @@ func (a *FeatureFlagsApiService) GetFeatureFlagsExecute(r ApiGetFeatureFlagsRequ
 }
 
 type ApiPatchExpiringUserTargetsRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *FeatureFlagsApiService
 	projectKey string
 	environmentKey string
 	featureFlagKey string
-	patchWithComment *PatchWithComment
+	patchFlagsRequest *PatchFlagsRequest
 }
 
-func (r ApiPatchExpiringUserTargetsRequest) PatchWithComment(patchWithComment PatchWithComment) ApiPatchExpiringUserTargetsRequest {
-	r.patchWithComment = &patchWithComment
+func (r ApiPatchExpiringUserTargetsRequest) PatchFlagsRequest(patchFlagsRequest PatchFlagsRequest) ApiPatchExpiringUserTargetsRequest {
+	r.patchFlagsRequest = &patchFlagsRequest
 	return r
 }
 
-func (r ApiPatchExpiringUserTargetsRequest) Execute() (ExpiringUserTargetPatchResponse, *_nethttp.Response, error) {
+func (r ApiPatchExpiringUserTargetsRequest) Execute() (*ExpiringUserTargetPatchResponse, *http.Response, error) {
 	return r.ApiService.PatchExpiringUserTargetsExecute(r)
 }
 
 /*
 PatchExpiringUserTargets Update expiring user targets on feature flag
 
-Update the list of user targets on a feature flag that are scheduled for removal.
+Schedule a user for removal from individual targeting on a feature flag. The flag must already individually target the user.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+You can add, update, or remove a scheduled removal date. You can only schedule a user for removal on a single variation per flag.
+
+This request only supports semantic patches. To make a semantic patch request, you must append `domain-model=launchdarkly.semanticpatch` to your `Content-Type` header. To learn more, read [Updates using semantic patch](/reference#updates-using-semantic-patch).
+
+### Instructions
+
+#### addExpireUserTargetDate
+
+Adds a date and time that LaunchDarkly will remove the user from the flag's individual targeting.
+
+##### Parameters
+
+* `value`: The time, in Unix milliseconds, when LaunchDarkly should remove the user from individual targeting for this flag
+* `variationId`: The version of the flag variation to update. You can retrieve this by making a GET request for the flag.
+* `userKey`: The user key for the user to remove from individual targeting
+
+#### updateExpireUserTargetDate
+
+Updates the date and time that LaunchDarkly will remove the user from the flag's individual targeting.
+
+##### Parameters
+
+* `value`: The time, in Unix milliseconds, when LaunchDarkly should remove the user from individual targeting for this flag
+* `variationId`: The version of the flag variation to update. You can retrieve this by making a GET request for the flag.
+* `userKey`: The user key for the user to remove from individual targeting
+
+#### removeExpireUserTargetDate
+
+Removes the scheduled removal of the user from the flag's individual targeting. The user will remain part of the flag's individual targeting until you explicitly remove them, or until you schedule another removal.
+
+##### Parameters
+
+* `variationId`: The version of the flag variation to update. You can retrieve this by making a GET request for the flag.
+* `userKey`: The user key for the user to remove from individual targeting
+
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param projectKey The project key
  @param environmentKey The environment key
  @param featureFlagKey The feature flag key
  @return ApiPatchExpiringUserTargetsRequest
 */
-func (a *FeatureFlagsApiService) PatchExpiringUserTargets(ctx _context.Context, projectKey string, environmentKey string, featureFlagKey string) ApiPatchExpiringUserTargetsRequest {
+func (a *FeatureFlagsApiService) PatchExpiringUserTargets(ctx context.Context, projectKey string, environmentKey string, featureFlagKey string) ApiPatchExpiringUserTargetsRequest {
 	return ApiPatchExpiringUserTargetsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1541,31 +1544,29 @@ func (a *FeatureFlagsApiService) PatchExpiringUserTargets(ctx _context.Context, 
 
 // Execute executes the request
 //  @return ExpiringUserTargetPatchResponse
-func (a *FeatureFlagsApiService) PatchExpiringUserTargetsExecute(r ApiPatchExpiringUserTargetsRequest) (ExpiringUserTargetPatchResponse, *_nethttp.Response, error) {
+func (a *FeatureFlagsApiService) PatchExpiringUserTargetsExecute(r ApiPatchExpiringUserTargetsRequest) (*ExpiringUserTargetPatchResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPatch
+		localVarHTTPMethod   = http.MethodPatch
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  ExpiringUserTargetPatchResponse
+		formFiles            []formFile
+		localVarReturnValue  *ExpiringUserTargetPatchResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FeatureFlagsApiService.PatchExpiringUserTargets")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/v2/flags/{projectKey}/{featureFlagKey}/expiring-user-targets/{environmentKey}"
-	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", _neturl.PathEscape(parameterToString(r.projectKey, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"environmentKey"+"}", _neturl.PathEscape(parameterToString(r.environmentKey, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"featureFlagKey"+"}", _neturl.PathEscape(parameterToString(r.featureFlagKey, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", url.PathEscape(parameterToString(r.projectKey, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"environmentKey"+"}", url.PathEscape(parameterToString(r.environmentKey, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"featureFlagKey"+"}", url.PathEscape(parameterToString(r.featureFlagKey, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
-	if r.patchWithComment == nil {
-		return localVarReturnValue, nil, reportError("patchWithComment is required and must be specified")
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.patchFlagsRequest == nil {
+		return localVarReturnValue, nil, reportError("patchFlagsRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1586,7 +1587,7 @@ func (a *FeatureFlagsApiService) PatchExpiringUserTargetsExecute(r ApiPatchExpir
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.patchWithComment
+	localVarPostBody = r.patchFlagsRequest
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1601,7 +1602,7 @@ func (a *FeatureFlagsApiService) PatchExpiringUserTargetsExecute(r ApiPatchExpir
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -1611,15 +1612,15 @@ func (a *FeatureFlagsApiService) PatchExpiringUserTargetsExecute(r ApiPatchExpir
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1677,7 +1678,7 @@ func (a *FeatureFlagsApiService) PatchExpiringUserTargetsExecute(r ApiPatchExpir
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1688,7 +1689,7 @@ func (a *FeatureFlagsApiService) PatchExpiringUserTargetsExecute(r ApiPatchExpir
 }
 
 type ApiPatchFeatureFlagRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *FeatureFlagsApiService
 	projectKey string
 	featureFlagKey string
@@ -1700,53 +1701,37 @@ func (r ApiPatchFeatureFlagRequest) PatchWithComment(patchWithComment PatchWithC
 	return r
 }
 
-func (r ApiPatchFeatureFlagRequest) Execute() (FeatureFlag, *_nethttp.Response, error) {
+func (r ApiPatchFeatureFlagRequest) Execute() (*FeatureFlag, *http.Response, error) {
 	return r.ApiService.PatchFeatureFlagExecute(r)
 }
 
 /*
 PatchFeatureFlag Update feature flag
 
-Perform a partial update to a feature flag.
+Perform a partial update to a feature flag. The request body must be a valid semantic patch or JSON patch.
 
 ## Using semantic patches on a feature flag
 
-To use a [semantic patch](/reference#updates-via-semantic-patches) on a feature flag resource, you must include a header in the request. If you call a semantic patch resource without this header, you will receive a `400` response because your semantic patch will be interpreted as a JSON patch.
+To make a semantic patch request, you must append `domain-model=launchdarkly.semanticpatch` to your `Content-Type` header. To learn more, read [Updates using semantic patch](/reference#updates-using-semantic-patch).
 
-Use this header:
+The body of a semantic patch request for updating feature flags requires an `environmentKey` in addition to `instructions` and an optional `comment`. The body of the request takes the following properties:
 
-```
-Content-Type: application/json; domain-model=launchdarkly.semanticpatch
-```
-
-The body of a semantic patch request takes the following three properties:
-
-1. `comment` (string): (Optional) A description of the update.
-1. `environmentKey` (string): (Required) The key of the LaunchDarkly environment.
-1. `instructions` (array): (Required) The list of actions to be performed by the update. Each action in the list must be an object/hash table with a `kind` property that indicates the instruction. Depending on the `kind`, the API may require other parameters. When this is the case, add the parameters as additional fields to the instruction object. Read below for more information on the specific supported semantic patch instructions.
-
-If any instruction in the patch encounters an error, the error will be returned and the flag will not be changed. In general, instructions will silently do nothing if the flag is already in the state requested by the patch instruction. For example, `removeUserTargets` does nothing when the targets have already been removed. They will generally error if a parameter refers to something that does not exist, like a variation ID that doesn't correspond to a variation on the flag or a rule ID that doesn't belong to a rule on the flag. Other specific error conditions are noted in the instruction descriptions.
+* `comment` (string): (Optional) A description of the update.
+* `environmentKey` (string): (Required) The key of the LaunchDarkly environment.
+* `instructions` (array): (Required) A list of actions the update should perform. Each action in the list must be an object with a `kind` property that indicates the instruction. If the action requires parameters, you must include those parameters as additional fields in the object.
 
 ### Instructions
 
-#### `turnFlagOn`
+Semantic patch requests support the following `kind` instructions for updating feature flags.
 
-Sets the flag's targeting state to on.
+<details>
+<summary>Click to expand instructions for turning flags on and off</summary>
 
-For example, to flip a flag on, use this request body:
+#### turnFlagOff
 
-```json
-{
-  "environmentKey": "example-environment-key",
-  "instructions": [ { "kind": "turnFlagOn" } ]
-}
-```
+Sets the flag's targeting state to **Off**.
 
-#### `turnFlagOff`
-
-Sets the flag's targeting state to off.
-
-For example, to flip a flag off, use this request body:
+For example, to turn a flag off, use this request body:
 
 ```json
 {
@@ -1755,244 +1740,408 @@ For example, to flip a flag off, use this request body:
 }
 ```
 
-#### `addUserTargets`
+#### turnFlagOn
 
-Adds the user keys in `values` to the individual user targets for the variation specified by `variationId`. Returns an error if this causes the same user key to be targeted in multiple variations.
+Sets the flag's targeting state to **On**.
 
-##### Parameters
-
-- `values`: list of user keys
-- `variationId`: ID of a variation on the flag
-
-#### `removeUserTargets`
-
-Removes the user keys in `values` to the individual user targets for the variation specified by `variationId`. Does nothing if the user keys are not targeted.
-
-##### Parameters
-
-- `values`: list of user keys
-- `variationId`: ID of a variation on the flag
-
-#### `replaceUserTargets`
-
-Completely replaces the existing set of user targeting. All variations must be provided. Example:
+For example, to turn a flag on, use this request body:
 
 ```json
 {
-  "kind": "replaceUserTargets",
-  "targets": [
-    {
-      "variationId": "variation-1",
-      "values": ["blah", "foo", "bar"]
-    },
-    {
-      "variationId": "variation-2",
-      "values": ["abc", "def"]
-    }
-  ]
+  "environmentKey": "example-environment-key",
+  "instructions": [ { "kind": "turnFlagOn" } ]
 }
 ```
 
-##### Parameters
+</details><br />
 
-- `targets`: a list of user targeting
+<details>
+<summary>Click to expand instructions for working with targeting and variations</summary>
 
-#### `clearUserTargets`
-
-Removes all individual user targets from the variation specified by `variationId`
-
-##### Parameters
-
-- `variationId`: ID of a variation on the flag
-
-#### `addPrerequisite`
-
-Adds the flag indicated by `key` with variation `variationId` as a prerequisite to the flag.
-
-##### Parameters
-
-- `key`: flag key of another flag
-- `variationId`: ID of a variation of the flag with key `key`
-
-#### `removePrerequisite`
-
-Removes the prerequisite indicated by `key`. Does nothing if this prerequisite does not exist.
-
-##### Parameters
-
-- `key`: flag key of an existing prerequisite
-
-#### `updatePrerequisite`
-
-Changes the prerequisite with flag key `key` to the variation indicated by `variationId`. Returns an error if this prerequisite does not exist.
-
-##### Parameters
-
-- `key`: flag key of an existing prerequisite
-- `variationId`: ID of a variation of the flag with key `key`
-
-#### `replacePrerequisites`
-
-Completely replaces the existing set of prerequisites for a given flag. Example:
-
-```json
-{
-  "kind": "replacePrerequisites",
-  "prerequisites": [
-    {
-      "key": "flag-key",
-      "variationId": "variation-1"
-    },
-    {
-      "key": "another-flag",
-      "variationId": "variation-2"
-    }
-  ]
-}
-```
-
-##### Parameters
-
-- `prerequisites`: a list of prerequisites
-
-#### `addRule`
-
-Adds a new rule to the flag with the given `clauses` which serves the variation indicated by `variationId` or the percent rollout indicated by `rolloutWeights` and `rolloutBucketBy`. If `beforeRuleId` is set, the rule will be added in the list of rules before the indicated rule. Otherwise, the rule will be added to the end of the list.
-
-##### Parameters
-
-- `clauses`: Array of clauses (see `addClauses`)
-- `beforeRuleId`: Optional ID of a rule in the flag
-- `variationId`: ID of a variation of the flag
-- `rolloutWeights`: Map of variationId to weight in thousandths of a percent (0-100000)
-- `rolloutBucketBy`: Optional user attribute
-
-#### `removeRule`
-
-Removes the targeting rule specified by `ruleId`. Does nothing if the rule does not exist.
-
-##### Parameters
-
-- `ruleId`: ID of a rule in the flag
-
-#### `replaceRules`
-
-Completely replaces the existing rules for a given flag. Example:
-
-```json
-{
-  "kind": "replaceRules",
-  "rules": [
-    {
-      "variationId": "variation-1",
-      "description": "myRule",
-      "clauses": [
-        {
-          "attribute": "segmentMatch",
-          "op": "segmentMatch",
-          "values": ["test"]
-        }
-      ],
-      "trackEvents": true
-    }
-  ]
-}
-```
-
-##### Parameters
-
-- `rules`: a list of rules
-
-#### `addClauses`
+#### addClauses
 
 Adds the given clauses to the rule indicated by `ruleId`.
 
 ##### Parameters
 
-- `ruleId`: ID of a rule in the flag
+- `ruleId`: ID of a rule in the flag.
 - `clauses`: Array of clause objects, with `attribute` (string), `op` (string), and `values` (array of strings, numbers, or dates) properties.
 
-#### `removeClauses`
+#### addPrerequisite
+
+Adds the flag indicated by `key` with variation `variationId` as a prerequisite to the flag in the path parameter.
+
+##### Parameters
+
+- `key`: Flag key of the prerequisite flag.
+- `variationId`: ID of a variation of the prerequisite flag.
+
+#### addRule
+
+Adds a new targeting rule to the flag. The rule may contain `clauses` and serve the variation that `variationId` indicates, or serve a percentage rollout that `rolloutWeights` and `rolloutBucketBy` indicate.
+
+If you set `beforeRuleId`, this adds the new rule before the indicated rule. Otherwise, adds the new rule to the end of the list.
+
+##### Parameters
+
+- `clauses`: Array of clause objects, with `attribute` (string), `op` (string), and `values` (array of strings, numbers, or dates) properties.
+- `beforeRuleId`: (Optional) ID of a flag rule.
+- `variationId`: ID of a variation of the flag.
+- `rolloutWeights`: Map of `variationId` to weight, in thousandths of a percent (0-100000).
+- `rolloutBucketBy`: (Optional) User attribute.
+
+#### addUserTargets
+
+Adds user keys to the individual user targets for the variation that `variationId` specifies. Returns an error if this causes the flag to target the same user key in multiple variations.
+
+##### Parameters
+
+- `values`: List of user keys.
+- `variationId`: ID of a variation on the flag.
+
+#### addValuesToClause
+
+Adds `values` to the values of the clause that `ruleId` and `clauseId` indicate.
+
+##### Parameters
+
+- `ruleId`: ID of a rule in the flag.
+- `clauseId`: ID of a clause in that rule.
+- `values`: Array of strings.
+
+#### clearUserTargets
+
+Removes all individual user targets from the variation that `variationId` specifies.
+
+##### Parameters
+
+- `variationId`: ID of a variation on the flag.
+
+#### removeClauses
 
 Removes the clauses specified by `clauseIds` from the rule indicated by `ruleId`.
 
-#### Parameters
+##### Parameters
 
-- `ruleId`: ID of a rule in the flag
-- `clauseIds`: Array of IDs of clauses in the rule
+- `ruleId`: ID of a rule in the flag.
+- `clauseIds`: Array of IDs of clauses in the rule.
 
-#### `updateClause`
+#### removePrerequisite
 
-Replaces the clause indicated by `ruleId` and `clauseId` with `clause`.
+Removes the prerequisite flag indicated by `key`. Does nothing if this prerequisite does not exist.
 
 ##### Parameters
 
-- `ruleId`: ID of a rule in the flag
-- `clauseId`: ID of a clause in that rule
-- `clause`: Clause object
+- `key`: Flag key of an existing prerequisite flag.
 
-#### `addValuesToClause`
+#### removeRule
 
-Adds `values` to the values of the clause indicated by `ruleId` and `clauseId`.
+Removes the targeting rule specified by `ruleId`. Does nothing if the rule does not exist.
 
 ##### Parameters
 
-- `ruleId`: ID of a rule in the flag
-- `clauseId`: ID of a clause in that rule
-- `values`: Array of strings
+- `ruleId`: ID of a rule in the flag.
 
-#### `removeValuesFromClause`
+#### removeUserTargets
+
+Removes user keys from the individual user targets for the variation that `variationId` specifies. Does nothing if the flag does not target the user keys.
+
+##### Parameters
+
+- `values`: List of user keys.
+- `variationId`: ID of a flag variation.
+
+#### removeValuesFromClause
 
 Removes `values` from the values of the clause indicated by `ruleId` and `clauseId`.
 
 ##### Parameters
 
-`ruleId`: ID of a rule in the flag
-`clauseId`: ID of a clause in that rule
-`values`: Array of strings
+- `ruleId`: ID of a rule in the flag.
+- `clauseId`: ID of a clause in that rule.
+- `values`: Array of strings.
 
-#### `reorderRules`
+#### reorderRules
 
-Rearranges the rules to match the order given in `ruleIds`. Will return an error if `ruleIds` does not match the current set of rules on the flag.
-
-##### Parameters
-
-- `ruleIds`: Array of IDs of all rules in the flag
-
-#### `updateRuleVariationOrRollout`
-
-Updates what the rule indicated by `ruleId` serves if its clauses evaluate to true.
-Can either be a fixed variation indicated by `variationId` or a percent rollout indicated by `rolloutWeights` and `rolloutBucketBy`.
+Rearranges the rules to match the order given in `ruleIds`. Returns an error if `ruleIds` does not match the current set of rules on the flag.
 
 ##### Parameters
 
-- `ruleId`: ID of a rule in the flag
-- `variationId`: ID of a variation of the flag
-  or
-- `rolloutWeights`: Map of variationId to weight in thousandths of a percent (0-100000)
-- `rolloutBucketBy`: Optional user attribute
+- `ruleIds`: Array of IDs of all rules in the flag.
 
-#### `updateFallthroughVariationOrRollout`
+#### replacePrerequisites
 
-Updates the flag's fallthrough, which is served if none of the targeting rules match.
-Can either be a fixed variation indicated by `variationId` or a percent rollout indicated by `rolloutWeights` and `rolloutBucketBy`.
+Removes all existing prerequisites and replaces them with the list you provide.
 
 ##### Parameters
 
-`variationId`: ID of a variation of the flag
+- `prerequisites`: A list of prerequisites. Each item in the list must include a flag `key` and `variationId`.
+
+For example, to replace prerequisites, use this request body:
+
+```json
+{
+  "environmentKey": "example-environment-key",
+  "instructions": [
+    {
+      "kind": "replacePrerequisites",
+      "prerequisites": [
+        {
+          "key": "prereq-flag-key",
+          "variationId": "variation-1"
+        },
+        {
+          "key": "another-prereq-flag-key",
+          "variationId": "variation-2"
+        }
+      ]
+    }
+  ]
+}
+```
+
+#### replaceRules
+
+Removes all targeting rules for the flag and replaces them with the list you provide.
+
+##### Parameters
+
+- `rules`: A list of rules.
+
+For example, to replace rules, use this request body:
+
+```json
+{
+  "environmentKey": "example-environment-key",
+  "instructions": [
+    {
+      "kind": "replaceRules",
+      "rules": [
+        {
+          "variationId": "variation-1",
+          "description": "myRule",
+          "clauses": [
+            {
+              "attribute": "segmentMatch",
+              "op": "segmentMatch",
+              "values": ["test"]
+            }
+          ],
+          "trackEvents": true
+        }
+      ]
+    }
+  ]
+}
+```
+
+#### replaceUserTargets
+
+Removes all existing user targeting and replaces it with the list of targets you provide.
+
+##### Parameters
+
+- `targets`: A list of user targeting. Each item in the list must include a `variationId` and a list of `values`.
+
+For example, to replace user targets, use this request body:
+
+```json
+{
+  "environmentKey": "example-environment-key",
+  "instructions": [
+    {
+      "kind": "replaceUserTargets",
+      "targets": [
+        {
+          "variationId": "variation-1",
+          "values": ["blah", "foo", "bar"]
+        },
+        {
+          "variationId": "variation-2",
+          "values": ["abc", "def"]
+        }
+      ]
+    }    
+  ]
+}
+```
+
+#### updateClause
+
+Replaces the clause indicated by `ruleId` and `clauseId` with `clause`.
+
+##### Parameters
+
+- `ruleId`: ID of a rule in the flag.
+- `clauseId`: ID of a clause in that rule.
+- `clause`: New `clause` object, with `attribute` (string), `op` (string), and `values` (array of strings, numbers, or dates) properties.
+
+#### updateFallthroughVariationOrRollout
+
+Updates the default or "fallthrough" rule for the flag, which the flag serves when a user matches none of the targeting rules. The rule can serve either the variation that `variationId` indicates, or a percent rollout that `rolloutWeights` and `rolloutBucketBy` indicate.
+
+##### Parameters
+
+- `variationId`: ID of a variation of the flag.
 or
-`rolloutWeights`: Map of variationId to weight in thousandths of a percent (0-100000)
-`rolloutBucketBy`: Optional user attribute
+- `rolloutWeights`: Map of `variationId` to weight, in thousandths of a percent (0-100000).
+- `rolloutBucketBy`: Optional user attribute.
 
-#### `updateOffVariation`
+#### updateOffVariation
 
-Updates the variation served when the flag's targeting is off to the variation indicated by `variationId`.
+Updates the default off variation to `variationId`. The flag serves the default off variation when the flag's targeting is **Off**.
 
 ##### Parameters
 
-`variationId`: ID of a variation of the flag
+- `variationId`: ID of a variation of the flag.
+
+#### updatePrerequisite
+
+Changes the prerequisite flag that `key` indicates to use the variation that `variationId` indicates. Returns an error if this prerequisite does not exist.
+
+##### Parameters
+
+- `key`: Flag key of an existing prerequisite flag.
+- `variationId`: ID of a variation of the prerequisite flag.
+
+#### updateRuleDescription
+
+Updates the description of the feature flag rule.
+
+##### Parameters
+
+- `description`: The new human-readable description for this rule.
+- `ruleId`: The ID of the rule. You can retrieve this by making a GET request for the flag.
+
+#### updateRuleTrackEvents
+
+Updates whether or not LaunchDarkly tracks events for the feature flag associated with this rule.
+
+##### Parameters
+
+- `ruleId`: The ID of the rule. You can retrieve this by making a GET request for the flag.
+- `trackEvents`: Whether or not events are tracked.
+
+#### updateRuleVariationOrRollout
+
+Updates what `ruleId` serves when its clauses evaluate to true. The rule can serve either the variation that `variationId` indicates, or a percent rollout that `rolloutWeights` and `rolloutBucketBy` indicate.
+
+##### Parameters
+
+- `ruleId`: ID of a rule in the flag.
+- `variationId`: ID of a variation of the flag.
+
+  or
+
+- `rolloutWeights`: Map of `variationId` to weight, in thousandths of a percent (0-100000).
+- `rolloutBucketBy`: Optional user attribute.
+
+#### updateTrackEvents
+
+Updates whether or not LaunchDarkly tracks events for the feature flag, for all rules.
+
+##### Parameters
+
+- `trackEvents`: Whether or not events are tracked.
+
+#### updateTrackEventsFallthrough
+
+Updates whether or not LaunchDarkly tracks events for the feature flag, for the default rule.
+
+##### Parameters
+
+- `trackEvents`: Whether or not events are tracked.
+
+</details><br />
+
+<details>
+<summary>Click to expand instructions for updating flag settings</summary>
+
+#### addTags
+
+Adds tags to the feature flag.
+
+##### Parameters
+
+- `values`: A list of tags to add.
+
+#### makeFlagPermanent
+
+Marks the feature flag as permanent. LaunchDarkly does not prompt you to remove permanent flags, even if one variation is rolled out to all your users.
+
+#### makeFlagTemporary
+
+Marks the feature flag as temporary.
+
+#### removeMaintainer
+
+Removes the flag's maintainer. To set a new maintainer, use the flag's **Settings** tab in the LaunchDarkly user interface.
+
+#### removeTags
+
+Removes tags from the feature flag.
+
+##### Parameters
+
+- `values`: A list of tags to remove.
+
+#### turnOffClientSideAvailability
+
+Turns off client-side SDK availability for the flag. This is equivalent to unchecking the **SDKs using Mobile Key** and/or **SDKs using client-side ID** boxes for the flag. If you're using a client-side or mobile SDK, you must expose your feature flags in order for the client-side or mobile SDKs to evaluate them.
+
+##### Parameters
+
+- `value`: Use "usingMobileKey" to turn on availability for mobile SDKs. Use "usingEnvironmentId" to turn on availability for client-side SDKs.
+
+#### turnOnClientSideAvailability
+
+Turns on client-side SDK availability for the flag. This is equivalent to unchecking the **SDKs using Mobile Key** and/or **SDKs using client-side ID** boxes for the flag. If you're using a client-side or mobile SDK, you must expose your feature flags in order for the client-side or mobile SDKs to evaluate them.
+
+##### Parameters
+
+- `value`: Use "usingMobileKey" to turn on availability for mobile SDKs. Use "usingEnvironmentId" to turn on availability for client-side SDKs.
+
+#### updateDescription
+
+Updates the feature flag description.
+
+##### Parameters
+
+- `value`: The new description.
+
+#### updateName
+
+Updates the feature flag name.
+
+##### Parameters
+
+- `value`: The new name.
+
+</details><br />
+
+<details>
+<summary>Click to expand instructions for updating the flag lifecycle</summary>
+
+#### archiveFlag
+
+Archives the feature flag. This retires it from LaunchDarkly without deleting it. You cannot archive a flag that is a prerequisite of other flags.
+
+#### deleteFlag
+
+Deletes the feature flag and its rules. You cannot restore a deleted flag. If this flag is requested again, the flag value defined in code will be returned for all users.
+
+#### restoreFlag
+
+Restores the feature flag if it was previously archived.
+
+</details>
 
 ### Example
+
+The body of a single semantic patch can contain many different instructions.
+
+<details>
+<summary>Click to expand example semantic patch request body</summary>
 
 ```json
 {
@@ -2100,9 +2249,10 @@ Updates the variation served when the flag's targeting is off to the variation i
   ]
 }
 ```
+</details>
 
 ## Using JSON Patches on a feature flag
-If you do not include the header described above, you can use [JSON patch](/reference#updates-via-json-patch).
+If you do not include the header described above, you can use [JSON patch](/reference#updates-using-json-patch).
 
 When using the update feature flag endpoint to add individual users to a specific variation, there are two different patch documents, depending on whether users are already being individually targeted for the variation.
 
@@ -2130,18 +2280,18 @@ If a flag variation does not already have users individually targeted, the path 
 
 
 ## Required approvals
-If a request attempts to alter a flag configuration in an environment where approvals are required for the flag, the request will fail with a 405. Changes to the flag configuration in that environment will required creating an [approval request](/tag/Approvals) or a [workflow](/tag/Workflows-(beta)).
+If a request attempts to alter a flag configuration in an environment where approvals are required for the flag, the request will fail with a 405. Changes to the flag configuration in that environment will require creating an [approval request](/tag/Approvals) or a [workflow](/tag/Workflows-(beta)).
 
 ## Conflicts
 If a flag configuration change made through this endpoint would cause a pending scheduled change or approval request to fail, this endpoint will return a 400. You can ignore this check by adding an `ignoreConflicts` query parameter set to `true`.
 
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param projectKey The project key
  @param featureFlagKey The feature flag key. The key identifies the flag in your code.
  @return ApiPatchFeatureFlagRequest
 */
-func (a *FeatureFlagsApiService) PatchFeatureFlag(ctx _context.Context, projectKey string, featureFlagKey string) ApiPatchFeatureFlagRequest {
+func (a *FeatureFlagsApiService) PatchFeatureFlag(ctx context.Context, projectKey string, featureFlagKey string) ApiPatchFeatureFlagRequest {
 	return ApiPatchFeatureFlagRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -2152,28 +2302,26 @@ func (a *FeatureFlagsApiService) PatchFeatureFlag(ctx _context.Context, projectK
 
 // Execute executes the request
 //  @return FeatureFlag
-func (a *FeatureFlagsApiService) PatchFeatureFlagExecute(r ApiPatchFeatureFlagRequest) (FeatureFlag, *_nethttp.Response, error) {
+func (a *FeatureFlagsApiService) PatchFeatureFlagExecute(r ApiPatchFeatureFlagRequest) (*FeatureFlag, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPatch
+		localVarHTTPMethod   = http.MethodPatch
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  FeatureFlag
+		formFiles            []formFile
+		localVarReturnValue  *FeatureFlag
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FeatureFlagsApiService.PatchFeatureFlag")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/v2/flags/{projectKey}/{featureFlagKey}"
-	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", _neturl.PathEscape(parameterToString(r.projectKey, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"featureFlagKey"+"}", _neturl.PathEscape(parameterToString(r.featureFlagKey, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", url.PathEscape(parameterToString(r.projectKey, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"featureFlagKey"+"}", url.PathEscape(parameterToString(r.featureFlagKey, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.patchWithComment == nil {
 		return localVarReturnValue, nil, reportError("patchWithComment is required and must be specified")
 	}
@@ -2211,7 +2359,7 @@ func (a *FeatureFlagsApiService) PatchFeatureFlagExecute(r ApiPatchFeatureFlagRe
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -2221,15 +2369,15 @@ func (a *FeatureFlagsApiService) PatchFeatureFlagExecute(r ApiPatchFeatureFlagRe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -2297,7 +2445,7 @@ func (a *FeatureFlagsApiService) PatchFeatureFlagExecute(r ApiPatchFeatureFlagRe
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -2308,7 +2456,7 @@ func (a *FeatureFlagsApiService) PatchFeatureFlagExecute(r ApiPatchFeatureFlagRe
 }
 
 type ApiPostFeatureFlagRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService *FeatureFlagsApiService
 	projectKey string
 	featureFlagBody *FeatureFlagBody
@@ -2319,26 +2467,27 @@ func (r ApiPostFeatureFlagRequest) FeatureFlagBody(featureFlagBody FeatureFlagBo
 	r.featureFlagBody = &featureFlagBody
 	return r
 }
+
 // The key of the feature flag to be cloned. The key identifies the flag in your code. For example, setting &#x60;clone&#x3D;flagKey&#x60; copies the full targeting configuration for all environments, including &#x60;on/off&#x60; state, from the original flag to the new flag.
 func (r ApiPostFeatureFlagRequest) Clone(clone string) ApiPostFeatureFlagRequest {
 	r.clone = &clone
 	return r
 }
 
-func (r ApiPostFeatureFlagRequest) Execute() (FeatureFlag, *_nethttp.Response, error) {
+func (r ApiPostFeatureFlagRequest) Execute() (*FeatureFlag, *http.Response, error) {
 	return r.ApiService.PostFeatureFlagExecute(r)
 }
 
 /*
 PostFeatureFlag Create a feature flag
 
-Create a feature flag with the given name, key, and variations
+Create a feature flag with the given name, key, and variations.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param projectKey The project key
  @return ApiPostFeatureFlagRequest
 */
-func (a *FeatureFlagsApiService) PostFeatureFlag(ctx _context.Context, projectKey string) ApiPostFeatureFlagRequest {
+func (a *FeatureFlagsApiService) PostFeatureFlag(ctx context.Context, projectKey string) ApiPostFeatureFlagRequest {
 	return ApiPostFeatureFlagRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -2348,27 +2497,25 @@ func (a *FeatureFlagsApiService) PostFeatureFlag(ctx _context.Context, projectKe
 
 // Execute executes the request
 //  @return FeatureFlag
-func (a *FeatureFlagsApiService) PostFeatureFlagExecute(r ApiPostFeatureFlagRequest) (FeatureFlag, *_nethttp.Response, error) {
+func (a *FeatureFlagsApiService) PostFeatureFlagExecute(r ApiPostFeatureFlagRequest) (*FeatureFlag, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  FeatureFlag
+		formFiles            []formFile
+		localVarReturnValue  *FeatureFlag
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FeatureFlagsApiService.PostFeatureFlag")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/v2/flags/{projectKey}"
-	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", _neturl.PathEscape(parameterToString(r.projectKey, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", url.PathEscape(parameterToString(r.projectKey, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.featureFlagBody == nil {
 		return localVarReturnValue, nil, reportError("featureFlagBody is required and must be specified")
 	}
@@ -2409,7 +2556,7 @@ func (a *FeatureFlagsApiService) PostFeatureFlagExecute(r ApiPostFeatureFlagRequ
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -2419,15 +2566,15 @@ func (a *FeatureFlagsApiService) PostFeatureFlagExecute(r ApiPostFeatureFlagRequ
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -2475,7 +2622,7 @@ func (a *FeatureFlagsApiService) PostFeatureFlagExecute(r ApiPostFeatureFlagRequ
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

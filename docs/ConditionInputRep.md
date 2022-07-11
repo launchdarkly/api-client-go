@@ -6,11 +6,12 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ScheduleKind** | Pointer to **string** |  | [optional] 
 **ExecutionDate** | Pointer to **int64** |  | [optional] 
-**WaitDuration** | Pointer to **int32** |  | [optional] 
+**WaitDuration** | Pointer to **int32** | For workflow stages whose scheduled execution is relative, how far in the future the stage should start. | [optional] 
 **WaitDurationUnit** | Pointer to **string** |  | [optional] 
-**ExecuteNow** | Pointer to **bool** |  | [optional] 
+**ExecuteNow** | Pointer to **bool** | Whether the workflow stage should be executed immediately | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
 **NotifyMemberIds** | Pointer to **[]string** |  | [optional] 
+**NotifyTeamKeys** | Pointer to **[]string** |  | [optional] 
 **Kind** | Pointer to **string** |  | [optional] 
 
 ## Methods
@@ -206,6 +207,31 @@ SetNotifyMemberIds sets NotifyMemberIds field to given value.
 `func (o *ConditionInputRep) HasNotifyMemberIds() bool`
 
 HasNotifyMemberIds returns a boolean if a field has been set.
+
+### GetNotifyTeamKeys
+
+`func (o *ConditionInputRep) GetNotifyTeamKeys() []string`
+
+GetNotifyTeamKeys returns the NotifyTeamKeys field if non-nil, zero value otherwise.
+
+### GetNotifyTeamKeysOk
+
+`func (o *ConditionInputRep) GetNotifyTeamKeysOk() (*[]string, bool)`
+
+GetNotifyTeamKeysOk returns a tuple with the NotifyTeamKeys field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNotifyTeamKeys
+
+`func (o *ConditionInputRep) SetNotifyTeamKeys(v []string)`
+
+SetNotifyTeamKeys sets NotifyTeamKeys field to given value.
+
+### HasNotifyTeamKeys
+
+`func (o *ConditionInputRep) HasNotifyTeamKeys() bool`
+
+HasNotifyTeamKeys returns a boolean if a field has been set.
 
 ### GetKind
 

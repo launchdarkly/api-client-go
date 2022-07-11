@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Comment** | Pointer to **string** |  | [optional] 
-**Instructions** | Pointer to **[]interface{}** |  | [optional] 
+**Comment** | Pointer to **string** | Optional comment describing the update | [optional] 
+**Instructions** | **[]map[string]interface{}** |  | 
 
 ## Methods
 
 ### NewExperimentPatchInput
 
-`func NewExperimentPatchInput() *ExperimentPatchInput`
+`func NewExperimentPatchInput(instructions []map[string]interface{}, ) *ExperimentPatchInput`
 
 NewExperimentPatchInput instantiates a new ExperimentPatchInput object
 This constructor will assign default values to properties that have it defined,
@@ -53,28 +53,23 @@ HasComment returns a boolean if a field has been set.
 
 ### GetInstructions
 
-`func (o *ExperimentPatchInput) GetInstructions() []interface{}`
+`func (o *ExperimentPatchInput) GetInstructions() []map[string]interface{}`
 
 GetInstructions returns the Instructions field if non-nil, zero value otherwise.
 
 ### GetInstructionsOk
 
-`func (o *ExperimentPatchInput) GetInstructionsOk() (*[]interface{}, bool)`
+`func (o *ExperimentPatchInput) GetInstructionsOk() (*[]map[string]interface{}, bool)`
 
 GetInstructionsOk returns a tuple with the Instructions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInstructions
 
-`func (o *ExperimentPatchInput) SetInstructions(v []interface{})`
+`func (o *ExperimentPatchInput) SetInstructions(v []map[string]interface{})`
 
 SetInstructions sets Instructions field to given value.
 
-### HasInstructions
-
-`func (o *ExperimentPatchInput) HasInstructions() bool`
-
-HasInstructions returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

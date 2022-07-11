@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Comment** | Pointer to **string** |  | [optional] 
-**Instructions** | Pointer to **[]interface{}** | The action to perform when triggering. It should pass an array with a single {\&quot;kind\&quot;: &lt;flag_action&gt;} object. Currently supported flag actions are \&quot;turnFlagOn\&quot; and \&quot;turnFlagOff\&quot;. | [optional] 
+**Comment** | Pointer to **string** | Optional comment describing the update | [optional] 
+**Instructions** | Pointer to **[]map[string]interface{}** | The instructions to perform when updating. This should be an array with objects that look like &lt;code&gt;{\&quot;kind\&quot;: \&quot;trigger_action\&quot;}&lt;/code&gt;. | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasComment returns a boolean if a field has been set.
 
 ### GetInstructions
 
-`func (o *FlagTriggerInput) GetInstructions() []interface{}`
+`func (o *FlagTriggerInput) GetInstructions() []map[string]interface{}`
 
 GetInstructions returns the Instructions field if non-nil, zero value otherwise.
 
 ### GetInstructionsOk
 
-`func (o *FlagTriggerInput) GetInstructionsOk() (*[]interface{}, bool)`
+`func (o *FlagTriggerInput) GetInstructionsOk() (*[]map[string]interface{}, bool)`
 
 GetInstructionsOk returns a tuple with the Instructions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInstructions
 
-`func (o *FlagTriggerInput) SetInstructions(v []interface{})`
+`func (o *FlagTriggerInput) SetInstructions(v []map[string]interface{})`
 
 SetInstructions sets Instructions field to given value.
 

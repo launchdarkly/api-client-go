@@ -42,8 +42,8 @@ func main() {
     segmentKey := "segmentKey_example" // string | The segment key
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SegmentsApi.DeleteSegment(context.Background(), projectKey, environmentKey, segmentKey).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SegmentsApi.DeleteSegment(context.Background(), projectKey, environmentKey, segmentKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.DeleteSegment``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -116,8 +116,8 @@ func main() {
     segmentKey := "segmentKey_example" // string | The segment key
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SegmentsApi.GetExpiringUserTargetsForSegment(context.Background(), projectKey, environmentKey, segmentKey).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SegmentsApi.GetExpiringUserTargetsForSegment(context.Background(), projectKey, environmentKey, segmentKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.GetExpiringUserTargetsForSegment``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -192,8 +192,8 @@ func main() {
     segmentKey := "segmentKey_example" // string | The segment key
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SegmentsApi.GetSegment(context.Background(), projectKey, environmentKey, segmentKey).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SegmentsApi.GetSegment(context.Background(), projectKey, environmentKey, segmentKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.GetSegment``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -269,8 +269,8 @@ func main() {
     userKey := "userKey_example" // string | The user key
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SegmentsApi.GetSegmentMembershipForUser(context.Background(), projectKey, environmentKey, segmentKey, userKey).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SegmentsApi.GetSegmentMembershipForUser(context.Background(), projectKey, environmentKey, segmentKey, userKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.GetSegmentMembershipForUser``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -346,8 +346,8 @@ func main() {
     environmentKey := "environmentKey_example" // string | The environment key
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SegmentsApi.GetSegments(context.Background(), projectKey, environmentKey).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SegmentsApi.GetSegments(context.Background(), projectKey, environmentKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.GetSegments``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -418,11 +418,11 @@ func main() {
     projectKey := "projectKey_example" // string | The project key
     environmentKey := "environmentKey_example" // string | The environment key
     segmentKey := "segmentKey_example" // string | The segment key
-    patchSegmentRequest := *openapiclient.NewPatchSegmentRequest([]openapiclient.PatchSegmentInstruction{*openapiclient.NewPatchSegmentInstruction("Kind_example", "UserKey_example", "TargetType_example")}) // PatchSegmentRequest | 
+    patchSegmentRequest := *openapiclient.NewPatchSegmentRequest([]openapiclient.PatchSegmentInstruction{*openapiclient.NewPatchSegmentInstruction("addExpireUserTargetDate", "UserKey_example", "TargetType_example")}) // PatchSegmentRequest | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SegmentsApi.PatchExpiringUserTargetsForSegment(context.Background(), projectKey, environmentKey, segmentKey).PatchSegmentRequest(patchSegmentRequest).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SegmentsApi.PatchExpiringUserTargetsForSegment(context.Background(), projectKey, environmentKey, segmentKey).PatchSegmentRequest(patchSegmentRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.PatchExpiringUserTargetsForSegment``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -499,8 +499,8 @@ func main() {
     patchWithComment := *openapiclient.NewPatchWithComment([]openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField", interface{}(new example value))}) // PatchWithComment | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SegmentsApi.PatchSegment(context.Background(), projectKey, environmentKey, segmentKey).PatchWithComment(patchWithComment).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SegmentsApi.PatchSegment(context.Background(), projectKey, environmentKey, segmentKey).PatchWithComment(patchWithComment).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.PatchSegment``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -573,11 +573,11 @@ import (
 func main() {
     projectKey := "projectKey_example" // string | The project key
     environmentKey := "environmentKey_example" // string | The environment key
-    segmentBody := *openapiclient.NewSegmentBody("Name_example", "Key_example") // SegmentBody | 
+    segmentBody := *openapiclient.NewSegmentBody("Example segment", "example-segment") // SegmentBody | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SegmentsApi.PostSegment(context.Background(), projectKey, environmentKey).SegmentBody(segmentBody).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SegmentsApi.PostSegment(context.Background(), projectKey, environmentKey).SegmentBody(segmentBody).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.PostSegment``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -652,8 +652,8 @@ func main() {
     segmentUserState := *openapiclient.NewSegmentUserState() // SegmentUserState | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SegmentsApi.UpdateBigSegmentTargets(context.Background(), projectKey, environmentKey, segmentKey).SegmentUserState(segmentUserState).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SegmentsApi.UpdateBigSegmentTargets(context.Background(), projectKey, environmentKey, segmentKey).SegmentUserState(segmentUserState).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.UpdateBigSegmentTargets``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

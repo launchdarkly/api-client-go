@@ -41,8 +41,8 @@ func main() {
     integrationDeliveryConfigurationPost := *openapiclient.NewIntegrationDeliveryConfigurationPost(map[string]interface{}{"key": interface{}(123)}) // IntegrationDeliveryConfigurationPost | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.IntegrationDeliveryConfigurationsBetaApi.CreateIntegrationDeliveryConfiguration(context.Background(), projectKey, environmentKey, integrationKey).IntegrationDeliveryConfigurationPost(integrationDeliveryConfigurationPost).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.IntegrationDeliveryConfigurationsBetaApi.CreateIntegrationDeliveryConfiguration(context.Background(), projectKey, environmentKey, integrationKey).IntegrationDeliveryConfigurationPost(integrationDeliveryConfigurationPost).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `IntegrationDeliveryConfigurationsBetaApi.CreateIntegrationDeliveryConfiguration``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -119,8 +119,8 @@ func main() {
     id := "id_example" // string | The configuration ID
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.IntegrationDeliveryConfigurationsBetaApi.DeleteIntegrationDeliveryConfiguration(context.Background(), projectKey, environmentKey, integrationKey, id).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.IntegrationDeliveryConfigurationsBetaApi.DeleteIntegrationDeliveryConfiguration(context.Background(), projectKey, environmentKey, integrationKey, id).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `IntegrationDeliveryConfigurationsBetaApi.DeleteIntegrationDeliveryConfiguration``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -194,8 +194,8 @@ func main() {
     environmentKey := "environmentKey_example" // string | The environment key
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.IntegrationDeliveryConfigurationsBetaApi.GetIntegrationDeliveryConfigurationByEnvironment(context.Background(), projectKey, environmentKey).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.IntegrationDeliveryConfigurationsBetaApi.GetIntegrationDeliveryConfigurationByEnvironment(context.Background(), projectKey, environmentKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `IntegrationDeliveryConfigurationsBetaApi.GetIntegrationDeliveryConfigurationByEnvironment``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -269,8 +269,8 @@ func main() {
     id := "id_example" // string | The configuration ID
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.IntegrationDeliveryConfigurationsBetaApi.GetIntegrationDeliveryConfigurationById(context.Background(), projectKey, environmentKey, integrationKey, id).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.IntegrationDeliveryConfigurationsBetaApi.GetIntegrationDeliveryConfigurationById(context.Background(), projectKey, environmentKey, integrationKey, id).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `IntegrationDeliveryConfigurationsBetaApi.GetIntegrationDeliveryConfigurationById``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -344,8 +344,8 @@ import (
 func main() {
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.IntegrationDeliveryConfigurationsBetaApi.GetIntegrationDeliveryConfigurations(context.Background()).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.IntegrationDeliveryConfigurationsBetaApi.GetIntegrationDeliveryConfigurations(context.Background()).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `IntegrationDeliveryConfigurationsBetaApi.GetIntegrationDeliveryConfigurations``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -410,8 +410,8 @@ func main() {
     patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField", interface{}(new example value))} // []PatchOperation | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.IntegrationDeliveryConfigurationsBetaApi.PatchIntegrationDeliveryConfiguration(context.Background(), projectKey, environmentKey, integrationKey, id).PatchOperation(patchOperation).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.IntegrationDeliveryConfigurationsBetaApi.PatchIntegrationDeliveryConfiguration(context.Background(), projectKey, environmentKey, integrationKey, id).PatchOperation(patchOperation).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `IntegrationDeliveryConfigurationsBetaApi.PatchIntegrationDeliveryConfiguration``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -490,8 +490,8 @@ func main() {
     id := "id_example" // string | The configuration ID
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.IntegrationDeliveryConfigurationsBetaApi.ValidateIntegrationDeliveryConfiguration(context.Background(), projectKey, environmentKey, integrationKey, id).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.IntegrationDeliveryConfigurationsBetaApi.ValidateIntegrationDeliveryConfiguration(context.Background(), projectKey, environmentKey, integrationKey, id).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `IntegrationDeliveryConfigurationsBetaApi.ValidateIntegrationDeliveryConfiguration``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

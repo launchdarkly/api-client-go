@@ -37,8 +37,8 @@ func main() {
     spec := "spec_example" // string | A resource specifier that lets you filter audit log listings by resource (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AuditLogApi.GetAuditLogEntries(context.Background()).Before(before).After(after).Q(q).Limit(limit).Spec(spec).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AuditLogApi.GetAuditLogEntries(context.Background()).Before(before).After(after).Q(q).Limit(limit).Spec(spec).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AuditLogApi.GetAuditLogEntries``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -107,8 +107,8 @@ func main() {
     id := "id_example" // string | The ID of the audit log entry
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AuditLogApi.GetAuditLogEntry(context.Background(), id).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AuditLogApi.GetAuditLogEntry(context.Background(), id).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AuditLogApi.GetAuditLogEntry``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

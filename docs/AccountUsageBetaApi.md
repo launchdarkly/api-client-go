@@ -44,8 +44,8 @@ func main() {
     tz := "tz_example" // string | The timezone to use for breaks between days when returning daily data. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AccountUsageBetaApi.GetEvaluationsUsage(context.Background(), projectKey, environmentKey, featureFlagKey).From(from).To(to).Tz(tz).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AccountUsageBetaApi.GetEvaluationsUsage(context.Background(), projectKey, environmentKey, featureFlagKey).From(from).To(to).Tz(tz).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AccountUsageBetaApi.GetEvaluationsUsage``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -123,8 +123,8 @@ func main() {
     to := "to_example" // string | The series of data returned ends at this timestamp. Defaults to the current time. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AccountUsageBetaApi.GetEventsUsage(context.Background(), type_).From(from).To(to).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AccountUsageBetaApi.GetEventsUsage(context.Background(), type_).From(from).To(to).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AccountUsageBetaApi.GetEventsUsage``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -197,8 +197,8 @@ func main() {
     sdktype := "sdktype_example" // string | The type of SDK with monthly active users (MAU) to list. Must be either `client` or `server` (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AccountUsageBetaApi.GetMauSdksByType(context.Background()).From(from).To(to).Sdktype(sdktype).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AccountUsageBetaApi.GetMauSdksByType(context.Background()).From(from).To(to).Sdktype(sdktype).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AccountUsageBetaApi.GetMauSdksByType``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -272,8 +272,8 @@ func main() {
     groupby := "groupby_example" // string | If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions (for example, to group by both project and SDK). Valid values: project, environment, sdktype, sdk, anonymous (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AccountUsageBetaApi.GetMauUsage(context.Background()).From(from).To(to).Project(project).Environment(environment).Sdktype(sdktype).Sdk(sdk).Anonymous(anonymous).Groupby(groupby).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AccountUsageBetaApi.GetMauUsage(context.Background()).From(from).To(to).Project(project).Environment(environment).Sdktype(sdktype).Sdk(sdk).Anonymous(anonymous).Groupby(groupby).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AccountUsageBetaApi.GetMauUsage``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -346,8 +346,8 @@ func main() {
     to := "to_example" // string | The series of data returned ends at this timestamp. Defaults to the current time. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AccountUsageBetaApi.GetMauUsageByCategory(context.Background()).From(from).To(to).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AccountUsageBetaApi.GetMauUsageByCategory(context.Background()).From(from).To(to).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AccountUsageBetaApi.GetMauUsageByCategory``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -416,8 +416,8 @@ func main() {
     tz := "tz_example" // string | The timezone to use for breaks between days when returning daily data. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AccountUsageBetaApi.GetStreamUsage(context.Background(), source).From(from).To(to).Tz(tz).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AccountUsageBetaApi.GetStreamUsage(context.Background(), source).From(from).To(to).Tz(tz).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AccountUsageBetaApi.GetStreamUsage``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -494,8 +494,8 @@ func main() {
     version := "version_example" // string | If included, this filters the returned series to only those that match this SDK version. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AccountUsageBetaApi.GetStreamUsageBySdkVersion(context.Background(), source).From(from).To(to).Tz(tz).Sdk(sdk).Version(version).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AccountUsageBetaApi.GetStreamUsageBySdkVersion(context.Background(), source).From(from).To(to).Tz(tz).Sdk(sdk).Version(version).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AccountUsageBetaApi.GetStreamUsageBySdkVersion``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -569,8 +569,8 @@ func main() {
     source := "source_example" // string | The source of streaming connections to describe. Must be either `client` or `server`.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AccountUsageBetaApi.GetStreamUsageSdkversion(context.Background(), source).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AccountUsageBetaApi.GetStreamUsageSdkversion(context.Background(), source).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AccountUsageBetaApi.GetStreamUsageSdkversion``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

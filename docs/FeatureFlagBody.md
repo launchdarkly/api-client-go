@@ -5,13 +5,12 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | A human-friendly name for the feature flag | 
-**Key** | **string** | A unique key to reference the flag in your code | 
+**Key** | **string** | A unique key used to reference the flag in your code | 
 **Description** | Pointer to **string** | Description of the feature flag | [optional] 
-**IncludeInSnippet** | Pointer to **bool** | Deprecated, use clientSideAvailability. Whether or not this flag should be made available to the client-side JavaScript SDK | [optional] 
+**IncludeInSnippet** | Pointer to **bool** | Deprecated, use &lt;code&gt;clientSideAvailability&lt;/code&gt;. Whether this flag should be made available to the client-side JavaScript SDK. | [optional] 
 **ClientSideAvailability** | Pointer to [**ClientSideAvailabilityPost**](ClientSideAvailabilityPost.md) |  | [optional] 
 **Variations** | Pointer to [**[]Variation**](Variation.md) | An array of possible variations for the flag. The variation values must be unique. | [optional] 
-**VariationJsonSchema** | Pointer to **interface{}** |  | [optional] 
-**Temporary** | Pointer to **bool** | Whether or not the flag is a temporary flag | [optional] 
+**Temporary** | Pointer to **bool** | Whether the flag is a temporary flag. Defaults to true. | [optional] 
 **Tags** | Pointer to **[]string** | Tags for the feature flag | [optional] 
 **CustomProperties** | Pointer to [**map[string]CustomProperty**](CustomProperty.md) |  | [optional] 
 **Defaults** | Pointer to [**Defaults**](Defaults.md) |  | [optional] 
@@ -175,41 +174,6 @@ SetVariations sets Variations field to given value.
 
 HasVariations returns a boolean if a field has been set.
 
-### GetVariationJsonSchema
-
-`func (o *FeatureFlagBody) GetVariationJsonSchema() interface{}`
-
-GetVariationJsonSchema returns the VariationJsonSchema field if non-nil, zero value otherwise.
-
-### GetVariationJsonSchemaOk
-
-`func (o *FeatureFlagBody) GetVariationJsonSchemaOk() (*interface{}, bool)`
-
-GetVariationJsonSchemaOk returns a tuple with the VariationJsonSchema field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetVariationJsonSchema
-
-`func (o *FeatureFlagBody) SetVariationJsonSchema(v interface{})`
-
-SetVariationJsonSchema sets VariationJsonSchema field to given value.
-
-### HasVariationJsonSchema
-
-`func (o *FeatureFlagBody) HasVariationJsonSchema() bool`
-
-HasVariationJsonSchema returns a boolean if a field has been set.
-
-### SetVariationJsonSchemaNil
-
-`func (o *FeatureFlagBody) SetVariationJsonSchemaNil(b bool)`
-
- SetVariationJsonSchemaNil sets the value for VariationJsonSchema to be an explicit nil
-
-### UnsetVariationJsonSchema
-`func (o *FeatureFlagBody) UnsetVariationJsonSchema()`
-
-UnsetVariationJsonSchema ensures that no value is present for VariationJsonSchema, not even an explicit nil
 ### GetTemporary
 
 `func (o *FeatureFlagBody) GetTemporary() bool`

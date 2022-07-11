@@ -7,10 +7,10 @@ Name | Type | Description | Notes
 **Name** | **string** | A human-friendly name for your audit log subscription. | 
 **Statements** | Pointer to [**[]StatementPost**](StatementPost.md) |  | [optional] 
 **On** | Pointer to **bool** | Whether or not you want your subscription to actively send events. | [optional] 
-**Tags** | Pointer to **[]string** |  | [optional] 
-**Config** | **map[string]interface{}** | The unique set of fields required to configure an audit log subscription integration of this type. Refer to the \&quot;formVariables\&quot; field in the corresponding manifest.json  at https://github.com/launchdarkly/integration-framework/tree/master/integrations for a full list of fields for the integration you wish to configure. | 
+**Tags** | Pointer to **[]string** | An array of tags for this subscription. | [optional] 
+**Config** | **map[string]interface{}** | The unique set of fields required to configure an audit log subscription integration of this type. Refer to the &lt;code&gt;formVariables&lt;/code&gt; field in the corresponding &lt;code&gt;manifest.json&lt;/code&gt; at https://github.com/launchdarkly/integration-framework/tree/main/integrations for a full list of fields for the integration you wish to configure. | 
 **Url** | Pointer to **string** | Slack webhook receiver URL. Only necessary for legacy Slack webhook integrations. | [optional] 
-**ApiKey** | Pointer to **string** | Datadog API key. Only necessary for legacy Datadog webhook subscriptions. | [optional] 
+**ApiKey** | Pointer to **string** | Datadog API key. Only necessary for legacy Datadog webhook integrations. | [optional] 
 
 ## Methods
 

@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** |  | 
-**SourceLink** | **string** |  | 
-**DefaultBranch** | **string** |  | 
-**Enabled** | **bool** |  | 
-**Version** | **int32** |  | 
-**HunkCount** | **int32** |  | 
-**FileCount** | **int32** |  | 
-**Links** | [**map[string]Link**](Link.md) |  | 
+**Name** | **string** | The repository name | 
+**SourceLink** | **string** | A URL to access the repository | 
+**DefaultBranch** | **string** | The repository&#39;s default branch | 
+**Enabled** | **bool** | Whether or not a repository is enabled for code reference scanning | 
+**Version** | **int32** | The version of the repository&#39;s saved information | 
+**HunkCount** | **int32** | The number of code reference hunks in which the flag appears in this repository | 
+**FileCount** | **int32** | The number of files in which the flag appears in this repository | 
+**Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
 
 ## Methods
 

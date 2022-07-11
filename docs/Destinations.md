@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Links** | Pointer to [**map[string]Link**](Link.md) |  | [optional] 
-**Items** | Pointer to [**[]Destination**](Destination.md) |  | [optional] 
+**Links** | Pointer to [**map[string]Link**](Link.md) | Links to other resources within the API. Includes the URL and content type of those resources. | [optional] 
+**Items** | Pointer to [**[]Destination**](Destination.md) | An array of Data Export destinations | [optional] 
 
 ## Methods
 

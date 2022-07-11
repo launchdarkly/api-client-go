@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **CreationDate** | **int64** |  | 
 **LastModified** | **int64** |  | 
 **CustomRoleIds** | Pointer to **[]string** |  | [optional] 
-**InlineRole** | Pointer to [**[]StatementRep**](StatementRep.md) |  | [optional] 
+**InlineRole** | Pointer to [**[]Statement**](Statement.md) |  | [optional] 
 **Role** | Pointer to **string** |  | [optional] 
 **Token** | Pointer to **string** |  | [optional] 
 **ServiceToken** | Pointer to **bool** |  | [optional] 
@@ -242,20 +242,20 @@ HasCustomRoleIds returns a boolean if a field has been set.
 
 ### GetInlineRole
 
-`func (o *Token) GetInlineRole() []StatementRep`
+`func (o *Token) GetInlineRole() []Statement`
 
 GetInlineRole returns the InlineRole field if non-nil, zero value otherwise.
 
 ### GetInlineRoleOk
 
-`func (o *Token) GetInlineRoleOk() (*[]StatementRep, bool)`
+`func (o *Token) GetInlineRoleOk() (*[]Statement, bool)`
 
 GetInlineRoleOk returns a tuple with the InlineRole field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInlineRole
 
-`func (o *Token) SetInlineRole(v []StatementRep)`
+`func (o *Token) SetInlineRole(v []Statement)`
 
 SetInlineRole sets InlineRole field to given value.
 

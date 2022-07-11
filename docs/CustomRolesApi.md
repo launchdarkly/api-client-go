@@ -36,8 +36,8 @@ func main() {
     customRoleKey := "customRoleKey_example" // string | The custom role key
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CustomRolesApi.DeleteCustomRole(context.Background(), customRoleKey).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CustomRolesApi.DeleteCustomRole(context.Background(), customRoleKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CustomRolesApi.DeleteCustomRole``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -104,8 +104,8 @@ func main() {
     customRoleKey := "customRoleKey_example" // string | The custom role key or ID
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CustomRolesApi.GetCustomRole(context.Background(), customRoleKey).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CustomRolesApi.GetCustomRole(context.Background(), customRoleKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CustomRolesApi.GetCustomRole``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -173,8 +173,8 @@ import (
 func main() {
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CustomRolesApi.GetCustomRoles(context.Background()).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CustomRolesApi.GetCustomRoles(context.Background()).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CustomRolesApi.GetCustomRoles``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -236,8 +236,8 @@ func main() {
     patchWithComment := *openapiclient.NewPatchWithComment([]openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField", interface{}(new example value))}) // PatchWithComment | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CustomRolesApi.PatchCustomRole(context.Background(), customRoleKey).PatchWithComment(patchWithComment).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CustomRolesApi.PatchCustomRole(context.Background(), customRoleKey).PatchWithComment(patchWithComment).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CustomRolesApi.PatchCustomRole``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -304,11 +304,11 @@ import (
 )
 
 func main() {
-    customRolePost := *openapiclient.NewCustomRolePost("Name_example", "Key_example", []openapiclient.StatementPost{*openapiclient.NewStatementPost("Effect_example")}) // CustomRolePost | 
+    customRolePost := *openapiclient.NewCustomRolePost("Ops team", "ops-team", []openapiclient.StatementPost{*openapiclient.NewStatementPost("Effect_example")}) // CustomRolePost | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CustomRolesApi.PostCustomRole(context.Background()).CustomRolePost(customRolePost).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CustomRolesApi.PostCustomRole(context.Background()).CustomRolePost(customRolePost).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CustomRolesApi.PostCustomRole``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

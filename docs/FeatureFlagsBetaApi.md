@@ -34,8 +34,8 @@ func main() {
     featureFlagKey := "featureFlagKey_example" // string | The feature flag key
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.FeatureFlagsBetaApi.GetDependentFlags(context.Background(), projectKey, featureFlagKey).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.FeatureFlagsBetaApi.GetDependentFlags(context.Background(), projectKey, featureFlagKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsBetaApi.GetDependentFlags``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -108,8 +108,8 @@ func main() {
     featureFlagKey := "featureFlagKey_example" // string | The feature flag key
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.FeatureFlagsBetaApi.GetDependentFlagsByEnv(context.Background(), projectKey, environmentKey, featureFlagKey).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.FeatureFlagsBetaApi.GetDependentFlagsByEnv(context.Background(), projectKey, environmentKey, featureFlagKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsBetaApi.GetDependentFlagsByEnv``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

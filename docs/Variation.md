@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** |  | [optional] 
-**Value** | **interface{}** |  | 
+**Value** | **interface{}** | The value of the variation. For boolean flags, this must be &lt;code&gt;true&lt;/code&gt; or &lt;code&gt;false&lt;/code&gt;. For multivariate flags, this may be a string, number, or JSON object. | 
 **Description** | Pointer to **string** | Description of the variation | [optional] 
 **Name** | Pointer to **string** | A human-friendly name for the variation | [optional] 
 

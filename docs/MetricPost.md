@@ -4,18 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Key** | **string** |  | 
-**Name** | Pointer to **string** |  | [optional] 
-**Description** | Pointer to **string** |  | [optional] 
-**Kind** | **string** |  | 
-**Selector** | Pointer to **string** | Required for click metrics | [optional] 
-**Urls** | Pointer to [**[]UrlPost**](UrlPost.md) | Required for click and pageview metrics | [optional] 
-**IsActive** | Pointer to **bool** |  | [optional] 
-**IsNumeric** | Pointer to **bool** |  | [optional] 
-**Unit** | Pointer to **string** |  | [optional] 
-**EventKey** | Pointer to **string** | Required for custom metrics | [optional] 
-**SuccessCriteria** | Pointer to **string** |  | [optional] 
-**Tags** | Pointer to **[]string** |  | [optional] 
+**Key** | **string** | A unique key to reference the metric | 
+**Name** | Pointer to **string** | A human-friendly name for the metric | [optional] 
+**Description** | Pointer to **string** | Description of the metric | [optional] 
+**Kind** | **string** | The kind of event your metric will track | 
+**Selector** | Pointer to **string** | One or more CSS selectors. Required for click metrics. | [optional] 
+**Urls** | Pointer to [**[]UrlPost**](UrlPost.md) | One or more target URLs. Required for click and pageview metrics. | [optional] 
+**IsActive** | Pointer to **bool** | Whether to track a conversion when users take an action. Required for custom metrics. Either &lt;code&gt;isActive&lt;/code&gt; or &lt;code&gt;isNumeric&lt;/code&gt; may be true, but not both. | [optional] 
+**IsNumeric** | Pointer to **bool** | Whether to track numeric changes in value against a baseline. Required for custom metrics. Either &lt;code&gt;isActive&lt;/code&gt; or &lt;code&gt;isNumeric&lt;/code&gt; may be true, but not both. | [optional] 
+**Unit** | Pointer to **string** | The unit of measure. Only for numeric custom metrics. | [optional] 
+**EventKey** | Pointer to **string** | The event name to use in your code. Required for custom metrics. | [optional] 
+**SuccessCriteria** | Pointer to **string** | Success criteria. Required for numeric custom metrics. | [optional] 
+**Tags** | Pointer to **[]string** | Tags for the metric | [optional] 
 
 ## Methods
 

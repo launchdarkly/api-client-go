@@ -34,11 +34,11 @@ import (
 
 func main() {
     integrationKey := "integrationKey_example" // string | The integration key
-    subscriptionPost := *openapiclient.NewSubscriptionPost("Name_example", map[string]interface{}{"key": interface{}(123)}) // SubscriptionPost | 
+    subscriptionPost := *openapiclient.NewSubscriptionPost("Example audit log subscription.", map[string]interface{}{"key": interface{}(123)}) // SubscriptionPost | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.IntegrationAuditLogSubscriptionsApi.CreateSubscription(context.Background(), integrationKey).SubscriptionPost(subscriptionPost).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.IntegrationAuditLogSubscriptionsApi.CreateSubscription(context.Background(), integrationKey).SubscriptionPost(subscriptionPost).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `IntegrationAuditLogSubscriptionsApi.CreateSubscription``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -109,8 +109,8 @@ func main() {
     id := "id_example" // string | The subscription ID
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.IntegrationAuditLogSubscriptionsApi.DeleteSubscription(context.Background(), integrationKey, id).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.IntegrationAuditLogSubscriptionsApi.DeleteSubscription(context.Background(), integrationKey, id).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `IntegrationAuditLogSubscriptionsApi.DeleteSubscription``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -180,8 +180,8 @@ func main() {
     id := "id_example" // string | The subscription ID
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.IntegrationAuditLogSubscriptionsApi.GetSubscriptionByID(context.Background(), integrationKey, id).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.IntegrationAuditLogSubscriptionsApi.GetSubscriptionByID(context.Background(), integrationKey, id).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `IntegrationAuditLogSubscriptionsApi.GetSubscriptionByID``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -252,8 +252,8 @@ func main() {
     integrationKey := "integrationKey_example" // string | The integration key
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.IntegrationAuditLogSubscriptionsApi.GetSubscriptions(context.Background(), integrationKey).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.IntegrationAuditLogSubscriptionsApi.GetSubscriptions(context.Background(), integrationKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `IntegrationAuditLogSubscriptionsApi.GetSubscriptions``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -324,8 +324,8 @@ func main() {
     patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField", interface{}(new example value))} // []PatchOperation | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.IntegrationAuditLogSubscriptionsApi.UpdateSubscription(context.Background(), integrationKey, id).PatchOperation(patchOperation).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.IntegrationAuditLogSubscriptionsApi.UpdateSubscription(context.Background(), integrationKey, id).PatchOperation(patchOperation).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `IntegrationAuditLogSubscriptionsApi.UpdateSubscription``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

@@ -37,8 +37,8 @@ func main() {
     id := "id_example" // string | The relay auto config id
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.RelayProxyConfigurationsApi.DeleteRelayAutoConfig(context.Background(), id).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RelayProxyConfigurationsApi.DeleteRelayAutoConfig(context.Background(), id).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `RelayProxyConfigurationsApi.DeleteRelayAutoConfig``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -105,8 +105,8 @@ func main() {
     id := "id_example" // string | The relay auto config id
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.RelayProxyConfigurationsApi.GetRelayProxyConfig(context.Background(), id).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RelayProxyConfigurationsApi.GetRelayProxyConfig(context.Background(), id).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `RelayProxyConfigurationsApi.GetRelayProxyConfig``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -174,8 +174,8 @@ import (
 func main() {
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.RelayProxyConfigurationsApi.GetRelayProxyConfigs(context.Background()).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RelayProxyConfigurationsApi.GetRelayProxyConfigs(context.Background()).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `RelayProxyConfigurationsApi.GetRelayProxyConfigs``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -237,8 +237,8 @@ func main() {
     patchWithComment := *openapiclient.NewPatchWithComment([]openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField", interface{}(new example value))}) // PatchWithComment | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.RelayProxyConfigurationsApi.PatchRelayAutoConfig(context.Background(), id).PatchWithComment(patchWithComment).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RelayProxyConfigurationsApi.PatchRelayAutoConfig(context.Background(), id).PatchWithComment(patchWithComment).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `RelayProxyConfigurationsApi.PatchRelayAutoConfig``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -305,11 +305,11 @@ import (
 )
 
 func main() {
-    relayAutoConfigPost := *openapiclient.NewRelayAutoConfigPost("Name_example", []openapiclient.StatementRep{*openapiclient.NewStatementRep("Effect_example")}) // RelayAutoConfigPost | 
+    relayAutoConfigPost := *openapiclient.NewRelayAutoConfigPost("Name_example", []openapiclient.Statement{*openapiclient.NewStatement("Effect_example")}) // RelayAutoConfigPost | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.RelayProxyConfigurationsApi.PostRelayAutoConfig(context.Background()).RelayAutoConfigPost(relayAutoConfigPost).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RelayProxyConfigurationsApi.PostRelayAutoConfig(context.Background()).RelayAutoConfigPost(relayAutoConfigPost).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `RelayProxyConfigurationsApi.PostRelayAutoConfig``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -375,8 +375,8 @@ func main() {
     expiry := int64(789) // int64 | An expiration time for the old Relay Proxy configuration key, expressed as a Unix epoch time in milliseconds. By default, the Relay Proxy configuration will expire immediately. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.RelayProxyConfigurationsApi.ResetRelayAutoConfig(context.Background(), id).Expiry(expiry).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RelayProxyConfigurationsApi.ResetRelayAutoConfig(context.Background(), id).Expiry(expiry).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `RelayProxyConfigurationsApi.ResetRelayAutoConfig``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Links** | Pointer to [**map[string]Link**](Link.md) |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
-**Resource** | Pointer to **interface{}** |  | [optional] 
+**Resource** | Pointer to **map[string]interface{}** |  | [optional] 
 
 ## Methods
 
@@ -79,20 +79,20 @@ HasName returns a boolean if a field has been set.
 
 ### GetResource
 
-`func (o *ParentResourceRep) GetResource() interface{}`
+`func (o *ParentResourceRep) GetResource() map[string]interface{}`
 
 GetResource returns the Resource field if non-nil, zero value otherwise.
 
 ### GetResourceOk
 
-`func (o *ParentResourceRep) GetResourceOk() (*interface{}, bool)`
+`func (o *ParentResourceRep) GetResourceOk() (*map[string]interface{}, bool)`
 
 GetResourceOk returns a tuple with the Resource field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetResource
 
-`func (o *ParentResourceRep) SetResource(v interface{})`
+`func (o *ParentResourceRep) SetResource(v map[string]interface{})`
 
 SetResource sets Resource field to given value.
 
@@ -102,16 +102,6 @@ SetResource sets Resource field to given value.
 
 HasResource returns a boolean if a field has been set.
 
-### SetResourceNil
-
-`func (o *ParentResourceRep) SetResourceNil(b bool)`
-
- SetResourceNil sets the value for Resource to be an explicit nil
-
-### UnsetResource
-`func (o *ParentResourceRep) UnsetResource()`
-
-UnsetResource ensures that no value is present for Resource, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

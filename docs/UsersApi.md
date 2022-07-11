@@ -37,8 +37,8 @@ func main() {
     userKey := "userKey_example" // string | The user key
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.UsersApi.DeleteUser(context.Background(), projectKey, environmentKey, userKey).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UsersApi.DeleteUser(context.Background(), projectKey, environmentKey, userKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UsersApi.DeleteUser``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -117,8 +117,8 @@ func main() {
     filter := "filter_example" // string | A comma-separated list of user attribute filters. Each filter is in the form of attributeKey:attributeValue (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.UsersApi.GetSearchUsers(context.Background(), projectKey, environmentKey).Q(q).Limit(limit).Offset(offset).After(after).Sort(sort).SearchAfter(searchAfter).Filter(filter).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UsersApi.GetSearchUsers(context.Background(), projectKey, environmentKey).Q(q).Limit(limit).Offset(offset).After(after).Sort(sort).SearchAfter(searchAfter).Filter(filter).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UsersApi.GetSearchUsers``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -198,8 +198,8 @@ func main() {
     userKey := "userKey_example" // string | The user key
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.UsersApi.GetUser(context.Background(), projectKey, environmentKey, userKey).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UsersApi.GetUser(context.Background(), projectKey, environmentKey, userKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UsersApi.GetUser``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -275,8 +275,8 @@ func main() {
     searchAfter := "searchAfter_example" // string | Limits results to users with sort values after the value you specify. You can use this for pagination, but we recommend using the `next` link we provide instead. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.UsersApi.GetUsers(context.Background(), projectKey, environmentKey).Limit(limit).SearchAfter(searchAfter).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UsersApi.GetUsers(context.Background(), projectKey, environmentKey).Limit(limit).SearchAfter(searchAfter).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UsersApi.GetUsers``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

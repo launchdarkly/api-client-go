@@ -33,8 +33,8 @@ func main() {
     environmentKey := "environmentKey_example" // string | The environment key
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.UsersBetaApi.GetUserAttributeNames(context.Background(), projectKey, environmentKey).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UsersBetaApi.GetUserAttributeNames(context.Background(), projectKey, environmentKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UsersBetaApi.GetUserAttributeNames``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

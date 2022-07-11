@@ -6,18 +6,18 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** |  | 
 **CreationDate** | **int64** |  | 
-**MaintainerId** | **string** |  | 
-**Version** | **int32** |  | 
+**MaintainerId** | **string** | The ID of the scheduled change maintainer | 
+**Version** | **int32** | Version of the scheduled change | 
 **ExecutionDate** | **int64** |  | 
-**Instructions** | **[]interface{}** |  | 
-**Conflicts** | Pointer to **interface{}** |  | [optional] 
-**Links** | Pointer to [**map[string]Link**](Link.md) |  | [optional] 
+**Instructions** | **[]map[string]interface{}** |  | 
+**Conflicts** | Pointer to **interface{}** | Details on any conflicting scheduled changes | [optional] 
+**Links** | Pointer to [**map[string]Link**](Link.md) | Links to other resources within the API. Includes the URL and content type of those resources. | [optional] 
 
 ## Methods
 
 ### NewFeatureFlagScheduledChange
 
-`func NewFeatureFlagScheduledChange(id string, creationDate int64, maintainerId string, version int32, executionDate int64, instructions []interface{}, ) *FeatureFlagScheduledChange`
+`func NewFeatureFlagScheduledChange(id string, creationDate int64, maintainerId string, version int32, executionDate int64, instructions []map[string]interface{}, ) *FeatureFlagScheduledChange`
 
 NewFeatureFlagScheduledChange instantiates a new FeatureFlagScheduledChange object
 This constructor will assign default values to properties that have it defined,
@@ -134,20 +134,20 @@ SetExecutionDate sets ExecutionDate field to given value.
 
 ### GetInstructions
 
-`func (o *FeatureFlagScheduledChange) GetInstructions() []interface{}`
+`func (o *FeatureFlagScheduledChange) GetInstructions() []map[string]interface{}`
 
 GetInstructions returns the Instructions field if non-nil, zero value otherwise.
 
 ### GetInstructionsOk
 
-`func (o *FeatureFlagScheduledChange) GetInstructionsOk() (*[]interface{}, bool)`
+`func (o *FeatureFlagScheduledChange) GetInstructionsOk() (*[]map[string]interface{}, bool)`
 
 GetInstructionsOk returns a tuple with the Instructions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInstructions
 
-`func (o *FeatureFlagScheduledChange) SetInstructions(v []interface{})`
+`func (o *FeatureFlagScheduledChange) SetInstructions(v []map[string]interface{})`
 
 SetInstructions sets Instructions field to given value.
 

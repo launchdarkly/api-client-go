@@ -6,13 +6,14 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Key** | **string** |  | 
 **Name** | **string** |  | 
+**Kind** | **string** |  | 
 **Links** | [**map[string]Link**](Link.md) |  | 
 
 ## Methods
 
 ### NewMetricV2Rep
 
-`func NewMetricV2Rep(key string, name string, links map[string]Link, ) *MetricV2Rep`
+`func NewMetricV2Rep(key string, name string, kind string, links map[string]Link, ) *MetricV2Rep`
 
 NewMetricV2Rep instantiates a new MetricV2Rep object
 This constructor will assign default values to properties that have it defined,
@@ -65,6 +66,26 @@ and a boolean to check if the value has been set.
 `func (o *MetricV2Rep) SetName(v string)`
 
 SetName sets Name field to given value.
+
+
+### GetKind
+
+`func (o *MetricV2Rep) GetKind() string`
+
+GetKind returns the Kind field if non-nil, zero value otherwise.
+
+### GetKindOk
+
+`func (o *MetricV2Rep) GetKindOk() (*string, bool)`
+
+GetKindOk returns a tuple with the Kind field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetKind
+
+`func (o *MetricV2Rep) SetKind(v string)`
+
+SetKind sets Kind field to given value.
 
 
 ### GetLinks

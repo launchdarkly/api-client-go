@@ -4,19 +4,20 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Comment** | Pointer to **string** | A comment describing the approval request | [optional] 
-**Description** | **string** | A human-friendly name for the approval request | 
-**Instructions** | **[]interface{}** |  | 
-**NotifyMemberIds** | **[]string** | An array of member IDs. These members are notified to review the approval request | 
+**Comment** | Pointer to **string** | Optional comment describing the approval request | [optional] 
+**Description** | **string** | A brief description of the changes you&#39;re requesting | 
+**Instructions** | **[]map[string]interface{}** |  | 
+**NotifyMemberIds** | Pointer to **[]string** | An array of member IDs. These members are notified to review the approval request. | [optional] 
+**NotifyTeamKeys** | Pointer to **[]string** | An array of team keys. The members of these teams are notified to review the approval request. | [optional] 
 **ExecutionDate** | Pointer to **int64** |  | [optional] 
-**OperatingOnId** | Pointer to **string** | ID of scheduled change to edit or delete | [optional] 
+**OperatingOnId** | Pointer to **string** | The ID of a scheduled change. Include this if your &lt;code&gt;instructions&lt;/code&gt; include editing or deleting a scheduled change. | [optional] 
 **IntegrationConfig** | Pointer to **map[string]interface{}** |  | [optional] 
 
 ## Methods
 
 ### NewCreateFlagConfigApprovalRequestRequest
 
-`func NewCreateFlagConfigApprovalRequestRequest(description string, instructions []interface{}, notifyMemberIds []string, ) *CreateFlagConfigApprovalRequestRequest`
+`func NewCreateFlagConfigApprovalRequestRequest(description string, instructions []map[string]interface{}, ) *CreateFlagConfigApprovalRequestRequest`
 
 NewCreateFlagConfigApprovalRequestRequest instantiates a new CreateFlagConfigApprovalRequestRequest object
 This constructor will assign default values to properties that have it defined,
@@ -78,20 +79,20 @@ SetDescription sets Description field to given value.
 
 ### GetInstructions
 
-`func (o *CreateFlagConfigApprovalRequestRequest) GetInstructions() []interface{}`
+`func (o *CreateFlagConfigApprovalRequestRequest) GetInstructions() []map[string]interface{}`
 
 GetInstructions returns the Instructions field if non-nil, zero value otherwise.
 
 ### GetInstructionsOk
 
-`func (o *CreateFlagConfigApprovalRequestRequest) GetInstructionsOk() (*[]interface{}, bool)`
+`func (o *CreateFlagConfigApprovalRequestRequest) GetInstructionsOk() (*[]map[string]interface{}, bool)`
 
 GetInstructionsOk returns a tuple with the Instructions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInstructions
 
-`func (o *CreateFlagConfigApprovalRequestRequest) SetInstructions(v []interface{})`
+`func (o *CreateFlagConfigApprovalRequestRequest) SetInstructions(v []map[string]interface{})`
 
 SetInstructions sets Instructions field to given value.
 
@@ -115,6 +116,36 @@ and a boolean to check if the value has been set.
 
 SetNotifyMemberIds sets NotifyMemberIds field to given value.
 
+### HasNotifyMemberIds
+
+`func (o *CreateFlagConfigApprovalRequestRequest) HasNotifyMemberIds() bool`
+
+HasNotifyMemberIds returns a boolean if a field has been set.
+
+### GetNotifyTeamKeys
+
+`func (o *CreateFlagConfigApprovalRequestRequest) GetNotifyTeamKeys() []string`
+
+GetNotifyTeamKeys returns the NotifyTeamKeys field if non-nil, zero value otherwise.
+
+### GetNotifyTeamKeysOk
+
+`func (o *CreateFlagConfigApprovalRequestRequest) GetNotifyTeamKeysOk() (*[]string, bool)`
+
+GetNotifyTeamKeysOk returns a tuple with the NotifyTeamKeys field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNotifyTeamKeys
+
+`func (o *CreateFlagConfigApprovalRequestRequest) SetNotifyTeamKeys(v []string)`
+
+SetNotifyTeamKeys sets NotifyTeamKeys field to given value.
+
+### HasNotifyTeamKeys
+
+`func (o *CreateFlagConfigApprovalRequestRequest) HasNotifyTeamKeys() bool`
+
+HasNotifyTeamKeys returns a boolean if a field has been set.
 
 ### GetExecutionDate
 

@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Id** | Pointer to **string** |  | [optional] 
 **Hypothesis** | **string** |  | 
 **Status** | **string** |  | 
+**CreatedAt** | **int64** |  | 
 **StartedAt** | Pointer to **int64** |  | [optional] 
 **EndedAt** | Pointer to **int64** |  | [optional] 
 **WinningTreatmentId** | Pointer to **string** |  | [optional] 
@@ -21,7 +22,7 @@ Name | Type | Description | Notes
 
 ### NewIterationRep
 
-`func NewIterationRep(hypothesis string, status string, ) *IterationRep`
+`func NewIterationRep(hypothesis string, status string, createdAt int64, ) *IterationRep`
 
 NewIterationRep instantiates a new IterationRep object
 This constructor will assign default values to properties that have it defined,
@@ -99,6 +100,26 @@ and a boolean to check if the value has been set.
 `func (o *IterationRep) SetStatus(v string)`
 
 SetStatus sets Status field to given value.
+
+
+### GetCreatedAt
+
+`func (o *IterationRep) GetCreatedAt() int64`
+
+GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
+
+### GetCreatedAtOk
+
+`func (o *IterationRep) GetCreatedAtOk() (*int64, bool)`
+
+GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreatedAt
+
+`func (o *IterationRep) SetCreatedAt(v int64)`
+
+SetCreatedAt sets CreatedAt field to given value.
 
 
 ### GetStartedAt

@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | Pointer to **string** |  | [optional] 
-**ExecuteConditionsInSequence** | Pointer to **bool** |  | [optional] 
-**Conditions** | Pointer to [**[]ConditionInputRep**](ConditionInputRep.md) |  | [optional] 
+**Name** | Pointer to **string** | The stage name | [optional] 
+**ExecuteConditionsInSequence** | Pointer to **bool** | Whether to execute the conditions in sequence for the given stage | [optional] 
+**Conditions** | Pointer to [**[]ConditionInputRep**](ConditionInputRep.md) | An array of conditions for the stage. | [optional] 
 **Action** | Pointer to [**ActionInputRep**](ActionInputRep.md) |  | [optional] 
 
 ## Methods

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Items** | [**map[string]UserFlagSetting**](UserFlagSetting.md) |  | 
+**Items** | [**map[string]UserFlagSetting**](UserFlagSetting.md) | An array of flag settings for the user. | 
 **Links** | [**map[string]Link**](Link.md) |  | 
 
 ## Methods

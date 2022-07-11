@@ -6,9 +6,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ScheduleKind** | Pointer to **string** |  | [optional] 
 **ExecutionDate** | Pointer to **int64** |  | [optional] 
-**WaitDuration** | Pointer to **int32** |  | [optional] 
+**WaitDuration** | Pointer to **int32** | For workflow stages whose scheduled execution is relative, how far in the future the stage should start. | [optional] 
 **WaitDurationUnit** | Pointer to **string** |  | [optional] 
-**ExecuteNow** | Pointer to **bool** |  | [optional] 
+**ExecuteNow** | Pointer to **bool** | Whether the workflow stage should be executed immediately | [optional] 
 
 ## Methods
 

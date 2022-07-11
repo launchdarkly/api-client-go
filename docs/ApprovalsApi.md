@@ -41,8 +41,8 @@ func main() {
     id := "id_example" // string | The feature flag approval request ID
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ApprovalsApi.DeleteApprovalRequest(context.Background(), projectKey, featureFlagKey, environmentKey, id).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApprovalsApi.DeleteApprovalRequest(context.Background(), projectKey, featureFlagKey, environmentKey, id).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.DeleteApprovalRequest``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -118,8 +118,8 @@ func main() {
     id := "id_example" // string | The feature flag approval request ID
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ApprovalsApi.GetApproval(context.Background(), projectKey, featureFlagKey, environmentKey, id).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApprovalsApi.GetApproval(context.Background(), projectKey, featureFlagKey, environmentKey, id).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.GetApproval``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -196,8 +196,8 @@ func main() {
     environmentKey := "environmentKey_example" // string | The environment key
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ApprovalsApi.GetApprovals(context.Background(), projectKey, featureFlagKey, environmentKey).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApprovalsApi.GetApprovals(context.Background(), projectKey, featureFlagKey, environmentKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.GetApprovals``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -270,11 +270,11 @@ func main() {
     projectKey := "projectKey_example" // string | The project key
     featureFlagKey := "featureFlagKey_example" // string | The feature flag key
     environmentKey := "environmentKey_example" // string | The environment key
-    createFlagConfigApprovalRequestRequest := *openapiclient.NewCreateFlagConfigApprovalRequestRequest("Description_example", []interface{}{nil}, []string{"NotifyMemberIds_example"}) // CreateFlagConfigApprovalRequestRequest | 
+    createFlagConfigApprovalRequestRequest := *openapiclient.NewCreateFlagConfigApprovalRequestRequest("Requesting to update targeting", []map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}) // CreateFlagConfigApprovalRequestRequest | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ApprovalsApi.PostApprovalRequest(context.Background(), projectKey, featureFlagKey, environmentKey).CreateFlagConfigApprovalRequestRequest(createFlagConfigApprovalRequestRequest).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApprovalsApi.PostApprovalRequest(context.Background(), projectKey, featureFlagKey, environmentKey).CreateFlagConfigApprovalRequestRequest(createFlagConfigApprovalRequestRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.PostApprovalRequest``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -352,8 +352,8 @@ func main() {
     postApprovalRequestApplyRequest := *openapiclient.NewPostApprovalRequestApplyRequest() // PostApprovalRequestApplyRequest | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ApprovalsApi.PostApprovalRequestApplyRequest(context.Background(), projectKey, featureFlagKey, environmentKey, id).PostApprovalRequestApplyRequest(postApprovalRequestApplyRequest).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApprovalsApi.PostApprovalRequestApplyRequest(context.Background(), projectKey, featureFlagKey, environmentKey, id).PostApprovalRequestApplyRequest(postApprovalRequestApplyRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.PostApprovalRequestApplyRequest``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -433,8 +433,8 @@ func main() {
     postApprovalRequestReviewRequest := *openapiclient.NewPostApprovalRequestReviewRequest() // PostApprovalRequestReviewRequest | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ApprovalsApi.PostApprovalRequestReview(context.Background(), projectKey, featureFlagKey, environmentKey, id).PostApprovalRequestReviewRequest(postApprovalRequestReviewRequest).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApprovalsApi.PostApprovalRequestReview(context.Background(), projectKey, featureFlagKey, environmentKey, id).PostApprovalRequestReviewRequest(postApprovalRequestReviewRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.PostApprovalRequestReview``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -509,12 +509,12 @@ import (
 func main() {
     projectKey := "projectKey_example" // string | The project key
     featureFlagKey := "featureFlagKey_example" // string | The feature flag key
-    environmentKey := "environmentKey_example" // string | The environment key
-    createCopyFlagConfigApprovalRequestRequest := *openapiclient.NewCreateCopyFlagConfigApprovalRequestRequest("Description_example", []string{"NotifyMemberIds_example"}, *openapiclient.NewSourceFlag("Key_example")) // CreateCopyFlagConfigApprovalRequestRequest | 
+    environmentKey := "environmentKey_example" // string | The environment key for the target environment
+    createCopyFlagConfigApprovalRequestRequest := *openapiclient.NewCreateCopyFlagConfigApprovalRequestRequest("copy flag settings to another environment", *openapiclient.NewSourceFlag("example-environment-key")) // CreateCopyFlagConfigApprovalRequestRequest | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ApprovalsApi.PostFlagCopyConfigApprovalRequest(context.Background(), projectKey, featureFlagKey, environmentKey).CreateCopyFlagConfigApprovalRequestRequest(createCopyFlagConfigApprovalRequestRequest).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApprovalsApi.PostFlagCopyConfigApprovalRequest(context.Background(), projectKey, featureFlagKey, environmentKey).CreateCopyFlagConfigApprovalRequestRequest(createCopyFlagConfigApprovalRequestRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.PostFlagCopyConfigApprovalRequest``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -532,7 +532,7 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **projectKey** | **string** | The project key | 
 **featureFlagKey** | **string** | The feature flag key | 
-**environmentKey** | **string** | The environment key | 
+**environmentKey** | **string** | The environment key for the target environment | 
 
 ### Other Parameters
 

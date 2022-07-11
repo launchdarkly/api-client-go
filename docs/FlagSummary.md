@@ -4,13 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Variations** | [**map[string]VariationSummary**](VariationSummary.md) |  | 
 **Prerequisites** | **int32** |  | 
 
 ## Methods
 
 ### NewFlagSummary
 
-`func NewFlagSummary(prerequisites int32, ) *FlagSummary`
+`func NewFlagSummary(variations map[string]VariationSummary, prerequisites int32, ) *FlagSummary`
 
 NewFlagSummary instantiates a new FlagSummary object
 This constructor will assign default values to properties that have it defined,
@@ -24,6 +25,26 @@ will change when the set of required properties is changed
 NewFlagSummaryWithDefaults instantiates a new FlagSummary object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetVariations
+
+`func (o *FlagSummary) GetVariations() map[string]VariationSummary`
+
+GetVariations returns the Variations field if non-nil, zero value otherwise.
+
+### GetVariationsOk
+
+`func (o *FlagSummary) GetVariationsOk() (*map[string]VariationSummary, bool)`
+
+GetVariationsOk returns a tuple with the Variations field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVariations
+
+`func (o *FlagSummary) SetVariations(v map[string]VariationSummary)`
+
+SetVariations sets Variations field to given value.
+
 
 ### GetPrerequisites
 

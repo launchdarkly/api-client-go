@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Instructions** | Pointer to **interface{}** |  | [optional] 
+**Instructions** | Pointer to **interface{}** | An array of instructions for the stage. Each object in the array uses the semantic patch format for updating a feature flag. | [optional] 
 
 ## Methods
 

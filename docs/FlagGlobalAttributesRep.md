@@ -10,11 +10,10 @@ Name | Type | Description | Notes
 **Key** | **string** | A unique key used to reference the flag in your code | 
 **Version** | **int32** | Version of the feature flag | 
 **CreationDate** | **int64** |  | 
-**IncludeInSnippet** | Pointer to **bool** | Deprecated, use clientSideAvailability. Whether or not this flag should be made available to the client-side JavaScript SDK | [optional] 
+**IncludeInSnippet** | Pointer to **bool** | Deprecated, use &lt;code&gt;clientSideAvailability&lt;/code&gt;. Whether this flag should be made available to the client-side JavaScript SDK | [optional] 
 **ClientSideAvailability** | Pointer to [**ClientSideAvailability**](ClientSideAvailability.md) |  | [optional] 
 **Variations** | [**[]Variation**](Variation.md) | An array of possible variations for the flag | 
-**VariationJsonSchema** | Pointer to **interface{}** |  | [optional] 
-**Temporary** | **bool** | Whether or not the flag is a temporary flag | 
+**Temporary** | **bool** | Whether the flag is a temporary flag | 
 **Tags** | **[]string** | Tags for the feature flag | 
 **Links** | [**map[string]Link**](Link.md) |  | 
 **MaintainerId** | Pointer to **string** | Associated maintainerId for the feature flag | [optional] 
@@ -240,41 +239,6 @@ and a boolean to check if the value has been set.
 SetVariations sets Variations field to given value.
 
 
-### GetVariationJsonSchema
-
-`func (o *FlagGlobalAttributesRep) GetVariationJsonSchema() interface{}`
-
-GetVariationJsonSchema returns the VariationJsonSchema field if non-nil, zero value otherwise.
-
-### GetVariationJsonSchemaOk
-
-`func (o *FlagGlobalAttributesRep) GetVariationJsonSchemaOk() (*interface{}, bool)`
-
-GetVariationJsonSchemaOk returns a tuple with the VariationJsonSchema field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetVariationJsonSchema
-
-`func (o *FlagGlobalAttributesRep) SetVariationJsonSchema(v interface{})`
-
-SetVariationJsonSchema sets VariationJsonSchema field to given value.
-
-### HasVariationJsonSchema
-
-`func (o *FlagGlobalAttributesRep) HasVariationJsonSchema() bool`
-
-HasVariationJsonSchema returns a boolean if a field has been set.
-
-### SetVariationJsonSchemaNil
-
-`func (o *FlagGlobalAttributesRep) SetVariationJsonSchemaNil(b bool)`
-
- SetVariationJsonSchemaNil sets the value for VariationJsonSchema to be an explicit nil
-
-### UnsetVariationJsonSchema
-`func (o *FlagGlobalAttributesRep) UnsetVariationJsonSchema()`
-
-UnsetVariationJsonSchema ensures that no value is present for VariationJsonSchema, not even an explicit nil
 ### GetTemporary
 
 `func (o *FlagGlobalAttributesRep) GetTemporary() bool`

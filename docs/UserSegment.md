@@ -9,20 +9,20 @@ Name | Type | Description | Notes
 **Tags** | **[]string** | Tags for the segment | 
 **CreationDate** | **int64** |  | 
 **Key** | **string** | A unique key used to reference the segment | 
-**Included** | Pointer to **[]string** | Included users are always segment members, regardless of segment rules. For Big Segments this array is either empty or omitted entirely. | [optional] 
-**Excluded** | Pointer to **[]string** | Segment rules bypass excluded users, so they will never be included based on rules. Excluded users may still be included explicitly. This value is omitted for Big Segments. | [optional] 
-**Links** | [**map[string]Link**](Link.md) |  | 
-**Rules** | [**[]UserSegmentRule**](UserSegmentRule.md) |  | 
-**Version** | **int32** |  | 
-**Deleted** | **bool** |  | 
+**Included** | Pointer to **[]string** | An array of user keys for included users. Included users are always segment members, regardless of segment rules. For Big Segments this array is either empty or omitted. | [optional] 
+**Excluded** | Pointer to **[]string** | An array of user keys for excluded users. Segment rules bypass excluded users, so they will never be included based on rules. Excluded users may still be included explicitly. This value is omitted for Big Segments. | [optional] 
+**Links** | [**map[string]Link**](Link.md) | Links to other resources within the API. Includes the URL and content type of those resources. | 
+**Rules** | [**[]UserSegmentRule**](UserSegmentRule.md) | An array of the targeting rules for this segment. | 
+**Version** | **int32** | Version of the segment | 
+**Deleted** | **bool** | Whether the segment has been deleted | 
 **Access** | Pointer to [**Access**](Access.md) |  | [optional] 
 **Flags** | Pointer to [**[]FlagListingRep**](FlagListingRep.md) |  | [optional] 
-**Unbounded** | Pointer to **bool** |  | [optional] 
-**Generation** | **int32** |  | 
+**Unbounded** | Pointer to **bool** | Whether this is a standard segment (false) or a Big Segment (true) | [optional] 
+**Generation** | **int32** | For Big Segments, how many times this segment has been created | 
 **UnboundedMetadata** | Pointer to [**SegmentMetadata**](SegmentMetadata.md) |  | [optional] 
-**External** | Pointer to **string** |  | [optional] 
-**ExternalLink** | Pointer to **string** |  | [optional] 
-**ImportInProgress** | Pointer to **bool** |  | [optional] 
+**External** | Pointer to **string** | The external data store backing this segment. Only applies to Big Segments. | [optional] 
+**ExternalLink** | Pointer to **string** | The URL for the external data store backing this segment. Only applies to Big Segments. | [optional] 
+**ImportInProgress** | Pointer to **bool** | Whether an import is currently in progress for the specified segment. Only applies to Big Segments. | [optional] 
 
 ## Methods
 

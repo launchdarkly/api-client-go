@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **FirstName** | Pointer to **string** | The member&#39;s first name | [optional] 
 **LastName** | Pointer to **string** | The member&#39;s last name | [optional] 
 **Role** | Pointer to **string** | The member&#39;s built-in role | [optional] 
-**CustomRoles** | Pointer to **[]string** | The member&#39;s custom role | [optional] 
+**CustomRoles** | Pointer to **[]string** | An array of the member&#39;s custom roles | [optional] 
 
 ## Methods
 

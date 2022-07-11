@@ -44,8 +44,8 @@ func main() {
     flagCopyConfigPost := *openapiclient.NewFlagCopyConfigPost(*openapiclient.NewFlagCopyConfigEnvironment("Key_example"), *openapiclient.NewFlagCopyConfigEnvironment("Key_example")) // FlagCopyConfigPost | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.FeatureFlagsApi.CopyFeatureFlag(context.Background(), projectKey, featureFlagKey).FlagCopyConfigPost(flagCopyConfigPost).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.FeatureFlagsApi.CopyFeatureFlag(context.Background(), projectKey, featureFlagKey).FlagCopyConfigPost(flagCopyConfigPost).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.CopyFeatureFlag``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -118,8 +118,8 @@ func main() {
     featureFlagKey := "featureFlagKey_example" // string | The feature flag key. The key identifies the flag in your code.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.FeatureFlagsApi.DeleteFeatureFlag(context.Background(), projectKey, featureFlagKey).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.FeatureFlagsApi.DeleteFeatureFlag(context.Background(), projectKey, featureFlagKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.DeleteFeatureFlag``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -190,8 +190,8 @@ func main() {
     featureFlagKey := "featureFlagKey_example" // string | The feature flag key
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.FeatureFlagsApi.GetExpiringUserTargets(context.Background(), projectKey, environmentKey, featureFlagKey).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.FeatureFlagsApi.GetExpiringUserTargets(context.Background(), projectKey, environmentKey, featureFlagKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.GetExpiringUserTargets``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -266,8 +266,8 @@ func main() {
     env := "env_example" // string | Filter configurations by environment (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.FeatureFlagsApi.GetFeatureFlag(context.Background(), projectKey, featureFlagKey).Env(env).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.FeatureFlagsApi.GetFeatureFlag(context.Background(), projectKey, featureFlagKey).Env(env).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.GetFeatureFlag``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -341,8 +341,8 @@ func main() {
     featureFlagKey := "featureFlagKey_example" // string | The feature flag key
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.FeatureFlagsApi.GetFeatureFlagStatus(context.Background(), projectKey, environmentKey, featureFlagKey).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.FeatureFlagsApi.GetFeatureFlagStatus(context.Background(), projectKey, environmentKey, featureFlagKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.GetFeatureFlagStatus``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -417,8 +417,8 @@ func main() {
     env := "env_example" // string | Optional environment filter (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.FeatureFlagsApi.GetFeatureFlagStatusAcrossEnvironments(context.Background(), projectKey, featureFlagKey).Env(env).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.FeatureFlagsApi.GetFeatureFlagStatusAcrossEnvironments(context.Background(), projectKey, featureFlagKey).Env(env).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.GetFeatureFlagStatusAcrossEnvironments``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -491,8 +491,8 @@ func main() {
     environmentKey := "environmentKey_example" // string | The environment key
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.FeatureFlagsApi.GetFeatureFlagStatuses(context.Background(), projectKey, environmentKey).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.FeatureFlagsApi.GetFeatureFlagStatuses(context.Background(), projectKey, environmentKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.GetFeatureFlagStatuses``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -564,7 +564,7 @@ func main() {
     env := "env_example" // string | Filter configurations by environment (optional)
     tag := "tag_example" // string | Filter feature flags by tag (optional)
     limit := int64(789) // int64 | The number of feature flags to return. Defaults to -1, which returns all flags (optional)
-    offset := int64(789) // int64 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next limit items (optional)
+    offset := int64(789) // int64 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
     archived := true // bool | A boolean to filter the list to archived flags. When this is absent, only unarchived flags will be returned (optional)
     summary := true // bool | By default in API version >= 1, flags will _not_ include their list of prerequisites, targets or rules.  Set summary=0 to include these fields for each flag returned (optional)
     filter := "filter_example" // string | A comma-separated list of filters. Each filter is of the form field:value (optional)
@@ -572,8 +572,8 @@ func main() {
     compare := true // bool | A boolean to filter results by only flags that have differences between environments (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.FeatureFlagsApi.GetFeatureFlags(context.Background(), projectKey).Env(env).Tag(tag).Limit(limit).Offset(offset).Archived(archived).Summary(summary).Filter(filter).Sort(sort).Compare(compare).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.FeatureFlagsApi.GetFeatureFlags(context.Background(), projectKey).Env(env).Tag(tag).Limit(limit).Offset(offset).Archived(archived).Summary(summary).Filter(filter).Sort(sort).Compare(compare).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.GetFeatureFlags``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -602,7 +602,7 @@ Name | Type | Description  | Notes
  **env** | **string** | Filter configurations by environment | 
  **tag** | **string** | Filter feature flags by tag | 
  **limit** | **int64** | The number of feature flags to return. Defaults to -1, which returns all flags | 
- **offset** | **int64** | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next limit items | 
+ **offset** | **int64** | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | 
  **archived** | **bool** | A boolean to filter the list to archived flags. When this is absent, only unarchived flags will be returned | 
  **summary** | **bool** | By default in API version &gt;&#x3D; 1, flags will _not_ include their list of prerequisites, targets or rules.  Set summary&#x3D;0 to include these fields for each flag returned | 
  **filter** | **string** | A comma-separated list of filters. Each filter is of the form field:value | 
@@ -629,7 +629,7 @@ Name | Type | Description  | Notes
 
 ## PatchExpiringUserTargets
 
-> ExpiringUserTargetPatchResponse PatchExpiringUserTargets(ctx, projectKey, environmentKey, featureFlagKey).PatchWithComment(patchWithComment).Execute()
+> ExpiringUserTargetPatchResponse PatchExpiringUserTargets(ctx, projectKey, environmentKey, featureFlagKey).PatchFlagsRequest(patchFlagsRequest).Execute()
 
 Update expiring user targets on feature flag
 
@@ -651,11 +651,11 @@ func main() {
     projectKey := "projectKey_example" // string | The project key
     environmentKey := "environmentKey_example" // string | The environment key
     featureFlagKey := "featureFlagKey_example" // string | The feature flag key
-    patchWithComment := *openapiclient.NewPatchWithComment([]openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField", interface{}(new example value))}) // PatchWithComment | 
+    patchFlagsRequest := *openapiclient.NewPatchFlagsRequest([]map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}) // PatchFlagsRequest | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.FeatureFlagsApi.PatchExpiringUserTargets(context.Background(), projectKey, environmentKey, featureFlagKey).PatchWithComment(patchWithComment).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.FeatureFlagsApi.PatchExpiringUserTargets(context.Background(), projectKey, environmentKey, featureFlagKey).PatchFlagsRequest(patchFlagsRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.PatchExpiringUserTargets``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -685,7 +685,7 @@ Name | Type | Description  | Notes
 
 
 
- **patchWithComment** | [**PatchWithComment**](PatchWithComment.md) |  | 
+ **patchFlagsRequest** | [**PatchFlagsRequest**](PatchFlagsRequest.md) |  | 
 
 ### Return type
 
@@ -731,8 +731,8 @@ func main() {
     patchWithComment := *openapiclient.NewPatchWithComment([]openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField", interface{}(new example value))}) // PatchWithComment | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.FeatureFlagsApi.PatchFeatureFlag(context.Background(), projectKey, featureFlagKey).PatchWithComment(patchWithComment).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.FeatureFlagsApi.PatchFeatureFlag(context.Background(), projectKey, featureFlagKey).PatchWithComment(patchWithComment).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.PatchFeatureFlag``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -802,12 +802,12 @@ import (
 
 func main() {
     projectKey := "projectKey_example" // string | The project key
-    featureFlagBody := *openapiclient.NewFeatureFlagBody("Name_example", "Key_example") // FeatureFlagBody | 
+    featureFlagBody := *openapiclient.NewFeatureFlagBody("My flag", "my-flag") // FeatureFlagBody | 
     clone := "clone_example" // string | The key of the feature flag to be cloned. The key identifies the flag in your code. For example, setting `clone=flagKey` copies the full targeting configuration for all environments, including `on/off` state, from the original flag to the new flag. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.FeatureFlagsApi.PostFeatureFlag(context.Background(), projectKey).FeatureFlagBody(featureFlagBody).Clone(clone).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.FeatureFlagsApi.PostFeatureFlag(context.Background(), projectKey).FeatureFlagBody(featureFlagBody).Clone(clone).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.PostFeatureFlag``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

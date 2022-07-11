@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Comment** | Pointer to **string** |  | [optional] 
-**Instructions** | Pointer to **[]interface{}** |  | [optional] 
+**Comment** | Pointer to **string** | Optional comment describing the update | [optional] 
+**Instructions** | **[]map[string]interface{}** |  | 
 
 ## Methods
 
 ### NewTeamPatchInput
 
-`func NewTeamPatchInput() *TeamPatchInput`
+`func NewTeamPatchInput(instructions []map[string]interface{}, ) *TeamPatchInput`
 
 NewTeamPatchInput instantiates a new TeamPatchInput object
 This constructor will assign default values to properties that have it defined,
@@ -53,28 +53,23 @@ HasComment returns a boolean if a field has been set.
 
 ### GetInstructions
 
-`func (o *TeamPatchInput) GetInstructions() []interface{}`
+`func (o *TeamPatchInput) GetInstructions() []map[string]interface{}`
 
 GetInstructions returns the Instructions field if non-nil, zero value otherwise.
 
 ### GetInstructionsOk
 
-`func (o *TeamPatchInput) GetInstructionsOk() (*[]interface{}, bool)`
+`func (o *TeamPatchInput) GetInstructionsOk() (*[]map[string]interface{}, bool)`
 
 GetInstructionsOk returns a tuple with the Instructions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInstructions
 
-`func (o *TeamPatchInput) SetInstructions(v []interface{})`
+`func (o *TeamPatchInput) SetInstructions(v []map[string]interface{})`
 
 SetInstructions sets Instructions field to given value.
 
-### HasInstructions
-
-`func (o *TeamPatchInput) HasInstructions() bool`
-
-HasInstructions returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Comment** | Pointer to **string** |  | [optional] 
-**Instructions** | Pointer to **[]interface{}** | The action to perform when triggering. It should pass an array with a single {\&quot;kind\&quot;: &lt;flag_action&gt;} object. Currently supported flag actions are \&quot;turnFlagOn\&quot; and \&quot;turnFlagOff\&quot;. | [optional] 
-**IntegrationKey** | **string** | The unique identifier of the integration you intend to set your trigger up with. \&quot;generic-trigger\&quot; should be used for integrations not explicitly supported. | 
+**Comment** | Pointer to **string** | Optional comment describing the trigger | [optional] 
+**Instructions** | Pointer to **[]map[string]interface{}** | The action to perform when triggering. This should be an array with a single object that looks like &lt;code&gt;{\&quot;kind\&quot;: \&quot;flag_action\&quot;}&lt;/code&gt;. Supported flag actions are &lt;code&gt;turnFlagOn&lt;/code&gt; and &lt;code&gt;turnFlagOff&lt;/code&gt;. | [optional] 
+**IntegrationKey** | **string** | The unique identifier of the integration for your trigger. Use &lt;code&gt;generic-trigger&lt;/code&gt; for integrations not explicitly supported. | 
 
 ## Methods
 
@@ -54,20 +54,20 @@ HasComment returns a boolean if a field has been set.
 
 ### GetInstructions
 
-`func (o *TriggerPost) GetInstructions() []interface{}`
+`func (o *TriggerPost) GetInstructions() []map[string]interface{}`
 
 GetInstructions returns the Instructions field if non-nil, zero value otherwise.
 
 ### GetInstructionsOk
 
-`func (o *TriggerPost) GetInstructionsOk() (*[]interface{}, bool)`
+`func (o *TriggerPost) GetInstructionsOk() (*[]map[string]interface{}, bool)`
 
 GetInstructionsOk returns a tuple with the Instructions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInstructions
 
-`func (o *TriggerPost) SetInstructions(v []interface{})`
+`func (o *TriggerPost) SetInstructions(v []map[string]interface{})`
 
 SetInstructions sets Instructions field to given value.
 

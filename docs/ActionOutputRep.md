@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Kind** | **string** |  | 
-**Instructions** | **[]interface{}** |  | 
+**Instructions** | **[]map[string]interface{}** |  | 
 
 ## Methods
 
 ### NewActionOutputRep
 
-`func NewActionOutputRep(kind string, instructions []interface{}, ) *ActionOutputRep`
+`func NewActionOutputRep(kind string, instructions []map[string]interface{}, ) *ActionOutputRep`
 
 NewActionOutputRep instantiates a new ActionOutputRep object
 This constructor will assign default values to properties that have it defined,
@@ -48,20 +48,20 @@ SetKind sets Kind field to given value.
 
 ### GetInstructions
 
-`func (o *ActionOutputRep) GetInstructions() []interface{}`
+`func (o *ActionOutputRep) GetInstructions() []map[string]interface{}`
 
 GetInstructions returns the Instructions field if non-nil, zero value otherwise.
 
 ### GetInstructionsOk
 
-`func (o *ActionOutputRep) GetInstructionsOk() (*[]interface{}, bool)`
+`func (o *ActionOutputRep) GetInstructionsOk() (*[]map[string]interface{}, bool)`
 
 GetInstructionsOk returns a tuple with the Instructions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInstructions
 
-`func (o *ActionOutputRep) SetInstructions(v []interface{})`
+`func (o *ActionOutputRep) SetInstructions(v []map[string]interface{})`
 
 SetInstructions sets Instructions field to given value.
 

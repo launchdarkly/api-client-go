@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Patch** | [**[]PatchOperation**](PatchOperation.md) |  | 
-**Comment** | Pointer to **string** |  | [optional] 
+**Comment** | Pointer to **string** | Optional comment | [optional] 
 
 ## Methods
 

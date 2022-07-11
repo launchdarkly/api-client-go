@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Description** | Pointer to **string** |  | [optional] 
 **NotifyMemberIds** | Pointer to **[]string** |  | [optional] 
+**NotifyTeamKeys** | Pointer to **[]string** |  | [optional] 
 
 ## Methods
 
@@ -75,6 +76,31 @@ SetNotifyMemberIds sets NotifyMemberIds field to given value.
 `func (o *ApprovalConditionInputRep) HasNotifyMemberIds() bool`
 
 HasNotifyMemberIds returns a boolean if a field has been set.
+
+### GetNotifyTeamKeys
+
+`func (o *ApprovalConditionInputRep) GetNotifyTeamKeys() []string`
+
+GetNotifyTeamKeys returns the NotifyTeamKeys field if non-nil, zero value otherwise.
+
+### GetNotifyTeamKeysOk
+
+`func (o *ApprovalConditionInputRep) GetNotifyTeamKeysOk() (*[]string, bool)`
+
+GetNotifyTeamKeysOk returns a tuple with the NotifyTeamKeys field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNotifyTeamKeys
+
+`func (o *ApprovalConditionInputRep) SetNotifyTeamKeys(v []string)`
+
+SetNotifyTeamKeys sets NotifyTeamKeys field to given value.
+
+### HasNotifyTeamKeys
+
+`func (o *ApprovalConditionInputRep) HasNotifyTeamKeys() bool`
+
+HasNotifyTeamKeys returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

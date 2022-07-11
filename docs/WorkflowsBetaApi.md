@@ -38,8 +38,8 @@ func main() {
     workflowId := "workflowId_example" // string | The workflow id
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.WorkflowsBetaApi.DeleteWorkflow(context.Background(), projectKey, featureFlagKey, environmentKey, workflowId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.WorkflowsBetaApi.DeleteWorkflow(context.Background(), projectKey, featureFlagKey, environmentKey, workflowId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `WorkflowsBetaApi.DeleteWorkflow``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -115,8 +115,8 @@ func main() {
     workflowId := "workflowId_example" // string | The workflow ID
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.WorkflowsBetaApi.GetCustomWorkflow(context.Background(), projectKey, featureFlagKey, environmentKey, workflowId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.WorkflowsBetaApi.GetCustomWorkflow(context.Background(), projectKey, featureFlagKey, environmentKey, workflowId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `WorkflowsBetaApi.GetCustomWorkflow``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -193,8 +193,8 @@ func main() {
     environmentKey := "environmentKey_example" // string | The environment key
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.WorkflowsBetaApi.GetWorkflows(context.Background(), projectKey, featureFlagKey, environmentKey).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.WorkflowsBetaApi.GetWorkflows(context.Background(), projectKey, featureFlagKey, environmentKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `WorkflowsBetaApi.GetWorkflows``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -267,11 +267,11 @@ func main() {
     projectKey := "projectKey_example" // string | The project key
     featureFlagKey := "featureFlagKey_example" // string | The feature flag key
     environmentKey := "environmentKey_example" // string | The environment key
-    customWorkflowInputRep := *openapiclient.NewCustomWorkflowInputRep("Description_example") // CustomWorkflowInputRep | 
+    customWorkflowInputRep := *openapiclient.NewCustomWorkflowInputRep("Turn flag on for 10% of users each day") // CustomWorkflowInputRep | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.WorkflowsBetaApi.PostWorkflow(context.Background(), projectKey, featureFlagKey, environmentKey).CustomWorkflowInputRep(customWorkflowInputRep).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.WorkflowsBetaApi.PostWorkflow(context.Background(), projectKey, featureFlagKey, environmentKey).CustomWorkflowInputRep(customWorkflowInputRep).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `WorkflowsBetaApi.PostWorkflow``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

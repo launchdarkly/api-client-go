@@ -10,11 +10,11 @@ Name | Type | Description | Notes
 **Sel** | **string** |  | 
 **LastModified** | **int64** |  | 
 **Version** | **int32** |  | 
-**Targets** | [**[]Target**](Target.md) |  | 
-**Rules** | [**[]Rule**](Rule.md) |  | 
-**Fallthrough** | [**VariationOrRolloutRep**](VariationOrRolloutRep.md) |  | 
+**Targets** | Pointer to [**[]Target**](Target.md) |  | [optional] 
+**Rules** | Pointer to [**[]Rule**](Rule.md) |  | [optional] 
+**Fallthrough** | Pointer to [**VariationOrRolloutRep**](VariationOrRolloutRep.md) |  | [optional] 
 **OffVariation** | Pointer to **int32** |  | [optional] 
-**Prerequisites** | [**[]Prerequisite**](Prerequisite.md) |  | 
+**Prerequisites** | Pointer to [**[]Prerequisite**](Prerequisite.md) |  | [optional] 
 **Site** | [**Link**](Link.md) |  | 
 **Access** | Pointer to [**Access**](Access.md) |  | [optional] 
 **EnvironmentName** | **string** |  | 
@@ -27,7 +27,7 @@ Name | Type | Description | Notes
 
 ### NewFeatureFlagConfig
 
-`func NewFeatureFlagConfig(on bool, archived bool, salt string, sel string, lastModified int64, version int32, targets []Target, rules []Rule, fallthrough_ VariationOrRolloutRep, prerequisites []Prerequisite, site Link, environmentName string, trackEvents bool, trackEventsFallthrough bool, ) *FeatureFlagConfig`
+`func NewFeatureFlagConfig(on bool, archived bool, salt string, sel string, lastModified int64, version int32, site Link, environmentName string, trackEvents bool, trackEventsFallthrough bool, ) *FeatureFlagConfig`
 
 NewFeatureFlagConfig instantiates a new FeatureFlagConfig object
 This constructor will assign default values to properties that have it defined,
@@ -181,6 +181,11 @@ and a boolean to check if the value has been set.
 
 SetTargets sets Targets field to given value.
 
+### HasTargets
+
+`func (o *FeatureFlagConfig) HasTargets() bool`
+
+HasTargets returns a boolean if a field has been set.
 
 ### GetRules
 
@@ -201,6 +206,11 @@ and a boolean to check if the value has been set.
 
 SetRules sets Rules field to given value.
 
+### HasRules
+
+`func (o *FeatureFlagConfig) HasRules() bool`
+
+HasRules returns a boolean if a field has been set.
 
 ### GetFallthrough
 
@@ -221,6 +231,11 @@ and a boolean to check if the value has been set.
 
 SetFallthrough sets Fallthrough field to given value.
 
+### HasFallthrough
+
+`func (o *FeatureFlagConfig) HasFallthrough() bool`
+
+HasFallthrough returns a boolean if a field has been set.
 
 ### GetOffVariation
 
@@ -266,6 +281,11 @@ and a boolean to check if the value has been set.
 
 SetPrerequisites sets Prerequisites field to given value.
 
+### HasPrerequisites
+
+`func (o *FeatureFlagConfig) HasPrerequisites() bool`
+
+HasPrerequisites returns a boolean if a field has been set.
 
 ### GetSite
 

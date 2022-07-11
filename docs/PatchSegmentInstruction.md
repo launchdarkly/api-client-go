@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Kind** | **string** |  | 
+**Kind** | **string** | The type of change to make to the user&#39;s removal date from this segment | 
 **UserKey** | **string** | A unique key used to represent the user | 
-**TargetType** | **string** | A segment&#39;s target type. Must be either &lt;code&gt;included&lt;/code&gt; or &lt;code&gt;excluded&lt;/code&gt; | 
-**Value** | Pointer to **int32** | Schedule user target expiration on a segment by including a timestamp | [optional] 
-**Version** | Pointer to **int32** | Required if &lt;code&gt;kind&lt;/code&gt; is &lt;code&gt;updateExpireUserTargetDate&lt;/code&gt; | [optional] 
+**TargetType** | **string** | The segment&#39;s target type | 
+**Value** | Pointer to **int32** | The time, in Unix milliseconds, when the user should be removed from this segment. Required if &lt;code&gt;kind&lt;/code&gt; is &lt;code&gt;addExpireUserTargetDate&lt;/code&gt; or &lt;code&gt;updateExpireUserTargetDate&lt;/code&gt;. | [optional] 
+**Version** | Pointer to **int32** | The version of the segment to update. Required if &lt;code&gt;kind&lt;/code&gt; is &lt;code&gt;updateExpireUserTargetDate&lt;/code&gt;. | [optional] 
 
 ## Methods
 

@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Items** | Pointer to [**[]StatisticRep**](StatisticRep.md) |  | [optional] 
-**Links** | Pointer to [**map[string]Link**](Link.md) |  | [optional] 
+**Items** | Pointer to [**[]StatisticRep**](StatisticRep.md) | A list of code reference statistics for each code repository | [optional] 
+**Links** | Pointer to [**map[string]Link**](Link.md) | The location and content type of related resources | [optional] 
 
 ## Methods
 

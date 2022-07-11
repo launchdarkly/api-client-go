@@ -8,7 +8,7 @@ Method | HTTP request | Description
 [**GetDestination**](DataExportDestinationsApi.md#GetDestination) | **Get** /api/v2/destinations/{projectKey}/{environmentKey}/{id} | Get destination
 [**GetDestinations**](DataExportDestinationsApi.md#GetDestinations) | **Get** /api/v2/destinations | List destinations
 [**PatchDestination**](DataExportDestinationsApi.md#PatchDestination) | **Patch** /api/v2/destinations/{projectKey}/{environmentKey}/{id} | Update Data Export destination
-[**PostDestination**](DataExportDestinationsApi.md#PostDestination) | **Post** /api/v2/destinations/{projectKey}/{environmentKey} | Create data export destination
+[**PostDestination**](DataExportDestinationsApi.md#PostDestination) | **Post** /api/v2/destinations/{projectKey}/{environmentKey} | Create Data Export destination
 
 
 
@@ -38,8 +38,8 @@ func main() {
     id := "id_example" // string | The Data Export destination ID
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DataExportDestinationsApi.DeleteDestination(context.Background(), projectKey, environmentKey, id).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.DataExportDestinationsApi.DeleteDestination(context.Background(), projectKey, environmentKey, id).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DataExportDestinationsApi.DeleteDestination``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -112,8 +112,8 @@ func main() {
     id := "id_example" // string | The Data Export destination ID
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DataExportDestinationsApi.GetDestination(context.Background(), projectKey, environmentKey, id).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.DataExportDestinationsApi.GetDestination(context.Background(), projectKey, environmentKey, id).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DataExportDestinationsApi.GetDestination``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -185,8 +185,8 @@ import (
 func main() {
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DataExportDestinationsApi.GetDestinations(context.Background()).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.DataExportDestinationsApi.GetDestinations(context.Background()).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DataExportDestinationsApi.GetDestinations``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -250,8 +250,8 @@ func main() {
     patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField", interface{}(new example value))} // []PatchOperation | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DataExportDestinationsApi.PatchDestination(context.Background(), projectKey, environmentKey, id).PatchOperation(patchOperation).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.DataExportDestinationsApi.PatchDestination(context.Background(), projectKey, environmentKey, id).PatchOperation(patchOperation).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DataExportDestinationsApi.PatchDestination``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -305,7 +305,7 @@ Name | Type | Description  | Notes
 
 > Destination PostDestination(ctx, projectKey, environmentKey).DestinationPost(destinationPost).Execute()
 
-Create data export destination
+Create Data Export destination
 
 
 
@@ -327,8 +327,8 @@ func main() {
     destinationPost := *openapiclient.NewDestinationPost() // DestinationPost | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DataExportDestinationsApi.PostDestination(context.Background(), projectKey, environmentKey).DestinationPost(destinationPost).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.DataExportDestinationsApi.PostDestination(context.Background(), projectKey, environmentKey).DestinationPost(destinationPost).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DataExportDestinationsApi.PostDestination``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

@@ -37,8 +37,8 @@ func main() {
     metricKey := "metricKey_example" // string | The metric key
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.MetricsApi.DeleteMetric(context.Background(), projectKey, metricKey).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.MetricsApi.DeleteMetric(context.Background(), projectKey, metricKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MetricsApi.DeleteMetric``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -108,8 +108,8 @@ func main() {
     metricKey := "metricKey_example" // string | The metric key
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.MetricsApi.GetMetric(context.Background(), projectKey, metricKey).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.MetricsApi.GetMetric(context.Background(), projectKey, metricKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MetricsApi.GetMetric``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -180,8 +180,8 @@ func main() {
     projectKey := "projectKey_example" // string | The project key
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.MetricsApi.GetMetrics(context.Background(), projectKey).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.MetricsApi.GetMetrics(context.Background(), projectKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MetricsApi.GetMetrics``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -252,8 +252,8 @@ func main() {
     patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField", interface{}(new example value))} // []PatchOperation | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.MetricsApi.PatchMetric(context.Background(), projectKey, metricKey).PatchOperation(patchOperation).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.MetricsApi.PatchMetric(context.Background(), projectKey, metricKey).PatchOperation(patchOperation).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MetricsApi.PatchMetric``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -323,11 +323,11 @@ import (
 
 func main() {
     projectKey := "projectKey_example" // string | The project key
-    metricPost := *openapiclient.NewMetricPost("Key_example", "Kind_example") // MetricPost | 
+    metricPost := *openapiclient.NewMetricPost("example-metric", "custom") // MetricPost | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.MetricsApi.PostMetric(context.Background(), projectKey).MetricPost(metricPost).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.MetricsApi.PostMetric(context.Background(), projectKey).MetricPost(metricPost).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MetricsApi.PostMetric``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

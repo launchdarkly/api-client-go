@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Creator** | Pointer to [**MemberSummary**](MemberSummary.md) |  | [optional] 
 **Access** | Pointer to [**Access**](Access.md) |  | [optional] 
 **Name** | **string** |  | 
-**Policy** | [**[]StatementRep**](StatementRep.md) |  | 
+**Policy** | [**[]Statement**](Statement.md) |  | 
 **FullKey** | **string** |  | 
 **DisplayKey** | **string** |  | 
 **CreationDate** | **int64** |  | 
@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 
 ### NewRelayAutoConfigRep
 
-`func NewRelayAutoConfigRep(id string, name string, policy []StatementRep, fullKey string, displayKey string, creationDate int64, lastModified int64, ) *RelayAutoConfigRep`
+`func NewRelayAutoConfigRep(id string, name string, policy []Statement, fullKey string, displayKey string, creationDate int64, lastModified int64, ) *RelayAutoConfigRep`
 
 NewRelayAutoConfigRep instantiates a new RelayAutoConfigRep object
 This constructor will assign default values to properties that have it defined,
@@ -125,20 +125,20 @@ SetName sets Name field to given value.
 
 ### GetPolicy
 
-`func (o *RelayAutoConfigRep) GetPolicy() []StatementRep`
+`func (o *RelayAutoConfigRep) GetPolicy() []Statement`
 
 GetPolicy returns the Policy field if non-nil, zero value otherwise.
 
 ### GetPolicyOk
 
-`func (o *RelayAutoConfigRep) GetPolicyOk() (*[]StatementRep, bool)`
+`func (o *RelayAutoConfigRep) GetPolicyOk() (*[]Statement, bool)`
 
 GetPolicyOk returns a tuple with the Policy field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPolicy
 
-`func (o *RelayAutoConfigRep) SetPolicy(v []StatementRep)`
+`func (o *RelayAutoConfigRep) SetPolicy(v []Statement)`
 
 SetPolicy sets Policy field to given value.
 

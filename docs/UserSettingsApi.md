@@ -38,8 +38,8 @@ func main() {
     environmentKey := "environmentKey_example" // string | The environment key
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.UserSettingsApi.GetExpiringFlagsForUser(context.Background(), projectKey, userKey, environmentKey).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserSettingsApi.GetExpiringFlagsForUser(context.Background(), projectKey, userKey, environmentKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserSettingsApi.GetExpiringFlagsForUser``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -115,8 +115,8 @@ func main() {
     featureFlagKey := "featureFlagKey_example" // string | The feature flag key
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.UserSettingsApi.GetUserFlagSetting(context.Background(), projectKey, environmentKey, userKey, featureFlagKey).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserSettingsApi.GetUserFlagSetting(context.Background(), projectKey, environmentKey, userKey, featureFlagKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserSettingsApi.GetUserFlagSetting``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -193,8 +193,8 @@ func main() {
     userKey := "userKey_example" // string | The user key
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.UserSettingsApi.GetUserFlagSettings(context.Background(), projectKey, environmentKey, userKey).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserSettingsApi.GetUserFlagSettings(context.Background(), projectKey, environmentKey, userKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserSettingsApi.GetUserFlagSettings``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -245,7 +245,7 @@ Name | Type | Description  | Notes
 
 ## PatchExpiringFlagsForUser
 
-> ExpiringUserTargetPatchResponse PatchExpiringFlagsForUser(ctx, projectKey, userKey, environmentKey).PatchWithComment(patchWithComment).Execute()
+> ExpiringUserTargetPatchResponse PatchExpiringFlagsForUser(ctx, projectKey, userKey, environmentKey).PatchUsersRequest(patchUsersRequest).Execute()
 
 Update expiring user target for flags
 
@@ -267,11 +267,11 @@ func main() {
     projectKey := "projectKey_example" // string | The project key
     userKey := "userKey_example" // string | The user key
     environmentKey := "environmentKey_example" // string | The environment key
-    patchWithComment := *openapiclient.NewPatchWithComment([]openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField", interface{}(new example value))}) // PatchWithComment | 
+    patchUsersRequest := *openapiclient.NewPatchUsersRequest([]openapiclient.InstructionUserRequest{*openapiclient.NewInstructionUserRequest("addExpireUserTargetDate", "sample-flag-key", "ce12d345-a1b2-4fb5-a123-ab123d4d5f5d")}) // PatchUsersRequest | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.UserSettingsApi.PatchExpiringFlagsForUser(context.Background(), projectKey, userKey, environmentKey).PatchWithComment(patchWithComment).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserSettingsApi.PatchExpiringFlagsForUser(context.Background(), projectKey, userKey, environmentKey).PatchUsersRequest(patchUsersRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserSettingsApi.PatchExpiringFlagsForUser``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -301,7 +301,7 @@ Name | Type | Description  | Notes
 
 
 
- **patchWithComment** | [**PatchWithComment**](PatchWithComment.md) |  | 
+ **patchUsersRequest** | [**PatchUsersRequest**](PatchUsersRequest.md) |  | 
 
 ### Return type
 
@@ -349,8 +349,8 @@ func main() {
     valuePut := *openapiclient.NewValuePut() // ValuePut | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.UserSettingsApi.PutFlagSetting(context.Background(), projectKey, environmentKey, userKey, featureFlagKey).ValuePut(valuePut).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserSettingsApi.PutFlagSetting(context.Background(), projectKey, environmentKey, userKey, featureFlagKey).ValuePut(valuePut).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserSettingsApi.PutFlagSetting``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

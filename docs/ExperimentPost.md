@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** |  | 
-**Description** | **string** |  | 
+**Description** | Pointer to **string** |  | [optional] 
 **MaintainerId** | **string** |  | 
 **Key** | **string** |  | 
 **Iteration** | [**IterationInput**](IterationInput.md) |  | 
@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 
 ### NewExperimentPost
 
-`func NewExperimentPost(name string, description string, maintainerId string, key string, iteration IterationInput, ) *ExperimentPost`
+`func NewExperimentPost(name string, maintainerId string, key string, iteration IterationInput, ) *ExperimentPost`
 
 NewExperimentPost instantiates a new ExperimentPost object
 This constructor will assign default values to properties that have it defined,
@@ -68,6 +68,11 @@ and a boolean to check if the value has been set.
 
 SetDescription sets Description field to given value.
 
+### HasDescription
+
+`func (o *ExperimentPost) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
 
 ### GetMaintainerId
 

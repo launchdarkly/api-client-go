@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Items** | [**[]FeatureFlagScheduledChange**](FeatureFlagScheduledChange.md) |  | 
-**Links** | Pointer to [**map[string]Link**](Link.md) |  | [optional] 
+**Items** | [**[]FeatureFlagScheduledChange**](FeatureFlagScheduledChange.md) | Array of scheduled changes | 
+**Links** | Pointer to [**map[string]Link**](Link.md) | Links to other resources within the API. Includes the URL and content type of those resources. | [optional] 
 
 ## Methods
 

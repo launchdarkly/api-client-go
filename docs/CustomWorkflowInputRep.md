@@ -5,9 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **MaintainerId** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**Description** | **string** |  | 
+**Name** | Pointer to **string** | The workflow name | [optional] 
+**Description** | **string** | The workflow description | 
 **Stages** | Pointer to [**[]StageInputRep**](StageInputRep.md) |  | [optional] 
+**TemplateKey** | Pointer to **string** | The template key | [optional] 
 
 ## Methods
 
@@ -122,6 +123,31 @@ SetStages sets Stages field to given value.
 `func (o *CustomWorkflowInputRep) HasStages() bool`
 
 HasStages returns a boolean if a field has been set.
+
+### GetTemplateKey
+
+`func (o *CustomWorkflowInputRep) GetTemplateKey() string`
+
+GetTemplateKey returns the TemplateKey field if non-nil, zero value otherwise.
+
+### GetTemplateKeyOk
+
+`func (o *CustomWorkflowInputRep) GetTemplateKeyOk() (*string, bool)`
+
+GetTemplateKeyOk returns a tuple with the TemplateKey field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTemplateKey
+
+`func (o *CustomWorkflowInputRep) SetTemplateKey(v string)`
+
+SetTemplateKey sets TemplateKey field to given value.
+
+### HasTemplateKey
+
+`func (o *CustomWorkflowInputRep) HasTemplateKey() bool`
+
+HasTemplateKey returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -37,8 +37,8 @@ func main() {
     segmentKey := "segmentKey_example" // string | The segment key
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SegmentsBetaApi.CreateBigSegmentExport(context.Background(), projectKey, environmentKey, segmentKey).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SegmentsBetaApi.CreateBigSegmentExport(context.Background(), projectKey, environmentKey, segmentKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SegmentsBetaApi.CreateBigSegmentExport``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -113,8 +113,8 @@ func main() {
     mode := "mode_example" // string | Import mode. Use either `merge` or `replace` (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SegmentsBetaApi.CreateBigSegmentImport(context.Background(), projectKey, environmentKey, segmentKey).File(file).Mode(mode).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SegmentsBetaApi.CreateBigSegmentImport(context.Background(), projectKey, environmentKey, segmentKey).File(file).Mode(mode).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SegmentsBetaApi.CreateBigSegmentImport``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -190,8 +190,8 @@ func main() {
     exportID := "exportID_example" // string | The export ID
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SegmentsBetaApi.GetBigSegmentExport(context.Background(), projectKey, environmentKey, segmentKey, exportID).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SegmentsBetaApi.GetBigSegmentExport(context.Background(), projectKey, environmentKey, segmentKey, exportID).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SegmentsBetaApi.GetBigSegmentExport``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -269,8 +269,8 @@ func main() {
     importID := "importID_example" // string | The import ID
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SegmentsBetaApi.GetBigSegmentImport(context.Background(), projectKey, environmentKey, segmentKey, importID).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SegmentsBetaApi.GetBigSegmentImport(context.Background(), projectKey, environmentKey, segmentKey, importID).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SegmentsBetaApi.GetBigSegmentImport``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

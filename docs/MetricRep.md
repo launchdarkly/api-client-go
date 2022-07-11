@@ -26,7 +26,7 @@ Name | Type | Description | Notes
 **AttachedFeatures** | Pointer to [**[]FlagListingRep**](FlagListingRep.md) |  | [optional] 
 **Version** | Pointer to **int32** |  | [optional] 
 **Selector** | Pointer to **string** |  | [optional] 
-**Urls** | Pointer to **[]interface{}** |  | [optional] 
+**Urls** | Pointer to **[]map[string]interface{}** |  | [optional] 
 
 ## Methods
 
@@ -564,20 +564,20 @@ HasSelector returns a boolean if a field has been set.
 
 ### GetUrls
 
-`func (o *MetricRep) GetUrls() []interface{}`
+`func (o *MetricRep) GetUrls() []map[string]interface{}`
 
 GetUrls returns the Urls field if non-nil, zero value otherwise.
 
 ### GetUrlsOk
 
-`func (o *MetricRep) GetUrlsOk() (*[]interface{}, bool)`
+`func (o *MetricRep) GetUrlsOk() (*[]map[string]interface{}, bool)`
 
 GetUrlsOk returns a tuple with the Urls field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUrls
 
-`func (o *MetricRep) SetUrls(v []interface{})`
+`func (o *MetricRep) SetUrls(v []map[string]interface{})`
 
 SetUrls sets Urls field to given value.
 

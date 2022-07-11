@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Links** | [**map[string]Link**](Link.md) |  | 
-**Items** | [**[]Webhook**](Webhook.md) |  | 
+**Links** | [**map[string]Link**](Link.md) | Links to other resources within the API. Includes the URL and content type of those resources. | 
+**Items** | [**[]Webhook**](Webhook.md) | An array of webhooks | 
 
 ## Methods
 

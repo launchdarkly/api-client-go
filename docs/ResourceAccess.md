@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Action** | Pointer to **string** |  | [optional] 
-**Resource** | Pointer to **interface{}** |  | [optional] 
+**Resource** | Pointer to **map[string]interface{}** |  | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasAction returns a boolean if a field has been set.
 
 ### GetResource
 
-`func (o *ResourceAccess) GetResource() interface{}`
+`func (o *ResourceAccess) GetResource() map[string]interface{}`
 
 GetResource returns the Resource field if non-nil, zero value otherwise.
 
 ### GetResourceOk
 
-`func (o *ResourceAccess) GetResourceOk() (*interface{}, bool)`
+`func (o *ResourceAccess) GetResourceOk() (*map[string]interface{}, bool)`
 
 GetResourceOk returns a tuple with the Resource field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetResource
 
-`func (o *ResourceAccess) SetResource(v interface{})`
+`func (o *ResourceAccess) SetResource(v map[string]interface{})`
 
 SetResource sets Resource field to given value.
 
@@ -76,16 +76,6 @@ SetResource sets Resource field to given value.
 
 HasResource returns a boolean if a field has been set.
 
-### SetResourceNil
-
-`func (o *ResourceAccess) SetResourceNil(b bool)`
-
- SetResourceNil sets the value for Resource to be an explicit nil
-
-### UnsetResource
-`func (o *ResourceAccess) UnsetResource()`
-
-UnsetResource ensures that no value is present for Resource, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

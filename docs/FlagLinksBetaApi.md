@@ -37,8 +37,8 @@ func main() {
     flagLinkPost := *openapiclient.NewFlagLinkPost() // FlagLinkPost | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.FlagLinksBetaApi.CreateFlagLink(context.Background(), projectKey, featureFlagKey).FlagLinkPost(flagLinkPost).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.FlagLinksBetaApi.CreateFlagLink(context.Background(), projectKey, featureFlagKey).FlagLinkPost(flagLinkPost).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FlagLinksBetaApi.CreateFlagLink``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -112,8 +112,8 @@ func main() {
     id := "id_example" // string | The flag link ID or Key
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.FlagLinksBetaApi.DeleteFlagLink(context.Background(), projectKey, featureFlagKey, id).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.FlagLinksBetaApi.DeleteFlagLink(context.Background(), projectKey, featureFlagKey, id).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FlagLinksBetaApi.DeleteFlagLink``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -185,8 +185,8 @@ func main() {
     featureFlagKey := "featureFlagKey_example" // string | The feature flag key
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.FlagLinksBetaApi.GetFlagLinks(context.Background(), projectKey, featureFlagKey).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.FlagLinksBetaApi.GetFlagLinks(context.Background(), projectKey, featureFlagKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FlagLinksBetaApi.GetFlagLinks``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -260,8 +260,8 @@ func main() {
     patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField", interface{}(new example value))} // []PatchOperation | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.FlagLinksBetaApi.UpdateFlagLink(context.Background(), projectKey, featureFlagKey, id).PatchOperation(patchOperation).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.FlagLinksBetaApi.UpdateFlagLink(context.Background(), projectKey, featureFlagKey, id).PatchOperation(patchOperation).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FlagLinksBetaApi.UpdateFlagLink``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
