@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Key** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
+**Key** | Pointer to **string** | The key of the custom role | [optional] 
+**Name** | Pointer to **string** | The name of the custom role | [optional] 
 **Projects** | Pointer to [**TeamProjects**](TeamProjects.md) |  | [optional] 
 **AppliedOn** | Pointer to **int64** |  | [optional] 
 

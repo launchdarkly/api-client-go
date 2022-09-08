@@ -4,22 +4,22 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Links** | [**map[string]Link**](Link.md) |  | 
-**Id** | **string** |  | 
-**AccountId** | **string** |  | 
+**Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
+**Id** | **string** | The ID of the audit log entry | 
+**AccountId** | **string** | The ID of the account to which this audit log entry belongs | 
 **Date** | **int64** |  | 
-**Accesses** | [**[]ResourceAccess**](ResourceAccess.md) |  | 
+**Accesses** | [**[]ResourceAccess**](ResourceAccess.md) | Details on the actions performed and resources acted on in this audit log entry | 
 **Kind** | **string** |  | 
-**Name** | **string** |  | 
-**Description** | **string** |  | 
-**ShortDescription** | **string** |  | 
-**Comment** | Pointer to **string** |  | [optional] 
+**Name** | **string** | The name of the resource this audit log entry refers to | 
+**Description** | **string** | Description of the change recorded in the audit log entry | 
+**ShortDescription** | **string** | Shorter version of the change recorded in the audit log entry | 
+**Comment** | Pointer to **string** | Optional comment for the audit log entry | [optional] 
 **Subject** | Pointer to [**SubjectDataRep**](SubjectDataRep.md) |  | [optional] 
 **Member** | Pointer to [**MemberDataRep**](MemberDataRep.md) |  | [optional] 
 **Token** | Pointer to [**TokenDataRep**](TokenDataRep.md) |  | [optional] 
 **App** | Pointer to [**AuthorizedAppDataRep**](AuthorizedAppDataRep.md) |  | [optional] 
-**TitleVerb** | Pointer to **string** |  | [optional] 
-**Title** | Pointer to **string** |  | [optional] 
+**TitleVerb** | Pointer to **string** | The action and resource recorded in this audit log entry | [optional] 
+**Title** | Pointer to **string** | A description of what occurred, in the format &lt;code&gt;member&lt;/code&gt; &lt;code&gt;titleVerb&lt;/code&gt; &lt;code&gt;target&lt;/code&gt; | [optional] 
 **Target** | Pointer to [**TargetResourceRep**](TargetResourceRep.md) |  | [optional] 
 **Parent** | Pointer to [**ParentResourceRep**](ParentResourceRep.md) |  | [optional] 
 

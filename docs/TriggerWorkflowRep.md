@@ -5,18 +5,18 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** |  | [optional] 
-**Version** | Pointer to **int32** |  | [optional] 
+**Version** | Pointer to **int32** | The flag trigger version | [optional] 
 **CreationDate** | Pointer to **int64** |  | [optional] 
-**MaintainerId** | Pointer to **string** |  | [optional] 
+**MaintainerId** | Pointer to **string** | The ID of the flag trigger maintainer | [optional] 
 **Maintainer** | Pointer to [**MemberSummary**](MemberSummary.md) |  | [optional] 
-**Enabled** | Pointer to **bool** |  | [optional] 
-**IntegrationKey** | Pointer to **string** |  | [optional] 
+**Enabled** | Pointer to **bool** | Whether the flag trigger is currently enabled | [optional] 
+**IntegrationKey** | Pointer to **string** | The unique identifier of the integration for your trigger | [optional] 
 **Instructions** | Pointer to **[]map[string]interface{}** |  | [optional] 
 **LastTriggeredAt** | Pointer to **int64** |  | [optional] 
-**RecentTriggerBodies** | Pointer to [**[]RecentTriggerBody**](RecentTriggerBody.md) |  | [optional] 
-**TriggerCount** | Pointer to **int32** |  | [optional] 
-**TriggerURL** | Pointer to **string** |  | [optional] 
-**Links** | Pointer to [**map[string]Link**](Link.md) |  | [optional] 
+**RecentTriggerBodies** | Pointer to [**[]RecentTriggerBody**](RecentTriggerBody.md) | Details on recent flag trigger requests. | [optional] 
+**TriggerCount** | Pointer to **int32** | Number of times the trigger has been executed | [optional] 
+**TriggerURL** | Pointer to **string** | The unguessable URL for this flag trigger | [optional] 
+**Links** | Pointer to [**map[string]Link**](Link.md) | The location and content type of related resources | [optional] 
 
 ## Methods
 

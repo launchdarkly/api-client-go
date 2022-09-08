@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Links** | [**map[string]Link**](Link.md) |  | 
-**Key** | Pointer to **string** |  | [optional] 
-**IntegrationKey** | Pointer to **string** |  | [optional] 
-**Id** | **string** |  | 
-**DeepLink** | **string** |  | 
+**Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
+**Key** | Pointer to **string** | The flag link key | [optional] 
+**IntegrationKey** | Pointer to **string** | The integration key for an integration whose &lt;code&gt;manifest.json&lt;/code&gt; includes the &lt;code&gt;flagLink&lt;/code&gt; capability, if this is a flag link for an existing integration | [optional] 
+**Id** | **string** | The ID of this flag link | 
+**DeepLink** | **string** | The URL for the external resource the flag is linked to | 
 **Timestamp** | [**TimestampRep**](TimestampRep.md) |  | 
-**Title** | Pointer to **string** |  | [optional] 
-**Description** | Pointer to **string** |  | [optional] 
-**Metadata** | Pointer to **map[string]string** |  | [optional] 
+**Title** | Pointer to **string** | The title of the flag link | [optional] 
+**Description** | Pointer to **string** | The description of the flag link | [optional] 
+**Metadata** | Pointer to **map[string]string** | The metadata required by this integration in order to create a flag link, if this is a flag link for an existing integration. Defined in the integration&#39;s &lt;code&gt;manifest.json&lt;/code&gt; file under &lt;code&gt;flagLink&lt;/code&gt;. | [optional] 
 **CreatedAt** | **int64** |  | 
 **Member** | Pointer to [**FlagLinkMember**](FlagLinkMember.md) |  | [optional] 
 

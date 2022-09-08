@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Links** | Pointer to [**map[string]Link**](Link.md) |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**Resources** | Pointer to **[]map[string]interface{}** |  | [optional] 
+**Name** | Pointer to **string** | The name of the resource | [optional] 
+**Resources** | Pointer to **[]map[string]interface{}** | The resource specifier | [optional] 
 
 ## Methods
 

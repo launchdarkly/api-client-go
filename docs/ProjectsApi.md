@@ -154,7 +154,7 @@ Name | Type | Description  | Notes
 
 ## GetProjects
 
-> Projects GetProjects(ctx).Limit(limit).Offset(offset).Filter(filter).Expand(expand).Execute()
+> Projects GetProjects(ctx).Limit(limit).Offset(offset).Filter(filter).Sort(sort).Expand(expand).Execute()
 
 List projects
 
@@ -176,11 +176,12 @@ func main() {
     limit := int64(789) // int64 | The number of projects to return in the response. Defaults to 20. (optional)
     offset := int64(789) // int64 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and returns the next `limit` items. (optional)
     filter := "filter_example" // string | A comma-separated list of filters. Each filter is constructed as `field:value`. (optional)
+    sort := "sort_example" // string | A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order. (optional)
     expand := "expand_example" // string | A comma-separated list of properties that can reveal additional information in the response. (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ProjectsApi.GetProjects(context.Background()).Limit(limit).Offset(offset).Filter(filter).Expand(expand).Execute()
+    resp, r, err := apiClient.ProjectsApi.GetProjects(context.Background()).Limit(limit).Offset(offset).Filter(filter).Sort(sort).Expand(expand).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ProjectsApi.GetProjects``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -204,6 +205,7 @@ Name | Type | Description  | Notes
  **limit** | **int64** | The number of projects to return in the response. Defaults to 20. | 
  **offset** | **int64** | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and returns the next &#x60;limit&#x60; items. | 
  **filter** | **string** | A comma-separated list of filters. Each filter is constructed as &#x60;field:value&#x60;. | 
+ **sort** | **string** | A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order. | 
  **expand** | **string** | A comma-separated list of properties that can reveal additional information in the response. | 
 
 ### Return type

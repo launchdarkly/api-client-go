@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Items** | [**[]AuditLogEntryListingRep**](AuditLogEntryListingRep.md) |  | 
-**Links** | [**map[string]Link**](Link.md) |  | 
+**Items** | [**[]AuditLogEntryListingRep**](AuditLogEntryListingRep.md) | An array of audit log entries | 
+**Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
 
 ## Methods
 

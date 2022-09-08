@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Links** | [**map[string]Link**](Link.md) |  | 
-**Id** | **string** |  | 
-**FirstName** | Pointer to **string** |  | [optional] 
-**LastName** | Pointer to **string** |  | [optional] 
-**Role** | **string** |  | 
-**Email** | **string** |  | 
+**Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
+**Id** | **string** | The member&#39;s ID | 
+**FirstName** | Pointer to **string** | The member&#39;s first name | [optional] 
+**LastName** | Pointer to **string** | The member&#39;s last name | [optional] 
+**Role** | **string** | The member&#39;s built-in role. If the member has no custom roles, this role will be in effect. | 
+**Email** | **string** | The member&#39;s email address | 
 
 ## Methods
 

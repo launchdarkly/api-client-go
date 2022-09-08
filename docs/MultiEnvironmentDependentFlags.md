@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Items** | [**[]MultiEnvironmentDependentFlag**](MultiEnvironmentDependentFlag.md) |  | 
-**Links** | [**map[string]Link**](Link.md) |  | 
+**Items** | [**[]MultiEnvironmentDependentFlag**](MultiEnvironmentDependentFlag.md) | An array of dependent flags with their environment information | 
+**Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
 **Site** | [**Link**](Link.md) |  | 
 
 ## Methods

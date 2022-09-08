@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Items** | Pointer to [**[]MemberImportItem**](MemberImportItem.md) |  | [optional] 
+**Items** | Pointer to [**[]MemberImportItem**](MemberImportItem.md) | An array of details about the members requested to be added to this team | [optional] 
 
 ## Methods
 

@@ -6,9 +6,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Links** | Pointer to [**map[string]Link**](Link.md) |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**Ending** | Pointer to **string** |  | [optional] 
-**ServiceToken** | Pointer to **bool** |  | [optional] 
+**Name** | Pointer to **string** | The name of the token | [optional] 
+**Ending** | Pointer to **string** | The last few characters of the token | [optional] 
+**ServiceToken** | Pointer to **bool** | Whether this is a service token | [optional] 
 
 ## Methods
 

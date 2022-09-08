@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Items** | [**[]Member**](Member.md) |  | 
-**Links** | [**map[string]Link**](Link.md) |  | 
-**TotalCount** | Pointer to **int32** |  | [optional] 
+**Items** | [**[]Member**](Member.md) | An array of members | 
+**Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
+**TotalCount** | Pointer to **int32** | The number of members returned | [optional] 
 
 ## Methods
 

@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Description** | Pointer to **string** |  | [optional] 
-**Key** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
+**Description** | Pointer to **string** | A description of the team | [optional] 
+**Key** | Pointer to **string** | The team key | [optional] 
+**Name** | Pointer to **string** | A human-friendly name for the team | [optional] 
 **Access** | Pointer to [**Access**](Access.md) |  | [optional] 
 **CreationDate** | Pointer to **int64** |  | [optional] 
-**Links** | Pointer to [**map[string]Link**](Link.md) |  | [optional] 
+**Links** | Pointer to [**map[string]Link**](Link.md) | The location and content type of related resources | [optional] 
 **LastModified** | Pointer to **int64** |  | [optional] 
-**Version** | Pointer to **int32** |  | [optional] 
+**Version** | Pointer to **int32** | The team version | [optional] 
 **Roles** | Pointer to [**TeamCustomRoles**](TeamCustomRoles.md) |  | [optional] 
 **Members** | Pointer to [**TeamMembers**](TeamMembers.md) |  | [optional] 
 **Projects** | Pointer to [**TeamProjects**](TeamProjects.md) |  | [optional] 

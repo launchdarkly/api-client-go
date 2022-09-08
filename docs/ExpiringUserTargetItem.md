@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** |  | 
-**Version** | **int32** |  | 
+**Id** | **string** | The ID of this expiring user target | 
+**Version** | **int32** | The version of this expiring user target | 
 **ExpirationDate** | **int64** |  | 
 **UserKey** | **string** | A unique key used to represent the user | 
 **TargetType** | Pointer to **string** | A segment&#39;s target type. Included when expiring user targets are updated on a user segment. | [optional] 

@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **CommitUrlTemplate** | Pointer to **string** | A template for constructing a valid URL to view the commit | [optional] 
 **HunkUrlTemplate** | Pointer to **string** | A template for constructing a valid URL to view the hunk | [optional] 
 **Type** | Pointer to **string** | The type of repository. If not specified, the default value is &lt;code&gt;custom&lt;/code&gt;. | [optional] 
-**DefaultBranch** | Pointer to **string** | The repository&#39;s default branch. If not specified, the default value is &lt;code&gt;master&lt;/code&gt;. | [optional] 
+**DefaultBranch** | Pointer to **string** | The repository&#39;s default branch. If not specified, the default value is &lt;code&gt;main&lt;/code&gt;. | [optional] 
 
 ## Methods
 

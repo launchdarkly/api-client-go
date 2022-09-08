@@ -7,10 +7,10 @@ Name | Type | Description | Notes
 **Id** | **string** |  | 
 **Creator** | Pointer to [**MemberSummary**](MemberSummary.md) |  | [optional] 
 **Access** | Pointer to [**Access**](Access.md) |  | [optional] 
-**Name** | **string** |  | 
-**Policy** | [**[]Statement**](Statement.md) |  | 
-**FullKey** | **string** |  | 
-**DisplayKey** | **string** |  | 
+**Name** | **string** | A human-friendly name for the Relay Proxy configuration | 
+**Policy** | [**[]Statement**](Statement.md) | A description of what environments and projects the Relay Proxy should include or exclude | 
+**FullKey** | **string** | The Relay Proxy configuration key | 
+**DisplayKey** | **string** | The last few characters of the Relay Proxy configuration key, displayed in the LaunchDarkly UI | 
 **CreationDate** | **int64** |  | 
 **LastModified** | **int64** |  | 
 

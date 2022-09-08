@@ -21,7 +21,6 @@ type Clause struct {
 	Attribute string `json:"attribute"`
 	Op string `json:"op"`
 	Values []interface{} `json:"values"`
-	ContextKind *string `json:"contextKind,omitempty"`
 	Negate bool `json:"negate"`
 }
 
@@ -150,38 +149,6 @@ func (o *Clause) SetValues(v []interface{}) {
 	o.Values = v
 }
 
-// GetContextKind returns the ContextKind field value if set, zero value otherwise.
-func (o *Clause) GetContextKind() string {
-	if o == nil || o.ContextKind == nil {
-		var ret string
-		return ret
-	}
-	return *o.ContextKind
-}
-
-// GetContextKindOk returns a tuple with the ContextKind field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Clause) GetContextKindOk() (*string, bool) {
-	if o == nil || o.ContextKind == nil {
-		return nil, false
-	}
-	return o.ContextKind, true
-}
-
-// HasContextKind returns a boolean if a field has been set.
-func (o *Clause) HasContextKind() bool {
-	if o != nil && o.ContextKind != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetContextKind gets a reference to the given string and assigns it to the ContextKind field.
-func (o *Clause) SetContextKind(v string) {
-	o.ContextKind = &v
-}
-
 // GetNegate returns the Negate field value
 func (o *Clause) GetNegate() bool {
 	if o == nil {
@@ -219,9 +186,6 @@ func (o Clause) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["values"] = o.Values
-	}
-	if o.ContextKind != nil {
-		toSerialize["contextKind"] = o.ContextKind
 	}
 	if true {
 		toSerialize["negate"] = o.Negate

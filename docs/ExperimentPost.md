@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** |  | 
-**Description** | Pointer to **string** |  | [optional] 
-**MaintainerId** | **string** |  | 
-**Key** | **string** |  | 
+**Name** | **string** | The experiment name | 
+**Description** | Pointer to **string** | The experiment description | [optional] 
+**MaintainerId** | **string** | The ID of the member who maintains this experiment. | 
+**Key** | **string** | The experiment key | 
 **Iteration** | [**IterationInput**](IterationInput.md) |  | 
 
 ## Methods

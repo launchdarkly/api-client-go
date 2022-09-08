@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Upper** | Pointer to **float32** |  | [optional] 
-**Lower** | Pointer to **float32** |  | [optional] 
-**FromTreatmentId** | Pointer to **string** |  | [optional] 
+**Upper** | Pointer to **float32** | The upper bound | [optional] 
+**Lower** | Pointer to **float32** | The lower bound | [optional] 
+**FromTreatmentId** | Pointer to **string** | The treatment ID | [optional] 
 
 ## Methods
 

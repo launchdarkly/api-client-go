@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Items** | Pointer to [**[]Team**](Team.md) |  | [optional] 
-**Links** | Pointer to [**map[string]Link**](Link.md) |  | [optional] 
-**TotalCount** | Pointer to **int32** |  | [optional] 
+**Items** | Pointer to [**[]Team**](Team.md) | An array of teams | [optional] 
+**Links** | Pointer to [**map[string]Link**](Link.md) | The location and content type of related resources | [optional] 
+**TotalCount** | Pointer to **int32** | The number of teams | [optional] 
 
 ## Methods
 

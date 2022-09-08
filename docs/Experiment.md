@@ -4,16 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** |  | [optional] 
-**Key** | **string** |  | 
-**Name** | **string** |  | 
-**Description** | Pointer to **string** |  | [optional] 
-**MaintainerId** | **string** |  | 
+**Id** | Pointer to **string** | The experiment ID | [optional] 
+**Key** | **string** | The experiment key | 
+**Name** | **string** | The experiment name | 
+**Description** | Pointer to **string** | The experiment description | [optional] 
+**MaintainerId** | **string** | The ID of the member who maintains this experiment. | 
 **CreationDate** | **int64** |  | 
-**Links** | [**map[string]Link**](Link.md) |  | 
+**ArchivedDate** | Pointer to **int64** |  | [optional] 
+**Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
 **CurrentIteration** | Pointer to [**IterationRep**](IterationRep.md) |  | [optional] 
 **DraftIteration** | Pointer to [**IterationRep**](IterationRep.md) |  | [optional] 
-**PreviousIterations** | Pointer to [**[]IterationRep**](IterationRep.md) |  | [optional] 
+**PreviousIterations** | Pointer to [**[]IterationRep**](IterationRep.md) | Details on the previous iterations for this experiment. | [optional] 
 
 ## Methods
 
@@ -163,6 +164,31 @@ and a boolean to check if the value has been set.
 
 SetCreationDate sets CreationDate field to given value.
 
+
+### GetArchivedDate
+
+`func (o *Experiment) GetArchivedDate() int64`
+
+GetArchivedDate returns the ArchivedDate field if non-nil, zero value otherwise.
+
+### GetArchivedDateOk
+
+`func (o *Experiment) GetArchivedDateOk() (*int64, bool)`
+
+GetArchivedDateOk returns a tuple with the ArchivedDate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetArchivedDate
+
+`func (o *Experiment) SetArchivedDate(v int64)`
+
+SetArchivedDate sets ArchivedDate field to given value.
+
+### HasArchivedDate
+
+`func (o *Experiment) HasArchivedDate() bool`
+
+HasArchivedDate returns a boolean if a field has been set.
 
 ### GetLinks
 

@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**TargetingRule** | Pointer to **string** |  | [optional] 
-**FlagConfigVersion** | Pointer to **int32** |  | [optional] 
-**Links** | [**map[string]Link**](Link.md) |  | 
+**TargetingRule** | Pointer to **string** | The targeting rule | [optional] 
+**FlagConfigVersion** | Pointer to **int32** | The flag version | [optional] 
+**Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
 
 ## Methods
 

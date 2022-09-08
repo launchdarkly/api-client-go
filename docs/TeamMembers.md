@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**TotalCount** | Pointer to **int32** |  | [optional] 
+**TotalCount** | Pointer to **int32** | The total count of members that belong to the team | [optional] 
 
 ## Methods
 

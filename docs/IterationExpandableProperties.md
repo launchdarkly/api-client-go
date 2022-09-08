@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Treatments** | Pointer to [**[]TreatmentRep**](TreatmentRep.md) |  | [optional] 
-**SecondaryMetrics** | Pointer to [**[]MetricV2Rep**](MetricV2Rep.md) |  | [optional] 
+**Treatments** | Pointer to [**[]TreatmentRep**](TreatmentRep.md) | Details on the variations you are testing in the experiment | [optional] 
+**SecondaryMetrics** | Pointer to [**[]MetricV2Rep**](MetricV2Rep.md) | Details on the secondary metrics for this experiment | [optional] 
 
 ## Methods
 

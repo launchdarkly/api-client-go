@@ -8,7 +8,6 @@ Name | Type | Description | Notes
 **Attribute** | **string** |  | 
 **Op** | **string** |  | 
 **Values** | **[]interface{}** |  | 
-**ContextKind** | Pointer to **string** |  | [optional] 
 **Negate** | **bool** |  | 
 
 ## Methods
@@ -114,31 +113,6 @@ and a boolean to check if the value has been set.
 
 SetValues sets Values field to given value.
 
-
-### GetContextKind
-
-`func (o *Clause) GetContextKind() string`
-
-GetContextKind returns the ContextKind field if non-nil, zero value otherwise.
-
-### GetContextKindOk
-
-`func (o *Clause) GetContextKindOk() (*string, bool)`
-
-GetContextKindOk returns a tuple with the ContextKind field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetContextKind
-
-`func (o *Clause) SetContextKind(v string)`
-
-SetContextKind sets ContextKind field to given value.
-
-### HasContextKind
-
-`func (o *Clause) HasContextKind() bool`
-
-HasContextKind returns a boolean if a field has been set.
 
 ### GetNegate
 

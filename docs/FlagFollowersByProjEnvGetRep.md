@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Links** | [**map[string]Link**](Link.md) |  | 
-**Items** | Pointer to [**[]FollowersPerFlag**](FollowersPerFlag.md) |  | [optional] 
+**Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
+**Items** | Pointer to [**[]FollowersPerFlag**](FollowersPerFlag.md) | An array of flags and their followers | [optional] 
 
 ## Methods
 

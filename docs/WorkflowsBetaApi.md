@@ -90,7 +90,7 @@ Name | Type | Description  | Notes
 
 ## GetCustomWorkflow
 
-> CustomWorkflowOutputRep GetCustomWorkflow(ctx, projectKey, featureFlagKey, environmentKey, workflowId).Execute()
+> CustomWorkflowOutput GetCustomWorkflow(ctx, projectKey, featureFlagKey, environmentKey, workflowId).Execute()
 
 Get custom workflow
 
@@ -121,7 +121,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `WorkflowsBetaApi.GetCustomWorkflow``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetCustomWorkflow`: CustomWorkflowOutputRep
+    // response from `GetCustomWorkflow`: CustomWorkflowOutput
     fmt.Fprintf(os.Stdout, "Response from `WorkflowsBetaApi.GetCustomWorkflow`: %v\n", resp)
 }
 ```
@@ -151,7 +151,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CustomWorkflowOutputRep**](CustomWorkflowOutputRep.md)
+[**CustomWorkflowOutput**](CustomWorkflowOutput.md)
 
 ### Authorization
 
@@ -169,7 +169,7 @@ Name | Type | Description  | Notes
 
 ## GetWorkflows
 
-> CustomWorkflowsListingOutputRep GetWorkflows(ctx, projectKey, featureFlagKey, environmentKey).Execute()
+> CustomWorkflowsListingOutput GetWorkflows(ctx, projectKey, featureFlagKey, environmentKey).Execute()
 
 Get workflows
 
@@ -199,7 +199,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `WorkflowsBetaApi.GetWorkflows``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetWorkflows`: CustomWorkflowsListingOutputRep
+    // response from `GetWorkflows`: CustomWorkflowsListingOutput
     fmt.Fprintf(os.Stdout, "Response from `WorkflowsBetaApi.GetWorkflows`: %v\n", resp)
 }
 ```
@@ -227,7 +227,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CustomWorkflowsListingOutputRep**](CustomWorkflowsListingOutputRep.md)
+[**CustomWorkflowsListingOutput**](CustomWorkflowsListingOutput.md)
 
 ### Authorization
 
@@ -245,7 +245,7 @@ Name | Type | Description  | Notes
 
 ## PostWorkflow
 
-> CustomWorkflowOutputRep PostWorkflow(ctx, projectKey, featureFlagKey, environmentKey).CustomWorkflowInputRep(customWorkflowInputRep).Execute()
+> CustomWorkflowOutput PostWorkflow(ctx, projectKey, featureFlagKey, environmentKey).CustomWorkflowInput(customWorkflowInput).TemplateKey(templateKey).Execute()
 
 Create workflow
 
@@ -267,16 +267,17 @@ func main() {
     projectKey := "projectKey_example" // string | The project key
     featureFlagKey := "featureFlagKey_example" // string | The feature flag key
     environmentKey := "environmentKey_example" // string | The environment key
-    customWorkflowInputRep := *openapiclient.NewCustomWorkflowInputRep("Turn flag on for 10% of users each day") // CustomWorkflowInputRep | 
+    customWorkflowInput := *openapiclient.NewCustomWorkflowInput("Turn flag on for 10% of users each day") // CustomWorkflowInput | 
+    templateKey := "templateKey_example" // string | The template key to apply as a starting point for the new workflow (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.WorkflowsBetaApi.PostWorkflow(context.Background(), projectKey, featureFlagKey, environmentKey).CustomWorkflowInputRep(customWorkflowInputRep).Execute()
+    resp, r, err := apiClient.WorkflowsBetaApi.PostWorkflow(context.Background(), projectKey, featureFlagKey, environmentKey).CustomWorkflowInput(customWorkflowInput).TemplateKey(templateKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `WorkflowsBetaApi.PostWorkflow``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostWorkflow`: CustomWorkflowOutputRep
+    // response from `PostWorkflow`: CustomWorkflowOutput
     fmt.Fprintf(os.Stdout, "Response from `WorkflowsBetaApi.PostWorkflow`: %v\n", resp)
 }
 ```
@@ -301,11 +302,12 @@ Name | Type | Description  | Notes
 
 
 
- **customWorkflowInputRep** | [**CustomWorkflowInputRep**](CustomWorkflowInputRep.md) |  | 
+ **customWorkflowInput** | [**CustomWorkflowInput**](CustomWorkflowInput.md) |  | 
+ **templateKey** | **string** | The template key to apply as a starting point for the new workflow | 
 
 ### Return type
 
-[**CustomWorkflowOutputRep**](CustomWorkflowOutputRep.md)
+[**CustomWorkflowOutput**](CustomWorkflowOutput.md)
 
 ### Authorization
 

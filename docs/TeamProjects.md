@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **TotalCount** | Pointer to **int32** |  | [optional] 
-**Items** | Pointer to [**[]ProjectSummary**](ProjectSummary.md) |  | [optional] 
+**Items** | Pointer to [**[]ProjectSummary**](ProjectSummary.md) | Details on each project where team members have write privileges on at least one custom role action | [optional] 
 
 ## Methods
 

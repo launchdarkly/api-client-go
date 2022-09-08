@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DraftIteration** | Pointer to [**IterationRep**](IterationRep.md) |  | [optional] 
-**PreviousIterations** | Pointer to [**[]IterationRep**](IterationRep.md) |  | [optional] 
+**PreviousIterations** | Pointer to [**[]IterationRep**](IterationRep.md) | Details on the previous iterations for this experiment. | [optional] 
 
 ## Methods
 

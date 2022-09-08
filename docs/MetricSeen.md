@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Ever** | Pointer to **bool** |  | [optional] 
-**Timestamp** | Pointer to **int64** |  | [optional] 
+**Ever** | Pointer to **bool** | Whether the metric has received an event for this iteration | [optional] 
+**Timestamp** | Pointer to **int64** | Timestamp of when the metric most recently received an event for this iteration | [optional] 
 
 ## Methods
 

@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Links** | **map[string]interface{}** |  | 
-**Sdks** | **[]string** |  | 
+**Links** | **map[string]interface{}** | The location and content type of related resources | 
+**Sdks** | **[]string** | The list of SDK names | 
 
 ## Methods
 

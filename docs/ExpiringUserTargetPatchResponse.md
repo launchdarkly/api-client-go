@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Items** | [**[]ExpiringUserTargetItem**](ExpiringUserTargetItem.md) |  | 
-**Links** | Pointer to [**map[string]Link**](Link.md) |  | [optional] 
-**TotalInstructions** | Pointer to **int32** |  | [optional] 
-**SuccessfulInstructions** | Pointer to **int32** |  | [optional] 
-**FailedInstructions** | Pointer to **int32** |  | [optional] 
-**Errors** | Pointer to [**[]ExpiringUserTargetError**](ExpiringUserTargetError.md) |  | [optional] 
+**Items** | [**[]ExpiringUserTargetItem**](ExpiringUserTargetItem.md) | An array of expiring user targets | 
+**Links** | Pointer to [**map[string]Link**](Link.md) | The location and content type of related resources | [optional] 
+**TotalInstructions** | Pointer to **int32** | The total count of instructions sent in the PATCH request | [optional] 
+**SuccessfulInstructions** | Pointer to **int32** | The total count of successful instructions sent in the PATCH request | [optional] 
+**FailedInstructions** | Pointer to **int32** | The total count of the failed instructions sent in the PATCH request | [optional] 
+**Errors** | Pointer to [**[]ExpiringTargetError**](ExpiringTargetError.md) | An array of error messages for the failed instructions | [optional] 
 
 ## Methods
 
@@ -152,20 +152,20 @@ HasFailedInstructions returns a boolean if a field has been set.
 
 ### GetErrors
 
-`func (o *ExpiringUserTargetPatchResponse) GetErrors() []ExpiringUserTargetError`
+`func (o *ExpiringUserTargetPatchResponse) GetErrors() []ExpiringTargetError`
 
 GetErrors returns the Errors field if non-nil, zero value otherwise.
 
 ### GetErrorsOk
 
-`func (o *ExpiringUserTargetPatchResponse) GetErrorsOk() (*[]ExpiringUserTargetError, bool)`
+`func (o *ExpiringUserTargetPatchResponse) GetErrorsOk() (*[]ExpiringTargetError, bool)`
 
 GetErrorsOk returns a tuple with the Errors field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetErrors
 
-`func (o *ExpiringUserTargetPatchResponse) SetErrors(v []ExpiringUserTargetError)`
+`func (o *ExpiringUserTargetPatchResponse) SetErrors(v []ExpiringTargetError)`
 
 SetErrors sets Errors field to given value.
 

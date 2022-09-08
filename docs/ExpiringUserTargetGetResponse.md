@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Items** | [**[]ExpiringUserTargetItem**](ExpiringUserTargetItem.md) |  | 
-**Links** | Pointer to [**map[string]Link**](Link.md) |  | [optional] 
+**Items** | [**[]ExpiringUserTargetItem**](ExpiringUserTargetItem.md) | An array of expiring user targets | 
+**Links** | Pointer to [**map[string]Link**](Link.md) | The location and content type of related resources | [optional] 
 
 ## Methods
 

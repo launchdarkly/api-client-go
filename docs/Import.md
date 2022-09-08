@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** |  | 
-**SegmentKey** | **string** |  | 
+**Id** | **string** | The import ID | 
+**SegmentKey** | **string** | The segment key | 
 **CreationTime** | **int64** |  | 
-**Mode** | **string** |  | 
-**Status** | **string** |  | 
-**Files** | Pointer to [**[]FileRep**](FileRep.md) |  | [optional] 
-**Links** | [**map[string]Link**](Link.md) |  | 
+**Mode** | **string** | The import mode used, either &lt;code&gt;merge&lt;/code&gt; or &lt;code&gt;replace&lt;/code&gt; | 
+**Status** | **string** | The import status | 
+**Files** | Pointer to [**[]FileRep**](FileRep.md) | The imported files and their status | [optional] 
+**Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
 
 ## Methods
 

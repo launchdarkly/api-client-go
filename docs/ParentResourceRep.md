@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Links** | Pointer to [**map[string]Link**](Link.md) |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
+**Name** | Pointer to **string** | The name of the parent resource | [optional] 
 **Resource** | Pointer to **map[string]interface{}** |  | [optional] 
 
 ## Methods

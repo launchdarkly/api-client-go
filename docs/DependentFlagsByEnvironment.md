@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Items** | [**[]DependentFlag**](DependentFlag.md) |  | 
-**Links** | [**map[string]Link**](Link.md) |  | 
+**Items** | [**[]DependentFlag**](DependentFlag.md) | A list of dependent flags, which are flags that use the requested flag as a prerequisite | 
+**Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
 **Site** | [**Link**](Link.md) |  | 
 
 ## Methods
