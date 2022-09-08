@@ -15506,6 +15506,8 @@ components:
         values:
           items: {}
           type: array
+        contextKind:
+          type: string
         negate:
           type: boolean
       required:
