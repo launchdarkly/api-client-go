@@ -4,9 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Links** | Pointer to [**map[string]Link**](Link.md) |  | [optional] 
-**TreatmentResults** | Pointer to [**[]TreatmentResultRep**](TreatmentResultRep.md) |  | [optional] 
+**Links** | Pointer to [**map[string]Link**](Link.md) | The location and content type of related resources | [optional] 
+**TreatmentResults** | Pointer to [**[]TreatmentResultRep**](TreatmentResultRep.md) | A list of the results for each treatment | [optional] 
 **MetricSeen** | Pointer to [**MetricSeen**](MetricSeen.md) |  | [optional] 
+**ProbabilityOfMismatch** | Pointer to **float32** | The probability of a Sample Ratio Mismatch | [optional] 
 
 ## Methods
 
@@ -101,6 +102,31 @@ SetMetricSeen sets MetricSeen field to given value.
 `func (o *ExperimentBayesianResultsRep) HasMetricSeen() bool`
 
 HasMetricSeen returns a boolean if a field has been set.
+
+### GetProbabilityOfMismatch
+
+`func (o *ExperimentBayesianResultsRep) GetProbabilityOfMismatch() float32`
+
+GetProbabilityOfMismatch returns the ProbabilityOfMismatch field if non-nil, zero value otherwise.
+
+### GetProbabilityOfMismatchOk
+
+`func (o *ExperimentBayesianResultsRep) GetProbabilityOfMismatchOk() (*float32, bool)`
+
+GetProbabilityOfMismatchOk returns a tuple with the ProbabilityOfMismatch field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProbabilityOfMismatch
+
+`func (o *ExperimentBayesianResultsRep) SetProbabilityOfMismatch(v float32)`
+
+SetProbabilityOfMismatch sets ProbabilityOfMismatch field to given value.
+
+### HasProbabilityOfMismatch
+
+`func (o *ExperimentBayesianResultsRep) HasProbabilityOfMismatch() bool`
+
+HasProbabilityOfMismatch returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

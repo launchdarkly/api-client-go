@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**FlagKey** | Pointer to **string** |  | [optional] 
-**Followers** | Pointer to [**[]FollowFlagMember**](FollowFlagMember.md) |  | [optional] 
+**FlagKey** | Pointer to **string** | The flag key | [optional] 
+**Followers** | Pointer to [**[]FollowFlagMember**](FollowFlagMember.md) | A list of members who are following this flag | [optional] 
 
 ## Methods
 

@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Filename** | Pointer to **string** |  | [optional] 
-**Status** | Pointer to **string** |  | [optional] 
+**Filename** | Pointer to **string** | The imported file name, including the extension | [optional] 
+**Status** | Pointer to **string** | The imported file status | [optional] 
 
 ## Methods
 

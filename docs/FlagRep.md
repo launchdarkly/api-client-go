@@ -4,9 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**TargetingRule** | Pointer to **string** |  | [optional] 
-**FlagConfigVersion** | Pointer to **int32** |  | [optional] 
-**Links** | [**map[string]Link**](Link.md) |  | 
+**TargetingRule** | Pointer to **string** | The targeting rule | [optional] 
+**TargetingRuleDescription** | Pointer to **string** | The rule description | [optional] 
+**TargetingRuleClauses** | Pointer to **[]interface{}** | Clause(s) used for targeting certain users by their attributes | [optional] 
+**FlagConfigVersion** | Pointer to **int32** | The flag version | [optional] 
+**Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
 
 ## Methods
 
@@ -51,6 +53,56 @@ SetTargetingRule sets TargetingRule field to given value.
 `func (o *FlagRep) HasTargetingRule() bool`
 
 HasTargetingRule returns a boolean if a field has been set.
+
+### GetTargetingRuleDescription
+
+`func (o *FlagRep) GetTargetingRuleDescription() string`
+
+GetTargetingRuleDescription returns the TargetingRuleDescription field if non-nil, zero value otherwise.
+
+### GetTargetingRuleDescriptionOk
+
+`func (o *FlagRep) GetTargetingRuleDescriptionOk() (*string, bool)`
+
+GetTargetingRuleDescriptionOk returns a tuple with the TargetingRuleDescription field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTargetingRuleDescription
+
+`func (o *FlagRep) SetTargetingRuleDescription(v string)`
+
+SetTargetingRuleDescription sets TargetingRuleDescription field to given value.
+
+### HasTargetingRuleDescription
+
+`func (o *FlagRep) HasTargetingRuleDescription() bool`
+
+HasTargetingRuleDescription returns a boolean if a field has been set.
+
+### GetTargetingRuleClauses
+
+`func (o *FlagRep) GetTargetingRuleClauses() []interface{}`
+
+GetTargetingRuleClauses returns the TargetingRuleClauses field if non-nil, zero value otherwise.
+
+### GetTargetingRuleClausesOk
+
+`func (o *FlagRep) GetTargetingRuleClausesOk() (*[]interface{}, bool)`
+
+GetTargetingRuleClausesOk returns a tuple with the TargetingRuleClauses field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTargetingRuleClauses
+
+`func (o *FlagRep) SetTargetingRuleClauses(v []interface{})`
+
+SetTargetingRuleClauses sets TargetingRuleClauses field to given value.
+
+### HasTargetingRuleClauses
+
+`func (o *FlagRep) HasTargetingRuleClauses() bool`
+
+HasTargetingRuleClauses returns a boolean if a field has been set.
 
 ### GetFlagConfigVersion
 

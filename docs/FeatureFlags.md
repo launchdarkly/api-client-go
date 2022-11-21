@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Items** | [**[]FeatureFlag**](FeatureFlag.md) |  | 
-**Links** | [**map[string]Link**](Link.md) |  | 
-**TotalCount** | Pointer to **int32** |  | [optional] 
-**TotalCountWithDifferences** | Pointer to **int32** |  | [optional] 
+**Items** | [**[]FeatureFlag**](FeatureFlag.md) | An array of feature flags | 
+**Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
+**TotalCount** | Pointer to **int32** | The total number of flags | [optional] 
+**TotalCountWithDifferences** | Pointer to **int32** | The number of flags that have differences between environments. Only shown when query parameter &lt;code&gt;compare&lt;/code&gt; is &lt;code&gt;true&lt;/code&gt;. | [optional] 
 
 ## Methods
 

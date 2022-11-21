@@ -4,20 +4,20 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** | A human-friendly name for the segment | 
-**Description** | Pointer to **string** | A description of the segment&#39;s purpose | [optional] 
-**Tags** | **[]string** | Tags for the segment | 
+**Name** | **string** | A human-friendly name for the segment. | 
+**Description** | Pointer to **string** | A description of the segment&#39;s purpose. Defaults to &lt;code&gt;null&lt;/code&gt; and is omitted in the response if not provided. | [optional] 
+**Tags** | **[]string** | Tags for the segment. Defaults to an empty array. | 
 **CreationDate** | **int64** |  | 
 **Key** | **string** | A unique key used to reference the segment | 
 **Included** | Pointer to **[]string** | An array of user keys for included users. Included users are always segment members, regardless of segment rules. For Big Segments this array is either empty or omitted. | [optional] 
 **Excluded** | Pointer to **[]string** | An array of user keys for excluded users. Segment rules bypass excluded users, so they will never be included based on rules. Excluded users may still be included explicitly. This value is omitted for Big Segments. | [optional] 
-**Links** | [**map[string]Link**](Link.md) | Links to other resources within the API. Includes the URL and content type of those resources. | 
+**Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
 **Rules** | [**[]UserSegmentRule**](UserSegmentRule.md) | An array of the targeting rules for this segment. | 
 **Version** | **int32** | Version of the segment | 
 **Deleted** | **bool** | Whether the segment has been deleted | 
 **Access** | Pointer to [**Access**](Access.md) |  | [optional] 
 **Flags** | Pointer to [**[]FlagListingRep**](FlagListingRep.md) |  | [optional] 
-**Unbounded** | Pointer to **bool** | Whether this is a standard segment (false) or a Big Segment (true) | [optional] 
+**Unbounded** | Pointer to **bool** | Whether this is a standard segment (&lt;code&gt;false&lt;/code&gt;) or a Big Segment (&lt;code&gt;true&lt;/code&gt;). If omitted, the segment is a standard segment. | [optional] 
 **Generation** | **int32** | For Big Segments, how many times this segment has been created | 
 **UnboundedMetadata** | Pointer to [**SegmentMetadata**](SegmentMetadata.md) |  | [optional] 
 **External** | Pointer to **string** | The external data store backing this segment. Only applies to Big Segments. | [optional] 

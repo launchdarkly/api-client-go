@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Key** | **string** |  | 
-**Primary** | **bool** |  | 
+**Key** | **string** | The metric key | 
+**Primary** | **bool** | Whether this is a primary metric (true) or a secondary metric (false) | 
 
 ## Methods
 

@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** |  | [optional] 
-**Name** | **string** |  | 
-**AllocationPercent** | **string** |  | 
-**Baseline** | Pointer to **bool** |  | [optional] 
-**Parameters** | Pointer to [**[]ParameterRep**](ParameterRep.md) |  | [optional] 
+**Id** | Pointer to **string** | The treatment ID. This is the variation ID from the flag. | [optional] 
+**Name** | **string** | The treatment name. This is the variation name from the flag. | 
+**AllocationPercent** | **string** | The percentage of traffic allocated to this treatment during the iteration | 
+**Baseline** | Pointer to **bool** | Whether this treatment is the baseline to compare other treatments against | [optional] 
+**Parameters** | Pointer to [**[]ParameterRep**](ParameterRep.md) | Details on the flag and variation used for this treatment | [optional] 
 
 ## Methods
 

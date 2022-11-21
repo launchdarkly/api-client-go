@@ -4,25 +4,25 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Links** | [**map[string]Link**](Link.md) |  | 
+**Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
 **Id** | **string** | The member&#39;s ID | 
 **FirstName** | Pointer to **string** | The member&#39;s first name | [optional] 
 **LastName** | Pointer to **string** | The member&#39;s last name | [optional] 
 **Role** | **string** | The member&#39;s built-in role. If the member has no custom roles, this role will be in effect. | 
 **Email** | **string** | The member&#39;s email address | 
-**PendingInvite** | **bool** | Whether or not the member has a pending invitation | 
-**Verified** | **bool** | Whether or not the member&#39;s email address has been verified | 
-**PendingEmail** | Pointer to **string** |  | [optional] 
+**PendingInvite** | **bool** | Whether the member has a pending invitation | 
+**Verified** | **bool** | Whether the member&#39;s email address has been verified | 
+**PendingEmail** | Pointer to **string** | The member&#39;s email address before it has been verified, for accounts where email verification is required | [optional] 
 **CustomRoles** | **[]string** | The set of custom roles (as keys) assigned to the member | 
-**Mfa** | **string** | Whether or not multi-factor authentication is enabled for this member | 
+**Mfa** | **string** | Whether multi-factor authentication is enabled for this member | 
 **ExcludedDashboards** | Pointer to **[]string** | Default dashboards that the member has chosen to ignore | [optional] 
 **LastSeen** | **int64** |  | 
 **LastSeenMetadata** | Pointer to [**LastSeenMetadata**](LastSeenMetadata.md) |  | [optional] 
 **IntegrationMetadata** | Pointer to [**IntegrationMetadata**](IntegrationMetadata.md) |  | [optional] 
-**Teams** | Pointer to [**[]MemberTeamSummaryRep**](MemberTeamSummaryRep.md) |  | [optional] 
-**PermissionGrants** | Pointer to [**[]MemberPermissionGrantSummaryRep**](MemberPermissionGrantSummaryRep.md) |  | [optional] 
+**Teams** | Pointer to [**[]MemberTeamSummaryRep**](MemberTeamSummaryRep.md) | Details on the teams this member is assigned to | [optional] 
+**PermissionGrants** | Pointer to [**[]MemberPermissionGrantSummaryRep**](MemberPermissionGrantSummaryRep.md) | A list of permission grants. Permission grants allow a member to have access to a specific action, without having to create or update a custom role. | [optional] 
 **CreationDate** | **int64** |  | 
-**OauthProviders** | Pointer to **[]string** |  | [optional] 
+**OauthProviders** | Pointer to **[]string** | A list of OAuth providers | [optional] 
 
 ## Methods
 

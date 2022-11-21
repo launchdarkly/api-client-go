@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Links** | [**map[string]Link**](Link.md) | Links to related resources. | 
+**Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
 **Name** | **string** | Client name | 
 **Description** | Pointer to **string** | Client description | [optional] 
 **AccountId** | **string** | The account ID the client is registered under | 

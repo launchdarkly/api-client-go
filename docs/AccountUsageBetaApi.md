@@ -192,9 +192,9 @@ import (
 )
 
 func main() {
-    from := "from_example" // string | The series of data returned starts from this timestamp. Defaults to seven days ago. (optional)
-    to := "to_example" // string | The series of data returned ends at this timestamp. Defaults to the current time. (optional)
-    sdktype := "sdktype_example" // string | The type of SDK with monthly active users (MAU) to list. Must be either `client` or `server` (optional)
+    from := "from_example" // string | The data returned starts from this timestamp. Defaults to seven days ago. The timestamp is in Unix milliseconds, for example, 1656694800000. (optional)
+    to := "to_example" // string | The data returned ends at this timestamp. Defaults to the current time. The timestamp is in Unix milliseconds, for example, 1657904400000. (optional)
+    sdktype := "sdktype_example" // string | The type of SDK with monthly active users (MAU) to list. Must be either `client` or `server`. (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -219,9 +219,9 @@ Other parameters are passed through a pointer to a apiGetMauSdksByTypeRequest st
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **from** | **string** | The series of data returned starts from this timestamp. Defaults to seven days ago. | 
- **to** | **string** | The series of data returned ends at this timestamp. Defaults to the current time. | 
- **sdktype** | **string** | The type of SDK with monthly active users (MAU) to list. Must be either &#x60;client&#x60; or &#x60;server&#x60; | 
+ **from** | **string** | The data returned starts from this timestamp. Defaults to seven days ago. The timestamp is in Unix milliseconds, for example, 1656694800000. | 
+ **to** | **string** | The data returned ends at this timestamp. Defaults to the current time. The timestamp is in Unix milliseconds, for example, 1657904400000. | 
+ **sdktype** | **string** | The type of SDK with monthly active users (MAU) to list. Must be either &#x60;client&#x60; or &#x60;server&#x60;. | 
 
 ### Return type
 

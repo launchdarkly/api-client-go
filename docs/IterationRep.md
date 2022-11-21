@@ -4,19 +4,19 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** |  | [optional] 
-**Hypothesis** | **string** |  | 
-**Status** | **string** |  | 
+**Id** | Pointer to **string** | The iteration ID | [optional] 
+**Hypothesis** | **string** | The expected outcome of this experiment | 
+**Status** | **string** | The status of the iteration: &lt;code&gt;not_started&lt;/code&gt;, &lt;code&gt;running&lt;/code&gt;, &lt;code&gt;stopped&lt;/code&gt; | 
 **CreatedAt** | **int64** |  | 
 **StartedAt** | Pointer to **int64** |  | [optional] 
 **EndedAt** | Pointer to **int64** |  | [optional] 
-**WinningTreatmentId** | Pointer to **string** |  | [optional] 
-**WinningReason** | Pointer to **string** |  | [optional] 
-**CanReshuffleTraffic** | Pointer to **bool** |  | [optional] 
-**Flags** | Pointer to [**map[string]FlagRep**](FlagRep.md) |  | [optional] 
+**WinningTreatmentId** | Pointer to **string** | The ID of the treatment with the probability to be best | [optional] 
+**WinningReason** | Pointer to **string** | The reason you stopped the experiment | [optional] 
+**CanReshuffleTraffic** | Pointer to **bool** | Whether the experiment is allowed to reassign users to different variations (true) or must keep users assigned to their initial variation (false). | [optional] 
+**Flags** | Pointer to [**map[string]FlagRep**](FlagRep.md) | Details on the flag used in this experiment | [optional] 
 **PrimaryMetric** | Pointer to [**MetricV2Rep**](MetricV2Rep.md) |  | [optional] 
-**Treatments** | Pointer to [**[]TreatmentRep**](TreatmentRep.md) |  | [optional] 
-**SecondaryMetrics** | Pointer to [**[]MetricV2Rep**](MetricV2Rep.md) |  | [optional] 
+**Treatments** | Pointer to [**[]TreatmentRep**](TreatmentRep.md) | Details on the variations you are testing in the experiment | [optional] 
+**SecondaryMetrics** | Pointer to [**[]MetricV2Rep**](MetricV2Rep.md) | Details on the secondary metrics for this experiment | [optional] 
 
 ## Methods
 

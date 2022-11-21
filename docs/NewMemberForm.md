@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **LastName** | Pointer to **string** | The member&#39;s last name | [optional] 
 **Role** | Pointer to **string** | The member&#39;s built-in role | [optional] 
 **CustomRoles** | Pointer to **[]string** | An array of the member&#39;s custom roles | [optional] 
+**TeamKeys** | Pointer to **[]string** | An array of the member&#39;s teams | [optional] 
 
 ## Methods
 
@@ -174,6 +175,31 @@ SetCustomRoles sets CustomRoles field to given value.
 `func (o *NewMemberForm) HasCustomRoles() bool`
 
 HasCustomRoles returns a boolean if a field has been set.
+
+### GetTeamKeys
+
+`func (o *NewMemberForm) GetTeamKeys() []string`
+
+GetTeamKeys returns the TeamKeys field if non-nil, zero value otherwise.
+
+### GetTeamKeysOk
+
+`func (o *NewMemberForm) GetTeamKeysOk() (*[]string, bool)`
+
+GetTeamKeysOk returns a tuple with the TeamKeys field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTeamKeys
+
+`func (o *NewMemberForm) SetTeamKeys(v []string)`
+
+SetTeamKeys sets TeamKeys field to given value.
+
+### HasTeamKeys
+
+`func (o *NewMemberForm) HasTeamKeys() bool`
+
+HasTeamKeys returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

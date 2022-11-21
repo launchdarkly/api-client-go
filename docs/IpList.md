@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Addresses** | **[]string** |  | 
-**OutboundAddresses** | **[]string** |  | 
+**Addresses** | **[]string** | A list of the IP addresses LaunchDarkly&#39;s service uses | 
+**OutboundAddresses** | **[]string** | A list of the IP addresses outgoing webhook notifications use | 
 
 ## Methods
 

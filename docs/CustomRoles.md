@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Links** | Pointer to [**map[string]Link**](Link.md) |  | [optional] 
-**Items** | Pointer to [**[]CustomRole**](CustomRole.md) |  | [optional] 
+**Links** | Pointer to [**map[string]Link**](Link.md) | The location and content type of related resources | [optional] 
+**Items** | Pointer to [**[]CustomRole**](CustomRole.md) | An array of custom roles | [optional] 
 
 ## Methods
 

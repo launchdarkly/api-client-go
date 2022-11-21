@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**StatusCode** | Pointer to **int32** |  | [optional] 
+**StatusCode** | Pointer to **int32** | The status code returned by the validation | [optional] 
 **Error** | Pointer to **string** |  | [optional] 
 **Timestamp** | Pointer to **int64** |  | [optional] 
-**ResponseBody** | Pointer to **string** |  | [optional] 
+**ResponseBody** | Pointer to **string** | JSON response to the validation request | [optional] 
 
 ## Methods
 

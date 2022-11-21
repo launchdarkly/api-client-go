@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** |  | 
-**Baseline** | **bool** |  | 
-**AllocationPercent** | **string** |  | 
-**Parameters** | [**[]TreatmentParameterInput**](TreatmentParameterInput.md) |  | 
+**Name** | **string** | The treatment name | 
+**Baseline** | **bool** | Whether this treatment is the baseline to compare other treatments against | 
+**AllocationPercent** | **string** | The percentage of traffic allocated to this treatment during the iteration | 
+**Parameters** | [**[]TreatmentParameterInput**](TreatmentParameterInput.md) | Details on the flag and variation to use for this treatment | 
 
 ## Methods
 

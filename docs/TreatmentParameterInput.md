@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**FlagKey** | **string** |  | 
-**VariationId** | **string** |  | 
+**FlagKey** | **string** | The flag key | 
+**VariationId** | **string** | The ID of the flag variation | 
 
 ## Methods
 

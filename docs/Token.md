@@ -8,17 +8,17 @@ Name | Type | Description | Notes
 **OwnerId** | **string** |  | 
 **MemberId** | **string** |  | 
 **Member** | Pointer to [**MemberSummary**](MemberSummary.md) |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**Description** | Pointer to **string** |  | [optional] 
+**Name** | Pointer to **string** | A human-friendly name for the access token | [optional] 
+**Description** | Pointer to **string** | A description for the access token | [optional] 
 **CreationDate** | **int64** |  | 
 **LastModified** | **int64** |  | 
-**CustomRoleIds** | Pointer to **[]string** |  | [optional] 
-**InlineRole** | Pointer to [**[]Statement**](Statement.md) |  | [optional] 
-**Role** | Pointer to **string** |  | [optional] 
-**Token** | Pointer to **string** |  | [optional] 
-**ServiceToken** | Pointer to **bool** |  | [optional] 
-**Links** | [**map[string]Link**](Link.md) |  | 
-**DefaultApiVersion** | Pointer to **int32** |  | [optional] 
+**CustomRoleIds** | Pointer to **[]string** | A list of custom role IDs to use as access limits for the access token | [optional] 
+**InlineRole** | Pointer to [**[]Statement**](Statement.md) | An array of policy statements, with three attributes: effect, resources, actions. May be used in place of a built-in or custom role. | [optional] 
+**Role** | Pointer to **string** | Built-in role for the token | [optional] 
+**Token** | Pointer to **string** | Last four characters of the token value | [optional] 
+**ServiceToken** | Pointer to **bool** | Whether this is a service token or a personal token | [optional] 
+**Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
+**DefaultApiVersion** | Pointer to **int32** | The default API version for this token | [optional] 
 **LastUsed** | Pointer to **int64** |  | [optional] 
 
 ## Methods

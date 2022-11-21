@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**RuleId** | **string** |  | 
-**FlagConfigVersion** | **int32** |  | 
+**RuleId** | **string** | The ID of the variation or rollout of the flag to use. Use \&quot;fallthrough\&quot; for the default targeting behavior when the flag is on. | 
+**FlagConfigVersion** | **int32** | The flag version | 
 
 ## Methods
 

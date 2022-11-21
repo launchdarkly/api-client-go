@@ -15,10 +15,10 @@ Name | Type | Description | Notes
 **Variations** | [**[]Variation**](Variation.md) | An array of possible variations for the flag | 
 **Temporary** | **bool** | Whether the flag is a temporary flag | 
 **Tags** | **[]string** | Tags for the feature flag | 
-**Links** | [**map[string]Link**](Link.md) |  | 
+**Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
 **MaintainerId** | Pointer to **string** | Associated maintainerId for the feature flag | [optional] 
 **Maintainer** | Pointer to [**MemberSummary**](MemberSummary.md) |  | [optional] 
-**GoalIds** | Pointer to **[]string** |  | [optional] 
+**GoalIds** | Pointer to **[]string** | Deprecated | [optional] 
 **Experiments** | [**ExperimentInfoRep**](ExperimentInfoRep.md) |  | 
 **CustomProperties** | [**map[string]CustomProperty**](CustomProperty.md) |  | 
 **Archived** | **bool** | Boolean indicating if the feature flag is archived | 

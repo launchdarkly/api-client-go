@@ -85,7 +85,7 @@ Name | Type | Description  | Notes
 
 ## GetMetric
 
-> MetricRep GetMetric(ctx, projectKey, metricKey).Execute()
+> MetricRep GetMetric(ctx, projectKey, metricKey).Expand(expand).Execute()
 
 Get metric
 
@@ -106,10 +106,11 @@ import (
 func main() {
     projectKey := "projectKey_example" // string | The project key
     metricKey := "metricKey_example" // string | The metric key
+    expand := "expand_example" // string | A comma-separated list of properties that can reveal additional information in the response. (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.MetricsApi.GetMetric(context.Background(), projectKey, metricKey).Execute()
+    resp, r, err := apiClient.MetricsApi.GetMetric(context.Background(), projectKey, metricKey).Expand(expand).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MetricsApi.GetMetric``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -137,6 +138,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **expand** | **string** | A comma-separated list of properties that can reveal additional information in the response. | 
 
 ### Return type
 
@@ -158,7 +160,7 @@ Name | Type | Description  | Notes
 
 ## GetMetrics
 
-> MetricCollectionRep GetMetrics(ctx, projectKey).Execute()
+> MetricCollectionRep GetMetrics(ctx, projectKey).Expand(expand).Execute()
 
 List metrics
 
@@ -178,10 +180,11 @@ import (
 
 func main() {
     projectKey := "projectKey_example" // string | The project key
+    expand := "expand_example" // string | A comma-separated list of properties that can reveal additional information in the response. (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.MetricsApi.GetMetrics(context.Background(), projectKey).Execute()
+    resp, r, err := apiClient.MetricsApi.GetMetrics(context.Background(), projectKey).Expand(expand).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MetricsApi.GetMetrics``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -207,6 +210,7 @@ Other parameters are passed through a pointer to a apiGetMetricsRequest struct v
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **expand** | **string** | A comma-separated list of properties that can reveal additional information in the response. | 
 
 ### Return type
 

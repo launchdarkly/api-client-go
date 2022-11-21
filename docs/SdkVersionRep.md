@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Sdk** | **string** |  | 
-**Version** | **string** |  | 
+**Sdk** | **string** | The SDK name, or \&quot;Unknown\&quot; | 
+**Version** | **string** | The version number, or \&quot;Unknown\&quot; | 
 
 ## Methods
 

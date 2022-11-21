@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Hypothesis** | **string** |  | 
-**CanReshuffleTraffic** | Pointer to **bool** |  | [optional] 
+**Hypothesis** | **string** | The expected outcome of this experiment | 
+**CanReshuffleTraffic** | Pointer to **bool** | Whether to allow the experiment to reassign users to different variations (true) or keep users assigned to their initial variation (false). Defaults to true. | [optional] 
 **Metrics** | [**[]MetricInput**](MetricInput.md) |  | 
 **Treatments** | [**[]TreatmentInput**](TreatmentInput.md) |  | 
 **Flags** | [**map[string]FlagInput**](FlagInput.md) |  | 

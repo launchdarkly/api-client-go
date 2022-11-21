@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Links** | [**map[string]Link**](Link.md) |  | 
-**Id** | **string** |  | 
-**Key** | **string** |  | 
-**IncludeInSnippetByDefault** | **bool** |  | 
+**Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
+**Id** | **string** | The ID of this project | 
+**Key** | **string** | The key of this project | 
+**IncludeInSnippetByDefault** | **bool** | Whether or not flags created in this project are made available to the client-side JavaScript SDK by default | 
 **DefaultClientSideAvailability** | Pointer to [**ClientSideAvailability**](ClientSideAvailability.md) |  | [optional] 
-**Name** | **string** |  | 
-**Tags** | **[]string** |  | 
+**Name** | **string** | A human-friendly name for the project | 
+**Tags** | **[]string** | A list of tags for the project | 
 **Environments** | Pointer to [**Environments**](Environments.md) |  | [optional] 
 
 ## Methods

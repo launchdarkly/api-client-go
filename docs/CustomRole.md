@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** |  | 
-**Links** | [**map[string]Link**](Link.md) |  | 
+**Id** | **string** | The ID of the custom role | 
+**Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
 **Access** | Pointer to [**Access**](Access.md) |  | [optional] 
-**Description** | Pointer to **string** |  | [optional] 
-**Key** | **string** |  | 
-**Name** | **string** |  | 
-**Policy** | [**[]Statement**](Statement.md) |  | 
+**Description** | Pointer to **string** | The description of the custom role | [optional] 
+**Key** | **string** | The key of the custom role | 
+**Name** | **string** | The name of the custom role | 
+**Policy** | [**[]Statement**](Statement.md) | An array of the policies that comprise this custom role | 
 **BasePermissions** | Pointer to **string** |  | [optional] 
 
 ## Methods

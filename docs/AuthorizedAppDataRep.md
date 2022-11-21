@@ -5,10 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Links** | Pointer to [**map[string]Link**](Link.md) |  | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
-**IsScim** | Pointer to **bool** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**MaintainerName** | Pointer to **string** |  | [optional] 
+**Id** | Pointer to **string** | The ID of the authorized application | [optional] 
+**IsScim** | Pointer to **bool** | Whether the application is authorized through SCIM | [optional] 
+**Name** | Pointer to **string** | The authorized application name | [optional] 
+**MaintainerName** | Pointer to **string** | The name of the maintainer for this authorized application | [optional] 
 
 ## Methods
 

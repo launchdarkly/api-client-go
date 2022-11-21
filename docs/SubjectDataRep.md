@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Links** | Pointer to [**map[string]Link**](Link.md) |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**AvatarUrl** | Pointer to **string** |  | [optional] 
+**Name** | Pointer to **string** | The subject&#39;s name | [optional] 
+**AvatarUrl** | Pointer to **string** | The subject&#39;s avatar | [optional] 
 
 ## Methods
 

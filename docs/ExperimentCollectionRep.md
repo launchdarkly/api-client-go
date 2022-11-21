@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Items** | Pointer to [**[]Experiment**](Experiment.md) |  | [optional] 
-**TotalCount** | Pointer to **int32** |  | [optional] 
-**Links** | Pointer to [**map[string]Link**](Link.md) |  | [optional] 
+**Items** | Pointer to [**[]Experiment**](Experiment.md) | An array of experiments | [optional] 
+**TotalCount** | Pointer to **int32** | The total number of experiments in this project and environment. Does not include legacy experiments. | [optional] 
+**Links** | Pointer to [**map[string]Link**](Link.md) | The location and content type of related resources | [optional] 
 
 ## Methods
 

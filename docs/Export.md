@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** |  | 
-**SegmentKey** | **string** |  | 
+**Id** | **string** | The export ID | 
+**SegmentKey** | **string** | The segment key | 
 **CreationTime** | **int64** |  | 
-**Status** | **string** |  | 
-**SizeBytes** | **int64** |  | 
-**Size** | **string** |  | 
+**Status** | **string** | The export status | 
+**SizeBytes** | **int64** | The export size, in bytes | 
+**Size** | **string** | The export size, with units | 
 **Initiator** | [**InitiatorRep**](InitiatorRep.md) |  | 
-**Links** | [**map[string]Link**](Link.md) |  | 
+**Links** | [**map[string]Link**](Link.md) | The location and content type of related resources, including the location of the exported file | 
 
 ## Methods
 

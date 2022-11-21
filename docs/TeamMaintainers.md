@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**TotalCount** | Pointer to **int32** |  | [optional] 
-**Items** | Pointer to [**[]MemberSummary**](MemberSummary.md) |  | [optional] 
-**Links** | Pointer to [**map[string]Link**](Link.md) |  | [optional] 
+**TotalCount** | Pointer to **int32** | The number of maintainers of the team | [optional] 
+**Items** | Pointer to [**[]MemberSummary**](MemberSummary.md) | Details on the members that have been assigned as maintainers of the team | [optional] 
+**Links** | Pointer to [**map[string]Link**](Link.md) | The location and content type of related resources | [optional] 
 
 ## Methods
 

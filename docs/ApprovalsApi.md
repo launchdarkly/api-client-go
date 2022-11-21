@@ -5,8 +5,8 @@ All URIs are relative to *https://app.launchdarkly.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**DeleteApprovalRequest**](ApprovalsApi.md#DeleteApprovalRequest) | **Delete** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id} | Delete approval request
-[**GetApproval**](ApprovalsApi.md#GetApproval) | **Get** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id} | Get approval request
-[**GetApprovals**](ApprovalsApi.md#GetApprovals) | **Get** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests | List all approval requests
+[**GetApprovalForFlag**](ApprovalsApi.md#GetApprovalForFlag) | **Get** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id} | Get approval request for a flag
+[**GetApprovalsForFlag**](ApprovalsApi.md#GetApprovalsForFlag) | **Get** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests | List approval requests for a flag
 [**PostApprovalRequest**](ApprovalsApi.md#PostApprovalRequest) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests | Create approval request
 [**PostApprovalRequestApplyRequest**](ApprovalsApi.md#PostApprovalRequestApplyRequest) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id}/apply | Apply approval request
 [**PostApprovalRequestReview**](ApprovalsApi.md#PostApprovalRequestReview) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id}/reviews | Review approval request
@@ -91,11 +91,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetApproval
+## GetApprovalForFlag
 
-> FlagConfigApprovalRequestResponse GetApproval(ctx, projectKey, featureFlagKey, environmentKey, id).Execute()
+> FlagConfigApprovalRequestResponse GetApprovalForFlag(ctx, projectKey, featureFlagKey, environmentKey, id).Execute()
 
-Get approval request
+Get approval request for a flag
 
 
 
@@ -119,13 +119,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ApprovalsApi.GetApproval(context.Background(), projectKey, featureFlagKey, environmentKey, id).Execute()
+    resp, r, err := apiClient.ApprovalsApi.GetApprovalForFlag(context.Background(), projectKey, featureFlagKey, environmentKey, id).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.GetApproval``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.GetApprovalForFlag``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetApproval`: FlagConfigApprovalRequestResponse
-    fmt.Fprintf(os.Stdout, "Response from `ApprovalsApi.GetApproval`: %v\n", resp)
+    // response from `GetApprovalForFlag`: FlagConfigApprovalRequestResponse
+    fmt.Fprintf(os.Stdout, "Response from `ApprovalsApi.GetApprovalForFlag`: %v\n", resp)
 }
 ```
 
@@ -142,7 +142,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetApprovalRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetApprovalForFlagRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -170,11 +170,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetApprovals
+## GetApprovalsForFlag
 
-> FlagConfigApprovalRequestsResponse GetApprovals(ctx, projectKey, featureFlagKey, environmentKey).Execute()
+> FlagConfigApprovalRequestsResponse GetApprovalsForFlag(ctx, projectKey, featureFlagKey, environmentKey).Execute()
 
-List all approval requests
+List approval requests for a flag
 
 
 
@@ -197,13 +197,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ApprovalsApi.GetApprovals(context.Background(), projectKey, featureFlagKey, environmentKey).Execute()
+    resp, r, err := apiClient.ApprovalsApi.GetApprovalsForFlag(context.Background(), projectKey, featureFlagKey, environmentKey).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.GetApprovals``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.GetApprovalsForFlag``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetApprovals`: FlagConfigApprovalRequestsResponse
-    fmt.Fprintf(os.Stdout, "Response from `ApprovalsApi.GetApprovals`: %v\n", resp)
+    // response from `GetApprovalsForFlag`: FlagConfigApprovalRequestsResponse
+    fmt.Fprintf(os.Stdout, "Response from `ApprovalsApi.GetApprovalsForFlag`: %v\n", resp)
 }
 ```
 
@@ -219,7 +219,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetApprovalsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetApprovalsForFlagRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

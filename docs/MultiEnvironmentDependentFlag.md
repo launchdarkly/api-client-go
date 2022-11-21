@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | Pointer to **string** |  | [optional] 
-**Key** | **string** |  | 
-**Environments** | [**[]DependentFlagEnvironment**](DependentFlagEnvironment.md) |  | 
+**Name** | Pointer to **string** | The flag name | [optional] 
+**Key** | **string** | The flag key | 
+**Environments** | [**[]DependentFlagEnvironment**](DependentFlagEnvironment.md) | A list of environments in which the dependent flag appears | 
 
 ## Methods
 

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** | The ID of this Data Export destination | [optional] 
-**Links** | Pointer to [**map[string]Link**](Link.md) | Links to other resources within the API. Includes the URL and content type of those resources. | [optional] 
+**Links** | Pointer to [**map[string]Link**](Link.md) | The location and content type of related resources | [optional] 
 **Name** | Pointer to **string** | A human-readable name for your Data Export destination | [optional] 
 **Kind** | Pointer to **string** | The type of Data Export destination | [optional] 
 **Version** | Pointer to **float32** |  | [optional] 

@@ -5,12 +5,12 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Links** | [**IntegrationDeliveryConfigurationLinks**](IntegrationDeliveryConfigurationLinks.md) |  | 
-**Id** | **string** |  | 
+**Id** | **string** | The integration ID | 
 **IntegrationKey** | **string** | The integration key | 
 **ProjectKey** | **string** | The project key | 
 **EnvironmentKey** | **string** | The environment key | 
 **Config** | **map[string]interface{}** |  | 
-**On** | **bool** | Whether or not the configuration is turned on | 
+**On** | **bool** | Whether the configuration is turned on | 
 **Tags** | **[]string** | List of tags for this configuration | 
 **Name** | **string** | Name of the configuration | 
 **Version** | **int32** | Version of the current configuration | 

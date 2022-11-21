@@ -4,28 +4,30 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** |  | 
-**Key** | **string** |  | 
-**Name** | **string** |  | 
-**Kind** | **string** |  | 
-**AttachedFlagCount** | Pointer to **int32** |  | [optional] 
-**Links** | [**map[string]Link**](Link.md) |  | 
+**ExperimentCount** | Pointer to **int32** | The number of experiments using this metric | [optional] 
+**Id** | **string** | The ID of this metric | 
+**Key** | **string** | A unique key to reference the metric | 
+**Name** | **string** | A human-friendly name for the metric | 
+**Kind** | **string** | The kind of event the metric tracks | 
+**AttachedFlagCount** | Pointer to **int32** | The number of feature flags currently attached to this metric | [optional] 
+**Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
 **Site** | Pointer to [**Link**](Link.md) |  | [optional] 
 **Access** | Pointer to [**Access**](Access.md) |  | [optional] 
-**Tags** | **[]string** |  | 
+**Tags** | **[]string** | Tags for the metric | 
 **CreationDate** | **int64** |  | 
 **LastModified** | Pointer to [**Modification**](Modification.md) |  | [optional] 
-**MaintainerId** | Pointer to **string** |  | [optional] 
+**MaintainerId** | Pointer to **string** | The ID of the member who maintains this metric | [optional] 
 **Maintainer** | Pointer to [**MemberSummary**](MemberSummary.md) |  | [optional] 
-**Description** | Pointer to **string** |  | [optional] 
-**IsNumeric** | Pointer to **bool** |  | [optional] 
-**SuccessCriteria** | Pointer to **string** |  | [optional] 
-**Unit** | Pointer to **string** |  | [optional] 
-**EventKey** | Pointer to **string** |  | [optional] 
-**IsActive** | Pointer to **bool** |  | [optional] 
-**AttachedFeatures** | Pointer to [**[]FlagListingRep**](FlagListingRep.md) |  | [optional] 
-**Version** | Pointer to **int32** |  | [optional] 
-**Selector** | Pointer to **string** |  | [optional] 
+**Description** | Pointer to **string** | Description of the metric | [optional] 
+**IsNumeric** | Pointer to **bool** | For custom metrics, whether to track numeric changes in value against a baseline (&lt;code&gt;true&lt;/code&gt;) or to track a conversion when users taken an action (&lt;code&gt;false&lt;/code&gt;). | [optional] 
+**SuccessCriteria** | Pointer to **string** | For numeric custom metrics, the success criteria | [optional] 
+**Unit** | Pointer to **string** | For numeric custom metrics, the unit of measure | [optional] 
+**EventKey** | Pointer to **string** | For custom metrics, the event name to use in your code | [optional] 
+**Experiments** | Pointer to [**[]DependentExperimentRep**](DependentExperimentRep.md) |  | [optional] 
+**IsActive** | Pointer to **bool** | Whether the metric is active | [optional] 
+**AttachedFeatures** | Pointer to [**[]FlagListingRep**](FlagListingRep.md) | Details on the flags attached to this metric | [optional] 
+**Version** | Pointer to **int32** | Version of the metric | [optional] 
+**Selector** | Pointer to **string** | For click metrics, the CSS selectors | [optional] 
 **Urls** | Pointer to **[]map[string]interface{}** |  | [optional] 
 
 ## Methods
@@ -46,6 +48,31 @@ will change when the set of required properties is changed
 NewMetricRepWithDefaults instantiates a new MetricRep object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetExperimentCount
+
+`func (o *MetricRep) GetExperimentCount() int32`
+
+GetExperimentCount returns the ExperimentCount field if non-nil, zero value otherwise.
+
+### GetExperimentCountOk
+
+`func (o *MetricRep) GetExperimentCountOk() (*int32, bool)`
+
+GetExperimentCountOk returns a tuple with the ExperimentCount field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExperimentCount
+
+`func (o *MetricRep) SetExperimentCount(v int32)`
+
+SetExperimentCount sets ExperimentCount field to given value.
+
+### HasExperimentCount
+
+`func (o *MetricRep) HasExperimentCount() bool`
+
+HasExperimentCount returns a boolean if a field has been set.
 
 ### GetId
 
@@ -461,6 +488,31 @@ SetEventKey sets EventKey field to given value.
 `func (o *MetricRep) HasEventKey() bool`
 
 HasEventKey returns a boolean if a field has been set.
+
+### GetExperiments
+
+`func (o *MetricRep) GetExperiments() []DependentExperimentRep`
+
+GetExperiments returns the Experiments field if non-nil, zero value otherwise.
+
+### GetExperimentsOk
+
+`func (o *MetricRep) GetExperimentsOk() (*[]DependentExperimentRep, bool)`
+
+GetExperimentsOk returns a tuple with the Experiments field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExperiments
+
+`func (o *MetricRep) SetExperiments(v []DependentExperimentRep)`
+
+SetExperiments sets Experiments field to given value.
+
+### HasExperiments
+
+`func (o *MetricRep) HasExperiments() bool`
+
+HasExperiments returns a boolean if a field has been set.
 
 ### GetIsActive
 

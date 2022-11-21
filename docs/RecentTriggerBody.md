@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Timestamp** | Pointer to **int64** |  | [optional] 
-**JsonBody** | Pointer to **map[string]interface{}** |  | [optional] 
+**JsonBody** | Pointer to **map[string]interface{}** | The marshalled JSON request body for the incoming trigger webhook. If this is empty or contains invalid JSON, the timestamp is recorded but this field will be empty. | [optional] 
 
 ## Methods
 

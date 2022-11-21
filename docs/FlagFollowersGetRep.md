@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Links** | [**map[string]Link**](Link.md) |  | 
-**Items** | Pointer to [**[]FollowFlagMember**](FollowFlagMember.md) |  | [optional] 
+**Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
+**Items** | Pointer to [**[]FollowFlagMember**](FollowFlagMember.md) | An array of members who are following this flag | [optional] 
 
 ## Methods
 

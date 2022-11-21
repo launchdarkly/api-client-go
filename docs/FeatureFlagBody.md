@@ -6,12 +6,12 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | A human-friendly name for the feature flag | 
 **Key** | **string** | A unique key used to reference the flag in your code | 
-**Description** | Pointer to **string** | Description of the feature flag | [optional] 
-**IncludeInSnippet** | Pointer to **bool** | Deprecated, use &lt;code&gt;clientSideAvailability&lt;/code&gt;. Whether this flag should be made available to the client-side JavaScript SDK. | [optional] 
+**Description** | Pointer to **string** | Description of the feature flag. Defaults to an empty string. | [optional] 
+**IncludeInSnippet** | Pointer to **bool** | Deprecated, use &lt;code&gt;clientSideAvailability&lt;/code&gt;. Whether this flag should be made available to the client-side JavaScript SDK. Defaults to &lt;code&gt;false&lt;/code&gt;. | [optional] 
 **ClientSideAvailability** | Pointer to [**ClientSideAvailabilityPost**](ClientSideAvailabilityPost.md) |  | [optional] 
-**Variations** | Pointer to [**[]Variation**](Variation.md) | An array of possible variations for the flag. The variation values must be unique. | [optional] 
-**Temporary** | Pointer to **bool** | Whether the flag is a temporary flag. Defaults to true. | [optional] 
-**Tags** | Pointer to **[]string** | Tags for the feature flag | [optional] 
+**Variations** | Pointer to [**[]Variation**](Variation.md) | An array of possible variations for the flag. The variation values must be unique. If omitted, two boolean variations of &lt;code&gt;true&lt;/code&gt; and &lt;code&gt;false&lt;/code&gt; will be used. | [optional] 
+**Temporary** | Pointer to **bool** | Whether the flag is a temporary flag. Defaults to &lt;code&gt;true&lt;/code&gt;. | [optional] 
+**Tags** | Pointer to **[]string** | Tags for the feature flag. Defaults to an empty array. | [optional] 
 **CustomProperties** | Pointer to [**map[string]CustomProperty**](CustomProperty.md) |  | [optional] 
 **Defaults** | Pointer to [**Defaults**](Defaults.md) |  | [optional] 
 

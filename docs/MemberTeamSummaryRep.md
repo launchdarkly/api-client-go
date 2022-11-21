@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CustomRoleKeys** | **[]string** |  | 
-**Key** | **string** |  | 
-**Name** | **string** |  | 
+**CustomRoleKeys** | **[]string** | A list of keys of the custom roles this team has access to | 
+**Key** | **string** | The team key | 
+**Name** | **string** | The team name | 
 
 ## Methods
 

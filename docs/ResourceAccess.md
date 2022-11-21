@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Action** | Pointer to **string** |  | [optional] 
-**Resource** | Pointer to **map[string]interface{}** |  | [optional] 
+**Resource** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasAction returns a boolean if a field has been set.
 
 ### GetResource
 
-`func (o *ResourceAccess) GetResource() map[string]interface{}`
+`func (o *ResourceAccess) GetResource() string`
 
 GetResource returns the Resource field if non-nil, zero value otherwise.
 
 ### GetResourceOk
 
-`func (o *ResourceAccess) GetResourceOk() (*map[string]interface{}, bool)`
+`func (o *ResourceAccess) GetResourceOk() (*string, bool)`
 
 GetResourceOk returns a tuple with the Resource field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetResource
 
-`func (o *ResourceAccess) SetResource(v map[string]interface{})`
+`func (o *ResourceAccess) SetResource(v string)`
 
 SetResource sets Resource field to given value.
 

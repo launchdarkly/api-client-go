@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ActionSet** | **string** |  | 
-**Actions** | **[]string** |  | 
-**Resource** | **string** |  | 
+**ActionSet** | **string** | The name of the a group of related actions to allow. A permission grant may have either an &lt;code&gt;actionSet&lt;/code&gt; or a list of &lt;code&gt;actions&lt;/code&gt; but not both at the same time. | 
+**Actions** | **[]string** | A list of actions to allow | 
+**Resource** | **string** | The resource for which the &lt;code&gt;actions&lt;/code&gt; are allowed | 
 
 ## Methods
 

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Links** | [**IntegrationDeliveryConfigurationCollectionLinks**](IntegrationDeliveryConfigurationCollectionLinks.md) |  | 
-**Items** | [**[]IntegrationDeliveryConfiguration**](IntegrationDeliveryConfiguration.md) |  | 
+**Items** | [**[]IntegrationDeliveryConfiguration**](IntegrationDeliveryConfiguration.md) | An array of integration delivery configurations | 
 
 ## Methods
 

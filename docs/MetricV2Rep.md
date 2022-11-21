@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Key** | **string** |  | 
-**Name** | **string** |  | 
-**Kind** | **string** |  | 
-**Links** | [**map[string]Link**](Link.md) |  | 
+**Key** | **string** | The metric key | 
+**Name** | **string** | The metric name | 
+**Kind** | **string** | The kind of event the metric tracks | 
+**Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
 
 ## Methods
 

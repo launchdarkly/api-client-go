@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 **Status** | **string** | Current status of the approval request | 
 **Instructions** | **[]map[string]interface{}** |  | 
 **Conflicts** | [**[]Conflict**](Conflict.md) | Details on any conflicting approval requests | 
-**Links** | [**map[string]Link**](Link.md) | Links to other resources within the API. Includes the URL and content type of those resources. | 
+**Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
 **ExecutionDate** | Pointer to **int64** |  | [optional] 
 **OperatingOnId** | Pointer to **string** | ID of scheduled change to edit or delete | [optional] 
 **IntegrationMetadata** | Pointer to [**IntegrationMetadata**](IntegrationMetadata.md) |  | [optional] 

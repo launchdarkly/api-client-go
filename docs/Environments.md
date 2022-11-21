@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Links** | Pointer to [**map[string]Link**](Link.md) |  | [optional] 
-**TotalCount** | Pointer to **int32** |  | [optional] 
-**Items** | Pointer to [**[]Environment**](Environment.md) |  | [optional] 
+**Links** | Pointer to [**map[string]Link**](Link.md) | The location and content type of related resources | [optional] 
+**TotalCount** | Pointer to **int32** | The number of environments returned | [optional] 
+**Items** | Pointer to [**[]Environment**](Environment.md) | An array of environments | [optional] 
 
 ## Methods
 

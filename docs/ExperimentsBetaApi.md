@@ -38,7 +38,7 @@ import (
 func main() {
     projectKey := "projectKey_example" // string | The project key
     environmentKey := "environmentKey_example" // string | The environment key
-    experimentPost := *openapiclient.NewExperimentPost("Name_example", "MaintainerId_example", "Key_example", *openapiclient.NewIterationInput("Hypothesis_example", []openapiclient.MetricInput{*openapiclient.NewMetricInput("Key_example", false)}, []openapiclient.TreatmentInput{*openapiclient.NewTreatmentInput("Name_example", false, "AllocationPercent_example", []openapiclient.TreatmentParameterInput{*openapiclient.NewTreatmentParameterInput("FlagKey_example", "VariationId_example")})}, map[string]FlagInput{"key": *openapiclient.NewFlagInput("RuleId_example", int32(123))})) // ExperimentPost | 
+    experimentPost := *openapiclient.NewExperimentPost("Example experiment", "12ab3c45de678910fgh12345", "example-experiment", *openapiclient.NewIterationInput("Example hypothesis, the new button placement will increase conversion", []openapiclient.MetricInput{*openapiclient.NewMetricInput("example-metric", true)}, []openapiclient.TreatmentInput{*openapiclient.NewTreatmentInput("Treatment 1", true, "10", []openapiclient.TreatmentParameterInput{*openapiclient.NewTreatmentParameterInput("example-flag-for-experiment", "e432f62b-55f6-49dd-a02f-eb24acf39d05")})}, map[string]FlagInput{"key": *openapiclient.NewFlagInput("e432f62b-55f6-49dd-a02f-eb24acf39d05", int32(12))})) // ExperimentPost | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -114,7 +114,7 @@ func main() {
     projectKey := "projectKey_example" // string | The project key
     environmentKey := "environmentKey_example" // string | The environment key
     experimentKey := "experimentKey_example" // string | The experiment key
-    iterationInput := *openapiclient.NewIterationInput("Hypothesis_example", []openapiclient.MetricInput{*openapiclient.NewMetricInput("Key_example", false)}, []openapiclient.TreatmentInput{*openapiclient.NewTreatmentInput("Name_example", false, "AllocationPercent_example", []openapiclient.TreatmentParameterInput{*openapiclient.NewTreatmentParameterInput("FlagKey_example", "VariationId_example")})}, map[string]FlagInput{"key": *openapiclient.NewFlagInput("RuleId_example", int32(123))}) // IterationInput | 
+    iterationInput := *openapiclient.NewIterationInput("Example hypothesis, the new button placement will increase conversion", []openapiclient.MetricInput{*openapiclient.NewMetricInput("example-metric", true)}, []openapiclient.TreatmentInput{*openapiclient.NewTreatmentInput("Treatment 1", true, "10", []openapiclient.TreatmentParameterInput{*openapiclient.NewTreatmentParameterInput("example-flag-for-experiment", "e432f62b-55f6-49dd-a02f-eb24acf39d05")})}, map[string]FlagInput{"key": *openapiclient.NewFlagInput("e432f62b-55f6-49dd-a02f-eb24acf39d05", int32(12))}) // IterationInput | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -325,7 +325,7 @@ Name | Type | Description  | Notes
 
 ## GetExperiments
 
-> ExperimentCollectionRep GetExperiments(ctx, projectKey, environmentKey).Limit(limit).Offset(offset).Filter(filter).Expand(expand).Execute()
+> ExperimentCollectionRep GetExperiments(ctx, projectKey, environmentKey).Limit(limit).Offset(offset).Filter(filter).Expand(expand).LifecycleState(lifecycleState).Execute()
 
 Get experiments
 
@@ -346,14 +346,15 @@ import (
 func main() {
     projectKey := "projectKey_example" // string | The project key
     environmentKey := "environmentKey_example" // string | The environment key
-    limit := int64(789) // int64 | The maximum number of experiments to return. Defaults to 20 (optional)
+    limit := int64(789) // int64 | The maximum number of experiments to return. Defaults to 20. (optional)
     offset := int64(789) // int64 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
     filter := "filter_example" // string | A comma-separated list of filters. Each filter is of the form `field:value`. Supported fields are explained above. (optional)
     expand := "expand_example" // string | A comma-separated list of properties that can reveal additional information in the response. Supported fields are explained above. (optional)
+    lifecycleState := "lifecycleState_example" // string | A comma-separated list of experiment archived states. Supports `archived`, `active`, or both. Defaults to `active` experiments (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ExperimentsBetaApi.GetExperiments(context.Background(), projectKey, environmentKey).Limit(limit).Offset(offset).Filter(filter).Expand(expand).Execute()
+    resp, r, err := apiClient.ExperimentsBetaApi.GetExperiments(context.Background(), projectKey, environmentKey).Limit(limit).Offset(offset).Filter(filter).Expand(expand).LifecycleState(lifecycleState).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsBetaApi.GetExperiments``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -381,10 +382,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **limit** | **int64** | The maximum number of experiments to return. Defaults to 20 | 
+ **limit** | **int64** | The maximum number of experiments to return. Defaults to 20. | 
  **offset** | **int64** | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | 
  **filter** | **string** | A comma-separated list of filters. Each filter is of the form &#x60;field:value&#x60;. Supported fields are explained above. | 
  **expand** | **string** | A comma-separated list of properties that can reveal additional information in the response. Supported fields are explained above. | 
+ **lifecycleState** | **string** | A comma-separated list of experiment archived states. Supports &#x60;archived&#x60;, &#x60;active&#x60;, or both. Defaults to &#x60;active&#x60; experiments | 
 
 ### Return type
 

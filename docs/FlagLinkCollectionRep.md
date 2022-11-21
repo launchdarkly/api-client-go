@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Items** | [**[]FlagLinkRep**](FlagLinkRep.md) |  | 
-**Links** | [**map[string]Link**](Link.md) |  | 
+**Items** | [**[]FlagLinkRep**](FlagLinkRep.md) | An array of flag links | 
+**Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
 
 ## Methods
 

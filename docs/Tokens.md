@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Items** | Pointer to [**[]Token**](Token.md) |  | [optional] 
+**Items** | Pointer to [**[]Token**](Token.md) | An array of access tokens | [optional] 
 **Links** | Pointer to [**map[string]Link**](Link.md) |  | [optional] 
 
 ## Methods

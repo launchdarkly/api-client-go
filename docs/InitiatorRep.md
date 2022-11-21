@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | Pointer to **string** |  | [optional] 
-**Email** | Pointer to **string** |  | [optional] 
+**Name** | Pointer to **string** | The name of the member who initiated the export | [optional] 
+**Email** | Pointer to **string** | The email address of the member who initiated the export | [optional] 
 
 ## Methods
 

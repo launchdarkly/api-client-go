@@ -4,14 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Description** | Pointer to **string** |  | [optional] 
-**Key** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
+**Description** | Pointer to **string** | A description of the team | [optional] 
+**Key** | Pointer to **string** | The team key | [optional] 
+**Name** | Pointer to **string** | A human-friendly name for the team | [optional] 
 **Access** | Pointer to [**Access**](Access.md) |  | [optional] 
 **CreationDate** | Pointer to **int64** |  | [optional] 
-**Links** | Pointer to [**map[string]Link**](Link.md) |  | [optional] 
+**Links** | Pointer to [**map[string]Link**](Link.md) | The location and content type of related resources | [optional] 
 **LastModified** | Pointer to **int64** |  | [optional] 
-**Version** | Pointer to **int32** |  | [optional] 
+**Version** | Pointer to **int32** | The team version | [optional] 
+**IdpSynced** | Pointer to **bool** | Whether the team has been synced with an external identity provider (IdP). Team sync is available to customers on an Enterprise plan. | [optional] 
 **Roles** | Pointer to [**TeamCustomRoles**](TeamCustomRoles.md) |  | [optional] 
 **Members** | Pointer to [**TeamMembers**](TeamMembers.md) |  | [optional] 
 **Projects** | Pointer to [**TeamProjects**](TeamProjects.md) |  | [optional] 
@@ -235,6 +236,31 @@ SetVersion sets Version field to given value.
 `func (o *Team) HasVersion() bool`
 
 HasVersion returns a boolean if a field has been set.
+
+### GetIdpSynced
+
+`func (o *Team) GetIdpSynced() bool`
+
+GetIdpSynced returns the IdpSynced field if non-nil, zero value otherwise.
+
+### GetIdpSyncedOk
+
+`func (o *Team) GetIdpSyncedOk() (*bool, bool)`
+
+GetIdpSyncedOk returns a tuple with the IdpSynced field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIdpSynced
+
+`func (o *Team) SetIdpSynced(v bool)`
+
+SetIdpSynced sets IdpSynced field to given value.
+
+### HasIdpSynced
+
+`func (o *Team) HasIdpSynced() bool`
+
+HasIdpSynced returns a boolean if a field has been set.
 
 ### GetRoles
 
