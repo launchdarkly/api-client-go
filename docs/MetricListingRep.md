@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 **MaintainerId** | Pointer to **string** | The ID of the member who maintains this metric | [optional] 
 **Maintainer** | Pointer to [**MemberSummary**](MemberSummary.md) |  | [optional] 
 **Description** | Pointer to **string** | Description of the metric | [optional] 
-**IsNumeric** | Pointer to **bool** | For custom metrics, whether to track numeric changes in value against a baseline (&lt;code&gt;true&lt;/code&gt;) or to track a conversion when users taken an action (&lt;code&gt;false&lt;/code&gt;). | [optional] 
+**IsNumeric** | Pointer to **bool** | For custom metrics, whether to track numeric changes in value against a baseline (&lt;code&gt;true&lt;/code&gt;) or to track a conversion when an end user takes an action (&lt;code&gt;false&lt;/code&gt;). | [optional] 
 **SuccessCriteria** | Pointer to **string** | For numeric custom metrics, the success criteria | [optional] 
 **Unit** | Pointer to **string** | For numeric custom metrics, the unit of measure | [optional] 
 **EventKey** | Pointer to **string** | For custom metrics, the event name to use in your code | [optional] 

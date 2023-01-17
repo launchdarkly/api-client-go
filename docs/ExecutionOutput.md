@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Status** | **string** | The status of the execution of this workflow stage | 
+**StopDate** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 
@@ -44,6 +45,31 @@ and a boolean to check if the value has been set.
 
 SetStatus sets Status field to given value.
 
+
+### GetStopDate
+
+`func (o *ExecutionOutput) GetStopDate() int64`
+
+GetStopDate returns the StopDate field if non-nil, zero value otherwise.
+
+### GetStopDateOk
+
+`func (o *ExecutionOutput) GetStopDateOk() (*int64, bool)`
+
+GetStopDateOk returns a tuple with the StopDate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStopDate
+
+`func (o *ExecutionOutput) SetStopDate(v int64)`
+
+SetStopDate sets StopDate field to given value.
+
+### HasStopDate
+
+`func (o *ExecutionOutput) HasStopDate() bool`
+
+HasStopDate returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

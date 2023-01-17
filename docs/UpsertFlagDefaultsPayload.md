@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Tags** | **[]string** |  | 
-**Temporary** | **bool** |  | 
+**Tags** | **[]string** | A list of default tags for each flag | 
+**Temporary** | **bool** | Whether the flag should be temporary by default | 
 **DefaultClientSideAvailability** | [**DefaultClientSideAvailability**](DefaultClientSideAvailability.md) |  | 
 **BooleanDefaults** | [**BooleanFlagDefaults**](BooleanFlagDefaults.md) |  | 
 

@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Id** | Pointer to **string** |  | [optional] 
 **Clauses** | [**[]Clause**](Clause.md) |  | 
 **Weight** | Pointer to **int32** |  | [optional] 
+**RolloutContextKind** | Pointer to **string** |  | [optional] 
 **BucketBy** | Pointer to **string** |  | [optional] 
 
 ## Methods
@@ -97,6 +98,31 @@ SetWeight sets Weight field to given value.
 `func (o *UserSegmentRule) HasWeight() bool`
 
 HasWeight returns a boolean if a field has been set.
+
+### GetRolloutContextKind
+
+`func (o *UserSegmentRule) GetRolloutContextKind() string`
+
+GetRolloutContextKind returns the RolloutContextKind field if non-nil, zero value otherwise.
+
+### GetRolloutContextKindOk
+
+`func (o *UserSegmentRule) GetRolloutContextKindOk() (*string, bool)`
+
+GetRolloutContextKindOk returns a tuple with the RolloutContextKind field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRolloutContextKind
+
+`func (o *UserSegmentRule) SetRolloutContextKind(v string)`
+
+SetRolloutContextKind sets RolloutContextKind field to given value.
+
+### HasRolloutContextKind
+
+`func (o *UserSegmentRule) HasRolloutContextKind() bool`
+
+HasRolloutContextKind returns a boolean if a field has been set.
 
 ### GetBucketBy
 

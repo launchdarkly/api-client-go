@@ -4,8 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Values** | **[]string** |  | 
-**Variation** | **int32** |  | 
+**Values** | **[]string** | A list of the keys for targets that will receive this variation because of individual targeting | 
+**Variation** | **int32** | The index, from the array of variations for this flag, of the variation to serve this list of targets | 
+**ContextKind** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -65,6 +66,31 @@ and a boolean to check if the value has been set.
 
 SetVariation sets Variation field to given value.
 
+
+### GetContextKind
+
+`func (o *Target) GetContextKind() string`
+
+GetContextKind returns the ContextKind field if non-nil, zero value otherwise.
+
+### GetContextKindOk
+
+`func (o *Target) GetContextKindOk() (*string, bool)`
+
+GetContextKindOk returns a tuple with the ContextKind field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetContextKind
+
+`func (o *Target) SetContextKind(v string)`
+
+SetContextKind sets ContextKind field to given value.
+
+### HasContextKind
+
+`func (o *Target) HasContextKind() bool`
+
+HasContextKind returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

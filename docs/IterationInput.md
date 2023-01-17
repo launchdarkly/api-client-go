@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Hypothesis** | **string** | The expected outcome of this experiment | 
-**CanReshuffleTraffic** | Pointer to **bool** | Whether to allow the experiment to reassign users to different variations (true) or keep users assigned to their initial variation (false). Defaults to true. | [optional] 
+**CanReshuffleTraffic** | Pointer to **bool** | Whether to allow the experiment to reassign traffic to different variations when you increase or decrease the traffic in your experiment audience (true) or keep all traffic assigned to its initial variation (false). Defaults to true. | [optional] 
 **Metrics** | [**[]MetricInput**](MetricInput.md) |  | 
 **Treatments** | [**[]TreatmentInput**](TreatmentInput.md) |  | 
 **Flags** | [**map[string]FlagInput**](FlagInput.md) |  | 

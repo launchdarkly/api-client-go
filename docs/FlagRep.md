@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **TargetingRule** | Pointer to **string** | The targeting rule | [optional] 
 **TargetingRuleDescription** | Pointer to **string** | The rule description | [optional] 
-**TargetingRuleClauses** | Pointer to **[]interface{}** | Clause(s) used for targeting certain users by their attributes | [optional] 
+**TargetingRuleClauses** | Pointer to **[]interface{}** | An array of clauses used for individual targeting based on attributes | [optional] 
 **FlagConfigVersion** | Pointer to **int32** | The flag version | [optional] 
 **Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
 

@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**TrueDisplayName** | Pointer to **string** |  | [optional] 
-**FalseDisplayName** | Pointer to **string** |  | [optional] 
-**TrueDescription** | Pointer to **string** |  | [optional] 
-**FalseDescription** | Pointer to **string** |  | [optional] 
-**OnVariation** | Pointer to **int32** |  | [optional] 
-**OffVariation** | Pointer to **int32** |  | [optional] 
+**TrueDisplayName** | Pointer to **string** | The display name for the true variation, displayed in the LaunchDarkly user interface | [optional] 
+**FalseDisplayName** | Pointer to **string** | The display name for the false variation, displayed in the LaunchDarkly user interface | [optional] 
+**TrueDescription** | Pointer to **string** | The description for the true variation | [optional] 
+**FalseDescription** | Pointer to **string** | The description for the false variation | [optional] 
+**OnVariation** | Pointer to **int32** | The variation index of the flag variation to use for the default targeting behavior when a flag&#39;s targeting is on and the target did not match any rules | [optional] 
+**OffVariation** | Pointer to **int32** | The variation index of the flag variation to use for the default targeting behavior when a flag&#39;s targeting is off | [optional] 
 
 ## Methods
 

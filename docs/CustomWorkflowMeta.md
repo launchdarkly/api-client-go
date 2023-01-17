@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | Pointer to **string** |  | [optional] 
+**Name** | Pointer to **string** | The name of the workflow stage that required this approval request | [optional] 
 **Stage** | Pointer to [**CustomWorkflowStageMeta**](CustomWorkflowStageMeta.md) |  | [optional] 
 
 ## Methods

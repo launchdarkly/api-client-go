@@ -146,7 +146,7 @@ Name | Type | Description  | Notes
 
 ## GetWorkflowTemplates
 
-> WorkflowTemplatesListingOutputRep GetWorkflowTemplates(ctx).Search(search).Execute()
+> WorkflowTemplatesListingOutputRep GetWorkflowTemplates(ctx).Summary(summary).Search(search).Execute()
 
 Get workflow templates
 
@@ -165,11 +165,12 @@ import (
 )
 
 func main() {
+    summary := true // bool | Whether the entire template object or just a summary should be returned (optional)
     search := "search_example" // string | The substring in either the name or description of a template (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.WorkflowTemplatesBetaApi.GetWorkflowTemplates(context.Background()).Search(search).Execute()
+    resp, r, err := apiClient.WorkflowTemplatesBetaApi.GetWorkflowTemplates(context.Background()).Summary(summary).Search(search).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `WorkflowTemplatesBetaApi.GetWorkflowTemplates``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -190,6 +191,7 @@ Other parameters are passed through a pointer to a apiGetWorkflowTemplatesReques
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **summary** | **bool** | Whether the entire template object or just a summary should be returned | 
  **search** | **string** | The substring in either the name or description of a template | 
 
 ### Return type

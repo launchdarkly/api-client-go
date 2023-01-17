@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **RuleIndex** | Pointer to **int32** | The positional index of the matching rule if the kind is &#39;RULE_MATCH&#39;. The index is 0-based. | [optional] 
 **RuleID** | Pointer to **string** | The unique identifier of the matching rule if the kind is &#39;RULE_MATCH&#39;. | [optional] 
 **PrerequisiteKey** | Pointer to **string** | The key of the flag that failed if the kind is &#39;PREREQUISITE_FAILED&#39;. | [optional] 
-**InExperiment** | Pointer to **bool** | Indicates whether the user was evaluated as part of an experiment. | [optional] 
+**InExperiment** | Pointer to **bool** | Indicates whether the evaluation occurred as part of an experiment. | [optional] 
 **ErrorKind** | Pointer to **string** | The specific error type if the kind is &#39;ERROR&#39;. | [optional] 
 
 ## Methods

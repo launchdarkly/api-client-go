@@ -11,6 +11,8 @@ Name | Type | Description | Notes
 **Key** | **string** | A unique key used to reference the segment | 
 **Included** | Pointer to **[]string** | An array of user keys for included users. Included users are always segment members, regardless of segment rules. For Big Segments this array is either empty or omitted. | [optional] 
 **Excluded** | Pointer to **[]string** | An array of user keys for excluded users. Segment rules bypass excluded users, so they will never be included based on rules. Excluded users may still be included explicitly. This value is omitted for Big Segments. | [optional] 
+**IncludedContexts** | Pointer to [**[]SegmentTarget**](SegmentTarget.md) |  | [optional] 
+**ExcludedContexts** | Pointer to [**[]SegmentTarget**](SegmentTarget.md) |  | [optional] 
 **Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
 **Rules** | [**[]UserSegmentRule**](UserSegmentRule.md) | An array of the targeting rules for this segment. | 
 **Version** | **int32** | Version of the segment | 
@@ -18,6 +20,7 @@ Name | Type | Description | Notes
 **Access** | Pointer to [**Access**](Access.md) |  | [optional] 
 **Flags** | Pointer to [**[]FlagListingRep**](FlagListingRep.md) |  | [optional] 
 **Unbounded** | Pointer to **bool** | Whether this is a standard segment (&lt;code&gt;false&lt;/code&gt;) or a Big Segment (&lt;code&gt;true&lt;/code&gt;). If omitted, the segment is a standard segment. | [optional] 
+**UnboundedContextKind** | Pointer to **string** |  | [optional] 
 **Generation** | **int32** | For Big Segments, how many times this segment has been created | 
 **UnboundedMetadata** | Pointer to [**SegmentMetadata**](SegmentMetadata.md) |  | [optional] 
 **External** | Pointer to **string** | The external data store backing this segment. Only applies to Big Segments. | [optional] 
@@ -198,6 +201,56 @@ SetExcluded sets Excluded field to given value.
 
 HasExcluded returns a boolean if a field has been set.
 
+### GetIncludedContexts
+
+`func (o *UserSegment) GetIncludedContexts() []SegmentTarget`
+
+GetIncludedContexts returns the IncludedContexts field if non-nil, zero value otherwise.
+
+### GetIncludedContextsOk
+
+`func (o *UserSegment) GetIncludedContextsOk() (*[]SegmentTarget, bool)`
+
+GetIncludedContextsOk returns a tuple with the IncludedContexts field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIncludedContexts
+
+`func (o *UserSegment) SetIncludedContexts(v []SegmentTarget)`
+
+SetIncludedContexts sets IncludedContexts field to given value.
+
+### HasIncludedContexts
+
+`func (o *UserSegment) HasIncludedContexts() bool`
+
+HasIncludedContexts returns a boolean if a field has been set.
+
+### GetExcludedContexts
+
+`func (o *UserSegment) GetExcludedContexts() []SegmentTarget`
+
+GetExcludedContexts returns the ExcludedContexts field if non-nil, zero value otherwise.
+
+### GetExcludedContextsOk
+
+`func (o *UserSegment) GetExcludedContextsOk() (*[]SegmentTarget, bool)`
+
+GetExcludedContextsOk returns a tuple with the ExcludedContexts field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExcludedContexts
+
+`func (o *UserSegment) SetExcludedContexts(v []SegmentTarget)`
+
+SetExcludedContexts sets ExcludedContexts field to given value.
+
+### HasExcludedContexts
+
+`func (o *UserSegment) HasExcludedContexts() bool`
+
+HasExcludedContexts returns a boolean if a field has been set.
+
 ### GetLinks
 
 `func (o *UserSegment) GetLinks() map[string]Link`
@@ -352,6 +405,31 @@ SetUnbounded sets Unbounded field to given value.
 `func (o *UserSegment) HasUnbounded() bool`
 
 HasUnbounded returns a boolean if a field has been set.
+
+### GetUnboundedContextKind
+
+`func (o *UserSegment) GetUnboundedContextKind() string`
+
+GetUnboundedContextKind returns the UnboundedContextKind field if non-nil, zero value otherwise.
+
+### GetUnboundedContextKindOk
+
+`func (o *UserSegment) GetUnboundedContextKindOk() (*string, bool)`
+
+GetUnboundedContextKindOk returns a tuple with the UnboundedContextKind field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUnboundedContextKind
+
+`func (o *UserSegment) SetUnboundedContextKind(v string)`
+
+SetUnboundedContextKind sets UnboundedContextKind field to given value.
+
+### HasUnboundedContextKind
+
+`func (o *UserSegment) HasUnboundedContextKind() bool`
+
+HasUnboundedContextKind returns a boolean if a field has been set.
 
 ### GetGeneration
 

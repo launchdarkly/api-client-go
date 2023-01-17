@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Links** | Pointer to [**map[string]Link**](Link.md) |  | [optional] 
-**Tags** | Pointer to **[]string** |  | [optional] 
-**Temporary** | Pointer to **bool** |  | [optional] 
+**Links** | Pointer to [**map[string]Link**](Link.md) | The location and content type of related resources | [optional] 
+**Tags** | Pointer to **[]string** | A list of default tags for each flag | [optional] 
+**Temporary** | Pointer to **bool** | Whether the flag should be temporary by default | [optional] 
 **DefaultClientSideAvailability** | Pointer to [**ClientSideAvailability**](ClientSideAvailability.md) |  | [optional] 
 **BooleanDefaults** | Pointer to [**BooleanDefaults**](BooleanDefaults.md) |  | [optional] 
 

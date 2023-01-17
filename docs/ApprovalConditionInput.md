@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Description** | Pointer to **string** |  | [optional] 
-**NotifyMemberIds** | Pointer to **[]string** |  | [optional] 
-**NotifyTeamKeys** | Pointer to **[]string** |  | [optional] 
+**Description** | Pointer to **string** | A description of the approval required for this stage | [optional] 
+**NotifyMemberIds** | Pointer to **[]string** | A list of member IDs for the members to request approval from for this stage | [optional] 
+**NotifyTeamKeys** | Pointer to **[]string** | A list of team keys for the teams to request approval from for this stage | [optional] 
 
 ## Methods
 
