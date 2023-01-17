@@ -4,17 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Resources** | **[]string** | Resource specifier strings | 
-**NotResources** | Pointer to **[]string** | Targeted resources are the resources NOT in this list. The \&quot;resources\&quot; field must be empty to use this field. | [optional] 
-**Actions** | **[]string** | Actions to perform on a resource | 
-**NotActions** | Pointer to **[]string** | Targeted actions are the actions NOT in this list. The \&quot;actions\&quot; field must be empty to use this field. | [optional] 
+**Resources** | Pointer to **[]string** | Resource specifier strings | [optional] 
+**NotResources** | Pointer to **[]string** | Targeted resources are the resources NOT in this list. The &lt;code&gt;resources&lt;/code&gt; field must be empty to use this field. | [optional] 
+**Actions** | Pointer to **[]string** | Actions to perform on a resource | [optional] 
+**NotActions** | Pointer to **[]string** | Targeted actions are the actions NOT in this list. The &lt;code&gt;actions&lt;/code&gt; field must be empty to use this field. | [optional] 
 **Effect** | **string** |  | 
 
 ## Methods
 
 ### NewStatementPostData
 
-`func NewStatementPostData(resources []string, actions []string, effect string, ) *StatementPostData`
+`func NewStatementPostData(effect string, ) *StatementPostData`
 
 NewStatementPostData instantiates a new StatementPostData object
 This constructor will assign default values to properties that have it defined,
@@ -48,6 +48,11 @@ and a boolean to check if the value has been set.
 
 SetResources sets Resources field to given value.
 
+### HasResources
+
+`func (o *StatementPostData) HasResources() bool`
+
+HasResources returns a boolean if a field has been set.
 
 ### GetNotResources
 
@@ -93,6 +98,11 @@ and a boolean to check if the value has been set.
 
 SetActions sets Actions field to given value.
 
+### HasActions
+
+`func (o *StatementPostData) HasActions() bool`
+
+HasActions returns a boolean if a field has been set.
 
 ### GetNotActions
 

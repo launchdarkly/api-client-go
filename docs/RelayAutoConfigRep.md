@@ -5,12 +5,12 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** |  | 
-**Creator** | Pointer to [**MemberSummaryRep**](MemberSummaryRep.md) |  | [optional] 
-**Access** | Pointer to [**AccessRep**](AccessRep.md) |  | [optional] 
-**Name** | **string** |  | 
-**Policy** | [**[]StatementRep**](StatementRep.md) |  | 
-**FullKey** | **string** |  | 
-**DisplayKey** | **string** |  | 
+**Creator** | Pointer to [**MemberSummary**](MemberSummary.md) |  | [optional] 
+**Access** | Pointer to [**Access**](Access.md) |  | [optional] 
+**Name** | **string** | A human-friendly name for the Relay Proxy configuration | 
+**Policy** | [**[]Statement**](Statement.md) | A description of what environments and projects the Relay Proxy should include or exclude | 
+**FullKey** | **string** | The Relay Proxy configuration key | 
+**DisplayKey** | **string** | The last few characters of the Relay Proxy configuration key, displayed in the LaunchDarkly UI | 
 **CreationDate** | **int64** |  | 
 **LastModified** | **int64** |  | 
 
@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 
 ### NewRelayAutoConfigRep
 
-`func NewRelayAutoConfigRep(id string, name string, policy []StatementRep, fullKey string, displayKey string, creationDate int64, lastModified int64, ) *RelayAutoConfigRep`
+`func NewRelayAutoConfigRep(id string, name string, policy []Statement, fullKey string, displayKey string, creationDate int64, lastModified int64, ) *RelayAutoConfigRep`
 
 NewRelayAutoConfigRep instantiates a new RelayAutoConfigRep object
 This constructor will assign default values to properties that have it defined,
@@ -55,20 +55,20 @@ SetId sets Id field to given value.
 
 ### GetCreator
 
-`func (o *RelayAutoConfigRep) GetCreator() MemberSummaryRep`
+`func (o *RelayAutoConfigRep) GetCreator() MemberSummary`
 
 GetCreator returns the Creator field if non-nil, zero value otherwise.
 
 ### GetCreatorOk
 
-`func (o *RelayAutoConfigRep) GetCreatorOk() (*MemberSummaryRep, bool)`
+`func (o *RelayAutoConfigRep) GetCreatorOk() (*MemberSummary, bool)`
 
 GetCreatorOk returns a tuple with the Creator field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreator
 
-`func (o *RelayAutoConfigRep) SetCreator(v MemberSummaryRep)`
+`func (o *RelayAutoConfigRep) SetCreator(v MemberSummary)`
 
 SetCreator sets Creator field to given value.
 
@@ -80,20 +80,20 @@ HasCreator returns a boolean if a field has been set.
 
 ### GetAccess
 
-`func (o *RelayAutoConfigRep) GetAccess() AccessRep`
+`func (o *RelayAutoConfigRep) GetAccess() Access`
 
 GetAccess returns the Access field if non-nil, zero value otherwise.
 
 ### GetAccessOk
 
-`func (o *RelayAutoConfigRep) GetAccessOk() (*AccessRep, bool)`
+`func (o *RelayAutoConfigRep) GetAccessOk() (*Access, bool)`
 
 GetAccessOk returns a tuple with the Access field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAccess
 
-`func (o *RelayAutoConfigRep) SetAccess(v AccessRep)`
+`func (o *RelayAutoConfigRep) SetAccess(v Access)`
 
 SetAccess sets Access field to given value.
 
@@ -125,20 +125,20 @@ SetName sets Name field to given value.
 
 ### GetPolicy
 
-`func (o *RelayAutoConfigRep) GetPolicy() []StatementRep`
+`func (o *RelayAutoConfigRep) GetPolicy() []Statement`
 
 GetPolicy returns the Policy field if non-nil, zero value otherwise.
 
 ### GetPolicyOk
 
-`func (o *RelayAutoConfigRep) GetPolicyOk() (*[]StatementRep, bool)`
+`func (o *RelayAutoConfigRep) GetPolicyOk() (*[]Statement, bool)`
 
 GetPolicyOk returns a tuple with the Policy field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPolicy
 
-`func (o *RelayAutoConfigRep) SetPolicy(v []StatementRep)`
+`func (o *RelayAutoConfigRep) SetPolicy(v []Statement)`
 
 SetPolicy sets Policy field to given value.
 

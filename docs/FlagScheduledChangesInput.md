@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Comment** | Pointer to **string** |  | [optional] 
+**Comment** | Pointer to **string** | Optional comment describing the update to the scheduled changes | [optional] 
 **Instructions** | **[]map[string]interface{}** |  | 
 
 ## Methods

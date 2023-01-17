@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** |  | 
-**Links** | [**map[string]Link**](Link.md) |  | 
-**Access** | Pointer to [**AccessRep**](AccessRep.md) |  | [optional] 
-**Description** | Pointer to **string** |  | [optional] 
-**Key** | **string** |  | 
-**Name** | **string** |  | 
-**Policy** | [**[]Statement**](Statement.md) |  | 
+**Id** | **string** | The ID of the custom role | 
+**Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
+**Access** | Pointer to [**Access**](Access.md) |  | [optional] 
+**Description** | Pointer to **string** | The description of the custom role | [optional] 
+**Key** | **string** | The key of the custom role | 
+**Name** | **string** | The name of the custom role | 
+**Policy** | [**[]Statement**](Statement.md) | An array of the policies that comprise this custom role | 
 **BasePermissions** | Pointer to **string** |  | [optional] 
 
 ## Methods
@@ -74,20 +74,20 @@ SetLinks sets Links field to given value.
 
 ### GetAccess
 
-`func (o *CustomRole) GetAccess() AccessRep`
+`func (o *CustomRole) GetAccess() Access`
 
 GetAccess returns the Access field if non-nil, zero value otherwise.
 
 ### GetAccessOk
 
-`func (o *CustomRole) GetAccessOk() (*AccessRep, bool)`
+`func (o *CustomRole) GetAccessOk() (*Access, bool)`
 
 GetAccessOk returns a tuple with the Access field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAccess
 
-`func (o *CustomRole) SetAccess(v AccessRep)`
+`func (o *CustomRole) SetAccess(v Access)`
 
 SetAccess sets Access field to given value.
 

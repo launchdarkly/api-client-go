@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** | The approval request id | 
-**Kind** | **string** | The type of review action to take. Either \&quot;approve\&quot;, \&quot;decline\&quot; or \&quot;comment\&quot; | 
+**Id** | **string** | The approval request ID | 
+**Kind** | **string** | The type of review action to take | 
 **CreationDate** | Pointer to **int64** |  | [optional] 
 **Comment** | Pointer to **string** | A comment describing the approval response | [optional] 
 **MemberId** | Pointer to **string** | ID of account member that reviewed request | [optional] 

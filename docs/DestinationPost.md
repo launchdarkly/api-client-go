@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | Pointer to **string** | A human-readable name for your data export destination. | [optional] 
-**Kind** | Pointer to **string** |  | [optional] 
-**Config** | Pointer to **interface{}** |  | [optional] 
-**On** | Pointer to **bool** |  | [optional] 
+**Name** | Pointer to **string** | A human-readable name for your Data Export destination | [optional] 
+**Kind** | Pointer to **string** | The type of Data Export destination | [optional] 
+**Config** | Pointer to **interface{}** | An object with the configuration parameters required for the destination type | [optional] 
+**On** | Pointer to **bool** | Whether the export is on. Displayed as the integration status in the LaunchDarkly UI. | [optional] 
 
 ## Methods
 

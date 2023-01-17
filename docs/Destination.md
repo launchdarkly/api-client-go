@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** |  | [optional] 
-**Links** | Pointer to [**map[string]Link**](Link.md) |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**Kind** | Pointer to **string** |  | [optional] 
+**Id** | Pointer to **string** | The ID of this Data Export destination | [optional] 
+**Links** | Pointer to [**map[string]Link**](Link.md) | The location and content type of related resources | [optional] 
+**Name** | Pointer to **string** | A human-readable name for your Data Export destination | [optional] 
+**Kind** | Pointer to **string** | The type of Data Export destination | [optional] 
 **Version** | Pointer to **float32** |  | [optional] 
-**Config** | Pointer to **interface{}** |  | [optional] 
-**On** | Pointer to **bool** |  | [optional] 
-**Access** | Pointer to [**AccessRep**](AccessRep.md) |  | [optional] 
+**Config** | Pointer to **interface{}** | An object with the configuration parameters required for the destination type | [optional] 
+**On** | Pointer to **bool** | Whether the export is on, that is, the status of the integration | [optional] 
+**Access** | Pointer to [**Access**](Access.md) |  | [optional] 
 
 ## Methods
 
@@ -219,20 +219,20 @@ HasOn returns a boolean if a field has been set.
 
 ### GetAccess
 
-`func (o *Destination) GetAccess() AccessRep`
+`func (o *Destination) GetAccess() Access`
 
 GetAccess returns the Access field if non-nil, zero value otherwise.
 
 ### GetAccessOk
 
-`func (o *Destination) GetAccessOk() (*AccessRep, bool)`
+`func (o *Destination) GetAccessOk() (*Access, bool)`
 
 GetAccessOk returns a tuple with the Access field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAccess
 
-`func (o *Destination) SetAccess(v AccessRep)`
+`func (o *Destination) SetAccess(v Access)`
 
 SetAccess sets Access field to given value.
 

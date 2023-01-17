@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **UpdateSequenceId** | Pointer to **int64** | An optional ID used to prevent older data from overwriting newer data | [optional] 
 **SyncTime** | **int64** |  | 
 **References** | Pointer to [**[]ReferenceRep**](ReferenceRep.md) | An array of flag references found on the branch | [optional] 
-**Links** | **map[string]interface{}** |  | 
+**Links** | **map[string]interface{}** | The location and content type of related resources | 
 
 ## Methods
 

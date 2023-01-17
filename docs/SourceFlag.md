@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Key** | **string** | Flag key to copy | 
-**Version** | Pointer to **int32** |  | [optional] 
+**Key** | **string** | The environment key for the source environment | 
+**Version** | Pointer to **int32** | The version of the source flag from which to copy | [optional] 
 
 ## Methods
 

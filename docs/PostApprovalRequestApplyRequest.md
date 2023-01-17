@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Comment** | Pointer to **string** |  | [optional] 
+**Comment** | Pointer to **string** | Optional comment about the approval request | [optional] 
 
 ## Methods
 

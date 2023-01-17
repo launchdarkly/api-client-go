@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Comment** | Pointer to **string** |  | [optional] 
-**Instructions** | Pointer to **[]map[string]interface{}** |  | [optional] 
+**Comment** | Pointer to **string** | Optional comment describing the update | [optional] 
+**Instructions** | **[]map[string]interface{}** |  | 
 
 ## Methods
 
 ### NewTeamPatchInput
 
-`func NewTeamPatchInput() *TeamPatchInput`
+`func NewTeamPatchInput(instructions []map[string]interface{}, ) *TeamPatchInput`
 
 NewTeamPatchInput instantiates a new TeamPatchInput object
 This constructor will assign default values to properties that have it defined,
@@ -70,11 +70,6 @@ and a boolean to check if the value has been set.
 
 SetInstructions sets Instructions field to given value.
 
-### HasInstructions
-
-`func (o *TeamPatchInput) HasInstructions() bool`
-
-HasInstructions returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

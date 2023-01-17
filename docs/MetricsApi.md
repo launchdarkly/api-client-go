@@ -4,17 +4,17 @@ All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteMetric**](MetricsApi.md#DeleteMetric) | **Delete** /api/v2/metrics/{projectKey}/{key} | Delete metric
-[**GetMetric**](MetricsApi.md#GetMetric) | **Get** /api/v2/metrics/{projectKey}/{key} | Get metric
+[**DeleteMetric**](MetricsApi.md#DeleteMetric) | **Delete** /api/v2/metrics/{projectKey}/{metricKey} | Delete metric
+[**GetMetric**](MetricsApi.md#GetMetric) | **Get** /api/v2/metrics/{projectKey}/{metricKey} | Get metric
 [**GetMetrics**](MetricsApi.md#GetMetrics) | **Get** /api/v2/metrics/{projectKey} | List metrics
-[**PatchMetric**](MetricsApi.md#PatchMetric) | **Patch** /api/v2/metrics/{projectKey}/{key} | Update metric
+[**PatchMetric**](MetricsApi.md#PatchMetric) | **Patch** /api/v2/metrics/{projectKey}/{metricKey} | Update metric
 [**PostMetric**](MetricsApi.md#PostMetric) | **Post** /api/v2/metrics/{projectKey} | Create metric
 
 
 
 ## DeleteMetric
 
-> DeleteMetric(ctx, projectKey, key).Execute()
+> DeleteMetric(ctx, projectKey, metricKey).Execute()
 
 Delete metric
 
@@ -34,11 +34,11 @@ import (
 
 func main() {
     projectKey := "projectKey_example" // string | The project key
-    key := "key_example" // string | The metric key
+    metricKey := "metricKey_example" // string | The metric key
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.MetricsApi.DeleteMetric(context.Background(), projectKey, key).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.MetricsApi.DeleteMetric(context.Background(), projectKey, metricKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MetricsApi.DeleteMetric``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -53,7 +53,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **projectKey** | **string** | The project key | 
-**key** | **string** | The metric key | 
+**metricKey** | **string** | The metric key | 
 
 ### Other Parameters
 
@@ -85,7 +85,7 @@ Name | Type | Description  | Notes
 
 ## GetMetric
 
-> MetricRep GetMetric(ctx, projectKey, key).Execute()
+> MetricRep GetMetric(ctx, projectKey, metricKey).Expand(expand).Execute()
 
 Get metric
 
@@ -105,11 +105,12 @@ import (
 
 func main() {
     projectKey := "projectKey_example" // string | The project key
-    key := "key_example" // string | The metric key
+    metricKey := "metricKey_example" // string | The metric key
+    expand := "expand_example" // string | A comma-separated list of properties that can reveal additional information in the response. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.MetricsApi.GetMetric(context.Background(), projectKey, key).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.MetricsApi.GetMetric(context.Background(), projectKey, metricKey).Expand(expand).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MetricsApi.GetMetric``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -126,7 +127,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **projectKey** | **string** | The project key | 
-**key** | **string** | The metric key | 
+**metricKey** | **string** | The metric key | 
 
 ### Other Parameters
 
@@ -137,6 +138,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **expand** | **string** | A comma-separated list of properties that can reveal additional information in the response. | 
 
 ### Return type
 
@@ -158,7 +160,7 @@ Name | Type | Description  | Notes
 
 ## GetMetrics
 
-> MetricCollectionRep GetMetrics(ctx, projectKey).Execute()
+> MetricCollectionRep GetMetrics(ctx, projectKey).Expand(expand).Execute()
 
 List metrics
 
@@ -178,10 +180,11 @@ import (
 
 func main() {
     projectKey := "projectKey_example" // string | The project key
+    expand := "expand_example" // string | A comma-separated list of properties that can reveal additional information in the response. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.MetricsApi.GetMetrics(context.Background(), projectKey).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.MetricsApi.GetMetrics(context.Background(), projectKey).Expand(expand).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MetricsApi.GetMetrics``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -207,6 +210,7 @@ Other parameters are passed through a pointer to a apiGetMetricsRequest struct v
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **expand** | **string** | A comma-separated list of properties that can reveal additional information in the response. | 
 
 ### Return type
 
@@ -228,7 +232,7 @@ Name | Type | Description  | Notes
 
 ## PatchMetric
 
-> MetricRep PatchMetric(ctx, projectKey, key).PatchOperation(patchOperation).Execute()
+> MetricRep PatchMetric(ctx, projectKey, metricKey).PatchOperation(patchOperation).Execute()
 
 Update metric
 
@@ -248,12 +252,12 @@ import (
 
 func main() {
     projectKey := "projectKey_example" // string | The project key
-    key := "key_example" // string | The metric key
-    patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/biscuits", interface{}(Chocolate Digestive))} // []PatchOperation | 
+    metricKey := "metricKey_example" // string | The metric key
+    patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField", interface{}(new example value))} // []PatchOperation | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.MetricsApi.PatchMetric(context.Background(), projectKey, key).PatchOperation(patchOperation).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.MetricsApi.PatchMetric(context.Background(), projectKey, metricKey).PatchOperation(patchOperation).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MetricsApi.PatchMetric``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -270,7 +274,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **projectKey** | **string** | The project key | 
-**key** | **string** | The metric key | 
+**metricKey** | **string** | The metric key | 
 
 ### Other Parameters
 
@@ -323,11 +327,11 @@ import (
 
 func main() {
     projectKey := "projectKey_example" // string | The project key
-    metricPost := *openapiclient.NewMetricPost("Key_example", "Kind_example") // MetricPost | 
+    metricPost := *openapiclient.NewMetricPost("example-metric", "custom") // MetricPost | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.MetricsApi.PostMetric(context.Background(), projectKey).MetricPost(metricPost).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.MetricsApi.PostMetric(context.Background(), projectKey).MetricPost(metricPost).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MetricsApi.PostMetric``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

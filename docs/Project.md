@@ -4,20 +4,20 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Links** | [**map[string]Link**](Link.md) |  | 
-**Id** | **string** |  | 
-**Key** | **string** |  | 
-**IncludeInSnippetByDefault** | **bool** |  | 
+**Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
+**Id** | **string** | The ID of this project | 
+**Key** | **string** | The key of this project | 
+**IncludeInSnippetByDefault** | **bool** | Whether or not flags created in this project are made available to the client-side JavaScript SDK by default | 
 **DefaultClientSideAvailability** | Pointer to [**ClientSideAvailability**](ClientSideAvailability.md) |  | [optional] 
-**Name** | **string** |  | 
-**Tags** | **[]string** |  | 
-**Environments** | [**[]Environment**](Environment.md) |  | 
+**Name** | **string** | A human-friendly name for the project | 
+**Tags** | **[]string** | A list of tags for the project | 
+**Environments** | Pointer to [**Environments**](Environments.md) |  | [optional] 
 
 ## Methods
 
 ### NewProject
 
-`func NewProject(links map[string]Link, id string, key string, includeInSnippetByDefault bool, name string, tags []string, environments []Environment, ) *Project`
+`func NewProject(links map[string]Link, id string, key string, includeInSnippetByDefault bool, name string, tags []string, ) *Project`
 
 NewProject instantiates a new Project object
 This constructor will assign default values to properties that have it defined,
@@ -179,23 +179,28 @@ SetTags sets Tags field to given value.
 
 ### GetEnvironments
 
-`func (o *Project) GetEnvironments() []Environment`
+`func (o *Project) GetEnvironments() Environments`
 
 GetEnvironments returns the Environments field if non-nil, zero value otherwise.
 
 ### GetEnvironmentsOk
 
-`func (o *Project) GetEnvironmentsOk() (*[]Environment, bool)`
+`func (o *Project) GetEnvironmentsOk() (*Environments, bool)`
 
 GetEnvironmentsOk returns a tuple with the Environments field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEnvironments
 
-`func (o *Project) SetEnvironments(v []Environment)`
+`func (o *Project) SetEnvironments(v Environments)`
 
 SetEnvironments sets Environments field to given value.
 
+### HasEnvironments
+
+`func (o *Project) HasEnvironments() bool`
+
+HasEnvironments returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

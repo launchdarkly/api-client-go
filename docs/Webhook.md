@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Links** | [**map[string]Link**](Link.md) |  | 
-**Id** | **string** |  | 
-**Name** | Pointer to **string** |  | [optional] 
-**Url** | **string** |  | 
-**Secret** | Pointer to **string** |  | [optional] 
-**Statements** | Pointer to [**[]StatementRep**](StatementRep.md) |  | [optional] 
-**On** | **bool** |  | 
-**Tags** | **[]string** |  | 
-**Access** | Pointer to [**AccessRep**](AccessRep.md) |  | [optional] 
+**Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
+**Id** | **string** | The ID of this webhook | 
+**Name** | Pointer to **string** | A human-readable name for this webhook | [optional] 
+**Url** | **string** | The URL to which LaunchDarkly sends an HTTP POST payload for this webhook | 
+**Secret** | Pointer to **string** | The secret for this webhook | [optional] 
+**Statements** | Pointer to [**[]Statement**](Statement.md) | Represents a Custom role policy, defining a resource kinds filter the webhook responds to. | [optional] 
+**On** | **bool** | Whether or not this webhook is enabled | 
+**Tags** | **[]string** | List of tags for this webhook | 
+**Access** | Pointer to [**Access**](Access.md) |  | [optional] 
 
 ## Methods
 
@@ -145,20 +145,20 @@ HasSecret returns a boolean if a field has been set.
 
 ### GetStatements
 
-`func (o *Webhook) GetStatements() []StatementRep`
+`func (o *Webhook) GetStatements() []Statement`
 
 GetStatements returns the Statements field if non-nil, zero value otherwise.
 
 ### GetStatementsOk
 
-`func (o *Webhook) GetStatementsOk() (*[]StatementRep, bool)`
+`func (o *Webhook) GetStatementsOk() (*[]Statement, bool)`
 
 GetStatementsOk returns a tuple with the Statements field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStatements
 
-`func (o *Webhook) SetStatements(v []StatementRep)`
+`func (o *Webhook) SetStatements(v []Statement)`
 
 SetStatements sets Statements field to given value.
 
@@ -210,20 +210,20 @@ SetTags sets Tags field to given value.
 
 ### GetAccess
 
-`func (o *Webhook) GetAccess() AccessRep`
+`func (o *Webhook) GetAccess() Access`
 
 GetAccess returns the Access field if non-nil, zero value otherwise.
 
 ### GetAccessOk
 
-`func (o *Webhook) GetAccessOk() (*AccessRep, bool)`
+`func (o *Webhook) GetAccessOk() (*Access, bool)`
 
 GetAccessOk returns a tuple with the Access field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAccess
 
-`func (o *Webhook) SetAccess(v AccessRep)`
+`func (o *Webhook) SetAccess(v Access)`
 
 SetAccess sets Access field to given value.
 

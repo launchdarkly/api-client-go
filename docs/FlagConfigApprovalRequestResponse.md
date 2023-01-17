@@ -4,21 +4,21 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** |  | 
-**Version** | **int32** |  | 
+**Id** | **string** | The ID of this approval request | 
+**Version** | **int32** | Version of the approval request | 
 **CreationDate** | **int64** |  | 
 **ServiceKind** | **string** |  | 
-**RequestorId** | Pointer to **string** |  | [optional] 
+**RequestorId** | Pointer to **string** | The ID of the member who requested the approval | [optional] 
 **Description** | Pointer to **string** | A human-friendly name for the approval request | [optional] 
-**ReviewStatus** | **string** |  | 
-**AllReviews** | [**[]ReviewResponse**](ReviewResponse.md) |  | 
+**ReviewStatus** | **string** | Current status of the review of this approval request | 
+**AllReviews** | [**[]ReviewResponse**](ReviewResponse.md) | An array of individual reviews of this approval request | 
 **NotifyMemberIds** | **[]string** | An array of member IDs. These members are notified to review the approval request. | 
 **AppliedDate** | Pointer to **int64** |  | [optional] 
-**AppliedByMemberId** | Pointer to **string** |  | [optional] 
-**Status** | **string** |  | 
+**AppliedByMemberId** | Pointer to **string** | The member ID of the member who applied the approval request | [optional] 
+**Status** | **string** | Current status of the approval request | 
 **Instructions** | **[]map[string]interface{}** |  | 
-**Conflicts** | [**[]Conflict**](Conflict.md) |  | 
-**Links** | [**map[string]Link**](Link.md) |  | 
+**Conflicts** | [**[]Conflict**](Conflict.md) | Details on any conflicting approval requests | 
+**Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
 **ExecutionDate** | Pointer to **int64** |  | [optional] 
 **OperatingOnId** | Pointer to **string** | ID of scheduled change to edit or delete | [optional] 
 **IntegrationMetadata** | Pointer to [**IntegrationMetadata**](IntegrationMetadata.md) |  | [optional] 

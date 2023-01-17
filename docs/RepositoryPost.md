@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** |  | 
-**SourceLink** | Pointer to **string** |  | [optional] 
+**Name** | **string** | The repository name | 
+**SourceLink** | Pointer to **string** | A URL to access the repository | [optional] 
 **CommitUrlTemplate** | Pointer to **string** | A template for constructing a valid URL to view the commit | [optional] 
 **HunkUrlTemplate** | Pointer to **string** | A template for constructing a valid URL to view the hunk | [optional] 
-**Type** | Pointer to **string** | Optionally specify a repository type. The default value is &lt;code&gt;custom&lt;/code&gt; | [optional] 
-**DefaultBranch** | Pointer to **string** | The default branch, if not specified, is &lt;code&gt;master&lt;/code&gt; | [optional] 
+**Type** | Pointer to **string** | The type of repository. If not specified, the default value is &lt;code&gt;custom&lt;/code&gt;. | [optional] 
+**DefaultBranch** | Pointer to **string** | The repository&#39;s default branch. If not specified, the default value is &lt;code&gt;main&lt;/code&gt;. | [optional] 
 
 ## Methods
 

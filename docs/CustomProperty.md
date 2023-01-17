@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** |  | 
-**Value** | **[]string** |  | 
+**Name** | **string** | The name of the custom property of this type. | 
+**Value** | **[]string** | An array of values for the custom property data to associate with this flag. | 
 
 ## Methods
 

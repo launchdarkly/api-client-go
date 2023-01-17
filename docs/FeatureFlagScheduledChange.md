@@ -6,12 +6,12 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** |  | 
 **CreationDate** | **int64** |  | 
-**MaintainerId** | **string** |  | 
-**Version** | **int32** |  | 
+**MaintainerId** | **string** | The ID of the scheduled change maintainer | 
+**Version** | **int32** | Version of the scheduled change | 
 **ExecutionDate** | **int64** |  | 
 **Instructions** | **[]map[string]interface{}** |  | 
-**Conflicts** | Pointer to **interface{}** |  | [optional] 
-**Links** | Pointer to [**map[string]Link**](Link.md) |  | [optional] 
+**Conflicts** | Pointer to **interface{}** | Details on any conflicting scheduled changes | [optional] 
+**Links** | Pointer to [**map[string]Link**](Link.md) | The location and content type of related resources | [optional] 
 
 ## Methods
 

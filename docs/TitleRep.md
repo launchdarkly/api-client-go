@@ -8,8 +8,8 @@ Name | Type | Description | Notes
 **Member** | Pointer to [**MemberDataRep**](MemberDataRep.md) |  | [optional] 
 **Token** | Pointer to [**TokenDataRep**](TokenDataRep.md) |  | [optional] 
 **App** | Pointer to [**AuthorizedAppDataRep**](AuthorizedAppDataRep.md) |  | [optional] 
-**TitleVerb** | Pointer to **string** |  | [optional] 
-**Title** | Pointer to **string** |  | [optional] 
+**TitleVerb** | Pointer to **string** | The action and resource recorded in this audit log entry | [optional] 
+**Title** | Pointer to **string** | A description of what occurred, in the format &lt;code&gt;member&lt;/code&gt; &lt;code&gt;titleVerb&lt;/code&gt; &lt;code&gt;target&lt;/code&gt; | [optional] 
 **Target** | Pointer to [**TargetResourceRep**](TargetResourceRep.md) |  | [optional] 
 **Parent** | Pointer to [**ParentResourceRep**](ParentResourceRep.md) |  | [optional] 
 

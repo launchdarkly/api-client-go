@@ -4,23 +4,23 @@ All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CopyFeatureFlag**](FeatureFlagsApi.md#CopyFeatureFlag) | **Post** /api/v2/flags/{projKey}/{featureFlagKey}/copy | Copy feature flag
-[**DeleteFeatureFlag**](FeatureFlagsApi.md#DeleteFeatureFlag) | **Delete** /api/v2/flags/{projKey}/{key} | Delete feature flag
-[**GetExpiringUserTargets**](FeatureFlagsApi.md#GetExpiringUserTargets) | **Get** /api/v2/flags/{projKey}/{flagKey}/expiring-user-targets/{envKey} | Get expiring user targets for feature flag
-[**GetFeatureFlag**](FeatureFlagsApi.md#GetFeatureFlag) | **Get** /api/v2/flags/{projKey}/{key} | Get feature flag
-[**GetFeatureFlagStatus**](FeatureFlagsApi.md#GetFeatureFlagStatus) | **Get** /api/v2/flag-statuses/{projKey}/{envKey}/{key} | Get feature flag status
-[**GetFeatureFlagStatusAcrossEnvironments**](FeatureFlagsApi.md#GetFeatureFlagStatusAcrossEnvironments) | **Get** /api/v2/flag-status/{projKey}/{key} | Get flag status across environments
-[**GetFeatureFlagStatuses**](FeatureFlagsApi.md#GetFeatureFlagStatuses) | **Get** /api/v2/flag-statuses/{projKey}/{envKey} | List feature flag statuses
-[**GetFeatureFlags**](FeatureFlagsApi.md#GetFeatureFlags) | **Get** /api/v2/flags/{projKey} | List feature flags
-[**PatchExpiringUserTargets**](FeatureFlagsApi.md#PatchExpiringUserTargets) | **Patch** /api/v2/flags/{projKey}/{flagKey}/expiring-user-targets/{envKey} | Update expiring user targets on feature flag
-[**PatchFeatureFlag**](FeatureFlagsApi.md#PatchFeatureFlag) | **Patch** /api/v2/flags/{projKey}/{key} | Update feature flag
-[**PostFeatureFlag**](FeatureFlagsApi.md#PostFeatureFlag) | **Post** /api/v2/flags/{projKey} | Create a feature flag
+[**CopyFeatureFlag**](FeatureFlagsApi.md#CopyFeatureFlag) | **Post** /api/v2/flags/{projectKey}/{featureFlagKey}/copy | Copy feature flag
+[**DeleteFeatureFlag**](FeatureFlagsApi.md#DeleteFeatureFlag) | **Delete** /api/v2/flags/{projectKey}/{featureFlagKey} | Delete feature flag
+[**GetExpiringUserTargets**](FeatureFlagsApi.md#GetExpiringUserTargets) | **Get** /api/v2/flags/{projectKey}/{featureFlagKey}/expiring-user-targets/{environmentKey} | Get expiring user targets for feature flag
+[**GetFeatureFlag**](FeatureFlagsApi.md#GetFeatureFlag) | **Get** /api/v2/flags/{projectKey}/{featureFlagKey} | Get feature flag
+[**GetFeatureFlagStatus**](FeatureFlagsApi.md#GetFeatureFlagStatus) | **Get** /api/v2/flag-statuses/{projectKey}/{environmentKey}/{featureFlagKey} | Get feature flag status
+[**GetFeatureFlagStatusAcrossEnvironments**](FeatureFlagsApi.md#GetFeatureFlagStatusAcrossEnvironments) | **Get** /api/v2/flag-status/{projectKey}/{featureFlagKey} | Get flag status across environments
+[**GetFeatureFlagStatuses**](FeatureFlagsApi.md#GetFeatureFlagStatuses) | **Get** /api/v2/flag-statuses/{projectKey}/{environmentKey} | List feature flag statuses
+[**GetFeatureFlags**](FeatureFlagsApi.md#GetFeatureFlags) | **Get** /api/v2/flags/{projectKey} | List feature flags
+[**PatchExpiringUserTargets**](FeatureFlagsApi.md#PatchExpiringUserTargets) | **Patch** /api/v2/flags/{projectKey}/{featureFlagKey}/expiring-user-targets/{environmentKey} | Update expiring user targets on feature flag
+[**PatchFeatureFlag**](FeatureFlagsApi.md#PatchFeatureFlag) | **Patch** /api/v2/flags/{projectKey}/{featureFlagKey} | Update feature flag
+[**PostFeatureFlag**](FeatureFlagsApi.md#PostFeatureFlag) | **Post** /api/v2/flags/{projectKey} | Create a feature flag
 
 
 
 ## CopyFeatureFlag
 
-> FeatureFlag CopyFeatureFlag(ctx, projKey, featureFlagKey).FlagCopyConfigPost(flagCopyConfigPost).Execute()
+> FeatureFlag CopyFeatureFlag(ctx, projectKey, featureFlagKey).FlagCopyConfigPost(flagCopyConfigPost).Execute()
 
 Copy feature flag
 
@@ -39,13 +39,13 @@ import (
 )
 
 func main() {
-    projKey := "projKey_example" // string | The project key.
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag's key. The key identifies the flag in your code.
+    projectKey := "projectKey_example" // string | The project key
+    featureFlagKey := "featureFlagKey_example" // string | The feature flag key. The key identifies the flag in your code.
     flagCopyConfigPost := *openapiclient.NewFlagCopyConfigPost(*openapiclient.NewFlagCopyConfigEnvironment("Key_example"), *openapiclient.NewFlagCopyConfigEnvironment("Key_example")) // FlagCopyConfigPost | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.FeatureFlagsApi.CopyFeatureFlag(context.Background(), projKey, featureFlagKey).FlagCopyConfigPost(flagCopyConfigPost).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.FeatureFlagsApi.CopyFeatureFlag(context.Background(), projectKey, featureFlagKey).FlagCopyConfigPost(flagCopyConfigPost).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.CopyFeatureFlag``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -61,8 +61,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projKey** | **string** | The project key. | 
-**featureFlagKey** | **string** | The feature flag&#39;s key. The key identifies the flag in your code. | 
+**projectKey** | **string** | The project key | 
+**featureFlagKey** | **string** | The feature flag key. The key identifies the flag in your code. | 
 
 ### Other Parameters
 
@@ -95,7 +95,7 @@ Name | Type | Description  | Notes
 
 ## DeleteFeatureFlag
 
-> DeleteFeatureFlag(ctx, projKey, key).Execute()
+> DeleteFeatureFlag(ctx, projectKey, featureFlagKey).Execute()
 
 Delete feature flag
 
@@ -114,12 +114,12 @@ import (
 )
 
 func main() {
-    projKey := "projKey_example" // string | The project key.
-    key := "key_example" // string | The feature flag's key. The key identifies the flag in your code.
+    projectKey := "projectKey_example" // string | The project key
+    featureFlagKey := "featureFlagKey_example" // string | The feature flag key. The key identifies the flag in your code.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.FeatureFlagsApi.DeleteFeatureFlag(context.Background(), projKey, key).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.FeatureFlagsApi.DeleteFeatureFlag(context.Background(), projectKey, featureFlagKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.DeleteFeatureFlag``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -133,8 +133,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projKey** | **string** | The project key. | 
-**key** | **string** | The feature flag&#39;s key. The key identifies the flag in your code. | 
+**projectKey** | **string** | The project key | 
+**featureFlagKey** | **string** | The feature flag key. The key identifies the flag in your code. | 
 
 ### Other Parameters
 
@@ -166,7 +166,7 @@ Name | Type | Description  | Notes
 
 ## GetExpiringUserTargets
 
-> ExpiringUserTargetGetResponse GetExpiringUserTargets(ctx, projKey, envKey, flagKey).Execute()
+> ExpiringUserTargetGetResponse GetExpiringUserTargets(ctx, projectKey, environmentKey, featureFlagKey).Execute()
 
 Get expiring user targets for feature flag
 
@@ -185,13 +185,13 @@ import (
 )
 
 func main() {
-    projKey := "projKey_example" // string | The project key.
-    envKey := "envKey_example" // string | The environment key.
-    flagKey := "flagKey_example" // string | The feature flag key.
+    projectKey := "projectKey_example" // string | The project key
+    environmentKey := "environmentKey_example" // string | The environment key
+    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.FeatureFlagsApi.GetExpiringUserTargets(context.Background(), projKey, envKey, flagKey).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.FeatureFlagsApi.GetExpiringUserTargets(context.Background(), projectKey, environmentKey, featureFlagKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.GetExpiringUserTargets``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -207,9 +207,9 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projKey** | **string** | The project key. | 
-**envKey** | **string** | The environment key. | 
-**flagKey** | **string** | The feature flag key. | 
+**projectKey** | **string** | The project key | 
+**environmentKey** | **string** | The environment key | 
+**featureFlagKey** | **string** | The feature flag key | 
 
 ### Other Parameters
 
@@ -242,7 +242,7 @@ Name | Type | Description  | Notes
 
 ## GetFeatureFlag
 
-> FeatureFlag GetFeatureFlag(ctx, projKey, key).Env(env).Execute()
+> FeatureFlag GetFeatureFlag(ctx, projectKey, featureFlagKey).Env(env).Execute()
 
 Get feature flag
 
@@ -261,13 +261,13 @@ import (
 )
 
 func main() {
-    projKey := "projKey_example" // string | The project key
-    key := "key_example" // string | The feature flag key
+    projectKey := "projectKey_example" // string | The project key
+    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
     env := "env_example" // string | Filter configurations by environment (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.FeatureFlagsApi.GetFeatureFlag(context.Background(), projKey, key).Env(env).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.FeatureFlagsApi.GetFeatureFlag(context.Background(), projectKey, featureFlagKey).Env(env).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.GetFeatureFlag``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -283,8 +283,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projKey** | **string** | The project key | 
-**key** | **string** | The feature flag key | 
+**projectKey** | **string** | The project key | 
+**featureFlagKey** | **string** | The feature flag key | 
 
 ### Other Parameters
 
@@ -317,7 +317,7 @@ Name | Type | Description  | Notes
 
 ## GetFeatureFlagStatus
 
-> FlagStatusRep GetFeatureFlagStatus(ctx, projKey, envKey, key).Execute()
+> FlagStatusRep GetFeatureFlagStatus(ctx, projectKey, environmentKey, featureFlagKey).Execute()
 
 Get feature flag status
 
@@ -336,13 +336,13 @@ import (
 )
 
 func main() {
-    projKey := "projKey_example" // string | The project key
-    envKey := "envKey_example" // string | The environment key
-    key := "key_example" // string | The feature flag key
+    projectKey := "projectKey_example" // string | The project key
+    environmentKey := "environmentKey_example" // string | The environment key
+    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.FeatureFlagsApi.GetFeatureFlagStatus(context.Background(), projKey, envKey, key).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.FeatureFlagsApi.GetFeatureFlagStatus(context.Background(), projectKey, environmentKey, featureFlagKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.GetFeatureFlagStatus``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -358,9 +358,9 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projKey** | **string** | The project key | 
-**envKey** | **string** | The environment key | 
-**key** | **string** | The feature flag key | 
+**projectKey** | **string** | The project key | 
+**environmentKey** | **string** | The environment key | 
+**featureFlagKey** | **string** | The feature flag key | 
 
 ### Other Parameters
 
@@ -393,7 +393,7 @@ Name | Type | Description  | Notes
 
 ## GetFeatureFlagStatusAcrossEnvironments
 
-> FeatureFlagStatusAcrossEnvironments GetFeatureFlagStatusAcrossEnvironments(ctx, projKey, key).Env(env).Execute()
+> FeatureFlagStatusAcrossEnvironments GetFeatureFlagStatusAcrossEnvironments(ctx, projectKey, featureFlagKey).Env(env).Execute()
 
 Get flag status across environments
 
@@ -412,13 +412,13 @@ import (
 )
 
 func main() {
-    projKey := "projKey_example" // string | The project key
-    key := "key_example" // string | The feature flag key
+    projectKey := "projectKey_example" // string | The project key
+    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
     env := "env_example" // string | Optional environment filter (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.FeatureFlagsApi.GetFeatureFlagStatusAcrossEnvironments(context.Background(), projKey, key).Env(env).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.FeatureFlagsApi.GetFeatureFlagStatusAcrossEnvironments(context.Background(), projectKey, featureFlagKey).Env(env).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.GetFeatureFlagStatusAcrossEnvironments``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -434,8 +434,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projKey** | **string** | The project key | 
-**key** | **string** | The feature flag key | 
+**projectKey** | **string** | The project key | 
+**featureFlagKey** | **string** | The feature flag key | 
 
 ### Other Parameters
 
@@ -468,7 +468,7 @@ Name | Type | Description  | Notes
 
 ## GetFeatureFlagStatuses
 
-> FeatureFlagStatuses GetFeatureFlagStatuses(ctx, projKey, envKey).Execute()
+> FeatureFlagStatuses GetFeatureFlagStatuses(ctx, projectKey, environmentKey).Execute()
 
 List feature flag statuses
 
@@ -487,12 +487,12 @@ import (
 )
 
 func main() {
-    projKey := "projKey_example" // string | The project key
-    envKey := "envKey_example" // string | Filter configurations by environment
+    projectKey := "projectKey_example" // string | The project key
+    environmentKey := "environmentKey_example" // string | The environment key
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.FeatureFlagsApi.GetFeatureFlagStatuses(context.Background(), projKey, envKey).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.FeatureFlagsApi.GetFeatureFlagStatuses(context.Background(), projectKey, environmentKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.GetFeatureFlagStatuses``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -508,8 +508,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projKey** | **string** | The project key | 
-**envKey** | **string** | Filter configurations by environment | 
+**projectKey** | **string** | The project key | 
+**environmentKey** | **string** | The environment key | 
 
 ### Other Parameters
 
@@ -541,7 +541,7 @@ Name | Type | Description  | Notes
 
 ## GetFeatureFlags
 
-> FeatureFlags GetFeatureFlags(ctx, projKey).Env(env).Tag(tag).Limit(limit).Offset(offset).Query(query).Archived(archived).Summary(summary).Filter(filter).Sort(sort).Execute()
+> FeatureFlags GetFeatureFlags(ctx, projectKey).Env(env).Tag(tag).Limit(limit).Offset(offset).Archived(archived).Summary(summary).Filter(filter).Sort(sort).Compare(compare).Execute()
 
 List feature flags
 
@@ -560,20 +560,20 @@ import (
 )
 
 func main() {
-    projKey := "projKey_example" // string | The project key
+    projectKey := "projectKey_example" // string | The project key
     env := "env_example" // string | Filter configurations by environment (optional)
     tag := "tag_example" // string | Filter feature flags by tag (optional)
     limit := int64(789) // int64 | The number of feature flags to return. Defaults to -1, which returns all flags (optional)
-    offset := int64(789) // int64 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next limit items (optional)
-    query := "query_example" // string | A string that matches against the flags' keys and names. It is not case sensitive (optional)
+    offset := int64(789) // int64 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
     archived := true // bool | A boolean to filter the list to archived flags. When this is absent, only unarchived flags will be returned (optional)
     summary := true // bool | By default in API version >= 1, flags will _not_ include their list of prerequisites, targets or rules.  Set summary=0 to include these fields for each flag returned (optional)
-    filter := "filter_example" // string | A comma-separated list of filters. Each filter is of the form field:value (optional)
-    sort := "sort_example" // string | A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order (optional)
+    filter := "filter_example" // string | A comma-separated list of filters. Each filter is of the form field:value. Read the endpoint description for a full list of available filter fields. (optional)
+    sort := "sort_example" // string | A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order. Read the endpoint description for a full list of available sort fields. (optional)
+    compare := true // bool | A boolean to filter results by only flags that have differences between environments (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.FeatureFlagsApi.GetFeatureFlags(context.Background(), projKey).Env(env).Tag(tag).Limit(limit).Offset(offset).Query(query).Archived(archived).Summary(summary).Filter(filter).Sort(sort).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.FeatureFlagsApi.GetFeatureFlags(context.Background(), projectKey).Env(env).Tag(tag).Limit(limit).Offset(offset).Archived(archived).Summary(summary).Filter(filter).Sort(sort).Compare(compare).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.GetFeatureFlags``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -589,7 +589,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projKey** | **string** | The project key | 
+**projectKey** | **string** | The project key | 
 
 ### Other Parameters
 
@@ -602,12 +602,12 @@ Name | Type | Description  | Notes
  **env** | **string** | Filter configurations by environment | 
  **tag** | **string** | Filter feature flags by tag | 
  **limit** | **int64** | The number of feature flags to return. Defaults to -1, which returns all flags | 
- **offset** | **int64** | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next limit items | 
- **query** | **string** | A string that matches against the flags&#39; keys and names. It is not case sensitive | 
+ **offset** | **int64** | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | 
  **archived** | **bool** | A boolean to filter the list to archived flags. When this is absent, only unarchived flags will be returned | 
  **summary** | **bool** | By default in API version &gt;&#x3D; 1, flags will _not_ include their list of prerequisites, targets or rules.  Set summary&#x3D;0 to include these fields for each flag returned | 
- **filter** | **string** | A comma-separated list of filters. Each filter is of the form field:value | 
- **sort** | **string** | A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order | 
+ **filter** | **string** | A comma-separated list of filters. Each filter is of the form field:value. Read the endpoint description for a full list of available filter fields. | 
+ **sort** | **string** | A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order. Read the endpoint description for a full list of available sort fields. | 
+ **compare** | **bool** | A boolean to filter results by only flags that have differences between environments | 
 
 ### Return type
 
@@ -629,7 +629,7 @@ Name | Type | Description  | Notes
 
 ## PatchExpiringUserTargets
 
-> ExpiringUserTargetPatchResponse PatchExpiringUserTargets(ctx, projKey, envKey, flagKey).PatchWithComment(patchWithComment).Execute()
+> ExpiringUserTargetPatchResponse PatchExpiringUserTargets(ctx, projectKey, environmentKey, featureFlagKey).PatchFlagsRequest(patchFlagsRequest).Execute()
 
 Update expiring user targets on feature flag
 
@@ -648,14 +648,14 @@ import (
 )
 
 func main() {
-    projKey := "projKey_example" // string | The project key.
-    envKey := "envKey_example" // string | The environment key.
-    flagKey := "flagKey_example" // string | The feature flag key.
-    patchWithComment := *openapiclient.NewPatchWithComment([]openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/biscuits", interface{}(Chocolate Digestive))}) // PatchWithComment | 
+    projectKey := "projectKey_example" // string | The project key
+    environmentKey := "environmentKey_example" // string | The environment key
+    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
+    patchFlagsRequest := *openapiclient.NewPatchFlagsRequest([]map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}) // PatchFlagsRequest | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.FeatureFlagsApi.PatchExpiringUserTargets(context.Background(), projKey, envKey, flagKey).PatchWithComment(patchWithComment).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.FeatureFlagsApi.PatchExpiringUserTargets(context.Background(), projectKey, environmentKey, featureFlagKey).PatchFlagsRequest(patchFlagsRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.PatchExpiringUserTargets``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -671,9 +671,9 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projKey** | **string** | The project key. | 
-**envKey** | **string** | The environment key. | 
-**flagKey** | **string** | The feature flag key. | 
+**projectKey** | **string** | The project key | 
+**environmentKey** | **string** | The environment key | 
+**featureFlagKey** | **string** | The feature flag key | 
 
 ### Other Parameters
 
@@ -685,7 +685,7 @@ Name | Type | Description  | Notes
 
 
 
- **patchWithComment** | [**PatchWithComment**](PatchWithComment.md) |  | 
+ **patchFlagsRequest** | [**PatchFlagsRequest**](PatchFlagsRequest.md) |  | 
 
 ### Return type
 
@@ -707,7 +707,7 @@ Name | Type | Description  | Notes
 
 ## PatchFeatureFlag
 
-> FeatureFlag PatchFeatureFlag(ctx, projKey, key).PatchWithComment(patchWithComment).Execute()
+> FeatureFlag PatchFeatureFlag(ctx, projectKey, featureFlagKey).PatchWithComment(patchWithComment).Execute()
 
 Update feature flag
 
@@ -726,13 +726,13 @@ import (
 )
 
 func main() {
-    projKey := "projKey_example" // string | The project key.
-    key := "key_example" // string | The feature flag's key. The key identifies the flag in your code.
-    patchWithComment := *openapiclient.NewPatchWithComment([]openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/biscuits", interface{}(Chocolate Digestive))}) // PatchWithComment | 
+    projectKey := "projectKey_example" // string | The project key
+    featureFlagKey := "featureFlagKey_example" // string | The feature flag key. The key identifies the flag in your code.
+    patchWithComment := *openapiclient.NewPatchWithComment([]openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField", interface{}(new example value))}) // PatchWithComment | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.FeatureFlagsApi.PatchFeatureFlag(context.Background(), projKey, key).PatchWithComment(patchWithComment).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.FeatureFlagsApi.PatchFeatureFlag(context.Background(), projectKey, featureFlagKey).PatchWithComment(patchWithComment).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.PatchFeatureFlag``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -748,8 +748,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projKey** | **string** | The project key. | 
-**key** | **string** | The feature flag&#39;s key. The key identifies the flag in your code. | 
+**projectKey** | **string** | The project key | 
+**featureFlagKey** | **string** | The feature flag key. The key identifies the flag in your code. | 
 
 ### Other Parameters
 
@@ -782,7 +782,7 @@ Name | Type | Description  | Notes
 
 ## PostFeatureFlag
 
-> FeatureFlag PostFeatureFlag(ctx, projKey).FeatureFlagBody(featureFlagBody).Clone(clone).Execute()
+> FeatureFlag PostFeatureFlag(ctx, projectKey).FeatureFlagBody(featureFlagBody).Clone(clone).Execute()
 
 Create a feature flag
 
@@ -801,13 +801,13 @@ import (
 )
 
 func main() {
-    projKey := "projKey_example" // string | The project key.
-    featureFlagBody := *openapiclient.NewFeatureFlagBody("Name_example", "Key_example") // FeatureFlagBody | 
+    projectKey := "projectKey_example" // string | The project key
+    featureFlagBody := *openapiclient.NewFeatureFlagBody("My flag", "my-flag") // FeatureFlagBody | 
     clone := "clone_example" // string | The key of the feature flag to be cloned. The key identifies the flag in your code. For example, setting `clone=flagKey` copies the full targeting configuration for all environments, including `on/off` state, from the original flag to the new flag. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.FeatureFlagsApi.PostFeatureFlag(context.Background(), projKey).FeatureFlagBody(featureFlagBody).Clone(clone).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.FeatureFlagsApi.PostFeatureFlag(context.Background(), projectKey).FeatureFlagBody(featureFlagBody).Clone(clone).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.PostFeatureFlag``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -823,7 +823,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projKey** | **string** | The project key. | 
+**projectKey** | **string** | The project key | 
 
 ### Other Parameters
 

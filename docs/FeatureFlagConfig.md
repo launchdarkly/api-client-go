@@ -10,13 +10,14 @@ Name | Type | Description | Notes
 **Sel** | **string** |  | 
 **LastModified** | **int64** |  | 
 **Version** | **int32** |  | 
-**Targets** | [**[]Target**](Target.md) |  | 
-**Rules** | [**[]Rule**](Rule.md) |  | 
-**Fallthrough** | [**VariationOrRolloutRep**](VariationOrRolloutRep.md) |  | 
+**Targets** | Pointer to [**[]Target**](Target.md) |  | [optional] 
+**ContextTargets** | Pointer to [**[]Target**](Target.md) |  | [optional] 
+**Rules** | Pointer to [**[]Rule**](Rule.md) |  | [optional] 
+**Fallthrough** | Pointer to [**VariationOrRolloutRep**](VariationOrRolloutRep.md) |  | [optional] 
 **OffVariation** | Pointer to **int32** |  | [optional] 
-**Prerequisites** | [**[]Prerequisite**](Prerequisite.md) |  | 
+**Prerequisites** | Pointer to [**[]Prerequisite**](Prerequisite.md) |  | [optional] 
 **Site** | [**Link**](Link.md) |  | 
-**Access** | Pointer to [**AccessRep**](AccessRep.md) |  | [optional] 
+**Access** | Pointer to [**Access**](Access.md) |  | [optional] 
 **EnvironmentName** | **string** |  | 
 **TrackEvents** | **bool** |  | 
 **TrackEventsFallthrough** | **bool** |  | 
@@ -27,7 +28,7 @@ Name | Type | Description | Notes
 
 ### NewFeatureFlagConfig
 
-`func NewFeatureFlagConfig(on bool, archived bool, salt string, sel string, lastModified int64, version int32, targets []Target, rules []Rule, fallthrough_ VariationOrRolloutRep, prerequisites []Prerequisite, site Link, environmentName string, trackEvents bool, trackEventsFallthrough bool, ) *FeatureFlagConfig`
+`func NewFeatureFlagConfig(on bool, archived bool, salt string, sel string, lastModified int64, version int32, site Link, environmentName string, trackEvents bool, trackEventsFallthrough bool, ) *FeatureFlagConfig`
 
 NewFeatureFlagConfig instantiates a new FeatureFlagConfig object
 This constructor will assign default values to properties that have it defined,
@@ -181,6 +182,36 @@ and a boolean to check if the value has been set.
 
 SetTargets sets Targets field to given value.
 
+### HasTargets
+
+`func (o *FeatureFlagConfig) HasTargets() bool`
+
+HasTargets returns a boolean if a field has been set.
+
+### GetContextTargets
+
+`func (o *FeatureFlagConfig) GetContextTargets() []Target`
+
+GetContextTargets returns the ContextTargets field if non-nil, zero value otherwise.
+
+### GetContextTargetsOk
+
+`func (o *FeatureFlagConfig) GetContextTargetsOk() (*[]Target, bool)`
+
+GetContextTargetsOk returns a tuple with the ContextTargets field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetContextTargets
+
+`func (o *FeatureFlagConfig) SetContextTargets(v []Target)`
+
+SetContextTargets sets ContextTargets field to given value.
+
+### HasContextTargets
+
+`func (o *FeatureFlagConfig) HasContextTargets() bool`
+
+HasContextTargets returns a boolean if a field has been set.
 
 ### GetRules
 
@@ -201,6 +232,11 @@ and a boolean to check if the value has been set.
 
 SetRules sets Rules field to given value.
 
+### HasRules
+
+`func (o *FeatureFlagConfig) HasRules() bool`
+
+HasRules returns a boolean if a field has been set.
 
 ### GetFallthrough
 
@@ -221,6 +257,11 @@ and a boolean to check if the value has been set.
 
 SetFallthrough sets Fallthrough field to given value.
 
+### HasFallthrough
+
+`func (o *FeatureFlagConfig) HasFallthrough() bool`
+
+HasFallthrough returns a boolean if a field has been set.
 
 ### GetOffVariation
 
@@ -266,6 +307,11 @@ and a boolean to check if the value has been set.
 
 SetPrerequisites sets Prerequisites field to given value.
 
+### HasPrerequisites
+
+`func (o *FeatureFlagConfig) HasPrerequisites() bool`
+
+HasPrerequisites returns a boolean if a field has been set.
 
 ### GetSite
 
@@ -289,20 +335,20 @@ SetSite sets Site field to given value.
 
 ### GetAccess
 
-`func (o *FeatureFlagConfig) GetAccess() AccessRep`
+`func (o *FeatureFlagConfig) GetAccess() Access`
 
 GetAccess returns the Access field if non-nil, zero value otherwise.
 
 ### GetAccessOk
 
-`func (o *FeatureFlagConfig) GetAccessOk() (*AccessRep, bool)`
+`func (o *FeatureFlagConfig) GetAccessOk() (*Access, bool)`
 
 GetAccessOk returns a tuple with the Access field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAccess
 
-`func (o *FeatureFlagConfig) SetAccess(v AccessRep)`
+`func (o *FeatureFlagConfig) SetAccess(v Access)`
 
 SetAccess sets Access field to given value.
 

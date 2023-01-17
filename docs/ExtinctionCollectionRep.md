@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Links** | [**map[string]Link**](Link.md) |  | 
+**Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
 **Items** | [**map[string][]Extinction**](array.md) | An array of extinction events | 
 
 ## Methods

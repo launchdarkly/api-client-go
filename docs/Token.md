@@ -7,18 +7,18 @@ Name | Type | Description | Notes
 **Id** | **string** |  | 
 **OwnerId** | **string** |  | 
 **MemberId** | **string** |  | 
-**Member** | Pointer to [**MemberSummaryRep**](MemberSummaryRep.md) |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**Description** | Pointer to **string** |  | [optional] 
+**Member** | Pointer to [**MemberSummary**](MemberSummary.md) |  | [optional] 
+**Name** | Pointer to **string** | A human-friendly name for the access token | [optional] 
+**Description** | Pointer to **string** | A description for the access token | [optional] 
 **CreationDate** | **int64** |  | 
 **LastModified** | **int64** |  | 
-**CustomRoleIds** | Pointer to **[]string** |  | [optional] 
-**InlineRole** | Pointer to [**[]StatementRep**](StatementRep.md) |  | [optional] 
-**Role** | Pointer to **string** |  | [optional] 
-**Token** | Pointer to **string** |  | [optional] 
-**ServiceToken** | Pointer to **bool** |  | [optional] 
-**Links** | [**map[string]Link**](Link.md) |  | 
-**DefaultApiVersion** | Pointer to **int32** |  | [optional] 
+**CustomRoleIds** | Pointer to **[]string** | A list of custom role IDs to use as access limits for the access token | [optional] 
+**InlineRole** | Pointer to [**[]Statement**](Statement.md) | An array of policy statements, with three attributes: effect, resources, actions. May be used in place of a built-in or custom role. | [optional] 
+**Role** | Pointer to **string** | Built-in role for the token | [optional] 
+**Token** | Pointer to **string** | Last four characters of the token value | [optional] 
+**ServiceToken** | Pointer to **bool** | Whether this is a service token or a personal token | [optional] 
+**Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
+**DefaultApiVersion** | Pointer to **int32** | The default API version for this token | [optional] 
 **LastUsed** | Pointer to **int64** |  | [optional] 
 
 ## Methods
@@ -102,20 +102,20 @@ SetMemberId sets MemberId field to given value.
 
 ### GetMember
 
-`func (o *Token) GetMember() MemberSummaryRep`
+`func (o *Token) GetMember() MemberSummary`
 
 GetMember returns the Member field if non-nil, zero value otherwise.
 
 ### GetMemberOk
 
-`func (o *Token) GetMemberOk() (*MemberSummaryRep, bool)`
+`func (o *Token) GetMemberOk() (*MemberSummary, bool)`
 
 GetMemberOk returns a tuple with the Member field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMember
 
-`func (o *Token) SetMember(v MemberSummaryRep)`
+`func (o *Token) SetMember(v MemberSummary)`
 
 SetMember sets Member field to given value.
 
@@ -242,20 +242,20 @@ HasCustomRoleIds returns a boolean if a field has been set.
 
 ### GetInlineRole
 
-`func (o *Token) GetInlineRole() []StatementRep`
+`func (o *Token) GetInlineRole() []Statement`
 
 GetInlineRole returns the InlineRole field if non-nil, zero value otherwise.
 
 ### GetInlineRoleOk
 
-`func (o *Token) GetInlineRoleOk() (*[]StatementRep, bool)`
+`func (o *Token) GetInlineRoleOk() (*[]Statement, bool)`
 
 GetInlineRoleOk returns a tuple with the InlineRole field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInlineRole
 
-`func (o *Token) SetInlineRole(v []StatementRep)`
+`func (o *Token) SetInlineRole(v []Statement)`
 
 SetInlineRole sets InlineRole field to given value.
 

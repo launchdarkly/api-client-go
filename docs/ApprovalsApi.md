@@ -5,8 +5,8 @@ All URIs are relative to *https://app.launchdarkly.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**DeleteApprovalRequest**](ApprovalsApi.md#DeleteApprovalRequest) | **Delete** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id} | Delete approval request
-[**GetApproval**](ApprovalsApi.md#GetApproval) | **Get** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id} | Get approval request
-[**GetApprovals**](ApprovalsApi.md#GetApprovals) | **Get** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests | List all approval requests
+[**GetApprovalForFlag**](ApprovalsApi.md#GetApprovalForFlag) | **Get** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id} | Get approval request for a flag
+[**GetApprovalsForFlag**](ApprovalsApi.md#GetApprovalsForFlag) | **Get** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests | List approval requests for a flag
 [**PostApprovalRequest**](ApprovalsApi.md#PostApprovalRequest) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests | Create approval request
 [**PostApprovalRequestApplyRequest**](ApprovalsApi.md#PostApprovalRequestApplyRequest) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id}/apply | Apply approval request
 [**PostApprovalRequestReview**](ApprovalsApi.md#PostApprovalRequestReview) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id}/reviews | Review approval request
@@ -36,13 +36,13 @@ import (
 
 func main() {
     projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag's key
+    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
     environmentKey := "environmentKey_example" // string | The environment key
     id := "id_example" // string | The feature flag approval request ID
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ApprovalsApi.DeleteApprovalRequest(context.Background(), projectKey, featureFlagKey, environmentKey, id).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApprovalsApi.DeleteApprovalRequest(context.Background(), projectKey, featureFlagKey, environmentKey, id).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.DeleteApprovalRequest``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -57,7 +57,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **projectKey** | **string** | The project key | 
-**featureFlagKey** | **string** | The feature flag&#39;s key | 
+**featureFlagKey** | **string** | The feature flag key | 
 **environmentKey** | **string** | The environment key | 
 **id** | **string** | The feature flag approval request ID | 
 
@@ -91,11 +91,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetApproval
+## GetApprovalForFlag
 
-> FlagConfigApprovalRequestResponse GetApproval(ctx, projectKey, featureFlagKey, environmentKey, id).Execute()
+> FlagConfigApprovalRequestResponse GetApprovalForFlag(ctx, projectKey, featureFlagKey, environmentKey, id).Execute()
 
-Get approval request
+Get approval request for a flag
 
 
 
@@ -113,19 +113,19 @@ import (
 
 func main() {
     projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag's key
+    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
     environmentKey := "environmentKey_example" // string | The environment key
     id := "id_example" // string | The feature flag approval request ID
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ApprovalsApi.GetApproval(context.Background(), projectKey, featureFlagKey, environmentKey, id).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApprovalsApi.GetApprovalForFlag(context.Background(), projectKey, featureFlagKey, environmentKey, id).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.GetApproval``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.GetApprovalForFlag``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetApproval`: FlagConfigApprovalRequestResponse
-    fmt.Fprintf(os.Stdout, "Response from `ApprovalsApi.GetApproval`: %v\n", resp)
+    // response from `GetApprovalForFlag`: FlagConfigApprovalRequestResponse
+    fmt.Fprintf(os.Stdout, "Response from `ApprovalsApi.GetApprovalForFlag`: %v\n", resp)
 }
 ```
 
@@ -136,13 +136,13 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **projectKey** | **string** | The project key | 
-**featureFlagKey** | **string** | The feature flag&#39;s key | 
+**featureFlagKey** | **string** | The feature flag key | 
 **environmentKey** | **string** | The environment key | 
 **id** | **string** | The feature flag approval request ID | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetApprovalRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetApprovalForFlagRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -170,11 +170,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetApprovals
+## GetApprovalsForFlag
 
-> FlagConfigApprovalRequestsResponse GetApprovals(ctx, projectKey, featureFlagKey, environmentKey).Execute()
+> FlagConfigApprovalRequestsResponse GetApprovalsForFlag(ctx, projectKey, featureFlagKey, environmentKey).Execute()
 
-List all approval requests
+List approval requests for a flag
 
 
 
@@ -192,18 +192,18 @@ import (
 
 func main() {
     projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag's key
+    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
     environmentKey := "environmentKey_example" // string | The environment key
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ApprovalsApi.GetApprovals(context.Background(), projectKey, featureFlagKey, environmentKey).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApprovalsApi.GetApprovalsForFlag(context.Background(), projectKey, featureFlagKey, environmentKey).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.GetApprovals``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.GetApprovalsForFlag``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetApprovals`: FlagConfigApprovalRequestsResponse
-    fmt.Fprintf(os.Stdout, "Response from `ApprovalsApi.GetApprovals`: %v\n", resp)
+    // response from `GetApprovalsForFlag`: FlagConfigApprovalRequestsResponse
+    fmt.Fprintf(os.Stdout, "Response from `ApprovalsApi.GetApprovalsForFlag`: %v\n", resp)
 }
 ```
 
@@ -214,12 +214,12 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **projectKey** | **string** | The project key | 
-**featureFlagKey** | **string** | The feature flag&#39;s key | 
+**featureFlagKey** | **string** | The feature flag key | 
 **environmentKey** | **string** | The environment key | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetApprovalsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetApprovalsForFlagRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -268,13 +268,13 @@ import (
 
 func main() {
     projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag's key
+    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
     environmentKey := "environmentKey_example" // string | The environment key
-    createFlagConfigApprovalRequestRequest := *openapiclient.NewCreateFlagConfigApprovalRequestRequest("Description_example", []map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}, []string{"NotifyMemberIds_example"}) // CreateFlagConfigApprovalRequestRequest | 
+    createFlagConfigApprovalRequestRequest := *openapiclient.NewCreateFlagConfigApprovalRequestRequest("Requesting to update targeting", []map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}) // CreateFlagConfigApprovalRequestRequest | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ApprovalsApi.PostApprovalRequest(context.Background(), projectKey, featureFlagKey, environmentKey).CreateFlagConfigApprovalRequestRequest(createFlagConfigApprovalRequestRequest).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApprovalsApi.PostApprovalRequest(context.Background(), projectKey, featureFlagKey, environmentKey).CreateFlagConfigApprovalRequestRequest(createFlagConfigApprovalRequestRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.PostApprovalRequest``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -291,7 +291,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **projectKey** | **string** | The project key | 
-**featureFlagKey** | **string** | The feature flag&#39;s key | 
+**featureFlagKey** | **string** | The feature flag key | 
 **environmentKey** | **string** | The environment key | 
 
 ### Other Parameters
@@ -346,14 +346,14 @@ import (
 
 func main() {
     projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag's key
+    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
     environmentKey := "environmentKey_example" // string | The environment key
     id := "id_example" // string | The feature flag approval request ID
     postApprovalRequestApplyRequest := *openapiclient.NewPostApprovalRequestApplyRequest() // PostApprovalRequestApplyRequest | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ApprovalsApi.PostApprovalRequestApplyRequest(context.Background(), projectKey, featureFlagKey, environmentKey, id).PostApprovalRequestApplyRequest(postApprovalRequestApplyRequest).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApprovalsApi.PostApprovalRequestApplyRequest(context.Background(), projectKey, featureFlagKey, environmentKey, id).PostApprovalRequestApplyRequest(postApprovalRequestApplyRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.PostApprovalRequestApplyRequest``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -370,7 +370,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **projectKey** | **string** | The project key | 
-**featureFlagKey** | **string** | The feature flag&#39;s key | 
+**featureFlagKey** | **string** | The feature flag key | 
 **environmentKey** | **string** | The environment key | 
 **id** | **string** | The feature flag approval request ID | 
 
@@ -427,14 +427,14 @@ import (
 
 func main() {
     projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag's key
+    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
     environmentKey := "environmentKey_example" // string | The environment key
     id := "id_example" // string | The feature flag approval request ID
     postApprovalRequestReviewRequest := *openapiclient.NewPostApprovalRequestReviewRequest() // PostApprovalRequestReviewRequest | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ApprovalsApi.PostApprovalRequestReview(context.Background(), projectKey, featureFlagKey, environmentKey, id).PostApprovalRequestReviewRequest(postApprovalRequestReviewRequest).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApprovalsApi.PostApprovalRequestReview(context.Background(), projectKey, featureFlagKey, environmentKey, id).PostApprovalRequestReviewRequest(postApprovalRequestReviewRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.PostApprovalRequestReview``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -451,7 +451,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **projectKey** | **string** | The project key | 
-**featureFlagKey** | **string** | The feature flag&#39;s key | 
+**featureFlagKey** | **string** | The feature flag key | 
 **environmentKey** | **string** | The environment key | 
 **id** | **string** | The feature flag approval request ID | 
 
@@ -508,13 +508,13 @@ import (
 
 func main() {
     projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag's key
-    environmentKey := "environmentKey_example" // string | The environment key
-    createCopyFlagConfigApprovalRequestRequest := *openapiclient.NewCreateCopyFlagConfigApprovalRequestRequest("Description_example", []string{"NotifyMemberIds_example"}, *openapiclient.NewSourceFlag("Key_example")) // CreateCopyFlagConfigApprovalRequestRequest | 
+    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
+    environmentKey := "environmentKey_example" // string | The environment key for the target environment
+    createCopyFlagConfigApprovalRequestRequest := *openapiclient.NewCreateCopyFlagConfigApprovalRequestRequest("copy flag settings to another environment", *openapiclient.NewSourceFlag("example-environment-key")) // CreateCopyFlagConfigApprovalRequestRequest | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ApprovalsApi.PostFlagCopyConfigApprovalRequest(context.Background(), projectKey, featureFlagKey, environmentKey).CreateCopyFlagConfigApprovalRequestRequest(createCopyFlagConfigApprovalRequestRequest).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApprovalsApi.PostFlagCopyConfigApprovalRequest(context.Background(), projectKey, featureFlagKey, environmentKey).CreateCopyFlagConfigApprovalRequestRequest(createCopyFlagConfigApprovalRequestRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.PostFlagCopyConfigApprovalRequest``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -531,8 +531,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **projectKey** | **string** | The project key | 
-**featureFlagKey** | **string** | The feature flag&#39;s key | 
-**environmentKey** | **string** | The environment key | 
+**featureFlagKey** | **string** | The feature flag key | 
+**environmentKey** | **string** | The environment key for the target environment | 
 
 ### Other Parameters
 

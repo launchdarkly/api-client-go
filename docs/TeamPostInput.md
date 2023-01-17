@@ -6,10 +6,10 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CustomRoleKeys** | Pointer to **[]string** | List of custom role keys the team will access | [optional] 
 **Description** | Pointer to **string** | A description of the team | [optional] 
-**Key** | **string** | The team&#39;s key or ID | 
+**Key** | **string** | The team key | 
 **MemberIDs** | Pointer to **[]string** | A list of member IDs who belong to the team | [optional] 
 **Name** | **string** | A human-friendly name for the team | 
-**PermissionGrants** | Pointer to [**[]PermissionGrantInput**](PermissionGrantInput.md) | A list of permission grants to apply to the team. Can use \&quot;maintainTeam\&quot; to add team maintainers | [optional] 
+**PermissionGrants** | Pointer to [**[]PermissionGrantInput**](PermissionGrantInput.md) | A list of permission grants. Permission grants allow access to a specific action, without having to create or update a custom role. | [optional] 
 
 ## Methods
 

@@ -37,8 +37,8 @@ func main() {
     id := "id_example" // string | The ID of the access token to update
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AccessTokensApi.DeleteToken(context.Background(), id).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AccessTokensApi.DeleteToken(context.Background(), id).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AccessTokensApi.DeleteToken``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -105,8 +105,8 @@ func main() {
     id := "id_example" // string | The ID of the access token
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AccessTokensApi.GetToken(context.Background(), id).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AccessTokensApi.GetToken(context.Background(), id).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AccessTokensApi.GetToken``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -175,8 +175,8 @@ func main() {
     showAll := true // bool | If set to true, and the authentication access token has the 'Admin' role, personal access tokens for all members will be retrieved. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AccessTokensApi.GetTokens(context.Background()).ShowAll(showAll).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AccessTokensApi.GetTokens(context.Background()).ShowAll(showAll).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AccessTokensApi.GetTokens``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -239,11 +239,11 @@ import (
 
 func main() {
     id := "id_example" // string | The ID of the access token to update
-    patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/biscuits", interface{}(Chocolate Digestive))} // []PatchOperation | 
+    patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField", interface{}(new example value))} // []PatchOperation | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AccessTokensApi.PatchToken(context.Background(), id).PatchOperation(patchOperation).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AccessTokensApi.PatchToken(context.Background(), id).PatchOperation(patchOperation).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AccessTokensApi.PatchToken``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -313,8 +313,8 @@ func main() {
     accessTokenPost := *openapiclient.NewAccessTokenPost() // AccessTokenPost | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AccessTokensApi.PostToken(context.Background()).AccessTokenPost(accessTokenPost).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AccessTokensApi.PostToken(context.Background()).AccessTokenPost(accessTokenPost).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AccessTokensApi.PostToken``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -380,8 +380,8 @@ func main() {
     expiry := int64(789) // int64 | An expiration time for the old token key, expressed as a Unix epoch time in milliseconds. By default, the token will expire immediately. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AccessTokensApi.ResetToken(context.Background(), id).Expiry(expiry).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AccessTokensApi.ResetToken(context.Background(), id).Expiry(expiry).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AccessTokensApi.ResetToken``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

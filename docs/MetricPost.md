@@ -4,18 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Key** | **string** |  | 
-**Name** | Pointer to **string** |  | [optional] 
-**Description** | Pointer to **string** |  | [optional] 
-**Kind** | **string** |  | 
-**Selector** | Pointer to **string** | Required for click metrics | [optional] 
-**Urls** | Pointer to [**[]UrlPost**](UrlPost.md) | Required for click and pageview metrics | [optional] 
-**IsActive** | Pointer to **bool** |  | [optional] 
-**IsNumeric** | Pointer to **bool** |  | [optional] 
-**Unit** | Pointer to **string** |  | [optional] 
-**EventKey** | Pointer to **string** | Required for custom metrics | [optional] 
-**SuccessCriteria** | Pointer to **int32** |  | [optional] 
-**Tags** | Pointer to **[]string** |  | [optional] 
+**Key** | **string** | A unique key to reference the metric | 
+**Name** | Pointer to **string** | A human-friendly name for the metric | [optional] 
+**Description** | Pointer to **string** | Description of the metric | [optional] 
+**Kind** | **string** | The kind of event your metric will track | 
+**Selector** | Pointer to **string** | One or more CSS selectors. Required for click metrics. | [optional] 
+**Urls** | Pointer to [**[]UrlPost**](UrlPost.md) | One or more target URLs. Required for click and pageview metrics. | [optional] 
+**IsActive** | Pointer to **bool** | Whether the metric is active | [optional] 
+**IsNumeric** | Pointer to **bool** | Whether to track numeric changes in value against a baseline (&lt;code&gt;true&lt;/code&gt;) or to track a conversion when an end user takes an action (&lt;code&gt;false&lt;/code&gt;). Required for custom metrics. | [optional] 
+**Unit** | Pointer to **string** | The unit of measure. Only for numeric custom metrics. | [optional] 
+**EventKey** | Pointer to **string** | The event name to use in your code. Required for custom metrics. | [optional] 
+**SuccessCriteria** | Pointer to **string** | Success criteria. Required for numeric custom metrics. | [optional] 
+**Tags** | Pointer to **[]string** | Tags for the metric | [optional] 
 
 ## Methods
 
@@ -278,20 +278,20 @@ HasEventKey returns a boolean if a field has been set.
 
 ### GetSuccessCriteria
 
-`func (o *MetricPost) GetSuccessCriteria() int32`
+`func (o *MetricPost) GetSuccessCriteria() string`
 
 GetSuccessCriteria returns the SuccessCriteria field if non-nil, zero value otherwise.
 
 ### GetSuccessCriteriaOk
 
-`func (o *MetricPost) GetSuccessCriteriaOk() (*int32, bool)`
+`func (o *MetricPost) GetSuccessCriteriaOk() (*string, bool)`
 
 GetSuccessCriteriaOk returns a tuple with the SuccessCriteria field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSuccessCriteria
 
-`func (o *MetricPost) SetSuccessCriteria(v int32)`
+`func (o *MetricPost) SetSuccessCriteria(v string)`
 
 SetSuccessCriteria sets SuccessCriteria field to given value.
 

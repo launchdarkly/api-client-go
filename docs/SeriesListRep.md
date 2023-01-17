@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Links** | **map[string]interface{}** |  | 
-**Metadata** | **[]map[string]interface{}** |  | 
-**Series** | **[]map[string]int32** |  | 
+**Links** | **map[string]interface{}** | The location and content type of related resources | 
+**Metadata** | **[]map[string]interface{}** | Metadata about each series | 
+**Series** | **[]map[string]int32** | An array of data points with timestamps | 
 
 ## Methods
 

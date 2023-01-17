@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | A human-friendly name for the Relay Proxy configuration | 
-**Policy** | [**[]StatementRep**](StatementRep.md) |  | 
+**Policy** | [**[]Statement**](Statement.md) | A description of what environments and projects the Relay Proxy should include or exclude. To learn more, read [Writing an inline policy](https://docs.launchdarkly.com/home/relay-proxy/automatic-configuration#writing-an-inline-policy). | 
 
 ## Methods
 
 ### NewRelayAutoConfigPost
 
-`func NewRelayAutoConfigPost(name string, policy []StatementRep, ) *RelayAutoConfigPost`
+`func NewRelayAutoConfigPost(name string, policy []Statement, ) *RelayAutoConfigPost`
 
 NewRelayAutoConfigPost instantiates a new RelayAutoConfigPost object
 This constructor will assign default values to properties that have it defined,
@@ -48,20 +48,20 @@ SetName sets Name field to given value.
 
 ### GetPolicy
 
-`func (o *RelayAutoConfigPost) GetPolicy() []StatementRep`
+`func (o *RelayAutoConfigPost) GetPolicy() []Statement`
 
 GetPolicy returns the Policy field if non-nil, zero value otherwise.
 
 ### GetPolicyOk
 
-`func (o *RelayAutoConfigPost) GetPolicyOk() (*[]StatementRep, bool)`
+`func (o *RelayAutoConfigPost) GetPolicyOk() (*[]Statement, bool)`
 
 GetPolicyOk returns a tuple with the Policy field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPolicy
 
-`func (o *RelayAutoConfigPost) SetPolicy(v []StatementRep)`
+`func (o *RelayAutoConfigPost) SetPolicy(v []Statement)`
 
 SetPolicy sets Policy field to given value.
 

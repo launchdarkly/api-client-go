@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Setting** | Pointer to **interface{}** | The variation value to set for the user | [optional] 
-**Comment** | Pointer to **string** |  | [optional] 
+**Setting** | Pointer to **interface{}** | The variation value to set for the user. Must match the flag&#39;s variation type. | [optional] 
+**Comment** | Pointer to **string** | Optional comment describing the change | [optional] 
 
 ## Methods
 

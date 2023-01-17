@@ -4,19 +4,20 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** |  | 
-**SourceLink** | **string** |  | 
-**DefaultBranch** | **string** |  | 
-**Enabled** | **bool** |  | 
-**Version** | **int32** |  | 
-**HunkCount** | **int32** |  | 
-**Links** | [**map[string]Link**](Link.md) |  | 
+**Name** | **string** | The repository name | 
+**SourceLink** | **string** | A URL to access the repository | 
+**DefaultBranch** | **string** | The repository&#39;s default branch | 
+**Enabled** | **bool** | Whether or not a repository is enabled for code reference scanning | 
+**Version** | **int32** | The version of the repository&#39;s saved information | 
+**HunkCount** | **int32** | The number of code reference hunks in which the flag appears in this repository | 
+**FileCount** | **int32** | The number of files in which the flag appears in this repository | 
+**Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
 
 ## Methods
 
 ### NewStatisticRep
 
-`func NewStatisticRep(name string, sourceLink string, defaultBranch string, enabled bool, version int32, hunkCount int32, links map[string]Link, ) *StatisticRep`
+`func NewStatisticRep(name string, sourceLink string, defaultBranch string, enabled bool, version int32, hunkCount int32, fileCount int32, links map[string]Link, ) *StatisticRep`
 
 NewStatisticRep instantiates a new StatisticRep object
 This constructor will assign default values to properties that have it defined,
@@ -149,6 +150,26 @@ and a boolean to check if the value has been set.
 `func (o *StatisticRep) SetHunkCount(v int32)`
 
 SetHunkCount sets HunkCount field to given value.
+
+
+### GetFileCount
+
+`func (o *StatisticRep) GetFileCount() int32`
+
+GetFileCount returns the FileCount field if non-nil, zero value otherwise.
+
+### GetFileCountOk
+
+`func (o *StatisticRep) GetFileCountOk() (*int32, bool)`
+
+GetFileCountOk returns a tuple with the FileCount field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFileCount
+
+`func (o *StatisticRep) SetFileCount(v int32)`
+
+SetFileCount sets FileCount field to given value.
 
 
 ### GetLinks

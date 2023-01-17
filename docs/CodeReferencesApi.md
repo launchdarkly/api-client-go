@@ -12,7 +12,7 @@ Method | HTTP request | Description
 [**GetRepositories**](CodeReferencesApi.md#GetRepositories) | **Get** /api/v2/code-refs/repositories | List repositories
 [**GetRepository**](CodeReferencesApi.md#GetRepository) | **Get** /api/v2/code-refs/repositories/{repo} | Get repository
 [**GetRootStatistic**](CodeReferencesApi.md#GetRootStatistic) | **Get** /api/v2/code-refs/statistics | Get links to code reference repositories for each project
-[**GetStatistics**](CodeReferencesApi.md#GetStatistics) | **Get** /api/v2/code-refs/statistics/{projKey} | Get number of code references for flags
+[**GetStatistics**](CodeReferencesApi.md#GetStatistics) | **Get** /api/v2/code-refs/statistics/{projectKey} | Get code references statistics for flags
 [**PatchRepository**](CodeReferencesApi.md#PatchRepository) | **Patch** /api/v2/code-refs/repositories/{repo} | Update repository
 [**PostExtinction**](CodeReferencesApi.md#PostExtinction) | **Post** /api/v2/code-refs/repositories/{repo}/branches/{branch}/extinction-events | Create extinction
 [**PostRepository**](CodeReferencesApi.md#PostRepository) | **Post** /api/v2/code-refs/repositories | Create repository
@@ -45,8 +45,8 @@ func main() {
     requestBody := []string{"Property_example"} // []string | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CodeReferencesApi.DeleteBranches(context.Background(), repo).RequestBody(requestBody).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CodeReferencesApi.DeleteBranches(context.Background(), repo).RequestBody(requestBody).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CodeReferencesApi.DeleteBranches``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -114,8 +114,8 @@ func main() {
     repo := "repo_example" // string | The repository name
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CodeReferencesApi.DeleteRepository(context.Background(), repo).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CodeReferencesApi.DeleteRepository(context.Background(), repo).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CodeReferencesApi.DeleteRepository``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -185,8 +185,8 @@ func main() {
     flagKey := "flagKey_example" // string | Filter results to a specific flag key (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CodeReferencesApi.GetBranch(context.Background(), repo, branch).ProjKey(projKey).FlagKey(flagKey).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CodeReferencesApi.GetBranch(context.Background(), repo, branch).ProjKey(projKey).FlagKey(flagKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CodeReferencesApi.GetBranch``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -259,8 +259,8 @@ func main() {
     repo := "repo_example" // string | The repository name
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CodeReferencesApi.GetBranches(context.Background(), repo).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CodeReferencesApi.GetBranches(context.Background(), repo).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CodeReferencesApi.GetBranches``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -307,7 +307,7 @@ Name | Type | Description  | Notes
 
 ## GetExtinctions
 
-> ExtinctionCollectionRep GetExtinctions(ctx).RepoName(repoName).BranchName(branchName).ProjKey(projKey).FlagKey(flagKey).Execute()
+> ExtinctionCollectionRep GetExtinctions(ctx).RepoName(repoName).BranchName(branchName).ProjKey(projKey).FlagKey(flagKey).From(from).To(to).Execute()
 
 List extinctions
 
@@ -330,10 +330,12 @@ func main() {
     branchName := "branchName_example" // string | Filter results to a specific branch. By default, only the default branch will be queried for extinctions. (optional)
     projKey := "projKey_example" // string | Filter results to a specific project (optional)
     flagKey := "flagKey_example" // string | Filter results to a specific flag key (optional)
+    from := int64(789) // int64 | Filter results to a specific timeframe based on commit time, expressed as a Unix epoch time in milliseconds. Must be used with `to`. (optional)
+    to := int64(789) // int64 | Filter results to a specific timeframe based on commit time, expressed as a Unix epoch time in milliseconds. Must be used with `from`. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CodeReferencesApi.GetExtinctions(context.Background()).RepoName(repoName).BranchName(branchName).ProjKey(projKey).FlagKey(flagKey).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CodeReferencesApi.GetExtinctions(context.Background()).RepoName(repoName).BranchName(branchName).ProjKey(projKey).FlagKey(flagKey).From(from).To(to).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CodeReferencesApi.GetExtinctions``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -358,6 +360,8 @@ Name | Type | Description  | Notes
  **branchName** | **string** | Filter results to a specific branch. By default, only the default branch will be queried for extinctions. | 
  **projKey** | **string** | Filter results to a specific project | 
  **flagKey** | **string** | Filter results to a specific flag key | 
+ **from** | **int64** | Filter results to a specific timeframe based on commit time, expressed as a Unix epoch time in milliseconds. Must be used with &#x60;to&#x60;. | 
+ **to** | **int64** | Filter results to a specific timeframe based on commit time, expressed as a Unix epoch time in milliseconds. Must be used with &#x60;from&#x60;. | 
 
 ### Return type
 
@@ -404,8 +408,8 @@ func main() {
     flagKey := "flagKey_example" // string | If set to any value, the endpoint returns repositories with associated branch data, as well as code references for the default git branch (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CodeReferencesApi.GetRepositories(context.Background()).WithBranches(withBranches).WithReferencesForDefaultBranch(withReferencesForDefaultBranch).ProjKey(projKey).FlagKey(flagKey).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CodeReferencesApi.GetRepositories(context.Background()).WithBranches(withBranches).WithReferencesForDefaultBranch(withReferencesForDefaultBranch).ProjKey(projKey).FlagKey(flagKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CodeReferencesApi.GetRepositories``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -473,8 +477,8 @@ func main() {
     repo := "repo_example" // string | The repository name
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CodeReferencesApi.GetRepository(context.Background(), repo).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CodeReferencesApi.GetRepository(context.Background(), repo).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CodeReferencesApi.GetRepository``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -542,8 +546,8 @@ import (
 func main() {
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CodeReferencesApi.GetRootStatistic(context.Background()).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CodeReferencesApi.GetRootStatistic(context.Background()).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CodeReferencesApi.GetRootStatistic``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -582,9 +586,9 @@ Other parameters are passed through a pointer to a apiGetRootStatisticRequest st
 
 ## GetStatistics
 
-> StatisticCollectionRep GetStatistics(ctx, projKey).FlagKey(flagKey).Execute()
+> StatisticCollectionRep GetStatistics(ctx, projectKey).FlagKey(flagKey).Execute()
 
-Get number of code references for flags
+Get code references statistics for flags
 
 
 
@@ -601,12 +605,12 @@ import (
 )
 
 func main() {
-    projKey := "projKey_example" // string | The project key
+    projectKey := "projectKey_example" // string | The project key
     flagKey := "flagKey_example" // string | Filter results to a specific flag key (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CodeReferencesApi.GetStatistics(context.Background(), projKey).FlagKey(flagKey).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CodeReferencesApi.GetStatistics(context.Background(), projectKey).FlagKey(flagKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CodeReferencesApi.GetStatistics``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -622,7 +626,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projKey** | **string** | The project key | 
+**projectKey** | **string** | The project key | 
 
 ### Other Parameters
 
@@ -674,11 +678,11 @@ import (
 
 func main() {
     repo := "repo_example" // string | The repository name
-    patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/biscuits", interface{}(Chocolate Digestive))} // []PatchOperation | 
+    patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField", interface{}(new example value))} // []PatchOperation | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CodeReferencesApi.PatchRepository(context.Background(), repo).PatchOperation(patchOperation).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CodeReferencesApi.PatchRepository(context.Background(), repo).PatchOperation(patchOperation).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CodeReferencesApi.PatchRepository``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -746,12 +750,12 @@ import (
 
 func main() {
     repo := "repo_example" // string | The repository name
-    branch := "branch_example" // string | The url-encoded branch name
+    branch := "branch_example" // string | The URL-encoded branch name
     extinction := []openapiclient.Extinction{*openapiclient.NewExtinction("a94a8fe5ccb19ba61c4c0873d391e987982fbbd3", "Remove flag for launched feature", int64(123), "enable-feature", "default")} // []Extinction | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CodeReferencesApi.PostExtinction(context.Background(), repo, branch).Extinction(extinction).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CodeReferencesApi.PostExtinction(context.Background(), repo, branch).Extinction(extinction).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CodeReferencesApi.PostExtinction``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -766,7 +770,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **repo** | **string** | The repository name | 
-**branch** | **string** | The url-encoded branch name | 
+**branch** | **string** | The URL-encoded branch name | 
 
 ### Other Parameters
 
@@ -821,8 +825,8 @@ func main() {
     repositoryPost := *openapiclient.NewRepositoryPost("LaunchDarkly-Docs") // RepositoryPost | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CodeReferencesApi.PostRepository(context.Background()).RepositoryPost(repositoryPost).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CodeReferencesApi.PostRepository(context.Background()).RepositoryPost(repositoryPost).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CodeReferencesApi.PostRepository``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -885,12 +889,12 @@ import (
 
 func main() {
     repo := "repo_example" // string | The repository name
-    branch := "branch_example" // string | The url-encoded branch name
+    branch := "branch_example" // string | The URL-encoded branch name
     putBranch := *openapiclient.NewPutBranch("main", "a94a8fe5ccb19ba61c4c0873d391e987982fbbd3", int64(123)) // PutBranch | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CodeReferencesApi.PutBranch(context.Background(), repo, branch).PutBranch(putBranch).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CodeReferencesApi.PutBranch(context.Background(), repo, branch).PutBranch(putBranch).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CodeReferencesApi.PutBranch``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -905,7 +909,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **repo** | **string** | The repository name | 
-**branch** | **string** | The url-encoded branch name | 
+**branch** | **string** | The URL-encoded branch name | 
 
 ### Other Parameters
 

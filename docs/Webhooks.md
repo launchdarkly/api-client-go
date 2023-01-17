@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Links** | [**map[string]Link**](Link.md) |  | 
-**Items** | [**[]Webhook**](Webhook.md) |  | 
+**Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
+**Items** | [**[]Webhook**](Webhook.md) | An array of webhooks | 
 
 ## Methods
 

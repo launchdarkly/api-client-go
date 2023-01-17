@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Code** | Pointer to **string** |  | [optional] 
-**Message** | Pointer to **string** |  | [optional] 
+**Code** | Pointer to **string** | Specific error code encountered | [optional] 
+**Message** | Pointer to **string** | Description of the error | [optional] 
 
 ## Methods
 

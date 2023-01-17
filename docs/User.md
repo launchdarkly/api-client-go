@@ -4,19 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Key** | Pointer to **string** |  | [optional] 
-**Secondary** | Pointer to **string** |  | [optional] 
-**Ip** | Pointer to **string** |  | [optional] 
-**Country** | Pointer to **string** |  | [optional] 
-**Email** | Pointer to **string** |  | [optional] 
-**FirstName** | Pointer to **string** |  | [optional] 
-**LastName** | Pointer to **string** |  | [optional] 
-**Avatar** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**Anonymous** | Pointer to **bool** |  | [optional] 
-**Custom** | Pointer to **map[string]interface{}** |  | [optional] 
-**Derived** | Pointer to [**map[string]DerivedAttribute**](DerivedAttribute.md) |  | [optional] 
-**PrivateAttrs** | Pointer to **[]string** |  | [optional] 
+**Key** | Pointer to **string** | The user key. This is the only mandatory user attribute. | [optional] 
+**Secondary** | Pointer to **string** | If provided, used with the user key to generate a variation in percentage rollouts | [optional] 
+**Ip** | Pointer to **string** | The user&#39;s IP address | [optional] 
+**Country** | Pointer to **string** | The user&#39;s country | [optional] 
+**Email** | Pointer to **string** | The user&#39;s email | [optional] 
+**FirstName** | Pointer to **string** | The user&#39;s first name | [optional] 
+**LastName** | Pointer to **string** | The user&#39;s last name | [optional] 
+**Avatar** | Pointer to **string** | An absolute URL to an avatar image. The avatar appears on the Users dashboard in the LaunchDarkly UI. | [optional] 
+**Name** | Pointer to **string** | The user&#39;s full name | [optional] 
+**Anonymous** | Pointer to **bool** | Whether the user is anonymous. If true, this user does not appear on the Users dashboard in the LaunchDarkly UI. | [optional] 
+**Custom** | Pointer to **map[string]interface{}** | Any other custom attributes for this user. Custom attributes contain any other user data that you would like to use to conditionally target your users. | [optional] 
+**PrivateAttrs** | Pointer to **[]string** | A list of attribute names that are marked as private. You can use these attributes in targeting rules and segments. If you are using a server-side SDK, the SDK will not send the private attribute back to LaunchDarkly. If you are using a client-side SDK, the SDK will send the private attribute back to LaunchDarkly for evaluation. However, the SDK won&#39;t send the attribute to LaunchDarkly in events data, LaunchDarkly won&#39;t store the private attribute, and the private attribute will not appear on the Users dashboard. | [optional] 
 
 ## Methods
 
@@ -311,31 +310,6 @@ SetCustom sets Custom field to given value.
 `func (o *User) HasCustom() bool`
 
 HasCustom returns a boolean if a field has been set.
-
-### GetDerived
-
-`func (o *User) GetDerived() map[string]DerivedAttribute`
-
-GetDerived returns the Derived field if non-nil, zero value otherwise.
-
-### GetDerivedOk
-
-`func (o *User) GetDerivedOk() (*map[string]DerivedAttribute, bool)`
-
-GetDerivedOk returns a tuple with the Derived field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDerived
-
-`func (o *User) SetDerived(v map[string]DerivedAttribute)`
-
-SetDerived sets Derived field to given value.
-
-### HasDerived
-
-`func (o *User) HasDerived() bool`
-
-HasDerived returns a boolean if a field has been set.
 
 ### GetPrivateAttrs
 

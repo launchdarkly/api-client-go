@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**LastPing** | Pointer to **time.Time** |  | [optional] 
+**LastPing** | Pointer to **time.Time** | Timestamp of the last time this user was seen | [optional] 
 **EnvironmentId** | Pointer to **string** |  | [optional] 
 **OwnerId** | Pointer to **string** |  | [optional] 
 **User** | Pointer to [**User**](User.md) |  | [optional] 
-**SortValue** | Pointer to **interface{}** |  | [optional] 
-**Links** | Pointer to [**map[string]Link**](Link.md) |  | [optional] 
-**Access** | Pointer to [**AccessRep**](AccessRep.md) |  | [optional] 
+**SortValue** | Pointer to **interface{}** | If this record is returned as part of a list, the value used to sort the list. This is only included when the &lt;code&gt;sort&lt;/code&gt; query parameter is specified. It is a time, in Unix milliseconds, if the sort is by &lt;code&gt;lastSeen&lt;/code&gt;. It is a user key if the sort is by &lt;code&gt;userKey&lt;/code&gt;. | [optional] 
+**Links** | Pointer to [**map[string]Link**](Link.md) | The location and content type of related resources | [optional] 
+**Access** | Pointer to [**Access**](Access.md) |  | [optional] 
 
 ## Methods
 
@@ -193,20 +193,20 @@ HasLinks returns a boolean if a field has been set.
 
 ### GetAccess
 
-`func (o *UserRecord) GetAccess() AccessRep`
+`func (o *UserRecord) GetAccess() Access`
 
 GetAccess returns the Access field if non-nil, zero value otherwise.
 
 ### GetAccessOk
 
-`func (o *UserRecord) GetAccessOk() (*AccessRep, bool)`
+`func (o *UserRecord) GetAccessOk() (*Access, bool)`
 
 GetAccessOk returns a tuple with the Access field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAccess
 
-`func (o *UserRecord) SetAccess(v AccessRep)`
+`func (o *UserRecord) SetAccess(v Access)`
 
 SetAccess sets Access field to given value.
 

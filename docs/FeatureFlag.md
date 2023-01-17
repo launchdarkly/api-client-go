@@ -10,22 +10,23 @@ Name | Type | Description | Notes
 **Key** | **string** | A unique key used to reference the flag in your code | 
 **Version** | **int32** | Version of the feature flag | 
 **CreationDate** | **int64** |  | 
-**IncludeInSnippet** | Pointer to **bool** | Deprecated, use clientSideAvailability. Whether or not this flag should be made available to the client-side JavaScript SDK | [optional] 
+**IncludeInSnippet** | Pointer to **bool** | Deprecated, use &lt;code&gt;clientSideAvailability&lt;/code&gt;. Whether this flag should be made available to the client-side JavaScript SDK | [optional] 
 **ClientSideAvailability** | Pointer to [**ClientSideAvailability**](ClientSideAvailability.md) |  | [optional] 
 **Variations** | [**[]Variation**](Variation.md) | An array of possible variations for the flag | 
-**VariationJsonSchema** | Pointer to **interface{}** |  | [optional] 
-**Temporary** | **bool** | Whether or not the flag is a temporary flag | 
+**Temporary** | **bool** | Whether the flag is a temporary flag | 
 **Tags** | **[]string** | Tags for the feature flag | 
-**Links** | [**map[string]Link**](Link.md) |  | 
+**Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
 **MaintainerId** | Pointer to **string** | Associated maintainerId for the feature flag | [optional] 
-**Maintainer** | Pointer to [**MemberSummaryRep**](MemberSummaryRep.md) |  | [optional] 
-**GoalIds** | Pointer to **[]string** |  | [optional] 
+**Maintainer** | Pointer to [**MemberSummary**](MemberSummary.md) |  | [optional] 
+**MaintainerTeamKey** | Pointer to **string** | The key of the associated team that maintains this feature flag | [optional] 
+**MaintainerTeam** | Pointer to [**MaintainerTeam**](MaintainerTeam.md) |  | [optional] 
+**GoalIds** | Pointer to **[]string** | Deprecated | [optional] 
 **Experiments** | [**ExperimentInfoRep**](ExperimentInfoRep.md) |  | 
 **CustomProperties** | [**map[string]CustomProperty**](CustomProperty.md) |  | 
 **Archived** | **bool** | Boolean indicating if the feature flag is archived | 
 **ArchivedDate** | Pointer to **int64** |  | [optional] 
 **Defaults** | Pointer to [**Defaults**](Defaults.md) |  | [optional] 
-**Environments** | [**map[string]FeatureFlagConfig**](FeatureFlagConfig.md) |  | 
+**Environments** | [**map[string]FeatureFlagConfig**](FeatureFlagConfig.md) | Details on the environments for this flag | 
 
 ## Methods
 
@@ -241,41 +242,6 @@ and a boolean to check if the value has been set.
 SetVariations sets Variations field to given value.
 
 
-### GetVariationJsonSchema
-
-`func (o *FeatureFlag) GetVariationJsonSchema() interface{}`
-
-GetVariationJsonSchema returns the VariationJsonSchema field if non-nil, zero value otherwise.
-
-### GetVariationJsonSchemaOk
-
-`func (o *FeatureFlag) GetVariationJsonSchemaOk() (*interface{}, bool)`
-
-GetVariationJsonSchemaOk returns a tuple with the VariationJsonSchema field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetVariationJsonSchema
-
-`func (o *FeatureFlag) SetVariationJsonSchema(v interface{})`
-
-SetVariationJsonSchema sets VariationJsonSchema field to given value.
-
-### HasVariationJsonSchema
-
-`func (o *FeatureFlag) HasVariationJsonSchema() bool`
-
-HasVariationJsonSchema returns a boolean if a field has been set.
-
-### SetVariationJsonSchemaNil
-
-`func (o *FeatureFlag) SetVariationJsonSchemaNil(b bool)`
-
- SetVariationJsonSchemaNil sets the value for VariationJsonSchema to be an explicit nil
-
-### UnsetVariationJsonSchema
-`func (o *FeatureFlag) UnsetVariationJsonSchema()`
-
-UnsetVariationJsonSchema ensures that no value is present for VariationJsonSchema, not even an explicit nil
 ### GetTemporary
 
 `func (o *FeatureFlag) GetTemporary() bool`
@@ -363,20 +329,20 @@ HasMaintainerId returns a boolean if a field has been set.
 
 ### GetMaintainer
 
-`func (o *FeatureFlag) GetMaintainer() MemberSummaryRep`
+`func (o *FeatureFlag) GetMaintainer() MemberSummary`
 
 GetMaintainer returns the Maintainer field if non-nil, zero value otherwise.
 
 ### GetMaintainerOk
 
-`func (o *FeatureFlag) GetMaintainerOk() (*MemberSummaryRep, bool)`
+`func (o *FeatureFlag) GetMaintainerOk() (*MemberSummary, bool)`
 
 GetMaintainerOk returns a tuple with the Maintainer field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMaintainer
 
-`func (o *FeatureFlag) SetMaintainer(v MemberSummaryRep)`
+`func (o *FeatureFlag) SetMaintainer(v MemberSummary)`
 
 SetMaintainer sets Maintainer field to given value.
 
@@ -385,6 +351,56 @@ SetMaintainer sets Maintainer field to given value.
 `func (o *FeatureFlag) HasMaintainer() bool`
 
 HasMaintainer returns a boolean if a field has been set.
+
+### GetMaintainerTeamKey
+
+`func (o *FeatureFlag) GetMaintainerTeamKey() string`
+
+GetMaintainerTeamKey returns the MaintainerTeamKey field if non-nil, zero value otherwise.
+
+### GetMaintainerTeamKeyOk
+
+`func (o *FeatureFlag) GetMaintainerTeamKeyOk() (*string, bool)`
+
+GetMaintainerTeamKeyOk returns a tuple with the MaintainerTeamKey field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMaintainerTeamKey
+
+`func (o *FeatureFlag) SetMaintainerTeamKey(v string)`
+
+SetMaintainerTeamKey sets MaintainerTeamKey field to given value.
+
+### HasMaintainerTeamKey
+
+`func (o *FeatureFlag) HasMaintainerTeamKey() bool`
+
+HasMaintainerTeamKey returns a boolean if a field has been set.
+
+### GetMaintainerTeam
+
+`func (o *FeatureFlag) GetMaintainerTeam() MaintainerTeam`
+
+GetMaintainerTeam returns the MaintainerTeam field if non-nil, zero value otherwise.
+
+### GetMaintainerTeamOk
+
+`func (o *FeatureFlag) GetMaintainerTeamOk() (*MaintainerTeam, bool)`
+
+GetMaintainerTeamOk returns a tuple with the MaintainerTeam field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMaintainerTeam
+
+`func (o *FeatureFlag) SetMaintainerTeam(v MaintainerTeam)`
+
+SetMaintainerTeam sets MaintainerTeam field to given value.
+
+### HasMaintainerTeam
+
+`func (o *FeatureFlag) HasMaintainerTeam() bool`
+
+HasMaintainerTeam returns a boolean if a field has been set.
 
 ### GetGoalIds
 

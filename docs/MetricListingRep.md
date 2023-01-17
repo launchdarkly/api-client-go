@@ -4,24 +4,25 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** |  | 
-**Key** | **string** |  | 
-**Name** | **string** |  | 
-**Kind** | **string** |  | 
-**AttachedFlagCount** | Pointer to **int32** |  | [optional] 
-**Links** | [**map[string]Link**](Link.md) |  | 
+**ExperimentCount** | Pointer to **int32** | The number of experiments using this metric | [optional] 
+**Id** | **string** | The ID of this metric | 
+**Key** | **string** | A unique key to reference the metric | 
+**Name** | **string** | A human-friendly name for the metric | 
+**Kind** | **string** | The kind of event the metric tracks | 
+**AttachedFlagCount** | Pointer to **int32** | The number of feature flags currently attached to this metric | [optional] 
+**Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
 **Site** | Pointer to [**Link**](Link.md) |  | [optional] 
-**Access** | Pointer to [**AccessRep**](AccessRep.md) |  | [optional] 
-**Tags** | **[]string** |  | 
+**Access** | Pointer to [**Access**](Access.md) |  | [optional] 
+**Tags** | **[]string** | Tags for the metric | 
 **CreationDate** | **int64** |  | 
 **LastModified** | Pointer to [**Modification**](Modification.md) |  | [optional] 
-**MaintainerId** | Pointer to **string** |  | [optional] 
-**Maintainer** | Pointer to [**MemberSummaryRep**](MemberSummaryRep.md) |  | [optional] 
-**Description** | Pointer to **string** |  | [optional] 
-**IsNumeric** | Pointer to **bool** |  | [optional] 
-**SuccessCriteria** | Pointer to **int32** |  | [optional] 
-**Unit** | Pointer to **string** |  | [optional] 
-**EventKey** | Pointer to **string** |  | [optional] 
+**MaintainerId** | Pointer to **string** | The ID of the member who maintains this metric | [optional] 
+**Maintainer** | Pointer to [**MemberSummary**](MemberSummary.md) |  | [optional] 
+**Description** | Pointer to **string** | Description of the metric | [optional] 
+**IsNumeric** | Pointer to **bool** | For custom metrics, whether to track numeric changes in value against a baseline (&lt;code&gt;true&lt;/code&gt;) or to track a conversion when an end user takes an action (&lt;code&gt;false&lt;/code&gt;). | [optional] 
+**SuccessCriteria** | Pointer to **string** | For numeric custom metrics, the success criteria | [optional] 
+**Unit** | Pointer to **string** | For numeric custom metrics, the unit of measure | [optional] 
+**EventKey** | Pointer to **string** | For custom metrics, the event name to use in your code | [optional] 
 
 ## Methods
 
@@ -41,6 +42,31 @@ will change when the set of required properties is changed
 NewMetricListingRepWithDefaults instantiates a new MetricListingRep object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetExperimentCount
+
+`func (o *MetricListingRep) GetExperimentCount() int32`
+
+GetExperimentCount returns the ExperimentCount field if non-nil, zero value otherwise.
+
+### GetExperimentCountOk
+
+`func (o *MetricListingRep) GetExperimentCountOk() (*int32, bool)`
+
+GetExperimentCountOk returns a tuple with the ExperimentCount field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExperimentCount
+
+`func (o *MetricListingRep) SetExperimentCount(v int32)`
+
+SetExperimentCount sets ExperimentCount field to given value.
+
+### HasExperimentCount
+
+`func (o *MetricListingRep) HasExperimentCount() bool`
+
+HasExperimentCount returns a boolean if a field has been set.
 
 ### GetId
 
@@ -194,20 +220,20 @@ HasSite returns a boolean if a field has been set.
 
 ### GetAccess
 
-`func (o *MetricListingRep) GetAccess() AccessRep`
+`func (o *MetricListingRep) GetAccess() Access`
 
 GetAccess returns the Access field if non-nil, zero value otherwise.
 
 ### GetAccessOk
 
-`func (o *MetricListingRep) GetAccessOk() (*AccessRep, bool)`
+`func (o *MetricListingRep) GetAccessOk() (*Access, bool)`
 
 GetAccessOk returns a tuple with the Access field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAccess
 
-`func (o *MetricListingRep) SetAccess(v AccessRep)`
+`func (o *MetricListingRep) SetAccess(v Access)`
 
 SetAccess sets Access field to given value.
 
@@ -309,20 +335,20 @@ HasMaintainerId returns a boolean if a field has been set.
 
 ### GetMaintainer
 
-`func (o *MetricListingRep) GetMaintainer() MemberSummaryRep`
+`func (o *MetricListingRep) GetMaintainer() MemberSummary`
 
 GetMaintainer returns the Maintainer field if non-nil, zero value otherwise.
 
 ### GetMaintainerOk
 
-`func (o *MetricListingRep) GetMaintainerOk() (*MemberSummaryRep, bool)`
+`func (o *MetricListingRep) GetMaintainerOk() (*MemberSummary, bool)`
 
 GetMaintainerOk returns a tuple with the Maintainer field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMaintainer
 
-`func (o *MetricListingRep) SetMaintainer(v MemberSummaryRep)`
+`func (o *MetricListingRep) SetMaintainer(v MemberSummary)`
 
 SetMaintainer sets Maintainer field to given value.
 
@@ -384,20 +410,20 @@ HasIsNumeric returns a boolean if a field has been set.
 
 ### GetSuccessCriteria
 
-`func (o *MetricListingRep) GetSuccessCriteria() int32`
+`func (o *MetricListingRep) GetSuccessCriteria() string`
 
 GetSuccessCriteria returns the SuccessCriteria field if non-nil, zero value otherwise.
 
 ### GetSuccessCriteriaOk
 
-`func (o *MetricListingRep) GetSuccessCriteriaOk() (*int32, bool)`
+`func (o *MetricListingRep) GetSuccessCriteriaOk() (*string, bool)`
 
 GetSuccessCriteriaOk returns a tuple with the SuccessCriteria field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSuccessCriteria
 
-`func (o *MetricListingRep) SetSuccessCriteria(v int32)`
+`func (o *MetricListingRep) SetSuccessCriteria(v string)`
 
 SetSuccessCriteria sets SuccessCriteria field to given value.
 

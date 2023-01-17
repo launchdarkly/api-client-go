@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | Pointer to **string** |  | [optional] 
-**Key** | **string** |  | 
-**Links** | [**map[string]Link**](Link.md) |  | 
+**Name** | Pointer to **string** | The flag name | [optional] 
+**Key** | **string** | The flag key | 
+**Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
 **Site** | [**Link**](Link.md) |  | 
 
 ## Methods

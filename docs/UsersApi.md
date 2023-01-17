@@ -4,16 +4,16 @@ All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteUser**](UsersApi.md#DeleteUser) | **Delete** /api/v2/users/{projKey}/{envKey}/{key} | Delete user
-[**GetSearchUsers**](UsersApi.md#GetSearchUsers) | **Get** /api/v2/user-search/{projKey}/{envKey} | Find users
-[**GetUser**](UsersApi.md#GetUser) | **Get** /api/v2/users/{projKey}/{envKey}/{key} | Get user
-[**GetUsers**](UsersApi.md#GetUsers) | **Get** /api/v2/users/{projKey}/{envKey} | List users
+[**DeleteUser**](UsersApi.md#DeleteUser) | **Delete** /api/v2/users/{projectKey}/{environmentKey}/{userKey} | Delete user
+[**GetSearchUsers**](UsersApi.md#GetSearchUsers) | **Get** /api/v2/user-search/{projectKey}/{environmentKey} | Find users
+[**GetUser**](UsersApi.md#GetUser) | **Get** /api/v2/users/{projectKey}/{environmentKey}/{userKey} | Get user
+[**GetUsers**](UsersApi.md#GetUsers) | **Get** /api/v2/users/{projectKey}/{environmentKey} | List users
 
 
 
 ## DeleteUser
 
-> DeleteUser(ctx, projKey, envKey, key).Execute()
+> DeleteUser(ctx, projectKey, environmentKey, userKey).Execute()
 
 Delete user
 
@@ -32,13 +32,13 @@ import (
 )
 
 func main() {
-    projKey := "projKey_example" // string | The project key
-    envKey := "envKey_example" // string | The environment key
-    key := "key_example" // string | The user key
+    projectKey := "projectKey_example" // string | The project key
+    environmentKey := "environmentKey_example" // string | The environment key
+    userKey := "userKey_example" // string | The user key
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.UsersApi.DeleteUser(context.Background(), projKey, envKey, key).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UsersApi.DeleteUser(context.Background(), projectKey, environmentKey, userKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UsersApi.DeleteUser``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -52,9 +52,9 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projKey** | **string** | The project key | 
-**envKey** | **string** | The environment key | 
-**key** | **string** | The user key | 
+**projectKey** | **string** | The project key | 
+**environmentKey** | **string** | The environment key | 
+**userKey** | **string** | The user key | 
 
 ### Other Parameters
 
@@ -87,7 +87,7 @@ Name | Type | Description  | Notes
 
 ## GetSearchUsers
 
-> Users GetSearchUsers(ctx, projKey, envKey).Q(q).Limit(limit).Offset(offset).After(after).Sort(sort).SearchAfter(searchAfter).Filter(filter).Execute()
+> Users GetSearchUsers(ctx, projectKey, environmentKey).Q(q).Limit(limit).Offset(offset).After(after).Sort(sort).SearchAfter(searchAfter).Filter(filter).Execute()
 
 Find users
 
@@ -106,8 +106,8 @@ import (
 )
 
 func main() {
-    projKey := "projKey_example" // string | The project key
-    envKey := "envKey_example" // string | The environment key
+    projectKey := "projectKey_example" // string | The project key
+    environmentKey := "environmentKey_example" // string | The environment key
     q := "q_example" // string | Full-text search for users based on name, first name, last name, e-mail address, or key (optional)
     limit := int64(789) // int64 | Specifies the maximum number of items in the collection to return (max: 50, default: 20) (optional)
     offset := int64(789) // int64 | Specifies the first item to return in the collection (optional)
@@ -117,8 +117,8 @@ func main() {
     filter := "filter_example" // string | A comma-separated list of user attribute filters. Each filter is in the form of attributeKey:attributeValue (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.UsersApi.GetSearchUsers(context.Background(), projKey, envKey).Q(q).Limit(limit).Offset(offset).After(after).Sort(sort).SearchAfter(searchAfter).Filter(filter).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UsersApi.GetSearchUsers(context.Background(), projectKey, environmentKey).Q(q).Limit(limit).Offset(offset).After(after).Sort(sort).SearchAfter(searchAfter).Filter(filter).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UsersApi.GetSearchUsers``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -134,8 +134,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projKey** | **string** | The project key | 
-**envKey** | **string** | The environment key | 
+**projectKey** | **string** | The project key | 
+**environmentKey** | **string** | The environment key | 
 
 ### Other Parameters
 
@@ -174,7 +174,7 @@ Name | Type | Description  | Notes
 
 ## GetUser
 
-> UserRecord GetUser(ctx, projKey, envKey, key).Execute()
+> UserRecord GetUser(ctx, projectKey, environmentKey, userKey).Execute()
 
 Get user
 
@@ -193,13 +193,13 @@ import (
 )
 
 func main() {
-    projKey := "projKey_example" // string | The project key
-    envKey := "envKey_example" // string | The environment key
-    key := "key_example" // string | The user key
+    projectKey := "projectKey_example" // string | The project key
+    environmentKey := "environmentKey_example" // string | The environment key
+    userKey := "userKey_example" // string | The user key
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.UsersApi.GetUser(context.Background(), projKey, envKey, key).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UsersApi.GetUser(context.Background(), projectKey, environmentKey, userKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UsersApi.GetUser``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -215,9 +215,9 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projKey** | **string** | The project key | 
-**envKey** | **string** | The environment key | 
-**key** | **string** | The user key | 
+**projectKey** | **string** | The project key | 
+**environmentKey** | **string** | The environment key | 
+**userKey** | **string** | The user key | 
 
 ### Other Parameters
 
@@ -250,7 +250,7 @@ Name | Type | Description  | Notes
 
 ## GetUsers
 
-> Users GetUsers(ctx, projKey, envKey).Limit(limit).SearchAfter(searchAfter).Execute()
+> UsersRep GetUsers(ctx, projectKey, environmentKey).Limit(limit).SearchAfter(searchAfter).Execute()
 
 List users
 
@@ -269,19 +269,19 @@ import (
 )
 
 func main() {
-    projKey := "projKey_example" // string | The project key
-    envKey := "envKey_example" // string | The environment key
+    projectKey := "projectKey_example" // string | The project key
+    environmentKey := "environmentKey_example" // string | The environment key
     limit := int64(789) // int64 | The number of elements to return per page (optional)
     searchAfter := "searchAfter_example" // string | Limits results to users with sort values after the value you specify. You can use this for pagination, but we recommend using the `next` link we provide instead. (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.UsersApi.GetUsers(context.Background(), projKey, envKey).Limit(limit).SearchAfter(searchAfter).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UsersApi.GetUsers(context.Background(), projectKey, environmentKey).Limit(limit).SearchAfter(searchAfter).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UsersApi.GetUsers``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetUsers`: Users
+    // response from `GetUsers`: UsersRep
     fmt.Fprintf(os.Stdout, "Response from `UsersApi.GetUsers`: %v\n", resp)
 }
 ```
@@ -292,8 +292,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projKey** | **string** | The project key | 
-**envKey** | **string** | The environment key | 
+**projectKey** | **string** | The project key | 
+**environmentKey** | **string** | The environment key | 
 
 ### Other Parameters
 
@@ -309,7 +309,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Users**](Users.md)
+[**UsersRep**](UsersRep.md)
 
 ### Authorization
 

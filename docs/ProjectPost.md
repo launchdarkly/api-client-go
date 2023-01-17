@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Key** | **string** | A unique key used to reference the project in your code. | 
 **IncludeInSnippetByDefault** | Pointer to **bool** | Whether or not flags created in this project are made available to the client-side JavaScript SDK by default. | [optional] 
 **DefaultClientSideAvailability** | Pointer to [**DefaultClientSideAvailabilityPost**](DefaultClientSideAvailabilityPost.md) |  | [optional] 
-**Tags** | Pointer to **[]string** |  | [optional] 
+**Tags** | Pointer to **[]string** | Tags for the project | [optional] 
 **Environments** | Pointer to [**[]EnvironmentPost**](EnvironmentPost.md) | Creates the provided environments for this project. If omitted default environments will be created instead. | [optional] 
 
 ## Methods

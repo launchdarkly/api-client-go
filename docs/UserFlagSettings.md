@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Items** | [**map[string]UserFlagSetting**](UserFlagSetting.md) |  | 
-**Links** | [**map[string]Link**](Link.md) |  | 
+**Items** | [**map[string]UserFlagSetting**](UserFlagSetting.md) | An array of flag settings for the user | 
+**Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
 
 ## Methods
 

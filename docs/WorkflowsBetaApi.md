@@ -33,13 +33,13 @@ import (
 
 func main() {
     projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag's key
+    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
     environmentKey := "environmentKey_example" // string | The environment key
     workflowId := "workflowId_example" // string | The workflow id
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.WorkflowsBetaApi.DeleteWorkflow(context.Background(), projectKey, featureFlagKey, environmentKey, workflowId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.WorkflowsBetaApi.DeleteWorkflow(context.Background(), projectKey, featureFlagKey, environmentKey, workflowId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `WorkflowsBetaApi.DeleteWorkflow``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -54,7 +54,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **projectKey** | **string** | The project key | 
-**featureFlagKey** | **string** | The feature flag&#39;s key | 
+**featureFlagKey** | **string** | The feature flag key | 
 **environmentKey** | **string** | The environment key | 
 **workflowId** | **string** | The workflow id | 
 
@@ -90,7 +90,7 @@ Name | Type | Description  | Notes
 
 ## GetCustomWorkflow
 
-> CustomWorkflowOutputRep GetCustomWorkflow(ctx, projectKey, featureFlagKey, environmentKey, workflowId).Execute()
+> CustomWorkflowOutput GetCustomWorkflow(ctx, projectKey, featureFlagKey, environmentKey, workflowId).Execute()
 
 Get custom workflow
 
@@ -110,18 +110,18 @@ import (
 
 func main() {
     projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag's key
+    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
     environmentKey := "environmentKey_example" // string | The environment key
     workflowId := "workflowId_example" // string | The workflow ID
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.WorkflowsBetaApi.GetCustomWorkflow(context.Background(), projectKey, featureFlagKey, environmentKey, workflowId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.WorkflowsBetaApi.GetCustomWorkflow(context.Background(), projectKey, featureFlagKey, environmentKey, workflowId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `WorkflowsBetaApi.GetCustomWorkflow``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetCustomWorkflow`: CustomWorkflowOutputRep
+    // response from `GetCustomWorkflow`: CustomWorkflowOutput
     fmt.Fprintf(os.Stdout, "Response from `WorkflowsBetaApi.GetCustomWorkflow`: %v\n", resp)
 }
 ```
@@ -133,7 +133,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **projectKey** | **string** | The project key | 
-**featureFlagKey** | **string** | The feature flag&#39;s key | 
+**featureFlagKey** | **string** | The feature flag key | 
 **environmentKey** | **string** | The environment key | 
 **workflowId** | **string** | The workflow ID | 
 
@@ -151,7 +151,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CustomWorkflowOutputRep**](CustomWorkflowOutputRep.md)
+[**CustomWorkflowOutput**](CustomWorkflowOutput.md)
 
 ### Authorization
 
@@ -169,7 +169,7 @@ Name | Type | Description  | Notes
 
 ## GetWorkflows
 
-> CustomWorkflowsListingOutputRep GetWorkflows(ctx, projectKey, featureFlagKey, environmentKey).Execute()
+> CustomWorkflowsListingOutput GetWorkflows(ctx, projectKey, featureFlagKey, environmentKey).Execute()
 
 Get workflows
 
@@ -189,17 +189,17 @@ import (
 
 func main() {
     projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag's key
+    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
     environmentKey := "environmentKey_example" // string | The environment key
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.WorkflowsBetaApi.GetWorkflows(context.Background(), projectKey, featureFlagKey, environmentKey).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.WorkflowsBetaApi.GetWorkflows(context.Background(), projectKey, featureFlagKey, environmentKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `WorkflowsBetaApi.GetWorkflows``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetWorkflows`: CustomWorkflowsListingOutputRep
+    // response from `GetWorkflows`: CustomWorkflowsListingOutput
     fmt.Fprintf(os.Stdout, "Response from `WorkflowsBetaApi.GetWorkflows`: %v\n", resp)
 }
 ```
@@ -211,7 +211,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **projectKey** | **string** | The project key | 
-**featureFlagKey** | **string** | The feature flag&#39;s key | 
+**featureFlagKey** | **string** | The feature flag key | 
 **environmentKey** | **string** | The environment key | 
 
 ### Other Parameters
@@ -227,7 +227,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CustomWorkflowsListingOutputRep**](CustomWorkflowsListingOutputRep.md)
+[**CustomWorkflowsListingOutput**](CustomWorkflowsListingOutput.md)
 
 ### Authorization
 
@@ -245,7 +245,7 @@ Name | Type | Description  | Notes
 
 ## PostWorkflow
 
-> CustomWorkflowOutputRep PostWorkflow(ctx, projectKey, featureFlagKey, environmentKey).CustomWorkflowInputRep(customWorkflowInputRep).Execute()
+> CustomWorkflowOutput PostWorkflow(ctx, projectKey, featureFlagKey, environmentKey).CustomWorkflowInput(customWorkflowInput).TemplateKey(templateKey).Execute()
 
 Create workflow
 
@@ -265,18 +265,19 @@ import (
 
 func main() {
     projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag's key
+    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
     environmentKey := "environmentKey_example" // string | The environment key
-    customWorkflowInputRep := *openapiclient.NewCustomWorkflowInputRep("Description_example") // CustomWorkflowInputRep | 
+    customWorkflowInput := *openapiclient.NewCustomWorkflowInput("Turn flag on for 10% of customers each day") // CustomWorkflowInput | 
+    templateKey := "templateKey_example" // string | The template key to apply as a starting point for the new workflow (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.WorkflowsBetaApi.PostWorkflow(context.Background(), projectKey, featureFlagKey, environmentKey).CustomWorkflowInputRep(customWorkflowInputRep).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.WorkflowsBetaApi.PostWorkflow(context.Background(), projectKey, featureFlagKey, environmentKey).CustomWorkflowInput(customWorkflowInput).TemplateKey(templateKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `WorkflowsBetaApi.PostWorkflow``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PostWorkflow`: CustomWorkflowOutputRep
+    // response from `PostWorkflow`: CustomWorkflowOutput
     fmt.Fprintf(os.Stdout, "Response from `WorkflowsBetaApi.PostWorkflow`: %v\n", resp)
 }
 ```
@@ -288,7 +289,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **projectKey** | **string** | The project key | 
-**featureFlagKey** | **string** | The feature flag&#39;s key | 
+**featureFlagKey** | **string** | The feature flag key | 
 **environmentKey** | **string** | The environment key | 
 
 ### Other Parameters
@@ -301,11 +302,12 @@ Name | Type | Description  | Notes
 
 
 
- **customWorkflowInputRep** | [**CustomWorkflowInputRep**](CustomWorkflowInputRep.md) |  | 
+ **customWorkflowInput** | [**CustomWorkflowInput**](CustomWorkflowInput.md) |  | 
+ **templateKey** | **string** | The template key to apply as a starting point for the new workflow | 
 
 ### Return type
 
-[**CustomWorkflowOutputRep**](CustomWorkflowOutputRep.md)
+[**CustomWorkflowOutput**](CustomWorkflowOutput.md)
 
 ### Authorization
 

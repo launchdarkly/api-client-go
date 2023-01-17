@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Projects** | Pointer to [**[]Link**](Link.md) |  | [optional] 
+**Projects** | Pointer to [**[]Link**](Link.md) | The location and content type of all projects that have code references | [optional] 
 **Self** | Pointer to [**Link**](Link.md) |  | [optional] 
 
 ## Methods

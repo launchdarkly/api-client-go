@@ -8,7 +8,8 @@ Name | Type | Description | Notes
 **Key** | **string** | A unique key used to reference the segment | 
 **Description** | Pointer to **string** | A description of the segment&#39;s purpose | [optional] 
 **Tags** | Pointer to **[]string** | Tags for the segment | [optional] 
-**Unbounded** | Pointer to **bool** |  | [optional] 
+**Unbounded** | Pointer to **bool** | Whether to create a standard segment (false) or a Big Segment (true). Only use a Big Segment if you need to add more than 15,000 users. | [optional] 
+**UnboundedContextKind** | Pointer to **string** | If unbounded is true, you can use this field to set the Big Segment&#39;s context kind | [optional] 
 
 ## Methods
 
@@ -143,6 +144,31 @@ SetUnbounded sets Unbounded field to given value.
 `func (o *SegmentBody) HasUnbounded() bool`
 
 HasUnbounded returns a boolean if a field has been set.
+
+### GetUnboundedContextKind
+
+`func (o *SegmentBody) GetUnboundedContextKind() string`
+
+GetUnboundedContextKind returns the UnboundedContextKind field if non-nil, zero value otherwise.
+
+### GetUnboundedContextKindOk
+
+`func (o *SegmentBody) GetUnboundedContextKindOk() (*string, bool)`
+
+GetUnboundedContextKindOk returns a tuple with the UnboundedContextKind field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUnboundedContextKind
+
+`func (o *SegmentBody) SetUnboundedContextKind(v string)`
+
+SetUnboundedContextKind sets UnboundedContextKind field to given value.
+
+### HasUnboundedContextKind
+
+`func (o *SegmentBody) HasUnboundedContextKind() bool`
+
+HasUnboundedContextKind returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

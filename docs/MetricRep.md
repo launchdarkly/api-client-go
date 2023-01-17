@@ -4,29 +4,31 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** |  | 
-**Key** | **string** |  | 
-**Name** | **string** |  | 
-**Kind** | **string** |  | 
-**AttachedFlagCount** | Pointer to **int32** |  | [optional] 
-**Links** | [**map[string]Link**](Link.md) |  | 
+**ExperimentCount** | Pointer to **int32** | The number of experiments using this metric | [optional] 
+**Id** | **string** | The ID of this metric | 
+**Key** | **string** | A unique key to reference the metric | 
+**Name** | **string** | A human-friendly name for the metric | 
+**Kind** | **string** | The kind of event the metric tracks | 
+**AttachedFlagCount** | Pointer to **int32** | The number of feature flags currently attached to this metric | [optional] 
+**Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
 **Site** | Pointer to [**Link**](Link.md) |  | [optional] 
-**Access** | Pointer to [**AccessRep**](AccessRep.md) |  | [optional] 
-**Tags** | **[]string** |  | 
+**Access** | Pointer to [**Access**](Access.md) |  | [optional] 
+**Tags** | **[]string** | Tags for the metric | 
 **CreationDate** | **int64** |  | 
 **LastModified** | Pointer to [**Modification**](Modification.md) |  | [optional] 
-**MaintainerId** | Pointer to **string** |  | [optional] 
-**Maintainer** | Pointer to [**MemberSummaryRep**](MemberSummaryRep.md) |  | [optional] 
-**Description** | Pointer to **string** |  | [optional] 
-**IsNumeric** | Pointer to **bool** |  | [optional] 
-**SuccessCriteria** | Pointer to **int32** |  | [optional] 
-**Unit** | Pointer to **string** |  | [optional] 
-**EventKey** | Pointer to **string** |  | [optional] 
-**IsActive** | Pointer to **bool** |  | [optional] 
-**AttachedFeatures** | Pointer to [**[]FlagListingRep**](FlagListingRep.md) |  | [optional] 
-**Version** | Pointer to **int32** |  | [optional] 
-**Selector** | Pointer to **string** |  | [optional] 
-**Urls** | Pointer to **[]interface{}** |  | [optional] 
+**MaintainerId** | Pointer to **string** | The ID of the member who maintains this metric | [optional] 
+**Maintainer** | Pointer to [**MemberSummary**](MemberSummary.md) |  | [optional] 
+**Description** | Pointer to **string** | Description of the metric | [optional] 
+**IsNumeric** | Pointer to **bool** | For custom metrics, whether to track numeric changes in value against a baseline (&lt;code&gt;true&lt;/code&gt;) or to track a conversion when an end user takes an action (&lt;code&gt;false&lt;/code&gt;). | [optional] 
+**SuccessCriteria** | Pointer to **string** | For numeric custom metrics, the success criteria | [optional] 
+**Unit** | Pointer to **string** | For numeric custom metrics, the unit of measure | [optional] 
+**EventKey** | Pointer to **string** | For custom metrics, the event name to use in your code | [optional] 
+**Experiments** | Pointer to [**[]DependentExperimentRep**](DependentExperimentRep.md) |  | [optional] 
+**IsActive** | Pointer to **bool** | Whether the metric is active | [optional] 
+**AttachedFeatures** | Pointer to [**[]FlagListingRep**](FlagListingRep.md) | Details on the flags attached to this metric | [optional] 
+**Version** | Pointer to **int32** | Version of the metric | [optional] 
+**Selector** | Pointer to **string** | For click metrics, the CSS selectors | [optional] 
+**Urls** | Pointer to **[]map[string]interface{}** |  | [optional] 
 
 ## Methods
 
@@ -46,6 +48,31 @@ will change when the set of required properties is changed
 NewMetricRepWithDefaults instantiates a new MetricRep object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetExperimentCount
+
+`func (o *MetricRep) GetExperimentCount() int32`
+
+GetExperimentCount returns the ExperimentCount field if non-nil, zero value otherwise.
+
+### GetExperimentCountOk
+
+`func (o *MetricRep) GetExperimentCountOk() (*int32, bool)`
+
+GetExperimentCountOk returns a tuple with the ExperimentCount field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExperimentCount
+
+`func (o *MetricRep) SetExperimentCount(v int32)`
+
+SetExperimentCount sets ExperimentCount field to given value.
+
+### HasExperimentCount
+
+`func (o *MetricRep) HasExperimentCount() bool`
+
+HasExperimentCount returns a boolean if a field has been set.
 
 ### GetId
 
@@ -199,20 +226,20 @@ HasSite returns a boolean if a field has been set.
 
 ### GetAccess
 
-`func (o *MetricRep) GetAccess() AccessRep`
+`func (o *MetricRep) GetAccess() Access`
 
 GetAccess returns the Access field if non-nil, zero value otherwise.
 
 ### GetAccessOk
 
-`func (o *MetricRep) GetAccessOk() (*AccessRep, bool)`
+`func (o *MetricRep) GetAccessOk() (*Access, bool)`
 
 GetAccessOk returns a tuple with the Access field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAccess
 
-`func (o *MetricRep) SetAccess(v AccessRep)`
+`func (o *MetricRep) SetAccess(v Access)`
 
 SetAccess sets Access field to given value.
 
@@ -314,20 +341,20 @@ HasMaintainerId returns a boolean if a field has been set.
 
 ### GetMaintainer
 
-`func (o *MetricRep) GetMaintainer() MemberSummaryRep`
+`func (o *MetricRep) GetMaintainer() MemberSummary`
 
 GetMaintainer returns the Maintainer field if non-nil, zero value otherwise.
 
 ### GetMaintainerOk
 
-`func (o *MetricRep) GetMaintainerOk() (*MemberSummaryRep, bool)`
+`func (o *MetricRep) GetMaintainerOk() (*MemberSummary, bool)`
 
 GetMaintainerOk returns a tuple with the Maintainer field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMaintainer
 
-`func (o *MetricRep) SetMaintainer(v MemberSummaryRep)`
+`func (o *MetricRep) SetMaintainer(v MemberSummary)`
 
 SetMaintainer sets Maintainer field to given value.
 
@@ -389,20 +416,20 @@ HasIsNumeric returns a boolean if a field has been set.
 
 ### GetSuccessCriteria
 
-`func (o *MetricRep) GetSuccessCriteria() int32`
+`func (o *MetricRep) GetSuccessCriteria() string`
 
 GetSuccessCriteria returns the SuccessCriteria field if non-nil, zero value otherwise.
 
 ### GetSuccessCriteriaOk
 
-`func (o *MetricRep) GetSuccessCriteriaOk() (*int32, bool)`
+`func (o *MetricRep) GetSuccessCriteriaOk() (*string, bool)`
 
 GetSuccessCriteriaOk returns a tuple with the SuccessCriteria field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSuccessCriteria
 
-`func (o *MetricRep) SetSuccessCriteria(v int32)`
+`func (o *MetricRep) SetSuccessCriteria(v string)`
 
 SetSuccessCriteria sets SuccessCriteria field to given value.
 
@@ -461,6 +488,31 @@ SetEventKey sets EventKey field to given value.
 `func (o *MetricRep) HasEventKey() bool`
 
 HasEventKey returns a boolean if a field has been set.
+
+### GetExperiments
+
+`func (o *MetricRep) GetExperiments() []DependentExperimentRep`
+
+GetExperiments returns the Experiments field if non-nil, zero value otherwise.
+
+### GetExperimentsOk
+
+`func (o *MetricRep) GetExperimentsOk() (*[]DependentExperimentRep, bool)`
+
+GetExperimentsOk returns a tuple with the Experiments field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExperiments
+
+`func (o *MetricRep) SetExperiments(v []DependentExperimentRep)`
+
+SetExperiments sets Experiments field to given value.
+
+### HasExperiments
+
+`func (o *MetricRep) HasExperiments() bool`
+
+HasExperiments returns a boolean if a field has been set.
 
 ### GetIsActive
 
@@ -564,20 +616,20 @@ HasSelector returns a boolean if a field has been set.
 
 ### GetUrls
 
-`func (o *MetricRep) GetUrls() []interface{}`
+`func (o *MetricRep) GetUrls() []map[string]interface{}`
 
 GetUrls returns the Urls field if non-nil, zero value otherwise.
 
 ### GetUrlsOk
 
-`func (o *MetricRep) GetUrlsOk() (*[]interface{}, bool)`
+`func (o *MetricRep) GetUrlsOk() (*[]map[string]interface{}, bool)`
 
 GetUrlsOk returns a tuple with the Urls field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUrls
 
-`func (o *MetricRep) SetUrls(v []interface{})`
+`func (o *MetricRep) SetUrls(v []map[string]interface{})`
 
 SetUrls sets Urls field to given value.
 

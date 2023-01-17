@@ -8,11 +8,12 @@ Name | Type | Description | Notes
 **Key** | **string** | A project-unique key for the new environment. | 
 **Color** | **string** | A color to indicate this environment in the UI. | 
 **DefaultTtl** | Pointer to **int32** | The default time (in minutes) that the PHP SDK can cache feature flag rules locally. | [optional] 
-**SecureMode** | Pointer to **bool** | Secure mode ensures that a user of the client-side SDK cannot impersonate another user. | [optional] 
+**SecureMode** | Pointer to **bool** | Ensures that one end user of the client-side SDK cannot inspect the variations for another end user. | [optional] 
 **DefaultTrackEvents** | Pointer to **bool** | Enables tracking detailed information for new flags by default. | [optional] 
-**ConfirmChanges** | Pointer to **bool** | Require confirmation for all flag and segment changes via the UI in this environment. | [optional] 
-**RequireComments** | Pointer to **bool** | Require comments for all flag and segment changes via the UI in this environment. | [optional] 
+**ConfirmChanges** | Pointer to **bool** | Requires confirmation for all flag and segment changes via the UI in this environment. | [optional] 
+**RequireComments** | Pointer to **bool** | Requires comments for all flag and segment changes via the UI in this environment. | [optional] 
 **Tags** | Pointer to **[]string** | Tags to apply to the new environment. | [optional] 
+**Source** | Pointer to [**SourceEnv**](SourceEnv.md) |  | [optional] 
 
 ## Methods
 
@@ -242,6 +243,31 @@ SetTags sets Tags field to given value.
 `func (o *EnvironmentPost) HasTags() bool`
 
 HasTags returns a boolean if a field has been set.
+
+### GetSource
+
+`func (o *EnvironmentPost) GetSource() SourceEnv`
+
+GetSource returns the Source field if non-nil, zero value otherwise.
+
+### GetSourceOk
+
+`func (o *EnvironmentPost) GetSourceOk() (*SourceEnv, bool)`
+
+GetSourceOk returns a tuple with the Source field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSource
+
+`func (o *EnvironmentPost) SetSource(v SourceEnv)`
+
+SetSource sets Source field to given value.
+
+### HasSource
+
+`func (o *EnvironmentPost) HasSource() bool`
+
+HasSource returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

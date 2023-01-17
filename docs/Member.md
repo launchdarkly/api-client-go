@@ -4,30 +4,31 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Links** | [**map[string]Link**](Link.md) |  | 
+**Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
 **Id** | **string** | The member&#39;s ID | 
 **FirstName** | Pointer to **string** | The member&#39;s first name | [optional] 
 **LastName** | Pointer to **string** | The member&#39;s last name | [optional] 
 **Role** | **string** | The member&#39;s built-in role. If the member has no custom roles, this role will be in effect. | 
 **Email** | **string** | The member&#39;s email address | 
-**PendingInvite** | **bool** | Whether or not the member has a pending invitation | 
-**Verified** | **bool** | Whether or not the member&#39;s email address has been verified | 
-**PendingEmail** | Pointer to **string** |  | [optional] 
+**PendingInvite** | **bool** | Whether the member has a pending invitation | 
+**Verified** | **bool** | Whether the member&#39;s email address has been verified | 
+**PendingEmail** | Pointer to **string** | The member&#39;s email address before it has been verified, for accounts where email verification is required | [optional] 
 **CustomRoles** | **[]string** | The set of custom roles (as keys) assigned to the member | 
-**Mfa** | **string** | Whether or not multi-factor authentication is enabled for this member | 
-**ExcludedDashboards** | **[]string** | Default dashboards that the member has chosen to ignore | 
+**Mfa** | **string** | Whether multi-factor authentication is enabled for this member | 
+**ExcludedDashboards** | Pointer to **[]string** | Default dashboards that the member has chosen to ignore | [optional] 
 **LastSeen** | **int64** |  | 
 **LastSeenMetadata** | Pointer to [**LastSeenMetadata**](LastSeenMetadata.md) |  | [optional] 
 **IntegrationMetadata** | Pointer to [**IntegrationMetadata**](IntegrationMetadata.md) |  | [optional] 
-**Teams** | Pointer to [**[]MemberTeamSummaryRep**](MemberTeamSummaryRep.md) |  | [optional] 
-**PermissionGrants** | Pointer to [**[]MemberPermissionGrantSummaryRep**](MemberPermissionGrantSummaryRep.md) |  | [optional] 
+**Teams** | Pointer to [**[]MemberTeamSummaryRep**](MemberTeamSummaryRep.md) | Details on the teams this member is assigned to | [optional] 
+**PermissionGrants** | Pointer to [**[]MemberPermissionGrantSummaryRep**](MemberPermissionGrantSummaryRep.md) | A list of permission grants. Permission grants allow a member to have access to a specific action, without having to create or update a custom role. | [optional] 
 **CreationDate** | **int64** |  | 
+**OauthProviders** | Pointer to **[]string** | A list of OAuth providers | [optional] 
 
 ## Methods
 
 ### NewMember
 
-`func NewMember(links map[string]Link, id string, role string, email string, pendingInvite bool, verified bool, customRoles []string, mfa string, excludedDashboards []string, lastSeen int64, creationDate int64, ) *Member`
+`func NewMember(links map[string]Link, id string, role string, email string, pendingInvite bool, verified bool, customRoles []string, mfa string, lastSeen int64, creationDate int64, ) *Member`
 
 NewMember instantiates a new Member object
 This constructor will assign default values to properties that have it defined,
@@ -296,6 +297,11 @@ and a boolean to check if the value has been set.
 
 SetExcludedDashboards sets ExcludedDashboards field to given value.
 
+### HasExcludedDashboards
+
+`func (o *Member) HasExcludedDashboards() bool`
+
+HasExcludedDashboards returns a boolean if a field has been set.
 
 ### GetLastSeen
 
@@ -436,6 +442,31 @@ and a boolean to check if the value has been set.
 
 SetCreationDate sets CreationDate field to given value.
 
+
+### GetOauthProviders
+
+`func (o *Member) GetOauthProviders() []string`
+
+GetOauthProviders returns the OauthProviders field if non-nil, zero value otherwise.
+
+### GetOauthProvidersOk
+
+`func (o *Member) GetOauthProvidersOk() (*[]string, bool)`
+
+GetOauthProvidersOk returns a tuple with the OauthProviders field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOauthProviders
+
+`func (o *Member) SetOauthProviders(v []string)`
+
+SetOauthProviders sets OauthProviders field to given value.
+
+### HasOauthProviders
+
+`func (o *Member) HasOauthProviders() bool`
+
+HasOauthProviders returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

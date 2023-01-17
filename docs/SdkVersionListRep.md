@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Links** | **map[string]interface{}** |  | 
-**SdkVersions** | [**[]SdkVersionRep**](SdkVersionRep.md) |  | 
+**Links** | **map[string]interface{}** | The location and content type of related resources | 
+**SdkVersions** | [**[]SdkVersionRep**](SdkVersionRep.md) | The list of SDK names and versions | 
 
 ## Methods
 

@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Links** | Pointer to [**map[string]Link**](Link.md) |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**Resources** | Pointer to **[]interface{}** |  | [optional] 
+**Name** | Pointer to **string** | The name of the resource | [optional] 
+**Resources** | Pointer to **[]string** | The resource specifier | [optional] 
 
 ## Methods
 
@@ -79,20 +79,20 @@ HasName returns a boolean if a field has been set.
 
 ### GetResources
 
-`func (o *TargetResourceRep) GetResources() []interface{}`
+`func (o *TargetResourceRep) GetResources() []string`
 
 GetResources returns the Resources field if non-nil, zero value otherwise.
 
 ### GetResourcesOk
 
-`func (o *TargetResourceRep) GetResourcesOk() (*[]interface{}, bool)`
+`func (o *TargetResourceRep) GetResourcesOk() (*[]string, bool)`
 
 GetResourcesOk returns a tuple with the Resources field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetResources
 
-`func (o *TargetResourceRep) SetResources(v []interface{})`
+`func (o *TargetResourceRep) SetResources(v []string)`
 
 SetResources sets Resources field to given value.
 

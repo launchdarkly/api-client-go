@@ -4,18 +4,19 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Comment** | Pointer to **string** | A comment describing the approval request | [optional] 
-**Description** | **string** |  | 
-**NotifyMemberIds** | **[]string** | An array of member IDs. These members are notified to review the approval request. | 
+**Comment** | Pointer to **string** | Optional comment describing the approval request | [optional] 
+**Description** | **string** | A brief description of your changes | 
+**NotifyMemberIds** | Pointer to **[]string** | An array of member IDs. These members are notified to review the approval request. | [optional] 
+**NotifyTeamKeys** | Pointer to **[]string** | An array of team keys. The members of these teams are notified to review the approval request. | [optional] 
 **Source** | [**SourceFlag**](SourceFlag.md) |  | 
-**IncludedActions** | Pointer to **[]string** |  | [optional] 
-**ExcludedActions** | Pointer to **[]string** |  | [optional] 
+**IncludedActions** | Pointer to **[]string** | Optional list of the flag changes to copy from the source environment to the target environment. You may include either &lt;code&gt;includedActions&lt;/code&gt; or &lt;code&gt;excludedActions&lt;/code&gt;, but not both. If neither are included, then all flag changes will be copied. | [optional] 
+**ExcludedActions** | Pointer to **[]string** | Optional list of the flag changes NOT to copy from the source environment to the target environment. You may include either &lt;code&gt;includedActions&lt;/code&gt; or &lt;code&gt;excludedActions&lt;/code&gt;, but not both. If neither are included, then all flag changes will be copied. | [optional] 
 
 ## Methods
 
 ### NewCreateCopyFlagConfigApprovalRequestRequest
 
-`func NewCreateCopyFlagConfigApprovalRequestRequest(description string, notifyMemberIds []string, source SourceFlag, ) *CreateCopyFlagConfigApprovalRequestRequest`
+`func NewCreateCopyFlagConfigApprovalRequestRequest(description string, source SourceFlag, ) *CreateCopyFlagConfigApprovalRequestRequest`
 
 NewCreateCopyFlagConfigApprovalRequestRequest instantiates a new CreateCopyFlagConfigApprovalRequestRequest object
 This constructor will assign default values to properties that have it defined,
@@ -94,6 +95,36 @@ and a boolean to check if the value has been set.
 
 SetNotifyMemberIds sets NotifyMemberIds field to given value.
 
+### HasNotifyMemberIds
+
+`func (o *CreateCopyFlagConfigApprovalRequestRequest) HasNotifyMemberIds() bool`
+
+HasNotifyMemberIds returns a boolean if a field has been set.
+
+### GetNotifyTeamKeys
+
+`func (o *CreateCopyFlagConfigApprovalRequestRequest) GetNotifyTeamKeys() []string`
+
+GetNotifyTeamKeys returns the NotifyTeamKeys field if non-nil, zero value otherwise.
+
+### GetNotifyTeamKeysOk
+
+`func (o *CreateCopyFlagConfigApprovalRequestRequest) GetNotifyTeamKeysOk() (*[]string, bool)`
+
+GetNotifyTeamKeysOk returns a tuple with the NotifyTeamKeys field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNotifyTeamKeys
+
+`func (o *CreateCopyFlagConfigApprovalRequestRequest) SetNotifyTeamKeys(v []string)`
+
+SetNotifyTeamKeys sets NotifyTeamKeys field to given value.
+
+### HasNotifyTeamKeys
+
+`func (o *CreateCopyFlagConfigApprovalRequestRequest) HasNotifyTeamKeys() bool`
+
+HasNotifyTeamKeys returns a boolean if a field has been set.
 
 ### GetSource
 

@@ -34,13 +34,13 @@ import (
 
 func main() {
     projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag's key
+    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
     environmentKey := "environmentKey_example" // string | The environment key
     id := "id_example" // string | The scheduled change id
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ScheduledChangesApi.DeleteFlagConfigScheduledChanges(context.Background(), projectKey, featureFlagKey, environmentKey, id).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ScheduledChangesApi.DeleteFlagConfigScheduledChanges(context.Background(), projectKey, featureFlagKey, environmentKey, id).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ScheduledChangesApi.DeleteFlagConfigScheduledChanges``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -55,7 +55,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **projectKey** | **string** | The project key | 
-**featureFlagKey** | **string** | The feature flag&#39;s key | 
+**featureFlagKey** | **string** | The feature flag key | 
 **environmentKey** | **string** | The environment key | 
 **id** | **string** | The scheduled change id | 
 
@@ -111,13 +111,13 @@ import (
 
 func main() {
     projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag's key
+    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
     environmentKey := "environmentKey_example" // string | The environment key
     id := "id_example" // string | The scheduled change id
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ScheduledChangesApi.GetFeatureFlagScheduledChange(context.Background(), projectKey, featureFlagKey, environmentKey, id).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ScheduledChangesApi.GetFeatureFlagScheduledChange(context.Background(), projectKey, featureFlagKey, environmentKey, id).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ScheduledChangesApi.GetFeatureFlagScheduledChange``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -134,7 +134,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **projectKey** | **string** | The project key | 
-**featureFlagKey** | **string** | The feature flag&#39;s key | 
+**featureFlagKey** | **string** | The feature flag key | 
 **environmentKey** | **string** | The environment key | 
 **id** | **string** | The scheduled change id | 
 
@@ -190,12 +190,12 @@ import (
 
 func main() {
     projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag's key
+    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
     environmentKey := "environmentKey_example" // string | The environment key
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ScheduledChangesApi.GetFlagConfigScheduledChanges(context.Background(), projectKey, featureFlagKey, environmentKey).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ScheduledChangesApi.GetFlagConfigScheduledChanges(context.Background(), projectKey, featureFlagKey, environmentKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ScheduledChangesApi.GetFlagConfigScheduledChanges``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -212,7 +212,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **projectKey** | **string** | The project key | 
-**featureFlagKey** | **string** | The feature flag&#39;s key | 
+**featureFlagKey** | **string** | The feature flag key | 
 **environmentKey** | **string** | The environment key | 
 
 ### Other Parameters
@@ -266,15 +266,15 @@ import (
 
 func main() {
     projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag's key
+    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
     environmentKey := "environmentKey_example" // string | The environment key
     id := "id_example" // string | The scheduled change ID
     flagScheduledChangesInput := *openapiclient.NewFlagScheduledChangesInput([]map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}) // FlagScheduledChangesInput | 
-    ignoreConflicts := true // bool | Whether or not to succeed or fail when the new instructions conflict with existing scheduled changes (optional)
+    ignoreConflicts := true // bool | Whether to succeed (`true`) or fail (`false`) when these new instructions conflict with existing scheduled changes (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ScheduledChangesApi.PatchFlagConfigScheduledChange(context.Background(), projectKey, featureFlagKey, environmentKey, id).FlagScheduledChangesInput(flagScheduledChangesInput).IgnoreConflicts(ignoreConflicts).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ScheduledChangesApi.PatchFlagConfigScheduledChange(context.Background(), projectKey, featureFlagKey, environmentKey, id).FlagScheduledChangesInput(flagScheduledChangesInput).IgnoreConflicts(ignoreConflicts).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ScheduledChangesApi.PatchFlagConfigScheduledChange``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -291,7 +291,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **projectKey** | **string** | The project key | 
-**featureFlagKey** | **string** | The feature flag&#39;s key | 
+**featureFlagKey** | **string** | The feature flag key | 
 **environmentKey** | **string** | The environment key | 
 **id** | **string** | The scheduled change ID | 
 
@@ -307,7 +307,7 @@ Name | Type | Description  | Notes
 
 
  **flagScheduledChangesInput** | [**FlagScheduledChangesInput**](FlagScheduledChangesInput.md) |  | 
- **ignoreConflicts** | **bool** | Whether or not to succeed or fail when the new instructions conflict with existing scheduled changes | 
+ **ignoreConflicts** | **bool** | Whether to succeed (&#x60;true&#x60;) or fail (&#x60;false&#x60;) when these new instructions conflict with existing scheduled changes | 
 
 ### Return type
 
@@ -349,14 +349,14 @@ import (
 
 func main() {
     projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag's key
+    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
     environmentKey := "environmentKey_example" // string | The environment key
     postFlagScheduledChangesInput := *openapiclient.NewPostFlagScheduledChangesInput(int64(123), []map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}) // PostFlagScheduledChangesInput | 
-    ignoreConflicts := true // bool | Whether or not to succeed or fail when the new instructions conflict with existing scheduled changes (optional)
+    ignoreConflicts := true // bool | Whether to succeed (`true`) or fail (`false`) when these instructions conflict with existing scheduled changes (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ScheduledChangesApi.PostFlagConfigScheduledChanges(context.Background(), projectKey, featureFlagKey, environmentKey).PostFlagScheduledChangesInput(postFlagScheduledChangesInput).IgnoreConflicts(ignoreConflicts).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ScheduledChangesApi.PostFlagConfigScheduledChanges(context.Background(), projectKey, featureFlagKey, environmentKey).PostFlagScheduledChangesInput(postFlagScheduledChangesInput).IgnoreConflicts(ignoreConflicts).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ScheduledChangesApi.PostFlagConfigScheduledChanges``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -373,7 +373,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **projectKey** | **string** | The project key | 
-**featureFlagKey** | **string** | The feature flag&#39;s key | 
+**featureFlagKey** | **string** | The feature flag key | 
 **environmentKey** | **string** | The environment key | 
 
 ### Other Parameters
@@ -387,7 +387,7 @@ Name | Type | Description  | Notes
 
 
  **postFlagScheduledChangesInput** | [**PostFlagScheduledChangesInput**](PostFlagScheduledChangesInput.md) |  | 
- **ignoreConflicts** | **bool** | Whether or not to succeed or fail when the new instructions conflict with existing scheduled changes | 
+ **ignoreConflicts** | **bool** | Whether to succeed (&#x60;true&#x60;) or fail (&#x60;false&#x60;) when these instructions conflict with existing scheduled changes | 
 
 ### Return type
 

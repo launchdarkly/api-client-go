@@ -5,10 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Links** | Pointer to [**map[string]Link**](Link.md) |  | [optional] 
-**Id** | Pointer to **string** |  | [optional] 
-**Email** | Pointer to **string** |  | [optional] 
-**FirstName** | Pointer to **string** |  | [optional] 
-**LastName** | Pointer to **string** |  | [optional] 
+**Id** | Pointer to **string** | The member ID | [optional] 
+**Email** | Pointer to **string** | The member email | [optional] 
+**FirstName** | Pointer to **string** | The member first name | [optional] 
+**LastName** | Pointer to **string** | The member last name | [optional] 
 
 ## Methods
 

@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **UpdateSequenceId** | Pointer to **int64** | An optional ID used to prevent older data from overwriting newer data. If no sequence ID is included, the newly submitted data will always be saved. | [optional] 
 **SyncTime** | **int64** |  | 
 **References** | Pointer to [**[]ReferenceRep**](ReferenceRep.md) | An array of flag references found on the branch | [optional] 
+**CommitTime** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 
@@ -138,6 +139,31 @@ SetReferences sets References field to given value.
 `func (o *PutBranch) HasReferences() bool`
 
 HasReferences returns a boolean if a field has been set.
+
+### GetCommitTime
+
+`func (o *PutBranch) GetCommitTime() int64`
+
+GetCommitTime returns the CommitTime field if non-nil, zero value otherwise.
+
+### GetCommitTimeOk
+
+`func (o *PutBranch) GetCommitTimeOk() (*int64, bool)`
+
+GetCommitTimeOk returns a tuple with the CommitTime field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCommitTime
+
+`func (o *PutBranch) SetCommitTime(v int64)`
+
+SetCommitTime sets CommitTime field to given value.
+
+### HasCommitTime
+
+`func (o *PutBranch) HasCommitTime() bool`
+
+HasCommitTime returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

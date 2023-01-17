@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Kind** | Pointer to **string** |  | [optional] 
-**Comment** | Pointer to **string** |  | [optional] 
+**Kind** | Pointer to **string** | The type of review for this approval request | [optional] 
+**Comment** | Pointer to **string** | Optional comment about the approval request | [optional] 
 
 ## Methods
 
