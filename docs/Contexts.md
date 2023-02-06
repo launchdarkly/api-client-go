@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Links** | Pointer to [**map[string]Link**](Link.md) | The location and content type of related resources | [optional] 
-**TotalCount** | **int32** | The number of contexts | 
+**TotalCount** | Pointer to **int32** | The number of contexts | [optional] 
 **EnvironmentId** | **string** | The environment ID where the context was evaluated | 
 **ContinuationToken** | Pointer to **string** | An obfuscated string that references the last context instance on the previous page of results. You can use this for pagination, however, we recommend using the &lt;code&gt;next&lt;/code&gt; link instead. | [optional] 
 **Items** | [**[]ContextRecord**](ContextRecord.md) | A collection of contexts. Can include multiple versions of contexts that have the same &lt;code&gt;kind&lt;/code&gt; and &lt;code&gt;key&lt;/code&gt;, but different &lt;code&gt;applicationId&lt;/code&gt;s. | 
@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 
 ### NewContexts
 
-`func NewContexts(totalCount int32, environmentId string, items []ContextRecord, ) *Contexts`
+`func NewContexts(environmentId string, items []ContextRecord, ) *Contexts`
 
 NewContexts instantiates a new Contexts object
 This constructor will assign default values to properties that have it defined,
@@ -73,6 +73,11 @@ and a boolean to check if the value has been set.
 
 SetTotalCount sets TotalCount field to given value.
 
+### HasTotalCount
+
+`func (o *Contexts) HasTotalCount() bool`
+
+HasTotalCount returns a boolean if a field has been set.
 
 ### GetEnvironmentId
 

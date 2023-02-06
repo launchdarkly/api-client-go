@@ -5,14 +5,12 @@ All URIs are relative to *https://app.launchdarkly.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**DeleteProject**](ProjectsApi.md#DeleteProject) | **Delete** /api/v2/projects/{projectKey} | Delete project
-[**GetContextKindsByProjectKey**](ProjectsApi.md#GetContextKindsByProjectKey) | **Get** /api/v2/projects/{projectKey}/context-kinds | Get context kinds
 [**GetFlagDefaultsByProject**](ProjectsApi.md#GetFlagDefaultsByProject) | **Get** /api/v2/projects/{projectKey}/flag-defaults | Get flag defaults for project
 [**GetProject**](ProjectsApi.md#GetProject) | **Get** /api/v2/projects/{projectKey} | Get project
 [**GetProjects**](ProjectsApi.md#GetProjects) | **Get** /api/v2/projects | List projects
 [**PatchFlagDefaultsByProject**](ProjectsApi.md#PatchFlagDefaultsByProject) | **Patch** /api/v2/projects/{projectKey}/flag-defaults | Update flag default for project
 [**PatchProject**](ProjectsApi.md#PatchProject) | **Patch** /api/v2/projects/{projectKey} | Update project
 [**PostProject**](ProjectsApi.md#PostProject) | **Post** /api/v2/projects | Create project
-[**PutContextKind**](ProjectsApi.md#PutContextKind) | **Put** /api/v2/projects/{projectKey}/context-kinds/{key} | Put context kind
 [**PutFlagDefaultsByProject**](ProjectsApi.md#PutFlagDefaultsByProject) | **Put** /api/v2/projects/{projectKey}/flag-defaults | Create or update flag defaults for project
 
 
@@ -70,76 +68,6 @@ Name | Type | Description  | Notes
 ### Return type
 
  (empty response body)
-
-### Authorization
-
-[ApiKey](../README.md#ApiKey)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetContextKindsByProjectKey
-
-> ContextKindsCollectionRep GetContextKindsByProjectKey(ctx, projectKey).Execute()
-
-Get context kinds
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    projectKey := "projectKey_example" // string | The project key
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ProjectsApi.GetContextKindsByProjectKey(context.Background(), projectKey).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ProjectsApi.GetContextKindsByProjectKey``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetContextKindsByProjectKey`: ContextKindsCollectionRep
-    fmt.Fprintf(os.Stdout, "Response from `ProjectsApi.GetContextKindsByProjectKey`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** | The project key | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetContextKindsByProjectKeyRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**ContextKindsCollectionRep**](ContextKindsCollectionRep.md)
 
 ### Authorization
 
@@ -566,81 +494,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ProjectRep**](ProjectRep.md)
-
-### Authorization
-
-[ApiKey](../README.md#ApiKey)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PutContextKind
-
-> UpsertResponseRep PutContextKind(ctx, projectKey, key).UpsertContextKindPayload(upsertContextKindPayload).Execute()
-
-Put context kind
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    projectKey := "projectKey_example" // string | The project key
-    key := "key_example" // string | The context kind key
-    upsertContextKindPayload := *openapiclient.NewUpsertContextKindPayload() // UpsertContextKindPayload | 
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ProjectsApi.PutContextKind(context.Background(), projectKey, key).UpsertContextKindPayload(upsertContextKindPayload).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ProjectsApi.PutContextKind``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PutContextKind`: UpsertResponseRep
-    fmt.Fprintf(os.Stdout, "Response from `ProjectsApi.PutContextKind`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** | The project key | 
-**key** | **string** | The context kind key | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPutContextKindRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
- **upsertContextKindPayload** | [**UpsertContextKindPayload**](UpsertContextKindPayload.md) |  | 
-
-### Return type
-
-[**UpsertResponseRep**](UpsertResponseRep.md)
 
 ### Authorization
 

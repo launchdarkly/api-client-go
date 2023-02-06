@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** | A context&#39;s attribute name. | 
+**Name** | **string** | A context attribute&#39;s name. | 
 **Weight** | **int32** | A relative estimate of the number of contexts seen recently that have an attribute with the associated name. | 
 **Redacted** | Pointer to **bool** | Whether or not the attribute has one or more redacted values. | [optional] 
 

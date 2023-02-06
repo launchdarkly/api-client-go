@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **CustomRoleIds** | Pointer to **[]string** | A list of custom role IDs to use as access limits for the access token | [optional] 
 **InlineRole** | Pointer to [**[]Statement**](Statement.md) | An array of policy statements, with three attributes: effect, resources, actions. May be used in place of a built-in or custom role. | [optional] 
 **Role** | Pointer to **string** | Built-in role for the token | [optional] 
-**Token** | Pointer to **string** | Last four characters of the token value | [optional] 
+**Token** | Pointer to **string** | The token value. When creating or resetting, contains the entire token value. Otherwise, contains the last four characters. | [optional] 
 **ServiceToken** | Pointer to **bool** | Whether this is a service token or a personal token | [optional] 
 **Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
 **DefaultApiVersion** | Pointer to **int32** | The default API version for this token | [optional] 

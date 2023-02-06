@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**UserKey** | **string** | The user key | 
-**Included** | **bool** | Indicates whether the user is included.&lt;br /&gt;Included users are always segment members, regardless of segment rules. | 
-**Excluded** | **bool** | Indicates whether the user is excluded.&lt;br /&gt;Segment rules bypass excluded users, so they will never be included based on rules. Excluded users may still be included explicitly. | 
+**UserKey** | **string** | The target key | 
+**Included** | **bool** | Indicates whether the target is included.&lt;br /&gt;Included targets are always segment members, regardless of segment rules. | 
+**Excluded** | **bool** | Indicates whether the target is excluded.&lt;br /&gt;Segment rules bypass excluded targets, so they will never be included based on rules. Excluded targets may still be included explicitly. | 
 
 ## Methods
 

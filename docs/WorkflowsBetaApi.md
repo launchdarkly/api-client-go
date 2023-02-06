@@ -269,7 +269,7 @@ func main() {
     projectKey := "projectKey_example" // string | The project key
     featureFlagKey := "featureFlagKey_example" // string | The feature flag key
     environmentKey := "environmentKey_example" // string | The environment key
-    customWorkflowInput := *openapiclient.NewCustomWorkflowInput("Turn flag on for 10% of customers each day") // CustomWorkflowInput | 
+    customWorkflowInput := *openapiclient.NewCustomWorkflowInput("Progressive rollout starting in two days") // CustomWorkflowInput | 
     templateKey := "templateKey_example" // string | The template key to apply as a starting point for the new workflow (optional)
     dryRun := true // bool | Whether to call the endpoint in dry-run mode (optional)
 

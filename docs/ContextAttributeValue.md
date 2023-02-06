@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **interface{}** | A value for a context&#39;s attribute. | 
+**Name** | **interface{}** | A value for a context attribute. | 
 **Weight** | **int32** | A relative estimate of the number of contexts seen recently that have a matching value for a given attribute. | 
 
 ## Methods

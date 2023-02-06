@@ -377,7 +377,7 @@ If you would like to upgrade your integration to use a new API version, you can 
 |---|---|---|
 | `20220603` | <ul><li>Changed the [list projects](/tag/Projects#operation/getProjects) return value:<ul><li>Response is now paginated with a default limit of `20`.</li><li>Added support for filter and sort.</li><li>The project `environments` field is now expandable. This field is omitted by default.</li></ul></li><li>Changed the [get project](/tag/Projects#operation/getProject) return value:<ul><li>The `environments` field is now expandable. This field is omitted by default.</li></ul></li></ul> | Current |
 | `20210729` | <ul><li>Changed the [create approval request](/tag/Approvals#operation/postApprovalRequest) return value. It now returns HTTP Status Code `201` instead of `200`.</li><li> Changed the [get users](/tag/Users#operation/getUser) return value. It now returns a user record, not a user. </li><li>Added additional optional fields to environment, segments, flags, members, and segments, including the ability to create Big Segments. </li><li> Added default values for flag variations when new environments are created. </li><li>Added filtering and pagination for getting flags and members, including `limit`, `number`, `filter`, and `sort` query parameters. </li><li>Added endpoints for expiring user targets for flags and segments, scheduled changes, access tokens, Relay Proxy configuration, integrations and subscriptions, and approvals. </li></ul> | 2023-06-03 |
-| `20191212` | <ul><li>[List feature flags](/tag/Feature-flags#operation/getFeatureFlags) now defaults to sending summaries of feature flag configurations, equivalent to setting the query parameter `summary=true`. Summaries omit flag targeting rules and individual user targets from the payload. </li><li> Added endpoints for flags, flag status, projects, environments, users, audit logs, members, users, custom roles, segments, usage, streams, events, and data export. </li></ul> | 2022-07-29 |
+| `20191212` | <ul><li>[List feature flags](/tag/Feature-flags#operation/getFeatureFlags) now defaults to sending summaries of feature flag configurations, equivalent to setting the query parameter `summary=true`. Summaries omit flag targeting rules and individual user targets from the payload. </li><li> Added endpoints for flags, flag status, projects, environments, audit logs, members, users, custom roles, segments, usage, streams, events, and data export. </li></ul> | 2022-07-29 |
 | `20160426` | <ul><li>Initial versioning of API. Tokens created before versioning have their version set to this.</li></ul> | 2020-12-12 |
 
 
@@ -479,13 +479,15 @@ Class | Method | HTTP request | Description
 *AccountUsageBetaApi* | [**GetStreamUsage**](docs/AccountUsageBetaApi.md#getstreamusage) | **Get** /api/v2/usage/streams/{source} | Get stream usage
 *AccountUsageBetaApi* | [**GetStreamUsageBySdkVersion**](docs/AccountUsageBetaApi.md#getstreamusagebysdkversion) | **Get** /api/v2/usage/streams/{source}/bysdkversion | Get stream usage by SDK version
 *AccountUsageBetaApi* | [**GetStreamUsageSdkversion**](docs/AccountUsageBetaApi.md#getstreamusagesdkversion) | **Get** /api/v2/usage/streams/{source}/sdkversions | Get stream usage SDK versions
-*ApprovalsApi* | [**DeleteApprovalRequest**](docs/ApprovalsApi.md#deleteapprovalrequest) | **Delete** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id} | Delete approval request
+*ApprovalsApi* | [**DeleteApprovalRequestForFlag**](docs/ApprovalsApi.md#deleteapprovalrequestforflag) | **Delete** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id} | Delete approval request for a flag
 *ApprovalsApi* | [**GetApprovalForFlag**](docs/ApprovalsApi.md#getapprovalforflag) | **Get** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id} | Get approval request for a flag
 *ApprovalsApi* | [**GetApprovalsForFlag**](docs/ApprovalsApi.md#getapprovalsforflag) | **Get** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests | List approval requests for a flag
-*ApprovalsApi* | [**PostApprovalRequest**](docs/ApprovalsApi.md#postapprovalrequest) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests | Create approval request
-*ApprovalsApi* | [**PostApprovalRequestApplyRequest**](docs/ApprovalsApi.md#postapprovalrequestapplyrequest) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id}/apply | Apply approval request
-*ApprovalsApi* | [**PostApprovalRequestReview**](docs/ApprovalsApi.md#postapprovalrequestreview) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id}/reviews | Review approval request
+*ApprovalsApi* | [**PostApprovalRequestApplyForFlag**](docs/ApprovalsApi.md#postapprovalrequestapplyforflag) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id}/apply | Apply approval request for a flag
+*ApprovalsApi* | [**PostApprovalRequestForFlag**](docs/ApprovalsApi.md#postapprovalrequestforflag) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests | Create approval request for a flag
+*ApprovalsApi* | [**PostApprovalRequestReviewForFlag**](docs/ApprovalsApi.md#postapprovalrequestreviewforflag) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id}/reviews | Review approval request for a flag
 *ApprovalsApi* | [**PostFlagCopyConfigApprovalRequest**](docs/ApprovalsApi.md#postflagcopyconfigapprovalrequest) | **Post** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests-flag-copy | Create approval request to copy flag configurations across environments
+*ApprovalsBetaApi* | [**GetApprovalRequest**](docs/ApprovalsBetaApi.md#getapprovalrequest) | **Get** /api/v2/approval-requests/{id} | Get approval request
+*ApprovalsBetaApi* | [**GetApprovalRequests**](docs/ApprovalsBetaApi.md#getapprovalrequests) | **Get** /api/v2/approval-requests | List approval requests
 *AuditLogApi* | [**GetAuditLogEntries**](docs/AuditLogApi.md#getauditlogentries) | **Get** /api/v2/auditlog | List audit log entries
 *AuditLogApi* | [**GetAuditLogEntry**](docs/AuditLogApi.md#getauditlogentry) | **Get** /api/v2/auditlog/{id} | Get audit log entry
 *CodeReferencesApi* | [**DeleteBranches**](docs/CodeReferencesApi.md#deletebranches) | **Post** /api/v2/code-refs/repositories/{repo}/branch-delete-tasks | Delete branches
@@ -501,12 +503,15 @@ Class | Method | HTTP request | Description
 *CodeReferencesApi* | [**PostExtinction**](docs/CodeReferencesApi.md#postextinction) | **Post** /api/v2/code-refs/repositories/{repo}/branches/{branch}/extinction-events | Create extinction
 *CodeReferencesApi* | [**PostRepository**](docs/CodeReferencesApi.md#postrepository) | **Post** /api/v2/code-refs/repositories | Create repository
 *CodeReferencesApi* | [**PutBranch**](docs/CodeReferencesApi.md#putbranch) | **Put** /api/v2/code-refs/repositories/{repo}/branches/{branch} | Upsert branch
+*ContextSettingsBetaApi* | [**PutContextFlagSetting**](docs/ContextSettingsBetaApi.md#putcontextflagsetting) | **Put** /api/v2/projects/{projectKey}/environments/{environmentKey}/contexts/{contextKind}/{contextKey}/flags/{featureFlagKey} | Update flag settings for context
 *ContextsBetaApi* | [**DeleteContextInstances**](docs/ContextsBetaApi.md#deletecontextinstances) | **Delete** /api/v2/projects/{projectKey}/environments/{environmentKey}/context-instances/{id} | Delete context instances
+*ContextsBetaApi* | [**EvaluateContextInstance**](docs/ContextsBetaApi.md#evaluatecontextinstance) | **Post** /api/v2/projects/{projectKey}/environments/{environmentKey}/flags/evaluate | Evaluate flags for context instance
 *ContextsBetaApi* | [**GetContextAttributeNames**](docs/ContextsBetaApi.md#getcontextattributenames) | **Get** /api/v2/projects/{projectKey}/environments/{environmentKey}/context-attributes | Get context attribute names
 *ContextsBetaApi* | [**GetContextAttributeValues**](docs/ContextsBetaApi.md#getcontextattributevalues) | **Get** /api/v2/projects/{projectKey}/environments/{environmentKey}/context-attributes/{attributeName} | Get context attribute values
 *ContextsBetaApi* | [**GetContextInstances**](docs/ContextsBetaApi.md#getcontextinstances) | **Get** /api/v2/projects/{projectKey}/environments/{environmentKey}/context-instances/{id} | Get context instances
+*ContextsBetaApi* | [**GetContextKindsByProjectKey**](docs/ContextsBetaApi.md#getcontextkindsbyprojectkey) | **Get** /api/v2/projects/{projectKey}/context-kinds | Get context kinds
 *ContextsBetaApi* | [**GetContexts**](docs/ContextsBetaApi.md#getcontexts) | **Get** /api/v2/projects/{projectKey}/environments/{environmentKey}/contexts/{kind}/{key} | Get contexts
-*ContextsBetaApi* | [**PutFlagSettingForContext**](docs/ContextsBetaApi.md#putflagsettingforcontext) | **Put** /api/v2/projects/{projectKey}/environments/{environmentKey}/contexts/{contextKind}/{contextKey}/flags/{featureFlagKey} | Update flag settings for context
+*ContextsBetaApi* | [**PutContextKind**](docs/ContextsBetaApi.md#putcontextkind) | **Put** /api/v2/projects/{projectKey}/context-kinds/{key} | Create or update context kind
 *ContextsBetaApi* | [**SearchContextInstances**](docs/ContextsBetaApi.md#searchcontextinstances) | **Post** /api/v2/projects/{projectKey}/environments/{environmentKey}/context-instances/search | Search for context instances
 *ContextsBetaApi* | [**SearchContexts**](docs/ContextsBetaApi.md#searchcontexts) | **Post** /api/v2/projects/{projectKey}/environments/{environmentKey}/contexts/search | Search for contexts
 *CustomRolesApi* | [**DeleteCustomRole**](docs/CustomRolesApi.md#deletecustomrole) | **Delete** /api/v2/roles/{customRoleKey} | Delete custom role
@@ -587,14 +592,12 @@ Class | Method | HTTP request | Description
 *OtherApi* | [**GetRoot**](docs/OtherApi.md#getroot) | **Get** /api/v2 | Root resource
 *OtherApi* | [**GetVersions**](docs/OtherApi.md#getversions) | **Get** /api/v2/versions | Get version information
 *ProjectsApi* | [**DeleteProject**](docs/ProjectsApi.md#deleteproject) | **Delete** /api/v2/projects/{projectKey} | Delete project
-*ProjectsApi* | [**GetContextKindsByProjectKey**](docs/ProjectsApi.md#getcontextkindsbyprojectkey) | **Get** /api/v2/projects/{projectKey}/context-kinds | Get context kinds
 *ProjectsApi* | [**GetFlagDefaultsByProject**](docs/ProjectsApi.md#getflagdefaultsbyproject) | **Get** /api/v2/projects/{projectKey}/flag-defaults | Get flag defaults for project
 *ProjectsApi* | [**GetProject**](docs/ProjectsApi.md#getproject) | **Get** /api/v2/projects/{projectKey} | Get project
 *ProjectsApi* | [**GetProjects**](docs/ProjectsApi.md#getprojects) | **Get** /api/v2/projects | List projects
 *ProjectsApi* | [**PatchFlagDefaultsByProject**](docs/ProjectsApi.md#patchflagdefaultsbyproject) | **Patch** /api/v2/projects/{projectKey}/flag-defaults | Update flag default for project
 *ProjectsApi* | [**PatchProject**](docs/ProjectsApi.md#patchproject) | **Patch** /api/v2/projects/{projectKey} | Update project
 *ProjectsApi* | [**PostProject**](docs/ProjectsApi.md#postproject) | **Post** /api/v2/projects | Create project
-*ProjectsApi* | [**PutContextKind**](docs/ProjectsApi.md#putcontextkind) | **Put** /api/v2/projects/{projectKey}/context-kinds/{key} | Put context kind
 *ProjectsApi* | [**PutFlagDefaultsByProject**](docs/ProjectsApi.md#putflagdefaultsbyproject) | **Put** /api/v2/projects/{projectKey}/flag-defaults | Create or update flag defaults for project
 *RelayProxyConfigurationsApi* | [**DeleteRelayAutoConfig**](docs/RelayProxyConfigurationsApi.md#deleterelayautoconfig) | **Delete** /api/v2/account/relay-auto-configs/{id} | Delete Relay Proxy config by ID
 *RelayProxyConfigurationsApi* | [**GetRelayProxyConfig**](docs/RelayProxyConfigurationsApi.md#getrelayproxyconfig) | **Get** /api/v2/account/relay-auto-configs/{id} | Get Relay Proxy config
@@ -620,7 +623,6 @@ Class | Method | HTTP request | Description
 *SegmentsBetaApi* | [**CreateBigSegmentImport**](docs/SegmentsBetaApi.md#createbigsegmentimport) | **Post** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/imports | Create Big Segment import
 *SegmentsBetaApi* | [**GetBigSegmentExport**](docs/SegmentsBetaApi.md#getbigsegmentexport) | **Get** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/exports/{exportID} | Get Big Segment export
 *SegmentsBetaApi* | [**GetBigSegmentImport**](docs/SegmentsBetaApi.md#getbigsegmentimport) | **Get** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/imports/{importID} | Get Big Segment import
-*SegmentsBetaApi* | [**GetContextInstanceSegmentsMembershipByEnv**](docs/SegmentsBetaApi.md#getcontextinstancesegmentsmembershipbyenv) | **Post** /api/v2/projects/{projectKey}/environments/{environmentKey}/segments/evaluate | List Segment Memberships for Context Instance
 *TagsApi* | [**GetTags**](docs/TagsApi.md#gettags) | **Get** /api/v2/tags | List tags
 *TeamsApi* | [**DeleteTeam**](docs/TeamsApi.md#deleteteam) | **Delete** /api/v2/teams/{teamKey} | Delete team
 *TeamsApi* | [**GetTeam**](docs/TeamsApi.md#getteam) | **Get** /api/v2/teams/{teamKey} | Get team
@@ -667,6 +669,7 @@ Class | Method | HTTP request | Description
  - [ActionOutput](docs/ActionOutput.md)
  - [ApprovalConditionInput](docs/ApprovalConditionInput.md)
  - [ApprovalConditionOutput](docs/ApprovalConditionOutput.md)
+ - [ApprovalRequestResponse](docs/ApprovalRequestResponse.md)
  - [ApprovalSettings](docs/ApprovalSettings.md)
  - [AuditLogEntryListingRep](docs/AuditLogEntryListingRep.md)
  - [AuditLogEntryListingRepCollection](docs/AuditLogEntryListingRepCollection.md)
@@ -696,10 +699,11 @@ Class | Method | HTTP request | Description
  - [ContextAttributeValue](docs/ContextAttributeValue.md)
  - [ContextAttributeValues](docs/ContextAttributeValues.md)
  - [ContextAttributeValuesCollection](docs/ContextAttributeValuesCollection.md)
+ - [ContextInstanceEvaluation](docs/ContextInstanceEvaluation.md)
+ - [ContextInstanceEvaluationReason](docs/ContextInstanceEvaluationReason.md)
+ - [ContextInstanceEvaluations](docs/ContextInstanceEvaluations.md)
  - [ContextInstanceRecord](docs/ContextInstanceRecord.md)
  - [ContextInstanceSearch](docs/ContextInstanceSearch.md)
- - [ContextInstanceSegmentMembership](docs/ContextInstanceSegmentMembership.md)
- - [ContextInstanceSegmentMemberships](docs/ContextInstanceSegmentMemberships.md)
  - [ContextInstances](docs/ContextInstances.md)
  - [ContextKind](docs/ContextKind.md)
  - [ContextKindRep](docs/ContextKindRep.md)
@@ -738,6 +742,9 @@ Class | Method | HTTP request | Description
  - [Environments](docs/Environments.md)
  - [EvaluationReason](docs/EvaluationReason.md)
  - [ExecutionOutput](docs/ExecutionOutput.md)
+ - [ExpandableApprovalRequestResponse](docs/ExpandableApprovalRequestResponse.md)
+ - [ExpandableApprovalRequestsResponse](docs/ExpandableApprovalRequestsResponse.md)
+ - [ExpandedFlagRep](docs/ExpandedFlagRep.md)
  - [Experiment](docs/Experiment.md)
  - [ExperimentAllocationRep](docs/ExperimentAllocationRep.md)
  - [ExperimentBayesianResultsRep](docs/ExperimentBayesianResultsRep.md)
@@ -902,6 +909,7 @@ Class | Method | HTTP request | Description
  - [SegmentUserList](docs/SegmentUserList.md)
  - [SegmentUserState](docs/SegmentUserState.md)
  - [SeriesListRep](docs/SeriesListRep.md)
+ - [SlicedResultsRep](docs/SlicedResultsRep.md)
  - [SourceEnv](docs/SourceEnv.md)
  - [SourceFlag](docs/SourceFlag.md)
  - [StageInput](docs/StageInput.md)

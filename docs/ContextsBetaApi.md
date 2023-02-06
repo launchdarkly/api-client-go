@@ -5,11 +5,13 @@ All URIs are relative to *https://app.launchdarkly.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**DeleteContextInstances**](ContextsBetaApi.md#DeleteContextInstances) | **Delete** /api/v2/projects/{projectKey}/environments/{environmentKey}/context-instances/{id} | Delete context instances
+[**EvaluateContextInstance**](ContextsBetaApi.md#EvaluateContextInstance) | **Post** /api/v2/projects/{projectKey}/environments/{environmentKey}/flags/evaluate | Evaluate flags for context instance
 [**GetContextAttributeNames**](ContextsBetaApi.md#GetContextAttributeNames) | **Get** /api/v2/projects/{projectKey}/environments/{environmentKey}/context-attributes | Get context attribute names
 [**GetContextAttributeValues**](ContextsBetaApi.md#GetContextAttributeValues) | **Get** /api/v2/projects/{projectKey}/environments/{environmentKey}/context-attributes/{attributeName} | Get context attribute values
 [**GetContextInstances**](ContextsBetaApi.md#GetContextInstances) | **Get** /api/v2/projects/{projectKey}/environments/{environmentKey}/context-instances/{id} | Get context instances
+[**GetContextKindsByProjectKey**](ContextsBetaApi.md#GetContextKindsByProjectKey) | **Get** /api/v2/projects/{projectKey}/context-kinds | Get context kinds
 [**GetContexts**](ContextsBetaApi.md#GetContexts) | **Get** /api/v2/projects/{projectKey}/environments/{environmentKey}/contexts/{kind}/{key} | Get contexts
-[**PutFlagSettingForContext**](ContextsBetaApi.md#PutFlagSettingForContext) | **Put** /api/v2/projects/{projectKey}/environments/{environmentKey}/contexts/{contextKind}/{contextKey}/flags/{featureFlagKey} | Update flag settings for context
+[**PutContextKind**](ContextsBetaApi.md#PutContextKind) | **Put** /api/v2/projects/{projectKey}/context-kinds/{key} | Create or update context kind
 [**SearchContextInstances**](ContextsBetaApi.md#SearchContextInstances) | **Post** /api/v2/projects/{projectKey}/environments/{environmentKey}/context-instances/search | Search for context instances
 [**SearchContexts**](ContextsBetaApi.md#SearchContexts) | **Post** /api/v2/projects/{projectKey}/environments/{environmentKey}/contexts/search | Search for contexts
 
@@ -82,6 +84,89 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## EvaluateContextInstance
+
+> ContextInstanceEvaluations EvaluateContextInstance(ctx, projectKey, environmentKey).RequestBody(requestBody).Limit(limit).Offset(offset).Sort(sort).Filter(filter).Execute()
+
+Evaluate flags for context instance
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    projectKey := "projectKey_example" // string | The project key
+    environmentKey := "environmentKey_example" // string | The environment key
+    requestBody := map[string]interface{}{"key": interface{}(123)} // map[string]interface{} | 
+    limit := int64(789) // int64 | The number of feature flags to return. Defaults to -1, which returns all flags (optional)
+    offset := int64(789) // int64 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
+    sort := "sort_example" // string | A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order (optional)
+    filter := "filter_example" // string | A comma-separated list of filters. Each filter is of the form field:value. Supports the same filters as the List Feature Flags API. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ContextsBetaApi.EvaluateContextInstance(context.Background(), projectKey, environmentKey).RequestBody(requestBody).Limit(limit).Offset(offset).Sort(sort).Filter(filter).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ContextsBetaApi.EvaluateContextInstance``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `EvaluateContextInstance`: ContextInstanceEvaluations
+    fmt.Fprintf(os.Stdout, "Response from `ContextsBetaApi.EvaluateContextInstance`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projectKey** | **string** | The project key | 
+**environmentKey** | **string** | The environment key | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiEvaluateContextInstanceRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **requestBody** | **map[string]interface{}** |  | 
+ **limit** | **int64** | The number of feature flags to return. Defaults to -1, which returns all flags | 
+ **offset** | **int64** | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | 
+ **sort** | **string** | A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order | 
+ **filter** | **string** | A comma-separated list of filters. Each filter is of the form field:value. Supports the same filters as the List Feature Flags API. | 
+
+### Return type
+
+[**ContextInstanceEvaluations**](ContextInstanceEvaluations.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -244,7 +329,7 @@ Name | Type | Description  | Notes
 
 ## GetContextInstances
 
-> ContextInstances GetContextInstances(ctx, projectKey, environmentKey, id).Limit(limit).ContinuationToken(continuationToken).Sort(sort).Filter(filter).Execute()
+> ContextInstances GetContextInstances(ctx, projectKey, environmentKey, id).Limit(limit).ContinuationToken(continuationToken).Sort(sort).Filter(filter).IncludeTotalCount(includeTotalCount).Execute()
 
 Get context instances
 
@@ -270,10 +355,11 @@ func main() {
     continuationToken := "continuationToken_example" // string | Limits results to context instances with sort values after the value specified. You can use this for pagination, however, we recommend using the `next` link we provide instead. (optional)
     sort := "sort_example" // string | Specifies a field by which to sort. LaunchDarkly supports sorting by timestamp in ascending order by specifying `ts` for this value, or descending order by specifying `-ts`. (optional)
     filter := "filter_example" // string | A comma-separated list of context filters. This endpoint only accepts an `applicationId` filter. To learn more about the filter syntax, read [Filtering contexts and context instances](/tag/Contexts-(beta)#filtering-contexts-and-context-instances). (optional)
+    includeTotalCount := true // bool | Specifies whether to include or omit the total count of matching context instances. Defaults to true. (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ContextsBetaApi.GetContextInstances(context.Background(), projectKey, environmentKey, id).Limit(limit).ContinuationToken(continuationToken).Sort(sort).Filter(filter).Execute()
+    resp, r, err := apiClient.ContextsBetaApi.GetContextInstances(context.Background(), projectKey, environmentKey, id).Limit(limit).ContinuationToken(continuationToken).Sort(sort).Filter(filter).IncludeTotalCount(includeTotalCount).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ContextsBetaApi.GetContextInstances``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -307,6 +393,7 @@ Name | Type | Description  | Notes
  **continuationToken** | **string** | Limits results to context instances with sort values after the value specified. You can use this for pagination, however, we recommend using the &#x60;next&#x60; link we provide instead. | 
  **sort** | **string** | Specifies a field by which to sort. LaunchDarkly supports sorting by timestamp in ascending order by specifying &#x60;ts&#x60; for this value, or descending order by specifying &#x60;-ts&#x60;. | 
  **filter** | **string** | A comma-separated list of context filters. This endpoint only accepts an &#x60;applicationId&#x60; filter. To learn more about the filter syntax, read [Filtering contexts and context instances](/tag/Contexts-(beta)#filtering-contexts-and-context-instances). | 
+ **includeTotalCount** | **bool** | Specifies whether to include or omit the total count of matching context instances. Defaults to true. | 
 
 ### Return type
 
@@ -326,9 +413,79 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## GetContextKindsByProjectKey
+
+> ContextKindsCollectionRep GetContextKindsByProjectKey(ctx, projectKey).Execute()
+
+Get context kinds
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    projectKey := "projectKey_example" // string | The project key
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ContextsBetaApi.GetContextKindsByProjectKey(context.Background(), projectKey).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ContextsBetaApi.GetContextKindsByProjectKey``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetContextKindsByProjectKey`: ContextKindsCollectionRep
+    fmt.Fprintf(os.Stdout, "Response from `ContextsBetaApi.GetContextKindsByProjectKey`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projectKey** | **string** | The project key | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetContextKindsByProjectKeyRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**ContextKindsCollectionRep**](ContextKindsCollectionRep.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetContexts
 
-> Contexts GetContexts(ctx, projectKey, environmentKey, kind, key).Limit(limit).ContinuationToken(continuationToken).Sort(sort).Filter(filter).Execute()
+> Contexts GetContexts(ctx, projectKey, environmentKey, kind, key).Limit(limit).ContinuationToken(continuationToken).Sort(sort).Filter(filter).IncludeTotalCount(includeTotalCount).Execute()
 
 Get contexts
 
@@ -355,10 +512,11 @@ func main() {
     continuationToken := "continuationToken_example" // string | Limits results to contexts with sort values after the value specified. You can use this for pagination, however, we recommend using the `next` link we provide instead. (optional)
     sort := "sort_example" // string | Specifies a field by which to sort. LaunchDarkly supports sorting by timestamp in ascending order by specifying `ts` for this value, or descending order by specifying `-ts`. (optional)
     filter := "filter_example" // string | A comma-separated list of context filters. This endpoint only accepts an `applicationId` filter. To learn more about the filter syntax, read [Filtering contexts and context instances](/tag/Contexts-(beta)#filtering-contexts-and-context-instances). (optional)
+    includeTotalCount := true // bool | Specifies whether to include or omit the total count of matching contexts. Defaults to true. (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ContextsBetaApi.GetContexts(context.Background(), projectKey, environmentKey, kind, key).Limit(limit).ContinuationToken(continuationToken).Sort(sort).Filter(filter).Execute()
+    resp, r, err := apiClient.ContextsBetaApi.GetContexts(context.Background(), projectKey, environmentKey, kind, key).Limit(limit).ContinuationToken(continuationToken).Sort(sort).Filter(filter).IncludeTotalCount(includeTotalCount).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ContextsBetaApi.GetContexts``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -394,6 +552,7 @@ Name | Type | Description  | Notes
  **continuationToken** | **string** | Limits results to contexts with sort values after the value specified. You can use this for pagination, however, we recommend using the &#x60;next&#x60; link we provide instead. | 
  **sort** | **string** | Specifies a field by which to sort. LaunchDarkly supports sorting by timestamp in ascending order by specifying &#x60;ts&#x60; for this value, or descending order by specifying &#x60;-ts&#x60;. | 
  **filter** | **string** | A comma-separated list of context filters. This endpoint only accepts an &#x60;applicationId&#x60; filter. To learn more about the filter syntax, read [Filtering contexts and context instances](/tag/Contexts-(beta)#filtering-contexts-and-context-instances). | 
+ **includeTotalCount** | **bool** | Specifies whether to include or omit the total count of matching contexts. Defaults to true. | 
 
 ### Return type
 
@@ -413,11 +572,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PutFlagSettingForContext
+## PutContextKind
 
-> PutFlagSettingForContext(ctx, projectKey, environmentKey, contextKind, contextKey, featureFlagKey).ValuePut(valuePut).Execute()
+> UpsertResponseRep PutContextKind(ctx, projectKey, key).UpsertContextKindPayload(upsertContextKindPayload).Execute()
 
-Update flag settings for context
+Create or update context kind
 
 
 
@@ -435,19 +594,18 @@ import (
 
 func main() {
     projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    contextKind := "contextKind_example" // string | The context kind
-    contextKey := "contextKey_example" // string | The context key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
-    valuePut := *openapiclient.NewValuePut() // ValuePut | 
+    key := "key_example" // string | The context kind key
+    upsertContextKindPayload := *openapiclient.NewUpsertContextKindPayload() // UpsertContextKindPayload | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ContextsBetaApi.PutFlagSettingForContext(context.Background(), projectKey, environmentKey, contextKind, contextKey, featureFlagKey).ValuePut(valuePut).Execute()
+    resp, r, err := apiClient.ContextsBetaApi.PutContextKind(context.Background(), projectKey, key).UpsertContextKindPayload(upsertContextKindPayload).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ContextsBetaApi.PutFlagSettingForContext``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ContextsBetaApi.PutContextKind``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
+    // response from `PutContextKind`: UpsertResponseRep
+    fmt.Fprintf(os.Stdout, "Response from `ContextsBetaApi.PutContextKind`: %v\n", resp)
 }
 ```
 
@@ -458,28 +616,22 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **projectKey** | **string** | The project key | 
-**environmentKey** | **string** | The environment key | 
-**contextKind** | **string** | The context kind | 
-**contextKey** | **string** | The context key | 
-**featureFlagKey** | **string** | The feature flag key | 
+**key** | **string** | The context kind key | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPutFlagSettingForContextRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPutContextKindRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
-
-
-
- **valuePut** | [**ValuePut**](ValuePut.md) |  | 
+ **upsertContextKindPayload** | [**UpsertContextKindPayload**](UpsertContextKindPayload.md) |  | 
 
 ### Return type
 
- (empty response body)
+[**UpsertResponseRep**](UpsertResponseRep.md)
 
 ### Authorization
 
@@ -497,7 +649,7 @@ Name | Type | Description  | Notes
 
 ## SearchContextInstances
 
-> ContextInstances SearchContextInstances(ctx, projectKey, environmentKey).ContextInstanceSearch(contextInstanceSearch).Limit(limit).ContinuationToken(continuationToken).Sort(sort).Filter(filter).Execute()
+> ContextInstances SearchContextInstances(ctx, projectKey, environmentKey).ContextInstanceSearch(contextInstanceSearch).Limit(limit).ContinuationToken(continuationToken).Sort(sort).Filter(filter).IncludeTotalCount(includeTotalCount).Execute()
 
 Search for context instances
 
@@ -523,10 +675,11 @@ func main() {
     continuationToken := "continuationToken_example" // string | Limits results to context instances with sort values after the value specified. You can use this for pagination, however, we recommend using the `next` link we provide instead. (optional)
     sort := "sort_example" // string | Specifies a field by which to sort. LaunchDarkly supports sorting by timestamp in ascending order by specifying `ts` for this value, or descending order by specifying `-ts`. (optional)
     filter := "filter_example" // string | A comma-separated list of context filters. This endpoint only accepts an `applicationId` filter. To learn more about the filter syntax, read [Filtering contexts and context instances](/tag/Contexts-(beta)#filtering-contexts-and-context-instances). (optional)
+    includeTotalCount := true // bool | Specifies whether to include or omit the total count of matching context instances. Defaults to true. (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ContextsBetaApi.SearchContextInstances(context.Background(), projectKey, environmentKey).ContextInstanceSearch(contextInstanceSearch).Limit(limit).ContinuationToken(continuationToken).Sort(sort).Filter(filter).Execute()
+    resp, r, err := apiClient.ContextsBetaApi.SearchContextInstances(context.Background(), projectKey, environmentKey).ContextInstanceSearch(contextInstanceSearch).Limit(limit).ContinuationToken(continuationToken).Sort(sort).Filter(filter).IncludeTotalCount(includeTotalCount).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ContextsBetaApi.SearchContextInstances``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -559,6 +712,7 @@ Name | Type | Description  | Notes
  **continuationToken** | **string** | Limits results to context instances with sort values after the value specified. You can use this for pagination, however, we recommend using the &#x60;next&#x60; link we provide instead. | 
  **sort** | **string** | Specifies a field by which to sort. LaunchDarkly supports sorting by timestamp in ascending order by specifying &#x60;ts&#x60; for this value, or descending order by specifying &#x60;-ts&#x60;. | 
  **filter** | **string** | A comma-separated list of context filters. This endpoint only accepts an &#x60;applicationId&#x60; filter. To learn more about the filter syntax, read [Filtering contexts and context instances](/tag/Contexts-(beta)#filtering-contexts-and-context-instances). | 
+ **includeTotalCount** | **bool** | Specifies whether to include or omit the total count of matching context instances. Defaults to true. | 
 
 ### Return type
 
@@ -580,7 +734,7 @@ Name | Type | Description  | Notes
 
 ## SearchContexts
 
-> Contexts SearchContexts(ctx, projectKey, environmentKey).ContextSearch(contextSearch).Limit(limit).ContinuationToken(continuationToken).Sort(sort).Filter(filter).Execute()
+> Contexts SearchContexts(ctx, projectKey, environmentKey).ContextSearch(contextSearch).Limit(limit).ContinuationToken(continuationToken).Sort(sort).Filter(filter).IncludeTotalCount(includeTotalCount).Execute()
 
 Search for contexts
 
@@ -606,10 +760,11 @@ func main() {
     continuationToken := "continuationToken_example" // string | Limits results to contexts with sort values after the value specified. You can use this for pagination, however, we recommend using the `next` link we provide instead. (optional)
     sort := "sort_example" // string | Specifies a field by which to sort. LaunchDarkly supports sorting by timestamp in ascending order by specifying `ts` for this value, or descending order by specifying `-ts`. (optional)
     filter := "filter_example" // string | A comma-separated list of context filters. To learn more about the filter syntax, read [Filtering contexts and context instances](/tag/Contexts-(beta)#filtering-contexts-and-context-instances). (optional)
+    includeTotalCount := true // bool | Specifies whether to include or omit the total count of matching contexts. Defaults to true. (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ContextsBetaApi.SearchContexts(context.Background(), projectKey, environmentKey).ContextSearch(contextSearch).Limit(limit).ContinuationToken(continuationToken).Sort(sort).Filter(filter).Execute()
+    resp, r, err := apiClient.ContextsBetaApi.SearchContexts(context.Background(), projectKey, environmentKey).ContextSearch(contextSearch).Limit(limit).ContinuationToken(continuationToken).Sort(sort).Filter(filter).IncludeTotalCount(includeTotalCount).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ContextsBetaApi.SearchContexts``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -642,6 +797,7 @@ Name | Type | Description  | Notes
  **continuationToken** | **string** | Limits results to contexts with sort values after the value specified. You can use this for pagination, however, we recommend using the &#x60;next&#x60; link we provide instead. | 
  **sort** | **string** | Specifies a field by which to sort. LaunchDarkly supports sorting by timestamp in ascending order by specifying &#x60;ts&#x60; for this value, or descending order by specifying &#x60;-ts&#x60;. | 
  **filter** | **string** | A comma-separated list of context filters. To learn more about the filter syntax, read [Filtering contexts and context instances](/tag/Contexts-(beta)#filtering-contexts-and-context-instances). | 
+ **includeTotalCount** | **bool** | Specifies whether to include or omit the total count of matching contexts. Defaults to true. | 
 
 ### Return type
 

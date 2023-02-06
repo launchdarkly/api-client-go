@@ -9,8 +9,8 @@ Name | Type | Description | Notes
 **Tags** | **[]string** | Tags for the segment. Defaults to an empty array. | 
 **CreationDate** | **int64** |  | 
 **Key** | **string** | A unique key used to reference the segment | 
-**Included** | Pointer to **[]string** | An array of user keys for included users. Included users are always segment members, regardless of segment rules. For Big Segments this array is either empty or omitted. | [optional] 
-**Excluded** | Pointer to **[]string** | An array of user keys for excluded users. Segment rules bypass excluded users, so they will never be included based on rules. Excluded users may still be included explicitly. This value is omitted for Big Segments. | [optional] 
+**Included** | Pointer to **[]string** | An array of keys for included targets. Included individual targets are always segment members, regardless of segment rules. For Big Segments this array is either empty or omitted. | [optional] 
+**Excluded** | Pointer to **[]string** | An array of keys for excluded targets. Segment rules bypass individual excluded targets, so they will never be included based on rules. Excluded targets may still be included explicitly. This value is omitted for Big Segments. | [optional] 
 **IncludedContexts** | Pointer to [**[]SegmentTarget**](SegmentTarget.md) |  | [optional] 
 **ExcludedContexts** | Pointer to [**[]SegmentTarget**](SegmentTarget.md) |  | [optional] 
 **Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 

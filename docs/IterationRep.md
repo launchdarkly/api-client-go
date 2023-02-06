@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **EndedAt** | Pointer to **int64** |  | [optional] 
 **WinningTreatmentId** | Pointer to **string** | The ID of the treatment with the probability to be best | [optional] 
 **WinningReason** | Pointer to **string** | The reason you stopped the experiment | [optional] 
-**CanReshuffleTraffic** | Pointer to **bool** | Whether the experiment is allowed to reassign users to different variations (true) or must keep users assigned to their initial variation (false). | [optional] 
+**CanReshuffleTraffic** | Pointer to **bool** | Whether the experiment can reassign traffic to different variations when you increase or decrease the traffic in your experiment audience (true) or keep all traffic assigned to its initial variation (false). | [optional] 
 **Flags** | Pointer to [**map[string]FlagRep**](FlagRep.md) | Details on the flag used in this experiment | [optional] 
 **PrimaryMetric** | Pointer to [**MetricV2Rep**](MetricV2Rep.md) |  | [optional] 
 **Treatments** | Pointer to [**[]TreatmentRep**](TreatmentRep.md) | Details on the variations you are testing in the experiment | [optional] 

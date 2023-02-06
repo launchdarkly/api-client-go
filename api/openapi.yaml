@@ -327,8 +327,8 @@ info:
     \ now defaults to sending summaries of feature flag configurations, equivalent\
     \ to setting the query parameter `summary=true`. Summaries omit flag targeting\
     \ rules and individual user targets from the payload. </li><li> Added endpoints\
-    \ for flags, flag status, projects, environments, users, audit logs, members,\
-    \ users, custom roles, segments, usage, streams, events, and data export. </li></ul>\
+    \ for flags, flag status, projects, environments, audit logs, members, users,\
+    \ custom roles, segments, usage, streams, events, and data export. </li></ul>\
     \ | 2022-07-29 |\n| `20160426` | <ul><li>Initial versioning of API. Tokens created\
     \ before versioning have their version set to this.</li></ul> | 2020-12-12 |\n"
   license:
@@ -412,6 +412,12 @@ tags:
     \ and [Get workflows](/tag/Workflows-(beta)#operation/getWorkflows) responses.\
     \ It is the `_id` field, or the `_id` field of each element in the `items` array.\n"
   name: Approvals
+- description: "> ### This feature is in beta\n>\n> To use this feature, pass in a\
+    \ header including the `LD-API-Version` key with value set to `beta`. Use this\
+    \ header with each call. To learn more, read [Beta resources](/#section/Overview/Beta-resources).\n\
+    >\n> Resources that are in beta are still undergoing testing and development.\
+    \ They may change without notice, including becoming backwards incompatible.\n"
+  name: Approvals (beta)
 - description: "The audit log contains a record of all the changes made to any resource\
     \ in the system. You can filter the audit log by timestamps, or use a custom policy\
     \ to select which entries to receive.\n\nSeveral of the endpoints in the audit\
@@ -463,41 +469,44 @@ tags:
     \ or [context instances](/tag/Contexts-(beta)#operation/searchContextInstances),\
     \ you can filter on certain fields using the `filter` parameter either as a query\
     \ parameter or as a request body parameter.\n\nThe `filter` parameter supports\
-    \ the following operators: `equals`, `anyOf`, `contains`, `startsWith`, `dateRange`,\
-    \ `notEquals`.\n\n<details>\n<summary>Expand for details on operators and syntax</summary>\n\
-    \n#### equals\n\nReturns contexts or context instances if there is an exact match\
-    \ on the entire field. You can use a `:` to indicate the value, or a JSON object\
-    \ with the field `equals` whose value is the value you want to match. For example:\n\
-    \n* `myField:44`, `myField:{\"equals\":44}`\n* `myField:\"device\"`, `myField:{\"\
-    equals\":\"device\"}`\n* `myField:true`, `myField:{\"equals\":true}`\n* `myField:[1,2,3,4]`,\
-    \ `myField:{\"equals\":[1,2,3,4]}`\n* `myField:[\"hello\",\"goodbye\"]`, `myField:{\"\
-    equals\":[\"hello\",\"goodbye\"]}`\n\n#### anyOf\n\nReturns contexts or context\
-    \ instances if any of the values in a field match any of the values in the match\
-    \ value. For example:\n\n* `myField:{\"anyOf\":[44]}`\n* `myField:{\"anyOf\":[\"\
-    phone\",\"tablet\"]}`\n* `myField:{\"anyOf:[true]\"}`\n\n#### contains\n\nReturns\
-    \ contexts or context instances if all the match values are found in the list\
-    \ of values in this field. For example:\n\n* `myListField:{\"contains\":44}`\n\
-    * `myListField:{\"contains\":[\"phone\",\"tablet\"]}`\n* `myListField:{\"contains\"\
-    :true}`\n\n#### startsWith\n\nReturns contexts or context instances if the value\
-    \ in a field, which should be a singular string, begins with the provided substring.\
-    \ For example:\n\n* `myField:{\"startsWith\":\"do\"}`\n\n<!--\n#### numericRange\n\
+    \ the following operators: `equals`, `anyOf`, `contains`, `startsWith`, `lte`,\
+    \ `gte`, `before`, `after`, `notEquals`.\n\n<details>\n<summary>Expand for details\
+    \ on operators and syntax</summary>\n\n#### equals\n\nReturns contexts or context\
+    \ instances if there is an exact match on the entire field. For example:\n\n*\
+    \ `myField equals 44`\n* `myField equals \"device\"`\n* `myField equals true`\n\
+    * `myField equals [1,2,3,4]`\n* `myField equals [\"hello\",\"goodbye\"]`\n\n####\
+    \ anyOf\n\nReturns contexts or context instances if any of the values in a field\
+    \ match any of the values in the match value. For example:\n\n* `myField anyOf\
+    \ [44]`\n* `myField anyOf [\"phone\",\"tablet\"]`\n* `myField anyOf [true]\"`\n\
+    \n#### contains\n\nReturns contexts or context instances if all the match values\
+    \ are found in the list of values in this field. For example:\n\n* `myListField\
+    \ contains 44`\n* `myListField contains [\"phone\",\"tablet\"]`\n* `myListField\
+    \ contains true`\n\n#### startsWith\n\nReturns contexts or context instances if\
+    \ the value in a field, which should be a singular string, begins with the provided\
+    \ substring. For example:\n\n* `myField startsWith \"do\"`\n\n#### gte\n\nReturns\
+    \ contexts or context instances if any of the values in a field, which should\
+    \ be numbers, are greater than or equal to the provided number. For example:\n\
+    \n* `myField gte 44` returns when `myField` is greater than or equal to 44\n\n\
+    #### lte\n\nReturns contexts or context instances if any of the values in a field,\
+    \ which should be numbers, are less than or equal to the provided number. For\
+    \ example:\n\n* `myField lte 44` returns when `myField` is less than or equal\
+    \ to 44\n\n#### before\n\nReturns contexts or context instances if any of the\
+    \ values in a field, which should be dates, are before the provided time. For\
+    \ example:\n\n* `myField before \"2022-09-21T19:03:15+00:00\"`\n\n#### after\n\
     \nReturns contexts or context instances if any of the values in a field, which\
-    \ should be numbers, are within the provided range. You must include either `min`\
-    \ or `max`, and can include both. They are both inclusive. For example:\n\n* `myField:{\"\
-    min\":44}` returns when `myField` is greater than or equal to 44\n* `myField:{\"\
-    max\":55}` returns when `myField` is less than or equal to 55\n* `myField:{\"\
-    min\":44,\"max\":55}` returns when `myField` is between 44 and 55, inclusive\n\
-    -->\n\n#### dateRange\n\nReturns contexts or context instances if any of the values\
-    \ in a field, which should be dates, are within the provided range. You must include\
-    \ either `before` or `after`, and can include both. They are both inclusive. For\
-    \ example:\n\n* `myField:{\"before\":\"2022-09-21T19:03:15+00:00\"}`\n* `myField:{\"\
-    after\":\"2022-09-21T19:03:15+00:00\"}`\n* `myfield:{\"after\":\"2022-09-21T19:03:15+00:00\"\
-    ,\"before\":\"2022-09-22T19:03:15+00:00\"}`\n\n#### notEquals\n\nReturns contexts\
-    \ or context instances if there is not an exact match on the entire field. For\
-    \ example:\n\n* `myField:{\"notEquals\":44}`\n* `myField:{\"notEquals\":\"device\"\
-    }`\n* `myField:{\"notEquals\":true}`\n* `myField:{\"notEquals\":[1,2,3,4]}`\n\
-    * `myField:{\"notEquals\":[\"hello\",\"goodbye\"]}`\n\n</details>\n\n#### Supported\
-    \ fields and operators\n\nYou can only filter certain fields in contexts and context\
+    \ should be dates, are after the provided time. For example:\n\n* `myField after\
+    \ \"2022-09-21T19:03:15+00:00\"`\n\n#### notEquals\n\nReturns contexts or context\
+    \ instances if there is not an exact match on the entire field. For example:\n\
+    \n* `myField notEquals 44`\n* `myField notEquals \"device\"`\n* `myField notEquals\
+    \ true`\n* `myField notEquals [1,2,3,4]`\n* `myField notEquals [\"hello\",\"goodbye\"\
+    ]`\n\n</details>\n\nYou can also combine filters in the following ways:\n\n* Use\
+    \ a comma (`,`) as an AND operator\n* Use a vertical bar (`|`) as an OR operator\n\
+    * Use parentheses `()` to group filters\n\nFor example:\n\n* `myField gte 5, myField\
+    \ lte 10` returns contexts or context instances where `myField` is greater than\
+    \ or equal to 5 and also less than or equal to 10\n* `myField equals 20|(myfield\
+    \ gte 5, myfield lte 10 )` returns contexts or context instances where `myField`\
+    \ is either equal to 20 or is between 5 and 10, inclusive\n\n#### Supported fields\
+    \ and operators\n\nYou can only filter certain fields in contexts and context\
     \ instances when using the `filter` parameter. Additionally, you can only filter\
     \ some fields with certain operators.\n\nWhen you search for [contexts]((/tag/Contexts-(beta)#operation/searchContexts)),\
     \ the `filter` parameter supports the following fields and operators:\n\n|<div\
@@ -522,8 +531,9 @@ tags:
     \ the attribute. If you use a JSON path, then you must escape the `/` character,\
     \ using `~1`, and the `~` character, using `~0`. For example, use `user.job/title`\
     \ or `user./job~1title` to filter the `/job/title` field in a user context kind.\
-    \ |`equals`, `notEquals`, `startsWith`, `dateRange`.|\n\n\nWhen searching for\
-    \ [context instances](/tag/Contexts-(beta)#operation/searchContextInstances),\
+    \ If the field or value includes whitespace, it should be enclosed in double quotes.\
+    \ |`equals`, `notEquals`, `startsWith`, `before`, `after`.|\n\nWhen searching\
+    \ for [context instances](/tag/Contexts-(beta)#operation/searchContextInstances),\
     \ the `filter` parameter supports the following fields and operators\n\n|<div\
     \ style=\"width:120px\">Field</div> |Description |Supported operators |\n|---|---|---|\n\
     |`applicationId` |An identifier representing the application where the LaunchDarkly\
@@ -999,46 +1009,49 @@ tags:
     \ to it that allows shared access to those roles for all team members. To learn\
     \ more, read [Teams](https://docs.launchdarkly.com/home/teams).\n"
   name: Teams (beta)
-- description: "LaunchDarkly creates a record for each user passed in to `variation`\
-    \ calls. This record powers the autocomplete functionality on the feature flag\
-    \ dashboard, as well as the Users page. To learn more, read [Users and user segments](https://docs.launchdarkly.com/home/users)\n\
+- description: "> ### Contexts are now available\n>\n> After you have upgraded your\
+    \ LaunchDarkly SDK to use contexts instead of users, you should use [Contexts\
+    \ (beta)](/tag/Contexts-(beta)) instead of these endpoints. To learn more, read\
+    \ [Contexts](https://docs.launchdarkly.com/home/contexts).\n\n\nLaunchDarkly creates\
+    \ a record for each user passed in to `variation` calls. This record powers the\
+    \ autocomplete functionality on the feature flag dashboard, as well as the Users\
+    \ page. To learn more, read [Users and user segments](https://docs.launchdarkly.com/home/users).\n\
     \nLaunchDarkly also offers an API that lets you tap into this data. You can use\
     \ the users API to see what user data is available to LaunchDarkly, as well as\
     \ determine which flag values a user will receive. You can also explicitly set\
     \ which flag value a user will receive via this API.\n\nUsers are always scoped\
     \ within a project and environment. In other words, each environment has its own\
-    \ set of user records.\n\n> ### Contexts are now available\n>\n> After you have\
-    \ upgraded your LaunchDarkly SDK to use contexts instead of users, you should\
-    \ use [Contexts (beta)](/tag/Contexts-(beta)) instead of these endpoints. To learn\
-    \ more, read [Contexts](https://docs.launchdarkly.com/home/contexts).\n"
+    \ set of user records.\n"
   name: Users
-- description: "> ### This feature is in beta\n>\n> To use this feature, pass in a\
-    \ header including the `LD-API-Version` key with value set to `beta`. Use this\
-    \ header with each call. To learn more, read [Beta resources](/#section/Overview/Beta-resources).\n\
-    >\n> Resources that are in beta are still undergoing testing and development.\
-    \ They may change without notice, including becoming backwards incompatible.\n\
-    \nLaunchDarkly creates a record for each user passed in to `variation` calls.\
-    \ This record powers the autocomplete functionality on the feature flag dashboard,\
-    \ as well as the Users page. To learn more, read [Users and user segments](https://docs.launchdarkly.com/home/users)\n\
+- description: "> ### Contexts are now available\n>\n> After you have upgraded your\
+    \ LaunchDarkly SDK to use contexts instead of users, you should use [Contexts\
+    \ (beta)](/tag/Contexts-(beta)) instead of these endpoints. To learn more, read\
+    \ [Contexts](https://docs.launchdarkly.com/home/contexts).\n\n> ### This feature\
+    \ is in beta\n>\n> To use this feature, pass in a header including the `LD-API-Version`\
+    \ key with value set to `beta`. Use this header with each call. To learn more,\
+    \ read [Beta resources](/#section/Overview/Beta-resources).\n>\n> Resources that\
+    \ are in beta are still undergoing testing and development. They may change without\
+    \ notice, including becoming backwards incompatible.\n\nLaunchDarkly creates a\
+    \ record for each user passed in to `variation` calls. This record powers the\
+    \ autocomplete functionality on the feature flag dashboard, as well as the Users\
+    \ page. To learn more, read [Users and user segments](https://docs.launchdarkly.com/home/users)\n\
     \nLaunchDarkly also offers an API that lets you access this data. You can use\
     \ the users API to see what user data is available to LaunchDarkly, as well as\
     \ determine which flag values a user will receive. You can also explicitly set\
     \ which flag value a user will receive with this API.\n\nUsers are always scoped\
     \ within both a project and an environment. Each environment has its own set of\
-    \ user records.\n\n> ### Contexts are now available\n>\n> After you have upgraded\
-    \ your LaunchDarkly SDK to use contexts instead of users, you should use [Contexts\
-    \ (beta)](/tag/Contexts-(beta)) instead of these endpoints. To learn more, read\
-    \ [Contexts](https://docs.launchdarkly.com/home/contexts).\n"
+    \ user records.\n"
   name: Users (beta)
-- description: "LaunchDarkly's user settings API provides a picture of all feature\
-    \ flags and their current values for a specific user. This gives you instant visibility\
-    \ into how a particular user experiences your site or application. To learn more,\
-    \ read [Viewing and managing users](https://docs.launchdarkly.com/home/users/attributes#viewing-and-managing-users).\n\
+- description: "> ### Contexts are now available\n>\n> After you have upgraded your\
+    \ LaunchDarkly SDK to use contexts instead of users, you should use [Contexts\
+    \ (beta)](/tag/Contexts-(beta)) instead of the user settings API. To learn more,\
+    \ read [Contexts](https://docs.launchdarkly.com/home/contexts).\n\nLaunchDarkly's\
+    \ user settings API provides a picture of all feature flags and their current\
+    \ values for a specific user. This gives you instant visibility into how a particular\
+    \ user experiences your site or application. To learn more, read [Viewing and\
+    \ managing users](https://docs.launchdarkly.com/home/users/attributes#viewing-and-managing-users).\n\
     \nYou can also use the user settings API to assign a user to a specific variation\
-    \ for any feature flag.\n\n> ### Contexts are now available\n>\n> After you have\
-    \ upgraded your LaunchDarkly SDK to use contexts instead of users, you should\
-    \ use [Contexts (beta)](/tag/Contexts-(beta)) instead of the user settings API.\
-    \ To learn more, read [Contexts](https://docs.launchdarkly.com/home/contexts).\n"
+    \ for any feature flag.\n"
   name: User settings
 - description: "The webhooks API lets you build your own integrations that subscribe\
     \ to activities in LaunchDarkly. When you generate an activity in LaunchDarkly,\
@@ -1463,6 +1476,192 @@ paths:
       summary: Reset Relay Proxy configuration key
       tags:
       - Relay Proxy configurations
+  /api/v2/approval-requests:
+    get:
+      description: "Get all approval requests.\n\n### Filtering approvals\n\nLaunchDarkly\
+        \ supports the `filter` query param for filtering, with the following fields:\n\
+        \n- `notifyMemberIds` filters for only approvals that are assigned to a member\
+        \ in the specified list. For example: `filter=notifyMemberIds anyOf [\"memberId1\"\
+        , \"memberId2\"]`.\n- `requestorId` filters for only approvals that correspond\
+        \ to the ID of the member who requested the approval. For example: `filter=requestorId\
+        \ equals 457034721476302714390214`.\n- `projectKey` filters for only approvals\
+        \ that correspond to the specified project key. For example: `filter=projectKey\
+        \ equals my-project`.\n- `reviewStatus` filters for only approvals which correspond\
+        \ to the review status in the specified list. The possible values are `approved`,\
+        \ `declined`, and `pending`. For example: `filter=reviewStatus anyOf [\"pending\"\
+        , \"approved\"]`.\n- `status` filters for only approvals which correspond\
+        \ to the status in the specified list. The possible values are `pending`,\
+        \ `scheduled`, and `completed`. For example: `filter=status anyOf [\"pending\"\
+        , \"scheduled\"]`.\n\nYou can also apply multiple filters at once. For example,\
+        \ setting `filter=projectKey equals my-project, reviewStatus anyOf [\"pending\"\
+        ,\"approved\"]` matches approval requests which correspond to the `my-project`\
+        \ project key, and a review status of either `pending` or `approved`.\n\n\
+        ### Expanding approval response\n\nLaunchDarkly supports the `expand` query\
+        \ param to include additional fields in the response, with the following fields:\n\
+        \n- `flag` includes the flag the approval request belongs to\n- `project`\
+        \ includes the project the approval request belongs to\n- `environment` includes\
+        \ the environment the approval request belongs to\n\nFor example, `expand=project,flag`\
+        \ includes the `project` and `flag` fields in the response.\n"
+      operationId: getApprovalRequests
+      parameters:
+      - description: A comma-separated list of filters. Each filter is of the form
+          `field operator value`. Supported fields are explained above.
+        explode: true
+        in: query
+        name: filter
+        required: false
+        schema:
+          description: A comma-separated list of filters. Each filter is of the form
+            `field operator value`. Supported fields are explained above.
+          format: string
+          type: string
+        style: form
+      - description: A comma-separated list of fields the user wants to expand in
+          the response. Supported fields are explained above.
+        explode: true
+        in: query
+        name: expand
+        required: false
+        schema:
+          description: A comma-separated list of fields the user wants to expand in
+            the response. Supported fields are explained above.
+          format: string
+          type: string
+        style: form
+      - description: "The number of approvals to return. Defaults to -1, which returns\
+          \ all approvals."
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          description: "The number of approvals to return. Defaults to -1, which returns\
+            \ all approvals."
+          format: int64
+          type: integer
+        style: form
+      - description: "Where to start in the list. Use this with pagination. For example,\
+          \ an offset of 10 skips the first ten items and then returns the next items\
+          \ in the list, up to the query `limit`."
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          description: "Where to start in the list. Use this with pagination. For\
+            \ example, an offset of 10 skips the first ten items and then returns\
+            \ the next items in the list, up to the query `limit`."
+          format: int64
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExpandableApprovalRequestsResponse'
+          description: Approval request collection response
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequestErrorRep'
+          description: "Unsupported filter field. Filter field must be one of: requestorId,\
+            \ projectKey, notifyMemberIds, reviewStatus, or status"
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedErrorRep'
+          description: Invalid access token
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenErrorRep'
+          description: Forbidden
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitedErrorRep'
+          description: Rate limited
+      summary: List approval requests
+      tags:
+      - Approvals (beta)
+  /api/v2/approval-requests/{id}:
+    get:
+      description: "Get an approval request by approval request ID.\n\n### Expanding\
+        \ approval response\n\nLaunchDarkly supports the `expand` query param to include\
+        \ additional fields in the response, with the following fields:\n\n- `flag`\
+        \ includes the flag the approval request belongs to\n- `project` includes\
+        \ the project the approval request belongs to\n- `environment` includes the\
+        \ environment the approval request belongs to\n\nFor example, `expand=project,flag`\
+        \ includes the `project` and `flag` fields in the response.\n"
+      operationId: getApprovalRequest
+      parameters:
+      - description: The approval request ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          description: The approval request ID
+          format: string
+          type: string
+        style: simple
+      - description: A comma-separated list of fields to expand in the response. Supported
+          fields are explained above.
+        explode: true
+        in: query
+        name: expand
+        required: false
+        schema:
+          description: A comma-separated list of fields to expand in the response.
+            Supported fields are explained above.
+          format: string
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExpandableApprovalRequestResponse'
+          description: Approval request response
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequestErrorRep'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedErrorRep'
+          description: Invalid access token
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenErrorRep'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundErrorRep'
+          description: Unable to find approval request
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitedErrorRep'
+          description: Rate limited
+      summary: Get approval request
+      tags:
+      - Approvals (beta)
   /api/v2/auditlog:
     get:
       description: "Get a list of all audit log entries. The query parameters let\
@@ -4017,53 +4216,43 @@ paths:
         \      \"targets\": [\n        {\n          \"variationId\": \"2f43f67c-3e4e-4945-a18a-26559378ca00\"\
         ,\n          \"values\": [\"user-key-123abc\", \"user-key-456def\"]\n    \
         \    },\n        {\n          \"variationId\": \"e5830889-1ec5-4b0c-9cc9-c48790090c43\"\
-        ,\n          \"values\": [\"user-key-789ghi\"]\n        }\n      ]\n    }\
-        \    \n  ]\n}\n```\n\n#### updateClause\n\nReplaces the clause indicated by\
-        \ `ruleId` and `clauseId` with `clause`.\n\n##### Parameters\n\n- `ruleId`:\
-        \ ID of a rule in the flag.\n- `clauseId`: ID of a clause in that rule.\n\
-        - `clause`: New `clause` object, with `contextKind` (string), `attribute`\
-        \ (string), `op` (string), `negate` (boolean), and `values` (array of strings,\
-        \ numbers, or dates) properties.\n\nUse this request body:\n\n```json\n{\n\
-        \  \"environmentKey\": \"example-environment-key\",\n  \"instructions\": [{\n\
-        \    \"kind\": \"updateClause\",\n    \"ruleId\": \"a902ef4a-2faf-4eaf-88e1-ecc356708a29\"\
-        ,\n    \"clauseId\": \"10c7462a-2062-45ba-a8bb-dfb3de0f8af5\",\n    \"clause\"\
-        : {\n      \"contextKind\": \"user\",\n      \"attribute\": \"country\",\n\
-        \      \"op\": \"in\",\n      \"negate\": false,\n      \"values\": [\"Mexico\"\
-        , \"Canada\"]\n    }\n  }]\n}\n```\n\n#### updateFallthroughVariationOrRollout\n\
-        \nUpdates the default or \"fallthrough\" rule for the flag, which the flag\
-        \ serves when a context matches none of the targeting rules. The rule can\
-        \ serve either the variation that `variationId` indicates, or a percent rollout\
-        \ that `rolloutWeights` and `rolloutBucketBy` indicate.\n\n##### Parameters\n\
-        \n- `variationId`: ID of a variation of the flag.\nor\n- `rolloutWeights`:\
-        \ Map of `variationId` to weight, in thousandths of a percent (0-100000).\n\
-        - `rolloutBucketBy`: (Optional) Context attribute available in the specified\
-        \ `rolloutContextKind`.\n- `rolloutContextKind`: (Optional) Context kind,\
-        \ defaults to `user`\n\nUse this request body:\n\n```json\n{\n\t\"environmentKey\"\
-        : \"example-environment-key\",\n\t\"instructions\": [{\n\t\t\"kind\": \"updateFallthroughVariationOrRollout\"\
+        ,\n          \"values\": [\"user-key-789ghi\"]\n        }\n      ]\n    }\n\
+        \  ]\n}\n```\n\n#### updateClause\n\nReplaces the clause indicated by `ruleId`\
+        \ and `clauseId` with `clause`.\n\n##### Parameters\n\n- `ruleId`: ID of a\
+        \ rule in the flag.\n- `clauseId`: ID of a clause in that rule.\n- `clause`:\
+        \ New `clause` object, with `contextKind` (string), `attribute` (string),\
+        \ `op` (string), `negate` (boolean), and `values` (array of strings, numbers,\
+        \ or dates) properties.\n\nUse this request body:\n\n```json\n{\n  \"environmentKey\"\
+        : \"example-environment-key\",\n  \"instructions\": [{\n    \"kind\": \"updateClause\"\
+        ,\n    \"ruleId\": \"a902ef4a-2faf-4eaf-88e1-ecc356708a29\",\n    \"clauseId\"\
+        : \"10c7462a-2062-45ba-a8bb-dfb3de0f8af5\",\n    \"clause\": {\n      \"contextKind\"\
+        : \"user\",\n      \"attribute\": \"country\",\n      \"op\": \"in\",\n  \
+        \    \"negate\": false,\n      \"values\": [\"Mexico\", \"Canada\"]\n    }\n\
+        \  }]\n}\n```\n\n#### updateFallthroughVariationOrRollout\n\nUpdates the default\
+        \ or \"fallthrough\" rule for the flag, which the flag serves when a context\
+        \ matches none of the targeting rules. The rule can serve either the variation\
+        \ that `variationId` indicates, or a percent rollout that `rolloutWeights`\
+        \ and `rolloutBucketBy` indicate.\n\n##### Parameters\n\n- `variationId`:\
+        \ ID of a variation of the flag.\nor\n- `rolloutWeights`: Map of `variationId`\
+        \ to weight, in thousandths of a percent (0-100000).\n- `rolloutBucketBy`:\
+        \ (Optional) Context attribute available in the specified `rolloutContextKind`.\n\
+        - `rolloutContextKind`: (Optional) Context kind, defaults to `user`\n\nUse\
+        \ this request body:\n\n```json\n{\n\t\"environmentKey\": \"example-environment-key\"\
+        ,\n\t\"instructions\": [{\n\t\t\"kind\": \"updateFallthroughVariationOrRollout\"\
         ,\n\t\t\"variationId\": \"2f43f67c-3e4e-4945-a18a-26559378ca00\"\n\t}]\n}\n\
-        ```\n\n#### updateMaintainerMember\n\nUpdates the maintainer of the flag to\
-        \ an existing member and removes the existing maintainer.\n\n##### Parameters\n\
-        \n- `value`: The ID of the member.\n\nUse this request body:\n\n```json\n\
-        {\n  \"environmentKey\": \"example-environment-key\",\n  \"instructions\"\
-        : [ { \"kind\": \"updateMaintainerMember\", \"value\": \"61e9b714fd47591727db558a\"\
-        \ } ]\n}\n```\n\n#### updateMaintainerTeam\n\nUpdates the maintainer of the\
-        \ flag to an existing team and removes the existing maintainer.\n\n##### Parameters\n\
-        \n- `value`: The key of the team.\n\nUse this request body:\n\n```json\n{\n\
-        \  \"environmentKey\": \"example-environment-key\",\n  \"instructions\": [\
-        \ { \"kind\": \"updateMaintainerTeam\", \"value\": \"example-team-key\" }\
-        \ ]\n}\n```\n\n#### updateOffVariation\n\nUpdates the default off variation\
-        \ to `variationId`. The flag serves the default off variation when the flag's\
-        \ targeting is **Off**.\n\n##### Parameters\n\n- `variationId`: ID of a variation\
-        \ of the flag.\n\nUse this request body:\n\n```json\n{\n  \"environmentKey\"\
-        : \"example-environment-key\",\n  \"instructions\": [ { \"kind\": \"updateOffVariation\"\
-        , \"variationId\": \"2f43f67c-3e4e-4945-a18a-26559378ca00\" } ]\n}\n```\n\n\
-        #### updatePrerequisite\n\nChanges the prerequisite flag that `key` indicates\
-        \ to use the variation that `variationId` indicates. Returns an error if this\
-        \ prerequisite does not exist.\n\n##### Parameters\n\n- `key`: Flag key of\
-        \ an existing prerequisite flag.\n- `variationId`: ID of a variation of the\
-        \ prerequisite flag.\n\nUse this request body:\n\n```json\n{\n\t\"environmentKey\"\
-        : \"example-environment-key\",\n\t\"instructions\": [{\n\t\t\"kind\": \"updatePrerequisite\"\
-        ,\n\t\t\"key\": \"example-prereq-flag-key\",\n\t\t\"variationId\": \"2f43f67c-3e4e-4945-a18a-26559378ca00\"\
+        ```\n\n#### updateOffVariation\n\nUpdates the default off variation to `variationId`.\
+        \ The flag serves the default off variation when the flag's targeting is **Off**.\n\
+        \n##### Parameters\n\n- `variationId`: ID of a variation of the flag.\n\n\
+        Use this request body:\n\n```json\n{\n  \"environmentKey\": \"example-environment-key\"\
+        ,\n  \"instructions\": [ { \"kind\": \"updateOffVariation\", \"variationId\"\
+        : \"2f43f67c-3e4e-4945-a18a-26559378ca00\" } ]\n}\n```\n\n#### updatePrerequisite\n\
+        \nChanges the prerequisite flag that `key` indicates to use the variation\
+        \ that `variationId` indicates. Returns an error if this prerequisite does\
+        \ not exist.\n\n##### Parameters\n\n- `key`: Flag key of an existing prerequisite\
+        \ flag.\n- `variationId`: ID of a variation of the prerequisite flag.\n\n\
+        Use this request body:\n\n```json\n{\n\t\"environmentKey\": \"example-environment-key\"\
+        ,\n\t\"instructions\": [{\n\t\t\"kind\": \"updatePrerequisite\",\n\t\t\"key\"\
+        : \"example-prereq-flag-key\",\n\t\t\"variationId\": \"2f43f67c-3e4e-4945-a18a-26559378ca00\"\
         \n\t}]\n}\n```\n\n#### updateRuleDescription\n\nUpdates the description of\
         \ the feature flag rule.\n\n##### Parameters\n\n- `description`: The new human-readable\
         \ description for this rule.\n- `ruleId`: The ID of the rule. You can retrieve\
@@ -4168,31 +4357,40 @@ paths:
         Updates the feature flag description.\n\n##### Parameters\n\n- `value`: The\
         \ new description.\n\nUse this request body:\n\n```json\n{\n  \"environmentKey\"\
         : \"example-environment-key\",\n  \"instructions\": [ { \"kind\": \"updateDescription\"\
-        , \"value\": \"Updated flag description\" } ]\n}\n```\n\n#### updateName\n\
-        \nUpdates the feature flag name.\n\n##### Parameters\n\n- `value`: The new\
-        \ name.\n\nUse this request body:\n\n```json\n{\n  \"environmentKey\": \"\
-        example-environment-key\",\n  \"instructions\": [ { \"kind\": \"updateName\"\
-        , \"value\": \"Updated flag name\" } ]\n}\n```\n\n</details><br />\n\n<details>\n\
-        <summary>Click to expand instructions for updating the flag lifecycle</summary>\n\
-        \n#### archiveFlag\n\nArchives the feature flag. This retires it from LaunchDarkly\
-        \ without deleting it. You cannot archive a flag that is a prerequisite of\
-        \ other flags.\n\n```json\n{\n  \"environmentKey\": \"example-environment-key\"\
-        ,\n  \"instructions\": [ { \"kind\": \"archiveFlag\" } ]\n}\n```\n\n#### deleteFlag\n\
-        \nDeletes the feature flag and its rules. You cannot restore a deleted flag.\
-        \ If this flag is requested again, the flag value defined in code will be\
-        \ returned for all contexts.\n\nUse this request body:\n\n```json\n{\n  \"\
-        environmentKey\": \"example-environment-key\",\n  \"instructions\": [ { \"\
-        kind\": \"deleteFlag\" } ]\n}\n```\n\n#### restoreFlag\n\nRestores the feature\
-        \ flag if it was previously archived.\n\nUse this request body:\n\n```json\n\
-        {\n  \"environmentKey\": \"example-environment-key\",\n  \"instructions\"\
-        : [ { \"kind\": \"restoreFlag\" } ]\n}\n```\n\n</details>\n\n### Using JSON\
-        \ Patches on a feature flag\nIf you do not include the header described above,\
-        \ you can use [JSON patch](/reference#updates-using-json-patch).\n\nWhen using\
-        \ the update feature flag endpoint to add individual targets to a specific\
-        \ variation, there are two different patch documents, depending on whether\
-        \ there are already individual targets for the variation.\n\nIf a flag variation\
-        \ already has individual targets, the path for the JSON Patch operation is:\n\
-        \n```json\n{\n  \"op\": \"add\",\n  \"path\": \"/environments/devint/targets/0/values/-\"\
+        , \"value\": \"Updated flag description\" } ]\n}\n```\n#### updateMaintainerMember\n\
+        \nUpdates the maintainer of the flag to an existing member and removes the\
+        \ existing maintainer.\n\n##### Parameters\n\n- `value`: The ID of the member.\n\
+        \nUse this request body:\n\n```json\n{\n  \"environmentKey\": \"example-environment-key\"\
+        ,\n  \"instructions\": [ { \"kind\": \"updateMaintainerMember\", \"value\"\
+        : \"61e9b714fd47591727db558a\" } ]\n}\n```\n\n#### updateMaintainerTeam\n\n\
+        Updates the maintainer of the flag to an existing team and removes the existing\
+        \ maintainer.\n\n##### Parameters\n\n- `value`: The key of the team.\n\nUse\
+        \ this request body:\n\n```json\n{\n  \"environmentKey\": \"example-environment-key\"\
+        ,\n  \"instructions\": [ { \"kind\": \"updateMaintainerTeam\", \"value\":\
+        \ \"example-team-key\" } ]\n}\n```\n\n#### updateName\n\nUpdates the feature\
+        \ flag name.\n\n##### Parameters\n\n- `value`: The new name.\n\nUse this request\
+        \ body:\n\n```json\n{\n  \"environmentKey\": \"example-environment-key\",\n\
+        \  \"instructions\": [ { \"kind\": \"updateName\", \"value\": \"Updated flag\
+        \ name\" } ]\n}\n```\n\n</details><br />\n\n<details>\n<summary>Click to expand\
+        \ instructions for updating the flag lifecycle</summary>\n\n#### archiveFlag\n\
+        \nArchives the feature flag. This retires it from LaunchDarkly without deleting\
+        \ it. You cannot archive a flag that is a prerequisite of other flags.\n\n\
+        ```json\n{\n  \"environmentKey\": \"example-environment-key\",\n  \"instructions\"\
+        : [ { \"kind\": \"archiveFlag\" } ]\n}\n```\n\n#### deleteFlag\n\nDeletes\
+        \ the feature flag and its rules. You cannot restore a deleted flag. If this\
+        \ flag is requested again, the flag value defined in code will be returned\
+        \ for all contexts.\n\nUse this request body:\n\n```json\n{\n  \"environmentKey\"\
+        : \"example-environment-key\",\n  \"instructions\": [ { \"kind\": \"deleteFlag\"\
+        \ } ]\n}\n```\n\n#### restoreFlag\n\nRestores the feature flag if it was previously\
+        \ archived.\n\nUse this request body:\n\n```json\n{\n  \"environmentKey\"\
+        : \"example-environment-key\",\n  \"instructions\": [ { \"kind\": \"restoreFlag\"\
+        \ } ]\n}\n```\n\n</details>\n\n### Using JSON Patches on a feature flag\n\
+        If you do not include the header described above, you can use [JSON patch](/reference#updates-using-json-patch).\n\
+        \nWhen using the update feature flag endpoint to add individual targets to\
+        \ a specific variation, there are two different patch documents, depending\
+        \ on whether there are already individual targets for the variation.\n\nIf\
+        \ a flag variation already has individual targets, the path for the JSON Patch\
+        \ operation is:\n\n```json\n{\n  \"op\": \"add\",\n  \"path\": \"/environments/devint/targets/0/values/-\"\
         ,\n  \"value\": \"TestClient10\"\n}\n```\n\nIf a flag variation does not already\
         \ have individual targets, the path for the JSON Patch operation is:\n\n```json\n\
         [\n  {\n    \"op\": \"add\",\n    \"path\": \"/environments/devint/targets/-\"\
@@ -4627,11 +4825,11 @@ paths:
       - Experiments (beta)
   /api/v2/flags/{projectKey}/{featureFlagKey}/expiring-user-targets/{environmentKey}:
     get:
-      description: "\nGet a list of user targets on a feature flag that are scheduled\
-        \ for removal.\n\n> ### Contexts are now available\n>\n> After you have upgraded\
+      description: "\n> ### Contexts are now available\n>\n> After you have upgraded\
         \ your LaunchDarkly SDK to use contexts instead of users, you should use [Get\
         \ expiring context targets for feature flag](/tag/Feature-flags#operation/getExpiringContextTargets)\
-        \ instead of this endpoint. To learn more, read [Contexts](https://docs.launchdarkly.com/home/contexts).\n"
+        \ instead of this endpoint. To learn more, read [Contexts](https://docs.launchdarkly.com/home/contexts).\n\
+        \nGet a list of user targets on a feature flag that are scheduled for removal.\n"
       operationId: getExpiringUserTargets
       parameters:
       - description: The project key
@@ -4699,17 +4897,17 @@ paths:
       tags:
       - Feature flags
     patch:
-      description: "Schedule a target for removal from individual targeting on a feature\
-        \ flag. The flag must already serve a variation to specific targets based\
-        \ on their key.\n\nYou can add, update, or remove a scheduled removal date.\
-        \ You can only schedule a target for removal on a single variation per flag.\n\
-        \nThis request only supports semantic patches. To make a semantic patch request,\
+      description: "> ### Contexts are now available\n>\n> After you have upgraded\
+        \ your LaunchDarkly SDK to use contexts instead of users, you should use [Update\
+        \ expiring context targets on feature flag](/tag/Feature-flags#operation/patchExpiringTargets)\
+        \ instead of this endpoint. To learn more, read [Contexts](https://docs.launchdarkly.com/home/contexts).\n\
+        \nSchedule a target for removal from individual targeting on a feature flag.\
+        \ The flag must already serve a variation to specific targets based on their\
+        \ key.\n\nYou can add, update, or remove a scheduled removal date. You can\
+        \ only schedule a target for removal on a single variation per flag.\n\nThis\
+        \ request only supports semantic patches. To make a semantic patch request,\
         \ you must append `domain-model=launchdarkly.semanticpatch` to your `Content-Type`\
         \ header. To learn more, read [Updates using semantic patch](/reference#updates-using-semantic-patch).\n\
-        \n> ### Contexts are now available\n>\n> After you have upgraded your LaunchDarkly\
-        \ SDK to use contexts instead of users, you should use [Update expiring context\
-        \ targets on feature flag](/tag/Feature-flags#operation/patchExpiringTargets)\
-        \ instead of this endpoint. To learn more, read [Contexts](https://docs.launchdarkly.com/home/contexts).\n\
         \n### Instructions\n\n#### addExpireUserTargetDate\n\nAdds a date and time\
         \ that LaunchDarkly will remove the user from the flag's individual targeting.\n\
         \n##### Parameters\n\n* `value`: The time, in Unix milliseconds, when LaunchDarkly\
@@ -7587,10 +7785,11 @@ paths:
           description: Invalid resource identifier
       summary: Get context kinds
       tags:
-      - Projects
+      - Contexts (beta)
   /api/v2/projects/{projectKey}/context-kinds/{key}:
     put:
-      description: Create or update a context kind by key.
+      description: Create or update a context kind by key. Only the included fields
+        will be updated.
       operationId: putContextKind
       parameters:
       - description: The project key
@@ -7650,9 +7849,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotFoundErrorRep'
           description: Invalid resource identifier
-      summary: Put context kind
+      summary: Create or update context kind
       tags:
-      - Projects
+      - Contexts (beta)
   /api/v2/projects/{projectKey}/environments:
     get:
       description: "Return a list of environments for the specified project.\n\nBy\
@@ -8376,6 +8575,18 @@ paths:
           format: string
           type: string
         style: form
+      - description: Specifies whether to include or omit the total count of matching
+          context instances. Defaults to true.
+        explode: true
+        in: query
+        name: includeTotalCount
+        required: false
+        schema:
+          description: Specifies whether to include or omit the total count of matching
+            context instances. Defaults to true.
+          format: boolean
+          type: boolean
+        style: form
       requestBody:
         content:
           application/json:
@@ -8575,6 +8786,18 @@ paths:
           format: string
           type: string
         style: form
+      - description: Specifies whether to include or omit the total count of matching
+          context instances. Defaults to true.
+        explode: true
+        in: query
+        name: includeTotalCount
+        required: false
+        schema:
+          description: Specifies whether to include or omit the total count of matching
+            context instances. Defaults to true.
+          format: boolean
+          type: boolean
+        style: form
       responses:
         "200":
           content:
@@ -8690,6 +8913,18 @@ paths:
           format: string
           type: string
         style: form
+      - description: Specifies whether to include or omit the total count of matching
+          contexts. Defaults to true.
+        explode: true
+        in: query
+        name: includeTotalCount
+        required: false
+        schema:
+          description: Specifies whether to include or omit the total count of matching
+            contexts. Defaults to true.
+          format: boolean
+          type: boolean
+        style: form
       requestBody:
         content:
           application/json:
@@ -8739,7 +8974,7 @@ paths:
         \ the context's data, LaunchDarkly continues to use that data. If LaunchDarkly\
         \ has never encountered the combination of the context's key and kind before,\
         \ it calculates the flag values based on the context kind and key.\n"
-      operationId: putFlagSettingForContext
+      operationId: putContextFlagSetting
       parameters:
       - description: The project key
         explode: false
@@ -8832,7 +9067,7 @@ paths:
           description: Rate limited
       summary: Update flag settings for context
       tags:
-      - Contexts (beta)
+      - Context settings (beta)
   /api/v2/projects/{projectKey}/environments/{environmentKey}/contexts/{kind}/{key}:
     get:
       description: Get contexts based on kind and key.
@@ -8931,6 +9166,18 @@ paths:
             \ read [Filtering contexts and context instances](/tag/Contexts-(beta)#filtering-contexts-and-context-instances)."
           format: string
           type: string
+        style: form
+      - description: Specifies whether to include or omit the total count of matching
+          contexts. Defaults to true.
+        explode: true
+        in: query
+        name: includeTotalCount
+        required: false
+        schema:
+          description: Specifies whether to include or omit the total count of matching
+            contexts. Defaults to true.
+          format: boolean
+          type: boolean
         style: form
       responses:
         "200":
@@ -9540,6 +9787,139 @@ paths:
       summary: Get experiment results
       tags:
       - Experiments (beta)
+  /api/v2/projects/{projectKey}/environments/{environmentKey}/flags/evaluate:
+    post:
+      description: "Evaluate flags for a context instance, for example, to determine\
+        \ the expected flag variation. **Do not use this API instead of an SDK.**\
+        \ The LaunchDarkly SDKs are specialized for the tasks of evaluating feature\
+        \ flags in your application at scale and generating analytics events based\
+        \ on those evaluations. This API is not designed for that use case. Any evaluations\
+        \ you perform with this API will not be reflected in features such as flag\
+        \ statuses and flag insights. Context instances evaluated by this API will\
+        \ not appear in the Contexts list. To learn more, read [Comparing LaunchDarkly's\
+        \ SDKs and REST API](https://docs.launchdarkly.com/guide/api/comparing-sdk-rest-api)."
+      operationId: evaluateContextInstance
+      parameters:
+      - description: The project key
+        explode: false
+        in: path
+        name: projectKey
+        required: true
+        schema:
+          description: The project key
+          format: string
+          type: string
+        style: simple
+      - description: The environment key
+        explode: false
+        in: path
+        name: environmentKey
+        required: true
+        schema:
+          description: The environment key
+          format: string
+          type: string
+        style: simple
+      - description: "The number of feature flags to return. Defaults to -1, which\
+          \ returns all flags"
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          description: "The number of feature flags to return. Defaults to -1, which\
+            \ returns all flags"
+          format: int64
+          type: integer
+        style: form
+      - description: "Where to start in the list. Use this with pagination. For example,\
+          \ an offset of 10 skips the first ten items and then returns the next items\
+          \ in the list, up to the query `limit`."
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          description: "Where to start in the list. Use this with pagination. For\
+            \ example, an offset of 10 skips the first ten items and then returns\
+            \ the next items in the list, up to the query `limit`."
+          format: int64
+          type: integer
+        style: form
+      - description: A comma-separated list of fields to sort by. Fields prefixed
+          by a dash ( - ) sort in descending order
+        explode: true
+        in: query
+        name: sort
+        required: false
+        schema:
+          description: A comma-separated list of fields to sort by. Fields prefixed
+            by a dash ( - ) sort in descending order
+          format: string
+          type: string
+        style: form
+      - description: A comma-separated list of filters. Each filter is of the form
+          field:value. Supports the same filters as the List Feature Flags API.
+        explode: true
+        in: query
+        name: filter
+        required: false
+        schema:
+          description: A comma-separated list of filters. Each filter is of the form
+            field:value. Supports the same filters as the List Feature Flags API.
+          format: string
+          type: string
+        style: form
+      requestBody:
+        content:
+          application/json:
+            example:
+              key: user-key-123abc
+              kind: user
+              otherAttribute: other attribute value
+            schema:
+              $ref: '#/components/schemas/ContextInstance'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContextInstanceEvaluations'
+          description: Flag evaluation collection response
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequestErrorRep'
+          description: Invalid request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedErrorRep'
+          description: Invalid access token
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenErrorRep'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundErrorRep'
+          description: Invalid resource identifier
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitedErrorRep'
+          description: Rate limited
+      summary: Evaluate flags for context instance
+      tags:
+      - Contexts (beta)
   /api/v2/projects/{projectKey}/environments/{environmentKey}/followers:
     get:
       description: Get followers of all flags in a given environment and project
@@ -9666,77 +10046,6 @@ paths:
       summary: Reset environment mobile SDK key
       tags:
       - Environments
-  /api/v2/projects/{projectKey}/environments/{environmentKey}/segments/evaluate:
-    post:
-      description: For a given Context instance with attributes get membership details
-        for all segments
-      operationId: getContextInstanceSegmentsMembershipByEnv
-      parameters:
-      - description: The project key
-        explode: false
-        in: path
-        name: projectKey
-        required: true
-        schema:
-          description: The project key
-          format: string
-          type: string
-        style: simple
-      - description: The environment key
-        explode: false
-        in: path
-        name: environmentKey
-        required: true
-        schema:
-          description: The environment key
-          format: string
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            example:
-              key: someuser
-              kind: user
-              moreComplex:
-                morethanone:
-                - 1
-                - 2
-                - 3
-                "yes": please
-              name: Some User
-              something: true
-            schema:
-              $ref: '#/components/schemas/ContextInstance'
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ContextInstanceSegmentMemberships'
-          description: Context instance segment membership collection response
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/InvalidRequestErrorRep'
-          description: Invalid request
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UnauthorizedErrorRep'
-          description: Invalid access token
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/NotFoundErrorRep'
-          description: Invalid resource identifier
-      summary: List Segment Memberships for Context Instance
-      tags:
-      - Segments (beta)
   /api/v2/projects/{projectKey}/flag-defaults:
     get:
       description: Get the flag defaults for a specific project.
@@ -9984,7 +10293,7 @@ paths:
       - Approvals
     post:
       description: Create an approval request for a feature flag.
-      operationId: postApprovalRequest
+      operationId: postApprovalRequestForFlag
       parameters:
       - description: The project key
         explode: false
@@ -10053,7 +10362,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/RateLimitedErrorRep'
           description: Rate limited
-      summary: Create approval request
+      summary: Create approval request for a flag
       tags:
       - Approvals
   /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests-flag-copy:
@@ -10141,7 +10450,7 @@ paths:
   /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id}:
     delete:
       description: Delete an approval request for a feature flag.
-      operationId: deleteApprovalRequest
+      operationId: deleteApprovalRequestForFlag
       parameters:
       - description: The project key
         explode: false
@@ -10210,7 +10519,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/RateLimitedErrorRep'
           description: Rate limited
-      summary: Delete approval request
+      summary: Delete approval request for a flag
       tags:
       - Approvals
     get:
@@ -10294,7 +10603,7 @@ paths:
   /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id}/apply:
     post:
       description: Apply an approval request that has been approved.
-      operationId: postApprovalRequestApplyRequest
+      operationId: postApprovalRequestApplyForFlag
       parameters:
       - description: The project key
         explode: false
@@ -10379,13 +10688,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/RateLimitedErrorRep'
           description: Rate limited
-      summary: Apply approval request
+      summary: Apply approval request for a flag
       tags:
       - Approvals
   /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id}/reviews:
     post:
       description: Review an approval request by approving or denying changes.
-      operationId: postApprovalRequestReview
+      operationId: postApprovalRequestReviewForFlag
       parameters:
       - description: The project key
         explode: false
@@ -10470,7 +10779,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/RateLimitedErrorRep'
           description: Rate limited
-      summary: Review approval request
+      summary: Review approval request for a flag
       tags:
       - Approvals
   /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/followers:
@@ -11858,7 +12167,7 @@ paths:
       - Custom roles
   /api/v2/segments/{projectKey}/{environmentKey}:
     get:
-      description: Get a list of all user segments in the given project.
+      description: Get a list of all segments in the given project.
       operationId: getSegments
       parameters:
       - description: The project key
@@ -11904,7 +12213,7 @@ paths:
       tags:
       - Segments
     post:
-      description: Create a new user segment.
+      description: Create a new segment.
       operationId: postSegment
       parameters:
       - description: The project key
@@ -11975,7 +12284,7 @@ paths:
       - Segments
   /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}:
     delete:
-      description: Delete a user segment.
+      description: Delete a segment.
       operationId: deleteSegment
       parameters:
       - description: The project key
@@ -12045,7 +12354,7 @@ paths:
       tags:
       - Segments
     get:
-      description: Get a single user segment by key.
+      description: Get a single segment by key.
       operationId: getSegment
       parameters:
       - description: The project key
@@ -12128,44 +12437,48 @@ paths:
         \ context kind the targets should be added to.\n- `values`: List of keys.\n\
         \n#### addIncludedUsers\n\nAdds user keys to the individual user targets included\
         \ in the segment. Returns an error if this causes the same user key to be\
-        \ both included and excluded.\n\n##### Parameters\n\n- `values`: List of user\
-        \ keys.\n\n#### addExcludedTargets\n\nAdds context keys to the individual\
+        \ both included and excluded. If you are working with contexts, use `addIncludedTargets`\
+        \ instead of this instruction.\n\n##### Parameters\n\n- `values`: List of\
+        \ user keys.\n\n#### addExcludedTargets\n\nAdds context keys to the individual\
         \ context targets excluded in the segment for the specified `contextKind`.\
         \ Returns an error if this causes the same context key to be both included\
         \ and excluded.\n\n##### Parameters\n\n- `contextKind`: The context kind the\
         \ targets should be added to.\n- `values`: List of keys.\n\n#### addExcludedUsers\n\
         \nAdds user keys to the individual user targets excluded from the segment.\
         \ Returns an error if this causes the same user key to be both included and\
-        \ excluded.\n\n##### Parameters\n\n- `values`: List of user keys.\n\n####\
-        \ removeIncludedTargets\n\nRemoves context keys from the individual context\
+        \ excluded. If you are working with contexts, use `addExcludedTargets` instead\
+        \ of this instruction.\n\n##### Parameters\n\n- `values`: List of user keys.\n\
+        \n#### removeIncludedTargets\n\nRemoves context keys from the individual context\
         \ targets included in the segment for the specified `contextKind`.\n\n#####\
         \ Parameters\n\n- `contextKind`: The context kind the targets should be removed\
         \ from.\n- `values`: List of keys.\n\n#### removeIncludedUsers\n\nRemoves\
-        \ user keys from the individual user targets included in the segment.\n\n\
-        ##### Parameters\n\n- `values`: List of user keys.\n\n#### removeExcludedTargets\n\
+        \ user keys from the individual user targets included in the segment. If you\
+        \ are working with contexts, use `removeIncludedTargets` instead of this instruction.\n\
+        \n##### Parameters\n\n- `values`: List of user keys.\n\n#### removeExcludedTargets\n\
         \nRemoves context keys from the individual context targets excluded from the\
         \ segment for the specified `contextKind`.\n\n##### Parameters\n\n- `contextKind`:\
         \ The context kind the targets should be removed from.\n- `values`: List of\
         \ keys.\n\n#### removeExcludedUsers\n\nRemoves user keys from the individual\
-        \ user targets excluded from the segment.\n\n##### Parameters\n\n- `values`:\
-        \ List of user keys.\n\n#### updateName\n\nUpdates the name of the segment.\n\
-        \n##### Parameters\n\n- `value`: Name of the segment.\n\n## Using JSON patches\
-        \ on a segment\n\nYou can also use JSON patch. To learn more, read [Updates\
-        \ using JSON patches](/reference#updates-using-json-patch).\n\nFor example,\
-        \ to update the description for a segment, use the following request body:\n\
-        \n```json\n{\n  \"patch\": [\n    {\n      \"op\": \"replace\",\n      \"\
-        path\": \"/description\",\n      \"value\": \"new description\"\n    }\n \
-        \ ]\n}\n```\n\nTo update fields in the segment that are arrays, set the `path`\
-        \ to the name of the field and then append `/<array index>`. Using `/0` adds\
-        \ the new entry to the beginning of the array.\n\nFor example, to add a rule\
-        \ to a segment, use the following request body:\n\n```json\n{\n  \"patch\"\
-        :[\n    {\n      \"op\": \"add\",\n      \"path\": \"/rules/0\",\n      \"\
-        value\": {\n        \"clauses\": [{ \"contextKind\": \"user\", \"attribute\"\
-        : \"email\", \"op\": \"endsWith\", \"values\": [\".edu\"], \"negate\": false\
-        \ }]\n      }\n    }\n  ]\n}\n```\n\nTo add or remove targets from segments,\
-        \ we recommend using semantic patch. Semantic patch for segments includes\
-        \ specific instructions for adding and removing both included and excluded\
-        \ targets.\n"
+        \ user targets excluded from the segment. If you are working with contexts,\
+        \ use `removeExcludedTargets` instead of this instruction.\n\n##### Parameters\n\
+        \n- `values`: List of user keys.\n\n#### updateName\n\nUpdates the name of\
+        \ the segment.\n\n##### Parameters\n\n- `value`: Name of the segment.\n\n\
+        ## Using JSON patches on a segment\n\nYou can also use JSON patch. To learn\
+        \ more, read [Updates using JSON patches](/reference#updates-using-json-patch).\n\
+        \nFor example, to update the description for a segment, use the following\
+        \ request body:\n\n```json\n{\n  \"patch\": [\n    {\n      \"op\": \"replace\"\
+        ,\n      \"path\": \"/description\",\n      \"value\": \"new description\"\
+        \n    }\n  ]\n}\n```\n\nTo update fields in the segment that are arrays, set\
+        \ the `path` to the name of the field and then append `/<array index>`. Using\
+        \ `/0` adds the new entry to the beginning of the array.\n\nFor example, to\
+        \ add a rule to a segment, use the following request body:\n\n```json\n{\n\
+        \  \"patch\":[\n    {\n      \"op\": \"add\",\n      \"path\": \"/rules/0\"\
+        ,\n      \"value\": {\n        \"clauses\": [{ \"contextKind\": \"user\",\
+        \ \"attribute\": \"email\", \"op\": \"endsWith\", \"values\": [\".edu\"],\
+        \ \"negate\": false }]\n      }\n    }\n  ]\n}\n```\n\nTo add or remove targets\
+        \ from segments, we recommend using semantic patch. Semantic patch for segments\
+        \ includes specific instructions for adding and removing both included and\
+        \ excluded targets.\n"
       operationId: patchSegment
       parameters:
       - description: The project key
@@ -12699,11 +13012,11 @@ paths:
       - Segments
   /api/v2/segments/{projectKey}/{segmentKey}/expiring-user-targets/{environmentKey}:
     get:
-      description: "\nGet a list of a segment's user targets that are scheduled for\
-        \ removal.\n\n> ### Contexts are now available\n>\n> After you have upgraded\
+      description: "> ### Contexts are now available\n>\n> After you have upgraded\
         \ your LaunchDarkly SDK to use contexts instead of users, you should use [Get\
         \ expiring targets for segment](/tag/Segments#operation/getExpiringTargetsForSegment)\
-        \ instead of this endpoint. To learn more, read [Contexts](https://docs.launchdarkly.com/home/contexts).\n"
+        \ instead of this endpoint. To learn more, read [Contexts](https://docs.launchdarkly.com/home/contexts).\n\
+        \nGet a list of a segment's user targets that are scheduled for removal.\n"
       operationId: getExpiringUserTargetsForSegment
       parameters:
       - description: The project key
@@ -12765,30 +13078,29 @@ paths:
       tags:
       - Segments
     patch:
-      description: "\nUpdate expiring user targets for a segment. Updating a user\
-        \ target expiration uses the semantic patch format.\n\nTo make a semantic\
-        \ patch request, you must append `domain-model=launchdarkly.semanticpatch`\
-        \ to your `Content-Type` header. To learn more, read [Updates using semantic\
-        \ patch](/reference#updates-using-semantic-patch).\n\nIf the request is well-formed\
-        \ but any of its instructions failed to process, this operation returns status\
-        \ code `200`. In this case, the response `errors` array will be non-empty.\n\
-        \n> ### Contexts are now available\n>\n> After you have upgraded your LaunchDarkly\
-        \ SDK to use contexts instead of users, you should use [Update expiring targets\
-        \ for segment](/tag/Segments#operation/patchExpiringTargetsForSegment) instead\
-        \ of this endpoint. To learn more, read [Contexts](https://docs.launchdarkly.com/home/contexts).\n\
-        \n### Instructions\n\nSemantic patch requests support the following `kind`\
-        \ instructions for updating user targets.\n\n#### addExpireUserTargetDate\n\
-        \nSchedules a date and time when LaunchDarkly will remove a user from segment\
+      description: "\n> ### Contexts are now available\n>\n> After you have upgraded\
+        \ your LaunchDarkly SDK to use contexts instead of users, you should use [Update\
+        \ expiring targets for segment](/tag/Segments#operation/patchExpiringTargetsForSegment)\
+        \ instead of this endpoint. To learn more, read [Contexts](https://docs.launchdarkly.com/home/contexts).\n\
+        \nUpdate expiring user targets for a segment. Updating a user target expiration\
+        \ uses the semantic patch format.\n\nTo make a semantic patch request, you\
+        \ must append `domain-model=launchdarkly.semanticpatch` to your `Content-Type`\
+        \ header. To learn more, read [Updates using semantic patch](/reference#updates-using-semantic-patch).\n\
+        \nIf the request is well-formed but any of its instructions failed to process,\
+        \ this operation returns status code `200`. In this case, the response `errors`\
+        \ array will be non-empty.\n\n### Instructions\n\nSemantic patch requests\
+        \ support the following `kind` instructions for updating user targets.\n\n\
+        #### addExpireUserTargetDate\n\nSchedules a date and time when LaunchDarkly\
+        \ will remove a user from segment targeting.\n\n##### Parameters\n\n- `targetType`:\
+        \ A segment's target type, must be either `included` or `excluded`.\n- `userKey`:\
+        \ The user key.\n- `value`: The date when the user should expire from the\
+        \ segment targeting, in Unix milliseconds.\n\n#### updateExpireUserTargetDate\n\
+        \nUpdates the date and time when LaunchDarkly will remove a user from segment\
         \ targeting.\n\n##### Parameters\n\n- `targetType`: A segment's target type,\
         \ must be either `included` or `excluded`.\n- `userKey`: The user key.\n-\
-        \ `value`: The date when the user should expire from the segment targeting,\
-        \ in Unix milliseconds.\n\n#### updateExpireUserTargetDate\n\nUpdates the\
-        \ date and time when LaunchDarkly will remove a user from segment targeting.\n\
-        \n##### Parameters\n\n- `targetType`: A segment's target type, must be either\
-        \ `included` or `excluded`.\n- `userKey`: The user key.\n- `value`: The new\
-        \ date when the user should expire from the segment targeting, in Unix milliseconds.\n\
-        - `version`: The segment version.\n\n#### removeExpireUserTargetDate\n\nRemoves\
-        \ the scheduled expiration for the user in the segment.\n\n##### Parameters\n\
+        \ `value`: The new date when the user should expire from the segment targeting,\
+        \ in Unix milliseconds.\n- `version`: The segment version.\n\n#### removeExpireUserTargetDate\n\
+        \nRemoves the scheduled expiration for the user in the segment.\n\n##### Parameters\n\
         \n- `targetType`: A segment's target type, must be either `included` or `excluded`.\n\
         - `userKey`: The user key.\n"
       operationId: patchExpiringUserTargetsForSegment
@@ -14401,8 +14713,12 @@ paths:
       - Account usage (beta)
   /api/v2/usage/mau:
     get:
-      description: Get a time-series array of the number of monthly active users (MAU)
-        seen by LaunchDarkly from your account. The granularity is always daily.
+      description: "Get a time-series array of the number of monthly active users\
+        \ (MAU) seen by LaunchDarkly from your account. The granularity is always\
+        \ daily.<br/><br/>Endpoints for retrieving monthly active users (MAU) do not\
+        \ return information about active context instances. After you have upgraded\
+        \ your LaunchDarkly SDK to use contexts instead of users, you should not rely\
+        \ on this endpoint. To learn more, read [Account usage metrics](https://docs.launchdarkly.com/home/billing/usage-metrics)."
       operationId: getMauUsage
       parameters:
       - description: The series of data returned starts from this timestamp. Defaults
@@ -14549,7 +14865,11 @@ paths:
     get:
       description: "Get time-series arrays of the number of monthly active users (MAU)\
         \ seen by LaunchDarkly from your account, broken down by the category of users.\
-        \ The category is either `browser`, `mobile`, or `backend`."
+        \ The category is either `browser`, `mobile`, or `backend`.<br/><br/>Endpoints\
+        \ for retrieving monthly active users (MAU) do not return information about\
+        \ active context instances. After you have upgraded your LaunchDarkly SDK\
+        \ to use contexts instead of users, you should not rely on this endpoint.\
+        \ To learn more, read [Account usage metrics](https://docs.launchdarkly.com/home/billing/usage-metrics)."
       operationId: getMauUsageByCategory
       parameters:
       - description: The series of data returned starts from this timestamp. Defaults
@@ -14618,8 +14938,12 @@ paths:
       - Account usage (beta)
   /api/v2/usage/mau/sdks:
     get:
-      description: Get a list of SDKs. These are all of the SDKs that have connected
-        to LaunchDarkly by monthly active users (MAU) in the requested time period.
+      description: "Get a list of SDKs. These are all of the SDKs that have connected\
+        \ to LaunchDarkly by monthly active users (MAU) in the requested time period.<br/><br/>Endpoints\
+        \ for retrieving monthly active users (MAU) do not return information about\
+        \ active context instances. After you have upgraded your LaunchDarkly SDK\
+        \ to use contexts instead of users, you should not rely on this endpoint.\
+        \ To learn more, read [Account usage metrics](https://docs.launchdarkly.com/home/billing/usage-metrics)."
       operationId: getMauSdksByType
       parameters:
       - description: "The data returned starts from this timestamp. Defaults to seven\
@@ -15089,14 +15413,14 @@ paths:
           format: int64
           type: integer
         style: form
-      - description: A unix epoch time in milliseconds specifying the maximum last
+      - description: A Unix epoch time in milliseconds specifying the maximum last
           time a user requested a feature flag from LaunchDarkly
         explode: true
         in: query
         name: after
         required: false
         schema:
-          description: A unix epoch time in milliseconds specifying the maximum last
+          description: A Unix epoch time in milliseconds specifying the maximum last
             time a user requested a feature flag from LaunchDarkly
           format: int64
           type: integer
@@ -16503,6 +16827,111 @@ components:
       - notifyMemberIds
       - reviewStatus
       type: object
+    ApprovalRequestResponse:
+      properties:
+        _id:
+          description: The ID of this approval request
+          example: 12ab3c45de678910abc12345
+          type: string
+        _version:
+          description: Version of the approval request
+          example: 1
+          type: integer
+        creationDate:
+          format: int64
+          type: integer
+        serviceKind:
+          type: string
+        requestorId:
+          description: The ID of the member who requested the approval
+          example: 12ab3c45de678910abc12345
+          type: string
+        description:
+          description: A human-friendly name for the approval request
+          example: "example: request approval from someone"
+          type: string
+        reviewStatus:
+          description: Current status of the review of this approval request
+          enum:
+          - approved
+          - declined
+          - pending
+          example: pending
+          type: string
+        allReviews:
+          description: An array of individual reviews of this approval request
+          items:
+            $ref: '#/components/schemas/ReviewResponse'
+          type: array
+        notifyMemberIds:
+          description: An array of member IDs. These members are notified to review
+            the approval request.
+          example:
+          - 1234a56b7c89d012345e678f
+          items:
+            type: string
+          type: array
+        appliedDate:
+          format: int64
+          type: integer
+        appliedByMemberId:
+          description: The member ID of the member who applied the approval request
+          example: 1234a56b7c89d012345e678f
+          type: string
+        status:
+          description: Current status of the approval request
+          enum:
+          - pending
+          - completed
+          - failed
+          - scheduled
+          example: pending
+          type: string
+        instructions:
+          items:
+            $ref: '#/components/schemas/Instruction'
+          type: array
+        conflicts:
+          description: Details on any conflicting approval requests
+          items:
+            $ref: '#/components/schemas/Conflict'
+          type: array
+        _links:
+          additionalProperties:
+            $ref: '#/components/schemas/Link'
+          description: The location and content type of related resources
+          type: object
+        executionDate:
+          format: int64
+          type: integer
+        operatingOnId:
+          description: ID of scheduled change to edit or delete
+          example: 12ab3c45de678910abc12345
+          type: string
+        integrationMetadata:
+          $ref: '#/components/schemas/IntegrationMetadata'
+        source:
+          $ref: '#/components/schemas/CopiedFromEnv'
+        customWorkflowMetadata:
+          $ref: '#/components/schemas/CustomWorkflowMeta'
+        resourceIdentifier:
+          description: String representation of a resource
+          type: string
+        approvalSettings:
+          $ref: '#/components/schemas/ApprovalSettings'
+      required:
+      - _id
+      - _links
+      - _version
+      - allReviews
+      - conflicts
+      - creationDate
+      - instructions
+      - notifyMemberIds
+      - reviewStatus
+      - serviceKind
+      - status
+      type: object
     ApprovalRequestServiceKind:
       type: string
     ApprovalSettings:
@@ -17204,16 +17633,16 @@ components:
         userKey: userKey
       properties:
         userKey:
-          description: The user key
+          description: The target key
           type: string
         included:
-          description: "Indicates whether the user is included.<br />Included users\
+          description: "Indicates whether the target is included.<br />Included targets\
             \ are always segment members, regardless of segment rules."
           type: boolean
         excluded:
-          description: "Indicates whether the user is excluded.<br />Segment rules\
-            \ bypass excluded users, so they will never be included based on rules.\
-            \ Excluded users may still be included explicitly."
+          description: "Indicates whether the target is excluded.<br />Segment rules\
+            \ bypass excluded targets, so they will never be included based on rules.\
+            \ Excluded targets may still be included explicitly."
           type: boolean
       required:
       - excluded
@@ -17845,7 +18274,7 @@ components:
     ContextAttributeName:
       properties:
         name:
-          description: A context's attribute name.
+          description: A context attribute's name.
           type: string
         weight:
           description: A relative estimate of the number of contexts seen recently
@@ -17905,7 +18334,7 @@ components:
     ContextAttributeValue:
       properties:
         name:
-          description: A value for a context's attribute.
+          description: A value for a context attribute.
         weight:
           description: A relative estimate of the number of contexts seen recently
             that have a matching value for a given attribute.
@@ -17956,6 +18385,155 @@ components:
       type: object
     ContextInstance:
       additionalProperties: {}
+      type: object
+    ContextInstanceEvaluation:
+      properties:
+        name:
+          description: Name of the flag.
+          example: My Flag
+          type: string
+        key:
+          description: Key of the flag.
+          example: my-flag
+          type: string
+        _value:
+          description: "The value of the flag variation that the context receives.\
+            \ If there is no defined default rule, this is null."
+          example: "true"
+        reason:
+          $ref: '#/components/schemas/ContextInstanceEvaluationReason'
+        _links:
+          additionalProperties:
+            $ref: '#/components/schemas/Link'
+          description: The location and content type of related resources
+          example:
+            self:
+              href: "/api/v2/projects/{projectKey}/environments/{environmentKey}/flags/evaluate"
+              type: application/json
+            site:
+              href: /my-project/my-environment/features/sort.order/targeting
+              type: text/html
+          type: object
+      required:
+      - _links
+      - _value
+      - key
+      - name
+      type: object
+    ContextInstanceEvaluationReason:
+      properties:
+        kind:
+          description: Describes the general reason that LaunchDarkly selected this
+            variation.
+          example: "OFF"
+          type: string
+        ruleIndex:
+          description: The positional index of the matching rule if the kind is 'RULE_MATCH'.
+            The index is 0-based.
+          example: 3
+          type: integer
+        ruleID:
+          description: The unique identifier of the matching rule if the kind is 'RULE_MATCH'.
+          example: "1234567890"
+          type: string
+        prerequisiteKey:
+          description: The key of the flag that failed if the kind is 'PREREQUISITE_FAILED'.
+          example: someotherflagkey
+          type: string
+        inExperiment:
+          description: Indicates whether the context was evaluated as part of an experiment.
+          example: true
+          type: boolean
+        errorKind:
+          description: The specific error type if the kind is 'ERROR'.
+          example: tried to use uninitialized Context
+          type: string
+      required:
+      - kind
+      type: object
+    ContextInstanceEvaluations:
+      example:
+        _links:
+          self:
+            href: "/api/v2/projects/{projectKey}/environments/{environmentKey}/flags/evaluate"
+            type: application/json
+        totalCount: 2
+        items:
+        - _links:
+            self:
+              href: "/api/v2/projects/{projectKey}/environments/{environmentKey}/flags/evaluate"
+              type: application/json
+            site:
+              href: /my-project/my-environment/features/sort.order/targeting
+              type: text/html
+          _value: true
+          key: sort.order
+          name: SortOrder
+          reason:
+            kind: FALLTHROUGH
+        - _links:
+            self:
+              href: "/api/v2/projects/{projectKey}/environments/{environmentKey}/flags/evaluate"
+              type: application/json
+            site:
+              href: /my-project/my-environment/features/alternate.page/targeting
+              type: text/html
+          _value: false
+          key: alternate.page
+          name: AlternatePage
+          reason:
+            kind: RULE_MATCH
+            ruleID: b2530cdf-14c6-4e16-b660-00239e08f19b
+            ruleIndex: 1
+      properties:
+        items:
+          description: Details on the flag evaluations for this context instance
+          example:
+          - _links:
+              self:
+                href: "/api/v2/projects/{projectKey}/environments/{environmentKey}/flags/evaluate"
+                type: application/json
+              site:
+                href: /my-project/my-environment/features/sort.order/targeting
+                type: text/html
+            _value: true
+            key: sort.order
+            name: SortOrder
+            reason:
+              kind: FALLTHROUGH
+          - _links:
+              self:
+                href: "/api/v2/projects/{projectKey}/environments/{environmentKey}/flags/evaluate"
+                type: application/json
+              site:
+                href: /my-project/my-environment/features/alternate.page/targeting
+                type: text/html
+            _value: false
+            key: alternate.page
+            name: AlternatePage
+            reason:
+              kind: RULE_MATCH
+              ruleID: b2530cdf-14c6-4e16-b660-00239e08f19b
+              ruleIndex: 1
+          items:
+            $ref: '#/components/schemas/ContextInstanceEvaluation'
+          type: array
+        totalCount:
+          description: The number of flags
+          example: 2
+          type: integer
+        _links:
+          additionalProperties:
+            $ref: '#/components/schemas/Link'
+          description: The location and content type of related resources
+          example:
+            self:
+              href: "/api/v2/projects/{projectKey}/environments/{environmentKey}/flags/evaluate"
+              type: application/json
+          type: object
+      required:
+      - _links
+      - items
       type: object
     ContextInstanceRecord:
       example:
@@ -18032,7 +18610,8 @@ components:
           site:
             href: /my-project/my-environment/context-instances/organization:launch-darkly:user:henry
             type: text/html
-        context: ""
+        context: "{\"kind\": \"user\", \"key\": \"context-key-123abc\", \"name\":\
+          \ \"Sandy Smith\", \"email\": \"sandy@example.com\"}"
         id: b3JnOmxhdW5jaGRhcmtseQ
         applicationId: GoSDK/1.2
       properties:
@@ -18062,6 +18641,8 @@ components:
           type: array
         context:
           description: "The context, including its kind and attributes"
+          example: "{\"kind\": \"user\", \"key\": \"context-key-123abc\", \"name\"\
+            : \"Sandy Smith\", \"email\": \"sandy@example.com\"}"
         _links:
           additionalProperties:
             $ref: '#/components/schemas/Link'
@@ -18114,116 +18695,6 @@ components:
             \ string."
           example: QAGFKH1313KUGI2351
           type: string
-      type: object
-    ContextInstanceSegmentMembership:
-      example:
-        external: https://amplitude.com/myCohort
-        isIndividuallyTargeted: true
-        _links:
-          key:
-            href: href
-            type: type
-        name: Segment Name
-        isRuleTargeted: false
-        description: Segment description
-        isMember: true
-        unbounded: false
-        key: segment-key
-      properties:
-        name:
-          description: A human-friendly name for the segment
-          example: Segment Name
-          type: string
-        key:
-          description: A unique key used to reference the segment
-          example: segment-key
-          type: string
-        description:
-          description: A description of the segment's purpose
-          example: Segment description
-          type: string
-        unbounded:
-          description: Whether this is an unbounded/big segment
-          example: false
-          type: boolean
-        external:
-          description: If the segment is a Synced Segment the name of the external
-            source'
-          example: https://amplitude.com/myCohort
-          type: string
-        isMember:
-          description: "Whether the context is a member of this segment, either by\
-            \ explicit inclusion or by rule matching"
-          example: true
-          type: boolean
-        isIndividuallyTargeted:
-          description: Whether the context is explicitly included in this segment
-          example: true
-          type: boolean
-        isRuleTargeted:
-          description: Whether the context is captured by this segment's rules. The
-            value of this field is undefined if the context is also explicitly included
-            (isIndividuallyTargeted = true).
-          example: false
-          type: boolean
-        _links:
-          additionalProperties:
-            $ref: '#/components/schemas/Link'
-          type: object
-      required:
-      - _links
-      - description
-      - external
-      - isIndividuallyTargeted
-      - isMember
-      - isRuleTargeted
-      - key
-      - name
-      - unbounded
-      type: object
-    ContextInstanceSegmentMemberships:
-      example:
-        _links:
-          key:
-            href: href
-            type: type
-        items:
-        - external: https://amplitude.com/myCohort
-          isIndividuallyTargeted: true
-          _links:
-            key:
-              href: href
-              type: type
-          name: Segment Name
-          isRuleTargeted: false
-          description: Segment description
-          isMember: true
-          unbounded: false
-          key: segment-key
-        - external: https://amplitude.com/myCohort
-          isIndividuallyTargeted: true
-          _links:
-            key:
-              href: href
-              type: type
-          name: Segment Name
-          isRuleTargeted: false
-          description: Segment description
-          isMember: true
-          unbounded: false
-          key: segment-key
-      properties:
-        items:
-          items:
-            $ref: '#/components/schemas/ContextInstanceSegmentMembership'
-          type: array
-        _links:
-          additionalProperties:
-            $ref: '#/components/schemas/Link'
-          type: object
-      required:
-      - _links
-      - items
       type: object
     ContextInstances:
       example:
@@ -18310,7 +18781,8 @@ components:
             site:
               href: /my-project/my-environment/context-instances/organization:launch-darkly:user:henry
               type: text/html
-          context: ""
+          context: "{\"kind\": \"user\", \"key\": \"context-key-123abc\", \"name\"\
+            : \"Sandy Smith\", \"email\": \"sandy@example.com\"}"
           id: b3JnOmxhdW5jaGRhcmtseQ
           applicationId: GoSDK/1.2
         - lastSeen: 2022-04-15T15:00:57.526470334Z
@@ -18386,7 +18858,8 @@ components:
             site:
               href: /my-project/my-environment/context-instances/organization:launch-darkly:user:henry
               type: text/html
-          context: ""
+          context: "{\"kind\": \"user\", \"key\": \"context-key-123abc\", \"name\"\
+            : \"Sandy Smith\", \"email\": \"sandy@example.com\"}"
           id: b3JnOmxhdW5jaGRhcmtseQ
           applicationId: GoSDK/1.2
         continuationToken: QAGFKH1313KUGI2351
@@ -18427,7 +18900,6 @@ components:
       required:
       - _environmentId
       - items
-      - totalCount
       type: object
     ContextKind:
       properties:
@@ -18643,7 +19115,8 @@ components:
           site:
             href: /my-project/my-environment/context/organization:launch-darkly:user:henry
             type: text/html
-        context: ""
+        context: "{\"kind\": \"user\", \"key\": \"context-key-123abc\", \"name\":\
+          \ \"Sandy Smith\", \"email\": \"sandy@example.com\"}"
         associatedContexts: 0
         applicationId: GoSDK/1.2
       properties:
@@ -18660,6 +19133,8 @@ components:
           type: string
         context:
           description: "The context, including its kind and attributes"
+          example: "{\"kind\": \"user\", \"key\": \"context-key-123abc\", \"name\"\
+            : \"Sandy Smith\", \"email\": \"sandy@example.com\"}"
         _links:
           additionalProperties:
             $ref: '#/components/schemas/Link'
@@ -18681,6 +19156,7 @@ components:
           description: "The total number of associated contexts. Associated contexts\
             \ are contexts that have appeared in the same context instance, that is,\
             \ they were part of the same flag evaluation."
+          example: 0
           type: integer
       required:
       - context
@@ -18801,7 +19277,8 @@ components:
             site:
               href: /my-project/my-environment/context/organization:launch-darkly:user:henry
               type: text/html
-          context: ""
+          context: "{\"kind\": \"user\", \"key\": \"context-key-123abc\", \"name\"\
+            : \"Sandy Smith\", \"email\": \"sandy@example.com\"}"
           associatedContexts: 0
           applicationId: GoSDK/1.2
         - lastSeen: 2022-04-15T15:00:57.526470334Z
@@ -18874,7 +19351,8 @@ components:
             site:
               href: /my-project/my-environment/context/organization:launch-darkly:user:henry
               type: text/html
-          context: ""
+          context: "{\"kind\": \"user\", \"key\": \"context-key-123abc\", \"name\"\
+            : \"Sandy Smith\", \"email\": \"sandy@example.com\"}"
           associatedContexts: 0
           applicationId: GoSDK/1.2
         continuationToken: QAGFKH1313KUGI2351
@@ -18917,7 +19395,6 @@ components:
       required:
       - _environmentId
       - items
-      - totalCount
       type: object
     CopiedFromEnv:
       example:
@@ -19436,7 +19913,7 @@ components:
             scheduleKind: relative
             waitDuration: 2
             waitDurationUnit: calendarDay
-        description: Turn flag on for 10% of customers each day
+        description: Turn flag on for 10% of users each day
         templateKey: templateKey
       properties:
         maintainerId:
@@ -19447,7 +19924,7 @@ components:
           type: string
         description:
           description: The workflow description
-          example: Turn flag on for 10% of customers each day
+          example: Turn flag on for 10% of users each day
           type: string
         stages:
           description: A list of the workflow stages
@@ -19458,7 +19935,7 @@ components:
           description: The template key
           type: string
       required:
-      - description
+      - name
       type: object
     CustomWorkflowMeta:
       example:
@@ -20669,6 +21146,951 @@ components:
           type: integer
       required:
       - status
+      type: object
+    ExpandableApprovalRequestResponse:
+      example:
+        allReviews:
+        - kind: approve
+          comment: Approved!
+          _id: 12ab3c45de678910abc12345
+          creationDate: 6
+          memberId: 12ab3c45de678910abc12345
+        - kind: approve
+          comment: Approved!
+          _id: 12ab3c45de678910abc12345
+          creationDate: 6
+          memberId: 12ab3c45de678910abc12345
+        instructions:
+        - null
+        - null
+        notifyMemberIds:
+        - 1234a56b7c89d012345e678f
+        flag:
+          archivedDate: 7
+          temporary: true
+          _maintainer:
+            firstName: An
+            lastName: Example
+            role: admin
+            _links:
+              self:
+                href: /api/v2/members/569f183514f4432160000007
+                type: application/json
+            _id: 569f183514f4432160000007
+            email: a.example@example.com
+          clientSideAvailability:
+            usingEnvironmentId: true
+            usingMobileKey: true
+          _links:
+            parent:
+              href: /api/v2/flags/my-project
+              type: application/json
+            self:
+              href: /api/v2/flags/my-project/my-flag
+              type: application/json
+          kind: boolean
+          description: This flag controls the example widgets
+          creationDate: 2
+          tags:
+          - example-tag
+          archived: false
+          includeInSnippet: true
+          maintainerId: 569f183514f4432160000007
+          customProperties:
+            key:
+              name: Jira issues
+              value:
+              - is-123
+              - is-456
+          defaults:
+            onVariation: 0
+            offVariation: 1
+          variations:
+          - _id: e432f62b-55f6-49dd-a02f-eb24acf39d05
+            value: true
+          - _id: a00bf58d-d252-476c-b915-15a74becacb4
+            value: false
+          name: My Flag
+          _version: 1
+          key: my-flag
+        _links:
+          key:
+            href: href
+            type: type
+        executionDate: 5
+        description: "example: request approval from someone"
+        project:
+          includeInSnippetByDefault: true
+          _links:
+            environments:
+              href: /api/v2/projects/my-project/environments
+              type: application/json
+            self:
+              href: /api/v2/projects/my-project
+              type: application/json
+          environments:
+            _links:
+              key:
+                href: href
+                type: type
+            totalCount: 2
+            items:
+            - approvalSettings:
+                serviceKind: launchdarkly
+                canReviewOwnRequest: false
+                serviceConfig: {}
+                requiredApprovalTags:
+                - require-approval
+                bypassApprovalsForPendingChanges: false
+                canApplyDeclinedChanges: true
+                minNumApprovals: 1
+                required: true
+              apiKey: XYZ
+              color: F5A623
+              _links:
+                self:
+                  href: /api/v2/projects/my-project/environments/my-environment
+                  type: application/json
+              confirmChanges: true
+              requireComments: true
+              mobileKey: XYZ
+              defaultTrackEvents: false
+              tags:
+              - ops
+              name: My Environment
+              defaultTtl: 5
+              _id: 57be1db38b75bf0772d11384
+              secureMode: true
+              key: my-environment
+            - approvalSettings:
+                serviceKind: launchdarkly
+                canReviewOwnRequest: false
+                serviceConfig: {}
+                requiredApprovalTags:
+                - require-approval
+                bypassApprovalsForPendingChanges: false
+                canApplyDeclinedChanges: true
+                minNumApprovals: 1
+                required: true
+              apiKey: XYZ
+              color: F5A623
+              _links:
+                self:
+                  href: /api/v2/projects/my-project/environments/my-environment
+                  type: application/json
+              confirmChanges: true
+              requireComments: true
+              mobileKey: XYZ
+              defaultTrackEvents: false
+              tags:
+              - ops
+              name: My Environment
+              defaultTtl: 5
+              _id: 57be1db38b75bf0772d11384
+              secureMode: true
+              key: my-environment
+          defaultClientSideAvailability:
+            usingEnvironmentId: true
+            usingMobileKey: true
+          name: My Project
+          _id: 57be1db38b75bf0772d11383
+          key: my-project
+          tags:
+          - ops
+        source:
+          version: 1
+          key: example-source-feature-flag
+        customWorkflowMetadata:
+          stage:
+            name: Stage 1
+            index: 0
+          name: Example workflow name
+        conflicts:
+        - reason: reason
+          instruction:
+            key: ""
+        - reason: reason
+          instruction:
+            key: ""
+        operatingOnId: 12ab3c45de678910abc12345
+        _version: 1
+        serviceKind: serviceKind
+        approvalSettings:
+          serviceKind: launchdarkly
+          canReviewOwnRequest: false
+          serviceConfig: {}
+          requiredApprovalTags:
+          - require-approval
+          bypassApprovalsForPendingChanges: false
+          canApplyDeclinedChanges: true
+          minNumApprovals: 1
+          required: true
+        appliedDate: 1
+        creationDate: 0
+        environment:
+          approvalSettings:
+            serviceKind: launchdarkly
+            canReviewOwnRequest: false
+            serviceConfig: {}
+            requiredApprovalTags:
+            - require-approval
+            bypassApprovalsForPendingChanges: false
+            canApplyDeclinedChanges: true
+            minNumApprovals: 1
+            required: true
+          apiKey: XYZ
+          color: F5A623
+          _links:
+            self:
+              href: /api/v2/projects/my-project/environments/my-environment
+              type: application/json
+          confirmChanges: true
+          requireComments: true
+          mobileKey: XYZ
+          defaultTrackEvents: false
+          tags:
+          - ops
+          name: My Environment
+          defaultTtl: 5
+          _id: 57be1db38b75bf0772d11384
+          secureMode: true
+          key: my-environment
+        requestorId: 12ab3c45de678910abc12345
+        resourceIdentifier: resourceIdentifier
+        integrationMetadata:
+          externalUrl: externalUrl
+          externalId: externalId
+          externalStatus:
+            display: display
+            value: value
+          lastChecked: 5
+        reviewStatus: pending
+        appliedByMemberId: 1234a56b7c89d012345e678f
+        _id: 12ab3c45de678910abc12345
+        status: pending
+      properties:
+        _id:
+          description: The ID of this approval request
+          example: 12ab3c45de678910abc12345
+          type: string
+        _version:
+          description: Version of the approval request
+          example: 1
+          type: integer
+        creationDate:
+          format: int64
+          type: integer
+        serviceKind:
+          type: string
+        requestorId:
+          description: The ID of the member who requested the approval
+          example: 12ab3c45de678910abc12345
+          type: string
+        description:
+          description: A human-friendly name for the approval request
+          example: "example: request approval from someone"
+          type: string
+        reviewStatus:
+          description: Current status of the review of this approval request
+          enum:
+          - approved
+          - declined
+          - pending
+          example: pending
+          type: string
+        allReviews:
+          description: An array of individual reviews of this approval request
+          items:
+            $ref: '#/components/schemas/ReviewResponse'
+          type: array
+        notifyMemberIds:
+          description: An array of member IDs. These members are notified to review
+            the approval request.
+          example:
+          - 1234a56b7c89d012345e678f
+          items:
+            type: string
+          type: array
+        appliedDate:
+          format: int64
+          type: integer
+        appliedByMemberId:
+          description: The member ID of the member who applied the approval request
+          example: 1234a56b7c89d012345e678f
+          type: string
+        status:
+          description: Current status of the approval request
+          enum:
+          - pending
+          - completed
+          - failed
+          - scheduled
+          example: pending
+          type: string
+        instructions:
+          items:
+            $ref: '#/components/schemas/Instruction'
+          type: array
+        conflicts:
+          description: Details on any conflicting approval requests
+          items:
+            $ref: '#/components/schemas/Conflict'
+          type: array
+        _links:
+          additionalProperties:
+            $ref: '#/components/schemas/Link'
+          description: The location and content type of related resources
+          type: object
+        executionDate:
+          format: int64
+          type: integer
+        operatingOnId:
+          description: ID of scheduled change to edit or delete
+          example: 12ab3c45de678910abc12345
+          type: string
+        integrationMetadata:
+          $ref: '#/components/schemas/IntegrationMetadata'
+        source:
+          $ref: '#/components/schemas/CopiedFromEnv'
+        customWorkflowMetadata:
+          $ref: '#/components/schemas/CustomWorkflowMeta'
+        resourceIdentifier:
+          description: String representation of a resource
+          type: string
+        approvalSettings:
+          $ref: '#/components/schemas/ApprovalSettings'
+        project:
+          $ref: '#/components/schemas/Project'
+        environment:
+          $ref: '#/components/schemas/Environment'
+        flag:
+          $ref: '#/components/schemas/ExpandedFlagRep'
+      required:
+      - _id
+      - _links
+      - _version
+      - allReviews
+      - conflicts
+      - creationDate
+      - instructions
+      - notifyMemberIds
+      - reviewStatus
+      - serviceKind
+      - status
+      type: object
+    ExpandableApprovalRequestsResponse:
+      example:
+        _links:
+          key:
+            href: href
+            type: type
+        totalCount: 1
+        items:
+        - allReviews:
+          - kind: approve
+            comment: Approved!
+            _id: 12ab3c45de678910abc12345
+            creationDate: 6
+            memberId: 12ab3c45de678910abc12345
+          - kind: approve
+            comment: Approved!
+            _id: 12ab3c45de678910abc12345
+            creationDate: 6
+            memberId: 12ab3c45de678910abc12345
+          instructions:
+          - null
+          - null
+          notifyMemberIds:
+          - 1234a56b7c89d012345e678f
+          flag:
+            archivedDate: 7
+            temporary: true
+            _maintainer:
+              firstName: An
+              lastName: Example
+              role: admin
+              _links:
+                self:
+                  href: /api/v2/members/569f183514f4432160000007
+                  type: application/json
+              _id: 569f183514f4432160000007
+              email: a.example@example.com
+            clientSideAvailability:
+              usingEnvironmentId: true
+              usingMobileKey: true
+            _links:
+              parent:
+                href: /api/v2/flags/my-project
+                type: application/json
+              self:
+                href: /api/v2/flags/my-project/my-flag
+                type: application/json
+            kind: boolean
+            description: This flag controls the example widgets
+            creationDate: 2
+            tags:
+            - example-tag
+            archived: false
+            includeInSnippet: true
+            maintainerId: 569f183514f4432160000007
+            customProperties:
+              key:
+                name: Jira issues
+                value:
+                - is-123
+                - is-456
+            defaults:
+              onVariation: 0
+              offVariation: 1
+            variations:
+            - _id: e432f62b-55f6-49dd-a02f-eb24acf39d05
+              value: true
+            - _id: a00bf58d-d252-476c-b915-15a74becacb4
+              value: false
+            name: My Flag
+            _version: 1
+            key: my-flag
+          _links:
+            key:
+              href: href
+              type: type
+          executionDate: 5
+          description: "example: request approval from someone"
+          project:
+            includeInSnippetByDefault: true
+            _links:
+              environments:
+                href: /api/v2/projects/my-project/environments
+                type: application/json
+              self:
+                href: /api/v2/projects/my-project
+                type: application/json
+            environments:
+              _links:
+                key:
+                  href: href
+                  type: type
+              totalCount: 2
+              items:
+              - approvalSettings:
+                  serviceKind: launchdarkly
+                  canReviewOwnRequest: false
+                  serviceConfig: {}
+                  requiredApprovalTags:
+                  - require-approval
+                  bypassApprovalsForPendingChanges: false
+                  canApplyDeclinedChanges: true
+                  minNumApprovals: 1
+                  required: true
+                apiKey: XYZ
+                color: F5A623
+                _links:
+                  self:
+                    href: /api/v2/projects/my-project/environments/my-environment
+                    type: application/json
+                confirmChanges: true
+                requireComments: true
+                mobileKey: XYZ
+                defaultTrackEvents: false
+                tags:
+                - ops
+                name: My Environment
+                defaultTtl: 5
+                _id: 57be1db38b75bf0772d11384
+                secureMode: true
+                key: my-environment
+              - approvalSettings:
+                  serviceKind: launchdarkly
+                  canReviewOwnRequest: false
+                  serviceConfig: {}
+                  requiredApprovalTags:
+                  - require-approval
+                  bypassApprovalsForPendingChanges: false
+                  canApplyDeclinedChanges: true
+                  minNumApprovals: 1
+                  required: true
+                apiKey: XYZ
+                color: F5A623
+                _links:
+                  self:
+                    href: /api/v2/projects/my-project/environments/my-environment
+                    type: application/json
+                confirmChanges: true
+                requireComments: true
+                mobileKey: XYZ
+                defaultTrackEvents: false
+                tags:
+                - ops
+                name: My Environment
+                defaultTtl: 5
+                _id: 57be1db38b75bf0772d11384
+                secureMode: true
+                key: my-environment
+            defaultClientSideAvailability:
+              usingEnvironmentId: true
+              usingMobileKey: true
+            name: My Project
+            _id: 57be1db38b75bf0772d11383
+            key: my-project
+            tags:
+            - ops
+          source:
+            version: 1
+            key: example-source-feature-flag
+          customWorkflowMetadata:
+            stage:
+              name: Stage 1
+              index: 0
+            name: Example workflow name
+          conflicts:
+          - reason: reason
+            instruction:
+              key: ""
+          - reason: reason
+            instruction:
+              key: ""
+          operatingOnId: 12ab3c45de678910abc12345
+          _version: 1
+          serviceKind: serviceKind
+          approvalSettings:
+            serviceKind: launchdarkly
+            canReviewOwnRequest: false
+            serviceConfig: {}
+            requiredApprovalTags:
+            - require-approval
+            bypassApprovalsForPendingChanges: false
+            canApplyDeclinedChanges: true
+            minNumApprovals: 1
+            required: true
+          appliedDate: 1
+          creationDate: 0
+          environment:
+            approvalSettings:
+              serviceKind: launchdarkly
+              canReviewOwnRequest: false
+              serviceConfig: {}
+              requiredApprovalTags:
+              - require-approval
+              bypassApprovalsForPendingChanges: false
+              canApplyDeclinedChanges: true
+              minNumApprovals: 1
+              required: true
+            apiKey: XYZ
+            color: F5A623
+            _links:
+              self:
+                href: /api/v2/projects/my-project/environments/my-environment
+                type: application/json
+            confirmChanges: true
+            requireComments: true
+            mobileKey: XYZ
+            defaultTrackEvents: false
+            tags:
+            - ops
+            name: My Environment
+            defaultTtl: 5
+            _id: 57be1db38b75bf0772d11384
+            secureMode: true
+            key: my-environment
+          requestorId: 12ab3c45de678910abc12345
+          resourceIdentifier: resourceIdentifier
+          integrationMetadata:
+            externalUrl: externalUrl
+            externalId: externalId
+            externalStatus:
+              display: display
+              value: value
+            lastChecked: 5
+          reviewStatus: pending
+          appliedByMemberId: 1234a56b7c89d012345e678f
+          _id: 12ab3c45de678910abc12345
+          status: pending
+        - allReviews:
+          - kind: approve
+            comment: Approved!
+            _id: 12ab3c45de678910abc12345
+            creationDate: 6
+            memberId: 12ab3c45de678910abc12345
+          - kind: approve
+            comment: Approved!
+            _id: 12ab3c45de678910abc12345
+            creationDate: 6
+            memberId: 12ab3c45de678910abc12345
+          instructions:
+          - null
+          - null
+          notifyMemberIds:
+          - 1234a56b7c89d012345e678f
+          flag:
+            archivedDate: 7
+            temporary: true
+            _maintainer:
+              firstName: An
+              lastName: Example
+              role: admin
+              _links:
+                self:
+                  href: /api/v2/members/569f183514f4432160000007
+                  type: application/json
+              _id: 569f183514f4432160000007
+              email: a.example@example.com
+            clientSideAvailability:
+              usingEnvironmentId: true
+              usingMobileKey: true
+            _links:
+              parent:
+                href: /api/v2/flags/my-project
+                type: application/json
+              self:
+                href: /api/v2/flags/my-project/my-flag
+                type: application/json
+            kind: boolean
+            description: This flag controls the example widgets
+            creationDate: 2
+            tags:
+            - example-tag
+            archived: false
+            includeInSnippet: true
+            maintainerId: 569f183514f4432160000007
+            customProperties:
+              key:
+                name: Jira issues
+                value:
+                - is-123
+                - is-456
+            defaults:
+              onVariation: 0
+              offVariation: 1
+            variations:
+            - _id: e432f62b-55f6-49dd-a02f-eb24acf39d05
+              value: true
+            - _id: a00bf58d-d252-476c-b915-15a74becacb4
+              value: false
+            name: My Flag
+            _version: 1
+            key: my-flag
+          _links:
+            key:
+              href: href
+              type: type
+          executionDate: 5
+          description: "example: request approval from someone"
+          project:
+            includeInSnippetByDefault: true
+            _links:
+              environments:
+                href: /api/v2/projects/my-project/environments
+                type: application/json
+              self:
+                href: /api/v2/projects/my-project
+                type: application/json
+            environments:
+              _links:
+                key:
+                  href: href
+                  type: type
+              totalCount: 2
+              items:
+              - approvalSettings:
+                  serviceKind: launchdarkly
+                  canReviewOwnRequest: false
+                  serviceConfig: {}
+                  requiredApprovalTags:
+                  - require-approval
+                  bypassApprovalsForPendingChanges: false
+                  canApplyDeclinedChanges: true
+                  minNumApprovals: 1
+                  required: true
+                apiKey: XYZ
+                color: F5A623
+                _links:
+                  self:
+                    href: /api/v2/projects/my-project/environments/my-environment
+                    type: application/json
+                confirmChanges: true
+                requireComments: true
+                mobileKey: XYZ
+                defaultTrackEvents: false
+                tags:
+                - ops
+                name: My Environment
+                defaultTtl: 5
+                _id: 57be1db38b75bf0772d11384
+                secureMode: true
+                key: my-environment
+              - approvalSettings:
+                  serviceKind: launchdarkly
+                  canReviewOwnRequest: false
+                  serviceConfig: {}
+                  requiredApprovalTags:
+                  - require-approval
+                  bypassApprovalsForPendingChanges: false
+                  canApplyDeclinedChanges: true
+                  minNumApprovals: 1
+                  required: true
+                apiKey: XYZ
+                color: F5A623
+                _links:
+                  self:
+                    href: /api/v2/projects/my-project/environments/my-environment
+                    type: application/json
+                confirmChanges: true
+                requireComments: true
+                mobileKey: XYZ
+                defaultTrackEvents: false
+                tags:
+                - ops
+                name: My Environment
+                defaultTtl: 5
+                _id: 57be1db38b75bf0772d11384
+                secureMode: true
+                key: my-environment
+            defaultClientSideAvailability:
+              usingEnvironmentId: true
+              usingMobileKey: true
+            name: My Project
+            _id: 57be1db38b75bf0772d11383
+            key: my-project
+            tags:
+            - ops
+          source:
+            version: 1
+            key: example-source-feature-flag
+          customWorkflowMetadata:
+            stage:
+              name: Stage 1
+              index: 0
+            name: Example workflow name
+          conflicts:
+          - reason: reason
+            instruction:
+              key: ""
+          - reason: reason
+            instruction:
+              key: ""
+          operatingOnId: 12ab3c45de678910abc12345
+          _version: 1
+          serviceKind: serviceKind
+          approvalSettings:
+            serviceKind: launchdarkly
+            canReviewOwnRequest: false
+            serviceConfig: {}
+            requiredApprovalTags:
+            - require-approval
+            bypassApprovalsForPendingChanges: false
+            canApplyDeclinedChanges: true
+            minNumApprovals: 1
+            required: true
+          appliedDate: 1
+          creationDate: 0
+          environment:
+            approvalSettings:
+              serviceKind: launchdarkly
+              canReviewOwnRequest: false
+              serviceConfig: {}
+              requiredApprovalTags:
+              - require-approval
+              bypassApprovalsForPendingChanges: false
+              canApplyDeclinedChanges: true
+              minNumApprovals: 1
+              required: true
+            apiKey: XYZ
+            color: F5A623
+            _links:
+              self:
+                href: /api/v2/projects/my-project/environments/my-environment
+                type: application/json
+            confirmChanges: true
+            requireComments: true
+            mobileKey: XYZ
+            defaultTrackEvents: false
+            tags:
+            - ops
+            name: My Environment
+            defaultTtl: 5
+            _id: 57be1db38b75bf0772d11384
+            secureMode: true
+            key: my-environment
+          requestorId: 12ab3c45de678910abc12345
+          resourceIdentifier: resourceIdentifier
+          integrationMetadata:
+            externalUrl: externalUrl
+            externalId: externalId
+            externalStatus:
+              display: display
+              value: value
+            lastChecked: 5
+          reviewStatus: pending
+          appliedByMemberId: 1234a56b7c89d012345e678f
+          _id: 12ab3c45de678910abc12345
+          status: pending
+      properties:
+        items:
+          description: An array of approval requests
+          items:
+            $ref: '#/components/schemas/ExpandableApprovalRequestResponse'
+          type: array
+        totalCount:
+          description: Total number of approval requests
+          example: 1
+          type: integer
+        _links:
+          additionalProperties:
+            $ref: '#/components/schemas/Link'
+          description: The location and content type of related resources
+          type: object
+      required:
+      - _links
+      - items
+      - totalCount
+      type: object
+    ExpandedFlagRep:
+      example:
+        archivedDate: 7
+        temporary: true
+        _maintainer:
+          firstName: An
+          lastName: Example
+          role: admin
+          _links:
+            self:
+              href: /api/v2/members/569f183514f4432160000007
+              type: application/json
+          _id: 569f183514f4432160000007
+          email: a.example@example.com
+        clientSideAvailability:
+          usingEnvironmentId: true
+          usingMobileKey: true
+        _links:
+          parent:
+            href: /api/v2/flags/my-project
+            type: application/json
+          self:
+            href: /api/v2/flags/my-project/my-flag
+            type: application/json
+        kind: boolean
+        description: This flag controls the example widgets
+        creationDate: 2
+        tags:
+        - example-tag
+        archived: false
+        includeInSnippet: true
+        maintainerId: 569f183514f4432160000007
+        customProperties:
+          key:
+            name: Jira issues
+            value:
+            - is-123
+            - is-456
+        defaults:
+          onVariation: 0
+          offVariation: 1
+        variations:
+        - _id: e432f62b-55f6-49dd-a02f-eb24acf39d05
+          value: true
+        - _id: a00bf58d-d252-476c-b915-15a74becacb4
+          value: false
+        name: My Flag
+        _version: 1
+        key: my-flag
+      properties:
+        name:
+          description: A human-friendly name for the feature flag
+          example: My Flag
+          type: string
+        kind:
+          description: Kind of feature flag
+          enum:
+          - boolean
+          - multivariate
+          example: boolean
+          type: string
+        description:
+          description: Description of the feature flag
+          example: This flag controls the example widgets
+          type: string
+        key:
+          description: A unique key used to reference the flag in your code
+          example: my-flag
+          type: string
+        _version:
+          description: Version of the feature flag
+          example: 1
+          type: integer
+        creationDate:
+          format: int64
+          type: integer
+        includeInSnippet:
+          description: "Deprecated, use <code>clientSideAvailability</code>. Whether\
+            \ this flag should be made available to the client-side JavaScript SDK"
+          example: true
+          type: boolean
+        clientSideAvailability:
+          $ref: '#/components/schemas/ClientSideAvailability'
+        variations:
+          description: An array of possible variations for the flag
+          example:
+          - _id: e432f62b-55f6-49dd-a02f-eb24acf39d05
+            value: true
+          - _id: a00bf58d-d252-476c-b915-15a74becacb4
+            value: false
+          items:
+            $ref: '#/components/schemas/Variation'
+          type: array
+        temporary:
+          description: Whether the flag is a temporary flag
+          example: true
+          type: boolean
+        tags:
+          description: Tags for the feature flag
+          example:
+          - example-tag
+          items:
+            type: string
+          type: array
+        _links:
+          additionalProperties:
+            $ref: '#/components/schemas/Link'
+          description: The location and content type of related resources
+          example:
+            parent:
+              href: /api/v2/flags/my-project
+              type: application/json
+            self:
+              href: /api/v2/flags/my-project/my-flag
+              type: application/json
+          type: object
+        maintainerId:
+          description: The ID of the member who maintains the flag
+          example: 569f183514f4432160000007
+          type: string
+        _maintainer:
+          $ref: '#/components/schemas/MemberSummary'
+        customProperties:
+          additionalProperties:
+            $ref: '#/components/schemas/customProperty'
+          type: object
+        archived:
+          description: Boolean indicating if the feature flag is archived
+          example: false
+          type: boolean
+        archivedDate:
+          format: int64
+          type: integer
+        defaults:
+          $ref: '#/components/schemas/Defaults'
+      required:
+      - _links
+      - _version
+      - archived
+      - creationDate
+      - customProperties
+      - key
+      - kind
+      - name
+      - tags
+      - temporary
+      - variations
       type: object
     Experiment:
       example:
@@ -24096,9 +25518,9 @@ components:
           key:
             href: href
             type: type
-        executionDate: 5
+        executionDate: 1
         description: "example: request approval from someone"
-        appliedDate: 1
+        appliedDate: 6
         source:
           version: 1
           key: example-source-feature-flag
@@ -24115,7 +25537,7 @@ components:
           externalStatus:
             display: display
             value: value
-          lastChecked: 6
+          lastChecked: 5
         conflicts:
         - reason: reason
           instruction:
@@ -24256,9 +25678,9 @@ components:
             key:
               href: href
               type: type
-          executionDate: 5
+          executionDate: 1
           description: "example: request approval from someone"
-          appliedDate: 1
+          appliedDate: 6
           source:
             version: 1
             key: example-source-feature-flag
@@ -24275,7 +25697,7 @@ components:
             externalStatus:
               display: display
               value: value
-            lastChecked: 6
+            lastChecked: 5
           conflicts:
           - reason: reason
             instruction:
@@ -24310,9 +25732,9 @@ components:
             key:
               href: href
               type: type
-          executionDate: 5
+          executionDate: 1
           description: "example: request approval from someone"
-          appliedDate: 1
+          appliedDate: 6
           source:
             version: 1
             key: example-source-feature-flag
@@ -24329,7 +25751,7 @@ components:
             externalStatus:
               display: display
               value: value
-            lastChecked: 6
+            lastChecked: 5
           conflicts:
           - reason: reason
             instruction:
@@ -25798,7 +27220,7 @@ components:
         externalStatus:
           display: display
           value: value
-        lastChecked: 6
+        lastChecked: 5
       properties:
         externalId:
           type: string
@@ -26290,9 +27712,9 @@ components:
             clear
           type: string
         canReshuffleTraffic:
-          description: Whether the experiment is allowed to reassign users to different
-            variations (true) or must keep users assigned to their initial variation
-            (false).
+          description: Whether the experiment can reassign traffic to different variations
+            when you increase or decrease the traffic in your experiment audience
+            (true) or keep all traffic assigned to its initial variation (false).
           example: true
           type: boolean
         flags:
@@ -26544,14 +27966,14 @@ components:
         - excludedDashboards
         _lastSeenMetadata:
           tokenId: 5b52207f8ca8e631d31fdb2b
-        creationDate: 1
+        creationDate: 6
         _integrationMetadata:
           externalUrl: externalUrl
           externalId: externalId
           externalStatus:
             display: display
             value: value
-          lastChecked: 6
+          lastChecked: 5
         oauthProviders:
         - null
         - null
@@ -26841,7 +28263,7 @@ components:
           key:
             href: href
             type: type
-        totalCount: 5
+        totalCount: 1
         items:
         - lastName: Loblaw
           _verified: true
@@ -26875,14 +28297,14 @@ components:
           - excludedDashboards
           _lastSeenMetadata:
             tokenId: 5b52207f8ca8e631d31fdb2b
-          creationDate: 1
+          creationDate: 6
           _integrationMetadata:
             externalUrl: externalUrl
             externalId: externalId
             externalStatus:
               display: display
               value: value
-            lastChecked: 6
+            lastChecked: 5
           oauthProviders:
           - null
           - null
@@ -26926,14 +28348,14 @@ components:
           - excludedDashboards
           _lastSeenMetadata:
             tokenId: 5b52207f8ca8e631d31fdb2b
-          creationDate: 1
+          creationDate: 6
           _integrationMetadata:
             externalUrl: externalUrl
             externalId: externalId
             externalStatus:
               display: display
               value: value
-            lastChecked: 6
+            lastChecked: 5
           oauthProviders:
           - null
           - null
@@ -30094,7 +31516,8 @@ components:
           type: array
         unbounded:
           description: "Whether to create a standard segment (false) or a Big Segment\
-            \ (true). Only use a Big Segment if you need to add more than 15,000 users."
+            \ (true). Only use a Big Segment if you need to add more than 15,000 individual\
+            \ targets."
           example: false
           type: boolean
         unboundedContextKind:
@@ -30220,6 +31643,22 @@ components:
     SeriesTimeSliceRep:
       additionalProperties:
         type: integer
+      type: object
+    SlicedResultsRep:
+      properties:
+        attribute:
+          description: An attribute that results are sliced by
+          example: country
+          type: string
+        attributeValue:
+          description: Attribute Value for 'attribute'
+          example: Canada
+          type: string
+        treatmentResults:
+          description: A list of the results for each treatment
+          items:
+            $ref: '#/components/schemas/TreatmentResultRep'
+          type: array
       type: object
     SourceEnv:
       example:
@@ -31533,7 +32972,8 @@ components:
           example: reader
           type: string
         token:
-          description: Last four characters of the token value
+          description: "The token value. When creating or resetting, contains the\
+            \ entire token value. Otherwise, contains the last four characters."
           example: "1234"
           type: string
         serviceToken:
@@ -32165,8 +33605,7 @@ components:
           example: Loblaw
           type: string
         avatar:
-          description: An absolute URL to an avatar image. The avatar appears on the
-            Users dashboard in the LaunchDarkly UI.
+          description: An absolute URL to an avatar image.
           example: http://example.com/avatar.png
           type: string
         name:
@@ -32175,7 +33614,7 @@ components:
           type: string
         anonymous:
           description: "Whether the user is anonymous. If true, this user does not\
-            \ appear on the Users dashboard in the LaunchDarkly UI."
+            \ appear on the Contexts list in the LaunchDarkly user interface."
           example: false
           type: boolean
         custom:
@@ -32192,7 +33631,7 @@ components:
             \ send the private attribute back to LaunchDarkly for evaluation. However,\
             \ the SDK won't send the attribute to LaunchDarkly in events data, LaunchDarkly\
             \ won't store the private attribute, and the private attribute will not\
-            \ appear on the Users dashboard."
+            \ appear on the Contexts dashboard."
           items:
             type: string
           type: array
@@ -32546,7 +33985,7 @@ components:
         tags:
         - testing
         excluded:
-        - example-user-to-exclude
+        - example-user-key-to-exclude
         _importInProgress: false
         _unboundedMetadata:
           deleted: true
@@ -32628,7 +34067,7 @@ components:
           contextKind: contextKind
         unbounded: false
         included:
-        - example-user-key
+        - example-user-key-to-include
         key: example-segment
       properties:
         name:
@@ -32655,21 +34094,21 @@ components:
           example: example-segment
           type: string
         included:
-          description: "An array of user keys for included users. Included users are\
-            \ always segment members, regardless of segment rules. For Big Segments\
-            \ this array is either empty or omitted."
+          description: "An array of keys for included targets. Included individual\
+            \ targets are always segment members, regardless of segment rules. For\
+            \ Big Segments this array is either empty or omitted."
           example:
-          - example-user-key
+          - example-user-key-to-include
           items:
             type: string
           type: array
         excluded:
-          description: "An array of user keys for excluded users. Segment rules bypass\
-            \ excluded users, so they will never be included based on rules. Excluded\
-            \ users may still be included explicitly. This value is omitted for Big\
-            \ Segments."
+          description: "An array of keys for excluded targets. Segment rules bypass\
+            \ individual excluded targets, so they will never be included based on\
+            \ rules. Excluded targets may still be included explicitly. This value\
+            \ is omitted for Big Segments."
           example:
-          - example-user-to-exclude
+          - example-user-key-to-exclude
           items:
             type: string
           type: array
@@ -32827,7 +34266,7 @@ components:
           tags:
           - testing
           excluded:
-          - example-user-to-exclude
+          - example-user-key-to-exclude
           _importInProgress: false
           _unboundedMetadata:
             deleted: true
@@ -32909,7 +34348,7 @@ components:
             contextKind: contextKind
           unbounded: false
           included:
-          - example-user-key
+          - example-user-key-to-include
           key: example-segment
         - generation: 6
           _flags:
@@ -32961,7 +34400,7 @@ components:
           tags:
           - testing
           excluded:
-          - example-user-to-exclude
+          - example-user-key-to-exclude
           _importInProgress: false
           _unboundedMetadata:
             deleted: true
@@ -33043,7 +34482,7 @@ components:
             contextKind: contextKind
           unbounded: false
           included:
-          - example-user-key
+          - example-user-key-to-include
           key: example-segment
       properties:
         items:
@@ -33504,7 +34943,7 @@ components:
       type: object
     ValuePut:
       example:
-        comment: make sure this user experiences a specific variation
+        comment: make sure this context experiences a specific variation
         setting: existing_variation_value_to_use
       properties:
         setting:
@@ -33513,7 +34952,7 @@ components:
           example: existing_variation_value_to_use
         comment:
           description: Optional comment describing the change
-          example: make sure this user experiences a specific variation
+          example: make sure this context experiences a specific variation
           type: string
       type: object
     Variate:
