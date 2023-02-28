@@ -10,11 +10,12 @@ Name | Type | Description | Notes
 **CreatedAt** | **int64** |  | 
 **StartedAt** | Pointer to **int64** |  | [optional] 
 **EndedAt** | Pointer to **int64** |  | [optional] 
-**WinningTreatmentId** | Pointer to **string** | The ID of the treatment with the probability to be best | [optional] 
+**WinningTreatmentId** | Pointer to **string** | The ID of the treatment chosen when the experiment stopped | [optional] 
 **WinningReason** | Pointer to **string** | The reason you stopped the experiment | [optional] 
-**CanReshuffleTraffic** | Pointer to **bool** | Whether the experiment is allowed to reassign users to different variations (true) or must keep users assigned to their initial variation (false). | [optional] 
+**CanReshuffleTraffic** | Pointer to **bool** | Whether the experiment may reassign traffic to different variations when the experiment audience changes (true) or must keep all traffic assigned to its initial variation (false). | [optional] 
 **Flags** | Pointer to [**map[string]FlagRep**](FlagRep.md) | Details on the flag used in this experiment | [optional] 
 **PrimaryMetric** | Pointer to [**MetricV2Rep**](MetricV2Rep.md) |  | [optional] 
+**RandomizationUnit** | Pointer to **string** | The unit of randomization for this iteration | [optional] 
 **Treatments** | Pointer to [**[]TreatmentRep**](TreatmentRep.md) | Details on the variations you are testing in the experiment | [optional] 
 **SecondaryMetrics** | Pointer to [**[]MetricV2Rep**](MetricV2Rep.md) | Details on the secondary metrics for this experiment | [optional] 
 
@@ -296,6 +297,31 @@ SetPrimaryMetric sets PrimaryMetric field to given value.
 `func (o *IterationRep) HasPrimaryMetric() bool`
 
 HasPrimaryMetric returns a boolean if a field has been set.
+
+### GetRandomizationUnit
+
+`func (o *IterationRep) GetRandomizationUnit() string`
+
+GetRandomizationUnit returns the RandomizationUnit field if non-nil, zero value otherwise.
+
+### GetRandomizationUnitOk
+
+`func (o *IterationRep) GetRandomizationUnitOk() (*string, bool)`
+
+GetRandomizationUnitOk returns a tuple with the RandomizationUnit field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRandomizationUnit
+
+`func (o *IterationRep) SetRandomizationUnit(v string)`
+
+SetRandomizationUnit sets RandomizationUnit field to given value.
+
+### HasRandomizationUnit
+
+`func (o *IterationRep) HasRandomizationUnit() bool`
+
+HasRandomizationUnit returns a boolean if a field has been set.
 
 ### GetTreatments
 

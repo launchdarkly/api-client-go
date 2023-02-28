@@ -169,7 +169,7 @@ Name | Type | Description  | Notes
 
 ## GetWorkflows
 
-> CustomWorkflowsListingOutput GetWorkflows(ctx, projectKey, featureFlagKey, environmentKey).Execute()
+> CustomWorkflowsListingOutput GetWorkflows(ctx, projectKey, featureFlagKey, environmentKey).Status(status).Sort(sort).Execute()
 
 Get workflows
 
@@ -191,10 +191,12 @@ func main() {
     projectKey := "projectKey_example" // string | The project key
     featureFlagKey := "featureFlagKey_example" // string | The feature flag key
     environmentKey := "environmentKey_example" // string | The environment key
+    status := "status_example" // string | Filter results by workflow status. Valid status filters are `active`, `completed`, and `failed`. (optional)
+    sort := "sort_example" // string | A field to sort the items by. Prefix field by a dash ( - ) to sort in descending order. This endpoint supports sorting by `creationDate` or `stopDate`. (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.WorkflowsBetaApi.GetWorkflows(context.Background(), projectKey, featureFlagKey, environmentKey).Execute()
+    resp, r, err := apiClient.WorkflowsBetaApi.GetWorkflows(context.Background(), projectKey, featureFlagKey, environmentKey).Status(status).Sort(sort).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `WorkflowsBetaApi.GetWorkflows``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -224,6 +226,8 @@ Name | Type | Description  | Notes
 
 
 
+ **status** | **string** | Filter results by workflow status. Valid status filters are &#x60;active&#x60;, &#x60;completed&#x60;, and &#x60;failed&#x60;. | 
+ **sort** | **string** | A field to sort the items by. Prefix field by a dash ( - ) to sort in descending order. This endpoint supports sorting by &#x60;creationDate&#x60; or &#x60;stopDate&#x60;. | 
 
 ### Return type
 
@@ -245,7 +249,7 @@ Name | Type | Description  | Notes
 
 ## PostWorkflow
 
-> CustomWorkflowOutput PostWorkflow(ctx, projectKey, featureFlagKey, environmentKey).CustomWorkflowInput(customWorkflowInput).TemplateKey(templateKey).Execute()
+> CustomWorkflowOutput PostWorkflow(ctx, projectKey, featureFlagKey, environmentKey).CustomWorkflowInput(customWorkflowInput).TemplateKey(templateKey).DryRun(dryRun).Execute()
 
 Create workflow
 
@@ -267,12 +271,13 @@ func main() {
     projectKey := "projectKey_example" // string | The project key
     featureFlagKey := "featureFlagKey_example" // string | The feature flag key
     environmentKey := "environmentKey_example" // string | The environment key
-    customWorkflowInput := *openapiclient.NewCustomWorkflowInput("Turn flag on for 10% of users each day") // CustomWorkflowInput | 
+    customWorkflowInput := *openapiclient.NewCustomWorkflowInput("Progressive rollout starting in two days") // CustomWorkflowInput | 
     templateKey := "templateKey_example" // string | The template key to apply as a starting point for the new workflow (optional)
+    dryRun := true // bool | Whether to call the endpoint in dry-run mode (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.WorkflowsBetaApi.PostWorkflow(context.Background(), projectKey, featureFlagKey, environmentKey).CustomWorkflowInput(customWorkflowInput).TemplateKey(templateKey).Execute()
+    resp, r, err := apiClient.WorkflowsBetaApi.PostWorkflow(context.Background(), projectKey, featureFlagKey, environmentKey).CustomWorkflowInput(customWorkflowInput).TemplateKey(templateKey).DryRun(dryRun).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `WorkflowsBetaApi.PostWorkflow``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -304,6 +309,7 @@ Name | Type | Description  | Notes
 
  **customWorkflowInput** | [**CustomWorkflowInput**](CustomWorkflowInput.md) |  | 
  **templateKey** | **string** | The template key to apply as a starting point for the new workflow | 
+ **dryRun** | **bool** | Whether to call the endpoint in dry-run mode | 
 
 ### Return type
 

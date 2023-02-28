@@ -5,10 +5,11 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Hypothesis** | **string** | The expected outcome of this experiment | 
-**CanReshuffleTraffic** | Pointer to **bool** | Whether to allow the experiment to reassign users to different variations (true) or keep users assigned to their initial variation (false). Defaults to true. | [optional] 
+**CanReshuffleTraffic** | Pointer to **bool** | Whether to allow the experiment to reassign traffic to different variations when you increase or decrease the traffic in your experiment audience (true) or keep all traffic assigned to its initial variation (false). Defaults to true. | [optional] 
 **Metrics** | [**[]MetricInput**](MetricInput.md) |  | 
 **Treatments** | [**[]TreatmentInput**](TreatmentInput.md) |  | 
 **Flags** | [**map[string]FlagInput**](FlagInput.md) |  | 
+**RandomizationUnit** | Pointer to **string** | The unit of randomization for this iteration. Defaults to user. | [optional] 
 
 ## Methods
 
@@ -133,6 +134,31 @@ and a boolean to check if the value has been set.
 
 SetFlags sets Flags field to given value.
 
+
+### GetRandomizationUnit
+
+`func (o *IterationInput) GetRandomizationUnit() string`
+
+GetRandomizationUnit returns the RandomizationUnit field if non-nil, zero value otherwise.
+
+### GetRandomizationUnitOk
+
+`func (o *IterationInput) GetRandomizationUnitOk() (*string, bool)`
+
+GetRandomizationUnitOk returns a tuple with the RandomizationUnit field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRandomizationUnit
+
+`func (o *IterationInput) SetRandomizationUnit(v string)`
+
+SetRandomizationUnit sets RandomizationUnit field to given value.
+
+### HasRandomizationUnit
+
+`func (o *IterationInput) HasRandomizationUnit() bool`
+
+HasRandomizationUnit returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

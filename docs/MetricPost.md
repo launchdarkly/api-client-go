@@ -11,11 +11,12 @@ Name | Type | Description | Notes
 **Selector** | Pointer to **string** | One or more CSS selectors. Required for click metrics. | [optional] 
 **Urls** | Pointer to [**[]UrlPost**](UrlPost.md) | One or more target URLs. Required for click and pageview metrics. | [optional] 
 **IsActive** | Pointer to **bool** | Whether the metric is active | [optional] 
-**IsNumeric** | Pointer to **bool** | Whether to track numeric changes in value against a baseline (&lt;code&gt;true&lt;/code&gt;) or to track a conversion when users taken an action (&lt;code&gt;false&lt;/code&gt;). Required for custom metrics. | [optional] 
+**IsNumeric** | Pointer to **bool** | Whether to track numeric changes in value against a baseline (&lt;code&gt;true&lt;/code&gt;) or to track a conversion when an end user takes an action (&lt;code&gt;false&lt;/code&gt;). Required for custom metrics. | [optional] 
 **Unit** | Pointer to **string** | The unit of measure. Only for numeric custom metrics. | [optional] 
 **EventKey** | Pointer to **string** | The event name to use in your code. Required for custom metrics. | [optional] 
 **SuccessCriteria** | Pointer to **string** | Success criteria. Required for numeric custom metrics. | [optional] 
 **Tags** | Pointer to **[]string** | Tags for the metric | [optional] 
+**RandomizationUnits** | Pointer to **[]string** | An array of randomization units allowed for this metric | [optional] 
 
 ## Methods
 
@@ -325,6 +326,31 @@ SetTags sets Tags field to given value.
 `func (o *MetricPost) HasTags() bool`
 
 HasTags returns a boolean if a field has been set.
+
+### GetRandomizationUnits
+
+`func (o *MetricPost) GetRandomizationUnits() []string`
+
+GetRandomizationUnits returns the RandomizationUnits field if non-nil, zero value otherwise.
+
+### GetRandomizationUnitsOk
+
+`func (o *MetricPost) GetRandomizationUnitsOk() (*[]string, bool)`
+
+GetRandomizationUnitsOk returns a tuple with the RandomizationUnits field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRandomizationUnits
+
+`func (o *MetricPost) SetRandomizationUnits(v []string)`
+
+SetRandomizationUnits sets RandomizationUnits field to given value.
+
+### HasRandomizationUnits
+
+`func (o *MetricPost) HasRandomizationUnits() bool`
+
+HasRandomizationUnits returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

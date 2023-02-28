@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## GetTags
 
-> TagCollection GetTags(ctx).Kind(kind).Pre(pre).Execute()
+> TagCollection GetTags(ctx).Kind(kind).Pre(pre).Archived(archived).Execute()
 
 List tags
 
@@ -31,10 +31,11 @@ import (
 func main() {
     kind := "kind_example" // string | Fetch tags associated with the specified resource type. Options are `flag`, `project`, `environment`, `segment`. Returns all types by default. (optional)
     pre := "pre_example" // string | Return tags with the specified prefix (optional)
+    archived := true // bool | Whether or not to return archived flags (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TagsApi.GetTags(context.Background()).Kind(kind).Pre(pre).Execute()
+    resp, r, err := apiClient.TagsApi.GetTags(context.Background()).Kind(kind).Pre(pre).Archived(archived).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `TagsApi.GetTags``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -57,6 +58,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **kind** | **string** | Fetch tags associated with the specified resource type. Options are &#x60;flag&#x60;, &#x60;project&#x60;, &#x60;environment&#x60;, &#x60;segment&#x60;. Returns all types by default. | 
  **pre** | **string** | Return tags with the specified prefix | 
+ **archived** | **bool** | Whether or not to return archived flags | 
 
 ### Return type
 

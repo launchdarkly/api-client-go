@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**CreateBigSegmentImport**](SegmentsBetaApi.md#CreateBigSegmentImport) | **Post** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/imports | Create Big Segment import
 [**GetBigSegmentExport**](SegmentsBetaApi.md#GetBigSegmentExport) | **Get** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/exports/{exportID} | Get Big Segment export
 [**GetBigSegmentImport**](SegmentsBetaApi.md#GetBigSegmentImport) | **Get** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/imports/{importID} | Get Big Segment import
+[**GetContextInstanceSegmentsMembershipByEnv**](SegmentsBetaApi.md#GetContextInstanceSegmentsMembershipByEnv) | **Post** /api/v2/projects/{projectKey}/environments/{environmentKey}/segments/evaluate | List segment memberships for context instance
 
 
 
@@ -314,6 +315,81 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetContextInstanceSegmentsMembershipByEnv
+
+> ContextInstanceSegmentMemberships GetContextInstanceSegmentsMembershipByEnv(ctx, projectKey, environmentKey).RequestBody(requestBody).Execute()
+
+List segment memberships for context instance
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    projectKey := "projectKey_example" // string | The project key
+    environmentKey := "environmentKey_example" // string | The environment key
+    requestBody := map[string]interface{}{"key": interface{}(123)} // map[string]interface{} | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SegmentsBetaApi.GetContextInstanceSegmentsMembershipByEnv(context.Background(), projectKey, environmentKey).RequestBody(requestBody).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SegmentsBetaApi.GetContextInstanceSegmentsMembershipByEnv``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetContextInstanceSegmentsMembershipByEnv`: ContextInstanceSegmentMemberships
+    fmt.Fprintf(os.Stdout, "Response from `SegmentsBetaApi.GetContextInstanceSegmentsMembershipByEnv`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projectKey** | **string** | The project key | 
+**environmentKey** | **string** | The environment key | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetContextInstanceSegmentsMembershipByEnvRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **requestBody** | **map[string]interface{}** |  | 
+
+### Return type
+
+[**ContextInstanceSegmentMemberships**](ContextInstanceSegmentMemberships.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

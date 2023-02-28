@@ -1,4 +1,4 @@
-# IterationExpandableProperties
+# DesignExpandableProperties
 
 ## Properties
 
@@ -9,70 +9,70 @@ Name | Type | Description | Notes
 
 ## Methods
 
-### NewIterationExpandableProperties
+### NewDesignExpandableProperties
 
-`func NewIterationExpandableProperties() *IterationExpandableProperties`
+`func NewDesignExpandableProperties() *DesignExpandableProperties`
 
-NewIterationExpandableProperties instantiates a new IterationExpandableProperties object
+NewDesignExpandableProperties instantiates a new DesignExpandableProperties object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewIterationExpandablePropertiesWithDefaults
+### NewDesignExpandablePropertiesWithDefaults
 
-`func NewIterationExpandablePropertiesWithDefaults() *IterationExpandableProperties`
+`func NewDesignExpandablePropertiesWithDefaults() *DesignExpandableProperties`
 
-NewIterationExpandablePropertiesWithDefaults instantiates a new IterationExpandableProperties object
+NewDesignExpandablePropertiesWithDefaults instantiates a new DesignExpandableProperties object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetTreatments
 
-`func (o *IterationExpandableProperties) GetTreatments() []TreatmentRep`
+`func (o *DesignExpandableProperties) GetTreatments() []TreatmentRep`
 
 GetTreatments returns the Treatments field if non-nil, zero value otherwise.
 
 ### GetTreatmentsOk
 
-`func (o *IterationExpandableProperties) GetTreatmentsOk() (*[]TreatmentRep, bool)`
+`func (o *DesignExpandableProperties) GetTreatmentsOk() (*[]TreatmentRep, bool)`
 
 GetTreatmentsOk returns a tuple with the Treatments field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTreatments
 
-`func (o *IterationExpandableProperties) SetTreatments(v []TreatmentRep)`
+`func (o *DesignExpandableProperties) SetTreatments(v []TreatmentRep)`
 
 SetTreatments sets Treatments field to given value.
 
 ### HasTreatments
 
-`func (o *IterationExpandableProperties) HasTreatments() bool`
+`func (o *DesignExpandableProperties) HasTreatments() bool`
 
 HasTreatments returns a boolean if a field has been set.
 
 ### GetSecondaryMetrics
 
-`func (o *IterationExpandableProperties) GetSecondaryMetrics() []MetricV2Rep`
+`func (o *DesignExpandableProperties) GetSecondaryMetrics() []MetricV2Rep`
 
 GetSecondaryMetrics returns the SecondaryMetrics field if non-nil, zero value otherwise.
 
 ### GetSecondaryMetricsOk
 
-`func (o *IterationExpandableProperties) GetSecondaryMetricsOk() (*[]MetricV2Rep, bool)`
+`func (o *DesignExpandableProperties) GetSecondaryMetricsOk() (*[]MetricV2Rep, bool)`
 
 GetSecondaryMetricsOk returns a tuple with the SecondaryMetrics field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSecondaryMetrics
 
-`func (o *IterationExpandableProperties) SetSecondaryMetrics(v []MetricV2Rep)`
+`func (o *DesignExpandableProperties) SetSecondaryMetrics(v []MetricV2Rep)`
 
 SetSecondaryMetrics sets SecondaryMetrics field to given value.
 
 ### HasSecondaryMetrics
 
-`func (o *IterationExpandableProperties) HasSecondaryMetrics() bool`
+`func (o *DesignExpandableProperties) HasSecondaryMetrics() bool`
 
 HasSecondaryMetrics returns a boolean if a field has been set.
 

@@ -19,10 +19,11 @@ Name | Type | Description | Notes
 **MaintainerId** | Pointer to **string** | The ID of the member who maintains this metric | [optional] 
 **Maintainer** | Pointer to [**MemberSummary**](MemberSummary.md) |  | [optional] 
 **Description** | Pointer to **string** | Description of the metric | [optional] 
-**IsNumeric** | Pointer to **bool** | For custom metrics, whether to track numeric changes in value against a baseline (&lt;code&gt;true&lt;/code&gt;) or to track a conversion when users taken an action (&lt;code&gt;false&lt;/code&gt;). | [optional] 
+**IsNumeric** | Pointer to **bool** | For custom metrics, whether to track numeric changes in value against a baseline (&lt;code&gt;true&lt;/code&gt;) or to track a conversion when an end user takes an action (&lt;code&gt;false&lt;/code&gt;). | [optional] 
 **SuccessCriteria** | Pointer to **string** | For numeric custom metrics, the success criteria | [optional] 
 **Unit** | Pointer to **string** | For numeric custom metrics, the unit of measure | [optional] 
 **EventKey** | Pointer to **string** | For custom metrics, the event name to use in your code | [optional] 
+**RandomizationUnits** | Pointer to **[]string** | An array of randomization units allowed for this metric | [optional] 
 **Experiments** | Pointer to [**[]DependentExperimentRep**](DependentExperimentRep.md) |  | [optional] 
 **IsActive** | Pointer to **bool** | Whether the metric is active | [optional] 
 **AttachedFeatures** | Pointer to [**[]FlagListingRep**](FlagListingRep.md) | Details on the flags attached to this metric | [optional] 
@@ -488,6 +489,31 @@ SetEventKey sets EventKey field to given value.
 `func (o *MetricRep) HasEventKey() bool`
 
 HasEventKey returns a boolean if a field has been set.
+
+### GetRandomizationUnits
+
+`func (o *MetricRep) GetRandomizationUnits() []string`
+
+GetRandomizationUnits returns the RandomizationUnits field if non-nil, zero value otherwise.
+
+### GetRandomizationUnitsOk
+
+`func (o *MetricRep) GetRandomizationUnitsOk() (*[]string, bool)`
+
+GetRandomizationUnitsOk returns a tuple with the RandomizationUnits field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRandomizationUnits
+
+`func (o *MetricRep) SetRandomizationUnits(v []string)`
+
+SetRandomizationUnits sets RandomizationUnits field to given value.
+
+### HasRandomizationUnits
+
+`func (o *MetricRep) HasRandomizationUnits() bool`
+
+HasRandomizationUnits returns a boolean if a field has been set.
 
 ### GetExperiments
 

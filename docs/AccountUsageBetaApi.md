@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**GetEvaluationsUsage**](AccountUsageBetaApi.md#GetEvaluationsUsage) | **Get** /api/v2/usage/evaluations/{projectKey}/{environmentKey}/{featureFlagKey} | Get evaluations usage
 [**GetEventsUsage**](AccountUsageBetaApi.md#GetEventsUsage) | **Get** /api/v2/usage/events/{type} | Get events usage
+[**GetExperimentationKeysUsage**](AccountUsageBetaApi.md#GetExperimentationKeysUsage) | **Get** /api/v2/usage/experimentation-keys | Get experimentation keys usage
 [**GetMauSdksByType**](AccountUsageBetaApi.md#GetMauSdksByType) | **Get** /api/v2/usage/mau/sdks | Get MAU SDKs by type
 [**GetMauUsage**](AccountUsageBetaApi.md#GetMauUsage) | **Get** /api/v2/usage/mau | Get MAU usage
 [**GetMauUsageByCategory**](AccountUsageBetaApi.md#GetMauUsageByCategory) | **Get** /api/v2/usage/mau/bycategory | Get MAU usage by category
@@ -156,6 +157,74 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**SeriesListRep**](SeriesListRep.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetExperimentationKeysUsage
+
+> SeriesIntervalsRep GetExperimentationKeysUsage(ctx).From(from).To(to).Execute()
+
+Get experimentation keys usage
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    from := "from_example" // string | The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month. (optional)
+    to := "to_example" // string | The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AccountUsageBetaApi.GetExperimentationKeysUsage(context.Background()).From(from).To(to).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AccountUsageBetaApi.GetExperimentationKeysUsage``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetExperimentationKeysUsage`: SeriesIntervalsRep
+    fmt.Fprintf(os.Stdout, "Response from `AccountUsageBetaApi.GetExperimentationKeysUsage`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetExperimentationKeysUsageRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **from** | **string** | The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month. | 
+ **to** | **string** | The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time. | 
+
+### Return type
+
+[**SeriesIntervalsRep**](SeriesIntervalsRep.md)
 
 ### Authorization
 

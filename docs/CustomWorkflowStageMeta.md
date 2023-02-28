@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Index** | Pointer to **int32** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
+**Index** | Pointer to **int32** | The zero-based index of the workflow stage | [optional] 
+**Name** | Pointer to **string** | The name of the workflow stage | [optional] 
 
 ## Methods
 

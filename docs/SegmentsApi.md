@@ -5,14 +5,18 @@ All URIs are relative to *https://app.launchdarkly.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**DeleteSegment**](SegmentsApi.md#DeleteSegment) | **Delete** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey} | Delete segment
+[**GetExpiringTargetsForSegment**](SegmentsApi.md#GetExpiringTargetsForSegment) | **Get** /api/v2/segments/{projectKey}/{segmentKey}/expiring-targets/{environmentKey} | Get expiring targets for segment
 [**GetExpiringUserTargetsForSegment**](SegmentsApi.md#GetExpiringUserTargetsForSegment) | **Get** /api/v2/segments/{projectKey}/{segmentKey}/expiring-user-targets/{environmentKey} | Get expiring user targets for segment
 [**GetSegment**](SegmentsApi.md#GetSegment) | **Get** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey} | Get segment
+[**GetSegmentMembershipForContext**](SegmentsApi.md#GetSegmentMembershipForContext) | **Get** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/contexts/{contextKey} | Get Big Segment membership for context
 [**GetSegmentMembershipForUser**](SegmentsApi.md#GetSegmentMembershipForUser) | **Get** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/users/{userKey} | Get Big Segment membership for user
 [**GetSegments**](SegmentsApi.md#GetSegments) | **Get** /api/v2/segments/{projectKey}/{environmentKey} | List segments
+[**PatchExpiringTargetsForSegment**](SegmentsApi.md#PatchExpiringTargetsForSegment) | **Patch** /api/v2/segments/{projectKey}/{segmentKey}/expiring-targets/{environmentKey} | Update expiring targets for segment
 [**PatchExpiringUserTargetsForSegment**](SegmentsApi.md#PatchExpiringUserTargetsForSegment) | **Patch** /api/v2/segments/{projectKey}/{segmentKey}/expiring-user-targets/{environmentKey} | Update expiring user targets for segment
 [**PatchSegment**](SegmentsApi.md#PatchSegment) | **Patch** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey} | Patch segment
 [**PostSegment**](SegmentsApi.md#PostSegment) | **Post** /api/v2/segments/{projectKey}/{environmentKey} | Create segment
-[**UpdateBigSegmentTargets**](SegmentsApi.md#UpdateBigSegmentTargets) | **Post** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/users | Update targets on a Big Segment
+[**UpdateBigSegmentContextTargets**](SegmentsApi.md#UpdateBigSegmentContextTargets) | **Post** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/contexts | Update context targets on a Big Segment
+[**UpdateBigSegmentTargets**](SegmentsApi.md#UpdateBigSegmentTargets) | **Post** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/users | Update user context targets on a Big Segment
 
 
 
@@ -75,6 +79,82 @@ Name | Type | Description  | Notes
 ### Return type
 
  (empty response body)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetExpiringTargetsForSegment
+
+> ExpiringTargetGetResponse GetExpiringTargetsForSegment(ctx, projectKey, environmentKey, segmentKey).Execute()
+
+Get expiring targets for segment
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    projectKey := "projectKey_example" // string | The project key
+    environmentKey := "environmentKey_example" // string | The environment key
+    segmentKey := "segmentKey_example" // string | The segment key
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SegmentsApi.GetExpiringTargetsForSegment(context.Background(), projectKey, environmentKey, segmentKey).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.GetExpiringTargetsForSegment``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetExpiringTargetsForSegment`: ExpiringTargetGetResponse
+    fmt.Fprintf(os.Stdout, "Response from `SegmentsApi.GetExpiringTargetsForSegment`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projectKey** | **string** | The project key | 
+**environmentKey** | **string** | The environment key | 
+**segmentKey** | **string** | The segment key | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetExpiringTargetsForSegmentRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+
+### Return type
+
+[**ExpiringTargetGetResponse**](ExpiringTargetGetResponse.md)
 
 ### Authorization
 
@@ -242,6 +322,85 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## GetSegmentMembershipForContext
+
+> BigSegmentTarget GetSegmentMembershipForContext(ctx, projectKey, environmentKey, segmentKey, contextKey).Execute()
+
+Get Big Segment membership for context
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    projectKey := "projectKey_example" // string | The project key
+    environmentKey := "environmentKey_example" // string | The environment key
+    segmentKey := "segmentKey_example" // string | The segment key
+    contextKey := "contextKey_example" // string | The context key
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SegmentsApi.GetSegmentMembershipForContext(context.Background(), projectKey, environmentKey, segmentKey, contextKey).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.GetSegmentMembershipForContext``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetSegmentMembershipForContext`: BigSegmentTarget
+    fmt.Fprintf(os.Stdout, "Response from `SegmentsApi.GetSegmentMembershipForContext`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projectKey** | **string** | The project key | 
+**environmentKey** | **string** | The environment key | 
+**segmentKey** | **string** | The segment key | 
+**contextKey** | **string** | The context key | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetSegmentMembershipForContextRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+
+
+### Return type
+
+[**BigSegmentTarget**](BigSegmentTarget.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetSegmentMembershipForUser
 
 > BigSegmentTarget GetSegmentMembershipForUser(ctx, projectKey, environmentKey, segmentKey, userKey).Execute()
@@ -387,6 +546,84 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PatchExpiringTargetsForSegment
+
+> ExpiringTargetPatchResponse PatchExpiringTargetsForSegment(ctx, projectKey, environmentKey, segmentKey).PatchSegmentRequest(patchSegmentRequest).Execute()
+
+Update expiring targets for segment
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    projectKey := "projectKey_example" // string | The project key
+    environmentKey := "environmentKey_example" // string | The environment key
+    segmentKey := "segmentKey_example" // string | The segment key
+    patchSegmentRequest := *openapiclient.NewPatchSegmentRequest([]openapiclient.PatchSegmentInstruction{*openapiclient.NewPatchSegmentInstruction("addExpireUserTargetDate", "UserKey_example", "TargetType_example")}) // PatchSegmentRequest | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SegmentsApi.PatchExpiringTargetsForSegment(context.Background(), projectKey, environmentKey, segmentKey).PatchSegmentRequest(patchSegmentRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.PatchExpiringTargetsForSegment``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PatchExpiringTargetsForSegment`: ExpiringTargetPatchResponse
+    fmt.Fprintf(os.Stdout, "Response from `SegmentsApi.PatchExpiringTargetsForSegment`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projectKey** | **string** | The project key | 
+**environmentKey** | **string** | The environment key | 
+**segmentKey** | **string** | The segment key | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPatchExpiringTargetsForSegmentRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+ **patchSegmentRequest** | [**PatchSegmentRequest**](PatchSegmentRequest.md) |  | 
+
+### Return type
+
+[**ExpiringTargetPatchResponse**](ExpiringTargetPatchResponse.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -625,11 +862,87 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## UpdateBigSegmentContextTargets
+
+> UpdateBigSegmentContextTargets(ctx, projectKey, environmentKey, segmentKey).SegmentUserState(segmentUserState).Execute()
+
+Update context targets on a Big Segment
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    projectKey := "projectKey_example" // string | The project key
+    environmentKey := "environmentKey_example" // string | The environment key
+    segmentKey := "segmentKey_example" // string | The segment key
+    segmentUserState := *openapiclient.NewSegmentUserState() // SegmentUserState | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SegmentsApi.UpdateBigSegmentContextTargets(context.Background(), projectKey, environmentKey, segmentKey).SegmentUserState(segmentUserState).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.UpdateBigSegmentContextTargets``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projectKey** | **string** | The project key | 
+**environmentKey** | **string** | The environment key | 
+**segmentKey** | **string** | The segment key | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUpdateBigSegmentContextTargetsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+ **segmentUserState** | [**SegmentUserState**](SegmentUserState.md) |  | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## UpdateBigSegmentTargets
 
 > UpdateBigSegmentTargets(ctx, projectKey, environmentKey, segmentKey).SegmentUserState(segmentUserState).Execute()
 
-Update targets on a Big Segment
+Update user context targets on a Big Segment
 
 
 

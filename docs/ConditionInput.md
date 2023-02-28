@@ -9,9 +9,9 @@ Name | Type | Description | Notes
 **WaitDuration** | Pointer to **int32** | For workflow stages whose scheduled execution is relative, how far in the future the stage should start. | [optional] 
 **WaitDurationUnit** | Pointer to **string** |  | [optional] 
 **ExecuteNow** | Pointer to **bool** | Whether the workflow stage should be executed immediately | [optional] 
-**Description** | Pointer to **string** |  | [optional] 
-**NotifyMemberIds** | Pointer to **[]string** |  | [optional] 
-**NotifyTeamKeys** | Pointer to **[]string** |  | [optional] 
+**Description** | Pointer to **string** | A description of the approval required for this stage | [optional] 
+**NotifyMemberIds** | Pointer to **[]string** | A list of member IDs for the members to request approval from for this stage | [optional] 
+**NotifyTeamKeys** | Pointer to **[]string** | A list of team keys for the teams to request approval from for this stage | [optional] 
 **Kind** | Pointer to **string** |  | [optional] 
 
 ## Methods

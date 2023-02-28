@@ -18,6 +18,8 @@ Name | Type | Description | Notes
 **Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
 **MaintainerId** | Pointer to **string** | Associated maintainerId for the feature flag | [optional] 
 **Maintainer** | Pointer to [**MemberSummary**](MemberSummary.md) |  | [optional] 
+**MaintainerTeamKey** | Pointer to **string** | The key of the associated team that maintains this feature flag | [optional] 
+**MaintainerTeam** | Pointer to [**MaintainerTeam**](MaintainerTeam.md) |  | [optional] 
 **GoalIds** | Pointer to **[]string** | Deprecated | [optional] 
 **Experiments** | [**ExperimentInfoRep**](ExperimentInfoRep.md) |  | 
 **CustomProperties** | [**map[string]CustomProperty**](CustomProperty.md) |  | 
@@ -349,6 +351,56 @@ SetMaintainer sets Maintainer field to given value.
 `func (o *FeatureFlag) HasMaintainer() bool`
 
 HasMaintainer returns a boolean if a field has been set.
+
+### GetMaintainerTeamKey
+
+`func (o *FeatureFlag) GetMaintainerTeamKey() string`
+
+GetMaintainerTeamKey returns the MaintainerTeamKey field if non-nil, zero value otherwise.
+
+### GetMaintainerTeamKeyOk
+
+`func (o *FeatureFlag) GetMaintainerTeamKeyOk() (*string, bool)`
+
+GetMaintainerTeamKeyOk returns a tuple with the MaintainerTeamKey field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMaintainerTeamKey
+
+`func (o *FeatureFlag) SetMaintainerTeamKey(v string)`
+
+SetMaintainerTeamKey sets MaintainerTeamKey field to given value.
+
+### HasMaintainerTeamKey
+
+`func (o *FeatureFlag) HasMaintainerTeamKey() bool`
+
+HasMaintainerTeamKey returns a boolean if a field has been set.
+
+### GetMaintainerTeam
+
+`func (o *FeatureFlag) GetMaintainerTeam() MaintainerTeam`
+
+GetMaintainerTeam returns the MaintainerTeam field if non-nil, zero value otherwise.
+
+### GetMaintainerTeamOk
+
+`func (o *FeatureFlag) GetMaintainerTeamOk() (*MaintainerTeam, bool)`
+
+GetMaintainerTeamOk returns a tuple with the MaintainerTeam field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMaintainerTeam
+
+`func (o *FeatureFlag) SetMaintainerTeam(v MaintainerTeam)`
+
+SetMaintainerTeam sets MaintainerTeam field to given value.
+
+### HasMaintainerTeam
+
+`func (o *FeatureFlag) HasMaintainerTeam() bool`
+
+HasMaintainerTeam returns a boolean if a field has been set.
 
 ### GetGoalIds
 

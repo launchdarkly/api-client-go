@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**UsingMobileKey** | **bool** |  | 
-**UsingEnvironmentId** | **bool** |  | 
+**UsingMobileKey** | **bool** | Whether to enable availability for mobile SDKs | 
+**UsingEnvironmentId** | **bool** | Whether to enable availability for client-side SDKs | 
 
 ## Methods
 

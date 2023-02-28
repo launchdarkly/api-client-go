@@ -4,7 +4,7 @@ All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetAuditLogEntries**](AuditLogApi.md#GetAuditLogEntries) | **Get** /api/v2/auditlog | List audit log feature flag entries
+[**GetAuditLogEntries**](AuditLogApi.md#GetAuditLogEntries) | **Get** /api/v2/auditlog | List audit log entries
 [**GetAuditLogEntry**](AuditLogApi.md#GetAuditLogEntry) | **Get** /api/v2/auditlog/{id} | Get audit log entry
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > AuditLogEntryListingRepCollection GetAuditLogEntries(ctx).Before(before).After(after).Q(q).Limit(limit).Spec(spec).Execute()
 
-List audit log feature flag entries
+List audit log entries
 
 
 
@@ -33,7 +33,7 @@ func main() {
     before := int64(789) // int64 | A timestamp filter, expressed as a Unix epoch time in milliseconds.  All entries this returns occurred before the timestamp. (optional)
     after := int64(789) // int64 | A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries this returns occurred after the timestamp. (optional)
     q := "q_example" // string | Text to search for. You can search for the full or partial name of the resource, or full or partial email address of the member who made a change. (optional)
-    limit := int64(789) // int64 | A limit on the number of audit log entries that return. Set between 1 and 20. (optional)
+    limit := int64(789) // int64 | A limit on the number of audit log entries that return. Set between 1 and 20. The default is 10. (optional)
     spec := "spec_example" // string | A resource specifier that lets you filter audit log listings by resource (optional)
 
     configuration := openapiclient.NewConfiguration()
@@ -62,7 +62,7 @@ Name | Type | Description  | Notes
  **before** | **int64** | A timestamp filter, expressed as a Unix epoch time in milliseconds.  All entries this returns occurred before the timestamp. | 
  **after** | **int64** | A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries this returns occurred after the timestamp. | 
  **q** | **string** | Text to search for. You can search for the full or partial name of the resource, or full or partial email address of the member who made a change. | 
- **limit** | **int64** | A limit on the number of audit log entries that return. Set between 1 and 20. | 
+ **limit** | **int64** | A limit on the number of audit log entries that return. Set between 1 and 20. The default is 10. | 
  **spec** | **string** | A resource specifier that lets you filter audit log listings by resource | 
 
 ### Return type

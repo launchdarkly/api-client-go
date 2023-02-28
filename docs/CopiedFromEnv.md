@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Key** | **string** | Key of feature flag copied | 
-**Version** | Pointer to **int32** |  | [optional] 
+**Version** | Pointer to **int32** | Version of feature flag copied | [optional] 
 
 ## Methods
 

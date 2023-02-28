@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Variation** | Pointer to **int32** |  | [optional] 
+**Variation** | Pointer to **int32** | The index of the variation, from the array of variations for this flag | [optional] 
 **Rollout** | Pointer to [**Rollout**](Rollout.md) |  | [optional] 
 
 ## Methods

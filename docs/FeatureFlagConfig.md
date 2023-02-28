@@ -4,22 +4,23 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**On** | **bool** |  | 
-**Archived** | **bool** |  | 
+**On** | **bool** | Whether the flag is on | 
+**Archived** | **bool** | Boolean indicating if the feature flag is archived | 
 **Salt** | **string** |  | 
 **Sel** | **string** |  | 
 **LastModified** | **int64** |  | 
-**Version** | **int32** |  | 
-**Targets** | Pointer to [**[]Target**](Target.md) |  | [optional] 
-**Rules** | Pointer to [**[]Rule**](Rule.md) |  | [optional] 
+**Version** | **int32** | Version of the feature flag | 
+**Targets** | Pointer to [**[]Target**](Target.md) | An array of the individual targets that will receive a specific variation based on their key | [optional] 
+**ContextTargets** | Pointer to [**[]Target**](Target.md) |  | [optional] 
+**Rules** | Pointer to [**[]Rule**](Rule.md) | An array of the rules for how to serve a variation to specific targets based on their attributes | [optional] 
 **Fallthrough** | Pointer to [**VariationOrRolloutRep**](VariationOrRolloutRep.md) |  | [optional] 
-**OffVariation** | Pointer to **int32** |  | [optional] 
-**Prerequisites** | Pointer to [**[]Prerequisite**](Prerequisite.md) |  | [optional] 
+**OffVariation** | Pointer to **int32** | The ID of the variation to serve when the flag is off | [optional] 
+**Prerequisites** | Pointer to [**[]Prerequisite**](Prerequisite.md) | An array of the prerequisite flags and their variations that are required before this flag takes effect | [optional] 
 **Site** | [**Link**](Link.md) |  | 
 **Access** | Pointer to [**Access**](Access.md) |  | [optional] 
-**EnvironmentName** | **string** |  | 
-**TrackEvents** | **bool** |  | 
-**TrackEventsFallthrough** | **bool** |  | 
+**EnvironmentName** | **string** | The environment name | 
+**TrackEvents** | **bool** | Whether LaunchDarkly tracks events for the feature flag, for all rules | 
+**TrackEventsFallthrough** | **bool** | Whether LaunchDarkly tracks events for the feature flag, for the default rule | 
 **DebugEventsUntilDate** | Pointer to **int64** |  | [optional] 
 **Summary** | Pointer to [**FlagSummary**](FlagSummary.md) |  | [optional] 
 
@@ -186,6 +187,31 @@ SetTargets sets Targets field to given value.
 `func (o *FeatureFlagConfig) HasTargets() bool`
 
 HasTargets returns a boolean if a field has been set.
+
+### GetContextTargets
+
+`func (o *FeatureFlagConfig) GetContextTargets() []Target`
+
+GetContextTargets returns the ContextTargets field if non-nil, zero value otherwise.
+
+### GetContextTargetsOk
+
+`func (o *FeatureFlagConfig) GetContextTargetsOk() (*[]Target, bool)`
+
+GetContextTargetsOk returns a tuple with the ContextTargets field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetContextTargets
+
+`func (o *FeatureFlagConfig) SetContextTargets(v []Target)`
+
+SetContextTargets sets ContextTargets field to given value.
+
+### HasContextTargets
+
+`func (o *FeatureFlagConfig) HasContextTargets() bool`
+
+HasContextTargets returns a boolean if a field has been set.
 
 ### GetRules
 

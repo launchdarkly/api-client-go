@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 **Status** | **string** | Current status of the approval request | 
 **Instructions** | **[]map[string]interface{}** |  | 
 **Conflicts** | [**[]Conflict**](Conflict.md) | Details on any conflicting approval requests | 
-**Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
+**Links** | **map[string]interface{}** | The location and content type of related resources | 
 **ExecutionDate** | Pointer to **int64** |  | [optional] 
 **OperatingOnId** | Pointer to **string** | ID of scheduled change to edit or delete | [optional] 
 **IntegrationMetadata** | Pointer to [**IntegrationMetadata**](IntegrationMetadata.md) |  | [optional] 
@@ -29,7 +29,7 @@ Name | Type | Description | Notes
 
 ### NewFlagConfigApprovalRequestResponse
 
-`func NewFlagConfigApprovalRequestResponse(id string, version int32, creationDate int64, serviceKind string, reviewStatus string, allReviews []ReviewResponse, notifyMemberIds []string, status string, instructions []map[string]interface{}, conflicts []Conflict, links map[string]Link, ) *FlagConfigApprovalRequestResponse`
+`func NewFlagConfigApprovalRequestResponse(id string, version int32, creationDate int64, serviceKind string, reviewStatus string, allReviews []ReviewResponse, notifyMemberIds []string, status string, instructions []map[string]interface{}, conflicts []Conflict, links map[string]interface{}, ) *FlagConfigApprovalRequestResponse`
 
 NewFlagConfigApprovalRequestResponse instantiates a new FlagConfigApprovalRequestResponse object
 This constructor will assign default values to properties that have it defined,
@@ -346,20 +346,20 @@ SetConflicts sets Conflicts field to given value.
 
 ### GetLinks
 
-`func (o *FlagConfigApprovalRequestResponse) GetLinks() map[string]Link`
+`func (o *FlagConfigApprovalRequestResponse) GetLinks() map[string]interface{}`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *FlagConfigApprovalRequestResponse) GetLinksOk() (*map[string]Link, bool)`
+`func (o *FlagConfigApprovalRequestResponse) GetLinksOk() (*map[string]interface{}, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *FlagConfigApprovalRequestResponse) SetLinks(v map[string]Link)`
+`func (o *FlagConfigApprovalRequestResponse) SetLinks(v map[string]interface{})`
 
 SetLinks sets Links field to given value.
 

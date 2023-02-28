@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Tags** | Pointer to **[]string** |  | [optional] 
-**Temporary** | Pointer to **bool** |  | [optional] 
+**Tags** | Pointer to **[]string** | A list of default tags for each flag | [optional] 
+**Temporary** | Pointer to **bool** | Whether the flag should be temporary by default | [optional] 
 **DefaultClientSideAvailability** | Pointer to [**ClientSideAvailability**](ClientSideAvailability.md) |  | [optional] 
 **BooleanDefaults** | Pointer to [**BooleanDefaults**](BooleanDefaults.md) |  | [optional] 
 

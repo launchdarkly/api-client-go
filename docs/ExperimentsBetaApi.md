@@ -8,9 +8,11 @@ Method | HTTP request | Description
 [**CreateIteration**](ExperimentsBetaApi.md#CreateIteration) | **Post** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey}/iterations | Create iteration
 [**GetExperiment**](ExperimentsBetaApi.md#GetExperiment) | **Get** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey} | Get experiment
 [**GetExperimentResults**](ExperimentsBetaApi.md#GetExperimentResults) | **Get** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey}/metrics/{metricKey}/results | Get experiment results
+[**GetExperimentationSettings**](ExperimentsBetaApi.md#GetExperimentationSettings) | **Get** /api/v2/projects/{projectKey}/experimentation-settings | Get experimentation settings
 [**GetExperiments**](ExperimentsBetaApi.md#GetExperiments) | **Get** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments | Get experiments
 [**GetLegacyExperimentResults**](ExperimentsBetaApi.md#GetLegacyExperimentResults) | **Get** /api/v2/flags/{projectKey}/{featureFlagKey}/experiments/{environmentKey}/{metricKey} | Get legacy experiment results (deprecated)
 [**PatchExperiment**](ExperimentsBetaApi.md#PatchExperiment) | **Patch** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey} | Patch experiment
+[**PutExperimentationSettings**](ExperimentsBetaApi.md#PutExperimentationSettings) | **Put** /api/v2/projects/{projectKey}/experimentation-settings | Update experimentation settings
 [**ResetExperiment**](ExperimentsBetaApi.md#ResetExperiment) | **Delete** /api/v2/flags/{projectKey}/{featureFlagKey}/experiments/{environmentKey}/{metricKey}/results | Reset experiment results
 
 
@@ -323,6 +325,76 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## GetExperimentationSettings
+
+> ExperimentationSettingsRep GetExperimentationSettings(ctx, projectKey).Execute()
+
+Get experimentation settings
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    projectKey := "projectKey_example" // string | The project key
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ExperimentsBetaApi.GetExperimentationSettings(context.Background(), projectKey).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsBetaApi.GetExperimentationSettings``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetExperimentationSettings`: ExperimentationSettingsRep
+    fmt.Fprintf(os.Stdout, "Response from `ExperimentsBetaApi.GetExperimentationSettings`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projectKey** | **string** | The project key | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetExperimentationSettingsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**ExperimentationSettingsRep**](ExperimentationSettingsRep.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetExperiments
 
 > ExperimentCollectionRep GetExperiments(ctx, projectKey, environmentKey).Limit(limit).Offset(offset).Filter(filter).Expand(expand).LifecycleState(lifecycleState).Execute()
@@ -350,7 +422,7 @@ func main() {
     offset := int64(789) // int64 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
     filter := "filter_example" // string | A comma-separated list of filters. Each filter is of the form `field:value`. Supported fields are explained above. (optional)
     expand := "expand_example" // string | A comma-separated list of properties that can reveal additional information in the response. Supported fields are explained above. (optional)
-    lifecycleState := "lifecycleState_example" // string | A comma-separated list of experiment archived states. Supports `archived`, `active`, or both. Defaults to `active` experiments (optional)
+    lifecycleState := "lifecycleState_example" // string | A comma-separated list of experiment archived states. Supports `archived`, `active`, or both. Defaults to `active` experiments. (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -386,7 +458,7 @@ Name | Type | Description  | Notes
  **offset** | **int64** | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | 
  **filter** | **string** | A comma-separated list of filters. Each filter is of the form &#x60;field:value&#x60;. Supported fields are explained above. | 
  **expand** | **string** | A comma-separated list of properties that can reveal additional information in the response. Supported fields are explained above. | 
- **lifecycleState** | **string** | A comma-separated list of experiment archived states. Supports &#x60;archived&#x60;, &#x60;active&#x60;, or both. Defaults to &#x60;active&#x60; experiments | 
+ **lifecycleState** | **string** | A comma-separated list of experiment archived states. Supports &#x60;archived&#x60;, &#x60;active&#x60;, or both. Defaults to &#x60;active&#x60; experiments. | 
 
 ### Return type
 
@@ -552,6 +624,78 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Experiment**](Experiment.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PutExperimentationSettings
+
+> ExperimentationSettingsRep PutExperimentationSettings(ctx, projectKey).ExperimentationSettingsPut(experimentationSettingsPut).Execute()
+
+Update experimentation settings
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    projectKey := "projectKey_example" // string | The project key
+    experimentationSettingsPut := *openapiclient.NewExperimentationSettingsPut([]openapiclient.RandomizationUnitInput{*openapiclient.NewRandomizationUnitInput("user", true, "StandardRandomizationUnit_example")}) // ExperimentationSettingsPut | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ExperimentsBetaApi.PutExperimentationSettings(context.Background(), projectKey).ExperimentationSettingsPut(experimentationSettingsPut).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsBetaApi.PutExperimentationSettings``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PutExperimentationSettings`: ExperimentationSettingsRep
+    fmt.Fprintf(os.Stdout, "Response from `ExperimentsBetaApi.PutExperimentationSettings`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projectKey** | **string** | The project key | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPutExperimentationSettingsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **experimentationSettingsPut** | [**ExperimentationSettingsPut**](ExperimentationSettingsPut.md) |  | 
+
+### Return type
+
+[**ExperimentationSettingsRep**](ExperimentationSettingsRep.md)
 
 ### Authorization
 

@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **MaintainerId** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** | The workflow name | [optional] 
-**Description** | **string** | The workflow description | 
+**Name** | **string** | The workflow name | 
+**Description** | Pointer to **string** | The workflow description | [optional] 
 **Stages** | Pointer to [**[]StageInput**](StageInput.md) | A list of the workflow stages | [optional] 
 **TemplateKey** | Pointer to **string** | The template key | [optional] 
 
@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 
 ### NewCustomWorkflowInput
 
-`func NewCustomWorkflowInput(description string, ) *CustomWorkflowInput`
+`func NewCustomWorkflowInput(name string, ) *CustomWorkflowInput`
 
 NewCustomWorkflowInput instantiates a new CustomWorkflowInput object
 This constructor will assign default values to properties that have it defined,
@@ -73,11 +73,6 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
-### HasName
-
-`func (o *CustomWorkflowInput) HasName() bool`
-
-HasName returns a boolean if a field has been set.
 
 ### GetDescription
 
@@ -98,6 +93,11 @@ and a boolean to check if the value has been set.
 
 SetDescription sets Description field to given value.
 
+### HasDescription
+
+`func (o *CustomWorkflowInput) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
 
 ### GetStages
 

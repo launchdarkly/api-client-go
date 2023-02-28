@@ -531,7 +531,7 @@ import (
 
 func main() {
     projectKey := "projectKey_example" // string | The project key
-    upsertFlagDefaultsPayload := *openapiclient.NewUpsertFlagDefaultsPayload([]string{"Tags_example"}, false, *openapiclient.NewDefaultClientSideAvailability(false, false), *openapiclient.NewBooleanFlagDefaults("TrueDisplayName_example", "FalseDisplayName_example", "TrueDescription_example", "FalseDescription_example", int32(123), int32(123))) // UpsertFlagDefaultsPayload | 
+    upsertFlagDefaultsPayload := *openapiclient.NewUpsertFlagDefaultsPayload([]string{"Tags_example"}, true, *openapiclient.NewDefaultClientSideAvailability(true, true), *openapiclient.NewBooleanFlagDefaults("True", "False", "serve true", "serve false", int32(0), int32(1))) // UpsertFlagDefaultsPayload | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
