@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Variations** | [**map[string]VariationSummary**](VariationSummary.md) |  | 
-**Prerequisites** | **int32** |  | 
+**Prerequisites** | **int32** | The number of prerequisites for this flag | 
 
 ## Methods
 

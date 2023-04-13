@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**RandomizationUnit** | Pointer to **string** |  | [optional] 
-**StandardRandomizationUnit** | Pointer to **string** |  | [optional] 
-**Default** | Pointer to **bool** |  | [optional] 
+**RandomizationUnit** | Pointer to **string** | The unit of randomization. Defaults to user. | [optional] 
+**StandardRandomizationUnit** | Pointer to **string** | One of LaunchDarkly&#39;s fixed set of standard randomization units. | [optional] 
+**Default** | Pointer to **bool** | Whether this randomization unit is the default for experiments | [optional] 
 **Hidden** | Pointer to **bool** |  | [optional] 
-**DisplayName** | Pointer to **string** |  | [optional] 
+**DisplayName** | Pointer to **string** | The display name for the randomization unit, displayed in the LaunchDarkly user interface. | [optional] 
 
 ## Methods
 

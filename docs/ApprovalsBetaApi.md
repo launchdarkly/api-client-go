@@ -4,9 +4,81 @@ All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**DeleteApprovalRequest**](ApprovalsBetaApi.md#DeleteApprovalRequest) | **Delete** /api/v2/approval-requests/{id} | Delete approval request
 [**GetApprovalRequest**](ApprovalsBetaApi.md#GetApprovalRequest) | **Get** /api/v2/approval-requests/{id} | Get approval request
 [**GetApprovalRequests**](ApprovalsBetaApi.md#GetApprovalRequests) | **Get** /api/v2/approval-requests | List approval requests
+[**PostApprovalRequest**](ApprovalsBetaApi.md#PostApprovalRequest) | **Post** /api/v2/approval-requests | Create approval request
+[**PostApprovalRequestApply**](ApprovalsBetaApi.md#PostApprovalRequestApply) | **Post** /api/v2/approval-requests/{id}/apply | Apply approval request
+[**PostApprovalRequestReview**](ApprovalsBetaApi.md#PostApprovalRequestReview) | **Post** /api/v2/approval-requests/{id}/reviews | Review approval request
 
+
+
+## DeleteApprovalRequest
+
+> DeleteApprovalRequest(ctx, id).Execute()
+
+Delete approval request
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    id := "id_example" // string | The approval request ID
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApprovalsBetaApi.DeleteApprovalRequest(context.Background(), id).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsBetaApi.DeleteApprovalRequest``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | The approval request ID | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteApprovalRequestRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## GetApprovalRequest
@@ -146,6 +218,216 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostApprovalRequest
+
+> ApprovalRequestResponse PostApprovalRequest(ctx).CreateApprovalRequestRequest(createApprovalRequestRequest).Execute()
+
+Create approval request
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    createApprovalRequestRequest := *openapiclient.NewCreateApprovalRequestRequest("ResourceId_example", "Requesting to update targeting", []map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}) // CreateApprovalRequestRequest | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApprovalsBetaApi.PostApprovalRequest(context.Background()).CreateApprovalRequestRequest(createApprovalRequestRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsBetaApi.PostApprovalRequest``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PostApprovalRequest`: ApprovalRequestResponse
+    fmt.Fprintf(os.Stdout, "Response from `ApprovalsBetaApi.PostApprovalRequest`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostApprovalRequestRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **createApprovalRequestRequest** | [**CreateApprovalRequestRequest**](CreateApprovalRequestRequest.md) |  | 
+
+### Return type
+
+[**ApprovalRequestResponse**](ApprovalRequestResponse.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostApprovalRequestApply
+
+> ApprovalRequestResponse PostApprovalRequestApply(ctx, id).PostApprovalRequestApplyRequest(postApprovalRequestApplyRequest).Execute()
+
+Apply approval request
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    id := "id_example" // string | The feature flag approval request ID
+    postApprovalRequestApplyRequest := *openapiclient.NewPostApprovalRequestApplyRequest() // PostApprovalRequestApplyRequest | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApprovalsBetaApi.PostApprovalRequestApply(context.Background(), id).PostApprovalRequestApplyRequest(postApprovalRequestApplyRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsBetaApi.PostApprovalRequestApply``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PostApprovalRequestApply`: ApprovalRequestResponse
+    fmt.Fprintf(os.Stdout, "Response from `ApprovalsBetaApi.PostApprovalRequestApply`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | The feature flag approval request ID | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostApprovalRequestApplyRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **postApprovalRequestApplyRequest** | [**PostApprovalRequestApplyRequest**](PostApprovalRequestApplyRequest.md) |  | 
+
+### Return type
+
+[**ApprovalRequestResponse**](ApprovalRequestResponse.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostApprovalRequestReview
+
+> ApprovalRequestResponse PostApprovalRequestReview(ctx, id).PostApprovalRequestReviewRequest(postApprovalRequestReviewRequest).Execute()
+
+Review approval request
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    id := "id_example" // string | The approval request ID
+    postApprovalRequestReviewRequest := *openapiclient.NewPostApprovalRequestReviewRequest() // PostApprovalRequestReviewRequest | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApprovalsBetaApi.PostApprovalRequestReview(context.Background(), id).PostApprovalRequestReviewRequest(postApprovalRequestReviewRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsBetaApi.PostApprovalRequestReview``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PostApprovalRequestReview`: ApprovalRequestResponse
+    fmt.Fprintf(os.Stdout, "Response from `ApprovalsBetaApi.PostApprovalRequestReview`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | The approval request ID | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostApprovalRequestReviewRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **postApprovalRequestReviewRequest** | [**PostApprovalRequestReviewRequest**](PostApprovalRequestReviewRequest.md) |  | 
+
+### Return type
+
+[**ApprovalRequestResponse**](ApprovalRequestResponse.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

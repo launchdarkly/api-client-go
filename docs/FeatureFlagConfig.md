@@ -10,8 +10,8 @@ Name | Type | Description | Notes
 **Sel** | **string** |  | 
 **LastModified** | **int64** |  | 
 **Version** | **int32** | Version of the feature flag | 
-**Targets** | Pointer to [**[]Target**](Target.md) | An array of the individual targets that will receive a specific variation based on their key | [optional] 
-**ContextTargets** | Pointer to [**[]Target**](Target.md) |  | [optional] 
+**Targets** | Pointer to [**[]Target**](Target.md) | An array of the individual targets that will receive a specific variation based on their key. Individual targets with a context kind of &#39;user&#39; are included here. | [optional] 
+**ContextTargets** | Pointer to [**[]Target**](Target.md) | An array of the individual targets that will receive a specific variation based on their key. Individual targets with context kinds other than &#39;user&#39; are included here. | [optional] 
 **Rules** | Pointer to [**[]Rule**](Rule.md) | An array of the rules for how to serve a variation to specific targets based on their attributes | [optional] 
 **Fallthrough** | Pointer to [**VariationOrRolloutRep**](VariationOrRolloutRep.md) |  | [optional] 
 **OffVariation** | Pointer to **int32** | The ID of the variation to serve when the flag is off | [optional] 
@@ -23,6 +23,7 @@ Name | Type | Description | Notes
 **TrackEventsFallthrough** | **bool** | Whether LaunchDarkly tracks events for the feature flag, for the default rule | 
 **DebugEventsUntilDate** | Pointer to **int64** |  | [optional] 
 **Summary** | Pointer to [**FlagSummary**](FlagSummary.md) |  | [optional] 
+**Evaluation** | Pointer to [**FlagConfigEvaluation**](FlagConfigEvaluation.md) |  | [optional] 
 
 ## Methods
 
@@ -467,6 +468,31 @@ SetSummary sets Summary field to given value.
 `func (o *FeatureFlagConfig) HasSummary() bool`
 
 HasSummary returns a boolean if a field has been set.
+
+### GetEvaluation
+
+`func (o *FeatureFlagConfig) GetEvaluation() FlagConfigEvaluation`
+
+GetEvaluation returns the Evaluation field if non-nil, zero value otherwise.
+
+### GetEvaluationOk
+
+`func (o *FeatureFlagConfig) GetEvaluationOk() (*FlagConfigEvaluation, bool)`
+
+GetEvaluationOk returns a tuple with the Evaluation field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEvaluation
+
+`func (o *FeatureFlagConfig) SetEvaluation(v FlagConfigEvaluation)`
+
+SetEvaluation sets Evaluation field to given value.
+
+### HasEvaluation
+
+`func (o *FeatureFlagConfig) HasEvaluation() bool`
+
+HasEvaluation returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

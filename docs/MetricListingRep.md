@@ -20,7 +20,7 @@ Name | Type | Description | Notes
 **Maintainer** | Pointer to [**MemberSummary**](MemberSummary.md) |  | [optional] 
 **Description** | Pointer to **string** | Description of the metric | [optional] 
 **IsNumeric** | Pointer to **bool** | For custom metrics, whether to track numeric changes in value against a baseline (&lt;code&gt;true&lt;/code&gt;) or to track a conversion when an end user takes an action (&lt;code&gt;false&lt;/code&gt;). | [optional] 
-**SuccessCriteria** | Pointer to **string** | For numeric custom metrics, the success criteria | [optional] 
+**SuccessCriteria** | Pointer to **string** | For custom metrics, the success criteria | [optional] 
 **Unit** | Pointer to **string** | For numeric custom metrics, the unit of measure | [optional] 
 **EventKey** | Pointer to **string** | For custom metrics, the event name to use in your code | [optional] 
 **RandomizationUnits** | Pointer to **[]string** | An array of randomization units allowed for this metric | [optional] 

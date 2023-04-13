@@ -27,7 +27,7 @@ Name | Type | Description | Notes
 **ResourceId** | Pointer to **string** | String representation of a resource | [optional] 
 **ApprovalSettings** | Pointer to [**ApprovalSettings**](ApprovalSettings.md) |  | [optional] 
 **Project** | Pointer to [**Project**](Project.md) |  | [optional] 
-**Environment** | Pointer to [**Environment**](Environment.md) |  | [optional] 
+**Environments** | Pointer to [**[]Environment**](Environment.md) | List of environments the approval impacts | [optional] 
 **Flag** | Pointer to [**ExpandedFlagRep**](ExpandedFlagRep.md) |  | [optional] 
 
 ## Methods
@@ -569,30 +569,30 @@ SetProject sets Project field to given value.
 
 HasProject returns a boolean if a field has been set.
 
-### GetEnvironment
+### GetEnvironments
 
-`func (o *ExpandableApprovalRequestResponse) GetEnvironment() Environment`
+`func (o *ExpandableApprovalRequestResponse) GetEnvironments() []Environment`
 
-GetEnvironment returns the Environment field if non-nil, zero value otherwise.
+GetEnvironments returns the Environments field if non-nil, zero value otherwise.
 
-### GetEnvironmentOk
+### GetEnvironmentsOk
 
-`func (o *ExpandableApprovalRequestResponse) GetEnvironmentOk() (*Environment, bool)`
+`func (o *ExpandableApprovalRequestResponse) GetEnvironmentsOk() (*[]Environment, bool)`
 
-GetEnvironmentOk returns a tuple with the Environment field if it's non-nil, zero value otherwise
+GetEnvironmentsOk returns a tuple with the Environments field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetEnvironment
+### SetEnvironments
 
-`func (o *ExpandableApprovalRequestResponse) SetEnvironment(v Environment)`
+`func (o *ExpandableApprovalRequestResponse) SetEnvironments(v []Environment)`
 
-SetEnvironment sets Environment field to given value.
+SetEnvironments sets Environments field to given value.
 
-### HasEnvironment
+### HasEnvironments
 
-`func (o *ExpandableApprovalRequestResponse) HasEnvironment() bool`
+`func (o *ExpandableApprovalRequestResponse) HasEnvironments() bool`
 
-HasEnvironment returns a boolean if a field has been set.
+HasEnvironments returns a boolean if a field has been set.
 
 ### GetFlag
 

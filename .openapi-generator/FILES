@@ -108,6 +108,7 @@ docs/ContextSettingsBetaApi.md
 docs/Contexts.md
 docs/ContextsBetaApi.md
 docs/CopiedFromEnv.md
+docs/CreateApprovalRequestRequest.md
 docs/CreateCopyFlagConfigApprovalRequestRequest.md
 docs/CreateFlagConfigApprovalRequestRequest.md
 docs/CreateWorkflowTemplateInput.md
@@ -116,6 +117,7 @@ docs/CustomProperty.md
 docs/CustomRole.md
 docs/CustomRolePost.md
 docs/CustomRolePostData.md
+docs/CustomRoleSummary.md
 docs/CustomRoles.md
 docs/CustomRolesApi.md
 docs/CustomWorkflowInput.md
@@ -479,6 +481,7 @@ model_context_record.go
 model_context_search.go
 model_contexts.go
 model_copied_from_env.go
+model_create_approval_request_request.go
 model_create_copy_flag_config_approval_request_request.go
 model_create_flag_config_approval_request_request.go
 model_create_workflow_template_input.go
@@ -487,6 +490,7 @@ model_custom_property.go
 model_custom_role.go
 model_custom_role_post.go
 model_custom_role_post_data.go
+model_custom_role_summary.go
 model_custom_roles.go
 model_custom_workflow_input.go
 model_custom_workflow_meta.go

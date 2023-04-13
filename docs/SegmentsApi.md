@@ -810,7 +810,7 @@ import (
 func main() {
     projectKey := "projectKey_example" // string | The project key
     environmentKey := "environmentKey_example" // string | The environment key
-    segmentBody := *openapiclient.NewSegmentBody("Example segment", "example-segment") // SegmentBody | 
+    segmentBody := *openapiclient.NewSegmentBody("Example segment", "segment-key-123abc") // SegmentBody | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)

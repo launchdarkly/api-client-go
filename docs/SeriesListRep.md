@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Links** | **map[string]interface{}** | The location and content type of related resources | 
 **Metadata** | **[]map[string]interface{}** | Metadata about each series | 
-**Series** | **[]map[string]int32** | An array of data points with timestamps | 
+**Series** | **[]map[string]int32** | An array of data points with timestamps. Each element of the array is an object with a &#39;time&#39; field, whose value is the timestamp, and one or more key fields. If there are multiple key fields, they are labeled &#39;0&#39;, &#39;1&#39;, and so on, and are explained in the &lt;code&gt;metadata&lt;/code&gt;. | 
 
 ## Methods
 

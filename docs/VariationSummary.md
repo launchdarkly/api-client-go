@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Rules** | **int32** |  | 
 **NullRules** | **int32** |  | 
 **Targets** | **int32** |  | 
+**ContextTargets** | Pointer to **int32** |  | [optional] 
 **IsFallthrough** | Pointer to **bool** |  | [optional] 
 **IsOff** | Pointer to **bool** |  | [optional] 
 **Rollout** | Pointer to **int32** |  | [optional] 
@@ -90,6 +91,31 @@ and a boolean to check if the value has been set.
 
 SetTargets sets Targets field to given value.
 
+
+### GetContextTargets
+
+`func (o *VariationSummary) GetContextTargets() int32`
+
+GetContextTargets returns the ContextTargets field if non-nil, zero value otherwise.
+
+### GetContextTargetsOk
+
+`func (o *VariationSummary) GetContextTargetsOk() (*int32, bool)`
+
+GetContextTargetsOk returns a tuple with the ContextTargets field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetContextTargets
+
+`func (o *VariationSummary) SetContextTargets(v int32)`
+
+SetContextTargets sets ContextTargets field to given value.
+
+### HasContextTargets
+
+`func (o *VariationSummary) HasContextTargets() bool`
+
+HasContextTargets returns a boolean if a field has been set.
 
 ### GetIsFallthrough
 

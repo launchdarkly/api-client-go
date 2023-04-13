@@ -327,7 +327,7 @@ import (
 
 func main() {
     projectKey := "projectKey_example" // string | The project key
-    metricPost := *openapiclient.NewMetricPost("example-metric", "custom") // MetricPost | 
+    metricPost := *openapiclient.NewMetricPost("metric-key-123abc", "custom") // MetricPost | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)

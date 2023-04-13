@@ -35,7 +35,7 @@ func main() {
     projectKey := "projectKey_example" // string | The project key
     featureFlagKey := "featureFlagKey_example" // string | The feature flag key
     environmentKey := "environmentKey_example" // string | The environment key
-    memberId := "memberId_example" // string | The memberId of the member to remove as a follower of the flag
+    memberId := "memberId_example" // string | The memberId of the member to remove as a follower of the flag. Reader roles can only remove themselves.
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -56,7 +56,7 @@ Name | Type | Description  | Notes
 **projectKey** | **string** | The project key | 
 **featureFlagKey** | **string** | The feature flag key | 
 **environmentKey** | **string** | The environment key | 
-**memberId** | **string** | The memberId of the member to remove as a follower of the flag | 
+**memberId** | **string** | The memberId of the member to remove as a follower of the flag. Reader roles can only remove themselves. | 
 
 ### Other Parameters
 
@@ -261,7 +261,7 @@ func main() {
     projectKey := "projectKey_example" // string | The project key
     featureFlagKey := "featureFlagKey_example" // string | The feature flag key
     environmentKey := "environmentKey_example" // string | The environment key
-    memberId := "memberId_example" // string | The memberId of the member to add as a follower of the flag
+    memberId := "memberId_example" // string | The memberId of the member to add as a follower of the flag. Reader roles can only add themselves.
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -282,7 +282,7 @@ Name | Type | Description  | Notes
 **projectKey** | **string** | The project key | 
 **featureFlagKey** | **string** | The feature flag key | 
 **environmentKey** | **string** | The environment key | 
-**memberId** | **string** | The memberId of the member to add as a follower of the flag | 
+**memberId** | **string** | The memberId of the member to add as a follower of the flag. Reader roles can only add themselves. | 
 
 ### Other Parameters
 

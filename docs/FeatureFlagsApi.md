@@ -320,7 +320,7 @@ Name | Type | Description  | Notes
 
 ## GetFeatureFlag
 
-> FeatureFlag GetFeatureFlag(ctx, projectKey, featureFlagKey).Env(env).Execute()
+> FeatureFlag GetFeatureFlag(ctx, projectKey, featureFlagKey).Env(env).Expand(expand).Execute()
 
 Get feature flag
 
@@ -342,10 +342,11 @@ func main() {
     projectKey := "projectKey_example" // string | The project key
     featureFlagKey := "featureFlagKey_example" // string | The feature flag key
     env := "env_example" // string | Filter configurations by environment (optional)
+    expand := "expand_example" // string | A comma-separated list of fields to expand in the response. Supported fields are explained above. (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FeatureFlagsApi.GetFeatureFlag(context.Background(), projectKey, featureFlagKey).Env(env).Execute()
+    resp, r, err := apiClient.FeatureFlagsApi.GetFeatureFlag(context.Background(), projectKey, featureFlagKey).Env(env).Expand(expand).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.GetFeatureFlag``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -374,6 +375,7 @@ Name | Type | Description  | Notes
 
 
  **env** | **string** | Filter configurations by environment | 
+ **expand** | **string** | A comma-separated list of fields to expand in the response. Supported fields are explained above. | 
 
 ### Return type
 
@@ -619,7 +621,7 @@ Name | Type | Description  | Notes
 
 ## GetFeatureFlags
 
-> FeatureFlags GetFeatureFlags(ctx, projectKey).Env(env).Tag(tag).Limit(limit).Offset(offset).Archived(archived).Summary(summary).Filter(filter).Sort(sort).Compare(compare).Execute()
+> FeatureFlags GetFeatureFlags(ctx, projectKey).Env(env).Tag(tag).Limit(limit).Offset(offset).Archived(archived).Summary(summary).Filter(filter).Sort(sort).Compare(compare).Expand(expand).Execute()
 
 List feature flags
 
@@ -644,14 +646,15 @@ func main() {
     limit := int64(789) // int64 | The number of feature flags to return. Defaults to -1, which returns all flags (optional)
     offset := int64(789) // int64 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
     archived := true // bool | A boolean to filter the list to archived flags. When this is absent, only unarchived flags will be returned (optional)
-    summary := true // bool | By default in API version >= 1, flags will _not_ include their list of prerequisites, targets or rules.  Set summary=0 to include these fields for each flag returned (optional)
+    summary := true // bool | By default, flags do _not_ include their lists of prerequisites, targets, or rules for each environment. Set `summary=0` to include these fields for each flag returned. (optional)
     filter := "filter_example" // string | A comma-separated list of filters. Each filter is of the form field:value. Read the endpoint description for a full list of available filter fields. (optional)
     sort := "sort_example" // string | A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order. Read the endpoint description for a full list of available sort fields. (optional)
     compare := true // bool | A boolean to filter results by only flags that have differences between environments (optional)
+    expand := "expand_example" // string | A comma-separated list of fields to expand in the response. Supported fields are explained above. (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FeatureFlagsApi.GetFeatureFlags(context.Background(), projectKey).Env(env).Tag(tag).Limit(limit).Offset(offset).Archived(archived).Summary(summary).Filter(filter).Sort(sort).Compare(compare).Execute()
+    resp, r, err := apiClient.FeatureFlagsApi.GetFeatureFlags(context.Background(), projectKey).Env(env).Tag(tag).Limit(limit).Offset(offset).Archived(archived).Summary(summary).Filter(filter).Sort(sort).Compare(compare).Expand(expand).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.GetFeatureFlags``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -682,10 +685,11 @@ Name | Type | Description  | Notes
  **limit** | **int64** | The number of feature flags to return. Defaults to -1, which returns all flags | 
  **offset** | **int64** | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | 
  **archived** | **bool** | A boolean to filter the list to archived flags. When this is absent, only unarchived flags will be returned | 
- **summary** | **bool** | By default in API version &gt;&#x3D; 1, flags will _not_ include their list of prerequisites, targets or rules.  Set summary&#x3D;0 to include these fields for each flag returned | 
+ **summary** | **bool** | By default, flags do _not_ include their lists of prerequisites, targets, or rules for each environment. Set &#x60;summary&#x3D;0&#x60; to include these fields for each flag returned. | 
  **filter** | **string** | A comma-separated list of filters. Each filter is of the form field:value. Read the endpoint description for a full list of available filter fields. | 
  **sort** | **string** | A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order. Read the endpoint description for a full list of available sort fields. | 
  **compare** | **bool** | A boolean to filter results by only flags that have differences between environments | 
+ **expand** | **string** | A comma-separated list of fields to expand in the response. Supported fields are explained above. | 
 
 ### Return type
 
@@ -958,7 +962,7 @@ import (
 
 func main() {
     projectKey := "projectKey_example" // string | The project key
-    featureFlagBody := *openapiclient.NewFeatureFlagBody("My flag", "my-flag") // FeatureFlagBody | 
+    featureFlagBody := *openapiclient.NewFeatureFlagBody("My flag", "flag-key-123abc") // FeatureFlagBody | 
     clone := "clone_example" // string | The key of the feature flag to be cloned. The key identifies the flag in your code. For example, setting `clone=flagKey` copies the full targeting configuration for all environments, including `on/off` state, from the original flag to the new flag. (optional)
 
     configuration := openapiclient.NewConfiguration()

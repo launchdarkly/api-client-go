@@ -5,12 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Series** | [**[]Series**](Series.md) | An array of timestamps and values for a given meter | 
+**Links** | **map[string]interface{}** | The location and content type of related resources | 
 
 ## Methods
 
 ### NewSeriesIntervalsRep
 
-`func NewSeriesIntervalsRep(series []Series, ) *SeriesIntervalsRep`
+`func NewSeriesIntervalsRep(series []Series, links map[string]interface{}, ) *SeriesIntervalsRep`
 
 NewSeriesIntervalsRep instantiates a new SeriesIntervalsRep object
 This constructor will assign default values to properties that have it defined,
@@ -43,6 +44,26 @@ and a boolean to check if the value has been set.
 `func (o *SeriesIntervalsRep) SetSeries(v []Series)`
 
 SetSeries sets Series field to given value.
+
+
+### GetLinks
+
+`func (o *SeriesIntervalsRep) GetLinks() map[string]interface{}`
+
+GetLinks returns the Links field if non-nil, zero value otherwise.
+
+### GetLinksOk
+
+`func (o *SeriesIntervalsRep) GetLinksOk() (*map[string]interface{}, bool)`
+
+GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLinks
+
+`func (o *SeriesIntervalsRep) SetLinks(v map[string]interface{})`
+
+SetLinks sets Links field to given value.
 
 
 

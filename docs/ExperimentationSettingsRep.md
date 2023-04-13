@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ProjectId** | Pointer to **string** |  | [optional] 
-**ProjectKey** | Pointer to **string** |  | [optional] 
-**RandomizationUnits** | Pointer to [**[]RandomizationUnitRep**](RandomizationUnitRep.md) |  | [optional] 
+**ProjectId** | Pointer to **string** | The project ID | [optional] 
+**ProjectKey** | Pointer to **string** | The project key | [optional] 
+**RandomizationUnits** | Pointer to [**[]RandomizationUnitRep**](RandomizationUnitRep.md) | An array of the randomization units in this project | [optional] 
 **CreationDate** | Pointer to **int64** |  | [optional] 
-**Links** | Pointer to [**map[string]Link**](Link.md) |  | [optional] 
+**Links** | Pointer to [**map[string]Link**](Link.md) | The location and content type of related resources | [optional] 
 
 ## Methods
 

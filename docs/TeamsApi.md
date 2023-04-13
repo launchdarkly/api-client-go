@@ -470,7 +470,7 @@ import (
 )
 
 func main() {
-    teamPostInput := *openapiclient.NewTeamPostInput("example-team", "Example team") // TeamPostInput | 
+    teamPostInput := *openapiclient.NewTeamPostInput("team-key-123abc", "Example team") // TeamPostInput | 
     expand := "expand_example" // string | A comma-separated list of properties that can reveal additional information in the response. Supported fields are explained above. (optional)
 
     configuration := openapiclient.NewConfiguration()

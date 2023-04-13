@@ -333,7 +333,7 @@ import (
 
 func main() {
     projectKey := "projectKey_example" // string | The project key
-    environmentPost := *openapiclient.NewEnvironmentPost("My Environment", "my-environment", "F5A623") // EnvironmentPost | 
+    environmentPost := *openapiclient.NewEnvironmentPost("My Environment", "environment-key-123abc", "F5A623") // EnvironmentPost | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
