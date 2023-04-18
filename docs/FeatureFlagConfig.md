@@ -10,8 +10,8 @@ Name | Type | Description | Notes
 **Sel** | **string** |  | 
 **LastModified** | **int64** |  | 
 **Version** | **int32** | Version of the feature flag | 
-**Targets** | Pointer to [**[]Target**](Target.md) | An array of the individual targets that will receive a specific variation based on their key. Individual targets with a context kind of &#39;user&#39; are included here. | [optional] 
-**ContextTargets** | Pointer to [**[]Target**](Target.md) | An array of the individual targets that will receive a specific variation based on their key. Individual targets with context kinds other than &#39;user&#39; are included here. | [optional] 
+**Targets** | Pointer to [**[]Target**](Target.md) | An array of the individual targets that will receive a specific variation based on their key | [optional] 
+**ContextTargets** | Pointer to [**[]Target**](Target.md) |  | [optional] 
 **Rules** | Pointer to [**[]Rule**](Rule.md) | An array of the rules for how to serve a variation to specific targets based on their attributes | [optional] 
 **Fallthrough** | Pointer to [**VariationOrRolloutRep**](VariationOrRolloutRep.md) |  | [optional] 
 **OffVariation** | Pointer to **int32** | The ID of the variation to serve when the flag is off | [optional] 

@@ -222,9 +222,9 @@ info:
     \ This is the maximum number of calls that your account can make to the API per\
     \ ten seconds. All personal access tokens on the account share this limit, so\
     \ exceeding the limit with one access token will impact other tokens. Calls that\
-    \ are subject to global rate limits may return the headers below:\n\n| Header\
-    \ name                    | Description                                      \
-    \                                |\n| ------------------------------ | --------------------------------------------------------------------------------\
+    \ are subject to global rate limits return the headers below:\n\n| Header name\
+    \                    | Description                                           \
+    \                           |\n| ------------------------------ | --------------------------------------------------------------------------------\
     \ |\n| `X-Ratelimit-Global-Remaining` | The maximum number of requests the account\
     \ is permitted to make per ten seconds. |\n| `X-Ratelimit-Reset`            |\
     \ The time at which the current rate limit window resets in epoch milliseconds.\
@@ -25720,22 +25720,16 @@ components:
               prerequisites: 0
               variations:
                 "0":
-                  contextTargets: 1
                   isFallthrough: true
                   nullRules: 0
                   rules: 0
-                  targets: 1
+                  targets: 0
                 "1":
                   isOff: true
                   nullRules: 0
                   rules: 0
                   targets: 0
             archived: false
-            contextTargets:
-            - contextKind: device
-              values:
-              - device-key-123abc
-              variation: 0
             fallthrough:
               variation: 0
             lastModified: 1627071171347
@@ -25745,11 +25739,7 @@ components:
             rules: []
             salt: 61eddeadbeef4da1facecafe3a60a397
             sel: 810edeadbeef4844facecafe438f2999492
-            targets:
-            - contextKind: user
-              values:
-              - user-key-123abc
-              variation: 0
+            targets: []
             trackEvents: false
             trackEventsFallthrough: false
             version: 1
@@ -26135,22 +26125,16 @@ components:
                 prerequisites: 0
                 variations:
                   "0":
-                    contextTargets: 1
                     isFallthrough: true
                     nullRules: 0
                     rules: 0
-                    targets: 1
+                    targets: 0
                   "1":
                     isOff: true
                     nullRules: 0
                     rules: 0
                     targets: 0
               archived: false
-              contextTargets:
-              - contextKind: device
-                values:
-                - device-key-123abc
-                variation: 0
               fallthrough:
                 variation: 0
               lastModified: 1627071171347
@@ -26160,11 +26144,7 @@ components:
               rules: []
               salt: 61eddeadbeef4da1facecafe3a60a397
               sel: 810edeadbeef4844facecafe438f2999492
-              targets:
-              - contextKind: user
-                values:
-                - user-key-123abc
-                variation: 0
+              targets: []
               trackEvents: false
               trackEventsFallthrough: false
               version: 1
@@ -26279,15 +26259,11 @@ components:
           type: integer
         targets:
           description: An array of the individual targets that will receive a specific
-            variation based on their key. Individual targets with a context kind of
-            'user' are included here.
+            variation based on their key
           items:
             $ref: '#/components/schemas/Target'
           type: array
         contextTargets:
-          description: An array of the individual targets that will receive a specific
-            variation based on their key. Individual targets with context kinds other
-            than 'user' are included here.
           items:
             $ref: '#/components/schemas/Target'
           type: array
@@ -26579,22 +26555,16 @@ components:
                 prerequisites: 0
                 variations:
                   "0":
-                    contextTargets: 1
                     isFallthrough: true
                     nullRules: 0
                     rules: 0
-                    targets: 1
+                    targets: 0
                   "1":
                     isOff: true
                     nullRules: 0
                     rules: 0
                     targets: 0
               archived: false
-              contextTargets:
-              - contextKind: device
-                values:
-                - device-key-123abc
-                variation: 0
               fallthrough:
                 variation: 0
               lastModified: 1627071171347
@@ -26604,11 +26574,7 @@ components:
               rules: []
               salt: 61eddeadbeef4da1facecafe3a60a397
               sel: 810edeadbeef4844facecafe438f2999492
-              targets:
-              - contextKind: user
-                values:
-                - user-key-123abc
-                variation: 0
+              targets: []
               trackEvents: false
               trackEventsFallthrough: false
               version: 1
@@ -26911,22 +26877,16 @@ components:
                 prerequisites: 0
                 variations:
                   "0":
-                    contextTargets: 1
                     isFallthrough: true
                     nullRules: 0
                     rules: 0
-                    targets: 1
+                    targets: 0
                   "1":
                     isOff: true
                     nullRules: 0
                     rules: 0
                     targets: 0
               archived: false
-              contextTargets:
-              - contextKind: device
-                values:
-                - device-key-123abc
-                variation: 0
               fallthrough:
                 variation: 0
               lastModified: 1627071171347
@@ -26936,11 +26896,7 @@ components:
               rules: []
               salt: 61eddeadbeef4da1facecafe3a60a397
               sel: 810edeadbeef4844facecafe438f2999492
-              targets:
-              - contextKind: user
-                values:
-                - user-key-123abc
-                variation: 0
+              targets: []
               trackEvents: false
               trackEventsFallthrough: false
               version: 1
@@ -28183,7 +28139,6 @@ components:
             $ref: '#/components/schemas/VariationSummary'
           type: object
         prerequisites:
-          description: The number of prerequisites for this flag
           type: integer
       required:
       - prerequisites
@@ -34048,7 +34003,6 @@ components:
             \ the variation to serve this list of targets"
           type: integer
         contextKind:
-          description: The context kind of the individual target
           type: string
       required:
       - values
