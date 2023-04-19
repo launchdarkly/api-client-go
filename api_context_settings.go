@@ -21,12 +21,12 @@ import (
 )
 
 
-// ContextSettingsBetaApiService ContextSettingsBetaApi service
-type ContextSettingsBetaApiService service
+// ContextSettingsApiService ContextSettingsApi service
+type ContextSettingsApiService service
 
 type ApiPutContextFlagSettingRequest struct {
 	ctx context.Context
-	ApiService *ContextSettingsBetaApiService
+	ApiService *ContextSettingsApiService
 	projectKey string
 	environmentKey string
 	contextKind string
@@ -63,7 +63,7 @@ If you previously patched the flag, and the patch included the context's data, L
  @param featureFlagKey The feature flag key
  @return ApiPutContextFlagSettingRequest
 */
-func (a *ContextSettingsBetaApiService) PutContextFlagSetting(ctx context.Context, projectKey string, environmentKey string, contextKind string, contextKey string, featureFlagKey string) ApiPutContextFlagSettingRequest {
+func (a *ContextSettingsApiService) PutContextFlagSetting(ctx context.Context, projectKey string, environmentKey string, contextKind string, contextKey string, featureFlagKey string) ApiPutContextFlagSettingRequest {
 	return ApiPutContextFlagSettingRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -76,14 +76,14 @@ func (a *ContextSettingsBetaApiService) PutContextFlagSetting(ctx context.Contex
 }
 
 // Execute executes the request
-func (a *ContextSettingsBetaApiService) PutContextFlagSettingExecute(r ApiPutContextFlagSettingRequest) (*http.Response, error) {
+func (a *ContextSettingsApiService) PutContextFlagSettingExecute(r ApiPutContextFlagSettingRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ContextSettingsBetaApiService.PutContextFlagSetting")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ContextSettingsApiService.PutContextFlagSetting")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}

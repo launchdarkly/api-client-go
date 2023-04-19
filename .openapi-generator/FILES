@@ -11,7 +11,8 @@ api_approvals.go
 api_approvals_beta.go
 api_audit_log.go
 api_code_references.go
-api_context_settings_beta.go
+api_context_settings.go
+api_contexts.go
 api_contexts_beta.go
 api_custom_roles.go
 api_data_export_destinations.go
@@ -104,8 +105,9 @@ docs/ContextKindRep.md
 docs/ContextKindsCollectionRep.md
 docs/ContextRecord.md
 docs/ContextSearch.md
-docs/ContextSettingsBetaApi.md
+docs/ContextSettingsApi.md
 docs/Contexts.md
+docs/ContextsApi.md
 docs/ContextsBetaApi.md
 docs/CopiedFromEnv.md
 docs/CreateApprovalRequestRequest.md

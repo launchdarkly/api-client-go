@@ -446,18 +446,13 @@ tags:
     \ to each connected repository, and associated feature flag code reference data\
     \ for all branches. To learn more, read [Code references](https://docs.launchdarkly.com/home/code/code-references).\n"
   name: Code references
-- description: "\n> ### This feature is in beta\n>\n> To use this feature, pass in\
-    \ a header including the `LD-API-Version` key with value set to `beta`. Use this\
-    \ header with each call. To learn more, read [Beta resources](/#section/Overview/Beta-resources).\n\
-    >\n> Resources that are in beta are still undergoing testing and development.\
-    \ They may change without notice, including becoming backwards incompatible.\n\
-    \nContexts are people, services, machines, or other resources that encounter feature\
-    \ flags in your product. Contexts are identified by their `kind`, which describes\
-    \ the type of resources encountering flags, and by their `key`. Each unique combination\
-    \ of one or more contexts that have encountered a feature flag in your product\
-    \ is called a context instance.\n\nWhen you use the LaunchDarkly SDK to evaluate\
-    \ a flag, you provide a context to that call. LaunchDarkly records the key and\
-    \ attributes of each context instance. You can view these in the LaunchDarkly\
+- description: "\nContexts are people, services, machines, or other resources that\
+    \ encounter feature flags in your product. Contexts are identified by their `kind`,\
+    \ which describes the type of resources encountering flags, and by their `key`.\
+    \ Each unique combination of one or more contexts that have encountered a feature\
+    \ flag in your product is called a context instance.\n\nWhen you use the LaunchDarkly\
+    \ SDK to evaluate a flag, you provide a context to that call. LaunchDarkly records\
+    \ the key and attributes of each context instance. You can view these in the LaunchDarkly\
     \ user interface from the **Contexts** list, or use the Context APIs. To learn\
     \ more, read [Contexts](https://docs.launchdarkly.com/home/contexts).\n\nLaunchDarkly\
     \ provides APIs for you to:\n\n* retrieve contexts, context instances, and context\
@@ -465,7 +460,7 @@ tags:
     \ context instances\n\nContexts are always scoped within a project and an environment.\
     \ Each environment has its own set of context instance records.\n\nSeveral of\
     \ the endpoints in the contexts API require a context instance ID or application\
-    \ ID. Both of these IDs are returned as part of the [Search for context instances](/tag/Contexts-(beta)#operation/searchContextInstances)\
+    \ ID. Both of these IDs are returned as part of the [Search for context instances](/tag/Contexts#operation/searchContextInstances)\
     \ response. The context instance ID is the `id` field of each element in the `items`\
     \ array. The application ID is the `applicationId` field of each element in the\
     \ `items` array. By default, the application ID is set to the SDK you are using.\
@@ -473,9 +468,9 @@ tags:
     \ the context details page in the \"From source\" field. You can change the application\
     \ ID as part of your SDK configuration. To learn more, read [Application metadata\
     \ configuration](https://docs.launchdarkly.com/sdk/features/app-config).\n\n###\
-    \ Filtering contexts and context instances\n\nWhen you [search for contexts](/tag/Contexts-(beta)#operation/searchContexts)\
-    \ or [context instances](/tag/Contexts-(beta)#operation/searchContextInstances),\
-    \ you can filter on certain fields using the `filter` parameter either as a query\
+    \ Filtering contexts and context instances\n\nWhen you [search for contexts](/tag/Contexts#operation/searchContexts)\
+    \ or [context instances](/tag/Contexts#operation/searchContextInstances), you\
+    \ can filter on certain fields using the `filter` parameter either as a query\
     \ parameter or as a request body parameter.\n\nThe `filter` parameter supports\
     \ the following operators: `after`, `anyOf`, `before`, `contains`, `equals`, `exists`,\
     \ `gte`, `lte`, `notEquals`, `startsWith`.\n\n<details>\n<summary>Expand for details\
@@ -518,7 +513,7 @@ tags:
     \ is either equal to 20 or is between 5 and 10, inclusive\n\n#### Supported fields\
     \ and operators\n\nYou can only filter certain fields in contexts and context\
     \ instances when using the `filter` parameter. Additionally, you can only filter\
-    \ some fields with certain operators.\n\nWhen you search for [contexts]((/tag/Contexts-(beta)#operation/searchContexts)),\
+    \ some fields with certain operators.\n\nWhen you search for [contexts]((/tag/Contexts#operation/searchContexts)),\
     \ the `filter` parameter supports the following fields and operators:\n\n|<div\
     \ style=\"width:120px\">Field</div> |Description |Supported operators |\n|---|---|---|\n\
     |`applicationId` |An identifier representing the application where the LaunchDarkly\
@@ -543,7 +538,7 @@ tags:
     \ use `user.job/title` or `user./job~1title` to filter the `/job/title` field\
     \ in a user context kind. If the field or value includes whitespace, it should\
     \ be enclosed in double quotes. |`equals`, `notEquals`, `exists`, `startsWith`,\
-    \ `before`, `after`.|\n\nWhen searching for [context instances](/tag/Contexts-(beta)#operation/searchContextInstances),\
+    \ `before`, `after`.|\n\nWhen searching for [context instances](/tag/Contexts#operation/searchContextInstances),\
     \ the `filter` parameter supports the following fields and operators\n\n|<div\
     \ style=\"width:120px\">Field</div> |Description |Supported operators |\n|---|---|---|\n\
     |`applicationId` |An identifier representing the application where the LaunchDarkly\
@@ -554,13 +549,21 @@ tags:
     \ and keys found in the context instance. The kind and key are joined with `:`,\
     \ for example, `user:user-key-abc123`. Supply a list of strings to the operator.\
     \ |`equals`, `anyOf`, `contains` |\n"
-  name: Contexts (beta)
-- description: "> ### This feature is in beta\n>\n> To use this feature, pass in a\
-    \ header including the `LD-API-Version` key with value set to `beta`. Use this\
+  name: Contexts
+- description: "\n> ### This feature is in beta\n>\n> To use this feature, pass in\
+    \ a header including the `LD-API-Version` key with value set to `beta`. Use this\
     \ header with each call. To learn more, read [Beta resources](/#section/Overview/Beta-resources).\n\
     >\n> Resources that are in beta are still undergoing testing and development.\
-    \ They may change without notice, including becoming backwards incompatible.\n"
-  name: Context settings (beta)
+    \ They may change without notice, including becoming backwards incompatible.\n\
+    \nContexts are people, services, machines, or other resources that encounter feature\
+    \ flags in your product. Contexts are identified by their `kind`, which describes\
+    \ the type of resources encountering flags, and by their `key`. Each unique combination\
+    \ of one or more contexts that have encountered a feature flag in your product\
+    \ is called a context instance.\n\nTo learn more, read [Context kinds](https://docs.launchdarkly.com/home/contexts/context-kinds).\n"
+  name: Contexts (beta)
+- description: "You can use the context settings API to assign a context to a specific\
+    \ variation for any feature flag. To learn more, read [Viewing and managing contexts](https://docs.launchdarkly.com/home/contexts/attributes#viewing-and-managing-contexts).\n"
+  name: Context settings
 - description: "> ### Custom roles is an Enterprise feature\n>\n> Custom roles is\
     \ available to customers on an Enterprise plan. To learn more, [read about our\
     \ pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact\
@@ -8879,7 +8882,7 @@ paths:
           description: Rate limited
       summary: Get context attribute names
       tags:
-      - Contexts (beta)
+      - Contexts
   /api/v2/projects/{projectKey}/environments/{environmentKey}/context-attributes/{attributeName}:
     get:
       description: Get context attribute values.
@@ -8964,7 +8967,7 @@ paths:
           description: Rate limited
       summary: Get context attribute values
       tags:
-      - Contexts (beta)
+      - Contexts
   /api/v2/projects/{projectKey}/environments/{environmentKey}/context-instances/search:
     post:
       description: "\nSearch for context instances.\n\nYou can use either the query\
@@ -9099,7 +9102,7 @@ paths:
           description: Rate limited
       summary: Search for context instances
       tags:
-      - Contexts (beta)
+      - Contexts
   /api/v2/projects/{projectKey}/environments/{environmentKey}/context-instances/{id}:
     delete:
       description: Delete context instances by ID.
@@ -9170,7 +9173,7 @@ paths:
           description: Rate limited
       summary: Delete context instances
       tags:
-      - Contexts (beta)
+      - Contexts
     get:
       description: Get context instances by ID.
       operationId: getContextInstances
@@ -9304,7 +9307,7 @@ paths:
           description: Rate limited
       summary: Get context instances
       tags:
-      - Contexts (beta)
+      - Contexts
   /api/v2/projects/{projectKey}/environments/{environmentKey}/contexts/search:
     post:
       description: "\nSearch for contexts.\n\nYou can use either the query parameters\
@@ -9437,7 +9440,7 @@ paths:
           description: Rate limited
       summary: Search for contexts
       tags:
-      - Contexts (beta)
+      - Contexts
   /api/v2/projects/{projectKey}/environments/{environmentKey}/contexts/{contextKind}/{contextKey}/flags/{featureFlagKey}:
     put:
       description: "\nEnable or disable a feature flag for a context based on its\
@@ -9540,7 +9543,7 @@ paths:
           description: Rate limited
       summary: Update flag settings for context
       tags:
-      - Context settings (beta)
+      - Context settings
   /api/v2/projects/{projectKey}/environments/{environmentKey}/contexts/{kind}/{key}:
     get:
       description: Get contexts based on kind and key.
@@ -9685,7 +9688,7 @@ paths:
           description: Rate limited
       summary: Get contexts
       tags:
-      - Contexts (beta)
+      - Contexts
   /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments:
     get:
       description: "Get details about all experiments in an environment.\n\n### Filtering\
@@ -9702,8 +9705,8 @@ paths:
         \nTo expand the response, append the `expand` query parameter and add a comma-separated\
         \ list with any of the following fields:\n\n- `previousIterations` includes\
         \ all iterations prior to the current iteration. By default only the current\
-        \ iteration is included in the response.\n- `draftIteration` includes a draft\
-        \ of an iteration which has not been started yet, if any.\n- `secondaryMetrics`\
+        \ iteration is included in the response.\n- `draftIteration` includes the\
+        \ iteration which has not been started yet, if any.\n- `secondaryMetrics`\
         \ includes secondary metrics. By default only the primary metric is included\
         \ in the response.\n- `treatments` includes all treatment and parameter details.\
         \ By default treatment data is not included in the response.\n\nFor example,\
@@ -9839,7 +9842,11 @@ paths:
       tags:
       - Experiments (beta)
     post:
-      description: "Create an experiment. To learn more, read [Creating experiments](https://docs.launchdarkly.com/home/creating-experiments)."
+      description: "Create an experiment.\n\nTo run this experiment, you'll need to\
+        \ [create an iteration](/tag/Experiments-(beta)#operation/createIteration)\
+        \ and then [update the experiment](/tag/Experiments-(beta)#operation/patchExperiment)\
+        \ with the `startIteration` instruction.\n\nTo learn more, read [Creating\
+        \ experiments](https://docs.launchdarkly.com/home/creating-experiments).\n"
       operationId: createExperiment
       parameters:
       - description: The project key
@@ -9916,8 +9923,8 @@ paths:
         \nTo expand the response, append the `expand` query parameter and add a comma-separated\
         \ list with any of the following fields:\n\n- `previousIterations` includes\
         \ all iterations prior to the current iteration. By default only the current\
-        \ iteration is included in the response.\n- `draftIteration` includes a draft\
-        \ of an iteration which has not been started yet, if any.\n- `secondaryMetrics`\
+        \ iteration is included in the response.\n- `draftIteration` includes the\
+        \ iteration which has not been started yet, if any.\n- `secondaryMetrics`\
         \ includes secondary metrics. By default only the primary metric is included\
         \ in the response.\n- `treatments` includes all treatment and parameter details.\
         \ By default treatment data is not included in the response.\n\nFor example,\
@@ -10013,16 +10020,20 @@ paths:
         \ the experiment description.\n\n##### Parameters\n\n- `value`: The new description.\n\
         \n#### startIteration\n\nStarts a new iteration for this experiment. You must\
         \ [create a new iteration](/tag/Experiments-(beta)#operation/createIteration)\
-        \ before calling this instruction.\n\n##### Parameters\n\n- `changeJustification`:\
-        \ The reason for starting a new iteration. Required when you call `startIteration`\
-        \ on an already running experiment, otherwise optional.\n\n#### stopIteration\n\
-        \nStops the current iteration for this experiment.\n\n##### Parameters\n\n\
-        - `winningTreatmentId`: The ID of the winning treatment\n- `winningReason`:\
-        \ The reason for the winner\n\n#### archiveExperiment\n\nArchives this experiment.\
-        \ Archived experiments are hidden by default in the LaunchDarkly user interface.\
-        \ You cannot start new iterations for archived experiments.\n\n#### restoreExperiment\n\
-        \nRestores an archived experiment. After restoring an experiment, you can\
-        \ start new iterations for it again.\n"
+        \ before calling this instruction.\n\nAn iteration may not be started until\
+        \ it meets the following criteria:\n\n* Its associated flag is toggled on\
+        \ and is not archived\n* Its `randomizationUnit` is set\n* At least one of\
+        \ its `treatments` has a non-zero `allocationPercent`\n\n##### Parameters\n\
+        \n- `changeJustification`: The reason for starting a new iteration. Required\
+        \ when you call `startIteration` on an already running experiment, otherwise\
+        \ optional.\n\n#### stopIteration\n\nStops the current iteration for this\
+        \ experiment.\n\n##### Parameters\n\n- `winningTreatmentId`: The ID of the\
+        \ winning treatment\n- `winningReason`: The reason for the winner\n\n####\
+        \ archiveExperiment\n\nArchives this experiment. Archived experiments are\
+        \ hidden by default in the LaunchDarkly user interface. You cannot start new\
+        \ iterations for archived experiments.\n\n#### restoreExperiment\n\nRestores\
+        \ an archived experiment. After restoring an experiment, you can start new\
+        \ iterations for it again.\n"
       operationId: patchExperiment
       parameters:
       - description: The project key
@@ -10108,9 +10119,12 @@ paths:
       - Experiments (beta)
   /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey}/iterations:
     post:
-      description: "Create an experiment iteration. Experiment iterations let you\
-        \ record experiments in discrete blocks of time. To learn more, read [Starting\
-        \ experiment iterations](https://docs.launchdarkly.com/home/creating-experiments#starting-experiment-iterations)."
+      description: "Create an experiment iteration.\n\nExperiment iterations let you\
+        \ record experiments in individual blocks of time. Initially, iterations are\
+        \ created with a status of `not_started` and appear in the `draftIteration`\
+        \ field of an experiment. To start or stop an iteration, [update the experiment](/tag/Experiments-(beta)#operation/patchExperiment)\
+        \ with the `startIteration` or `stopIteration` instruction. \n\nTo learn more,\
+        \ read [Starting experiment iterations](https://docs.launchdarkly.com/home/creating-experiments#starting-experiment-iterations).\n"
       operationId: createIteration
       parameters:
       - description: The project key
@@ -10406,7 +10420,7 @@ paths:
           description: Rate limited
       summary: Evaluate flags for context instance
       tags:
-      - Contexts (beta)
+      - Contexts
   /api/v2/projects/{projectKey}/environments/{environmentKey}/followers:
     get:
       description: Get followers of all flags in a given environment and project
@@ -10609,7 +10623,7 @@ paths:
           description: Invalid resource identifier
       summary: List segment memberships for context instance
       tags:
-      - Segments (beta)
+      - Segments
   /api/v2/projects/{projectKey}/experimentation-settings:
     get:
       description: Get current experimentation settings for the given project
@@ -31970,7 +31984,8 @@ components:
         standardRandomizationUnit: guest
       properties:
         randomizationUnit:
-          description: The unit of randomization.
+          description: The unit of randomization. Must match the key of an existing
+            context kind in this project.
           example: user
           type: string
         default:

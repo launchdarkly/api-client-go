@@ -44,7 +44,12 @@ func (r ApiCreateExperimentRequest) Execute() (*Experiment, *http.Response, erro
 /*
 CreateExperiment Create experiment
 
-Create an experiment. To learn more, read [Creating experiments](https://docs.launchdarkly.com/home/creating-experiments).
+Create an experiment.
+
+To run this experiment, you'll need to [create an iteration](/tag/Experiments-(beta)#operation/createIteration) and then [update the experiment](/tag/Experiments-(beta)#operation/patchExperiment) with the `startIteration` instruction.
+
+To learn more, read [Creating experiments](https://docs.launchdarkly.com/home/creating-experiments).
+
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param projectKey The project key
@@ -226,7 +231,12 @@ func (r ApiCreateIterationRequest) Execute() (*IterationRep, *http.Response, err
 /*
 CreateIteration Create iteration
 
-Create an experiment iteration. Experiment iterations let you record experiments in discrete blocks of time. To learn more, read [Starting experiment iterations](https://docs.launchdarkly.com/home/creating-experiments#starting-experiment-iterations).
+Create an experiment iteration.
+
+Experiment iterations let you record experiments in individual blocks of time. Initially, iterations are created with a status of `not_started` and appear in the `draftIteration` field of an experiment. To start or stop an iteration, [update the experiment](/tag/Experiments-(beta)#operation/patchExperiment) with the `startIteration` or `stopIteration` instruction. 
+
+To learn more, read [Starting experiment iterations](https://docs.launchdarkly.com/home/creating-experiments#starting-experiment-iterations).
+
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param projectKey The project key
@@ -414,7 +424,7 @@ LaunchDarkly supports four fields for expanding the "Get experiment" response. B
 To expand the response, append the `expand` query parameter and add a comma-separated list with any of the following fields:
 
 - `previousIterations` includes all iterations prior to the current iteration. By default only the current iteration is included in the response.
-- `draftIteration` includes a draft of an iteration which has not been started yet, if any.
+- `draftIteration` includes the iteration which has not been started yet, if any.
 - `secondaryMetrics` includes secondary metrics. By default only the primary metric is included in the response.
 - `treatments` includes all treatment and parameter details. By default treatment data is not included in the response.
 
@@ -1010,7 +1020,7 @@ LaunchDarkly supports four fields for expanding the "Get experiments" response. 
 To expand the response, append the `expand` query parameter and add a comma-separated list with any of the following fields:
 
 - `previousIterations` includes all iterations prior to the current iteration. By default only the current iteration is included in the response.
-- `draftIteration` includes a draft of an iteration which has not been started yet, if any.
+- `draftIteration` includes the iteration which has not been started yet, if any.
 - `secondaryMetrics` includes secondary metrics. By default only the primary metric is included in the response.
 - `treatments` includes all treatment and parameter details. By default treatment data is not included in the response.
 
@@ -1442,6 +1452,12 @@ Updates the experiment description.
 #### startIteration
 
 Starts a new iteration for this experiment. You must [create a new iteration](/tag/Experiments-(beta)#operation/createIteration) before calling this instruction.
+
+An iteration may not be started until it meets the following criteria:
+
+* Its associated flag is toggled on and is not archived
+* Its `randomizationUnit` is set
+* At least one of its `treatments` has a non-zero `allocationPercent`
 
 ##### Parameters
 

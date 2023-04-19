@@ -187,6 +187,167 @@ func (a *SegmentsApiService) DeleteSegmentExecute(r ApiDeleteSegmentRequest) (*h
 	return localVarHTTPResponse, nil
 }
 
+type ApiGetContextInstanceSegmentsMembershipByEnvRequest struct {
+	ctx context.Context
+	ApiService *SegmentsApiService
+	projectKey string
+	environmentKey string
+	requestBody *map[string]interface{}
+}
+
+func (r ApiGetContextInstanceSegmentsMembershipByEnvRequest) RequestBody(requestBody map[string]interface{}) ApiGetContextInstanceSegmentsMembershipByEnvRequest {
+	r.requestBody = &requestBody
+	return r
+}
+
+func (r ApiGetContextInstanceSegmentsMembershipByEnvRequest) Execute() (*ContextInstanceSegmentMemberships, *http.Response, error) {
+	return r.ApiService.GetContextInstanceSegmentsMembershipByEnvExecute(r)
+}
+
+/*
+GetContextInstanceSegmentsMembershipByEnv List segment memberships for context instance
+
+For a given context instance with attributes, get membership details for all segments
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param projectKey The project key
+ @param environmentKey The environment key
+ @return ApiGetContextInstanceSegmentsMembershipByEnvRequest
+*/
+func (a *SegmentsApiService) GetContextInstanceSegmentsMembershipByEnv(ctx context.Context, projectKey string, environmentKey string) ApiGetContextInstanceSegmentsMembershipByEnvRequest {
+	return ApiGetContextInstanceSegmentsMembershipByEnvRequest{
+		ApiService: a,
+		ctx: ctx,
+		projectKey: projectKey,
+		environmentKey: environmentKey,
+	}
+}
+
+// Execute executes the request
+//  @return ContextInstanceSegmentMemberships
+func (a *SegmentsApiService) GetContextInstanceSegmentsMembershipByEnvExecute(r ApiGetContextInstanceSegmentsMembershipByEnvRequest) (*ContextInstanceSegmentMemberships, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ContextInstanceSegmentMemberships
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SegmentsApiService.GetContextInstanceSegmentsMembershipByEnv")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v2/projects/{projectKey}/environments/{environmentKey}/segments/evaluate"
+	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", url.PathEscape(parameterToString(r.projectKey, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"environmentKey"+"}", url.PathEscape(parameterToString(r.environmentKey, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.requestBody == nil {
+		return localVarReturnValue, nil, reportError("requestBody is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.requestBody
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["ApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v InvalidRequestErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v UnauthorizedErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v NotFoundErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiGetExpiringTargetsForSegmentRequest struct {
 	ctx context.Context
 	ApiService *SegmentsApiService

@@ -1,10 +1,10 @@
-# \ContextSettingsBetaApi
+# \ContextSettingsApi
 
 All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**PutContextFlagSetting**](ContextSettingsBetaApi.md#PutContextFlagSetting) | **Put** /api/v2/projects/{projectKey}/environments/{environmentKey}/contexts/{contextKind}/{contextKey}/flags/{featureFlagKey} | Update flag settings for context
+[**PutContextFlagSetting**](ContextSettingsApi.md#PutContextFlagSetting) | **Put** /api/v2/projects/{projectKey}/environments/{environmentKey}/contexts/{contextKind}/{contextKey}/flags/{featureFlagKey} | Update flag settings for context
 
 
 
@@ -38,9 +38,9 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ContextSettingsBetaApi.PutContextFlagSetting(context.Background(), projectKey, environmentKey, contextKind, contextKey, featureFlagKey).ValuePut(valuePut).Execute()
+    resp, r, err := apiClient.ContextSettingsApi.PutContextFlagSetting(context.Background(), projectKey, environmentKey, contextKind, contextKey, featureFlagKey).ValuePut(valuePut).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ContextSettingsBetaApi.PutContextFlagSetting``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ContextSettingsApi.PutContextFlagSetting``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }

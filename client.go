@@ -66,7 +66,9 @@ type APIClient struct {
 
 	CodeReferencesApi *CodeReferencesApiService
 
-	ContextSettingsBetaApi *ContextSettingsBetaApiService
+	ContextSettingsApi *ContextSettingsApiService
+
+	ContextsApi *ContextsApiService
 
 	ContextsBetaApi *ContextsBetaApiService
 
@@ -151,7 +153,8 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.ApprovalsBetaApi = (*ApprovalsBetaApiService)(&c.common)
 	c.AuditLogApi = (*AuditLogApiService)(&c.common)
 	c.CodeReferencesApi = (*CodeReferencesApiService)(&c.common)
-	c.ContextSettingsBetaApi = (*ContextSettingsBetaApiService)(&c.common)
+	c.ContextSettingsApi = (*ContextSettingsApiService)(&c.common)
+	c.ContextsApi = (*ContextsApiService)(&c.common)
 	c.ContextsBetaApi = (*ContextsBetaApiService)(&c.common)
 	c.CustomRolesApi = (*CustomRolesApiService)(&c.common)
 	c.DataExportDestinationsApi = (*DataExportDestinationsApiService)(&c.common)
