@@ -1,9 +1,11 @@
 This repository contains a client library for LaunchDarkly's REST API. This client was automatically
-generated from our [OpenAPI specification](https://app.launchdarkly.com/api/v2/openapi.json) using a [code generation library](https://github.com/launchdarkly/ld-openapi). View our [sample code](#getting-started) for example usage.
+generated from our [OpenAPI specification](https://app.launchdarkly.com/api/v2/openapi.json) using a [code generation library](https://github.com/launchdarkly/ld-openapi).
 
 This REST API is for custom integrations, data export, or automating your feature flag workflows. *DO NOT* use this client library to include feature flags in your web or mobile application. To integrate feature flags with your application, read the [SDK documentation](https://docs.launchdarkly.com/sdk).
 
 This client library is only compatible with the latest version of our REST API, version `20220603`. Previous versions of this client library, prior to version 10.0.0, are only compatible with earlier versions of our REST API. When you create an access token, you can set the REST API version associated with the token. By default, API requests you send using the token will use the specified API version. To learn more, read [Versioning](https://apidocs.launchdarkly.com/#section/Overview/Versioning).
+View our [sample code](#sample-code) for example usage.
+
 # Go API client for ldapi
 
 # Overview
@@ -608,6 +610,10 @@ Class | Method | HTTP request | Description
 *OtherApi* | [**GetOpenapiSpec**](docs/OtherApi.md#getopenapispec) | **Get** /api/v2/openapi.json | Gets the OpenAPI spec in json
 *OtherApi* | [**GetRoot**](docs/OtherApi.md#getroot) | **Get** /api/v2 | Root resource
 *OtherApi* | [**GetVersions**](docs/OtherApi.md#getversions) | **Get** /api/v2/versions | Get version information
+*PayloadFiltersApi* | [**GetPayloadFilter**](docs/PayloadFiltersApi.md#getpayloadfilter) | **Get** /api/v2/projects/{projectKey}/payload-filters/{payloadFilterKey} | Get payload filter
+*PayloadFiltersApi* | [**GetPayloadFilters**](docs/PayloadFiltersApi.md#getpayloadfilters) | **Get** /api/v2/projects/{projectKey}/payload-filters | List payload filters
+*PayloadFiltersApi* | [**PatchPayloadFilter**](docs/PayloadFiltersApi.md#patchpayloadfilter) | **Patch** /api/v2/projects/{projectKey}/payload-filters/{payloadFilterKey} | Update payload filter
+*PayloadFiltersApi* | [**PostPayloadFilters**](docs/PayloadFiltersApi.md#postpayloadfilters) | **Post** /api/v2/projects/{projectKey}/payload-filters | Create payload filter
 *ProjectsApi* | [**DeleteProject**](docs/ProjectsApi.md#deleteproject) | **Delete** /api/v2/projects/{projectKey} | Delete project
 *ProjectsApi* | [**GetFlagDefaultsByProject**](docs/ProjectsApi.md#getflagdefaultsbyproject) | **Get** /api/v2/projects/{projectKey}/flag-defaults | Get flag defaults for project
 *ProjectsApi* | [**GetProject**](docs/ProjectsApi.md#getproject) | **Get** /api/v2/projects/{projectKey} | Get project
@@ -811,6 +817,9 @@ Class | Method | HTTP request | Description
  - [FeatureFlagStatuses](docs/FeatureFlagStatuses.md)
  - [FeatureFlags](docs/FeatureFlags.md)
  - [FileRep](docs/FileRep.md)
+ - [FilterCollectionRep](docs/FilterCollectionRep.md)
+ - [FilterInitialValuesRep](docs/FilterInitialValuesRep.md)
+ - [FilterRep](docs/FilterRep.md)
  - [FlagConfigApprovalRequestResponse](docs/FlagConfigApprovalRequestResponse.md)
  - [FlagConfigApprovalRequestsResponse](docs/FlagConfigApprovalRequestsResponse.md)
  - [FlagConfigEvaluation](docs/FlagConfigEvaluation.md)
@@ -891,6 +900,7 @@ Class | Method | HTTP request | Description
  - [ParameterRep](docs/ParameterRep.md)
  - [ParentResourceRep](docs/ParentResourceRep.md)
  - [PatchFailedErrorRep](docs/PatchFailedErrorRep.md)
+ - [PatchFilterRep](docs/PatchFilterRep.md)
  - [PatchFlagsRequest](docs/PatchFlagsRequest.md)
  - [PatchOperation](docs/PatchOperation.md)
  - [PatchSegmentInstruction](docs/PatchSegmentInstruction.md)
@@ -900,6 +910,7 @@ Class | Method | HTTP request | Description
  - [PermissionGrantInput](docs/PermissionGrantInput.md)
  - [PostApprovalRequestApplyRequest](docs/PostApprovalRequestApplyRequest.md)
  - [PostApprovalRequestReviewRequest](docs/PostApprovalRequestReviewRequest.md)
+ - [PostFilterRep](docs/PostFilterRep.md)
  - [PostFlagScheduledChangesInput](docs/PostFlagScheduledChangesInput.md)
  - [Prerequisite](docs/Prerequisite.md)
  - [Project](docs/Project.md)

@@ -1,5 +1,4 @@
 .gitignore
-.openapi-generator-ignore
 .travis.yml
 README.md
 api/openapi.yaml
@@ -28,6 +27,7 @@ api_integration_delivery_configurations_beta.go
 api_metrics.go
 api_o_auth2_clients_beta.go
 api_other.go
+api_payload_filters.go
 api_projects.go
 api_relay_proxy_configurations.go
 api_scheduled_changes.go
@@ -191,6 +191,9 @@ docs/FeatureFlags.md
 docs/FeatureFlagsApi.md
 docs/FeatureFlagsBetaApi.md
 docs/FileRep.md
+docs/FilterCollectionRep.md
+docs/FilterInitialValuesRep.md
+docs/FilterRep.md
 docs/FlagConfigApprovalRequestResponse.md
 docs/FlagConfigApprovalRequestsResponse.md
 docs/FlagConfigEvaluation.md
@@ -279,15 +282,18 @@ docs/ParameterDefaultInput.md
 docs/ParameterRep.md
 docs/ParentResourceRep.md
 docs/PatchFailedErrorRep.md
+docs/PatchFilterRep.md
 docs/PatchFlagsRequest.md
 docs/PatchOperation.md
 docs/PatchSegmentInstruction.md
 docs/PatchSegmentRequest.md
 docs/PatchUsersRequest.md
 docs/PatchWithComment.md
+docs/PayloadFiltersApi.md
 docs/PermissionGrantInput.md
 docs/PostApprovalRequestApplyRequest.md
 docs/PostApprovalRequestReviewRequest.md
+docs/PostFilterRep.md
 docs/PostFlagScheduledChangesInput.md
 docs/Prerequisite.md
 docs/Project.md
@@ -558,6 +564,9 @@ model_feature_flag_status_across_environments.go
 model_feature_flag_statuses.go
 model_feature_flags.go
 model_file_rep.go
+model_filter_collection_rep.go
+model_filter_initial_values_rep.go
+model_filter_rep.go
 model_flag_config_approval_request_response.go
 model_flag_config_approval_requests_response.go
 model_flag_config_evaluation.go
@@ -638,6 +647,7 @@ model_parameter_default_input.go
 model_parameter_rep.go
 model_parent_resource_rep.go
 model_patch_failed_error_rep.go
+model_patch_filter_rep.go
 model_patch_flags_request.go
 model_patch_operation.go
 model_patch_segment_instruction.go
@@ -647,6 +657,7 @@ model_patch_with_comment.go
 model_permission_grant_input.go
 model_post_approval_request_apply_request.go
 model_post_approval_request_review_request.go
+model_post_filter_rep.go
 model_post_flag_scheduled_changes_input.go
 model_prerequisite.go
 model_project.go

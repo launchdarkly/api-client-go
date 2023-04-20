@@ -21,55 +21,57 @@ import (
 )
 
 
-// EnvironmentsApiService EnvironmentsApi service
-type EnvironmentsApiService service
+// PayloadFiltersApiService PayloadFiltersApi service
+type PayloadFiltersApiService service
 
-type ApiDeleteEnvironmentRequest struct {
+type ApiGetPayloadFilterRequest struct {
 	ctx context.Context
-	ApiService *EnvironmentsApiService
+	ApiService *PayloadFiltersApiService
 	projectKey string
-	environmentKey string
+	payloadFilterKey string
 }
 
-func (r ApiDeleteEnvironmentRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteEnvironmentExecute(r)
+func (r ApiGetPayloadFilterRequest) Execute() (*FilterRep, *http.Response, error) {
+	return r.ApiService.GetPayloadFilterExecute(r)
 }
 
 /*
-DeleteEnvironment Delete environment
+GetPayloadFilter Get payload filter
 
-Delete a environment by key.
+Get a single payload filter by key.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param projectKey The project key
- @param environmentKey The environment key
- @return ApiDeleteEnvironmentRequest
+ @param payloadFilterKey The payload filter key
+ @return ApiGetPayloadFilterRequest
 */
-func (a *EnvironmentsApiService) DeleteEnvironment(ctx context.Context, projectKey string, environmentKey string) ApiDeleteEnvironmentRequest {
-	return ApiDeleteEnvironmentRequest{
+func (a *PayloadFiltersApiService) GetPayloadFilter(ctx context.Context, projectKey string, payloadFilterKey string) ApiGetPayloadFilterRequest {
+	return ApiGetPayloadFilterRequest{
 		ApiService: a,
 		ctx: ctx,
 		projectKey: projectKey,
-		environmentKey: environmentKey,
+		payloadFilterKey: payloadFilterKey,
 	}
 }
 
 // Execute executes the request
-func (a *EnvironmentsApiService) DeleteEnvironmentExecute(r ApiDeleteEnvironmentRequest) (*http.Response, error) {
+//  @return FilterRep
+func (a *PayloadFiltersApiService) GetPayloadFilterExecute(r ApiGetPayloadFilterRequest) (*FilterRep, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodDelete
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
+		localVarReturnValue  *FilterRep
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EnvironmentsApiService.DeleteEnvironment")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PayloadFiltersApiService.GetPayloadFilter")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v2/projects/{projectKey}/environments/{environmentKey}"
+	localVarPath := localBasePath + "/api/v2/projects/{projectKey}/payload-filters/{payloadFilterKey}"
 	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", url.PathEscape(parameterToString(r.projectKey, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"environmentKey"+"}", url.PathEscape(parameterToString(r.environmentKey, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"payloadFilterKey"+"}", url.PathEscape(parameterToString(r.payloadFilterKey, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -92,6 +94,401 @@ func (a *EnvironmentsApiService) DeleteEnvironmentExecute(r ApiDeleteEnvironment
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["ApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v InvalidRequestErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v UnauthorizedErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v ForbiddenErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v NotFoundErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v RateLimitedErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 503 {
+			var v StatusServiceUnavailable
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetPayloadFiltersRequest struct {
+	ctx context.Context
+	ApiService *PayloadFiltersApiService
+	projectKey string
+	limit *int64
+	offset *int64
+	filter *string
+}
+
+// The number of payload filters to return in the response. Defaults to 20 with a maximum of 1000.
+func (r ApiGetPayloadFiltersRequest) Limit(limit int64) ApiGetPayloadFiltersRequest {
+	r.limit = &limit
+	return r
+}
+
+// Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and returns the next &#x60;limit&#x60; items.
+func (r ApiGetPayloadFiltersRequest) Offset(offset int64) ApiGetPayloadFiltersRequest {
+	r.offset = &offset
+	return r
+}
+
+// A comma-separated list of filters. Each filter is constructed as &#x60;field:value&#x60;.
+func (r ApiGetPayloadFiltersRequest) Filter(filter string) ApiGetPayloadFiltersRequest {
+	r.filter = &filter
+	return r
+}
+
+func (r ApiGetPayloadFiltersRequest) Execute() (*FilterCollectionRep, *http.Response, error) {
+	return r.ApiService.GetPayloadFiltersExecute(r)
+}
+
+/*
+GetPayloadFilters List payload filters
+
+Get a list of payload filters for the specified project.
+
+### Filtering payload filters
+
+You can filter on certain fields using the `filter` query parameter. For example, setting `filter=archived:true` matches all archived payload filters.
+
+The `filter` query parameter supports the following fields:
+- `query` is a string that matches against the payload filters' names, keys, and descriptions.
+- `archived` is a boolean with values of `true` or `false` that filters the list to archived payload filters. Setting the value to `true` returns only archived payload filters. When this is absent, only unarchived payload filters are returned.
+- `flagKey` is a string that filters the list to payload filters with rules that would match a flag with the given key such that the flag would be included in the payload. When using this filter, `offset` is ignored; for pagination, use the `cursor` parameter instead.
+
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param projectKey The project key
+ @return ApiGetPayloadFiltersRequest
+*/
+func (a *PayloadFiltersApiService) GetPayloadFilters(ctx context.Context, projectKey string) ApiGetPayloadFiltersRequest {
+	return ApiGetPayloadFiltersRequest{
+		ApiService: a,
+		ctx: ctx,
+		projectKey: projectKey,
+	}
+}
+
+// Execute executes the request
+//  @return FilterCollectionRep
+func (a *PayloadFiltersApiService) GetPayloadFiltersExecute(r ApiGetPayloadFiltersRequest) (*FilterCollectionRep, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *FilterCollectionRep
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PayloadFiltersApiService.GetPayloadFilters")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v2/projects/{projectKey}/payload-filters"
+	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", url.PathEscape(parameterToString(r.projectKey, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.limit != nil {
+		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+	}
+	if r.offset != nil {
+		localVarQueryParams.Add("offset", parameterToString(*r.offset, ""))
+	}
+	if r.filter != nil {
+		localVarQueryParams.Add("filter", parameterToString(*r.filter, ""))
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["ApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v InvalidRequestErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v UnauthorizedErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v ForbiddenErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v RateLimitedErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 503 {
+			var v StatusServiceUnavailable
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiPatchPayloadFilterRequest struct {
+	ctx context.Context
+	ApiService *PayloadFiltersApiService
+	projectKey string
+	payloadFilterKey string
+	patchFilterRep *PatchFilterRep
+}
+
+func (r ApiPatchPayloadFilterRequest) PatchFilterRep(patchFilterRep PatchFilterRep) ApiPatchPayloadFilterRequest {
+	r.patchFilterRep = &patchFilterRep
+	return r
+}
+
+func (r ApiPatchPayloadFilterRequest) Execute() (*http.Response, error) {
+	return r.ApiService.PatchPayloadFilterExecute(r)
+}
+
+/*
+PatchPayloadFilter Update payload filter
+
+Update a payload filter by key. Only the fields included in the request body are updated. For a description of the `rules` field, read [Create payload filter](/tag/Payload-filters#operation/postPayloadFilters).
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param projectKey The project key
+ @param payloadFilterKey The payload filter key
+ @return ApiPatchPayloadFilterRequest
+*/
+func (a *PayloadFiltersApiService) PatchPayloadFilter(ctx context.Context, projectKey string, payloadFilterKey string) ApiPatchPayloadFilterRequest {
+	return ApiPatchPayloadFilterRequest{
+		ApiService: a,
+		ctx: ctx,
+		projectKey: projectKey,
+		payloadFilterKey: payloadFilterKey,
+	}
+}
+
+// Execute executes the request
+func (a *PayloadFiltersApiService) PatchPayloadFilterExecute(r ApiPatchPayloadFilterRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPatch
+		localVarPostBody     interface{}
+		formFiles            []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PayloadFiltersApiService.PatchPayloadFilter")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v2/projects/{projectKey}/payload-filters/{payloadFilterKey}"
+	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", url.PathEscape(parameterToString(r.projectKey, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"payloadFilterKey"+"}", url.PathEscape(parameterToString(r.payloadFilterKey, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.patchFilterRep == nil {
+		return nil, reportError("patchFilterRep is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.patchFilterRep
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -128,6 +525,16 @@ func (a *EnvironmentsApiService) DeleteEnvironmentExecute(r ApiDeleteEnvironment
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v InvalidRequestErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarHTTPResponse, newErr
+		}
 		if localVarHTTPResponse.StatusCode == 401 {
 			var v UnauthorizedErrorRep
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
@@ -160,6 +567,16 @@ func (a *EnvironmentsApiService) DeleteEnvironmentExecute(r ApiDeleteEnvironment
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
 			var v RateLimitedErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 503 {
+			var v StatusServiceUnavailable
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -173,239 +590,91 @@ func (a *EnvironmentsApiService) DeleteEnvironmentExecute(r ApiDeleteEnvironment
 	return localVarHTTPResponse, nil
 }
 
-type ApiGetEnvironmentRequest struct {
+type ApiPostPayloadFiltersRequest struct {
 	ctx context.Context
-	ApiService *EnvironmentsApiService
+	ApiService *PayloadFiltersApiService
 	projectKey string
-	environmentKey string
+	postFilterRep *PostFilterRep
 }
 
-func (r ApiGetEnvironmentRequest) Execute() (*Environment, *http.Response, error) {
-	return r.ApiService.GetEnvironmentExecute(r)
+func (r ApiPostPayloadFiltersRequest) PostFilterRep(postFilterRep PostFilterRep) ApiPostPayloadFiltersRequest {
+	r.postFilterRep = &postFilterRep
+	return r
+}
+
+func (r ApiPostPayloadFiltersRequest) Execute() (*FilterRep, *http.Response, error) {
+	return r.ApiService.PostPayloadFiltersExecute(r)
 }
 
 /*
-GetEnvironment Get environment
+PostPayloadFilters Create payload filter
 
-> ### Approval settings
->
-> The `approvalSettings` key is only returned when the Flag Approvals feature is enabled.
+Create a new payload filter.
 
-Get an environment given a project and key.
+In the request body, the `key`, `name`, `description`, and `rules` are required. The `key` cannot be changed after the payload filter is created.
+
+The `rules` field is an ordered list of flag filtering rules. Each rule requires:
+
+* An `action`, which can be `include` or `exclude`. This indicates whether the payload filter includes or excludes flags in the resulting payload.
+* A `condition`, which describes the flags that the rule applies to.
+
+Each `condition` may include the following fields:
+
+* `kind`: A required string that describes how the condition is specified. This can be `string-one-of` or `string-match`.
+* `property`: A required string that specifies the string-valued flag property that the condition tests. This can be `flag-key`.
+* `values`: An array of strings. The `condition` is true when the value of `property` is an element in this array. This field is required when `kind` is `string-one-of` and is otherwise ignored.
+* `regex`: A string containing a regular expression. The `condition` is true when the value of `property`  matches this expression. This field is required when `kind` is `string-match` and is otherwise ignored.
+
+<details>
+<summary>Click to expand example request bodies</summary>
+
+Here is an example of creating a payload filter that matches flags with even-numbered keys ("flag0", "flag2", and so on):
+
+```
+{
+  "key": "even-flags",
+  "name": "Even Flags Only",
+  "rules": [
+    {
+      "action": "include",
+      "condition": {
+        "kind": "string-match",
+        "property": "flag-key",
+        "regex": "flag[02468]"
+      }
+    }
+  ]
+}
+```
+
+Here is an example of creating a payload filter that matches the flag with key "example-flag":
+
+```
+{
+  "key": "example-flag-list",
+  "name": "Match flags with specified keys",
+  "rules": [
+    {
+      "action": "include",
+      "condition": {
+        "kind": "string-one-of",
+        "property": "flag-key",
+        "values": ["example-flag"]
+      }
+    }
+  ]
+}
+```
+
+</details>
 
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param projectKey The project key
- @param environmentKey The environment key
- @return ApiGetEnvironmentRequest
+ @return ApiPostPayloadFiltersRequest
 */
-func (a *EnvironmentsApiService) GetEnvironment(ctx context.Context, projectKey string, environmentKey string) ApiGetEnvironmentRequest {
-	return ApiGetEnvironmentRequest{
-		ApiService: a,
-		ctx: ctx,
-		projectKey: projectKey,
-		environmentKey: environmentKey,
-	}
-}
-
-// Execute executes the request
-//  @return Environment
-func (a *EnvironmentsApiService) GetEnvironmentExecute(r ApiGetEnvironmentRequest) (*Environment, *http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Environment
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EnvironmentsApiService.GetEnvironment")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v2/projects/{projectKey}/environments/{environmentKey}"
-	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", url.PathEscape(parameterToString(r.projectKey, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"environmentKey"+"}", url.PathEscape(parameterToString(r.environmentKey, "")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["ApiKey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["Authorization"] = key
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v UnauthorizedErrorRep
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 403 {
-			var v ForbiddenErrorRep
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 404 {
-			var v NotFoundErrorRep
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v RateLimitedErrorRep
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiGetEnvironmentsByProjectRequest struct {
-	ctx context.Context
-	ApiService *EnvironmentsApiService
-	projectKey string
-	limit *int64
-	offset *int64
-	filter *string
-	sort *string
-}
-
-// The number of environments to return in the response. Defaults to 20.
-func (r ApiGetEnvironmentsByProjectRequest) Limit(limit int64) ApiGetEnvironmentsByProjectRequest {
-	r.limit = &limit
-	return r
-}
-
-// Where to start in the list. This is for use with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;.
-func (r ApiGetEnvironmentsByProjectRequest) Offset(offset int64) ApiGetEnvironmentsByProjectRequest {
-	r.offset = &offset
-	return r
-}
-
-// A comma-separated list of filters. Each filter is of the form &#x60;field:value&#x60;.
-func (r ApiGetEnvironmentsByProjectRequest) Filter(filter string) ApiGetEnvironmentsByProjectRequest {
-	r.filter = &filter
-	return r
-}
-
-// A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order.
-func (r ApiGetEnvironmentsByProjectRequest) Sort(sort string) ApiGetEnvironmentsByProjectRequest {
-	r.sort = &sort
-	return r
-}
-
-func (r ApiGetEnvironmentsByProjectRequest) Execute() (*Environments, *http.Response, error) {
-	return r.ApiService.GetEnvironmentsByProjectExecute(r)
-}
-
-/*
-GetEnvironmentsByProject List environments
-
-Return a list of environments for the specified project.
-
-By default, this returns the first 20 environments. Page through this list with the `limit` parameter and by following the `first`, `prev`, `next`, and `last` links in the `_links` field that returns. If those links do not appear, the pages they refer to don't exist. For example, the `first` and `prev` links will be missing from the response on the first page, because there is no previous page and you cannot return to the first page when you are already on the first page.
-
-### Filtering environments
-
-LaunchDarkly supports two fields for filters:
-- `query` is a string that matches against the environments' names and keys. It is not case sensitive.
-- `tags` is a `+` separate list of environment tags. It filters the list of environments that have all of the tags in the list.
-
-For example, the filter `query:abc,tags:tag-1+tag-2` matches environments with the string `abc` in their name or key and also are tagged with `tag-1` and `tag-2`. The filter is not case-sensitive.
-
-### Sorting environments
-
-LaunchDarkly supports two fields for sorting:
-- `name` sorts by environment name.
-- `createdOn` sorts by the creation date of the environment.
-
-For example, `sort=name` sorts the response by environment name in ascending order.
-
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param projectKey The project key
- @return ApiGetEnvironmentsByProjectRequest
-*/
-func (a *EnvironmentsApiService) GetEnvironmentsByProject(ctx context.Context, projectKey string) ApiGetEnvironmentsByProjectRequest {
-	return ApiGetEnvironmentsByProjectRequest{
+func (a *PayloadFiltersApiService) PostPayloadFilters(ctx context.Context, projectKey string) ApiPostPayloadFiltersRequest {
+	return ApiPostPayloadFiltersRequest{
 		ApiService: a,
 		ctx: ctx,
 		projectKey: projectKey,
@@ -413,238 +682,28 @@ func (a *EnvironmentsApiService) GetEnvironmentsByProject(ctx context.Context, p
 }
 
 // Execute executes the request
-//  @return Environments
-func (a *EnvironmentsApiService) GetEnvironmentsByProjectExecute(r ApiGetEnvironmentsByProjectRequest) (*Environments, *http.Response, error) {
+//  @return FilterRep
+func (a *PayloadFiltersApiService) PostPayloadFiltersExecute(r ApiPostPayloadFiltersRequest) (*FilterRep, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *Environments
+		localVarReturnValue  *FilterRep
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EnvironmentsApiService.GetEnvironmentsByProject")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PayloadFiltersApiService.PostPayloadFilters")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v2/projects/{projectKey}/environments"
+	localVarPath := localBasePath + "/api/v2/projects/{projectKey}/payload-filters"
 	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", url.PathEscape(parameterToString(r.projectKey, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-
-	if r.limit != nil {
-		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
-	}
-	if r.offset != nil {
-		localVarQueryParams.Add("offset", parameterToString(*r.offset, ""))
-	}
-	if r.filter != nil {
-		localVarQueryParams.Add("filter", parameterToString(*r.filter, ""))
-	}
-	if r.sort != nil {
-		localVarQueryParams.Add("sort", parameterToString(*r.sort, ""))
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["ApiKey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["Authorization"] = key
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v InvalidRequestErrorRep
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v UnauthorizedErrorRep
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 403 {
-			var v ForbiddenErrorRep
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 404 {
-			var v NotFoundErrorRep
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 405 {
-			var v MethodNotAllowedErrorRep
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v RateLimitedErrorRep
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiPatchEnvironmentRequest struct {
-	ctx context.Context
-	ApiService *EnvironmentsApiService
-	projectKey string
-	environmentKey string
-	patchOperation *[]PatchOperation
-}
-
-func (r ApiPatchEnvironmentRequest) PatchOperation(patchOperation []PatchOperation) ApiPatchEnvironmentRequest {
-	r.patchOperation = &patchOperation
-	return r
-}
-
-func (r ApiPatchEnvironmentRequest) Execute() (*Environment, *http.Response, error) {
-	return r.ApiService.PatchEnvironmentExecute(r)
-}
-
-/*
-PatchEnvironment Update environment
-
-
-Update an environment. Requires a [JSON Patch](https://datatracker.ietf.org/doc/html/rfc6902) representation of the desired changes to the environment.
-
-To update fields in the environment object that are arrays, set the `path` to the name of the field and then append `/<array index>`. Using `/0` appends to the beginning of the array.
-
-### Approval settings
-
-This request only returns the `approvalSettings` key if the [Flag Approvals](https://docs.launchdarkly.com/home/feature-workflows/approvals) feature is enabled.
-
-Only the `canReviewOwnRequest`, `canApplyDeclinedChanges`, `minNumApprovals`, `required` and `requiredApprovalTagsfields` are editable.
-
-If you try to patch the environment by setting both `required` and `requiredApprovalTags`, the request fails and an error appears. You can specify either required approvals for all flags in an environment or those with specific tags, but not both.
-
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param projectKey The project key
- @param environmentKey The environment key
- @return ApiPatchEnvironmentRequest
-*/
-func (a *EnvironmentsApiService) PatchEnvironment(ctx context.Context, projectKey string, environmentKey string) ApiPatchEnvironmentRequest {
-	return ApiPatchEnvironmentRequest{
-		ApiService: a,
-		ctx: ctx,
-		projectKey: projectKey,
-		environmentKey: environmentKey,
-	}
-}
-
-// Execute executes the request
-//  @return Environment
-func (a *EnvironmentsApiService) PatchEnvironmentExecute(r ApiPatchEnvironmentRequest) (*Environment, *http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodPatch
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Environment
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EnvironmentsApiService.PatchEnvironment")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v2/projects/{projectKey}/environments/{environmentKey}"
-	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", url.PathEscape(parameterToString(r.projectKey, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"environmentKey"+"}", url.PathEscape(parameterToString(r.environmentKey, "")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.patchOperation == nil {
-		return localVarReturnValue, nil, reportError("patchOperation is required and must be specified")
+	if r.postFilterRep == nil {
+		return localVarReturnValue, nil, reportError("postFilterRep is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -665,191 +724,7 @@ func (a *EnvironmentsApiService) PatchEnvironmentExecute(r ApiPatchEnvironmentRe
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.patchOperation
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["ApiKey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["Authorization"] = key
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v InvalidRequestErrorRep
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v UnauthorizedErrorRep
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 404 {
-			var v NotFoundErrorRep
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 409 {
-			var v StatusConflictErrorRep
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v RateLimitedErrorRep
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiPostEnvironmentRequest struct {
-	ctx context.Context
-	ApiService *EnvironmentsApiService
-	projectKey string
-	environmentPost *EnvironmentPost
-}
-
-func (r ApiPostEnvironmentRequest) EnvironmentPost(environmentPost EnvironmentPost) ApiPostEnvironmentRequest {
-	r.environmentPost = &environmentPost
-	return r
-}
-
-func (r ApiPostEnvironmentRequest) Execute() (*Environment, *http.Response, error) {
-	return r.ApiService.PostEnvironmentExecute(r)
-}
-
-/*
-PostEnvironment Create environment
-
-> ### Approval settings
->
-> The `approvalSettings` key is only returned when the Flag Approvals feature is enabled.
->
-> You cannot update approval settings when creating new environments. Update approval settings with the PATCH Environment API.
-
-Create a new environment in a specified project with a given name, key, swatch color, and default TTL.
-
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param projectKey The project key
- @return ApiPostEnvironmentRequest
-*/
-func (a *EnvironmentsApiService) PostEnvironment(ctx context.Context, projectKey string) ApiPostEnvironmentRequest {
-	return ApiPostEnvironmentRequest{
-		ApiService: a,
-		ctx: ctx,
-		projectKey: projectKey,
-	}
-}
-
-// Execute executes the request
-//  @return Environment
-func (a *EnvironmentsApiService) PostEnvironmentExecute(r ApiPostEnvironmentRequest) (*Environment, *http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Environment
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EnvironmentsApiService.PostEnvironment")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v2/projects/{projectKey}/environments"
-	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", url.PathEscape(parameterToString(r.projectKey, "")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.environmentPost == nil {
-		return localVarReturnValue, nil, reportError("environmentPost is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.environmentPost
+	localVarPostBody = r.postFilterRep
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -916,16 +791,6 @@ func (a *EnvironmentsApiService) PostEnvironmentExecute(r ApiPostEnvironmentRequ
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
-		if localVarHTTPResponse.StatusCode == 404 {
-			var v NotFoundErrorRep
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
 		if localVarHTTPResponse.StatusCode == 409 {
 			var v StatusConflictErrorRep
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
@@ -944,370 +809,10 @@ func (a *EnvironmentsApiService) PostEnvironmentExecute(r ApiPostEnvironmentRequ
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 			newErr.model = v
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiResetEnvironmentMobileKeyRequest struct {
-	ctx context.Context
-	ApiService *EnvironmentsApiService
-	projectKey string
-	environmentKey string
-}
-
-func (r ApiResetEnvironmentMobileKeyRequest) Execute() (*Environment, *http.Response, error) {
-	return r.ApiService.ResetEnvironmentMobileKeyExecute(r)
-}
-
-/*
-ResetEnvironmentMobileKey Reset environment mobile SDK key
-
-Reset an environment's mobile key. The optional expiry for the old key is deprecated for this endpoint, so the old key will always expire immediately.
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param projectKey The project key
- @param environmentKey The environment key
- @return ApiResetEnvironmentMobileKeyRequest
-*/
-func (a *EnvironmentsApiService) ResetEnvironmentMobileKey(ctx context.Context, projectKey string, environmentKey string) ApiResetEnvironmentMobileKeyRequest {
-	return ApiResetEnvironmentMobileKeyRequest{
-		ApiService: a,
-		ctx: ctx,
-		projectKey: projectKey,
-		environmentKey: environmentKey,
-	}
-}
-
-// Execute executes the request
-//  @return Environment
-func (a *EnvironmentsApiService) ResetEnvironmentMobileKeyExecute(r ApiResetEnvironmentMobileKeyRequest) (*Environment, *http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Environment
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EnvironmentsApiService.ResetEnvironmentMobileKey")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v2/projects/{projectKey}/environments/{environmentKey}/mobileKey"
-	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", url.PathEscape(parameterToString(r.projectKey, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"environmentKey"+"}", url.PathEscape(parameterToString(r.environmentKey, "")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["ApiKey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["Authorization"] = key
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v InvalidRequestErrorRep
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v UnauthorizedErrorRep
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 403 {
-			var v ForbiddenErrorRep
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 404 {
-			var v NotFoundErrorRep
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 409 {
-			var v StatusConflictErrorRep
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v RateLimitedErrorRep
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiResetEnvironmentSDKKeyRequest struct {
-	ctx context.Context
-	ApiService *EnvironmentsApiService
-	projectKey string
-	environmentKey string
-	expiry *int64
-}
-
-// The time at which you want the old SDK key to expire, in UNIX milliseconds. By default, the key expires immediately. During the period between this call and the time when the old SDK key expires, both the old SDK key and the new SDK key will work.
-func (r ApiResetEnvironmentSDKKeyRequest) Expiry(expiry int64) ApiResetEnvironmentSDKKeyRequest {
-	r.expiry = &expiry
-	return r
-}
-
-func (r ApiResetEnvironmentSDKKeyRequest) Execute() (*Environment, *http.Response, error) {
-	return r.ApiService.ResetEnvironmentSDKKeyExecute(r)
-}
-
-/*
-ResetEnvironmentSDKKey Reset environment SDK key
-
-Reset an environment's SDK key with an optional expiry time for the old key.
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param projectKey The project key
- @param environmentKey The environment key
- @return ApiResetEnvironmentSDKKeyRequest
-*/
-func (a *EnvironmentsApiService) ResetEnvironmentSDKKey(ctx context.Context, projectKey string, environmentKey string) ApiResetEnvironmentSDKKeyRequest {
-	return ApiResetEnvironmentSDKKeyRequest{
-		ApiService: a,
-		ctx: ctx,
-		projectKey: projectKey,
-		environmentKey: environmentKey,
-	}
-}
-
-// Execute executes the request
-//  @return Environment
-func (a *EnvironmentsApiService) ResetEnvironmentSDKKeyExecute(r ApiResetEnvironmentSDKKeyRequest) (*Environment, *http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Environment
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EnvironmentsApiService.ResetEnvironmentSDKKey")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v2/projects/{projectKey}/environments/{environmentKey}/apiKey"
-	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", url.PathEscape(parameterToString(r.projectKey, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"environmentKey"+"}", url.PathEscape(parameterToString(r.environmentKey, "")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	if r.expiry != nil {
-		localVarQueryParams.Add("expiry", parameterToString(*r.expiry, ""))
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["ApiKey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["Authorization"] = key
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v InvalidRequestErrorRep
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v UnauthorizedErrorRep
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 403 {
-			var v ForbiddenErrorRep
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 404 {
-			var v NotFoundErrorRep
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 409 {
-			var v StatusConflictErrorRep
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v RateLimitedErrorRep
+		if localVarHTTPResponse.StatusCode == 503 {
+			var v StatusServiceUnavailable
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

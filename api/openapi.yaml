@@ -928,6 +928,17 @@ tags:
     \ If you wish to register a client with a different URI scheme, please contact\
     \ LaunchDarkly Support.\n"
   name: OAuth2 Clients (beta)
+- description: "A payload filter is a project-level resource that allows you to improve\
+    \ performance by only including flag payload data relevant to a particular application.\n\
+    \nEach payload filter specifies a subset of flags from a project. If you include\
+    \ a payload filter key when you initialize a LaunchDarkly SDK in your application,\
+    \ then the SDK will be initialized with only the flags specified in the payload\
+    \ filter. After initialization, the SDK will receive only the data it needs to\
+    \ evaluate this subset of flags.\n\nThe payload filters API allows you to list,\
+    \ create, and modify payload filters programmatically.\n\n> ### Not all SDKs support\
+    \ payload filtering\n>\n> Payload filters are currently supported in the Go, Java,\
+    \ and Ruby SDKs, and in the Relay Proxy.\n"
+  name: Payload filters
 - description: "Projects allow you to manage multiple different software projects\
     \ under one LaunchDarkly account. Each project has its own unique set of environments\
     \ and feature flags. To learn more, read [Projects](https://docs.launchdarkly.com/home/organize/projects).\n\
@@ -8751,14 +8762,18 @@ paths:
           type: string
         style: simple
       - description: "The time at which you want the old SDK key to expire, in UNIX\
-          \ milliseconds. By default, the key expires immediately."
+          \ milliseconds. By default, the key expires immediately. During the period\
+          \ between this call and the time when the old SDK key expires, both the\
+          \ old SDK key and the new SDK key will work."
         explode: true
         in: query
         name: expiry
         required: false
         schema:
           description: "The time at which you want the old SDK key to expire, in UNIX\
-            \ milliseconds. By default, the key expires immediately."
+            \ milliseconds. By default, the key expires immediately. During the period\
+            \ between this call and the time when the old SDK key expires, both the\
+            \ old SDK key and the new SDK key will work."
           format: int64
           type: integer
         style: form
@@ -12612,6 +12627,359 @@ paths:
       summary: Get custom workflow
       tags:
       - Workflows (beta)
+  /api/v2/projects/{projectKey}/payload-filters:
+    get:
+      description: "Get a list of payload filters for the specified project.\n\n###\
+        \ Filtering payload filters\n\nYou can filter on certain fields using the\
+        \ `filter` query parameter. For example, setting `filter=archived:true` matches\
+        \ all archived payload filters.\n\nThe `filter` query parameter supports the\
+        \ following fields:\n- `query` is a string that matches against the payload\
+        \ filters' names, keys, and descriptions.\n- `archived` is a boolean with\
+        \ values of `true` or `false` that filters the list to archived payload filters.\
+        \ Setting the value to `true` returns only archived payload filters. When\
+        \ this is absent, only unarchived payload filters are returned.\n- `flagKey`\
+        \ is a string that filters the list to payload filters with rules that would\
+        \ match a flag with the given key such that the flag would be included in\
+        \ the payload. When using this filter, `offset` is ignored; for pagination,\
+        \ use the `cursor` parameter instead.\n"
+      operationId: getPayloadFilters
+      parameters:
+      - description: The project key
+        explode: false
+        in: path
+        name: projectKey
+        required: true
+        schema:
+          description: The project key
+          format: string
+          type: string
+        style: simple
+      - description: The number of payload filters to return in the response. Defaults
+          to 20 with a maximum of 1000.
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          description: The number of payload filters to return in the response. Defaults
+            to 20 with a maximum of 1000.
+          format: int64
+          type: integer
+        style: form
+      - description: "Where to start in the list. Use this with pagination. For example,\
+          \ an offset of 10 skips the first ten items and returns the next `limit`\
+          \ items."
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          description: "Where to start in the list. Use this with pagination. For\
+            \ example, an offset of 10 skips the first ten items and returns the next\
+            \ `limit` items."
+          format: int64
+          type: integer
+        style: form
+      - description: A comma-separated list of filters. Each filter is constructed
+          as `field:value`.
+        explode: true
+        in: query
+        name: filter
+        required: false
+        schema:
+          description: A comma-separated list of filters. Each filter is constructed
+            as `field:value`.
+          format: string
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FilterCollectionRep'
+          description: Payload filters collection response
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequestErrorRep'
+          description: Invalid request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedErrorRep'
+          description: Invalid access token
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenErrorRep'
+          description: Forbidden
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitedErrorRep'
+          description: Rate limited
+        "503":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusServiceUnavailable'
+          description: Service unavailable
+      summary: List payload filters
+      tags:
+      - Payload filters
+    post:
+      description: "Create a new payload filter.\n\nIn the request body, the `key`,\
+        \ `name`, `description`, and `rules` are required. The `key` cannot be changed\
+        \ after the payload filter is created.\n\nThe `rules` field is an ordered\
+        \ list of flag filtering rules. Each rule requires:\n\n* An `action`, which\
+        \ can be `include` or `exclude`. This indicates whether the payload filter\
+        \ includes or excludes flags in the resulting payload.\n* A `condition`, which\
+        \ describes the flags that the rule applies to.\n\nEach `condition` may include\
+        \ the following fields:\n\n* `kind`: A required string that describes how\
+        \ the condition is specified. This can be `string-one-of` or `string-match`.\n\
+        * `property`: A required string that specifies the string-valued flag property\
+        \ that the condition tests. This can be `flag-key`.\n* `values`: An array\
+        \ of strings. The `condition` is true when the value of `property` is an element\
+        \ in this array. This field is required when `kind` is `string-one-of` and\
+        \ is otherwise ignored.\n* `regex`: A string containing a regular expression.\
+        \ The `condition` is true when the value of `property`  matches this expression.\
+        \ This field is required when `kind` is `string-match` and is otherwise ignored.\n\
+        \n<details>\n<summary>Click to expand example request bodies</summary>\n\n\
+        Here is an example of creating a payload filter that matches flags with even-numbered\
+        \ keys (\"flag0\", \"flag2\", and so on):\n\n```\n{\n  \"key\": \"even-flags\"\
+        ,\n  \"name\": \"Even Flags Only\",\n  \"rules\": [\n    {\n      \"action\"\
+        : \"include\",\n      \"condition\": {\n        \"kind\": \"string-match\"\
+        ,\n        \"property\": \"flag-key\",\n        \"regex\": \"flag[02468]\"\
+        \n      }\n    }\n  ]\n}\n```\n\nHere is an example of creating a payload\
+        \ filter that matches the flag with key \"example-flag\":\n\n```\n{\n  \"\
+        key\": \"example-flag-list\",\n  \"name\": \"Match flags with specified keys\"\
+        ,\n  \"rules\": [\n    {\n      \"action\": \"include\",\n      \"condition\"\
+        : {\n        \"kind\": \"string-one-of\",\n        \"property\": \"flag-key\"\
+        ,\n        \"values\": [\"example-flag\"]\n      }\n    }\n  ]\n}\n```\n\n\
+        </details>\n"
+      operationId: postPayloadFilters
+      parameters:
+      - description: The project key
+        explode: false
+        in: path
+        name: projectKey
+        required: true
+        schema:
+          description: The project key
+          format: string
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            example:
+              key: payload-filter-key
+              name: Payload filter name
+              rules:
+                action: include
+                condition:
+                  kind: string-match
+                  property: flag-key
+                  regex: example.*
+            schema:
+              $ref: '#/components/schemas/PostFilterRep'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FilterRep'
+          description: Payload filter response
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequestErrorRep'
+          description: Invalid request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedErrorRep'
+          description: Invalid access token
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenErrorRep'
+          description: Forbidden
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusConflictErrorRep'
+          description: Status conflict
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitedErrorRep'
+          description: Rate limited
+        "503":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusServiceUnavailable'
+          description: Service unavailable
+      summary: Create payload filter
+      tags:
+      - Payload filters
+  /api/v2/projects/{projectKey}/payload-filters/{payloadFilterKey}:
+    get:
+      description: Get a single payload filter by key.
+      operationId: getPayloadFilter
+      parameters:
+      - description: The project key
+        explode: false
+        in: path
+        name: projectKey
+        required: true
+        schema:
+          description: The project key
+          format: string
+          type: string
+        style: simple
+      - description: The payload filter key
+        explode: false
+        in: path
+        name: payloadFilterKey
+        required: true
+        schema:
+          description: The payload filter key
+          format: string
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FilterRep'
+          description: Payload filter response
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequestErrorRep'
+          description: Invalid request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedErrorRep'
+          description: Invalid access token
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenErrorRep'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundErrorRep'
+          description: Invalid resource identifier
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitedErrorRep'
+          description: Rate limited
+        "503":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusServiceUnavailable'
+          description: Service unavailable
+      summary: Get payload filter
+      tags:
+      - Payload filters
+    patch:
+      description: "Update a payload filter by key. Only the fields included in the\
+        \ request body are updated. For a description of the `rules` field, read [Create\
+        \ payload filter](/tag/Payload-filters#operation/postPayloadFilters)."
+      operationId: patchPayloadFilter
+      parameters:
+      - description: The project key
+        explode: false
+        in: path
+        name: projectKey
+        required: true
+        schema:
+          description: The project key
+          format: string
+          type: string
+        style: simple
+      - description: The payload filter key
+        explode: false
+        in: path
+        name: payloadFilterKey
+        required: true
+        schema:
+          description: The payload filter key
+          format: string
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchFilterRep'
+        required: true
+      responses:
+        "204":
+          description: Action succeeded
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequestErrorRep'
+          description: Invalid request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedErrorRep'
+          description: Invalid access token
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenErrorRep'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundErrorRep'
+          description: Invalid resource identifier
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitedErrorRep'
+          description: Rate limited
+        "503":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusServiceUnavailable'
+          description: Service unavailable
+      summary: Update payload filter
+      tags:
+      - Payload filters
   /api/v2/public-ip-list:
     get:
       description: "Get a list of IP ranges the LaunchDarkly service uses. You can\
@@ -27267,6 +27635,347 @@ components:
           example: complete
           type: string
       type: object
+    FilterCollectionRep:
+      example:
+        _links:
+          key:
+            href: href
+            type: type
+        totalCount: 2
+        items:
+        - _links:
+            key:
+              href: href
+              type: type
+          description: This is an example filter
+          rules:
+          - null
+          - null
+          enabled: true
+          archived: true
+          createdAt: 1970-01-01T00:00:00Z
+          archivedAt: 1970-01-01T00:00:00Z
+          _access:
+            allowed:
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: effect
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+              action: action
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: effect
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+              action: action
+            denied:
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: effect
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+              action: action
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: effect
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+              action: action
+          name: example filter
+          etag: etag
+          key: example-filter
+          appliedAt: 1970-01-01T00:00:00Z
+          updatedAt: 1970-01-01T00:00:00Z
+        - _links:
+            key:
+              href: href
+              type: type
+          description: This is an example filter
+          rules:
+          - null
+          - null
+          enabled: true
+          archived: true
+          createdAt: 1970-01-01T00:00:00Z
+          archivedAt: 1970-01-01T00:00:00Z
+          _access:
+            allowed:
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: effect
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+              action: action
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: effect
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+              action: action
+            denied:
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: effect
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+              action: action
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: effect
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+              action: action
+          name: example filter
+          etag: etag
+          key: example-filter
+          appliedAt: 1970-01-01T00:00:00Z
+          updatedAt: 1970-01-01T00:00:00Z
+      properties:
+        _links:
+          additionalProperties:
+            $ref: '#/components/schemas/Link'
+          description: The location and content type of related resources
+          type: object
+        totalCount:
+          description: The number of payload filters returned
+          example: 2
+          type: integer
+        items:
+          description: An array of payload filters
+          items:
+            $ref: '#/components/schemas/FilterRep'
+          type: array
+      type: object
+    FilterInitialValuesRep:
+      properties:
+        name:
+          description: The filter name
+          example: example filter
+          type: string
+        description:
+          description: Textual description of the filter
+          example: This is an example filter
+          type: string
+        rules:
+          items:
+            $ref: '#/components/schemas/RuleMap'
+          type: array
+      required:
+      - description
+      - name
+      - rules
+      type: object
+    FilterRep:
+      example:
+        _links:
+          key:
+            href: href
+            type: type
+        description: This is an example filter
+        rules:
+        - null
+        - null
+        enabled: true
+        archived: true
+        createdAt: 1970-01-01T00:00:00Z
+        archivedAt: 1970-01-01T00:00:00Z
+        _access:
+          allowed:
+          - reason:
+              role_name: role_name
+              notActions:
+              - null
+              - null
+              notResources:
+              - notResources
+              - notResources
+              effect: effect
+              resources:
+              - proj/*:env/*;qa_*:/flag/*
+              actions:
+              - '*'
+            action: action
+          - reason:
+              role_name: role_name
+              notActions:
+              - null
+              - null
+              notResources:
+              - notResources
+              - notResources
+              effect: effect
+              resources:
+              - proj/*:env/*;qa_*:/flag/*
+              actions:
+              - '*'
+            action: action
+          denied:
+          - reason:
+              role_name: role_name
+              notActions:
+              - null
+              - null
+              notResources:
+              - notResources
+              - notResources
+              effect: effect
+              resources:
+              - proj/*:env/*;qa_*:/flag/*
+              actions:
+              - '*'
+            action: action
+          - reason:
+              role_name: role_name
+              notActions:
+              - null
+              - null
+              notResources:
+              - notResources
+              - notResources
+              effect: effect
+              resources:
+              - proj/*:env/*;qa_*:/flag/*
+              actions:
+              - '*'
+            action: action
+        name: example filter
+        etag: etag
+        key: example-filter
+        appliedAt: 1970-01-01T00:00:00Z
+        updatedAt: 1970-01-01T00:00:00Z
+      properties:
+        key:
+          description: The filter key
+          example: example-filter
+          type: string
+        name:
+          description: The filter name
+          example: example filter
+          type: string
+        description:
+          description: Textual description of the filter
+          example: This is an example filter
+          type: string
+        rules:
+          items:
+            $ref: '#/components/schemas/RuleMap'
+          type: array
+        enabled:
+          description: True if the filter's rules are active
+          type: boolean
+        archived:
+          description: True if filter is archived
+          type: boolean
+        createdAt:
+          description: Creation time
+          example: 1970-01-01T00:00:00Z
+          format: date-time
+          type: string
+        updatedAt:
+          description: Last update time
+          example: 1970-01-01T00:00:00Z
+          format: date-time
+          type: string
+        appliedAt:
+          description: Time the filter was last used to deliver a payload
+          example: 1970-01-01T00:00:00Z
+          format: date-time
+          type: string
+        archivedAt:
+          description: Time the filter was archived
+          example: 1970-01-01T00:00:00Z
+          format: date-time
+          type: string
+        etag:
+          description: An ETag value that may be sent in the If-Match header when
+            updating the filter
+          type: string
+        _links:
+          additionalProperties:
+            $ref: '#/components/schemas/Link'
+          description: The location and content type of related resources
+          type: object
+        _access:
+          $ref: '#/components/schemas/Access'
+      required:
+      - _links
+      - appliedAt
+      - archived
+      - archivedAt
+      - createdAt
+      - description
+      - enabled
+      - etag
+      - key
+      - name
+      - rules
+      - updatedAt
+      type: object
     FlagConfigApprovalRequestResponse:
       example:
         allReviews:
@@ -31315,6 +32024,35 @@ components:
           example: Unprocessable entity. Could not apply patch.
           type: string
       type: object
+    PatchFilterRep:
+      example:
+        archived: true
+        name: example filter
+        description: This is an example filter
+        rules:
+        - null
+        - null
+        enabled: true
+      properties:
+        name:
+          description: The filter name
+          example: example filter
+          type: string
+        description:
+          description: Textual description of the filter
+          example: This is an example filter
+          type: string
+        rules:
+          items:
+            $ref: '#/components/schemas/RuleMap'
+          type: array
+        enabled:
+          description: True if the filter's rules are active
+          type: boolean
+        archived:
+          description: True if filter is archived
+          type: boolean
+      type: object
     PatchOperation:
       example:
         op: replace
@@ -31358,6 +32096,37 @@ components:
           type: string
       required:
       - patch
+      type: object
+    PostFilterRep:
+      example:
+        name: example filter
+        description: This is an example filter
+        rules:
+        - null
+        - null
+        key: example-filter
+      properties:
+        key:
+          description: The filter key
+          example: example-filter
+          type: string
+        name:
+          description: The filter name
+          example: example filter
+          type: string
+        description:
+          description: Textual description of the filter
+          example: This is an example filter
+          type: string
+        rules:
+          items:
+            $ref: '#/components/schemas/RuleMap'
+          type: array
+      required:
+      - description
+      - key
+      - name
+      - rules
       type: object
     PostFlagScheduledChangesInput:
       example:
@@ -33282,6 +34051,9 @@ components:
         negate:
           description: Whether the operator should be negated
           type: boolean
+      type: object
+    RuleMap:
+      additionalProperties: {}
       type: object
     ScheduleConditionInput:
       properties:
@@ -38225,6 +38997,10 @@ components:
       required:
       - name
       type: object
+    rules:
+      items:
+        $ref: '#/components/schemas/RuleMap'
+      type: array
     sourceFlag:
       properties:
         key:
