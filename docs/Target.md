@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Values** | **[]string** | A list of the keys for targets that will receive this variation because of individual targeting | 
 **Variation** | **int32** | The index, from the array of variations for this flag, of the variation to serve this list of targets | 
-**ContextKind** | Pointer to **string** |  | [optional] 
+**ContextKind** | Pointer to **string** | The context kind of the individual target | [optional] 
 
 ## Methods
 

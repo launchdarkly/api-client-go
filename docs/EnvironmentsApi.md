@@ -479,7 +479,7 @@ import (
 func main() {
     projectKey := "projectKey_example" // string | The project key
     environmentKey := "environmentKey_example" // string | The environment key
-    expiry := int64(789) // int64 | The time at which you want the old SDK key to expire, in UNIX milliseconds. By default, the key expires immediately. (optional)
+    expiry := int64(789) // int64 | The time at which you want the old SDK key to expire, in UNIX milliseconds. By default, the key expires immediately. During the period between this call and the time when the old SDK key expires, both the old SDK key and the new SDK key will work. (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -511,7 +511,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **expiry** | **int64** | The time at which you want the old SDK key to expire, in UNIX milliseconds. By default, the key expires immediately. | 
+ **expiry** | **int64** | The time at which you want the old SDK key to expire, in UNIX milliseconds. By default, the key expires immediately. During the period between this call and the time when the old SDK key expires, both the old SDK key and the new SDK key will work. | 
 
 ### Return type
 
