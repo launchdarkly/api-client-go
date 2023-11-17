@@ -7,12 +7,12 @@ Name | Type | Description | Notes
 **Name** | **string** | A human-friendly name for the segment | 
 **Key** | **string** | A unique key used to reference the segment | 
 **Description** | **string** | A description of the segment&#39;s purpose | 
-**Unbounded** | **bool** | Whether this is an unbounded/big segment | 
-**External** | **string** | If the segment is a Synced Segment the name of the external source&#39; | 
+**Unbounded** | **bool** | Whether this is an unbounded segment. Unbounded segments, also called Big Segments, may be list-based segments with more than 15,000 entries, or synced segments. | 
+**External** | **string** | If the segment is a synced segment, the name of the external source | 
 **IsMember** | **bool** | Whether the context is a member of this segment, either by explicit inclusion or by rule matching | 
 **IsIndividuallyTargeted** | **bool** | Whether the context is explicitly included in this segment | 
-**IsRuleTargeted** | **bool** | Whether the context is captured by this segment&#39;s rules. The value of this field is undefined if the context is also explicitly included (isIndividuallyTargeted &#x3D; true). | 
-**Links** | [**map[string]Link**](Link.md) |  | 
+**IsRuleTargeted** | **bool** | Whether the context is captured by this segment&#39;s rules. The value of this field is undefined if the context is also explicitly included (&lt;code&gt;isIndividuallyTargeted&lt;/code&gt; is &lt;code&gt;true&lt;/code&gt;). | 
+**Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
 
 ## Methods
 

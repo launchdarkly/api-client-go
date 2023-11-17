@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 **Comment** | Pointer to **string** | Optional comment for the audit log entry | [optional] 
 **Subject** | Pointer to [**SubjectDataRep**](SubjectDataRep.md) |  | [optional] 
 **Member** | Pointer to [**MemberDataRep**](MemberDataRep.md) |  | [optional] 
-**Token** | Pointer to [**TokenDataRep**](TokenDataRep.md) |  | [optional] 
+**Token** | Pointer to [**TokenSummary**](TokenSummary.md) |  | [optional] 
 **App** | Pointer to [**AuthorizedAppDataRep**](AuthorizedAppDataRep.md) |  | [optional] 
 **TitleVerb** | Pointer to **string** | The action and resource recorded in this audit log entry | [optional] 
 **Title** | Pointer to **string** | A description of what occurred, in the format &lt;code&gt;member&lt;/code&gt; &lt;code&gt;titleVerb&lt;/code&gt; &lt;code&gt;target&lt;/code&gt; | [optional] 
@@ -305,20 +305,20 @@ HasMember returns a boolean if a field has been set.
 
 ### GetToken
 
-`func (o *AuditLogEntryRep) GetToken() TokenDataRep`
+`func (o *AuditLogEntryRep) GetToken() TokenSummary`
 
 GetToken returns the Token field if non-nil, zero value otherwise.
 
 ### GetTokenOk
 
-`func (o *AuditLogEntryRep) GetTokenOk() (*TokenDataRep, bool)`
+`func (o *AuditLogEntryRep) GetTokenOk() (*TokenSummary, bool)`
 
 GetTokenOk returns a tuple with the Token field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetToken
 
-`func (o *AuditLogEntryRep) SetToken(v TokenDataRep)`
+`func (o *AuditLogEntryRep) SetToken(v TokenSummary)`
 
 SetToken sets Token field to given value.
 

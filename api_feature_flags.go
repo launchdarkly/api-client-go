@@ -1,7 +1,7 @@
 /*
 LaunchDarkly REST API
 
-# Overview  ## Authentication  All REST API resources are authenticated with either [personal or service access tokens](https://docs.launchdarkly.com/home/account-security/api-access-tokens), or session cookies. Other authentication mechanisms are not supported. You can manage personal access tokens on your [**Account settings**](https://app.launchdarkly.com/settings/tokens) page.  LaunchDarkly also has SDK keys, mobile keys, and client-side IDs that are used by our server-side SDKs, mobile SDKs, and JavaScript-based SDKs, respectively. **These keys cannot be used to access our REST API**. These keys are environment-specific, and can only perform read-only operations such as fetching feature flag settings.  | Auth mechanism                                                                                  | Allowed resources                                                                                     | Use cases                                          | | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | -------------------------------------------------- | | [Personal or service access tokens](https://docs.launchdarkly.com/home/account-security/api-access-tokens) | Can be customized on a per-token basis                                                                | Building scripts, custom integrations, data export. | | SDK keys                                                                                        | Can only access read-only resources specific to server-side SDKs. Restricted to a single environment. | Server-side SDKs                     | | Mobile keys                                                                                     | Can only access read-only resources specific to mobile SDKs, and only for flags marked available to mobile keys. Restricted to a single environment.           | Mobile SDKs                                        | | Client-side ID                                                                                  | Can only access read-only resources specific to JavaScript-based client-side SDKs, and only for flags marked available to client-side. Restricted to a single environment.           | Client-side JavaScript                             |  > #### Keep your access tokens and SDK keys private > > Access tokens should _never_ be exposed in untrusted contexts. Never put an access token in client-side JavaScript, or embed it in a mobile application. LaunchDarkly has special mobile keys that you can embed in mobile apps. If you accidentally expose an access token or SDK key, you can reset it from your [**Account settings**](https://app.launchdarkly.com/settings/tokens) page. > > The client-side ID is safe to embed in untrusted contexts. It's designed for use in client-side JavaScript.  ### Authentication using request header  The preferred way to authenticate with the API is by adding an `Authorization` header containing your access token to your requests. The value of the `Authorization` header must be your access token.  Manage personal access tokens from the [**Account settings**](https://app.launchdarkly.com/settings/tokens) page.  ### Authentication using session cookie  For testing purposes, you can make API calls directly from your web browser. If you are logged in to the LaunchDarkly application, the API will use your existing session to authenticate calls.  If you have a [role](https://docs.launchdarkly.com/home/team/built-in-roles) other than Admin, or have a [custom role](https://docs.launchdarkly.com/home/team/custom-roles) defined, you may not have permission to perform some API calls. You will receive a `401` response code in that case.  > ### Modifying the Origin header causes an error > > LaunchDarkly validates that the Origin header for any API request authenticated by a session cookie matches the expected Origin header. The expected Origin header is `https://app.launchdarkly.com`. > > If the Origin header does not match what's expected, LaunchDarkly returns an error. This error can prevent the LaunchDarkly app from working correctly. > > Any browser extension that intentionally changes the Origin header can cause this problem. For example, the `Allow-Control-Allow-Origin: *` Chrome extension changes the Origin header to `http://evil.com` and causes the app to fail. > > To prevent this error, do not modify your Origin header. > > LaunchDarkly does not require origin matching when authenticating with an access token, so this issue does not affect normal API usage.  ## Representations  All resources expect and return JSON response bodies. Error responses also send a JSON body. To learn more about the error format of the API, read [Errors](/#section/Overview/Errors).  In practice this means that you always get a response with a `Content-Type` header set to `application/json`.  In addition, request bodies for `PATCH`, `POST`, and `PUT` requests must be encoded as JSON with a `Content-Type` header set to `application/json`.  ### Summary and detailed representations  When you fetch a list of resources, the response includes only the most important attributes of each resource. This is a _summary representation_ of the resource. When you fetch an individual resource, such as a single feature flag, you receive a _detailed representation_ of the resource.  The best way to find a detailed representation is to follow links. Every summary representation includes a link to its detailed representation.  ### Expanding responses  Sometimes the detailed representation of a resource does not include all of the attributes of the resource by default. If this is the case, the request method will clearly document this and describe which attributes you can include in an expanded response.  To include the additional attributes, append the `expand` request parameter to your request and add a comma-separated list of the attributes to include. For example, when you append `?expand=members,roles` to the [Get team](/tag/Teams#operation/getTeam) endpoint, the expanded response includes both of these attributes.  ### Links and addressability  The best way to navigate the API is by following links. These are attributes in representations that link to other resources. The API always uses the same format for links:  - Links to other resources within the API are encapsulated in a `_links` object - If the resource has a corresponding link to HTML content on the site, it is stored in a special `_site` link  Each link has two attributes:  - An `href`, which contains the URL - A `type`, which describes the content type  For example, a feature resource might return the following:  ```json {   \"_links\": {     \"parent\": {       \"href\": \"/api/features\",       \"type\": \"application/json\"     },     \"self\": {       \"href\": \"/api/features/sort.order\",       \"type\": \"application/json\"     }   },   \"_site\": {     \"href\": \"/features/sort.order\",     \"type\": \"text/html\"   } } ```  From this, you can navigate to the parent collection of features by following the `parent` link, or navigate to the site page for the feature by following the `_site` link.  Collections are always represented as a JSON object with an `items` attribute containing an array of representations. Like all other representations, collections have `_links` defined at the top level.  Paginated collections include `first`, `last`, `next`, and `prev` links containing a URL with the respective set of elements in the collection.  ## Updates  Resources that accept partial updates use the `PATCH` verb. Most resources support the [JSON patch](https://datatracker.ietf.org/doc/html/rfc6902) format. Some resources also support the [JSON merge patch](https://datatracker.ietf.org/doc/html/rfc7386) format, and some resources support the [semantic patch](/reference#updates-using-semantic-patch) format, which is a way to specify the modifications to perform as a set of executable instructions. Each resource supports optional [comments](/reference#updates-with-comments) that you can submit with updates. Comments appear in outgoing webhooks, the audit log, and other integrations.  When a resource supports both JSON patch and semantic patch, we document both in the request method. However, the specific request body fields and descriptions included in our documentation only match one type of patch or the other.  ### Updates using JSON patch  [JSON patch](https://datatracker.ietf.org/doc/html/rfc6902) is a way to specify the modifications to perform on a resource. JSON patch uses paths and a limited set of operations to describe how to transform the current state of the resource into a new state. JSON patch documents are always arrays, where each element contains an operation, a path to the field to update, and the new value.  For example, in this feature flag representation:  ```json {     \"name\": \"New recommendations engine\",     \"key\": \"engine.enable\",     \"description\": \"This is the description\",     ... } ``` You can change the feature flag's description with the following patch document:  ```json [{ \"op\": \"replace\", \"path\": \"/description\", \"value\": \"This is the new description\" }] ```  You can specify multiple modifications to perform in a single request. You can also test that certain preconditions are met before applying the patch:  ```json [   { \"op\": \"test\", \"path\": \"/version\", \"value\": 10 },   { \"op\": \"replace\", \"path\": \"/description\", \"value\": \"The new description\" } ] ```  The above patch request tests whether the feature flag's `version` is `10`, and if so, changes the feature flag's description.  Attributes that are not editable, such as a resource's `_links`, have names that start with an underscore.  ### Updates using JSON merge patch  [JSON merge patch](https://datatracker.ietf.org/doc/html/rfc7386) is another format for specifying the modifications to perform on a resource. JSON merge patch is less expressive than JSON patch. However, in many cases it is simpler to construct a merge patch document. For example, you can change a feature flag's description with the following merge patch document:  ```json {   \"description\": \"New flag description\" } ```  ### Updates using semantic patch  The API also supports the semantic patch format. A semantic patch is a way to specify the modifications to perform on a resource as a set of executable instructions.  Semantic patch allows you to be explicit about intent using precise, custom instructions. In many cases, you can define semantic patch instructions independently of the current state of the resource. This can be useful when defining a change that may be applied at a future date.  To make a semantic patch request, you must append `domain-model=launchdarkly.semanticpatch` to your `Content-Type` header.  Here's how:  ``` Content-Type: application/json; domain-model=launchdarkly.semanticpatch ```  If you call a semantic patch resource without this header, you will receive a `400` response because your semantic patch will be interpreted as a JSON patch.  The body of a semantic patch request takes the following properties:  * `comment` (string): (Optional) A description of the update. * `environmentKey` (string): (Required for some resources only) The environment key. * `instructions` (array): (Required) A list of actions the update should perform. Each action in the list must be an object with a `kind` property that indicates the instruction. If the instruction requires parameters, you must include those parameters as additional fields in the object. The documentation for each resource that supports semantic patch includes the available instructions and any additional parameters.  For example:  ```json {   \"comment\": \"optional comment\",   \"instructions\": [ {\"kind\": \"turnFlagOn\"} ] } ```  If any instruction in the patch encounters an error, the endpoint returns an error and will not change the resource. In general, each instruction silently does nothing if the resource is already in the state you request.  ### Updates with comments  You can submit optional comments with `PATCH` changes.  To submit a comment along with a JSON patch document, use the following format:  ```json {   \"comment\": \"This is a comment string\",   \"patch\": [{ \"op\": \"replace\", \"path\": \"/description\", \"value\": \"The new description\" }] } ```  To submit a comment along with a JSON merge patch document, use the following format:  ```json {   \"comment\": \"This is a comment string\",   \"merge\": { \"description\": \"New flag description\" } } ```  To submit a comment along with a semantic patch, use the following format:  ```json {   \"comment\": \"This is a comment string\",   \"instructions\": [ {\"kind\": \"turnFlagOn\"} ] } ```  ## Errors  The API always returns errors in a common format. Here's an example:  ```json {   \"code\": \"invalid_request\",   \"message\": \"A feature with that key already exists\",   \"id\": \"30ce6058-87da-11e4-b116-123b93f75cba\" } ```  The `code` indicates the general class of error. The `message` is a human-readable explanation of what went wrong. The `id` is a unique identifier. Use it when you're working with LaunchDarkly Support to debug a problem with a specific API call.  ### HTTP status error response codes  | Code | Definition        | Description                                                                                       | Possible Solution                                                | | ---- | ----------------- | ------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- | | 400  | Invalid request       | The request cannot be understood.                                    | Ensure JSON syntax in request body is correct.                   | | 401  | Invalid access token      | Requestor is unauthorized or does not have permission for this API call.                                                | Ensure your API access token is valid and has the appropriate permissions.                                     | | 403  | Forbidden         | Requestor does not have access to this resource.                                                | Ensure that the account member or access token has proper permissions set. | | 404  | Invalid resource identifier | The requested resource is not valid. | Ensure that the resource is correctly identified by ID or key. | | 405  | Method not allowed | The request method is not allowed on this resource. | Ensure that the HTTP verb is correct. | | 409  | Conflict          | The API request can not be completed because it conflicts with a concurrent API request. | Retry your request.                                              | | 422  | Unprocessable entity | The API request can not be completed because the update description can not be understood. | Ensure that the request body is correct for the type of patch you are using, either JSON patch or semantic patch. | 429  | Too many requests | Read [Rate limiting](/#section/Overview/Rate-limiting).                                               | Wait and try again later.                                        |  ## CORS  The LaunchDarkly API supports Cross Origin Resource Sharing (CORS) for AJAX requests from any origin. If an `Origin` header is given in a request, it will be echoed as an explicitly allowed origin. Otherwise the request returns a wildcard, `Access-Control-Allow-Origin: *`. For more information on CORS, read the [CORS W3C Recommendation](http://www.w3.org/TR/cors). Example CORS headers might look like:  ```http Access-Control-Allow-Headers: Accept, Content-Type, Content-Length, Accept-Encoding, Authorization Access-Control-Allow-Methods: OPTIONS, GET, DELETE, PATCH Access-Control-Allow-Origin: * Access-Control-Max-Age: 300 ```  You can make authenticated CORS calls just as you would make same-origin calls, using either [token or session-based authentication](/#section/Overview/Authentication). If you are using session authentication, you should set the `withCredentials` property for your `xhr` request to `true`. You should never expose your access tokens to untrusted entities.  ## Rate limiting  We use several rate limiting strategies to ensure the availability of our APIs. Rate-limited calls to our APIs return a `429` status code. Calls to our APIs include headers indicating the current rate limit status. The specific headers returned depend on the API route being called. The limits differ based on the route, authentication mechanism, and other factors. Routes that are not rate limited may not contain any of the headers described below.  > ### Rate limiting and SDKs > > LaunchDarkly SDKs are never rate limited and do not use the API endpoints defined here. LaunchDarkly uses a different set of approaches, including streaming/server-sent events and a global CDN, to ensure availability to the routes used by LaunchDarkly SDKs.  ### Global rate limits  Authenticated requests are subject to a global limit. This is the maximum number of calls that your account can make to the API per ten seconds. All personal access tokens on the account share this limit, so exceeding the limit with one access token will impact other tokens. Calls that are subject to global rate limits may return the headers below:  | Header name                    | Description                                                                      | | ------------------------------ | -------------------------------------------------------------------------------- | | `X-Ratelimit-Global-Remaining` | The maximum number of requests the account is permitted to make per ten seconds. | | `X-Ratelimit-Reset`            | The time at which the current rate limit window resets in epoch milliseconds.    |  We do not publicly document the specific number of calls that can be made globally. This limit may change, and we encourage clients to program against the specification, relying on the two headers defined above, rather than hardcoding to the current limit.  ### Route-level rate limits  Some authenticated routes have custom rate limits. These also reset every ten seconds. Any access tokens hitting the same route share this limit, so exceeding the limit with one access token may impact other tokens. Calls that are subject to route-level rate limits return the headers below:  | Header name                   | Description                                                                                           | | ----------------------------- | ----------------------------------------------------------------------------------------------------- | | `X-Ratelimit-Route-Remaining` | The maximum number of requests to the current route the account is permitted to make per ten seconds. | | `X-Ratelimit-Reset`           | The time at which the current rate limit window resets in epoch milliseconds.                         |  A _route_ represents a specific URL pattern and verb. For example, the [Delete environment](/tag/Environments#operation/deleteEnvironment) endpoint is considered a single route, and each call to delete an environment counts against your route-level rate limit for that route.  We do not publicly document the specific number of calls that an account can make to each endpoint per ten seconds. These limits may change, and we encourage clients to program against the specification, relying on the two headers defined above, rather than hardcoding to the current limits.  ### IP-based rate limiting  We also employ IP-based rate limiting on some API routes. If you hit an IP-based rate limit, your API response will include a `Retry-After` header indicating how long to wait before re-trying the call. Clients must wait at least `Retry-After` seconds before making additional calls to our API, and should employ jitter and backoff strategies to avoid triggering rate limits again.  ## OpenAPI (Swagger) and client libraries  We have a [complete OpenAPI (Swagger) specification](https://app.launchdarkly.com/api/v2/openapi.json) for our API.  We auto-generate multiple client libraries based on our OpenAPI specification. To learn more, visit the [collection of client libraries on GitHub](https://github.com/search?q=topic%3Alaunchdarkly-api+org%3Alaunchdarkly&type=Repositories). You can also use this specification to generate client libraries to interact with our REST API in your language of choice.  Our OpenAPI specification is supported by several API-based tools such as Postman and Insomnia. In many cases, you can directly import our specification to explore our APIs.  ## Method overriding  Some firewalls and HTTP clients restrict the use of verbs other than `GET` and `POST`. In those environments, our API endpoints that use `DELETE`, `PATCH`, and `PUT` verbs are inaccessible.  To avoid this issue, our API supports the `X-HTTP-Method-Override` header, allowing clients to \"tunnel\" `DELETE`, `PATCH`, and `PUT` requests using a `POST` request.  For example, to call a `PATCH` endpoint using a `POST` request, you can include `X-HTTP-Method-Override:PATCH` as a header.  ## Beta resources  We sometimes release new API resources in **beta** status before we release them with general availability.  Resources that are in beta are still undergoing testing and development. They may change without notice, including becoming backwards incompatible.  We try to promote resources into general availability as quickly as possible. This happens after sufficient testing and when we're satisfied that we no longer need to make backwards-incompatible changes.  We mark beta resources with a \"Beta\" callout in our documentation, pictured below:  > ### This feature is in beta > > To use this feature, pass in a header including the `LD-API-Version` key with value set to `beta`. Use this header with each call. To learn more, read [Beta resources](/#section/Overview/Beta-resources). > > Resources that are in beta are still undergoing testing and development. They may change without notice, including becoming backwards incompatible.  ### Using beta resources  To use a beta resource, you must include a header in the request. If you call a beta resource without this header, you receive a `403` response.  Use this header:  ``` LD-API-Version: beta ```  ## Federal environments  The version of LaunchDarkly that is available on domains controlled by the United States government is different from the version of LaunchDarkly available to the general public. If you are an employee or contractor for a United States federal agency and use LaunchDarkly in your work, you likely use the federal instance of LaunchDarkly.  If you are working in the federal instance of LaunchDarkly, the base URI for each request is `https://app.launchdarkly.us`. In the \"Try it\" sandbox for each request, click the request path to view the complete resource path for the federal environment.  To learn more, read [LaunchDarkly in federal environments](https://docs.launchdarkly.com/home/advanced/federal).  ## Versioning  We try hard to keep our REST API backwards compatible, but we occasionally have to make backwards-incompatible changes in the process of shipping new features. These breaking changes can cause unexpected behavior if you don't prepare for them accordingly.  Updates to our REST API include support for the latest features in LaunchDarkly. We also release a new version of our REST API every time we make a breaking change. We provide simultaneous support for multiple API versions so you can migrate from your current API version to a new version at your own pace.  ### Setting the API version per request  You can set the API version on a specific request by sending an `LD-API-Version` header, as shown in the example below:  ``` LD-API-Version: 20220603 ```  The header value is the version number of the API version you would like to request. The number for each version corresponds to the date the version was released in `yyyymmdd` format. In the example above the version `20220603` corresponds to June 03, 2022.  ### Setting the API version per access token  When you create an access token, you must specify a specific version of the API to use. This ensures that integrations using this token cannot be broken by version changes.  Tokens created before versioning was released have their version set to `20160426`, which is the version of the API that existed before the current versioning scheme, so that they continue working the same way they did before versioning.  If you would like to upgrade your integration to use a new API version, you can explicitly set the header described above.  > ### Best practice: Set the header for every client or integration > > We recommend that you set the API version header explicitly in any client or integration you build. > > Only rely on the access token API version during manual testing.  ### API version changelog  |<div style=\"width:75px\">Version</div> | Changes | End of life (EOL) |---|---|---| | `20220603` | <ul><li>Changed the [list projects](/tag/Projects#operation/getProjects) return value:<ul><li>Response is now paginated with a default limit of `20`.</li><li>Added support for filter and sort.</li><li>The project `environments` field is now expandable. This field is omitted by default.</li></ul></li><li>Changed the [get project](/tag/Projects#operation/getProject) return value:<ul><li>The `environments` field is now expandable. This field is omitted by default.</li></ul></li></ul> | Current | | `20210729` | <ul><li>Changed the [create approval request](/tag/Approvals#operation/postApprovalRequest) return value. It now returns HTTP Status Code `201` instead of `200`.</li><li> Changed the [get users](/tag/Users#operation/getUser) return value. It now returns a user record, not a user. </li><li>Added additional optional fields to environment, segments, flags, members, and segments, including the ability to create Big Segments. </li><li> Added default values for flag variations when new environments are created. </li><li>Added filtering and pagination for getting flags and members, including `limit`, `number`, `filter`, and `sort` query parameters. </li><li>Added endpoints for expiring user targets for flags and segments, scheduled changes, access tokens, Relay Proxy configuration, integrations and subscriptions, and approvals. </li></ul> | 2023-06-03 | | `20191212` | <ul><li>[List feature flags](/tag/Feature-flags#operation/getFeatureFlags) now defaults to sending summaries of feature flag configurations, equivalent to setting the query parameter `summary=true`. Summaries omit flag targeting rules and individual user targets from the payload. </li><li> Added endpoints for flags, flag status, projects, environments, audit logs, members, users, custom roles, segments, usage, streams, events, and data export. </li></ul> | 2022-07-29 | | `20160426` | <ul><li>Initial versioning of API. Tokens created before versioning have their version set to this.</li></ul> | 2020-12-12 | 
+# Overview  ## Authentication  All REST API resources are authenticated with either [personal or service access tokens](https://docs.launchdarkly.com/home/account-security/api-access-tokens), or session cookies. Other authentication mechanisms are not supported. You can manage personal access tokens on your [**Account settings**](https://app.launchdarkly.com/settings/tokens) page.  LaunchDarkly also has SDK keys, mobile keys, and client-side IDs that are used by our server-side SDKs, mobile SDKs, and JavaScript-based SDKs, respectively. **These keys cannot be used to access our REST API**. These keys are environment-specific, and can only perform read-only operations such as fetching feature flag settings.  | Auth mechanism                                                                                  | Allowed resources                                                                                     | Use cases                                          | | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | -------------------------------------------------- | | [Personal or service access tokens](https://docs.launchdarkly.com/home/account-security/api-access-tokens) | Can be customized on a per-token basis                                                                | Building scripts, custom integrations, data export. | | SDK keys                                                                                        | Can only access read-only resources specific to server-side SDKs. Restricted to a single environment. | Server-side SDKs                     | | Mobile keys                                                                                     | Can only access read-only resources specific to mobile SDKs, and only for flags marked available to mobile keys. Restricted to a single environment.           | Mobile SDKs                                        | | Client-side ID                                                                                  | Can only access read-only resources specific to JavaScript-based client-side SDKs, and only for flags marked available to client-side. Restricted to a single environment.           | Client-side JavaScript                             |  > #### Keep your access tokens and SDK keys private > > Access tokens should _never_ be exposed in untrusted contexts. Never put an access token in client-side JavaScript, or embed it in a mobile application. LaunchDarkly has special mobile keys that you can embed in mobile apps. If you accidentally expose an access token or SDK key, you can reset it from your [**Account settings**](https://app.launchdarkly.com/settings/tokens) page. > > The client-side ID is safe to embed in untrusted contexts. It's designed for use in client-side JavaScript.  ### Authentication using request header  The preferred way to authenticate with the API is by adding an `Authorization` header containing your access token to your requests. The value of the `Authorization` header must be your access token.  Manage personal access tokens from the [**Account settings**](https://app.launchdarkly.com/settings/tokens) page.  ### Authentication using session cookie  For testing purposes, you can make API calls directly from your web browser. If you are logged in to the LaunchDarkly application, the API will use your existing session to authenticate calls.  If you have a [role](https://docs.launchdarkly.com/home/team/built-in-roles) other than Admin, or have a [custom role](https://docs.launchdarkly.com/home/team/custom-roles) defined, you may not have permission to perform some API calls. You will receive a `401` response code in that case.  > ### Modifying the Origin header causes an error > > LaunchDarkly validates that the Origin header for any API request authenticated by a session cookie matches the expected Origin header. The expected Origin header is `https://app.launchdarkly.com`. > > If the Origin header does not match what's expected, LaunchDarkly returns an error. This error can prevent the LaunchDarkly app from working correctly. > > Any browser extension that intentionally changes the Origin header can cause this problem. For example, the `Allow-Control-Allow-Origin: *` Chrome extension changes the Origin header to `http://evil.com` and causes the app to fail. > > To prevent this error, do not modify your Origin header. > > LaunchDarkly does not require origin matching when authenticating with an access token, so this issue does not affect normal API usage.  ## Representations  All resources expect and return JSON response bodies. Error responses also send a JSON body. To learn more about the error format of the API, read [Errors](/#section/Overview/Errors).  In practice this means that you always get a response with a `Content-Type` header set to `application/json`.  In addition, request bodies for `PATCH`, `POST`, and `PUT` requests must be encoded as JSON with a `Content-Type` header set to `application/json`.  ### Summary and detailed representations  When you fetch a list of resources, the response includes only the most important attributes of each resource. This is a _summary representation_ of the resource. When you fetch an individual resource, such as a single feature flag, you receive a _detailed representation_ of the resource.  The best way to find a detailed representation is to follow links. Every summary representation includes a link to its detailed representation.  ### Expanding responses  Sometimes the detailed representation of a resource does not include all of the attributes of the resource by default. If this is the case, the request method will clearly document this and describe which attributes you can include in an expanded response.  To include the additional attributes, append the `expand` request parameter to your request and add a comma-separated list of the attributes to include. For example, when you append `?expand=members,roles` to the [Get team](/tag/Teams#operation/getTeam) endpoint, the expanded response includes both of these attributes.  ### Links and addressability  The best way to navigate the API is by following links. These are attributes in representations that link to other resources. The API always uses the same format for links:  - Links to other resources within the API are encapsulated in a `_links` object - If the resource has a corresponding link to HTML content on the site, it is stored in a special `_site` link  Each link has two attributes:  - An `href`, which contains the URL - A `type`, which describes the content type  For example, a feature resource might return the following:  ```json {   \"_links\": {     \"parent\": {       \"href\": \"/api/features\",       \"type\": \"application/json\"     },     \"self\": {       \"href\": \"/api/features/sort.order\",       \"type\": \"application/json\"     }   },   \"_site\": {     \"href\": \"/features/sort.order\",     \"type\": \"text/html\"   } } ```  From this, you can navigate to the parent collection of features by following the `parent` link, or navigate to the site page for the feature by following the `_site` link.  Collections are always represented as a JSON object with an `items` attribute containing an array of representations. Like all other representations, collections have `_links` defined at the top level.  Paginated collections include `first`, `last`, `next`, and `prev` links containing a URL with the respective set of elements in the collection.  ## Updates  Resources that accept partial updates use the `PATCH` verb. Most resources support the [JSON patch](/reference#updates-using-json-patch) format. Some resources also support the [JSON merge patch](/reference#updates-using-json-merge-patch) format, and some resources support the [semantic patch](/reference#updates-using-semantic-patch) format, which is a way to specify the modifications to perform as a set of executable instructions. Each resource supports optional [comments](/reference#updates-with-comments) that you can submit with updates. Comments appear in outgoing webhooks, the audit log, and other integrations.  When a resource supports both JSON patch and semantic patch, we document both in the request method. However, the specific request body fields and descriptions included in our documentation only match one type of patch or the other.  ### Updates using JSON patch  [JSON patch](https://datatracker.ietf.org/doc/html/rfc6902) is a way to specify the modifications to perform on a resource. JSON patch uses paths and a limited set of operations to describe how to transform the current state of the resource into a new state. JSON patch documents are always arrays, where each element contains an operation, a path to the field to update, and the new value.  For example, in this feature flag representation:  ```json {     \"name\": \"New recommendations engine\",     \"key\": \"engine.enable\",     \"description\": \"This is the description\",     ... } ``` You can change the feature flag's description with the following patch document:  ```json [{ \"op\": \"replace\", \"path\": \"/description\", \"value\": \"This is the new description\" }] ```  You can specify multiple modifications to perform in a single request. You can also test that certain preconditions are met before applying the patch:  ```json [   { \"op\": \"test\", \"path\": \"/version\", \"value\": 10 },   { \"op\": \"replace\", \"path\": \"/description\", \"value\": \"The new description\" } ] ```  The above patch request tests whether the feature flag's `version` is `10`, and if so, changes the feature flag's description.  Attributes that are not editable, such as a resource's `_links`, have names that start with an underscore.  ### Updates using JSON merge patch  [JSON merge patch](https://datatracker.ietf.org/doc/html/rfc7386) is another format for specifying the modifications to perform on a resource. JSON merge patch is less expressive than JSON patch. However, in many cases it is simpler to construct a merge patch document. For example, you can change a feature flag's description with the following merge patch document:  ```json {   \"description\": \"New flag description\" } ```  ### Updates using semantic patch  Some resources support the semantic patch format. A semantic patch is a way to specify the modifications to perform on a resource as a set of executable instructions.  Semantic patch allows you to be explicit about intent using precise, custom instructions. In many cases, you can define semantic patch instructions independently of the current state of the resource. This can be useful when defining a change that may be applied at a future date.  To make a semantic patch request, you must append `domain-model=launchdarkly.semanticpatch` to your `Content-Type` header.  Here's how:  ``` Content-Type: application/json; domain-model=launchdarkly.semanticpatch ```  If you call a semantic patch resource without this header, you will receive a `400` response because your semantic patch will be interpreted as a JSON patch.  The body of a semantic patch request takes the following properties:  * `comment` (string): (Optional) A description of the update. * `environmentKey` (string): (Required for some resources only) The environment key. * `instructions` (array): (Required) A list of actions the update should perform. Each action in the list must be an object with a `kind` property that indicates the instruction. If the instruction requires parameters, you must include those parameters as additional fields in the object. The documentation for each resource that supports semantic patch includes the available instructions and any additional parameters.  For example:  ```json {   \"comment\": \"optional comment\",   \"instructions\": [ {\"kind\": \"turnFlagOn\"} ] } ```  If any instruction in the patch encounters an error, the endpoint returns an error and will not change the resource. In general, each instruction silently does nothing if the resource is already in the state you request.  ### Updates with comments  You can submit optional comments with `PATCH` changes.  To submit a comment along with a JSON patch document, use the following format:  ```json {   \"comment\": \"This is a comment string\",   \"patch\": [{ \"op\": \"replace\", \"path\": \"/description\", \"value\": \"The new description\" }] } ```  To submit a comment along with a JSON merge patch document, use the following format:  ```json {   \"comment\": \"This is a comment string\",   \"merge\": { \"description\": \"New flag description\" } } ```  To submit a comment along with a semantic patch, use the following format:  ```json {   \"comment\": \"This is a comment string\",   \"instructions\": [ {\"kind\": \"turnFlagOn\"} ] } ```  ## Errors  The API always returns errors in a common format. Here's an example:  ```json {   \"code\": \"invalid_request\",   \"message\": \"A feature with that key already exists\",   \"id\": \"30ce6058-87da-11e4-b116-123b93f75cba\" } ```  The `code` indicates the general class of error. The `message` is a human-readable explanation of what went wrong. The `id` is a unique identifier. Use it when you're working with LaunchDarkly Support to debug a problem with a specific API call.  ### HTTP status error response codes  | Code | Definition        | Description                                                                                       | Possible Solution                                                | | ---- | ----------------- | ------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- | | 400  | Invalid request       | The request cannot be understood.                                    | Ensure JSON syntax in request body is correct.                   | | 401  | Invalid access token      | Requestor is unauthorized or does not have permission for this API call.                                                | Ensure your API access token is valid and has the appropriate permissions.                                     | | 403  | Forbidden         | Requestor does not have access to this resource.                                                | Ensure that the account member or access token has proper permissions set. | | 404  | Invalid resource identifier | The requested resource is not valid. | Ensure that the resource is correctly identified by ID or key. | | 405  | Method not allowed | The request method is not allowed on this resource. | Ensure that the HTTP verb is correct. | | 409  | Conflict          | The API request can not be completed because it conflicts with a concurrent API request. | Retry your request.                                              | | 422  | Unprocessable entity | The API request can not be completed because the update description can not be understood. | Ensure that the request body is correct for the type of patch you are using, either JSON patch or semantic patch. | 429  | Too many requests | Read [Rate limiting](/#section/Overview/Rate-limiting).                                               | Wait and try again later.                                        |  ## CORS  The LaunchDarkly API supports Cross Origin Resource Sharing (CORS) for AJAX requests from any origin. If an `Origin` header is given in a request, it will be echoed as an explicitly allowed origin. Otherwise the request returns a wildcard, `Access-Control-Allow-Origin: *`. For more information on CORS, read the [CORS W3C Recommendation](http://www.w3.org/TR/cors). Example CORS headers might look like:  ```http Access-Control-Allow-Headers: Accept, Content-Type, Content-Length, Accept-Encoding, Authorization Access-Control-Allow-Methods: OPTIONS, GET, DELETE, PATCH Access-Control-Allow-Origin: * Access-Control-Max-Age: 300 ```  You can make authenticated CORS calls just as you would make same-origin calls, using either [token or session-based authentication](/#section/Overview/Authentication). If you are using session authentication, you should set the `withCredentials` property for your `xhr` request to `true`. You should never expose your access tokens to untrusted entities.  ## Rate limiting  We use several rate limiting strategies to ensure the availability of our APIs. Rate-limited calls to our APIs return a `429` status code. Calls to our APIs include headers indicating the current rate limit status. The specific headers returned depend on the API route being called. The limits differ based on the route, authentication mechanism, and other factors. Routes that are not rate limited may not contain any of the headers described below.  > ### Rate limiting and SDKs > > LaunchDarkly SDKs are never rate limited and do not use the API endpoints defined here. LaunchDarkly uses a different set of approaches, including streaming/server-sent events and a global CDN, to ensure availability to the routes used by LaunchDarkly SDKs.  ### Global rate limits  Authenticated requests are subject to a global limit. This is the maximum number of calls that your account can make to the API per ten seconds. All service and personal access tokens on the account share this limit, so exceeding the limit with one access token will impact other tokens. Calls that are subject to global rate limits may return the headers below:  | Header name                    | Description                                                                      | | ------------------------------ | -------------------------------------------------------------------------------- | | `X-Ratelimit-Global-Remaining` | The maximum number of requests the account is permitted to make per ten seconds. | | `X-Ratelimit-Reset`            | The time at which the current rate limit window resets in epoch milliseconds.    |  We do not publicly document the specific number of calls that can be made globally. This limit may change, and we encourage clients to program against the specification, relying on the two headers defined above, rather than hardcoding to the current limit.  ### Route-level rate limits  Some authenticated routes have custom rate limits. These also reset every ten seconds. Any service or personal access tokens hitting the same route share this limit, so exceeding the limit with one access token may impact other tokens. Calls that are subject to route-level rate limits return the headers below:  | Header name                   | Description                                                                                           | | ----------------------------- | ----------------------------------------------------------------------------------------------------- | | `X-Ratelimit-Route-Remaining` | The maximum number of requests to the current route the account is permitted to make per ten seconds. | | `X-Ratelimit-Reset`           | The time at which the current rate limit window resets in epoch milliseconds.                         |  A _route_ represents a specific URL pattern and verb. For example, the [Delete environment](/tag/Environments#operation/deleteEnvironment) endpoint is considered a single route, and each call to delete an environment counts against your route-level rate limit for that route.  We do not publicly document the specific number of calls that an account can make to each endpoint per ten seconds. These limits may change, and we encourage clients to program against the specification, relying on the two headers defined above, rather than hardcoding to the current limits.  ### IP-based rate limiting  We also employ IP-based rate limiting on some API routes. If you hit an IP-based rate limit, your API response will include a `Retry-After` header indicating how long to wait before re-trying the call. Clients must wait at least `Retry-After` seconds before making additional calls to our API, and should employ jitter and backoff strategies to avoid triggering rate limits again.  ## OpenAPI (Swagger) and client libraries  We have a [complete OpenAPI (Swagger) specification](https://app.launchdarkly.com/api/v2/openapi.json) for our API.  We auto-generate multiple client libraries based on our OpenAPI specification. To learn more, visit the [collection of client libraries on GitHub](https://github.com/search?q=topic%3Alaunchdarkly-api+org%3Alaunchdarkly&type=Repositories). You can also use this specification to generate client libraries to interact with our REST API in your language of choice.  Our OpenAPI specification is supported by several API-based tools such as Postman and Insomnia. In many cases, you can directly import our specification to explore our APIs.  ## Method overriding  Some firewalls and HTTP clients restrict the use of verbs other than `GET` and `POST`. In those environments, our API endpoints that use `DELETE`, `PATCH`, and `PUT` verbs are inaccessible.  To avoid this issue, our API supports the `X-HTTP-Method-Override` header, allowing clients to \"tunnel\" `DELETE`, `PATCH`, and `PUT` requests using a `POST` request.  For example, to call a `PATCH` endpoint using a `POST` request, you can include `X-HTTP-Method-Override:PATCH` as a header.  ## Beta resources  We sometimes release new API resources in **beta** status before we release them with general availability.  Resources that are in beta are still undergoing testing and development. They may change without notice, including becoming backwards incompatible.  We try to promote resources into general availability as quickly as possible. This happens after sufficient testing and when we're satisfied that we no longer need to make backwards-incompatible changes.  We mark beta resources with a \"Beta\" callout in our documentation, pictured below:  > ### This feature is in beta > > To use this feature, pass in a header including the `LD-API-Version` key with value set to `beta`. Use this header with each call. To learn more, read [Beta resources](/#section/Overview/Beta-resources). > > Resources that are in beta are still undergoing testing and development. They may change without notice, including becoming backwards incompatible.  ### Using beta resources  To use a beta resource, you must include a header in the request. If you call a beta resource without this header, you receive a `403` response.  Use this header:  ``` LD-API-Version: beta ```  ## Federal environments  The version of LaunchDarkly that is available on domains controlled by the United States government is different from the version of LaunchDarkly available to the general public. If you are an employee or contractor for a United States federal agency and use LaunchDarkly in your work, you likely use the federal instance of LaunchDarkly.  If you are working in the federal instance of LaunchDarkly, the base URI for each request is `https://app.launchdarkly.us`. In the \"Try it\" sandbox for each request, click the request path to view the complete resource path for the federal environment.  To learn more, read [LaunchDarkly in federal environments](https://docs.launchdarkly.com/home/advanced/federal).  ## Versioning  We try hard to keep our REST API backwards compatible, but we occasionally have to make backwards-incompatible changes in the process of shipping new features. These breaking changes can cause unexpected behavior if you don't prepare for them accordingly.  Updates to our REST API include support for the latest features in LaunchDarkly. We also release a new version of our REST API every time we make a breaking change. We provide simultaneous support for multiple API versions so you can migrate from your current API version to a new version at your own pace.  ### Setting the API version per request  You can set the API version on a specific request by sending an `LD-API-Version` header, as shown in the example below:  ``` LD-API-Version: 20220603 ```  The header value is the version number of the API version you would like to request. The number for each version corresponds to the date the version was released in `yyyymmdd` format. In the example above the version `20220603` corresponds to June 03, 2022.  ### Setting the API version per access token  When you create an access token, you must specify a specific version of the API to use. This ensures that integrations using this token cannot be broken by version changes.  Tokens created before versioning was released have their version set to `20160426`, which is the version of the API that existed before the current versioning scheme, so that they continue working the same way they did before versioning.  If you would like to upgrade your integration to use a new API version, you can explicitly set the header described above.  > ### Best practice: Set the header for every client or integration > > We recommend that you set the API version header explicitly in any client or integration you build. > > Only rely on the access token API version during manual testing.  ### API version changelog  |<div style=\"width:75px\">Version</div> | Changes | End of life (EOL) |---|---|---| | `20220603` | <ul><li>Changed the [list projects](/tag/Projects#operation/getProjects) return value:<ul><li>Response is now paginated with a default limit of `20`.</li><li>Added support for filter and sort.</li><li>The project `environments` field is now expandable. This field is omitted by default.</li></ul></li><li>Changed the [get project](/tag/Projects#operation/getProject) return value:<ul><li>The `environments` field is now expandable. This field is omitted by default.</li></ul></li></ul> | Current | | `20210729` | <ul><li>Changed the [create approval request](/tag/Approvals#operation/postApprovalRequest) return value. It now returns HTTP Status Code `201` instead of `200`.</li><li> Changed the [get users](/tag/Users#operation/getUser) return value. It now returns a user record, not a user. </li><li>Added additional optional fields to environment, segments, flags, members, and segments, including the ability to create Big Segments. </li><li> Added default values for flag variations when new environments are created. </li><li>Added filtering and pagination for getting flags and members, including `limit`, `number`, `filter`, and `sort` query parameters. </li><li>Added endpoints for expiring user targets for flags and segments, scheduled changes, access tokens, Relay Proxy configuration, integrations and subscriptions, and approvals. </li></ul> | 2023-06-03 | | `20191212` | <ul><li>[List feature flags](/tag/Feature-flags#operation/getFeatureFlags) now defaults to sending summaries of feature flag configurations, equivalent to setting the query parameter `summary=true`. Summaries omit flag targeting rules and individual user targets from the payload. </li><li> Added endpoints for flags, flag status, projects, environments, audit logs, members, users, custom roles, segments, usage, streams, events, and data export. </li></ul> | 2022-07-29 | | `20160426` | <ul><li>Initial versioning of API. Tokens created before versioning have their version set to this.</li></ul> | 2020-12-12 | 
 
 API version: 2.0
 Contact: support@launchdarkly.com
@@ -728,11 +728,16 @@ GetFeatureFlag Get feature flag
 
 Get a single feature flag by key. By default, this returns the configurations for all environments. You can filter environments with the `env` query parameter. For example, setting `env=production` restricts the returned configurations to just the `production` environment.
 
+> #### Recommended use
+>
+> This endpoint can return a large amount of information. Specifying one or multiple environments with the `env` parameter can decrease response time and overall payload size. We recommend using this parameter to return only the environments relevant to your query.
+
 ### Expanding response
 
 LaunchDarkly supports the `expand` query param to include additional fields in the response, with the following fields:
 
-- `evaluation` includes evaluation information within returned environments including which context kinds the flag has been evaluated for in the past 30 days 
+- `evaluation` includes evaluation information within returned environments, including which context kinds the flag has been evaluated for in the past 30 days 
+- `migrationSettings` includes migration settings information within the flag and within returned environments. These settings are only included for migration flags, that is, where `purpose` is `migration`.
 
 For example, `expand=evaluation` includes the `evaluation` field in the response.
 
@@ -1429,7 +1434,8 @@ func (r ApiGetFeatureFlagsRequest) Offset(offset int64) ApiGetFeatureFlagsReques
 	return r
 }
 
-// A boolean to filter the list to archived flags. When this is absent, only unarchived flags will be returned
+// Deprecated, use &#x60;filter&#x3D;archived:true&#x60; instead. A boolean to filter the list to archived flags. When this is absent, only unarchived flags will be returned
+// Deprecated
 func (r ApiGetFeatureFlagsRequest) Archived(archived bool) ApiGetFeatureFlagsRequest {
 	r.archived = &archived
 	return r
@@ -1472,7 +1478,11 @@ func (r ApiGetFeatureFlagsRequest) Execute() (*FeatureFlags, *http.Response, err
 /*
 GetFeatureFlags List feature flags
 
-Get a list of all features in the given project. By default, each feature includes configurations for each environment. You can filter environments with the `env` query parameter. For example, setting `env=production` restricts the returned configurations to just your production environment. You can also filter feature flags by tag with the tag query parameter.
+Get a list of all feature flags in the given project. By default, each flag includes configurations for each environment. You can filter environments with the `env` query parameter. For example, setting `env=production` restricts the returned configurations to just your production environment. You can also filter feature flags by tag with the `tag` query parameter.
+
+> #### Recommended use
+>
+> This endpoint can return a large amount of information. We recommend using some or all of these query parameters to decrease response time and overall payload size: `limit`, `env`, `query`, and `filter=creationDate`.
 
 ### Filtering flags
 
@@ -1480,19 +1490,31 @@ You can filter on certain fields using the `filter` query parameter. For example
 
 The `filter` query parameter supports the following arguments:
 
-- `query` is a string that matches against the flags' keys and names. It is not case sensitive.
-- `archived` is a boolean with values of `true` or `false` that filters the list to archived flags. Setting the value to `true` returns only archived flags. When this is absent, only unarchived flags are returned.
-- `type` is a string allowing filtering to `temporary` or `permanent` flags.
-- `status` is a string allowing filtering to `new`, `inactive`, `active`, or `launched` flags in the specified environment. This filter also requires a `filterEnv` field to be set to a valid environment. For example: `filter=status:active,filterEnv:production`.
-- `tags` is a `+` separated list of tags. It filters the list to members who have all of the tags in the list. For example: `filter=tags:beta+test`.
-- `hasExperiment` is a boolean with values of `true` or `false` that returns any flags that are used in an experiment.
-- `hasDataExport` is a boolean with values of `true` or `false` that returns any flags that are exporting data in the specified environment. This includes flags that are exporting data from Experimentation. This filter also requires that you set a `filterEnv` field to a valid environment key. For example: `filter=hasDataExport:true,filterEnv:production`
-- `evaluated` is an object that contains a key of `after` and a value in Unix time in milliseconds. This returns all flags that have been evaluated since the time you specify in the environment provided. This filter also requires you to set a `filterEnv` field to a valid environment. For example: `filter=evaluated:{"after": 1590768455282},filterEnv:production`.
-- `filterEnv` is a string with the key of a valid environment. You can use the `filterEnv` field for filters that are environment-specific. If there are multiple environment-specific filters, you should only declare this parameter once. For example: `filter=evaluated:{"after": 1590768455282},filterEnv:production,status:active`.
-- `contextKindTargeted` is a string allowing filtering flags by whether they are targeting a given context kind key.
-- `contextKindsEvaluated` is a `+` separated list of context kind keys. It filters the list to flags which have been evaluated in the past 30 days for all of the context kinds in the list. For example: `filter=contextKindsEvaluated:user+application`.
+| Filter argument       | Description | Example              |
+|-----------------------|-------------|----------------------|
+| `archived`              | A boolean value. It filters the list to archived flags. Setting the value to `true` returns only archived flags. When this is absent, only unarchived flags are returned. | `filter=archived:true` |
+| `contextKindsEvaluated` | A `+`-separated list of context kind keys. It filters the list to flags which have been evaluated in the past 30 days for all of the context kinds in the list. | `filter=contextKindsEvaluated:user+application` |
+| `contextKindTargeted`   | A string. It filters the list to flags that are targeting the given context kind key. | `filter=contextKindTargeted:user` |
+| `codeReferences.max`    | An integer value. Use `0` to return flags that do not have code references. | `filter=codeReferences.max:0` |
+| `codeReferences.min`    | An integer value. Use `1` to return flags that do have code references. | `filter=codeReferences.min:1` |
+| `creationDate`          | An object with optional `before` and `after` fields whose values are Unix time in milliseconds. It filters the list to flags created in the specified range. | `filter=creationDate:{"before":1690527600000}` |
+| `evaluated`             | An object that contains a key of `after` and a value in Unix time in milliseconds. It filters the list to all flags that have been evaluated since the time you specify, in the environment provided. This filter requires the `filterEnv` filter. | `filter=evaluation:{"after":1690527600000}` |
+| `filterEnv`             | A string with the key of a valid environment. You must use this field for filters that are environment-specific. If there are multiple environment-specific filters, you only need to include this field once. | `filter=evaluated:{"after": 1590768455282},filterEnv:production,status:active` |
+| `followerId`            | A valid member ID. It filters the list to flags that are being followed by this member. |  `filter=followerId:12ab3c45de678910abc12345` |
+| `hasDataExport`         | A boolean value. It filters the list to flags that are exporting data in the specified environment. This includes flags that are exporting data from Experimentation. This filter requires the `filterEnv` filter. | `filter=hasDataExport:true,filterEnv:production` |
+| `hasExperiment`         | A boolean value. It filters the list to flags that are used in an experiment. | `filter=hasExperiment:true` |
+| `maintainerId`          | A valid member ID. It filters the list to flags that are maintained by this member. | `filter=maintainerId:12ab3c45de678910abc12345` |
+| `maintainerTeamKey`     | A string. It filters the list to flags that are maintained by the team with this key. | `filter=maintainerTeamKey:example-team-key` |
+| `query`                 | A string. It filters the list to flags that include the specified string in their key or name. It is not case sensitive. | `filter=query:example` |
+| `sdkAvailability`       | A string, one of `client`, `mobile`, `anyClient`, `server`. Using `client` filters the list to flags whose client-side SDK availability is set to use the client-side ID. Using `mobile` filters to flags set to use the mobile key. Using `anyClient` filters to flags set to use either the client-side ID or the mobile key. Using `server` filters to flags set to use neither, that is, to flags only available in server-side SDKs.  | `filter=sdkAvailability:client` |
+| `segmentTargeted`       | A string. It filters the list to flags that target the segment with this key. This filter requires the `filterEnv` filter. | `filter=segmentTargeted:example-segment-key,filterEnv:production` |
+| `status`                | A string, either `new`, `inactive`, `active`, or `launched`. It filters the list to flags with the specified status in the specified environment. This filter requires the `filterEnv` filter. | `filter=status:active,filterEnv:production` |
+| `tags`                  | A `+`-separated list of tags. It filters the list to flags that have all of the tags in the list. | `filter=tags:beta+test` |
+| `type`                  | A string, either `temporary` or `permanent`. It filters the list to flags with the specified type. | `filter=type:permanent` |
 
-By default, this returns all flags. You can page through the list with the `limit` parameter and by following the `first`, `prev`, `next`, and `last` links in the returned `_links` field. These links will not be present if the pages they refer to don't exist. For example, the `first` and `prev` links will be missing from the response on the first page.
+The documented values for the `filter` query are prior to URL encoding. For example, the `+` in `filter=tags:beta+test` must be encoded to `%2B`.
+
+By default, this endpoint returns all flags. You can page through the list with the `limit` parameter and by following the `first`, `prev`, `next`, and `last` links in the returned `_links` field. These links will not be present if the pages they refer to don't exist. For example, the `first` and `prev` links will be missing from the response on the first page.
 
 ### Sorting flags
 
@@ -1513,9 +1535,14 @@ All fields are sorted in ascending order by default. To sort in descending order
 LaunchDarkly supports the `expand` query param to include additional fields in the response, with the following fields:
 
 - `codeReferences` includes code references for the feature flag
-- `evaluation` includes evaluation information within returned environments including which context kinds the flag has been evaluated for in the past 30 days 
+- `evaluation` includes evaluation information within returned environments, including which context kinds the flag has been evaluated for in the past 30 days
+- `migrationSettings` includes migration settings information within the flag and within returned environments. These settings are only included for migration flags, that is, where `purpose` is `migration`.
 
 For example, `expand=evaluation` includes the `evaluation` field in the response.
+
+### Migration flags
+For migration flags, the cohort information is included in the `rules` property of a flag's response, and default cohort information is included in the `fallthrough` property of a flag's response.
+To learn more, read [Migration Flags](https://docs.launchdarkly.com/home/flag-types/migration-flags).
 
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -1724,9 +1751,14 @@ Schedule a context for removal from individual targeting on a feature flag. The 
 
 You can add, update, or remove a scheduled removal date. You can only schedule a context for removal on a single variation per flag.
 
-This request only supports semantic patches. To make a semantic patch request, you must append `domain-model=launchdarkly.semanticpatch` to your `Content-Type` header. To learn more, read [Updates using semantic patch](/reference#updates-using-semantic-patch).
+Updating an expiring target uses the semantic patch format. To make a semantic patch request, you must append `domain-model=launchdarkly.semanticpatch` to your `Content-Type` header. To learn more, read [Updates using semantic patch](/reference#updates-using-semantic-patch).
 
 ### Instructions
+
+Semantic patch requests support the following `kind` instructions for updating expiring targets.
+
+<details>
+<summary>Click to expand instructions for <strong>updating expiring targets</strong></summary>
 
 #### addExpiringTarget
 
@@ -1735,9 +1767,23 @@ Adds a date and time that LaunchDarkly will remove the context from the flag's i
 ##### Parameters
 
 * `value`: The time, in Unix milliseconds, when LaunchDarkly should remove the context from individual targeting for this flag
-* `variationId`: The version of the flag variation to update. You can retrieve this by making a GET request for the flag
+* `variationId`: ID of a variation on the flag
 * `contextKey`: The context key for the context to remove from individual targeting
 * `contextKind`: The kind of context represented by the `contextKey`
+
+Here's an example:
+
+```json
+{
+  "instructions": [{
+    "kind": "addExpiringTarget",
+    "value": 1754006460000,
+    "variationId": "4254742c-71ae-411f-a992-43b18a51afe0",
+    "contextKey": "user-key-123abc",
+    "contextKind": "user"
+  }]
+}
+```
 
 #### updateExpiringTarget
 
@@ -1746,19 +1792,49 @@ Updates the date and time that LaunchDarkly will remove the context from the fla
 ##### Parameters
 
 * `value`: The time, in Unix milliseconds, when LaunchDarkly should remove the context from individual targeting for this flag
-* `variationId`: The version of the flag variation to update. You can retrieve this by making a GET request for the flag.
+* `variationId`: ID of a variation on the flag
 * `contextKey`: The context key for the context to remove from individual targeting
 * `contextKind`: The kind of context represented by the `contextKey`
+* `version`: (Optional) The version of the expiring target to update. If included, update will fail if version doesn't match current version of the expiring target.
+
+Here's an example:
+
+```json
+{
+  "instructions": [{
+    "kind": "updateExpiringTarget",
+    "value": 1754006460000,
+    "variationId": "4254742c-71ae-411f-a992-43b18a51afe0",
+    "contextKey": "user-key-123abc",
+    "contextKind": "user"
+  }]
+}
+```
 
 #### removeExpiringTarget
 
-Removes the scheduled removal of the context from the flag's individual targeting. The context will remain part of the flag's individual targeting until you explicitly remove them, or until you schedule another removal.
+Removes the scheduled removal of the context from the flag's individual targeting. The context will remain part of the flag's individual targeting until you explicitly remove it, or until you schedule another removal.
 
 ##### Parameters
 
-* `variationId`: The version of the flag variation to update. You can retrieve this by making a GET request for the flag.
+* `variationId`: ID of a variation on the flag
 * `contextKey`: The context key for the context to remove from individual targeting
 * `contextKind`: The kind of context represented by the `contextKey`
+
+Here's an example:
+
+```json
+{
+  "instructions": [{
+    "kind": "removeExpiringTarget",
+    "variationId": "4254742c-71ae-411f-a992-43b18a51afe0",
+    "contextKey": "user-key-123abc",
+    "contextKind": "user"
+  }]
+}
+```
+
+</details>
 
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -1952,9 +2028,14 @@ Schedule a target for removal from individual targeting on a feature flag. The f
 
 You can add, update, or remove a scheduled removal date. You can only schedule a target for removal on a single variation per flag.
 
-This request only supports semantic patches. To make a semantic patch request, you must append `domain-model=launchdarkly.semanticpatch` to your `Content-Type` header. To learn more, read [Updates using semantic patch](/reference#updates-using-semantic-patch).
+Updating an expiring target uses the semantic patch format. To make a semantic patch request, you must append `domain-model=launchdarkly.semanticpatch` to your `Content-Type` header. To learn more, read [Updates using semantic patch](/reference#updates-using-semantic-patch).
 
 ### Instructions
+
+Semantic patch requests support the following `kind` instructions for updating expiring user targets.
+
+<details>
+<summary>Click to expand instructions for <strong>updating expiring user targets</strong></summary>
 
 #### addExpireUserTargetDate
 
@@ -1963,7 +2044,7 @@ Adds a date and time that LaunchDarkly will remove the user from the flag's indi
 ##### Parameters
 
 * `value`: The time, in Unix milliseconds, when LaunchDarkly should remove the user from individual targeting for this flag
-* `variationId`: The version of the flag variation to update. You can retrieve this by making a GET request for the flag.
+* `variationId`: ID of a variation on the flag
 * `userKey`: The user key for the user to remove from individual targeting
 
 #### updateExpireUserTargetDate
@@ -1973,8 +2054,9 @@ Updates the date and time that LaunchDarkly will remove the user from the flag's
 ##### Parameters
 
 * `value`: The time, in Unix milliseconds, when LaunchDarkly should remove the user from individual targeting for this flag
-* `variationId`: The version of the flag variation to update. You can retrieve this by making a GET request for the flag.
+* `variationId`: ID of a variation on the flag
 * `userKey`: The user key for the user to remove from individual targeting
+* `version`: (Optional) The version of the expiring user target to update. If included, update will fail if version doesn't match current version of the expiring user target.
 
 #### removeExpireUserTargetDate
 
@@ -1982,8 +2064,10 @@ Removes the scheduled removal of the user from the flag's individual targeting. 
 
 ##### Parameters
 
-* `variationId`: The version of the flag variation to update. You can retrieve this by making a GET request for the flag.
+* `variationId`: ID of a variation on the flag
 * `userKey`: The user key for the user to remove from individual targeting
+
+</details>
 
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -2168,7 +2252,7 @@ func (r ApiPatchFeatureFlagRequest) Execute() (*FeatureFlag, *http.Response, err
 /*
 PatchFeatureFlag Update feature flag
 
-Perform a partial update to a feature flag. The request body must be a valid semantic patch or JSON patch.
+Perform a partial update to a feature flag. The request body must be a valid semantic patch, JSON patch, or JSON merge patch. To learn more the different formats, read [Updates](/#section/Overview/Updates).
 
 ### Using semantic patches on a feature flag
 
@@ -2185,7 +2269,7 @@ The body of a semantic patch request for updating feature flags takes the follow
 Semantic patch requests support the following `kind` instructions for updating feature flags.
 
 <details>
-<summary>Click to expand instructions for turning flags on and off</summary>
+<summary>Click to expand instructions for <strong>turning flags on and off</strong></summary>
 
 These instructions require the `environmentKey` parameter.
 
@@ -2193,7 +2277,7 @@ These instructions require the `environmentKey` parameter.
 
 Sets the flag's targeting state to **Off**.
 
-Use this request body:
+Here's an example:
 
 ```json
 {
@@ -2206,7 +2290,7 @@ Use this request body:
 
 Sets the flag's targeting state to **On**.
 
-Use this request body:
+Here's an example:
 
 ```json
 {
@@ -2218,7 +2302,7 @@ Use this request body:
 </details><br />
 
 <details>
-<summary>Click to expand instructions for working with targeting and variations</summary>
+<summary>Click to expand instructions for <strong>working with targeting and variations</strong></summary>
 
 These instructions require the `environmentKey` parameter.
 
@@ -2233,7 +2317,7 @@ Adds the given clauses to the rule indicated by `ruleId`.
 - `ruleId`: ID of a rule in the flag.
 - `clauses`: Array of clause objects, with `contextKind` (string), `attribute` (string), `op` (string), `negate` (boolean), and `values` (array of strings, numbers, or dates) properties. The `contextKind`, `attribute`, and `values` are case sensitive. The `op` must be lower-case.
 
-Use this request body:
+Here's an example:
 
 ```json
 {
@@ -2261,7 +2345,7 @@ Adds the flag indicated by `key` with variation `variationId` as a prerequisite 
 - `key`: Flag key of the prerequisite flag.
 - `variationId`: ID of a variation of the prerequisite flag.
 
-Use this request body:
+Here's an example:
 
 ```json
 {
@@ -2284,12 +2368,16 @@ If you set `beforeRuleId`, this adds the new rule before the indicated rule. Oth
 
 - `clauses`: Array of clause objects, with `contextKind` (string), `attribute` (string), `op` (string), `negate` (boolean), and `values` (array of strings, numbers, or dates) properties. The `contextKind`, `attribute`, and `values` are case sensitive. The `op` must be lower-case.
 - `beforeRuleId`: (Optional) ID of a flag rule.
-- `variationId`: ID of a variation of the flag.
-- `rolloutWeights`: (Optional) Map of `variationId` to weight, in thousandths of a percent (0-100000).
-- `rolloutBucketBy`: (Optional) Context attribute available in the specified `rolloutContextKind`.
-- `rolloutContextKind`: (Optional) Context kind, defaults to `user`
+- Either
+  - `variationId`: ID of a variation of the flag.
 
-Use this request body:
+  or
+
+  - `rolloutWeights`: (Optional) Map of `variationId` to weight, in thousandths of a percent (0-100000).
+  - `rolloutBucketBy`: (Optional) Context attribute available in the specified `rolloutContextKind`.
+  - `rolloutContextKind`: (Optional) Context kind, defaults to `user`
+
+Here's an example that uses a `variationId`:
 
 ```json
 {
@@ -2308,6 +2396,29 @@ Use this request body:
 }
 ```
 
+Here's an example that uses a percentage rollout:
+
+```json
+{
+  "environmentKey": "environment-key-123abc",
+  "instructions": [{
+    "kind": "addRule",
+    "clauses": [{
+      "contextKind": "organization",
+      "attribute": "located_in",
+      "op": "in",
+      "negate": false,
+      "values": ["Sweden", "Norway"]
+    }],
+    "rolloutContextKind": "organization",
+    "rolloutWeights": {
+      "2f43f67c-3e4e-4945-a18a-26559378ca00": 15000, // serve 15% this variation
+      "e5830889-1ec5-4b0c-9cc9-c48790090c43": 85000  // serve 85% this variation
+    }
+  }]
+}
+```
+
 #### addTargets
 
 Adds context keys to the individual context targets for the context kind that `contextKind` specifies and the variation that `variationId` specifies. Returns an error if this causes the flag to target the same context key in multiple variations.
@@ -2318,7 +2429,7 @@ Adds context keys to the individual context targets for the context kind that `c
 - `contextKind`: (Optional) Context kind to target, defaults to `user`
 - `variationId`: ID of a variation on the flag.
 
-Use this request body:
+Here's an example:
 
 ```json
 {
@@ -2340,7 +2451,7 @@ Adds user keys to the individual user targets for the variation that `variationI
 - `values`: List of user keys.
 - `variationId`: ID of a variation on the flag.
 
-Use this request body:
+Here's an example:
 
 ```json
 {
@@ -2363,7 +2474,7 @@ Adds `values` to the values of the clause that `ruleId` and `clauseId` indicate.
 - `clauseId`: ID of a clause in that rule.
 - `values`: Array of strings, case sensitive.
 
-Use this request body:
+Here's an example:
 
 ```json
 {
@@ -2379,7 +2490,7 @@ Use this request body:
 
 #### addVariation
 
-Adds a variation to the flag. 
+Adds a variation to the flag.
 
 ##### Parameters
 
@@ -2387,7 +2498,7 @@ Adds a variation to the flag.
 - `name`: (Optional) The variation name.
 - `description`: (Optional) A description for the variation.
 
-Use this request body: 
+Here's an example:
 
 ```json
 {
@@ -2403,7 +2514,7 @@ Removes all individual targets from the variation that `variationId` specifies. 
 
 - `variationId`: ID of a variation on the flag.
 
-Use this request body:
+Here's an example:
 
 ```json
 {
@@ -2420,7 +2531,7 @@ Removes all individual user targets from the variation that `variationId` specif
 
 - `variationId`: ID of a variation on the flag.
 
-Use this request body:
+Here's an example:
 
 ```json
 {
@@ -2438,7 +2549,7 @@ Removes the clauses specified by `clauseIds` from the rule indicated by `ruleId`
 - `ruleId`: ID of a rule in the flag.
 - `clauseIds`: Array of IDs of clauses in the rule.
 
-Use this request body:
+Here's an example:
 
 ```json
 {
@@ -2459,7 +2570,7 @@ Removes the prerequisite flag indicated by `key`. Does nothing if this prerequis
 
 - `key`: Flag key of an existing prerequisite flag.
 
-Use this request body:
+Here's an example:
 
 ```json
 {
@@ -2476,7 +2587,7 @@ Removes the targeting rule specified by `ruleId`. Does nothing if the rule does 
 
 - `ruleId`: ID of a rule in the flag.
 
-Use this request body:
+Here's an example:
 
 ```json
 {
@@ -2495,7 +2606,7 @@ Removes context keys from the individual context targets for the context kind th
 - `contextKind`: (Optional) Context kind to target, defaults to `user`
 - `variationId`: ID of a flag variation.
 
-Use this request body:
+Here's an example:
 
 ```json
 {
@@ -2517,7 +2628,7 @@ Removes user keys from the individual user targets for the variation that `varia
 - `values`: List of user keys.
 - `variationId`: ID of a flag variation.
 
-Use this request body:
+Here's an example:
 
 ```json
 {
@@ -2540,7 +2651,7 @@ Removes `values` from the values of the clause indicated by `ruleId` and `clause
 - `clauseId`: ID of a clause in that rule.
 - `values`: Array of strings, case sensitive.
 
-Use this request body:
+Here's an example:
 
 ```json
 {
@@ -2556,13 +2667,13 @@ Use this request body:
 
 #### removeVariation
 
-Removes a variation from the flag. 
+Removes a variation from the flag.
 
 ##### Parameters
 
 - `variationId`: ID of a variation of the flag to remove.
 
-Use this request body: 
+Here's an example:
 
 ```json
 {
@@ -2578,7 +2689,7 @@ Rearranges the rules to match the order given in `ruleIds`. Returns an error if 
 
 - `ruleIds`: Array of IDs of all rules in the flag.
 
-Use this request body:
+Here's an example:
 
 ```json
 {
@@ -2598,7 +2709,7 @@ Removes all existing prerequisites and replaces them with the list you provide.
 
 - `prerequisites`: A list of prerequisites. Each item in the list must include a flag `key` and `variationId`.
 
-Use this request body:
+Here's an example:
 
 ```json
 {
@@ -2629,7 +2740,7 @@ Removes all targeting rules for the flag and replaces them with the list you pro
 
 - `rules`: A list of rules.
 
-Use this request body:
+Here's an example:
 
 ```json
 {
@@ -2665,7 +2776,7 @@ Removes all existing targeting and replaces it with the list of targets you prov
 
 - `targets`: A list of context targeting. Each item in the list includes an optional `contextKind` that defaults to `user`, a required `variationId`, and a required list of `values`.
 
-Use this request body:
+Here's an example:
 
 ```json
 {
@@ -2698,7 +2809,7 @@ Removes all existing user targeting and replaces it with the list of targets you
 
 - `targets`: A list of user targeting. Each item in the list must include a `variationId` and a list of `values`.
 
-Use this request body:
+Here's an example:
 
 ```json
 {
@@ -2731,7 +2842,7 @@ Replaces the clause indicated by `ruleId` and `clauseId` with `clause`.
 - `clauseId`: ID of a clause in that rule.
 - `clause`: New `clause` object, with `contextKind` (string), `attribute` (string), `op` (string), `negate` (boolean), and `values` (array of strings, numbers, or dates) properties. The `contextKind`, `attribute`, and `values` are case sensitive. The `op` must be lower-case.
 
-Use this request body:
+Here's an example:
 
 ```json
 {
@@ -2753,14 +2864,14 @@ Use this request body:
 
 #### updateDefaultVariation
 
-Updates the default on or off variation of the flag. 
+Updates the default on or off variation of the flag.
 
 ##### Parameters
 
-- `onVariationValue`: (Optional) The value of the variation of the new on variation. 
+- `onVariationValue`: (Optional) The value of the variation of the new on variation.
 - `offVariationValue`: (Optional) The value of the variation of the new off variation
 
-Use this request body: 
+Here's an example:
 
 ```json
 {
@@ -2770,17 +2881,19 @@ Use this request body:
 
 #### updateFallthroughVariationOrRollout
 
-Updates the default or "fallthrough" rule for the flag, which the flag serves when a context matches none of the targeting rules. The rule can serve either the variation that `variationId` indicates, or a percent rollout that `rolloutWeights` and `rolloutBucketBy` indicate.
+Updates the default or "fallthrough" rule for the flag, which the flag serves when a context matches none of the targeting rules. The rule can serve either the variation that `variationId` indicates, or a percentage rollout that `rolloutWeights` and `rolloutBucketBy` indicate.
 
 ##### Parameters
 
 - `variationId`: ID of a variation of the flag.
+
 or
+
 - `rolloutWeights`: Map of `variationId` to weight, in thousandths of a percent (0-100000).
 - `rolloutBucketBy`: (Optional) Context attribute available in the specified `rolloutContextKind`.
 - `rolloutContextKind`: (Optional) Context kind, defaults to `user`
 
-Use this request body:
+Here's an example that uses a `variationId`:
 
 ```json
 {
@@ -2788,6 +2901,22 @@ Use this request body:
 	"instructions": [{
 		"kind": "updateFallthroughVariationOrRollout",
 		"variationId": "2f43f67c-3e4e-4945-a18a-26559378ca00"
+	}]
+}
+```
+
+Here's an example that uses a percentage rollout:
+
+```json
+{
+	"environmentKey": "environment-key-123abc",
+	"instructions": [{
+		"kind": "updateFallthroughVariationOrRollout",
+		"rolloutContextKind": "user",
+		"rolloutWeights": {
+			"2f43f67c-3e4e-4945-a18a-26559378ca00": 15000, // serve 15% this variation
+			"e5830889-1ec5-4b0c-9cc9-c48790090c43": 85000  // serve 85% this variation
+		}
 	}]
 }
 ```
@@ -2800,7 +2929,7 @@ Updates the default off variation to `variationId`. The flag serves the default 
 
 - `variationId`: ID of a variation of the flag.
 
-Use this request body:
+Here's an example:
 
 ```json
 {
@@ -2818,7 +2947,7 @@ Changes the prerequisite flag that `key` indicates to use the variation that `va
 - `key`: Flag key of an existing prerequisite flag.
 - `variationId`: ID of a variation of the prerequisite flag.
 
-Use this request body:
+Here's an example:
 
 ```json
 {
@@ -2840,7 +2969,7 @@ Updates the description of the feature flag rule.
 - `description`: The new human-readable description for this rule.
 - `ruleId`: The ID of the rule. You can retrieve this by making a GET request for the flag.
 
-Use this request body:
+Here's an example:
 
 ```json
 {
@@ -2862,7 +2991,7 @@ Updates whether or not LaunchDarkly tracks events for the feature flag associate
 - `ruleId`: The ID of the rule. You can retrieve this by making a GET request for the flag.
 - `trackEvents`: Whether or not events are tracked.
 
-Use this request body:
+Here's an example:
 
 ```json
 {
@@ -2890,7 +3019,7 @@ Updates what `ruleId` serves when its clauses evaluate to true. The rule can ser
 - `rolloutBucketBy`: (Optional) Context attribute available in the specified `rolloutContextKind`.
 - `rolloutContextKind`: (Optional) Context kind, defaults to `user`
 
-Use this request body:
+Here's an example:
 
 ```json
 {
@@ -2911,7 +3040,7 @@ Updates whether or not LaunchDarkly tracks events for the feature flag, for all 
 
 - `trackEvents`: Whether or not events are tracked.
 
-Use this request body:
+Here's an example:
 
 ```json
 {
@@ -2928,7 +3057,7 @@ Updates whether or not LaunchDarkly tracks events for the feature flag, for the 
 
 - `trackEvents`: Whether or not events are tracked.
 
-Use this request body:
+Here's an example:
 
 ```json
 {
@@ -2939,7 +3068,7 @@ Use this request body:
 
 #### updateVariation
 
-Updates a variation of the flag. 
+Updates a variation of the flag.
 
 ##### Parameters
 
@@ -2948,7 +3077,7 @@ Updates a variation of the flag.
 - `value`: (Optional) The updated variation value.
 - `description`: (Optional) The updated variation description.
 
-Use this request body: 
+Here's an example:
 
 ```json
 {
@@ -2959,7 +3088,7 @@ Use this request body:
 </details><br />
 
 <details>
-<summary>Click to expand instructions for updating flag settings</summary>
+<summary>Click to expand instructions for <strong>updating flag settings</strong></summary>
 
 These instructions do not require the `environmentKey` parameter. They make changes that apply to the flag across all environments.
 
@@ -2973,7 +3102,7 @@ Adds a new custom property to the feature flag. Custom properties are used to as
  - `name`: The custom property name.
  - `values`: A list of the associated values for the custom property.
 
-Use this request body:
+Here's an example:
 
 ```json
 {
@@ -2994,7 +3123,7 @@ Adds tags to the feature flag.
 
 - `values`: A list of tags to add.
 
-Use this request body:
+Here's an example:
 
 ```json
 {
@@ -3006,7 +3135,7 @@ Use this request body:
 
 Marks the feature flag as permanent. LaunchDarkly does not prompt you to remove permanent flags, even if one variation is rolled out to all your customers.
 
-Use this request body:
+Here's an example:
 
 ```json
 {
@@ -3018,7 +3147,7 @@ Use this request body:
 
 Marks the feature flag as temporary.
 
-Use this request body:
+Here's an example:
 
 ```json
 {
@@ -3049,7 +3178,7 @@ Removes the associated values from a custom property. If all the associated valu
 
 Removes the flag's maintainer. To set a new maintainer, use the flag's **Settings** tab in the LaunchDarkly user interface.
 
-Use this request body:
+Here's an example:
 
 ```json
 {
@@ -3065,7 +3194,7 @@ Removes tags from the feature flag.
 
 - `values`: A list of tags to remove.
 
-Use this request body:
+Here's an example:
 
 ```json
 {
@@ -3083,7 +3212,7 @@ Replaces the existing associated values for a custom property with the new value
  - `name`: The custom property name.
  - `values`: A list of the new associated values for the custom property.
 
-Use this request body:
+Here's an example:
 
 ```json
 {
@@ -3104,7 +3233,7 @@ Turns off client-side SDK availability for the flag. This is equivalent to unche
 
 - `value`: Use "usingMobileKey" to turn off availability for mobile SDKs. Use "usingEnvironmentId" to turn on availability for client-side SDKs.
 
-Use this request body:
+Here's an example:
 
 ```json
 {
@@ -3120,7 +3249,7 @@ Turns on client-side SDK availability for the flag. This is equivalent to unchec
 
 - `value`: Use "usingMobileKey" to turn on availability for mobile SDKs. Use "usingEnvironmentId" to turn on availability for client-side SDKs.
 
-Use this request body:
+Here's an example:
 
 ```json
 {
@@ -3136,7 +3265,7 @@ Updates the feature flag description.
 
 - `value`: The new description.
 
-Use this request body:
+Here's an example:
 
 ```json
 {
@@ -3151,7 +3280,7 @@ Updates the maintainer of the flag to an existing member and removes the existin
 
 - `value`: The ID of the member.
 
-Use this request body:
+Here's an example:
 
 ```json
 {
@@ -3167,7 +3296,7 @@ Updates the maintainer of the flag to an existing team and removes the existing 
 
 - `value`: The key of the team.
 
-Use this request body:
+Here's an example:
 
 ```json
 {
@@ -3183,7 +3312,7 @@ Updates the feature flag name.
 
 - `value`: The new name.
 
-Use this request body:
+Here's an example:
 
 ```json
 {
@@ -3194,7 +3323,7 @@ Use this request body:
 </details><br />
 
 <details>
-<summary>Click to expand instructions for updating the flag lifecycle</summary>
+<summary>Click to expand instructions for <strong>updating the flag lifecycle</strong></summary>
 
 These instructions do not require the `environmentKey` parameter. They make changes that apply to the flag across all environments.
 
@@ -3212,7 +3341,7 @@ Archives the feature flag. This retires it from LaunchDarkly without deleting it
 
 Deletes the feature flag and its rules. You cannot restore a deleted flag. If this flag is requested again, the flag value defined in code will be returned for all contexts.
 
-Use this request body:
+Here's an example:
 
 ```json
 {
@@ -3220,11 +3349,35 @@ Use this request body:
 }
 ```
 
+#### deprecateFlag
+
+Deprecates the feature flag. This hides it from the live flags list without archiving or deleting it.
+
+Here's an example:
+
+```json
+{
+  "instructions": [ { "kind": "deprecateFlag" } ]
+}
+```
+
+#### restoreDeprecatedFlag
+
+Restores the feature flag if it was previously deprecated.
+
+Here's an example:
+
+```json
+{
+  "instructions": [ { "kind": "restoreDeprecatedFlag" } ]
+}
+```
+
 #### restoreFlag
 
 Restores the feature flag if it was previously archived.
 
-Use this request body:
+Here's an example:
 
 ```json
 {
@@ -3234,12 +3387,13 @@ Use this request body:
 
 </details>
 
-### Using JSON Patches on a feature flag
-If you do not include the header described above, you can use [JSON patch](/reference#updates-using-json-patch).
+### Using JSON patches on a feature flag
 
-When using the update feature flag endpoint to add individual targets to a specific variation, there are two different patch documents, depending on whether there are already individual targets for the variation.
+If you do not include the header described above, you can use a [JSON patch](/reference#updates-using-json-patch) or [JSON merge patch](https://datatracker.ietf.org/doc/html/rfc7386) representation of the desired changes.
 
-If a flag variation already has individual targets, the path for the JSON Patch operation is:
+When you use the update feature flag endpoint to add individual targets to a specific variation, there are two different patch documents, depending on whether there are already individual targets for the variation.
+
+If a flag variation already has individual targets, the path for the JSON patch operation is:
 
 ```json
 {
@@ -3249,7 +3403,7 @@ If a flag variation already has individual targets, the path for the JSON Patch 
 }
 ```
 
-If a flag variation does not already have individual targets, the path for the JSON Patch operation is:
+If a flag variation does not already have individual targets, the path for the JSON patch operation is:
 
 ```json
 [
@@ -3263,10 +3417,15 @@ If a flag variation does not already have individual targets, the path for the J
 
 
 ### Required approvals
-If a request attempts to alter a flag configuration in an environment where approvals are required for the flag, the request will fail with a 405. Changes to the flag configuration in that environment will require creating an [approval request](/tag/Approvals) or a [workflow](/tag/Workflows-(beta)).
+If a request attempts to alter a flag configuration in an environment where approvals are required for the flag, the request will fail with a 405. Changes to the flag configuration in that environment will require creating an [approval request](/tag/Approvals) or a [workflow](/tag/Workflows).
 
 ### Conflicts
 If a flag configuration change made through this endpoint would cause a pending scheduled change or approval request to fail, this endpoint will return a 400. You can ignore this check by adding an `ignoreConflicts` query parameter set to `true`.
+
+### Migration flags
+For migration flags, the cohort information is included in the `rules` property of a flag's response. You can update cohorts by updating `rules`. Default cohort information is included in the `fallthrough` property of a flag's response. You can update the default cohort by updating `fallthrough`.
+When you update the rollout for a cohort or the default cohort through the API, provide a rollout instead of a single `variationId`.
+To learn more, read [Migration Flags](https://docs.launchdarkly.com/home/flag-types/migration-flags).
 
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -3465,6 +3624,27 @@ func (r ApiPostFeatureFlagRequest) Execute() (*FeatureFlag, *http.Response, erro
 PostFeatureFlag Create a feature flag
 
 Create a feature flag with the given name, key, and variations.
+
+### Creating a migration flag
+
+When you create a migration flag, the variations are pre-determined based on the number of stages in the migration.
+To create a migration flag, omit the `variations` and `defaults` information. Instead, provide a `purpose` of `migration`, and `migrationSettings`. If you create a migration flag with six stages, `contextKind` is required. Otherwise, it should be omitted.
+
+Here's an example:
+
+```json
+{
+  "key": "flag-key-123",
+  "purpose": "migration",
+  "migrationSettings": {
+    "stageCount": 6,
+    "contextKind": "account"
+  }
+}
+```
+
+To learn more, read [Migration Flags](https://docs.launchdarkly.com/home/flag-types/migration-flags).
+
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param projectKey The project key

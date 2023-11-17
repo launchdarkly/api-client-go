@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **CreationDate** | Pointer to **int64** |  | [optional] 
 **Comment** | Pointer to **string** |  | [optional] 
 **MemberId** | Pointer to **string** |  | [optional] 
+**ServiceTokenId** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -143,6 +144,31 @@ SetMemberId sets MemberId field to given value.
 `func (o *ReviewOutput) HasMemberId() bool`
 
 HasMemberId returns a boolean if a field has been set.
+
+### GetServiceTokenId
+
+`func (o *ReviewOutput) GetServiceTokenId() string`
+
+GetServiceTokenId returns the ServiceTokenId field if non-nil, zero value otherwise.
+
+### GetServiceTokenIdOk
+
+`func (o *ReviewOutput) GetServiceTokenIdOk() (*string, bool)`
+
+GetServiceTokenIdOk returns a tuple with the ServiceTokenId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetServiceTokenId
+
+`func (o *ReviewOutput) SetServiceTokenId(v string)`
+
+SetServiceTokenId sets ServiceTokenId field to given value.
+
+### HasServiceTokenId
+
+`func (o *ReviewOutput) HasServiceTokenId() bool`
+
+HasServiceTokenId returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

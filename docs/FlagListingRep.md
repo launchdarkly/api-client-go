@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** |  | 
-**Key** | **string** |  | 
+**Name** | **string** | The flag name | 
+**Key** | **string** | The flag key | 
 **Links** | Pointer to [**map[string]Link**](Link.md) |  | [optional] 
 **Site** | Pointer to [**Link**](Link.md) |  | [optional] 
 

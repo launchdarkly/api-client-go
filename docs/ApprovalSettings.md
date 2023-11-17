@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Required** | **bool** | If approvals are required for this environment. | 
+**Required** | **bool** | If approvals are required for this environment | 
 **BypassApprovalsForPendingChanges** | **bool** | Whether to skip approvals for pending changes | 
 **MinNumApprovals** | **int32** | Sets the amount of approvals required before a member can apply a change. The minimum is one and the maximum is five. | 
-**CanReviewOwnRequest** | **bool** | Allow someone who makes an approval request to apply their own change. | 
-**CanApplyDeclinedChanges** | **bool** | Allow applying the change as long as at least one person has approved. | 
-**ServiceKind** | **string** | Which service to use for managing approvals. | 
+**CanReviewOwnRequest** | **bool** | Allow someone who makes an approval request to apply their own change | 
+**CanApplyDeclinedChanges** | **bool** | Allow applying the change as long as at least one person has approved | 
+**ServiceKind** | **string** | Which service to use for managing approvals | 
 **ServiceConfig** | **map[string]interface{}** |  | 
 **RequiredApprovalTags** | **[]string** | Require approval only on flags with the provided tags. Otherwise all flags will require approval. | 
 

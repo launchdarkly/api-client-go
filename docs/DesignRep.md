@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Hypothesis** | **string** | The expected outcome of this experiment | 
 **CanReshuffleTraffic** | Pointer to **bool** | Whether the experiment can reassign traffic to different variations when you increase or decrease the traffic in your experiment audience (true) or keep all traffic assigned to its initial variation (false). | [optional] 
 **Flags** | Pointer to [**map[string]FlagRep**](FlagRep.md) | Details on the flag used in this experiment | [optional] 
-**PrimaryMetric** | Pointer to [**MetricV2Rep**](MetricV2Rep.md) |  | [optional] 
+**PrimaryMetric** | Pointer to [**DependentMetricOrMetricGroupRep**](DependentMetricOrMetricGroupRep.md) |  | [optional] 
 **RandomizationUnit** | Pointer to **string** | The unit of randomization for this iteration | [optional] 
 **Treatments** | Pointer to [**[]TreatmentRep**](TreatmentRep.md) | Details on the variations you are testing in the experiment | [optional] 
 **SecondaryMetrics** | Pointer to [**[]MetricV2Rep**](MetricV2Rep.md) | Details on the secondary metrics for this experiment | [optional] 
@@ -103,20 +103,20 @@ HasFlags returns a boolean if a field has been set.
 
 ### GetPrimaryMetric
 
-`func (o *DesignRep) GetPrimaryMetric() MetricV2Rep`
+`func (o *DesignRep) GetPrimaryMetric() DependentMetricOrMetricGroupRep`
 
 GetPrimaryMetric returns the PrimaryMetric field if non-nil, zero value otherwise.
 
 ### GetPrimaryMetricOk
 
-`func (o *DesignRep) GetPrimaryMetricOk() (*MetricV2Rep, bool)`
+`func (o *DesignRep) GetPrimaryMetricOk() (*DependentMetricOrMetricGroupRep, bool)`
 
 GetPrimaryMetricOk returns a tuple with the PrimaryMetric field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPrimaryMetric
 
-`func (o *DesignRep) SetPrimaryMetric(v MetricV2Rep)`
+`func (o *DesignRep) SetPrimaryMetric(v DependentMetricOrMetricGroupRep)`
 
 SetPrimaryMetric sets PrimaryMetric field to given value.
 

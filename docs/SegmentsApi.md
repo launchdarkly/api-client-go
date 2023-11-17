@@ -558,7 +558,7 @@ Name | Type | Description  | Notes
 
 ## GetSegments
 
-> UserSegments GetSegments(ctx, projectKey, environmentKey).Execute()
+> UserSegments GetSegments(ctx, projectKey, environmentKey).Limit(limit).Offset(offset).Sort(sort).Filter(filter).Execute()
 
 List segments
 
@@ -579,10 +579,14 @@ import (
 func main() {
     projectKey := "projectKey_example" // string | The project key
     environmentKey := "environmentKey_example" // string | The environment key
+    limit := int64(789) // int64 | The number of segments to return. Defaults to 50. (optional)
+    offset := int64(789) // int64 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
+    sort := "sort_example" // string | Accepts sorting order and fields. Fields can be comma separated. Possible fields are 'creationDate', 'name', 'lastModified'. Example: `sort=name` sort by names ascending or `sort=-name,creationDate` sort by names descending and creationDate ascending. (optional)
+    filter := "filter_example" // string | Accepts filter by kind, query, or tags. To filter by kind or query, use the `equals` operator. To filter by tags, use the `anyOf` operator. Query is a 'fuzzy' search across segment key, name, and description. Example: `filter=tags anyOf ['enterprise', 'beta'],query equals 'toggle'` returns segments with 'toggle' in their key, name, or description that also have 'enterprise' or 'beta' as a tag. (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SegmentsApi.GetSegments(context.Background(), projectKey, environmentKey).Execute()
+    resp, r, err := apiClient.SegmentsApi.GetSegments(context.Background(), projectKey, environmentKey).Limit(limit).Offset(offset).Sort(sort).Filter(filter).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.GetSegments``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -610,6 +614,10 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **limit** | **int64** | The number of segments to return. Defaults to 50. | 
+ **offset** | **int64** | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | 
+ **sort** | **string** | Accepts sorting order and fields. Fields can be comma separated. Possible fields are &#39;creationDate&#39;, &#39;name&#39;, &#39;lastModified&#39;. Example: &#x60;sort&#x3D;name&#x60; sort by names ascending or &#x60;sort&#x3D;-name,creationDate&#x60; sort by names descending and creationDate ascending. | 
+ **filter** | **string** | Accepts filter by kind, query, or tags. To filter by kind or query, use the &#x60;equals&#x60; operator. To filter by tags, use the &#x60;anyOf&#x60; operator. Query is a &#39;fuzzy&#39; search across segment key, name, and description. Example: &#x60;filter&#x3D;tags anyOf [&#39;enterprise&#39;, &#39;beta&#39;],query equals &#39;toggle&#39;&#x60; returns segments with &#39;toggle&#39; in their key, name, or description that also have &#39;enterprise&#39; or &#39;beta&#39; as a tag. | 
 
 ### Return type
 
@@ -631,7 +639,7 @@ Name | Type | Description  | Notes
 
 ## PatchExpiringTargetsForSegment
 
-> ExpiringTargetPatchResponse PatchExpiringTargetsForSegment(ctx, projectKey, environmentKey, segmentKey).PatchSegmentRequest(patchSegmentRequest).Execute()
+> ExpiringTargetPatchResponse PatchExpiringTargetsForSegment(ctx, projectKey, environmentKey, segmentKey).PatchSegmentExpiringTargetInputRep(patchSegmentExpiringTargetInputRep).Execute()
 
 Update expiring targets for segment
 
@@ -653,11 +661,11 @@ func main() {
     projectKey := "projectKey_example" // string | The project key
     environmentKey := "environmentKey_example" // string | The environment key
     segmentKey := "segmentKey_example" // string | The segment key
-    patchSegmentRequest := *openapiclient.NewPatchSegmentRequest([]openapiclient.PatchSegmentInstruction{*openapiclient.NewPatchSegmentInstruction("addExpireUserTargetDate", "UserKey_example", "TargetType_example")}) // PatchSegmentRequest | 
+    patchSegmentExpiringTargetInputRep := *openapiclient.NewPatchSegmentExpiringTargetInputRep([]openapiclient.PatchSegmentExpiringTargetInstruction{*openapiclient.NewPatchSegmentExpiringTargetInstruction("addExpiringTarget", "ContextKey_example", "user", "TargetType_example")}) // PatchSegmentExpiringTargetInputRep | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SegmentsApi.PatchExpiringTargetsForSegment(context.Background(), projectKey, environmentKey, segmentKey).PatchSegmentRequest(patchSegmentRequest).Execute()
+    resp, r, err := apiClient.SegmentsApi.PatchExpiringTargetsForSegment(context.Background(), projectKey, environmentKey, segmentKey).PatchSegmentExpiringTargetInputRep(patchSegmentExpiringTargetInputRep).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.PatchExpiringTargetsForSegment``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -687,7 +695,7 @@ Name | Type | Description  | Notes
 
 
 
- **patchSegmentRequest** | [**PatchSegmentRequest**](PatchSegmentRequest.md) |  | 
+ **patchSegmentExpiringTargetInputRep** | [**PatchSegmentExpiringTargetInputRep**](PatchSegmentExpiringTargetInputRep.md) |  | 
 
 ### Return type
 

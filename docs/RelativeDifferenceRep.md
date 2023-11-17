@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Upper** | Pointer to **float32** | The upper bound | [optional] 
-**Lower** | Pointer to **float32** | The lower bound | [optional] 
-**FromTreatmentId** | Pointer to **string** | The treatment ID | [optional] 
+**Upper** | Pointer to **float32** | An upper bound of the relative difference between the treatment and the &lt;code&gt;fromTreatmentId&lt;/code&gt; | [optional] 
+**Lower** | Pointer to **float32** | A lower bound of the relative difference between the treatment and the &lt;code&gt;fromTreatmentId&lt;/code&gt; | [optional] 
+**FromTreatmentId** | Pointer to **string** | The treatment ID of the treatment against which the relative difference is calculated | [optional] 
 
 ## Methods
 

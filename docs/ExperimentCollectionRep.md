@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Items** | Pointer to [**[]Experiment**](Experiment.md) | An array of experiments | [optional] 
+**Items** | [**[]Experiment**](Experiment.md) | An array of experiments | 
 **TotalCount** | Pointer to **int32** | The total number of experiments in this project and environment. Does not include legacy experiments. | [optional] 
 **Links** | Pointer to [**map[string]Link**](Link.md) | The location and content type of related resources | [optional] 
 
@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 
 ### NewExperimentCollectionRep
 
-`func NewExperimentCollectionRep() *ExperimentCollectionRep`
+`func NewExperimentCollectionRep(items []Experiment, ) *ExperimentCollectionRep`
 
 NewExperimentCollectionRep instantiates a new ExperimentCollectionRep object
 This constructor will assign default values to properties that have it defined,
@@ -46,11 +46,6 @@ and a boolean to check if the value has been set.
 
 SetItems sets Items field to given value.
 
-### HasItems
-
-`func (o *ExperimentCollectionRep) HasItems() bool`
-
-HasItems returns a boolean if a field has been set.
 
 ### GetTotalCount
 

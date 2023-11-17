@@ -14,6 +14,8 @@ Name | Type | Description | Notes
 **Tags** | Pointer to **[]string** | Tags for the feature flag. Defaults to an empty array. | [optional] 
 **CustomProperties** | Pointer to [**map[string]CustomProperty**](CustomProperty.md) |  | [optional] 
 **Defaults** | Pointer to [**Defaults**](Defaults.md) |  | [optional] 
+**Purpose** | Pointer to **string** | Purpose of the flag | [optional] 
+**MigrationSettings** | Pointer to [**MigrationSettingsPost**](MigrationSettingsPost.md) |  | [optional] 
 
 ## Methods
 
@@ -273,6 +275,56 @@ SetDefaults sets Defaults field to given value.
 `func (o *FeatureFlagBody) HasDefaults() bool`
 
 HasDefaults returns a boolean if a field has been set.
+
+### GetPurpose
+
+`func (o *FeatureFlagBody) GetPurpose() string`
+
+GetPurpose returns the Purpose field if non-nil, zero value otherwise.
+
+### GetPurposeOk
+
+`func (o *FeatureFlagBody) GetPurposeOk() (*string, bool)`
+
+GetPurposeOk returns a tuple with the Purpose field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPurpose
+
+`func (o *FeatureFlagBody) SetPurpose(v string)`
+
+SetPurpose sets Purpose field to given value.
+
+### HasPurpose
+
+`func (o *FeatureFlagBody) HasPurpose() bool`
+
+HasPurpose returns a boolean if a field has been set.
+
+### GetMigrationSettings
+
+`func (o *FeatureFlagBody) GetMigrationSettings() MigrationSettingsPost`
+
+GetMigrationSettings returns the MigrationSettings field if non-nil, zero value otherwise.
+
+### GetMigrationSettingsOk
+
+`func (o *FeatureFlagBody) GetMigrationSettingsOk() (*MigrationSettingsPost, bool)`
+
+GetMigrationSettingsOk returns a tuple with the MigrationSettings field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMigrationSettings
+
+`func (o *FeatureFlagBody) SetMigrationSettings(v MigrationSettingsPost)`
+
+SetMigrationSettings sets MigrationSettings field to given value.
+
+### HasMigrationSettings
+
+`func (o *FeatureFlagBody) HasMigrationSettings() bool`
+
+HasMigrationSettings returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**On** | Pointer to **bool** | Whether the delivery configuration is active. Default value is false. | [optional] 
+**On** | Pointer to **bool** | Whether the integration configuration is active. Default value is false. | [optional] 
 **Config** | **map[string]interface{}** |  | 
 **Tags** | Pointer to **[]string** | Tags to associate with the integration | [optional] 
 **Name** | Pointer to **string** | Name to identify the integration | [optional] 

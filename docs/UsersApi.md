@@ -110,7 +110,7 @@ func main() {
     environmentKey := "environmentKey_example" // string | The environment key
     q := "q_example" // string | Full-text search for users based on name, first name, last name, e-mail address, or key (optional)
     limit := int64(789) // int64 | Specifies the maximum number of items in the collection to return (max: 50, default: 20) (optional)
-    offset := int64(789) // int64 | Specifies the first item to return in the collection (optional)
+    offset := int64(789) // int64 | Deprecated, use `searchAfter` instead. Specifies the first item to return in the collection. (optional)
     after := int64(789) // int64 | A Unix epoch time in milliseconds specifying the maximum last time a user requested a feature flag from LaunchDarkly (optional)
     sort := "sort_example" // string | Specifies a field by which to sort. LaunchDarkly supports the `userKey` and `lastSeen` fields. Fields prefixed by a dash ( - ) sort in descending order. (optional)
     searchAfter := "searchAfter_example" // string | Limits results to users with sort values after the value you specify. You can use this for pagination, but we recommend using the `next` link we provide instead. (optional)
@@ -148,7 +148,7 @@ Name | Type | Description  | Notes
 
  **q** | **string** | Full-text search for users based on name, first name, last name, e-mail address, or key | 
  **limit** | **int64** | Specifies the maximum number of items in the collection to return (max: 50, default: 20) | 
- **offset** | **int64** | Specifies the first item to return in the collection | 
+ **offset** | **int64** | Deprecated, use &#x60;searchAfter&#x60; instead. Specifies the first item to return in the collection. | 
  **after** | **int64** | A Unix epoch time in milliseconds specifying the maximum last time a user requested a feature flag from LaunchDarkly | 
  **sort** | **string** | Specifies a field by which to sort. LaunchDarkly supports the &#x60;userKey&#x60; and &#x60;lastSeen&#x60; fields. Fields prefixed by a dash ( - ) sort in descending order. | 
  **searchAfter** | **string** | Limits results to users with sort values after the value you specify. You can use this for pagination, but we recommend using the &#x60;next&#x60; link we provide instead. | 

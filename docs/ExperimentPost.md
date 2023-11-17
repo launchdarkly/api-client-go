@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | The experiment name | 
 **Description** | Pointer to **string** | The experiment description | [optional] 
-**MaintainerId** | **string** | The ID of the member who maintains this experiment. | 
+**MaintainerId** | Pointer to **string** | The ID of the member who maintains this experiment | [optional] 
 **Key** | **string** | The experiment key | 
 **Iteration** | [**IterationInput**](IterationInput.md) |  | 
 
@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 
 ### NewExperimentPost
 
-`func NewExperimentPost(name string, maintainerId string, key string, iteration IterationInput, ) *ExperimentPost`
+`func NewExperimentPost(name string, key string, iteration IterationInput, ) *ExperimentPost`
 
 NewExperimentPost instantiates a new ExperimentPost object
 This constructor will assign default values to properties that have it defined,
@@ -93,6 +93,11 @@ and a boolean to check if the value has been set.
 
 SetMaintainerId sets MaintainerId field to given value.
 
+### HasMaintainerId
+
+`func (o *ExperimentPost) HasMaintainerId() bool`
+
+HasMaintainerId returns a boolean if a field has been set.
 
 ### GetKey
 

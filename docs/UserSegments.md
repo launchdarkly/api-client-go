@@ -6,12 +6,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Items** | [**[]UserSegment**](UserSegment.md) | An array of segments | 
 **Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
+**TotalCount** | **int32** | The total number of segments | 
 
 ## Methods
 
 ### NewUserSegments
 
-`func NewUserSegments(items []UserSegment, links map[string]Link, ) *UserSegments`
+`func NewUserSegments(items []UserSegment, links map[string]Link, totalCount int32, ) *UserSegments`
 
 NewUserSegments instantiates a new UserSegments object
 This constructor will assign default values to properties that have it defined,
@@ -64,6 +65,26 @@ and a boolean to check if the value has been set.
 `func (o *UserSegments) SetLinks(v map[string]Link)`
 
 SetLinks sets Links field to given value.
+
+
+### GetTotalCount
+
+`func (o *UserSegments) GetTotalCount() int32`
+
+GetTotalCount returns the TotalCount field if non-nil, zero value otherwise.
+
+### GetTotalCountOk
+
+`func (o *UserSegments) GetTotalCountOk() (*int32, bool)`
+
+GetTotalCountOk returns a tuple with the TotalCount field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTotalCount
+
+`func (o *UserSegments) SetTotalCount(v int32)`
+
+SetTotalCount sets TotalCount field to given value.
 
 
 

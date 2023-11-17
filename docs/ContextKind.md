@@ -12,6 +12,8 @@ Name | Type | Description | Notes
 **LastModified** | **int64** |  | 
 **LastSeen** | Pointer to **int64** |  | [optional] 
 **CreatedFrom** | **string** |  | 
+**HideInTargeting** | Pointer to **bool** | Alias for archived. | [optional] 
+**Archived** | Pointer to **bool** | Whether the context kind is archived. Archived context kinds are unavailable for targeting. | [optional] 
 
 ## Methods
 
@@ -196,6 +198,56 @@ and a boolean to check if the value has been set.
 
 SetCreatedFrom sets CreatedFrom field to given value.
 
+
+### GetHideInTargeting
+
+`func (o *ContextKind) GetHideInTargeting() bool`
+
+GetHideInTargeting returns the HideInTargeting field if non-nil, zero value otherwise.
+
+### GetHideInTargetingOk
+
+`func (o *ContextKind) GetHideInTargetingOk() (*bool, bool)`
+
+GetHideInTargetingOk returns a tuple with the HideInTargeting field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHideInTargeting
+
+`func (o *ContextKind) SetHideInTargeting(v bool)`
+
+SetHideInTargeting sets HideInTargeting field to given value.
+
+### HasHideInTargeting
+
+`func (o *ContextKind) HasHideInTargeting() bool`
+
+HasHideInTargeting returns a boolean if a field has been set.
+
+### GetArchived
+
+`func (o *ContextKind) GetArchived() bool`
+
+GetArchived returns the Archived field if non-nil, zero value otherwise.
+
+### GetArchivedOk
+
+`func (o *ContextKind) GetArchivedOk() (*bool, bool)`
+
+GetArchivedOk returns a tuple with the Archived field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetArchived
+
+`func (o *ContextKind) SetArchived(v bool)`
+
+SetArchived sets Archived field to given value.
+
+### HasArchived
+
+`func (o *ContextKind) HasArchived() bool`
+
+HasArchived returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

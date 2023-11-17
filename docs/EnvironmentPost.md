@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** | A human-friendly name for the new environment. | 
-**Key** | **string** | A project-unique key for the new environment. | 
-**Color** | **string** | A color to indicate this environment in the UI. | 
-**DefaultTtl** | Pointer to **int32** | The default time (in minutes) that the PHP SDK can cache feature flag rules locally. | [optional] 
-**SecureMode** | Pointer to **bool** | Ensures that one end user of the client-side SDK cannot inspect the variations for another end user. | [optional] 
-**DefaultTrackEvents** | Pointer to **bool** | Enables tracking detailed information for new flags by default. | [optional] 
-**ConfirmChanges** | Pointer to **bool** | Requires confirmation for all flag and segment changes via the UI in this environment. | [optional] 
-**RequireComments** | Pointer to **bool** | Requires comments for all flag and segment changes via the UI in this environment. | [optional] 
-**Tags** | Pointer to **[]string** | Tags to apply to the new environment. | [optional] 
+**Name** | **string** | A human-friendly name for the new environment | 
+**Key** | **string** | A project-unique key for the new environment | 
+**Color** | **string** | A color to indicate this environment in the UI | 
+**DefaultTtl** | Pointer to **int32** | The default time (in minutes) that the PHP SDK can cache feature flag rules locally | [optional] 
+**SecureMode** | Pointer to **bool** | Ensures that one end user of the client-side SDK cannot inspect the variations for another end user | [optional] 
+**DefaultTrackEvents** | Pointer to **bool** | Enables tracking detailed information for new flags by default | [optional] 
+**ConfirmChanges** | Pointer to **bool** | Requires confirmation for all flag and segment changes via the UI in this environment | [optional] 
+**RequireComments** | Pointer to **bool** | Requires comments for all flag and segment changes via the UI in this environment | [optional] 
+**Tags** | Pointer to **[]string** | Tags to apply to the new environment | [optional] 
 **Source** | Pointer to [**SourceEnv**](SourceEnv.md) |  | [optional] 
 
 ## Methods

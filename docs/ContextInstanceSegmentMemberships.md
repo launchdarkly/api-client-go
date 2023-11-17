@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Items** | [**[]ContextInstanceSegmentMembership**](ContextInstanceSegmentMembership.md) |  | 
-**Links** | [**map[string]Link**](Link.md) |  | 
+**Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
 
 ## Methods
 

@@ -20,12 +20,14 @@ Name | Type | Description | Notes
 **Maintainer** | Pointer to [**MemberSummary**](MemberSummary.md) |  | [optional] 
 **MaintainerTeamKey** | Pointer to **string** | The key of the associated team that maintains this feature flag | [optional] 
 **MaintainerTeam** | Pointer to [**MaintainerTeam**](MaintainerTeam.md) |  | [optional] 
-**GoalIds** | Pointer to **[]string** | Deprecated | [optional] 
+**GoalIds** | Pointer to **[]string** | Deprecated, use &lt;code&gt;experiments&lt;/code&gt; instead | [optional] 
 **Experiments** | [**ExperimentInfoRep**](ExperimentInfoRep.md) |  | 
 **CustomProperties** | [**map[string]CustomProperty**](CustomProperty.md) |  | 
 **Archived** | **bool** | Boolean indicating if the feature flag is archived | 
 **ArchivedDate** | Pointer to **int64** |  | [optional] 
 **Defaults** | Pointer to [**Defaults**](Defaults.md) |  | [optional] 
+**Purpose** | Pointer to **string** |  | [optional] 
+**MigrationSettings** | Pointer to [**FlagMigrationSettingsRep**](FlagMigrationSettingsRep.md) |  | [optional] 
 **Environments** | [**map[string]FeatureFlagConfig**](FeatureFlagConfig.md) | Details on the environments for this flag | 
 
 ## Methods
@@ -536,6 +538,56 @@ SetDefaults sets Defaults field to given value.
 `func (o *FeatureFlag) HasDefaults() bool`
 
 HasDefaults returns a boolean if a field has been set.
+
+### GetPurpose
+
+`func (o *FeatureFlag) GetPurpose() string`
+
+GetPurpose returns the Purpose field if non-nil, zero value otherwise.
+
+### GetPurposeOk
+
+`func (o *FeatureFlag) GetPurposeOk() (*string, bool)`
+
+GetPurposeOk returns a tuple with the Purpose field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPurpose
+
+`func (o *FeatureFlag) SetPurpose(v string)`
+
+SetPurpose sets Purpose field to given value.
+
+### HasPurpose
+
+`func (o *FeatureFlag) HasPurpose() bool`
+
+HasPurpose returns a boolean if a field has been set.
+
+### GetMigrationSettings
+
+`func (o *FeatureFlag) GetMigrationSettings() FlagMigrationSettingsRep`
+
+GetMigrationSettings returns the MigrationSettings field if non-nil, zero value otherwise.
+
+### GetMigrationSettingsOk
+
+`func (o *FeatureFlag) GetMigrationSettingsOk() (*FlagMigrationSettingsRep, bool)`
+
+GetMigrationSettingsOk returns a tuple with the MigrationSettings field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMigrationSettings
+
+`func (o *FeatureFlag) SetMigrationSettings(v FlagMigrationSettingsRep)`
+
+SetMigrationSettings sets MigrationSettings field to given value.
+
+### HasMigrationSettings
+
+`func (o *FeatureFlag) HasMigrationSettings() bool`
+
+HasMigrationSettings returns a boolean if a field has been set.
 
 ### GetEnvironments
 

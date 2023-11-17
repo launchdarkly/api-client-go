@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Environments** | Pointer to [**map[string]FeatureFlagStatus**](FeatureFlagStatus.md) | Flag status for environment. | [optional] 
-**Key** | Pointer to **string** | feature flag key | [optional] 
-**Links** | Pointer to [**map[string]Link**](Link.md) |  | [optional] 
+**Environments** | [**map[string]FeatureFlagStatus**](FeatureFlagStatus.md) | Flag status for environment. | 
+**Key** | **string** | feature flag key | 
+**Links** | [**map[string]Link**](Link.md) |  | 
 
 ## Methods
 
 ### NewFeatureFlagStatusAcrossEnvironments
 
-`func NewFeatureFlagStatusAcrossEnvironments() *FeatureFlagStatusAcrossEnvironments`
+`func NewFeatureFlagStatusAcrossEnvironments(environments map[string]FeatureFlagStatus, key string, links map[string]Link, ) *FeatureFlagStatusAcrossEnvironments`
 
 NewFeatureFlagStatusAcrossEnvironments instantiates a new FeatureFlagStatusAcrossEnvironments object
 This constructor will assign default values to properties that have it defined,
@@ -46,11 +46,6 @@ and a boolean to check if the value has been set.
 
 SetEnvironments sets Environments field to given value.
 
-### HasEnvironments
-
-`func (o *FeatureFlagStatusAcrossEnvironments) HasEnvironments() bool`
-
-HasEnvironments returns a boolean if a field has been set.
 
 ### GetKey
 
@@ -71,11 +66,6 @@ and a boolean to check if the value has been set.
 
 SetKey sets Key field to given value.
 
-### HasKey
-
-`func (o *FeatureFlagStatusAcrossEnvironments) HasKey() bool`
-
-HasKey returns a boolean if a field has been set.
 
 ### GetLinks
 
@@ -96,11 +86,6 @@ and a boolean to check if the value has been set.
 
 SetLinks sets Links field to given value.
 
-### HasLinks
-
-`func (o *FeatureFlagStatusAcrossEnvironments) HasLinks() bool`
-
-HasLinks returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

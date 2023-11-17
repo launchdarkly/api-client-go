@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
-**Items** | Pointer to [**[]FollowFlagMember**](FollowFlagMember.md) | An array of members who are following this flag | [optional] 
+**Items** | [**[]FollowFlagMember**](FollowFlagMember.md) | An array of members who are following this flag | 
 
 ## Methods
 
 ### NewFlagFollowersGetRep
 
-`func NewFlagFollowersGetRep(links map[string]Link, ) *FlagFollowersGetRep`
+`func NewFlagFollowersGetRep(links map[string]Link, items []FollowFlagMember, ) *FlagFollowersGetRep`
 
 NewFlagFollowersGetRep instantiates a new FlagFollowersGetRep object
 This constructor will assign default values to properties that have it defined,
@@ -65,11 +65,6 @@ and a boolean to check if the value has been set.
 
 SetItems sets Items field to given value.
 
-### HasItems
-
-`func (o *FlagFollowersGetRep) HasItems() bool`
-
-HasItems returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

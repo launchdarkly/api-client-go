@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** | The experiment description | [optional] 
 **MaintainerId** | **string** | The ID of the member who maintains this experiment. | 
 **CreationDate** | **int64** |  | 
+**EnvironmentKey** | Pointer to **string** |  | [optional] 
 **ArchivedDate** | Pointer to **int64** |  | [optional] 
 **Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
 **CurrentIteration** | Pointer to [**IterationRep**](IterationRep.md) |  | [optional] 
@@ -164,6 +165,31 @@ and a boolean to check if the value has been set.
 
 SetCreationDate sets CreationDate field to given value.
 
+
+### GetEnvironmentKey
+
+`func (o *Experiment) GetEnvironmentKey() string`
+
+GetEnvironmentKey returns the EnvironmentKey field if non-nil, zero value otherwise.
+
+### GetEnvironmentKeyOk
+
+`func (o *Experiment) GetEnvironmentKeyOk() (*string, bool)`
+
+GetEnvironmentKeyOk returns a tuple with the EnvironmentKey field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEnvironmentKey
+
+`func (o *Experiment) SetEnvironmentKey(v string)`
+
+SetEnvironmentKey sets EnvironmentKey field to given value.
+
+### HasEnvironmentKey
+
+`func (o *Experiment) HasEnvironmentKey() bool`
+
+HasEnvironmentKey returns a boolean if a field has been set.
 
 ### GetArchivedDate
 

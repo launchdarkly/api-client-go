@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**CreateIteration**](ExperimentsBetaApi.md#CreateIteration) | **Post** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey}/iterations | Create iteration
 [**GetExperiment**](ExperimentsBetaApi.md#GetExperiment) | **Get** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey} | Get experiment
 [**GetExperimentResults**](ExperimentsBetaApi.md#GetExperimentResults) | **Get** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey}/metrics/{metricKey}/results | Get experiment results
+[**GetExperimentResultsForMetricGroup**](ExperimentsBetaApi.md#GetExperimentResultsForMetricGroup) | **Get** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey}/metric-groups/{metricGroupKey}/results | Get experiment results for metric group
 [**GetExperimentationSettings**](ExperimentsBetaApi.md#GetExperimentationSettings) | **Get** /api/v2/projects/{projectKey}/experimentation-settings | Get experimentation settings
 [**GetExperiments**](ExperimentsBetaApi.md#GetExperiments) | **Get** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments | Get experiments
 [**GetLegacyExperimentResults**](ExperimentsBetaApi.md#GetLegacyExperimentResults) | **Get** /api/v2/flags/{projectKey}/{featureFlagKey}/experiments/{environmentKey}/{metricKey} | Get legacy experiment results (deprecated)
@@ -40,7 +41,7 @@ import (
 func main() {
     projectKey := "projectKey_example" // string | The project key
     environmentKey := "environmentKey_example" // string | The environment key
-    experimentPost := *openapiclient.NewExperimentPost("Example experiment", "12ab3c45de678910fgh12345", "experiment-key-123abc", *openapiclient.NewIterationInput("Example hypothesis, the new button placement will increase conversion", []openapiclient.MetricInput{*openapiclient.NewMetricInput("metric-key-123abc", true)}, []openapiclient.TreatmentInput{*openapiclient.NewTreatmentInput("Treatment 1", true, "10", []openapiclient.TreatmentParameterInput{*openapiclient.NewTreatmentParameterInput("example-flag-for-experiment", "e432f62b-55f6-49dd-a02f-eb24acf39d05")})}, map[string]FlagInput{"key": *openapiclient.NewFlagInput("e432f62b-55f6-49dd-a02f-eb24acf39d05", int32(12))})) // ExperimentPost | 
+    experimentPost := *openapiclient.NewExperimentPost("Example experiment", "experiment-key-123abc", *openapiclient.NewIterationInput("Example hypothesis, the new button placement will increase conversion", []openapiclient.MetricInput{*openapiclient.NewMetricInput("metric-key-123abc", true)}, []openapiclient.TreatmentInput{*openapiclient.NewTreatmentInput("Treatment 1", true, "10", []openapiclient.TreatmentParameterInput{*openapiclient.NewTreatmentParameterInput("example-flag-for-experiment", "e432f62b-55f6-49dd-a02f-eb24acf39d05")})}, map[string]FlagInput{"key": *openapiclient.NewFlagInput("e432f62b-55f6-49dd-a02f-eb24acf39d05", int32(12))})) // ExperimentPost | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -172,7 +173,7 @@ Name | Type | Description  | Notes
 
 ## GetExperiment
 
-> Experiment GetExperiment(ctx, projectKey, environmentKey, experimentKey).Execute()
+> Experiment GetExperiment(ctx, projectKey, environmentKey, experimentKey).Expand(expand).Execute()
 
 Get experiment
 
@@ -194,10 +195,11 @@ func main() {
     projectKey := "projectKey_example" // string | The project key
     environmentKey := "environmentKey_example" // string | The environment key
     experimentKey := "experimentKey_example" // string | The experiment key
+    expand := "expand_example" // string | A comma-separated list of properties that can reveal additional information in the response. Supported fields are explained above. (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ExperimentsBetaApi.GetExperiment(context.Background(), projectKey, environmentKey, experimentKey).Execute()
+    resp, r, err := apiClient.ExperimentsBetaApi.GetExperiment(context.Background(), projectKey, environmentKey, experimentKey).Expand(expand).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsBetaApi.GetExperiment``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -227,6 +229,7 @@ Name | Type | Description  | Notes
 
 
 
+ **expand** | **string** | A comma-separated list of properties that can reveal additional information in the response. Supported fields are explained above. | 
 
 ### Return type
 
@@ -248,7 +251,7 @@ Name | Type | Description  | Notes
 
 ## GetExperimentResults
 
-> ExperimentBayesianResultsRep GetExperimentResults(ctx, projectKey, environmentKey, experimentKey, metricKey).Execute()
+> ExperimentBayesianResultsRep GetExperimentResults(ctx, projectKey, environmentKey, experimentKey, metricKey).IterationId(iterationId).Execute()
 
 Get experiment results
 
@@ -271,10 +274,11 @@ func main() {
     environmentKey := "environmentKey_example" // string | The environment key
     experimentKey := "experimentKey_example" // string | The experiment key
     metricKey := "metricKey_example" // string | The metric key
+    iterationId := "iterationId_example" // string | The iteration ID (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ExperimentsBetaApi.GetExperimentResults(context.Background(), projectKey, environmentKey, experimentKey, metricKey).Execute()
+    resp, r, err := apiClient.ExperimentsBetaApi.GetExperimentResults(context.Background(), projectKey, environmentKey, experimentKey, metricKey).IterationId(iterationId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsBetaApi.GetExperimentResults``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -306,10 +310,92 @@ Name | Type | Description  | Notes
 
 
 
+ **iterationId** | **string** | The iteration ID | 
 
 ### Return type
 
 [**ExperimentBayesianResultsRep**](ExperimentBayesianResultsRep.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetExperimentResultsForMetricGroup
+
+> MetricGroupResultsRep GetExperimentResultsForMetricGroup(ctx, projectKey, environmentKey, experimentKey, metricGroupKey).IterationId(iterationId).Execute()
+
+Get experiment results for metric group
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    projectKey := "projectKey_example" // string | The project key
+    environmentKey := "environmentKey_example" // string | The environment key
+    experimentKey := "experimentKey_example" // string | The experiment key
+    metricGroupKey := "metricGroupKey_example" // string | The metric group key
+    iterationId := "iterationId_example" // string | The iteration ID (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ExperimentsBetaApi.GetExperimentResultsForMetricGroup(context.Background(), projectKey, environmentKey, experimentKey, metricGroupKey).IterationId(iterationId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsBetaApi.GetExperimentResultsForMetricGroup``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetExperimentResultsForMetricGroup`: MetricGroupResultsRep
+    fmt.Fprintf(os.Stdout, "Response from `ExperimentsBetaApi.GetExperimentResultsForMetricGroup`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projectKey** | **string** | The project key | 
+**environmentKey** | **string** | The environment key | 
+**experimentKey** | **string** | The experiment key | 
+**metricGroupKey** | **string** | The metric group key | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetExperimentResultsForMetricGroupRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+
+ **iterationId** | **string** | The iteration ID | 
+
+### Return type
+
+[**MetricGroupResultsRep**](MetricGroupResultsRep.md)
 
 ### Authorization
 

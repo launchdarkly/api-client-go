@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Key** | **string** | The metric key | 
+**IsGroup** | Pointer to **bool** | Whether this is a metric group (true) or a metric (false). Defaults to false | [optional] 
 **Primary** | **bool** | Whether this is a primary metric (true) or a secondary metric (false) | 
 
 ## Methods
@@ -45,6 +46,31 @@ and a boolean to check if the value has been set.
 
 SetKey sets Key field to given value.
 
+
+### GetIsGroup
+
+`func (o *MetricInput) GetIsGroup() bool`
+
+GetIsGroup returns the IsGroup field if non-nil, zero value otherwise.
+
+### GetIsGroupOk
+
+`func (o *MetricInput) GetIsGroupOk() (*bool, bool)`
+
+GetIsGroupOk returns a tuple with the IsGroup field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsGroup
+
+`func (o *MetricInput) SetIsGroup(v bool)`
+
+SetIsGroup sets IsGroup field to given value.
+
+### HasIsGroup
+
+`func (o *MetricInput) HasIsGroup() bool`
+
+HasIsGroup returns a boolean if a field has been set.
 
 ### GetPrimary
 

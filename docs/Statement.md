@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **NotResources** | Pointer to **[]string** | Targeted resources are the resources NOT in this list. The &lt;code&gt;resources&lt;/code&gt; and &lt;code&gt;notActions&lt;/code&gt; fields must be empty to use this field. | [optional] 
 **Actions** | Pointer to **[]string** | Actions to perform on a resource | [optional] 
 **NotActions** | Pointer to **[]string** | Targeted actions are the actions NOT in this list. The &lt;code&gt;actions&lt;/code&gt; and &lt;code&gt;notResources&lt;/code&gt; fields must be empty to use this field. | [optional] 
-**Effect** | **string** |  | 
+**Effect** | **string** | Whether this statement should allow or deny actions on the resources. | 
 
 ## Methods
 

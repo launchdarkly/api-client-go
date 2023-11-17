@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Rules** | **int32** |  | 
 **NullRules** | **int32** |  | 
 **Targets** | **int32** |  | 
-**ContextTargets** | Pointer to **int32** |  | [optional] 
+**ContextTargets** | **int32** |  | 
 **IsFallthrough** | Pointer to **bool** |  | [optional] 
 **IsOff** | Pointer to **bool** |  | [optional] 
 **Rollout** | Pointer to **int32** |  | [optional] 
@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 
 ### NewVariationSummary
 
-`func NewVariationSummary(rules int32, nullRules int32, targets int32, ) *VariationSummary`
+`func NewVariationSummary(rules int32, nullRules int32, targets int32, contextTargets int32, ) *VariationSummary`
 
 NewVariationSummary instantiates a new VariationSummary object
 This constructor will assign default values to properties that have it defined,
@@ -111,11 +111,6 @@ and a boolean to check if the value has been set.
 
 SetContextTargets sets ContextTargets field to given value.
 
-### HasContextTargets
-
-`func (o *VariationSummary) HasContextTargets() bool`
-
-HasContextTargets returns a boolean if a field has been set.
 
 ### GetIsFallthrough
 

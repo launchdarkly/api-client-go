@@ -24,6 +24,7 @@ Name | Type | Description | Notes
 **DebugEventsUntilDate** | Pointer to **int64** |  | [optional] 
 **Summary** | Pointer to [**FlagSummary**](FlagSummary.md) |  | [optional] 
 **Evaluation** | Pointer to [**FlagConfigEvaluation**](FlagConfigEvaluation.md) |  | [optional] 
+**MigrationSettings** | Pointer to [**FlagConfigMigrationSettingsRep**](FlagConfigMigrationSettingsRep.md) |  | [optional] 
 
 ## Methods
 
@@ -493,6 +494,31 @@ SetEvaluation sets Evaluation field to given value.
 `func (o *FeatureFlagConfig) HasEvaluation() bool`
 
 HasEvaluation returns a boolean if a field has been set.
+
+### GetMigrationSettings
+
+`func (o *FeatureFlagConfig) GetMigrationSettings() FlagConfigMigrationSettingsRep`
+
+GetMigrationSettings returns the MigrationSettings field if non-nil, zero value otherwise.
+
+### GetMigrationSettingsOk
+
+`func (o *FeatureFlagConfig) GetMigrationSettingsOk() (*FlagConfigMigrationSettingsRep, bool)`
+
+GetMigrationSettingsOk returns a tuple with the MigrationSettings field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMigrationSettings
+
+`func (o *FeatureFlagConfig) SetMigrationSettings(v FlagConfigMigrationSettingsRep)`
+
+SetMigrationSettings sets MigrationSettings field to given value.
+
+### HasMigrationSettings
+
+`func (o *FeatureFlagConfig) HasMigrationSettings() bool`
+
+HasMigrationSettings returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

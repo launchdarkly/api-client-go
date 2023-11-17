@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **NotifyMemberIds** | **[]string** | An array of member IDs. These members are notified to review the approval request. | 
 **AppliedDate** | Pointer to **int64** |  | [optional] 
 **AppliedByMemberId** | Pointer to **string** | The member ID of the member who applied the approval request | [optional] 
+**AppliedByServiceTokenId** | Pointer to **string** | The service token ID of the service token which applied the approval request | [optional] 
 **Status** | **string** | Current status of the approval request | 
 **Instructions** | **[]map[string]interface{}** |  | 
 **Conflicts** | [**[]Conflict**](Conflict.md) | Details on any conflicting approval requests | 
@@ -285,6 +286,31 @@ SetAppliedByMemberId sets AppliedByMemberId field to given value.
 `func (o *ApprovalRequestResponse) HasAppliedByMemberId() bool`
 
 HasAppliedByMemberId returns a boolean if a field has been set.
+
+### GetAppliedByServiceTokenId
+
+`func (o *ApprovalRequestResponse) GetAppliedByServiceTokenId() string`
+
+GetAppliedByServiceTokenId returns the AppliedByServiceTokenId field if non-nil, zero value otherwise.
+
+### GetAppliedByServiceTokenIdOk
+
+`func (o *ApprovalRequestResponse) GetAppliedByServiceTokenIdOk() (*string, bool)`
+
+GetAppliedByServiceTokenIdOk returns a tuple with the AppliedByServiceTokenId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAppliedByServiceTokenId
+
+`func (o *ApprovalRequestResponse) SetAppliedByServiceTokenId(v string)`
+
+SetAppliedByServiceTokenId sets AppliedByServiceTokenId field to given value.
+
+### HasAppliedByServiceTokenId
+
+`func (o *ApprovalRequestResponse) HasAppliedByServiceTokenId() bool`
+
+HasAppliedByServiceTokenId returns a boolean if a field has been set.
 
 ### GetStatus
 

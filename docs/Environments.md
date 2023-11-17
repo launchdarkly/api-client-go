@@ -6,13 +6,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Links** | Pointer to [**map[string]Link**](Link.md) | The location and content type of related resources | [optional] 
 **TotalCount** | Pointer to **int32** | The number of environments returned | [optional] 
-**Items** | Pointer to [**[]Environment**](Environment.md) | An array of environments | [optional] 
+**Items** | [**[]Environment**](Environment.md) | An array of environments | 
 
 ## Methods
 
 ### NewEnvironments
 
-`func NewEnvironments() *Environments`
+`func NewEnvironments(items []Environment, ) *Environments`
 
 NewEnvironments instantiates a new Environments object
 This constructor will assign default values to properties that have it defined,
@@ -96,11 +96,6 @@ and a boolean to check if the value has been set.
 
 SetItems sets Items field to given value.
 
-### HasItems
-
-`func (o *Environments) HasItems() bool`
-
-HasItems returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

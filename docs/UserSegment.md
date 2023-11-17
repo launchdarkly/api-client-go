@@ -8,9 +8,10 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** | A description of the segment&#39;s purpose. Defaults to &lt;code&gt;null&lt;/code&gt; and is omitted in the response if not provided. | [optional] 
 **Tags** | **[]string** | Tags for the segment. Defaults to an empty array. | 
 **CreationDate** | **int64** |  | 
+**LastModifiedDate** | **int64** |  | 
 **Key** | **string** | A unique key used to reference the segment | 
-**Included** | Pointer to **[]string** | An array of keys for included targets. Included individual targets are always segment members, regardless of segment rules. For Big Segments this array is either empty or omitted. | [optional] 
-**Excluded** | Pointer to **[]string** | An array of keys for excluded targets. Segment rules bypass individual excluded targets, so they will never be included based on rules. Excluded targets may still be included explicitly. This value is omitted for Big Segments. | [optional] 
+**Included** | Pointer to **[]string** | An array of keys for included targets. Included individual targets are always segment members, regardless of segment rules. For list-based segments over 15,000 entries, also called Big Segments, this array is either empty or omitted. | [optional] 
+**Excluded** | Pointer to **[]string** | An array of keys for excluded targets. Segment rules bypass individual excluded targets, so they will never be included based on rules. Excluded targets may still be included explicitly. This value is omitted for list-based segments over 15,000 entries, also called Big Segments. | [optional] 
 **IncludedContexts** | Pointer to [**[]SegmentTarget**](SegmentTarget.md) |  | [optional] 
 **ExcludedContexts** | Pointer to [**[]SegmentTarget**](SegmentTarget.md) |  | [optional] 
 **Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
@@ -18,20 +19,20 @@ Name | Type | Description | Notes
 **Version** | **int32** | Version of the segment | 
 **Deleted** | **bool** | Whether the segment has been deleted | 
 **Access** | Pointer to [**Access**](Access.md) |  | [optional] 
-**Flags** | Pointer to [**[]FlagListingRep**](FlagListingRep.md) |  | [optional] 
-**Unbounded** | Pointer to **bool** | Whether this is a standard segment (&lt;code&gt;false&lt;/code&gt;) or a Big Segment (&lt;code&gt;true&lt;/code&gt;). If omitted, the segment is a standard segment. | [optional] 
-**UnboundedContextKind** | Pointer to **string** |  | [optional] 
-**Generation** | **int32** | For Big Segments, how many times this segment has been created | 
+**Flags** | Pointer to [**[]FlagListingRep**](FlagListingRep.md) | A list of flags targeting this segment. Only included when getting a single segment, using the &lt;code&gt;getSegment&lt;/code&gt; endpoint. | [optional] 
+**Unbounded** | Pointer to **bool** | Whether this is a standard segment (&lt;code&gt;false&lt;/code&gt;) or a Big Segment (&lt;code&gt;true&lt;/code&gt;). Standard segments include rule-based segments and smaller list-based segments. Big Segments include larger list-based segments and synced segments. If omitted, the segment is a standard segment. | [optional] 
+**UnboundedContextKind** | Pointer to **string** | For Big Segments, the targeted context kind. | [optional] 
+**Generation** | **int32** | For Big Segments, how many times this segment has been created. | 
 **UnboundedMetadata** | Pointer to [**SegmentMetadata**](SegmentMetadata.md) |  | [optional] 
-**External** | Pointer to **string** | The external data store backing this segment. Only applies to Big Segments. | [optional] 
-**ExternalLink** | Pointer to **string** | The URL for the external data store backing this segment. Only applies to Big Segments. | [optional] 
+**External** | Pointer to **string** | The external data store backing this segment. Only applies to synced segments. | [optional] 
+**ExternalLink** | Pointer to **string** | The URL for the external data store backing this segment. Only applies to synced segments. | [optional] 
 **ImportInProgress** | Pointer to **bool** | Whether an import is currently in progress for the specified segment. Only applies to Big Segments. | [optional] 
 
 ## Methods
 
 ### NewUserSegment
 
-`func NewUserSegment(name string, tags []string, creationDate int64, key string, links map[string]Link, rules []UserSegmentRule, version int32, deleted bool, generation int32, ) *UserSegment`
+`func NewUserSegment(name string, tags []string, creationDate int64, lastModifiedDate int64, key string, links map[string]Link, rules []UserSegmentRule, version int32, deleted bool, generation int32, ) *UserSegment`
 
 NewUserSegment instantiates a new UserSegment object
 This constructor will assign default values to properties that have it defined,
@@ -129,6 +130,26 @@ and a boolean to check if the value has been set.
 `func (o *UserSegment) SetCreationDate(v int64)`
 
 SetCreationDate sets CreationDate field to given value.
+
+
+### GetLastModifiedDate
+
+`func (o *UserSegment) GetLastModifiedDate() int64`
+
+GetLastModifiedDate returns the LastModifiedDate field if non-nil, zero value otherwise.
+
+### GetLastModifiedDateOk
+
+`func (o *UserSegment) GetLastModifiedDateOk() (*int64, bool)`
+
+GetLastModifiedDateOk returns a tuple with the LastModifiedDate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLastModifiedDate
+
+`func (o *UserSegment) SetLastModifiedDate(v int64)`
+
+SetLastModifiedDate sets LastModifiedDate field to given value.
 
 
 ### GetKey

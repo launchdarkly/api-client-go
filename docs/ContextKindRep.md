@@ -12,6 +12,8 @@ Name | Type | Description | Notes
 **LastModified** | **int64** |  | 
 **LastSeen** | Pointer to **int64** |  | [optional] 
 **CreatedFrom** | **string** |  | 
+**HideInTargeting** | Pointer to **bool** | Alias for archived. | [optional] 
+**Archived** | Pointer to **bool** | Whether the context kind is archived. Archived context kinds are unavailable for targeting. | [optional] 
 **Links** | Pointer to [**map[string]Link**](Link.md) | The location and content type of related resources | [optional] 
 
 ## Methods
@@ -197,6 +199,56 @@ and a boolean to check if the value has been set.
 
 SetCreatedFrom sets CreatedFrom field to given value.
 
+
+### GetHideInTargeting
+
+`func (o *ContextKindRep) GetHideInTargeting() bool`
+
+GetHideInTargeting returns the HideInTargeting field if non-nil, zero value otherwise.
+
+### GetHideInTargetingOk
+
+`func (o *ContextKindRep) GetHideInTargetingOk() (*bool, bool)`
+
+GetHideInTargetingOk returns a tuple with the HideInTargeting field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHideInTargeting
+
+`func (o *ContextKindRep) SetHideInTargeting(v bool)`
+
+SetHideInTargeting sets HideInTargeting field to given value.
+
+### HasHideInTargeting
+
+`func (o *ContextKindRep) HasHideInTargeting() bool`
+
+HasHideInTargeting returns a boolean if a field has been set.
+
+### GetArchived
+
+`func (o *ContextKindRep) GetArchived() bool`
+
+GetArchived returns the Archived field if non-nil, zero value otherwise.
+
+### GetArchivedOk
+
+`func (o *ContextKindRep) GetArchivedOk() (*bool, bool)`
+
+GetArchivedOk returns a tuple with the Archived field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetArchived
+
+`func (o *ContextKindRep) SetArchived(v bool)`
+
+SetArchived sets Archived field to given value.
+
+### HasArchived
+
+`func (o *ContextKindRep) HasArchived() bool`
+
+HasArchived returns a boolean if a field has been set.
 
 ### GetLinks
 

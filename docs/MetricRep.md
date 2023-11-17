@@ -22,8 +22,12 @@ Name | Type | Description | Notes
 **IsNumeric** | Pointer to **bool** | For custom metrics, whether to track numeric changes in value against a baseline (&lt;code&gt;true&lt;/code&gt;) or to track a conversion when an end user takes an action (&lt;code&gt;false&lt;/code&gt;). | [optional] 
 **SuccessCriteria** | Pointer to **string** | For custom metrics, the success criteria | [optional] 
 **Unit** | Pointer to **string** | For numeric custom metrics, the unit of measure | [optional] 
-**EventKey** | Pointer to **string** | For custom metrics, the event name to use in your code | [optional] 
+**EventKey** | Pointer to **string** | For custom metrics, the event key to use in your code | [optional] 
 **RandomizationUnits** | Pointer to **[]string** | An array of randomization units allowed for this metric | [optional] 
+**UnitAggregationType** | Pointer to **string** | The method in which multiple unit event values are aggregated | [optional] 
+**AnalysisType** | Pointer to **string** | The strategy for analyzing metric events | [optional] 
+**PercentileValue** | Pointer to **int32** | The percentile, an integer denoting the target percentile between 0 and 100. Only present when &lt;code&gt;analysisType&lt;/code&gt; is &lt;code&gt;percentile&lt;/code&gt;. | [optional] 
+**EventDefault** | Pointer to [**MetricEventDefaultRep**](MetricEventDefaultRep.md) |  | [optional] 
 **Experiments** | Pointer to [**[]DependentExperimentRep**](DependentExperimentRep.md) |  | [optional] 
 **IsActive** | Pointer to **bool** | Whether the metric is active | [optional] 
 **AttachedFeatures** | Pointer to [**[]FlagListingRep**](FlagListingRep.md) | Details on the flags attached to this metric | [optional] 
@@ -514,6 +518,106 @@ SetRandomizationUnits sets RandomizationUnits field to given value.
 `func (o *MetricRep) HasRandomizationUnits() bool`
 
 HasRandomizationUnits returns a boolean if a field has been set.
+
+### GetUnitAggregationType
+
+`func (o *MetricRep) GetUnitAggregationType() string`
+
+GetUnitAggregationType returns the UnitAggregationType field if non-nil, zero value otherwise.
+
+### GetUnitAggregationTypeOk
+
+`func (o *MetricRep) GetUnitAggregationTypeOk() (*string, bool)`
+
+GetUnitAggregationTypeOk returns a tuple with the UnitAggregationType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUnitAggregationType
+
+`func (o *MetricRep) SetUnitAggregationType(v string)`
+
+SetUnitAggregationType sets UnitAggregationType field to given value.
+
+### HasUnitAggregationType
+
+`func (o *MetricRep) HasUnitAggregationType() bool`
+
+HasUnitAggregationType returns a boolean if a field has been set.
+
+### GetAnalysisType
+
+`func (o *MetricRep) GetAnalysisType() string`
+
+GetAnalysisType returns the AnalysisType field if non-nil, zero value otherwise.
+
+### GetAnalysisTypeOk
+
+`func (o *MetricRep) GetAnalysisTypeOk() (*string, bool)`
+
+GetAnalysisTypeOk returns a tuple with the AnalysisType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAnalysisType
+
+`func (o *MetricRep) SetAnalysisType(v string)`
+
+SetAnalysisType sets AnalysisType field to given value.
+
+### HasAnalysisType
+
+`func (o *MetricRep) HasAnalysisType() bool`
+
+HasAnalysisType returns a boolean if a field has been set.
+
+### GetPercentileValue
+
+`func (o *MetricRep) GetPercentileValue() int32`
+
+GetPercentileValue returns the PercentileValue field if non-nil, zero value otherwise.
+
+### GetPercentileValueOk
+
+`func (o *MetricRep) GetPercentileValueOk() (*int32, bool)`
+
+GetPercentileValueOk returns a tuple with the PercentileValue field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPercentileValue
+
+`func (o *MetricRep) SetPercentileValue(v int32)`
+
+SetPercentileValue sets PercentileValue field to given value.
+
+### HasPercentileValue
+
+`func (o *MetricRep) HasPercentileValue() bool`
+
+HasPercentileValue returns a boolean if a field has been set.
+
+### GetEventDefault
+
+`func (o *MetricRep) GetEventDefault() MetricEventDefaultRep`
+
+GetEventDefault returns the EventDefault field if non-nil, zero value otherwise.
+
+### GetEventDefaultOk
+
+`func (o *MetricRep) GetEventDefaultOk() (*MetricEventDefaultRep, bool)`
+
+GetEventDefaultOk returns a tuple with the EventDefault field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEventDefault
+
+`func (o *MetricRep) SetEventDefault(v MetricEventDefaultRep)`
+
+SetEventDefault sets EventDefault field to given value.
+
+### HasEventDefault
+
+`func (o *MetricRep) HasEventDefault() bool`
+
+HasEventDefault returns a boolean if a field has been set.
 
 ### GetExperiments
 

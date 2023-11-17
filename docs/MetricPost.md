@@ -13,10 +13,11 @@ Name | Type | Description | Notes
 **IsActive** | Pointer to **bool** | Whether the metric is active. Set to &lt;code&gt;true&lt;/code&gt; to record click or pageview metrics. Not applicable for custom metrics. | [optional] 
 **IsNumeric** | Pointer to **bool** | Whether to track numeric changes in value against a baseline (&lt;code&gt;true&lt;/code&gt;) or to track a conversion when an end user takes an action (&lt;code&gt;false&lt;/code&gt;). Required for custom metrics only. | [optional] 
 **Unit** | Pointer to **string** | The unit of measure. Applicable for numeric custom metrics only. | [optional] 
-**EventKey** | Pointer to **string** | The event name to use in your code. Required for custom metrics only. | [optional] 
+**EventKey** | Pointer to **string** | The event key to use in your code. Required for custom metrics only. | [optional] 
 **SuccessCriteria** | Pointer to **string** | Success criteria. Required for custom numeric metrics, optional for custom conversion metrics. | [optional] 
 **Tags** | Pointer to **[]string** | Tags for the metric | [optional] 
 **RandomizationUnits** | Pointer to **[]string** | An array of randomization units allowed for this metric | [optional] 
+**UnitAggregationType** | Pointer to **string** | The method in which multiple unit event values are aggregated | [optional] 
 
 ## Methods
 
@@ -351,6 +352,31 @@ SetRandomizationUnits sets RandomizationUnits field to given value.
 `func (o *MetricPost) HasRandomizationUnits() bool`
 
 HasRandomizationUnits returns a boolean if a field has been set.
+
+### GetUnitAggregationType
+
+`func (o *MetricPost) GetUnitAggregationType() string`
+
+GetUnitAggregationType returns the UnitAggregationType field if non-nil, zero value otherwise.
+
+### GetUnitAggregationTypeOk
+
+`func (o *MetricPost) GetUnitAggregationTypeOk() (*string, bool)`
+
+GetUnitAggregationTypeOk returns a tuple with the UnitAggregationType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUnitAggregationType
+
+`func (o *MetricPost) SetUnitAggregationType(v string)`
+
+SetUnitAggregationType sets UnitAggregationType field to given value.
+
+### HasUnitAggregationType
+
+`func (o *MetricPost) HasUnitAggregationType() bool`
+
+HasUnitAggregationType returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ActionSet** | **string** | The name of the a group of related actions to allow. A permission grant may have either an &lt;code&gt;actionSet&lt;/code&gt; or a list of &lt;code&gt;actions&lt;/code&gt; but not both at the same time. | 
-**Actions** | **[]string** | A list of actions to allow | 
-**Resource** | **string** | The resource for which the &lt;code&gt;actions&lt;/code&gt; are allowed | 
+**ActionSet** | Pointer to **string** | The name of the group of related actions to allow. A permission grant may have either an &lt;code&gt;actionSet&lt;/code&gt; or a list of &lt;code&gt;actions&lt;/code&gt; but not both at the same time. | [optional] 
+**Actions** | Pointer to **[]string** | A list of actions to allow. A permission grant may have either an &lt;code&gt;actionSet&lt;/code&gt; or a list of &lt;code&gt;actions&lt;/code&gt; but not both at the same time. | [optional] 
+**Resource** | **string** | The resource for which the actions are allowed | 
 
 ## Methods
 
 ### NewMemberPermissionGrantSummaryRep
 
-`func NewMemberPermissionGrantSummaryRep(actionSet string, actions []string, resource string, ) *MemberPermissionGrantSummaryRep`
+`func NewMemberPermissionGrantSummaryRep(resource string, ) *MemberPermissionGrantSummaryRep`
 
 NewMemberPermissionGrantSummaryRep instantiates a new MemberPermissionGrantSummaryRep object
 This constructor will assign default values to properties that have it defined,
@@ -46,6 +46,11 @@ and a boolean to check if the value has been set.
 
 SetActionSet sets ActionSet field to given value.
 
+### HasActionSet
+
+`func (o *MemberPermissionGrantSummaryRep) HasActionSet() bool`
+
+HasActionSet returns a boolean if a field has been set.
 
 ### GetActions
 
@@ -66,6 +71,11 @@ and a boolean to check if the value has been set.
 
 SetActions sets Actions field to given value.
 
+### HasActions
+
+`func (o *MemberPermissionGrantSummaryRep) HasActions() bool`
+
+HasActions returns a boolean if a field has been set.
 
 ### GetResource
 

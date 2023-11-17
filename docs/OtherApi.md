@@ -133,7 +133,7 @@ Other parameters are passed through a pointer to a apiGetOpenapiSpecRequest stru
 
 ## GetRoot
 
-> map[string]Link GetRoot(ctx).Execute()
+> RootResponse GetRoot(ctx).Execute()
 
 Root resource
 
@@ -160,7 +160,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `OtherApi.GetRoot``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetRoot`: map[string]Link
+    // response from `GetRoot`: RootResponse
     fmt.Fprintf(os.Stdout, "Response from `OtherApi.GetRoot`: %v\n", resp)
 }
 ```
@@ -176,7 +176,7 @@ Other parameters are passed through a pointer to a apiGetRootRequest struct via 
 
 ### Return type
 
-[**map[string]Link**](Link.md)
+[**RootResponse**](RootResponse.md)
 
 ### Authorization
 

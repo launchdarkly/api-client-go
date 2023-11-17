@@ -305,7 +305,7 @@ import (
 )
 
 func main() {
-    relayAutoConfigPost := *openapiclient.NewRelayAutoConfigPost("Name_example", []openapiclient.Statement{*openapiclient.NewStatement("Effect_example")}) // RelayAutoConfigPost | 
+    relayAutoConfigPost := *openapiclient.NewRelayAutoConfigPost("Name_example", []openapiclient.Statement{*openapiclient.NewStatement("allow")}) // RelayAutoConfigPost | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)

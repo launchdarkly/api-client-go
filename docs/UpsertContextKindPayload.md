@@ -6,7 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | The context kind name | 
 **Description** | Pointer to **string** | The context kind description | [optional] 
-**HideInTargeting** | Pointer to **bool** | Whether the context kind is hidden. Hidden context kinds are unavailable for targeting. If not specified when the context kind is created, defaults to false. | [optional] 
+**HideInTargeting** | Pointer to **bool** | Alias for archived. | [optional] 
+**Archived** | Pointer to **bool** | Whether the context kind is archived. Archived context kinds are unavailable for targeting. | [optional] 
 **Version** | Pointer to **int32** | The context kind version. If not specified when the context kind is created, defaults to 1. | [optional] 
 
 ## Methods
@@ -97,6 +98,31 @@ SetHideInTargeting sets HideInTargeting field to given value.
 `func (o *UpsertContextKindPayload) HasHideInTargeting() bool`
 
 HasHideInTargeting returns a boolean if a field has been set.
+
+### GetArchived
+
+`func (o *UpsertContextKindPayload) GetArchived() bool`
+
+GetArchived returns the Archived field if non-nil, zero value otherwise.
+
+### GetArchivedOk
+
+`func (o *UpsertContextKindPayload) GetArchivedOk() (*bool, bool)`
+
+GetArchivedOk returns a tuple with the Archived field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetArchived
+
+`func (o *UpsertContextKindPayload) SetArchived(v bool)`
+
+SetArchived sets Archived field to given value.
+
+### HasArchived
+
+`func (o *UpsertContextKindPayload) HasArchived() bool`
+
+HasArchived returns a boolean if a field has been set.
 
 ### GetVersion
 

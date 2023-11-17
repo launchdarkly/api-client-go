@@ -4,15 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Links** | Pointer to [**map[string]Link**](Link.md) | The location and content type of related resources | [optional] 
-**Key** | Pointer to **string** | The project key | [optional] 
-**Name** | Pointer to **string** | The project name | [optional] 
+**Id** | **string** | The ID of this project | 
+**Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
+**Key** | **string** | The project key | 
+**Name** | **string** | The project name | 
 
 ## Methods
 
 ### NewProjectSummary
 
-`func NewProjectSummary() *ProjectSummary`
+`func NewProjectSummary(id string, links map[string]Link, key string, name string, ) *ProjectSummary`
 
 NewProjectSummary instantiates a new ProjectSummary object
 This constructor will assign default values to properties that have it defined,
@@ -26,6 +27,26 @@ will change when the set of required properties is changed
 NewProjectSummaryWithDefaults instantiates a new ProjectSummary object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetId
+
+`func (o *ProjectSummary) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *ProjectSummary) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *ProjectSummary) SetId(v string)`
+
+SetId sets Id field to given value.
+
 
 ### GetLinks
 
@@ -46,11 +67,6 @@ and a boolean to check if the value has been set.
 
 SetLinks sets Links field to given value.
 
-### HasLinks
-
-`func (o *ProjectSummary) HasLinks() bool`
-
-HasLinks returns a boolean if a field has been set.
 
 ### GetKey
 
@@ -71,11 +87,6 @@ and a boolean to check if the value has been set.
 
 SetKey sets Key field to given value.
 
-### HasKey
-
-`func (o *ProjectSummary) HasKey() bool`
-
-HasKey returns a boolean if a field has been set.
 
 ### GetName
 
@@ -96,11 +107,6 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
-### HasName
-
-`func (o *ProjectSummary) HasName() bool`
-
-HasName returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

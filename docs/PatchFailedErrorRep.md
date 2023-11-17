@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Code** | Pointer to **string** | Specific error code encountered | [optional] 
-**Message** | Pointer to **string** | Description of the error | [optional] 
+**Code** | **string** | Specific error code encountered | 
+**Message** | **string** | Description of the error | 
 
 ## Methods
 
 ### NewPatchFailedErrorRep
 
-`func NewPatchFailedErrorRep() *PatchFailedErrorRep`
+`func NewPatchFailedErrorRep(code string, message string, ) *PatchFailedErrorRep`
 
 NewPatchFailedErrorRep instantiates a new PatchFailedErrorRep object
 This constructor will assign default values to properties that have it defined,
@@ -45,11 +45,6 @@ and a boolean to check if the value has been set.
 
 SetCode sets Code field to given value.
 
-### HasCode
-
-`func (o *PatchFailedErrorRep) HasCode() bool`
-
-HasCode returns a boolean if a field has been set.
 
 ### GetMessage
 
@@ -70,11 +65,6 @@ and a boolean to check if the value has been set.
 
 SetMessage sets Message field to given value.
 
-### HasMessage
-
-`func (o *PatchFailedErrorRep) HasMessage() bool`
-
-HasMessage returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

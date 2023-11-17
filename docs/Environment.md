@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Links** | [**map[string]Link**](Link.md) | Links to other resources within the API. Includes the URL and content type of those resources | 
-**Id** | **string** |  | 
-**Key** | **string** | A project-unique key for the new environment. | 
-**Name** | **string** | A human-friendly name for the new environment. | 
-**ApiKey** | **string** | API key to use with client-side SDKs. | 
-**MobileKey** | **string** | API key to use with mobile SDKs. | 
-**Color** | **string** | The color used to indicate this environment in the UI. | 
-**DefaultTtl** | **int32** | The default time (in minutes) that the PHP SDK can cache feature flag rules locally. | 
-**SecureMode** | **bool** | Ensures that one end user of the client-side SDK cannot inspect the variations for another end user. | 
-**DefaultTrackEvents** | **bool** | Enables tracking detailed information for new flags by default. | 
+**Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
+**Id** | **string** | The ID for the environment. Use this as the client-side ID for authorization in some client-side SDKs, and to associate LaunchDarkly environments with CDN integrations in edge SDKs. | 
+**Key** | **string** | A project-unique key for the new environment | 
+**Name** | **string** | A human-friendly name for the new environment | 
+**ApiKey** | **string** | The SDK key for the environment. Use this for authorization in server-side SDKs. | 
+**MobileKey** | **string** | The mobile key for the environment. Use this for authorization in mobile SDKs. | 
+**Color** | **string** | The color used to indicate this environment in the UI | 
+**DefaultTtl** | **int32** | The default time (in minutes) that the PHP SDK can cache feature flag rules locally | 
+**SecureMode** | **bool** | Ensures that one end user of the client-side SDK cannot inspect the variations for another end user | 
+**DefaultTrackEvents** | **bool** | Enables tracking detailed information for new flags by default | 
 **RequireComments** | **bool** | Whether members who modify flags and segments through the LaunchDarkly user interface are required to add a comment | 
 **ConfirmChanges** | **bool** | Whether members who modify flags and segments through the LaunchDarkly user interface are required to confirm those changes | 
 **Tags** | **[]string** | A list of tags for this environment | 

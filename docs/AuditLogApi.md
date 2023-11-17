@@ -32,7 +32,7 @@ import (
 func main() {
     before := int64(789) // int64 | A timestamp filter, expressed as a Unix epoch time in milliseconds.  All entries this returns occurred before the timestamp. (optional)
     after := int64(789) // int64 | A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries this returns occurred after the timestamp. (optional)
-    q := "q_example" // string | Text to search for. You can search for the full or partial name of the resource, or full or partial email address of the member who made a change. (optional)
+    q := "q_example" // string | Text to search for. You can search for the full or partial name of the resource. (optional)
     limit := int64(789) // int64 | A limit on the number of audit log entries that return. Set between 1 and 20. The default is 10. (optional)
     spec := "spec_example" // string | A resource specifier that lets you filter audit log listings by resource (optional)
 
@@ -61,7 +61,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **before** | **int64** | A timestamp filter, expressed as a Unix epoch time in milliseconds.  All entries this returns occurred before the timestamp. | 
  **after** | **int64** | A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries this returns occurred after the timestamp. | 
- **q** | **string** | Text to search for. You can search for the full or partial name of the resource, or full or partial email address of the member who made a change. | 
+ **q** | **string** | Text to search for. You can search for the full or partial name of the resource. | 
  **limit** | **int64** | A limit on the number of audit log entries that return. Set between 1 and 20. The default is 10. | 
  **spec** | **string** | A resource specifier that lets you filter audit log listings by resource | 
 
