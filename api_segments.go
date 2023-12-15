@@ -207,7 +207,7 @@ func (r ApiGetContextInstanceSegmentsMembershipByEnvRequest) Execute() (*Context
 /*
 GetContextInstanceSegmentsMembershipByEnv List segment memberships for context instance
 
-For a given context instance with attributes, get membership details for all segments
+For a given context instance with attributes, get membership details for all segments. In the request body, pass in the context instance.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param projectKey The project key
@@ -2498,7 +2498,7 @@ func (r ApiUpdateBigSegmentContextTargetsRequest) Execute() (*http.Response, err
 /*
 UpdateBigSegmentContextTargets Update context targets on a Big Segment
 
-Update context targets included or excluded in a Big Segment. Big Segments include larger list-based segments and synced segments.
+Update context targets included or excluded in a Big Segment. Big Segments include larger list-based segments and synced segments. This operation does not support standard segments.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param projectKey The project key
@@ -2662,7 +2662,7 @@ func (r ApiUpdateBigSegmentTargetsRequest) Execute() (*http.Response, error) {
 /*
 UpdateBigSegmentTargets Update user context targets on a Big Segment
 
-Update user context targets included or excluded in a Big Segment. Big Segments include larger list-based segments and synced segments.
+Update user context targets included or excluded in a Big Segment. Big Segments include larger list-based segments and synced segments. This operation does not support standard segments.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param projectKey The project key

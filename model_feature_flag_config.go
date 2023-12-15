@@ -49,6 +49,7 @@ type FeatureFlagConfig struct {
 	Summary *FlagSummary `json:"_summary,omitempty"`
 	Evaluation *FlagConfigEvaluation `json:"evaluation,omitempty"`
 	MigrationSettings *FlagConfigMigrationSettingsRep `json:"migrationSettings,omitempty"`
+	MeasuredRolloutStatus *string `json:"measuredRolloutStatus,omitempty"`
 }
 
 // NewFeatureFlagConfig instantiates a new FeatureFlagConfig object
@@ -670,6 +671,38 @@ func (o *FeatureFlagConfig) SetMigrationSettings(v FlagConfigMigrationSettingsRe
 	o.MigrationSettings = &v
 }
 
+// GetMeasuredRolloutStatus returns the MeasuredRolloutStatus field value if set, zero value otherwise.
+func (o *FeatureFlagConfig) GetMeasuredRolloutStatus() string {
+	if o == nil || o.MeasuredRolloutStatus == nil {
+		var ret string
+		return ret
+	}
+	return *o.MeasuredRolloutStatus
+}
+
+// GetMeasuredRolloutStatusOk returns a tuple with the MeasuredRolloutStatus field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FeatureFlagConfig) GetMeasuredRolloutStatusOk() (*string, bool) {
+	if o == nil || o.MeasuredRolloutStatus == nil {
+		return nil, false
+	}
+	return o.MeasuredRolloutStatus, true
+}
+
+// HasMeasuredRolloutStatus returns a boolean if a field has been set.
+func (o *FeatureFlagConfig) HasMeasuredRolloutStatus() bool {
+	if o != nil && o.MeasuredRolloutStatus != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMeasuredRolloutStatus gets a reference to the given string and assigns it to the MeasuredRolloutStatus field.
+func (o *FeatureFlagConfig) SetMeasuredRolloutStatus(v string) {
+	o.MeasuredRolloutStatus = &v
+}
+
 func (o FeatureFlagConfig) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -734,6 +767,9 @@ func (o FeatureFlagConfig) MarshalJSON() ([]byte, error) {
 	}
 	if o.MigrationSettings != nil {
 		toSerialize["migrationSettings"] = o.MigrationSettings
+	}
+	if o.MeasuredRolloutStatus != nil {
+		toSerialize["measuredRolloutStatus"] = o.MeasuredRolloutStatus
 	}
 	return json.Marshal(toSerialize)
 }

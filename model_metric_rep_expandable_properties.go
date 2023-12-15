@@ -18,6 +18,8 @@ import (
 // MetricRepExpandableProperties struct for MetricRepExpandableProperties
 type MetricRepExpandableProperties struct {
 	Experiments []DependentExperimentRep `json:"experiments,omitempty"`
+	// Metric groups that use this metric
+	MetricGroups []DependentMetricGroupRep `json:"metricGroups,omitempty"`
 }
 
 // NewMetricRepExpandableProperties instantiates a new MetricRepExpandableProperties object
@@ -69,10 +71,45 @@ func (o *MetricRepExpandableProperties) SetExperiments(v []DependentExperimentRe
 	o.Experiments = v
 }
 
+// GetMetricGroups returns the MetricGroups field value if set, zero value otherwise.
+func (o *MetricRepExpandableProperties) GetMetricGroups() []DependentMetricGroupRep {
+	if o == nil || o.MetricGroups == nil {
+		var ret []DependentMetricGroupRep
+		return ret
+	}
+	return o.MetricGroups
+}
+
+// GetMetricGroupsOk returns a tuple with the MetricGroups field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MetricRepExpandableProperties) GetMetricGroupsOk() ([]DependentMetricGroupRep, bool) {
+	if o == nil || o.MetricGroups == nil {
+		return nil, false
+	}
+	return o.MetricGroups, true
+}
+
+// HasMetricGroups returns a boolean if a field has been set.
+func (o *MetricRepExpandableProperties) HasMetricGroups() bool {
+	if o != nil && o.MetricGroups != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMetricGroups gets a reference to the given []DependentMetricGroupRep and assigns it to the MetricGroups field.
+func (o *MetricRepExpandableProperties) SetMetricGroups(v []DependentMetricGroupRep) {
+	o.MetricGroups = v
+}
+
 func (o MetricRepExpandableProperties) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Experiments != nil {
 		toSerialize["experiments"] = o.Experiments
+	}
+	if o.MetricGroups != nil {
+		toSerialize["metricGroups"] = o.MetricGroups
 	}
 	return json.Marshal(toSerialize)
 }

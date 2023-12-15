@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **CurrentIteration** | Pointer to [**IterationRep**](IterationRep.md) |  | [optional] 
 **DraftIteration** | Pointer to [**IterationRep**](IterationRep.md) |  | [optional] 
 **PreviousIterations** | Pointer to [**[]IterationRep**](IterationRep.md) | Details on the previous iterations for this experiment. | [optional] 
+**MonitoringProperties** | Pointer to [**MonitoringPropertiesRep**](MonitoringPropertiesRep.md) |  | [optional] 
 
 ## Methods
 
@@ -310,6 +311,31 @@ SetPreviousIterations sets PreviousIterations field to given value.
 `func (o *Experiment) HasPreviousIterations() bool`
 
 HasPreviousIterations returns a boolean if a field has been set.
+
+### GetMonitoringProperties
+
+`func (o *Experiment) GetMonitoringProperties() MonitoringPropertiesRep`
+
+GetMonitoringProperties returns the MonitoringProperties field if non-nil, zero value otherwise.
+
+### GetMonitoringPropertiesOk
+
+`func (o *Experiment) GetMonitoringPropertiesOk() (*MonitoringPropertiesRep, bool)`
+
+GetMonitoringPropertiesOk returns a tuple with the MonitoringProperties field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMonitoringProperties
+
+`func (o *Experiment) SetMonitoringProperties(v MonitoringPropertiesRep)`
+
+SetMonitoringProperties sets MonitoringProperties field to given value.
+
+### HasMonitoringProperties
+
+`func (o *Experiment) HasMonitoringProperties() bool`
+
+HasMonitoringProperties returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

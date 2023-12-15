@@ -22,6 +22,7 @@ type UserSegmentRule struct {
 	Weight *int32 `json:"weight,omitempty"`
 	RolloutContextKind *string `json:"rolloutContextKind,omitempty"`
 	BucketBy *string `json:"bucketBy,omitempty"`
+	Description *string `json:"description,omitempty"`
 }
 
 // NewUserSegmentRule instantiates a new UserSegmentRule object
@@ -194,6 +195,38 @@ func (o *UserSegmentRule) SetBucketBy(v string) {
 	o.BucketBy = &v
 }
 
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *UserSegmentRule) GetDescription() string {
+	if o == nil || o.Description == nil {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UserSegmentRule) GetDescriptionOk() (*string, bool) {
+	if o == nil || o.Description == nil {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *UserSegmentRule) HasDescription() bool {
+	if o != nil && o.Description != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *UserSegmentRule) SetDescription(v string) {
+	o.Description = &v
+}
+
 func (o UserSegmentRule) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Id != nil {
@@ -210,6 +243,9 @@ func (o UserSegmentRule) MarshalJSON() ([]byte, error) {
 	}
 	if o.BucketBy != nil {
 		toSerialize["bucketBy"] = o.BucketBy
+	}
+	if o.Description != nil {
+		toSerialize["description"] = o.Description
 	}
 	return json.Marshal(toSerialize)
 }

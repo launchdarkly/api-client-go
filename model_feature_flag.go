@@ -54,9 +54,14 @@ type FeatureFlag struct {
 	// Boolean indicating if the feature flag is archived
 	Archived bool `json:"archived"`
 	ArchivedDate *int64 `json:"archivedDate,omitempty"`
+	// Boolean indicating if the feature flag is deprecated
+	Deprecated bool `json:"deprecated"`
+	DeprecatedDate *int64 `json:"deprecatedDate,omitempty"`
 	Defaults *Defaults `json:"defaults,omitempty"`
 	Purpose *string `json:"_purpose,omitempty"`
 	MigrationSettings *FlagMigrationSettingsRep `json:"migrationSettings,omitempty"`
+	// The key of the associated release pipeline for this feature flag
+	ReleasePipelineKey *string `json:"releasePipelineKey,omitempty"`
 	// Details on the environments for this flag
 	Environments map[string]FeatureFlagConfig `json:"environments"`
 }
@@ -65,7 +70,7 @@ type FeatureFlag struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFeatureFlag(name string, kind string, key string, version int32, creationDate int64, variations []Variation, temporary bool, tags []string, links map[string]Link, experiments ExperimentInfoRep, customProperties map[string]CustomProperty, archived bool, environments map[string]FeatureFlagConfig) *FeatureFlag {
+func NewFeatureFlag(name string, kind string, key string, version int32, creationDate int64, variations []Variation, temporary bool, tags []string, links map[string]Link, experiments ExperimentInfoRep, customProperties map[string]CustomProperty, archived bool, deprecated bool, environments map[string]FeatureFlagConfig) *FeatureFlag {
 	this := FeatureFlag{}
 	this.Name = name
 	this.Kind = kind
@@ -79,6 +84,7 @@ func NewFeatureFlag(name string, kind string, key string, version int32, creatio
 	this.Experiments = experiments
 	this.CustomProperties = customProperties
 	this.Archived = archived
+	this.Deprecated = deprecated
 	this.Environments = environments
 	return &this
 }
@@ -673,6 +679,62 @@ func (o *FeatureFlag) SetArchivedDate(v int64) {
 	o.ArchivedDate = &v
 }
 
+// GetDeprecated returns the Deprecated field value
+func (o *FeatureFlag) GetDeprecated() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.Deprecated
+}
+
+// GetDeprecatedOk returns a tuple with the Deprecated field value
+// and a boolean to check if the value has been set.
+func (o *FeatureFlag) GetDeprecatedOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Deprecated, true
+}
+
+// SetDeprecated sets field value
+func (o *FeatureFlag) SetDeprecated(v bool) {
+	o.Deprecated = v
+}
+
+// GetDeprecatedDate returns the DeprecatedDate field value if set, zero value otherwise.
+func (o *FeatureFlag) GetDeprecatedDate() int64 {
+	if o == nil || o.DeprecatedDate == nil {
+		var ret int64
+		return ret
+	}
+	return *o.DeprecatedDate
+}
+
+// GetDeprecatedDateOk returns a tuple with the DeprecatedDate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FeatureFlag) GetDeprecatedDateOk() (*int64, bool) {
+	if o == nil || o.DeprecatedDate == nil {
+		return nil, false
+	}
+	return o.DeprecatedDate, true
+}
+
+// HasDeprecatedDate returns a boolean if a field has been set.
+func (o *FeatureFlag) HasDeprecatedDate() bool {
+	if o != nil && o.DeprecatedDate != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDeprecatedDate gets a reference to the given int64 and assigns it to the DeprecatedDate field.
+func (o *FeatureFlag) SetDeprecatedDate(v int64) {
+	o.DeprecatedDate = &v
+}
+
 // GetDefaults returns the Defaults field value if set, zero value otherwise.
 func (o *FeatureFlag) GetDefaults() Defaults {
 	if o == nil || o.Defaults == nil {
@@ -769,6 +831,38 @@ func (o *FeatureFlag) SetMigrationSettings(v FlagMigrationSettingsRep) {
 	o.MigrationSettings = &v
 }
 
+// GetReleasePipelineKey returns the ReleasePipelineKey field value if set, zero value otherwise.
+func (o *FeatureFlag) GetReleasePipelineKey() string {
+	if o == nil || o.ReleasePipelineKey == nil {
+		var ret string
+		return ret
+	}
+	return *o.ReleasePipelineKey
+}
+
+// GetReleasePipelineKeyOk returns a tuple with the ReleasePipelineKey field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FeatureFlag) GetReleasePipelineKeyOk() (*string, bool) {
+	if o == nil || o.ReleasePipelineKey == nil {
+		return nil, false
+	}
+	return o.ReleasePipelineKey, true
+}
+
+// HasReleasePipelineKey returns a boolean if a field has been set.
+func (o *FeatureFlag) HasReleasePipelineKey() bool {
+	if o != nil && o.ReleasePipelineKey != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetReleasePipelineKey gets a reference to the given string and assigns it to the ReleasePipelineKey field.
+func (o *FeatureFlag) SetReleasePipelineKey(v string) {
+	o.ReleasePipelineKey = &v
+}
+
 // GetEnvironments returns the Environments field value
 func (o *FeatureFlag) GetEnvironments() map[string]FeatureFlagConfig {
 	if o == nil {
@@ -858,6 +952,12 @@ func (o FeatureFlag) MarshalJSON() ([]byte, error) {
 	if o.ArchivedDate != nil {
 		toSerialize["archivedDate"] = o.ArchivedDate
 	}
+	if true {
+		toSerialize["deprecated"] = o.Deprecated
+	}
+	if o.DeprecatedDate != nil {
+		toSerialize["deprecatedDate"] = o.DeprecatedDate
+	}
 	if o.Defaults != nil {
 		toSerialize["defaults"] = o.Defaults
 	}
@@ -866,6 +966,9 @@ func (o FeatureFlag) MarshalJSON() ([]byte, error) {
 	}
 	if o.MigrationSettings != nil {
 		toSerialize["migrationSettings"] = o.MigrationSettings
+	}
+	if o.ReleasePipelineKey != nil {
+		toSerialize["releasePipelineKey"] = o.ReleasePipelineKey
 	}
 	if true {
 		toSerialize["environments"] = o.Environments

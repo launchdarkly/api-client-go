@@ -12,6 +12,7 @@ Method | HTTP request | Description
 [**GetFeatureFlagStatus**](FeatureFlagsApi.md#GetFeatureFlagStatus) | **Get** /api/v2/flag-statuses/{projectKey}/{environmentKey}/{featureFlagKey} | Get feature flag status
 [**GetFeatureFlagStatusAcrossEnvironments**](FeatureFlagsApi.md#GetFeatureFlagStatusAcrossEnvironments) | **Get** /api/v2/flag-status/{projectKey}/{featureFlagKey} | Get flag status across environments
 [**GetFeatureFlagStatuses**](FeatureFlagsApi.md#GetFeatureFlagStatuses) | **Get** /api/v2/flag-statuses/{projectKey}/{environmentKey} | List feature flag statuses
+[**GetFeatureFlagTemplates**](FeatureFlagsApi.md#GetFeatureFlagTemplates) | **Get** /api/v2/flag-templates | List feature flag templates
 [**GetFeatureFlags**](FeatureFlagsApi.md#GetFeatureFlags) | **Get** /api/v2/flags/{projectKey} | List feature flags
 [**PatchExpiringTargets**](FeatureFlagsApi.md#PatchExpiringTargets) | **Patch** /api/v2/flags/{projectKey}/{featureFlagKey}/expiring-targets/{environmentKey} | Update expiring context targets on feature flag
 [**PatchExpiringUserTargets**](FeatureFlagsApi.md#PatchExpiringUserTargets) | **Patch** /api/v2/flags/{projectKey}/{featureFlagKey}/expiring-user-targets/{environmentKey} | Update expiring user targets on feature flag
@@ -604,6 +605,67 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**FeatureFlagStatuses**](FeatureFlagStatuses.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetFeatureFlagTemplates
+
+> []FlagTemplate GetFeatureFlagTemplates(ctx).Execute()
+
+List feature flag templates
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.FeatureFlagsApi.GetFeatureFlagTemplates(context.Background()).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.GetFeatureFlagTemplates``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetFeatureFlagTemplates`: []FlagTemplate
+    fmt.Fprintf(os.Stdout, "Response from `FeatureFlagsApi.GetFeatureFlagTemplates`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetFeatureFlagTemplatesRequest struct via the builder pattern
+
+
+### Return type
+
+[**[]FlagTemplate**](FlagTemplate.md)
 
 ### Authorization
 

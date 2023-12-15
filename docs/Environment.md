@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **ConfirmChanges** | **bool** | Whether members who modify flags and segments through the LaunchDarkly user interface are required to confirm those changes | 
 **Tags** | **[]string** | A list of tags for this environment | 
 **ApprovalSettings** | Pointer to [**ApprovalSettings**](ApprovalSettings.md) |  | [optional] 
+**Kind** | Pointer to **string** | The kind of environment | [optional] 
 
 ## Methods
 
@@ -322,6 +323,31 @@ SetApprovalSettings sets ApprovalSettings field to given value.
 `func (o *Environment) HasApprovalSettings() bool`
 
 HasApprovalSettings returns a boolean if a field has been set.
+
+### GetKind
+
+`func (o *Environment) GetKind() string`
+
+GetKind returns the Kind field if non-nil, zero value otherwise.
+
+### GetKindOk
+
+`func (o *Environment) GetKindOk() (*string, bool)`
+
+GetKindOk returns a tuple with the Kind field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetKind
+
+`func (o *Environment) SetKind(v string)`
+
+SetKind sets Kind field to given value.
+
+### HasKind
+
+`func (o *Environment) HasKind() bool`
+
+HasKind returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

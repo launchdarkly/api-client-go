@@ -40,7 +40,7 @@ func (r ApiCreateBigSegmentExportRequest) Execute() (*http.Response, error) {
 /*
 CreateBigSegmentExport Create Big Segment export
 
-Starts a new export process for a Big Segment. This is an export for a list-based segment that can include more than 15,000 entries.
+Starts a new export process for a Big Segment. This is an export for a synced segment or a list-based segment that can include more than 15,000 entries.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param projectKey The project key
@@ -391,7 +391,7 @@ func (r ApiGetBigSegmentExportRequest) Execute() (*Export, *http.Response, error
 /*
 GetBigSegmentExport Get Big Segment export
 
-Returns information about a Big Segment export process. This is the export of a list-based segment that can include more than 15,000 entries.
+Returns information about a Big Segment export process. This is an export for a synced segment or a list-based segment that can include more than 15,000 entries.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param projectKey The project key

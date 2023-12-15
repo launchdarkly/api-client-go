@@ -20,6 +20,7 @@ Name | Type | Description | Notes
 **Deleted** | **bool** | Whether the segment has been deleted | 
 **Access** | Pointer to [**Access**](Access.md) |  | [optional] 
 **Flags** | Pointer to [**[]FlagListingRep**](FlagListingRep.md) | A list of flags targeting this segment. Only included when getting a single segment, using the &lt;code&gt;getSegment&lt;/code&gt; endpoint. | [optional] 
+**FlagCount** | Pointer to **int32** | The number of flags using this segment. By default this field is omitted unless expanded by the client. | [optional] 
 **Unbounded** | Pointer to **bool** | Whether this is a standard segment (&lt;code&gt;false&lt;/code&gt;) or a Big Segment (&lt;code&gt;true&lt;/code&gt;). Standard segments include rule-based segments and smaller list-based segments. Big Segments include larger list-based segments and synced segments. If omitted, the segment is a standard segment. | [optional] 
 **UnboundedContextKind** | Pointer to **string** | For Big Segments, the targeted context kind. | [optional] 
 **Generation** | **int32** | For Big Segments, how many times this segment has been created. | 
@@ -401,6 +402,31 @@ SetFlags sets Flags field to given value.
 `func (o *UserSegment) HasFlags() bool`
 
 HasFlags returns a boolean if a field has been set.
+
+### GetFlagCount
+
+`func (o *UserSegment) GetFlagCount() int32`
+
+GetFlagCount returns the FlagCount field if non-nil, zero value otherwise.
+
+### GetFlagCountOk
+
+`func (o *UserSegment) GetFlagCountOk() (*int32, bool)`
+
+GetFlagCountOk returns a tuple with the FlagCount field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFlagCount
+
+`func (o *UserSegment) SetFlagCount(v int32)`
+
+SetFlagCount sets FlagCount field to given value.
+
+### HasFlagCount
+
+`func (o *UserSegment) HasFlagCount() bool`
+
+HasFlagCount returns a boolean if a field has been set.
 
 ### GetUnbounded
 

@@ -30,6 +30,8 @@ type Project struct {
 	Name string `json:"name"`
 	// A list of tags for the project
 	Tags []string `json:"tags"`
+	// The key of the default release pipeline for this project
+	DefaultReleasePipelineKey *string `json:"defaultReleasePipelineKey,omitempty"`
 	Environments *Environments `json:"environments,omitempty"`
 }
 
@@ -232,6 +234,38 @@ func (o *Project) SetTags(v []string) {
 	o.Tags = v
 }
 
+// GetDefaultReleasePipelineKey returns the DefaultReleasePipelineKey field value if set, zero value otherwise.
+func (o *Project) GetDefaultReleasePipelineKey() string {
+	if o == nil || o.DefaultReleasePipelineKey == nil {
+		var ret string
+		return ret
+	}
+	return *o.DefaultReleasePipelineKey
+}
+
+// GetDefaultReleasePipelineKeyOk returns a tuple with the DefaultReleasePipelineKey field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Project) GetDefaultReleasePipelineKeyOk() (*string, bool) {
+	if o == nil || o.DefaultReleasePipelineKey == nil {
+		return nil, false
+	}
+	return o.DefaultReleasePipelineKey, true
+}
+
+// HasDefaultReleasePipelineKey returns a boolean if a field has been set.
+func (o *Project) HasDefaultReleasePipelineKey() bool {
+	if o != nil && o.DefaultReleasePipelineKey != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDefaultReleasePipelineKey gets a reference to the given string and assigns it to the DefaultReleasePipelineKey field.
+func (o *Project) SetDefaultReleasePipelineKey(v string) {
+	o.DefaultReleasePipelineKey = &v
+}
+
 // GetEnvironments returns the Environments field value if set, zero value otherwise.
 func (o *Project) GetEnvironments() Environments {
 	if o == nil || o.Environments == nil {
@@ -286,6 +320,9 @@ func (o Project) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["tags"] = o.Tags
+	}
+	if o.DefaultReleasePipelineKey != nil {
+		toSerialize["defaultReleasePipelineKey"] = o.DefaultReleasePipelineKey
 	}
 	if o.Environments != nil {
 		toSerialize["environments"] = o.Environments

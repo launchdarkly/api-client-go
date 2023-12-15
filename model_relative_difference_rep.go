@@ -21,6 +21,8 @@ type RelativeDifferenceRep struct {
 	Upper *float32 `json:"upper,omitempty"`
 	// A lower bound of the relative difference between the treatment and the <code>fromTreatmentId</code>
 	Lower *float32 `json:"lower,omitempty"`
+	// A point estimate of the relative difference between the treatment and the <code>fromTreatmentId</code>
+	Estimate *float32 `json:"estimate,omitempty"`
 	// The treatment ID of the treatment against which the relative difference is calculated
 	FromTreatmentId *string `json:"fromTreatmentId,omitempty"`
 }
@@ -106,6 +108,38 @@ func (o *RelativeDifferenceRep) SetLower(v float32) {
 	o.Lower = &v
 }
 
+// GetEstimate returns the Estimate field value if set, zero value otherwise.
+func (o *RelativeDifferenceRep) GetEstimate() float32 {
+	if o == nil || o.Estimate == nil {
+		var ret float32
+		return ret
+	}
+	return *o.Estimate
+}
+
+// GetEstimateOk returns a tuple with the Estimate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RelativeDifferenceRep) GetEstimateOk() (*float32, bool) {
+	if o == nil || o.Estimate == nil {
+		return nil, false
+	}
+	return o.Estimate, true
+}
+
+// HasEstimate returns a boolean if a field has been set.
+func (o *RelativeDifferenceRep) HasEstimate() bool {
+	if o != nil && o.Estimate != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetEstimate gets a reference to the given float32 and assigns it to the Estimate field.
+func (o *RelativeDifferenceRep) SetEstimate(v float32) {
+	o.Estimate = &v
+}
+
 // GetFromTreatmentId returns the FromTreatmentId field value if set, zero value otherwise.
 func (o *RelativeDifferenceRep) GetFromTreatmentId() string {
 	if o == nil || o.FromTreatmentId == nil {
@@ -145,6 +179,9 @@ func (o RelativeDifferenceRep) MarshalJSON() ([]byte, error) {
 	}
 	if o.Lower != nil {
 		toSerialize["lower"] = o.Lower
+	}
+	if o.Estimate != nil {
+		toSerialize["estimate"] = o.Estimate
 	}
 	if o.FromTreatmentId != nil {
 		toSerialize["fromTreatmentId"] = o.FromTreatmentId

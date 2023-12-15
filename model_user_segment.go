@@ -44,6 +44,8 @@ type UserSegment struct {
 	Access *Access `json:"_access,omitempty"`
 	// A list of flags targeting this segment. Only included when getting a single segment, using the <code>getSegment</code> endpoint.
 	Flags []FlagListingRep `json:"_flags,omitempty"`
+	// The number of flags using this segment. By default this field is omitted unless expanded by the client.
+	FlagCount *int32 `json:"_flagCount,omitempty"`
 	// Whether this is a standard segment (<code>false</code>) or a Big Segment (<code>true</code>). Standard segments include rule-based segments and smaller list-based segments. Big Segments include larger list-based segments and synced segments. If omitted, the segment is a standard segment.
 	Unbounded *bool `json:"unbounded,omitempty"`
 	// For Big Segments, the targeted context kind.
@@ -526,6 +528,38 @@ func (o *UserSegment) SetFlags(v []FlagListingRep) {
 	o.Flags = v
 }
 
+// GetFlagCount returns the FlagCount field value if set, zero value otherwise.
+func (o *UserSegment) GetFlagCount() int32 {
+	if o == nil || o.FlagCount == nil {
+		var ret int32
+		return ret
+	}
+	return *o.FlagCount
+}
+
+// GetFlagCountOk returns a tuple with the FlagCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UserSegment) GetFlagCountOk() (*int32, bool) {
+	if o == nil || o.FlagCount == nil {
+		return nil, false
+	}
+	return o.FlagCount, true
+}
+
+// HasFlagCount returns a boolean if a field has been set.
+func (o *UserSegment) HasFlagCount() bool {
+	if o != nil && o.FlagCount != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFlagCount gets a reference to the given int32 and assigns it to the FlagCount field.
+func (o *UserSegment) SetFlagCount(v int32) {
+	o.FlagCount = &v
+}
+
 // GetUnbounded returns the Unbounded field value if set, zero value otherwise.
 func (o *UserSegment) GetUnbounded() bool {
 	if o == nil || o.Unbounded == nil {
@@ -791,6 +825,9 @@ func (o UserSegment) MarshalJSON() ([]byte, error) {
 	}
 	if o.Flags != nil {
 		toSerialize["_flags"] = o.Flags
+	}
+	if o.FlagCount != nil {
+		toSerialize["_flagCount"] = o.FlagCount
 	}
 	if o.Unbounded != nil {
 		toSerialize["unbounded"] = o.Unbounded

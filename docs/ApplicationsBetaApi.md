@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**DeleteApplication**](ApplicationsBetaApi.md#DeleteApplication) | **Delete** /api/v2/applications/{applicationKey} | Delete application
 [**DeleteApplicationVersion**](ApplicationsBetaApi.md#DeleteApplicationVersion) | **Delete** /api/v2/applications/{applicationKey}/versions/{versionKey} | Delete application version
 [**GetApplication**](ApplicationsBetaApi.md#GetApplication) | **Get** /api/v2/applications/{applicationKey} | Get application by key
+[**GetApplicationVersionAdoption**](ApplicationsBetaApi.md#GetApplicationVersionAdoption) | **Get** /api/v2/applications/{applicationKey}/version-adoption | Get application version adoption data by application key
 [**GetApplicationVersions**](ApplicationsBetaApi.md#GetApplicationVersions) | **Get** /api/v2/applications/{applicationKey}/versions | Get application versions by application key
 [**GetApplications**](ApplicationsBetaApi.md#GetApplications) | **Get** /api/v2/applications | Get applications
 [**PatchApplication**](ApplicationsBetaApi.md#PatchApplication) | **Patch** /api/v2/applications/{applicationKey} | Update application
@@ -278,6 +279,76 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ApplicationRep**](ApplicationRep.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetApplicationVersionAdoption
+
+> ApplicationVersionAdoptionCollection GetApplicationVersionAdoption(ctx, applicationKey).Execute()
+
+Get application version adoption data by application key
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    applicationKey := "applicationKey_example" // string | The application key
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApplicationsBetaApi.GetApplicationVersionAdoption(context.Background(), applicationKey).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsBetaApi.GetApplicationVersionAdoption``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetApplicationVersionAdoption`: ApplicationVersionAdoptionCollection
+    fmt.Fprintf(os.Stdout, "Response from `ApplicationsBetaApi.GetApplicationVersionAdoption`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**applicationKey** | **string** | The application key | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetApplicationVersionAdoptionRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**ApplicationVersionAdoptionCollection**](ApplicationVersionAdoptionCollection.md)
 
 ### Authorization
 

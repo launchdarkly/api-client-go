@@ -38,6 +38,8 @@ type FeatureFlagBody struct {
 	// Purpose of the flag
 	Purpose *string `json:"purpose,omitempty"`
 	MigrationSettings *MigrationSettingsPost `json:"migrationSettings,omitempty"`
+	// The key of the associated release pipeline for this feature flag
+	ReleasePipelineKey *string `json:"releasePipelineKey,omitempty"`
 }
 
 // NewFeatureFlagBody instantiates a new FeatureFlagBody object
@@ -430,6 +432,38 @@ func (o *FeatureFlagBody) SetMigrationSettings(v MigrationSettingsPost) {
 	o.MigrationSettings = &v
 }
 
+// GetReleasePipelineKey returns the ReleasePipelineKey field value if set, zero value otherwise.
+func (o *FeatureFlagBody) GetReleasePipelineKey() string {
+	if o == nil || o.ReleasePipelineKey == nil {
+		var ret string
+		return ret
+	}
+	return *o.ReleasePipelineKey
+}
+
+// GetReleasePipelineKeyOk returns a tuple with the ReleasePipelineKey field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FeatureFlagBody) GetReleasePipelineKeyOk() (*string, bool) {
+	if o == nil || o.ReleasePipelineKey == nil {
+		return nil, false
+	}
+	return o.ReleasePipelineKey, true
+}
+
+// HasReleasePipelineKey returns a boolean if a field has been set.
+func (o *FeatureFlagBody) HasReleasePipelineKey() bool {
+	if o != nil && o.ReleasePipelineKey != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetReleasePipelineKey gets a reference to the given string and assigns it to the ReleasePipelineKey field.
+func (o *FeatureFlagBody) SetReleasePipelineKey(v string) {
+	o.ReleasePipelineKey = &v
+}
+
 func (o FeatureFlagBody) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -467,6 +501,9 @@ func (o FeatureFlagBody) MarshalJSON() ([]byte, error) {
 	}
 	if o.MigrationSettings != nil {
 		toSerialize["migrationSettings"] = o.MigrationSettings
+	}
+	if o.ReleasePipelineKey != nil {
+		toSerialize["releasePipelineKey"] = o.ReleasePipelineKey
 	}
 	return json.Marshal(toSerialize)
 }

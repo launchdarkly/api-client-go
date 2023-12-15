@@ -30,6 +30,8 @@ type ProjectListingRep struct {
 	Name string `json:"name"`
 	// A list of tags for the project
 	Tags []string `json:"tags"`
+	// The key of the default release pipeline for this project
+	DefaultReleasePipelineKey *string `json:"defaultReleasePipelineKey,omitempty"`
 }
 
 // NewProjectListingRep instantiates a new ProjectListingRep object
@@ -231,6 +233,38 @@ func (o *ProjectListingRep) SetTags(v []string) {
 	o.Tags = v
 }
 
+// GetDefaultReleasePipelineKey returns the DefaultReleasePipelineKey field value if set, zero value otherwise.
+func (o *ProjectListingRep) GetDefaultReleasePipelineKey() string {
+	if o == nil || o.DefaultReleasePipelineKey == nil {
+		var ret string
+		return ret
+	}
+	return *o.DefaultReleasePipelineKey
+}
+
+// GetDefaultReleasePipelineKeyOk returns a tuple with the DefaultReleasePipelineKey field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ProjectListingRep) GetDefaultReleasePipelineKeyOk() (*string, bool) {
+	if o == nil || o.DefaultReleasePipelineKey == nil {
+		return nil, false
+	}
+	return o.DefaultReleasePipelineKey, true
+}
+
+// HasDefaultReleasePipelineKey returns a boolean if a field has been set.
+func (o *ProjectListingRep) HasDefaultReleasePipelineKey() bool {
+	if o != nil && o.DefaultReleasePipelineKey != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDefaultReleasePipelineKey gets a reference to the given string and assigns it to the DefaultReleasePipelineKey field.
+func (o *ProjectListingRep) SetDefaultReleasePipelineKey(v string) {
+	o.DefaultReleasePipelineKey = &v
+}
+
 func (o ProjectListingRep) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -253,6 +287,9 @@ func (o ProjectListingRep) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["tags"] = o.Tags
+	}
+	if o.DefaultReleasePipelineKey != nil {
+		toSerialize["defaultReleasePipelineKey"] = o.DefaultReleasePipelineKey
 	}
 	return json.Marshal(toSerialize)
 }

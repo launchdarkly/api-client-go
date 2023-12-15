@@ -19,6 +19,8 @@ import (
 type MetricRep struct {
 	// The number of experiments using this metric
 	ExperimentCount *int32 `json:"experimentCount,omitempty"`
+	// The number of metric groups using this metric
+	MetricGroupCount *int32 `json:"metricGroupCount,omitempty"`
 	// The ID of this metric
 	Id string `json:"_id"`
 	// A unique key to reference the metric
@@ -60,6 +62,8 @@ type MetricRep struct {
 	PercentileValue *int32 `json:"percentileValue,omitempty"`
 	EventDefault *MetricEventDefaultRep `json:"eventDefault,omitempty"`
 	Experiments []DependentExperimentRep `json:"experiments,omitempty"`
+	// Metric groups that use this metric
+	MetricGroups []DependentMetricGroupRep `json:"metricGroups,omitempty"`
 	// Whether the metric is active
 	IsActive *bool `json:"isActive,omitempty"`
 	// Details on the flags attached to this metric
@@ -125,6 +129,38 @@ func (o *MetricRep) HasExperimentCount() bool {
 // SetExperimentCount gets a reference to the given int32 and assigns it to the ExperimentCount field.
 func (o *MetricRep) SetExperimentCount(v int32) {
 	o.ExperimentCount = &v
+}
+
+// GetMetricGroupCount returns the MetricGroupCount field value if set, zero value otherwise.
+func (o *MetricRep) GetMetricGroupCount() int32 {
+	if o == nil || o.MetricGroupCount == nil {
+		var ret int32
+		return ret
+	}
+	return *o.MetricGroupCount
+}
+
+// GetMetricGroupCountOk returns a tuple with the MetricGroupCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MetricRep) GetMetricGroupCountOk() (*int32, bool) {
+	if o == nil || o.MetricGroupCount == nil {
+		return nil, false
+	}
+	return o.MetricGroupCount, true
+}
+
+// HasMetricGroupCount returns a boolean if a field has been set.
+func (o *MetricRep) HasMetricGroupCount() bool {
+	if o != nil && o.MetricGroupCount != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMetricGroupCount gets a reference to the given int32 and assigns it to the MetricGroupCount field.
+func (o *MetricRep) SetMetricGroupCount(v int32) {
+	o.MetricGroupCount = &v
 }
 
 // GetId returns the Id field value
@@ -839,6 +875,38 @@ func (o *MetricRep) SetExperiments(v []DependentExperimentRep) {
 	o.Experiments = v
 }
 
+// GetMetricGroups returns the MetricGroups field value if set, zero value otherwise.
+func (o *MetricRep) GetMetricGroups() []DependentMetricGroupRep {
+	if o == nil || o.MetricGroups == nil {
+		var ret []DependentMetricGroupRep
+		return ret
+	}
+	return o.MetricGroups
+}
+
+// GetMetricGroupsOk returns a tuple with the MetricGroups field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MetricRep) GetMetricGroupsOk() ([]DependentMetricGroupRep, bool) {
+	if o == nil || o.MetricGroups == nil {
+		return nil, false
+	}
+	return o.MetricGroups, true
+}
+
+// HasMetricGroups returns a boolean if a field has been set.
+func (o *MetricRep) HasMetricGroups() bool {
+	if o != nil && o.MetricGroups != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMetricGroups gets a reference to the given []DependentMetricGroupRep and assigns it to the MetricGroups field.
+func (o *MetricRep) SetMetricGroups(v []DependentMetricGroupRep) {
+	o.MetricGroups = v
+}
+
 // GetIsActive returns the IsActive field value if set, zero value otherwise.
 func (o *MetricRep) GetIsActive() bool {
 	if o == nil || o.IsActive == nil {
@@ -1004,6 +1072,9 @@ func (o MetricRep) MarshalJSON() ([]byte, error) {
 	if o.ExperimentCount != nil {
 		toSerialize["experimentCount"] = o.ExperimentCount
 	}
+	if o.MetricGroupCount != nil {
+		toSerialize["metricGroupCount"] = o.MetricGroupCount
+	}
 	if true {
 		toSerialize["_id"] = o.Id
 	}
@@ -1075,6 +1146,9 @@ func (o MetricRep) MarshalJSON() ([]byte, error) {
 	}
 	if o.Experiments != nil {
 		toSerialize["experiments"] = o.Experiments
+	}
+	if o.MetricGroups != nil {
+		toSerialize["metricGroups"] = o.MetricGroups
 	}
 	if o.IsActive != nil {
 		toSerialize["isActive"] = o.IsActive

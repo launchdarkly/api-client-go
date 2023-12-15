@@ -36,6 +36,7 @@ type Experiment struct {
 	DraftIteration *IterationRep `json:"draftIteration,omitempty"`
 	// Details on the previous iterations for this experiment.
 	PreviousIterations []IterationRep `json:"previousIterations,omitempty"`
+	MonitoringProperties *MonitoringPropertiesRep `json:"monitoringProperties,omitempty"`
 }
 
 // NewExperiment instantiates a new Experiment object
@@ -404,6 +405,38 @@ func (o *Experiment) SetPreviousIterations(v []IterationRep) {
 	o.PreviousIterations = v
 }
 
+// GetMonitoringProperties returns the MonitoringProperties field value if set, zero value otherwise.
+func (o *Experiment) GetMonitoringProperties() MonitoringPropertiesRep {
+	if o == nil || o.MonitoringProperties == nil {
+		var ret MonitoringPropertiesRep
+		return ret
+	}
+	return *o.MonitoringProperties
+}
+
+// GetMonitoringPropertiesOk returns a tuple with the MonitoringProperties field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Experiment) GetMonitoringPropertiesOk() (*MonitoringPropertiesRep, bool) {
+	if o == nil || o.MonitoringProperties == nil {
+		return nil, false
+	}
+	return o.MonitoringProperties, true
+}
+
+// HasMonitoringProperties returns a boolean if a field has been set.
+func (o *Experiment) HasMonitoringProperties() bool {
+	if o != nil && o.MonitoringProperties != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMonitoringProperties gets a reference to the given MonitoringPropertiesRep and assigns it to the MonitoringProperties field.
+func (o *Experiment) SetMonitoringProperties(v MonitoringPropertiesRep) {
+	o.MonitoringProperties = &v
+}
+
 func (o Experiment) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Id != nil {
@@ -441,6 +474,9 @@ func (o Experiment) MarshalJSON() ([]byte, error) {
 	}
 	if o.PreviousIterations != nil {
 		toSerialize["previousIterations"] = o.PreviousIterations
+	}
+	if o.MonitoringProperties != nil {
+		toSerialize["monitoringProperties"] = o.MonitoringProperties
 	}
 	return json.Marshal(toSerialize)
 }

@@ -27,6 +27,8 @@ type CreateReleasePipelineInput struct {
 	Phases []CreatePhaseInput `json:"phases"`
 	// A list of tags for this release pipeline
 	Tags []string `json:"tags,omitempty"`
+	// Whether or not the newly created pipeline should be set as the default pipeline for this project
+	IsDefault *bool `json:"isDefault,omitempty"`
 }
 
 // NewCreateReleasePipelineInput instantiates a new CreateReleasePipelineInput object
@@ -185,6 +187,38 @@ func (o *CreateReleasePipelineInput) SetTags(v []string) {
 	o.Tags = v
 }
 
+// GetIsDefault returns the IsDefault field value if set, zero value otherwise.
+func (o *CreateReleasePipelineInput) GetIsDefault() bool {
+	if o == nil || o.IsDefault == nil {
+		var ret bool
+		return ret
+	}
+	return *o.IsDefault
+}
+
+// GetIsDefaultOk returns a tuple with the IsDefault field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateReleasePipelineInput) GetIsDefaultOk() (*bool, bool) {
+	if o == nil || o.IsDefault == nil {
+		return nil, false
+	}
+	return o.IsDefault, true
+}
+
+// HasIsDefault returns a boolean if a field has been set.
+func (o *CreateReleasePipelineInput) HasIsDefault() bool {
+	if o != nil && o.IsDefault != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetIsDefault gets a reference to the given bool and assigns it to the IsDefault field.
+func (o *CreateReleasePipelineInput) SetIsDefault(v bool) {
+	o.IsDefault = &v
+}
+
 func (o CreateReleasePipelineInput) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Description != nil {
@@ -201,6 +235,9 @@ func (o CreateReleasePipelineInput) MarshalJSON() ([]byte, error) {
 	}
 	if o.Tags != nil {
 		toSerialize["tags"] = o.Tags
+	}
+	if o.IsDefault != nil {
+		toSerialize["isDefault"] = o.IsDefault
 	}
 	return json.Marshal(toSerialize)
 }

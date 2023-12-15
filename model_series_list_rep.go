@@ -21,6 +21,8 @@ type SeriesListRep struct {
 	Links map[string]interface{} `json:"_links"`
 	// Metadata about each series
 	Metadata []map[string]interface{} `json:"metadata"`
+	// The total number of times the flag was evaluated
+	TotalEvaluations *int64 `json:"totalEvaluations,omitempty"`
 	// An array of data points with timestamps. Each element of the array is an object with a 'time' field, whose value is the timestamp, and one or more key fields. If there are multiple key fields, they are labeled '0', '1', and so on, and are explained in the <code>metadata</code>.
 	Series []map[string]int32 `json:"series"`
 }
@@ -93,6 +95,38 @@ func (o *SeriesListRep) SetMetadata(v []map[string]interface{}) {
 	o.Metadata = v
 }
 
+// GetTotalEvaluations returns the TotalEvaluations field value if set, zero value otherwise.
+func (o *SeriesListRep) GetTotalEvaluations() int64 {
+	if o == nil || o.TotalEvaluations == nil {
+		var ret int64
+		return ret
+	}
+	return *o.TotalEvaluations
+}
+
+// GetTotalEvaluationsOk returns a tuple with the TotalEvaluations field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SeriesListRep) GetTotalEvaluationsOk() (*int64, bool) {
+	if o == nil || o.TotalEvaluations == nil {
+		return nil, false
+	}
+	return o.TotalEvaluations, true
+}
+
+// HasTotalEvaluations returns a boolean if a field has been set.
+func (o *SeriesListRep) HasTotalEvaluations() bool {
+	if o != nil && o.TotalEvaluations != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTotalEvaluations gets a reference to the given int64 and assigns it to the TotalEvaluations field.
+func (o *SeriesListRep) SetTotalEvaluations(v int64) {
+	o.TotalEvaluations = &v
+}
+
 // GetSeries returns the Series field value
 func (o *SeriesListRep) GetSeries() []map[string]int32 {
 	if o == nil {
@@ -124,6 +158,9 @@ func (o SeriesListRep) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["metadata"] = o.Metadata
+	}
+	if o.TotalEvaluations != nil {
+		toSerialize["totalEvaluations"] = o.TotalEvaluations
 	}
 	if true {
 		toSerialize["series"] = o.Series

@@ -279,6 +279,166 @@ func (a *ReleasePipelinesBetaApiService) GetAllReleasePipelinesExecute(r ApiGetA
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiGetAllReleaseProgressionsForReleasePipelineRequest struct {
+	ctx context.Context
+	ApiService *ReleasePipelinesBetaApiService
+	projectKey string
+	pipelineKey string
+	filter *string
+	limit *int64
+	offset *int64
+}
+
+// Accepts filter by &#x60;status&#x60; and &#x60;activePhaseId&#x60;. &#x60;status&#x60; can take a value of &#x60;completed&#x60; or &#x60;active&#x60;. &#x60;activePhaseId&#x60; takes a UUID and will filter results down to releases active on the specified phase. Providing &#x60;status equals completed&#x60; along with an &#x60;activePhaseId&#x60; filter will return an error as they are disjoint sets of data. The combination of &#x60;status equals active&#x60; and &#x60;activePhaseId&#x60; will return the same results as &#x60;activePhaseId&#x60; alone.
+func (r ApiGetAllReleaseProgressionsForReleasePipelineRequest) Filter(filter string) ApiGetAllReleaseProgressionsForReleasePipelineRequest {
+	r.filter = &filter
+	return r
+}
+
+// The maximum number of items to return. Defaults to 20.
+func (r ApiGetAllReleaseProgressionsForReleasePipelineRequest) Limit(limit int64) ApiGetAllReleaseProgressionsForReleasePipelineRequest {
+	r.limit = &limit
+	return r
+}
+
+// Where to start in the list. Defaults to 0. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;.
+func (r ApiGetAllReleaseProgressionsForReleasePipelineRequest) Offset(offset int64) ApiGetAllReleaseProgressionsForReleasePipelineRequest {
+	r.offset = &offset
+	return r
+}
+
+func (r ApiGetAllReleaseProgressionsForReleasePipelineRequest) Execute() (*ReleaseProgressionCollection, *http.Response, error) {
+	return r.ApiService.GetAllReleaseProgressionsForReleasePipelineExecute(r)
+}
+
+/*
+GetAllReleaseProgressionsForReleasePipeline Get release progressions for release pipeline
+
+Get details on the progression of all releases, across all flags, for a release pipeline
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param projectKey The project key
+ @param pipelineKey The pipeline key
+ @return ApiGetAllReleaseProgressionsForReleasePipelineRequest
+*/
+func (a *ReleasePipelinesBetaApiService) GetAllReleaseProgressionsForReleasePipeline(ctx context.Context, projectKey string, pipelineKey string) ApiGetAllReleaseProgressionsForReleasePipelineRequest {
+	return ApiGetAllReleaseProgressionsForReleasePipelineRequest{
+		ApiService: a,
+		ctx: ctx,
+		projectKey: projectKey,
+		pipelineKey: pipelineKey,
+	}
+}
+
+// Execute executes the request
+//  @return ReleaseProgressionCollection
+func (a *ReleasePipelinesBetaApiService) GetAllReleaseProgressionsForReleasePipelineExecute(r ApiGetAllReleaseProgressionsForReleasePipelineRequest) (*ReleaseProgressionCollection, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ReleaseProgressionCollection
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReleasePipelinesBetaApiService.GetAllReleaseProgressionsForReleasePipeline")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v2/projects/{projectKey}/release-pipelines/{pipelineKey}/releases"
+	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", url.PathEscape(parameterToString(r.projectKey, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"pipelineKey"+"}", url.PathEscape(parameterToString(r.pipelineKey, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.filter != nil {
+		localVarQueryParams.Add("filter", parameterToString(*r.filter, ""))
+	}
+	if r.limit != nil {
+		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+	}
+	if r.offset != nil {
+		localVarQueryParams.Add("offset", parameterToString(*r.offset, ""))
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["ApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v NotFoundErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiGetReleasePipelineByKeyRequest struct {
 	ctx context.Context
 	ApiService *ReleasePipelinesBetaApiService

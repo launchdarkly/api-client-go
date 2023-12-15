@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ExperimentCount** | Pointer to **int32** | The number of experiments using this metric | [optional] 
+**MetricGroupCount** | Pointer to **int32** | The number of metric groups using this metric | [optional] 
 **Id** | **string** | The ID of this metric | 
 **Key** | **string** | A unique key to reference the metric | 
 **Name** | **string** | A human-friendly name for the metric | 
@@ -72,6 +73,31 @@ SetExperimentCount sets ExperimentCount field to given value.
 `func (o *MetricListingRep) HasExperimentCount() bool`
 
 HasExperimentCount returns a boolean if a field has been set.
+
+### GetMetricGroupCount
+
+`func (o *MetricListingRep) GetMetricGroupCount() int32`
+
+GetMetricGroupCount returns the MetricGroupCount field if non-nil, zero value otherwise.
+
+### GetMetricGroupCountOk
+
+`func (o *MetricListingRep) GetMetricGroupCountOk() (*int32, bool)`
+
+GetMetricGroupCountOk returns a tuple with the MetricGroupCount field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMetricGroupCount
+
+`func (o *MetricListingRep) SetMetricGroupCount(v int32)`
+
+SetMetricGroupCount sets MetricGroupCount field to given value.
+
+### HasMetricGroupCount
+
+`func (o *MetricListingRep) HasMetricGroupCount() bool`
+
+HasMetricGroupCount returns a boolean if a field has been set.
 
 ### GetId
 

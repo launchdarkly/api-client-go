@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Upper** | Pointer to **float32** | An upper bound of the relative difference between the treatment and the &lt;code&gt;fromTreatmentId&lt;/code&gt; | [optional] 
 **Lower** | Pointer to **float32** | A lower bound of the relative difference between the treatment and the &lt;code&gt;fromTreatmentId&lt;/code&gt; | [optional] 
+**Estimate** | Pointer to **float32** | A point estimate of the relative difference between the treatment and the &lt;code&gt;fromTreatmentId&lt;/code&gt; | [optional] 
 **FromTreatmentId** | Pointer to **string** | The treatment ID of the treatment against which the relative difference is calculated | [optional] 
 
 ## Methods
@@ -76,6 +77,31 @@ SetLower sets Lower field to given value.
 `func (o *RelativeDifferenceRep) HasLower() bool`
 
 HasLower returns a boolean if a field has been set.
+
+### GetEstimate
+
+`func (o *RelativeDifferenceRep) GetEstimate() float32`
+
+GetEstimate returns the Estimate field if non-nil, zero value otherwise.
+
+### GetEstimateOk
+
+`func (o *RelativeDifferenceRep) GetEstimateOk() (*float32, bool)`
+
+GetEstimateOk returns a tuple with the Estimate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEstimate
+
+`func (o *RelativeDifferenceRep) SetEstimate(v float32)`
+
+SetEstimate sets Estimate field to given value.
+
+### HasEstimate
+
+`func (o *RelativeDifferenceRep) HasEstimate() bool`
+
+HasEstimate returns a boolean if a field has been set.
 
 ### GetFromTreatmentId
 

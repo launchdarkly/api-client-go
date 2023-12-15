@@ -44,6 +44,8 @@ type Environment struct {
 	// A list of tags for this environment
 	Tags []string `json:"tags"`
 	ApprovalSettings *ApprovalSettings `json:"approvalSettings,omitempty"`
+	// The kind of environment
+	Kind *string `json:"kind,omitempty"`
 }
 
 // NewEnvironment instantiates a new Environment object
@@ -420,6 +422,38 @@ func (o *Environment) SetApprovalSettings(v ApprovalSettings) {
 	o.ApprovalSettings = &v
 }
 
+// GetKind returns the Kind field value if set, zero value otherwise.
+func (o *Environment) GetKind() string {
+	if o == nil || o.Kind == nil {
+		var ret string
+		return ret
+	}
+	return *o.Kind
+}
+
+// GetKindOk returns a tuple with the Kind field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Environment) GetKindOk() (*string, bool) {
+	if o == nil || o.Kind == nil {
+		return nil, false
+	}
+	return o.Kind, true
+}
+
+// HasKind returns a boolean if a field has been set.
+func (o *Environment) HasKind() bool {
+	if o != nil && o.Kind != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetKind gets a reference to the given string and assigns it to the Kind field.
+func (o *Environment) SetKind(v string) {
+	o.Kind = &v
+}
+
 func (o Environment) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -463,6 +497,9 @@ func (o Environment) MarshalJSON() ([]byte, error) {
 	}
 	if o.ApprovalSettings != nil {
 		toSerialize["approvalSettings"] = o.ApprovalSettings
+	}
+	if o.Kind != nil {
+		toSerialize["kind"] = o.Kind
 	}
 	return json.Marshal(toSerialize)
 }

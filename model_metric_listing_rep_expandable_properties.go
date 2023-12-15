@@ -19,6 +19,8 @@ import (
 type MetricListingRepExpandableProperties struct {
 	// The number of experiments using this metric
 	ExperimentCount *int32 `json:"experimentCount,omitempty"`
+	// The number of metric groups using this metric
+	MetricGroupCount *int32 `json:"metricGroupCount,omitempty"`
 }
 
 // NewMetricListingRepExpandableProperties instantiates a new MetricListingRepExpandableProperties object
@@ -70,10 +72,45 @@ func (o *MetricListingRepExpandableProperties) SetExperimentCount(v int32) {
 	o.ExperimentCount = &v
 }
 
+// GetMetricGroupCount returns the MetricGroupCount field value if set, zero value otherwise.
+func (o *MetricListingRepExpandableProperties) GetMetricGroupCount() int32 {
+	if o == nil || o.MetricGroupCount == nil {
+		var ret int32
+		return ret
+	}
+	return *o.MetricGroupCount
+}
+
+// GetMetricGroupCountOk returns a tuple with the MetricGroupCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MetricListingRepExpandableProperties) GetMetricGroupCountOk() (*int32, bool) {
+	if o == nil || o.MetricGroupCount == nil {
+		return nil, false
+	}
+	return o.MetricGroupCount, true
+}
+
+// HasMetricGroupCount returns a boolean if a field has been set.
+func (o *MetricListingRepExpandableProperties) HasMetricGroupCount() bool {
+	if o != nil && o.MetricGroupCount != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMetricGroupCount gets a reference to the given int32 and assigns it to the MetricGroupCount field.
+func (o *MetricListingRepExpandableProperties) SetMetricGroupCount(v int32) {
+	o.MetricGroupCount = &v
+}
+
 func (o MetricListingRepExpandableProperties) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.ExperimentCount != nil {
 		toSerialize["experimentCount"] = o.ExperimentCount
+	}
+	if o.MetricGroupCount != nil {
+		toSerialize["metricGroupCount"] = o.MetricGroupCount
 	}
 	return json.Marshal(toSerialize)
 }

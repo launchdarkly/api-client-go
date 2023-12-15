@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **DefaultClientSideAvailability** | Pointer to [**ClientSideAvailability**](ClientSideAvailability.md) |  | [optional] 
 **Name** | **string** | A human-friendly name for the project | 
 **Tags** | **[]string** | A list of tags for the project | 
+**DefaultReleasePipelineKey** | Pointer to **string** | The key of the default release pipeline for this project | [optional] 
 **Environments** | Pointer to [**Environments**](Environments.md) |  | [optional] 
 
 ## Methods
@@ -176,6 +177,31 @@ and a boolean to check if the value has been set.
 
 SetTags sets Tags field to given value.
 
+
+### GetDefaultReleasePipelineKey
+
+`func (o *Project) GetDefaultReleasePipelineKey() string`
+
+GetDefaultReleasePipelineKey returns the DefaultReleasePipelineKey field if non-nil, zero value otherwise.
+
+### GetDefaultReleasePipelineKeyOk
+
+`func (o *Project) GetDefaultReleasePipelineKeyOk() (*string, bool)`
+
+GetDefaultReleasePipelineKeyOk returns a tuple with the DefaultReleasePipelineKey field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDefaultReleasePipelineKey
+
+`func (o *Project) SetDefaultReleasePipelineKey(v string)`
+
+SetDefaultReleasePipelineKey sets DefaultReleasePipelineKey field to given value.
+
+### HasDefaultReleasePipelineKey
+
+`func (o *Project) HasDefaultReleasePipelineKey() bool`
+
+HasDefaultReleasePipelineKey returns a boolean if a field has been set.
 
 ### GetEnvironments
 

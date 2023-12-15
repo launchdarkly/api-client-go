@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **Name** | **string** | The name of the release pipeline | 
 **Phases** | [**[]CreatePhaseInput**](CreatePhaseInput.md) | A logical grouping of one or more environments that share attributes for rolling out changes | 
 **Tags** | Pointer to **[]string** | A list of tags for this release pipeline | [optional] 
+**IsDefault** | Pointer to **bool** | Whether or not the newly created pipeline should be set as the default pipeline for this project | [optional] 
 
 ## Methods
 
@@ -138,6 +139,31 @@ SetTags sets Tags field to given value.
 `func (o *CreateReleasePipelineInput) HasTags() bool`
 
 HasTags returns a boolean if a field has been set.
+
+### GetIsDefault
+
+`func (o *CreateReleasePipelineInput) GetIsDefault() bool`
+
+GetIsDefault returns the IsDefault field if non-nil, zero value otherwise.
+
+### GetIsDefaultOk
+
+`func (o *CreateReleasePipelineInput) GetIsDefaultOk() (*bool, bool)`
+
+GetIsDefaultOk returns a tuple with the IsDefault field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsDefault
+
+`func (o *CreateReleasePipelineInput) SetIsDefault(v bool)`
+
+SetIsDefault sets IsDefault field to given value.
+
+### HasIsDefault
+
+`func (o *CreateReleasePipelineInput) HasIsDefault() bool`
+
+HasIsDefault returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -50,6 +50,8 @@ type APIClient struct {
 
 	// API Services
 
+	AIBetaApi *AIBetaApiService
+
 	AccessTokensApi *AccessTokensApiService
 
 	AccountMembersApi *AccountMembersApiService
@@ -60,9 +62,17 @@ type APIClient struct {
 
 	ApplicationsBetaApi *ApplicationsBetaApiService
 
+	ApplicationsInternalApi *ApplicationsInternalApiService
+
+	ApplicationsPrivateApi *ApplicationsPrivateApiService
+
 	ApprovalsApi *ApprovalsApiService
 
+	ApprovalsBetaApi *ApprovalsBetaApiService
+
 	AuditLogApi *AuditLogApiService
+
+	AuthenticationApi *AuthenticationApiService
 
 	CodeReferencesApi *CodeReferencesApiService
 
@@ -73,6 +83,8 @@ type APIClient struct {
 	CustomRolesApi *CustomRolesApiService
 
 	DataExportDestinationsApi *DataExportDestinationsApiService
+
+	DefaultApi *DefaultApiService
 
 	EnvironmentsApi *EnvironmentsApiService
 
@@ -92,6 +104,14 @@ type APIClient struct {
 
 	IntegrationDeliveryConfigurationsBetaApi *IntegrationDeliveryConfigurationsBetaApiService
 
+	IntegrationsApi *IntegrationsApiService
+
+	IntegrationsBetaApi *IntegrationsBetaApiService
+
+	IntegrationsPrivateApi *IntegrationsPrivateApiService
+
+	InternalApi *InternalApiService
+
 	MetricsApi *MetricsApiService
 
 	MetricsBetaApi *MetricsBetaApiService
@@ -99,6 +119,12 @@ type APIClient struct {
 	OAuth2ClientsApi *OAuth2ClientsApiService
 
 	OtherApi *OtherApiService
+
+	PayloadFiltersApi *PayloadFiltersApiService
+
+	ProductAnalyticsBetaApi *ProductAnalyticsBetaApiService
+
+	ProductAnalyticsInternalApi *ProductAnalyticsInternalApiService
 
 	ProjectsApi *ProjectsApiService
 
@@ -149,18 +175,24 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.common.client = c
 
 	// API Services
+	c.AIBetaApi = (*AIBetaApiService)(&c.common)
 	c.AccessTokensApi = (*AccessTokensApiService)(&c.common)
 	c.AccountMembersApi = (*AccountMembersApiService)(&c.common)
 	c.AccountMembersBetaApi = (*AccountMembersBetaApiService)(&c.common)
 	c.AccountUsageBetaApi = (*AccountUsageBetaApiService)(&c.common)
 	c.ApplicationsBetaApi = (*ApplicationsBetaApiService)(&c.common)
+	c.ApplicationsInternalApi = (*ApplicationsInternalApiService)(&c.common)
+	c.ApplicationsPrivateApi = (*ApplicationsPrivateApiService)(&c.common)
 	c.ApprovalsApi = (*ApprovalsApiService)(&c.common)
+	c.ApprovalsBetaApi = (*ApprovalsBetaApiService)(&c.common)
 	c.AuditLogApi = (*AuditLogApiService)(&c.common)
+	c.AuthenticationApi = (*AuthenticationApiService)(&c.common)
 	c.CodeReferencesApi = (*CodeReferencesApiService)(&c.common)
 	c.ContextSettingsApi = (*ContextSettingsApiService)(&c.common)
 	c.ContextsApi = (*ContextsApiService)(&c.common)
 	c.CustomRolesApi = (*CustomRolesApiService)(&c.common)
 	c.DataExportDestinationsApi = (*DataExportDestinationsApiService)(&c.common)
+	c.DefaultApi = (*DefaultApiService)(&c.common)
 	c.EnvironmentsApi = (*EnvironmentsApiService)(&c.common)
 	c.ExperimentsBetaApi = (*ExperimentsBetaApiService)(&c.common)
 	c.FeatureFlagsApi = (*FeatureFlagsApiService)(&c.common)
@@ -170,10 +202,17 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.FollowFlagsApi = (*FollowFlagsApiService)(&c.common)
 	c.IntegrationAuditLogSubscriptionsApi = (*IntegrationAuditLogSubscriptionsApiService)(&c.common)
 	c.IntegrationDeliveryConfigurationsBetaApi = (*IntegrationDeliveryConfigurationsBetaApiService)(&c.common)
+	c.IntegrationsApi = (*IntegrationsApiService)(&c.common)
+	c.IntegrationsBetaApi = (*IntegrationsBetaApiService)(&c.common)
+	c.IntegrationsPrivateApi = (*IntegrationsPrivateApiService)(&c.common)
+	c.InternalApi = (*InternalApiService)(&c.common)
 	c.MetricsApi = (*MetricsApiService)(&c.common)
 	c.MetricsBetaApi = (*MetricsBetaApiService)(&c.common)
 	c.OAuth2ClientsApi = (*OAuth2ClientsApiService)(&c.common)
 	c.OtherApi = (*OtherApiService)(&c.common)
+	c.PayloadFiltersApi = (*PayloadFiltersApiService)(&c.common)
+	c.ProductAnalyticsBetaApi = (*ProductAnalyticsBetaApiService)(&c.common)
+	c.ProductAnalyticsInternalApi = (*ProductAnalyticsInternalApiService)(&c.common)
 	c.ProjectsApi = (*ProjectsApiService)(&c.common)
 	c.RelayProxyConfigurationsApi = (*RelayProxyConfigurationsApiService)(&c.common)
 	c.ReleasePipelinesBetaApi = (*ReleasePipelinesBetaApiService)(&c.common)

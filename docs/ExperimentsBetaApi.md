@@ -6,14 +6,20 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreateExperiment**](ExperimentsBetaApi.md#CreateExperiment) | **Post** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments | Create experiment
 [**CreateIteration**](ExperimentsBetaApi.md#CreateIteration) | **Post** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey}/iterations | Create iteration
+[**GetAttributeValues**](ExperimentsBetaApi.md#GetAttributeValues) | **Get** /projects/{projKey}/environments/{envKey}/experiments/{experimentKey}/iterations/{iterationId}/attributes/{attribute} | Get Iteration Attribute Values
 [**GetExperiment**](ExperimentsBetaApi.md#GetExperiment) | **Get** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey} | Get experiment
 [**GetExperimentResults**](ExperimentsBetaApi.md#GetExperimentResults) | **Get** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey}/metrics/{metricKey}/results | Get experiment results
 [**GetExperimentResultsForMetricGroup**](ExperimentsBetaApi.md#GetExperimentResultsForMetricGroup) | **Get** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey}/metric-groups/{metricGroupKey}/results | Get experiment results for metric group
 [**GetExperimentationSettings**](ExperimentsBetaApi.md#GetExperimentationSettings) | **Get** /api/v2/projects/{projectKey}/experimentation-settings | Get experimentation settings
 [**GetExperiments**](ExperimentsBetaApi.md#GetExperiments) | **Get** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments | Get experiments
+[**GetExperimentsAnyEnv**](ExperimentsBetaApi.md#GetExperimentsAnyEnv) | **Get** /api/v2/projects/{projectKey}/experiments | Get experiments any environment
+[**GetFlagMeasuredRolloutConfiguration**](ExperimentsBetaApi.md#GetFlagMeasuredRolloutConfiguration) | **Get** /api/v2/projects/{projectKey}/flags/{flagKey}/measured-rollout-configuration | Get measured rollout configuration
 [**GetLegacyExperimentResults**](ExperimentsBetaApi.md#GetLegacyExperimentResults) | **Get** /api/v2/flags/{projectKey}/{featureFlagKey}/experiments/{environmentKey}/{metricKey} | Get legacy experiment results (deprecated)
+[**GetQuantileExperimentResults**](ExperimentsBetaApi.md#GetQuantileExperimentResults) | **Get** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey}/metrics/{metricKey}/results/quantile | Get quantile experiment results
 [**PatchExperiment**](ExperimentsBetaApi.md#PatchExperiment) | **Patch** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey} | Patch experiment
+[**PostLegacyExperiment**](ExperimentsBetaApi.md#PostLegacyExperiment) | **Post** /api/v2/projects/{projectKey}/experiments | Create legacy experiment (deprecated)
 [**PutExperimentationSettings**](ExperimentsBetaApi.md#PutExperimentationSettings) | **Put** /api/v2/projects/{projectKey}/experimentation-settings | Update experimentation settings
+[**PutFlagMeasuredRolloutConfiguration**](ExperimentsBetaApi.md#PutFlagMeasuredRolloutConfiguration) | **Put** /api/v2/projects/{projectKey}/flags/{flagKey}/measured-rollout-configuration | Create or update measured rollout configuration
 [**ResetExperiment**](ExperimentsBetaApi.md#ResetExperiment) | **Delete** /api/v2/flags/{projectKey}/{featureFlagKey}/experiments/{environmentKey}/{metricKey}/results | Reset experiment results
 
 
@@ -41,7 +47,7 @@ import (
 func main() {
     projectKey := "projectKey_example" // string | The project key
     environmentKey := "environmentKey_example" // string | The environment key
-    experimentPost := *openapiclient.NewExperimentPost("Example experiment", "experiment-key-123abc", *openapiclient.NewIterationInput("Example hypothesis, the new button placement will increase conversion", []openapiclient.MetricInput{*openapiclient.NewMetricInput("metric-key-123abc", true)}, []openapiclient.TreatmentInput{*openapiclient.NewTreatmentInput("Treatment 1", true, "10", []openapiclient.TreatmentParameterInput{*openapiclient.NewTreatmentParameterInput("example-flag-for-experiment", "e432f62b-55f6-49dd-a02f-eb24acf39d05")})}, map[string]FlagInput{"key": *openapiclient.NewFlagInput("e432f62b-55f6-49dd-a02f-eb24acf39d05", int32(12))})) // ExperimentPost | 
+    experimentPost := *openapiclient.NewExperimentPost("FlagKey_example", "MetricKey_example") // ExperimentPost | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -164,6 +170,88 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetAttributeValues
+
+> []map[string]interface{} GetAttributeValues(ctx, projectKey, environmentKey, experimentKey, iterationId, attribute).Q(q).Execute()
+
+Get Iteration Attribute Values
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    projectKey := "projectKey_example" // string | The project key
+    environmentKey := "environmentKey_example" // string | The environment key
+    experimentKey := "experimentKey_example" // string | The experiment key
+    iterationId := "iterationId_example" // string | The iteration ID
+    attribute := "attribute_example" // string | The attribute
+    q := "q_example" // string | Text search query for attribute values (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ExperimentsBetaApi.GetAttributeValues(context.Background(), projectKey, environmentKey, experimentKey, iterationId, attribute).Q(q).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsBetaApi.GetAttributeValues``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetAttributeValues`: []map[string]interface{}
+    fmt.Fprintf(os.Stdout, "Response from `ExperimentsBetaApi.GetAttributeValues`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projectKey** | **string** | The project key | 
+**environmentKey** | **string** | The environment key | 
+**experimentKey** | **string** | The experiment key | 
+**iterationId** | **string** | The iteration ID | 
+**attribute** | **string** | The attribute | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetAttributeValuesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+
+
+ **q** | **string** | Text search query for attribute values | 
+
+### Return type
+
+**[]map[string]interface{}**
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -564,6 +652,159 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## GetExperimentsAnyEnv
+
+> ExperimentCollectionRep GetExperimentsAnyEnv(ctx, projectKey).Limit(limit).Offset(offset).Filter(filter).Expand(expand).LifecycleState(lifecycleState).Execute()
+
+Get experiments any environment
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    projectKey := "projectKey_example" // string | The project key
+    limit := int64(789) // int64 | The maximum number of experiments to return. Defaults to 20. (optional)
+    offset := int64(789) // int64 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
+    filter := "filter_example" // string | A comma-separated list of filters. Each filter is of the form `field:value`. Supported fields are explained above. (optional)
+    expand := "expand_example" // string | A comma-separated list of properties that can reveal additional information in the response. Supported fields are explained above. (optional)
+    lifecycleState := "lifecycleState_example" // string | A comma-separated list of experiment archived states. Supports `archived`, `active`, or both. Defaults to `active` experiments. (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ExperimentsBetaApi.GetExperimentsAnyEnv(context.Background(), projectKey).Limit(limit).Offset(offset).Filter(filter).Expand(expand).LifecycleState(lifecycleState).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsBetaApi.GetExperimentsAnyEnv``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetExperimentsAnyEnv`: ExperimentCollectionRep
+    fmt.Fprintf(os.Stdout, "Response from `ExperimentsBetaApi.GetExperimentsAnyEnv`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projectKey** | **string** | The project key | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetExperimentsAnyEnvRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **limit** | **int64** | The maximum number of experiments to return. Defaults to 20. | 
+ **offset** | **int64** | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | 
+ **filter** | **string** | A comma-separated list of filters. Each filter is of the form &#x60;field:value&#x60;. Supported fields are explained above. | 
+ **expand** | **string** | A comma-separated list of properties that can reveal additional information in the response. Supported fields are explained above. | 
+ **lifecycleState** | **string** | A comma-separated list of experiment archived states. Supports &#x60;archived&#x60;, &#x60;active&#x60;, or both. Defaults to &#x60;active&#x60; experiments. | 
+
+### Return type
+
+[**ExperimentCollectionRep**](ExperimentCollectionRep.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetFlagMeasuredRolloutConfiguration
+
+> ReleaseGuardianFlagConfigRep GetFlagMeasuredRolloutConfiguration(ctx, projectKey, flagKey).Execute()
+
+Get measured rollout configuration
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    projectKey := "projectKey_example" // string | The project key
+    flagKey := "flagKey_example" // string | The experiment key
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ExperimentsBetaApi.GetFlagMeasuredRolloutConfiguration(context.Background(), projectKey, flagKey).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsBetaApi.GetFlagMeasuredRolloutConfiguration``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetFlagMeasuredRolloutConfiguration`: ReleaseGuardianFlagConfigRep
+    fmt.Fprintf(os.Stdout, "Response from `ExperimentsBetaApi.GetFlagMeasuredRolloutConfiguration`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projectKey** | **string** | The project key | 
+**flagKey** | **string** | The experiment key | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetFlagMeasuredRolloutConfigurationRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+[**ReleaseGuardianFlagConfigRep**](ReleaseGuardianFlagConfigRep.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetLegacyExperimentResults
 
 > ExperimentResults GetLegacyExperimentResults(ctx, projectKey, featureFlagKey, environmentKey, metricKey).From(from).To(to).Execute()
@@ -632,6 +873,89 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ExperimentResults**](ExperimentResults.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetQuantileExperimentResults
+
+> ExperimentQuantileResultsRep GetQuantileExperimentResults(ctx, projectKey, environmentKey, experimentKey, metricKey).Percentile(percentile).Confidence(confidence).Execute()
+
+Get quantile experiment results
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    projectKey := "projectKey_example" // string | The project key
+    environmentKey := "environmentKey_example" // string | The environment key
+    experimentKey := "experimentKey_example" // string | The experiment key
+    metricKey := "metricKey_example" // string | The metric key
+    percentile := int64(789) // int64 | The percentile, an integer denoting the target percentile between 0 and 100. Defaults to 95 if not provided. For example: 90 (optional)
+    confidence := int64(789) // int64 | The confidence, an integer denoting the confidence in our confidence interval. Defaults to 95 if not provided. For example: 90 (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ExperimentsBetaApi.GetQuantileExperimentResults(context.Background(), projectKey, environmentKey, experimentKey, metricKey).Percentile(percentile).Confidence(confidence).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsBetaApi.GetQuantileExperimentResults``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetQuantileExperimentResults`: ExperimentQuantileResultsRep
+    fmt.Fprintf(os.Stdout, "Response from `ExperimentsBetaApi.GetQuantileExperimentResults`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projectKey** | **string** | The project key | 
+**environmentKey** | **string** | The environment key | 
+**experimentKey** | **string** | The experiment key | 
+**metricKey** | **string** | The metric key | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetQuantileExperimentResultsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+
+ **percentile** | **int64** | The percentile, an integer denoting the target percentile between 0 and 100. Defaults to 95 if not provided. For example: 90 | 
+ **confidence** | **int64** | The confidence, an integer denoting the confidence in our confidence interval. Defaults to 95 if not provided. For example: 90 | 
+
+### Return type
+
+[**ExperimentQuantileResultsRep**](ExperimentQuantileResultsRep.md)
 
 ### Authorization
 
@@ -725,6 +1049,78 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## PostLegacyExperiment
+
+> ExperimentSummaryRep PostLegacyExperiment(ctx, projectKey).ExperimentPost(experimentPost).Execute()
+
+Create legacy experiment (deprecated)
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    projectKey := "projectKey_example" // string | The project key
+    experimentPost := *openapiclient.NewExperimentPost("FlagKey_example", "MetricKey_example") // ExperimentPost | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ExperimentsBetaApi.PostLegacyExperiment(context.Background(), projectKey).ExperimentPost(experimentPost).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsBetaApi.PostLegacyExperiment``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PostLegacyExperiment`: ExperimentSummaryRep
+    fmt.Fprintf(os.Stdout, "Response from `ExperimentsBetaApi.PostLegacyExperiment`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projectKey** | **string** | The project key | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostLegacyExperimentRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **experimentPost** | [**ExperimentPost**](ExperimentPost.md) |  | 
+
+### Return type
+
+[**ExperimentSummaryRep**](ExperimentSummaryRep.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## PutExperimentationSettings
 
 > ExperimentationSettingsRep PutExperimentationSettings(ctx, projectKey).ExperimentationSettingsPut(experimentationSettingsPut).Execute()
@@ -782,6 +1178,79 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ExperimentationSettingsRep**](ExperimentationSettingsRep.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PutFlagMeasuredRolloutConfiguration
+
+> PutFlagMeasuredRolloutConfiguration(ctx, projectKey, flagKey).FlagMeasuredRolloutConfigurationInput(flagMeasuredRolloutConfigurationInput).Execute()
+
+Create or update measured rollout configuration
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    projectKey := "projectKey_example" // string | The project key
+    flagKey := "flagKey_example" // string | The experiment key
+    flagMeasuredRolloutConfigurationInput := *openapiclient.NewFlagMeasuredRolloutConfigurationInput() // FlagMeasuredRolloutConfigurationInput | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ExperimentsBetaApi.PutFlagMeasuredRolloutConfiguration(context.Background(), projectKey, flagKey).FlagMeasuredRolloutConfigurationInput(flagMeasuredRolloutConfigurationInput).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsBetaApi.PutFlagMeasuredRolloutConfiguration``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projectKey** | **string** | The project key | 
+**flagKey** | **string** | The experiment key | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPutFlagMeasuredRolloutConfigurationRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **flagMeasuredRolloutConfigurationInput** | [**FlagMeasuredRolloutConfigurationInput**](FlagMeasuredRolloutConfigurationInput.md) |  | 
+
+### Return type
+
+ (empty response body)
 
 ### Authorization
 

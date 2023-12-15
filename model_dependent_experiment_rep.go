@@ -23,6 +23,8 @@ type DependentExperimentRep struct {
 	Name string `json:"name"`
 	// The environment ID
 	EnvironmentId string `json:"environmentId"`
+	// The environment key
+	EnvironmentKey string `json:"environmentKey"`
 	CreationDate int64 `json:"creationDate"`
 	ArchivedDate *int64 `json:"archivedDate,omitempty"`
 	// The location and content type of related resources
@@ -33,11 +35,12 @@ type DependentExperimentRep struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDependentExperimentRep(key string, name string, environmentId string, creationDate int64, links map[string]Link) *DependentExperimentRep {
+func NewDependentExperimentRep(key string, name string, environmentId string, environmentKey string, creationDate int64, links map[string]Link) *DependentExperimentRep {
 	this := DependentExperimentRep{}
 	this.Key = key
 	this.Name = name
 	this.EnvironmentId = environmentId
+	this.EnvironmentKey = environmentKey
 	this.CreationDate = creationDate
 	this.Links = links
 	return &this
@@ -121,6 +124,30 @@ func (o *DependentExperimentRep) GetEnvironmentIdOk() (*string, bool) {
 // SetEnvironmentId sets field value
 func (o *DependentExperimentRep) SetEnvironmentId(v string) {
 	o.EnvironmentId = v
+}
+
+// GetEnvironmentKey returns the EnvironmentKey field value
+func (o *DependentExperimentRep) GetEnvironmentKey() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.EnvironmentKey
+}
+
+// GetEnvironmentKeyOk returns a tuple with the EnvironmentKey field value
+// and a boolean to check if the value has been set.
+func (o *DependentExperimentRep) GetEnvironmentKeyOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.EnvironmentKey, true
+}
+
+// SetEnvironmentKey sets field value
+func (o *DependentExperimentRep) SetEnvironmentKey(v string) {
+	o.EnvironmentKey = v
 }
 
 // GetCreationDate returns the CreationDate field value
@@ -213,6 +240,9 @@ func (o DependentExperimentRep) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["environmentId"] = o.EnvironmentId
+	}
+	if true {
+		toSerialize["environmentKey"] = o.EnvironmentKey
 	}
 	if true {
 		toSerialize["creationDate"] = o.CreationDate

@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **Defaults** | Pointer to [**Defaults**](Defaults.md) |  | [optional] 
 **Purpose** | Pointer to **string** | Purpose of the flag | [optional] 
 **MigrationSettings** | Pointer to [**MigrationSettingsPost**](MigrationSettingsPost.md) |  | [optional] 
+**ReleasePipelineKey** | Pointer to **string** | The key of the associated release pipeline for this feature flag | [optional] 
 
 ## Methods
 
@@ -325,6 +326,31 @@ SetMigrationSettings sets MigrationSettings field to given value.
 `func (o *FeatureFlagBody) HasMigrationSettings() bool`
 
 HasMigrationSettings returns a boolean if a field has been set.
+
+### GetReleasePipelineKey
+
+`func (o *FeatureFlagBody) GetReleasePipelineKey() string`
+
+GetReleasePipelineKey returns the ReleasePipelineKey field if non-nil, zero value otherwise.
+
+### GetReleasePipelineKeyOk
+
+`func (o *FeatureFlagBody) GetReleasePipelineKeyOk() (*string, bool)`
+
+GetReleasePipelineKeyOk returns a tuple with the ReleasePipelineKey field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetReleasePipelineKey
+
+`func (o *FeatureFlagBody) SetReleasePipelineKey(v string)`
+
+SetReleasePipelineKey sets ReleasePipelineKey field to given value.
+
+### HasReleasePipelineKey
+
+`func (o *FeatureFlagBody) HasReleasePipelineKey() bool`
+
+HasReleasePipelineKey returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

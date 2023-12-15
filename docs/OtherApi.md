@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**GetIps**](OtherApi.md#GetIps) | **Get** /api/v2/public-ip-list | Gets the public IP list
 [**GetOpenapiSpec**](OtherApi.md#GetOpenapiSpec) | **Get** /api/v2/openapi.json | Gets the OpenAPI spec in json
+[**GetProjectSummaries**](OtherApi.md#GetProjectSummaries) | **Get** /internal/list/projects | List projects
 [**GetRoot**](OtherApi.md#GetRoot) | **Get** /api/v2 | Root resource
 [**GetVersions**](OtherApi.md#GetVersions) | **Get** /api/v2/versions | Get version information
 
@@ -125,6 +126,67 @@ Other parameters are passed through a pointer to a apiGetOpenapiSpecRequest stru
 
 - **Content-Type**: Not defined
 - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetProjectSummaries
+
+> ProjectSummary GetProjectSummaries(ctx).Execute()
+
+List projects
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.OtherApi.GetProjectSummaries(context.Background()).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `OtherApi.GetProjectSummaries``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetProjectSummaries`: ProjectSummary
+    fmt.Fprintf(os.Stdout, "Response from `OtherApi.GetProjectSummaries`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetProjectSummariesRequest struct via the builder pattern
+
+
+### Return type
+
+[**ProjectSummary**](ProjectSummary.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

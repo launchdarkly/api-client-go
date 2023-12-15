@@ -19,11 +19,14 @@ import (
 type ExperimentBayesianResultsRep struct {
 	// The location and content type of related resources
 	Links *map[string]Link `json:"_links,omitempty"`
-	// A list of the results for each treatment
+	// Deprecated, use <code>results</code> instead. Only populated when response does not contain results sliced by multiple attributes.
+	// Deprecated
 	TreatmentResults []TreatmentResultRep `json:"treatmentResults,omitempty"`
 	MetricSeen *MetricSeen `json:"metricSeen,omitempty"`
 	// The probability of a Sample Ratio Mismatch
 	ProbabilityOfMismatch *float32 `json:"probabilityOfMismatch,omitempty"`
+	// A list of attribute values and their corresponding treatment results
+	Results []SlicedResultsRep `json:"results,omitempty"`
 }
 
 // NewExperimentBayesianResultsRep instantiates a new ExperimentBayesianResultsRep object
@@ -76,6 +79,7 @@ func (o *ExperimentBayesianResultsRep) SetLinks(v map[string]Link) {
 }
 
 // GetTreatmentResults returns the TreatmentResults field value if set, zero value otherwise.
+// Deprecated
 func (o *ExperimentBayesianResultsRep) GetTreatmentResults() []TreatmentResultRep {
 	if o == nil || o.TreatmentResults == nil {
 		var ret []TreatmentResultRep
@@ -86,6 +90,7 @@ func (o *ExperimentBayesianResultsRep) GetTreatmentResults() []TreatmentResultRe
 
 // GetTreatmentResultsOk returns a tuple with the TreatmentResults field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// Deprecated
 func (o *ExperimentBayesianResultsRep) GetTreatmentResultsOk() ([]TreatmentResultRep, bool) {
 	if o == nil || o.TreatmentResults == nil {
 		return nil, false
@@ -103,6 +108,7 @@ func (o *ExperimentBayesianResultsRep) HasTreatmentResults() bool {
 }
 
 // SetTreatmentResults gets a reference to the given []TreatmentResultRep and assigns it to the TreatmentResults field.
+// Deprecated
 func (o *ExperimentBayesianResultsRep) SetTreatmentResults(v []TreatmentResultRep) {
 	o.TreatmentResults = v
 }
@@ -171,6 +177,38 @@ func (o *ExperimentBayesianResultsRep) SetProbabilityOfMismatch(v float32) {
 	o.ProbabilityOfMismatch = &v
 }
 
+// GetResults returns the Results field value if set, zero value otherwise.
+func (o *ExperimentBayesianResultsRep) GetResults() []SlicedResultsRep {
+	if o == nil || o.Results == nil {
+		var ret []SlicedResultsRep
+		return ret
+	}
+	return o.Results
+}
+
+// GetResultsOk returns a tuple with the Results field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ExperimentBayesianResultsRep) GetResultsOk() ([]SlicedResultsRep, bool) {
+	if o == nil || o.Results == nil {
+		return nil, false
+	}
+	return o.Results, true
+}
+
+// HasResults returns a boolean if a field has been set.
+func (o *ExperimentBayesianResultsRep) HasResults() bool {
+	if o != nil && o.Results != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetResults gets a reference to the given []SlicedResultsRep and assigns it to the Results field.
+func (o *ExperimentBayesianResultsRep) SetResults(v []SlicedResultsRep) {
+	o.Results = v
+}
+
 func (o ExperimentBayesianResultsRep) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Links != nil {
@@ -184,6 +222,9 @@ func (o ExperimentBayesianResultsRep) MarshalJSON() ([]byte, error) {
 	}
 	if o.ProbabilityOfMismatch != nil {
 		toSerialize["probabilityOfMismatch"] = o.ProbabilityOfMismatch
+	}
+	if o.Results != nil {
+		toSerialize["results"] = o.Results
 	}
 	return json.Marshal(toSerialize)
 }

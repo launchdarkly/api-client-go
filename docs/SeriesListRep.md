@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Links** | **map[string]interface{}** | The location and content type of related resources | 
 **Metadata** | **[]map[string]interface{}** | Metadata about each series | 
+**TotalEvaluations** | Pointer to **int64** | The total number of times the flag was evaluated | [optional] 
 **Series** | **[]map[string]int32** | An array of data points with timestamps. Each element of the array is an object with a &#39;time&#39; field, whose value is the timestamp, and one or more key fields. If there are multiple key fields, they are labeled &#39;0&#39;, &#39;1&#39;, and so on, and are explained in the &lt;code&gt;metadata&lt;/code&gt;. | 
 
 ## Methods
@@ -66,6 +67,31 @@ and a boolean to check if the value has been set.
 
 SetMetadata sets Metadata field to given value.
 
+
+### GetTotalEvaluations
+
+`func (o *SeriesListRep) GetTotalEvaluations() int64`
+
+GetTotalEvaluations returns the TotalEvaluations field if non-nil, zero value otherwise.
+
+### GetTotalEvaluationsOk
+
+`func (o *SeriesListRep) GetTotalEvaluationsOk() (*int64, bool)`
+
+GetTotalEvaluationsOk returns a tuple with the TotalEvaluations field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTotalEvaluations
+
+`func (o *SeriesListRep) SetTotalEvaluations(v int64)`
+
+SetTotalEvaluations sets TotalEvaluations field to given value.
+
+### HasTotalEvaluations
+
+`func (o *SeriesListRep) HasTotalEvaluations() bool`
+
+HasTotalEvaluations returns a boolean if a field has been set.
 
 ### GetSeries
 

@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **Treatments** | [**[]TreatmentInput**](TreatmentInput.md) |  | 
 **Flags** | [**map[string]FlagInput**](FlagInput.md) |  | 
 **RandomizationUnit** | Pointer to **string** | The unit of randomization for this iteration. Defaults to user. | [optional] 
+**AiGeneratedExperimentConfig** | Pointer to [**AIGeneratedExperimentConfig**](AIGeneratedExperimentConfig.md) |  | [optional] 
 
 ## Methods
 
@@ -159,6 +160,31 @@ SetRandomizationUnit sets RandomizationUnit field to given value.
 `func (o *IterationInput) HasRandomizationUnit() bool`
 
 HasRandomizationUnit returns a boolean if a field has been set.
+
+### GetAiGeneratedExperimentConfig
+
+`func (o *IterationInput) GetAiGeneratedExperimentConfig() AIGeneratedExperimentConfig`
+
+GetAiGeneratedExperimentConfig returns the AiGeneratedExperimentConfig field if non-nil, zero value otherwise.
+
+### GetAiGeneratedExperimentConfigOk
+
+`func (o *IterationInput) GetAiGeneratedExperimentConfigOk() (*AIGeneratedExperimentConfig, bool)`
+
+GetAiGeneratedExperimentConfigOk returns a tuple with the AiGeneratedExperimentConfig field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAiGeneratedExperimentConfig
+
+`func (o *IterationInput) SetAiGeneratedExperimentConfig(v AIGeneratedExperimentConfig)`
+
+SetAiGeneratedExperimentConfig sets AiGeneratedExperimentConfig field to given value.
+
+### HasAiGeneratedExperimentConfig
+
+`func (o *IterationInput) HasAiGeneratedExperimentConfig() bool`
+
+HasAiGeneratedExperimentConfig returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

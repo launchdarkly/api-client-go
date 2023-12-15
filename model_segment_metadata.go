@@ -22,6 +22,7 @@ type SegmentMetadata struct {
 	Version *int32 `json:"version,omitempty"`
 	IncludedCount *int32 `json:"includedCount,omitempty"`
 	ExcludedCount *int32 `json:"excludedCount,omitempty"`
+	LastModified *int64 `json:"lastModified,omitempty"`
 	Deleted *bool `json:"deleted,omitempty"`
 }
 
@@ -202,6 +203,38 @@ func (o *SegmentMetadata) SetExcludedCount(v int32) {
 	o.ExcludedCount = &v
 }
 
+// GetLastModified returns the LastModified field value if set, zero value otherwise.
+func (o *SegmentMetadata) GetLastModified() int64 {
+	if o == nil || o.LastModified == nil {
+		var ret int64
+		return ret
+	}
+	return *o.LastModified
+}
+
+// GetLastModifiedOk returns a tuple with the LastModified field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SegmentMetadata) GetLastModifiedOk() (*int64, bool) {
+	if o == nil || o.LastModified == nil {
+		return nil, false
+	}
+	return o.LastModified, true
+}
+
+// HasLastModified returns a boolean if a field has been set.
+func (o *SegmentMetadata) HasLastModified() bool {
+	if o != nil && o.LastModified != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLastModified gets a reference to the given int64 and assigns it to the LastModified field.
+func (o *SegmentMetadata) SetLastModified(v int64) {
+	o.LastModified = &v
+}
+
 // GetDeleted returns the Deleted field value if set, zero value otherwise.
 func (o *SegmentMetadata) GetDeleted() bool {
 	if o == nil || o.Deleted == nil {
@@ -250,6 +283,9 @@ func (o SegmentMetadata) MarshalJSON() ([]byte, error) {
 	}
 	if o.ExcludedCount != nil {
 		toSerialize["excludedCount"] = o.ExcludedCount
+	}
+	if o.LastModified != nil {
+		toSerialize["lastModified"] = o.LastModified
 	}
 	if o.Deleted != nil {
 		toSerialize["deleted"] = o.Deleted

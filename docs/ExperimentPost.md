@@ -4,17 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** | The experiment name | 
-**Description** | Pointer to **string** | The experiment description | [optional] 
-**MaintainerId** | Pointer to **string** | The ID of the member who maintains this experiment | [optional] 
-**Key** | **string** | The experiment key | 
-**Iteration** | [**IterationInput**](IterationInput.md) |  | 
+**FlagKey** | **string** |  | 
+**MetricKey** | **string** |  | 
+**BaselineIdx** | Pointer to **int32** |  | [optional] 
+**EventLocation** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
 ### NewExperimentPost
 
-`func NewExperimentPost(name string, key string, iteration IterationInput, ) *ExperimentPost`
+`func NewExperimentPost(flagKey string, metricKey string, ) *ExperimentPost`
 
 NewExperimentPost instantiates a new ExperimentPost object
 This constructor will assign default values to properties that have it defined,
@@ -29,115 +28,95 @@ NewExperimentPostWithDefaults instantiates a new ExperimentPost object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetName
+### GetFlagKey
 
-`func (o *ExperimentPost) GetName() string`
+`func (o *ExperimentPost) GetFlagKey() string`
 
-GetName returns the Name field if non-nil, zero value otherwise.
+GetFlagKey returns the FlagKey field if non-nil, zero value otherwise.
 
-### GetNameOk
+### GetFlagKeyOk
 
-`func (o *ExperimentPost) GetNameOk() (*string, bool)`
+`func (o *ExperimentPost) GetFlagKeyOk() (*string, bool)`
 
-GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+GetFlagKeyOk returns a tuple with the FlagKey field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetName
+### SetFlagKey
 
-`func (o *ExperimentPost) SetName(v string)`
+`func (o *ExperimentPost) SetFlagKey(v string)`
 
-SetName sets Name field to given value.
+SetFlagKey sets FlagKey field to given value.
 
 
-### GetDescription
+### GetMetricKey
 
-`func (o *ExperimentPost) GetDescription() string`
+`func (o *ExperimentPost) GetMetricKey() string`
 
-GetDescription returns the Description field if non-nil, zero value otherwise.
+GetMetricKey returns the MetricKey field if non-nil, zero value otherwise.
 
-### GetDescriptionOk
+### GetMetricKeyOk
 
-`func (o *ExperimentPost) GetDescriptionOk() (*string, bool)`
+`func (o *ExperimentPost) GetMetricKeyOk() (*string, bool)`
 
-GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+GetMetricKeyOk returns a tuple with the MetricKey field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetDescription
+### SetMetricKey
 
-`func (o *ExperimentPost) SetDescription(v string)`
+`func (o *ExperimentPost) SetMetricKey(v string)`
 
-SetDescription sets Description field to given value.
+SetMetricKey sets MetricKey field to given value.
 
-### HasDescription
 
-`func (o *ExperimentPost) HasDescription() bool`
+### GetBaselineIdx
 
-HasDescription returns a boolean if a field has been set.
+`func (o *ExperimentPost) GetBaselineIdx() int32`
 
-### GetMaintainerId
+GetBaselineIdx returns the BaselineIdx field if non-nil, zero value otherwise.
 
-`func (o *ExperimentPost) GetMaintainerId() string`
+### GetBaselineIdxOk
 
-GetMaintainerId returns the MaintainerId field if non-nil, zero value otherwise.
+`func (o *ExperimentPost) GetBaselineIdxOk() (*int32, bool)`
 
-### GetMaintainerIdOk
-
-`func (o *ExperimentPost) GetMaintainerIdOk() (*string, bool)`
-
-GetMaintainerIdOk returns a tuple with the MaintainerId field if it's non-nil, zero value otherwise
+GetBaselineIdxOk returns a tuple with the BaselineIdx field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetMaintainerId
+### SetBaselineIdx
 
-`func (o *ExperimentPost) SetMaintainerId(v string)`
+`func (o *ExperimentPost) SetBaselineIdx(v int32)`
 
-SetMaintainerId sets MaintainerId field to given value.
+SetBaselineIdx sets BaselineIdx field to given value.
 
-### HasMaintainerId
+### HasBaselineIdx
 
-`func (o *ExperimentPost) HasMaintainerId() bool`
+`func (o *ExperimentPost) HasBaselineIdx() bool`
 
-HasMaintainerId returns a boolean if a field has been set.
+HasBaselineIdx returns a boolean if a field has been set.
 
-### GetKey
+### GetEventLocation
 
-`func (o *ExperimentPost) GetKey() string`
+`func (o *ExperimentPost) GetEventLocation() string`
 
-GetKey returns the Key field if non-nil, zero value otherwise.
+GetEventLocation returns the EventLocation field if non-nil, zero value otherwise.
 
-### GetKeyOk
+### GetEventLocationOk
 
-`func (o *ExperimentPost) GetKeyOk() (*string, bool)`
+`func (o *ExperimentPost) GetEventLocationOk() (*string, bool)`
 
-GetKeyOk returns a tuple with the Key field if it's non-nil, zero value otherwise
+GetEventLocationOk returns a tuple with the EventLocation field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetKey
+### SetEventLocation
 
-`func (o *ExperimentPost) SetKey(v string)`
+`func (o *ExperimentPost) SetEventLocation(v string)`
 
-SetKey sets Key field to given value.
+SetEventLocation sets EventLocation field to given value.
 
+### HasEventLocation
 
-### GetIteration
+`func (o *ExperimentPost) HasEventLocation() bool`
 
-`func (o *ExperimentPost) GetIteration() IterationInput`
-
-GetIteration returns the Iteration field if non-nil, zero value otherwise.
-
-### GetIterationOk
-
-`func (o *ExperimentPost) GetIterationOk() (*IterationInput, bool)`
-
-GetIterationOk returns a tuple with the Iteration field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetIteration
-
-`func (o *ExperimentPost) SetIteration(v IterationInput)`
-
-SetIteration sets Iteration field to given value.
-
+HasEventLocation returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

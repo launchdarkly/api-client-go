@@ -25,15 +25,18 @@ Name | Type | Description | Notes
 **CustomProperties** | [**map[string]CustomProperty**](CustomProperty.md) |  | 
 **Archived** | **bool** | Boolean indicating if the feature flag is archived | 
 **ArchivedDate** | Pointer to **int64** |  | [optional] 
+**Deprecated** | **bool** | Boolean indicating if the feature flag is deprecated | 
+**DeprecatedDate** | Pointer to **int64** |  | [optional] 
 **Defaults** | Pointer to [**Defaults**](Defaults.md) |  | [optional] 
 **Purpose** | Pointer to **string** |  | [optional] 
 **MigrationSettings** | Pointer to [**FlagMigrationSettingsRep**](FlagMigrationSettingsRep.md) |  | [optional] 
+**ReleasePipelineKey** | Pointer to **string** | The key of the associated release pipeline for this feature flag | [optional] 
 
 ## Methods
 
 ### NewFlagGlobalAttributesRep
 
-`func NewFlagGlobalAttributesRep(name string, kind string, key string, version int32, creationDate int64, variations []Variation, temporary bool, tags []string, links map[string]Link, experiments ExperimentInfoRep, customProperties map[string]CustomProperty, archived bool, ) *FlagGlobalAttributesRep`
+`func NewFlagGlobalAttributesRep(name string, kind string, key string, version int32, creationDate int64, variations []Variation, temporary bool, tags []string, links map[string]Link, experiments ExperimentInfoRep, customProperties map[string]CustomProperty, archived bool, deprecated bool, ) *FlagGlobalAttributesRep`
 
 NewFlagGlobalAttributesRep instantiates a new FlagGlobalAttributesRep object
 This constructor will assign default values to properties that have it defined,
@@ -513,6 +516,51 @@ SetArchivedDate sets ArchivedDate field to given value.
 
 HasArchivedDate returns a boolean if a field has been set.
 
+### GetDeprecated
+
+`func (o *FlagGlobalAttributesRep) GetDeprecated() bool`
+
+GetDeprecated returns the Deprecated field if non-nil, zero value otherwise.
+
+### GetDeprecatedOk
+
+`func (o *FlagGlobalAttributesRep) GetDeprecatedOk() (*bool, bool)`
+
+GetDeprecatedOk returns a tuple with the Deprecated field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDeprecated
+
+`func (o *FlagGlobalAttributesRep) SetDeprecated(v bool)`
+
+SetDeprecated sets Deprecated field to given value.
+
+
+### GetDeprecatedDate
+
+`func (o *FlagGlobalAttributesRep) GetDeprecatedDate() int64`
+
+GetDeprecatedDate returns the DeprecatedDate field if non-nil, zero value otherwise.
+
+### GetDeprecatedDateOk
+
+`func (o *FlagGlobalAttributesRep) GetDeprecatedDateOk() (*int64, bool)`
+
+GetDeprecatedDateOk returns a tuple with the DeprecatedDate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDeprecatedDate
+
+`func (o *FlagGlobalAttributesRep) SetDeprecatedDate(v int64)`
+
+SetDeprecatedDate sets DeprecatedDate field to given value.
+
+### HasDeprecatedDate
+
+`func (o *FlagGlobalAttributesRep) HasDeprecatedDate() bool`
+
+HasDeprecatedDate returns a boolean if a field has been set.
+
 ### GetDefaults
 
 `func (o *FlagGlobalAttributesRep) GetDefaults() Defaults`
@@ -587,6 +635,31 @@ SetMigrationSettings sets MigrationSettings field to given value.
 `func (o *FlagGlobalAttributesRep) HasMigrationSettings() bool`
 
 HasMigrationSettings returns a boolean if a field has been set.
+
+### GetReleasePipelineKey
+
+`func (o *FlagGlobalAttributesRep) GetReleasePipelineKey() string`
+
+GetReleasePipelineKey returns the ReleasePipelineKey field if non-nil, zero value otherwise.
+
+### GetReleasePipelineKeyOk
+
+`func (o *FlagGlobalAttributesRep) GetReleasePipelineKeyOk() (*string, bool)`
+
+GetReleasePipelineKeyOk returns a tuple with the ReleasePipelineKey field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetReleasePipelineKey
+
+`func (o *FlagGlobalAttributesRep) SetReleasePipelineKey(v string)`
+
+SetReleasePipelineKey sets ReleasePipelineKey field to given value.
+
+### HasReleasePipelineKey
+
+`func (o *FlagGlobalAttributesRep) HasReleasePipelineKey() bool`
+
+HasReleasePipelineKey returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

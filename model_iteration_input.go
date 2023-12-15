@@ -26,6 +26,7 @@ type IterationInput struct {
 	Flags map[string]FlagInput `json:"flags"`
 	// The unit of randomization for this iteration. Defaults to user.
 	RandomizationUnit *string `json:"randomizationUnit,omitempty"`
+	AiGeneratedExperimentConfig *AIGeneratedExperimentConfig `json:"aiGeneratedExperimentConfig,omitempty"`
 }
 
 // NewIterationInput instantiates a new IterationInput object
@@ -209,6 +210,38 @@ func (o *IterationInput) SetRandomizationUnit(v string) {
 	o.RandomizationUnit = &v
 }
 
+// GetAiGeneratedExperimentConfig returns the AiGeneratedExperimentConfig field value if set, zero value otherwise.
+func (o *IterationInput) GetAiGeneratedExperimentConfig() AIGeneratedExperimentConfig {
+	if o == nil || o.AiGeneratedExperimentConfig == nil {
+		var ret AIGeneratedExperimentConfig
+		return ret
+	}
+	return *o.AiGeneratedExperimentConfig
+}
+
+// GetAiGeneratedExperimentConfigOk returns a tuple with the AiGeneratedExperimentConfig field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IterationInput) GetAiGeneratedExperimentConfigOk() (*AIGeneratedExperimentConfig, bool) {
+	if o == nil || o.AiGeneratedExperimentConfig == nil {
+		return nil, false
+	}
+	return o.AiGeneratedExperimentConfig, true
+}
+
+// HasAiGeneratedExperimentConfig returns a boolean if a field has been set.
+func (o *IterationInput) HasAiGeneratedExperimentConfig() bool {
+	if o != nil && o.AiGeneratedExperimentConfig != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAiGeneratedExperimentConfig gets a reference to the given AIGeneratedExperimentConfig and assigns it to the AiGeneratedExperimentConfig field.
+func (o *IterationInput) SetAiGeneratedExperimentConfig(v AIGeneratedExperimentConfig) {
+	o.AiGeneratedExperimentConfig = &v
+}
+
 func (o IterationInput) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -228,6 +261,9 @@ func (o IterationInput) MarshalJSON() ([]byte, error) {
 	}
 	if o.RandomizationUnit != nil {
 		toSerialize["randomizationUnit"] = o.RandomizationUnit
+	}
+	if o.AiGeneratedExperimentConfig != nil {
+		toSerialize["aiGeneratedExperimentConfig"] = o.AiGeneratedExperimentConfig
 	}
 	return json.Marshal(toSerialize)
 }

@@ -17,26 +17,20 @@ import (
 
 // ExperimentPost struct for ExperimentPost
 type ExperimentPost struct {
-	// The experiment name
-	Name string `json:"name"`
-	// The experiment description
-	Description *string `json:"description,omitempty"`
-	// The ID of the member who maintains this experiment
-	MaintainerId *string `json:"maintainerId,omitempty"`
-	// The experiment key
-	Key string `json:"key"`
-	Iteration IterationInput `json:"iteration"`
+	FlagKey string `json:"flagKey"`
+	MetricKey string `json:"metricKey"`
+	BaselineIdx *int32 `json:"baselineIdx,omitempty"`
+	EventLocation *string `json:"eventLocation,omitempty"`
 }
 
 // NewExperimentPost instantiates a new ExperimentPost object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewExperimentPost(name string, key string, iteration IterationInput) *ExperimentPost {
+func NewExperimentPost(flagKey string, metricKey string) *ExperimentPost {
 	this := ExperimentPost{}
-	this.Name = name
-	this.Key = key
-	this.Iteration = iteration
+	this.FlagKey = flagKey
+	this.MetricKey = metricKey
 	return &this
 }
 
@@ -48,158 +42,131 @@ func NewExperimentPostWithDefaults() *ExperimentPost {
 	return &this
 }
 
-// GetName returns the Name field value
-func (o *ExperimentPost) GetName() string {
+// GetFlagKey returns the FlagKey field value
+func (o *ExperimentPost) GetFlagKey() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Name
+	return o.FlagKey
 }
 
-// GetNameOk returns a tuple with the Name field value
+// GetFlagKeyOk returns a tuple with the FlagKey field value
 // and a boolean to check if the value has been set.
-func (o *ExperimentPost) GetNameOk() (*string, bool) {
+func (o *ExperimentPost) GetFlagKeyOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Name, true
+	return &o.FlagKey, true
 }
 
-// SetName sets field value
-func (o *ExperimentPost) SetName(v string) {
-	o.Name = v
+// SetFlagKey sets field value
+func (o *ExperimentPost) SetFlagKey(v string) {
+	o.FlagKey = v
 }
 
-// GetDescription returns the Description field value if set, zero value otherwise.
-func (o *ExperimentPost) GetDescription() string {
-	if o == nil || o.Description == nil {
+// GetMetricKey returns the MetricKey field value
+func (o *ExperimentPost) GetMetricKey() string {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Description
+
+	return o.MetricKey
 }
 
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// GetMetricKeyOk returns a tuple with the MetricKey field value
 // and a boolean to check if the value has been set.
-func (o *ExperimentPost) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+func (o *ExperimentPost) GetMetricKeyOk() (*string, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Description, true
+	return &o.MetricKey, true
 }
 
-// HasDescription returns a boolean if a field has been set.
-func (o *ExperimentPost) HasDescription() bool {
-	if o != nil && o.Description != nil {
+// SetMetricKey sets field value
+func (o *ExperimentPost) SetMetricKey(v string) {
+	o.MetricKey = v
+}
+
+// GetBaselineIdx returns the BaselineIdx field value if set, zero value otherwise.
+func (o *ExperimentPost) GetBaselineIdx() int32 {
+	if o == nil || o.BaselineIdx == nil {
+		var ret int32
+		return ret
+	}
+	return *o.BaselineIdx
+}
+
+// GetBaselineIdxOk returns a tuple with the BaselineIdx field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ExperimentPost) GetBaselineIdxOk() (*int32, bool) {
+	if o == nil || o.BaselineIdx == nil {
+		return nil, false
+	}
+	return o.BaselineIdx, true
+}
+
+// HasBaselineIdx returns a boolean if a field has been set.
+func (o *ExperimentPost) HasBaselineIdx() bool {
+	if o != nil && o.BaselineIdx != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *ExperimentPost) SetDescription(v string) {
-	o.Description = &v
+// SetBaselineIdx gets a reference to the given int32 and assigns it to the BaselineIdx field.
+func (o *ExperimentPost) SetBaselineIdx(v int32) {
+	o.BaselineIdx = &v
 }
 
-// GetMaintainerId returns the MaintainerId field value if set, zero value otherwise.
-func (o *ExperimentPost) GetMaintainerId() string {
-	if o == nil || o.MaintainerId == nil {
+// GetEventLocation returns the EventLocation field value if set, zero value otherwise.
+func (o *ExperimentPost) GetEventLocation() string {
+	if o == nil || o.EventLocation == nil {
 		var ret string
 		return ret
 	}
-	return *o.MaintainerId
+	return *o.EventLocation
 }
 
-// GetMaintainerIdOk returns a tuple with the MaintainerId field value if set, nil otherwise
+// GetEventLocationOk returns a tuple with the EventLocation field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ExperimentPost) GetMaintainerIdOk() (*string, bool) {
-	if o == nil || o.MaintainerId == nil {
+func (o *ExperimentPost) GetEventLocationOk() (*string, bool) {
+	if o == nil || o.EventLocation == nil {
 		return nil, false
 	}
-	return o.MaintainerId, true
+	return o.EventLocation, true
 }
 
-// HasMaintainerId returns a boolean if a field has been set.
-func (o *ExperimentPost) HasMaintainerId() bool {
-	if o != nil && o.MaintainerId != nil {
+// HasEventLocation returns a boolean if a field has been set.
+func (o *ExperimentPost) HasEventLocation() bool {
+	if o != nil && o.EventLocation != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetMaintainerId gets a reference to the given string and assigns it to the MaintainerId field.
-func (o *ExperimentPost) SetMaintainerId(v string) {
-	o.MaintainerId = &v
-}
-
-// GetKey returns the Key field value
-func (o *ExperimentPost) GetKey() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Key
-}
-
-// GetKeyOk returns a tuple with the Key field value
-// and a boolean to check if the value has been set.
-func (o *ExperimentPost) GetKeyOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Key, true
-}
-
-// SetKey sets field value
-func (o *ExperimentPost) SetKey(v string) {
-	o.Key = v
-}
-
-// GetIteration returns the Iteration field value
-func (o *ExperimentPost) GetIteration() IterationInput {
-	if o == nil {
-		var ret IterationInput
-		return ret
-	}
-
-	return o.Iteration
-}
-
-// GetIterationOk returns a tuple with the Iteration field value
-// and a boolean to check if the value has been set.
-func (o *ExperimentPost) GetIterationOk() (*IterationInput, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Iteration, true
-}
-
-// SetIteration sets field value
-func (o *ExperimentPost) SetIteration(v IterationInput) {
-	o.Iteration = v
+// SetEventLocation gets a reference to the given string and assigns it to the EventLocation field.
+func (o *ExperimentPost) SetEventLocation(v string) {
+	o.EventLocation = &v
 }
 
 func (o ExperimentPost) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.MaintainerId != nil {
-		toSerialize["maintainerId"] = o.MaintainerId
+		toSerialize["flagKey"] = o.FlagKey
 	}
 	if true {
-		toSerialize["key"] = o.Key
+		toSerialize["metricKey"] = o.MetricKey
 	}
-	if true {
-		toSerialize["iteration"] = o.Iteration
+	if o.BaselineIdx != nil {
+		toSerialize["baselineIdx"] = o.BaselineIdx
+	}
+	if o.EventLocation != nil {
+		toSerialize["eventLocation"] = o.EventLocation
 	}
 	return json.Marshal(toSerialize)
 }

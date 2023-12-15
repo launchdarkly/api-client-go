@@ -40,6 +40,7 @@ type CustomWorkflowOutput struct {
 	Meta *WorkflowTemplateMetadata `json:"meta,omitempty"`
 	// For workflows being created from a workflow template, this value is the template's key
 	TemplateKey *string `json:"templateKey,omitempty"`
+	Environment *EnvironmentSummary `json:"_environment,omitempty"`
 }
 
 // NewCustomWorkflowOutput instantiates a new CustomWorkflowOutput object
@@ -419,6 +420,38 @@ func (o *CustomWorkflowOutput) SetTemplateKey(v string) {
 	o.TemplateKey = &v
 }
 
+// GetEnvironment returns the Environment field value if set, zero value otherwise.
+func (o *CustomWorkflowOutput) GetEnvironment() EnvironmentSummary {
+	if o == nil || o.Environment == nil {
+		var ret EnvironmentSummary
+		return ret
+	}
+	return *o.Environment
+}
+
+// GetEnvironmentOk returns a tuple with the Environment field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CustomWorkflowOutput) GetEnvironmentOk() (*EnvironmentSummary, bool) {
+	if o == nil || o.Environment == nil {
+		return nil, false
+	}
+	return o.Environment, true
+}
+
+// HasEnvironment returns a boolean if a field has been set.
+func (o *CustomWorkflowOutput) HasEnvironment() bool {
+	if o != nil && o.Environment != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetEnvironment gets a reference to the given EnvironmentSummary and assigns it to the Environment field.
+func (o *CustomWorkflowOutput) SetEnvironment(v EnvironmentSummary) {
+	o.Environment = &v
+}
+
 func (o CustomWorkflowOutput) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -459,6 +492,9 @@ func (o CustomWorkflowOutput) MarshalJSON() ([]byte, error) {
 	}
 	if o.TemplateKey != nil {
 		toSerialize["templateKey"] = o.TemplateKey
+	}
+	if o.Environment != nil {
+		toSerialize["_environment"] = o.Environment
 	}
 	return json.Marshal(toSerialize)
 }

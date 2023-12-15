@@ -25,6 +25,7 @@ Name | Type | Description | Notes
 **Summary** | Pointer to [**FlagSummary**](FlagSummary.md) |  | [optional] 
 **Evaluation** | Pointer to [**FlagConfigEvaluation**](FlagConfigEvaluation.md) |  | [optional] 
 **MigrationSettings** | Pointer to [**FlagConfigMigrationSettingsRep**](FlagConfigMigrationSettingsRep.md) |  | [optional] 
+**MeasuredRolloutStatus** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -519,6 +520,31 @@ SetMigrationSettings sets MigrationSettings field to given value.
 `func (o *FeatureFlagConfig) HasMigrationSettings() bool`
 
 HasMigrationSettings returns a boolean if a field has been set.
+
+### GetMeasuredRolloutStatus
+
+`func (o *FeatureFlagConfig) GetMeasuredRolloutStatus() string`
+
+GetMeasuredRolloutStatus returns the MeasuredRolloutStatus field if non-nil, zero value otherwise.
+
+### GetMeasuredRolloutStatusOk
+
+`func (o *FeatureFlagConfig) GetMeasuredRolloutStatusOk() (*string, bool)`
+
+GetMeasuredRolloutStatusOk returns a tuple with the MeasuredRolloutStatus field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMeasuredRolloutStatus
+
+`func (o *FeatureFlagConfig) SetMeasuredRolloutStatus(v string)`
+
+SetMeasuredRolloutStatus sets MeasuredRolloutStatus field to given value.
+
+### HasMeasuredRolloutStatus
+
+`func (o *FeatureFlagConfig) HasMeasuredRolloutStatus() bool`
+
+HasMeasuredRolloutStatus returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

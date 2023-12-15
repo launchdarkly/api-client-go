@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Experiments** | Pointer to [**[]DependentExperimentRep**](DependentExperimentRep.md) |  | [optional] 
+**MetricGroups** | Pointer to [**[]DependentMetricGroupRep**](DependentMetricGroupRep.md) | Metric groups that use this metric | [optional] 
 
 ## Methods
 
@@ -49,6 +50,31 @@ SetExperiments sets Experiments field to given value.
 `func (o *MetricRepExpandableProperties) HasExperiments() bool`
 
 HasExperiments returns a boolean if a field has been set.
+
+### GetMetricGroups
+
+`func (o *MetricRepExpandableProperties) GetMetricGroups() []DependentMetricGroupRep`
+
+GetMetricGroups returns the MetricGroups field if non-nil, zero value otherwise.
+
+### GetMetricGroupsOk
+
+`func (o *MetricRepExpandableProperties) GetMetricGroupsOk() (*[]DependentMetricGroupRep, bool)`
+
+GetMetricGroupsOk returns a tuple with the MetricGroups field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMetricGroups
+
+`func (o *MetricRepExpandableProperties) SetMetricGroups(v []DependentMetricGroupRep)`
+
+SetMetricGroups sets MetricGroups field to given value.
+
+### HasMetricGroups
+
+`func (o *MetricRepExpandableProperties) HasMetricGroups() bool`
+
+HasMetricGroups returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
