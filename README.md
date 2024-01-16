@@ -248,7 +248,7 @@ The `code` indicates the general class of error. The `message` is a human-readab
 | 405  | Method not allowed | The request method is not allowed on this resource. | Ensure that the HTTP verb is correct. |
 | 409  | Conflict          | The API request can not be completed because it conflicts with a concurrent API request. | Retry your request.                                              |
 | 422  | Unprocessable entity | The API request can not be completed because the update description can not be understood. | Ensure that the request body is correct for the type of patch you are using, either JSON patch or semantic patch.
-| 429  | Too many requests | Read [Rate limiting](/#rate-limiting).                                               | Wait and try again later.                                        |
+|   | Too many requests | Read [Rate limiting](#rate-limiting).                                               | Wait and try again later.                                        |
 
 ## CORS
 
