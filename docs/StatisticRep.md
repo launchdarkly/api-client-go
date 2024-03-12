@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | The repository name | 
+**Type** | **string** | The type of repository | 
 **SourceLink** | **string** | A URL to access the repository | 
 **DefaultBranch** | **string** | The repository&#39;s default branch | 
 **Enabled** | **bool** | Whether or not a repository is enabled for code reference scanning | 
@@ -17,7 +18,7 @@ Name | Type | Description | Notes
 
 ### NewStatisticRep
 
-`func NewStatisticRep(name string, sourceLink string, defaultBranch string, enabled bool, version int32, hunkCount int32, fileCount int32, links map[string]Link, ) *StatisticRep`
+`func NewStatisticRep(name string, type_ string, sourceLink string, defaultBranch string, enabled bool, version int32, hunkCount int32, fileCount int32, links map[string]Link, ) *StatisticRep`
 
 NewStatisticRep instantiates a new StatisticRep object
 This constructor will assign default values to properties that have it defined,
@@ -50,6 +51,26 @@ and a boolean to check if the value has been set.
 `func (o *StatisticRep) SetName(v string)`
 
 SetName sets Name field to given value.
+
+
+### GetType
+
+`func (o *StatisticRep) GetType() string`
+
+GetType returns the Type field if non-nil, zero value otherwise.
+
+### GetTypeOk
+
+`func (o *StatisticRep) GetTypeOk() (*string, bool)`
+
+GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetType
+
+`func (o *StatisticRep) SetType(v string)`
+
+SetType sets Type field to given value.
 
 
 ### GetSourceLink

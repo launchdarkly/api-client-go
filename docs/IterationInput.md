@@ -7,6 +7,8 @@ Name | Type | Description | Notes
 **Hypothesis** | **string** | The expected outcome of this experiment | 
 **CanReshuffleTraffic** | Pointer to **bool** | Whether to allow the experiment to reassign traffic to different variations when you increase or decrease the traffic in your experiment audience (true) or keep all traffic assigned to its initial variation (false). Defaults to true. | [optional] 
 **Metrics** | [**[]MetricInput**](MetricInput.md) |  | 
+**PrimarySingleMetricKey** | Pointer to **string** | The key of the primary metric for this experiment. Either &lt;code&gt;primarySingleMetricKey&lt;/code&gt; or &lt;code&gt;primaryFunnelKey&lt;/code&gt; must be present. | [optional] 
+**PrimaryFunnelKey** | Pointer to **string** | The key of the primary funnel group for this experiment. Either &lt;code&gt;primarySingleMetricKey&lt;/code&gt; or &lt;code&gt;primaryFunnelKey&lt;/code&gt; must be present. | [optional] 
 **Treatments** | [**[]TreatmentInput**](TreatmentInput.md) |  | 
 **Flags** | [**map[string]FlagInput**](FlagInput.md) |  | 
 **RandomizationUnit** | Pointer to **string** | The unit of randomization for this iteration. Defaults to user. | [optional] 
@@ -94,6 +96,56 @@ and a boolean to check if the value has been set.
 
 SetMetrics sets Metrics field to given value.
 
+
+### GetPrimarySingleMetricKey
+
+`func (o *IterationInput) GetPrimarySingleMetricKey() string`
+
+GetPrimarySingleMetricKey returns the PrimarySingleMetricKey field if non-nil, zero value otherwise.
+
+### GetPrimarySingleMetricKeyOk
+
+`func (o *IterationInput) GetPrimarySingleMetricKeyOk() (*string, bool)`
+
+GetPrimarySingleMetricKeyOk returns a tuple with the PrimarySingleMetricKey field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPrimarySingleMetricKey
+
+`func (o *IterationInput) SetPrimarySingleMetricKey(v string)`
+
+SetPrimarySingleMetricKey sets PrimarySingleMetricKey field to given value.
+
+### HasPrimarySingleMetricKey
+
+`func (o *IterationInput) HasPrimarySingleMetricKey() bool`
+
+HasPrimarySingleMetricKey returns a boolean if a field has been set.
+
+### GetPrimaryFunnelKey
+
+`func (o *IterationInput) GetPrimaryFunnelKey() string`
+
+GetPrimaryFunnelKey returns the PrimaryFunnelKey field if non-nil, zero value otherwise.
+
+### GetPrimaryFunnelKeyOk
+
+`func (o *IterationInput) GetPrimaryFunnelKeyOk() (*string, bool)`
+
+GetPrimaryFunnelKeyOk returns a tuple with the PrimaryFunnelKey field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPrimaryFunnelKey
+
+`func (o *IterationInput) SetPrimaryFunnelKey(v string)`
+
+SetPrimaryFunnelKey sets PrimaryFunnelKey field to given value.
+
+### HasPrimaryFunnelKey
+
+`func (o *IterationInput) HasPrimaryFunnelKey() bool`
+
+HasPrimaryFunnelKey returns a boolean if a field has been set.
 
 ### GetTreatments
 

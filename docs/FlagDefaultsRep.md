@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Links** | Pointer to [**map[string]Link**](Link.md) | The location and content type of related resources | [optional] 
+**Key** | Pointer to **string** | A unique key for the flag default | [optional] 
 **Tags** | Pointer to **[]string** | A list of default tags for each flag | [optional] 
 **Temporary** | Pointer to **bool** | Whether the flag should be temporary by default | [optional] 
 **DefaultClientSideAvailability** | Pointer to [**ClientSideAvailability**](ClientSideAvailability.md) |  | [optional] 
@@ -53,6 +54,31 @@ SetLinks sets Links field to given value.
 `func (o *FlagDefaultsRep) HasLinks() bool`
 
 HasLinks returns a boolean if a field has been set.
+
+### GetKey
+
+`func (o *FlagDefaultsRep) GetKey() string`
+
+GetKey returns the Key field if non-nil, zero value otherwise.
+
+### GetKeyOk
+
+`func (o *FlagDefaultsRep) GetKeyOk() (*string, bool)`
+
+GetKeyOk returns a tuple with the Key field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetKey
+
+`func (o *FlagDefaultsRep) SetKey(v string)`
+
+SetKey sets Key field to given value.
+
+### HasKey
+
+`func (o *FlagDefaultsRep) HasKey() bool`
+
+HasKey returns a boolean if a field has been set.
 
 ### GetTags
 

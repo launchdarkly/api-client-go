@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **IsActive** | Pointer to **bool** | Whether the metric is active. Set to &lt;code&gt;true&lt;/code&gt; to record click or pageview metrics. Not applicable for custom metrics. | [optional] 
 **IsNumeric** | Pointer to **bool** | Whether to track numeric changes in value against a baseline (&lt;code&gt;true&lt;/code&gt;) or to track a conversion when an end user takes an action (&lt;code&gt;false&lt;/code&gt;). Required for custom metrics only. | [optional] 
 **Unit** | Pointer to **string** | The unit of measure. Applicable for numeric custom metrics only. | [optional] 
-**EventKey** | Pointer to **string** | The event key to use in your code. Required for custom metrics only. | [optional] 
+**EventKey** | Pointer to **string** | The event key to use in your code. Required for custom conversion/binary and custom numeric metrics only. | [optional] 
 **SuccessCriteria** | Pointer to **string** | Success criteria. Required for custom numeric metrics, optional for custom conversion metrics. | [optional] 
 **Tags** | Pointer to **[]string** | Tags for the metric | [optional] 
 **RandomizationUnits** | Pointer to **[]string** | An array of randomization units allowed for this metric | [optional] 

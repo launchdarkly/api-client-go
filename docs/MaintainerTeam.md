@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Key** | Pointer to **string** | The key of the maintainer team | [optional] 
-**Name** | Pointer to **string** | A human-friendly name for the maintainer team | [optional] 
+**Key** | **string** | The key of the maintainer team | 
+**Name** | **string** | A human-friendly name for the maintainer team | 
 **Links** | Pointer to [**map[string]Link**](Link.md) | The location and content type of related resources | [optional] 
 
 ## Methods
 
 ### NewMaintainerTeam
 
-`func NewMaintainerTeam() *MaintainerTeam`
+`func NewMaintainerTeam(key string, name string, ) *MaintainerTeam`
 
 NewMaintainerTeam instantiates a new MaintainerTeam object
 This constructor will assign default values to properties that have it defined,
@@ -46,11 +46,6 @@ and a boolean to check if the value has been set.
 
 SetKey sets Key field to given value.
 
-### HasKey
-
-`func (o *MaintainerTeam) HasKey() bool`
-
-HasKey returns a boolean if a field has been set.
 
 ### GetName
 
@@ -71,11 +66,6 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
-### HasName
-
-`func (o *MaintainerTeam) HasName() bool`
-
-HasName returns a boolean if a field has been set.
 
 ### GetLinks
 

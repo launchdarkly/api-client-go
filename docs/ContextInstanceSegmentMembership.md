@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Name** | **string** | A human-friendly name for the segment | 
 **Key** | **string** | A unique key used to reference the segment | 
 **Description** | **string** | A description of the segment&#39;s purpose | 
-**Unbounded** | **bool** | Whether this is an unbounded segment. Unbounded segments, also called Big Segments, may be list-based segments with more than 15,000 entries, or synced segments. | 
+**Unbounded** | **bool** | Whether this is an unbounded segment. Unbounded segments, also called big segments, may be list-based segments with more than 15,000 entries, or synced segments. | 
 **External** | **string** | If the segment is a synced segment, the name of the external source | 
 **IsMember** | **bool** | Whether the context is a member of this segment, either by explicit inclusion or by rule matching | 
 **IsIndividuallyTargeted** | **bool** | Whether the context is explicitly included in this segment | 

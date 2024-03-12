@@ -6,13 +6,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Key** | **string** | The metric key | 
 **IsGroup** | Pointer to **bool** | Whether this is a metric group (true) or a metric (false). Defaults to false | [optional] 
-**Primary** | **bool** | Whether this is a primary metric (true) or a secondary metric (false) | 
+**Primary** | Pointer to **bool** | Deprecated, use &lt;code&gt;primarySingleMetricKey&lt;/code&gt; and &lt;code&gt;primaryFunnelKey&lt;/code&gt;. Whether this is a primary metric (true) or a secondary metric (false) | [optional] 
 
 ## Methods
 
 ### NewMetricInput
 
-`func NewMetricInput(key string, primary bool, ) *MetricInput`
+`func NewMetricInput(key string, ) *MetricInput`
 
 NewMetricInput instantiates a new MetricInput object
 This constructor will assign default values to properties that have it defined,
@@ -91,6 +91,11 @@ and a boolean to check if the value has been set.
 
 SetPrimary sets Primary field to given value.
 
+### HasPrimary
+
+`func (o *MetricInput) HasPrimary() bool`
+
+HasPrimary returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -8,8 +8,8 @@ Name | Type | Description | Notes
 **Key** | **string** | A unique key used to reference the segment | 
 **Description** | Pointer to **string** | A description of the segment&#39;s purpose | [optional] 
 **Tags** | Pointer to **[]string** | Tags for the segment | [optional] 
-**Unbounded** | Pointer to **bool** | Whether to create a standard segment (&lt;code&gt;false&lt;/code&gt;) or a Big Segment (&lt;code&gt;true&lt;/code&gt;). Standard segments include rule-based and smaller list-based segments. Big Segments include larger list-based segments and synced segments. Only use a Big Segment if you need to add more than 15,000 individual targets. | [optional] 
-**UnboundedContextKind** | Pointer to **string** | For Big Segments, the targeted context kind. | [optional] 
+**Unbounded** | Pointer to **bool** | Whether to create a standard segment (&lt;code&gt;false&lt;/code&gt;) or a big segment (&lt;code&gt;true&lt;/code&gt;). Standard segments include rule-based and smaller list-based segments. Big segments include larger list-based segments and synced segments. Only use a big segment if you need to add more than 15,000 individual targets. | [optional] 
+**UnboundedContextKind** | Pointer to **string** | For big segments, the targeted context kind. | [optional] 
 
 ## Methods
 

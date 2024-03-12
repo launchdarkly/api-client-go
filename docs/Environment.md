@@ -18,12 +18,13 @@ Name | Type | Description | Notes
 **ConfirmChanges** | **bool** | Whether members who modify flags and segments through the LaunchDarkly user interface are required to confirm those changes | 
 **Tags** | **[]string** | A list of tags for this environment | 
 **ApprovalSettings** | Pointer to [**ApprovalSettings**](ApprovalSettings.md) |  | [optional] 
+**Critical** | **bool** | Whether the environment is critical | 
 
 ## Methods
 
 ### NewEnvironment
 
-`func NewEnvironment(links map[string]Link, id string, key string, name string, apiKey string, mobileKey string, color string, defaultTtl int32, secureMode bool, defaultTrackEvents bool, requireComments bool, confirmChanges bool, tags []string, ) *Environment`
+`func NewEnvironment(links map[string]Link, id string, key string, name string, apiKey string, mobileKey string, color string, defaultTtl int32, secureMode bool, defaultTrackEvents bool, requireComments bool, confirmChanges bool, tags []string, critical bool, ) *Environment`
 
 NewEnvironment instantiates a new Environment object
 This constructor will assign default values to properties that have it defined,
@@ -322,6 +323,26 @@ SetApprovalSettings sets ApprovalSettings field to given value.
 `func (o *Environment) HasApprovalSettings() bool`
 
 HasApprovalSettings returns a boolean if a field has been set.
+
+### GetCritical
+
+`func (o *Environment) GetCritical() bool`
+
+GetCritical returns the Critical field if non-nil, zero value otherwise.
+
+### GetCriticalOk
+
+`func (o *Environment) GetCriticalOk() (*bool, bool)`
+
+GetCriticalOk returns a tuple with the Critical field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCritical
+
+`func (o *Environment) SetCritical(v bool)`
+
+SetCritical sets Critical field to given value.
+
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
