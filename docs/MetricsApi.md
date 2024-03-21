@@ -85,7 +85,7 @@ Name | Type | Description  | Notes
 
 ## GetMetric
 
-> MetricRep GetMetric(ctx, projectKey, metricKey).Expand(expand).Execute()
+> MetricRep GetMetric(ctx, projectKey, metricKey).Expand(expand).VersionId(versionId).Execute()
 
 Get metric
 
@@ -107,10 +107,11 @@ func main() {
     projectKey := "projectKey_example" // string | The project key
     metricKey := "metricKey_example" // string | The metric key
     expand := "expand_example" // string | A comma-separated list of properties that can reveal additional information in the response. (optional)
+    versionId := "versionId_example" // string | The specific version ID of the metric (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.MetricsApi.GetMetric(context.Background(), projectKey, metricKey).Expand(expand).Execute()
+    resp, r, err := apiClient.MetricsApi.GetMetric(context.Background(), projectKey, metricKey).Expand(expand).VersionId(versionId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MetricsApi.GetMetric``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -139,6 +140,7 @@ Name | Type | Description  | Notes
 
 
  **expand** | **string** | A comma-separated list of properties that can reveal additional information in the response. | 
+ **versionId** | **string** | The specific version ID of the metric | 
 
 ### Return type
 

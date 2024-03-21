@@ -15,9 +15,12 @@ Name | Type | Description | Notes
 **CanReshuffleTraffic** | Pointer to **bool** | Whether the experiment may reassign traffic to different variations when the experiment audience changes (true) or must keep all traffic assigned to its initial variation (false). | [optional] 
 **Flags** | Pointer to [**map[string]FlagRep**](FlagRep.md) | Details on the flag used in this experiment | [optional] 
 **PrimaryMetric** | Pointer to [**DependentMetricOrMetricGroupRep**](DependentMetricOrMetricGroupRep.md) |  | [optional] 
+**PrimarySingleMetric** | Pointer to [**MetricV2Rep**](MetricV2Rep.md) |  | [optional] 
+**PrimaryFunnel** | Pointer to [**DependentMetricGroupRepWithMetrics**](DependentMetricGroupRepWithMetrics.md) |  | [optional] 
 **RandomizationUnit** | Pointer to **string** | The unit of randomization for this iteration | [optional] 
 **Treatments** | Pointer to [**[]TreatmentRep**](TreatmentRep.md) | Details on the variations you are testing in the experiment | [optional] 
-**SecondaryMetrics** | Pointer to [**[]MetricV2Rep**](MetricV2Rep.md) | Details on the secondary metrics for this experiment | [optional] 
+**SecondaryMetrics** | Pointer to [**[]MetricV2Rep**](MetricV2Rep.md) | Deprecated, use &lt;code&gt;metrics&lt;/code&gt; instead. Details on the secondary metrics for this experiment. | [optional] 
+**Metrics** | Pointer to [**[]DependentMetricOrMetricGroupRep**](DependentMetricOrMetricGroupRep.md) | Details on the metrics for this experiment | [optional] 
 
 ## Methods
 
@@ -298,6 +301,56 @@ SetPrimaryMetric sets PrimaryMetric field to given value.
 
 HasPrimaryMetric returns a boolean if a field has been set.
 
+### GetPrimarySingleMetric
+
+`func (o *IterationRep) GetPrimarySingleMetric() MetricV2Rep`
+
+GetPrimarySingleMetric returns the PrimarySingleMetric field if non-nil, zero value otherwise.
+
+### GetPrimarySingleMetricOk
+
+`func (o *IterationRep) GetPrimarySingleMetricOk() (*MetricV2Rep, bool)`
+
+GetPrimarySingleMetricOk returns a tuple with the PrimarySingleMetric field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPrimarySingleMetric
+
+`func (o *IterationRep) SetPrimarySingleMetric(v MetricV2Rep)`
+
+SetPrimarySingleMetric sets PrimarySingleMetric field to given value.
+
+### HasPrimarySingleMetric
+
+`func (o *IterationRep) HasPrimarySingleMetric() bool`
+
+HasPrimarySingleMetric returns a boolean if a field has been set.
+
+### GetPrimaryFunnel
+
+`func (o *IterationRep) GetPrimaryFunnel() DependentMetricGroupRepWithMetrics`
+
+GetPrimaryFunnel returns the PrimaryFunnel field if non-nil, zero value otherwise.
+
+### GetPrimaryFunnelOk
+
+`func (o *IterationRep) GetPrimaryFunnelOk() (*DependentMetricGroupRepWithMetrics, bool)`
+
+GetPrimaryFunnelOk returns a tuple with the PrimaryFunnel field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPrimaryFunnel
+
+`func (o *IterationRep) SetPrimaryFunnel(v DependentMetricGroupRepWithMetrics)`
+
+SetPrimaryFunnel sets PrimaryFunnel field to given value.
+
+### HasPrimaryFunnel
+
+`func (o *IterationRep) HasPrimaryFunnel() bool`
+
+HasPrimaryFunnel returns a boolean if a field has been set.
+
 ### GetRandomizationUnit
 
 `func (o *IterationRep) GetRandomizationUnit() string`
@@ -372,6 +425,31 @@ SetSecondaryMetrics sets SecondaryMetrics field to given value.
 `func (o *IterationRep) HasSecondaryMetrics() bool`
 
 HasSecondaryMetrics returns a boolean if a field has been set.
+
+### GetMetrics
+
+`func (o *IterationRep) GetMetrics() []DependentMetricOrMetricGroupRep`
+
+GetMetrics returns the Metrics field if non-nil, zero value otherwise.
+
+### GetMetricsOk
+
+`func (o *IterationRep) GetMetricsOk() (*[]DependentMetricOrMetricGroupRep, bool)`
+
+GetMetricsOk returns a tuple with the Metrics field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMetrics
+
+`func (o *IterationRep) SetMetrics(v []DependentMetricOrMetricGroupRep)`
+
+SetMetrics sets Metrics field to given value.
+
+### HasMetrics
+
+`func (o *IterationRep) HasMetrics() bool`
+
+HasMetrics returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -4,10 +4,10 @@ All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateBigSegmentExport**](SegmentsBetaApi.md#CreateBigSegmentExport) | **Post** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/exports | Create Big Segment export
-[**CreateBigSegmentImport**](SegmentsBetaApi.md#CreateBigSegmentImport) | **Post** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/imports | Create Big Segment import
-[**GetBigSegmentExport**](SegmentsBetaApi.md#GetBigSegmentExport) | **Get** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/exports/{exportID} | Get Big Segment export
-[**GetBigSegmentImport**](SegmentsBetaApi.md#GetBigSegmentImport) | **Get** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/imports/{importID} | Get Big Segment import
+[**CreateBigSegmentExport**](SegmentsBetaApi.md#CreateBigSegmentExport) | **Post** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/exports | Create big segment export
+[**CreateBigSegmentImport**](SegmentsBetaApi.md#CreateBigSegmentImport) | **Post** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/imports | Create big segment import
+[**GetBigSegmentExport**](SegmentsBetaApi.md#GetBigSegmentExport) | **Get** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/exports/{exportID} | Get big segment export
+[**GetBigSegmentImport**](SegmentsBetaApi.md#GetBigSegmentImport) | **Get** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/imports/{importID} | Get big segment import
 
 
 
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 > CreateBigSegmentExport(ctx, projectKey, environmentKey, segmentKey).Execute()
 
-Create Big Segment export
+Create big segment export
 
 
 
@@ -89,7 +89,7 @@ Name | Type | Description  | Notes
 
 > CreateBigSegmentImport(ctx, projectKey, environmentKey, segmentKey).File(file).Mode(mode).Execute()
 
-Create Big Segment import
+Create big segment import
 
 
 
@@ -167,7 +167,7 @@ Name | Type | Description  | Notes
 
 > Export GetBigSegmentExport(ctx, projectKey, environmentKey, segmentKey, exportID).Execute()
 
-Get Big Segment export
+Get big segment export
 
 
 
@@ -246,7 +246,7 @@ Name | Type | Description  | Notes
 
 > Import GetBigSegmentImport(ctx, projectKey, environmentKey, segmentKey, importID).Execute()
 
-Get Big Segment import
+Get big segment import
 
 
 

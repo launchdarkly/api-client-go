@@ -5,17 +5,19 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Key** | **string** | The metric key | 
+**VersionId** | Pointer to **string** | The version ID of the metric | [optional] 
 **Name** | **string** | The metric name | 
 **Kind** | **string** | The kind of event the metric tracks | 
+**IsNumeric** | Pointer to **bool** | For custom metrics, whether to track numeric changes in value against a baseline (&lt;code&gt;true&lt;/code&gt;) or to track a conversion when an end user takes an action (&lt;code&gt;false&lt;/code&gt;). | [optional] 
 **Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
-**NameInGroup** | **string** | Name of the metric when used within the associated metric group. Can be different from the original name of the metric | 
+**NameInGroup** | Pointer to **string** | Name of the metric when used within the associated metric group. Can be different from the original name of the metric. Required if and only if the metric group is a &lt;code&gt;funnel&lt;/code&gt;. | [optional] 
 **RandomizationUnits** | Pointer to **[]string** | The randomization units for the metric | [optional] 
 
 ## Methods
 
 ### NewMetricInGroupRep
 
-`func NewMetricInGroupRep(key string, name string, kind string, links map[string]Link, nameInGroup string, ) *MetricInGroupRep`
+`func NewMetricInGroupRep(key string, name string, kind string, links map[string]Link, ) *MetricInGroupRep`
 
 NewMetricInGroupRep instantiates a new MetricInGroupRep object
 This constructor will assign default values to properties that have it defined,
@@ -49,6 +51,31 @@ and a boolean to check if the value has been set.
 
 SetKey sets Key field to given value.
 
+
+### GetVersionId
+
+`func (o *MetricInGroupRep) GetVersionId() string`
+
+GetVersionId returns the VersionId field if non-nil, zero value otherwise.
+
+### GetVersionIdOk
+
+`func (o *MetricInGroupRep) GetVersionIdOk() (*string, bool)`
+
+GetVersionIdOk returns a tuple with the VersionId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVersionId
+
+`func (o *MetricInGroupRep) SetVersionId(v string)`
+
+SetVersionId sets VersionId field to given value.
+
+### HasVersionId
+
+`func (o *MetricInGroupRep) HasVersionId() bool`
+
+HasVersionId returns a boolean if a field has been set.
 
 ### GetName
 
@@ -90,6 +117,31 @@ and a boolean to check if the value has been set.
 SetKind sets Kind field to given value.
 
 
+### GetIsNumeric
+
+`func (o *MetricInGroupRep) GetIsNumeric() bool`
+
+GetIsNumeric returns the IsNumeric field if non-nil, zero value otherwise.
+
+### GetIsNumericOk
+
+`func (o *MetricInGroupRep) GetIsNumericOk() (*bool, bool)`
+
+GetIsNumericOk returns a tuple with the IsNumeric field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsNumeric
+
+`func (o *MetricInGroupRep) SetIsNumeric(v bool)`
+
+SetIsNumeric sets IsNumeric field to given value.
+
+### HasIsNumeric
+
+`func (o *MetricInGroupRep) HasIsNumeric() bool`
+
+HasIsNumeric returns a boolean if a field has been set.
+
 ### GetLinks
 
 `func (o *MetricInGroupRep) GetLinks() map[string]Link`
@@ -129,6 +181,11 @@ and a boolean to check if the value has been set.
 
 SetNameInGroup sets NameInGroup field to given value.
 
+### HasNameInGroup
+
+`func (o *MetricInGroupRep) HasNameInGroup() bool`
+
+HasNameInGroup returns a boolean if a field has been set.
 
 ### GetRandomizationUnits
 

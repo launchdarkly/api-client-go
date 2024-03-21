@@ -4,7 +4,6 @@ All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateApplication**](ApplicationsBetaApi.md#CreateApplication) | **Post** /api/v2/applications | Post application
 [**DeleteApplication**](ApplicationsBetaApi.md#DeleteApplication) | **Delete** /api/v2/applications/{applicationKey} | Delete application
 [**DeleteApplicationVersion**](ApplicationsBetaApi.md#DeleteApplicationVersion) | **Delete** /api/v2/applications/{applicationKey}/versions/{versionKey} | Delete application version
 [**GetApplication**](ApplicationsBetaApi.md#GetApplication) | **Get** /api/v2/applications/{applicationKey} | Get application by key
@@ -12,74 +11,7 @@ Method | HTTP request | Description
 [**GetApplications**](ApplicationsBetaApi.md#GetApplications) | **Get** /api/v2/applications | Get applications
 [**PatchApplication**](ApplicationsBetaApi.md#PatchApplication) | **Patch** /api/v2/applications/{applicationKey} | Update application
 [**PatchApplicationVersion**](ApplicationsBetaApi.md#PatchApplicationVersion) | **Patch** /api/v2/applications/{applicationKey}/versions/{versionKey} | Update application version
-[**PostApplicationVersion**](ApplicationsBetaApi.md#PostApplicationVersion) | **Post** /api/v2/applications/{applicationKey}/versions | Post application version
 
-
-
-## CreateApplication
-
-> ApplicationRep CreateApplication(ctx).CreateApplicationInput(createApplicationInput).Execute()
-
-Post application
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    createApplicationInput := *openapiclient.NewCreateApplicationInput("com.launchdarkly.cafe", "mobile", "LaunchDarklyCafe") // CreateApplicationInput | 
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ApplicationsBetaApi.CreateApplication(context.Background()).CreateApplicationInput(createApplicationInput).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsBetaApi.CreateApplication``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateApplication`: ApplicationRep
-    fmt.Fprintf(os.Stdout, "Response from `ApplicationsBetaApi.CreateApplication`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCreateApplicationRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **createApplicationInput** | [**CreateApplicationInput**](CreateApplicationInput.md) |  | 
-
-### Return type
-
-[**ApplicationRep**](ApplicationRep.md)
-
-### Authorization
-
-[ApiKey](../README.md#ApiKey)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
 
 
 ## DeleteApplication
@@ -573,78 +505,6 @@ Name | Type | Description  | Notes
 
 
  **patchOperation** | [**[]PatchOperation**](PatchOperation.md) |  | 
-
-### Return type
-
-[**ApplicationVersionRep**](ApplicationVersionRep.md)
-
-### Authorization
-
-[ApiKey](../README.md#ApiKey)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostApplicationVersion
-
-> ApplicationVersionRep PostApplicationVersion(ctx, applicationKey).CreateApplicationVersionInput(createApplicationVersionInput).Execute()
-
-Post application version
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    applicationKey := "applicationKey_example" // string | The application key
-    createApplicationVersionInput := *openapiclient.NewCreateApplicationVersionInput("2", "01.02.03") // CreateApplicationVersionInput | 
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ApplicationsBetaApi.PostApplicationVersion(context.Background(), applicationKey).CreateApplicationVersionInput(createApplicationVersionInput).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsBetaApi.PostApplicationVersion``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostApplicationVersion`: ApplicationVersionRep
-    fmt.Fprintf(os.Stdout, "Response from `ApplicationsBetaApi.PostApplicationVersion`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**applicationKey** | **string** | The application key | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostApplicationVersionRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **createApplicationVersionInput** | [**CreateApplicationVersionInput**](CreateApplicationVersionInput.md) |  | 
 
 ### Return type
 

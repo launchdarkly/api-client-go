@@ -153,7 +153,7 @@ Name | Type | Description  | Notes
 
 ## GetTokens
 
-> Tokens GetTokens(ctx).ShowAll(showAll).Execute()
+> Tokens GetTokens(ctx).ShowAll(showAll).Limit(limit).Offset(offset).Execute()
 
 List access tokens
 
@@ -173,10 +173,12 @@ import (
 
 func main() {
     showAll := true // bool | If set to true, and the authentication access token has the 'Admin' role, personal access tokens for all members will be retrieved. (optional)
+    limit := int64(789) // int64 | The number of access tokens to return in the response. Defaults to 25. (optional)
+    offset := int64(789) // int64 | Where to start in the list. This is for use with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AccessTokensApi.GetTokens(context.Background()).ShowAll(showAll).Execute()
+    resp, r, err := apiClient.AccessTokensApi.GetTokens(context.Background()).ShowAll(showAll).Limit(limit).Offset(offset).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AccessTokensApi.GetTokens``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -198,6 +200,8 @@ Other parameters are passed through a pointer to a apiGetTokensRequest struct vi
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **showAll** | **bool** | If set to true, and the authentication access token has the &#39;Admin&#39; role, personal access tokens for all members will be retrieved. | 
+ **limit** | **int64** | The number of access tokens to return in the response. Defaults to 25. | 
+ **offset** | **int64** | Where to start in the list. This is for use with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | 
 
 ### Return type
 

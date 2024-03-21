@@ -14,7 +14,6 @@ Method | HTTP request | Description
 [**GetLegacyExperimentResults**](ExperimentsBetaApi.md#GetLegacyExperimentResults) | **Get** /api/v2/flags/{projectKey}/{featureFlagKey}/experiments/{environmentKey}/{metricKey} | Get legacy experiment results (deprecated)
 [**PatchExperiment**](ExperimentsBetaApi.md#PatchExperiment) | **Patch** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey} | Patch experiment
 [**PutExperimentationSettings**](ExperimentsBetaApi.md#PutExperimentationSettings) | **Put** /api/v2/projects/{projectKey}/experimentation-settings | Update experimentation settings
-[**ResetExperiment**](ExperimentsBetaApi.md#ResetExperiment) | **Delete** /api/v2/flags/{projectKey}/{featureFlagKey}/experiments/{environmentKey}/{metricKey}/results | Reset experiment results
 
 
 
@@ -41,7 +40,7 @@ import (
 func main() {
     projectKey := "projectKey_example" // string | The project key
     environmentKey := "environmentKey_example" // string | The environment key
-    experimentPost := *openapiclient.NewExperimentPost("Example experiment", "experiment-key-123abc", *openapiclient.NewIterationInput("Example hypothesis, the new button placement will increase conversion", []openapiclient.MetricInput{*openapiclient.NewMetricInput("metric-key-123abc", true)}, []openapiclient.TreatmentInput{*openapiclient.NewTreatmentInput("Treatment 1", true, "10", []openapiclient.TreatmentParameterInput{*openapiclient.NewTreatmentParameterInput("example-flag-for-experiment", "e432f62b-55f6-49dd-a02f-eb24acf39d05")})}, map[string]FlagInput{"key": *openapiclient.NewFlagInput("e432f62b-55f6-49dd-a02f-eb24acf39d05", int32(12))})) // ExperimentPost | 
+    experimentPost := *openapiclient.NewExperimentPost("Example experiment", "experiment-key-123abc", *openapiclient.NewIterationInput("Example hypothesis, the new button placement will increase conversion", []openapiclient.MetricInput{*openapiclient.NewMetricInput("metric-key-123abc")}, []openapiclient.TreatmentInput{*openapiclient.NewTreatmentInput("Treatment 1", true, "10", []openapiclient.TreatmentParameterInput{*openapiclient.NewTreatmentParameterInput("example-flag-for-experiment", "e432f62b-55f6-49dd-a02f-eb24acf39d05")})}, map[string]FlagInput{"key": *openapiclient.NewFlagInput("e432f62b-55f6-49dd-a02f-eb24acf39d05", int32(12))})) // ExperimentPost | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -117,7 +116,7 @@ func main() {
     projectKey := "projectKey_example" // string | The project key
     environmentKey := "environmentKey_example" // string | The environment key
     experimentKey := "experimentKey_example" // string | The experiment key
-    iterationInput := *openapiclient.NewIterationInput("Example hypothesis, the new button placement will increase conversion", []openapiclient.MetricInput{*openapiclient.NewMetricInput("metric-key-123abc", true)}, []openapiclient.TreatmentInput{*openapiclient.NewTreatmentInput("Treatment 1", true, "10", []openapiclient.TreatmentParameterInput{*openapiclient.NewTreatmentParameterInput("example-flag-for-experiment", "e432f62b-55f6-49dd-a02f-eb24acf39d05")})}, map[string]FlagInput{"key": *openapiclient.NewFlagInput("e432f62b-55f6-49dd-a02f-eb24acf39d05", int32(12))}) // IterationInput | 
+    iterationInput := *openapiclient.NewIterationInput("Example hypothesis, the new button placement will increase conversion", []openapiclient.MetricInput{*openapiclient.NewMetricInput("metric-key-123abc")}, []openapiclient.TreatmentInput{*openapiclient.NewTreatmentInput("Treatment 1", true, "10", []openapiclient.TreatmentParameterInput{*openapiclient.NewTreatmentParameterInput("example-flag-for-experiment", "e432f62b-55f6-49dd-a02f-eb24acf39d05")})}, map[string]FlagInput{"key": *openapiclient.NewFlagInput("e432f62b-55f6-49dd-a02f-eb24acf39d05", int32(12))}) // IterationInput | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -251,7 +250,7 @@ Name | Type | Description  | Notes
 
 ## GetExperimentResults
 
-> ExperimentBayesianResultsRep GetExperimentResults(ctx, projectKey, environmentKey, experimentKey, metricKey).IterationId(iterationId).Execute()
+> ExperimentBayesianResultsRep GetExperimentResults(ctx, projectKey, environmentKey, experimentKey, metricKey).IterationId(iterationId).Expand(expand).Execute()
 
 Get experiment results
 
@@ -275,10 +274,11 @@ func main() {
     experimentKey := "experimentKey_example" // string | The experiment key
     metricKey := "metricKey_example" // string | The metric key
     iterationId := "iterationId_example" // string | The iteration ID (optional)
+    expand := "expand_example" // string | A comma-separated list of fields to expand in the response. Supported fields are explained above. (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ExperimentsBetaApi.GetExperimentResults(context.Background(), projectKey, environmentKey, experimentKey, metricKey).IterationId(iterationId).Execute()
+    resp, r, err := apiClient.ExperimentsBetaApi.GetExperimentResults(context.Background(), projectKey, environmentKey, experimentKey, metricKey).IterationId(iterationId).Expand(expand).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsBetaApi.GetExperimentResults``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -311,6 +311,7 @@ Name | Type | Description  | Notes
 
 
  **iterationId** | **string** | The iteration ID | 
+ **expand** | **string** | A comma-separated list of fields to expand in the response. Supported fields are explained above. | 
 
 ### Return type
 
@@ -413,7 +414,7 @@ Name | Type | Description  | Notes
 
 ## GetExperimentationSettings
 
-> ExperimentationSettingsRep GetExperimentationSettings(ctx, projectKey).Execute()
+> RandomizationSettingsRep GetExperimentationSettings(ctx, projectKey).Execute()
 
 Get experimentation settings
 
@@ -441,7 +442,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsBetaApi.GetExperimentationSettings``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetExperimentationSettings`: ExperimentationSettingsRep
+    // response from `GetExperimentationSettings`: RandomizationSettingsRep
     fmt.Fprintf(os.Stdout, "Response from `ExperimentsBetaApi.GetExperimentationSettings`: %v\n", resp)
 }
 ```
@@ -465,7 +466,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ExperimentationSettingsRep**](ExperimentationSettingsRep.md)
+[**RandomizationSettingsRep**](RandomizationSettingsRep.md)
 
 ### Authorization
 
@@ -727,7 +728,7 @@ Name | Type | Description  | Notes
 
 ## PutExperimentationSettings
 
-> ExperimentationSettingsRep PutExperimentationSettings(ctx, projectKey).ExperimentationSettingsPut(experimentationSettingsPut).Execute()
+> RandomizationSettingsRep PutExperimentationSettings(ctx, projectKey).RandomizationSettingsPut(randomizationSettingsPut).Execute()
 
 Update experimentation settings
 
@@ -747,16 +748,16 @@ import (
 
 func main() {
     projectKey := "projectKey_example" // string | The project key
-    experimentationSettingsPut := *openapiclient.NewExperimentationSettingsPut([]openapiclient.RandomizationUnitInput{*openapiclient.NewRandomizationUnitInput("user", true, "StandardRandomizationUnit_example")}) // ExperimentationSettingsPut | 
+    randomizationSettingsPut := *openapiclient.NewRandomizationSettingsPut([]openapiclient.RandomizationUnitInput{*openapiclient.NewRandomizationUnitInput("user", true, "StandardRandomizationUnit_example")}) // RandomizationSettingsPut | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ExperimentsBetaApi.PutExperimentationSettings(context.Background(), projectKey).ExperimentationSettingsPut(experimentationSettingsPut).Execute()
+    resp, r, err := apiClient.ExperimentsBetaApi.PutExperimentationSettings(context.Background(), projectKey).RandomizationSettingsPut(randomizationSettingsPut).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsBetaApi.PutExperimentationSettings``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PutExperimentationSettings`: ExperimentationSettingsRep
+    // response from `PutExperimentationSettings`: RandomizationSettingsRep
     fmt.Fprintf(os.Stdout, "Response from `ExperimentsBetaApi.PutExperimentationSettings`: %v\n", resp)
 }
 ```
@@ -777,11 +778,11 @@ Other parameters are passed through a pointer to a apiPutExperimentationSettings
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **experimentationSettingsPut** | [**ExperimentationSettingsPut**](ExperimentationSettingsPut.md) |  | 
+ **randomizationSettingsPut** | [**RandomizationSettingsPut**](RandomizationSettingsPut.md) |  | 
 
 ### Return type
 
-[**ExperimentationSettingsRep**](ExperimentationSettingsRep.md)
+[**RandomizationSettingsRep**](RandomizationSettingsRep.md)
 
 ### Authorization
 
@@ -790,83 +791,6 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ResetExperiment
-
-> ResetExperiment(ctx, projectKey, featureFlagKey, environmentKey, metricKey).Execute()
-
-Reset experiment results
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
-    environmentKey := "environmentKey_example" // string | The environment key
-    metricKey := "metricKey_example" // string | The metric's key
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ExperimentsBetaApi.ResetExperiment(context.Background(), projectKey, featureFlagKey, environmentKey, metricKey).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsBetaApi.ResetExperiment``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** | The project key | 
-**featureFlagKey** | **string** | The feature flag key | 
-**environmentKey** | **string** | The environment key | 
-**metricKey** | **string** | The metric&#39;s key | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiResetExperimentRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-
-
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-[ApiKey](../README.md#ApiKey)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

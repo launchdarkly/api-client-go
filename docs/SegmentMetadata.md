@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **Version** | Pointer to **int32** |  | [optional] 
 **IncludedCount** | Pointer to **int32** |  | [optional] 
 **ExcludedCount** | Pointer to **int32** |  | [optional] 
+**LastModified** | Pointer to **int64** |  | [optional] 
 **Deleted** | Pointer to **bool** |  | [optional] 
 
 ## Methods
@@ -154,6 +155,31 @@ SetExcludedCount sets ExcludedCount field to given value.
 `func (o *SegmentMetadata) HasExcludedCount() bool`
 
 HasExcludedCount returns a boolean if a field has been set.
+
+### GetLastModified
+
+`func (o *SegmentMetadata) GetLastModified() int64`
+
+GetLastModified returns the LastModified field if non-nil, zero value otherwise.
+
+### GetLastModifiedOk
+
+`func (o *SegmentMetadata) GetLastModifiedOk() (*int64, bool)`
+
+GetLastModifiedOk returns a tuple with the LastModified field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLastModified
+
+`func (o *SegmentMetadata) SetLastModified(v int64)`
+
+SetLastModified sets LastModified field to given value.
+
+### HasLastModified
+
+`func (o *SegmentMetadata) HasLastModified() bool`
+
+HasLastModified returns a boolean if a field has been set.
 
 ### GetDeleted
 

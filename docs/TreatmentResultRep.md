@@ -10,7 +10,8 @@ Name | Type | Description | Notes
 **CredibleInterval** | Pointer to [**CredibleIntervalRep**](CredibleIntervalRep.md) |  | [optional] 
 **PBest** | Pointer to **float32** | The likelihood that this variation has the biggest effect on the primary metric. The variation with the highest probability is likely the best of the variations you&#39;re testing | [optional] 
 **RelativeDifferences** | Pointer to [**[]RelativeDifferenceRep**](RelativeDifferenceRep.md) | Estimates of the relative difference between this treatment&#39;s mean and the mean of each other treatment | [optional] 
-**Units** | Pointer to **int64** | The number of end users in this variation of the experiment | [optional] 
+**Units** | Pointer to **int64** | The number of units exposed to this treatment that have event values, including those that are configured to default to 0 | [optional] 
+**Traffic** | Pointer to **int64** | The number of units exposed to this treatment. | [optional] 
 **Distribution** | Pointer to [**Distribution**](Distribution.md) |  | [optional] 
 
 ## Methods
@@ -206,6 +207,31 @@ SetUnits sets Units field to given value.
 `func (o *TreatmentResultRep) HasUnits() bool`
 
 HasUnits returns a boolean if a field has been set.
+
+### GetTraffic
+
+`func (o *TreatmentResultRep) GetTraffic() int64`
+
+GetTraffic returns the Traffic field if non-nil, zero value otherwise.
+
+### GetTrafficOk
+
+`func (o *TreatmentResultRep) GetTrafficOk() (*int64, bool)`
+
+GetTrafficOk returns a tuple with the Traffic field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTraffic
+
+`func (o *TreatmentResultRep) SetTraffic(v int64)`
+
+SetTraffic sets Traffic field to given value.
+
+### HasTraffic
+
+`func (o *TreatmentResultRep) HasTraffic() bool`
+
+HasTraffic returns a boolean if a field has been set.
 
 ### GetDistribution
 

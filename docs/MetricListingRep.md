@@ -5,7 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ExperimentCount** | Pointer to **int32** | The number of experiments using this metric | [optional] 
+**MetricGroupCount** | Pointer to **int32** | The number of metric groups using this metric | [optional] 
 **Id** | **string** | The ID of this metric | 
+**VersionId** | **string** | The version ID of the metric | 
 **Key** | **string** | A unique key to reference the metric | 
 **Name** | **string** | A human-friendly name for the metric | 
 **Kind** | **string** | The kind of event the metric tracks | 
@@ -33,7 +35,7 @@ Name | Type | Description | Notes
 
 ### NewMetricListingRep
 
-`func NewMetricListingRep(id string, key string, name string, kind string, links map[string]Link, tags []string, creationDate int64, ) *MetricListingRep`
+`func NewMetricListingRep(id string, versionId string, key string, name string, kind string, links map[string]Link, tags []string, creationDate int64, ) *MetricListingRep`
 
 NewMetricListingRep instantiates a new MetricListingRep object
 This constructor will assign default values to properties that have it defined,
@@ -73,6 +75,31 @@ SetExperimentCount sets ExperimentCount field to given value.
 
 HasExperimentCount returns a boolean if a field has been set.
 
+### GetMetricGroupCount
+
+`func (o *MetricListingRep) GetMetricGroupCount() int32`
+
+GetMetricGroupCount returns the MetricGroupCount field if non-nil, zero value otherwise.
+
+### GetMetricGroupCountOk
+
+`func (o *MetricListingRep) GetMetricGroupCountOk() (*int32, bool)`
+
+GetMetricGroupCountOk returns a tuple with the MetricGroupCount field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMetricGroupCount
+
+`func (o *MetricListingRep) SetMetricGroupCount(v int32)`
+
+SetMetricGroupCount sets MetricGroupCount field to given value.
+
+### HasMetricGroupCount
+
+`func (o *MetricListingRep) HasMetricGroupCount() bool`
+
+HasMetricGroupCount returns a boolean if a field has been set.
+
 ### GetId
 
 `func (o *MetricListingRep) GetId() string`
@@ -91,6 +118,26 @@ and a boolean to check if the value has been set.
 `func (o *MetricListingRep) SetId(v string)`
 
 SetId sets Id field to given value.
+
+
+### GetVersionId
+
+`func (o *MetricListingRep) GetVersionId() string`
+
+GetVersionId returns the VersionId field if non-nil, zero value otherwise.
+
+### GetVersionIdOk
+
+`func (o *MetricListingRep) GetVersionIdOk() (*string, bool)`
+
+GetVersionIdOk returns a tuple with the VersionId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVersionId
+
+`func (o *MetricListingRep) SetVersionId(v string)`
+
+SetVersionId sets VersionId field to given value.
 
 
 ### GetKey

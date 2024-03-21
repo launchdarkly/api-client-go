@@ -84,7 +84,7 @@ Name | Type | Description  | Notes
 
 ## PatchReleaseByFlagKey
 
-> PatchReleaseByFlagKey(ctx, projectKey, flagKey).PatchOperation(patchOperation).Execute()
+> Release PatchReleaseByFlagKey(ctx, projectKey, flagKey).PatchOperation(patchOperation).Execute()
 
 Patch release for flag
 
@@ -114,6 +114,8 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `ReleasesBetaApi.PatchReleaseByFlagKey``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
+    // response from `PatchReleaseByFlagKey`: Release
+    fmt.Fprintf(os.Stdout, "Response from `ReleasesBetaApi.PatchReleaseByFlagKey`: %v\n", resp)
 }
 ```
 
@@ -139,7 +141,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**Release**](Release.md)
 
 ### Authorization
 
@@ -148,7 +150,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

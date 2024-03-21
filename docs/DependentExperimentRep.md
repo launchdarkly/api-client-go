@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Key** | **string** | The experiment key | 
 **Name** | **string** | The experiment name | 
 **EnvironmentId** | **string** | The environment ID | 
+**EnvironmentKey** | **string** | The environment key | 
 **CreationDate** | **int64** |  | 
 **ArchivedDate** | Pointer to **int64** |  | [optional] 
 **Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
@@ -15,7 +16,7 @@ Name | Type | Description | Notes
 
 ### NewDependentExperimentRep
 
-`func NewDependentExperimentRep(key string, name string, environmentId string, creationDate int64, links map[string]Link, ) *DependentExperimentRep`
+`func NewDependentExperimentRep(key string, name string, environmentId string, environmentKey string, creationDate int64, links map[string]Link, ) *DependentExperimentRep`
 
 NewDependentExperimentRep instantiates a new DependentExperimentRep object
 This constructor will assign default values to properties that have it defined,
@@ -88,6 +89,26 @@ and a boolean to check if the value has been set.
 `func (o *DependentExperimentRep) SetEnvironmentId(v string)`
 
 SetEnvironmentId sets EnvironmentId field to given value.
+
+
+### GetEnvironmentKey
+
+`func (o *DependentExperimentRep) GetEnvironmentKey() string`
+
+GetEnvironmentKey returns the EnvironmentKey field if non-nil, zero value otherwise.
+
+### GetEnvironmentKeyOk
+
+`func (o *DependentExperimentRep) GetEnvironmentKeyOk() (*string, bool)`
+
+GetEnvironmentKeyOk returns a tuple with the EnvironmentKey field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEnvironmentKey
+
+`func (o *DependentExperimentRep) SetEnvironmentKey(v string)`
+
+SetEnvironmentKey sets EnvironmentKey field to given value.
 
 
 ### GetCreationDate

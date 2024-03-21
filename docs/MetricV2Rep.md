@@ -5,8 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Key** | **string** | The metric key | 
+**VersionId** | Pointer to **string** | The version ID of the metric | [optional] 
 **Name** | **string** | The metric name | 
 **Kind** | **string** | The kind of event the metric tracks | 
+**IsNumeric** | Pointer to **bool** | For custom metrics, whether to track numeric changes in value against a baseline (&lt;code&gt;true&lt;/code&gt;) or to track a conversion when an end user takes an action (&lt;code&gt;false&lt;/code&gt;). | [optional] 
 **Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
 
 ## Methods
@@ -48,6 +50,31 @@ and a boolean to check if the value has been set.
 SetKey sets Key field to given value.
 
 
+### GetVersionId
+
+`func (o *MetricV2Rep) GetVersionId() string`
+
+GetVersionId returns the VersionId field if non-nil, zero value otherwise.
+
+### GetVersionIdOk
+
+`func (o *MetricV2Rep) GetVersionIdOk() (*string, bool)`
+
+GetVersionIdOk returns a tuple with the VersionId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVersionId
+
+`func (o *MetricV2Rep) SetVersionId(v string)`
+
+SetVersionId sets VersionId field to given value.
+
+### HasVersionId
+
+`func (o *MetricV2Rep) HasVersionId() bool`
+
+HasVersionId returns a boolean if a field has been set.
+
 ### GetName
 
 `func (o *MetricV2Rep) GetName() string`
@@ -87,6 +114,31 @@ and a boolean to check if the value has been set.
 
 SetKind sets Kind field to given value.
 
+
+### GetIsNumeric
+
+`func (o *MetricV2Rep) GetIsNumeric() bool`
+
+GetIsNumeric returns the IsNumeric field if non-nil, zero value otherwise.
+
+### GetIsNumericOk
+
+`func (o *MetricV2Rep) GetIsNumericOk() (*bool, bool)`
+
+GetIsNumericOk returns a tuple with the IsNumeric field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsNumeric
+
+`func (o *MetricV2Rep) SetIsNumeric(v bool)`
+
+SetIsNumeric sets IsNumeric field to given value.
+
+### HasIsNumeric
+
+`func (o *MetricV2Rep) HasIsNumeric() bool`
+
+HasIsNumeric returns a boolean if a field has been set.
 
 ### GetLinks
 

@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **RequireComments** | Pointer to **bool** | Requires comments for all flag and segment changes via the UI in this environment | [optional] 
 **Tags** | Pointer to **[]string** | Tags to apply to the new environment | [optional] 
 **Source** | Pointer to [**SourceEnv**](SourceEnv.md) |  | [optional] 
+**Critical** | Pointer to **bool** | Whether the environment is critical | [optional] 
 
 ## Methods
 
@@ -268,6 +269,31 @@ SetSource sets Source field to given value.
 `func (o *EnvironmentPost) HasSource() bool`
 
 HasSource returns a boolean if a field has been set.
+
+### GetCritical
+
+`func (o *EnvironmentPost) GetCritical() bool`
+
+GetCritical returns the Critical field if non-nil, zero value otherwise.
+
+### GetCriticalOk
+
+`func (o *EnvironmentPost) GetCriticalOk() (*bool, bool)`
+
+GetCriticalOk returns a tuple with the Critical field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCritical
+
+`func (o *EnvironmentPost) SetCritical(v bool)`
+
+SetCritical sets Critical field to given value.
+
+### HasCritical
+
+`func (o *EnvironmentPost) HasCritical() bool`
+
+HasCritical returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

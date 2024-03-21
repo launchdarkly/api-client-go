@@ -7,14 +7,14 @@ Name | Type | Description | Notes
 **Links** | Pointer to [**map[string]Link**](Link.md) | The location and content type of related resources | [optional] 
 **Tags** | **[]string** | A list of default tags for each flag | 
 **Temporary** | **bool** | Whether the flag should be temporary by default | 
-**DefaultClientSideAvailability** | [**DefaultClientSideAvailability**](DefaultClientSideAvailability.md) |  | 
 **BooleanDefaults** | [**BooleanFlagDefaults**](BooleanFlagDefaults.md) |  | 
+**DefaultClientSideAvailability** | [**DefaultClientSideAvailability**](DefaultClientSideAvailability.md) |  | 
 
 ## Methods
 
 ### NewUpsertPayloadRep
 
-`func NewUpsertPayloadRep(tags []string, temporary bool, defaultClientSideAvailability DefaultClientSideAvailability, booleanDefaults BooleanFlagDefaults, ) *UpsertPayloadRep`
+`func NewUpsertPayloadRep(tags []string, temporary bool, booleanDefaults BooleanFlagDefaults, defaultClientSideAvailability DefaultClientSideAvailability, ) *UpsertPayloadRep`
 
 NewUpsertPayloadRep instantiates a new UpsertPayloadRep object
 This constructor will assign default values to properties that have it defined,
@@ -94,26 +94,6 @@ and a boolean to check if the value has been set.
 SetTemporary sets Temporary field to given value.
 
 
-### GetDefaultClientSideAvailability
-
-`func (o *UpsertPayloadRep) GetDefaultClientSideAvailability() DefaultClientSideAvailability`
-
-GetDefaultClientSideAvailability returns the DefaultClientSideAvailability field if non-nil, zero value otherwise.
-
-### GetDefaultClientSideAvailabilityOk
-
-`func (o *UpsertPayloadRep) GetDefaultClientSideAvailabilityOk() (*DefaultClientSideAvailability, bool)`
-
-GetDefaultClientSideAvailabilityOk returns a tuple with the DefaultClientSideAvailability field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDefaultClientSideAvailability
-
-`func (o *UpsertPayloadRep) SetDefaultClientSideAvailability(v DefaultClientSideAvailability)`
-
-SetDefaultClientSideAvailability sets DefaultClientSideAvailability field to given value.
-
-
 ### GetBooleanDefaults
 
 `func (o *UpsertPayloadRep) GetBooleanDefaults() BooleanFlagDefaults`
@@ -132,6 +112,26 @@ and a boolean to check if the value has been set.
 `func (o *UpsertPayloadRep) SetBooleanDefaults(v BooleanFlagDefaults)`
 
 SetBooleanDefaults sets BooleanDefaults field to given value.
+
+
+### GetDefaultClientSideAvailability
+
+`func (o *UpsertPayloadRep) GetDefaultClientSideAvailability() DefaultClientSideAvailability`
+
+GetDefaultClientSideAvailability returns the DefaultClientSideAvailability field if non-nil, zero value otherwise.
+
+### GetDefaultClientSideAvailabilityOk
+
+`func (o *UpsertPayloadRep) GetDefaultClientSideAvailabilityOk() (*DefaultClientSideAvailability, bool)`
+
+GetDefaultClientSideAvailabilityOk returns a tuple with the DefaultClientSideAvailability field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDefaultClientSideAvailability
+
+`func (o *UpsertPayloadRep) SetDefaultClientSideAvailability(v DefaultClientSideAvailability)`
+
+SetDefaultClientSideAvailability sets DefaultClientSideAvailability field to given value.
 
 
 
