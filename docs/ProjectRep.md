@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **IncludeInSnippetByDefault** | **bool** | Whether or not flags created in this project are made available to the client-side JavaScript SDK by default | 
 **DefaultClientSideAvailability** | Pointer to [**ClientSideAvailability**](ClientSideAvailability.md) |  | [optional] 
 **Name** | **string** | A human-friendly name for the project | 
+**Access** | Pointer to [**Access**](Access.md) |  | [optional] 
 **Tags** | **[]string** | A list of tags for the project | 
 **DefaultReleasePipelineKey** | Pointer to **string** | The key of the default release pipeline for this project | [optional] 
 **Environments** | [**[]Environment**](Environment.md) | A list of environments for the project | 
@@ -157,6 +158,31 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
+
+### GetAccess
+
+`func (o *ProjectRep) GetAccess() Access`
+
+GetAccess returns the Access field if non-nil, zero value otherwise.
+
+### GetAccessOk
+
+`func (o *ProjectRep) GetAccessOk() (*Access, bool)`
+
+GetAccessOk returns a tuple with the Access field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAccess
+
+`func (o *ProjectRep) SetAccess(v Access)`
+
+SetAccess sets Access field to given value.
+
+### HasAccess
+
+`func (o *ProjectRep) HasAccess() bool`
+
+HasAccess returns a boolean if a field has been set.
 
 ### GetTags
 

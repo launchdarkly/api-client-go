@@ -16,6 +16,8 @@ Name | Type | Description | Notes
 **Defaults** | Pointer to [**Defaults**](Defaults.md) |  | [optional] 
 **Purpose** | Pointer to **string** | Purpose of the flag | [optional] 
 **MigrationSettings** | Pointer to [**MigrationSettingsPost**](MigrationSettingsPost.md) |  | [optional] 
+**MaintainerId** | Pointer to **string** | The ID of the member who maintains this feature flag | [optional] 
+**MaintainerTeamKey** | Pointer to **string** | The key of the team that maintains this feature flag | [optional] 
 
 ## Methods
 
@@ -325,6 +327,56 @@ SetMigrationSettings sets MigrationSettings field to given value.
 `func (o *FeatureFlagBody) HasMigrationSettings() bool`
 
 HasMigrationSettings returns a boolean if a field has been set.
+
+### GetMaintainerId
+
+`func (o *FeatureFlagBody) GetMaintainerId() string`
+
+GetMaintainerId returns the MaintainerId field if non-nil, zero value otherwise.
+
+### GetMaintainerIdOk
+
+`func (o *FeatureFlagBody) GetMaintainerIdOk() (*string, bool)`
+
+GetMaintainerIdOk returns a tuple with the MaintainerId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMaintainerId
+
+`func (o *FeatureFlagBody) SetMaintainerId(v string)`
+
+SetMaintainerId sets MaintainerId field to given value.
+
+### HasMaintainerId
+
+`func (o *FeatureFlagBody) HasMaintainerId() bool`
+
+HasMaintainerId returns a boolean if a field has been set.
+
+### GetMaintainerTeamKey
+
+`func (o *FeatureFlagBody) GetMaintainerTeamKey() string`
+
+GetMaintainerTeamKey returns the MaintainerTeamKey field if non-nil, zero value otherwise.
+
+### GetMaintainerTeamKeyOk
+
+`func (o *FeatureFlagBody) GetMaintainerTeamKeyOk() (*string, bool)`
+
+GetMaintainerTeamKeyOk returns a tuple with the MaintainerTeamKey field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMaintainerTeamKey
+
+`func (o *FeatureFlagBody) SetMaintainerTeamKey(v string)`
+
+SetMaintainerTeamKey sets MaintainerTeamKey field to given value.
+
+### HasMaintainerTeamKey
+
+`func (o *FeatureFlagBody) HasMaintainerTeamKey() bool`
+
+HasMaintainerTeamKey returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

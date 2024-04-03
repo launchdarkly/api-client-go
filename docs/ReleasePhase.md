@@ -10,13 +10,13 @@ Name | Type | Description | Notes
 **CreationDate** | **int64** |  | 
 **CompletionDate** | Pointer to **int64** |  | [optional] 
 **CompletedBy** | Pointer to [**CompletedBy**](CompletedBy.md) |  | [optional] 
-**Audiences** | [**[]Audience**](Audience.md) | A logical grouping of one or more environments that share attributes for rolling out changes | 
+**Audiences** | [**[]ReleaseAudience**](ReleaseAudience.md) | A logical grouping of one or more environments that share attributes for rolling out changes | 
 
 ## Methods
 
 ### NewReleasePhase
 
-`func NewReleasePhase(id string, name string, complete bool, creationDate int64, audiences []Audience, ) *ReleasePhase`
+`func NewReleasePhase(id string, name string, complete bool, creationDate int64, audiences []ReleaseAudience, ) *ReleasePhase`
 
 NewReleasePhase instantiates a new ReleasePhase object
 This constructor will assign default values to properties that have it defined,
@@ -163,20 +163,20 @@ HasCompletedBy returns a boolean if a field has been set.
 
 ### GetAudiences
 
-`func (o *ReleasePhase) GetAudiences() []Audience`
+`func (o *ReleasePhase) GetAudiences() []ReleaseAudience`
 
 GetAudiences returns the Audiences field if non-nil, zero value otherwise.
 
 ### GetAudiencesOk
 
-`func (o *ReleasePhase) GetAudiencesOk() (*[]Audience, bool)`
+`func (o *ReleasePhase) GetAudiencesOk() (*[]ReleaseAudience, bool)`
 
 GetAudiencesOk returns a tuple with the Audiences field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAudiences
 
-`func (o *ReleasePhase) SetAudiences(v []Audience)`
+`func (o *ReleasePhase) SetAudiences(v []ReleaseAudience)`
 
 SetAudiences sets Audiences field to given value.
 

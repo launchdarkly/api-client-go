@@ -17,7 +17,10 @@ Name | Type | Description | Notes
 **SuccessCriteria** | Pointer to **string** | Success criteria. Required for custom numeric metrics, optional for custom conversion metrics. | [optional] 
 **Tags** | Pointer to **[]string** | Tags for the metric | [optional] 
 **RandomizationUnits** | Pointer to **[]string** | An array of randomization units allowed for this metric | [optional] 
-**UnitAggregationType** | Pointer to **string** | The method in which multiple unit event values are aggregated | [optional] 
+**UnitAggregationType** | Pointer to **string** | The method by which multiple unit event values are aggregated | [optional] 
+**AnalysisType** | Pointer to **string** | The method for analyzing metric events | [optional] 
+**PercentileValue** | Pointer to **int32** | The percentile for the analysis method. An integer denoting the target percentile between 0 and 100. Required when &lt;code&gt;analysisType&lt;/code&gt; is &lt;code&gt;percentile&lt;/code&gt;. | [optional] 
+**EventDefault** | Pointer to [**MetricEventDefaultRep**](MetricEventDefaultRep.md) |  | [optional] 
 
 ## Methods
 
@@ -377,6 +380,81 @@ SetUnitAggregationType sets UnitAggregationType field to given value.
 `func (o *MetricPost) HasUnitAggregationType() bool`
 
 HasUnitAggregationType returns a boolean if a field has been set.
+
+### GetAnalysisType
+
+`func (o *MetricPost) GetAnalysisType() string`
+
+GetAnalysisType returns the AnalysisType field if non-nil, zero value otherwise.
+
+### GetAnalysisTypeOk
+
+`func (o *MetricPost) GetAnalysisTypeOk() (*string, bool)`
+
+GetAnalysisTypeOk returns a tuple with the AnalysisType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAnalysisType
+
+`func (o *MetricPost) SetAnalysisType(v string)`
+
+SetAnalysisType sets AnalysisType field to given value.
+
+### HasAnalysisType
+
+`func (o *MetricPost) HasAnalysisType() bool`
+
+HasAnalysisType returns a boolean if a field has been set.
+
+### GetPercentileValue
+
+`func (o *MetricPost) GetPercentileValue() int32`
+
+GetPercentileValue returns the PercentileValue field if non-nil, zero value otherwise.
+
+### GetPercentileValueOk
+
+`func (o *MetricPost) GetPercentileValueOk() (*int32, bool)`
+
+GetPercentileValueOk returns a tuple with the PercentileValue field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPercentileValue
+
+`func (o *MetricPost) SetPercentileValue(v int32)`
+
+SetPercentileValue sets PercentileValue field to given value.
+
+### HasPercentileValue
+
+`func (o *MetricPost) HasPercentileValue() bool`
+
+HasPercentileValue returns a boolean if a field has been set.
+
+### GetEventDefault
+
+`func (o *MetricPost) GetEventDefault() MetricEventDefaultRep`
+
+GetEventDefault returns the EventDefault field if non-nil, zero value otherwise.
+
+### GetEventDefaultOk
+
+`func (o *MetricPost) GetEventDefaultOk() (*MetricEventDefaultRep, bool)`
+
+GetEventDefaultOk returns a tuple with the EventDefault field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEventDefault
+
+`func (o *MetricPost) SetEventDefault(v MetricEventDefaultRep)`
+
+SetEventDefault sets EventDefault field to given value.
+
+### HasEventDefault
+
+`func (o *MetricPost) HasEventDefault() bool`
+
+HasEventDefault returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

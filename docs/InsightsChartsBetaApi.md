@@ -7,7 +7,7 @@ Method | HTTP request | Description
 [**GetDeploymentFrequencyChart**](InsightsChartsBetaApi.md#GetDeploymentFrequencyChart) | **Get** /api/v2/engineering-insights/charts/deployments/frequency | Get deployment frequency chart data
 [**GetFlagStatusChart**](InsightsChartsBetaApi.md#GetFlagStatusChart) | **Get** /api/v2/engineering-insights/charts/flags/status | Get flag status chart data
 [**GetLeadTimeChart**](InsightsChartsBetaApi.md#GetLeadTimeChart) | **Get** /api/v2/engineering-insights/charts/lead-time | Get lead time chart data
-[**GetReleaseFrequencyChart**](InsightsChartsBetaApi.md#GetReleaseFrequencyChart) | **Get** /api/v2/engineering-insights/charts/releases/frequency | Get replease frequency chart data
+[**GetReleaseFrequencyChart**](InsightsChartsBetaApi.md#GetReleaseFrequencyChart) | **Get** /api/v2/engineering-insights/charts/releases/frequency | Get release frequency chart data
 [**GetStaleFlagsChart**](InsightsChartsBetaApi.md#GetStaleFlagsChart) | **Get** /api/v2/engineering-insights/charts/flags/stale | Get stale flags chart data
 
 
@@ -251,7 +251,7 @@ Name | Type | Description  | Notes
 
 > InsightsChart GetReleaseFrequencyChart(ctx).ProjectKey(projectKey).EnvironmentKey(environmentKey).ApplicationKey(applicationKey).HasExperiments(hasExperiments).Global(global).GroupBy(groupBy).From(from).To(to).BucketType(bucketType).BucketMs(bucketMs).Expand(expand).Execute()
 
-Get replease frequency chart data
+Get release frequency chart data
 
 
 
@@ -272,7 +272,7 @@ func main() {
     projectKey := "projectKey_example" // string | The project key
     environmentKey := "environmentKey_example" // string | The environment key
     applicationKey := "applicationKey_example" // string | Comma separated list of application keys (optional)
-    hasExperiments := true // bool | Filter events to those associated with an experiment (optional)
+    hasExperiments := true // bool | Filter events to those associated with an experiment (`true`) or without an experiment (`false`) (optional)
     global := "global_example" // string | Filter to include or exclude global events. Default value is `include`. Options: `include`, `exclude` (optional)
     groupBy := "groupBy_example" // string | Property to group results by. Options: `impact` (optional)
     from := time.Now() // time.Time | Unix timestamp in milliseconds. Default value is 7 days ago. (optional)
@@ -307,7 +307,7 @@ Name | Type | Description  | Notes
  **projectKey** | **string** | The project key | 
  **environmentKey** | **string** | The environment key | 
  **applicationKey** | **string** | Comma separated list of application keys | 
- **hasExperiments** | **bool** | Filter events to those associated with an experiment | 
+ **hasExperiments** | **bool** | Filter events to those associated with an experiment (&#x60;true&#x60;) or without an experiment (&#x60;false&#x60;) | 
  **global** | **string** | Filter to include or exclude global events. Default value is &#x60;include&#x60;. Options: &#x60;include&#x60;, &#x60;exclude&#x60; | 
  **groupBy** | **string** | Property to group results by. Options: &#x60;impact&#x60; | 
  **from** | **time.Time** | Unix timestamp in milliseconds. Default value is 7 days ago. | 

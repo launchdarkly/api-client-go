@@ -34,7 +34,7 @@ func main() {
     applicationKey := "applicationKey_example" // string | Comma separated list of application keys (optional)
     query := "query_example" // string | Filter events by flag key (optional)
     impactSize := "impactSize_example" // string | Filter events by impact size. A small impact created a less than 20% change in the proportion of end users receiving one or more flag variations. A medium impact created between a 20%-80% change. A large impact created a more than 80% change. Options: `none`, `small`, `medium`, `large` (optional)
-    hasExperiments := true // bool | Filter events to those associated with an experiment (optional)
+    hasExperiments := true // bool | Filter events to those associated with an experiment (`true`) or without an experiment (`false`) (optional)
     global := "global_example" // string | Filter to include or exclude global events. Default value is `include`. Options: `include`, `exclude` (optional)
     expand := "expand_example" // string | Expand properties in response. Options: `experiments` (optional)
     limit := int64(789) // int64 | The number of deployments to return. Default is 20. Maximum allowed is 100. (optional)
@@ -71,7 +71,7 @@ Name | Type | Description  | Notes
  **applicationKey** | **string** | Comma separated list of application keys | 
  **query** | **string** | Filter events by flag key | 
  **impactSize** | **string** | Filter events by impact size. A small impact created a less than 20% change in the proportion of end users receiving one or more flag variations. A medium impact created between a 20%-80% change. A large impact created a more than 80% change. Options: &#x60;none&#x60;, &#x60;small&#x60;, &#x60;medium&#x60;, &#x60;large&#x60; | 
- **hasExperiments** | **bool** | Filter events to those associated with an experiment | 
+ **hasExperiments** | **bool** | Filter events to those associated with an experiment (&#x60;true&#x60;) or without an experiment (&#x60;false&#x60;) | 
  **global** | **string** | Filter to include or exclude global events. Default value is &#x60;include&#x60;. Options: &#x60;include&#x60;, &#x60;exclude&#x60; | 
  **expand** | **string** | Expand properties in response. Options: &#x60;experiments&#x60; | 
  **limit** | **int64** | The number of deployments to return. Default is 20. Maximum allowed is 100. | 

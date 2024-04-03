@@ -388,6 +388,7 @@ docs/RelayAutoConfigPost.md
 docs/RelayAutoConfigRep.md
 docs/RelayProxyConfigurationsApi.md
 docs/Release.md
+docs/ReleaseAudience.md
 docs/ReleasePhase.md
 docs/ReleasePipeline.md
 docs/ReleasePipelineCollection.md
@@ -803,6 +804,7 @@ model_relay_auto_config_collection_rep.go
 model_relay_auto_config_post.go
 model_relay_auto_config_rep.go
 model_release.go
+model_release_audience.go
 model_release_phase.go
 model_release_pipeline.go
 model_release_pipeline_collection.go
