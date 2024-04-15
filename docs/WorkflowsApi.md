@@ -169,7 +169,7 @@ Name | Type | Description  | Notes
 
 ## GetWorkflows
 
-> CustomWorkflowsListingOutput GetWorkflows(ctx, projectKey, featureFlagKey, environmentKey).Status(status).Sort(sort).Execute()
+> CustomWorkflowsListingOutput GetWorkflows(ctx, projectKey, featureFlagKey, environmentKey).Status(status).Sort(sort).Limit(limit).Offset(offset).Execute()
 
 Get workflows
 
@@ -193,10 +193,12 @@ func main() {
     environmentKey := "environmentKey_example" // string | The environment key
     status := "status_example" // string | Filter results by workflow status. Valid status filters are `active`, `completed`, and `failed`. (optional)
     sort := "sort_example" // string | A field to sort the items by. Prefix field by a dash ( - ) to sort in descending order. This endpoint supports sorting by `creationDate` or `stopDate`. (optional)
+    limit := int64(789) // int64 | The maximum number of workflows to return. Defaults to 20. (optional)
+    offset := int64(789) // int64 | Where to start in the list. Defaults to 0. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.WorkflowsApi.GetWorkflows(context.Background(), projectKey, featureFlagKey, environmentKey).Status(status).Sort(sort).Execute()
+    resp, r, err := apiClient.WorkflowsApi.GetWorkflows(context.Background(), projectKey, featureFlagKey, environmentKey).Status(status).Sort(sort).Limit(limit).Offset(offset).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `WorkflowsApi.GetWorkflows``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -228,6 +230,8 @@ Name | Type | Description  | Notes
 
  **status** | **string** | Filter results by workflow status. Valid status filters are &#x60;active&#x60;, &#x60;completed&#x60;, and &#x60;failed&#x60;. | 
  **sort** | **string** | A field to sort the items by. Prefix field by a dash ( - ) to sort in descending order. This endpoint supports sorting by &#x60;creationDate&#x60; or &#x60;stopDate&#x60;. | 
+ **limit** | **int64** | The maximum number of workflows to return. Defaults to 20. | 
+ **offset** | **int64** | Where to start in the list. Defaults to 0. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | 
 
 ### Return type
 

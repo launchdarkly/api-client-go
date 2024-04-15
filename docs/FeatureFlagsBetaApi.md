@@ -6,7 +6,6 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**GetDependentFlags**](FeatureFlagsBetaApi.md#GetDependentFlags) | **Get** /api/v2/flags/{projectKey}/{featureFlagKey}/dependent-flags | List dependent feature flags
 [**GetDependentFlagsByEnv**](FeatureFlagsBetaApi.md#GetDependentFlagsByEnv) | **Get** /api/v2/flags/{projectKey}/{environmentKey}/{featureFlagKey}/dependent-flags | List dependent feature flags by environment
-[**PostMigrationSafetyIssues**](FeatureFlagsBetaApi.md#PostMigrationSafetyIssues) | **Post** /api/v2/projects/{projectKey}/flags/{flagKey}/environments/{environmentKey}/migration-safety-issues | Get migration safety issues
 
 
 
@@ -152,84 +151,6 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## PostMigrationSafetyIssues
-
-> []MigrationSafetyIssueRep PostMigrationSafetyIssues(ctx, projectKey, flagKey, environmentKey).FlagSempatch(flagSempatch).Execute()
-
-Get migration safety issues
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    projectKey := "projectKey_example" // string | The project key
-    flagKey := "flagKey_example" // string | The migration flag key
-    environmentKey := "environmentKey_example" // string | The environment key
-    flagSempatch := *openapiclient.NewFlagSempatch([]map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}) // FlagSempatch | 
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FeatureFlagsBetaApi.PostMigrationSafetyIssues(context.Background(), projectKey, flagKey, environmentKey).FlagSempatch(flagSempatch).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsBetaApi.PostMigrationSafetyIssues``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostMigrationSafetyIssues`: []MigrationSafetyIssueRep
-    fmt.Fprintf(os.Stdout, "Response from `FeatureFlagsBetaApi.PostMigrationSafetyIssues`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** | The project key | 
-**flagKey** | **string** | The migration flag key | 
-**environmentKey** | **string** | The environment key | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPostMigrationSafetyIssuesRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-
- **flagSempatch** | [**FlagSempatch**](FlagSempatch.md) |  | 
-
-### Return type
-
-[**[]MigrationSafetyIssueRep**](MigrationSafetyIssueRep.md)
-
-### Authorization
-
-[ApiKey](../README.md#ApiKey)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

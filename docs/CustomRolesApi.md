@@ -152,7 +152,7 @@ Name | Type | Description  | Notes
 
 ## GetCustomRoles
 
-> CustomRoles GetCustomRoles(ctx).Execute()
+> CustomRoles GetCustomRoles(ctx).Limit(limit).Offset(offset).Execute()
 
 List custom roles
 
@@ -171,10 +171,12 @@ import (
 )
 
 func main() {
+    limit := int64(789) // int64 | The maximum number of custom roles to return. Defaults to 20. (optional)
+    offset := int64(789) // int64 | Where to start in the list. Defaults to 0. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CustomRolesApi.GetCustomRoles(context.Background()).Execute()
+    resp, r, err := apiClient.CustomRolesApi.GetCustomRoles(context.Background()).Limit(limit).Offset(offset).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CustomRolesApi.GetCustomRoles``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -186,12 +188,17 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiGetCustomRolesRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **limit** | **int64** | The maximum number of custom roles to return. Defaults to 20. | 
+ **offset** | **int64** | Where to start in the list. Defaults to 0. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | 
 
 ### Return type
 

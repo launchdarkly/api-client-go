@@ -17,6 +17,7 @@ Method | HTTP request | Description
 [**PatchExpiringUserTargets**](FeatureFlagsApi.md#PatchExpiringUserTargets) | **Patch** /api/v2/flags/{projectKey}/{featureFlagKey}/expiring-user-targets/{environmentKey} | Update expiring user targets on feature flag
 [**PatchFeatureFlag**](FeatureFlagsApi.md#PatchFeatureFlag) | **Patch** /api/v2/flags/{projectKey}/{featureFlagKey} | Update feature flag
 [**PostFeatureFlag**](FeatureFlagsApi.md#PostFeatureFlag) | **Post** /api/v2/flags/{projectKey} | Create a feature flag
+[**PostMigrationSafetyIssues**](FeatureFlagsApi.md#PostMigrationSafetyIssues) | **Post** /api/v2/projects/{projectKey}/flags/{flagKey}/environments/{environmentKey}/migration-safety-issues | Get migration safety issues
 
 
 
@@ -643,7 +644,7 @@ func main() {
     projectKey := "projectKey_example" // string | The project key
     env := "env_example" // string | Filter configurations by environment (optional)
     tag := "tag_example" // string | Filter feature flags by tag (optional)
-    limit := int64(789) // int64 | The number of feature flags to return. Defaults to -1, which returns all flags (optional)
+    limit := int64(789) // int64 | The number of feature flags to return. Defaults to 20. (optional)
     offset := int64(789) // int64 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
     archived := true // bool | Deprecated, use `filter=archived:true` instead. A boolean to filter the list to archived flags. When this is absent, only unarchived flags will be returned (optional)
     summary := true // bool | By default, flags do _not_ include their lists of prerequisites, targets, or rules for each environment. Set `summary=0` to include these fields for each flag returned. (optional)
@@ -682,7 +683,7 @@ Name | Type | Description  | Notes
 
  **env** | **string** | Filter configurations by environment | 
  **tag** | **string** | Filter feature flags by tag | 
- **limit** | **int64** | The number of feature flags to return. Defaults to -1, which returns all flags | 
+ **limit** | **int64** | The number of feature flags to return. Defaults to 20. | 
  **offset** | **int64** | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | 
  **archived** | **bool** | Deprecated, use &#x60;filter&#x3D;archived:true&#x60; instead. A boolean to filter the list to archived flags. When this is absent, only unarchived flags will be returned | 
  **summary** | **bool** | By default, flags do _not_ include their lists of prerequisites, targets, or rules for each environment. Set &#x60;summary&#x3D;0&#x60; to include these fields for each flag returned. | 
@@ -999,6 +1000,84 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**FeatureFlag**](FeatureFlag.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostMigrationSafetyIssues
+
+> []MigrationSafetyIssueRep PostMigrationSafetyIssues(ctx, projectKey, flagKey, environmentKey).FlagSempatch(flagSempatch).Execute()
+
+Get migration safety issues
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    projectKey := "projectKey_example" // string | The project key
+    flagKey := "flagKey_example" // string | The migration flag key
+    environmentKey := "environmentKey_example" // string | The environment key
+    flagSempatch := *openapiclient.NewFlagSempatch([]map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}) // FlagSempatch | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.FeatureFlagsApi.PostMigrationSafetyIssues(context.Background(), projectKey, flagKey, environmentKey).FlagSempatch(flagSempatch).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.PostMigrationSafetyIssues``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PostMigrationSafetyIssues`: []MigrationSafetyIssueRep
+    fmt.Fprintf(os.Stdout, "Response from `FeatureFlagsApi.PostMigrationSafetyIssues`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projectKey** | **string** | The project key | 
+**flagKey** | **string** | The migration flag key | 
+**environmentKey** | **string** | The environment key | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostMigrationSafetyIssuesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+ **flagSempatch** | [**FlagSempatch**](FlagSempatch.md) |  | 
+
+### Return type
+
+[**[]MigrationSafetyIssueRep**](MigrationSafetyIssueRep.md)
 
 ### Authorization
 

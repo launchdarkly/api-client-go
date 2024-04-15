@@ -303,11 +303,11 @@ info:
     \ support for multiple API versions so you can migrate from your current API version\
     \ to a new version at your own pace.\n\n### Setting the API version per request\n\
     \nYou can set the API version on a specific request by sending an `LD-API-Version`\
-    \ header, as shown in the example below:\n\n```\nLD-API-Version: 20220603\n```\n\
+    \ header, as shown in the example below:\n\n```\nLD-API-Version: 20240415\n```\n\
     \nThe header value is the version number of the API version you would like to\
     \ request. The number for each version corresponds to the date the version was\
-    \ released in `yyyymmdd` format. In the example above the version `20220603` corresponds\
-    \ to June 03, 2022.\n\n### Setting the API version per access token\n\nWhen you\
+    \ released in `yyyymmdd` format. In the example above the version `20240415` corresponds\
+    \ to April 15, 2024.\n\n### Setting the API version per access token\n\nWhen you\
     \ create an access token, you must specify a specific version of the API to use.\
     \ This ensures that integrations using this token cannot be broken by version\
     \ changes.\n\nTokens created before versioning was released have their version\
@@ -319,13 +319,35 @@ info:
     \ the API version header explicitly in any client or integration you build.\n\
     >\n> Only rely on the access token API version during manual testing.\n\n### API\
     \ version changelog\n\n|<div style=\"width:75px\">Version</div> | Changes | End\
-    \ of life (EOL)\n|---|---|---|\n| `20220603` | <ul><li>Changed the [list projects](/tag/Projects#operation/getProjects)\
+    \ of life (EOL)\n|---|---|---|\n| `20240415` | <ul><li>Changed several endpoints\
+    \ from unpaginated to paginated. Use the `limit` and `offset` query parameters\
+    \ to page through the results.</li> <li>Changed the [list access tokens](/tag/Access-tokens#operation/getTokens)\
+    \ endpoint: <ul><li>Response is now paginated with a default limit of `25`</li></ul></li>\
+    \ <li>Changed the [list account members](/tag/Account-members#operation/getMembers)\
+    \ endpoint: <ul><li>The `accessCheck` filter is no longer available</li></ul></li>\
+    \ <li>Changed the [list custom roles](/tag/Custom-roles#operation/getCustomRoles)\
+    \ endpoint: <ul><li>Response is now paginated with a default limit of `20`</li></ul></li>\
+    \ <li>Changed the [list feature flags](/tag/Feature-flags#operation/getFeatureFlags)\
+    \ endpoint: <ul><li>Response is now paginated with a default limit of `20`</li><li>The\
+    \ `environments` field is now only returned if the request is filtered by environment,\
+    \ using the `filterEnv` query parameter</li><li>The `filterEnv` query parameter\
+    \ supports a maximum of three environments</li><li>The `followerId`, `hasDataExport`,\
+    \ `status`, `contextKindTargeted`, and `segmentTargeted` filters are no longer\
+    \ available</li></ul></li> <li>Changed the [list segments](/tag/Segments#operation/getSegments)\
+    \ endpoint: <ul><li>Response is now paginated with a default limit of `20`</li></ul></li>\
+    \ <li>Changed the [list teams](/tag/Teams#operation/getTeams) endpoint: <ul><li>The\
+    \ `expand` parameter no longer supports including `projects` or `roles`</li><li>In\
+    \ paginated results, the maximum page size is now 100</li></ul></li> <li>Changed\
+    \ the [get workflows](/tag/Workflows#operation/getWorkflows) endpoint: <ul><li>Response\
+    \ is now paginated with a default limit of `20`</li><li>The `_conflicts` field\
+    \ in the response is no longer available</li></ul></li> </ul>  | Current |\n|\
+    \ `20220603` | <ul><li>Changed the [list projects](/tag/Projects#operation/getProjects)\
     \ return value:<ul><li>Response is now paginated with a default limit of `20`.</li><li>Added\
     \ support for filter and sort.</li><li>The project `environments` field is now\
     \ expandable. This field is omitted by default.</li></ul></li><li>Changed the\
     \ [get project](/tag/Projects#operation/getProject) return value:<ul><li>The `environments`\
     \ field is now expandable. This field is omitted by default.</li></ul></li></ul>\
-    \ | Current |\n| `20210729` | <ul><li>Changed the [create approval request](/tag/Approvals#operation/postApprovalRequest)\
+    \ | 2025-04-15 |\n| `20210729` | <ul><li>Changed the [create approval request](/tag/Approvals#operation/postApprovalRequest)\
     \ return value. It now returns HTTP Status Code `201` instead of `200`.</li><li>\
     \ Changed the [get users](/tag/Users#operation/getUser) return value. It now returns\
     \ a user record, not a user. </li><li>Added additional optional fields to environment,\
@@ -342,7 +364,9 @@ info:
     \ for flags, flag status, projects, environments, audit logs, members, users,\
     \ custom roles, segments, usage, streams, events, and data export. </li></ul>\
     \ | 2022-07-29 |\n| `20160426` | <ul><li>Initial versioning of API. Tokens created\
-    \ before versioning have their version set to this.</li></ul> | 2020-12-12 |\n"
+    \ before versioning have their version set to this.</li></ul> | 2020-12-12 |\n\
+    \nTo learn more about how EOL is determined, read LaunchDarkly's [End of Life\
+    \ (EOL) Policy](https://launchdarkly.com/policies/end-of-life-policy/).\n"
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0
@@ -4514,9 +4538,7 @@ paths:
         \ the list to archived flags. | Use `filter=state:archived` instead |\n| `contextKindsEvaluated`\
         \ | A `+`-separated list of context kind keys. It filters the list to flags\
         \ which have been evaluated in the past 30 days for all of the context kinds\
-        \ in the list. | `filter=contextKindsEvaluated:user+application` |\n| `contextKindTargeted`\
-        \   | A string. It filters the list to flags that are targeting the given\
-        \ context kind key. | `filter=contextKindTargeted:user` |\n| `codeReferences.max`\
+        \ in the list. | `filter=contextKindsEvaluated:user+application` |\n| `codeReferences.max`\
         \    | An integer value. Use `0` to return flags that do not have code references.\
         \ | `filter=codeReferences.max:0` |\n| `codeReferences.min`    | An integer\
         \ value. Use `1` to return flags that do have code references. | `filter=codeReferences.min:1`\
@@ -4527,19 +4549,14 @@ paths:
         \ value in Unix time in milliseconds. It filters the list to all flags that\
         \ have been evaluated since the time you specify, in the environment provided.\
         \ This filter requires the `filterEnv` filter. | `filter=evaluation:{\"after\"\
-        :1690527600000}` |\n| `filterEnv`             | A string with the key of a\
-        \ valid environment. You must use this field for filters that are environment-specific.\
-        \ If there are multiple environment-specific filters, you only need to include\
-        \ this field once. | `filter=evaluated:{\"after\": 1590768455282},filterEnv:production,status:active`\
-        \ |\n| `followerId`            | A valid member ID. It filters the list to\
-        \ flags that are being followed by this member. |  `filter=followerId:12ab3c45de678910abc12345`\
-        \ |\n| `hasDataExport`         | A boolean value. It filters the list to flags\
-        \ that are exporting data in the specified environment. This includes flags\
-        \ that are exporting data from Experimentation. This filter requires the `filterEnv`\
-        \ filter. | `filter=hasDataExport:true,filterEnv:production` |\n| `hasExperiment`\
-        \         | A boolean value. It filters the list to flags that are used in\
-        \ an experiment. | `filter=hasExperiment:true` |\n| `maintainerId`       \
-        \   | A valid member ID. It filters the list to flags that are maintained\
+        :1690527600000}` |\n| `filterEnv`             | A string with a list of comma-separated\
+        \ keys of valid environments. You must use this field for filters that are\
+        \ environment-specific. If there are multiple environment-specific filters,\
+        \ you only need to include this field once. You can filter for a maximum of\
+        \ three environments. | `filter=evaluated:{\"after\": 1590768455282},filterEnv:production,status:active`\
+        \ |\n| `hasExperiment`         | A boolean value. It filters the list to flags\
+        \ that are used in an experiment. | `filter=hasExperiment:true` |\n| `maintainerId`\
+        \          | A valid member ID. It filters the list to flags that are maintained\
         \ by this member. | `filter=maintainerId:12ab3c45de678910abc12345` |\n| `maintainerTeamKey`\
         \     | A string. It filters the list to flags that are maintained by the\
         \ team with this key. | `filter=maintainerTeamKey:example-team-key` |\n| `query`\
@@ -4553,32 +4570,26 @@ paths:
         \ flags set to use the mobile key. Using `anyClient` filters to flags set\
         \ to use either the client-side ID or the mobile key. Using `server` filters\
         \ to flags set to use neither, that is, to flags only available in server-side\
-        \ SDKs.  | `filter=sdkAvailability:client` |\n| `segmentTargeted`       |\
-        \ A string. It filters the list to flags that target the segment with this\
-        \ key. This filter requires the `filterEnv` filter. | `filter=segmentTargeted:example-segment-key,filterEnv:production`\
-        \ |\n| `status`                | A string, either `new`, `inactive`, `active`,\
-        \ or `launched`. It filters the list to flags with the specified status in\
-        \ the specified environment. This filter requires the `filterEnv` filter.\
-        \ | `filter=status:active,filterEnv:production` |\n| `tags`              \
-        \    | A `+`-separated list of tags. It filters the list to flags that have\
-        \ all of the tags in the list. | `filter=tags:beta+test` |\n| `type`     \
-        \             | A string, either `temporary` or `permanent`. It filters the\
-        \ list to flags with the specified type. | `filter=type:permanent` |\n\nThe\
-        \ documented values for the `filter` query are prior to URL encoding. For\
-        \ example, the `+` in `filter=tags:beta+test` must be encoded to `%2B`.\n\n\
-        By default, this endpoint returns all flags. You can page through the list\
-        \ with the `limit` parameter and by following the `first`, `prev`, `next`,\
-        \ and `last` links in the returned `_links` field. These links will not be\
-        \ present if the pages they refer to don't exist. For example, the `first`\
-        \ and `prev` links will be missing from the response on the first page.\n\n\
-        ### Sorting flags\n\nYou can sort flags based on the following fields:\n\n\
-        - `creationDate` sorts by the creation date of the flag.\n- `key` sorts by\
-        \ the key of the flag.\n- `maintainerId` sorts by the flag maintainer.\n-\
-        \ `name` sorts by flag name.\n- `tags` sorts by tags.\n- `targetingModifiedDate`\
-        \ sorts by the date that the flag's targeting rules were last modified in\
-        \ a given environment. It must be used with `env` parameter and it can not\
-        \ be combined with any other sort. If multiple `env` values are provided,\
-        \ it will perform sort using the first one. For example, `sort=-targetingModifiedDate&env=production&env=staging`\
+        \ SDKs.  | `filter=sdkAvailability:client` |\n| `tags`                  |\
+        \ A `+`-separated list of tags. It filters the list to flags that have all\
+        \ of the tags in the list. | `filter=tags:beta+test` |\n| `type`         \
+        \         | A string, either `temporary` or `permanent`. It filters the list\
+        \ to flags with the specified type. | `filter=type:permanent` |\n\nThe documented\
+        \ values for the `filter` query are prior to URL encoding. For example, the\
+        \ `+` in `filter=tags:beta+test` must be encoded to `%2B`.\n\nBy default,\
+        \ this endpoint returns all flags. You can page through the list with the\
+        \ `limit` parameter and by following the `first`, `prev`, `next`, and `last`\
+        \ links in the returned `_links` field. These links will not be present if\
+        \ the pages they refer to don't exist. For example, the `first` and `prev`\
+        \ links will be missing from the response on the first page.\n\n### Sorting\
+        \ flags\n\nYou can sort flags based on the following fields:\n\n- `creationDate`\
+        \ sorts by the creation date of the flag.\n- `key` sorts by the key of the\
+        \ flag.\n- `maintainerId` sorts by the flag maintainer.\n- `name` sorts by\
+        \ flag name.\n- `tags` sorts by tags.\n- `targetingModifiedDate` sorts by\
+        \ the date that the flag's targeting rules were last modified in a given environment.\
+        \ It must be used with `env` parameter and it can not be combined with any\
+        \ other sort. If multiple `env` values are provided, it will perform sort\
+        \ using the first one. For example, `sort=-targetingModifiedDate&env=production&env=staging`\
         \ returns results sorted by `targetingModifiedDate` for the `production` environment.\n\
         - `type` sorts by flag type\n\nAll fields are sorted in ascending order by\
         \ default. To sort in descending order, prefix the field with a dash ( - ).\
@@ -4628,15 +4639,13 @@ paths:
           format: string
           type: string
         style: form
-      - description: "The number of feature flags to return. Defaults to -1, which\
-          \ returns all flags"
+      - description: The number of feature flags to return. Defaults to 20.
         explode: true
         in: query
         name: limit
         required: false
         schema:
-          description: "The number of feature flags to return. Defaults to -1, which\
-            \ returns all flags"
+          description: The number of feature flags to return. Defaults to 20.
           format: int64
           type: integer
         style: form
@@ -13766,6 +13775,30 @@ paths:
           format: string
           type: string
         style: form
+      - description: The maximum number of workflows to return. Defaults to 20.
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          description: The maximum number of workflows to return. Defaults to 20.
+          format: int64
+          type: integer
+        style: form
+      - description: "Where to start in the list. Defaults to 0. Use this with pagination.\
+          \ For example, an offset of 10 skips the first ten items and then returns\
+          \ the next items in the list, up to the query `limit`."
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          description: "Where to start in the list. Defaults to 0. Use this with pagination.\
+            \ For example, an offset of 10 skips the first ten items and then returns\
+            \ the next items in the list, up to the query `limit`."
+          format: int64
+          type: integer
+        style: form
       responses:
         "200":
           content:
@@ -14221,7 +14254,7 @@ paths:
           description: Service unavailable
       summary: Get migration safety issues
       tags:
-      - Feature flags (beta)
+      - Feature flags
   /api/v2/projects/{projectKey}/metric-groups:
     get:
       description: "Get a list of all metric groups for the specified project.\n\n\
@@ -14914,6 +14947,31 @@ paths:
         \ plans. If you're interested in learning more about our enterprise plans,\
         \ contact sales@launchdarkly.com."
       operationId: getCustomRoles
+      parameters:
+      - description: The maximum number of custom roles to return. Defaults to 20.
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          description: The maximum number of custom roles to return. Defaults to 20.
+          format: int64
+          type: integer
+        style: form
+      - description: "Where to start in the list. Defaults to 0. Use this with pagination.\
+          \ For example, an offset of 10 skips the first ten items and then returns\
+          \ the next items in the list, up to the query `limit`."
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          description: "Where to start in the list. Defaults to 0. Use this with pagination.\
+            \ For example, an offset of 10 skips the first ten items and then returns\
+            \ the next items in the list, up to the query `limit`."
+          format: int64
+          type: integer
+        style: form
       responses:
         "200":
           content:
@@ -15192,13 +15250,13 @@ paths:
           format: string
           type: string
         style: simple
-      - description: The number of segments to return. Defaults to 50.
+      - description: The number of segments to return. Defaults to 20.
         explode: true
         in: query
         name: limit
         required: false
         schema:
-          description: The number of segments to return. Defaults to 50.
+          description: The number of segments to return. Defaults to 20.
           format: int64
           type: integer
         style: form
@@ -16727,16 +16785,13 @@ paths:
         \ who have 0 members\n  - A request with `nomembers:true` returns teams that\
         \ have 0 members\n  - A request with `nomembers:false` returns teams that\
         \ have 1 or more members\n\n### Expanding the teams response\nLaunchDarkly\
-        \ supports four fields for expanding the \"List teams\" response. By default,\
+        \ supports expanding several fields in the \"List teams\" response. By default,\
         \ these fields are **not** included in the response.\n\nTo expand the response,\
         \ append the `expand` query parameter and add a comma-separated list with\
         \ any of the following fields:\n\n* `members` includes the total count of\
-        \ members that belong to the team.\n* `roles` includes a paginated list of\
-        \ the custom roles that you have assigned to the team.\n* `projects` includes\
-        \ a paginated list of the projects that the team has any write access to.\n\
-        * `maintainers` includes a paginated list of the maintainers that you have\
-        \ assigned to the team.\n\nFor example, `expand=members,roles` includes the\
-        \ `members` and `roles` fields in the response.\n"
+        \ members that belong to the team.\n* `maintainers` includes a paginated list\
+        \ of the maintainers that you have assigned to the team.\n\nFor example, `expand=members,maintainers`\
+        \ includes the `members` and `maintainers` fields in the response.\n"
       operationId: getTeams
       parameters:
       - description: The number of teams to return in the response. Defaults to 20.
@@ -27355,6 +27410,11 @@ components:
       type: object
     CustomWorkflowsListingOutput:
       example:
+        _links:
+          key:
+            href: href
+            type: type
+        totalCount: 1
         items:
         - _execution:
             stopDate: 6
@@ -27520,8 +27580,19 @@ components:
           items:
             $ref: '#/components/schemas/CustomWorkflowOutput'
           type: array
+        totalCount:
+          description: Total number of workflows
+          example: 1
+          type: integer
+        _links:
+          additionalProperties:
+            $ref: '#/components/schemas/Link'
+          description: The location and content type of related resources
+          type: object
       required:
+      - _links
       - items
+      - totalCount
       type: object
     DateVersion:
       type: integer
@@ -34335,7 +34406,9 @@ components:
         environments:
           additionalProperties:
             $ref: '#/components/schemas/FeatureFlagConfig'
-          description: Details on the environments for this flag
+          description: "Details on the environments for this flag. Only returned if\
+            \ the request is filtered by environment, using the <code>filterEnv</code>\
+            \ query parameter."
           example:
             my-environment:
               _environmentName: My Environment

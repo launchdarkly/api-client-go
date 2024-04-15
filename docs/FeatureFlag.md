@@ -30,7 +30,7 @@ Name | Type | Description | Notes
 **Defaults** | Pointer to [**Defaults**](Defaults.md) |  | [optional] 
 **Purpose** | Pointer to **string** |  | [optional] 
 **MigrationSettings** | Pointer to [**FlagMigrationSettingsRep**](FlagMigrationSettingsRep.md) |  | [optional] 
-**Environments** | [**map[string]FeatureFlagConfig**](FeatureFlagConfig.md) | Details on the environments for this flag | 
+**Environments** | [**map[string]FeatureFlagConfig**](FeatureFlagConfig.md) | Details on the environments for this flag. Only returned if the request is filtered by environment, using the &lt;code&gt;filterEnv&lt;/code&gt; query parameter. | 
 
 ## Methods
 
