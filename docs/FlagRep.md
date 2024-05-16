@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **TargetingRuleDescription** | Pointer to **string** | The rule description | [optional] 
 **TargetingRuleClauses** | Pointer to **[]interface{}** | An array of clauses used for individual targeting based on attributes | [optional] 
 **FlagConfigVersion** | Pointer to **int32** | The flag version | [optional] 
+**NotInExperimentVariationId** | Pointer to **string** | The ID of the variation to route traffic not part of the experiment analysis to | [optional] 
 **Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
 
 ## Methods
@@ -128,6 +129,31 @@ SetFlagConfigVersion sets FlagConfigVersion field to given value.
 `func (o *FlagRep) HasFlagConfigVersion() bool`
 
 HasFlagConfigVersion returns a boolean if a field has been set.
+
+### GetNotInExperimentVariationId
+
+`func (o *FlagRep) GetNotInExperimentVariationId() string`
+
+GetNotInExperimentVariationId returns the NotInExperimentVariationId field if non-nil, zero value otherwise.
+
+### GetNotInExperimentVariationIdOk
+
+`func (o *FlagRep) GetNotInExperimentVariationIdOk() (*string, bool)`
+
+GetNotInExperimentVariationIdOk returns a tuple with the NotInExperimentVariationId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNotInExperimentVariationId
+
+`func (o *FlagRep) SetNotInExperimentVariationId(v string)`
+
+SetNotInExperimentVariationId sets NotInExperimentVariationId field to given value.
+
+### HasNotInExperimentVariationId
+
+`func (o *FlagRep) HasNotInExperimentVariationId() bool`
+
+HasNotInExperimentVariationId returns a boolean if a field has been set.
 
 ### GetLinks
 

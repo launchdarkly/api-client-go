@@ -6,7 +6,7 @@ info:
     url: https://support.launchdarkly.com
   description: "# Overview\n\n## Authentication\n\nLaunchDarkly's REST API uses the\
     \ HTTPS protocol with a minimum TLS version of 1.2.\n\nAll REST API resources\
-    \ are authenticated with either [personal or service access tokens](https://docs.launchdarkly.com/home/account-security/api-access-tokens),\
+    \ are authenticated with either [personal or service access tokens](https://docs.launchdarkly.com/home/account/api),\
     \ or session cookies. Other authentication mechanisms are not supported. You can\
     \ manage personal access tokens on your [**Account settings**](https://app.launchdarkly.com/settings/tokens)\
     \ page.\n\nLaunchDarkly also has SDK keys, mobile keys, and client-side IDs that\
@@ -19,26 +19,25 @@ info:
     \                            |\n| -----------------------------------------------------------------------------------------------\
     \ | -----------------------------------------------------------------------------------------------------\
     \ | -------------------------------------------------- |\n| [Personal or service\
-    \ access tokens](https://docs.launchdarkly.com/home/account-security/api-access-tokens)\
-    \ | Can be customized on a per-token basis                                   \
-    \                             | Building scripts, custom integrations, data export.\
-    \ |\n| SDK keys                                                              \
-    \                          | Can only access read-only resources specific to server-side\
-    \ SDKs. Restricted to a single environment. | Server-side SDKs               \
-    \      |\n| Mobile keys                                                      \
-    \                               | Can only access read-only resources specific\
-    \ to mobile SDKs, and only for flags marked available to mobile keys. Restricted\
-    \ to a single environment.           | Mobile SDKs                           \
-    \             |\n| Client-side ID                                            \
-    \                                      | Can only access read-only resources specific\
-    \ to JavaScript-based client-side SDKs, and only for flags marked available to\
-    \ client-side. Restricted to a single environment.           | Client-side JavaScript\
-    \                             |\n\n> #### Keep your access tokens and SDK keys\
-    \ private\n>\n> Access tokens should _never_ be exposed in untrusted contexts.\
-    \ Never put an access token in client-side JavaScript, or embed it in a mobile\
-    \ application. LaunchDarkly has special mobile keys that you can embed in mobile\
-    \ apps. If you accidentally expose an access token or SDK key, you can reset it\
-    \ from your [**Account settings**](https://app.launchdarkly.com/settings/tokens)\
+    \ access tokens](https://docs.launchdarkly.com/home/account/api) | Can be customized\
+    \ on a per-token basis                                                       \
+    \         | Building scripts, custom integrations, data export. |\n| SDK keys\
+    \                                                                            \
+    \            | Can only access read-only resources specific to server-side SDKs.\
+    \ Restricted to a single environment. | Server-side SDKs                     |\n\
+    | Mobile keys                                                                \
+    \                     | Can only access read-only resources specific to mobile\
+    \ SDKs, and only for flags marked available to mobile keys. Restricted to a single\
+    \ environment.           | Mobile SDKs                                       \
+    \ |\n| Client-side ID                                                        \
+    \                          | Can only access read-only resources specific to JavaScript-based\
+    \ client-side SDKs, and only for flags marked available to client-side. Restricted\
+    \ to a single environment.           | Client-side JavaScript                \
+    \             |\n\n> #### Keep your access tokens and SDK keys private\n>\n> Access\
+    \ tokens should _never_ be exposed in untrusted contexts. Never put an access\
+    \ token in client-side JavaScript, or embed it in a mobile application. LaunchDarkly\
+    \ has special mobile keys that you can embed in mobile apps. If you accidentally\
+    \ expose an access token or SDK key, you can reset it from your [**Account settings**](https://app.launchdarkly.com/settings/tokens)\
     \ page.\n>\n> The client-side ID is safe to embed in untrusted contexts. It's\
     \ designed for use in client-side JavaScript.\n\n### Authentication using request\
     \ header\n\nThe preferred way to authenticate with the API is by adding an `Authorization`\
@@ -48,8 +47,8 @@ info:
     \n### Authentication using session cookie\n\nFor testing purposes, you can make\
     \ API calls directly from your web browser. If you are logged in to the LaunchDarkly\
     \ application, the API will use your existing session to authenticate calls.\n\
-    \nIf you have a [role](https://docs.launchdarkly.com/home/team/built-in-roles)\
-    \ other than Admin, or have a [custom role](https://docs.launchdarkly.com/home/team/custom-roles)\
+    \nIf you have a [role](https://docs.launchdarkly.com/home/account/built-in-roles)\
+    \ other than Admin, or have a [custom role](https://docs.launchdarkly.com/home/account/custom-roles)\
     \ defined, you may not have permission to perform some API calls. You will receive\
     \ a `401` response code in that case.\n\n> ### Modifying the Origin header causes\
     \ an error\n>\n> LaunchDarkly validates that the Origin header for any API request\
@@ -293,7 +292,7 @@ info:
     \ instance of LaunchDarkly, the base URI for each request is `https://app.launchdarkly.us`.\
     \ In the \"Try it\" sandbox for each request, click the request path to view the\
     \ complete resource path for the federal environment.\n\nTo learn more, read [LaunchDarkly\
-    \ in federal environments](https://docs.launchdarkly.com/home/advanced/federal).\n\
+    \ in federal environments](https://docs.launchdarkly.com/home/infrastructure/federal).\n\
     \n## Versioning\n\nWe try hard to keep our REST API backwards compatible, but\
     \ we occasionally have to make backwards-incompatible changes in the process of\
     \ shipping new features. These breaking changes can cause unexpected behavior\
@@ -387,9 +386,9 @@ tags:
     \ tokens, the following restrictions apply:\n- Personal tokens can see all service\
     \ tokens and other personal tokens created by the same team member. If the personal\
     \ token has the \"Admin\" role, it may also see other member's personal tokens.\
-    \ To learn more, read [Personal tokens](https://docs.launchdarkly.com/home/account-security/api-access-tokens#personal-tokens).\n\
+    \ To learn more, read [Personal tokens](https://docs.launchdarkly.com/home/account/api#personal-tokens).\n\
     - Service tokens can see all service tokens. If the token has the \"Admin\" role,\
-    \ it may also see all personal tokens. To learn more, read  [Service tokens](https://docs.launchdarkly.com/home/account-security/api-access-tokens#service-tokens).\n\
+    \ it may also see all personal tokens. To learn more, read  [Service tokens](https://docs.launchdarkly.com/home/account/api#service-tokens).\n\
     - Tokens can only manage other tokens, including themselves, if they have \"Admin\"\
     \ role or explicit permission via a custom role. To learn more, read [Personal\
     \ access token actions](https://docs.launchdarkly.com/home/team/role-actions#personal-access-token-actions).\n\
@@ -397,18 +396,18 @@ tags:
     \ The access token ID is returned as part of the [Create access token](/tag/Access-tokens#operation/resetToken)\
     \ and [List access tokens](/tag/Access-tokens#operation/getTokens) responses.\
     \ It is the `_id` field, or the `_id` field of each element in the `items` array.\
-    \ \n\nTo learn more about access tokens, read [API access tokens](https://docs.launchdarkly.com/home/account-security/api-access-tokens).\n"
+    \ \n\nTo learn more about access tokens, read [API access tokens](https://docs.launchdarkly.com/home/account/api).\n"
   name: Access tokens
 - description: "The account members API allows you to invite new members to an account\
     \ by making a `POST` request to `/api/v2/members`. When you invite a new member\
     \ to an account, an invitation is sent to the email you provided. Members with\
     \ \"admin\" or \"owner\" roles may create new members, as well as anyone with\
     \ a \"createMember\" permission for \"member/\\*\". To learn more, read [LaunchDarkly\
-    \ account members](https://docs.launchdarkly.com/home/members/managing).\n\nAny\
+    \ account members](https://docs.launchdarkly.com/home/account/members).\n\nAny\
     \ member may request the complete list of account members with a `GET` to `/api/v2/members`.\n\
     \nValid built-in role names that you can provide for the `role` field include\
     \ `reader`, `writer`, `admin`, `owner/admin`, and `no_access`. To learn more about\
-    \ built-in roles, read [LaunchDarkly's built-in roles](https://docs.launchdarkly.com/home/members/built-in-roles).\n\
+    \ built-in roles, read [LaunchDarkly's built-in roles](https://docs.launchdarkly.com/home/account/built-in-roles).\n\
     \nSeveral of the endpoints in the account members API require a member ID. The\
     \ member ID is returned as part of the [Invite new members](/tag/Account-members#operation/postMembers)\
     \ and [List account members](/tag/Account-members#operation/getMembers) responses.\
@@ -426,7 +425,7 @@ tags:
     >\n> Resources that are in beta are still undergoing testing and development.\
     \ They may change without notice, including becoming backwards incompatible.\n\
     \nThe account usage API lets you query for metrics about how your account is using\
-    \ LaunchDarkly. To learn more, read [Account usage metrics](https://docs.launchdarkly.com/home/billing/usage-metrics).\n\
+    \ LaunchDarkly. To learn more, read [Account usage metrics](https://docs.launchdarkly.com/home/account/metrics).\n\
     \nEach endpoint returns time-series data in the form of an array of data points\
     \ with timestamps. Each one contains data for that time from one or more series.\
     \ It also includes a metadata array describing what each of the series is.\n"
@@ -443,10 +442,10 @@ tags:
     \ flags more easily, and to handle unsupported application versions more gracefully.\n\
     \nIn addition to creating applications through the applications API, you can also\
     \ create applications in the LaunchDarkly user interface. To learn more, read\
-    \ [Applications](https://docs.launchdarkly.com/home/organize/applications). LaunchDarkly\
-    \ also creates applications and application versions automatically when a LaunchDarkly\
-    \ SDK evaluates a feature flag for a context that includes application information.\
-    \ To learn more, read [Automatic environment attributes](https://docs.launchdarkly.com/sdk/features/environment-attributes).\n\
+    \ [Applications and application versions](https://docs.launchdarkly.com/home/releases/applications).\
+    \ LaunchDarkly also creates applications and application versions automatically\
+    \ when a LaunchDarkly SDK evaluates a feature flag for a context that includes\
+    \ application information. To learn more, read [Automatic environment attributes](https://docs.launchdarkly.com/sdk/features/environment-attributes).\n\
     \nYou can use an application in any project in your LaunchDarkly account.\n\n\
     ### Filtering applications and application versions\n\nThe `filter` parameter\
     \ supports the following operators: `equals`, `notEquals`, `anyOf`, `startsWith`.\n\
@@ -483,7 +482,7 @@ tags:
     \ being applied without approval from a team member. Select up to ten members\
     \ as reviewers. Reviewers receive an email notification, but anyone with sufficient\
     \ permissions can review a pending approval request. A change needs at least one\
-    \ approval before you can apply it. To learn more, read [Approvals](https://docs.launchdarkly.com/home/feature-workflows/approvals).\n\
+    \ approval before you can apply it. To learn more, read [Approvals](https://docs.launchdarkly.com/home/releases/approvals).\n\
     \nChanges that conflict will fail if approved and applied, and the flag will not\
     \ be updated.\n\nSeveral of the endpoints in the approvals API require a flag\
     \ approval request ID. The flag approval request ID is returned as part of the\
@@ -502,7 +501,7 @@ tags:
     \ log API require an audit log entry ID. The audit log entry ID is returned as\
     \ part of the [List audit log entries](/tag/Audit-log#operation/getAuditLogEntries)\
     \ response. It is the `_id` field of each element in the `items` array.\n\nTo\
-    \ learn more, read [The audit log and history tabs](https://docs.launchdarkly.com/home/code/audit-log-history/).\n"
+    \ learn more, read [The audit log and history tabs](https://docs.launchdarkly.com/home/observability/audit-log-history).\n"
   name: Audit log
 - description: "> ### Code references is an Enterprise feature\n>\n> Code references\
     \ is available to customers on an Enterprise plan. To learn more, [read about\
@@ -513,10 +512,10 @@ tags:
     \ calls to the code references API. Most customers do not need to call this API\
     \ directly.\n\nThe code references API provides access to all resources related\
     \ to each connected repository, and associated feature flag code reference data\
-    \ for all branches. To learn more, read [Code references](https://docs.launchdarkly.com/home/code/code-references).\n"
+    \ for all branches. To learn more, read [Code references](https://docs.launchdarkly.com/home/observability/code-references).\n"
   name: Code references
 - description: "You can use the context settings API to assign a context to a specific\
-    \ variation for any feature flag. To learn more, read [Viewing and managing contexts](https://docs.launchdarkly.com/home/contexts/attributes#viewing-and-managing-contexts).\n"
+    \ variation for any feature flag. To learn more, read [View and manage contexts](https://docs.launchdarkly.com/home/observability/context-attributes#view-and-manage-contexts).\n"
   name: Context settings
 - description: "\nContexts are people, services, machines, or other resources that\
     \ encounter feature flags in your product. Contexts are identified by their `kind`,\
@@ -526,11 +525,11 @@ tags:
     \ SDK to evaluate a flag, you provide a context to that call. LaunchDarkly records\
     \ the key and attributes of each context instance. You can view these in the LaunchDarkly\
     \ user interface from the **Contexts** list, or use the Context APIs. To learn\
-    \ more, read [Contexts](https://docs.launchdarkly.com/home/contexts).\n\nLaunchDarkly\
-    \ provides APIs for you to:\n\n* retrieve contexts, context instances, and context\
-    \ attribute names and values\n* search for contexts or context instances\n* delete\
-    \ context instances\n* fetch context kinds\n* create and update context kinds\n\
-    \nTo learn more about context kinds, read [Context kinds](https://docs.launchdarkly.com/home/contexts/context-kinds).\n\
+    \ more, read [Contexts](https://docs.launchdarkly.com/home/observability/contexts).\n\
+    \nLaunchDarkly provides APIs for you to:\n\n* retrieve contexts, context instances,\
+    \ and context attribute names and values\n* search for contexts or context instances\n\
+    * delete context instances\n* fetch context kinds\n* create and update context\
+    \ kinds\n\nTo learn more about context kinds, read [Context kinds](https://docs.launchdarkly.com/home/observability/context-kinds).\n\
     \nContexts are always scoped within a project and an environment. Each environment\
     \ has its own set of context instance records.\n\nSeveral of the endpoints in\
     \ the contexts API require a context instance ID or application ID. Both of these\
@@ -628,7 +627,7 @@ tags:
     \ needs.\n\nThe custom roles API allows you to create, update and delete custom\
     \ roles. You can also use the API to list all of your custom roles or get a custom\
     \ role by ID.\n\nFor more information about custom roles and the syntax for custom\
-    \ role policies, read the product documentation for [Custom roles](https://docs.launchdarkly.com/home/members/custom-roles).\n"
+    \ role policies, read the product documentation for [Custom roles](https://docs.launchdarkly.com/home/account/custom-roles).\n"
   name: Custom roles
 - description: "> ### Data Export is an add-on feature\n>\n> Data Export is available\
     \ as an add-on for customers on an Enterprise plan. To learn more, [read about\
@@ -642,12 +641,12 @@ tags:
     \ ID is returned as part of the [Create a Data Export destination](/tag/Data-Export-destinations#operation/postDestination)\
     \ and [List destinations](/tag/Data-Export-destinations#operation/getDestinations)\
     \ responses. It is the `_id` field, or the `_id` field of each element in the\
-    \ `items` array.\n\nTo learn more, read [Data Export](https://docs.launchdarkly.com/home/data-export).\n"
+    \ `items` array.\n\nTo learn more, read [Data Export](https://docs.launchdarkly.com/integrations/data-export).\n"
   name: Data Export destinations
 - description: "Environments allow you to maintain separate rollout rules in different\
     \ contexts, from local development to QA, staging, and production. With the LaunchDarkly\
     \ Environments API, you can programmatically create, delete, and update environments.\
-    \ To learn more, read [Environments](https://docs.launchdarkly.com/home/organize/environments).\n"
+    \ To learn more, read [Environments](https://docs.launchdarkly.com/home/account/environment).\n"
   name: Environments
 - description: "> ### Available for Pro and Enterprise plans\n>\n> Experimentation\
     \ is available to customers on a Pro or Enterprise plan. To learn more, [read\
@@ -662,8 +661,9 @@ tags:
     \ app or infrastructure. You can measure things like page views, clicks, load\
     \ time, infrastructure costs, and more. By connecting metrics you create to flags\
     \ in your LaunchDarkly environment, you can measure the changes in your customers'\
-    \ behavior based on what flags they evaluate. You can run experiments on boolean,\
-    \ string, and number flags, but not JSON flags. To learn more, read [About Experimentation](https://docs.launchdarkly.com/home/about-experimentation).\n\
+    \ behavior based on what flags they evaluate. You can run experiments with any\
+    \ type of flag, including boolean, string, number, and JSON flags. To learn more,\
+    \ read [Experimentation](https://docs.launchdarkly.com/home/experimentation).\n\
     \nYou can manage experiments by using the dedicated experiment endpoints described\
     \ below.\n\nSeveral of the endpoints require a treatment ID or a flag rule ID.\
     \ Treatment IDs are returned as part of the [Get experiment results](/tag/Experiments-(beta)#operation/getExperimentResults)\
@@ -674,40 +674,7 @@ tags:
     \ `previousIterations` array. In the flags object, the rule ID is the ID of the\
     \ variation or rollout of the flag. Each flag variation ID is returned as part\
     \ of the [Get feature flag](/tag/Experiments-(beta)#operation/getFeatureFlag)\
-    \ response. It is the `_id` field in each element of the `variations` array.\n\
-    \nCustomers on older contracts may have experiments created under an older data\
-    \ model. These experiments are listed in the LaunchDarkly user interface as \"\
-    Legacy experiments.\" You can manage them by making PATCH requests to the flags\
-    \ API, and you can analyze them by making a GET request to the deprecated [Get\
-    \ legacy experiment results](/tag/Experiments-(beta)#operation/getLegacyExperimentResults)\
-    \ endpoint. To learn more about legacy experiments, read [Legacy experiments](https://docs.launchdarkly.com/home/managing-experiments#legacy-experiments).\n\
-    \n<details>\n<summary>Click to expand details on using the PATCH requests to the\
-    \ flags API to manage legacy experiments</summary>\n\n### Managing legacy experiments\n\
-    \nTo manage legacy experiments, make the following PATCH requests to the flags\
-    \ API:\n\n#### Adding an experiment\n\nTo add an experiment to a flag, add a new\
-    \ object to the `/experiments/items/` property.\n\nThe object must contain:\n\n\
-    1. The key of the metric you want to use for the experiment.\n2. (Optional) A\
-    \ list of keys for the environments where the experiment should record data.\n\
-    \n```json\nPATCH /api/v2/flags/{projKey}/{flagKey}\n[\n    {\n        \"op\":\
-    \ \"add\",\n        \"path\": \"/experiments/items/0\",\n        \"value\": {\n\
-    \            \"metricKey\": \"metric-key-123abc\",\n            \"environments\"\
-    : []\n        }\n    }\n]\n```\n\n#### Removing an experiment\n\nTo remove an\
-    \ experiment, remove the corresponding item from the experiments or items property.\n\
-    \n```json\nPATCH /api/v2/flags/{projKey}/{flagKey}\n[\n    {\n        \"op\":\
-    \ \"remove\",\n        \"path\": \"/experiments/items/0\"\n    }\n]\n```\n\n####\
-    \ Starting or resuming an experiment\n\nTo start recording data for an experiment\
-    \ in an environment, add the environment key to the list of environments for that\
-    \ experiment.\n\n```json\nPATCH /api/v2/flags/{projKey}/{flagKey}\n[\n    {\n\
-    \        \"op\": \"add\",\n        \"path\": \"/experiments/items/0/environments/0\"\
-    ,\n        \"value\": \"production\"\n    }\n]\n```\n\n#### Stopping an experiment\n\
-    \nTo stop collecting data for an experiment in a specific environment, remove\
-    \ the environment from the list that experiment uses.\n\n```json\nPATCH /api/v2/flags/{projKey}/{flagKey}\n\
-    [\n  {\n    \"op\": \"remove\",\n    \"path\": \"/experiments/items/0/environments/0\"\
-    \n  }\n]\n```\n\n#### Updating the baseline\n\nTo update the baseline for all\
-    \ experiments on a flag across all environments in the project, replace the `baselineIdx`\
-    \ property with the index of the new baseline variation.\n\n```json\nPATCH /api/v2/flags/{projKey}/{flagKey}\n\
-    [\n  {\n    \"op\": \"replace\",\n    \"path\": \"/experiments/baselineIdx\",\n\
-    \    \"value\": 1\n  }\n]\n```\n</details><br />\n"
+    \ response. It is the `_id` field in each element of the `variations` array.\n"
   name: Experiments (beta)
 - description: "The feature flags API allows you to list, create, modify, and delete\
     \ feature flags, their statuses, and their expiring targets programmatically.\
@@ -715,7 +682,7 @@ tags:
     \ or even toggle off a feature flag programmatically.\n\n## Sample feature flag\
     \ representation\n\nEvery feature flag has a set of top-level attributes, as well\
     \ as an `environments` map containing the flag rollout and targeting rules specific\
-    \ to each environment. To learn more, read [Using feature flags](https://docs.launchdarkly.com/home/creating-flags).\n\
+    \ to each environment. To learn more, read [Using feature flags](https://docs.launchdarkly.com/home/flags/create).\n\
     \n<details>\n<summary>Click to expand an example of a <strong>complete feature\
     \ flag representation</strong></summary>\n\n```json\n{\n  \"name\": \"Alternate\
     \ product page\",\n  \"kind\": \"boolean\",\n  \"description\": \"This is a description\"\
@@ -781,13 +748,13 @@ tags:
     \ for **updating flag settings**.\n\n### Per-environment configurations\n\nEach\
     \ entry in the `environments` map contains a JSON object that represents the environment-specific\
     \ flag configuration data available in the flag's Targeting tab. To learn more,\
-    \ read [Targeting with flags](https://docs.launchdarkly.com/home/targeting-flags).\n\
+    \ read [Targeting with flags](https://docs.launchdarkly.com/home/flags/target).\n\
     \nTo update per-environment information for a flag, read [Update feature flag](#operation/patchFeatureFlag),\
     \ especially the instructions for **turning flags on and off** and **working with\
     \ targeting and variations**.\n\n### Individual context targets\n\nThe `targets`\
     \ and `contextTargets` arrays in the per-environment configuration data correspond\
     \ to the individual context targeting on the Targeting tab. To learn more, read\
-    \ [Individual targeting](https://docs.launchdarkly.com/home/targeting-flags/individual-targeting).\n\
+    \ [Individual targeting](https://docs.launchdarkly.com/home/flags/individual-targeting).\n\
     \nEach object in the `targets` and `contextTargets` arrays represents a list of\
     \ context keys assigned to a particular variation. The `targets` array includes\
     \ contexts with `contextKind` of \"user\" and the `contextTargets` array includes\
@@ -809,7 +776,7 @@ tags:
     \ express complex rules on attributes with conditions and operators. For example,\
     \ you might create a rule that specifies \"roll out the `true` variation to 80%\
     \ of contexts whose email address ends with `gmail.com`\". To learn more, read\
-    \ [Creating targeting rules](https://docs.launchdarkly.com/home/targeting-flags/targeting-rules#creating-targeting-rules).\n\
+    \ [Targeting rules](https://docs.launchdarkly.com/home/flags/targeting-rules).\n\
     \n### The fallthrough rule\n\nThe `fallthrough` object is a special rule that\
     \ contains no conditions. It is the rollout strategy that is applied when none\
     \ of the individual or custom targeting rules match. In the LaunchDarkly UI, it\
@@ -842,16 +809,15 @@ tags:
     \nFlag links let you view external mentions of flags from other tools and services.\
     \ Links to external conversations and references to your flags allow you to collaborate\
     \ more easily and quickly review relevant flag contexts. To learn more, read [Flag\
-    \ links](https://docs.launchdarkly.com/home/organize/links).\n\nYou can create\
-    \ custom flag links by associating an external URL with a feature flag. After\
-    \ you create a flag link, it applies across all your environments. You should\
-    \ use caution when you delete a flag link, because it will be deleted from all\
-    \ your environments.\n\nWith the flag links API, you can view, create, update,\
-    \ and delete links to flags.\n\nSeveral of the endpoints in the flag links API\
-    \ require a flag link ID. The flag link ID is returned as part of the [Create\
-    \ flag link](/tag/Flag-links-(beta)#operation/createFlagLink) and [List flag links](/tag/Flag-links-(beta)#operation/getFlagLinks)\
-    \ responses. It is the `_id` field, or the `_id` field of each element in the\
-    \ `items` array.\n"
+    \ links](https://docs.launchdarkly.com/home/flags/links).\n\nYou can create custom\
+    \ flag links by associating an external URL with a feature flag. After you create\
+    \ a flag link, it applies across all your environments. You should use caution\
+    \ when you delete a flag link, because it will be deleted from all your environments.\n\
+    \nWith the flag links API, you can view, create, update, and delete links to flags.\n\
+    \nSeveral of the endpoints in the flag links API require a flag link ID. The flag\
+    \ link ID is returned as part of the [Create flag link](/tag/Flag-links-(beta)#operation/createFlagLink)\
+    \ and [List flag links](/tag/Flag-links-(beta)#operation/getFlagLinks) responses.\
+    \ It is the `_id` field, or the `_id` field of each element in the `items` array.\n"
   name: Flag links (beta)
 - description: "> ### Flag triggers is an Enterprise feature\n>\n> Flag triggers is\
     \ available to customers on an Enterprise plan. To learn more, [read about our\
@@ -860,10 +826,10 @@ tags:
     \ flag changes remotely using a unique webhook URL. For example, you can integrate\
     \ triggers with your existing tools to enable or disable flags when you hit specific\
     \ operational health thresholds or receive certain alerts. To learn more, read\
-    \ [Flag triggers](https://docs.launchdarkly.com/home/feature-workflows/triggers).\n\
-    \nWith the flag triggers API, you can create, delete, and manage triggers.\n\n\
-    Several of the endpoints in the flag triggers API require a flag trigger ID. The\
-    \ flag trigger ID is returned as part of the [Create flag trigger](/tag/Flag-triggers#operation/createTriggerWorkflow)\
+    \ [Flag triggers](https://docs.launchdarkly.com/home/releases/triggers).\n\nWith\
+    \ the flag triggers API, you can create, delete, and manage triggers.\n\nSeveral\
+    \ of the endpoints in the flag triggers API require a flag trigger ID. The flag\
+    \ trigger ID is returned as part of the [Create flag trigger](/tag/Flag-triggers#operation/createTriggerWorkflow)\
     \ and [List flag triggers](/tag/Flag-triggers#operation/getTriggerWorkflows) responses.\
     \ It is the `_id` field, or the `_id` field of each element in the `items` array.\n"
   name: Flag triggers
@@ -1024,15 +990,15 @@ tags:
     \ These segments are available to customers on an Enterprise plan. To learn more,\
     \ [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your\
     \ plan, [contact Sales](https://launchdarkly.com/contact-sales/).\n\n[Segments\
-    \ synced from external tools](https://docs.launchdarkly.com/home/segments/synced-segments)\
-    \ and [larger list-based segments](https://docs.launchdarkly.com/home/segments/list-based-segments#larger-list-based-segments)\
+    \ synced from external tools](https://docs.launchdarkly.com/home/flags/synced-segments)\
+    \ and [larger list-based segments](https://docs.launchdarkly.com/home/flags/list-based-segments#larger-list-based-segments)\
     \ are the two kinds of big segment. If you are using server-side SDKs, these segments\
     \ require a persistent store within your infrastructure. LaunchDarkly keeps the\
     \ persistent store up to date and consults it during flag evaluation.\n\nYou need\
-    \ either a persistent store integration or a [Relay Proxy](https://docs.launchdarkly.com/home/relay-proxy)\
+    \ either a persistent store integration or a [Relay Proxy](https://docs.launchdarkly.com/sdk/relay-proxy)\
     \ to support these segments. The integrations API lets you manage the persistent\
-    \ store integrations.\n\nTo learn more about segments, read [Segments](https://docs.launchdarkly.com/home/segments)\
-    \ and [Segment configuration](https://docs.launchdarkly.com/home/segments/big-segment-configuration).\n\
+    \ store integrations.\n\nTo learn more about segments, read [Segments](https://docs.launchdarkly.com/home/flags/segments)\
+    \ and [Segment configuration](https://docs.launchdarkly.com/home/flags/segment-config).\n\
     \nSeveral of the endpoints in the integrations API require an integration ID.\
     \ The integration ID is returned as part of the [Create big segment store integration](/tag/Integrations-(beta)#operation/createBigSegmentStoreIntegration)\
     \ response, in the `_id` field. It is also returned as part of the [List all big\
@@ -1046,7 +1012,7 @@ tags:
     \ To add metrics to your plan, [contact Sales](https://launchdarkly.com/contact-sales/).\n\
     \nMetrics track flag behavior over time when an experiment is running. The data\
     \ generated from experiments gives you more insight into the impact of a particular\
-    \ flag. To learn more, read [Metrics](https://docs.launchdarkly.com/home/metrics).\n\
+    \ flag. To learn more, read [Metrics](https://docs.launchdarkly.com/home/observability/metrics).\n\
     \nUsing the metrics API, you can create, delete, and manage metrics.\n\n> ###\
     \ Are you importing metric events?\n>\n> If you want to import metric events into\
     \ LaunchDarkly from an existing data source, use the metric import API. To learn\
@@ -1065,8 +1031,8 @@ tags:
     \ They may change without notice, including becoming backwards incompatible.\n\
     \nMetrics measure audience behaviors affected by the flags in your experiments.\
     \ Metric groups are reusable, ordered lists of metrics you can use to standardize\
-    \ metrics across multiple experiments. To learn more, read [Metrics](https://docs.launchdarkly.com/home/metrics)\
-    \ and [Metric groups](https://docs.launchdarkly.com/home/metrics/metric-groups).\n\
+    \ metrics across multiple experiments. To learn more, read [Metrics](https://docs.launchdarkly.com/home/observability/metrics)\
+    \ and [Metric groups](https://docs.launchdarkly.com/home/observability/metric-groups).\n\
     \nUsing the metrics API, you can create, delete, and manage metrics and metric\
     \ groups.\n"
   name: Metrics (beta)
@@ -1091,7 +1057,7 @@ tags:
   name: OAuth2 Clients
 - description: "Projects allow you to manage multiple different software projects\
     \ under one LaunchDarkly account. Each project has its own unique set of environments\
-    \ and feature flags. To learn more, read [Projects](https://docs.launchdarkly.com/home/organize/projects).\n\
+    \ and feature flags. To learn more, read [Projects](https://docs.launchdarkly.com/home/account/project).\n\
     \nUsing the projects API, you can create, destroy, and manage projects.\n"
   name: Projects
 - description: "\n> ### Relay Proxy automatic configuration is an Enterprise feature\n\
@@ -1099,7 +1065,7 @@ tags:
     \ plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/).\
     \ To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).\n\
     \nThe Relay Proxy automatic configuration API provides access to all resources\
-    \ related to relay tokens. To learn more, read [Automatic configuration](https://docs.launchdarkly.com/home/relay-proxy/automatic-configuration).\n\
+    \ related to relay tokens. To learn more, read [Automatic configuration](https://docs.launchdarkly.com/sdk/relay-proxy/automatic-configuration).\n\
     \nSeveral of the endpoints in the Relay Proxy automatic configuration API require\
     \ a configuration ID. The Relay Proxy configuration ID is returned as part of\
     \ the [Create a new Relay Proxy config](/tag/Relay-Proxy-configurations#operation/postRelayAutoConfig)\
@@ -1119,7 +1085,7 @@ tags:
     \ you correctly roll out the flag in each environment before moving on to the\
     \ next. You can also use them to view the status of ongoing releases across all\
     \ flags within a project, enforcing a standardized process and ensuring they are\
-    \ following best practices. To learn more, read [Release pipelines](https://docs.launchdarkly.com/home/release-pipelines).\n\
+    \ following best practices. To learn more, read [Release pipelines](https://docs.launchdarkly.com/home/releases/release-pipelines).\n\
     \nWith the release pipelines API, you can view, create, and delete release pipelines.\n\
     \nWith the related [releases API](/tag/Releases-(beta)), you can view and update\
     \ the active releases for a given flag.\n\nTo add a feature flag to an existing\
@@ -1134,7 +1100,7 @@ tags:
     \nRelease pipelines track the progression of a feature flag across a series of\
     \ phases, where each phase consists of one or more environments. When you add\
     \ a flag to a release pipeline, you create a \"release\" to track that flag's\
-    \ progress through the pipeline. To learn more, read [Release pipelines](https://docs.launchdarkly.com/home/release-pipelines).\n\
+    \ progress through the pipeline. To learn more, read [Release pipelines](https://docs.launchdarkly.com/home/releases/release-pipelines).\n\
     \nWith the releases API, you can view and update the active releases for a given\
     \ flag.\n\nWith the related [release pipelines API](/tag/Release-pipelines-(beta)),\
     \ you can view, create, and delete release pipelines.\n"
@@ -1145,7 +1111,7 @@ tags:
     \ plan, [contact Sales](https://launchdarkly.com/contact-sales/).\n\nSchedule\
     \ the specified flag targeting changes to take effect at the selected time. You\
     \ may schedule multiple changes for a flag each with a different `ExecutionDate`.\
-    \ To learn more, read [Scheduled flag changes](https://docs.launchdarkly.com/home/feature-workflows/scheduled-changes).\n\
+    \ To learn more, read [Scheduled flag changes](https://docs.launchdarkly.com/home/releases/scheduled-changes).\n\
     \nSeveral of the endpoints in the scheduled changes API require a scheduled change\
     \ ID. The scheduled change ID is returned as part of the [Create scheduled changes\
     \ workflow](/tag/Scheduled-changes#operation/postFlagConfigScheduledChanges) and\
@@ -1168,7 +1134,7 @@ tags:
     \ groups of contexts individually or by attribute,\n* list-based segments, which\
     \ let you target individual contexts or uploaded lists of contexts, and\n* synced\
     \ segments, which let you target groups of contexts backed by an external data\
-    \ store.\n\nTo learn more, read [Segments](https://docs.launchdarkly.com/home/segments).\n\
+    \ store.\n\nTo learn more, read [Segments](https://docs.launchdarkly.com/home/flags/segments).\n\
     \nThe segments API allows you to list, create, modify, and delete segments programmatically.\n\
     \nYou can find other APIs for working with big segments under [Segments (beta)](/tag/Segments-(beta))\
     \ and [Integrations (beta)](/tag/Integrations-(beta)).\n"
@@ -1190,7 +1156,7 @@ tags:
     \ They may change without notice, including becoming backwards incompatible.\n\
     \nThe segments API allows you to create and retrieve exports and imports for big\
     \ segments, which are synced segments or list-based segments with 15,000 or more\
-    \ entries. To learn more, read [Segments](https://docs.launchdarkly.com/home/segments).\n\
+    \ entries. To learn more, read [Segments](https://docs.launchdarkly.com/home/flags/segments).\n\
     \nSeveral of the endpoints in the segments API require an import or export ID.\
     \ The import ID is returned in the `Location` header as part of the [Create big\
     \ segment import](/tag/Segments-(beta)#operation/createBigSegmentImport) request.\
@@ -1202,7 +1168,7 @@ tags:
   name: Segments (beta)
 - description: "Tags are simple strings that you can attach to most resources in LaunchDarkly.\
     \ Tags are useful for grouping resources into a set that you can name in a resource\
-    \ specifier. To learn more, read [Custom role concepts](https://docs.launchdarkly.com/home/members/role-concepts#tags).\n\
+    \ specifier. To learn more, read [Custom role concepts](https://docs.launchdarkly.com/home/account/role-concepts#tags).\n\
     \nUsing the tags API, you can list existing tags for resources.\n"
   name: Tags
 - description: "> ### Teams is an Enterprise feature\n>\n> Teams is available to customers\
@@ -1211,10 +1177,10 @@ tags:
     \nA team is a group of members in your LaunchDarkly account. A team can have maintainers\
     \ who are able to add and remove team members. It also can have custom roles assigned\
     \ to it that allows shared access to those roles for all team members. To learn\
-    \ more, read [Teams](https://docs.launchdarkly.com/home/teams).\n\nThe Teams API\
-    \ allows you to create, read, update, and delete a team.\n\nSeveral of the endpoints\
-    \ in the Teams API require one or more member IDs. The member ID is returned as\
-    \ part of the [List account members](/tag/Account-members#operation/getMembers)\
+    \ more, read [Teams](https://docs.launchdarkly.com/home/account/teams).\n\nThe\
+    \ Teams API allows you to create, read, update, and delete a team.\n\nSeveral\
+    \ of the endpoints in the Teams API require one or more member IDs. The member\
+    \ ID is returned as part of the [List account members](/tag/Account-members#operation/getMembers)\
     \ response. It is the `_id` field of each element in the `items` array.\n"
   name: Teams
 - description: "> ### This feature is in beta\n>\n> To use this feature, pass in a\
@@ -1228,24 +1194,24 @@ tags:
     \nA team is a group of members in your LaunchDarkly account. A team can have maintainers\
     \ who are able to add and remove team members. It also can have custom roles assigned\
     \ to it that allows shared access to those roles for all team members. To learn\
-    \ more, read [Teams](https://docs.launchdarkly.com/home/teams).\n"
+    \ more, read [Teams](https://docs.launchdarkly.com/home/account/teams).\n"
   name: Teams (beta)
 - description: "> ### Contexts are now available\n>\n> After you have upgraded your\
     \ LaunchDarkly SDK to use contexts instead of users, you should use [Contexts](/tag/Contexts)\
-    \ instead of the user settings API. To learn more, read [Contexts](https://docs.launchdarkly.com/home/contexts).\n\
+    \ instead of the user settings API. To learn more, read [Contexts](https://docs.launchdarkly.com/home/observability/contexts).\n\
     \nLaunchDarkly's user settings API provides a picture of all feature flags and\
     \ their current values for a specific user. This gives you instant visibility\
     \ into how a particular user experiences your site or application. To learn more,\
-    \ read [Viewing and managing users](https://docs.launchdarkly.com/home/users/attributes#viewing-and-managing-users).\n\
+    \ read [View and manage contexts](https://docs.launchdarkly.com/home/observability/context-attributes#view-and-manage-contexts).\n\
     \nYou can also use the user settings API to assign a user to a specific variation\
     \ for any feature flag.\n"
   name: User settings
 - description: "> ### Contexts are now available\n>\n> After you have upgraded your\
     \ LaunchDarkly SDK to use contexts instead of users, you should use [Contexts](/tag/Contexts)\
-    \ instead of these endpoints. To learn more, read [Contexts](https://docs.launchdarkly.com/home/contexts).\n\
+    \ instead of these endpoints. To learn more, read [Contexts](https://docs.launchdarkly.com/home/observability/contexts).\n\
     \n\nLaunchDarkly creates a record for each user passed in to `variation` calls.\
     \ This record powers the autocomplete functionality on the feature flag dashboard,\
-    \ as well as the Users page. To learn more, read [Users and user segments](https://docs.launchdarkly.com/home/users).\n\
+    \ as well as the Users page. To learn more, read [Contexts](https://docs.launchdarkly.com/home/observability/contexts).\n\
     \nLaunchDarkly also offers an API that lets you tap into this data. You can use\
     \ the users API to see what user data is available to LaunchDarkly, as well as\
     \ determine which flag values a user will receive. You can also explicitly set\
@@ -1255,7 +1221,7 @@ tags:
   name: Users
 - description: "> ### Contexts are now available\n>\n> After you have upgraded your\
     \ LaunchDarkly SDK to use contexts instead of users, you should use [Contexts](/tag/Contexts)\
-    \ instead of these endpoints. To learn more, read [Contexts](https://docs.launchdarkly.com/home/contexts).\n\
+    \ instead of these endpoints. To learn more, read [Contexts](https://docs.launchdarkly.com/home/observability/contexts).\n\
     \n> ### This feature is in beta\n>\n> To use this feature, pass in a header including\
     \ the `LD-API-Version` key with value set to `beta`. Use this header with each\
     \ call. To learn more, read [Beta resources](/#section/Overview/Beta-resources).\n\
@@ -1263,7 +1229,7 @@ tags:
     \ They may change without notice, including becoming backwards incompatible.\n\
     \nLaunchDarkly creates a record for each user passed in to `variation` calls.\
     \ This record powers the autocomplete functionality on the feature flag dashboard,\
-    \ as well as the Users page. To learn more, read [Users and user segments](https://docs.launchdarkly.com/home/users)\n\
+    \ as well as the Users page. To learn more, read [Contexts](https://docs.launchdarkly.com/home/observability/contexts)\n\
     \nLaunchDarkly also offers an API that lets you access this data. You can use\
     \ the users API to see what user data is available to LaunchDarkly, as well as\
     \ determine which flag values a user will receive. You can also explicitly set\
@@ -1334,7 +1300,7 @@ tags:
     \ `environmentKey`, and `flagKey` properties in the request body. When you create\
     \ a template from an existing workflow, it will use the project, environment,\
     \ and flag of the existing workflow, so those properties can be omitted from the\
-    \ request body.\n\nTo learn more, read [Workflows documentation](https://docs.launchdarkly.com/home/feature-workflows/workflows)\
+    \ request body.\n\nTo learn more, read [Workflows documentation](https://docs.launchdarkly.com/home/releases/workflows)\
     \ and [Workflows API documentation](https://apidocs.launchdarkly.com/tag/Workflows).\n"
   name: Workflow templates
 - description: "> ### Workflows is an Enterprise feature\n>\n> Workflows is available\
@@ -1342,7 +1308,7 @@ tags:
     \ To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).\n\
     \nA workflow is a set of actions that you can schedule in advance to make changes\
     \ to a feature flag at a future date and time. You can also include approval requests\
-    \ at different stages of a workflow. To learn more, read [Workflows](https://docs.launchdarkly.com/home/feature-workflows/workflows).\n\
+    \ at different stages of a workflow. To learn more, read [Workflows](https://docs.launchdarkly.com/home/releases/workflows).\n\
     \nThe actions supported are as follows:\n\n- Turning targeting `ON` or `OFF`\n\
     - Setting the default variation\n- Adding targets to a given variation\n- Creating\
     \ a rule to target by segment\n- Modifying the rollout percentage for rules\n\n\
@@ -2650,8 +2616,8 @@ paths:
       description: "Get a list of all audit log entries. The query parameters let\
         \ you restrict the results that return by date ranges, resource specifiers,\
         \ or a full-text search query.\n\nLaunchDarkly uses a resource specifier syntax\
-        \ to name resources or collections of resources. To learn more, read [Understanding\
-        \ the resource specifier syntax](https://docs.launchdarkly.com/home/members/role-resources#understanding-the-resource-specifier-syntax).\n"
+        \ to name resources or collections of resources. To learn more, read [About\
+        \ the resource specifier syntax](https://docs.launchdarkly.com/home/account/role-resources#about-the-resource-specifier-syntax).\n"
       operationId: getAuditLogEntries
       parameters:
       - description: "A timestamp filter, expressed as a Unix epoch time in milliseconds.\
@@ -2806,7 +2772,7 @@ paths:
     get:
       description: "Get a list of all extinctions. LaunchDarkly creates an extinction\
         \ event after you remove all code references to a flag. To learn more, read\
-        \ [Understanding extinction events](https://docs.launchdarkly.com/home/code/code-references#understanding-extinction-events)."
+        \ [About extinction events](https://docs.launchdarkly.com/home/observability/code-references#about-extinction-events)."
       operationId: getExtinctions
       parameters:
       - description: Filter results to a specific repository
@@ -4390,7 +4356,7 @@ paths:
         \ days ago, and hasn't been requested within the past seven days.\n- `launched`:\
         \ LaunchDarkly is receiving requests for this flag, it is toggled on, there\
         \ is only one variation configured, and there have been no changes to configuration\
-        \ in the past seven days.\n\nTo learn more, read [Flag statuses](https://docs.launchdarkly.com/home/code/flag-status).\n"
+        \ in the past seven days.\n\nTo learn more, read [Flag statuses](https://docs.launchdarkly.com/home/observability/flag-status).\n"
       operationId: getFeatureFlagStatuses
       parameters:
       - description: The project key
@@ -4548,15 +4514,16 @@ paths:
         | `evaluated`             | An object that contains a key of `after` and a\
         \ value in Unix time in milliseconds. It filters the list to all flags that\
         \ have been evaluated since the time you specify, in the environment provided.\
-        \ This filter requires the `filterEnv` filter. | `filter=evaluation:{\"after\"\
-        :1690527600000}` |\n| `filterEnv`             | A string with a list of comma-separated\
-        \ keys of valid environments. You must use this field for filters that are\
-        \ environment-specific. If there are multiple environment-specific filters,\
-        \ you only need to include this field once. You can filter for a maximum of\
-        \ three environments. | `filter=evaluated:{\"after\": 1590768455282},filterEnv:production,status:active`\
-        \ |\n| `hasExperiment`         | A boolean value. It filters the list to flags\
-        \ that are used in an experiment. | `filter=hasExperiment:true` |\n| `maintainerId`\
-        \          | A valid member ID. It filters the list to flags that are maintained\
+        \ This filter requires the `filterEnv` filter. | `filter=evaluated:{\"after\"\
+        :1690527600000},filterEnv:production` |\n| `filterEnv`             | A string\
+        \ with a list of comma-separated keys of valid environments. You must use\
+        \ this field for filters that are environment-specific. If there are multiple\
+        \ environment-specific filters, you only need to include this field once.\
+        \ You can filter for a maximum of three environments. | `filter=evaluated:{\"\
+        after\": 1590768455282},filterEnv:production,status:active` |\n| `hasExperiment`\
+        \         | A boolean value. It filters the list to flags that are used in\
+        \ an experiment. | `filter=hasExperiment:true` |\n| `maintainerId`       \
+        \   | A valid member ID. It filters the list to flags that are maintained\
         \ by this member. | `filter=maintainerId:12ab3c45de678910abc12345` |\n| `maintainerTeamKey`\
         \     | A string. It filters the list to flags that are maintained by the\
         \ team with this key. | `filter=maintainerTeamKey:example-team-key` |\n| `query`\
@@ -4606,7 +4573,7 @@ paths:
         For migration flags, the cohort information is included in the `rules` property\
         \ of a flag's response, and default cohort information is included in the\
         \ `fallthrough` property of a flag's response.\nTo learn more, read [Migration\
-        \ Flags](https://docs.launchdarkly.com/home/flag-types/migration-flags).\n"
+        \ Flags](https://docs.launchdarkly.com/home/flags/migration).\n"
       operationId: getFeatureFlags
       parameters:
       - description: The project key
@@ -4793,8 +4760,7 @@ paths:
         \nHere's an example:\n\n```json\n{\n  \"key\": \"flag-key-123\",\n  \"purpose\"\
         : \"migration\",\n  \"migrationSettings\": {\n    \"stageCount\": 6,\n   \
         \ \"contextKind\": \"account\"\n  }\n}\n```\n\nTo learn more, read [Migration\
-        \ Flags](https://docs.launchdarkly.com/home/flag-types/migration-flags).\n\
-        \n</details>\n"
+        \ Flags](https://docs.launchdarkly.com/home/flags/migration).\n\n</details>\n"
       operationId: postFeatureFlag
       parameters:
       - description: The project key
@@ -4877,7 +4843,7 @@ paths:
         \ Sales](https://launchdarkly.com/contact-sales/).\n\nList dependent flags\
         \ across all environments for the flag specified in the path parameters. A\
         \ dependent flag is a flag that uses another flag as a prerequisite. To learn\
-        \ more, read [Flag prerequisites](https://docs.launchdarkly.com/home/targeting-flags/prerequisites).\n"
+        \ more, read [Flag prerequisites](https://docs.launchdarkly.com/home/flags/prereqs).\n"
       operationId: getDependentFlagsByEnv
       parameters:
       - description: The project key
@@ -5530,7 +5496,7 @@ paths:
         \ property of a flag's response. You can update the default cohort by updating\
         \ `fallthrough`.\nWhen you update the rollout for a cohort or the default\
         \ cohort through the API, provide a rollout instead of a single `variationId`.\n\
-        To learn more, read [Migration Flags](https://docs.launchdarkly.com/home/flag-types/migration-flags).\n"
+        To learn more, read [Migration flags](https://docs.launchdarkly.com/home/flags/migration).\n"
       operationId: patchFeatureFlag
       parameters:
       - description: The project key
@@ -5709,7 +5675,7 @@ paths:
         \ Sales](https://launchdarkly.com/contact-sales/).\n\nList dependent flags\
         \ across all environments for the flag specified in the path parameters. A\
         \ dependent flag is a flag that uses another flag as a prerequisite. To learn\
-        \ more, read [Flag prerequisites](https://docs.launchdarkly.com/home/targeting-flags/prerequisites).\n"
+        \ more, read [Flag prerequisites](https://docs.launchdarkly.com/home/flags/prereqs).\n"
       operationId: getDependentFlags
       parameters:
       - description: The project key
@@ -6072,7 +6038,7 @@ paths:
       description: "\n> ### Contexts are now available\n>\n> After you have upgraded\
         \ your LaunchDarkly SDK to use contexts instead of users, you should use [Get\
         \ expiring context targets for feature flag](/tag/Feature-flags#operation/getExpiringContextTargets)\
-        \ instead of this endpoint. To learn more, read [Contexts](https://docs.launchdarkly.com/home/contexts).\n\
+        \ instead of this endpoint. To learn more, read [Contexts](https://docs.launchdarkly.com/home/observability/contexts).\n\
         \nGet a list of user targets on a feature flag that are scheduled for removal.\n"
       operationId: getExpiringUserTargets
       parameters:
@@ -6144,7 +6110,7 @@ paths:
       description: "> ### Contexts are now available\n>\n> After you have upgraded\
         \ your LaunchDarkly SDK to use contexts instead of users, you should use [Update\
         \ expiring context targets on feature flag](/tag/Feature-flags#operation/patchExpiringTargets)\
-        \ instead of this endpoint. To learn more, read [Contexts](https://docs.launchdarkly.com/home/contexts).\n\
+        \ instead of this endpoint. To learn more, read [Contexts](https://docs.launchdarkly.com/home/observability/contexts).\n\
         \nSchedule a target for removal from individual targeting on a feature flag.\
         \ The flag must already serve a variation to specific targets based on their\
         \ key.\n\nYou can add, update, or remove a scheduled removal date. You can\
@@ -6851,7 +6817,7 @@ paths:
         * Your AWS role Amazon Resource Name (ARN). This is the role that LaunchDarkly\
         \ will assume to manage your DynamoDB table.\n* The External ID you specified\
         \ when creating your Amazon Resource Name (ARN).\n\nTo learn more, read [Segment\
-        \ configuration](https://docs.launchdarkly.com/home/segments/big-segment-configuration).\n"
+        \ configuration](https://docs.launchdarkly.com/home/flags/segment-config).\n"
       operationId: createBigSegmentStoreIntegration
       parameters:
       - description: The project key
@@ -7776,7 +7742,7 @@ paths:
       description: "Create an audit log subscription.<br /><br />For each subscription,\
         \ you must specify the set of resources you wish to subscribe to audit log\
         \ notifications for. You can describe these resources using a custom role\
-        \ policy. To learn more, read [Custom role concepts](https://docs.launchdarkly.com/home/members/role-concepts)."
+        \ policy. To learn more, read [Custom role concepts](https://docs.launchdarkly.com/home/account/role-concepts)."
       operationId: createSubscription
       parameters:
       - description: The integration key
@@ -8180,7 +8146,7 @@ paths:
         \nReplaces the roles of the specified members. This also removes all custom\
         \ roles assigned to the specified members.\n\n##### Parameters\n\n- `value`:\
         \ The new role. Must be a valid built-in role. To learn more about built-in\
-        \ roles, read [LaunchDarkly's built-in roles](https://docs.launchdarkly.com/home/members/built-in-roles).\n\
+        \ roles, read [LaunchDarkly's built-in roles](https://docs.launchdarkly.com/home/account/built-in-roles).\n\
         - `memberIDs`: List of member IDs.\n\nHere's an example:\n\n```json\n{\n \
         \ \"instructions\": [{\n    \"kind\": \"replaceMemberRoles\",\n    \"value\"\
         : \"reader\",\n    \"memberIDs\": [\n      \"1234a56b7c89d012345e678f\",\n\
@@ -8189,7 +8155,7 @@ paths:
         \ to the specified members.\n\nMembers that match any of the filters are **excluded**\
         \ from the update.\n\n##### Parameters\n\n- `value`: The new role. Must be\
         \ a valid built-in role. To learn more about built-in roles, read [LaunchDarkly's\
-        \ built-in roles](https://docs.launchdarkly.com/home/members/built-in-roles).\n\
+        \ built-in roles](https://docs.launchdarkly.com/home/account/built-in-roles).\n\
         - `filterLastSeen`: (Optional) A JSON object with one of the following formats:\n\
         \  - `{\"never\": true}` - Members that have never been active, such as those\
         \ who have not accepted their invitation to LaunchDarkly, or have not logged\
@@ -10012,7 +9978,7 @@ paths:
         \nTo update fields in the environment object that are arrays, set the `path`\
         \ to the name of the field and then append `/<array index>`. Using `/0` appends\
         \ to the beginning of the array.\n\n### Approval settings\n\nThis request\
-        \ only returns the `approvalSettings` key if the [Flag Approvals](https://docs.launchdarkly.com/home/feature-workflows/approvals)\
+        \ only returns the `approvalSettings` key if the [Flag Approvals](https://docs.launchdarkly.com/home/releases/approvals)\
         \ feature is enabled.\n\nOnly the `canReviewOwnRequest`, `canApplyDeclinedChanges`,\
         \ `minNumApprovals`, `required` and `requiredApprovalTagsfields` are editable.\n\
         \nIf you try to patch the environment by setting both `required` and `requiredApprovalTags`,\
@@ -10346,7 +10312,7 @@ paths:
         \ parameters or the request body parameters. If both are provided, there is\
         \ an error.\n\nTo learn more about the filter syntax, read [Filtering contexts\
         \ and context instances](/tag/Contexts#filtering-contexts-and-context-instances).\
-        \ To learn more about context instances, read [Understanding context instances](https://docs.launchdarkly.com/home/contexts#understanding-context-instances).\n"
+        \ To learn more about context instances, read [Context instances](https://docs.launchdarkly.com/home/observability/multi-contexts#context-instances).\n"
       operationId: searchContextInstances
       parameters:
       - description: The project key
@@ -10684,7 +10650,7 @@ paths:
         \ or the request body parameters. If both are provided, there is an error.\n\
         \nTo learn more about the filter syntax, read [Filtering contexts and context\
         \ instances](/tag/Contexts#filtering-contexts-and-context-instances). To learn\
-        \ more about contexts, read [Understanding contexts and context kinds](https://docs.launchdarkly.com/home/contexts#understanding-contexts-and-context-kinds).\n"
+        \ more about contexts, read [Contexts and context kinds](https://docs.launchdarkly.com/home/observability/contexts#contexts-and-context-kinds).\n"
       operationId: searchContexts
       parameters:
       - description: The project key
@@ -11214,7 +11180,7 @@ paths:
         \ [create an iteration](/tag/Experiments-(beta)#operation/createIteration)\
         \ and then [update the experiment](/tag/Experiments-(beta)#operation/patchExperiment)\
         \ with the `startIteration` instruction.\n\nTo learn more, read [Creating\
-        \ experiments](https://docs.launchdarkly.com/home/creating-experiments).\n"
+        \ experiments](https://docs.launchdarkly.com/home/experimentation/create).\n"
       operationId: createExperiment
       parameters:
       - description: The project key
@@ -11502,6 +11468,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotFoundErrorRep'
           description: Invalid resource identifier
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusConflictErrorRep'
+          description: Conflict
         "429":
           content:
             application/json:
@@ -11518,7 +11490,7 @@ paths:
         \ created with a status of `not_started` and appear in the `draftIteration`\
         \ field of an experiment. To start or stop an iteration, [update the experiment](/tag/Experiments-(beta)#operation/patchExperiment)\
         \ with the `startIteration` or `stopIteration` instruction. \n\nTo learn more,\
-        \ read [Starting experiment iterations](https://docs.launchdarkly.com/home/creating-experiments#starting-experiment-iterations).\n"
+        \ read [Start experiment iterations](https://docs.launchdarkly.com/home/experimentation/feature#start-experiment-iterations).\n"
       operationId: createIteration
       parameters:
       - description: The project key
@@ -15290,29 +15262,33 @@ paths:
           format: string
           type: string
         style: form
-      - description: "Accepts filter by kind, query, tags, unbounded, or external.\
-          \ To filter by kind or query, use the `equals` operator. To filter by tags,\
-          \ use the `anyOf` operator. Query is a 'fuzzy' search across segment key,\
-          \ name, and description. Example: `filter=tags anyOf ['enterprise', 'beta'],query\
-          \ equals 'toggle'` returns segments with 'toggle' in their key, name, or\
-          \ description that also have 'enterprise' or 'beta' as a tag. To filter\
-          \ by unbounded, use the `equals` operator. Example: `filter=unbounded equals\
-          \ true`. To filter by external, use the `exists` operator. Example: `filter=external\
-          \ exists true`."
+      - description: "Accepts filter by kind, query, tags, unbounded, external, or\
+          \ included and excluded segment keys. To filter by kind or query, use the\
+          \ `equals` operator. To filter by tags, use the `anyOf` operator. Query\
+          \ is a 'fuzzy' search across segment key, name, and description. Example:\
+          \ `filter=tags anyOf ['enterprise', 'beta'],query equals 'toggle'` returns\
+          \ segments with 'toggle' in their key, name, or description that also have\
+          \ 'enterprise' or 'beta' as a tag. To filter by unbounded, use the `equals`\
+          \ operator. Example: `filter=unbounded equals true`. To filter by external,\
+          \ use the `exists` operator. Example: `filter=external exists true`. To\
+          \ exclude segments from results, use `filter=excludedKeys anyOf ['segmentKey1',\
+          \ 'segmentKey2']`."
         explode: true
         in: query
         name: filter
         required: false
         schema:
-          description: "Accepts filter by kind, query, tags, unbounded, or external.\
-            \ To filter by kind or query, use the `equals` operator. To filter by\
-            \ tags, use the `anyOf` operator. Query is a 'fuzzy' search across segment\
-            \ key, name, and description. Example: `filter=tags anyOf ['enterprise',\
-            \ 'beta'],query equals 'toggle'` returns segments with 'toggle' in their\
-            \ key, name, or description that also have 'enterprise' or 'beta' as a\
-            \ tag. To filter by unbounded, use the `equals` operator. Example: `filter=unbounded\
-            \ equals true`. To filter by external, use the `exists` operator. Example:\
-            \ `filter=external exists true`."
+          description: "Accepts filter by kind, query, tags, unbounded, external,\
+            \ or included and excluded segment keys. To filter by kind or query, use\
+            \ the `equals` operator. To filter by tags, use the `anyOf` operator.\
+            \ Query is a 'fuzzy' search across segment key, name, and description.\
+            \ Example: `filter=tags anyOf ['enterprise', 'beta'],query equals 'toggle'`\
+            \ returns segments with 'toggle' in their key, name, or description that\
+            \ also have 'enterprise' or 'beta' as a tag. To filter by unbounded, use\
+            \ the `equals` operator. Example: `filter=unbounded equals true`. To filter\
+            \ by external, use the `exists` operator. Example: `filter=external exists\
+            \ true`. To exclude segments from results, use `filter=excludedKeys anyOf\
+            \ ['segmentKey1', 'segmentKey2']`."
           format: string
           type: string
         style: form
@@ -16251,7 +16227,7 @@ paths:
       description: "> ### Contexts are now available\n>\n> After you have upgraded\
         \ your LaunchDarkly SDK to use contexts instead of users, you should use [Get\
         \ expiring targets for segment](/tag/Segments#operation/getExpiringTargetsForSegment)\
-        \ instead of this endpoint. To learn more, read [Contexts](https://docs.launchdarkly.com/home/contexts).\n\
+        \ instead of this endpoint. To learn more, read [Contexts](https://docs.launchdarkly.com/home/observability/contexts).\n\
         \nGet the membership status (included/excluded) for a given user in this big\
         \ segment. This operation does not support standard segments.\n"
       operationId: getSegmentMembershipForUser
@@ -16523,7 +16499,7 @@ paths:
       description: "> ### Contexts are now available\n>\n> After you have upgraded\
         \ your LaunchDarkly SDK to use contexts instead of users, you should use [Get\
         \ expiring targets for segment](/tag/Segments#operation/getExpiringTargetsForSegment)\
-        \ instead of this endpoint. To learn more, read [Contexts](https://docs.launchdarkly.com/home/contexts).\n\
+        \ instead of this endpoint. To learn more, read [Contexts](https://docs.launchdarkly.com/home/observability/contexts).\n\
         \nGet a list of a segment's user targets that are scheduled for removal.\n"
       operationId: getExpiringUserTargetsForSegment
       parameters:
@@ -16589,7 +16565,7 @@ paths:
       description: "\n> ### Contexts are now available\n>\n> After you have upgraded\
         \ your LaunchDarkly SDK to use contexts instead of users, you should use [Update\
         \ expiring targets for segment](/tag/Segments#operation/patchExpiringTargetsForSegment)\
-        \ instead of this endpoint. To learn more, read [Contexts](https://docs.launchdarkly.com/home/contexts).\n\
+        \ instead of this endpoint. To learn more, read [Contexts](https://docs.launchdarkly.com/home/observability/contexts).\n\
         \nUpdate expiring user targets for a segment. Updating a user target expiration\
         \ uses the semantic patch format.\n\nTo make a semantic patch request, you\
         \ must append `domain-model=launchdarkly.semanticpatch` to your `Content-Type`\
@@ -16960,7 +16936,7 @@ paths:
       tags:
       - Teams (beta)
     post:
-      description: "Create a team. To learn more, read [Creating a team](https://docs.launchdarkly.com/home/teams/creating).\n\
+      description: "Create a team. To learn more, read [Creating a team](https://docs.launchdarkly.com/home/account/create-teams).\n\
         \n### Expanding the teams response\nLaunchDarkly supports four fields for\
         \ expanding the \"Create team\" response. By default, these fields are **not**\
         \ included in the response.\n\nTo expand the response, append the `expand`\
@@ -17037,7 +17013,7 @@ paths:
       - Teams
   /api/v2/teams/{teamKey}:
     delete:
-      description: "Delete a team by key. To learn more, read [Deleting a team](https://docs.launchdarkly.com/home/teams/managing#deleting-a-team)."
+      description: "Delete a team by key. To learn more, read [Delete a team](https://docs.launchdarkly.com/home/account/manage-teams#delete-a-team)."
       operationId: deleteTeam
       parameters:
       - description: The team key
@@ -17305,7 +17281,7 @@ paths:
   /api/v2/teams/{teamKey}/maintainers:
     get:
       description: "Fetch the maintainers that have been assigned to the team. To\
-        \ learn more, read [Managing team maintainers](https://docs.launchdarkly.com/home/teams/managing#managing-team-maintainers)."
+        \ learn more, read [Manage team maintainers](https://docs.launchdarkly.com/home/account/manage-teams#manage-team-maintainers)."
       operationId: getTeamMaintainers
       parameters:
       - description: The team key
@@ -17396,7 +17372,7 @@ paths:
         \ of member email addresses. Your CSV file must include email addresses in\
         \ the first column. You can include data in additional columns, but LaunchDarkly\
         \ ignores all data outside the first column. Headers are optional. To learn\
-        \ more, read [Managing team members](https://docs.launchdarkly.com/home/teams/managing#managing-team-members).\n\
+        \ more, read [Manage team members](https://docs.launchdarkly.com/home/account/manage-teams#manage-team-members).\n\
         \n**Members are only added on a `201` response.** A `207` indicates the CSV\
         \ file contains a combination of valid and invalid entries. A `207` results\
         \ in no members being added to the team.\n\nOn a `207` response, if an entry\
@@ -17494,7 +17470,7 @@ paths:
   /api/v2/teams/{teamKey}/roles:
     get:
       description: "Fetch the custom roles that have been assigned to the team. To\
-        \ learn more, read [Managing team permissions](https://docs.launchdarkly.com/home/teams/managing#managing-team-permissions)."
+        \ learn more, read [Manage team permissions](https://docs.launchdarkly.com/home/account/manage-teams#manage-team-permissions)."
       operationId: getTeamRoles
       parameters:
       - description: The team key
@@ -18495,7 +18471,7 @@ paths:
         \ daily.<br/><br/>Endpoints for retrieving monthly active users (MAU) do not\
         \ return information about active context instances. After you have upgraded\
         \ your LaunchDarkly SDK to use contexts instead of users, you should not rely\
-        \ on this endpoint. To learn more, read [Account usage metrics](https://docs.launchdarkly.com/home/billing/usage-metrics)."
+        \ on this endpoint. To learn more, read [Account usage metrics](https://docs.launchdarkly.com/home/account/metrics)."
       operationId: getMauUsage
       parameters:
       - description: The series of data returned starts from this timestamp. Defaults
@@ -18646,7 +18622,7 @@ paths:
         \ for retrieving monthly active users (MAU) do not return information about\
         \ active context instances. After you have upgraded your LaunchDarkly SDK\
         \ to use contexts instead of users, you should not rely on this endpoint.\
-        \ To learn more, read [Account usage metrics](https://docs.launchdarkly.com/home/billing/usage-metrics)."
+        \ To learn more, read [Account usage metrics](https://docs.launchdarkly.com/home/account/metrics)."
       operationId: getMauUsageByCategory
       parameters:
       - description: The series of data returned starts from this timestamp. Defaults
@@ -18720,7 +18696,7 @@ paths:
         \ for retrieving monthly active users (MAU) do not return information about\
         \ active context instances. After you have upgraded your LaunchDarkly SDK\
         \ to use contexts instead of users, you should not rely on this endpoint.\
-        \ To learn more, read [Account usage metrics](https://docs.launchdarkly.com/home/billing/usage-metrics)."
+        \ To learn more, read [Account usage metrics](https://docs.launchdarkly.com/home/account/metrics)."
       operationId: getMauSdksByType
       parameters:
       - description: "The data returned starts from this timestamp. Defaults to seven\
@@ -22606,7 +22582,7 @@ components:
             $ref: '#/components/schemas/StatementPost'
           type: array
         serviceToken:
-          description: Whether the token is a service token https://docs.launchdarkly.com/home/account-security/api-access-tokens#service-tokens
+          description: Whether the token is a service token https://docs.launchdarkly.com/home/account/api#service-tokens
           type: boolean
         defaultApiVersion:
           description: The default API version for this token
@@ -30061,6 +30037,7 @@ components:
           flags:
             key:
               flagConfigVersion: 12
+              notInExperimentVariationId: e432f62b-55f6-49dd-a02f-eb24acf39d05
               targetingRuleDescription: Customers who live in Canada
               _links:
                 self:
@@ -30277,6 +30254,7 @@ components:
           flags:
             key:
               flagConfigVersion: 12
+              notInExperimentVariationId: e432f62b-55f6-49dd-a02f-eb24acf39d05
               targetingRuleDescription: Customers who live in Canada
               _links:
                 self:
@@ -30502,6 +30480,7 @@ components:
           flags:
             key:
               flagConfigVersion: 12
+              notInExperimentVariationId: e432f62b-55f6-49dd-a02f-eb24acf39d05
               targetingRuleDescription: Customers who live in Canada
               _links:
                 self:
@@ -30716,6 +30695,7 @@ components:
           flags:
             key:
               flagConfigVersion: 12
+              notInExperimentVariationId: e432f62b-55f6-49dd-a02f-eb24acf39d05
               targetingRuleDescription: Customers who live in Canada
               _links:
                 self:
@@ -31156,6 +31136,7 @@ components:
             flags:
               key:
                 flagConfigVersion: 12
+                notInExperimentVariationId: e432f62b-55f6-49dd-a02f-eb24acf39d05
                 targetingRuleDescription: Customers who live in Canada
                 _links:
                   self:
@@ -31372,6 +31353,7 @@ components:
             flags:
               key:
                 flagConfigVersion: 12
+                notInExperimentVariationId: e432f62b-55f6-49dd-a02f-eb24acf39d05
                 targetingRuleDescription: Customers who live in Canada
                 _links:
                   self:
@@ -31597,6 +31579,7 @@ components:
             flags:
               key:
                 flagConfigVersion: 12
+                notInExperimentVariationId: e432f62b-55f6-49dd-a02f-eb24acf39d05
                 targetingRuleDescription: Customers who live in Canada
                 _links:
                   self:
@@ -31811,6 +31794,7 @@ components:
             flags:
               key:
                 flagConfigVersion: 12
+                notInExperimentVariationId: e432f62b-55f6-49dd-a02f-eb24acf39d05
                 targetingRuleDescription: Customers who live in Canada
                 _links:
                   self:
@@ -32030,6 +32014,7 @@ components:
             flags:
               key:
                 flagConfigVersion: 12
+                notInExperimentVariationId: e432f62b-55f6-49dd-a02f-eb24acf39d05
                 targetingRuleDescription: Customers who live in Canada
                 _links:
                   self:
@@ -32246,6 +32231,7 @@ components:
             flags:
               key:
                 flagConfigVersion: 12
+                notInExperimentVariationId: e432f62b-55f6-49dd-a02f-eb24acf39d05
                 targetingRuleDescription: Customers who live in Canada
                 _links:
                   self:
@@ -32471,6 +32457,7 @@ components:
             flags:
               key:
                 flagConfigVersion: 12
+                notInExperimentVariationId: e432f62b-55f6-49dd-a02f-eb24acf39d05
                 targetingRuleDescription: Customers who live in Canada
                 _links:
                   self:
@@ -32685,6 +32672,7 @@ components:
             flags:
               key:
                 flagConfigVersion: 12
+                notInExperimentVariationId: e432f62b-55f6-49dd-a02f-eb24acf39d05
                 targetingRuleDescription: Customers who live in Canada
                 _links:
                   self:
@@ -33155,6 +33143,7 @@ components:
           flags:
             key:
               flagConfigVersion: 12
+              notInExperimentVariationId: e432f62b-55f6-49dd-a02f-eb24acf39d05
               ruleId: e432f62b-55f6-49dd-a02f-eb24acf39d05
           primarySingleMetricKey: metric-key-123abc
           metrics:
@@ -36104,6 +36093,7 @@ components:
     FlagInput:
       example:
         flagConfigVersion: 12
+        notInExperimentVariationId: e432f62b-55f6-49dd-a02f-eb24acf39d05
         ruleId: e432f62b-55f6-49dd-a02f-eb24acf39d05
       properties:
         ruleId:
@@ -36115,6 +36105,11 @@ components:
           description: The flag version
           example: 12
           type: integer
+        notInExperimentVariationId:
+          description: "The ID of the variation to route traffic not part of the experiment\
+            \ analysis to. Defaults to variation ID of baseline treatment, if set."
+          example: e432f62b-55f6-49dd-a02f-eb24acf39d05
+          type: string
       required:
       - flagConfigVersion
       - ruleId
@@ -36345,6 +36340,7 @@ components:
     FlagRep:
       example:
         flagConfigVersion: 12
+        notInExperimentVariationId: e432f62b-55f6-49dd-a02f-eb24acf39d05
         targetingRuleDescription: Customers who live in Canada
         _links:
           self:
@@ -36372,6 +36368,11 @@ components:
           description: The flag version
           example: 12
           type: integer
+        notInExperimentVariationId:
+          description: The ID of the variation to route traffic not part of the experiment
+            analysis to
+          example: e432f62b-55f6-49dd-a02f-eb24acf39d05
+          type: string
         _links:
           additionalProperties:
             $ref: '#/components/schemas/Link'
@@ -37575,6 +37576,7 @@ components:
         flags:
           key:
             flagConfigVersion: 12
+            notInExperimentVariationId: e432f62b-55f6-49dd-a02f-eb24acf39d05
             ruleId: e432f62b-55f6-49dd-a02f-eb24acf39d05
         primarySingleMetricKey: metric-key-123abc
         metrics:
@@ -37738,6 +37740,7 @@ components:
         flags:
           key:
             flagConfigVersion: 12
+            notInExperimentVariationId: e432f62b-55f6-49dd-a02f-eb24acf39d05
             targetingRuleDescription: Customers who live in Canada
             _links:
               self:
@@ -42530,8 +42533,8 @@ components:
           type: string
         policy:
           description: "A description of what environments and projects the Relay\
-            \ Proxy should include or exclude. To learn more, read [Writing an inline\
-            \ policy](https://docs.launchdarkly.com/home/relay-proxy/automatic-configuration#writing-an-inline-policy)."
+            \ Proxy should include or exclude. To learn more, read [Write an inline\
+            \ policy](https://docs.launchdarkly.com/sdk/relay-proxy/automatic-configuration#write-an-inline-policy)."
           items:
             $ref: '#/components/schemas/Statement'
           type: array
@@ -48941,7 +48944,7 @@ components:
           type: string
         actions:
           description: "A list of actions to allow. Specify either <code>actionSet</code>\
-            \ or <code>actions</code>. To learn more, read [Role actions](https://docs.launchdarkly.com/home/members/role-actions)."
+            \ or <code>actions</code>. To learn more, read [Role actions](https://docs.launchdarkly.com/home/account/role-actions)."
           example:
           - updateTeamMembers
           items:
