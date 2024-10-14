@@ -10,6 +10,8 @@ Name | Type | Description | Notes
 **ReleasePipelineDescription** | **string** | The release pipeline description | 
 **Phases** | [**[]ReleasePhase**](ReleasePhase.md) | An ordered list of the release pipeline phases | 
 **Version** | **int32** | The release version | 
+**ReleaseVariationId** | Pointer to **string** | The chosen release variation ID to use across all phases of a release | [optional] 
+**CanceledAt** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 
@@ -154,6 +156,56 @@ and a boolean to check if the value has been set.
 
 SetVersion sets Version field to given value.
 
+
+### GetReleaseVariationId
+
+`func (o *Release) GetReleaseVariationId() string`
+
+GetReleaseVariationId returns the ReleaseVariationId field if non-nil, zero value otherwise.
+
+### GetReleaseVariationIdOk
+
+`func (o *Release) GetReleaseVariationIdOk() (*string, bool)`
+
+GetReleaseVariationIdOk returns a tuple with the ReleaseVariationId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetReleaseVariationId
+
+`func (o *Release) SetReleaseVariationId(v string)`
+
+SetReleaseVariationId sets ReleaseVariationId field to given value.
+
+### HasReleaseVariationId
+
+`func (o *Release) HasReleaseVariationId() bool`
+
+HasReleaseVariationId returns a boolean if a field has been set.
+
+### GetCanceledAt
+
+`func (o *Release) GetCanceledAt() int64`
+
+GetCanceledAt returns the CanceledAt field if non-nil, zero value otherwise.
+
+### GetCanceledAtOk
+
+`func (o *Release) GetCanceledAtOk() (*int64, bool)`
+
+GetCanceledAtOk returns a tuple with the CanceledAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCanceledAt
+
+`func (o *Release) SetCanceledAt(v int64)`
+
+SetCanceledAt sets CanceledAt field to given value.
+
+### HasCanceledAt
+
+`func (o *Release) HasCanceledAt() bool`
+
+HasCanceledAt returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -23,6 +23,8 @@ Name | Type | Description | Notes
 **PermissionGrants** | Pointer to [**[]MemberPermissionGrantSummaryRep**](MemberPermissionGrantSummaryRep.md) | A list of permission grants. Permission grants allow a member to have access to a specific action, without having to create or update a custom role. | [optional] 
 **CreationDate** | **int64** |  | 
 **OauthProviders** | Pointer to **[]string** | A list of OAuth providers | [optional] 
+**Version** | Pointer to **int32** | Version of the current configuration | [optional] 
+**RoleAttributes** | Pointer to **map[string][]string** |  | [optional] 
 
 ## Methods
 
@@ -467,6 +469,56 @@ SetOauthProviders sets OauthProviders field to given value.
 `func (o *Member) HasOauthProviders() bool`
 
 HasOauthProviders returns a boolean if a field has been set.
+
+### GetVersion
+
+`func (o *Member) GetVersion() int32`
+
+GetVersion returns the Version field if non-nil, zero value otherwise.
+
+### GetVersionOk
+
+`func (o *Member) GetVersionOk() (*int32, bool)`
+
+GetVersionOk returns a tuple with the Version field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVersion
+
+`func (o *Member) SetVersion(v int32)`
+
+SetVersion sets Version field to given value.
+
+### HasVersion
+
+`func (o *Member) HasVersion() bool`
+
+HasVersion returns a boolean if a field has been set.
+
+### GetRoleAttributes
+
+`func (o *Member) GetRoleAttributes() map[string][]string`
+
+GetRoleAttributes returns the RoleAttributes field if non-nil, zero value otherwise.
+
+### GetRoleAttributesOk
+
+`func (o *Member) GetRoleAttributesOk() (*map[string][]string, bool)`
+
+GetRoleAttributesOk returns a tuple with the RoleAttributes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRoleAttributes
+
+`func (o *Member) SetRoleAttributes(v map[string][]string)`
+
+SetRoleAttributes sets RoleAttributes field to given value.
+
+### HasRoleAttributes
+
+`func (o *Member) HasRoleAttributes() bool`
+
+HasRoleAttributes returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

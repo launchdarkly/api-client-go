@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**GetAuditLogEntries**](AuditLogApi.md#GetAuditLogEntries) | **Get** /api/v2/auditlog | List audit log entries
 [**GetAuditLogEntry**](AuditLogApi.md#GetAuditLogEntry) | **Get** /api/v2/auditlog/{id} | Get audit log entry
+[**PostAuditLogEntries**](AuditLogApi.md#PostAuditLogEntries) | **Post** /api/v2/auditlog | Search audit log entries
 
 
 
@@ -146,6 +147,80 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostAuditLogEntries
+
+> AuditLogEntryListingRepCollection PostAuditLogEntries(ctx).Before(before).After(after).Q(q).Limit(limit).StatementPost(statementPost).Execute()
+
+Search audit log entries
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    before := int64(789) // int64 | A timestamp filter, expressed as a Unix epoch time in milliseconds.  All entries returned occurred before the timestamp. (optional)
+    after := int64(789) // int64 | A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries returned occurred after the timestamp. (optional)
+    q := "q_example" // string | Text to search for. You can search for the full or partial name of the resource. (optional)
+    limit := int64(789) // int64 | A limit on the number of audit log entries that return. Set between 1 and 20. The default is 10. (optional)
+    statementPost := []openapiclient.StatementPost{*openapiclient.NewStatementPost("allow")} // []StatementPost |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AuditLogApi.PostAuditLogEntries(context.Background()).Before(before).After(after).Q(q).Limit(limit).StatementPost(statementPost).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AuditLogApi.PostAuditLogEntries``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PostAuditLogEntries`: AuditLogEntryListingRepCollection
+    fmt.Fprintf(os.Stdout, "Response from `AuditLogApi.PostAuditLogEntries`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostAuditLogEntriesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **before** | **int64** | A timestamp filter, expressed as a Unix epoch time in milliseconds.  All entries returned occurred before the timestamp. | 
+ **after** | **int64** | A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries returned occurred after the timestamp. | 
+ **q** | **string** | Text to search for. You can search for the full or partial name of the resource. | 
+ **limit** | **int64** | A limit on the number of audit log entries that return. Set between 1 and 20. The default is 10. | 
+ **statementPost** | [**[]StatementPost**](StatementPost.md) |  | 
+
+### Return type
+
+[**AuditLogEntryListingRepCollection**](AuditLogEntryListingRepCollection.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

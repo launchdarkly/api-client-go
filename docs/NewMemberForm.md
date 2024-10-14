@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **Role** | Pointer to **string** | The member&#39;s built-in role | [optional] 
 **CustomRoles** | Pointer to **[]string** | An array of the member&#39;s custom roles | [optional] 
 **TeamKeys** | Pointer to **[]string** | An array of the member&#39;s teams | [optional] 
+**RoleAttributes** | Pointer to **map[string][]string** |  | [optional] 
 
 ## Methods
 
@@ -200,6 +201,31 @@ SetTeamKeys sets TeamKeys field to given value.
 `func (o *NewMemberForm) HasTeamKeys() bool`
 
 HasTeamKeys returns a boolean if a field has been set.
+
+### GetRoleAttributes
+
+`func (o *NewMemberForm) GetRoleAttributes() map[string][]string`
+
+GetRoleAttributes returns the RoleAttributes field if non-nil, zero value otherwise.
+
+### GetRoleAttributesOk
+
+`func (o *NewMemberForm) GetRoleAttributesOk() (*map[string][]string, bool)`
+
+GetRoleAttributesOk returns a tuple with the RoleAttributes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRoleAttributes
+
+`func (o *NewMemberForm) SetRoleAttributes(v map[string][]string)`
+
+SetRoleAttributes sets RoleAttributes field to given value.
+
+### HasRoleAttributes
+
+`func (o *NewMemberForm) HasRoleAttributes() bool`
+
+HasRoleAttributes returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

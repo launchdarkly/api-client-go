@@ -407,7 +407,7 @@ func main() {
     environmentKey := "environmentKey_example" // string | The environment key
     integrationKey := "integrationKey_example" // string | The integration key
     id := "id_example" // string | The configuration ID
-    patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField", interface{}(new example value))} // []PatchOperation | 
+    patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")} // []PatchOperation | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)

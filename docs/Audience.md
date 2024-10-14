@@ -6,6 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Environment** | [**EnvironmentSummary**](EnvironmentSummary.md) |  | 
 **Name** | **string** | The release phase name | 
+**Configuration** | Pointer to [**AudienceConfiguration**](AudienceConfiguration.md) |  | [optional] 
+**SegmentKeys** | Pointer to **[]string** | A list of segment keys | [optional] 
 
 ## Methods
 
@@ -65,6 +67,56 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
+
+### GetConfiguration
+
+`func (o *Audience) GetConfiguration() AudienceConfiguration`
+
+GetConfiguration returns the Configuration field if non-nil, zero value otherwise.
+
+### GetConfigurationOk
+
+`func (o *Audience) GetConfigurationOk() (*AudienceConfiguration, bool)`
+
+GetConfigurationOk returns a tuple with the Configuration field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetConfiguration
+
+`func (o *Audience) SetConfiguration(v AudienceConfiguration)`
+
+SetConfiguration sets Configuration field to given value.
+
+### HasConfiguration
+
+`func (o *Audience) HasConfiguration() bool`
+
+HasConfiguration returns a boolean if a field has been set.
+
+### GetSegmentKeys
+
+`func (o *Audience) GetSegmentKeys() []string`
+
+GetSegmentKeys returns the SegmentKeys field if non-nil, zero value otherwise.
+
+### GetSegmentKeysOk
+
+`func (o *Audience) GetSegmentKeysOk() (*[]string, bool)`
+
+GetSegmentKeysOk returns a tuple with the SegmentKeys field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSegmentKeys
+
+`func (o *Audience) SetSegmentKeys(v []string)`
+
+SetSegmentKeys sets SegmentKeys field to given value.
+
+### HasSegmentKeys
+
+`func (o *Audience) HasSegmentKeys() bool`
+
+HasSegmentKeys returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **MigrationSettings** | Pointer to [**MigrationSettingsPost**](MigrationSettingsPost.md) |  | [optional] 
 **MaintainerId** | Pointer to **string** | The ID of the member who maintains this feature flag | [optional] 
 **MaintainerTeamKey** | Pointer to **string** | The key of the team that maintains this feature flag | [optional] 
+**InitialPrerequisites** | Pointer to [**[]FlagPrerequisitePost**](FlagPrerequisitePost.md) | Initial set of prerequisite flags for all environments | [optional] 
 
 ## Methods
 
@@ -377,6 +378,31 @@ SetMaintainerTeamKey sets MaintainerTeamKey field to given value.
 `func (o *FeatureFlagBody) HasMaintainerTeamKey() bool`
 
 HasMaintainerTeamKey returns a boolean if a field has been set.
+
+### GetInitialPrerequisites
+
+`func (o *FeatureFlagBody) GetInitialPrerequisites() []FlagPrerequisitePost`
+
+GetInitialPrerequisites returns the InitialPrerequisites field if non-nil, zero value otherwise.
+
+### GetInitialPrerequisitesOk
+
+`func (o *FeatureFlagBody) GetInitialPrerequisitesOk() (*[]FlagPrerequisitePost, bool)`
+
+GetInitialPrerequisitesOk returns a tuple with the InitialPrerequisites field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetInitialPrerequisites
+
+`func (o *FeatureFlagBody) SetInitialPrerequisites(v []FlagPrerequisitePost)`
+
+SetInitialPrerequisites sets InitialPrerequisites field to given value.
+
+### HasInitialPrerequisites
+
+`func (o *FeatureFlagBody) HasInitialPrerequisites() bool`
+
+HasInitialPrerequisites returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

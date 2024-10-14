@@ -83,7 +83,7 @@ Name | Type | Description  | Notes
 
 ## GetMember
 
-> Member GetMember(ctx, id).Execute()
+> Member GetMember(ctx, id).Expand(expand).Execute()
 
 Get account member
 
@@ -103,10 +103,11 @@ import (
 
 func main() {
     id := "id_example" // string | The member ID
+    expand := "expand_example" // string | A comma-separated list of properties that can reveal additional information in the response. (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AccountMembersApi.GetMember(context.Background(), id).Execute()
+    resp, r, err := apiClient.AccountMembersApi.GetMember(context.Background(), id).Expand(expand).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AccountMembersApi.GetMember``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -132,6 +133,7 @@ Other parameters are passed through a pointer to a apiGetMemberRequest struct vi
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **expand** | **string** | A comma-separated list of properties that can reveal additional information in the response. | 
 
 ### Return type
 
@@ -153,7 +155,7 @@ Name | Type | Description  | Notes
 
 ## GetMembers
 
-> Members GetMembers(ctx).Limit(limit).Offset(offset).Filter(filter).Sort(sort).Execute()
+> Members GetMembers(ctx).Limit(limit).Offset(offset).Filter(filter).Expand(expand).Sort(sort).Execute()
 
 List account members
 
@@ -175,11 +177,12 @@ func main() {
     limit := int64(789) // int64 | The number of members to return in the response. Defaults to 20. (optional)
     offset := int64(789) // int64 | Where to start in the list. This is for use with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
     filter := "filter_example" // string | A comma-separated list of filters. Each filter is of the form `field:value`. Supported fields are explained above. (optional)
+    expand := "expand_example" // string | A comma-separated list of properties that can reveal additional information in the response. (optional)
     sort := "sort_example" // string | A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order. (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AccountMembersApi.GetMembers(context.Background()).Limit(limit).Offset(offset).Filter(filter).Sort(sort).Execute()
+    resp, r, err := apiClient.AccountMembersApi.GetMembers(context.Background()).Limit(limit).Offset(offset).Filter(filter).Expand(expand).Sort(sort).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AccountMembersApi.GetMembers``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -203,6 +206,7 @@ Name | Type | Description  | Notes
  **limit** | **int64** | The number of members to return in the response. Defaults to 20. | 
  **offset** | **int64** | Where to start in the list. This is for use with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | 
  **filter** | **string** | A comma-separated list of filters. Each filter is of the form &#x60;field:value&#x60;. Supported fields are explained above. | 
+ **expand** | **string** | A comma-separated list of properties that can reveal additional information in the response. | 
  **sort** | **string** | A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order. | 
 
 ### Return type
@@ -245,7 +249,7 @@ import (
 
 func main() {
     id := "id_example" // string | The member ID
-    patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField", interface{}(new example value))} // []PatchOperation | 
+    patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")} // []PatchOperation | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)

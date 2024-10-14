@@ -25,7 +25,7 @@ Name | Type | Description | Notes
 **CustomProperties** | [**map[string]CustomProperty**](CustomProperty.md) |  | 
 **Archived** | **bool** | Boolean indicating if the feature flag is archived | 
 **ArchivedDate** | Pointer to **int64** |  | [optional] 
-**Deprecated** | **bool** | Boolean indicating if the feature flag is deprecated | 
+**Deprecated** | Pointer to **bool** | Boolean indicating if the feature flag is deprecated | [optional] 
 **DeprecatedDate** | Pointer to **int64** |  | [optional] 
 **Defaults** | Pointer to [**Defaults**](Defaults.md) |  | [optional] 
 **Purpose** | Pointer to **string** |  | [optional] 
@@ -36,7 +36,7 @@ Name | Type | Description | Notes
 
 ### NewFeatureFlag
 
-`func NewFeatureFlag(name string, kind string, key string, version int32, creationDate int64, variations []Variation, temporary bool, tags []string, links map[string]Link, experiments ExperimentInfoRep, customProperties map[string]CustomProperty, archived bool, deprecated bool, environments map[string]FeatureFlagConfig, ) *FeatureFlag`
+`func NewFeatureFlag(name string, kind string, key string, version int32, creationDate int64, variations []Variation, temporary bool, tags []string, links map[string]Link, experiments ExperimentInfoRep, customProperties map[string]CustomProperty, archived bool, environments map[string]FeatureFlagConfig, ) *FeatureFlag`
 
 NewFeatureFlag instantiates a new FeatureFlag object
 This constructor will assign default values to properties that have it defined,
@@ -535,6 +535,11 @@ and a boolean to check if the value has been set.
 
 SetDeprecated sets Deprecated field to given value.
 
+### HasDeprecated
+
+`func (o *FeatureFlag) HasDeprecated() bool`
+
+HasDeprecated returns a boolean if a field has been set.
 
 ### GetDeprecatedDate
 

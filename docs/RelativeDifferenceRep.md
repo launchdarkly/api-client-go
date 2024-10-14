@@ -7,6 +7,8 @@ Name | Type | Description | Notes
 **Upper** | Pointer to **float32** | An upper bound of the relative difference between the treatment and the &lt;code&gt;fromTreatmentId&lt;/code&gt; | [optional] 
 **Lower** | Pointer to **float32** | A lower bound of the relative difference between the treatment and the &lt;code&gt;fromTreatmentId&lt;/code&gt; | [optional] 
 **FromTreatmentId** | Pointer to **string** | The treatment ID of the treatment against which the relative difference is calculated | [optional] 
+**Variance** | Pointer to **float32** | Variance of the relative difference | [optional] 
+**VarianceReduction** | Pointer to **float32** | The reduction in variance resulting from CUPED | [optional] 
 
 ## Methods
 
@@ -101,6 +103,56 @@ SetFromTreatmentId sets FromTreatmentId field to given value.
 `func (o *RelativeDifferenceRep) HasFromTreatmentId() bool`
 
 HasFromTreatmentId returns a boolean if a field has been set.
+
+### GetVariance
+
+`func (o *RelativeDifferenceRep) GetVariance() float32`
+
+GetVariance returns the Variance field if non-nil, zero value otherwise.
+
+### GetVarianceOk
+
+`func (o *RelativeDifferenceRep) GetVarianceOk() (*float32, bool)`
+
+GetVarianceOk returns a tuple with the Variance field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVariance
+
+`func (o *RelativeDifferenceRep) SetVariance(v float32)`
+
+SetVariance sets Variance field to given value.
+
+### HasVariance
+
+`func (o *RelativeDifferenceRep) HasVariance() bool`
+
+HasVariance returns a boolean if a field has been set.
+
+### GetVarianceReduction
+
+`func (o *RelativeDifferenceRep) GetVarianceReduction() float32`
+
+GetVarianceReduction returns the VarianceReduction field if non-nil, zero value otherwise.
+
+### GetVarianceReductionOk
+
+`func (o *RelativeDifferenceRep) GetVarianceReductionOk() (*float32, bool)`
+
+GetVarianceReductionOk returns a tuple with the VarianceReduction field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVarianceReduction
+
+`func (o *RelativeDifferenceRep) SetVarianceReduction(v float32)`
+
+SetVarianceReduction sets VarianceReduction field to given value.
+
+### HasVarianceReduction
+
+`func (o *RelativeDifferenceRep) HasVarianceReduction() bool`
+
+HasVarianceReduction returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Kind** | Pointer to **string** | The type of distribution. | [optional] 
-**Parameters** | Pointer to **map[string]interface{}** | The parameters of the distribution. The parameters are different for each distribution type. When &lt;code&gt;kind&lt;/code&gt; is &lt;code&gt;normal&lt;/code&gt;, the parameters of the distribution are &#39;mu&#39; and &#39;sigma&#39;. When &lt;code&gt;kind&lt;/code&gt; is &lt;code&gt;beta&lt;/code&gt;, the parameters of the distribution are &#39;alpha&#39; and &#39;beta.&#39; | [optional] 
+**Parameters** | Pointer to **map[string]float32** | The parameters of the distribution. The parameters are different for each distribution type. When &lt;code&gt;kind&lt;/code&gt; is &lt;code&gt;normal&lt;/code&gt;, the parameters of the distribution are &#39;mu&#39; and &#39;sigma&#39;. When &lt;code&gt;kind&lt;/code&gt; is &lt;code&gt;beta&lt;/code&gt;, the parameters of the distribution are &#39;alpha&#39; and &#39;beta.&#39; | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasKind returns a boolean if a field has been set.
 
 ### GetParameters
 
-`func (o *Distribution) GetParameters() map[string]interface{}`
+`func (o *Distribution) GetParameters() map[string]float32`
 
 GetParameters returns the Parameters field if non-nil, zero value otherwise.
 
 ### GetParametersOk
 
-`func (o *Distribution) GetParametersOk() (*map[string]interface{}, bool)`
+`func (o *Distribution) GetParametersOk() (*map[string]float32, bool)`
 
 GetParametersOk returns a tuple with the Parameters field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetParameters
 
-`func (o *Distribution) SetParameters(v map[string]interface{})`
+`func (o *Distribution) SetParameters(v map[string]float32)`
 
 SetParameters sets Parameters field to given value.
 

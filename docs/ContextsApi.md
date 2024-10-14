@@ -176,7 +176,7 @@ Name | Type | Description  | Notes
 
 ## GetContextAttributeNames
 
-> ContextAttributeNamesCollection GetContextAttributeNames(ctx, projectKey, environmentKey).Filter(filter).Execute()
+> ContextAttributeNamesCollection GetContextAttributeNames(ctx, projectKey, environmentKey).Filter(filter).Limit(limit).Execute()
 
 Get context attribute names
 
@@ -198,10 +198,11 @@ func main() {
     projectKey := "projectKey_example" // string | The project key
     environmentKey := "environmentKey_example" // string | The environment key
     filter := "filter_example" // string | A comma-separated list of context filters. This endpoint only accepts `kind` filters, with the `equals` operator, and `name` filters, with the `startsWith` operator. To learn more about the filter syntax, read [Filtering contexts and context instances](/tag/Contexts#filtering-contexts-and-context-instances). (optional)
+    limit := int64(789) // int64 | Specifies the maximum number of items in the collection to return (max: 100, default: 100) (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ContextsApi.GetContextAttributeNames(context.Background(), projectKey, environmentKey).Filter(filter).Execute()
+    resp, r, err := apiClient.ContextsApi.GetContextAttributeNames(context.Background(), projectKey, environmentKey).Filter(filter).Limit(limit).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ContextsApi.GetContextAttributeNames``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -230,6 +231,7 @@ Name | Type | Description  | Notes
 
 
  **filter** | **string** | A comma-separated list of context filters. This endpoint only accepts &#x60;kind&#x60; filters, with the &#x60;equals&#x60; operator, and &#x60;name&#x60; filters, with the &#x60;startsWith&#x60; operator. To learn more about the filter syntax, read [Filtering contexts and context instances](/tag/Contexts#filtering-contexts-and-context-instances). | 
+ **limit** | **int64** | Specifies the maximum number of items in the collection to return (max: 100, default: 100) | 
 
 ### Return type
 
@@ -251,7 +253,7 @@ Name | Type | Description  | Notes
 
 ## GetContextAttributeValues
 
-> ContextAttributeValuesCollection GetContextAttributeValues(ctx, projectKey, environmentKey, attributeName).Filter(filter).Execute()
+> ContextAttributeValuesCollection GetContextAttributeValues(ctx, projectKey, environmentKey, attributeName).Filter(filter).Limit(limit).Execute()
 
 Get context attribute values
 
@@ -274,10 +276,11 @@ func main() {
     environmentKey := "environmentKey_example" // string | The environment key
     attributeName := "attributeName_example" // string | The attribute name
     filter := "filter_example" // string | A comma-separated list of context filters. This endpoint only accepts `kind` filters, with the `equals` operator, and `value` filters, with the `startsWith` operator. To learn more about the filter syntax, read [Filtering contexts and context instances](/tag/Contexts#filtering-contexts-and-context-instances). (optional)
+    limit := int64(789) // int64 | Specifies the maximum number of items in the collection to return (max: 100, default: 50) (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ContextsApi.GetContextAttributeValues(context.Background(), projectKey, environmentKey, attributeName).Filter(filter).Execute()
+    resp, r, err := apiClient.ContextsApi.GetContextAttributeValues(context.Background(), projectKey, environmentKey, attributeName).Filter(filter).Limit(limit).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ContextsApi.GetContextAttributeValues``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -308,6 +311,7 @@ Name | Type | Description  | Notes
 
 
  **filter** | **string** | A comma-separated list of context filters. This endpoint only accepts &#x60;kind&#x60; filters, with the &#x60;equals&#x60; operator, and &#x60;value&#x60; filters, with the &#x60;startsWith&#x60; operator. To learn more about the filter syntax, read [Filtering contexts and context instances](/tag/Contexts#filtering-contexts-and-context-instances). | 
+ **limit** | **int64** | Specifies the maximum number of items in the collection to return (max: 100, default: 50) | 
 
 ### Return type
 

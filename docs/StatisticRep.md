@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **HunkCount** | **int32** | The number of code reference hunks in which the flag appears in this repository | 
 **FileCount** | **int32** | The number of files in which the flag appears in this repository | 
 **Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
+**LatestCommitTime** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 
@@ -212,6 +213,31 @@ and a boolean to check if the value has been set.
 
 SetLinks sets Links field to given value.
 
+
+### GetLatestCommitTime
+
+`func (o *StatisticRep) GetLatestCommitTime() int64`
+
+GetLatestCommitTime returns the LatestCommitTime field if non-nil, zero value otherwise.
+
+### GetLatestCommitTimeOk
+
+`func (o *StatisticRep) GetLatestCommitTimeOk() (*int64, bool)`
+
+GetLatestCommitTimeOk returns a tuple with the LatestCommitTime field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLatestCommitTime
+
+`func (o *StatisticRep) SetLatestCommitTime(v int64)`
+
+SetLatestCommitTime sets LatestCommitTime field to given value.
+
+### HasLatestCommitTime
+
+`func (o *StatisticRep) HasLatestCommitTime() bool`
+
+HasLatestCommitTime returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

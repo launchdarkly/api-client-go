@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **MaintainerId** | Pointer to **string** | The ID of the member who maintains this experiment | [optional] 
 **Key** | **string** | The experiment key | 
 **Iteration** | [**IterationInput**](IterationInput.md) |  | 
+**HoldoutId** | Pointer to **string** | The ID of the holdout | [optional] 
 
 ## Methods
 
@@ -138,6 +139,31 @@ and a boolean to check if the value has been set.
 
 SetIteration sets Iteration field to given value.
 
+
+### GetHoldoutId
+
+`func (o *ExperimentPost) GetHoldoutId() string`
+
+GetHoldoutId returns the HoldoutId field if non-nil, zero value otherwise.
+
+### GetHoldoutIdOk
+
+`func (o *ExperimentPost) GetHoldoutIdOk() (*string, bool)`
+
+GetHoldoutIdOk returns a tuple with the HoldoutId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHoldoutId
+
+`func (o *ExperimentPost) SetHoldoutId(v string)`
+
+SetHoldoutId sets HoldoutId field to given value.
+
+### HasHoldoutId
+
+`func (o *ExperimentPost) HasHoldoutId() bool`
+
+HasHoldoutId returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

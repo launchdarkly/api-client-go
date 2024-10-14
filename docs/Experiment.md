@@ -10,9 +10,10 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** | The experiment description | [optional] 
 **MaintainerId** | **string** | The ID of the member who maintains this experiment. | 
 **CreationDate** | **int64** |  | 
-**EnvironmentKey** | Pointer to **string** |  | [optional] 
+**EnvironmentKey** | **string** |  | 
 **ArchivedDate** | Pointer to **int64** |  | [optional] 
 **Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
+**HoldoutId** | Pointer to **string** | The holdout ID | [optional] 
 **CurrentIteration** | Pointer to [**IterationRep**](IterationRep.md) |  | [optional] 
 **DraftIteration** | Pointer to [**IterationRep**](IterationRep.md) |  | [optional] 
 **PreviousIterations** | Pointer to [**[]IterationRep**](IterationRep.md) | Details on the previous iterations for this experiment. | [optional] 
@@ -21,7 +22,7 @@ Name | Type | Description | Notes
 
 ### NewExperiment
 
-`func NewExperiment(key string, name string, maintainerId string, creationDate int64, links map[string]Link, ) *Experiment`
+`func NewExperiment(key string, name string, maintainerId string, creationDate int64, environmentKey string, links map[string]Link, ) *Experiment`
 
 NewExperiment instantiates a new Experiment object
 This constructor will assign default values to properties that have it defined,
@@ -185,11 +186,6 @@ and a boolean to check if the value has been set.
 
 SetEnvironmentKey sets EnvironmentKey field to given value.
 
-### HasEnvironmentKey
-
-`func (o *Experiment) HasEnvironmentKey() bool`
-
-HasEnvironmentKey returns a boolean if a field has been set.
 
 ### GetArchivedDate
 
@@ -235,6 +231,31 @@ and a boolean to check if the value has been set.
 
 SetLinks sets Links field to given value.
 
+
+### GetHoldoutId
+
+`func (o *Experiment) GetHoldoutId() string`
+
+GetHoldoutId returns the HoldoutId field if non-nil, zero value otherwise.
+
+### GetHoldoutIdOk
+
+`func (o *Experiment) GetHoldoutIdOk() (*string, bool)`
+
+GetHoldoutIdOk returns a tuple with the HoldoutId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHoldoutId
+
+`func (o *Experiment) SetHoldoutId(v string)`
+
+SetHoldoutId sets HoldoutId field to given value.
+
+### HasHoldoutId
+
+`func (o *Experiment) HasHoldoutId() bool`
+
+HasHoldoutId returns a boolean if a field has been set.
 
 ### GetCurrentIteration
 

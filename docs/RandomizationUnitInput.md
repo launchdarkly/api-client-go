@@ -5,14 +5,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **RandomizationUnit** | **string** | The unit of randomization. Must match the key of an existing context kind in this project. | 
-**Default** | **bool** | If true, any experiment iterations created within this project will default to using this randomization unit. A project can only have one default randomization unit. | 
+**Default** | Pointer to **bool** | If true, any experiment iterations created within this project will default to using this randomization unit. A project can only have one default randomization unit. | [optional] 
 **StandardRandomizationUnit** | **string** | One of LaunchDarkly&#39;s fixed set of standard randomization units. | 
 
 ## Methods
 
 ### NewRandomizationUnitInput
 
-`func NewRandomizationUnitInput(randomizationUnit string, default_ bool, standardRandomizationUnit string, ) *RandomizationUnitInput`
+`func NewRandomizationUnitInput(randomizationUnit string, standardRandomizationUnit string, ) *RandomizationUnitInput`
 
 NewRandomizationUnitInput instantiates a new RandomizationUnitInput object
 This constructor will assign default values to properties that have it defined,
@@ -66,6 +66,11 @@ and a boolean to check if the value has been set.
 
 SetDefault sets Default field to given value.
 
+### HasDefault
+
+`func (o *RandomizationUnitInput) HasDefault() bool`
+
+HasDefault returns a boolean if a field has been set.
 
 ### GetStandardRandomizationUnit
 

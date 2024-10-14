@@ -232,7 +232,7 @@ Name | Type | Description  | Notes
 
 ## GetMetricGroups
 
-> MetricGroupCollectionRep GetMetricGroups(ctx, projectKey).Expand(expand).Execute()
+> MetricGroupCollectionRep GetMetricGroups(ctx, projectKey).Filter(filter).Expand(expand).Limit(limit).Offset(offset).Execute()
 
 List metric groups
 
@@ -252,11 +252,14 @@ import (
 
 func main() {
     projectKey := "projectKey_example" // string | The project key
+    filter := "filter_example" // string | Accepts filter by `experimentStatus` and `query`. Example: `filter=experimentStatus equals 'running' and query equals 'test'`. (optional)
     expand := "expand_example" // string | A comma-separated list of properties that can reveal additional information in the response. (optional)
+    limit := int64(789) // int64 | The number of metric groups to return in the response. Defaults to 20. Maximum limit is 50. (optional)
+    offset := int64(789) // int64 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and returns the next `limit` items. (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.MetricsBetaApi.GetMetricGroups(context.Background(), projectKey).Expand(expand).Execute()
+    resp, r, err := apiClient.MetricsBetaApi.GetMetricGroups(context.Background(), projectKey).Filter(filter).Expand(expand).Limit(limit).Offset(offset).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MetricsBetaApi.GetMetricGroups``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -282,7 +285,10 @@ Other parameters are passed through a pointer to a apiGetMetricGroupsRequest str
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **filter** | **string** | Accepts filter by &#x60;experimentStatus&#x60; and &#x60;query&#x60;. Example: &#x60;filter&#x3D;experimentStatus equals &#39;running&#39; and query equals &#39;test&#39;&#x60;. | 
  **expand** | **string** | A comma-separated list of properties that can reveal additional information in the response. | 
+ **limit** | **int64** | The number of metric groups to return in the response. Defaults to 20. Maximum limit is 50. | 
+ **offset** | **int64** | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and returns the next &#x60;limit&#x60; items. | 
 
 ### Return type
 
@@ -325,7 +331,7 @@ import (
 func main() {
     projectKey := "projectKey_example" // string | The project key
     metricGroupKey := "metricGroupKey_example" // string | The metric group key
-    patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField", interface{}(new example value))} // []PatchOperation | 
+    patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")} // []PatchOperation | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)

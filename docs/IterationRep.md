@@ -18,9 +18,11 @@ Name | Type | Description | Notes
 **PrimarySingleMetric** | Pointer to [**MetricV2Rep**](MetricV2Rep.md) |  | [optional] 
 **PrimaryFunnel** | Pointer to [**DependentMetricGroupRepWithMetrics**](DependentMetricGroupRepWithMetrics.md) |  | [optional] 
 **RandomizationUnit** | Pointer to **string** | The unit of randomization for this iteration | [optional] 
+**Attributes** | Pointer to **[]string** | The available attribute filters for this iteration | [optional] 
 **Treatments** | Pointer to [**[]TreatmentRep**](TreatmentRep.md) | Details on the variations you are testing in the experiment | [optional] 
 **SecondaryMetrics** | Pointer to [**[]MetricV2Rep**](MetricV2Rep.md) | Deprecated, use &lt;code&gt;metrics&lt;/code&gt; instead. Details on the secondary metrics for this experiment. | [optional] 
 **Metrics** | Pointer to [**[]DependentMetricOrMetricGroupRep**](DependentMetricOrMetricGroupRep.md) | Details on the metrics for this experiment | [optional] 
+**LayerSnapshot** | Pointer to [**LayerSnapshotRep**](LayerSnapshotRep.md) |  | [optional] 
 
 ## Methods
 
@@ -376,6 +378,31 @@ SetRandomizationUnit sets RandomizationUnit field to given value.
 
 HasRandomizationUnit returns a boolean if a field has been set.
 
+### GetAttributes
+
+`func (o *IterationRep) GetAttributes() []string`
+
+GetAttributes returns the Attributes field if non-nil, zero value otherwise.
+
+### GetAttributesOk
+
+`func (o *IterationRep) GetAttributesOk() (*[]string, bool)`
+
+GetAttributesOk returns a tuple with the Attributes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAttributes
+
+`func (o *IterationRep) SetAttributes(v []string)`
+
+SetAttributes sets Attributes field to given value.
+
+### HasAttributes
+
+`func (o *IterationRep) HasAttributes() bool`
+
+HasAttributes returns a boolean if a field has been set.
+
 ### GetTreatments
 
 `func (o *IterationRep) GetTreatments() []TreatmentRep`
@@ -450,6 +477,31 @@ SetMetrics sets Metrics field to given value.
 `func (o *IterationRep) HasMetrics() bool`
 
 HasMetrics returns a boolean if a field has been set.
+
+### GetLayerSnapshot
+
+`func (o *IterationRep) GetLayerSnapshot() LayerSnapshotRep`
+
+GetLayerSnapshot returns the LayerSnapshot field if non-nil, zero value otherwise.
+
+### GetLayerSnapshotOk
+
+`func (o *IterationRep) GetLayerSnapshotOk() (*LayerSnapshotRep, bool)`
+
+GetLayerSnapshotOk returns a tuple with the LayerSnapshot field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLayerSnapshot
+
+`func (o *IterationRep) SetLayerSnapshot(v LayerSnapshotRep)`
+
+SetLayerSnapshot sets LayerSnapshot field to given value.
+
+### HasLayerSnapshot
+
+`func (o *IterationRep) HasLayerSnapshot() bool`
+
+HasLayerSnapshot returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

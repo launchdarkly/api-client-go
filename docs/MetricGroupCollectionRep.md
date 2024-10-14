@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Items** | [**[]MetricGroupRep**](MetricGroupRep.md) | An array of metric groups | 
 **Links** | Pointer to [**map[string]Link**](Link.md) | The location and content type of related resources | [optional] 
+**TotalCount** | Pointer to **int32** |  | [optional] 
 
 ## Methods
 
@@ -70,6 +71,31 @@ SetLinks sets Links field to given value.
 `func (o *MetricGroupCollectionRep) HasLinks() bool`
 
 HasLinks returns a boolean if a field has been set.
+
+### GetTotalCount
+
+`func (o *MetricGroupCollectionRep) GetTotalCount() int32`
+
+GetTotalCount returns the TotalCount field if non-nil, zero value otherwise.
+
+### GetTotalCountOk
+
+`func (o *MetricGroupCollectionRep) GetTotalCountOk() (*int32, bool)`
+
+GetTotalCountOk returns a tuple with the TotalCount field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTotalCount
+
+`func (o *MetricGroupCollectionRep) SetTotalCount(v int32)`
+
+SetTotalCount sets TotalCount field to given value.
+
+### HasTotalCount
+
+`func (o *MetricGroupCollectionRep) HasTotalCount() bool`
+
+HasTotalCount returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

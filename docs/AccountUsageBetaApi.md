@@ -21,7 +21,7 @@ Method | HTTP request | Description
 
 ## GetDataExportEventsUsage
 
-> SeriesIntervalsRep GetDataExportEventsUsage(ctx).From(from).To(to).Execute()
+> SeriesIntervalsRep GetDataExportEventsUsage(ctx).From(from).To(to).ProjectKey(projectKey).EnvironmentKey(environmentKey).Execute()
 
 Get data export events usage
 
@@ -42,10 +42,12 @@ import (
 func main() {
     from := "from_example" // string | The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month. (optional)
     to := "to_example" // string | The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time. (optional)
+    projectKey := "projectKey_example" // string | A project key. If specified, `environmentKey` is required and results apply to the corresponding environment in this project. (optional)
+    environmentKey := "environmentKey_example" // string | An environment key. If specified, `projectKey` is required and results apply to the corresponding environment in this project. (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AccountUsageBetaApi.GetDataExportEventsUsage(context.Background()).From(from).To(to).Execute()
+    resp, r, err := apiClient.AccountUsageBetaApi.GetDataExportEventsUsage(context.Background()).From(from).To(to).ProjectKey(projectKey).EnvironmentKey(environmentKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AccountUsageBetaApi.GetDataExportEventsUsage``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -68,6 +70,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **from** | **string** | The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month. | 
  **to** | **string** | The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time. | 
+ **projectKey** | **string** | A project key. If specified, &#x60;environmentKey&#x60; is required and results apply to the corresponding environment in this project. | 
+ **environmentKey** | **string** | An environment key. If specified, &#x60;projectKey&#x60; is required and results apply to the corresponding environment in this project. | 
 
 ### Return type
 
@@ -245,7 +249,7 @@ Name | Type | Description  | Notes
 
 ## GetExperimentationKeysUsage
 
-> SeriesIntervalsRep GetExperimentationKeysUsage(ctx).From(from).To(to).Execute()
+> SeriesIntervalsRep GetExperimentationKeysUsage(ctx).From(from).To(to).ProjectKey(projectKey).EnvironmentKey(environmentKey).Execute()
 
 Get experimentation keys usage
 
@@ -266,10 +270,12 @@ import (
 func main() {
     from := "from_example" // string | The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month. (optional)
     to := "to_example" // string | The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time. (optional)
+    projectKey := "projectKey_example" // string | A project key. If specified, `environmentKey` is required and results apply to the corresponding environment in this project. (optional)
+    environmentKey := "environmentKey_example" // string | An environment key. If specified, `projectKey` is required and results apply to the corresponding environment in this project. (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AccountUsageBetaApi.GetExperimentationKeysUsage(context.Background()).From(from).To(to).Execute()
+    resp, r, err := apiClient.AccountUsageBetaApi.GetExperimentationKeysUsage(context.Background()).From(from).To(to).ProjectKey(projectKey).EnvironmentKey(environmentKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AccountUsageBetaApi.GetExperimentationKeysUsage``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -292,6 +298,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **from** | **string** | The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month. | 
  **to** | **string** | The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time. | 
+ **projectKey** | **string** | A project key. If specified, &#x60;environmentKey&#x60; is required and results apply to the corresponding environment in this project. | 
+ **environmentKey** | **string** | An environment key. If specified, &#x60;projectKey&#x60; is required and results apply to the corresponding environment in this project. | 
 
 ### Return type
 
@@ -313,7 +321,7 @@ Name | Type | Description  | Notes
 
 ## GetExperimentationUnitsUsage
 
-> SeriesIntervalsRep GetExperimentationUnitsUsage(ctx).From(from).To(to).Execute()
+> SeriesIntervalsRep GetExperimentationUnitsUsage(ctx).From(from).To(to).ProjectKey(projectKey).EnvironmentKey(environmentKey).Execute()
 
 Get experimentation units usage
 
@@ -334,10 +342,12 @@ import (
 func main() {
     from := "from_example" // string | The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month. (optional)
     to := "to_example" // string | The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time. (optional)
+    projectKey := "projectKey_example" // string | A project key. If specified, `environmentKey` is required and results apply to the corresponding environment in this project. (optional)
+    environmentKey := "environmentKey_example" // string | An environment key. If specified, `projectKey` is required and results apply to the corresponding environment in this project. (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AccountUsageBetaApi.GetExperimentationUnitsUsage(context.Background()).From(from).To(to).Execute()
+    resp, r, err := apiClient.AccountUsageBetaApi.GetExperimentationUnitsUsage(context.Background()).From(from).To(to).ProjectKey(projectKey).EnvironmentKey(environmentKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AccountUsageBetaApi.GetExperimentationUnitsUsage``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -360,6 +370,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **from** | **string** | The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month. | 
  **to** | **string** | The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time. | 
+ **projectKey** | **string** | A project key. If specified, &#x60;environmentKey&#x60; is required and results apply to the corresponding environment in this project. | 
+ **environmentKey** | **string** | An environment key. If specified, &#x60;projectKey&#x60; is required and results apply to the corresponding environment in this project. | 
 
 ### Return type
 
@@ -599,7 +611,7 @@ Name | Type | Description  | Notes
 
 ## GetServiceConnectionUsage
 
-> SeriesIntervalsRep GetServiceConnectionUsage(ctx).From(from).To(to).Execute()
+> SeriesIntervalsRep GetServiceConnectionUsage(ctx).From(from).To(to).ProjectKey(projectKey).EnvironmentKey(environmentKey).Execute()
 
 Get service connection usage
 
@@ -620,10 +632,12 @@ import (
 func main() {
     from := "from_example" // string | The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month. (optional)
     to := "to_example" // string | The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time. (optional)
+    projectKey := "projectKey_example" // string | A project key. If specified, `environmentKey` is required and results apply to the corresponding environment in this project. (optional)
+    environmentKey := "environmentKey_example" // string | An environment key. If specified, `projectKey` is required and results apply to the corresponding environment in this project. (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AccountUsageBetaApi.GetServiceConnectionUsage(context.Background()).From(from).To(to).Execute()
+    resp, r, err := apiClient.AccountUsageBetaApi.GetServiceConnectionUsage(context.Background()).From(from).To(to).ProjectKey(projectKey).EnvironmentKey(environmentKey).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AccountUsageBetaApi.GetServiceConnectionUsage``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -646,6 +660,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **from** | **string** | The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month. | 
  **to** | **string** | The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time. | 
+ **projectKey** | **string** | A project key. If specified, &#x60;environmentKey&#x60; is required and results apply to the corresponding environment in this project. | 
+ **environmentKey** | **string** | An environment key. If specified, &#x60;projectKey&#x60; is required and results apply to the corresponding environment in this project. | 
 
 ### Return type
 

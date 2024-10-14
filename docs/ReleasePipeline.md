@@ -12,6 +12,8 @@ Name | Type | Description | Notes
 **Tags** | Pointer to **[]string** | A list of the release pipeline&#39;s tags | [optional] 
 **Version** | Pointer to **int32** | The release pipeline version | [optional] 
 **Access** | Pointer to [**Access**](Access.md) |  | [optional] 
+**IsProjectDefault** | Pointer to **bool** | Whether this release pipeline is the default pipeline for the project | [optional] 
+**IsLegacy** | Pointer to **bool** | Whether this release pipeline is a legacy pipeline | [optional] 
 
 ## Methods
 
@@ -211,6 +213,56 @@ SetAccess sets Access field to given value.
 `func (o *ReleasePipeline) HasAccess() bool`
 
 HasAccess returns a boolean if a field has been set.
+
+### GetIsProjectDefault
+
+`func (o *ReleasePipeline) GetIsProjectDefault() bool`
+
+GetIsProjectDefault returns the IsProjectDefault field if non-nil, zero value otherwise.
+
+### GetIsProjectDefaultOk
+
+`func (o *ReleasePipeline) GetIsProjectDefaultOk() (*bool, bool)`
+
+GetIsProjectDefaultOk returns a tuple with the IsProjectDefault field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsProjectDefault
+
+`func (o *ReleasePipeline) SetIsProjectDefault(v bool)`
+
+SetIsProjectDefault sets IsProjectDefault field to given value.
+
+### HasIsProjectDefault
+
+`func (o *ReleasePipeline) HasIsProjectDefault() bool`
+
+HasIsProjectDefault returns a boolean if a field has been set.
+
+### GetIsLegacy
+
+`func (o *ReleasePipeline) GetIsLegacy() bool`
+
+GetIsLegacy returns the IsLegacy field if non-nil, zero value otherwise.
+
+### GetIsLegacyOk
+
+`func (o *ReleasePipeline) GetIsLegacyOk() (*bool, bool)`
+
+GetIsLegacyOk returns a tuple with the IsLegacy field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsLegacy
+
+`func (o *ReleasePipeline) SetIsLegacy(v bool)`
+
+SetIsLegacy sets IsLegacy field to given value.
+
+### HasIsLegacy
+
+`func (o *ReleasePipeline) HasIsLegacy() bool`
+
+HasIsLegacy returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

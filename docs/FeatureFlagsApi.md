@@ -650,7 +650,7 @@ func main() {
     summary := true // bool | By default, flags do _not_ include their lists of prerequisites, targets, or rules for each environment. Set `summary=0` to include these fields for each flag returned. (optional)
     filter := "filter_example" // string | A comma-separated list of filters. Each filter is of the form field:value. Read the endpoint description for a full list of available filter fields. (optional)
     sort := "sort_example" // string | A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order. Read the endpoint description for a full list of available sort fields. (optional)
-    compare := true // bool | A boolean to filter results by only flags that have differences between environments (optional)
+    compare := true // bool | Deprecated, unavailable in API version `20240415`. A boolean to filter results by only flags that have differences between environments. (optional)
     expand := "expand_example" // string | A comma-separated list of fields to expand in the response. Supported fields are explained above. (optional)
 
     configuration := openapiclient.NewConfiguration()
@@ -689,7 +689,7 @@ Name | Type | Description  | Notes
  **summary** | **bool** | By default, flags do _not_ include their lists of prerequisites, targets, or rules for each environment. Set &#x60;summary&#x3D;0&#x60; to include these fields for each flag returned. | 
  **filter** | **string** | A comma-separated list of filters. Each filter is of the form field:value. Read the endpoint description for a full list of available filter fields. | 
  **sort** | **string** | A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order. Read the endpoint description for a full list of available sort fields. | 
- **compare** | **bool** | A boolean to filter results by only flags that have differences between environments | 
+ **compare** | **bool** | Deprecated, unavailable in API version &#x60;20240415&#x60;. A boolean to filter results by only flags that have differences between environments. | 
  **expand** | **string** | A comma-separated list of fields to expand in the response. Supported fields are explained above. | 
 
 ### Return type
@@ -868,7 +868,7 @@ Name | Type | Description  | Notes
 
 ## PatchFeatureFlag
 
-> FeatureFlag PatchFeatureFlag(ctx, projectKey, featureFlagKey).PatchWithComment(patchWithComment).Execute()
+> FeatureFlag PatchFeatureFlag(ctx, projectKey, featureFlagKey).PatchWithComment(patchWithComment).IgnoreConflicts(ignoreConflicts).Execute()
 
 Update feature flag
 
@@ -889,11 +889,12 @@ import (
 func main() {
     projectKey := "projectKey_example" // string | The project key
     featureFlagKey := "featureFlagKey_example" // string | The feature flag key. The key identifies the flag in your code.
-    patchWithComment := *openapiclient.NewPatchWithComment([]openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField", interface{}(new example value))}) // PatchWithComment | 
+    patchWithComment := *openapiclient.NewPatchWithComment([]openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")}) // PatchWithComment | 
+    ignoreConflicts := true // bool | If true, the patch will be applied even if it causes a pending scheduled change or approval request to fail. (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FeatureFlagsApi.PatchFeatureFlag(context.Background(), projectKey, featureFlagKey).PatchWithComment(patchWithComment).Execute()
+    resp, r, err := apiClient.FeatureFlagsApi.PatchFeatureFlag(context.Background(), projectKey, featureFlagKey).PatchWithComment(patchWithComment).IgnoreConflicts(ignoreConflicts).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.PatchFeatureFlag``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -922,6 +923,7 @@ Name | Type | Description  | Notes
 
 
  **patchWithComment** | [**PatchWithComment**](PatchWithComment.md) |  | 
+ **ignoreConflicts** | **bool** | If true, the patch will be applied even if it causes a pending scheduled change or approval request to fail. | 
 
 ### Return type
 

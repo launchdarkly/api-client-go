@@ -9,9 +9,11 @@ Name | Type | Description | Notes
 **MinNumApprovals** | **int32** | Sets the amount of approvals required before a member can apply a change. The minimum is one and the maximum is five. | 
 **CanReviewOwnRequest** | **bool** | Allow someone who makes an approval request to apply their own change | 
 **CanApplyDeclinedChanges** | **bool** | Allow applying the change as long as at least one person has approved | 
+**AutoApplyApprovedChanges** | Pointer to **bool** | Automatically apply changes that have been approved by all reviewers. This field is only applicable for approval services other than LaunchDarkly. | [optional] 
 **ServiceKind** | **string** | Which service to use for managing approvals | 
 **ServiceConfig** | **map[string]interface{}** |  | 
 **RequiredApprovalTags** | **[]string** | Require approval only on flags with the provided tags. Otherwise all flags will require approval. | 
+**ServiceKindConfigurationId** | Pointer to **string** | Optional field for integration configuration ID of a custom approval integration. This is an Enterprise-only feature. | [optional] 
 
 ## Methods
 
@@ -132,6 +134,31 @@ and a boolean to check if the value has been set.
 SetCanApplyDeclinedChanges sets CanApplyDeclinedChanges field to given value.
 
 
+### GetAutoApplyApprovedChanges
+
+`func (o *ApprovalSettings) GetAutoApplyApprovedChanges() bool`
+
+GetAutoApplyApprovedChanges returns the AutoApplyApprovedChanges field if non-nil, zero value otherwise.
+
+### GetAutoApplyApprovedChangesOk
+
+`func (o *ApprovalSettings) GetAutoApplyApprovedChangesOk() (*bool, bool)`
+
+GetAutoApplyApprovedChangesOk returns a tuple with the AutoApplyApprovedChanges field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAutoApplyApprovedChanges
+
+`func (o *ApprovalSettings) SetAutoApplyApprovedChanges(v bool)`
+
+SetAutoApplyApprovedChanges sets AutoApplyApprovedChanges field to given value.
+
+### HasAutoApplyApprovedChanges
+
+`func (o *ApprovalSettings) HasAutoApplyApprovedChanges() bool`
+
+HasAutoApplyApprovedChanges returns a boolean if a field has been set.
+
 ### GetServiceKind
 
 `func (o *ApprovalSettings) GetServiceKind() string`
@@ -191,6 +218,31 @@ and a boolean to check if the value has been set.
 
 SetRequiredApprovalTags sets RequiredApprovalTags field to given value.
 
+
+### GetServiceKindConfigurationId
+
+`func (o *ApprovalSettings) GetServiceKindConfigurationId() string`
+
+GetServiceKindConfigurationId returns the ServiceKindConfigurationId field if non-nil, zero value otherwise.
+
+### GetServiceKindConfigurationIdOk
+
+`func (o *ApprovalSettings) GetServiceKindConfigurationIdOk() (*string, bool)`
+
+GetServiceKindConfigurationIdOk returns a tuple with the ServiceKindConfigurationId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetServiceKindConfigurationId
+
+`func (o *ApprovalSettings) SetServiceKindConfigurationId(v string)`
+
+SetServiceKindConfigurationId sets ServiceKindConfigurationId field to given value.
+
+### HasServiceKindConfigurationId
+
+`func (o *ApprovalSettings) HasServiceKindConfigurationId() bool`
+
+HasServiceKindConfigurationId returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -485,7 +485,7 @@ import (
 )
 
 func main() {
-    createApprovalRequestRequest := *openapiclient.NewCreateApprovalRequestRequest("ResourceId_example", "Requesting to update targeting", []map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}) // CreateApprovalRequestRequest | 
+    createApprovalRequestRequest := *openapiclient.NewCreateApprovalRequestRequest("proj/projKey:env/envKey:flag/flagKey", "Requesting to update targeting", []map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}) // CreateApprovalRequestRequest | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)

@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **DefaultClientSideAvailability** | Pointer to [**DefaultClientSideAvailabilityPost**](DefaultClientSideAvailabilityPost.md) |  | [optional] 
 **Tags** | Pointer to **[]string** | Tags for the project | [optional] 
 **Environments** | Pointer to [**[]EnvironmentPost**](EnvironmentPost.md) | Creates the provided environments for this project. If omitted default environments will be created instead. | [optional] 
+**NamingConvention** | Pointer to [**NamingConvention**](NamingConvention.md) |  | [optional] 
 
 ## Methods
 
@@ -169,6 +170,31 @@ SetEnvironments sets Environments field to given value.
 `func (o *ProjectPost) HasEnvironments() bool`
 
 HasEnvironments returns a boolean if a field has been set.
+
+### GetNamingConvention
+
+`func (o *ProjectPost) GetNamingConvention() NamingConvention`
+
+GetNamingConvention returns the NamingConvention field if non-nil, zero value otherwise.
+
+### GetNamingConventionOk
+
+`func (o *ProjectPost) GetNamingConventionOk() (*NamingConvention, bool)`
+
+GetNamingConventionOk returns a tuple with the NamingConvention field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNamingConvention
+
+`func (o *ProjectPost) SetNamingConvention(v NamingConvention)`
+
+SetNamingConvention sets NamingConvention field to given value.
+
+### HasNamingConvention
+
+`func (o *ProjectPost) HasNamingConvention() bool`
+
+HasNamingConvention returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

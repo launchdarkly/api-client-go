@@ -1,19 +1,19 @@
-# \ExperimentsBetaApi
+# \ExperimentsApi
 
 All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateExperiment**](ExperimentsBetaApi.md#CreateExperiment) | **Post** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments | Create experiment
-[**CreateIteration**](ExperimentsBetaApi.md#CreateIteration) | **Post** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey}/iterations | Create iteration
-[**GetExperiment**](ExperimentsBetaApi.md#GetExperiment) | **Get** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey} | Get experiment
-[**GetExperimentResults**](ExperimentsBetaApi.md#GetExperimentResults) | **Get** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey}/metrics/{metricKey}/results | Get experiment results
-[**GetExperimentResultsForMetricGroup**](ExperimentsBetaApi.md#GetExperimentResultsForMetricGroup) | **Get** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey}/metric-groups/{metricGroupKey}/results | Get experiment results for metric group
-[**GetExperimentationSettings**](ExperimentsBetaApi.md#GetExperimentationSettings) | **Get** /api/v2/projects/{projectKey}/experimentation-settings | Get experimentation settings
-[**GetExperiments**](ExperimentsBetaApi.md#GetExperiments) | **Get** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments | Get experiments
-[**GetLegacyExperimentResults**](ExperimentsBetaApi.md#GetLegacyExperimentResults) | **Get** /api/v2/flags/{projectKey}/{featureFlagKey}/experiments/{environmentKey}/{metricKey} | Get legacy experiment results (deprecated)
-[**PatchExperiment**](ExperimentsBetaApi.md#PatchExperiment) | **Patch** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey} | Patch experiment
-[**PutExperimentationSettings**](ExperimentsBetaApi.md#PutExperimentationSettings) | **Put** /api/v2/projects/{projectKey}/experimentation-settings | Update experimentation settings
+[**CreateExperiment**](ExperimentsApi.md#CreateExperiment) | **Post** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments | Create experiment
+[**CreateIteration**](ExperimentsApi.md#CreateIteration) | **Post** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey}/iterations | Create iteration
+[**GetExperiment**](ExperimentsApi.md#GetExperiment) | **Get** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey} | Get experiment
+[**GetExperimentResults**](ExperimentsApi.md#GetExperimentResults) | **Get** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey}/metrics/{metricKey}/results | Get experiment results
+[**GetExperimentResultsForMetricGroup**](ExperimentsApi.md#GetExperimentResultsForMetricGroup) | **Get** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey}/metric-groups/{metricGroupKey}/results | Get experiment results for metric group
+[**GetExperimentationSettings**](ExperimentsApi.md#GetExperimentationSettings) | **Get** /api/v2/projects/{projectKey}/experimentation-settings | Get experimentation settings
+[**GetExperiments**](ExperimentsApi.md#GetExperiments) | **Get** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments | Get experiments
+[**GetLegacyExperimentResults**](ExperimentsApi.md#GetLegacyExperimentResults) | **Get** /api/v2/flags/{projectKey}/{featureFlagKey}/experiments/{environmentKey}/{metricKey} | Get legacy experiment results (deprecated)
+[**PatchExperiment**](ExperimentsApi.md#PatchExperiment) | **Patch** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey} | Patch experiment
+[**PutExperimentationSettings**](ExperimentsApi.md#PutExperimentationSettings) | **Put** /api/v2/projects/{projectKey}/experimentation-settings | Update experimentation settings
 
 
 
@@ -44,13 +44,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ExperimentsBetaApi.CreateExperiment(context.Background(), projectKey, environmentKey).ExperimentPost(experimentPost).Execute()
+    resp, r, err := apiClient.ExperimentsApi.CreateExperiment(context.Background(), projectKey, environmentKey).ExperimentPost(experimentPost).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsBetaApi.CreateExperiment``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsApi.CreateExperiment``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `CreateExperiment`: Experiment
-    fmt.Fprintf(os.Stdout, "Response from `ExperimentsBetaApi.CreateExperiment`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ExperimentsApi.CreateExperiment`: %v\n", resp)
 }
 ```
 
@@ -120,13 +120,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ExperimentsBetaApi.CreateIteration(context.Background(), projectKey, environmentKey, experimentKey).IterationInput(iterationInput).Execute()
+    resp, r, err := apiClient.ExperimentsApi.CreateIteration(context.Background(), projectKey, environmentKey, experimentKey).IterationInput(iterationInput).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsBetaApi.CreateIteration``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsApi.CreateIteration``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `CreateIteration`: IterationRep
-    fmt.Fprintf(os.Stdout, "Response from `ExperimentsBetaApi.CreateIteration`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ExperimentsApi.CreateIteration`: %v\n", resp)
 }
 ```
 
@@ -198,13 +198,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ExperimentsBetaApi.GetExperiment(context.Background(), projectKey, environmentKey, experimentKey).Expand(expand).Execute()
+    resp, r, err := apiClient.ExperimentsApi.GetExperiment(context.Background(), projectKey, environmentKey, experimentKey).Expand(expand).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsBetaApi.GetExperiment``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsApi.GetExperiment``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetExperiment`: Experiment
-    fmt.Fprintf(os.Stdout, "Response from `ExperimentsBetaApi.GetExperiment`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ExperimentsApi.GetExperiment`: %v\n", resp)
 }
 ```
 
@@ -278,13 +278,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ExperimentsBetaApi.GetExperimentResults(context.Background(), projectKey, environmentKey, experimentKey, metricKey).IterationId(iterationId).Expand(expand).Execute()
+    resp, r, err := apiClient.ExperimentsApi.GetExperimentResults(context.Background(), projectKey, environmentKey, experimentKey, metricKey).IterationId(iterationId).Expand(expand).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsBetaApi.GetExperimentResults``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsApi.GetExperimentResults``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetExperimentResults`: ExperimentBayesianResultsRep
-    fmt.Fprintf(os.Stdout, "Response from `ExperimentsBetaApi.GetExperimentResults`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ExperimentsApi.GetExperimentResults`: %v\n", resp)
 }
 ```
 
@@ -360,13 +360,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ExperimentsBetaApi.GetExperimentResultsForMetricGroup(context.Background(), projectKey, environmentKey, experimentKey, metricGroupKey).IterationId(iterationId).Execute()
+    resp, r, err := apiClient.ExperimentsApi.GetExperimentResultsForMetricGroup(context.Background(), projectKey, environmentKey, experimentKey, metricGroupKey).IterationId(iterationId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsBetaApi.GetExperimentResultsForMetricGroup``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsApi.GetExperimentResultsForMetricGroup``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetExperimentResultsForMetricGroup`: MetricGroupResultsRep
-    fmt.Fprintf(os.Stdout, "Response from `ExperimentsBetaApi.GetExperimentResultsForMetricGroup`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ExperimentsApi.GetExperimentResultsForMetricGroup`: %v\n", resp)
 }
 ```
 
@@ -437,13 +437,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ExperimentsBetaApi.GetExperimentationSettings(context.Background(), projectKey).Execute()
+    resp, r, err := apiClient.ExperimentsApi.GetExperimentationSettings(context.Background(), projectKey).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsBetaApi.GetExperimentationSettings``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsApi.GetExperimentationSettings``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetExperimentationSettings`: RandomizationSettingsRep
-    fmt.Fprintf(os.Stdout, "Response from `ExperimentsBetaApi.GetExperimentationSettings`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ExperimentsApi.GetExperimentationSettings`: %v\n", resp)
 }
 ```
 
@@ -513,13 +513,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ExperimentsBetaApi.GetExperiments(context.Background(), projectKey, environmentKey).Limit(limit).Offset(offset).Filter(filter).Expand(expand).LifecycleState(lifecycleState).Execute()
+    resp, r, err := apiClient.ExperimentsApi.GetExperiments(context.Background(), projectKey, environmentKey).Limit(limit).Offset(offset).Filter(filter).Expand(expand).LifecycleState(lifecycleState).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsBetaApi.GetExperiments``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsApi.GetExperiments``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetExperiments`: ExperimentCollectionRep
-    fmt.Fprintf(os.Stdout, "Response from `ExperimentsBetaApi.GetExperiments`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ExperimentsApi.GetExperiments`: %v\n", resp)
 }
 ```
 
@@ -595,13 +595,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ExperimentsBetaApi.GetLegacyExperimentResults(context.Background(), projectKey, featureFlagKey, environmentKey, metricKey).From(from).To(to).Execute()
+    resp, r, err := apiClient.ExperimentsApi.GetLegacyExperimentResults(context.Background(), projectKey, featureFlagKey, environmentKey, metricKey).From(from).To(to).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsBetaApi.GetLegacyExperimentResults``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsApi.GetLegacyExperimentResults``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetLegacyExperimentResults`: ExperimentResults
-    fmt.Fprintf(os.Stdout, "Response from `ExperimentsBetaApi.GetLegacyExperimentResults`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ExperimentsApi.GetLegacyExperimentResults`: %v\n", resp)
 }
 ```
 
@@ -676,13 +676,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ExperimentsBetaApi.PatchExperiment(context.Background(), projectKey, environmentKey, experimentKey).ExperimentPatchInput(experimentPatchInput).Execute()
+    resp, r, err := apiClient.ExperimentsApi.PatchExperiment(context.Background(), projectKey, environmentKey, experimentKey).ExperimentPatchInput(experimentPatchInput).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsBetaApi.PatchExperiment``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsApi.PatchExperiment``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `PatchExperiment`: Experiment
-    fmt.Fprintf(os.Stdout, "Response from `ExperimentsBetaApi.PatchExperiment`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ExperimentsApi.PatchExperiment`: %v\n", resp)
 }
 ```
 
@@ -748,17 +748,17 @@ import (
 
 func main() {
     projectKey := "projectKey_example" // string | The project key
-    randomizationSettingsPut := *openapiclient.NewRandomizationSettingsPut([]openapiclient.RandomizationUnitInput{*openapiclient.NewRandomizationUnitInput("user", true, "StandardRandomizationUnit_example")}) // RandomizationSettingsPut | 
+    randomizationSettingsPut := *openapiclient.NewRandomizationSettingsPut([]openapiclient.RandomizationUnitInput{*openapiclient.NewRandomizationUnitInput("user", "StandardRandomizationUnit_example")}) // RandomizationSettingsPut | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ExperimentsBetaApi.PutExperimentationSettings(context.Background(), projectKey).RandomizationSettingsPut(randomizationSettingsPut).Execute()
+    resp, r, err := apiClient.ExperimentsApi.PutExperimentationSettings(context.Background(), projectKey).RandomizationSettingsPut(randomizationSettingsPut).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsBetaApi.PutExperimentationSettings``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsApi.PutExperimentationSettings``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `PutExperimentationSettings`: RandomizationSettingsRep
-    fmt.Fprintf(os.Stdout, "Response from `ExperimentsBetaApi.PutExperimentationSettings`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ExperimentsApi.PutExperimentationSettings`: %v\n", resp)
 }
 ```
 

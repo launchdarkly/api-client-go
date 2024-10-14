@@ -4,11 +4,73 @@ All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**GetCallerIdentity**](OtherApi.md#GetCallerIdentity) | **Get** /api/v2/caller-identity | Identify the caller
 [**GetIps**](OtherApi.md#GetIps) | **Get** /api/v2/public-ip-list | Gets the public IP list
 [**GetOpenapiSpec**](OtherApi.md#GetOpenapiSpec) | **Get** /api/v2/openapi.json | Gets the OpenAPI spec in json
 [**GetRoot**](OtherApi.md#GetRoot) | **Get** /api/v2 | Root resource
 [**GetVersions**](OtherApi.md#GetVersions) | **Get** /api/v2/versions | Get version information
 
+
+
+## GetCallerIdentity
+
+> CallerIdentityRep GetCallerIdentity(ctx).Execute()
+
+Identify the caller
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.OtherApi.GetCallerIdentity(context.Background()).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `OtherApi.GetCallerIdentity``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetCallerIdentity`: CallerIdentityRep
+    fmt.Fprintf(os.Stdout, "Response from `OtherApi.GetCallerIdentity`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetCallerIdentityRequest struct via the builder pattern
+
+
+### Return type
+
+[**CallerIdentityRep**](CallerIdentityRep.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## GetIps

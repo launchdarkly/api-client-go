@@ -1,4 +1,4 @@
-module github.com/launchdarkly/api-client-go/v16
+module github.com/launchdarkly/api-client-go/v17
 
 go 1.13
 

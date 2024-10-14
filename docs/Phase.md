@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Id** | **string** | The phase ID | 
 **Audiences** | [**[]Audience**](Audience.md) |  | 
 **Name** | **string** | The release phase name | 
+**Configuration** | Pointer to [**PhaseConfiguration**](PhaseConfiguration.md) |  | [optional] 
 
 ## Methods
 
@@ -86,6 +87,31 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
+
+### GetConfiguration
+
+`func (o *Phase) GetConfiguration() PhaseConfiguration`
+
+GetConfiguration returns the Configuration field if non-nil, zero value otherwise.
+
+### GetConfigurationOk
+
+`func (o *Phase) GetConfigurationOk() (*PhaseConfiguration, bool)`
+
+GetConfigurationOk returns a tuple with the Configuration field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetConfiguration
+
+`func (o *Phase) SetConfiguration(v PhaseConfiguration)`
+
+SetConfiguration sets Configuration field to given value.
+
+### HasConfiguration
+
+`func (o *Phase) HasConfiguration() bool`
+
+HasConfiguration returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

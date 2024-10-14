@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **Treatments** | [**[]TreatmentInput**](TreatmentInput.md) |  | 
 **Flags** | [**map[string]FlagInput**](FlagInput.md) |  | 
 **RandomizationUnit** | Pointer to **string** | The unit of randomization for this iteration. Defaults to user. | [optional] 
+**Attributes** | Pointer to **[]string** | The attributes that this iteration&#39;s results can be sliced by | [optional] 
 
 ## Methods
 
@@ -211,6 +212,31 @@ SetRandomizationUnit sets RandomizationUnit field to given value.
 `func (o *IterationInput) HasRandomizationUnit() bool`
 
 HasRandomizationUnit returns a boolean if a field has been set.
+
+### GetAttributes
+
+`func (o *IterationInput) GetAttributes() []string`
+
+GetAttributes returns the Attributes field if non-nil, zero value otherwise.
+
+### GetAttributesOk
+
+`func (o *IterationInput) GetAttributesOk() (*[]string, bool)`
+
+GetAttributesOk returns a tuple with the Attributes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAttributes
+
+`func (o *IterationInput) SetAttributes(v []string)`
+
+SetAttributes sets Attributes field to given value.
+
+### HasAttributes
+
+`func (o *IterationInput) HasAttributes() bool`
+
+HasAttributes returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

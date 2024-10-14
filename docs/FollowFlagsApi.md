@@ -4,16 +4,16 @@ All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteFlagFollowers**](FollowFlagsApi.md#DeleteFlagFollowers) | **Delete** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/followers/{memberId} | Remove a member as a follower of a flag in a project and environment
+[**DeleteFlagFollower**](FollowFlagsApi.md#DeleteFlagFollower) | **Delete** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/followers/{memberId} | Remove a member as a follower of a flag in a project and environment
 [**GetFlagFollowers**](FollowFlagsApi.md#GetFlagFollowers) | **Get** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/followers | Get followers of a flag in a project and environment
 [**GetFollowersByProjEnv**](FollowFlagsApi.md#GetFollowersByProjEnv) | **Get** /api/v2/projects/{projectKey}/environments/{environmentKey}/followers | Get followers of all flags in a given project and environment
-[**PutFlagFollowers**](FollowFlagsApi.md#PutFlagFollowers) | **Put** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/followers/{memberId} | Add a member as a follower of a flag in a project and environment
+[**PutFlagFollower**](FollowFlagsApi.md#PutFlagFollower) | **Put** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/followers/{memberId} | Add a member as a follower of a flag in a project and environment
 
 
 
-## DeleteFlagFollowers
+## DeleteFlagFollower
 
-> DeleteFlagFollowers(ctx, projectKey, featureFlagKey, environmentKey, memberId).Execute()
+> DeleteFlagFollower(ctx, projectKey, featureFlagKey, environmentKey, memberId).Execute()
 
 Remove a member as a follower of a flag in a project and environment
 
@@ -39,9 +39,9 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FollowFlagsApi.DeleteFlagFollowers(context.Background(), projectKey, featureFlagKey, environmentKey, memberId).Execute()
+    resp, r, err := apiClient.FollowFlagsApi.DeleteFlagFollower(context.Background(), projectKey, featureFlagKey, environmentKey, memberId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FollowFlagsApi.DeleteFlagFollowers``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `FollowFlagsApi.DeleteFlagFollower``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -60,7 +60,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDeleteFlagFollowersRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteFlagFollowerRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -237,9 +237,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PutFlagFollowers
+## PutFlagFollower
 
-> PutFlagFollowers(ctx, projectKey, featureFlagKey, environmentKey, memberId).Execute()
+> PutFlagFollower(ctx, projectKey, featureFlagKey, environmentKey, memberId).Execute()
 
 Add a member as a follower of a flag in a project and environment
 
@@ -265,9 +265,9 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FollowFlagsApi.PutFlagFollowers(context.Background(), projectKey, featureFlagKey, environmentKey, memberId).Execute()
+    resp, r, err := apiClient.FollowFlagsApi.PutFlagFollower(context.Background(), projectKey, featureFlagKey, environmentKey, memberId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FollowFlagsApi.PutFlagFollowers``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `FollowFlagsApi.PutFlagFollower``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -286,7 +286,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiPutFlagFollowersRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiPutFlagFollowerRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

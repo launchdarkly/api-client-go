@@ -9,6 +9,8 @@ Name | Type | Description | Notes
 **Name** | **string** | The name of the release pipeline | 
 **Phases** | [**[]CreatePhaseInput**](CreatePhaseInput.md) | A logical grouping of one or more environments that share attributes for rolling out changes | 
 **Tags** | Pointer to **[]string** | A list of tags for this release pipeline | [optional] 
+**IsProjectDefault** | Pointer to **bool** | Whether or not the newly created pipeline should be set as the default pipeline for this project | [optional] 
+**IsLegacy** | Pointer to **bool** | Whether or not the pipeline is enabled for Release Automation. | [optional] 
 
 ## Methods
 
@@ -138,6 +140,56 @@ SetTags sets Tags field to given value.
 `func (o *CreateReleasePipelineInput) HasTags() bool`
 
 HasTags returns a boolean if a field has been set.
+
+### GetIsProjectDefault
+
+`func (o *CreateReleasePipelineInput) GetIsProjectDefault() bool`
+
+GetIsProjectDefault returns the IsProjectDefault field if non-nil, zero value otherwise.
+
+### GetIsProjectDefaultOk
+
+`func (o *CreateReleasePipelineInput) GetIsProjectDefaultOk() (*bool, bool)`
+
+GetIsProjectDefaultOk returns a tuple with the IsProjectDefault field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsProjectDefault
+
+`func (o *CreateReleasePipelineInput) SetIsProjectDefault(v bool)`
+
+SetIsProjectDefault sets IsProjectDefault field to given value.
+
+### HasIsProjectDefault
+
+`func (o *CreateReleasePipelineInput) HasIsProjectDefault() bool`
+
+HasIsProjectDefault returns a boolean if a field has been set.
+
+### GetIsLegacy
+
+`func (o *CreateReleasePipelineInput) GetIsLegacy() bool`
+
+GetIsLegacy returns the IsLegacy field if non-nil, zero value otherwise.
+
+### GetIsLegacyOk
+
+`func (o *CreateReleasePipelineInput) GetIsLegacyOk() (*bool, bool)`
+
+GetIsLegacyOk returns a tuple with the IsLegacy field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsLegacy
+
+`func (o *CreateReleasePipelineInput) SetIsLegacy(v bool)`
+
+SetIsLegacy sets IsLegacy field to given value.
+
+### HasIsLegacy
+
+`func (o *CreateReleasePipelineInput) HasIsLegacy() bool`
+
+HasIsLegacy returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

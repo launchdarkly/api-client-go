@@ -11,6 +11,10 @@ Name | Type | Description | Notes
 **CompletionDate** | Pointer to **int64** |  | [optional] 
 **CompletedBy** | Pointer to [**CompletedBy**](CompletedBy.md) |  | [optional] 
 **Audiences** | [**[]ReleaseAudience**](ReleaseAudience.md) | A logical grouping of one or more environments that share attributes for rolling out changes | 
+**Status** | Pointer to **string** |  | [optional] 
+**Started** | Pointer to **bool** | Whether or not this phase has started | [optional] 
+**StartedDate** | Pointer to **int64** |  | [optional] 
+**Configuration** | Pointer to [**PhaseConfiguration**](PhaseConfiguration.md) |  | [optional] 
 
 ## Methods
 
@@ -180,6 +184,106 @@ and a boolean to check if the value has been set.
 
 SetAudiences sets Audiences field to given value.
 
+
+### GetStatus
+
+`func (o *ReleasePhase) GetStatus() string`
+
+GetStatus returns the Status field if non-nil, zero value otherwise.
+
+### GetStatusOk
+
+`func (o *ReleasePhase) GetStatusOk() (*string, bool)`
+
+GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStatus
+
+`func (o *ReleasePhase) SetStatus(v string)`
+
+SetStatus sets Status field to given value.
+
+### HasStatus
+
+`func (o *ReleasePhase) HasStatus() bool`
+
+HasStatus returns a boolean if a field has been set.
+
+### GetStarted
+
+`func (o *ReleasePhase) GetStarted() bool`
+
+GetStarted returns the Started field if non-nil, zero value otherwise.
+
+### GetStartedOk
+
+`func (o *ReleasePhase) GetStartedOk() (*bool, bool)`
+
+GetStartedOk returns a tuple with the Started field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStarted
+
+`func (o *ReleasePhase) SetStarted(v bool)`
+
+SetStarted sets Started field to given value.
+
+### HasStarted
+
+`func (o *ReleasePhase) HasStarted() bool`
+
+HasStarted returns a boolean if a field has been set.
+
+### GetStartedDate
+
+`func (o *ReleasePhase) GetStartedDate() int64`
+
+GetStartedDate returns the StartedDate field if non-nil, zero value otherwise.
+
+### GetStartedDateOk
+
+`func (o *ReleasePhase) GetStartedDateOk() (*int64, bool)`
+
+GetStartedDateOk returns a tuple with the StartedDate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStartedDate
+
+`func (o *ReleasePhase) SetStartedDate(v int64)`
+
+SetStartedDate sets StartedDate field to given value.
+
+### HasStartedDate
+
+`func (o *ReleasePhase) HasStartedDate() bool`
+
+HasStartedDate returns a boolean if a field has been set.
+
+### GetConfiguration
+
+`func (o *ReleasePhase) GetConfiguration() PhaseConfiguration`
+
+GetConfiguration returns the Configuration field if non-nil, zero value otherwise.
+
+### GetConfigurationOk
+
+`func (o *ReleasePhase) GetConfigurationOk() (*PhaseConfiguration, bool)`
+
+GetConfigurationOk returns a tuple with the Configuration field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetConfiguration
+
+`func (o *ReleasePhase) SetConfiguration(v PhaseConfiguration)`
+
+SetConfiguration sets Configuration field to given value.
+
+### HasConfiguration
+
+`func (o *ReleasePhase) HasConfiguration() bool`
+
+HasConfiguration returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

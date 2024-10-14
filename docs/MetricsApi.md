@@ -162,7 +162,7 @@ Name | Type | Description  | Notes
 
 ## GetMetrics
 
-> MetricCollectionRep GetMetrics(ctx, projectKey).Expand(expand).Execute()
+> MetricCollectionRep GetMetrics(ctx, projectKey).Expand(expand).Limit(limit).Offset(offset).Sort(sort).Filter(filter).Execute()
 
 List metrics
 
@@ -183,10 +183,14 @@ import (
 func main() {
     projectKey := "projectKey_example" // string | The project key
     expand := "expand_example" // string | A comma-separated list of properties that can reveal additional information in the response. (optional)
+    limit := int64(789) // int64 | The number of metrics to return in the response. Defaults to 20. Maximum limit is 50. (optional)
+    offset := int64(789) // int64 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and returns the next `limit` items. (optional)
+    sort := "sort_example" // string | A field to sort the items by. Prefix field by a dash ( - ) to sort in descending order. This endpoint supports sorting by `createdAt` or `name`. (optional)
+    filter := "filter_example" // string | A comma-separated list of filters. This endpoint only accepts filtering by `tags`. To learn more about the filter syntax, read the 'Filtering metrics' section above. (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.MetricsApi.GetMetrics(context.Background(), projectKey).Expand(expand).Execute()
+    resp, r, err := apiClient.MetricsApi.GetMetrics(context.Background(), projectKey).Expand(expand).Limit(limit).Offset(offset).Sort(sort).Filter(filter).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `MetricsApi.GetMetrics``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -213,6 +217,10 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **expand** | **string** | A comma-separated list of properties that can reveal additional information in the response. | 
+ **limit** | **int64** | The number of metrics to return in the response. Defaults to 20. Maximum limit is 50. | 
+ **offset** | **int64** | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and returns the next &#x60;limit&#x60; items. | 
+ **sort** | **string** | A field to sort the items by. Prefix field by a dash ( - ) to sort in descending order. This endpoint supports sorting by &#x60;createdAt&#x60; or &#x60;name&#x60;. | 
+ **filter** | **string** | A comma-separated list of filters. This endpoint only accepts filtering by &#x60;tags&#x60;. To learn more about the filter syntax, read the &#39;Filtering metrics&#39; section above. | 
 
 ### Return type
 
@@ -255,7 +263,7 @@ import (
 func main() {
     projectKey := "projectKey_example" // string | The project key
     metricKey := "metricKey_example" // string | The metric key
-    patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField", interface{}(new example value))} // []PatchOperation | 
+    patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")} // []PatchOperation | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)

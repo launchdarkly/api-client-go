@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ResourceId** | **string** | String representation of a resource | 
+**ResourceId** | **string** | String representation of the resource specifier | 
 **Comment** | Pointer to **string** | Optional comment describing the approval request | [optional] 
 **Description** | **string** | A brief description of the changes you&#39;re requesting | 
 **Instructions** | **[]map[string]interface{}** |  | 

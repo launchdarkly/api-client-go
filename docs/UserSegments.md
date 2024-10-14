@@ -6,13 +6,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Items** | [**[]UserSegment**](UserSegment.md) | An array of segments | 
 **Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
-**TotalCount** | **int32** | The total number of segments | 
+**TotalCount** | Pointer to **int32** | The total number of segments | [optional] 
 
 ## Methods
 
 ### NewUserSegments
 
-`func NewUserSegments(items []UserSegment, links map[string]Link, totalCount int32, ) *UserSegments`
+`func NewUserSegments(items []UserSegment, links map[string]Link, ) *UserSegments`
 
 NewUserSegments instantiates a new UserSegments object
 This constructor will assign default values to properties that have it defined,
@@ -86,6 +86,11 @@ and a boolean to check if the value has been set.
 
 SetTotalCount sets TotalCount field to given value.
 
+### HasTotalCount
+
+`func (o *UserSegments) HasTotalCount() bool`
+
+HasTotalCount returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

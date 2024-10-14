@@ -6,13 +6,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Op** | **string** | The type of operation to perform | 
 **Path** | **string** | A JSON Pointer string specifying the part of the document to operate on | 
-**Value** | **interface{}** | A JSON value used in \&quot;add\&quot;, \&quot;replace\&quot;, and \&quot;test\&quot; operations | 
+**Value** | Pointer to **interface{}** | A JSON value used in \&quot;add\&quot;, \&quot;replace\&quot;, and \&quot;test\&quot; operations | [optional] 
 
 ## Methods
 
 ### NewPatchOperation
 
-`func NewPatchOperation(op string, path string, value interface{}, ) *PatchOperation`
+`func NewPatchOperation(op string, path string, ) *PatchOperation`
 
 NewPatchOperation instantiates a new PatchOperation object
 This constructor will assign default values to properties that have it defined,
@@ -86,6 +86,11 @@ and a boolean to check if the value has been set.
 
 SetValue sets Value field to given value.
 
+### HasValue
+
+`func (o *PatchOperation) HasValue() bool`
+
+HasValue returns a boolean if a field has been set.
 
 ### SetValueNil
 
