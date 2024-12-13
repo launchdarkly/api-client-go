@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** | The audience ID | 
 **Links** | Pointer to [**map[string]Link**](Link.md) | The location and content type of related resources | [optional] 
-**Environment** | [**EnvironmentSummary**](EnvironmentSummary.md) |  | 
+**Environment** | Pointer to [**EnvironmentSummary**](EnvironmentSummary.md) |  | [optional] 
 **Name** | **string** | The release phase name | 
 **Configuration** | Pointer to [**AudienceConfiguration**](AudienceConfiguration.md) |  | [optional] 
 **SegmentKeys** | Pointer to **[]string** | A list of segment keys | [optional] 
@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 
 ### NewReleaseAudience
 
-`func NewReleaseAudience(id string, environment EnvironmentSummary, name string, ) *ReleaseAudience`
+`func NewReleaseAudience(id string, name string, ) *ReleaseAudience`
 
 NewReleaseAudience instantiates a new ReleaseAudience object
 This constructor will assign default values to properties that have it defined,
@@ -96,6 +96,11 @@ and a boolean to check if the value has been set.
 
 SetEnvironment sets Environment field to given value.
 
+### HasEnvironment
+
+`func (o *ReleaseAudience) HasEnvironment() bool`
+
+HasEnvironment returns a boolean if a field has been set.
 
 ### GetName
 

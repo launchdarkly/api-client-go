@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **LastModified** | Pointer to **int64** |  | [optional] 
 **Version** | Pointer to **int32** | The team version | [optional] 
 **IdpSynced** | Pointer to **bool** | Whether the team has been synced with an external identity provider (IdP). Team sync is available to customers on an Enterprise plan. | [optional] 
+**RoleAttributes** | Pointer to **map[string][]string** |  | [optional] 
 **Roles** | Pointer to [**TeamCustomRoles**](TeamCustomRoles.md) |  | [optional] 
 **Members** | Pointer to [**TeamMembers**](TeamMembers.md) |  | [optional] 
 **Projects** | Pointer to [**TeamProjects**](TeamProjects.md) |  | [optional] 
@@ -261,6 +262,31 @@ SetIdpSynced sets IdpSynced field to given value.
 `func (o *Team) HasIdpSynced() bool`
 
 HasIdpSynced returns a boolean if a field has been set.
+
+### GetRoleAttributes
+
+`func (o *Team) GetRoleAttributes() map[string][]string`
+
+GetRoleAttributes returns the RoleAttributes field if non-nil, zero value otherwise.
+
+### GetRoleAttributesOk
+
+`func (o *Team) GetRoleAttributesOk() (*map[string][]string, bool)`
+
+GetRoleAttributesOk returns a tuple with the RoleAttributes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRoleAttributes
+
+`func (o *Team) SetRoleAttributes(v map[string][]string)`
+
+SetRoleAttributes sets RoleAttributes field to given value.
+
+### HasRoleAttributes
+
+`func (o *Team) HasRoleAttributes() bool`
+
+HasRoleAttributes returns a boolean if a field has been set.
 
 ### GetRoles
 

@@ -154,29 +154,30 @@ info:
     \ in the object. The documentation for each resource that supports semantic patch\
     \ includes the available instructions and any additional parameters.\n\nFor example:\n\
     \n```json\n{\n  \"comment\": \"optional comment\",\n  \"instructions\": [ {\"\
-    kind\": \"turnFlagOn\"} ]\n}\n```\n\nIf any instruction in the patch encounters\
-    \ an error, the endpoint returns an error and will not change the resource. In\
-    \ general, each instruction silently does nothing if the resource is already in\
-    \ the state you request.\n\n### Updates with comments\n\nYou can submit optional\
-    \ comments with `PATCH` changes.\n\nTo submit a comment along with a JSON patch\
-    \ document, use the following format:\n\n```json\n{\n  \"comment\": \"This is\
-    \ a comment string\",\n  \"patch\": [{ \"op\": \"replace\", \"path\": \"/description\"\
-    , \"value\": \"The new description\" }]\n}\n```\n\nTo submit a comment along with\
-    \ a JSON merge patch document, use the following format:\n\n```json\n{\n  \"comment\"\
-    : \"This is a comment string\",\n  \"merge\": { \"description\": \"New flag description\"\
-    \ }\n}\n```\n\nTo submit a comment along with a semantic patch, use the following\
-    \ format:\n\n```json\n{\n  \"comment\": \"This is a comment string\",\n  \"instructions\"\
-    : [ {\"kind\": \"turnFlagOn\"} ]\n}\n```\n\n## Errors\n\nThe API always returns\
-    \ errors in a common format. Here's an example:\n\n```json\n{\n  \"code\": \"\
-    invalid_request\",\n  \"message\": \"A feature with that key already exists\"\
-    ,\n  \"id\": \"30ce6058-87da-11e4-b116-123b93f75cba\"\n}\n```\n\nThe `code` indicates\
-    \ the general class of error. The `message` is a human-readable explanation of\
-    \ what went wrong. The `id` is a unique identifier. Use it when you're working\
-    \ with LaunchDarkly Support to debug a problem with a specific API call.\n\n###\
-    \ HTTP status error response codes\n\n| Code | Definition        | Description\
-    \                                                                            \
-    \           | Possible Solution                                              \
-    \  |\n| ---- | ----------------- | -------------------------------------------------------------------------------------------\
+    kind\": \"turnFlagOn\"} ]\n}\n```\n\nSemantic patches are not applied partially;\
+    \ either all of the instructions are applied or none of them are. If **any** instruction\
+    \ is invalid, the endpoint returns an error and will not change the resource.\
+    \ If all instructions are valid, the request succeeds and the resources are updated\
+    \ if necessary, or left unchanged if they are already in the state you request.\n\
+    \n### Updates with comments\n\nYou can submit optional comments with `PATCH` changes.\n\
+    \nTo submit a comment along with a JSON patch document, use the following format:\n\
+    \n```json\n{\n  \"comment\": \"This is a comment string\",\n  \"patch\": [{ \"\
+    op\": \"replace\", \"path\": \"/description\", \"value\": \"The new description\"\
+    \ }]\n}\n```\n\nTo submit a comment along with a JSON merge patch document, use\
+    \ the following format:\n\n```json\n{\n  \"comment\": \"This is a comment string\"\
+    ,\n  \"merge\": { \"description\": \"New flag description\" }\n}\n```\n\nTo submit\
+    \ a comment along with a semantic patch, use the following format:\n\n```json\n\
+    {\n  \"comment\": \"This is a comment string\",\n  \"instructions\": [ {\"kind\"\
+    : \"turnFlagOn\"} ]\n}\n```\n\n## Errors\n\nThe API always returns errors in a\
+    \ common format. Here's an example:\n\n```json\n{\n  \"code\": \"invalid_request\"\
+    ,\n  \"message\": \"A feature with that key already exists\",\n  \"id\": \"30ce6058-87da-11e4-b116-123b93f75cba\"\
+    \n}\n```\n\nThe `code` indicates the general class of error. The `message` is\
+    \ a human-readable explanation of what went wrong. The `id` is a unique identifier.\
+    \ Use it when you're working with LaunchDarkly Support to debug a problem with\
+    \ a specific API call.\n\n### HTTP status error response codes\n\n| Code | Definition\
+    \        | Description                                                       \
+    \                                | Possible Solution                         \
+    \                       |\n| ---- | ----------------- | -------------------------------------------------------------------------------------------\
     \ | ---------------------------------------------------------------- |\n| 400\
     \  | Invalid request       | The request cannot be understood.               \
     \                     | Ensure JSON syntax in request body is correct.       \
@@ -817,6 +818,23 @@ tags:
     \ header with each call. To learn more, read [Beta resources](#section/Overview/Beta-resources).\n\
     >\n> Resources that are in beta are still undergoing testing and development.\
     \ They may change without notice, including becoming backwards incompatible.\n\
+    \nFlag import configurations allow you to import feature flags from another feature\
+    \ management system.\n\nUse the flag import configuration endpoints to create,\
+    \ delete, and manage flag import configurations. You can import flags from other\
+    \ feature management tools into LaunchDarkly. For example, you can import flags\
+    \ from Split.io.\n\nSeveral of the endpoints in the flag import configuration\
+    \ API require an integration ID. The integration ID is returned as part of the\
+    \ [Create a flag import configuration](/tag/Flag-import-configurations-(beta)#operation/createFlagImportConfiguration)\
+    \ response, in the `_id` field. It is also returned as part of the [List all flag\
+    \ import configurations](/tag/Flag-import-configurations-(beta)#operation/getFlagImportConfigurations)\
+    \ response, in the `_id` field of each element in the `items` array.\n\nTo learn\
+    \ more about flag import configurations, read [Import flags](https://docs.launchdarkly.com/home/flags/import).\n"
+  name: Flag import configurations (beta)
+- description: "> ### This feature is in beta\n>\n> To use this feature, pass in a\
+    \ header including the `LD-API-Version` key with value set to `beta`. Use this\
+    \ header with each call. To learn more, read [Beta resources](#section/Overview/Beta-resources).\n\
+    >\n> Resources that are in beta are still undergoing testing and development.\
+    \ They may change without notice, including becoming backwards incompatible.\n\
     \nFlag links let you view external mentions of flags from other tools and services.\
     \ Links to external conversations and references to your flags allow you to collaborate\
     \ more easily and quickly review relevant flag contexts. To learn more, read [Flag\
@@ -1002,60 +1020,20 @@ tags:
     \ header with each call. To learn more, read [Beta resources](/#section/Overview/Beta-resources).\n\
     >\n> Resources that are in beta are still undergoing testing and development.\
     \ They may change without notice, including becoming backwards incompatible.\n\
-    \nYou can use the integrations API to create, delete, and manage integrations\
-    \ between LaunchDarkly and third-party applications.\n\nSpecifically, the integrations\
-    \ API provides endpoints for managing persistent store integrations and flag import\
-    \ configurations.\n\n### Persistent store integrations\n\nPersistent store integrations,\
-    \ also called \"big segment\" store integrations, are required when you use a\
-    \ server-side SDK and big segments. You can use some of the integrations API endpoints\
-    \ to manage these integrations.\n\n<details>\n<summary>Click to expand details\
-    \ on <strong>persistent store integrations</strong></summary>\n\n> ### Synced\
-    \ segments and larger list-based segments are an Enterprise feature\n>\n> Segments\
-    \ synced from external tools and larger list-based segments with more than 15,000\
-    \ entries are the two kinds of \"big segment.\" LaunchDarkly uses different implementations\
-    \ for different types of segments so that all of your segments have good performance.\n\
-    >\n> These segments are available to customers on an Enterprise plan. To learn\
-    \ more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade\
-    \ your plan, [contact Sales](https://launchdarkly.com/contact-sales/).\n\n[Segments\
-    \ synced from external tools](https://docs.launchdarkly.com/home/flags/synced-segments)\
-    \ and [larger list-based segments](https://docs.launchdarkly.com/home/flags/list-based-segments#larger-list-based-segments)\
-    \ are the two kinds of big segment. If you are using server-side SDKs, these segments\
-    \ require a persistent store within your infrastructure. LaunchDarkly keeps the\
-    \ persistent store up to date and consults it during flag evaluation.\n\nYou need\
-    \ either a persistent store integration or a [Relay Proxy](https://docs.launchdarkly.com/sdk/relay-proxy)\
-    \ to support these segments. The integrations API lets you manage the persistent\
-    \ store integrations.\n\nTo learn more about segments, read [Segments](https://docs.launchdarkly.com/home/flags/segments)\
-    \ and [Segment configuration](https://docs.launchdarkly.com/home/flags/segment-config).\n\
-    \nSeveral of the endpoints in the integrations API require an integration ID.\
-    \ The integration ID is returned as part of the [Create big segment store integration](/tag/Integrations-(beta)#operation/createBigSegmentStoreIntegration)\
-    \ response, in the `_id` field. It is also returned as part of the [List all big\
-    \ segment store integrations](/tag/Integrations-(beta)#operation/getBigSegmentStoreIntegrations)\
-    \ response, in the `_id` field of each element in the `items` array.\n\nYou can\
-    \ find other APIs for working with big segments under [Segments](/tag/Segments)\
-    \ and [Segments (beta)](/tag/Segments-(beta)).\n\n</details>\n\n### Flag import\
-    \ configurations\n\nFlag import configurations allow you to import feature flags\
-    \ from another feature management system.\n\n<details>\n<summary>Click to expand\
-    \ details on <strong>flag import configurations</strong></summary>\n\nUse the\
-    \ flag import configuration endpoints to create, delete, and manage flag import\
-    \ configurations. You can import flags from other feature management tools into\
-    \ LaunchDarkly. For example, you can import flags from Split.io.\n\nSeveral of\
-    \ the endpoints in the integrations API require an integration ID. The integration\
-    \ ID is returned as part of the [Create a flag import configuration](/tag/Integrations-(beta)#operation/createFlagImportConfiguration)\
-    \ response, in the `_id` field. It is also returned as part of the [List all flag\
-    \ import configurations](/tag/Integrations-(beta)#operation/getFlagImportConfigurations)\
-    \ response, in the `_id` field of each element in the `items` array.\n\nTo learn\
-    \ more about flag import configurations, read [Import flags](https://docs.launchdarkly.com/home/flags/import).\n\
-    \n</details>\n"
+    \n> ### Integration configuration is an Enterprise feature\n>\n> Integration configuration\
+    \ is available to customers on an Enterprise plan. To learn more, [read about\
+    \ our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact\
+    \ Sales](https://launchdarkly.com/contact-sales/).\n\nYou can use the integrations\
+    \ API to create, delete, and manage integration configurations.\n\nAn integration\
+    \ configuration stores and manages configuration details for an integration between\
+    \ LaunchDarkly and a third-party application. To learn more about building an\
+    \ integration, read [Using the LaunchDarkly integration framework](https://docs.launchdarkly.com/integrations/building-integrations)\
+    \ and [Building partner integrations](https://docs.launchdarkly.com/integrations/partner-integrations).\n"
   name: Integrations (beta)
 - description: "> ### Available for customers using Experimentation\n>\n> Layers are\
     \ available to customers using [Experimentation](/tag/Experiments-(beta)).\n\n\
-    \n> ### This feature is in beta\n>\n> To use this feature, pass in a header including\
-    \ the `LD-API-Version` key with value set to `beta`. Use this header with each\
-    \ call. To learn more, read [Beta resources](/#section/Overview/Beta-resources).\n\
-    >\n> Resources that are in beta are still undergoing testing and development.\
-    \ They may change without notice, including becoming backwards incompatible.\n\
-    \nThere are some cases in which you may not want to include a context in more\
-    \ than one experiment at a time. For example, you may be concerned about collisions\
+    There are some cases in which you may not want to include a context in more than\
+    \ one experiment at a time. For example, you may be concerned about collisions\
     \ between experiments that are testing similar parts of your app, like two different\
     \ changes to the same section of your app's user interface (UI), or experiments\
     \ running on both the back end and front end of the same functionality. In this\
@@ -1065,7 +1043,7 @@ tags:
     \ if a context is included in one experiment, LaunchDarkly will exclude it from\
     \ any other experiments in the same layer.\n\nTo learn more, read [Mutually exclusive\
     \ experiments](https://docs.launchdarkly.com/home/experimentation/mutually-exclusive).\n"
-  name: Layers (beta)
+  name: Layers
 - description: "Metrics track flag behavior over time when an experiment is running.\
     \ The data generated from experiments gives you more insight into the impact of\
     \ a particular flag. To learn more, read [Metrics](https://docs.launchdarkly.com/home/observability/metrics).\n\
@@ -1111,6 +1089,40 @@ tags:
     \ you wish to register a client with a different URI scheme, please contact LaunchDarkly\
     \ Support.\n"
   name: OAuth2 Clients
+- description: "> ### This feature is in beta\n>\n> To use this feature, pass in a\
+    \ header including the `LD-API-Version` key with value set to `beta`. Use this\
+    \ header with each call. To learn more, read [Beta resources](/#section/Overview/Beta-resources).\n\
+    >\n> Resources that are in beta are still undergoing testing and development.\
+    \ They may change without notice, including becoming backwards incompatible.\n\
+    \n### Persistent store integrations\n\nPersistent store integrations, also called\
+    \ \"big segment\" store integrations, are required when you use a server-side\
+    \ SDK and big segments. You can use the persistent store integrations API endpoints\
+    \ to manage these integrations.\n\n> ### Synced segments and larger list-based\
+    \ segments are an Enterprise feature\n>\n> Segments synced from external tools\
+    \ and larger list-based segments with more than 15,000 entries are the two kinds\
+    \ of \"big segment.\" LaunchDarkly uses different implementations for different\
+    \ types of segments so that all of your segments have good performance.\n>\n>\
+    \ These segments are available to customers on an Enterprise plan. To learn more,\
+    \ [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your\
+    \ plan, [contact Sales](https://launchdarkly.com/contact-sales/).\n\n[Segments\
+    \ synced from external tools](https://docs.launchdarkly.com/home/flags/synced-segments)\
+    \ and [larger list-based segments](https://docs.launchdarkly.com/home/flags/list-based-segments)\
+    \ are the two kinds of big segment. If you are using server-side SDKs, these segments\
+    \ require a persistent store within your infrastructure. LaunchDarkly keeps the\
+    \ persistent store up to date and consults it during flag evaluation.\n\nYou need\
+    \ either a persistent store integration or a [Relay Proxy](https://docs.launchdarkly.com/sdk/relay-proxy)\
+    \ to support these segments. The persistent store integrations API lets you manage\
+    \ the persistent store integrations.\n\nTo learn more about segments, read [Segments](https://docs.launchdarkly.com/home/flags/segments)\
+    \ and [Segment configuration](https://docs.launchdarkly.com/home/flags/segment-config).\n\
+    \nSeveral of the endpoints in the persistent store integrations API require an\
+    \ integration ID. The integration ID is returned as part of the [Create big segment\
+    \ store integration](/tag/Persistent-store-integrations-(beta)#operation/createBigSegmentStoreIntegration)\
+    \ response, in the `_id` field. It is also returned as part of the [List all big\
+    \ segment store integrations](/tag/Persistent-store-integrations-(beta)#operation/getBigSegmentStoreIntegrations)\
+    \ response, in the `_id` field of each element in the `items` array.\n\nYou can\
+    \ find other APIs for working with big segments under [Segments](/tag/Segments)\
+    \ and [Segments (beta)](/tag/Segments-(beta)).\n"
+  name: Persistent store integrations (beta)
 - description: "Projects allow you to manage multiple different software projects\
     \ under one LaunchDarkly account. Each project has its own unique set of environments\
     \ and feature flags. To learn more, read [Projects](https://docs.launchdarkly.com/home/account/project).\n\
@@ -2539,6 +2551,66 @@ paths:
       summary: Get approval request
       tags:
       - Approvals
+    patch:
+      description: "Perform a partial update to an approval request. Updating an approval\
+        \ request uses the semantic patch format.\n\nTo make a semantic patch request,\
+        \ you must append `domain-model=launchdarkly.semanticpatch` to your `Content-Type`\
+        \ header. To learn more, read [Updates using semantic patch](/reference#updates-using-semantic-patch).\n\
+        \n### Instructions\n\nSemantic patch requests support the following `kind`\
+        \ instruction for updating an approval request.\n\n#### addReviewers\n\nAdds\
+        \ the specified members and teams to the existing list of reviewers. You must\
+        \ include at least one of `notifyMemberIds` and `notifyTeamKeys`.\n\n#####\
+        \ Parameters\n\n- `notifyMemberIds`: (Optional) List of member IDs.\n- `notifyTeamKeys`:\
+        \ (Optional) List of team keys.\n\nHere's an example:\n\n```json\n{\n  \"\
+        instructions\": [{\n    \"kind\": \"addReviewers\",\n    \"notifyMemberIds\"\
+        : [ \"user-key-123abc\", \"user-key-456def\" ],\n    \"notifyTeamKeys\": [\
+        \ \"team-key-789abc\"]\n  }]\n}\n```\n"
+      operationId: patchApprovalRequest
+      parameters:
+      - description: The approval ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          description: The approval ID
+          format: string
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlagConfigApprovalRequestResponse'
+          description: Approval request response
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedErrorRep'
+          description: Invalid access token
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenErrorRep'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundErrorRep'
+          description: Invalid resource identifier
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitedErrorRep'
+          description: Rate limited
+      summary: Update approval request
+      tags:
+      - Approvals (beta)
   /api/v2/approval-requests/{id}/apply:
     post:
       description: Apply an approval request that has been approved.
@@ -7036,7 +7108,7 @@ paths:
           description: Rate limited
       summary: List all big segment store integrations
       tags:
-      - Integrations (beta)
+      - Persistent store integrations (beta)
   /api/v2/integration-capabilities/big-segment-store/{projectKey}/{environmentKey}/{integrationKey}:
     post:
       description: "\nCreate a persistent store integration.\n\nIf you are using server-side\
@@ -7148,7 +7220,7 @@ paths:
           description: Rate limited
       summary: Create big segment store integration
       tags:
-      - Integrations (beta)
+      - Persistent store integrations (beta)
   /api/v2/integration-capabilities/big-segment-store/{projectKey}/{environmentKey}/{integrationKey}/{integrationId}:
     delete:
       description: Delete a persistent store integration. Each integration uses either
@@ -7230,7 +7302,7 @@ paths:
           description: Rate limited
       summary: Delete big segment store integration
       tags:
-      - Integrations (beta)
+      - Persistent store integrations (beta)
     get:
       description: Get a big segment store integration by ID.
       operationId: getBigSegmentStoreIntegration
@@ -7308,7 +7380,7 @@ paths:
           description: Rate limited
       summary: Get big segment store integration by ID
       tags:
-      - Integrations (beta)
+      - Persistent store integrations (beta)
     patch:
       description: "Update a big segment store integration. Updating a big segment\
         \ store requires a [JSON Patch](https://datatracker.ietf.org/doc/html/rfc6902)\
@@ -7406,7 +7478,7 @@ paths:
           description: Rate limited
       summary: Update big segment store integration
       tags:
-      - Integrations (beta)
+      - Persistent store integrations (beta)
   /api/v2/integration-capabilities/featureStore:
     get:
       description: List all delivery configurations.
@@ -7977,7 +8049,7 @@ paths:
           description: Rate limited
       summary: List all flag import configurations
       tags:
-      - Integrations (beta)
+      - Flag import configurations (beta)
   /api/v2/integration-capabilities/flag-import/{projectKey}/{integrationKey}:
     post:
       description: "Create a new flag import configuration. The `integrationKey` path\
@@ -8075,7 +8147,7 @@ paths:
           description: Rate limited
       summary: Create a flag import configuration
       tags:
-      - Integrations (beta)
+      - Flag import configurations (beta)
   /api/v2/integration-capabilities/flag-import/{projectKey}/{integrationKey}/{integrationId}:
     delete:
       description: "Delete a flag import configuration by ID. The `integrationKey`\
@@ -8148,7 +8220,7 @@ paths:
           description: Rate limited
       summary: Delete a flag import configuration
       tags:
-      - Integrations (beta)
+      - Flag import configurations (beta)
     get:
       description: "Get a single flag import configuration by ID. The `integrationKey`\
         \ path parameter identifies the feature management system from which the import\
@@ -8230,7 +8302,7 @@ paths:
           description: Rate limited
       summary: Get a single flag import configuration
       tags:
-      - Integrations (beta)
+      - Flag import configurations (beta)
     patch:
       description: "Updating a flag import configuration uses a [JSON patch](https://datatracker.ietf.org/doc/html/rfc6902)\
         \ representation of the desired changes. To learn more, read [Updates](/#section/Overview/Updates).<br/><br/>To\
@@ -8322,7 +8394,7 @@ paths:
           description: Rate limited
       summary: Update a flag import configuration
       tags:
-      - Integrations (beta)
+      - Flag import configurations (beta)
   /api/v2/integration-capabilities/flag-import/{projectKey}/{integrationKey}/{integrationId}/trigger:
     post:
       description: "Trigger a single flag import run for an existing flag import configuration.\
@@ -8404,6 +8476,304 @@ paths:
                 $ref: '#/components/schemas/RateLimitedErrorRep'
           description: Rate limited
       summary: Trigger a single flag import run
+      tags:
+      - Flag import configurations (beta)
+  /api/v2/integration-configurations/keys/{integrationKey}:
+    get:
+      description: "Get all integration configurations with the specified integration\
+        \ key. (Excludes [persistent store](/tag/Persistent-store-integrations-(beta))\
+        \ and [flag import configurations](/tag/Flag-import-configurations-(beta)))."
+      operationId: getAllIntegrationConfigurations
+      parameters:
+      - description: Integration key
+        explode: false
+        in: path
+        name: integrationKey
+        required: true
+        schema:
+          description: Integration key
+          format: string
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IntegrationConfigurationCollectionRep'
+          description: List of Integration Configurations
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequestErrorRep'
+          description: Invalid request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedErrorRep'
+          description: Invalid access token
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenErrorRep'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundErrorRep'
+          description: Integration key not found
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitedErrorRep'
+          description: Rate limited
+      summary: Get all configurations for the integration
+      tags:
+      - Integrations (beta)
+    post:
+      description: "Create a new integration configuration. (Excludes [persistent\
+        \ store](/tag/Persistent-store-integrations-(beta)) and [flag import configurations](/tag/Flag-import-configurations-(beta)).)"
+      operationId: createIntegrationConfiguration
+      parameters:
+      - description: The integration key
+        explode: false
+        in: path
+        name: integrationKey
+        required: true
+        schema:
+          description: The integration key
+          format: string
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IntegrationConfigurationPost'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IntegrationConfigurationsRep'
+          description: Integration Configuration response
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequestErrorRep'
+          description: Invalid request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedErrorRep'
+          description: Invalid access token
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenErrorRep'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundErrorRep'
+          description: Integration key not found
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusConflictErrorRep'
+          description: Status conflict
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitedErrorRep'
+          description: Rate limited
+      summary: Create integration configuration
+      tags:
+      - Integrations (beta)
+  /api/v2/integration-configurations/{integrationConfigurationId}:
+    delete:
+      description: "Delete an integration configuration by ID. (Excludes [persistent\
+        \ store](/tag/Persistent-store-integrations-(beta)) and [flag import configurations](/tag/Flag-import-configurations-(beta)).)"
+      operationId: deleteIntegrationConfiguration
+      parameters:
+      - description: The ID of the integration configuration to be deleted
+        explode: false
+        in: path
+        name: integrationConfigurationId
+        required: true
+        schema:
+          description: The ID of the integration configuration to be deleted
+          format: string
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: Action succeeded
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequestErrorRep'
+          description: Invalid request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedErrorRep'
+          description: Invalid access token
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenErrorRep'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundErrorRep'
+          description: Invalid resource identifier
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitedErrorRep'
+          description: Rate limited
+      summary: Delete integration configuration
+      tags:
+      - Integrations (beta)
+    get:
+      description: "Get integration configuration with the specified ID. (Excludes\
+        \ [persistent store](/tag/Persistent-store-integrations-(beta)) and [flag\
+        \ import configurations](/tag/Flag-import-configurations-(beta)).)"
+      operationId: getIntegrationConfiguration
+      parameters:
+      - description: Integration configuration ID
+        explode: false
+        in: path
+        name: integrationConfigurationId
+        required: true
+        schema:
+          description: Integration configuration ID
+          format: string
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IntegrationConfigurationsRep'
+          description: Integration Configuration response
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequestErrorRep'
+          description: Invalid request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedErrorRep'
+          description: Invalid access token
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenErrorRep'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundErrorRep'
+          description: Integration ID not found
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitedErrorRep'
+          description: Rate limited
+      summary: Get an integration configuration
+      tags:
+      - Integrations (beta)
+    patch:
+      description: "Update an integration configuration. Updating an integration configuration\
+        \ uses a [JSON patch](https://datatracker.ietf.org/doc/html/rfc6902) representation\
+        \ of the desired changes. To learn more, read [Updates](/#section/Overview/Updates)."
+      operationId: updateIntegrationConfiguration
+      parameters:
+      - description: The ID of the integration configuration
+        explode: false
+        in: path
+        name: integrationConfigurationId
+        required: true
+        schema:
+          description: The ID of the integration configuration
+          format: string
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            example:
+            - op: replace
+              path: /on
+              value: false
+            schema:
+              $ref: '#/components/schemas/JSONPatch'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IntegrationConfigurationsRep'
+          description: Integration configuration response
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequestErrorRep'
+          description: Invalid request
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenErrorRep'
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundErrorRep'
+          description: Invalid resource identifier
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusConflictErrorRep'
+          description: Status conflict
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitedErrorRep'
+          description: Rate limited
+      summary: Update integration configuration
       tags:
       - Integrations (beta)
   /api/v2/integrations/{integrationKey}:
@@ -14071,7 +14441,7 @@ paths:
         \ include at least one of `notifyMemberIds` and `notifyTeamKeys`.\n\n#####\
         \ Parameters\n\n- `notifyMemberIds`: (Optional) List of member IDs.\n- `notifyTeamKeys`:\
         \ (Optional) List of team keys.\n"
-      operationId: patchApprovalRequest
+      operationId: patchFlagConfigApprovalRequest
       parameters:
       - description: The project key
         explode: false
@@ -14144,7 +14514,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/RateLimitedErrorRep'
           description: Rate limited
-      summary: Update approval request
+      summary: Update flag approval request
       tags:
       - Approvals (beta)
   /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/approval-requests/{id}/apply:
@@ -15778,7 +16148,7 @@ paths:
           description: Rate limited
       summary: Get layers
       tags:
-      - Layers (beta)
+      - Layers
     post:
       description: |
         Create a layer. Experiments running in the same layer are granted mutually-exclusive traffic.
@@ -15833,7 +16203,7 @@ paths:
           description: Rate limited
       summary: Create layer
       tags:
-      - Layers (beta)
+      - Layers
   /api/v2/projects/{projectKey}/layers/{layerKey}:
     patch:
       description: "Update a layer by adding, changing, or removing traffic reservations\
@@ -15932,7 +16302,7 @@ paths:
           description: Rate limited
       summary: Update layer
       tags:
-      - Layers (beta)
+      - Layers
   /api/v2/projects/{projectKey}/metric-groups:
     get:
       description: "Get a list of all metric groups for the specified project.\n\n\
@@ -16582,11 +16952,9 @@ paths:
       summary: Get release pipeline by key
       tags:
       - Release pipelines (beta)
-    patch:
-      description: "Updates a release pipeline. Updating a release pipeline uses a\
-        \ [JSON patch](https://datatracker.ietf.org/doc/html/rfc6902) representation\
-        \ of the desired changes. To learn more, read [Updates](/#section/Overview/Updates)."
-      operationId: patchReleasePipeline
+    put:
+      description: Updates a release pipeline.
+      operationId: putReleasePipeline
       parameters:
       - description: The project key
         explode: false
@@ -16608,6 +16976,12 @@ paths:
           format: string
           type: string
         style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateReleasePipelineInput'
+        required: true
       responses:
         "200":
           content:
@@ -17386,33 +17760,57 @@ paths:
         \ you must include those parameters as additional fields in the object.\n\n\
         ### Instructions\n\nSemantic patch requests support the following `kind` instructions\
         \ for updating segments.\n\n<details>\n<summary>Click to expand instructions\
-        \ for <strong>updating segments</strong></summary>\n\n#### addIncludedTargets\n\
-        \nAdds context keys to the individual context targets included in the segment\
+        \ for <strong>updating segment details and settings</strong></summary>\n\n\
+        #### addTags\n\nAdds tags to the segment.\n\n##### Parameters\n\n- `values`:\
+        \ A list of tags to add.\n\nHere's an example:\n\n```json\n{\n  \"instructions\"\
+        : [{\n    \"kind\": \"addTags\",\n    \"values\": [\"tag1\", \"tag2\"]\n \
+        \ }]\n}\n```\n\n#### removeTags\n\nRemoves tags from the segment.\n\n#####\
+        \ Parameters\n\n- `values`: A list of tags to remove.\n\nHere's an example:\n\
+        \n```json\n{\n  \"instructions\": [{\n    \"kind\": \"removeTags\",\n    \"\
+        values\": [\"tag1\", \"tag2\"]\n  }]\n}\n```\n\n#### updateName\n\nUpdates\
+        \ the name of the segment.\n\n##### Parameters\n\n- `value`: Name of the segment.\n\
+        \nHere's an example:\n\n```json\n{\n  \"instructions\": [{\n    \"kind\":\
+        \ \"updateName\",\n    \"value\": \"Updated segment name\"\n  }]\n}\n```\n\
+        \n</details>\n\n<details>\n<summary>Click to expand instructions for <strong>updating\
+        \ segment individual targets</strong></summary>\n\n#### addExcludedTargets\n\
+        \nAdds context keys to the individual context targets excluded from the segment\
         \ for the specified `contextKind`. Returns an error if this causes the same\
         \ context key to be both included and excluded.\n\n##### Parameters\n\n- `contextKind`:\
         \ The context kind the targets should be added to.\n- `values`: List of keys.\n\
         \nHere's an example:\n\n```json\n{\n  \"instructions\": [{\n    \"kind\":\
-        \ \"addIncludedTargets\",\n    \"contextKind\": \"org\",\n    \"values\":\
-        \ [ \"org-key-123abc\", \"org-key-456def\" ]\n  }]\n}\n```\n\n#### addIncludedUsers\n\
-        \nAdds user keys to the individual user targets included in the segment. Returns\
-        \ an error if this causes the same user key to be both included and excluded.\
-        \ If you are working with contexts, use `addIncludedTargets` instead of this\
-        \ instruction.\n\n##### Parameters\n\n- `values`: List of user keys.\n\nHere's\
-        \ an example:\n\n```json\n{\n  \"instructions\": [{\n    \"kind\": \"addIncludedUsers\"\
-        ,\n    \"values\": [ \"user-key-123abc\", \"user-key-456def\" ]\n  }]\n}\n\
-        ```\n\n#### addExcludedTargets\n\nAdds context keys to the individual context\
-        \ targets excluded in the segment for the specified `contextKind`. Returns\
-        \ an error if this causes the same context key to be both included and excluded.\n\
-        \n##### Parameters\n\n- `contextKind`: The context kind the targets should\
-        \ be added to.\n- `values`: List of keys.\n\nHere's an example:\n\n```json\n\
-        {\n  \"instructions\": [{\n    \"kind\": \"addExcludedTargets\",\n    \"contextKind\"\
+        \ \"addExcludedTargets\",\n    \"contextKind\": \"org\",\n    \"values\":\
+        \ [ \"org-key-123abc\", \"org-key-456def\" ]\n  }]\n}\n```\n\n#### addExcludedUsers\n\
+        \nAdds user keys to the individual user targets excluded from the segment.\
+        \ Returns an error if this causes the same user key to be both included and\
+        \ excluded. If you are working with contexts, use `addExcludedTargets` instead\
+        \ of this instruction.\n\n##### Parameters\n\n- `values`: List of user keys.\n\
+        \nHere's an example:\n\n```json\n{\n  \"instructions\": [{\n    \"kind\":\
+        \ \"addExcludedUsers\",\n    \"values\": [ \"user-key-123abc\", \"user-key-456def\"\
+        \ ]\n  }]\n}\n```\n\n#### addIncludedTargets\n\nAdds context keys to the individual\
+        \ context targets included in the segment for the specified `contextKind`.\
+        \ Returns an error if this causes the same context key to be both included\
+        \ and excluded.\n\n##### Parameters\n\n- `contextKind`: The context kind the\
+        \ targets should be added to.\n- `values`: List of keys.\n\nHere's an example:\n\
+        \n```json\n{\n  \"instructions\": [{\n    \"kind\": \"addIncludedTargets\"\
+        ,\n    \"contextKind\": \"org\",\n    \"values\": [ \"org-key-123abc\", \"\
+        org-key-456def\" ]\n  }]\n}\n```\n\n#### addIncludedUsers\n\nAdds user keys\
+        \ to the individual user targets included in the segment. Returns an error\
+        \ if this causes the same user key to be both included and excluded. If you\
+        \ are working with contexts, use `addIncludedTargets` instead of this instruction.\n\
+        \n##### Parameters\n\n- `values`: List of user keys.\n\nHere's an example:\n\
+        \n```json\n{\n  \"instructions\": [{\n    \"kind\": \"addIncludedUsers\",\n\
+        \    \"values\": [ \"user-key-123abc\", \"user-key-456def\" ]\n  }]\n}\n```\n\
+        \n#### removeExcludedTargets\n\nRemoves context keys from the individual context\
+        \ targets excluded from the segment for the specified `contextKind`.\n\n#####\
+        \ Parameters\n\n- `contextKind`: The context kind the targets should be removed\
+        \ from.\n- `values`: List of keys.\n\nHere's an example:\n\n```json\n{\n \
+        \ \"instructions\": [{\n    \"kind\": \"removeExcludedTargets\",\n    \"contextKind\"\
         : \"org\",\n    \"values\": [ \"org-key-123abc\", \"org-key-456def\" ]\n \
-        \ }]\n}\n```\n\n#### addExcludedUsers\n\nAdds user keys to the individual\
-        \ user targets excluded from the segment. Returns an error if this causes\
-        \ the same user key to be both included and excluded. If you are working with\
-        \ contexts, use `addExcludedTargets` instead of this instruction.\n\n#####\
-        \ Parameters\n\n- `values`: List of user keys.\n\nHere's an example:\n\n```json\n\
-        {\n  \"instructions\": [{\n    \"kind\": \"addExcludedUsers\",\n    \"values\"\
+        \ }]\n}\n```\n\n#### removeExcludedUsers\n\nRemoves user keys from the individual\
+        \ user targets excluded from the segment. If you are working with contexts,\
+        \ use `removeExcludedTargets` instead of this instruction.\n\n##### Parameters\n\
+        \n- `values`: List of user keys.\n\nHere's an example:\n\n```json\n{\n  \"\
+        instructions\": [{\n    \"kind\": \"removeExcludedUsers\",\n    \"values\"\
         : [ \"user-key-123abc\", \"user-key-456def\" ]\n  }]\n}\n```\n\n#### removeIncludedTargets\n\
         \nRemoves context keys from the individual context targets included in the\
         \ segment for the specified `contextKind`.\n\n##### Parameters\n\n- `contextKind`:\
@@ -17425,23 +17823,128 @@ paths:
         \ instead of this instruction.\n\n##### Parameters\n\n- `values`: List of\
         \ user keys.\n\nHere's an example:\n\n```json\n{\n  \"instructions\": [{\n\
         \    \"kind\": \"removeIncludedUsers\",\n    \"values\": [ \"user-key-123abc\"\
-        , \"user-key-456def\" ]\n  }]\n}\n```\n\n#### removeExcludedTargets\n\nRemoves\
-        \ context keys from the individual context targets excluded from the segment\
-        \ for the specified `contextKind`.\n\n##### Parameters\n\n- `contextKind`:\
-        \ The context kind the targets should be removed from.\n- `values`: List of\
-        \ keys.\n\nHere's an example:\n\n```json\n{\n  \"instructions\": [{\n    \"\
-        kind\": \"removeExcludedTargets\",\n    \"contextKind\": \"org\",\n    \"\
-        values\": [ \"org-key-123abc\", \"org-key-456def\" ]\n  }]\n}\n```\n\n####\
-        \ removeExcludedUsers\n\nRemoves user keys from the individual user targets\
-        \ excluded from the segment. If you are working with contexts, use `removeExcludedTargets`\
-        \ instead of this instruction.\n\n##### Parameters\n\n- `values`: List of\
-        \ user keys.\n\nHere's an example:\n\n```json\n{\n  \"instructions\": [{\n\
-        \    \"kind\": \"removeExcludedUsers\",\n    \"values\": [ \"user-key-123abc\"\
-        , \"user-key-456def\" ]\n  }]\n}\n```\n\n#### updateName\n\nUpdates the name\
-        \ of the segment.\n\n##### Parameters\n\n- `value`: Name of the segment.\n\
+        , \"user-key-456def\" ]\n  }]\n}\n```\n\n</details>\n\n<details>\n<summary>Click\
+        \ to expand instructions for <strong>updating segment targeting rules</strong></summary>\n\
+        \n#### addClauses\n\nAdds the given clauses to the rule indicated by `ruleId`.\n\
+        \n##### Parameters\n\n- `clauses`: Array of clause objects, with `contextKind`\
+        \ (string), `attribute` (string), `op` (string), `negate` (boolean), and `values`\
+        \ (array of strings, numbers, or dates) properties. The `contextKind`, if\
+        \ not provided, defaults to `user`. The `contextKind`, `attribute`, and `values`\
+        \ are case sensitive. The `op` must be lower-case.\n- `ruleId`: ID of a rule\
+        \ in the segment.\n\nHere's an example:\n\n```json\n{\n  \"instructions\"\
+        : [{\n    \"kind\": \"addClauses\",\n    \"clauses\": [\n      {\n       \
+        \ \"attribute\": \"email\",\n        \"negate\": false,\n        \"op\": \"\
+        contains\",\n        \"values\": [\"value1\"]\n      }\n    ],\n    \"ruleId\"\
+        : \"a902ef4a-2faf-4eaf-88e1-ecc356708a29\",\n  }]\n}\n```\n\n#### addRule\n\
+        \nAdds a new targeting rule to the segment. The rule may contain `clauses`.\n\
+        \n##### Parameters\n\n- `clauses`: Array of clause objects, with `contextKind`\
+        \ (string), `attribute` (string), `op` (string), `negate` (boolean), and `values`\
+        \ (array of strings, numbers, or dates) properties. The `contextKind`, if\
+        \ not provided, defaults to `user`. The `contextKind`, `attribute`, and `values`\
+        \ are case sensitive. The `op` must be lower-case.\n- `description`: A description\
+        \ of the rule.\n\nHere's an example:\n\n```json\n{\n  \"instructions\": [{\n\
+        \    \"kind\": \"addRule\",\n    \"clauses\": [\n      {\n        \"attribute\"\
+        : \"email\",\n        \"op\": \"contains\",\n        \"negate\": false,\n\
+        \        \"values\": [\"@launchdarkly.com\"]\n      }\n    ],\n    \"description\"\
+        : \"Targeting rule for LaunchDarkly employees\",\n  }]\n}\n```\n\n#### addValuesToClause\n\
+        \nAdds `values` to the values of the clause that `ruleId` and `clauseId` indicate.\
+        \ Does not update the context kind, attribute, or operator.\n\n##### Parameters\n\
+        \n- `ruleId`: ID of a rule in the segment.\n- `clauseId`: ID of a clause in\
+        \ that rule.\n- `values`: Array of strings, case sensitive.\n\nHere's an example:\n\
+        \n```json\n{\n  \"instructions\": [{\n    \"kind\": \"addValuesToClause\"\
+        ,\n    \"ruleId\": \"a902ef4a-2faf-4eaf-88e1-ecc356708a29\",\n    \"clauseId\"\
+        : \"10a58772-3121-400f-846b-b8a04e8944ed\",\n    \"values\": [\"beta_testers\"\
+        ]\n  }]\n}\n```\n\n#### removeClauses\n\nRemoves the clauses specified by\
+        \ `clauseIds` from the rule indicated by `ruleId`.\n\n##### Parameters\n\n\
+        - `ruleId`: ID of a rule in the segment.\n- `clauseIds`: Array of IDs of clauses\
+        \ in the rule.\n\nHere's an example:\n\n```json\n{\n  \"instructions\": [{\n\
+        \    \"kind\": \"removeClauses\",\n    \"ruleId\": \"a902ef4a-2faf-4eaf-88e1-ecc356708a29\"\
+        ,\n    \"clauseIds\": [\"10a58772-3121-400f-846b-b8a04e8944ed\", \"36a461dc-235e-4b08-97b9-73ce9365873e\"\
+        ]\n  }]\n}\n```\n\n#### removeRule\n\nRemoves the targeting rule specified\
+        \ by `ruleId`. Does nothing if the rule does not exist.\n\n##### Parameters\n\
+        \n- `ruleId`: ID of a rule in the segment.\n\nHere's an example:\n\n```json\n\
+        {\n  \"instructions\": [{\n    \"kind\": \"removeRule\",\n    \"ruleId\":\
+        \ \"a902ef4a-2faf-4eaf-88e1-ecc356708a29\"\n  }]\n}\n```\n\n#### removeValuesFromClause\n\
+        \nRemoves `values` from the values of the clause indicated by `ruleId` and\
+        \ `clauseId`. Does not update the context kind, attribute, or operator.\n\n\
+        ##### Parameters\n\n- `ruleId`: ID of a rule in the segment.\n- `clauseId`:\
+        \ ID of a clause in that rule.\n- `values`: Array of strings, case sensitive.\n\
         \nHere's an example:\n\n```json\n{\n  \"instructions\": [{\n    \"kind\":\
-        \ \"updateName\",\n    \"value\": \"Updated segment name\"\n  }]\n}\n```\n\
-        \n</details>\n\n## Using JSON patches on a segment\n\nIf you do not include\
+        \ \"removeValuesFromClause\",\n    \"ruleId\": \"a902ef4a-2faf-4eaf-88e1-ecc356708a29\"\
+        ,\n    \"clauseId\": \"10a58772-3121-400f-846b-b8a04e8944ed\",\n    \"values\"\
+        : [\"beta_testers\"]\n  }]\n}\n```\n\n#### reorderRules\n\nRearranges the\
+        \ rules to match the order given in `ruleIds`. Returns an error if `ruleIds`\
+        \ does not match the current set of rules in the segment.\n\n##### Parameters\n\
+        \n- `ruleIds`: Array of IDs of all targeting rules in the segment.\n\nHere's\
+        \ an example:\n\n```json\n{\n  \"instructions\": [{\n    \"kind\": \"reorderRules\"\
+        ,\n    \"ruleIds\": [\"a902ef4a-2faf-4eaf-88e1-ecc356708a29\", \"63c238d1-835d-435e-8f21-c8d5e40b2a3d\"\
+        ]\n  }]\n}\n```\n\n#### updateClause\n\nReplaces the clause indicated by `ruleId`\
+        \ and `clauseId` with `clause`.\n\n##### Parameters\n\n- `ruleId`: ID of a\
+        \ rule in the segment.\n- `clauseId`: ID of a clause in that rule.\n- `clause`:\
+        \ New `clause` object, with `contextKind` (string), `attribute` (string),\
+        \ `op` (string), `negate` (boolean), and `values` (array of strings, numbers,\
+        \ or dates) properties. The `contextKind`, if not provided, defaults to `user`.\
+        \ The `contextKind`, `attribute`, and `values` are case sensitive. The `op`\
+        \ must be lower-case.\n\nHere's an example:\n\n```json\n{\n  \"instructions\"\
+        : [{\n    \"kind\": \"updateClause\",\n    \"ruleId\": \"a902ef4a-2faf-4eaf-88e1-ecc356708a29\"\
+        ,\n    \"clauseId\": \"10c7462a-2062-45ba-a8bb-dfb3de0f8af5\",\n    \"clause\"\
+        : {\n      \"contextKind\": \"user\",\n      \"attribute\": \"country\",\n\
+        \      \"op\": \"in\",\n      \"negate\": false,\n      \"values\": [\"Mexico\"\
+        , \"Canada\"]\n    }\n  }]\n}\n```\n\n#### updateRuleDescription\n\nUpdates\
+        \ the description of the segment targeting rule.\n\n##### Parameters\n\n-\
+        \ `description`: The new human-readable description for this rule.\n- `ruleId`:\
+        \ The ID of the rule. You can retrieve this by making a GET request for the\
+        \ segment.\n\nHere's an example:\n\n```json\n{\n  \"instructions\": [{\n \
+        \   \"kind\": \"updateRuleDescription\",\n    \"description\": \"New rule\
+        \ description\",\n    \"ruleId\": \"a902ef4a-2faf-4eaf-88e1-ecc356708a29\"\
+        \n  }]\n}\n```\n\n#### updateRuleRolloutAndContextKind\n\nFor a rule that\
+        \ includes a percentage of targets, updates the percentage and the context\
+        \ kind of the targets to include.\n\n##### Parameters\n\n- `ruleId`: The ID\
+        \ of a targeting rule in the segment that includes a percentage of targets.\n\
+        - `weight`: The weight, in thousandths of a percent (0-100000).\n- `contextKind`:\
+        \ The context kind.\n\nHere's an example:\n\n```json\n{\n  \"instructions\"\
+        : [{\n    \"kind\": \"reorderRules\",\n    \"ruleId\": \"a902ef4a-2faf-4eaf-88e1-ecc356708a29\"\
+        ,\n    \"weight\": \"20000\",\n    \"contextKind\": \"device\"\n  }]\n}\n\
+        ```\n\n</details>\n\n<details>\n<summary>Click to expand instructions for\
+        \ <strong>working with Big Segments</strong></summary>\n\nA \"big segment\"\
+        \ is a segment that is either a synced segment, or a list-based segment with\
+        \ more than 15,000 entries that includes only one targeted context kind. LaunchDarkly\
+        \ uses different implementations for different types of segments so that all\
+        \ of your segments have good performance.\n\nThe following semantic patch\
+        \ instructions apply only to these [larger list-based segments](https://docs.launchdarkly.com/home/flags/segments-create#create-larger-list-based-segments).\n\
+        \n#### addBigSegmentExcludedTargets\n\nFor use with [larger list-based segments](https://docs.launchdarkly.com/home/flags/segments-create#create-larger-list-based-segments)\
+        \ ONLY. Adds context keys to the context targets excluded from the segment.\
+        \ Returns an error if this causes the same context key to be both included\
+        \ and excluded.\n\n##### Parameters\n\n- `values`: List of context keys.\n\
+        \nHere's an example:\n\n```json\n{\n  \"instructions\": [{\n    \"kind\":\
+        \ \"addBigSegmentExcludedTargets\",\n    \"values\": [ \"org-key-123abc\"\
+        , \"org-key-456def\" ]\n  }]\n}\n```\n\n#### addBigSegmentIncludedTargets\n\
+        \nFor use with [larger list-based segments](https://docs.launchdarkly.com/home/flags/segments-create#create-larger-list-based-segments)\
+        \ ONLY. Adds context keys to the context targets included in the segment.\
+        \ Returns an error if this causes the same context key to be both included\
+        \ and excluded.\n\n##### Parameters\n\n- `values`: List of context keys.\n\
+        \nHere's an example:\n\n```json\n{\n  \"instructions\": [{\n    \"kind\":\
+        \ \"addBigSegmentIncludedTargets\",\n    \"values\": [ \"org-key-123abc\"\
+        , \"org-key-456def\" ]\n  }]\n}\n```\n\n#### processBigSegmentImport\n\nFor\
+        \ use with [larger list-based segments](https://docs.launchdarkly.com/home/flags/segments-create#create-larger-list-based-segments)\
+        \ ONLY. Processes a segment import.\n\n##### Parameters\n\n- `importId`: The\
+        \ ID of the import. The import ID is returned in the `Location` header as\
+        \ part of the [Create big segment import](https://apidocs.launchdarkly.com/tag/Segments-(beta)#operation/createBigSegmentImport)\
+        \ request.\n\nHere's an example:\n\n```json\n{\n  \"instructions\": [{\n \
+        \   \"kind\": \"processBigSegmentImport\",\n    \"importId\": \"a902ef4a-2faf-4eaf-88e1-ecc356708a29\"\
+        \n  }]\n}\n```\n\n\n#### removeBigSegmentExcludedTargets\n\nFor use with [larger\
+        \ list-based segments](https://docs.launchdarkly.com/home/flags/segments-create#create-larger-list-based-segments)\
+        \ ONLY. Removes context keys from the context targets excluded from the segment.\n\
+        \n##### Parameters\n\n- `values`: List of context keys.\n\nHere's an example:\n\
+        \n```json\n{\n  \"instructions\": [{\n    \"kind\": \"removeBigSegmentExcludedTargets\"\
+        ,\n    \"values\": [ \"org-key-123abc\", \"org-key-456def\" ]\n  }]\n}\n```\n\
+        \n#### removeBigSegmentIncludedTargets\n\nFor use with [larger list-based\
+        \ segments](https://docs.launchdarkly.com/home/flags/segments-create#create-larger-list-based-segments)\
+        \ ONLY. Removes context keys from the context targets included in the segment.\n\
+        \n##### Parameters\n\n- `values`: List of context keys.\n\nHere's an example:\n\
+        \n```json\n{\n  \"instructions\": [{\n    \"kind\": \"removeBigSegmentIncludedTargets\"\
+        ,\n    \"values\": [ \"org-key-123abc\", \"org-key-456def\" ]\n  }]\n}\n```\n\
+        \n</details>\n\n### Using JSON patches on a segment\n\nIf you do not include\
         \ the header described above, you can use a [JSON patch](/reference#updates-using-json-patch)\
         \ or [JSON merge patch](https://datatracker.ietf.org/doc/html/rfc7386) representation\
         \ of the desired changes.\n\nFor example, to update the description for a\
@@ -22193,8 +22696,8 @@ paths:
       operationId: getTags
       parameters:
       - description: "Fetch tags associated with the specified resource type. Options\
-          \ are `flag`, `project`, `environment`, `segment`. Returns all types by\
-          \ default."
+          \ are `flag`, `project`, `environment`, `segment`, `metric`. Returns all\
+          \ types by default."
         explode: true
         in: query
         name: kind
@@ -25587,6 +26090,17 @@ components:
       - serviceConfig
       - serviceKind
       type: object
+    ApprovalsCapabilityConfig:
+      example:
+        additionalFormVariables: invalid example
+      properties:
+        additionalFormVariables:
+          description: The additional form variables for the approvals capability
+          example: invalid example
+          items:
+            $ref: '#/components/schemas/FormVariable'
+          type: array
+      type: object
     Audience:
       example:
         environment:
@@ -25629,7 +26143,6 @@ components:
             type: string
           type: array
       required:
-      - environment
       - name
       type: object
     AudienceConfiguration:
@@ -26319,6 +26832,70 @@ components:
       - kind
       - name
       - shortDescription
+      type: object
+    AuditLogEventsHookCapabilityConfigPost:
+      example:
+        statements:
+        - notActions:
+          - null
+          - null
+          notResources:
+          - notResources
+          - notResources
+          effect: allow
+          resources:
+          - proj/*:env/*:flag/*;testing-tag
+          actions:
+          - '*'
+        - notActions:
+          - null
+          - null
+          notResources:
+          - notResources
+          - notResources
+          effect: allow
+          resources:
+          - proj/*:env/*:flag/*;testing-tag
+          actions:
+          - '*'
+      properties:
+        statements:
+          items:
+            $ref: '#/components/schemas/StatementPost'
+          type: array
+      type: object
+    AuditLogEventsHookCapabilityConfigRep:
+      example:
+        statements:
+        - notActions:
+          - null
+          - null
+          notResources:
+          - notResources
+          - notResources
+          effect: allow
+          resources:
+          - proj/*:env/*;qa_*:/flag/*
+          actions:
+          - '*'
+        - notActions:
+          - null
+          - null
+          notResources:
+          - notResources
+          - notResources
+          effect: allow
+          resources:
+          - proj/*:env/*;qa_*:/flag/*
+          actions:
+          - '*'
+      properties:
+        statements:
+          description: The set of resources you wish to subscribe to audit log notifications
+            for.
+          items:
+            $ref: '#/components/schemas/Statement'
+          type: array
       type: object
     AuthorizedAppDataRep:
       example:
@@ -27216,6 +27793,74 @@ components:
           type: string
         serviceToken:
           type: boolean
+      type: object
+    CapabilityConfigPost:
+      example:
+        auditLogEventsHook:
+          statements:
+          - notActions:
+            - null
+            - null
+            notResources:
+            - notResources
+            - notResources
+            effect: allow
+            resources:
+            - proj/*:env/*:flag/*;testing-tag
+            actions:
+            - '*'
+          - notActions:
+            - null
+            - null
+            notResources:
+            - notResources
+            - notResources
+            effect: allow
+            resources:
+            - proj/*:env/*:flag/*;testing-tag
+            actions:
+            - '*'
+        approvals:
+          additionalFormVariables: invalid example
+      properties:
+        approvals:
+          $ref: '#/components/schemas/ApprovalsCapabilityConfig'
+        auditLogEventsHook:
+          $ref: '#/components/schemas/AuditLogEventsHookCapabilityConfigPost'
+      type: object
+    CapabilityConfigRep:
+      example:
+        auditLogEventsHook:
+          statements:
+          - notActions:
+            - null
+            - null
+            notResources:
+            - notResources
+            - notResources
+            effect: allow
+            resources:
+            - proj/*:env/*;qa_*:/flag/*
+            actions:
+            - '*'
+          - notActions:
+            - null
+            - null
+            notResources:
+            - notResources
+            - notResources
+            effect: allow
+            resources:
+            - proj/*:env/*;qa_*:/flag/*
+            actions:
+            - '*'
+        approvals:
+          additionalFormVariables: invalid example
+      properties:
+        approvals:
+          $ref: '#/components/schemas/ApprovalsCapabilityConfig'
+        auditLogEventsHook:
+          $ref: '#/components/schemas/AuditLogEventsHookCapabilityConfigRep'
       type: object
     Clause:
       properties:
@@ -28843,8 +29488,7 @@ components:
       type: object
     CreatePhaseInput:
       example:
-        configuration:
-          bakeTimeDurationMs: 60000
+        configuration: "{}"
         name: Phase 1 - Testing
         audiences:
         - configuration:
@@ -28893,7 +29537,8 @@ components:
           example: Phase 1 - Testing
           type: string
         configuration:
-          $ref: '#/components/schemas/PhaseConfiguration'
+          properties: {}
+          type: object
       required:
       - audiences
       - name
@@ -28920,8 +29565,7 @@ components:
         description: Standard pipeline to roll out to production
         key: standard-pipeline
         phases:
-        - configuration:
-            bakeTimeDurationMs: 60000
+        - configuration: "{}"
           name: Phase 1 - Testing
           audiences:
           - configuration:
@@ -28958,8 +29602,7 @@ components:
             - segmentKeys
             - segmentKeys
             environmentKey: environmentKey
-        - configuration:
-            bakeTimeDurationMs: 60000
+        - configuration: "{}"
           name: Phase 1 - Testing
           audiences:
           - configuration:
@@ -29294,6 +29937,7 @@ components:
           key:
             href: href
             type: type
+        totalCount: 0
         items:
         - _access:
             allowed:
@@ -29488,6 +30132,11 @@ components:
           items:
             $ref: '#/components/schemas/CustomRole'
           type: array
+        totalCount:
+          description: The total number of custom roles
+          type: integer
+      required:
+      - items
       type: object
     CustomWorkflowInput:
       example:
@@ -30686,6 +31335,33 @@ components:
       type: object
     DurationUnit:
       type: string
+    DynamicOptions:
+      properties:
+        endpoint:
+          $ref: '#/components/schemas/Endpoint'
+        parser:
+          $ref: '#/components/schemas/DynamicOptionsParser'
+      type: object
+    DynamicOptionsParser:
+      properties:
+        optionsItems:
+          $ref: '#/components/schemas/OptionsArray'
+        optionsPath:
+          type: string
+      type: object
+    Endpoint:
+      properties:
+        headers:
+          items:
+            $ref: '#/components/schemas/HeaderItems'
+          type: array
+        hmacSignature:
+          $ref: '#/components/schemas/HMACSignature'
+        method:
+          type: string
+        url:
+          type: string
+      type: object
     Environment:
       example:
         approvalSettings:
@@ -30700,6 +31376,19 @@ components:
           minNumApprovals: 1
           autoApplyApprovedChanges: true
           required: true
+        resourceApprovalSettings:
+          key:
+            serviceKind: launchdarkly
+            canReviewOwnRequest: false
+            serviceConfig: {}
+            requiredApprovalTags:
+            - require-approval
+            serviceKindConfigurationId: 1ef45a85-218f-4428-a8b2-a97e5f56c258
+            bypassApprovalsForPendingChanges: false
+            canApplyDeclinedChanges: true
+            minNumApprovals: 1
+            autoApplyApprovedChanges: true
+            required: true
         apiKey: sdk-xxx
         color: F5A623
         critical: true
@@ -30789,6 +31478,12 @@ components:
           type: array
         approvalSettings:
           $ref: '#/components/schemas/ApprovalSettings'
+        resourceApprovalSettings:
+          additionalProperties:
+            $ref: '#/components/schemas/ApprovalSettings'
+          description: Details on the approval settings for this environment for each
+            resource kind
+          type: object
         critical:
           description: Whether the environment is critical
           example: true
@@ -30937,6 +31632,19 @@ components:
             minNumApprovals: 1
             autoApplyApprovedChanges: true
             required: true
+          resourceApprovalSettings:
+            key:
+              serviceKind: launchdarkly
+              canReviewOwnRequest: false
+              serviceConfig: {}
+              requiredApprovalTags:
+              - require-approval
+              serviceKindConfigurationId: 1ef45a85-218f-4428-a8b2-a97e5f56c258
+              bypassApprovalsForPendingChanges: false
+              canApplyDeclinedChanges: true
+              minNumApprovals: 1
+              autoApplyApprovedChanges: true
+              required: true
           apiKey: sdk-xxx
           color: F5A623
           critical: true
@@ -30967,6 +31675,19 @@ components:
             minNumApprovals: 1
             autoApplyApprovedChanges: true
             required: true
+          resourceApprovalSettings:
+            key:
+              serviceKind: launchdarkly
+              canReviewOwnRequest: false
+              serviceConfig: {}
+              requiredApprovalTags:
+              - require-approval
+              serviceKindConfigurationId: 1ef45a85-218f-4428-a8b2-a97e5f56c258
+              bypassApprovalsForPendingChanges: false
+              canApplyDeclinedChanges: true
+              minNumApprovals: 1
+              autoApplyApprovedChanges: true
+              required: true
           apiKey: sdk-xxx
           color: F5A623
           critical: true
@@ -31140,6 +31861,19 @@ components:
             minNumApprovals: 1
             autoApplyApprovedChanges: true
             required: true
+          resourceApprovalSettings:
+            key:
+              serviceKind: launchdarkly
+              canReviewOwnRequest: false
+              serviceConfig: {}
+              requiredApprovalTags:
+              - require-approval
+              serviceKindConfigurationId: 1ef45a85-218f-4428-a8b2-a97e5f56c258
+              bypassApprovalsForPendingChanges: false
+              canApplyDeclinedChanges: true
+              minNumApprovals: 1
+              autoApplyApprovedChanges: true
+              required: true
           apiKey: sdk-xxx
           color: F5A623
           critical: true
@@ -31170,6 +31904,19 @@ components:
             minNumApprovals: 1
             autoApplyApprovedChanges: true
             required: true
+          resourceApprovalSettings:
+            key:
+              serviceKind: launchdarkly
+              canReviewOwnRequest: false
+              serviceConfig: {}
+              requiredApprovalTags:
+              - require-approval
+              serviceKindConfigurationId: 1ef45a85-218f-4428-a8b2-a97e5f56c258
+              bypassApprovalsForPendingChanges: false
+              canApplyDeclinedChanges: true
+              minNumApprovals: 1
+              autoApplyApprovedChanges: true
+              required: true
           apiKey: sdk-xxx
           color: F5A623
           critical: true
@@ -31277,6 +32024,19 @@ components:
                 minNumApprovals: 1
                 autoApplyApprovedChanges: true
                 required: true
+              resourceApprovalSettings:
+                key:
+                  serviceKind: launchdarkly
+                  canReviewOwnRequest: false
+                  serviceConfig: {}
+                  requiredApprovalTags:
+                  - require-approval
+                  serviceKindConfigurationId: 1ef45a85-218f-4428-a8b2-a97e5f56c258
+                  bypassApprovalsForPendingChanges: false
+                  canApplyDeclinedChanges: true
+                  minNumApprovals: 1
+                  autoApplyApprovedChanges: true
+                  required: true
               apiKey: sdk-xxx
               color: F5A623
               critical: true
@@ -31307,6 +32067,19 @@ components:
                 minNumApprovals: 1
                 autoApplyApprovedChanges: true
                 required: true
+              resourceApprovalSettings:
+                key:
+                  serviceKind: launchdarkly
+                  canReviewOwnRequest: false
+                  serviceConfig: {}
+                  requiredApprovalTags:
+                  - require-approval
+                  serviceKindConfigurationId: 1ef45a85-218f-4428-a8b2-a97e5f56c258
+                  bypassApprovalsForPendingChanges: false
+                  canApplyDeclinedChanges: true
+                  minNumApprovals: 1
+                  autoApplyApprovedChanges: true
+                  required: true
               apiKey: sdk-xxx
               color: F5A623
               critical: true
@@ -31364,6 +32137,193 @@ components:
           minNumApprovals: 1
           autoApplyApprovedChanges: true
           required: true
+        resource:
+          flag:
+            archivedDate: 7
+            temporary: true
+            _maintainer:
+              firstName: Ariel
+              lastName: Flores
+              role: admin
+              _links:
+                self:
+                  href: /api/v2/members/569f183514f4432160000007
+                  type: application/json
+              _id: 569f183514f4432160000007
+              email: ariel@acme.com
+            clientSideAvailability:
+              usingEnvironmentId: true
+              usingMobileKey: true
+            _links:
+              parent:
+                href: /api/v2/flags/my-project
+                type: application/json
+              self:
+                href: /api/v2/flags/my-project/my-flag
+                type: application/json
+            kind: boolean
+            description: This flag controls the example widgets
+            creationDate: 2
+            tags:
+            - example-tag
+            archived: false
+            includeInSnippet: true
+            maintainerId: 569f183514f4432160000007
+            customProperties:
+              key:
+                name: Jira issues
+                value:
+                - is-123
+                - is-456
+            defaults:
+              onVariation: 0
+              offVariation: 1
+            variations:
+            - _id: e432f62b-55f6-49dd-a02f-eb24acf39d05
+              value: true
+            - _id: a00bf58d-d252-476c-b915-15a74becacb4
+              value: false
+            name: My Flag
+            _version: 1
+            key: flag-key-123abc
+          kind: flag
+          segment:
+            generation: 2
+            _flags:
+            - _links:
+                key:
+                  href: href
+                  type: type
+              _site:
+                href: href
+                type: type
+              name: Example flag
+              key: flag-key-123abc
+            - _links:
+                key:
+                  href: href
+                  type: type
+              _site:
+                href: href
+                type: type
+              name: Example flag
+              key: flag-key-123abc
+            unboundedContextKind: unboundedContextKind
+            _externalLink: https://analytics.amplitude.com/org/1234/cohort/123abc
+            lastModifiedDate: 3
+            _links:
+              key:
+                href: href
+                type: type
+            description: Bundle our sample customers together
+            rules:
+            - _id: 1234a56b7c89d012345e678f
+              clauses:
+              - _id: 12ab3c45de678910fab12345
+                attribute: email
+                negate: false
+                op: endsWith
+                values:
+                - .edu
+            creationDate: 9
+            includedContexts:
+            - values:
+              - values
+              - values
+              contextKind: contextKind
+            - values:
+              - values
+              - values
+              contextKind: contextKind
+            version: 1
+            tags:
+            - testing
+            excluded:
+            - user-key-123abc
+            _importInProgress: false
+            _unboundedMetadata:
+              deleted: true
+              segmentId: segmentId
+              includedCount: 7
+              envId: envId
+              excludedCount: 1
+              lastModified: 1
+              version: 4
+            deleted: false
+            _access:
+              allowed:
+              - reason:
+                  role_name: role_name
+                  notActions:
+                  - null
+                  - null
+                  notResources:
+                  - notResources
+                  - notResources
+                  effect: allow
+                  resources:
+                  - proj/*:env/*;qa_*:/flag/*
+                  actions:
+                  - '*'
+                action: action
+              - reason:
+                  role_name: role_name
+                  notActions:
+                  - null
+                  - null
+                  notResources:
+                  - notResources
+                  - notResources
+                  effect: allow
+                  resources:
+                  - proj/*:env/*;qa_*:/flag/*
+                  actions:
+                  - '*'
+                action: action
+              denied:
+              - reason:
+                  role_name: role_name
+                  notActions:
+                  - null
+                  - null
+                  notResources:
+                  - notResources
+                  - notResources
+                  effect: allow
+                  resources:
+                  - proj/*:env/*;qa_*:/flag/*
+                  actions:
+                  - '*'
+                action: action
+              - reason:
+                  role_name: role_name
+                  notActions:
+                  - null
+                  - null
+                  notResources:
+                  - notResources
+                  - notResources
+                  effect: allow
+                  resources:
+                  - proj/*:env/*;qa_*:/flag/*
+                  actions:
+                  - '*'
+                action: action
+            _external: amplitude
+            name: Example segment
+            excludedContexts:
+            - values:
+              - values
+              - values
+              contextKind: contextKind
+            - values:
+              - values
+              - values
+              contextKind: contextKind
+            unbounded: false
+            included:
+            - user-key-123abc
+            key: segment-key-123abc
         appliedDate: 1
         creationDate: 0
         requestorId: 12ab3c45de678910abc12345
@@ -31483,6 +32443,8 @@ components:
           type: array
         flag:
           $ref: '#/components/schemas/ExpandedFlagRep'
+        resource:
+          $ref: '#/components/schemas/ExpandedResourceRep'
       required:
       - _id
       - _links
@@ -31586,6 +32548,19 @@ components:
               minNumApprovals: 1
               autoApplyApprovedChanges: true
               required: true
+            resourceApprovalSettings:
+              key:
+                serviceKind: launchdarkly
+                canReviewOwnRequest: false
+                serviceConfig: {}
+                requiredApprovalTags:
+                - require-approval
+                serviceKindConfigurationId: 1ef45a85-218f-4428-a8b2-a97e5f56c258
+                bypassApprovalsForPendingChanges: false
+                canApplyDeclinedChanges: true
+                minNumApprovals: 1
+                autoApplyApprovedChanges: true
+                required: true
             apiKey: sdk-xxx
             color: F5A623
             critical: true
@@ -31616,6 +32591,19 @@ components:
               minNumApprovals: 1
               autoApplyApprovedChanges: true
               required: true
+            resourceApprovalSettings:
+              key:
+                serviceKind: launchdarkly
+                canReviewOwnRequest: false
+                serviceConfig: {}
+                requiredApprovalTags:
+                - require-approval
+                serviceKindConfigurationId: 1ef45a85-218f-4428-a8b2-a97e5f56c258
+                bypassApprovalsForPendingChanges: false
+                canApplyDeclinedChanges: true
+                minNumApprovals: 1
+                autoApplyApprovedChanges: true
+                required: true
             apiKey: sdk-xxx
             color: F5A623
             critical: true
@@ -31723,6 +32711,19 @@ components:
                   minNumApprovals: 1
                   autoApplyApprovedChanges: true
                   required: true
+                resourceApprovalSettings:
+                  key:
+                    serviceKind: launchdarkly
+                    canReviewOwnRequest: false
+                    serviceConfig: {}
+                    requiredApprovalTags:
+                    - require-approval
+                    serviceKindConfigurationId: 1ef45a85-218f-4428-a8b2-a97e5f56c258
+                    bypassApprovalsForPendingChanges: false
+                    canApplyDeclinedChanges: true
+                    minNumApprovals: 1
+                    autoApplyApprovedChanges: true
+                    required: true
                 apiKey: sdk-xxx
                 color: F5A623
                 critical: true
@@ -31753,6 +32754,19 @@ components:
                   minNumApprovals: 1
                   autoApplyApprovedChanges: true
                   required: true
+                resourceApprovalSettings:
+                  key:
+                    serviceKind: launchdarkly
+                    canReviewOwnRequest: false
+                    serviceConfig: {}
+                    requiredApprovalTags:
+                    - require-approval
+                    serviceKindConfigurationId: 1ef45a85-218f-4428-a8b2-a97e5f56c258
+                    bypassApprovalsForPendingChanges: false
+                    canApplyDeclinedChanges: true
+                    minNumApprovals: 1
+                    autoApplyApprovedChanges: true
+                    required: true
                 apiKey: sdk-xxx
                 color: F5A623
                 critical: true
@@ -31810,6 +32824,193 @@ components:
             minNumApprovals: 1
             autoApplyApprovedChanges: true
             required: true
+          resource:
+            flag:
+              archivedDate: 7
+              temporary: true
+              _maintainer:
+                firstName: Ariel
+                lastName: Flores
+                role: admin
+                _links:
+                  self:
+                    href: /api/v2/members/569f183514f4432160000007
+                    type: application/json
+                _id: 569f183514f4432160000007
+                email: ariel@acme.com
+              clientSideAvailability:
+                usingEnvironmentId: true
+                usingMobileKey: true
+              _links:
+                parent:
+                  href: /api/v2/flags/my-project
+                  type: application/json
+                self:
+                  href: /api/v2/flags/my-project/my-flag
+                  type: application/json
+              kind: boolean
+              description: This flag controls the example widgets
+              creationDate: 2
+              tags:
+              - example-tag
+              archived: false
+              includeInSnippet: true
+              maintainerId: 569f183514f4432160000007
+              customProperties:
+                key:
+                  name: Jira issues
+                  value:
+                  - is-123
+                  - is-456
+              defaults:
+                onVariation: 0
+                offVariation: 1
+              variations:
+              - _id: e432f62b-55f6-49dd-a02f-eb24acf39d05
+                value: true
+              - _id: a00bf58d-d252-476c-b915-15a74becacb4
+                value: false
+              name: My Flag
+              _version: 1
+              key: flag-key-123abc
+            kind: flag
+            segment:
+              generation: 2
+              _flags:
+              - _links:
+                  key:
+                    href: href
+                    type: type
+                _site:
+                  href: href
+                  type: type
+                name: Example flag
+                key: flag-key-123abc
+              - _links:
+                  key:
+                    href: href
+                    type: type
+                _site:
+                  href: href
+                  type: type
+                name: Example flag
+                key: flag-key-123abc
+              unboundedContextKind: unboundedContextKind
+              _externalLink: https://analytics.amplitude.com/org/1234/cohort/123abc
+              lastModifiedDate: 3
+              _links:
+                key:
+                  href: href
+                  type: type
+              description: Bundle our sample customers together
+              rules:
+              - _id: 1234a56b7c89d012345e678f
+                clauses:
+                - _id: 12ab3c45de678910fab12345
+                  attribute: email
+                  negate: false
+                  op: endsWith
+                  values:
+                  - .edu
+              creationDate: 9
+              includedContexts:
+              - values:
+                - values
+                - values
+                contextKind: contextKind
+              - values:
+                - values
+                - values
+                contextKind: contextKind
+              version: 1
+              tags:
+              - testing
+              excluded:
+              - user-key-123abc
+              _importInProgress: false
+              _unboundedMetadata:
+                deleted: true
+                segmentId: segmentId
+                includedCount: 7
+                envId: envId
+                excludedCount: 1
+                lastModified: 1
+                version: 4
+              deleted: false
+              _access:
+                allowed:
+                - reason:
+                    role_name: role_name
+                    notActions:
+                    - null
+                    - null
+                    notResources:
+                    - notResources
+                    - notResources
+                    effect: allow
+                    resources:
+                    - proj/*:env/*;qa_*:/flag/*
+                    actions:
+                    - '*'
+                  action: action
+                - reason:
+                    role_name: role_name
+                    notActions:
+                    - null
+                    - null
+                    notResources:
+                    - notResources
+                    - notResources
+                    effect: allow
+                    resources:
+                    - proj/*:env/*;qa_*:/flag/*
+                    actions:
+                    - '*'
+                  action: action
+                denied:
+                - reason:
+                    role_name: role_name
+                    notActions:
+                    - null
+                    - null
+                    notResources:
+                    - notResources
+                    - notResources
+                    effect: allow
+                    resources:
+                    - proj/*:env/*;qa_*:/flag/*
+                    actions:
+                    - '*'
+                  action: action
+                - reason:
+                    role_name: role_name
+                    notActions:
+                    - null
+                    - null
+                    notResources:
+                    - notResources
+                    - notResources
+                    effect: allow
+                    resources:
+                    - proj/*:env/*;qa_*:/flag/*
+                    actions:
+                    - '*'
+                  action: action
+              _external: amplitude
+              name: Example segment
+              excludedContexts:
+              - values:
+                - values
+                - values
+                contextKind: contextKind
+              - values:
+                - values
+                - values
+                contextKind: contextKind
+              unbounded: false
+              included:
+              - user-key-123abc
+              key: segment-key-123abc
           appliedDate: 1
           creationDate: 0
           requestorId: 12ab3c45de678910abc12345
@@ -31907,6 +33108,19 @@ components:
               minNumApprovals: 1
               autoApplyApprovedChanges: true
               required: true
+            resourceApprovalSettings:
+              key:
+                serviceKind: launchdarkly
+                canReviewOwnRequest: false
+                serviceConfig: {}
+                requiredApprovalTags:
+                - require-approval
+                serviceKindConfigurationId: 1ef45a85-218f-4428-a8b2-a97e5f56c258
+                bypassApprovalsForPendingChanges: false
+                canApplyDeclinedChanges: true
+                minNumApprovals: 1
+                autoApplyApprovedChanges: true
+                required: true
             apiKey: sdk-xxx
             color: F5A623
             critical: true
@@ -31937,6 +33151,19 @@ components:
               minNumApprovals: 1
               autoApplyApprovedChanges: true
               required: true
+            resourceApprovalSettings:
+              key:
+                serviceKind: launchdarkly
+                canReviewOwnRequest: false
+                serviceConfig: {}
+                requiredApprovalTags:
+                - require-approval
+                serviceKindConfigurationId: 1ef45a85-218f-4428-a8b2-a97e5f56c258
+                bypassApprovalsForPendingChanges: false
+                canApplyDeclinedChanges: true
+                minNumApprovals: 1
+                autoApplyApprovedChanges: true
+                required: true
             apiKey: sdk-xxx
             color: F5A623
             critical: true
@@ -32044,6 +33271,19 @@ components:
                   minNumApprovals: 1
                   autoApplyApprovedChanges: true
                   required: true
+                resourceApprovalSettings:
+                  key:
+                    serviceKind: launchdarkly
+                    canReviewOwnRequest: false
+                    serviceConfig: {}
+                    requiredApprovalTags:
+                    - require-approval
+                    serviceKindConfigurationId: 1ef45a85-218f-4428-a8b2-a97e5f56c258
+                    bypassApprovalsForPendingChanges: false
+                    canApplyDeclinedChanges: true
+                    minNumApprovals: 1
+                    autoApplyApprovedChanges: true
+                    required: true
                 apiKey: sdk-xxx
                 color: F5A623
                 critical: true
@@ -32074,6 +33314,19 @@ components:
                   minNumApprovals: 1
                   autoApplyApprovedChanges: true
                   required: true
+                resourceApprovalSettings:
+                  key:
+                    serviceKind: launchdarkly
+                    canReviewOwnRequest: false
+                    serviceConfig: {}
+                    requiredApprovalTags:
+                    - require-approval
+                    serviceKindConfigurationId: 1ef45a85-218f-4428-a8b2-a97e5f56c258
+                    bypassApprovalsForPendingChanges: false
+                    canApplyDeclinedChanges: true
+                    minNumApprovals: 1
+                    autoApplyApprovedChanges: true
+                    required: true
                 apiKey: sdk-xxx
                 color: F5A623
                 critical: true
@@ -32131,6 +33384,193 @@ components:
             minNumApprovals: 1
             autoApplyApprovedChanges: true
             required: true
+          resource:
+            flag:
+              archivedDate: 7
+              temporary: true
+              _maintainer:
+                firstName: Ariel
+                lastName: Flores
+                role: admin
+                _links:
+                  self:
+                    href: /api/v2/members/569f183514f4432160000007
+                    type: application/json
+                _id: 569f183514f4432160000007
+                email: ariel@acme.com
+              clientSideAvailability:
+                usingEnvironmentId: true
+                usingMobileKey: true
+              _links:
+                parent:
+                  href: /api/v2/flags/my-project
+                  type: application/json
+                self:
+                  href: /api/v2/flags/my-project/my-flag
+                  type: application/json
+              kind: boolean
+              description: This flag controls the example widgets
+              creationDate: 2
+              tags:
+              - example-tag
+              archived: false
+              includeInSnippet: true
+              maintainerId: 569f183514f4432160000007
+              customProperties:
+                key:
+                  name: Jira issues
+                  value:
+                  - is-123
+                  - is-456
+              defaults:
+                onVariation: 0
+                offVariation: 1
+              variations:
+              - _id: e432f62b-55f6-49dd-a02f-eb24acf39d05
+                value: true
+              - _id: a00bf58d-d252-476c-b915-15a74becacb4
+                value: false
+              name: My Flag
+              _version: 1
+              key: flag-key-123abc
+            kind: flag
+            segment:
+              generation: 2
+              _flags:
+              - _links:
+                  key:
+                    href: href
+                    type: type
+                _site:
+                  href: href
+                  type: type
+                name: Example flag
+                key: flag-key-123abc
+              - _links:
+                  key:
+                    href: href
+                    type: type
+                _site:
+                  href: href
+                  type: type
+                name: Example flag
+                key: flag-key-123abc
+              unboundedContextKind: unboundedContextKind
+              _externalLink: https://analytics.amplitude.com/org/1234/cohort/123abc
+              lastModifiedDate: 3
+              _links:
+                key:
+                  href: href
+                  type: type
+              description: Bundle our sample customers together
+              rules:
+              - _id: 1234a56b7c89d012345e678f
+                clauses:
+                - _id: 12ab3c45de678910fab12345
+                  attribute: email
+                  negate: false
+                  op: endsWith
+                  values:
+                  - .edu
+              creationDate: 9
+              includedContexts:
+              - values:
+                - values
+                - values
+                contextKind: contextKind
+              - values:
+                - values
+                - values
+                contextKind: contextKind
+              version: 1
+              tags:
+              - testing
+              excluded:
+              - user-key-123abc
+              _importInProgress: false
+              _unboundedMetadata:
+                deleted: true
+                segmentId: segmentId
+                includedCount: 7
+                envId: envId
+                excludedCount: 1
+                lastModified: 1
+                version: 4
+              deleted: false
+              _access:
+                allowed:
+                - reason:
+                    role_name: role_name
+                    notActions:
+                    - null
+                    - null
+                    notResources:
+                    - notResources
+                    - notResources
+                    effect: allow
+                    resources:
+                    - proj/*:env/*;qa_*:/flag/*
+                    actions:
+                    - '*'
+                  action: action
+                - reason:
+                    role_name: role_name
+                    notActions:
+                    - null
+                    - null
+                    notResources:
+                    - notResources
+                    - notResources
+                    effect: allow
+                    resources:
+                    - proj/*:env/*;qa_*:/flag/*
+                    actions:
+                    - '*'
+                  action: action
+                denied:
+                - reason:
+                    role_name: role_name
+                    notActions:
+                    - null
+                    - null
+                    notResources:
+                    - notResources
+                    - notResources
+                    effect: allow
+                    resources:
+                    - proj/*:env/*;qa_*:/flag/*
+                    actions:
+                    - '*'
+                  action: action
+                - reason:
+                    role_name: role_name
+                    notActions:
+                    - null
+                    - null
+                    notResources:
+                    - notResources
+                    - notResources
+                    effect: allow
+                    resources:
+                    - proj/*:env/*;qa_*:/flag/*
+                    actions:
+                    - '*'
+                  action: action
+              _external: amplitude
+              name: Example segment
+              excludedContexts:
+              - values:
+                - values
+                - values
+                contextKind: contextKind
+              - values:
+                - values
+                - values
+                contextKind: contextKind
+              unbounded: false
+              included:
+              - user-key-123abc
+              key: segment-key-123abc
           appliedDate: 1
           creationDate: 0
           requestorId: 12ab3c45de678910abc12345
@@ -32314,6 +33754,206 @@ components:
       - tags
       - temporary
       - variations
+      type: object
+    ExpandedResourceRep:
+      example:
+        flag:
+          archivedDate: 7
+          temporary: true
+          _maintainer:
+            firstName: Ariel
+            lastName: Flores
+            role: admin
+            _links:
+              self:
+                href: /api/v2/members/569f183514f4432160000007
+                type: application/json
+            _id: 569f183514f4432160000007
+            email: ariel@acme.com
+          clientSideAvailability:
+            usingEnvironmentId: true
+            usingMobileKey: true
+          _links:
+            parent:
+              href: /api/v2/flags/my-project
+              type: application/json
+            self:
+              href: /api/v2/flags/my-project/my-flag
+              type: application/json
+          kind: boolean
+          description: This flag controls the example widgets
+          creationDate: 2
+          tags:
+          - example-tag
+          archived: false
+          includeInSnippet: true
+          maintainerId: 569f183514f4432160000007
+          customProperties:
+            key:
+              name: Jira issues
+              value:
+              - is-123
+              - is-456
+          defaults:
+            onVariation: 0
+            offVariation: 1
+          variations:
+          - _id: e432f62b-55f6-49dd-a02f-eb24acf39d05
+            value: true
+          - _id: a00bf58d-d252-476c-b915-15a74becacb4
+            value: false
+          name: My Flag
+          _version: 1
+          key: flag-key-123abc
+        kind: flag
+        segment:
+          generation: 2
+          _flags:
+          - _links:
+              key:
+                href: href
+                type: type
+            _site:
+              href: href
+              type: type
+            name: Example flag
+            key: flag-key-123abc
+          - _links:
+              key:
+                href: href
+                type: type
+            _site:
+              href: href
+              type: type
+            name: Example flag
+            key: flag-key-123abc
+          unboundedContextKind: unboundedContextKind
+          _externalLink: https://analytics.amplitude.com/org/1234/cohort/123abc
+          lastModifiedDate: 3
+          _links:
+            key:
+              href: href
+              type: type
+          description: Bundle our sample customers together
+          rules:
+          - _id: 1234a56b7c89d012345e678f
+            clauses:
+            - _id: 12ab3c45de678910fab12345
+              attribute: email
+              negate: false
+              op: endsWith
+              values:
+              - .edu
+          creationDate: 9
+          includedContexts:
+          - values:
+            - values
+            - values
+            contextKind: contextKind
+          - values:
+            - values
+            - values
+            contextKind: contextKind
+          version: 1
+          tags:
+          - testing
+          excluded:
+          - user-key-123abc
+          _importInProgress: false
+          _unboundedMetadata:
+            deleted: true
+            segmentId: segmentId
+            includedCount: 7
+            envId: envId
+            excludedCount: 1
+            lastModified: 1
+            version: 4
+          deleted: false
+          _access:
+            allowed:
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: allow
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+              action: action
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: allow
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+              action: action
+            denied:
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: allow
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+              action: action
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: allow
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+              action: action
+          _external: amplitude
+          name: Example segment
+          excludedContexts:
+          - values:
+            - values
+            - values
+            contextKind: contextKind
+          - values:
+            - values
+            - values
+            contextKind: contextKind
+          unbounded: false
+          included:
+          - user-key-123abc
+          key: segment-key-123abc
+      properties:
+        kind:
+          description: The type of resource
+          example: flag
+          type: string
+        flag:
+          $ref: '#/components/schemas/ExpandedFlagRep'
+        segment:
+          $ref: '#/components/schemas/UserSegment'
+      required:
+      - kind
       type: object
     Experiment:
       example:
@@ -39731,8 +41371,44 @@ components:
       - code
       - message
       type: object
+    FormVariable:
+      properties:
+        key:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+        description:
+          type: string
+        placeholder:
+          type: string
+        isOptional:
+          type: boolean
+        defaultValue: {}
+        allowedValues:
+          items:
+            type: string
+          type: array
+        dynamicOptions:
+          $ref: '#/components/schemas/DynamicOptions'
+      type: object
     FormVariableConfig:
       additionalProperties: {}
+      type: object
+    HMACSignature:
+      properties:
+        headerName:
+          type: string
+        hmacSecretFormVariableKey:
+          type: string
+      type: object
+    HeaderItems:
+      properties:
+        name:
+          type: string
+        value:
+          type: string
       type: object
     HoldoutDetailRep:
       example:
@@ -44066,6 +45742,443 @@ components:
         apiKey:
           description: Datadog API key. Only used for legacy Datadog webhook integrations.
           type: string
+      type: object
+    IntegrationConfigurationCollectionRep:
+      example:
+        _links:
+          key:
+            href: href
+            type: type
+        items:
+        - configValues:
+            key: ""
+          _access:
+            allowed:
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: allow
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+              action: action
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: allow
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+              action: action
+            denied:
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: allow
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+              action: action
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: allow
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+              action: action
+          _links:
+            key:
+              href: href
+              type: type
+          _createdAt: 0
+          name: Example Datadog integration
+          _id: _id
+          _integrationKey: datadog
+          enabled: true
+          capabilityConfig:
+            auditLogEventsHook:
+              statements:
+              - notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: allow
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+              - notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: allow
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+            approvals:
+              additionalFormVariables: invalid example
+          tags:
+          - testing
+        - configValues:
+            key: ""
+          _access:
+            allowed:
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: allow
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+              action: action
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: allow
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+              action: action
+            denied:
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: allow
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+              action: action
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: allow
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+              action: action
+          _links:
+            key:
+              href: href
+              type: type
+          _createdAt: 0
+          name: Example Datadog integration
+          _id: _id
+          _integrationKey: datadog
+          enabled: true
+          capabilityConfig:
+            auditLogEventsHook:
+              statements:
+              - notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: allow
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+              - notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: allow
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+            approvals:
+              additionalFormVariables: invalid example
+          tags:
+          - testing
+      properties:
+        items:
+          description: An array of integration configurations
+          items:
+            $ref: '#/components/schemas/IntegrationConfigurationsRep'
+          type: array
+        _links:
+          additionalProperties:
+            $ref: '#/components/schemas/Link'
+          description: The location and content type of related resources
+          type: object
+      required:
+      - _links
+      - items
+      type: object
+    IntegrationConfigurationPost:
+      example:
+        configValues:
+          optional: an optional property
+          required: the required property
+          url: https://example.com
+        name: Example integration configuration
+        enabled: true
+        capabilityConfig:
+          auditLogEventsHook:
+            statements:
+            - notActions:
+              - null
+              - null
+              notResources:
+              - notResources
+              - notResources
+              effect: allow
+              resources:
+              - proj/*:env/*:flag/*;testing-tag
+              actions:
+              - '*'
+            - notActions:
+              - null
+              - null
+              notResources:
+              - notResources
+              - notResources
+              effect: allow
+              resources:
+              - proj/*:env/*:flag/*;testing-tag
+              actions:
+              - '*'
+          approvals:
+            additionalFormVariables: invalid example
+        tags:
+        - ops
+      properties:
+        name:
+          description: The name of the integration configuration
+          example: Example integration configuration
+          type: string
+        enabled:
+          description: "Whether the integration configuration is enabled. If omitted,\
+            \ defaults to true"
+          example: true
+          type: boolean
+        tags:
+          description: Tags for the integration
+          example:
+          - ops
+          items:
+            type: string
+          type: array
+        configValues:
+          additionalProperties: {}
+          description: The unique set of fields required to configure the integration.
+            Refer to the <code>formVariables</code> field in the corresponding <code>manifest.json</code>
+            at https://github.com/launchdarkly/integration-framework/tree/main/integrations
+            for a full list of fields for the integration you wish to configure.
+          example:
+            optional: an optional property
+            required: the required property
+            url: https://example.com
+          type: object
+        capabilityConfig:
+          $ref: '#/components/schemas/CapabilityConfigPost'
+      required:
+      - configValues
+      - name
+      type: object
+    IntegrationConfigurationsRep:
+      example:
+        configValues:
+          key: ""
+        _access:
+          allowed:
+          - reason:
+              role_name: role_name
+              notActions:
+              - null
+              - null
+              notResources:
+              - notResources
+              - notResources
+              effect: allow
+              resources:
+              - proj/*:env/*;qa_*:/flag/*
+              actions:
+              - '*'
+            action: action
+          - reason:
+              role_name: role_name
+              notActions:
+              - null
+              - null
+              notResources:
+              - notResources
+              - notResources
+              effect: allow
+              resources:
+              - proj/*:env/*;qa_*:/flag/*
+              actions:
+              - '*'
+            action: action
+          denied:
+          - reason:
+              role_name: role_name
+              notActions:
+              - null
+              - null
+              notResources:
+              - notResources
+              - notResources
+              effect: allow
+              resources:
+              - proj/*:env/*;qa_*:/flag/*
+              actions:
+              - '*'
+            action: action
+          - reason:
+              role_name: role_name
+              notActions:
+              - null
+              - null
+              notResources:
+              - notResources
+              - notResources
+              effect: allow
+              resources:
+              - proj/*:env/*;qa_*:/flag/*
+              actions:
+              - '*'
+            action: action
+        _links:
+          key:
+            href: href
+            type: type
+        _createdAt: 0
+        name: Example Datadog integration
+        _id: _id
+        _integrationKey: datadog
+        enabled: true
+        capabilityConfig:
+          auditLogEventsHook:
+            statements:
+            - notActions:
+              - null
+              - null
+              notResources:
+              - notResources
+              - notResources
+              effect: allow
+              resources:
+              - proj/*:env/*;qa_*:/flag/*
+              actions:
+              - '*'
+            - notActions:
+              - null
+              - null
+              notResources:
+              - notResources
+              - notResources
+              effect: allow
+              resources:
+              - proj/*:env/*;qa_*:/flag/*
+              actions:
+              - '*'
+          approvals:
+            additionalFormVariables: invalid example
+        tags:
+        - testing
+      properties:
+        _links:
+          additionalProperties:
+            $ref: '#/components/schemas/Link'
+          description: The location and content type of related resources
+          type: object
+        _id:
+          description: The unique identifier for this integration configuration
+          type: string
+        name:
+          description: A human-friendly name for the integration
+          example: Example Datadog integration
+          type: string
+        _createdAt:
+          format: int64
+          type: integer
+        _integrationKey:
+          description: The type of integration
+          example: datadog
+          type: string
+        tags:
+          description: An array of tags for this integration
+          example:
+          - testing
+          items:
+            type: string
+          type: array
+        enabled:
+          description: Whether the integration is currently active
+          type: boolean
+        _access:
+          $ref: '#/components/schemas/Access'
+        configValues:
+          additionalProperties: {}
+          description: Details on configuration for an integration of this type. Refer
+            to the <code>formVariables</code> field in the corresponding <code>manifest.json</code>
+            for a full list of fields for each integration.
+          type: object
+        capabilityConfig:
+          $ref: '#/components/schemas/CapabilityConfigRep'
+      required:
+      - _id
+      - _links
+      - name
       type: object
     IntegrationDeliveryConfiguration:
       example:
@@ -48972,6 +51085,13 @@ components:
       type: string
     Operator:
       type: string
+    OptionsArray:
+      properties:
+        label:
+          type: string
+        value:
+          type: string
+      type: object
     ParameterDefault:
       example:
         ruleClause:
@@ -49079,8 +51199,7 @@ components:
       type: object
     Phase:
       example:
-        configuration:
-          bakeTimeDurationMs: 60000
+        configuration: "{}"
         name: Phase 1 - Testing
         audiences:
         - environment:
@@ -49144,20 +51263,15 @@ components:
           example: Phase 1 - Testing
           type: string
         configuration:
-          $ref: '#/components/schemas/PhaseConfiguration'
+          properties: {}
+          type: object
       required:
       - audiences
       - id
       - name
       type: object
     PhaseConfiguration:
-      example:
-        bakeTimeDurationMs: 60000
-      properties:
-        bakeTimeDurationMs:
-          description: The bake time duration in milliseconds
-          example: 60000
-          type: integer
+      properties: {}
       type: object
     PhaseInfo:
       example:
@@ -49305,6 +51419,19 @@ components:
               minNumApprovals: 1
               autoApplyApprovedChanges: true
               required: true
+            resourceApprovalSettings:
+              key:
+                serviceKind: launchdarkly
+                canReviewOwnRequest: false
+                serviceConfig: {}
+                requiredApprovalTags:
+                - require-approval
+                serviceKindConfigurationId: 1ef45a85-218f-4428-a8b2-a97e5f56c258
+                bypassApprovalsForPendingChanges: false
+                canApplyDeclinedChanges: true
+                minNumApprovals: 1
+                autoApplyApprovedChanges: true
+                required: true
             apiKey: sdk-xxx
             color: F5A623
             critical: true
@@ -49335,6 +51462,19 @@ components:
               minNumApprovals: 1
               autoApplyApprovedChanges: true
               required: true
+            resourceApprovalSettings:
+              key:
+                serviceKind: launchdarkly
+                canReviewOwnRequest: false
+                serviceConfig: {}
+                requiredApprovalTags:
+                - require-approval
+                serviceKindConfigurationId: 1ef45a85-218f-4428-a8b2-a97e5f56c258
+                bypassApprovalsForPendingChanges: false
+                canApplyDeclinedChanges: true
+                minNumApprovals: 1
+                autoApplyApprovedChanges: true
+                required: true
             apiKey: sdk-xxx
             color: F5A623
             critical: true
@@ -49575,6 +51715,19 @@ components:
             minNumApprovals: 1
             autoApplyApprovedChanges: true
             required: true
+          resourceApprovalSettings:
+            key:
+              serviceKind: launchdarkly
+              canReviewOwnRequest: false
+              serviceConfig: {}
+              requiredApprovalTags:
+              - require-approval
+              serviceKindConfigurationId: 1ef45a85-218f-4428-a8b2-a97e5f56c258
+              bypassApprovalsForPendingChanges: false
+              canApplyDeclinedChanges: true
+              minNumApprovals: 1
+              autoApplyApprovedChanges: true
+              required: true
           apiKey: sdk-xxx
           color: F5A623
           critical: true
@@ -49605,6 +51758,19 @@ components:
             minNumApprovals: 1
             autoApplyApprovedChanges: true
             required: true
+          resourceApprovalSettings:
+            key:
+              serviceKind: launchdarkly
+              canReviewOwnRequest: false
+              serviceConfig: {}
+              requiredApprovalTags:
+              - require-approval
+              serviceKindConfigurationId: 1ef45a85-218f-4428-a8b2-a97e5f56c258
+              bypassApprovalsForPendingChanges: false
+              canApplyDeclinedChanges: true
+              minNumApprovals: 1
+              autoApplyApprovedChanges: true
+              required: true
           apiKey: sdk-xxx
           color: F5A623
           critical: true
@@ -49827,6 +51993,19 @@ components:
                 minNumApprovals: 1
                 autoApplyApprovedChanges: true
                 required: true
+              resourceApprovalSettings:
+                key:
+                  serviceKind: launchdarkly
+                  canReviewOwnRequest: false
+                  serviceConfig: {}
+                  requiredApprovalTags:
+                  - require-approval
+                  serviceKindConfigurationId: 1ef45a85-218f-4428-a8b2-a97e5f56c258
+                  bypassApprovalsForPendingChanges: false
+                  canApplyDeclinedChanges: true
+                  minNumApprovals: 1
+                  autoApplyApprovedChanges: true
+                  required: true
               apiKey: sdk-xxx
               color: F5A623
               critical: true
@@ -49857,6 +52036,19 @@ components:
                 minNumApprovals: 1
                 autoApplyApprovedChanges: true
                 required: true
+              resourceApprovalSettings:
+                key:
+                  serviceKind: launchdarkly
+                  canReviewOwnRequest: false
+                  serviceConfig: {}
+                  requiredApprovalTags:
+                  - require-approval
+                  serviceKindConfigurationId: 1ef45a85-218f-4428-a8b2-a97e5f56c258
+                  bypassApprovalsForPendingChanges: false
+                  canApplyDeclinedChanges: true
+                  minNumApprovals: 1
+                  autoApplyApprovedChanges: true
+                  required: true
               apiKey: sdk-xxx
               color: F5A623
               critical: true
@@ -49970,6 +52162,19 @@ components:
                 minNumApprovals: 1
                 autoApplyApprovedChanges: true
                 required: true
+              resourceApprovalSettings:
+                key:
+                  serviceKind: launchdarkly
+                  canReviewOwnRequest: false
+                  serviceConfig: {}
+                  requiredApprovalTags:
+                  - require-approval
+                  serviceKindConfigurationId: 1ef45a85-218f-4428-a8b2-a97e5f56c258
+                  bypassApprovalsForPendingChanges: false
+                  canApplyDeclinedChanges: true
+                  minNumApprovals: 1
+                  autoApplyApprovedChanges: true
+                  required: true
               apiKey: sdk-xxx
               color: F5A623
               critical: true
@@ -50000,6 +52205,19 @@ components:
                 minNumApprovals: 1
                 autoApplyApprovedChanges: true
                 required: true
+              resourceApprovalSettings:
+                key:
+                  serviceKind: launchdarkly
+                  canReviewOwnRequest: false
+                  serviceConfig: {}
+                  requiredApprovalTags:
+                  - require-approval
+                  serviceKindConfigurationId: 1ef45a85-218f-4428-a8b2-a97e5f56c258
+                  bypassApprovalsForPendingChanges: false
+                  canApplyDeclinedChanges: true
+                  minNumApprovals: 1
+                  autoApplyApprovedChanges: true
+                  required: true
               apiKey: sdk-xxx
               color: F5A623
               critical: true
@@ -50678,8 +52896,7 @@ components:
         - _startedDate: 1
           _name: Phase 1 - Testing
           _completionDate: 6
-          configuration:
-            bakeTimeDurationMs: 60000
+          configuration: "{}"
           _audiences:
           - _ruleIds:
             - _ruleIds
@@ -50773,8 +52990,7 @@ components:
         - _startedDate: 1
           _name: Phase 1 - Testing
           _completionDate: 6
-          configuration:
-            bakeTimeDurationMs: 60000
+          configuration: "{}"
           _audiences:
           - _ruleIds:
             - _ruleIds
@@ -50974,7 +53190,6 @@ components:
           type: array
       required:
       - _id
-      - environment
       - name
       type: object
     ReleaseGuardianConfiguration:
@@ -51036,8 +53251,7 @@ components:
         _startedDate: 1
         _name: Phase 1 - Testing
         _completionDate: 6
-        configuration:
-          bakeTimeDurationMs: 60000
+        configuration: "{}"
         _audiences:
         - _ruleIds:
           - _ruleIds
@@ -51164,7 +53378,8 @@ components:
           format: int64
           type: integer
         configuration:
-          $ref: '#/components/schemas/PhaseConfiguration'
+          properties: {}
+          type: object
       required:
       - _audiences
       - _creationDate
@@ -51240,8 +53455,7 @@ components:
         _version: 1
         key: standard-pipeline
         phases:
-        - configuration:
-            bakeTimeDurationMs: 60000
+        - configuration: "{}"
           name: Phase 1 - Testing
           audiences:
           - environment:
@@ -51291,8 +53505,7 @@ components:
             segmentKeys:
             - segment-key-123abc
           id: 1234a56b7c89d012345e678f
-        - configuration:
-            bakeTimeDurationMs: 60000
+        - configuration: "{}"
           name: Phase 1 - Testing
           audiences:
           - environment:
@@ -51466,8 +53679,7 @@ components:
           _version: 1
           key: standard-pipeline
           phases:
-          - configuration:
-              bakeTimeDurationMs: 60000
+          - configuration: "{}"
             name: Phase 1 - Testing
             audiences:
             - environment:
@@ -51517,8 +53729,7 @@ components:
               segmentKeys:
               - segment-key-123abc
             id: 1234a56b7c89d012345e678f
-          - configuration:
-              bakeTimeDurationMs: 60000
+          - configuration: "{}"
             name: Phase 1 - Testing
             audiences:
             - environment:
@@ -51637,8 +53848,7 @@ components:
           _version: 1
           key: standard-pipeline
           phases:
-          - configuration:
-              bakeTimeDurationMs: 60000
+          - configuration: "{}"
             name: Phase 1 - Testing
             audiences:
             - environment:
@@ -51688,8 +53898,7 @@ components:
               segmentKeys:
               - segment-key-123abc
             id: 1234a56b7c89d012345e678f
-          - configuration:
-              bakeTimeDurationMs: 60000
+          - configuration: "{}"
             name: Phase 1 - Testing
             audiences:
             - environment:
@@ -52778,11 +54987,11 @@ components:
       example:
         deleted: true
         segmentId: segmentId
-        includedCount: 5
+        includedCount: 7
         envId: envId
-        excludedCount: 2
-        lastModified: 7
-        version: 5
+        excludedCount: 1
+        lastModified: 1
+        version: 4
       properties:
         envId:
           type: string
@@ -53615,6 +55824,8 @@ components:
         description: Description for this team.
         _creationDate: 0
         _idpSynced: true
+        roleAttributes:
+          key: null
         _access:
           allowed:
           - reason:
@@ -53725,6 +55936,10 @@ components:
             provider (IdP). Team sync is available to customers on an Enterprise plan.
           example: true
           type: boolean
+        roleAttributes:
+          additionalProperties:
+            $ref: '#/components/schemas/RoleAttributeValues'
+          type: object
         roles:
           $ref: '#/components/schemas/TeamCustomRoles'
         members:
@@ -54019,6 +56234,8 @@ components:
           description: Description for this team.
           _creationDate: 0
           _idpSynced: true
+          roleAttributes:
+            key: null
           _access:
             allowed:
             - reason:
@@ -54162,6 +56379,8 @@ components:
           description: Description for this team.
           _creationDate: 0
           _idpSynced: true
+          roleAttributes:
+            key: null
           _access:
             allowed:
             - reason:
@@ -54246,6 +56465,8 @@ components:
           description: The number of teams
           example: 1
           type: integer
+      required:
+      - items
       type: object
     TimestampRep:
       example:
@@ -54925,6 +57146,113 @@ components:
             $ref: '#/components/schemas/ReleaserAudienceConfigInput'
           type: array
       type: object
+    UpdateReleasePipelineInput:
+      example:
+        name: Standard Pipeline
+        description: Standard pipeline to roll out to production
+        phases:
+        - configuration: "{}"
+          name: Phase 1 - Testing
+          audiences:
+          - configuration:
+              notifyMemberIds:
+              - 1234a56b7c89d012345e678f
+              releaseGuardianConfiguration:
+                monitoringWindowMilliseconds: 60000
+                rolloutWeight: 50
+                randomizationUnit: user
+                rollbackOnRegression: true
+              requireApproval: true
+              releaseStrategy: releaseStrategy
+              notifyTeamKeys:
+              - example-reviewer-team
+            name: name
+            segmentKeys:
+            - segmentKeys
+            - segmentKeys
+            environmentKey: environmentKey
+          - configuration:
+              notifyMemberIds:
+              - 1234a56b7c89d012345e678f
+              releaseGuardianConfiguration:
+                monitoringWindowMilliseconds: 60000
+                rolloutWeight: 50
+                randomizationUnit: user
+                rollbackOnRegression: true
+              requireApproval: true
+              releaseStrategy: releaseStrategy
+              notifyTeamKeys:
+              - example-reviewer-team
+            name: name
+            segmentKeys:
+            - segmentKeys
+            - segmentKeys
+            environmentKey: environmentKey
+        - configuration: "{}"
+          name: Phase 1 - Testing
+          audiences:
+          - configuration:
+              notifyMemberIds:
+              - 1234a56b7c89d012345e678f
+              releaseGuardianConfiguration:
+                monitoringWindowMilliseconds: 60000
+                rolloutWeight: 50
+                randomizationUnit: user
+                rollbackOnRegression: true
+              requireApproval: true
+              releaseStrategy: releaseStrategy
+              notifyTeamKeys:
+              - example-reviewer-team
+            name: name
+            segmentKeys:
+            - segmentKeys
+            - segmentKeys
+            environmentKey: environmentKey
+          - configuration:
+              notifyMemberIds:
+              - 1234a56b7c89d012345e678f
+              releaseGuardianConfiguration:
+                monitoringWindowMilliseconds: 60000
+                rolloutWeight: 50
+                randomizationUnit: user
+                rollbackOnRegression: true
+              requireApproval: true
+              releaseStrategy: releaseStrategy
+              notifyTeamKeys:
+              - example-reviewer-team
+            name: name
+            segmentKeys:
+            - segmentKeys
+            - segmentKeys
+            environmentKey: environmentKey
+        tags:
+        - example-tag
+      properties:
+        description:
+          description: The release pipeline description
+          example: Standard pipeline to roll out to production
+          type: string
+        name:
+          description: The name of the release pipeline
+          example: Standard Pipeline
+          type: string
+        phases:
+          description: A logical grouping of one or more environments that share attributes
+            for rolling out changes
+          items:
+            $ref: '#/components/schemas/CreatePhaseInput'
+          type: array
+        tags:
+          description: A list of tags for this release pipeline
+          example:
+          - example-tag
+          items:
+            type: string
+          type: array
+      required:
+      - name
+      - phases
+      type: object
     UpsertContextKindPayload:
       example:
         hideInTargeting: false
@@ -55396,7 +57724,7 @@ components:
       type: object
     UserSegment:
       example:
-        generation: 1
+        generation: 2
         _flags:
         - _links:
             key:
@@ -55418,7 +57746,7 @@ components:
           key: flag-key-123abc
         unboundedContextKind: unboundedContextKind
         _externalLink: https://analytics.amplitude.com/org/1234/cohort/123abc
-        lastModifiedDate: 6
+        lastModifiedDate: 3
         _links:
           key:
             href: href
@@ -55433,7 +57761,7 @@ components:
             op: endsWith
             values:
             - .edu
-        creationDate: 0
+        creationDate: 9
         includedContexts:
         - values:
           - values
@@ -55452,11 +57780,11 @@ components:
         _unboundedMetadata:
           deleted: true
           segmentId: segmentId
-          includedCount: 5
+          includedCount: 7
           envId: envId
-          excludedCount: 2
-          lastModified: 7
-          version: 5
+          excludedCount: 1
+          lastModified: 1
+          version: 4
         deleted: false
         _access:
           allowed:
@@ -55691,9 +58019,9 @@ components:
           key:
             href: href
             type: type
-        totalCount: 9
+        totalCount: 0
         items:
-        - generation: 1
+        - generation: 2
           _flags:
           - _links:
               key:
@@ -55715,7 +58043,7 @@ components:
             key: flag-key-123abc
           unboundedContextKind: unboundedContextKind
           _externalLink: https://analytics.amplitude.com/org/1234/cohort/123abc
-          lastModifiedDate: 6
+          lastModifiedDate: 3
           _links:
             key:
               href: href
@@ -55730,7 +58058,7 @@ components:
               op: endsWith
               values:
               - .edu
-          creationDate: 0
+          creationDate: 9
           includedContexts:
           - values:
             - values
@@ -55749,11 +58077,11 @@ components:
           _unboundedMetadata:
             deleted: true
             segmentId: segmentId
-            includedCount: 5
+            includedCount: 7
             envId: envId
-            excludedCount: 2
-            lastModified: 7
-            version: 5
+            excludedCount: 1
+            lastModified: 1
+            version: 4
           deleted: false
           _access:
             allowed:
@@ -55829,7 +58157,7 @@ components:
           included:
           - user-key-123abc
           key: segment-key-123abc
-        - generation: 1
+        - generation: 2
           _flags:
           - _links:
               key:
@@ -55851,7 +58179,7 @@ components:
             key: flag-key-123abc
           unboundedContextKind: unboundedContextKind
           _externalLink: https://analytics.amplitude.com/org/1234/cohort/123abc
-          lastModifiedDate: 6
+          lastModifiedDate: 3
           _links:
             key:
               href: href
@@ -55866,7 +58194,7 @@ components:
               op: endsWith
               values:
               - .edu
-          creationDate: 0
+          creationDate: 9
           includedContexts:
           - values:
             - values
@@ -55885,11 +58213,11 @@ components:
           _unboundedMetadata:
             deleted: true
             segmentId: segmentId
-            includedCount: 5
+            includedCount: 7
             envId: envId
-            excludedCount: 2
-            lastModified: 7
-            version: 5
+            excludedCount: 1
+            lastModified: 1
+            version: 4
           deleted: false
           _access:
             allowed:
@@ -57577,6 +59905,7 @@ components:
             \ removed from this segment. Required if <code>kind</code> is <code>addExpiringTarget</code>\
             \ or <code>updateExpiringTarget</code>."
           example: 1653469200000
+          format: int64
           type: integer
         version:
           description: "The version of the expiring target to update. Optional and\
@@ -57886,6 +60215,10 @@ components:
           items:
             $ref: '#/components/schemas/permissionGrantInput'
           type: array
+        roleAttributes:
+          additionalProperties:
+            $ref: '#/components/schemas/RoleAttributeValues'
+          type: object
       required:
       - key
       - name
@@ -59123,6 +61456,19 @@ components:
             minNumApprovals: 1
             autoApplyApprovedChanges: true
             required: true
+          resourceApprovalSettings:
+            key:
+              serviceKind: launchdarkly
+              canReviewOwnRequest: false
+              serviceConfig: {}
+              requiredApprovalTags:
+              - require-approval
+              serviceKindConfigurationId: 1ef45a85-218f-4428-a8b2-a97e5f56c258
+              bypassApprovalsForPendingChanges: false
+              canApplyDeclinedChanges: true
+              minNumApprovals: 1
+              autoApplyApprovedChanges: true
+              required: true
           apiKey: sdk-xxx
           color: F5A623
           critical: true
@@ -59356,6 +61702,19 @@ components:
               minNumApprovals: 1
               autoApplyApprovedChanges: true
               required: true
+            resourceApprovalSettings:
+              key:
+                serviceKind: launchdarkly
+                canReviewOwnRequest: false
+                serviceConfig: {}
+                requiredApprovalTags:
+                - require-approval
+                serviceKindConfigurationId: 1ef45a85-218f-4428-a8b2-a97e5f56c258
+                bypassApprovalsForPendingChanges: false
+                canApplyDeclinedChanges: true
+                minNumApprovals: 1
+                autoApplyApprovedChanges: true
+                required: true
             apiKey: sdk-xxx
             color: F5A623
             critical: true
@@ -59524,6 +61883,19 @@ components:
               minNumApprovals: 1
               autoApplyApprovedChanges: true
               required: true
+            resourceApprovalSettings:
+              key:
+                serviceKind: launchdarkly
+                canReviewOwnRequest: false
+                serviceConfig: {}
+                requiredApprovalTags:
+                - require-approval
+                serviceKindConfigurationId: 1ef45a85-218f-4428-a8b2-a97e5f56c258
+                bypassApprovalsForPendingChanges: false
+                canApplyDeclinedChanges: true
+                minNumApprovals: 1
+                autoApplyApprovedChanges: true
+                required: true
             apiKey: sdk-xxx
             color: F5A623
             critical: true

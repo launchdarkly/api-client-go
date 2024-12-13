@@ -20,6 +20,7 @@ api_environments.go
 api_experiments.go
 api_feature_flags.go
 api_feature_flags_beta.go
+api_flag_import_configurations_beta.go
 api_flag_links_beta.go
 api_flag_triggers.go
 api_follow_flags.go
@@ -33,11 +34,12 @@ api_insights_scores_beta.go
 api_integration_audit_log_subscriptions.go
 api_integration_delivery_configurations_beta.go
 api_integrations_beta.go
-api_layers_beta.go
+api_layers.go
 api_metrics.go
 api_metrics_beta.go
 api_o_auth2_clients.go
 api_other.go
+api_persistent_store_integrations_beta.go
 api_projects.go
 api_relay_proxy_configurations.go
 api_release_pipelines_beta.go
@@ -78,6 +80,7 @@ docs/ApprovalRequestResponse.md
 docs/ApprovalSettings.md
 docs/ApprovalsApi.md
 docs/ApprovalsBetaApi.md
+docs/ApprovalsCapabilityConfig.md
 docs/Audience.md
 docs/AudienceConfiguration.md
 docs/AudiencePost.md
@@ -85,6 +88,8 @@ docs/AuditLogApi.md
 docs/AuditLogEntryListingRep.md
 docs/AuditLogEntryListingRepCollection.md
 docs/AuditLogEntryRep.md
+docs/AuditLogEventsHookCapabilityConfigPost.md
+docs/AuditLogEventsHookCapabilityConfigRep.md
 docs/AuthorizedAppDataRep.md
 docs/BayesianBetaBinomialStatsRep.md
 docs/BayesianNormalStatsRep.md
@@ -101,6 +106,8 @@ docs/BranchRep.md
 docs/BulkEditMembersRep.md
 docs/BulkEditTeamsRep.md
 docs/CallerIdentityRep.md
+docs/CapabilityConfigPost.md
+docs/CapabilityConfigRep.md
 docs/Clause.md
 docs/Client.md
 docs/ClientCollection.md
@@ -170,6 +177,9 @@ docs/Destination.md
 docs/DestinationPost.md
 docs/Destinations.md
 docs/Distribution.md
+docs/DynamicOptions.md
+docs/DynamicOptionsParser.md
+docs/Endpoint.md
 docs/Environment.md
 docs/EnvironmentPost.md
 docs/EnvironmentSummary.md
@@ -182,6 +192,7 @@ docs/ExecutionOutput.md
 docs/ExpandableApprovalRequestResponse.md
 docs/ExpandableApprovalRequestsResponse.md
 docs/ExpandedFlagRep.md
+docs/ExpandedResourceRep.md
 docs/Experiment.md
 docs/ExperimentAllocationRep.md
 docs/ExperimentBayesianResultsRep.md
@@ -238,6 +249,7 @@ docs/FlagEventRep.md
 docs/FlagFollowersByProjEnvGetRep.md
 docs/FlagFollowersGetRep.md
 docs/FlagImportConfigurationPost.md
+docs/FlagImportConfigurationsBetaApi.md
 docs/FlagImportIntegration.md
 docs/FlagImportIntegrationCollection.md
 docs/FlagImportIntegrationCollectionLinks.md
@@ -265,6 +277,9 @@ docs/FollowFlagMember.md
 docs/FollowFlagsApi.md
 docs/FollowersPerFlag.md
 docs/ForbiddenErrorRep.md
+docs/FormVariable.md
+docs/HMACSignature.md
+docs/HeaderItems.md
 docs/HoldoutDetailRep.md
 docs/HoldoutPatchInput.md
 docs/HoldoutPostRequest.md
@@ -307,6 +322,9 @@ docs/InsightsScoresBetaApi.md
 docs/InstructionUserRequest.md
 docs/Integration.md
 docs/IntegrationAuditLogSubscriptionsApi.md
+docs/IntegrationConfigurationCollectionRep.md
+docs/IntegrationConfigurationPost.md
+docs/IntegrationConfigurationsRep.md
 docs/IntegrationDeliveryConfiguration.md
 docs/IntegrationDeliveryConfigurationCollection.md
 docs/IntegrationDeliveryConfigurationCollectionLinks.md
@@ -332,7 +350,7 @@ docs/LayerPost.md
 docs/LayerRep.md
 docs/LayerReservationRep.md
 docs/LayerSnapshotRep.md
-docs/LayersBetaApi.md
+docs/LayersApi.md
 docs/LeadTimeStagesRep.md
 docs/LegacyExperimentRep.md
 docs/Link.md
@@ -376,6 +394,7 @@ docs/NotFoundErrorRep.md
 docs/OAuth2ClientsApi.md
 docs/OauthClientPost.md
 docs/Object.md
+docs/OptionsArray.md
 docs/OtherApi.md
 docs/ParameterDefault.md
 docs/ParameterRep.md
@@ -390,8 +409,8 @@ docs/PatchSegmentRequest.md
 docs/PatchUsersRequest.md
 docs/PatchWithComment.md
 docs/PermissionGrantInput.md
+docs/PersistentStoreIntegrationsBetaApi.md
 docs/Phase.md
-docs/PhaseConfiguration.md
 docs/PhaseInfo.md
 docs/PostApprovalRequestApplyRequest.md
 docs/PostApprovalRequestReviewRequest.md
@@ -509,6 +528,7 @@ docs/TriggerWorkflowCollectionRep.md
 docs/TriggerWorkflowRep.md
 docs/UnauthorizedErrorRep.md
 docs/UpdatePhaseStatusInput.md
+docs/UpdateReleasePipelineInput.md
 docs/UpsertContextKindPayload.md
 docs/UpsertFlagDefaultsPayload.md
 docs/UpsertPayloadRep.md
@@ -563,12 +583,15 @@ model_application_version_rep.go
 model_application_versions_collection_rep.go
 model_approval_request_response.go
 model_approval_settings.go
+model_approvals_capability_config.go
 model_audience.go
 model_audience_configuration.go
 model_audience_post.go
 model_audit_log_entry_listing_rep.go
 model_audit_log_entry_listing_rep_collection.go
 model_audit_log_entry_rep.go
+model_audit_log_events_hook_capability_config_post.go
+model_audit_log_events_hook_capability_config_rep.go
 model_authorized_app_data_rep.go
 model_bayesian_beta_binomial_stats_rep.go
 model_bayesian_normal_stats_rep.go
@@ -585,6 +608,8 @@ model_branch_rep.go
 model_bulk_edit_members_rep.go
 model_bulk_edit_teams_rep.go
 model_caller_identity_rep.go
+model_capability_config_post.go
+model_capability_config_rep.go
 model_clause.go
 model_client.go
 model_client_collection.go
@@ -649,6 +674,9 @@ model_destination.go
 model_destination_post.go
 model_destinations.go
 model_distribution.go
+model_dynamic_options.go
+model_dynamic_options_parser.go
+model_endpoint.go
 model_environment.go
 model_environment_post.go
 model_environment_summary.go
@@ -660,6 +688,7 @@ model_execution_output.go
 model_expandable_approval_request_response.go
 model_expandable_approval_requests_response.go
 model_expanded_flag_rep.go
+model_expanded_resource_rep.go
 model_experiment.go
 model_experiment_allocation_rep.go
 model_experiment_bayesian_results_rep.go
@@ -737,6 +766,9 @@ model_flag_trigger_input.go
 model_follow_flag_member.go
 model_followers_per_flag.go
 model_forbidden_error_rep.go
+model_form_variable.go
+model_header_items.go
+model_hmac_signature.go
 model_holdout_detail_rep.go
 model_holdout_patch_input.go
 model_holdout_post_request.go
@@ -771,6 +803,9 @@ model_insights_repository_project_collection.go
 model_insights_repository_project_mappings.go
 model_instruction_user_request.go
 model_integration.go
+model_integration_configuration_collection_rep.go
+model_integration_configuration_post.go
+model_integration_configurations_rep.go
 model_integration_delivery_configuration.go
 model_integration_delivery_configuration_collection.go
 model_integration_delivery_configuration_collection_links.go
@@ -834,6 +869,7 @@ model_new_member_form.go
 model_not_found_error_rep.go
 model_oauth_client_post.go
 model_object.go
+model_options_array.go
 model_parameter_default.go
 model_parameter_rep.go
 model_parent_resource_rep.go
@@ -848,7 +884,6 @@ model_patch_users_request.go
 model_patch_with_comment.go
 model_permission_grant_input.go
 model_phase.go
-model_phase_configuration.go
 model_phase_info.go
 model_post_approval_request_apply_request.go
 model_post_approval_request_review_request.go
@@ -956,6 +991,7 @@ model_trigger_workflow_collection_rep.go
 model_trigger_workflow_rep.go
 model_unauthorized_error_rep.go
 model_update_phase_status_input.go
+model_update_release_pipeline_input.go
 model_upsert_context_kind_payload.go
 model_upsert_flag_defaults_payload.go
 model_upsert_payload_rep.go

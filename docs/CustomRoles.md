@@ -5,13 +5,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Links** | Pointer to [**map[string]Link**](Link.md) | The location and content type of related resources | [optional] 
-**Items** | Pointer to [**[]CustomRole**](CustomRole.md) | An array of custom roles | [optional] 
+**Items** | [**[]CustomRole**](CustomRole.md) | An array of custom roles | 
+**TotalCount** | Pointer to **int32** | The total number of custom roles | [optional] 
 
 ## Methods
 
 ### NewCustomRoles
 
-`func NewCustomRoles() *CustomRoles`
+`func NewCustomRoles(items []CustomRole, ) *CustomRoles`
 
 NewCustomRoles instantiates a new CustomRoles object
 This constructor will assign default values to properties that have it defined,
@@ -70,11 +71,31 @@ and a boolean to check if the value has been set.
 
 SetItems sets Items field to given value.
 
-### HasItems
 
-`func (o *CustomRoles) HasItems() bool`
+### GetTotalCount
 
-HasItems returns a boolean if a field has been set.
+`func (o *CustomRoles) GetTotalCount() int32`
+
+GetTotalCount returns the TotalCount field if non-nil, zero value otherwise.
+
+### GetTotalCountOk
+
+`func (o *CustomRoles) GetTotalCountOk() (*int32, bool)`
+
+GetTotalCountOk returns a tuple with the TotalCount field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTotalCount
+
+`func (o *CustomRoles) SetTotalCount(v int32)`
+
+SetTotalCount sets TotalCount field to given value.
+
+### HasTotalCount
+
+`func (o *CustomRoles) HasTotalCount() bool`
+
+HasTotalCount returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

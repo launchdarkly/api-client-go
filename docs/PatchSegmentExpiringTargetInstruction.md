@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **ContextKey** | **string** | A unique key used to represent the context | 
 **ContextKind** | **string** | The kind of context | 
 **TargetType** | **string** | The segment&#39;s target type | 
-**Value** | Pointer to **int32** | The time, in Unix milliseconds, when the context should be removed from this segment. Required if &lt;code&gt;kind&lt;/code&gt; is &lt;code&gt;addExpiringTarget&lt;/code&gt; or &lt;code&gt;updateExpiringTarget&lt;/code&gt;. | [optional] 
+**Value** | Pointer to **int64** | The time, in Unix milliseconds, when the context should be removed from this segment. Required if &lt;code&gt;kind&lt;/code&gt; is &lt;code&gt;addExpiringTarget&lt;/code&gt; or &lt;code&gt;updateExpiringTarget&lt;/code&gt;. | [optional] 
 **Version** | Pointer to **int32** | The version of the expiring target to update. Optional and only used if &lt;code&gt;kind&lt;/code&gt; is &lt;code&gt;updateExpiringTarget&lt;/code&gt;. If included, update will fail if version doesn&#39;t match current version of the expiring target. | [optional] 
 
 ## Methods
@@ -112,20 +112,20 @@ SetTargetType sets TargetType field to given value.
 
 ### GetValue
 
-`func (o *PatchSegmentExpiringTargetInstruction) GetValue() int32`
+`func (o *PatchSegmentExpiringTargetInstruction) GetValue() int64`
 
 GetValue returns the Value field if non-nil, zero value otherwise.
 
 ### GetValueOk
 
-`func (o *PatchSegmentExpiringTargetInstruction) GetValueOk() (*int32, bool)`
+`func (o *PatchSegmentExpiringTargetInstruction) GetValueOk() (*int64, bool)`
 
 GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetValue
 
-`func (o *PatchSegmentExpiringTargetInstruction) SetValue(v int32)`
+`func (o *PatchSegmentExpiringTargetInstruction) SetValue(v int64)`
 
 SetValue sets Value field to given value.
 

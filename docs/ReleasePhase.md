@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **Status** | Pointer to **string** |  | [optional] 
 **Started** | Pointer to **bool** | Whether or not this phase has started | [optional] 
 **StartedDate** | Pointer to **int64** |  | [optional] 
-**Configuration** | Pointer to [**PhaseConfiguration**](PhaseConfiguration.md) |  | [optional] 
+**Configuration** | Pointer to **map[string]interface{}** |  | [optional] 
 
 ## Methods
 
@@ -262,20 +262,20 @@ HasStartedDate returns a boolean if a field has been set.
 
 ### GetConfiguration
 
-`func (o *ReleasePhase) GetConfiguration() PhaseConfiguration`
+`func (o *ReleasePhase) GetConfiguration() map[string]interface{}`
 
 GetConfiguration returns the Configuration field if non-nil, zero value otherwise.
 
 ### GetConfigurationOk
 
-`func (o *ReleasePhase) GetConfigurationOk() (*PhaseConfiguration, bool)`
+`func (o *ReleasePhase) GetConfigurationOk() (*map[string]interface{}, bool)`
 
 GetConfigurationOk returns a tuple with the Configuration field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetConfiguration
 
-`func (o *ReleasePhase) SetConfiguration(v PhaseConfiguration)`
+`func (o *ReleasePhase) SetConfiguration(v map[string]interface{})`
 
 SetConfiguration sets Configuration field to given value.
 

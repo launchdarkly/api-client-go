@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Id** | **string** | The phase ID | 
 **Audiences** | [**[]Audience**](Audience.md) |  | 
 **Name** | **string** | The release phase name | 
-**Configuration** | Pointer to [**PhaseConfiguration**](PhaseConfiguration.md) |  | [optional] 
+**Configuration** | Pointer to **map[string]interface{}** |  | [optional] 
 
 ## Methods
 
@@ -90,20 +90,20 @@ SetName sets Name field to given value.
 
 ### GetConfiguration
 
-`func (o *Phase) GetConfiguration() PhaseConfiguration`
+`func (o *Phase) GetConfiguration() map[string]interface{}`
 
 GetConfiguration returns the Configuration field if non-nil, zero value otherwise.
 
 ### GetConfigurationOk
 
-`func (o *Phase) GetConfigurationOk() (*PhaseConfiguration, bool)`
+`func (o *Phase) GetConfigurationOk() (*map[string]interface{}, bool)`
 
 GetConfigurationOk returns a tuple with the Configuration field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetConfiguration
 
-`func (o *Phase) SetConfiguration(v PhaseConfiguration)`
+`func (o *Phase) SetConfiguration(v map[string]interface{})`
 
 SetConfiguration sets Configuration field to given value.
 

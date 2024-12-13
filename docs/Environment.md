@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **ConfirmChanges** | **bool** | Whether members who modify flags and segments through the LaunchDarkly user interface are required to confirm those changes | 
 **Tags** | **[]string** | A list of tags for this environment | 
 **ApprovalSettings** | Pointer to [**ApprovalSettings**](ApprovalSettings.md) |  | [optional] 
+**ResourceApprovalSettings** | Pointer to [**map[string]ApprovalSettings**](ApprovalSettings.md) | Details on the approval settings for this environment for each resource kind | [optional] 
 **Critical** | **bool** | Whether the environment is critical | 
 
 ## Methods
@@ -323,6 +324,31 @@ SetApprovalSettings sets ApprovalSettings field to given value.
 `func (o *Environment) HasApprovalSettings() bool`
 
 HasApprovalSettings returns a boolean if a field has been set.
+
+### GetResourceApprovalSettings
+
+`func (o *Environment) GetResourceApprovalSettings() map[string]ApprovalSettings`
+
+GetResourceApprovalSettings returns the ResourceApprovalSettings field if non-nil, zero value otherwise.
+
+### GetResourceApprovalSettingsOk
+
+`func (o *Environment) GetResourceApprovalSettingsOk() (*map[string]ApprovalSettings, bool)`
+
+GetResourceApprovalSettingsOk returns a tuple with the ResourceApprovalSettings field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetResourceApprovalSettings
+
+`func (o *Environment) SetResourceApprovalSettings(v map[string]ApprovalSettings)`
+
+SetResourceApprovalSettings sets ResourceApprovalSettings field to given value.
+
+### HasResourceApprovalSettings
+
+`func (o *Environment) HasResourceApprovalSettings() bool`
+
+HasResourceApprovalSettings returns a boolean if a field has been set.
 
 ### GetCritical
 

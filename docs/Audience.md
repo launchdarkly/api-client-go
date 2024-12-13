@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Environment** | [**EnvironmentSummary**](EnvironmentSummary.md) |  | 
+**Environment** | Pointer to [**EnvironmentSummary**](EnvironmentSummary.md) |  | [optional] 
 **Name** | **string** | The release phase name | 
 **Configuration** | Pointer to [**AudienceConfiguration**](AudienceConfiguration.md) |  | [optional] 
 **SegmentKeys** | Pointer to **[]string** | A list of segment keys | [optional] 
@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 
 ### NewAudience
 
-`func NewAudience(environment EnvironmentSummary, name string, ) *Audience`
+`func NewAudience(name string, ) *Audience`
 
 NewAudience instantiates a new Audience object
 This constructor will assign default values to properties that have it defined,
@@ -47,6 +47,11 @@ and a boolean to check if the value has been set.
 
 SetEnvironment sets Environment field to given value.
 
+### HasEnvironment
+
+`func (o *Audience) HasEnvironment() bool`
+
+HasEnvironment returns a boolean if a field has been set.
 
 ### GetName
 

@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **MemberIDs** | Pointer to **[]string** | A list of member IDs who belong to the team | [optional] 
 **Name** | **string** | A human-friendly name for the team | 
 **PermissionGrants** | Pointer to [**[]PermissionGrantInput**](PermissionGrantInput.md) | A list of permission grants. Permission grants allow access to a specific action, without having to create or update a custom role. | [optional] 
+**RoleAttributes** | Pointer to **map[string][]string** |  | [optional] 
 
 ## Methods
 
@@ -169,6 +170,31 @@ SetPermissionGrants sets PermissionGrants field to given value.
 `func (o *TeamPostInput) HasPermissionGrants() bool`
 
 HasPermissionGrants returns a boolean if a field has been set.
+
+### GetRoleAttributes
+
+`func (o *TeamPostInput) GetRoleAttributes() map[string][]string`
+
+GetRoleAttributes returns the RoleAttributes field if non-nil, zero value otherwise.
+
+### GetRoleAttributesOk
+
+`func (o *TeamPostInput) GetRoleAttributesOk() (*map[string][]string, bool)`
+
+GetRoleAttributesOk returns a tuple with the RoleAttributes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRoleAttributes
+
+`func (o *TeamPostInput) SetRoleAttributes(v map[string][]string)`
+
+SetRoleAttributes sets RoleAttributes field to given value.
+
+### HasRoleAttributes
+
+`func (o *TeamPostInput) HasRoleAttributes() bool`
+
+HasRoleAttributes returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

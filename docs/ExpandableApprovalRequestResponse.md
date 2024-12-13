@@ -30,6 +30,7 @@ Name | Type | Description | Notes
 **Project** | Pointer to [**Project**](Project.md) |  | [optional] 
 **Environments** | Pointer to [**[]Environment**](Environment.md) | List of environments the approval impacts | [optional] 
 **Flag** | Pointer to [**ExpandedFlagRep**](ExpandedFlagRep.md) |  | [optional] 
+**Resource** | Pointer to [**ExpandedResourceRep**](ExpandedResourceRep.md) |  | [optional] 
 
 ## Methods
 
@@ -644,6 +645,31 @@ SetFlag sets Flag field to given value.
 `func (o *ExpandableApprovalRequestResponse) HasFlag() bool`
 
 HasFlag returns a boolean if a field has been set.
+
+### GetResource
+
+`func (o *ExpandableApprovalRequestResponse) GetResource() ExpandedResourceRep`
+
+GetResource returns the Resource field if non-nil, zero value otherwise.
+
+### GetResourceOk
+
+`func (o *ExpandableApprovalRequestResponse) GetResourceOk() (*ExpandedResourceRep, bool)`
+
+GetResourceOk returns a tuple with the Resource field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetResource
+
+`func (o *ExpandableApprovalRequestResponse) SetResource(v ExpandedResourceRep)`
+
+SetResource sets Resource field to given value.
+
+### HasResource
+
+`func (o *ExpandableApprovalRequestResponse) HasResource() bool`
+
+HasResource returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

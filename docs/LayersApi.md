@@ -1,12 +1,12 @@
-# \LayersBetaApi
+# \LayersApi
 
 All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateLayer**](LayersBetaApi.md#CreateLayer) | **Post** /api/v2/projects/{projectKey}/layers | Create layer
-[**GetLayers**](LayersBetaApi.md#GetLayers) | **Get** /api/v2/projects/{projectKey}/layers | Get layers
-[**UpdateLayer**](LayersBetaApi.md#UpdateLayer) | **Patch** /api/v2/projects/{projectKey}/layers/{layerKey} | Update layer
+[**CreateLayer**](LayersApi.md#CreateLayer) | **Post** /api/v2/projects/{projectKey}/layers | Create layer
+[**GetLayers**](LayersApi.md#GetLayers) | **Get** /api/v2/projects/{projectKey}/layers | Get layers
+[**UpdateLayer**](LayersApi.md#UpdateLayer) | **Patch** /api/v2/projects/{projectKey}/layers/{layerKey} | Update layer
 
 
 
@@ -36,13 +36,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.LayersBetaApi.CreateLayer(context.Background(), projectKey).LayerPost(layerPost).Execute()
+    resp, r, err := apiClient.LayersApi.CreateLayer(context.Background(), projectKey).LayerPost(layerPost).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `LayersBetaApi.CreateLayer``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `LayersApi.CreateLayer``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `CreateLayer`: LayerRep
-    fmt.Fprintf(os.Stdout, "Response from `LayersBetaApi.CreateLayer`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `LayersApi.CreateLayer`: %v\n", resp)
 }
 ```
 
@@ -108,13 +108,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.LayersBetaApi.GetLayers(context.Background(), projectKey).Filter(filter).Execute()
+    resp, r, err := apiClient.LayersApi.GetLayers(context.Background(), projectKey).Filter(filter).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `LayersBetaApi.GetLayers``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `LayersApi.GetLayers``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetLayers`: LayerCollectionRep
-    fmt.Fprintf(os.Stdout, "Response from `LayersBetaApi.GetLayers`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `LayersApi.GetLayers`: %v\n", resp)
 }
 ```
 
@@ -181,13 +181,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.LayersBetaApi.UpdateLayer(context.Background(), projectKey, layerKey).LayerPatchInput(layerPatchInput).Execute()
+    resp, r, err := apiClient.LayersApi.UpdateLayer(context.Background(), projectKey, layerKey).LayerPatchInput(layerPatchInput).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `LayersBetaApi.UpdateLayer``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `LayersApi.UpdateLayer``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `UpdateLayer`: LayerRep
-    fmt.Fprintf(os.Stdout, "Response from `LayersBetaApi.UpdateLayer`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `LayersApi.UpdateLayer`: %v\n", resp)
 }
 ```
 

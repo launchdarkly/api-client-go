@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Items** | Pointer to [**[]Team**](Team.md) | An array of teams | [optional] 
+**Items** | [**[]Team**](Team.md) | An array of teams | 
 **Links** | Pointer to [**map[string]Link**](Link.md) | The location and content type of related resources | [optional] 
 **TotalCount** | Pointer to **int32** | The number of teams | [optional] 
 
@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 
 ### NewTeams
 
-`func NewTeams() *Teams`
+`func NewTeams(items []Team, ) *Teams`
 
 NewTeams instantiates a new Teams object
 This constructor will assign default values to properties that have it defined,
@@ -46,11 +46,6 @@ and a boolean to check if the value has been set.
 
 SetItems sets Items field to given value.
 
-### HasItems
-
-`func (o *Teams) HasItems() bool`
-
-HasItems returns a boolean if a field has been set.
 
 ### GetLinks
 

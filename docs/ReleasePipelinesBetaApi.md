@@ -8,8 +8,8 @@ Method | HTTP request | Description
 [**GetAllReleasePipelines**](ReleasePipelinesBetaApi.md#GetAllReleasePipelines) | **Get** /api/v2/projects/{projectKey}/release-pipelines | Get all release pipelines
 [**GetAllReleaseProgressionsForReleasePipeline**](ReleasePipelinesBetaApi.md#GetAllReleaseProgressionsForReleasePipeline) | **Get** /api/v2/projects/{projectKey}/release-pipelines/{pipelineKey}/releases | Get release progressions for release pipeline
 [**GetReleasePipelineByKey**](ReleasePipelinesBetaApi.md#GetReleasePipelineByKey) | **Get** /api/v2/projects/{projectKey}/release-pipelines/{pipelineKey} | Get release pipeline by key
-[**PatchReleasePipeline**](ReleasePipelinesBetaApi.md#PatchReleasePipeline) | **Patch** /api/v2/projects/{projectKey}/release-pipelines/{pipelineKey} | Update a release pipeline
 [**PostReleasePipeline**](ReleasePipelinesBetaApi.md#PostReleasePipeline) | **Post** /api/v2/projects/{projectKey}/release-pipelines | Create a release pipeline
+[**PutReleasePipeline**](ReleasePipelinesBetaApi.md#PutReleasePipeline) | **Put** /api/v2/projects/{projectKey}/release-pipelines/{pipelineKey} | Update a release pipeline
 
 
 
@@ -312,79 +312,6 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## PatchReleasePipeline
-
-> ReleasePipeline PatchReleasePipeline(ctx, projectKey, pipelineKey).Execute()
-
-Update a release pipeline
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    projectKey := "projectKey_example" // string | The project key
-    pipelineKey := "pipelineKey_example" // string | The release pipeline key
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ReleasePipelinesBetaApi.PatchReleasePipeline(context.Background(), projectKey, pipelineKey).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ReleasePipelinesBetaApi.PatchReleasePipeline``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PatchReleasePipeline`: ReleasePipeline
-    fmt.Fprintf(os.Stdout, "Response from `ReleasePipelinesBetaApi.PatchReleasePipeline`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** | The project key | 
-**pipelineKey** | **string** | The release pipeline key | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiPatchReleasePipelineRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-
-### Return type
-
-[**ReleasePipeline**](ReleasePipeline.md)
-
-### Authorization
-
-[ApiKey](../README.md#ApiKey)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## PostReleasePipeline
 
 > ReleasePipeline PostReleasePipeline(ctx, projectKey).CreateReleasePipelineInput(createReleasePipelineInput).Execute()
@@ -438,6 +365,81 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **createReleasePipelineInput** | [**CreateReleasePipelineInput**](CreateReleasePipelineInput.md) |  | 
+
+### Return type
+
+[**ReleasePipeline**](ReleasePipeline.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PutReleasePipeline
+
+> ReleasePipeline PutReleasePipeline(ctx, projectKey, pipelineKey).UpdateReleasePipelineInput(updateReleasePipelineInput).Execute()
+
+Update a release pipeline
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    projectKey := "projectKey_example" // string | The project key
+    pipelineKey := "pipelineKey_example" // string | The release pipeline key
+    updateReleasePipelineInput := *openapiclient.NewUpdateReleasePipelineInput("Standard Pipeline", []openapiclient.CreatePhaseInput{*openapiclient.NewCreatePhaseInput([]openapiclient.AudiencePost{*openapiclient.NewAudiencePost("EnvironmentKey_example", "Name_example")}, "Phase 1 - Testing")}) // UpdateReleasePipelineInput | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ReleasePipelinesBetaApi.PutReleasePipeline(context.Background(), projectKey, pipelineKey).UpdateReleasePipelineInput(updateReleasePipelineInput).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ReleasePipelinesBetaApi.PutReleasePipeline``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PutReleasePipeline`: ReleasePipeline
+    fmt.Fprintf(os.Stdout, "Response from `ReleasePipelinesBetaApi.PutReleasePipeline`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projectKey** | **string** | The project key | 
+**pipelineKey** | **string** | The release pipeline key | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPutReleasePipelineRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **updateReleasePipelineInput** | [**UpdateReleasePipelineInput**](UpdateReleasePipelineInput.md) |  | 
 
 ### Return type
 
