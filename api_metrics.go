@@ -74,7 +74,7 @@ For example, `expand=experiments` includes the `experiments` field in the respon
 
 ### Filtering metrics
 
-The `filter` parameter supports the following operators: `contains`, `equals`.
+The `filter` parameter supports the following operators: `contains`, `equals`, `anyOf`.
 
 #### Supported fields and operators
 
@@ -87,7 +87,7 @@ When you search for metrics, the `filter` parameter supports the following field
 | `eventKind` | The metric event kind. One of `custom`, `pageview`, `click`. | `equals` |
 | `hasConnections` | Whether the metric has connections to experiments or guarded rollouts. One of `true`, `false`. | `equals` |
 | `isNumeric` | Whether the metric is numeric. One of `true`, `false`. | `equals` |
-| `maintainerIds` | A comma-separated list of metric maintainer IDs. | `equals` |
+| `maintainerIds` | A comma-separated list of metric maintainer IDs. | `anyOf` |
 | `maintainerTeamKey` | The metric maintainer team key. | `equals` |
 | `query` | A "fuzzy" search across metric key and name. Supply a string or list of strings to the operator. | `equals` |
 | `tags` | The metric tags. | `contains` |
@@ -547,7 +547,7 @@ Get a list of all metrics for the specified project.
 
 ### Filtering metrics
 
-The `filter` parameter supports the following operators: `contains`, `equals`.
+The `filter` parameter supports the following operators: `contains`, `equals`, `anyOf`.
 
 #### Supported fields and operators
 
@@ -560,7 +560,7 @@ When you search for metrics, the `filter` parameter supports the following field
 | `eventKind` | The metric event kind. One of `custom`, `pageview`, `click`. | `equals` |
 | `hasConnections` | Whether the metric has connections to experiments or guarded rollouts. One of `true`, `false`. | `equals` |
 | `isNumeric` | Whether the metric is numeric. One of `true`, `false`. | `equals` |
-| `maintainerIds` | A comma-separated list of metric maintainer IDs. | `equals` |
+| `maintainerIds` | A comma-separated list of metric maintainer IDs. | `anyOf` |
 | `maintainerTeamKey` | The metric maintainer team key. | `equals` |
 | `query` | A "fuzzy" search across metric key and name. Supply a string or list of strings to the operator. | `equals` |
 | `tags` | The metric tags. | `contains` |

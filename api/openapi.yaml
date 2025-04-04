@@ -9668,8 +9668,8 @@ paths:
     get:
       description: "Get a list of all metrics for the specified project.\n\n### Filtering\
         \ metrics\n\nThe `filter` parameter supports the following operators: `contains`,\
-        \ `equals`.\n\n#### Supported fields and operators\n\nYou can only filter\
-        \ certain fields in metrics when using the `filter` parameter. Additionally,\
+        \ `equals`, `anyOf`.\n\n#### Supported fields and operators\n\nYou can only\
+        \ filter certain fields in metrics when using the `filter` parameter. Additionally,\
         \ you can only filter some fields with certain operators.\n\nWhen you search\
         \ for metrics, the `filter` parameter supports the following fields and operators:\n\
         \n|<div style=\"width:120px\">Field</div> |Description |Supported operators\
@@ -9678,7 +9678,7 @@ paths:
         \ has connections to experiments or guarded rollouts. One of `true`, `false`.\
         \ | `equals` |\n| `isNumeric` | Whether the metric is numeric. One of `true`,\
         \ `false`. | `equals` |\n| `maintainerIds` | A comma-separated list of metric\
-        \ maintainer IDs. | `equals` |\n| `maintainerTeamKey` | The metric maintainer\
+        \ maintainer IDs. | `anyOf` |\n| `maintainerTeamKey` | The metric maintainer\
         \ team key. | `equals` |\n| `query` | A \"fuzzy\" search across metric key\
         \ and name. Supply a string or list of strings to the operator. | `equals`\
         \ |\n| `tags` | The metric tags. | `contains` |\n| `unitAggregationType` |\
@@ -16307,10 +16307,10 @@ paths:
         \ field:\n\n- `experiments` includes all experiments from the specific project\
         \ that use the metric group\n\nFor example, `expand=experiments` includes\
         \ the `experiments` field in the response.\n\n### Filtering metric groups\n\
-        \nThe `filter` parameter supports the following operators: `contains`, `equals`.\n\
-        \n#### Supported fields and operators\n\nYou can only filter certain fields\
-        \ in metrics when using the `filter` parameter. Additionally, you can only\
-        \ filter some fields with certain operators.\n\nWhen you search for metrics,\
+        \nThe `filter` parameter supports the following operators: `contains`, `equals`,\
+        \ `anyOf`.\n\n#### Supported fields and operators\n\nYou can only filter certain\
+        \ fields in metrics when using the `filter` parameter. Additionally, you can\
+        \ only filter some fields with certain operators.\n\nWhen you search for metrics,\
         \ the `filter` parameter supports the following fields and operators:\n\n\
         |<div style=\"width:120px\">Field</div> |Description |Supported operators\
         \ |\n|---|---|---|\n| `experimentStatus` | The experiment's status. One of\
@@ -16318,7 +16318,7 @@ paths:
         \ | Whether the metric group has connections to experiments or guarded rollouts.\
         \ One of `true`, `false`. | `equals` |\n| `kind` | The metric group kind.\
         \ One of `funnel`, `standard`. | `equals` |\n| `maintainerIds` | The metric\
-        \ maintainer IDs. | `equals` |\n| `maintainerTeamKey` | The metric maintainer\
+        \ maintainer IDs. | `anyOf` |\n| `maintainerTeamKey` | The metric maintainer\
         \ team key. | `equals` |\n| `query` | A \"fuzzy\" search across metric group\
         \ key and name. Supply a string or list of strings to the operator. | `equals`\
         \ |\n\n### Sorting metric groups\n\nLaunchDarkly supports the following fields\

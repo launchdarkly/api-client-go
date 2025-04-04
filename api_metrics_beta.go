@@ -96,7 +96,7 @@ For example, `expand=experiments` includes the `experiments` field in the respon
 
 ### Filtering metric groups
 
-The `filter` parameter supports the following operators: `contains`, `equals`.
+The `filter` parameter supports the following operators: `contains`, `equals`, `anyOf`.
 
 #### Supported fields and operators
 
@@ -109,7 +109,7 @@ When you search for metrics, the `filter` parameter supports the following field
 | `experimentStatus` | The experiment's status. One of `not_started`, `running`, `stopped`, `started`. | `equals` |
 | `hasConnections` | Whether the metric group has connections to experiments or guarded rollouts. One of `true`, `false`. | `equals` |
 | `kind` | The metric group kind. One of `funnel`, `standard`. | `equals` |
-| `maintainerIds` | The metric maintainer IDs. | `equals` |
+| `maintainerIds` | The metric maintainer IDs. | `anyOf` |
 | `maintainerTeamKey` | The metric maintainer team key. | `equals` |
 | `query` | A "fuzzy" search across metric group key and name. Supply a string or list of strings to the operator. | `equals` |
 
@@ -776,7 +776,7 @@ For example, `expand=experiments` includes the `experiments` field in the respon
 
 ### Filtering metric groups
 
-The `filter` parameter supports the following operators: `contains`, `equals`.
+The `filter` parameter supports the following operators: `contains`, `equals`, `anyOf`.
 
 #### Supported fields and operators
 
@@ -789,7 +789,7 @@ When you search for metrics, the `filter` parameter supports the following field
 | `experimentStatus` | The experiment's status. One of `not_started`, `running`, `stopped`, `started`. | `equals` |
 | `hasConnections` | Whether the metric group has connections to experiments or guarded rollouts. One of `true`, `false`. | `equals` |
 | `kind` | The metric group kind. One of `funnel`, `standard`. | `equals` |
-| `maintainerIds` | The metric maintainer IDs. | `equals` |
+| `maintainerIds` | The metric maintainer IDs. | `anyOf` |
 | `maintainerTeamKey` | The metric maintainer team key. | `equals` |
 | `query` | A "fuzzy" search across metric group key and name. Supply a string or list of strings to the operator. | `equals` |
 
