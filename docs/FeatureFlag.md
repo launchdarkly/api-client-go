@@ -30,13 +30,13 @@ Name | Type | Description | Notes
 **Defaults** | Pointer to [**Defaults**](Defaults.md) |  | [optional] 
 **Purpose** | Pointer to **string** |  | [optional] 
 **MigrationSettings** | Pointer to [**FlagMigrationSettingsRep**](FlagMigrationSettingsRep.md) |  | [optional] 
-**Environments** | [**map[string]FeatureFlagConfig**](FeatureFlagConfig.md) | Details on the environments for this flag. Only returned if the request is filtered by environment, using the &lt;code&gt;filterEnv&lt;/code&gt; query parameter. | 
+**Environments** | Pointer to [**map[string]FeatureFlagConfig**](FeatureFlagConfig.md) | Details on the environments for this flag. Only returned if the request is filtered by environment, using the &lt;code&gt;filterEnv&lt;/code&gt; query parameter. | [optional] 
 
 ## Methods
 
 ### NewFeatureFlag
 
-`func NewFeatureFlag(name string, kind string, key string, version int32, creationDate int64, variations []Variation, temporary bool, tags []string, links map[string]Link, experiments ExperimentInfoRep, customProperties map[string]CustomProperty, archived bool, environments map[string]FeatureFlagConfig, ) *FeatureFlag`
+`func NewFeatureFlag(name string, kind string, key string, version int32, creationDate int64, variations []Variation, temporary bool, tags []string, links map[string]Link, experiments ExperimentInfoRep, customProperties map[string]CustomProperty, archived bool, ) *FeatureFlag`
 
 NewFeatureFlag instantiates a new FeatureFlag object
 This constructor will assign default values to properties that have it defined,
@@ -660,6 +660,11 @@ and a boolean to check if the value has been set.
 
 SetEnvironments sets Environments field to given value.
 
+### HasEnvironments
+
+`func (o *FeatureFlag) HasEnvironments() bool`
+
+HasEnvironments returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

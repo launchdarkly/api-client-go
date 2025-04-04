@@ -463,7 +463,7 @@ Name | Type | Description  | Notes
 
 ## GetMauUsage
 
-> SeriesListRep GetMauUsage(ctx).From(from).To(to).Project(project).Environment(environment).Sdktype(sdktype).Sdk(sdk).Anonymous(anonymous).Groupby(groupby).Execute()
+> SeriesListRep GetMauUsage(ctx).From(from).To(to).Project(project).Environment(environment).Sdktype(sdktype).Sdk(sdk).Anonymous(anonymous).Groupby(groupby).AggregationType(aggregationType).ContextKind(contextKind).Execute()
 
 Get MAU usage
 
@@ -489,11 +489,13 @@ func main() {
     sdktype := "sdktype_example" // string | An SDK type to filter results to. Can be specified multiple times, one query parameter per SDK type. Valid values: client, server (optional)
     sdk := "sdk_example" // string | An SDK name to filter results to. Can be specified multiple times, one query parameter per SDK. (optional)
     anonymous := "anonymous_example" // string | If specified, filters results to either anonymous or nonanonymous users. (optional)
-    groupby := "groupby_example" // string | If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions (for example, to group by both project and SDK). Valid values: project, environment, sdktype, sdk, anonymous (optional)
+    groupby := "groupby_example" // string | If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions (for example, to group by both project and SDK). Valid values: project, environment, sdktype, sdk, anonymous, contextKind, sdkAppId (optional)
+    aggregationType := "aggregationType_example" // string | If specified, queries for rolling 30-day, month-to-date, or daily incremental counts. Default is rolling 30-day. Valid values: rolling_30d, month_to_date, daily_incremental (optional)
+    contextKind := "contextKind_example" // string | Filters results to the specified context kinds. Can be specified multiple times, one query parameter per context kind. If not set, queries for the user context kind. (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AccountUsageBetaApi.GetMauUsage(context.Background()).From(from).To(to).Project(project).Environment(environment).Sdktype(sdktype).Sdk(sdk).Anonymous(anonymous).Groupby(groupby).Execute()
+    resp, r, err := apiClient.AccountUsageBetaApi.GetMauUsage(context.Background()).From(from).To(to).Project(project).Environment(environment).Sdktype(sdktype).Sdk(sdk).Anonymous(anonymous).Groupby(groupby).AggregationType(aggregationType).ContextKind(contextKind).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AccountUsageBetaApi.GetMauUsage``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -521,7 +523,9 @@ Name | Type | Description  | Notes
  **sdktype** | **string** | An SDK type to filter results to. Can be specified multiple times, one query parameter per SDK type. Valid values: client, server | 
  **sdk** | **string** | An SDK name to filter results to. Can be specified multiple times, one query parameter per SDK. | 
  **anonymous** | **string** | If specified, filters results to either anonymous or nonanonymous users. | 
- **groupby** | **string** | If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions (for example, to group by both project and SDK). Valid values: project, environment, sdktype, sdk, anonymous | 
+ **groupby** | **string** | If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions (for example, to group by both project and SDK). Valid values: project, environment, sdktype, sdk, anonymous, contextKind, sdkAppId | 
+ **aggregationType** | **string** | If specified, queries for rolling 30-day, month-to-date, or daily incremental counts. Default is rolling 30-day. Valid values: rolling_30d, month_to_date, daily_incremental | 
+ **contextKind** | **string** | Filters results to the specified context kinds. Can be specified multiple times, one query parameter per context kind. If not set, queries for the user context kind. | 
 
 ### Return type
 

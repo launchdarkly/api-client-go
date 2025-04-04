@@ -379,7 +379,7 @@ Name | Type | Description  | Notes
 
 ## TriggerFlagImportJob
 
-> Object TriggerFlagImportJob(ctx, projectKey, integrationKey, integrationId).Execute()
+> TriggerFlagImportJob(ctx, projectKey, integrationKey, integrationId).Execute()
 
 Trigger a single flag import run
 
@@ -409,8 +409,6 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `FlagImportConfigurationsBetaApi.TriggerFlagImportJob``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `TriggerFlagImportJob`: Object
-    fmt.Fprintf(os.Stdout, "Response from `FlagImportConfigurationsBetaApi.TriggerFlagImportJob`: %v\n", resp)
 }
 ```
 
@@ -437,7 +435,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Object**](Object.md)
+ (empty response body)
 
 ### Authorization
 

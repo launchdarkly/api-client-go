@@ -10,13 +10,13 @@ Name | Type | Description | Notes
 **Kind** | **string** | The kind of event your metric will track | 
 **Selector** | Pointer to **string** | One or more CSS selectors. Required for click metrics only. | [optional] 
 **Urls** | Pointer to [**[]UrlPost**](UrlPost.md) | One or more target URLs. Required for click and pageview metrics only. | [optional] 
-**IsActive** | Pointer to **bool** | Whether the metric is active. Set to &lt;code&gt;true&lt;/code&gt; to record click or pageview metrics. Not applicable for custom metrics. | [optional] 
 **IsNumeric** | Pointer to **bool** | Whether to track numeric changes in value against a baseline (&lt;code&gt;true&lt;/code&gt;) or to track a conversion when an end user takes an action (&lt;code&gt;false&lt;/code&gt;). Required for custom metrics only. | [optional] 
 **Unit** | Pointer to **string** | The unit of measure. Applicable for numeric custom metrics only. | [optional] 
 **EventKey** | Pointer to **string** | The event key to use in your code. Required for custom conversion/binary and custom numeric metrics only. | [optional] 
 **SuccessCriteria** | Pointer to **string** | Success criteria. Required for custom numeric metrics, optional for custom conversion metrics. | [optional] 
 **Tags** | Pointer to **[]string** | Tags for the metric | [optional] 
 **RandomizationUnits** | Pointer to **[]string** | An array of randomization units allowed for this metric | [optional] 
+**MaintainerId** | Pointer to **string** | The ID of the member who maintains this metric | [optional] 
 **UnitAggregationType** | Pointer to **string** | The method by which multiple unit event values are aggregated | [optional] 
 **AnalysisType** | Pointer to **string** | The method for analyzing metric events | [optional] 
 **PercentileValue** | Pointer to **int32** | The percentile for the analysis method. An integer denoting the target percentile between 0 and 100. Required when &lt;code&gt;analysisType&lt;/code&gt; is &lt;code&gt;percentile&lt;/code&gt;. | [optional] 
@@ -181,31 +181,6 @@ SetUrls sets Urls field to given value.
 
 HasUrls returns a boolean if a field has been set.
 
-### GetIsActive
-
-`func (o *MetricPost) GetIsActive() bool`
-
-GetIsActive returns the IsActive field if non-nil, zero value otherwise.
-
-### GetIsActiveOk
-
-`func (o *MetricPost) GetIsActiveOk() (*bool, bool)`
-
-GetIsActiveOk returns a tuple with the IsActive field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetIsActive
-
-`func (o *MetricPost) SetIsActive(v bool)`
-
-SetIsActive sets IsActive field to given value.
-
-### HasIsActive
-
-`func (o *MetricPost) HasIsActive() bool`
-
-HasIsActive returns a boolean if a field has been set.
-
 ### GetIsNumeric
 
 `func (o *MetricPost) GetIsNumeric() bool`
@@ -355,6 +330,31 @@ SetRandomizationUnits sets RandomizationUnits field to given value.
 `func (o *MetricPost) HasRandomizationUnits() bool`
 
 HasRandomizationUnits returns a boolean if a field has been set.
+
+### GetMaintainerId
+
+`func (o *MetricPost) GetMaintainerId() string`
+
+GetMaintainerId returns the MaintainerId field if non-nil, zero value otherwise.
+
+### GetMaintainerIdOk
+
+`func (o *MetricPost) GetMaintainerIdOk() (*string, bool)`
+
+GetMaintainerIdOk returns a tuple with the MaintainerId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMaintainerId
+
+`func (o *MetricPost) SetMaintainerId(v string)`
+
+SetMaintainerId sets MaintainerId field to given value.
+
+### HasMaintainerId
+
+`func (o *MetricPost) HasMaintainerId() bool`
+
+HasMaintainerId returns a boolean if a field has been set.
 
 ### GetUnitAggregationType
 

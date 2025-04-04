@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**GetDestinations**](DataExportDestinationsApi.md#GetDestinations) | **Get** /api/v2/destinations | List destinations
 [**PatchDestination**](DataExportDestinationsApi.md#PatchDestination) | **Patch** /api/v2/destinations/{projectKey}/{environmentKey}/{id} | Update Data Export destination
 [**PostDestination**](DataExportDestinationsApi.md#PostDestination) | **Post** /api/v2/destinations/{projectKey}/{environmentKey} | Create Data Export destination
+[**PostGenerateWarehouseDestinationKeyPair**](DataExportDestinationsApi.md#PostGenerateWarehouseDestinationKeyPair) | **Post** /api/v2/destinations/generate-warehouse-destination-key-pair | Generate Snowflake destination key pair
 
 
 
@@ -369,6 +370,67 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostGenerateWarehouseDestinationKeyPair
+
+> GenerateWarehouseDestinationKeyPairPostRep PostGenerateWarehouseDestinationKeyPair(ctx).Execute()
+
+Generate Snowflake destination key pair
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.DataExportDestinationsApi.PostGenerateWarehouseDestinationKeyPair(context.Background()).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DataExportDestinationsApi.PostGenerateWarehouseDestinationKeyPair``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PostGenerateWarehouseDestinationKeyPair`: GenerateWarehouseDestinationKeyPairPostRep
+    fmt.Fprintf(os.Stdout, "Response from `DataExportDestinationsApi.PostGenerateWarehouseDestinationKeyPair`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostGenerateWarehouseDestinationKeyPairRequest struct via the builder pattern
+
+
+### Return type
+
+[**GenerateWarehouseDestinationKeyPairPostRep**](GenerateWarehouseDestinationKeyPairPostRep.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

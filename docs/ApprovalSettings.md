@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **ServiceConfig** | **map[string]interface{}** |  | 
 **RequiredApprovalTags** | **[]string** | Require approval only on flags with the provided tags. Otherwise all flags will require approval. | 
 **ServiceKindConfigurationId** | Pointer to **string** | Optional field for integration configuration ID of a custom approval integration. This is an Enterprise-only feature. | [optional] 
+**ResourceKind** | Pointer to **string** | The kind of resource for which the approval settings apply, for example, flag or segment | [optional] 
 
 ## Methods
 
@@ -243,6 +244,31 @@ SetServiceKindConfigurationId sets ServiceKindConfigurationId field to given val
 `func (o *ApprovalSettings) HasServiceKindConfigurationId() bool`
 
 HasServiceKindConfigurationId returns a boolean if a field has been set.
+
+### GetResourceKind
+
+`func (o *ApprovalSettings) GetResourceKind() string`
+
+GetResourceKind returns the ResourceKind field if non-nil, zero value otherwise.
+
+### GetResourceKindOk
+
+`func (o *ApprovalSettings) GetResourceKindOk() (*string, bool)`
+
+GetResourceKindOk returns a tuple with the ResourceKind field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetResourceKind
+
+`func (o *ApprovalSettings) SetResourceKind(v string)`
+
+SetResourceKind sets ResourceKind field to given value.
+
+### HasResourceKind
+
+`func (o *ApprovalSettings) HasResourceKind() bool`
+
+HasResourceKind returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

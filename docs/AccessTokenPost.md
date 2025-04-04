@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Role** | Pointer to **string** | Built-in role for the token | [optional] 
 **CustomRoleIds** | Pointer to **[]string** | A list of custom role IDs to use as access limits for the access token | [optional] 
 **InlineRole** | Pointer to [**[]StatementPost**](StatementPost.md) | A JSON array of statements represented as JSON objects with three attributes: effect, resources, actions. May be used in place of a built-in or custom role. | [optional] 
-**ServiceToken** | Pointer to **bool** | Whether the token is a service token https://docs.launchdarkly.com/home/account/api#service-tokens | [optional] 
+**ServiceToken** | Pointer to **bool** | Whether the token is a service token | [optional] 
 **DefaultApiVersion** | Pointer to **int32** | The default API version for this token | [optional] 
 
 ## Methods

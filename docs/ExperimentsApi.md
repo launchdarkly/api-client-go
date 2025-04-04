@@ -7,11 +7,10 @@ Method | HTTP request | Description
 [**CreateExperiment**](ExperimentsApi.md#CreateExperiment) | **Post** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments | Create experiment
 [**CreateIteration**](ExperimentsApi.md#CreateIteration) | **Post** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey}/iterations | Create iteration
 [**GetExperiment**](ExperimentsApi.md#GetExperiment) | **Get** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey} | Get experiment
-[**GetExperimentResults**](ExperimentsApi.md#GetExperimentResults) | **Get** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey}/metrics/{metricKey}/results | Get experiment results
-[**GetExperimentResultsForMetricGroup**](ExperimentsApi.md#GetExperimentResultsForMetricGroup) | **Get** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey}/metric-groups/{metricGroupKey}/results | Get experiment results for metric group
+[**GetExperimentResults**](ExperimentsApi.md#GetExperimentResults) | **Get** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey}/metrics/{metricKey}/results | Get experiment results (Deprecated)
+[**GetExperimentResultsForMetricGroup**](ExperimentsApi.md#GetExperimentResultsForMetricGroup) | **Get** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey}/metric-groups/{metricGroupKey}/results | Get experiment results for metric group (Deprecated)
 [**GetExperimentationSettings**](ExperimentsApi.md#GetExperimentationSettings) | **Get** /api/v2/projects/{projectKey}/experimentation-settings | Get experimentation settings
 [**GetExperiments**](ExperimentsApi.md#GetExperiments) | **Get** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments | Get experiments
-[**GetLegacyExperimentResults**](ExperimentsApi.md#GetLegacyExperimentResults) | **Get** /api/v2/flags/{projectKey}/{featureFlagKey}/experiments/{environmentKey}/{metricKey} | Get legacy experiment results (deprecated)
 [**PatchExperiment**](ExperimentsApi.md#PatchExperiment) | **Patch** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey} | Patch experiment
 [**PutExperimentationSettings**](ExperimentsApi.md#PutExperimentationSettings) | **Put** /api/v2/projects/{projectKey}/experimentation-settings | Update experimentation settings
 
@@ -252,7 +251,7 @@ Name | Type | Description  | Notes
 
 > ExperimentBayesianResultsRep GetExperimentResults(ctx, projectKey, environmentKey, experimentKey, metricKey).IterationId(iterationId).Expand(expand).Execute()
 
-Get experiment results
+Get experiment results (Deprecated)
 
 
 
@@ -335,7 +334,7 @@ Name | Type | Description  | Notes
 
 > MetricGroupResultsRep GetExperimentResultsForMetricGroup(ctx, projectKey, environmentKey, experimentKey, metricGroupKey).IterationId(iterationId).Execute()
 
-Get experiment results for metric group
+Get experiment results for metric group (Deprecated)
 
 
 
@@ -550,89 +549,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ExperimentCollectionRep**](ExperimentCollectionRep.md)
-
-### Authorization
-
-[ApiKey](../README.md#ApiKey)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetLegacyExperimentResults
-
-> ExperimentResults GetLegacyExperimentResults(ctx, projectKey, featureFlagKey, environmentKey, metricKey).From(from).To(to).Execute()
-
-Get legacy experiment results (deprecated)
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
-    environmentKey := "environmentKey_example" // string | The environment key
-    metricKey := "metricKey_example" // string | The metric key
-    from := int64(789) // int64 | A timestamp denoting the start of the data collection period, expressed as a Unix epoch time in milliseconds. (optional)
-    to := int64(789) // int64 | A timestamp denoting the end of the data collection period, expressed as a Unix epoch time in milliseconds. (optional)
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ExperimentsApi.GetLegacyExperimentResults(context.Background(), projectKey, featureFlagKey, environmentKey, metricKey).From(from).To(to).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsApi.GetLegacyExperimentResults``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetLegacyExperimentResults`: ExperimentResults
-    fmt.Fprintf(os.Stdout, "Response from `ExperimentsApi.GetLegacyExperimentResults`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** | The project key | 
-**featureFlagKey** | **string** | The feature flag key | 
-**environmentKey** | **string** | The environment key | 
-**metricKey** | **string** | The metric key | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetLegacyExperimentResultsRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-
-
- **from** | **int64** | A timestamp denoting the start of the data collection period, expressed as a Unix epoch time in milliseconds. | 
- **to** | **int64** | A timestamp denoting the end of the data collection period, expressed as a Unix epoch time in milliseconds. | 
-
-### Return type
-
-[**ExperimentResults**](ExperimentResults.md)
 
 ### Authorization
 

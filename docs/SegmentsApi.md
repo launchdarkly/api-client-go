@@ -4,7 +4,11 @@ All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**CreateBigSegmentExport**](SegmentsApi.md#CreateBigSegmentExport) | **Post** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/exports | Create big segment export
+[**CreateBigSegmentImport**](SegmentsApi.md#CreateBigSegmentImport) | **Post** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/imports | Create big segment import
 [**DeleteSegment**](SegmentsApi.md#DeleteSegment) | **Delete** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey} | Delete segment
+[**GetBigSegmentExport**](SegmentsApi.md#GetBigSegmentExport) | **Get** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/exports/{exportID} | Get big segment export
+[**GetBigSegmentImport**](SegmentsApi.md#GetBigSegmentImport) | **Get** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/imports/{importID} | Get big segment import
 [**GetContextInstanceSegmentsMembershipByEnv**](SegmentsApi.md#GetContextInstanceSegmentsMembershipByEnv) | **Post** /api/v2/projects/{projectKey}/environments/{environmentKey}/segments/evaluate | List segment memberships for context instance
 [**GetExpiringTargetsForSegment**](SegmentsApi.md#GetExpiringTargetsForSegment) | **Get** /api/v2/segments/{projectKey}/{segmentKey}/expiring-targets/{environmentKey} | Get expiring targets for segment
 [**GetExpiringUserTargetsForSegment**](SegmentsApi.md#GetExpiringUserTargetsForSegment) | **Get** /api/v2/segments/{projectKey}/{segmentKey}/expiring-user-targets/{environmentKey} | Get expiring user targets for segment
@@ -19,6 +23,160 @@ Method | HTTP request | Description
 [**UpdateBigSegmentContextTargets**](SegmentsApi.md#UpdateBigSegmentContextTargets) | **Post** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/contexts | Update context targets on a big segment
 [**UpdateBigSegmentTargets**](SegmentsApi.md#UpdateBigSegmentTargets) | **Post** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/users | Update user context targets on a big segment
 
+
+
+## CreateBigSegmentExport
+
+> CreateBigSegmentExport(ctx, projectKey, environmentKey, segmentKey).Execute()
+
+Create big segment export
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    projectKey := "projectKey_example" // string | The project key
+    environmentKey := "environmentKey_example" // string | The environment key
+    segmentKey := "segmentKey_example" // string | The segment key
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SegmentsApi.CreateBigSegmentExport(context.Background(), projectKey, environmentKey, segmentKey).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.CreateBigSegmentExport``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projectKey** | **string** | The project key | 
+**environmentKey** | **string** | The environment key | 
+**segmentKey** | **string** | The segment key | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateBigSegmentExportRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CreateBigSegmentImport
+
+> CreateBigSegmentImport(ctx, projectKey, environmentKey, segmentKey).File(file).Mode(mode).WaitOnApprovals(waitOnApprovals).Execute()
+
+Create big segment import
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    projectKey := "projectKey_example" // string | The project key
+    environmentKey := "environmentKey_example" // string | The environment key
+    segmentKey := "segmentKey_example" // string | The segment key
+    file := os.NewFile(1234, "some_file") // *os.File | CSV file containing keys (optional)
+    mode := "mode_example" // string | Import mode. Use either `merge` or `replace` (optional)
+    waitOnApprovals := true // bool | Whether to wait for approvals before processing the import (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SegmentsApi.CreateBigSegmentImport(context.Background(), projectKey, environmentKey, segmentKey).File(file).Mode(mode).WaitOnApprovals(waitOnApprovals).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.CreateBigSegmentImport``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projectKey** | **string** | The project key | 
+**environmentKey** | **string** | The environment key | 
+**segmentKey** | **string** | The segment key | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateBigSegmentImportRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+ **file** | ***os.File** | CSV file containing keys | 
+ **mode** | **string** | Import mode. Use either &#x60;merge&#x60; or &#x60;replace&#x60; | 
+ **waitOnApprovals** | **bool** | Whether to wait for approvals before processing the import | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: multipart/form-data
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## DeleteSegment
@@ -80,6 +238,164 @@ Name | Type | Description  | Notes
 ### Return type
 
  (empty response body)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetBigSegmentExport
+
+> Export GetBigSegmentExport(ctx, projectKey, environmentKey, segmentKey, exportID).Execute()
+
+Get big segment export
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    projectKey := "projectKey_example" // string | The project key
+    environmentKey := "environmentKey_example" // string | The environment key
+    segmentKey := "segmentKey_example" // string | The segment key
+    exportID := "exportID_example" // string | The export ID
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SegmentsApi.GetBigSegmentExport(context.Background(), projectKey, environmentKey, segmentKey, exportID).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.GetBigSegmentExport``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetBigSegmentExport`: Export
+    fmt.Fprintf(os.Stdout, "Response from `SegmentsApi.GetBigSegmentExport`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projectKey** | **string** | The project key | 
+**environmentKey** | **string** | The environment key | 
+**segmentKey** | **string** | The segment key | 
+**exportID** | **string** | The export ID | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetBigSegmentExportRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+
+
+### Return type
+
+[**Export**](Export.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetBigSegmentImport
+
+> Import GetBigSegmentImport(ctx, projectKey, environmentKey, segmentKey, importID).Execute()
+
+Get big segment import
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    projectKey := "projectKey_example" // string | The project key
+    environmentKey := "environmentKey_example" // string | The environment key
+    segmentKey := "segmentKey_example" // string | The segment key
+    importID := "importID_example" // string | The import ID
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SegmentsApi.GetBigSegmentImport(context.Background(), projectKey, environmentKey, segmentKey, importID).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.GetBigSegmentImport``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetBigSegmentImport`: Import
+    fmt.Fprintf(os.Stdout, "Response from `SegmentsApi.GetBigSegmentImport`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projectKey** | **string** | The project key | 
+**environmentKey** | **string** | The environment key | 
+**segmentKey** | **string** | The segment key | 
+**importID** | **string** | The import ID | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetBigSegmentImportRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+
+
+### Return type
+
+[**Import**](Import.md)
 
 ### Authorization
 

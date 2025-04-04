@@ -551,7 +551,7 @@ import (
 )
 
 func main() {
-    id := "id_example" // string | The feature flag approval request ID
+    id := "id_example" // string | The approval request ID
     postApprovalRequestApplyRequest := *openapiclient.NewPostApprovalRequestApplyRequest() // PostApprovalRequestApplyRequest | 
 
     configuration := openapiclient.NewConfiguration()
@@ -572,7 +572,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The feature flag approval request ID | 
+**id** | **string** | The approval request ID | 
 
 ### Other Parameters
 

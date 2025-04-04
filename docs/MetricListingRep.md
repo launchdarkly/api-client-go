@@ -21,6 +21,7 @@ Name | Type | Description | Notes
 **MaintainerId** | Pointer to **string** | The ID of the member who maintains this metric | [optional] 
 **Maintainer** | Pointer to [**MemberSummary**](MemberSummary.md) |  | [optional] 
 **Description** | Pointer to **string** | Description of the metric | [optional] 
+**Category** | Pointer to **string** | The category of the metric | [optional] 
 **IsNumeric** | Pointer to **bool** | For custom metrics, whether to track numeric changes in value against a baseline (&lt;code&gt;true&lt;/code&gt;) or to track a conversion when an end user takes an action (&lt;code&gt;false&lt;/code&gt;). | [optional] 
 **SuccessCriteria** | Pointer to **string** | For custom metrics, the success criteria | [optional] 
 **Unit** | Pointer to **string** | For numeric custom metrics, the unit of measure | [optional] 
@@ -434,6 +435,31 @@ SetDescription sets Description field to given value.
 `func (o *MetricListingRep) HasDescription() bool`
 
 HasDescription returns a boolean if a field has been set.
+
+### GetCategory
+
+`func (o *MetricListingRep) GetCategory() string`
+
+GetCategory returns the Category field if non-nil, zero value otherwise.
+
+### GetCategoryOk
+
+`func (o *MetricListingRep) GetCategoryOk() (*string, bool)`
+
+GetCategoryOk returns a tuple with the Category field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCategory
+
+`func (o *MetricListingRep) SetCategory(v string)`
+
+SetCategory sets Category field to given value.
+
+### HasCategory
+
+`func (o *MetricListingRep) HasCategory() bool`
+
+HasCategory returns a boolean if a field has been set.
 
 ### GetIsNumeric
 

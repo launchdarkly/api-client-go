@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **Primarymetrickey** | Pointer to **string** | The key of the primary metric for this holdout | [optional] 
 **Metrics** | Pointer to [**[]MetricInput**](MetricInput.md) | Details on the metrics for this experiment | [optional] 
 **Prerequisiteflagkey** | Pointer to **string** | The key of the flag that the holdout is dependent on | [optional] 
+**MaintainerId** | Pointer to **string** | Maintainer id | [optional] 
 
 ## Methods
 
@@ -257,6 +258,31 @@ SetPrerequisiteflagkey sets Prerequisiteflagkey field to given value.
 `func (o *HoldoutPostRequest) HasPrerequisiteflagkey() bool`
 
 HasPrerequisiteflagkey returns a boolean if a field has been set.
+
+### GetMaintainerId
+
+`func (o *HoldoutPostRequest) GetMaintainerId() string`
+
+GetMaintainerId returns the MaintainerId field if non-nil, zero value otherwise.
+
+### GetMaintainerIdOk
+
+`func (o *HoldoutPostRequest) GetMaintainerIdOk() (*string, bool)`
+
+GetMaintainerIdOk returns a tuple with the MaintainerId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMaintainerId
+
+`func (o *HoldoutPostRequest) SetMaintainerId(v string)`
+
+SetMaintainerId sets MaintainerId field to given value.
+
+### HasMaintainerId
+
+`func (o *HoldoutPostRequest) HasMaintainerId() bool`
+
+HasMaintainerId returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

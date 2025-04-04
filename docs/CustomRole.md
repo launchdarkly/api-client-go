@@ -12,6 +12,10 @@ Name | Type | Description | Notes
 **Name** | **string** | The name of the custom role | 
 **Policy** | [**[]Statement**](Statement.md) | An array of the policies that comprise this custom role | 
 **BasePermissions** | Pointer to **string** |  | [optional] 
+**ResourceCategory** | Pointer to **string** |  | [optional] 
+**AssignedTo** | Pointer to [**AssignedToRep**](AssignedToRep.md) |  | [optional] 
+**PresetBundleVersion** | Pointer to **int32** | If created from a preset, the preset bundle version | [optional] 
+**PresetStatements** | Pointer to [**[]Statement**](Statement.md) | If created from a preset, the read-only statements copied from the preset | [optional] 
 
 ## Methods
 
@@ -206,6 +210,106 @@ SetBasePermissions sets BasePermissions field to given value.
 `func (o *CustomRole) HasBasePermissions() bool`
 
 HasBasePermissions returns a boolean if a field has been set.
+
+### GetResourceCategory
+
+`func (o *CustomRole) GetResourceCategory() string`
+
+GetResourceCategory returns the ResourceCategory field if non-nil, zero value otherwise.
+
+### GetResourceCategoryOk
+
+`func (o *CustomRole) GetResourceCategoryOk() (*string, bool)`
+
+GetResourceCategoryOk returns a tuple with the ResourceCategory field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetResourceCategory
+
+`func (o *CustomRole) SetResourceCategory(v string)`
+
+SetResourceCategory sets ResourceCategory field to given value.
+
+### HasResourceCategory
+
+`func (o *CustomRole) HasResourceCategory() bool`
+
+HasResourceCategory returns a boolean if a field has been set.
+
+### GetAssignedTo
+
+`func (o *CustomRole) GetAssignedTo() AssignedToRep`
+
+GetAssignedTo returns the AssignedTo field if non-nil, zero value otherwise.
+
+### GetAssignedToOk
+
+`func (o *CustomRole) GetAssignedToOk() (*AssignedToRep, bool)`
+
+GetAssignedToOk returns a tuple with the AssignedTo field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAssignedTo
+
+`func (o *CustomRole) SetAssignedTo(v AssignedToRep)`
+
+SetAssignedTo sets AssignedTo field to given value.
+
+### HasAssignedTo
+
+`func (o *CustomRole) HasAssignedTo() bool`
+
+HasAssignedTo returns a boolean if a field has been set.
+
+### GetPresetBundleVersion
+
+`func (o *CustomRole) GetPresetBundleVersion() int32`
+
+GetPresetBundleVersion returns the PresetBundleVersion field if non-nil, zero value otherwise.
+
+### GetPresetBundleVersionOk
+
+`func (o *CustomRole) GetPresetBundleVersionOk() (*int32, bool)`
+
+GetPresetBundleVersionOk returns a tuple with the PresetBundleVersion field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPresetBundleVersion
+
+`func (o *CustomRole) SetPresetBundleVersion(v int32)`
+
+SetPresetBundleVersion sets PresetBundleVersion field to given value.
+
+### HasPresetBundleVersion
+
+`func (o *CustomRole) HasPresetBundleVersion() bool`
+
+HasPresetBundleVersion returns a boolean if a field has been set.
+
+### GetPresetStatements
+
+`func (o *CustomRole) GetPresetStatements() []Statement`
+
+GetPresetStatements returns the PresetStatements field if non-nil, zero value otherwise.
+
+### GetPresetStatementsOk
+
+`func (o *CustomRole) GetPresetStatementsOk() (*[]Statement, bool)`
+
+GetPresetStatementsOk returns a tuple with the PresetStatements field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPresetStatements
+
+`func (o *CustomRole) SetPresetStatements(v []Statement)`
+
+SetPresetStatements sets PresetStatements field to given value.
+
+### HasPresetStatements
+
+`func (o *CustomRole) HasPresetStatements() bool`
+
+HasPresetStatements returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

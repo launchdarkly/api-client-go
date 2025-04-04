@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Disabled** | Pointer to **bool** | Whether to disable defaulting missing unit events when calculating results. Defaults to false | [optional] 
-**Value** | Pointer to **float32** | The default value applied to missing unit events. Only available when &lt;code&gt;disabled&lt;/code&gt; is false. Defaults to 0 | [optional] 
+**Value** | Pointer to **float32** | The default value applied to missing unit events. Set to 0 when &lt;code&gt;disabled&lt;/code&gt; is false. No other values are currently supported. | [optional] 
 
 ## Methods
 
