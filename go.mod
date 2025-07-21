@@ -1,7 +1,5 @@
 module github.com/launchdarkly/api-client-go/v17
 
-go 1.13
+go 1.23.0
 
-require (
-	golang.org/x/oauth2 v0.0.0-20210218202405-ba52d332ba99
-)
+require golang.org/x/oauth2 v0.27.0
