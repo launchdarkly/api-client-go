@@ -39,24 +39,24 @@ Create big segment export
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    segmentKey := "segmentKey_example" // string | The segment key
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	segmentKey := "segmentKey_example" // string | The segment key
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SegmentsApi.CreateBigSegmentExport(context.Background(), projectKey, environmentKey, segmentKey).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.CreateBigSegmentExport``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.SegmentsApi.CreateBigSegmentExport(context.Background(), projectKey, environmentKey, segmentKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.CreateBigSegmentExport``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -113,27 +113,27 @@ Create big segment import
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    segmentKey := "segmentKey_example" // string | The segment key
-    file := os.NewFile(1234, "some_file") // *os.File | CSV file containing keys (optional)
-    mode := "mode_example" // string | Import mode. Use either `merge` or `replace` (optional)
-    waitOnApprovals := true // bool | Whether to wait for approvals before processing the import (optional)
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	segmentKey := "segmentKey_example" // string | The segment key
+	file := os.NewFile(1234, "some_file") // *os.File | CSV file containing keys (optional)
+	mode := "mode_example" // string | Import mode. Use either `merge` or `replace` (optional)
+	waitOnApprovals := true // bool | Whether to wait for approvals before processing the import (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SegmentsApi.CreateBigSegmentImport(context.Background(), projectKey, environmentKey, segmentKey).File(file).Mode(mode).WaitOnApprovals(waitOnApprovals).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.CreateBigSegmentImport``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.SegmentsApi.CreateBigSegmentImport(context.Background(), projectKey, environmentKey, segmentKey).File(file).Mode(mode).WaitOnApprovals(waitOnApprovals).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.CreateBigSegmentImport``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -193,24 +193,24 @@ Delete segment
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    segmentKey := "segmentKey_example" // string | The segment key
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	segmentKey := "segmentKey_example" // string | The segment key
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SegmentsApi.DeleteSegment(context.Background(), projectKey, environmentKey, segmentKey).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.DeleteSegment``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.SegmentsApi.DeleteSegment(context.Background(), projectKey, environmentKey, segmentKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.DeleteSegment``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -267,27 +267,27 @@ Get big segment export
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    segmentKey := "segmentKey_example" // string | The segment key
-    exportID := "exportID_example" // string | The export ID
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	segmentKey := "segmentKey_example" // string | The segment key
+	exportID := "exportID_example" // string | The export ID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SegmentsApi.GetBigSegmentExport(context.Background(), projectKey, environmentKey, segmentKey, exportID).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.GetBigSegmentExport``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetBigSegmentExport`: Export
-    fmt.Fprintf(os.Stdout, "Response from `SegmentsApi.GetBigSegmentExport`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SegmentsApi.GetBigSegmentExport(context.Background(), projectKey, environmentKey, segmentKey, exportID).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.GetBigSegmentExport``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetBigSegmentExport`: Export
+	fmt.Fprintf(os.Stdout, "Response from `SegmentsApi.GetBigSegmentExport`: %v\n", resp)
 }
 ```
 
@@ -346,27 +346,27 @@ Get big segment import
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    segmentKey := "segmentKey_example" // string | The segment key
-    importID := "importID_example" // string | The import ID
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	segmentKey := "segmentKey_example" // string | The segment key
+	importID := "importID_example" // string | The import ID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SegmentsApi.GetBigSegmentImport(context.Background(), projectKey, environmentKey, segmentKey, importID).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.GetBigSegmentImport``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetBigSegmentImport`: Import
-    fmt.Fprintf(os.Stdout, "Response from `SegmentsApi.GetBigSegmentImport`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SegmentsApi.GetBigSegmentImport(context.Background(), projectKey, environmentKey, segmentKey, importID).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.GetBigSegmentImport``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetBigSegmentImport`: Import
+	fmt.Fprintf(os.Stdout, "Response from `SegmentsApi.GetBigSegmentImport`: %v\n", resp)
 }
 ```
 
@@ -425,26 +425,26 @@ List segment memberships for context instance
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    requestBody := map[string]interface{}{"key": interface{}(123)} // map[string]interface{} | 
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	requestBody := map[string]interface{}{"key": interface{}(123)} // map[string]interface{} | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SegmentsApi.GetContextInstanceSegmentsMembershipByEnv(context.Background(), projectKey, environmentKey).RequestBody(requestBody).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.GetContextInstanceSegmentsMembershipByEnv``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetContextInstanceSegmentsMembershipByEnv`: ContextInstanceSegmentMemberships
-    fmt.Fprintf(os.Stdout, "Response from `SegmentsApi.GetContextInstanceSegmentsMembershipByEnv`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SegmentsApi.GetContextInstanceSegmentsMembershipByEnv(context.Background(), projectKey, environmentKey).RequestBody(requestBody).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.GetContextInstanceSegmentsMembershipByEnv``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetContextInstanceSegmentsMembershipByEnv`: ContextInstanceSegmentMemberships
+	fmt.Fprintf(os.Stdout, "Response from `SegmentsApi.GetContextInstanceSegmentsMembershipByEnv`: %v\n", resp)
 }
 ```
 
@@ -500,26 +500,26 @@ Get expiring targets for segment
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    segmentKey := "segmentKey_example" // string | The segment key
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	segmentKey := "segmentKey_example" // string | The segment key
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SegmentsApi.GetExpiringTargetsForSegment(context.Background(), projectKey, environmentKey, segmentKey).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.GetExpiringTargetsForSegment``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetExpiringTargetsForSegment`: ExpiringTargetGetResponse
-    fmt.Fprintf(os.Stdout, "Response from `SegmentsApi.GetExpiringTargetsForSegment`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SegmentsApi.GetExpiringTargetsForSegment(context.Background(), projectKey, environmentKey, segmentKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.GetExpiringTargetsForSegment``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetExpiringTargetsForSegment`: ExpiringTargetGetResponse
+	fmt.Fprintf(os.Stdout, "Response from `SegmentsApi.GetExpiringTargetsForSegment`: %v\n", resp)
 }
 ```
 
@@ -576,26 +576,26 @@ Get expiring user targets for segment
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    segmentKey := "segmentKey_example" // string | The segment key
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	segmentKey := "segmentKey_example" // string | The segment key
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SegmentsApi.GetExpiringUserTargetsForSegment(context.Background(), projectKey, environmentKey, segmentKey).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.GetExpiringUserTargetsForSegment``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetExpiringUserTargetsForSegment`: ExpiringUserTargetGetResponse
-    fmt.Fprintf(os.Stdout, "Response from `SegmentsApi.GetExpiringUserTargetsForSegment`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SegmentsApi.GetExpiringUserTargetsForSegment(context.Background(), projectKey, environmentKey, segmentKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.GetExpiringUserTargetsForSegment``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetExpiringUserTargetsForSegment`: ExpiringUserTargetGetResponse
+	fmt.Fprintf(os.Stdout, "Response from `SegmentsApi.GetExpiringUserTargetsForSegment`: %v\n", resp)
 }
 ```
 
@@ -652,26 +652,26 @@ Get segment
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    segmentKey := "segmentKey_example" // string | The segment key
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	segmentKey := "segmentKey_example" // string | The segment key
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SegmentsApi.GetSegment(context.Background(), projectKey, environmentKey, segmentKey).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.GetSegment``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetSegment`: UserSegment
-    fmt.Fprintf(os.Stdout, "Response from `SegmentsApi.GetSegment`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SegmentsApi.GetSegment(context.Background(), projectKey, environmentKey, segmentKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.GetSegment``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetSegment`: UserSegment
+	fmt.Fprintf(os.Stdout, "Response from `SegmentsApi.GetSegment`: %v\n", resp)
 }
 ```
 
@@ -728,27 +728,27 @@ Get big segment membership for context
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    segmentKey := "segmentKey_example" // string | The segment key
-    contextKey := "contextKey_example" // string | The context key
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	segmentKey := "segmentKey_example" // string | The segment key
+	contextKey := "contextKey_example" // string | The context key
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SegmentsApi.GetSegmentMembershipForContext(context.Background(), projectKey, environmentKey, segmentKey, contextKey).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.GetSegmentMembershipForContext``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetSegmentMembershipForContext`: BigSegmentTarget
-    fmt.Fprintf(os.Stdout, "Response from `SegmentsApi.GetSegmentMembershipForContext`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SegmentsApi.GetSegmentMembershipForContext(context.Background(), projectKey, environmentKey, segmentKey, contextKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.GetSegmentMembershipForContext``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetSegmentMembershipForContext`: BigSegmentTarget
+	fmt.Fprintf(os.Stdout, "Response from `SegmentsApi.GetSegmentMembershipForContext`: %v\n", resp)
 }
 ```
 
@@ -807,27 +807,27 @@ Get big segment membership for user
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    segmentKey := "segmentKey_example" // string | The segment key
-    userKey := "userKey_example" // string | The user key
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	segmentKey := "segmentKey_example" // string | The segment key
+	userKey := "userKey_example" // string | The user key
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SegmentsApi.GetSegmentMembershipForUser(context.Background(), projectKey, environmentKey, segmentKey, userKey).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.GetSegmentMembershipForUser``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetSegmentMembershipForUser`: BigSegmentTarget
-    fmt.Fprintf(os.Stdout, "Response from `SegmentsApi.GetSegmentMembershipForUser`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SegmentsApi.GetSegmentMembershipForUser(context.Background(), projectKey, environmentKey, segmentKey, userKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.GetSegmentMembershipForUser``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetSegmentMembershipForUser`: BigSegmentTarget
+	fmt.Fprintf(os.Stdout, "Response from `SegmentsApi.GetSegmentMembershipForUser`: %v\n", resp)
 }
 ```
 
@@ -886,29 +886,29 @@ List segments
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    limit := int64(789) // int64 | The number of segments to return. Defaults to 20. (optional)
-    offset := int64(789) // int64 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
-    sort := "sort_example" // string | Accepts sorting order and fields. Fields can be comma separated. Possible fields are 'creationDate', 'name', 'lastModified'. Example: `sort=name` sort by names ascending or `sort=-name,creationDate` sort by names descending and creationDate ascending. (optional)
-    filter := "filter_example" // string | Accepts filter by `excludedKeys`, `external`, `includedKeys`, `query`, `tags`, `unbounded`. To learn more about the filter syntax, read the  'Filtering segments' section above. (optional)
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	limit := int64(789) // int64 | The number of segments to return. Defaults to 20. (optional)
+	offset := int64(789) // int64 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
+	sort := "sort_example" // string | Accepts sorting order and fields. Fields can be comma separated. Possible fields are 'creationDate', 'name', 'lastModified'. Example: `sort=name` sort by names ascending or `sort=-name,creationDate` sort by names descending and creationDate ascending. (optional)
+	filter := "filter_example" // string | Accepts filter by `excludedKeys`, `external`, `includedKeys`, `query`, `tags`, `unbounded`, `view`. To learn more about the filter syntax, read the  'Filtering segments' section above. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SegmentsApi.GetSegments(context.Background(), projectKey, environmentKey).Limit(limit).Offset(offset).Sort(sort).Filter(filter).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.GetSegments``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetSegments`: UserSegments
-    fmt.Fprintf(os.Stdout, "Response from `SegmentsApi.GetSegments`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SegmentsApi.GetSegments(context.Background(), projectKey, environmentKey).Limit(limit).Offset(offset).Sort(sort).Filter(filter).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.GetSegments``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetSegments`: UserSegments
+	fmt.Fprintf(os.Stdout, "Response from `SegmentsApi.GetSegments`: %v\n", resp)
 }
 ```
 
@@ -933,7 +933,7 @@ Name | Type | Description  | Notes
  **limit** | **int64** | The number of segments to return. Defaults to 20. | 
  **offset** | **int64** | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | 
  **sort** | **string** | Accepts sorting order and fields. Fields can be comma separated. Possible fields are &#39;creationDate&#39;, &#39;name&#39;, &#39;lastModified&#39;. Example: &#x60;sort&#x3D;name&#x60; sort by names ascending or &#x60;sort&#x3D;-name,creationDate&#x60; sort by names descending and creationDate ascending. | 
- **filter** | **string** | Accepts filter by &#x60;excludedKeys&#x60;, &#x60;external&#x60;, &#x60;includedKeys&#x60;, &#x60;query&#x60;, &#x60;tags&#x60;, &#x60;unbounded&#x60;. To learn more about the filter syntax, read the  &#39;Filtering segments&#39; section above. | 
+ **filter** | **string** | Accepts filter by &#x60;excludedKeys&#x60;, &#x60;external&#x60;, &#x60;includedKeys&#x60;, &#x60;query&#x60;, &#x60;tags&#x60;, &#x60;unbounded&#x60;, &#x60;view&#x60;. To learn more about the filter syntax, read the  &#39;Filtering segments&#39; section above. | 
 
 ### Return type
 
@@ -967,27 +967,27 @@ Update expiring targets for segment
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    segmentKey := "segmentKey_example" // string | The segment key
-    patchSegmentExpiringTargetInputRep := *openapiclient.NewPatchSegmentExpiringTargetInputRep([]openapiclient.PatchSegmentExpiringTargetInstruction{*openapiclient.NewPatchSegmentExpiringTargetInstruction("addExpiringTarget", "ContextKey_example", "user", "TargetType_example")}) // PatchSegmentExpiringTargetInputRep | 
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	segmentKey := "segmentKey_example" // string | The segment key
+	patchSegmentExpiringTargetInputRep := *openapiclient.NewPatchSegmentExpiringTargetInputRep([]openapiclient.PatchSegmentExpiringTargetInstruction{*openapiclient.NewPatchSegmentExpiringTargetInstruction("addExpiringTarget", "ContextKey_example", "user", "TargetType_example")}) // PatchSegmentExpiringTargetInputRep | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SegmentsApi.PatchExpiringTargetsForSegment(context.Background(), projectKey, environmentKey, segmentKey).PatchSegmentExpiringTargetInputRep(patchSegmentExpiringTargetInputRep).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.PatchExpiringTargetsForSegment``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PatchExpiringTargetsForSegment`: ExpiringTargetPatchResponse
-    fmt.Fprintf(os.Stdout, "Response from `SegmentsApi.PatchExpiringTargetsForSegment`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SegmentsApi.PatchExpiringTargetsForSegment(context.Background(), projectKey, environmentKey, segmentKey).PatchSegmentExpiringTargetInputRep(patchSegmentExpiringTargetInputRep).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.PatchExpiringTargetsForSegment``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PatchExpiringTargetsForSegment`: ExpiringTargetPatchResponse
+	fmt.Fprintf(os.Stdout, "Response from `SegmentsApi.PatchExpiringTargetsForSegment`: %v\n", resp)
 }
 ```
 
@@ -1045,27 +1045,27 @@ Update expiring user targets for segment
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    segmentKey := "segmentKey_example" // string | The segment key
-    patchSegmentRequest := *openapiclient.NewPatchSegmentRequest([]openapiclient.PatchSegmentInstruction{*openapiclient.NewPatchSegmentInstruction("addExpireUserTargetDate", "UserKey_example", "TargetType_example")}) // PatchSegmentRequest | 
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	segmentKey := "segmentKey_example" // string | The segment key
+	patchSegmentRequest := *openapiclient.NewPatchSegmentRequest([]openapiclient.PatchSegmentInstruction{*openapiclient.NewPatchSegmentInstruction("addExpireUserTargetDate", "UserKey_example", "TargetType_example")}) // PatchSegmentRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SegmentsApi.PatchExpiringUserTargetsForSegment(context.Background(), projectKey, environmentKey, segmentKey).PatchSegmentRequest(patchSegmentRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.PatchExpiringUserTargetsForSegment``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PatchExpiringUserTargetsForSegment`: ExpiringUserTargetPatchResponse
-    fmt.Fprintf(os.Stdout, "Response from `SegmentsApi.PatchExpiringUserTargetsForSegment`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SegmentsApi.PatchExpiringUserTargetsForSegment(context.Background(), projectKey, environmentKey, segmentKey).PatchSegmentRequest(patchSegmentRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.PatchExpiringUserTargetsForSegment``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PatchExpiringUserTargetsForSegment`: ExpiringUserTargetPatchResponse
+	fmt.Fprintf(os.Stdout, "Response from `SegmentsApi.PatchExpiringUserTargetsForSegment`: %v\n", resp)
 }
 ```
 
@@ -1123,27 +1123,27 @@ Patch segment
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    segmentKey := "segmentKey_example" // string | The segment key
-    patchWithComment := *openapiclient.NewPatchWithComment([]openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")}) // PatchWithComment | 
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	segmentKey := "segmentKey_example" // string | The segment key
+	patchWithComment := *openapiclient.NewPatchWithComment([]openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")}) // PatchWithComment | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SegmentsApi.PatchSegment(context.Background(), projectKey, environmentKey, segmentKey).PatchWithComment(patchWithComment).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.PatchSegment``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PatchSegment`: UserSegment
-    fmt.Fprintf(os.Stdout, "Response from `SegmentsApi.PatchSegment`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SegmentsApi.PatchSegment(context.Background(), projectKey, environmentKey, segmentKey).PatchWithComment(patchWithComment).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.PatchSegment``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PatchSegment`: UserSegment
+	fmt.Fprintf(os.Stdout, "Response from `SegmentsApi.PatchSegment`: %v\n", resp)
 }
 ```
 
@@ -1201,26 +1201,26 @@ Create segment
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    segmentBody := *openapiclient.NewSegmentBody("Example segment", "segment-key-123abc") // SegmentBody | 
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	segmentBody := *openapiclient.NewSegmentBody("Example segment", "segment-key-123abc") // SegmentBody | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SegmentsApi.PostSegment(context.Background(), projectKey, environmentKey).SegmentBody(segmentBody).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.PostSegment``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostSegment`: UserSegment
-    fmt.Fprintf(os.Stdout, "Response from `SegmentsApi.PostSegment`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SegmentsApi.PostSegment(context.Background(), projectKey, environmentKey).SegmentBody(segmentBody).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.PostSegment``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostSegment`: UserSegment
+	fmt.Fprintf(os.Stdout, "Response from `SegmentsApi.PostSegment`: %v\n", resp)
 }
 ```
 
@@ -1276,25 +1276,25 @@ Update context targets on a big segment
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    segmentKey := "segmentKey_example" // string | The segment key
-    segmentUserState := *openapiclient.NewSegmentUserState() // SegmentUserState | 
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	segmentKey := "segmentKey_example" // string | The segment key
+	segmentUserState := *openapiclient.NewSegmentUserState() // SegmentUserState | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SegmentsApi.UpdateBigSegmentContextTargets(context.Background(), projectKey, environmentKey, segmentKey).SegmentUserState(segmentUserState).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.UpdateBigSegmentContextTargets``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.SegmentsApi.UpdateBigSegmentContextTargets(context.Background(), projectKey, environmentKey, segmentKey).SegmentUserState(segmentUserState).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.UpdateBigSegmentContextTargets``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -1352,25 +1352,25 @@ Update user context targets on a big segment
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    segmentKey := "segmentKey_example" // string | The segment key
-    segmentUserState := *openapiclient.NewSegmentUserState() // SegmentUserState | 
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	segmentKey := "segmentKey_example" // string | The segment key
+	segmentUserState := *openapiclient.NewSegmentUserState() // SegmentUserState | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SegmentsApi.UpdateBigSegmentTargets(context.Background(), projectKey, environmentKey, segmentKey).SegmentUserState(segmentUserState).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.UpdateBigSegmentTargets``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.SegmentsApi.UpdateBigSegmentTargets(context.Background(), projectKey, environmentKey, segmentKey).SegmentUserState(segmentUserState).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.UpdateBigSegmentTargets``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 

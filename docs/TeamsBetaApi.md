@@ -22,24 +22,24 @@ Update teams
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    teamsPatchInput := *openapiclient.NewTeamsPatchInput([]map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}) // TeamsPatchInput | 
+	teamsPatchInput := *openapiclient.NewTeamsPatchInput([]map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}) // TeamsPatchInput | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TeamsBetaApi.PatchTeams(context.Background()).TeamsPatchInput(teamsPatchInput).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `TeamsBetaApi.PatchTeams``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PatchTeams`: BulkEditTeamsRep
-    fmt.Fprintf(os.Stdout, "Response from `TeamsBetaApi.PatchTeams`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TeamsBetaApi.PatchTeams(context.Background()).TeamsPatchInput(teamsPatchInput).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TeamsBetaApi.PatchTeams``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PatchTeams`: BulkEditTeamsRep
+	fmt.Fprintf(os.Stdout, "Response from `TeamsBetaApi.PatchTeams`: %v\n", resp)
 }
 ```
 

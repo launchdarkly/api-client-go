@@ -27,22 +27,22 @@ Delete Relay Proxy config by ID
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    id := "id_example" // string | The relay auto config id
+	id := "id_example" // string | The relay auto config id
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.RelayProxyConfigurationsApi.DeleteRelayAutoConfig(context.Background(), id).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RelayProxyConfigurationsApi.DeleteRelayAutoConfig``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.RelayProxyConfigurationsApi.DeleteRelayAutoConfig(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `RelayProxyConfigurationsApi.DeleteRelayAutoConfig``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -95,24 +95,24 @@ Get Relay Proxy config
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    id := "id_example" // string | The relay auto config id
+	id := "id_example" // string | The relay auto config id
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.RelayProxyConfigurationsApi.GetRelayProxyConfig(context.Background(), id).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RelayProxyConfigurationsApi.GetRelayProxyConfig``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetRelayProxyConfig`: RelayAutoConfigRep
-    fmt.Fprintf(os.Stdout, "Response from `RelayProxyConfigurationsApi.GetRelayProxyConfig`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.RelayProxyConfigurationsApi.GetRelayProxyConfig(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `RelayProxyConfigurationsApi.GetRelayProxyConfig``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetRelayProxyConfig`: RelayAutoConfigRep
+	fmt.Fprintf(os.Stdout, "Response from `RelayProxyConfigurationsApi.GetRelayProxyConfig`: %v\n", resp)
 }
 ```
 
@@ -165,23 +165,23 @@ List Relay Proxy configs
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.RelayProxyConfigurationsApi.GetRelayProxyConfigs(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RelayProxyConfigurationsApi.GetRelayProxyConfigs``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetRelayProxyConfigs`: RelayAutoConfigCollectionRep
-    fmt.Fprintf(os.Stdout, "Response from `RelayProxyConfigurationsApi.GetRelayProxyConfigs`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.RelayProxyConfigurationsApi.GetRelayProxyConfigs(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `RelayProxyConfigurationsApi.GetRelayProxyConfigs``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetRelayProxyConfigs`: RelayAutoConfigCollectionRep
+	fmt.Fprintf(os.Stdout, "Response from `RelayProxyConfigurationsApi.GetRelayProxyConfigs`: %v\n", resp)
 }
 ```
 
@@ -226,25 +226,25 @@ Update a Relay Proxy config
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    id := "id_example" // string | The relay auto config id
-    patchWithComment := *openapiclient.NewPatchWithComment([]openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")}) // PatchWithComment | 
+	id := "id_example" // string | The relay auto config id
+	patchWithComment := *openapiclient.NewPatchWithComment([]openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")}) // PatchWithComment | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.RelayProxyConfigurationsApi.PatchRelayAutoConfig(context.Background(), id).PatchWithComment(patchWithComment).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RelayProxyConfigurationsApi.PatchRelayAutoConfig``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PatchRelayAutoConfig`: RelayAutoConfigRep
-    fmt.Fprintf(os.Stdout, "Response from `RelayProxyConfigurationsApi.PatchRelayAutoConfig`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.RelayProxyConfigurationsApi.PatchRelayAutoConfig(context.Background(), id).PatchWithComment(patchWithComment).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `RelayProxyConfigurationsApi.PatchRelayAutoConfig``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PatchRelayAutoConfig`: RelayAutoConfigRep
+	fmt.Fprintf(os.Stdout, "Response from `RelayProxyConfigurationsApi.PatchRelayAutoConfig`: %v\n", resp)
 }
 ```
 
@@ -298,24 +298,24 @@ Create a new Relay Proxy config
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    relayAutoConfigPost := *openapiclient.NewRelayAutoConfigPost("Name_example", []openapiclient.Statement{*openapiclient.NewStatement("allow")}) // RelayAutoConfigPost | 
+	relayAutoConfigPost := *openapiclient.NewRelayAutoConfigPost("Name_example", []openapiclient.Statement{*openapiclient.NewStatement("allow")}) // RelayAutoConfigPost | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.RelayProxyConfigurationsApi.PostRelayAutoConfig(context.Background()).RelayAutoConfigPost(relayAutoConfigPost).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RelayProxyConfigurationsApi.PostRelayAutoConfig``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostRelayAutoConfig`: RelayAutoConfigRep
-    fmt.Fprintf(os.Stdout, "Response from `RelayProxyConfigurationsApi.PostRelayAutoConfig`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.RelayProxyConfigurationsApi.PostRelayAutoConfig(context.Background()).RelayAutoConfigPost(relayAutoConfigPost).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `RelayProxyConfigurationsApi.PostRelayAutoConfig``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostRelayAutoConfig`: RelayAutoConfigRep
+	fmt.Fprintf(os.Stdout, "Response from `RelayProxyConfigurationsApi.PostRelayAutoConfig`: %v\n", resp)
 }
 ```
 
@@ -364,25 +364,25 @@ Reset Relay Proxy configuration key
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    id := "id_example" // string | The Relay Proxy configuration ID
-    expiry := int64(789) // int64 | An expiration time for the old Relay Proxy configuration key, expressed as a Unix epoch time in milliseconds. By default, the Relay Proxy configuration will expire immediately. (optional)
+	id := "id_example" // string | The Relay Proxy configuration ID
+	expiry := int64(789) // int64 | An expiration time for the old Relay Proxy configuration key, expressed as a Unix epoch time in milliseconds. By default, the Relay Proxy configuration will expire immediately. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.RelayProxyConfigurationsApi.ResetRelayAutoConfig(context.Background(), id).Expiry(expiry).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RelayProxyConfigurationsApi.ResetRelayAutoConfig``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ResetRelayAutoConfig`: RelayAutoConfigRep
-    fmt.Fprintf(os.Stdout, "Response from `RelayProxyConfigurationsApi.ResetRelayAutoConfig`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.RelayProxyConfigurationsApi.ResetRelayAutoConfig(context.Background(), id).Expiry(expiry).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `RelayProxyConfigurationsApi.ResetRelayAutoConfig``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ResetRelayAutoConfig`: RelayAutoConfigRep
+	fmt.Fprintf(os.Stdout, "Response from `RelayProxyConfigurationsApi.ResetRelayAutoConfig`: %v\n", resp)
 }
 ```
 

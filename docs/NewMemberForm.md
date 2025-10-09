@@ -8,8 +8,8 @@ Name | Type | Description | Notes
 **Password** | Pointer to **string** | The member&#39;s password | [optional] 
 **FirstName** | Pointer to **string** | The member&#39;s first name | [optional] 
 **LastName** | Pointer to **string** | The member&#39;s last name | [optional] 
-**Role** | Pointer to **string** | The member&#39;s built-in role | [optional] 
-**CustomRoles** | Pointer to **[]string** | An array of the member&#39;s custom roles | [optional] 
+**Role** | Pointer to **string** | The member&#39;s initial role, if you are using a base role for the initial role | [optional] 
+**CustomRoles** | Pointer to **[]string** | An array of the member&#39;s initial roles, if you are using custom roles or preset roles provided by LaunchDarkly | [optional] 
 **TeamKeys** | Pointer to **[]string** | An array of the member&#39;s teams | [optional] 
 **RoleAttributes** | Pointer to **map[string][]string** |  | [optional] 
 

@@ -26,25 +26,25 @@ Create metric group
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    metricGroupPost := *openapiclient.NewMetricGroupPost("metric-group-key-123abc", "My metric group", "funnel", "569fdeadbeef1644facecafe", []string{"Tags_example"}, []openapiclient.MetricInMetricGroupInput{*openapiclient.NewMetricInMetricGroupInput("metric-key-123abc", "Step 1")}) // MetricGroupPost | 
+	projectKey := "projectKey_example" // string | The project key
+	metricGroupPost := *openapiclient.NewMetricGroupPost("My metric group", "funnel", "569fdeadbeef1644facecafe", []string{"Tags_example"}, []openapiclient.MetricInMetricGroupInput{*openapiclient.NewMetricInMetricGroupInput("metric-key-123abc", "Step 1")}) // MetricGroupPost | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.MetricsBetaApi.CreateMetricGroup(context.Background(), projectKey).MetricGroupPost(metricGroupPost).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `MetricsBetaApi.CreateMetricGroup``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateMetricGroup`: MetricGroupRep
-    fmt.Fprintf(os.Stdout, "Response from `MetricsBetaApi.CreateMetricGroup`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MetricsBetaApi.CreateMetricGroup(context.Background(), projectKey).MetricGroupPost(metricGroupPost).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MetricsBetaApi.CreateMetricGroup``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateMetricGroup`: MetricGroupRep
+	fmt.Fprintf(os.Stdout, "Response from `MetricsBetaApi.CreateMetricGroup`: %v\n", resp)
 }
 ```
 
@@ -98,23 +98,23 @@ Delete metric group
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    metricGroupKey := "metricGroupKey_example" // string | The metric group key
+	projectKey := "projectKey_example" // string | The project key
+	metricGroupKey := "metricGroupKey_example" // string | The metric group key
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.MetricsBetaApi.DeleteMetricGroup(context.Background(), projectKey, metricGroupKey).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `MetricsBetaApi.DeleteMetricGroup``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.MetricsBetaApi.DeleteMetricGroup(context.Background(), projectKey, metricGroupKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MetricsBetaApi.DeleteMetricGroup``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -169,26 +169,26 @@ Get metric group
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    metricGroupKey := "metricGroupKey_example" // string | The metric group key
-    expand := "expand_example" // string | A comma-separated list of properties that can reveal additional information in the response. (optional)
+	projectKey := "projectKey_example" // string | The project key
+	metricGroupKey := "metricGroupKey_example" // string | The metric group key
+	expand := "expand_example" // string | A comma-separated list of properties that can reveal additional information in the response. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.MetricsBetaApi.GetMetricGroup(context.Background(), projectKey, metricGroupKey).Expand(expand).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `MetricsBetaApi.GetMetricGroup``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetMetricGroup`: MetricGroupRep
-    fmt.Fprintf(os.Stdout, "Response from `MetricsBetaApi.GetMetricGroup`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MetricsBetaApi.GetMetricGroup(context.Background(), projectKey, metricGroupKey).Expand(expand).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MetricsBetaApi.GetMetricGroup``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetMetricGroup`: MetricGroupRep
+	fmt.Fprintf(os.Stdout, "Response from `MetricsBetaApi.GetMetricGroup`: %v\n", resp)
 }
 ```
 
@@ -244,29 +244,29 @@ List metric groups
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    filter := "filter_example" // string | Accepts filter by `experimentStatus`, `query`, `kind`, `hasConnections`, `maintainerIds`, and `maintainerTeamKey`. Example: `filter=experimentStatus equals 'running' and query equals 'test'`. (optional)
-    sort := "sort_example" // string | A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order. Read the endpoint description for a full list of available sort fields. (optional)
-    expand := "expand_example" // string | A comma-separated list of properties that can reveal additional information in the response. (optional)
-    limit := int64(789) // int64 | The number of metric groups to return in the response. Defaults to 20. Maximum limit is 50. (optional)
-    offset := int64(789) // int64 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and returns the next `limit` items. (optional)
+	projectKey := "projectKey_example" // string | The project key
+	filter := "filter_example" // string | Accepts filter by `experimentStatus`, `query`, `kind`, `hasConnections`, `maintainerIds`, and `maintainerTeamKey`. Example: `filter=experimentStatus equals 'running' and query equals 'test'`. (optional)
+	sort := "sort_example" // string | A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order. Read the endpoint description for a full list of available sort fields. (optional)
+	expand := "expand_example" // string | A comma-separated list of properties that can reveal additional information in the response. (optional)
+	limit := int64(789) // int64 | The number of metric groups to return in the response. Defaults to 20. Maximum limit is 50. (optional)
+	offset := int64(789) // int64 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and returns the next `limit` items. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.MetricsBetaApi.GetMetricGroups(context.Background(), projectKey).Filter(filter).Sort(sort).Expand(expand).Limit(limit).Offset(offset).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `MetricsBetaApi.GetMetricGroups``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetMetricGroups`: MetricGroupCollectionRep
-    fmt.Fprintf(os.Stdout, "Response from `MetricsBetaApi.GetMetricGroups`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MetricsBetaApi.GetMetricGroups(context.Background(), projectKey).Filter(filter).Sort(sort).Expand(expand).Limit(limit).Offset(offset).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MetricsBetaApi.GetMetricGroups``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetMetricGroups`: MetricGroupCollectionRep
+	fmt.Fprintf(os.Stdout, "Response from `MetricsBetaApi.GetMetricGroups`: %v\n", resp)
 }
 ```
 
@@ -324,26 +324,26 @@ Patch metric group
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    metricGroupKey := "metricGroupKey_example" // string | The metric group key
-    patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")} // []PatchOperation | 
+	projectKey := "projectKey_example" // string | The project key
+	metricGroupKey := "metricGroupKey_example" // string | The metric group key
+	patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")} // []PatchOperation | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.MetricsBetaApi.PatchMetricGroup(context.Background(), projectKey, metricGroupKey).PatchOperation(patchOperation).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `MetricsBetaApi.PatchMetricGroup``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PatchMetricGroup`: MetricGroupRep
-    fmt.Fprintf(os.Stdout, "Response from `MetricsBetaApi.PatchMetricGroup`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.MetricsBetaApi.PatchMetricGroup(context.Background(), projectKey, metricGroupKey).PatchOperation(patchOperation).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `MetricsBetaApi.PatchMetricGroup``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PatchMetricGroup`: MetricGroupRep
+	fmt.Fprintf(os.Stdout, "Response from `MetricsBetaApi.PatchMetricGroup`: %v\n", resp)
 }
 ```
 

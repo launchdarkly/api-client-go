@@ -14,6 +14,8 @@ Name | Type | Description | Notes
 **WinningReason** | Pointer to **string** | The reason you stopped the experiment | [optional] 
 **CanReshuffleTraffic** | Pointer to **bool** | Whether the experiment may reassign traffic to different variations when the experiment audience changes (true) or must keep all traffic assigned to its initial variation (false). | [optional] 
 **Flags** | Pointer to [**map[string]FlagRep**](FlagRep.md) | Details on the flag used in this experiment | [optional] 
+**ReallocationFrequencyMillis** | Pointer to **int32** | The cadence (in milliseconds) to update the allocation. Only present for multi-armed bandits. | [optional] 
+**Version** | Pointer to **int32** | The current version that the iteration is on | [optional] 
 **PrimaryMetric** | Pointer to [**DependentMetricOrMetricGroupRep**](DependentMetricOrMetricGroupRep.md) |  | [optional] 
 **PrimarySingleMetric** | Pointer to [**MetricV2Rep**](MetricV2Rep.md) |  | [optional] 
 **PrimaryFunnel** | Pointer to [**DependentMetricGroupRepWithMetrics**](DependentMetricGroupRepWithMetrics.md) |  | [optional] 
@@ -277,6 +279,56 @@ SetFlags sets Flags field to given value.
 `func (o *IterationRep) HasFlags() bool`
 
 HasFlags returns a boolean if a field has been set.
+
+### GetReallocationFrequencyMillis
+
+`func (o *IterationRep) GetReallocationFrequencyMillis() int32`
+
+GetReallocationFrequencyMillis returns the ReallocationFrequencyMillis field if non-nil, zero value otherwise.
+
+### GetReallocationFrequencyMillisOk
+
+`func (o *IterationRep) GetReallocationFrequencyMillisOk() (*int32, bool)`
+
+GetReallocationFrequencyMillisOk returns a tuple with the ReallocationFrequencyMillis field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetReallocationFrequencyMillis
+
+`func (o *IterationRep) SetReallocationFrequencyMillis(v int32)`
+
+SetReallocationFrequencyMillis sets ReallocationFrequencyMillis field to given value.
+
+### HasReallocationFrequencyMillis
+
+`func (o *IterationRep) HasReallocationFrequencyMillis() bool`
+
+HasReallocationFrequencyMillis returns a boolean if a field has been set.
+
+### GetVersion
+
+`func (o *IterationRep) GetVersion() int32`
+
+GetVersion returns the Version field if non-nil, zero value otherwise.
+
+### GetVersionOk
+
+`func (o *IterationRep) GetVersionOk() (*int32, bool)`
+
+GetVersionOk returns a tuple with the Version field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVersion
+
+`func (o *IterationRep) SetVersion(v int32)`
+
+SetVersion sets Version field to given value.
+
+### HasVersion
+
+`func (o *IterationRep) HasVersion() bool`
+
+HasVersion returns a boolean if a field has been set.
 
 ### GetPrimaryMetric
 

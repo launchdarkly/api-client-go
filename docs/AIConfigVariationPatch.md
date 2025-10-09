@@ -4,12 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Comment** | Pointer to **string** | Human-readable description of what this patch changes | [optional] 
+**Description** | Pointer to **string** | Description for agent when AI Config is in agent mode. | [optional] 
+**Instructions** | Pointer to **string** | Instructions for agent when AI Config is in agent mode. | [optional] 
 **Messages** | Pointer to [**[]Message**](Message.md) |  | [optional] 
 **Model** | Pointer to **map[string]interface{}** |  | [optional] 
 **ModelConfigKey** | Pointer to **string** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **Published** | Pointer to **bool** |  | [optional] 
 **State** | Pointer to **string** | One of &#39;archived&#39;, &#39;published&#39; | [optional] 
+**Tools** | Pointer to [**[]VariationToolPost**](VariationToolPost.md) | List of tools to use for this variation. The latest version of the tool will be used. | [optional] 
+**ToolKeys** | Pointer to **[]string** | List of tool keys to use for this variation. The latest version of the tool will be used. | [optional] 
+**JudgeConfiguration** | Pointer to [**JudgeConfiguration**](JudgeConfiguration.md) |  | [optional] 
 
 ## Methods
 
@@ -29,6 +35,81 @@ will change when the set of required properties is changed
 NewAIConfigVariationPatchWithDefaults instantiates a new AIConfigVariationPatch object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetComment
+
+`func (o *AIConfigVariationPatch) GetComment() string`
+
+GetComment returns the Comment field if non-nil, zero value otherwise.
+
+### GetCommentOk
+
+`func (o *AIConfigVariationPatch) GetCommentOk() (*string, bool)`
+
+GetCommentOk returns a tuple with the Comment field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetComment
+
+`func (o *AIConfigVariationPatch) SetComment(v string)`
+
+SetComment sets Comment field to given value.
+
+### HasComment
+
+`func (o *AIConfigVariationPatch) HasComment() bool`
+
+HasComment returns a boolean if a field has been set.
+
+### GetDescription
+
+`func (o *AIConfigVariationPatch) GetDescription() string`
+
+GetDescription returns the Description field if non-nil, zero value otherwise.
+
+### GetDescriptionOk
+
+`func (o *AIConfigVariationPatch) GetDescriptionOk() (*string, bool)`
+
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescription
+
+`func (o *AIConfigVariationPatch) SetDescription(v string)`
+
+SetDescription sets Description field to given value.
+
+### HasDescription
+
+`func (o *AIConfigVariationPatch) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
+
+### GetInstructions
+
+`func (o *AIConfigVariationPatch) GetInstructions() string`
+
+GetInstructions returns the Instructions field if non-nil, zero value otherwise.
+
+### GetInstructionsOk
+
+`func (o *AIConfigVariationPatch) GetInstructionsOk() (*string, bool)`
+
+GetInstructionsOk returns a tuple with the Instructions field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetInstructions
+
+`func (o *AIConfigVariationPatch) SetInstructions(v string)`
+
+SetInstructions sets Instructions field to given value.
+
+### HasInstructions
+
+`func (o *AIConfigVariationPatch) HasInstructions() bool`
+
+HasInstructions returns a boolean if a field has been set.
 
 ### GetMessages
 
@@ -179,6 +260,81 @@ SetState sets State field to given value.
 `func (o *AIConfigVariationPatch) HasState() bool`
 
 HasState returns a boolean if a field has been set.
+
+### GetTools
+
+`func (o *AIConfigVariationPatch) GetTools() []VariationToolPost`
+
+GetTools returns the Tools field if non-nil, zero value otherwise.
+
+### GetToolsOk
+
+`func (o *AIConfigVariationPatch) GetToolsOk() (*[]VariationToolPost, bool)`
+
+GetToolsOk returns a tuple with the Tools field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTools
+
+`func (o *AIConfigVariationPatch) SetTools(v []VariationToolPost)`
+
+SetTools sets Tools field to given value.
+
+### HasTools
+
+`func (o *AIConfigVariationPatch) HasTools() bool`
+
+HasTools returns a boolean if a field has been set.
+
+### GetToolKeys
+
+`func (o *AIConfigVariationPatch) GetToolKeys() []string`
+
+GetToolKeys returns the ToolKeys field if non-nil, zero value otherwise.
+
+### GetToolKeysOk
+
+`func (o *AIConfigVariationPatch) GetToolKeysOk() (*[]string, bool)`
+
+GetToolKeysOk returns a tuple with the ToolKeys field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetToolKeys
+
+`func (o *AIConfigVariationPatch) SetToolKeys(v []string)`
+
+SetToolKeys sets ToolKeys field to given value.
+
+### HasToolKeys
+
+`func (o *AIConfigVariationPatch) HasToolKeys() bool`
+
+HasToolKeys returns a boolean if a field has been set.
+
+### GetJudgeConfiguration
+
+`func (o *AIConfigVariationPatch) GetJudgeConfiguration() JudgeConfiguration`
+
+GetJudgeConfiguration returns the JudgeConfiguration field if non-nil, zero value otherwise.
+
+### GetJudgeConfigurationOk
+
+`func (o *AIConfigVariationPatch) GetJudgeConfigurationOk() (*JudgeConfiguration, bool)`
+
+GetJudgeConfigurationOk returns a tuple with the JudgeConfiguration field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetJudgeConfiguration
+
+`func (o *AIConfigVariationPatch) SetJudgeConfiguration(v JudgeConfiguration)`
+
+SetJudgeConfiguration sets JudgeConfiguration field to given value.
+
+### HasJudgeConfiguration
+
+`func (o *AIConfigVariationPatch) HasJudgeConfiguration() bool`
+
+HasJudgeConfiguration returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

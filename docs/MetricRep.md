@@ -6,8 +6,11 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ExperimentCount** | Pointer to **int32** | The number of experiments using this metric | [optional] 
 **MetricGroupCount** | Pointer to **int32** | The number of metric groups using this metric | [optional] 
+**ActiveExperimentCount** | Pointer to **int32** | The number of active experiments using this metric | [optional] 
+**ActiveGuardedRolloutCount** | Pointer to **int32** | The number of active guarded rollouts using this metric | [optional] 
 **Id** | **string** | The ID of this metric | 
 **VersionId** | **string** | The version ID of the metric | 
+**Version** | Pointer to **int32** | Version of the metric | [optional] 
 **Key** | **string** | A unique key to reference the metric | 
 **Name** | **string** | A human-friendly name for the metric | 
 **Kind** | **string** | The kind of event the metric tracks | 
@@ -27,17 +30,22 @@ Name | Type | Description | Notes
 **Unit** | Pointer to **string** | For numeric custom metrics, the unit of measure | [optional] 
 **EventKey** | Pointer to **string** | For custom metrics, the event key to use in your code | [optional] 
 **RandomizationUnits** | Pointer to **[]string** | An array of randomization units allowed for this metric | [optional] 
+**Filters** | Pointer to [**Filter**](Filter.md) |  | [optional] 
 **UnitAggregationType** | Pointer to **string** | The method by which multiple unit event values are aggregated | [optional] 
 **AnalysisType** | Pointer to **string** | The method for analyzing metric events | [optional] 
 **PercentileValue** | Pointer to **int32** | The percentile for the analysis method. An integer denoting the target percentile between 0 and 100. Required when &lt;code&gt;analysisType&lt;/code&gt; is &lt;code&gt;percentile&lt;/code&gt;. | [optional] 
 **EventDefault** | Pointer to [**MetricEventDefaultRep**](MetricEventDefaultRep.md) |  | [optional] 
-**Experiments** | Pointer to [**[]DependentExperimentRep**](DependentExperimentRep.md) |  | [optional] 
-**MetricGroups** | Pointer to [**[]DependentMetricGroupRep**](DependentMetricGroupRep.md) | Metric groups that use this metric | [optional] 
-**IsActive** | Pointer to **bool** | Whether the metric is active | [optional] 
-**AttachedFeatures** | Pointer to [**[]FlagListingRep**](FlagListingRep.md) | Details on the flags attached to this metric | [optional] 
-**Version** | Pointer to **int32** | Version of the metric | [optional] 
+**DataSource** | Pointer to [**MetricDataSourceRefRep**](MetricDataSourceRefRep.md) |  | [optional] 
+**Archived** | Pointer to **bool** | Whether the metric version is archived | [optional] 
+**ArchivedAt** | Pointer to **int64** |  | [optional] 
 **Selector** | Pointer to **string** | For click metrics, the CSS selectors | [optional] 
 **Urls** | Pointer to **[]map[string]interface{}** |  | [optional] 
+**Experiments** | Pointer to [**[]DependentExperimentRep**](DependentExperimentRep.md) |  | [optional] 
+**MetricGroups** | Pointer to [**[]DependentMetricGroupRep**](DependentMetricGroupRep.md) | Metric groups that use this metric | [optional] 
+**LastUsedInExperiment** | Pointer to [**DependentExperimentRep**](DependentExperimentRep.md) |  | [optional] 
+**LastUsedInGuardedRollout** | Pointer to [**DependentMeasuredRolloutRep**](DependentMeasuredRolloutRep.md) |  | [optional] 
+**IsActive** | Pointer to **bool** | Whether the metric is active | [optional] 
+**AttachedFeatures** | Pointer to [**[]FlagListingRep**](FlagListingRep.md) | Details on the flags attached to this metric | [optional] 
 
 ## Methods
 
@@ -108,6 +116,56 @@ SetMetricGroupCount sets MetricGroupCount field to given value.
 
 HasMetricGroupCount returns a boolean if a field has been set.
 
+### GetActiveExperimentCount
+
+`func (o *MetricRep) GetActiveExperimentCount() int32`
+
+GetActiveExperimentCount returns the ActiveExperimentCount field if non-nil, zero value otherwise.
+
+### GetActiveExperimentCountOk
+
+`func (o *MetricRep) GetActiveExperimentCountOk() (*int32, bool)`
+
+GetActiveExperimentCountOk returns a tuple with the ActiveExperimentCount field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetActiveExperimentCount
+
+`func (o *MetricRep) SetActiveExperimentCount(v int32)`
+
+SetActiveExperimentCount sets ActiveExperimentCount field to given value.
+
+### HasActiveExperimentCount
+
+`func (o *MetricRep) HasActiveExperimentCount() bool`
+
+HasActiveExperimentCount returns a boolean if a field has been set.
+
+### GetActiveGuardedRolloutCount
+
+`func (o *MetricRep) GetActiveGuardedRolloutCount() int32`
+
+GetActiveGuardedRolloutCount returns the ActiveGuardedRolloutCount field if non-nil, zero value otherwise.
+
+### GetActiveGuardedRolloutCountOk
+
+`func (o *MetricRep) GetActiveGuardedRolloutCountOk() (*int32, bool)`
+
+GetActiveGuardedRolloutCountOk returns a tuple with the ActiveGuardedRolloutCount field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetActiveGuardedRolloutCount
+
+`func (o *MetricRep) SetActiveGuardedRolloutCount(v int32)`
+
+SetActiveGuardedRolloutCount sets ActiveGuardedRolloutCount field to given value.
+
+### HasActiveGuardedRolloutCount
+
+`func (o *MetricRep) HasActiveGuardedRolloutCount() bool`
+
+HasActiveGuardedRolloutCount returns a boolean if a field has been set.
+
 ### GetId
 
 `func (o *MetricRep) GetId() string`
@@ -147,6 +205,31 @@ and a boolean to check if the value has been set.
 
 SetVersionId sets VersionId field to given value.
 
+
+### GetVersion
+
+`func (o *MetricRep) GetVersion() int32`
+
+GetVersion returns the Version field if non-nil, zero value otherwise.
+
+### GetVersionOk
+
+`func (o *MetricRep) GetVersionOk() (*int32, bool)`
+
+GetVersionOk returns a tuple with the Version field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVersion
+
+`func (o *MetricRep) SetVersion(v int32)`
+
+SetVersion sets Version field to given value.
+
+### HasVersion
+
+`func (o *MetricRep) HasVersion() bool`
+
+HasVersion returns a boolean if a field has been set.
 
 ### GetKey
 
@@ -593,6 +676,31 @@ SetRandomizationUnits sets RandomizationUnits field to given value.
 
 HasRandomizationUnits returns a boolean if a field has been set.
 
+### GetFilters
+
+`func (o *MetricRep) GetFilters() Filter`
+
+GetFilters returns the Filters field if non-nil, zero value otherwise.
+
+### GetFiltersOk
+
+`func (o *MetricRep) GetFiltersOk() (*Filter, bool)`
+
+GetFiltersOk returns a tuple with the Filters field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFilters
+
+`func (o *MetricRep) SetFilters(v Filter)`
+
+SetFilters sets Filters field to given value.
+
+### HasFilters
+
+`func (o *MetricRep) HasFilters() bool`
+
+HasFilters returns a boolean if a field has been set.
+
 ### GetUnitAggregationType
 
 `func (o *MetricRep) GetUnitAggregationType() string`
@@ -693,130 +801,80 @@ SetEventDefault sets EventDefault field to given value.
 
 HasEventDefault returns a boolean if a field has been set.
 
-### GetExperiments
+### GetDataSource
 
-`func (o *MetricRep) GetExperiments() []DependentExperimentRep`
+`func (o *MetricRep) GetDataSource() MetricDataSourceRefRep`
 
-GetExperiments returns the Experiments field if non-nil, zero value otherwise.
+GetDataSource returns the DataSource field if non-nil, zero value otherwise.
 
-### GetExperimentsOk
+### GetDataSourceOk
 
-`func (o *MetricRep) GetExperimentsOk() (*[]DependentExperimentRep, bool)`
+`func (o *MetricRep) GetDataSourceOk() (*MetricDataSourceRefRep, bool)`
 
-GetExperimentsOk returns a tuple with the Experiments field if it's non-nil, zero value otherwise
+GetDataSourceOk returns a tuple with the DataSource field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetExperiments
+### SetDataSource
 
-`func (o *MetricRep) SetExperiments(v []DependentExperimentRep)`
+`func (o *MetricRep) SetDataSource(v MetricDataSourceRefRep)`
 
-SetExperiments sets Experiments field to given value.
+SetDataSource sets DataSource field to given value.
 
-### HasExperiments
+### HasDataSource
 
-`func (o *MetricRep) HasExperiments() bool`
+`func (o *MetricRep) HasDataSource() bool`
 
-HasExperiments returns a boolean if a field has been set.
+HasDataSource returns a boolean if a field has been set.
 
-### GetMetricGroups
+### GetArchived
 
-`func (o *MetricRep) GetMetricGroups() []DependentMetricGroupRep`
+`func (o *MetricRep) GetArchived() bool`
 
-GetMetricGroups returns the MetricGroups field if non-nil, zero value otherwise.
+GetArchived returns the Archived field if non-nil, zero value otherwise.
 
-### GetMetricGroupsOk
+### GetArchivedOk
 
-`func (o *MetricRep) GetMetricGroupsOk() (*[]DependentMetricGroupRep, bool)`
+`func (o *MetricRep) GetArchivedOk() (*bool, bool)`
 
-GetMetricGroupsOk returns a tuple with the MetricGroups field if it's non-nil, zero value otherwise
+GetArchivedOk returns a tuple with the Archived field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetMetricGroups
+### SetArchived
 
-`func (o *MetricRep) SetMetricGroups(v []DependentMetricGroupRep)`
+`func (o *MetricRep) SetArchived(v bool)`
 
-SetMetricGroups sets MetricGroups field to given value.
+SetArchived sets Archived field to given value.
 
-### HasMetricGroups
+### HasArchived
 
-`func (o *MetricRep) HasMetricGroups() bool`
+`func (o *MetricRep) HasArchived() bool`
 
-HasMetricGroups returns a boolean if a field has been set.
+HasArchived returns a boolean if a field has been set.
 
-### GetIsActive
+### GetArchivedAt
 
-`func (o *MetricRep) GetIsActive() bool`
+`func (o *MetricRep) GetArchivedAt() int64`
 
-GetIsActive returns the IsActive field if non-nil, zero value otherwise.
+GetArchivedAt returns the ArchivedAt field if non-nil, zero value otherwise.
 
-### GetIsActiveOk
+### GetArchivedAtOk
 
-`func (o *MetricRep) GetIsActiveOk() (*bool, bool)`
+`func (o *MetricRep) GetArchivedAtOk() (*int64, bool)`
 
-GetIsActiveOk returns a tuple with the IsActive field if it's non-nil, zero value otherwise
+GetArchivedAtOk returns a tuple with the ArchivedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetIsActive
+### SetArchivedAt
 
-`func (o *MetricRep) SetIsActive(v bool)`
+`func (o *MetricRep) SetArchivedAt(v int64)`
 
-SetIsActive sets IsActive field to given value.
+SetArchivedAt sets ArchivedAt field to given value.
 
-### HasIsActive
+### HasArchivedAt
 
-`func (o *MetricRep) HasIsActive() bool`
+`func (o *MetricRep) HasArchivedAt() bool`
 
-HasIsActive returns a boolean if a field has been set.
-
-### GetAttachedFeatures
-
-`func (o *MetricRep) GetAttachedFeatures() []FlagListingRep`
-
-GetAttachedFeatures returns the AttachedFeatures field if non-nil, zero value otherwise.
-
-### GetAttachedFeaturesOk
-
-`func (o *MetricRep) GetAttachedFeaturesOk() (*[]FlagListingRep, bool)`
-
-GetAttachedFeaturesOk returns a tuple with the AttachedFeatures field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetAttachedFeatures
-
-`func (o *MetricRep) SetAttachedFeatures(v []FlagListingRep)`
-
-SetAttachedFeatures sets AttachedFeatures field to given value.
-
-### HasAttachedFeatures
-
-`func (o *MetricRep) HasAttachedFeatures() bool`
-
-HasAttachedFeatures returns a boolean if a field has been set.
-
-### GetVersion
-
-`func (o *MetricRep) GetVersion() int32`
-
-GetVersion returns the Version field if non-nil, zero value otherwise.
-
-### GetVersionOk
-
-`func (o *MetricRep) GetVersionOk() (*int32, bool)`
-
-GetVersionOk returns a tuple with the Version field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetVersion
-
-`func (o *MetricRep) SetVersion(v int32)`
-
-SetVersion sets Version field to given value.
-
-### HasVersion
-
-`func (o *MetricRep) HasVersion() bool`
-
-HasVersion returns a boolean if a field has been set.
+HasArchivedAt returns a boolean if a field has been set.
 
 ### GetSelector
 
@@ -867,6 +925,156 @@ SetUrls sets Urls field to given value.
 `func (o *MetricRep) HasUrls() bool`
 
 HasUrls returns a boolean if a field has been set.
+
+### GetExperiments
+
+`func (o *MetricRep) GetExperiments() []DependentExperimentRep`
+
+GetExperiments returns the Experiments field if non-nil, zero value otherwise.
+
+### GetExperimentsOk
+
+`func (o *MetricRep) GetExperimentsOk() (*[]DependentExperimentRep, bool)`
+
+GetExperimentsOk returns a tuple with the Experiments field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExperiments
+
+`func (o *MetricRep) SetExperiments(v []DependentExperimentRep)`
+
+SetExperiments sets Experiments field to given value.
+
+### HasExperiments
+
+`func (o *MetricRep) HasExperiments() bool`
+
+HasExperiments returns a boolean if a field has been set.
+
+### GetMetricGroups
+
+`func (o *MetricRep) GetMetricGroups() []DependentMetricGroupRep`
+
+GetMetricGroups returns the MetricGroups field if non-nil, zero value otherwise.
+
+### GetMetricGroupsOk
+
+`func (o *MetricRep) GetMetricGroupsOk() (*[]DependentMetricGroupRep, bool)`
+
+GetMetricGroupsOk returns a tuple with the MetricGroups field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMetricGroups
+
+`func (o *MetricRep) SetMetricGroups(v []DependentMetricGroupRep)`
+
+SetMetricGroups sets MetricGroups field to given value.
+
+### HasMetricGroups
+
+`func (o *MetricRep) HasMetricGroups() bool`
+
+HasMetricGroups returns a boolean if a field has been set.
+
+### GetLastUsedInExperiment
+
+`func (o *MetricRep) GetLastUsedInExperiment() DependentExperimentRep`
+
+GetLastUsedInExperiment returns the LastUsedInExperiment field if non-nil, zero value otherwise.
+
+### GetLastUsedInExperimentOk
+
+`func (o *MetricRep) GetLastUsedInExperimentOk() (*DependentExperimentRep, bool)`
+
+GetLastUsedInExperimentOk returns a tuple with the LastUsedInExperiment field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLastUsedInExperiment
+
+`func (o *MetricRep) SetLastUsedInExperiment(v DependentExperimentRep)`
+
+SetLastUsedInExperiment sets LastUsedInExperiment field to given value.
+
+### HasLastUsedInExperiment
+
+`func (o *MetricRep) HasLastUsedInExperiment() bool`
+
+HasLastUsedInExperiment returns a boolean if a field has been set.
+
+### GetLastUsedInGuardedRollout
+
+`func (o *MetricRep) GetLastUsedInGuardedRollout() DependentMeasuredRolloutRep`
+
+GetLastUsedInGuardedRollout returns the LastUsedInGuardedRollout field if non-nil, zero value otherwise.
+
+### GetLastUsedInGuardedRolloutOk
+
+`func (o *MetricRep) GetLastUsedInGuardedRolloutOk() (*DependentMeasuredRolloutRep, bool)`
+
+GetLastUsedInGuardedRolloutOk returns a tuple with the LastUsedInGuardedRollout field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLastUsedInGuardedRollout
+
+`func (o *MetricRep) SetLastUsedInGuardedRollout(v DependentMeasuredRolloutRep)`
+
+SetLastUsedInGuardedRollout sets LastUsedInGuardedRollout field to given value.
+
+### HasLastUsedInGuardedRollout
+
+`func (o *MetricRep) HasLastUsedInGuardedRollout() bool`
+
+HasLastUsedInGuardedRollout returns a boolean if a field has been set.
+
+### GetIsActive
+
+`func (o *MetricRep) GetIsActive() bool`
+
+GetIsActive returns the IsActive field if non-nil, zero value otherwise.
+
+### GetIsActiveOk
+
+`func (o *MetricRep) GetIsActiveOk() (*bool, bool)`
+
+GetIsActiveOk returns a tuple with the IsActive field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsActive
+
+`func (o *MetricRep) SetIsActive(v bool)`
+
+SetIsActive sets IsActive field to given value.
+
+### HasIsActive
+
+`func (o *MetricRep) HasIsActive() bool`
+
+HasIsActive returns a boolean if a field has been set.
+
+### GetAttachedFeatures
+
+`func (o *MetricRep) GetAttachedFeatures() []FlagListingRep`
+
+GetAttachedFeatures returns the AttachedFeatures field if non-nil, zero value otherwise.
+
+### GetAttachedFeaturesOk
+
+`func (o *MetricRep) GetAttachedFeaturesOk() (*[]FlagListingRep, bool)`
+
+GetAttachedFeaturesOk returns a tuple with the AttachedFeatures field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAttachedFeatures
+
+`func (o *MetricRep) SetAttachedFeatures(v []FlagListingRep)`
+
+SetAttachedFeatures sets AttachedFeatures field to given value.
+
+### HasAttachedFeatures
+
+`func (o *MetricRep) HasAttachedFeatures() bool`
+
+HasAttachedFeatures returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

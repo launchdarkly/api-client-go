@@ -25,25 +25,25 @@ Remove a member as a follower of a flag in a project and environment
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
-    environmentKey := "environmentKey_example" // string | The environment key
-    memberId := "memberId_example" // string | The memberId of the member to remove as a follower of the flag. Reader roles can only remove themselves.
+	projectKey := "projectKey_example" // string | The project key
+	featureFlagKey := "featureFlagKey_example" // string | The feature flag key
+	environmentKey := "environmentKey_example" // string | The environment key
+	memberId := "memberId_example" // string | The memberId of the member to remove as a follower of the flag. Reader roles can only remove themselves.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FollowFlagsApi.DeleteFlagFollower(context.Background(), projectKey, featureFlagKey, environmentKey, memberId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FollowFlagsApi.DeleteFlagFollower``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.FollowFlagsApi.DeleteFlagFollower(context.Background(), projectKey, featureFlagKey, environmentKey, memberId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FollowFlagsApi.DeleteFlagFollower``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -102,26 +102,26 @@ Get followers of a flag in a project and environment
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
-    environmentKey := "environmentKey_example" // string | The environment key
+	projectKey := "projectKey_example" // string | The project key
+	featureFlagKey := "featureFlagKey_example" // string | The feature flag key
+	environmentKey := "environmentKey_example" // string | The environment key
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FollowFlagsApi.GetFlagFollowers(context.Background(), projectKey, featureFlagKey, environmentKey).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FollowFlagsApi.GetFlagFollowers``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetFlagFollowers`: FlagFollowersGetRep
-    fmt.Fprintf(os.Stdout, "Response from `FollowFlagsApi.GetFlagFollowers`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FollowFlagsApi.GetFlagFollowers(context.Background(), projectKey, featureFlagKey, environmentKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FollowFlagsApi.GetFlagFollowers``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetFlagFollowers`: FlagFollowersGetRep
+	fmt.Fprintf(os.Stdout, "Response from `FollowFlagsApi.GetFlagFollowers`: %v\n", resp)
 }
 ```
 
@@ -178,25 +178,25 @@ Get followers of all flags in a given project and environment
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FollowFlagsApi.GetFollowersByProjEnv(context.Background(), projectKey, environmentKey).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FollowFlagsApi.GetFollowersByProjEnv``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetFollowersByProjEnv`: FlagFollowersByProjEnvGetRep
-    fmt.Fprintf(os.Stdout, "Response from `FollowFlagsApi.GetFollowersByProjEnv`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FollowFlagsApi.GetFollowersByProjEnv(context.Background(), projectKey, environmentKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FollowFlagsApi.GetFollowersByProjEnv``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetFollowersByProjEnv`: FlagFollowersByProjEnvGetRep
+	fmt.Fprintf(os.Stdout, "Response from `FollowFlagsApi.GetFollowersByProjEnv`: %v\n", resp)
 }
 ```
 
@@ -251,25 +251,25 @@ Add a member as a follower of a flag in a project and environment
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
-    environmentKey := "environmentKey_example" // string | The environment key
-    memberId := "memberId_example" // string | The memberId of the member to add as a follower of the flag. Reader roles can only add themselves.
+	projectKey := "projectKey_example" // string | The project key
+	featureFlagKey := "featureFlagKey_example" // string | The feature flag key
+	environmentKey := "environmentKey_example" // string | The environment key
+	memberId := "memberId_example" // string | The memberId of the member to add as a follower of the flag. Reader roles can only add themselves.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FollowFlagsApi.PutFlagFollower(context.Background(), projectKey, featureFlagKey, environmentKey, memberId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FollowFlagsApi.PutFlagFollower``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.FollowFlagsApi.PutFlagFollower(context.Background(), projectKey, featureFlagKey, environmentKey, memberId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FollowFlagsApi.PutFlagFollower``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 

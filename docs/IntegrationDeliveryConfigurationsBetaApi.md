@@ -28,27 +28,27 @@ Create delivery configuration
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    integrationKey := "integrationKey_example" // string | The integration key
-    integrationDeliveryConfigurationPost := *openapiclient.NewIntegrationDeliveryConfigurationPost(map[string]interface{}{"key": interface{}(123)}) // IntegrationDeliveryConfigurationPost | 
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	integrationKey := "integrationKey_example" // string | The integration key
+	integrationDeliveryConfigurationPost := *openapiclient.NewIntegrationDeliveryConfigurationPost(map[string]interface{}{"key": interface{}(123)}) // IntegrationDeliveryConfigurationPost | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.IntegrationDeliveryConfigurationsBetaApi.CreateIntegrationDeliveryConfiguration(context.Background(), projectKey, environmentKey, integrationKey).IntegrationDeliveryConfigurationPost(integrationDeliveryConfigurationPost).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `IntegrationDeliveryConfigurationsBetaApi.CreateIntegrationDeliveryConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateIntegrationDeliveryConfiguration`: IntegrationDeliveryConfiguration
-    fmt.Fprintf(os.Stdout, "Response from `IntegrationDeliveryConfigurationsBetaApi.CreateIntegrationDeliveryConfiguration`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IntegrationDeliveryConfigurationsBetaApi.CreateIntegrationDeliveryConfiguration(context.Background(), projectKey, environmentKey, integrationKey).IntegrationDeliveryConfigurationPost(integrationDeliveryConfigurationPost).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IntegrationDeliveryConfigurationsBetaApi.CreateIntegrationDeliveryConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateIntegrationDeliveryConfiguration`: IntegrationDeliveryConfiguration
+	fmt.Fprintf(os.Stdout, "Response from `IntegrationDeliveryConfigurationsBetaApi.CreateIntegrationDeliveryConfiguration`: %v\n", resp)
 }
 ```
 
@@ -106,25 +106,25 @@ Delete delivery configuration
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    integrationKey := "integrationKey_example" // string | The integration key
-    id := "id_example" // string | The configuration ID
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	integrationKey := "integrationKey_example" // string | The integration key
+	id := "id_example" // string | The configuration ID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.IntegrationDeliveryConfigurationsBetaApi.DeleteIntegrationDeliveryConfiguration(context.Background(), projectKey, environmentKey, integrationKey, id).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `IntegrationDeliveryConfigurationsBetaApi.DeleteIntegrationDeliveryConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.IntegrationDeliveryConfigurationsBetaApi.DeleteIntegrationDeliveryConfiguration(context.Background(), projectKey, environmentKey, integrationKey, id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IntegrationDeliveryConfigurationsBetaApi.DeleteIntegrationDeliveryConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -183,25 +183,25 @@ Get delivery configurations by environment
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.IntegrationDeliveryConfigurationsBetaApi.GetIntegrationDeliveryConfigurationByEnvironment(context.Background(), projectKey, environmentKey).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `IntegrationDeliveryConfigurationsBetaApi.GetIntegrationDeliveryConfigurationByEnvironment``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetIntegrationDeliveryConfigurationByEnvironment`: IntegrationDeliveryConfigurationCollection
-    fmt.Fprintf(os.Stdout, "Response from `IntegrationDeliveryConfigurationsBetaApi.GetIntegrationDeliveryConfigurationByEnvironment`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IntegrationDeliveryConfigurationsBetaApi.GetIntegrationDeliveryConfigurationByEnvironment(context.Background(), projectKey, environmentKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IntegrationDeliveryConfigurationsBetaApi.GetIntegrationDeliveryConfigurationByEnvironment``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetIntegrationDeliveryConfigurationByEnvironment`: IntegrationDeliveryConfigurationCollection
+	fmt.Fprintf(os.Stdout, "Response from `IntegrationDeliveryConfigurationsBetaApi.GetIntegrationDeliveryConfigurationByEnvironment`: %v\n", resp)
 }
 ```
 
@@ -256,27 +256,27 @@ Get delivery configuration by ID
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    integrationKey := "integrationKey_example" // string | The integration key
-    id := "id_example" // string | The configuration ID
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	integrationKey := "integrationKey_example" // string | The integration key
+	id := "id_example" // string | The configuration ID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.IntegrationDeliveryConfigurationsBetaApi.GetIntegrationDeliveryConfigurationById(context.Background(), projectKey, environmentKey, integrationKey, id).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `IntegrationDeliveryConfigurationsBetaApi.GetIntegrationDeliveryConfigurationById``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetIntegrationDeliveryConfigurationById`: IntegrationDeliveryConfiguration
-    fmt.Fprintf(os.Stdout, "Response from `IntegrationDeliveryConfigurationsBetaApi.GetIntegrationDeliveryConfigurationById`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IntegrationDeliveryConfigurationsBetaApi.GetIntegrationDeliveryConfigurationById(context.Background(), projectKey, environmentKey, integrationKey, id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IntegrationDeliveryConfigurationsBetaApi.GetIntegrationDeliveryConfigurationById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetIntegrationDeliveryConfigurationById`: IntegrationDeliveryConfiguration
+	fmt.Fprintf(os.Stdout, "Response from `IntegrationDeliveryConfigurationsBetaApi.GetIntegrationDeliveryConfigurationById`: %v\n", resp)
 }
 ```
 
@@ -335,23 +335,23 @@ List all delivery configurations
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.IntegrationDeliveryConfigurationsBetaApi.GetIntegrationDeliveryConfigurations(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `IntegrationDeliveryConfigurationsBetaApi.GetIntegrationDeliveryConfigurations``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetIntegrationDeliveryConfigurations`: IntegrationDeliveryConfigurationCollection
-    fmt.Fprintf(os.Stdout, "Response from `IntegrationDeliveryConfigurationsBetaApi.GetIntegrationDeliveryConfigurations`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IntegrationDeliveryConfigurationsBetaApi.GetIntegrationDeliveryConfigurations(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IntegrationDeliveryConfigurationsBetaApi.GetIntegrationDeliveryConfigurations``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetIntegrationDeliveryConfigurations`: IntegrationDeliveryConfigurationCollection
+	fmt.Fprintf(os.Stdout, "Response from `IntegrationDeliveryConfigurationsBetaApi.GetIntegrationDeliveryConfigurations`: %v\n", resp)
 }
 ```
 
@@ -396,28 +396,28 @@ Update delivery configuration
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    integrationKey := "integrationKey_example" // string | The integration key
-    id := "id_example" // string | The configuration ID
-    patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")} // []PatchOperation | 
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	integrationKey := "integrationKey_example" // string | The integration key
+	id := "id_example" // string | The configuration ID
+	patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")} // []PatchOperation | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.IntegrationDeliveryConfigurationsBetaApi.PatchIntegrationDeliveryConfiguration(context.Background(), projectKey, environmentKey, integrationKey, id).PatchOperation(patchOperation).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `IntegrationDeliveryConfigurationsBetaApi.PatchIntegrationDeliveryConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PatchIntegrationDeliveryConfiguration`: IntegrationDeliveryConfiguration
-    fmt.Fprintf(os.Stdout, "Response from `IntegrationDeliveryConfigurationsBetaApi.PatchIntegrationDeliveryConfiguration`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IntegrationDeliveryConfigurationsBetaApi.PatchIntegrationDeliveryConfiguration(context.Background(), projectKey, environmentKey, integrationKey, id).PatchOperation(patchOperation).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IntegrationDeliveryConfigurationsBetaApi.PatchIntegrationDeliveryConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PatchIntegrationDeliveryConfiguration`: IntegrationDeliveryConfiguration
+	fmt.Fprintf(os.Stdout, "Response from `IntegrationDeliveryConfigurationsBetaApi.PatchIntegrationDeliveryConfiguration`: %v\n", resp)
 }
 ```
 
@@ -477,27 +477,27 @@ Validate delivery configuration
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    integrationKey := "integrationKey_example" // string | The integration key
-    id := "id_example" // string | The configuration ID
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	integrationKey := "integrationKey_example" // string | The integration key
+	id := "id_example" // string | The configuration ID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.IntegrationDeliveryConfigurationsBetaApi.ValidateIntegrationDeliveryConfiguration(context.Background(), projectKey, environmentKey, integrationKey, id).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `IntegrationDeliveryConfigurationsBetaApi.ValidateIntegrationDeliveryConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ValidateIntegrationDeliveryConfiguration`: IntegrationDeliveryConfigurationResponse
-    fmt.Fprintf(os.Stdout, "Response from `IntegrationDeliveryConfigurationsBetaApi.ValidateIntegrationDeliveryConfiguration`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IntegrationDeliveryConfigurationsBetaApi.ValidateIntegrationDeliveryConfiguration(context.Background(), projectKey, environmentKey, integrationKey, id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IntegrationDeliveryConfigurationsBetaApi.ValidateIntegrationDeliveryConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ValidateIntegrationDeliveryConfiguration`: IntegrationDeliveryConfigurationResponse
+	fmt.Fprintf(os.Stdout, "Response from `IntegrationDeliveryConfigurationsBetaApi.ValidateIntegrationDeliveryConfiguration`: %v\n", resp)
 }
 ```
 

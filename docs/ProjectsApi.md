@@ -29,22 +29,22 @@ Delete project
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
+	projectKey := "projectKey_example" // string | The project key
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ProjectsApi.DeleteProject(context.Background(), projectKey).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ProjectsApi.DeleteProject``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.ProjectsApi.DeleteProject(context.Background(), projectKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsApi.DeleteProject``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -97,24 +97,24 @@ Get flag defaults for project
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
+	projectKey := "projectKey_example" // string | The project key
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ProjectsApi.GetFlagDefaultsByProject(context.Background(), projectKey).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ProjectsApi.GetFlagDefaultsByProject``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetFlagDefaultsByProject`: FlagDefaultsRep
-    fmt.Fprintf(os.Stdout, "Response from `ProjectsApi.GetFlagDefaultsByProject`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ProjectsApi.GetFlagDefaultsByProject(context.Background(), projectKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsApi.GetFlagDefaultsByProject``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetFlagDefaultsByProject`: FlagDefaultsRep
+	fmt.Fprintf(os.Stdout, "Response from `ProjectsApi.GetFlagDefaultsByProject`: %v\n", resp)
 }
 ```
 
@@ -167,25 +167,25 @@ Get project
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key.
-    expand := "expand_example" // string | A comma-separated list of properties that can reveal additional information in the response. (optional)
+	projectKey := "projectKey_example" // string | The project key.
+	expand := "expand_example" // string | A comma-separated list of properties that can reveal additional information in the response. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ProjectsApi.GetProject(context.Background(), projectKey).Expand(expand).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ProjectsApi.GetProject``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetProject`: Project
-    fmt.Fprintf(os.Stdout, "Response from `ProjectsApi.GetProject`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ProjectsApi.GetProject(context.Background(), projectKey).Expand(expand).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsApi.GetProject``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetProject`: Project
+	fmt.Fprintf(os.Stdout, "Response from `ProjectsApi.GetProject`: %v\n", resp)
 }
 ```
 
@@ -239,28 +239,28 @@ List projects
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    limit := int64(789) // int64 | The number of projects to return in the response. Defaults to 20. (optional)
-    offset := int64(789) // int64 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and returns the next `limit` items. (optional)
-    filter := "filter_example" // string | A comma-separated list of filters. Each filter is constructed as `field:value`. (optional)
-    sort := "sort_example" // string | A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order. (optional)
-    expand := "expand_example" // string | A comma-separated list of properties that can reveal additional information in the response. (optional)
+	limit := int64(789) // int64 | The number of projects to return in the response. Defaults to 20. (optional)
+	offset := int64(789) // int64 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and returns the next `limit` items. (optional)
+	filter := "filter_example" // string | A comma-separated list of filters. Each filter is constructed as `field:value`. (optional)
+	sort := "sort_example" // string | A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order. (optional)
+	expand := "expand_example" // string | A comma-separated list of properties that can reveal additional information in the response. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ProjectsApi.GetProjects(context.Background()).Limit(limit).Offset(offset).Filter(filter).Sort(sort).Expand(expand).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ProjectsApi.GetProjects``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetProjects`: Projects
-    fmt.Fprintf(os.Stdout, "Response from `ProjectsApi.GetProjects`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ProjectsApi.GetProjects(context.Background()).Limit(limit).Offset(offset).Filter(filter).Sort(sort).Expand(expand).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsApi.GetProjects``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetProjects`: Projects
+	fmt.Fprintf(os.Stdout, "Response from `ProjectsApi.GetProjects`: %v\n", resp)
 }
 ```
 
@@ -313,25 +313,25 @@ Update flag default for project
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")} // []PatchOperation | 
+	projectKey := "projectKey_example" // string | The project key
+	patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")} // []PatchOperation | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ProjectsApi.PatchFlagDefaultsByProject(context.Background(), projectKey).PatchOperation(patchOperation).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ProjectsApi.PatchFlagDefaultsByProject``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PatchFlagDefaultsByProject`: UpsertPayloadRep
-    fmt.Fprintf(os.Stdout, "Response from `ProjectsApi.PatchFlagDefaultsByProject`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ProjectsApi.PatchFlagDefaultsByProject(context.Background(), projectKey).PatchOperation(patchOperation).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsApi.PatchFlagDefaultsByProject``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PatchFlagDefaultsByProject`: UpsertPayloadRep
+	fmt.Fprintf(os.Stdout, "Response from `ProjectsApi.PatchFlagDefaultsByProject`: %v\n", resp)
 }
 ```
 
@@ -385,25 +385,25 @@ Update project
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")} // []PatchOperation | 
+	projectKey := "projectKey_example" // string | The project key
+	patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")} // []PatchOperation | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ProjectsApi.PatchProject(context.Background(), projectKey).PatchOperation(patchOperation).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ProjectsApi.PatchProject``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PatchProject`: ProjectRep
-    fmt.Fprintf(os.Stdout, "Response from `ProjectsApi.PatchProject`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ProjectsApi.PatchProject(context.Background(), projectKey).PatchOperation(patchOperation).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsApi.PatchProject``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PatchProject`: ProjectRep
+	fmt.Fprintf(os.Stdout, "Response from `ProjectsApi.PatchProject`: %v\n", resp)
 }
 ```
 
@@ -457,24 +457,24 @@ Create project
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectPost := *openapiclient.NewProjectPost("My Project", "project-key-123abc") // ProjectPost | 
+	projectPost := *openapiclient.NewProjectPost("My Project", "project-key-123abc") // ProjectPost | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ProjectsApi.PostProject(context.Background()).ProjectPost(projectPost).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ProjectsApi.PostProject``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostProject`: ProjectRep
-    fmt.Fprintf(os.Stdout, "Response from `ProjectsApi.PostProject`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ProjectsApi.PostProject(context.Background()).ProjectPost(projectPost).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsApi.PostProject``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostProject`: ProjectRep
+	fmt.Fprintf(os.Stdout, "Response from `ProjectsApi.PostProject`: %v\n", resp)
 }
 ```
 
@@ -523,25 +523,25 @@ Create or update flag defaults for project
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    upsertFlagDefaultsPayload := *openapiclient.NewUpsertFlagDefaultsPayload([]string{"Tags_example"}, true, *openapiclient.NewBooleanFlagDefaults("True", "False", "serve true", "serve false", int32(0), int32(1)), *openapiclient.NewDefaultClientSideAvailability(true, true)) // UpsertFlagDefaultsPayload | 
+	projectKey := "projectKey_example" // string | The project key
+	upsertFlagDefaultsPayload := *openapiclient.NewUpsertFlagDefaultsPayload([]string{"Tags_example"}, true, *openapiclient.NewBooleanFlagDefaults("True", "False", "serve true", "serve false", int32(0), int32(1)), *openapiclient.NewDefaultClientSideAvailability(true, true)) // UpsertFlagDefaultsPayload | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ProjectsApi.PutFlagDefaultsByProject(context.Background(), projectKey).UpsertFlagDefaultsPayload(upsertFlagDefaultsPayload).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ProjectsApi.PutFlagDefaultsByProject``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PutFlagDefaultsByProject`: UpsertPayloadRep
-    fmt.Fprintf(os.Stdout, "Response from `ProjectsApi.PutFlagDefaultsByProject`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ProjectsApi.PutFlagDefaultsByProject(context.Background(), projectKey).UpsertFlagDefaultsPayload(upsertFlagDefaultsPayload).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ProjectsApi.PutFlagDefaultsByProject``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PutFlagDefaultsByProject`: UpsertPayloadRep
+	fmt.Fprintf(os.Stdout, "Response from `ProjectsApi.PutFlagDefaultsByProject`: %v\n", resp)
 }
 ```
 

@@ -22,25 +22,25 @@ Get user attribute names
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UsersBetaApi.GetUserAttributeNames(context.Background(), projectKey, environmentKey).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UsersBetaApi.GetUserAttributeNames``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetUserAttributeNames`: UserAttributeNamesRep
-    fmt.Fprintf(os.Stdout, "Response from `UsersBetaApi.GetUserAttributeNames`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.UsersBetaApi.GetUserAttributeNames(context.Background(), projectKey, environmentKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UsersBetaApi.GetUserAttributeNames``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetUserAttributeNames`: UserAttributeNamesRep
+	fmt.Fprintf(os.Stdout, "Response from `UsersBetaApi.GetUserAttributeNames`: %v\n", resp)
 }
 ```
 

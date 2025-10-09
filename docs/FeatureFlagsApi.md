@@ -35,26 +35,26 @@ Copy feature flag
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag key. The key identifies the flag in your code.
-    flagCopyConfigPost := *openapiclient.NewFlagCopyConfigPost(*openapiclient.NewFlagCopyConfigEnvironment("Key_example"), *openapiclient.NewFlagCopyConfigEnvironment("Key_example")) // FlagCopyConfigPost | 
+	projectKey := "projectKey_example" // string | The project key
+	featureFlagKey := "featureFlagKey_example" // string | The feature flag key. The key identifies the flag in your code.
+	flagCopyConfigPost := *openapiclient.NewFlagCopyConfigPost(*openapiclient.NewFlagCopyConfigEnvironment("Key_example"), *openapiclient.NewFlagCopyConfigEnvironment("Key_example")) // FlagCopyConfigPost | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FeatureFlagsApi.CopyFeatureFlag(context.Background(), projectKey, featureFlagKey).FlagCopyConfigPost(flagCopyConfigPost).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.CopyFeatureFlag``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CopyFeatureFlag`: FeatureFlag
-    fmt.Fprintf(os.Stdout, "Response from `FeatureFlagsApi.CopyFeatureFlag`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FeatureFlagsApi.CopyFeatureFlag(context.Background(), projectKey, featureFlagKey).FlagCopyConfigPost(flagCopyConfigPost).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.CopyFeatureFlag``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CopyFeatureFlag`: FeatureFlag
+	fmt.Fprintf(os.Stdout, "Response from `FeatureFlagsApi.CopyFeatureFlag`: %v\n", resp)
 }
 ```
 
@@ -110,23 +110,23 @@ Delete feature flag
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag key. The key identifies the flag in your code.
+	projectKey := "projectKey_example" // string | The project key
+	featureFlagKey := "featureFlagKey_example" // string | The feature flag key. The key identifies the flag in your code.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FeatureFlagsApi.DeleteFeatureFlag(context.Background(), projectKey, featureFlagKey).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.DeleteFeatureFlag``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.FeatureFlagsApi.DeleteFeatureFlag(context.Background(), projectKey, featureFlagKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.DeleteFeatureFlag``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -181,26 +181,26 @@ Get expiring context targets for feature flag
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	featureFlagKey := "featureFlagKey_example" // string | The feature flag key
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FeatureFlagsApi.GetExpiringContextTargets(context.Background(), projectKey, environmentKey, featureFlagKey).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.GetExpiringContextTargets``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetExpiringContextTargets`: ExpiringTargetGetResponse
-    fmt.Fprintf(os.Stdout, "Response from `FeatureFlagsApi.GetExpiringContextTargets`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FeatureFlagsApi.GetExpiringContextTargets(context.Background(), projectKey, environmentKey, featureFlagKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.GetExpiringContextTargets``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetExpiringContextTargets`: ExpiringTargetGetResponse
+	fmt.Fprintf(os.Stdout, "Response from `FeatureFlagsApi.GetExpiringContextTargets`: %v\n", resp)
 }
 ```
 
@@ -257,26 +257,26 @@ Get expiring user targets for feature flag
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	featureFlagKey := "featureFlagKey_example" // string | The feature flag key
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FeatureFlagsApi.GetExpiringUserTargets(context.Background(), projectKey, environmentKey, featureFlagKey).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.GetExpiringUserTargets``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetExpiringUserTargets`: ExpiringUserTargetGetResponse
-    fmt.Fprintf(os.Stdout, "Response from `FeatureFlagsApi.GetExpiringUserTargets`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FeatureFlagsApi.GetExpiringUserTargets(context.Background(), projectKey, environmentKey, featureFlagKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.GetExpiringUserTargets``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetExpiringUserTargets`: ExpiringUserTargetGetResponse
+	fmt.Fprintf(os.Stdout, "Response from `FeatureFlagsApi.GetExpiringUserTargets`: %v\n", resp)
 }
 ```
 
@@ -333,27 +333,27 @@ Get feature flag
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
-    env := "env_example" // string | Filter configurations by environment (optional)
-    expand := "expand_example" // string | A comma-separated list of fields to expand in the response. Supported fields are explained above. (optional)
+	projectKey := "projectKey_example" // string | The project key
+	featureFlagKey := "featureFlagKey_example" // string | The feature flag key
+	env := "env_example" // string | Filter configurations by environment (optional)
+	expand := "expand_example" // string | A comma-separated list of fields to expand in the response. Supported fields are explained above. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FeatureFlagsApi.GetFeatureFlag(context.Background(), projectKey, featureFlagKey).Env(env).Expand(expand).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.GetFeatureFlag``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetFeatureFlag`: FeatureFlag
-    fmt.Fprintf(os.Stdout, "Response from `FeatureFlagsApi.GetFeatureFlag`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FeatureFlagsApi.GetFeatureFlag(context.Background(), projectKey, featureFlagKey).Env(env).Expand(expand).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.GetFeatureFlag``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetFeatureFlag`: FeatureFlag
+	fmt.Fprintf(os.Stdout, "Response from `FeatureFlagsApi.GetFeatureFlag`: %v\n", resp)
 }
 ```
 
@@ -410,26 +410,26 @@ Get feature flag status
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	featureFlagKey := "featureFlagKey_example" // string | The feature flag key
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FeatureFlagsApi.GetFeatureFlagStatus(context.Background(), projectKey, environmentKey, featureFlagKey).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.GetFeatureFlagStatus``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetFeatureFlagStatus`: FlagStatusRep
-    fmt.Fprintf(os.Stdout, "Response from `FeatureFlagsApi.GetFeatureFlagStatus`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FeatureFlagsApi.GetFeatureFlagStatus(context.Background(), projectKey, environmentKey, featureFlagKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.GetFeatureFlagStatus``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetFeatureFlagStatus`: FlagStatusRep
+	fmt.Fprintf(os.Stdout, "Response from `FeatureFlagsApi.GetFeatureFlagStatus`: %v\n", resp)
 }
 ```
 
@@ -486,26 +486,26 @@ Get flag status across environments
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
-    env := "env_example" // string | Optional environment filter (optional)
+	projectKey := "projectKey_example" // string | The project key
+	featureFlagKey := "featureFlagKey_example" // string | The feature flag key
+	env := "env_example" // string | Optional environment filter (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FeatureFlagsApi.GetFeatureFlagStatusAcrossEnvironments(context.Background(), projectKey, featureFlagKey).Env(env).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.GetFeatureFlagStatusAcrossEnvironments``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetFeatureFlagStatusAcrossEnvironments`: FeatureFlagStatusAcrossEnvironments
-    fmt.Fprintf(os.Stdout, "Response from `FeatureFlagsApi.GetFeatureFlagStatusAcrossEnvironments`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FeatureFlagsApi.GetFeatureFlagStatusAcrossEnvironments(context.Background(), projectKey, featureFlagKey).Env(env).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.GetFeatureFlagStatusAcrossEnvironments``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetFeatureFlagStatusAcrossEnvironments`: FeatureFlagStatusAcrossEnvironments
+	fmt.Fprintf(os.Stdout, "Response from `FeatureFlagsApi.GetFeatureFlagStatusAcrossEnvironments`: %v\n", resp)
 }
 ```
 
@@ -561,25 +561,25 @@ List feature flag statuses
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FeatureFlagsApi.GetFeatureFlagStatuses(context.Background(), projectKey, environmentKey).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.GetFeatureFlagStatuses``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetFeatureFlagStatuses`: FeatureFlagStatuses
-    fmt.Fprintf(os.Stdout, "Response from `FeatureFlagsApi.GetFeatureFlagStatuses`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FeatureFlagsApi.GetFeatureFlagStatuses(context.Background(), projectKey, environmentKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.GetFeatureFlagStatuses``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetFeatureFlagStatuses`: FeatureFlagStatuses
+	fmt.Fprintf(os.Stdout, "Response from `FeatureFlagsApi.GetFeatureFlagStatuses`: %v\n", resp)
 }
 ```
 
@@ -634,34 +634,34 @@ List feature flags
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    env := "env_example" // string | Filter configurations by environment (optional)
-    tag := "tag_example" // string | Filter feature flags by tag (optional)
-    limit := int64(789) // int64 | The number of feature flags to return. Defaults to 20. (optional)
-    offset := int64(789) // int64 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
-    archived := true // bool | Deprecated, use `filter=archived:true` instead. A boolean to filter the list to archived flags. When this is absent, only unarchived flags will be returned (optional)
-    summary := true // bool | By default, flags do _not_ include their lists of prerequisites, targets, or rules for each environment. Set `summary=0` to include these fields for each flag returned. (optional)
-    filter := "filter_example" // string | A comma-separated list of filters. Each filter is of the form field:value. Read the endpoint description for a full list of available filter fields. (optional)
-    sort := "sort_example" // string | A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order. Read the endpoint description for a full list of available sort fields. (optional)
-    compare := true // bool | Deprecated, unavailable in API version `20240415`. A boolean to filter results by only flags that have differences between environments. (optional)
-    expand := "expand_example" // string | A comma-separated list of fields to expand in the response. Supported fields are explained above. (optional)
+	projectKey := "projectKey_example" // string | The project key
+	env := "env_example" // string | Filter configurations by environment (optional)
+	tag := "tag_example" // string | Filter feature flags by tag (optional)
+	limit := int64(789) // int64 | The number of feature flags to return. Defaults to 20. (optional)
+	offset := int64(789) // int64 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
+	archived := true // bool | Deprecated, use `filter=archived:true` instead. A boolean to filter the list to archived flags. When this is absent, only unarchived flags will be returned (optional)
+	summary := true // bool | By default, flags do _not_ include their lists of prerequisites, targets, or rules for each environment. Set `summary=0` to include these fields for each flag returned. (optional)
+	filter := "filter_example" // string | A comma-separated list of filters. Each filter is of the form field:value. Read the endpoint description for a full list of available filter fields. (optional)
+	sort := "sort_example" // string | A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order. Read the endpoint description for a full list of available sort fields. (optional)
+	compare := true // bool | Deprecated, unavailable in API version `20240415`. A boolean to filter results by only flags that have differences between environments. (optional)
+	expand := "expand_example" // string | A comma-separated list of fields to expand in the response. Supported fields are explained above. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FeatureFlagsApi.GetFeatureFlags(context.Background(), projectKey).Env(env).Tag(tag).Limit(limit).Offset(offset).Archived(archived).Summary(summary).Filter(filter).Sort(sort).Compare(compare).Expand(expand).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.GetFeatureFlags``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetFeatureFlags`: FeatureFlags
-    fmt.Fprintf(os.Stdout, "Response from `FeatureFlagsApi.GetFeatureFlags`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FeatureFlagsApi.GetFeatureFlags(context.Background(), projectKey).Env(env).Tag(tag).Limit(limit).Offset(offset).Archived(archived).Summary(summary).Filter(filter).Sort(sort).Compare(compare).Expand(expand).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.GetFeatureFlags``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetFeatureFlags`: FeatureFlags
+	fmt.Fprintf(os.Stdout, "Response from `FeatureFlagsApi.GetFeatureFlags`: %v\n", resp)
 }
 ```
 
@@ -724,27 +724,27 @@ Update expiring context targets on feature flag
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
-    patchFlagsRequest := *openapiclient.NewPatchFlagsRequest([]map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}) // PatchFlagsRequest | 
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	featureFlagKey := "featureFlagKey_example" // string | The feature flag key
+	patchFlagsRequest := *openapiclient.NewPatchFlagsRequest([]map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}) // PatchFlagsRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FeatureFlagsApi.PatchExpiringTargets(context.Background(), projectKey, environmentKey, featureFlagKey).PatchFlagsRequest(patchFlagsRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.PatchExpiringTargets``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PatchExpiringTargets`: ExpiringTargetPatchResponse
-    fmt.Fprintf(os.Stdout, "Response from `FeatureFlagsApi.PatchExpiringTargets`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FeatureFlagsApi.PatchExpiringTargets(context.Background(), projectKey, environmentKey, featureFlagKey).PatchFlagsRequest(patchFlagsRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.PatchExpiringTargets``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PatchExpiringTargets`: ExpiringTargetPatchResponse
+	fmt.Fprintf(os.Stdout, "Response from `FeatureFlagsApi.PatchExpiringTargets`: %v\n", resp)
 }
 ```
 
@@ -802,27 +802,27 @@ Update expiring user targets on feature flag
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
-    patchFlagsRequest := *openapiclient.NewPatchFlagsRequest([]map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}) // PatchFlagsRequest | 
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	featureFlagKey := "featureFlagKey_example" // string | The feature flag key
+	patchFlagsRequest := *openapiclient.NewPatchFlagsRequest([]map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}) // PatchFlagsRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FeatureFlagsApi.PatchExpiringUserTargets(context.Background(), projectKey, environmentKey, featureFlagKey).PatchFlagsRequest(patchFlagsRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.PatchExpiringUserTargets``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PatchExpiringUserTargets`: ExpiringUserTargetPatchResponse
-    fmt.Fprintf(os.Stdout, "Response from `FeatureFlagsApi.PatchExpiringUserTargets`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FeatureFlagsApi.PatchExpiringUserTargets(context.Background(), projectKey, environmentKey, featureFlagKey).PatchFlagsRequest(patchFlagsRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.PatchExpiringUserTargets``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PatchExpiringUserTargets`: ExpiringUserTargetPatchResponse
+	fmt.Fprintf(os.Stdout, "Response from `FeatureFlagsApi.PatchExpiringUserTargets`: %v\n", resp)
 }
 ```
 
@@ -880,27 +880,27 @@ Update feature flag
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag key. The key identifies the flag in your code.
-    patchWithComment := *openapiclient.NewPatchWithComment([]openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")}) // PatchWithComment | 
-    ignoreConflicts := true // bool | If true, the patch will be applied even if it causes a pending scheduled change or approval request to fail. (optional)
+	projectKey := "projectKey_example" // string | The project key
+	featureFlagKey := "featureFlagKey_example" // string | The feature flag key. The key identifies the flag in your code.
+	patchWithComment := *openapiclient.NewPatchWithComment([]openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")}) // PatchWithComment | 
+	ignoreConflicts := true // bool | If true, the patch will be applied even if it causes a pending scheduled change or approval request to fail. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FeatureFlagsApi.PatchFeatureFlag(context.Background(), projectKey, featureFlagKey).PatchWithComment(patchWithComment).IgnoreConflicts(ignoreConflicts).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.PatchFeatureFlag``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PatchFeatureFlag`: FeatureFlag
-    fmt.Fprintf(os.Stdout, "Response from `FeatureFlagsApi.PatchFeatureFlag`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FeatureFlagsApi.PatchFeatureFlag(context.Background(), projectKey, featureFlagKey).PatchWithComment(patchWithComment).IgnoreConflicts(ignoreConflicts).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.PatchFeatureFlag``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PatchFeatureFlag`: FeatureFlag
+	fmt.Fprintf(os.Stdout, "Response from `FeatureFlagsApi.PatchFeatureFlag`: %v\n", resp)
 }
 ```
 
@@ -957,26 +957,26 @@ Create a feature flag
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    featureFlagBody := *openapiclient.NewFeatureFlagBody("My flag", "flag-key-123abc") // FeatureFlagBody | 
-    clone := "clone_example" // string | The key of the feature flag to be cloned. The key identifies the flag in your code. For example, setting `clone=flagKey` copies the full targeting configuration for all environments, including `on/off` state, from the original flag to the new flag. (optional)
+	projectKey := "projectKey_example" // string | The project key
+	featureFlagBody := *openapiclient.NewFeatureFlagBody("My flag", "flag-key-123abc") // FeatureFlagBody | 
+	clone := "clone_example" // string | The key of the feature flag to be cloned. The key identifies the flag in your code. For example, setting `clone=flagKey` copies the full targeting configuration for all environments, including `on/off` state, from the original flag to the new flag. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FeatureFlagsApi.PostFeatureFlag(context.Background(), projectKey).FeatureFlagBody(featureFlagBody).Clone(clone).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.PostFeatureFlag``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostFeatureFlag`: FeatureFlag
-    fmt.Fprintf(os.Stdout, "Response from `FeatureFlagsApi.PostFeatureFlag`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FeatureFlagsApi.PostFeatureFlag(context.Background(), projectKey).FeatureFlagBody(featureFlagBody).Clone(clone).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.PostFeatureFlag``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostFeatureFlag`: FeatureFlag
+	fmt.Fprintf(os.Stdout, "Response from `FeatureFlagsApi.PostFeatureFlag`: %v\n", resp)
 }
 ```
 
@@ -1031,27 +1031,27 @@ Get migration safety issues
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    flagKey := "flagKey_example" // string | The migration flag key
-    environmentKey := "environmentKey_example" // string | The environment key
-    flagSempatch := *openapiclient.NewFlagSempatch([]map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}) // FlagSempatch | 
+	projectKey := "projectKey_example" // string | The project key
+	flagKey := "flagKey_example" // string | The migration flag key
+	environmentKey := "environmentKey_example" // string | The environment key
+	flagSempatch := *openapiclient.NewFlagSempatch([]map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}) // FlagSempatch | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FeatureFlagsApi.PostMigrationSafetyIssues(context.Background(), projectKey, flagKey, environmentKey).FlagSempatch(flagSempatch).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.PostMigrationSafetyIssues``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostMigrationSafetyIssues`: []MigrationSafetyIssueRep
-    fmt.Fprintf(os.Stdout, "Response from `FeatureFlagsApi.PostMigrationSafetyIssues`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FeatureFlagsApi.PostMigrationSafetyIssues(context.Background(), projectKey, flagKey, environmentKey).FlagSempatch(flagSempatch).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.PostMigrationSafetyIssues``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostMigrationSafetyIssues`: []MigrationSafetyIssueRep
+	fmt.Fprintf(os.Stdout, "Response from `FeatureFlagsApi.PostMigrationSafetyIssues`: %v\n", resp)
 }
 ```
 

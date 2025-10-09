@@ -26,27 +26,27 @@ Create flag trigger
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
-    triggerPost := *openapiclient.NewTriggerPost("generic-trigger") // TriggerPost | 
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	featureFlagKey := "featureFlagKey_example" // string | The feature flag key
+	triggerPost := *openapiclient.NewTriggerPost("generic-trigger") // TriggerPost | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FlagTriggersApi.CreateTriggerWorkflow(context.Background(), projectKey, environmentKey, featureFlagKey).TriggerPost(triggerPost).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FlagTriggersApi.CreateTriggerWorkflow``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateTriggerWorkflow`: TriggerWorkflowRep
-    fmt.Fprintf(os.Stdout, "Response from `FlagTriggersApi.CreateTriggerWorkflow`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FlagTriggersApi.CreateTriggerWorkflow(context.Background(), projectKey, environmentKey, featureFlagKey).TriggerPost(triggerPost).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FlagTriggersApi.CreateTriggerWorkflow``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateTriggerWorkflow`: TriggerWorkflowRep
+	fmt.Fprintf(os.Stdout, "Response from `FlagTriggersApi.CreateTriggerWorkflow`: %v\n", resp)
 }
 ```
 
@@ -104,25 +104,25 @@ Delete flag trigger
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
-    id := "id_example" // string | The flag trigger ID
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	featureFlagKey := "featureFlagKey_example" // string | The feature flag key
+	id := "id_example" // string | The flag trigger ID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FlagTriggersApi.DeleteTriggerWorkflow(context.Background(), projectKey, environmentKey, featureFlagKey, id).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FlagTriggersApi.DeleteTriggerWorkflow``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.FlagTriggersApi.DeleteTriggerWorkflow(context.Background(), projectKey, environmentKey, featureFlagKey, id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FlagTriggersApi.DeleteTriggerWorkflow``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -181,27 +181,27 @@ Get flag trigger by ID
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
-    environmentKey := "environmentKey_example" // string | The environment key
-    id := "id_example" // string | The flag trigger ID
+	projectKey := "projectKey_example" // string | The project key
+	featureFlagKey := "featureFlagKey_example" // string | The feature flag key
+	environmentKey := "environmentKey_example" // string | The environment key
+	id := "id_example" // string | The flag trigger ID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FlagTriggersApi.GetTriggerWorkflowById(context.Background(), projectKey, featureFlagKey, environmentKey, id).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FlagTriggersApi.GetTriggerWorkflowById``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetTriggerWorkflowById`: TriggerWorkflowRep
-    fmt.Fprintf(os.Stdout, "Response from `FlagTriggersApi.GetTriggerWorkflowById`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FlagTriggersApi.GetTriggerWorkflowById(context.Background(), projectKey, featureFlagKey, environmentKey, id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FlagTriggersApi.GetTriggerWorkflowById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetTriggerWorkflowById`: TriggerWorkflowRep
+	fmt.Fprintf(os.Stdout, "Response from `FlagTriggersApi.GetTriggerWorkflowById`: %v\n", resp)
 }
 ```
 
@@ -260,26 +260,26 @@ List flag triggers
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	featureFlagKey := "featureFlagKey_example" // string | The feature flag key
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FlagTriggersApi.GetTriggerWorkflows(context.Background(), projectKey, environmentKey, featureFlagKey).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FlagTriggersApi.GetTriggerWorkflows``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetTriggerWorkflows`: TriggerWorkflowCollectionRep
-    fmt.Fprintf(os.Stdout, "Response from `FlagTriggersApi.GetTriggerWorkflows`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FlagTriggersApi.GetTriggerWorkflows(context.Background(), projectKey, environmentKey, featureFlagKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FlagTriggersApi.GetTriggerWorkflows``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetTriggerWorkflows`: TriggerWorkflowCollectionRep
+	fmt.Fprintf(os.Stdout, "Response from `FlagTriggersApi.GetTriggerWorkflows`: %v\n", resp)
 }
 ```
 
@@ -336,28 +336,28 @@ Update flag trigger
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
-    id := "id_example" // string | The flag trigger ID
-    flagTriggerInput := *openapiclient.NewFlagTriggerInput() // FlagTriggerInput | 
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	featureFlagKey := "featureFlagKey_example" // string | The feature flag key
+	id := "id_example" // string | The flag trigger ID
+	flagTriggerInput := *openapiclient.NewFlagTriggerInput() // FlagTriggerInput | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FlagTriggersApi.PatchTriggerWorkflow(context.Background(), projectKey, environmentKey, featureFlagKey, id).FlagTriggerInput(flagTriggerInput).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FlagTriggersApi.PatchTriggerWorkflow``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PatchTriggerWorkflow`: TriggerWorkflowRep
-    fmt.Fprintf(os.Stdout, "Response from `FlagTriggersApi.PatchTriggerWorkflow`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FlagTriggersApi.PatchTriggerWorkflow(context.Background(), projectKey, environmentKey, featureFlagKey, id).FlagTriggerInput(flagTriggerInput).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FlagTriggersApi.PatchTriggerWorkflow``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PatchTriggerWorkflow`: TriggerWorkflowRep
+	fmt.Fprintf(os.Stdout, "Response from `FlagTriggersApi.PatchTriggerWorkflow`: %v\n", resp)
 }
 ```
 

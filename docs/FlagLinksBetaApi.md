@@ -25,26 +25,26 @@ Create flag link
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
-    flagLinkPost := *openapiclient.NewFlagLinkPost() // FlagLinkPost | 
+	projectKey := "projectKey_example" // string | The project key
+	featureFlagKey := "featureFlagKey_example" // string | The feature flag key
+	flagLinkPost := *openapiclient.NewFlagLinkPost() // FlagLinkPost | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FlagLinksBetaApi.CreateFlagLink(context.Background(), projectKey, featureFlagKey).FlagLinkPost(flagLinkPost).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FlagLinksBetaApi.CreateFlagLink``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateFlagLink`: FlagLinkRep
-    fmt.Fprintf(os.Stdout, "Response from `FlagLinksBetaApi.CreateFlagLink`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FlagLinksBetaApi.CreateFlagLink(context.Background(), projectKey, featureFlagKey).FlagLinkPost(flagLinkPost).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FlagLinksBetaApi.CreateFlagLink``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateFlagLink`: FlagLinkRep
+	fmt.Fprintf(os.Stdout, "Response from `FlagLinksBetaApi.CreateFlagLink`: %v\n", resp)
 }
 ```
 
@@ -100,24 +100,24 @@ Delete flag link
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
-    id := "id_example" // string | The flag link ID or Key
+	projectKey := "projectKey_example" // string | The project key
+	featureFlagKey := "featureFlagKey_example" // string | The feature flag key
+	id := "id_example" // string | The flag link ID or Key
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FlagLinksBetaApi.DeleteFlagLink(context.Background(), projectKey, featureFlagKey, id).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FlagLinksBetaApi.DeleteFlagLink``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.FlagLinksBetaApi.DeleteFlagLink(context.Background(), projectKey, featureFlagKey, id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FlagLinksBetaApi.DeleteFlagLink``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -174,25 +174,25 @@ List flag links
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
+	projectKey := "projectKey_example" // string | The project key
+	featureFlagKey := "featureFlagKey_example" // string | The feature flag key
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FlagLinksBetaApi.GetFlagLinks(context.Background(), projectKey, featureFlagKey).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FlagLinksBetaApi.GetFlagLinks``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetFlagLinks`: FlagLinkCollectionRep
-    fmt.Fprintf(os.Stdout, "Response from `FlagLinksBetaApi.GetFlagLinks`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FlagLinksBetaApi.GetFlagLinks(context.Background(), projectKey, featureFlagKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FlagLinksBetaApi.GetFlagLinks``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetFlagLinks`: FlagLinkCollectionRep
+	fmt.Fprintf(os.Stdout, "Response from `FlagLinksBetaApi.GetFlagLinks`: %v\n", resp)
 }
 ```
 
@@ -247,27 +247,27 @@ Update flag link
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
-    id := "id_example" // string | The flag link ID
-    patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")} // []PatchOperation | 
+	projectKey := "projectKey_example" // string | The project key
+	featureFlagKey := "featureFlagKey_example" // string | The feature flag key
+	id := "id_example" // string | The flag link ID
+	patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")} // []PatchOperation | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FlagLinksBetaApi.UpdateFlagLink(context.Background(), projectKey, featureFlagKey, id).PatchOperation(patchOperation).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FlagLinksBetaApi.UpdateFlagLink``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateFlagLink`: FlagLinkRep
-    fmt.Fprintf(os.Stdout, "Response from `FlagLinksBetaApi.UpdateFlagLink`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FlagLinksBetaApi.UpdateFlagLink(context.Background(), projectKey, featureFlagKey, id).PatchOperation(patchOperation).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FlagLinksBetaApi.UpdateFlagLink``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateFlagLink`: FlagLinkRep
+	fmt.Fprintf(os.Stdout, "Response from `FlagLinksBetaApi.UpdateFlagLink`: %v\n", resp)
 }
 ```
 

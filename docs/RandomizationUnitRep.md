@@ -5,7 +5,6 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **RandomizationUnit** | Pointer to **string** | The unit of randomization. Defaults to user. | [optional] 
-**StandardRandomizationUnit** | Pointer to **string** | One of LaunchDarkly&#39;s fixed set of standard randomization units. | [optional] 
 **Default** | Pointer to **bool** | Whether this randomization unit is the default for experiments | [optional] 
 **Hidden** | Pointer to **bool** |  | [optional] 
 **DisplayName** | Pointer to **string** | The display name for the randomization unit, displayed in the LaunchDarkly user interface. | [optional] 
@@ -53,31 +52,6 @@ SetRandomizationUnit sets RandomizationUnit field to given value.
 `func (o *RandomizationUnitRep) HasRandomizationUnit() bool`
 
 HasRandomizationUnit returns a boolean if a field has been set.
-
-### GetStandardRandomizationUnit
-
-`func (o *RandomizationUnitRep) GetStandardRandomizationUnit() string`
-
-GetStandardRandomizationUnit returns the StandardRandomizationUnit field if non-nil, zero value otherwise.
-
-### GetStandardRandomizationUnitOk
-
-`func (o *RandomizationUnitRep) GetStandardRandomizationUnitOk() (*string, bool)`
-
-GetStandardRandomizationUnitOk returns a tuple with the StandardRandomizationUnit field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetStandardRandomizationUnit
-
-`func (o *RandomizationUnitRep) SetStandardRandomizationUnit(v string)`
-
-SetStandardRandomizationUnit sets StandardRandomizationUnit field to given value.
-
-### HasStandardRandomizationUnit
-
-`func (o *RandomizationUnitRep) HasStandardRandomizationUnit() bool`
-
-HasStandardRandomizationUnit returns a boolean if a field has been set.
 
 ### GetDefault
 

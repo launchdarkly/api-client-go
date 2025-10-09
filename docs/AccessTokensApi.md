@@ -27,22 +27,22 @@ Delete access token
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    id := "id_example" // string | The ID of the access token to update
+	id := "id_example" // string | The ID of the access token to update
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AccessTokensApi.DeleteToken(context.Background(), id).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AccessTokensApi.DeleteToken``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AccessTokensApi.DeleteToken(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AccessTokensApi.DeleteToken``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -95,24 +95,24 @@ Get access token
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    id := "id_example" // string | The ID of the access token
+	id := "id_example" // string | The ID of the access token
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AccessTokensApi.GetToken(context.Background(), id).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AccessTokensApi.GetToken``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetToken`: Token
-    fmt.Fprintf(os.Stdout, "Response from `AccessTokensApi.GetToken`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AccessTokensApi.GetToken(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AccessTokensApi.GetToken``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetToken`: Token
+	fmt.Fprintf(os.Stdout, "Response from `AccessTokensApi.GetToken`: %v\n", resp)
 }
 ```
 
@@ -165,26 +165,26 @@ List access tokens
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    showAll := true // bool | If set to true, and the authentication access token has the 'Admin' role, personal access tokens for all members will be retrieved. (optional)
-    limit := int64(789) // int64 | The number of access tokens to return in the response. Defaults to 25. (optional)
-    offset := int64(789) // int64 | Where to start in the list. This is for use with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
+	showAll := true // bool | If set to true, and the authentication access token has the 'Admin' role, personal access tokens for all members will be retrieved. (optional)
+	limit := int64(789) // int64 | The number of access tokens to return in the response. Defaults to 25. (optional)
+	offset := int64(789) // int64 | Where to start in the list. This is for use with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AccessTokensApi.GetTokens(context.Background()).ShowAll(showAll).Limit(limit).Offset(offset).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AccessTokensApi.GetTokens``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetTokens`: Tokens
-    fmt.Fprintf(os.Stdout, "Response from `AccessTokensApi.GetTokens`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AccessTokensApi.GetTokens(context.Background()).ShowAll(showAll).Limit(limit).Offset(offset).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AccessTokensApi.GetTokens``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetTokens`: Tokens
+	fmt.Fprintf(os.Stdout, "Response from `AccessTokensApi.GetTokens`: %v\n", resp)
 }
 ```
 
@@ -235,25 +235,25 @@ Patch access token
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    id := "id_example" // string | The ID of the access token to update
-    patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")} // []PatchOperation | 
+	id := "id_example" // string | The ID of the access token to update
+	patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")} // []PatchOperation | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AccessTokensApi.PatchToken(context.Background(), id).PatchOperation(patchOperation).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AccessTokensApi.PatchToken``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PatchToken`: Token
-    fmt.Fprintf(os.Stdout, "Response from `AccessTokensApi.PatchToken`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AccessTokensApi.PatchToken(context.Background(), id).PatchOperation(patchOperation).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AccessTokensApi.PatchToken``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PatchToken`: Token
+	fmt.Fprintf(os.Stdout, "Response from `AccessTokensApi.PatchToken`: %v\n", resp)
 }
 ```
 
@@ -307,24 +307,24 @@ Create access token
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    accessTokenPost := *openapiclient.NewAccessTokenPost() // AccessTokenPost | 
+	accessTokenPost := *openapiclient.NewAccessTokenPost() // AccessTokenPost | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AccessTokensApi.PostToken(context.Background()).AccessTokenPost(accessTokenPost).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AccessTokensApi.PostToken``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostToken`: Token
-    fmt.Fprintf(os.Stdout, "Response from `AccessTokensApi.PostToken`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AccessTokensApi.PostToken(context.Background()).AccessTokenPost(accessTokenPost).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AccessTokensApi.PostToken``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostToken`: Token
+	fmt.Fprintf(os.Stdout, "Response from `AccessTokensApi.PostToken`: %v\n", resp)
 }
 ```
 
@@ -373,25 +373,25 @@ Reset access token
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    id := "id_example" // string | The ID of the access token to update
-    expiry := int64(789) // int64 | An expiration time for the old token key, expressed as a Unix epoch time in milliseconds. By default, the token will expire immediately. (optional)
+	id := "id_example" // string | The ID of the access token to update
+	expiry := int64(789) // int64 | An expiration time for the old token key, expressed as a Unix epoch time in milliseconds. By default, the token will expire immediately. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AccessTokensApi.ResetToken(context.Background(), id).Expiry(expiry).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AccessTokensApi.ResetToken``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ResetToken`: Token
-    fmt.Fprintf(os.Stdout, "Response from `AccessTokensApi.ResetToken`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AccessTokensApi.ResetToken(context.Background(), id).Expiry(expiry).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AccessTokensApi.ResetToken``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ResetToken`: Token
+	fmt.Fprintf(os.Stdout, "Response from `AccessTokensApi.ResetToken`: %v\n", resp)
 }
 ```
 

@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **Key** | **string** |  | 
 **MaintainerId** | Pointer to **string** |  | [optional] 
 **MaintainerTeamKey** | Pointer to **string** |  | [optional] 
+**Mode** | Pointer to **string** |  | [optional] [default to "completion"]
 **Name** | **string** |  | 
 **Tags** | Pointer to **[]string** |  | [optional] 
 
@@ -124,6 +125,31 @@ SetMaintainerTeamKey sets MaintainerTeamKey field to given value.
 `func (o *AIConfigPost) HasMaintainerTeamKey() bool`
 
 HasMaintainerTeamKey returns a boolean if a field has been set.
+
+### GetMode
+
+`func (o *AIConfigPost) GetMode() string`
+
+GetMode returns the Mode field if non-nil, zero value otherwise.
+
+### GetModeOk
+
+`func (o *AIConfigPost) GetModeOk() (*string, bool)`
+
+GetModeOk returns a tuple with the Mode field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMode
+
+`func (o *AIConfigPost) SetMode(v string)`
+
+SetMode sets Mode field to given value.
+
+### HasMode
+
+`func (o *AIConfigPost) HasMode() bool`
+
+HasMode returns a boolean if a field has been set.
 
 ### GetName
 

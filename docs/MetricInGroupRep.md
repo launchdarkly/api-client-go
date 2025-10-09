@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **Kind** | **string** | The kind of event the metric tracks | 
 **IsNumeric** | Pointer to **bool** | For custom metrics, whether to track numeric changes in value against a baseline (&lt;code&gt;true&lt;/code&gt;) or to track a conversion when an end user takes an action (&lt;code&gt;false&lt;/code&gt;). | [optional] 
 **UnitAggregationType** | Pointer to **string** | The type of unit aggregation to use for the metric | [optional] 
+**EventKey** | Pointer to **string** | The event key sent with the metric. Only relevant for custom metrics. | [optional] 
 **Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
 **NameInGroup** | Pointer to **string** | Name of the metric when used within the associated metric group. Can be different from the original name of the metric. Required if and only if the metric group is a &lt;code&gt;funnel&lt;/code&gt;. | [optional] 
 **RandomizationUnits** | Pointer to **[]string** | The randomization units for the metric | [optional] 
@@ -167,6 +168,31 @@ SetUnitAggregationType sets UnitAggregationType field to given value.
 `func (o *MetricInGroupRep) HasUnitAggregationType() bool`
 
 HasUnitAggregationType returns a boolean if a field has been set.
+
+### GetEventKey
+
+`func (o *MetricInGroupRep) GetEventKey() string`
+
+GetEventKey returns the EventKey field if non-nil, zero value otherwise.
+
+### GetEventKeyOk
+
+`func (o *MetricInGroupRep) GetEventKeyOk() (*string, bool)`
+
+GetEventKeyOk returns a tuple with the EventKey field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEventKey
+
+`func (o *MetricInGroupRep) SetEventKey(v string)`
+
+SetEventKey sets EventKey field to given value.
+
+### HasEventKey
+
+`func (o *MetricInGroupRep) HasEventKey() bool`
+
+HasEventKey returns a boolean if a field has been set.
 
 ### GetLinks
 

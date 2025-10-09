@@ -27,23 +27,23 @@ Delete release pipeline
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    pipelineKey := "pipelineKey_example" // string | The release pipeline key
+	projectKey := "projectKey_example" // string | The project key
+	pipelineKey := "pipelineKey_example" // string | The release pipeline key
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ReleasePipelinesBetaApi.DeleteReleasePipeline(context.Background(), projectKey, pipelineKey).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ReleasePipelinesBetaApi.DeleteReleasePipeline``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.ReleasePipelinesBetaApi.DeleteReleasePipeline(context.Background(), projectKey, pipelineKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ReleasePipelinesBetaApi.DeleteReleasePipeline``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -98,27 +98,27 @@ Get all release pipelines
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    filter := "filter_example" // string | A comma-separated list of filters. Each filter is of the form field:value. Read the endpoint description for a full list of available filter fields. (optional)
-    limit := int64(789) // int64 | The maximum number of items to return. Defaults to 20. (optional)
-    offset := int64(789) // int64 | Where to start in the list. Defaults to 0. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
+	projectKey := "projectKey_example" // string | The project key
+	filter := "filter_example" // string | A comma-separated list of filters. Each filter is of the form field:value. Read the endpoint description for a full list of available filter fields. (optional)
+	limit := int64(789) // int64 | The maximum number of items to return. Defaults to 20. (optional)
+	offset := int64(789) // int64 | Where to start in the list. Defaults to 0. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ReleasePipelinesBetaApi.GetAllReleasePipelines(context.Background(), projectKey).Filter(filter).Limit(limit).Offset(offset).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ReleasePipelinesBetaApi.GetAllReleasePipelines``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetAllReleasePipelines`: ReleasePipelineCollection
-    fmt.Fprintf(os.Stdout, "Response from `ReleasePipelinesBetaApi.GetAllReleasePipelines`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ReleasePipelinesBetaApi.GetAllReleasePipelines(context.Background(), projectKey).Filter(filter).Limit(limit).Offset(offset).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ReleasePipelinesBetaApi.GetAllReleasePipelines``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetAllReleasePipelines`: ReleasePipelineCollection
+	fmt.Fprintf(os.Stdout, "Response from `ReleasePipelinesBetaApi.GetAllReleasePipelines`: %v\n", resp)
 }
 ```
 
@@ -174,28 +174,28 @@ Get release progressions for release pipeline
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    pipelineKey := "pipelineKey_example" // string | The pipeline key
-    filter := "filter_example" // string | Accepts filter by `status` and `activePhaseId`. `status` can take a value of `completed` or `active`. `activePhaseId` takes a UUID and will filter results down to releases active on the specified phase. Providing `status equals completed` along with an `activePhaseId` filter will return an error as they are disjoint sets of data. The combination of `status equals active` and `activePhaseId` will return the same results as `activePhaseId` alone. (optional)
-    limit := int64(789) // int64 | The maximum number of items to return. Defaults to 20. (optional)
-    offset := int64(789) // int64 | Where to start in the list. Defaults to 0. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
+	projectKey := "projectKey_example" // string | The project key
+	pipelineKey := "pipelineKey_example" // string | The pipeline key
+	filter := "filter_example" // string | Accepts filter by `status` and `activePhaseId`. `status` can take a value of `completed` or `active`. `activePhaseId` takes a UUID and will filter results down to releases active on the specified phase. Providing `status equals completed` along with an `activePhaseId` filter will return an error as they are disjoint sets of data. The combination of `status equals active` and `activePhaseId` will return the same results as `activePhaseId` alone. (optional)
+	limit := int64(789) // int64 | The maximum number of items to return. Defaults to 20. (optional)
+	offset := int64(789) // int64 | Where to start in the list. Defaults to 0. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ReleasePipelinesBetaApi.GetAllReleaseProgressionsForReleasePipeline(context.Background(), projectKey, pipelineKey).Filter(filter).Limit(limit).Offset(offset).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ReleasePipelinesBetaApi.GetAllReleaseProgressionsForReleasePipeline``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetAllReleaseProgressionsForReleasePipeline`: ReleaseProgressionCollection
-    fmt.Fprintf(os.Stdout, "Response from `ReleasePipelinesBetaApi.GetAllReleaseProgressionsForReleasePipeline`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ReleasePipelinesBetaApi.GetAllReleaseProgressionsForReleasePipeline(context.Background(), projectKey, pipelineKey).Filter(filter).Limit(limit).Offset(offset).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ReleasePipelinesBetaApi.GetAllReleaseProgressionsForReleasePipeline``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetAllReleaseProgressionsForReleasePipeline`: ReleaseProgressionCollection
+	fmt.Fprintf(os.Stdout, "Response from `ReleasePipelinesBetaApi.GetAllReleaseProgressionsForReleasePipeline`: %v\n", resp)
 }
 ```
 
@@ -253,25 +253,25 @@ Get release pipeline by key
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    pipelineKey := "pipelineKey_example" // string | The release pipeline key
+	projectKey := "projectKey_example" // string | The project key
+	pipelineKey := "pipelineKey_example" // string | The release pipeline key
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ReleasePipelinesBetaApi.GetReleasePipelineByKey(context.Background(), projectKey, pipelineKey).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ReleasePipelinesBetaApi.GetReleasePipelineByKey``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetReleasePipelineByKey`: ReleasePipeline
-    fmt.Fprintf(os.Stdout, "Response from `ReleasePipelinesBetaApi.GetReleasePipelineByKey`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ReleasePipelinesBetaApi.GetReleasePipelineByKey(context.Background(), projectKey, pipelineKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ReleasePipelinesBetaApi.GetReleasePipelineByKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetReleasePipelineByKey`: ReleasePipeline
+	fmt.Fprintf(os.Stdout, "Response from `ReleasePipelinesBetaApi.GetReleasePipelineByKey`: %v\n", resp)
 }
 ```
 
@@ -326,25 +326,25 @@ Create a release pipeline
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    createReleasePipelineInput := *openapiclient.NewCreateReleasePipelineInput("standard-pipeline", "Standard Pipeline", []openapiclient.CreatePhaseInput{*openapiclient.NewCreatePhaseInput([]openapiclient.AudiencePost{*openapiclient.NewAudiencePost("EnvironmentKey_example", "Name_example")}, "Phase 1 - Testing")}) // CreateReleasePipelineInput | 
+	projectKey := "projectKey_example" // string | The project key
+	createReleasePipelineInput := *openapiclient.NewCreateReleasePipelineInput("standard-pipeline", "Standard Pipeline", []openapiclient.CreatePhaseInput{*openapiclient.NewCreatePhaseInput([]openapiclient.AudiencePost{*openapiclient.NewAudiencePost("EnvironmentKey_example", "Name_example")}, "Phase 1 - Testing")}) // CreateReleasePipelineInput | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ReleasePipelinesBetaApi.PostReleasePipeline(context.Background(), projectKey).CreateReleasePipelineInput(createReleasePipelineInput).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ReleasePipelinesBetaApi.PostReleasePipeline``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostReleasePipeline`: ReleasePipeline
-    fmt.Fprintf(os.Stdout, "Response from `ReleasePipelinesBetaApi.PostReleasePipeline`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ReleasePipelinesBetaApi.PostReleasePipeline(context.Background(), projectKey).CreateReleasePipelineInput(createReleasePipelineInput).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ReleasePipelinesBetaApi.PostReleasePipeline``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostReleasePipeline`: ReleasePipeline
+	fmt.Fprintf(os.Stdout, "Response from `ReleasePipelinesBetaApi.PostReleasePipeline`: %v\n", resp)
 }
 ```
 
@@ -398,26 +398,26 @@ Update a release pipeline
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    pipelineKey := "pipelineKey_example" // string | The release pipeline key
-    updateReleasePipelineInput := *openapiclient.NewUpdateReleasePipelineInput("Standard Pipeline", []openapiclient.CreatePhaseInput{*openapiclient.NewCreatePhaseInput([]openapiclient.AudiencePost{*openapiclient.NewAudiencePost("EnvironmentKey_example", "Name_example")}, "Phase 1 - Testing")}) // UpdateReleasePipelineInput | 
+	projectKey := "projectKey_example" // string | The project key
+	pipelineKey := "pipelineKey_example" // string | The release pipeline key
+	updateReleasePipelineInput := *openapiclient.NewUpdateReleasePipelineInput("Standard Pipeline", []openapiclient.CreatePhaseInput{*openapiclient.NewCreatePhaseInput([]openapiclient.AudiencePost{*openapiclient.NewAudiencePost("EnvironmentKey_example", "Name_example")}, "Phase 1 - Testing")}) // UpdateReleasePipelineInput | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ReleasePipelinesBetaApi.PutReleasePipeline(context.Background(), projectKey, pipelineKey).UpdateReleasePipelineInput(updateReleasePipelineInput).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ReleasePipelinesBetaApi.PutReleasePipeline``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PutReleasePipeline`: ReleasePipeline
-    fmt.Fprintf(os.Stdout, "Response from `ReleasePipelinesBetaApi.PutReleasePipeline`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ReleasePipelinesBetaApi.PutReleasePipeline(context.Background(), projectKey, pipelineKey).UpdateReleasePipelineInput(updateReleasePipelineInput).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ReleasePipelinesBetaApi.PutReleasePipeline``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PutReleasePipeline`: ReleasePipeline
+	fmt.Fprintf(os.Stdout, "Response from `ReleasePipelinesBetaApi.PutReleasePipeline`: %v\n", resp)
 }
 ```
 

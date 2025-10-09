@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** | A description of the approval required for this stage | [optional] 
 **NotifyMemberIds** | Pointer to **[]string** | A list of member IDs for the members to request approval from for this stage | [optional] 
 **NotifyTeamKeys** | Pointer to **[]string** | A list of team keys for the teams to request approval from for this stage | [optional] 
+**IntegrationConfig** | Pointer to **map[string]interface{}** |  | [optional] 
 **Kind** | Pointer to **string** |  | [optional] 
 
 ## Methods
@@ -232,6 +233,31 @@ SetNotifyTeamKeys sets NotifyTeamKeys field to given value.
 `func (o *ConditionInput) HasNotifyTeamKeys() bool`
 
 HasNotifyTeamKeys returns a boolean if a field has been set.
+
+### GetIntegrationConfig
+
+`func (o *ConditionInput) GetIntegrationConfig() map[string]interface{}`
+
+GetIntegrationConfig returns the IntegrationConfig field if non-nil, zero value otherwise.
+
+### GetIntegrationConfigOk
+
+`func (o *ConditionInput) GetIntegrationConfigOk() (*map[string]interface{}, bool)`
+
+GetIntegrationConfigOk returns a tuple with the IntegrationConfig field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIntegrationConfig
+
+`func (o *ConditionInput) SetIntegrationConfig(v map[string]interface{})`
+
+SetIntegrationConfig sets IntegrationConfig field to given value.
+
+### HasIntegrationConfig
+
+`func (o *ConditionInput) HasIntegrationConfig() bool`
+
+HasIntegrationConfig returns a boolean if a field has been set.
 
 ### GetKind
 

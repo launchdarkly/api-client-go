@@ -26,26 +26,26 @@ Get expiring dates on flags for user
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    userKey := "userKey_example" // string | The user key
-    environmentKey := "environmentKey_example" // string | The environment key
+	projectKey := "projectKey_example" // string | The project key
+	userKey := "userKey_example" // string | The user key
+	environmentKey := "environmentKey_example" // string | The environment key
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserSettingsApi.GetExpiringFlagsForUser(context.Background(), projectKey, userKey, environmentKey).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserSettingsApi.GetExpiringFlagsForUser``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetExpiringFlagsForUser`: ExpiringUserTargetGetResponse
-    fmt.Fprintf(os.Stdout, "Response from `UserSettingsApi.GetExpiringFlagsForUser`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserSettingsApi.GetExpiringFlagsForUser(context.Background(), projectKey, userKey, environmentKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserSettingsApi.GetExpiringFlagsForUser``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetExpiringFlagsForUser`: ExpiringUserTargetGetResponse
+	fmt.Fprintf(os.Stdout, "Response from `UserSettingsApi.GetExpiringFlagsForUser`: %v\n", resp)
 }
 ```
 
@@ -102,27 +102,27 @@ Get flag setting for user
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    userKey := "userKey_example" // string | The user key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	userKey := "userKey_example" // string | The user key
+	featureFlagKey := "featureFlagKey_example" // string | The feature flag key
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserSettingsApi.GetUserFlagSetting(context.Background(), projectKey, environmentKey, userKey, featureFlagKey).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserSettingsApi.GetUserFlagSetting``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetUserFlagSetting`: UserFlagSetting
-    fmt.Fprintf(os.Stdout, "Response from `UserSettingsApi.GetUserFlagSetting`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserSettingsApi.GetUserFlagSetting(context.Background(), projectKey, environmentKey, userKey, featureFlagKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserSettingsApi.GetUserFlagSetting``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetUserFlagSetting`: UserFlagSetting
+	fmt.Fprintf(os.Stdout, "Response from `UserSettingsApi.GetUserFlagSetting`: %v\n", resp)
 }
 ```
 
@@ -181,26 +181,26 @@ List flag settings for user
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    userKey := "userKey_example" // string | The user key
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	userKey := "userKey_example" // string | The user key
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserSettingsApi.GetUserFlagSettings(context.Background(), projectKey, environmentKey, userKey).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserSettingsApi.GetUserFlagSettings``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetUserFlagSettings`: UserFlagSettings
-    fmt.Fprintf(os.Stdout, "Response from `UserSettingsApi.GetUserFlagSettings`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserSettingsApi.GetUserFlagSettings(context.Background(), projectKey, environmentKey, userKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserSettingsApi.GetUserFlagSettings``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetUserFlagSettings`: UserFlagSettings
+	fmt.Fprintf(os.Stdout, "Response from `UserSettingsApi.GetUserFlagSettings`: %v\n", resp)
 }
 ```
 
@@ -257,27 +257,27 @@ Update expiring user target for flags
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    userKey := "userKey_example" // string | The user key
-    environmentKey := "environmentKey_example" // string | The environment key
-    patchUsersRequest := *openapiclient.NewPatchUsersRequest([]openapiclient.InstructionUserRequest{*openapiclient.NewInstructionUserRequest("addExpireUserTargetDate", "sample-flag-key", "ce12d345-a1b2-4fb5-a123-ab123d4d5f5d")}) // PatchUsersRequest | 
+	projectKey := "projectKey_example" // string | The project key
+	userKey := "userKey_example" // string | The user key
+	environmentKey := "environmentKey_example" // string | The environment key
+	patchUsersRequest := *openapiclient.NewPatchUsersRequest([]openapiclient.InstructionUserRequest{*openapiclient.NewInstructionUserRequest("addExpireUserTargetDate", "sample-flag-key", "ce12d345-a1b2-4fb5-a123-ab123d4d5f5d")}) // PatchUsersRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserSettingsApi.PatchExpiringFlagsForUser(context.Background(), projectKey, userKey, environmentKey).PatchUsersRequest(patchUsersRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserSettingsApi.PatchExpiringFlagsForUser``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PatchExpiringFlagsForUser`: ExpiringUserTargetPatchResponse
-    fmt.Fprintf(os.Stdout, "Response from `UserSettingsApi.PatchExpiringFlagsForUser`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserSettingsApi.PatchExpiringFlagsForUser(context.Background(), projectKey, userKey, environmentKey).PatchUsersRequest(patchUsersRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserSettingsApi.PatchExpiringFlagsForUser``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PatchExpiringFlagsForUser`: ExpiringUserTargetPatchResponse
+	fmt.Fprintf(os.Stdout, "Response from `UserSettingsApi.PatchExpiringFlagsForUser`: %v\n", resp)
 }
 ```
 
@@ -335,26 +335,26 @@ Update flag settings for user
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    userKey := "userKey_example" // string | The user key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
-    valuePut := *openapiclient.NewValuePut() // ValuePut | 
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	userKey := "userKey_example" // string | The user key
+	featureFlagKey := "featureFlagKey_example" // string | The feature flag key
+	valuePut := *openapiclient.NewValuePut() // ValuePut | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserSettingsApi.PutFlagSetting(context.Background(), projectKey, environmentKey, userKey, featureFlagKey).ValuePut(valuePut).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserSettingsApi.PutFlagSetting``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.UserSettingsApi.PutFlagSetting(context.Background(), projectKey, environmentKey, userKey, featureFlagKey).ValuePut(valuePut).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserSettingsApi.PutFlagSetting``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 

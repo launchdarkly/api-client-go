@@ -26,25 +26,25 @@ Delete scheduled changes workflow
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
-    environmentKey := "environmentKey_example" // string | The environment key
-    id := "id_example" // string | The scheduled change id
+	projectKey := "projectKey_example" // string | The project key
+	featureFlagKey := "featureFlagKey_example" // string | The feature flag key
+	environmentKey := "environmentKey_example" // string | The environment key
+	id := "id_example" // string | The scheduled change id
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ScheduledChangesApi.DeleteFlagConfigScheduledChanges(context.Background(), projectKey, featureFlagKey, environmentKey, id).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ScheduledChangesApi.DeleteFlagConfigScheduledChanges``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.ScheduledChangesApi.DeleteFlagConfigScheduledChanges(context.Background(), projectKey, featureFlagKey, environmentKey, id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ScheduledChangesApi.DeleteFlagConfigScheduledChanges``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -103,27 +103,27 @@ Get a scheduled change
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
-    environmentKey := "environmentKey_example" // string | The environment key
-    id := "id_example" // string | The scheduled change id
+	projectKey := "projectKey_example" // string | The project key
+	featureFlagKey := "featureFlagKey_example" // string | The feature flag key
+	environmentKey := "environmentKey_example" // string | The environment key
+	id := "id_example" // string | The scheduled change id
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ScheduledChangesApi.GetFeatureFlagScheduledChange(context.Background(), projectKey, featureFlagKey, environmentKey, id).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ScheduledChangesApi.GetFeatureFlagScheduledChange``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetFeatureFlagScheduledChange`: FeatureFlagScheduledChange
-    fmt.Fprintf(os.Stdout, "Response from `ScheduledChangesApi.GetFeatureFlagScheduledChange`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ScheduledChangesApi.GetFeatureFlagScheduledChange(context.Background(), projectKey, featureFlagKey, environmentKey, id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ScheduledChangesApi.GetFeatureFlagScheduledChange``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetFeatureFlagScheduledChange`: FeatureFlagScheduledChange
+	fmt.Fprintf(os.Stdout, "Response from `ScheduledChangesApi.GetFeatureFlagScheduledChange`: %v\n", resp)
 }
 ```
 
@@ -182,26 +182,26 @@ List scheduled changes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
-    environmentKey := "environmentKey_example" // string | The environment key
+	projectKey := "projectKey_example" // string | The project key
+	featureFlagKey := "featureFlagKey_example" // string | The feature flag key
+	environmentKey := "environmentKey_example" // string | The environment key
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ScheduledChangesApi.GetFlagConfigScheduledChanges(context.Background(), projectKey, featureFlagKey, environmentKey).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ScheduledChangesApi.GetFlagConfigScheduledChanges``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetFlagConfigScheduledChanges`: FeatureFlagScheduledChanges
-    fmt.Fprintf(os.Stdout, "Response from `ScheduledChangesApi.GetFlagConfigScheduledChanges`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ScheduledChangesApi.GetFlagConfigScheduledChanges(context.Background(), projectKey, featureFlagKey, environmentKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ScheduledChangesApi.GetFlagConfigScheduledChanges``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetFlagConfigScheduledChanges`: FeatureFlagScheduledChanges
+	fmt.Fprintf(os.Stdout, "Response from `ScheduledChangesApi.GetFlagConfigScheduledChanges`: %v\n", resp)
 }
 ```
 
@@ -258,29 +258,29 @@ Update scheduled changes workflow
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
-    environmentKey := "environmentKey_example" // string | The environment key
-    id := "id_example" // string | The scheduled change ID
-    flagScheduledChangesInput := *openapiclient.NewFlagScheduledChangesInput([]map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}) // FlagScheduledChangesInput | 
-    ignoreConflicts := true // bool | Whether to succeed (`true`) or fail (`false`) when these new instructions conflict with existing scheduled changes (optional)
+	projectKey := "projectKey_example" // string | The project key
+	featureFlagKey := "featureFlagKey_example" // string | The feature flag key
+	environmentKey := "environmentKey_example" // string | The environment key
+	id := "id_example" // string | The scheduled change ID
+	flagScheduledChangesInput := *openapiclient.NewFlagScheduledChangesInput([]map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}) // FlagScheduledChangesInput | 
+	ignoreConflicts := true // bool | Whether to succeed (`true`) or fail (`false`) when these new instructions conflict with existing scheduled changes (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ScheduledChangesApi.PatchFlagConfigScheduledChange(context.Background(), projectKey, featureFlagKey, environmentKey, id).FlagScheduledChangesInput(flagScheduledChangesInput).IgnoreConflicts(ignoreConflicts).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ScheduledChangesApi.PatchFlagConfigScheduledChange``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PatchFlagConfigScheduledChange`: FeatureFlagScheduledChange
-    fmt.Fprintf(os.Stdout, "Response from `ScheduledChangesApi.PatchFlagConfigScheduledChange`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ScheduledChangesApi.PatchFlagConfigScheduledChange(context.Background(), projectKey, featureFlagKey, environmentKey, id).FlagScheduledChangesInput(flagScheduledChangesInput).IgnoreConflicts(ignoreConflicts).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ScheduledChangesApi.PatchFlagConfigScheduledChange``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PatchFlagConfigScheduledChange`: FeatureFlagScheduledChange
+	fmt.Fprintf(os.Stdout, "Response from `ScheduledChangesApi.PatchFlagConfigScheduledChange`: %v\n", resp)
 }
 ```
 
@@ -341,28 +341,28 @@ Create scheduled changes workflow
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
-    environmentKey := "environmentKey_example" // string | The environment key
-    postFlagScheduledChangesInput := *openapiclient.NewPostFlagScheduledChangesInput(int64(123), []map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}) // PostFlagScheduledChangesInput | 
-    ignoreConflicts := true // bool | Whether to succeed (`true`) or fail (`false`) when these instructions conflict with existing scheduled changes (optional)
+	projectKey := "projectKey_example" // string | The project key
+	featureFlagKey := "featureFlagKey_example" // string | The feature flag key
+	environmentKey := "environmentKey_example" // string | The environment key
+	postFlagScheduledChangesInput := *openapiclient.NewPostFlagScheduledChangesInput(int64(123), []map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}) // PostFlagScheduledChangesInput | 
+	ignoreConflicts := true // bool | Whether to succeed (`true`) or fail (`false`) when these instructions conflict with existing scheduled changes (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ScheduledChangesApi.PostFlagConfigScheduledChanges(context.Background(), projectKey, featureFlagKey, environmentKey).PostFlagScheduledChangesInput(postFlagScheduledChangesInput).IgnoreConflicts(ignoreConflicts).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ScheduledChangesApi.PostFlagConfigScheduledChanges``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostFlagConfigScheduledChanges`: FeatureFlagScheduledChange
-    fmt.Fprintf(os.Stdout, "Response from `ScheduledChangesApi.PostFlagConfigScheduledChanges`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ScheduledChangesApi.PostFlagConfigScheduledChanges(context.Background(), projectKey, featureFlagKey, environmentKey).PostFlagScheduledChangesInput(postFlagScheduledChangesInput).IgnoreConflicts(ignoreConflicts).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ScheduledChangesApi.PostFlagConfigScheduledChanges``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostFlagConfigScheduledChanges`: FeatureFlagScheduledChange
+	fmt.Fprintf(os.Stdout, "Response from `ScheduledChangesApi.PostFlagConfigScheduledChanges`: %v\n", resp)
 }
 ```
 

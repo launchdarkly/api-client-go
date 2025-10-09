@@ -26,25 +26,25 @@ Create audit log subscription
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    integrationKey := "integrationKey_example" // string | The integration key
-    subscriptionPost := *openapiclient.NewSubscriptionPost("Example audit log subscription.", map[string]interface{}{"key": interface{}(123)}) // SubscriptionPost | 
+	integrationKey := "integrationKey_example" // string | The integration key
+	subscriptionPost := *openapiclient.NewSubscriptionPost("Example audit log subscription.", map[string]interface{}{"key": interface{}(123)}) // SubscriptionPost | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.IntegrationAuditLogSubscriptionsApi.CreateSubscription(context.Background(), integrationKey).SubscriptionPost(subscriptionPost).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `IntegrationAuditLogSubscriptionsApi.CreateSubscription``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateSubscription`: Integration
-    fmt.Fprintf(os.Stdout, "Response from `IntegrationAuditLogSubscriptionsApi.CreateSubscription`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IntegrationAuditLogSubscriptionsApi.CreateSubscription(context.Background(), integrationKey).SubscriptionPost(subscriptionPost).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IntegrationAuditLogSubscriptionsApi.CreateSubscription``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateSubscription`: Integration
+	fmt.Fprintf(os.Stdout, "Response from `IntegrationAuditLogSubscriptionsApi.CreateSubscription`: %v\n", resp)
 }
 ```
 
@@ -98,23 +98,23 @@ Delete audit log subscription
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    integrationKey := "integrationKey_example" // string | The integration key
-    id := "id_example" // string | The subscription ID
+	integrationKey := "integrationKey_example" // string | The integration key
+	id := "id_example" // string | The subscription ID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.IntegrationAuditLogSubscriptionsApi.DeleteSubscription(context.Background(), integrationKey, id).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `IntegrationAuditLogSubscriptionsApi.DeleteSubscription``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.IntegrationAuditLogSubscriptionsApi.DeleteSubscription(context.Background(), integrationKey, id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IntegrationAuditLogSubscriptionsApi.DeleteSubscription``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -169,25 +169,25 @@ Get audit log subscription by ID
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    integrationKey := "integrationKey_example" // string | The integration key
-    id := "id_example" // string | The subscription ID
+	integrationKey := "integrationKey_example" // string | The integration key
+	id := "id_example" // string | The subscription ID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.IntegrationAuditLogSubscriptionsApi.GetSubscriptionByID(context.Background(), integrationKey, id).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `IntegrationAuditLogSubscriptionsApi.GetSubscriptionByID``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetSubscriptionByID`: Integration
-    fmt.Fprintf(os.Stdout, "Response from `IntegrationAuditLogSubscriptionsApi.GetSubscriptionByID`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IntegrationAuditLogSubscriptionsApi.GetSubscriptionByID(context.Background(), integrationKey, id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IntegrationAuditLogSubscriptionsApi.GetSubscriptionByID``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetSubscriptionByID`: Integration
+	fmt.Fprintf(os.Stdout, "Response from `IntegrationAuditLogSubscriptionsApi.GetSubscriptionByID`: %v\n", resp)
 }
 ```
 
@@ -242,24 +242,24 @@ Get audit log subscriptions by integration
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    integrationKey := "integrationKey_example" // string | The integration key
+	integrationKey := "integrationKey_example" // string | The integration key
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.IntegrationAuditLogSubscriptionsApi.GetSubscriptions(context.Background(), integrationKey).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `IntegrationAuditLogSubscriptionsApi.GetSubscriptions``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetSubscriptions`: Integrations
-    fmt.Fprintf(os.Stdout, "Response from `IntegrationAuditLogSubscriptionsApi.GetSubscriptions`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IntegrationAuditLogSubscriptionsApi.GetSubscriptions(context.Background(), integrationKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IntegrationAuditLogSubscriptionsApi.GetSubscriptions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetSubscriptions`: Integrations
+	fmt.Fprintf(os.Stdout, "Response from `IntegrationAuditLogSubscriptionsApi.GetSubscriptions`: %v\n", resp)
 }
 ```
 
@@ -312,26 +312,26 @@ Update audit log subscription
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    integrationKey := "integrationKey_example" // string | The integration key
-    id := "id_example" // string | The ID of the audit log subscription
-    patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")} // []PatchOperation | 
+	integrationKey := "integrationKey_example" // string | The integration key
+	id := "id_example" // string | The ID of the audit log subscription
+	patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")} // []PatchOperation | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.IntegrationAuditLogSubscriptionsApi.UpdateSubscription(context.Background(), integrationKey, id).PatchOperation(patchOperation).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `IntegrationAuditLogSubscriptionsApi.UpdateSubscription``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateSubscription`: Integration
-    fmt.Fprintf(os.Stdout, "Response from `IntegrationAuditLogSubscriptionsApi.UpdateSubscription`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IntegrationAuditLogSubscriptionsApi.UpdateSubscription(context.Background(), integrationKey, id).PatchOperation(patchOperation).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IntegrationAuditLogSubscriptionsApi.UpdateSubscription``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateSubscription`: Integration
+	fmt.Fprintf(os.Stdout, "Response from `IntegrationAuditLogSubscriptionsApi.UpdateSubscription`: %v\n", resp)
 }
 ```
 

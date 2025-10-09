@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Id** | **string** | The member&#39;s ID | 
 **FirstName** | Pointer to **string** | The member&#39;s first name | [optional] 
 **LastName** | Pointer to **string** | The member&#39;s last name | [optional] 
-**Role** | **string** | The member&#39;s built-in role. If the member has no custom roles, this role will be in effect. | 
+**Role** | **string** | The member&#39;s base role. If the member has no additional roles, this role will be in effect. | 
 **Email** | **string** | The member&#39;s email address | 
 
 ## Methods

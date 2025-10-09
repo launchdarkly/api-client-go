@@ -6,8 +6,11 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ExperimentCount** | Pointer to **int32** | The number of experiments using this metric | [optional] 
 **MetricGroupCount** | Pointer to **int32** | The number of metric groups using this metric | [optional] 
+**ActiveExperimentCount** | Pointer to **int32** | The number of active experiments using this metric | [optional] 
+**ActiveGuardedRolloutCount** | Pointer to **int32** | The number of active guarded rollouts using this metric | [optional] 
 **Id** | **string** | The ID of this metric | 
 **VersionId** | **string** | The version ID of the metric | 
+**Version** | Pointer to **int32** | Version of the metric | [optional] 
 **Key** | **string** | A unique key to reference the metric | 
 **Name** | **string** | A human-friendly name for the metric | 
 **Kind** | **string** | The kind of event the metric tracks | 
@@ -27,10 +30,16 @@ Name | Type | Description | Notes
 **Unit** | Pointer to **string** | For numeric custom metrics, the unit of measure | [optional] 
 **EventKey** | Pointer to **string** | For custom metrics, the event key to use in your code | [optional] 
 **RandomizationUnits** | Pointer to **[]string** | An array of randomization units allowed for this metric | [optional] 
+**Filters** | Pointer to [**Filter**](Filter.md) |  | [optional] 
 **UnitAggregationType** | Pointer to **string** | The method by which multiple unit event values are aggregated | [optional] 
 **AnalysisType** | Pointer to **string** | The method for analyzing metric events | [optional] 
 **PercentileValue** | Pointer to **int32** | The percentile for the analysis method. An integer denoting the target percentile between 0 and 100. Required when &lt;code&gt;analysisType&lt;/code&gt; is &lt;code&gt;percentile&lt;/code&gt;. | [optional] 
 **EventDefault** | Pointer to [**MetricEventDefaultRep**](MetricEventDefaultRep.md) |  | [optional] 
+**DataSource** | Pointer to [**MetricDataSourceRefRep**](MetricDataSourceRefRep.md) |  | [optional] 
+**Archived** | Pointer to **bool** | Whether the metric version is archived | [optional] 
+**ArchivedAt** | Pointer to **int64** |  | [optional] 
+**Selector** | Pointer to **string** | For click metrics, the CSS selectors | [optional] 
+**Urls** | Pointer to **[]map[string]interface{}** |  | [optional] 
 
 ## Methods
 
@@ -101,6 +110,56 @@ SetMetricGroupCount sets MetricGroupCount field to given value.
 
 HasMetricGroupCount returns a boolean if a field has been set.
 
+### GetActiveExperimentCount
+
+`func (o *MetricListingRep) GetActiveExperimentCount() int32`
+
+GetActiveExperimentCount returns the ActiveExperimentCount field if non-nil, zero value otherwise.
+
+### GetActiveExperimentCountOk
+
+`func (o *MetricListingRep) GetActiveExperimentCountOk() (*int32, bool)`
+
+GetActiveExperimentCountOk returns a tuple with the ActiveExperimentCount field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetActiveExperimentCount
+
+`func (o *MetricListingRep) SetActiveExperimentCount(v int32)`
+
+SetActiveExperimentCount sets ActiveExperimentCount field to given value.
+
+### HasActiveExperimentCount
+
+`func (o *MetricListingRep) HasActiveExperimentCount() bool`
+
+HasActiveExperimentCount returns a boolean if a field has been set.
+
+### GetActiveGuardedRolloutCount
+
+`func (o *MetricListingRep) GetActiveGuardedRolloutCount() int32`
+
+GetActiveGuardedRolloutCount returns the ActiveGuardedRolloutCount field if non-nil, zero value otherwise.
+
+### GetActiveGuardedRolloutCountOk
+
+`func (o *MetricListingRep) GetActiveGuardedRolloutCountOk() (*int32, bool)`
+
+GetActiveGuardedRolloutCountOk returns a tuple with the ActiveGuardedRolloutCount field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetActiveGuardedRolloutCount
+
+`func (o *MetricListingRep) SetActiveGuardedRolloutCount(v int32)`
+
+SetActiveGuardedRolloutCount sets ActiveGuardedRolloutCount field to given value.
+
+### HasActiveGuardedRolloutCount
+
+`func (o *MetricListingRep) HasActiveGuardedRolloutCount() bool`
+
+HasActiveGuardedRolloutCount returns a boolean if a field has been set.
+
 ### GetId
 
 `func (o *MetricListingRep) GetId() string`
@@ -140,6 +199,31 @@ and a boolean to check if the value has been set.
 
 SetVersionId sets VersionId field to given value.
 
+
+### GetVersion
+
+`func (o *MetricListingRep) GetVersion() int32`
+
+GetVersion returns the Version field if non-nil, zero value otherwise.
+
+### GetVersionOk
+
+`func (o *MetricListingRep) GetVersionOk() (*int32, bool)`
+
+GetVersionOk returns a tuple with the Version field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVersion
+
+`func (o *MetricListingRep) SetVersion(v int32)`
+
+SetVersion sets Version field to given value.
+
+### HasVersion
+
+`func (o *MetricListingRep) HasVersion() bool`
+
+HasVersion returns a boolean if a field has been set.
 
 ### GetKey
 
@@ -586,6 +670,31 @@ SetRandomizationUnits sets RandomizationUnits field to given value.
 
 HasRandomizationUnits returns a boolean if a field has been set.
 
+### GetFilters
+
+`func (o *MetricListingRep) GetFilters() Filter`
+
+GetFilters returns the Filters field if non-nil, zero value otherwise.
+
+### GetFiltersOk
+
+`func (o *MetricListingRep) GetFiltersOk() (*Filter, bool)`
+
+GetFiltersOk returns a tuple with the Filters field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFilters
+
+`func (o *MetricListingRep) SetFilters(v Filter)`
+
+SetFilters sets Filters field to given value.
+
+### HasFilters
+
+`func (o *MetricListingRep) HasFilters() bool`
+
+HasFilters returns a boolean if a field has been set.
+
 ### GetUnitAggregationType
 
 `func (o *MetricListingRep) GetUnitAggregationType() string`
@@ -685,6 +794,131 @@ SetEventDefault sets EventDefault field to given value.
 `func (o *MetricListingRep) HasEventDefault() bool`
 
 HasEventDefault returns a boolean if a field has been set.
+
+### GetDataSource
+
+`func (o *MetricListingRep) GetDataSource() MetricDataSourceRefRep`
+
+GetDataSource returns the DataSource field if non-nil, zero value otherwise.
+
+### GetDataSourceOk
+
+`func (o *MetricListingRep) GetDataSourceOk() (*MetricDataSourceRefRep, bool)`
+
+GetDataSourceOk returns a tuple with the DataSource field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDataSource
+
+`func (o *MetricListingRep) SetDataSource(v MetricDataSourceRefRep)`
+
+SetDataSource sets DataSource field to given value.
+
+### HasDataSource
+
+`func (o *MetricListingRep) HasDataSource() bool`
+
+HasDataSource returns a boolean if a field has been set.
+
+### GetArchived
+
+`func (o *MetricListingRep) GetArchived() bool`
+
+GetArchived returns the Archived field if non-nil, zero value otherwise.
+
+### GetArchivedOk
+
+`func (o *MetricListingRep) GetArchivedOk() (*bool, bool)`
+
+GetArchivedOk returns a tuple with the Archived field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetArchived
+
+`func (o *MetricListingRep) SetArchived(v bool)`
+
+SetArchived sets Archived field to given value.
+
+### HasArchived
+
+`func (o *MetricListingRep) HasArchived() bool`
+
+HasArchived returns a boolean if a field has been set.
+
+### GetArchivedAt
+
+`func (o *MetricListingRep) GetArchivedAt() int64`
+
+GetArchivedAt returns the ArchivedAt field if non-nil, zero value otherwise.
+
+### GetArchivedAtOk
+
+`func (o *MetricListingRep) GetArchivedAtOk() (*int64, bool)`
+
+GetArchivedAtOk returns a tuple with the ArchivedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetArchivedAt
+
+`func (o *MetricListingRep) SetArchivedAt(v int64)`
+
+SetArchivedAt sets ArchivedAt field to given value.
+
+### HasArchivedAt
+
+`func (o *MetricListingRep) HasArchivedAt() bool`
+
+HasArchivedAt returns a boolean if a field has been set.
+
+### GetSelector
+
+`func (o *MetricListingRep) GetSelector() string`
+
+GetSelector returns the Selector field if non-nil, zero value otherwise.
+
+### GetSelectorOk
+
+`func (o *MetricListingRep) GetSelectorOk() (*string, bool)`
+
+GetSelectorOk returns a tuple with the Selector field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSelector
+
+`func (o *MetricListingRep) SetSelector(v string)`
+
+SetSelector sets Selector field to given value.
+
+### HasSelector
+
+`func (o *MetricListingRep) HasSelector() bool`
+
+HasSelector returns a boolean if a field has been set.
+
+### GetUrls
+
+`func (o *MetricListingRep) GetUrls() []map[string]interface{}`
+
+GetUrls returns the Urls field if non-nil, zero value otherwise.
+
+### GetUrlsOk
+
+`func (o *MetricListingRep) GetUrlsOk() (*[]map[string]interface{}, bool)`
+
+GetUrlsOk returns a tuple with the Urls field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUrls
+
+`func (o *MetricListingRep) SetUrls(v []map[string]interface{})`
+
+SetUrls sets Urls field to given value.
+
+### HasUrls
+
+`func (o *MetricListingRep) HasUrls() bool`
+
+HasUrls returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

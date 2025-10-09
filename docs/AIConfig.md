@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **Description** | **string** |  | 
 **Key** | **string** |  | 
 **Maintainer** | Pointer to [**AIConfigMaintainer**](AIConfigMaintainer.md) |  | [optional] 
+**Mode** | Pointer to **string** |  | [optional] [default to "completion"]
 **Name** | **string** |  | 
 **Tags** | **[]string** |  | 
 **Version** | **int32** |  | 
@@ -149,6 +150,31 @@ SetMaintainer sets Maintainer field to given value.
 `func (o *AIConfig) HasMaintainer() bool`
 
 HasMaintainer returns a boolean if a field has been set.
+
+### GetMode
+
+`func (o *AIConfig) GetMode() string`
+
+GetMode returns the Mode field if non-nil, zero value otherwise.
+
+### GetModeOk
+
+`func (o *AIConfig) GetModeOk() (*string, bool)`
+
+GetModeOk returns a tuple with the Mode field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMode
+
+`func (o *AIConfig) SetMode(v string)`
+
+SetMode sets Mode field to given value.
+
+### HasMode
+
+`func (o *AIConfig) HasMode() bool`
+
+HasMode returns a boolean if a field has been set.
 
 ### GetName
 

@@ -26,24 +26,24 @@ Create a LaunchDarkly OAuth 2.0 client
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    oauthClientPost := *openapiclient.NewOauthClientPost() // OauthClientPost | 
+	oauthClientPost := *openapiclient.NewOauthClientPost() // OauthClientPost | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.OAuth2ClientsApi.CreateOAuth2Client(context.Background()).OauthClientPost(oauthClientPost).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `OAuth2ClientsApi.CreateOAuth2Client``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateOAuth2Client`: Client
-    fmt.Fprintf(os.Stdout, "Response from `OAuth2ClientsApi.CreateOAuth2Client`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.OAuth2ClientsApi.CreateOAuth2Client(context.Background()).OauthClientPost(oauthClientPost).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `OAuth2ClientsApi.CreateOAuth2Client``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateOAuth2Client`: Client
+	fmt.Fprintf(os.Stdout, "Response from `OAuth2ClientsApi.CreateOAuth2Client`: %v\n", resp)
 }
 ```
 
@@ -92,22 +92,22 @@ Delete OAuth 2.0 client
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    clientId := "clientId_example" // string | The client ID
+	clientId := "clientId_example" // string | The client ID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.OAuth2ClientsApi.DeleteOAuthClient(context.Background(), clientId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `OAuth2ClientsApi.DeleteOAuthClient``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.OAuth2ClientsApi.DeleteOAuthClient(context.Background(), clientId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `OAuth2ClientsApi.DeleteOAuthClient``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -160,24 +160,24 @@ Get client by ID
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    clientId := "clientId_example" // string | The client ID
+	clientId := "clientId_example" // string | The client ID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.OAuth2ClientsApi.GetOAuthClientById(context.Background(), clientId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `OAuth2ClientsApi.GetOAuthClientById``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetOAuthClientById`: Client
-    fmt.Fprintf(os.Stdout, "Response from `OAuth2ClientsApi.GetOAuthClientById`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.OAuth2ClientsApi.GetOAuthClientById(context.Background(), clientId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `OAuth2ClientsApi.GetOAuthClientById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetOAuthClientById`: Client
+	fmt.Fprintf(os.Stdout, "Response from `OAuth2ClientsApi.GetOAuthClientById`: %v\n", resp)
 }
 ```
 
@@ -230,23 +230,23 @@ Get clients
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.OAuth2ClientsApi.GetOAuthClients(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `OAuth2ClientsApi.GetOAuthClients``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetOAuthClients`: ClientCollection
-    fmt.Fprintf(os.Stdout, "Response from `OAuth2ClientsApi.GetOAuthClients`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.OAuth2ClientsApi.GetOAuthClients(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `OAuth2ClientsApi.GetOAuthClients``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetOAuthClients`: ClientCollection
+	fmt.Fprintf(os.Stdout, "Response from `OAuth2ClientsApi.GetOAuthClients`: %v\n", resp)
 }
 ```
 
@@ -291,25 +291,25 @@ Patch client by ID
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    clientId := "clientId_example" // string | The client ID
-    patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")} // []PatchOperation | 
+	clientId := "clientId_example" // string | The client ID
+	patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")} // []PatchOperation | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.OAuth2ClientsApi.PatchOAuthClient(context.Background(), clientId).PatchOperation(patchOperation).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `OAuth2ClientsApi.PatchOAuthClient``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PatchOAuthClient`: Client
-    fmt.Fprintf(os.Stdout, "Response from `OAuth2ClientsApi.PatchOAuthClient`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.OAuth2ClientsApi.PatchOAuthClient(context.Background(), clientId).PatchOperation(patchOperation).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `OAuth2ClientsApi.PatchOAuthClient``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PatchOAuthClient`: Client
+	fmt.Fprintf(os.Stdout, "Response from `OAuth2ClientsApi.PatchOAuthClient`: %v\n", resp)
 }
 ```
 

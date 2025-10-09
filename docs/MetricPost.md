@@ -21,6 +21,8 @@ Name | Type | Description | Notes
 **AnalysisType** | Pointer to **string** | The method for analyzing metric events | [optional] 
 **PercentileValue** | Pointer to **int32** | The percentile for the analysis method. An integer denoting the target percentile between 0 and 100. Required when &lt;code&gt;analysisType&lt;/code&gt; is &lt;code&gt;percentile&lt;/code&gt;. | [optional] 
 **EventDefault** | Pointer to [**MetricEventDefaultRep**](MetricEventDefaultRep.md) |  | [optional] 
+**DataSource** | Pointer to [**MetricDataSourceRefRep**](MetricDataSourceRefRep.md) |  | [optional] 
+**Filters** | Pointer to [**EventFilter**](EventFilter.md) |  | [optional] 
 
 ## Methods
 
@@ -455,6 +457,56 @@ SetEventDefault sets EventDefault field to given value.
 `func (o *MetricPost) HasEventDefault() bool`
 
 HasEventDefault returns a boolean if a field has been set.
+
+### GetDataSource
+
+`func (o *MetricPost) GetDataSource() MetricDataSourceRefRep`
+
+GetDataSource returns the DataSource field if non-nil, zero value otherwise.
+
+### GetDataSourceOk
+
+`func (o *MetricPost) GetDataSourceOk() (*MetricDataSourceRefRep, bool)`
+
+GetDataSourceOk returns a tuple with the DataSource field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDataSource
+
+`func (o *MetricPost) SetDataSource(v MetricDataSourceRefRep)`
+
+SetDataSource sets DataSource field to given value.
+
+### HasDataSource
+
+`func (o *MetricPost) HasDataSource() bool`
+
+HasDataSource returns a boolean if a field has been set.
+
+### GetFilters
+
+`func (o *MetricPost) GetFilters() EventFilter`
+
+GetFilters returns the Filters field if non-nil, zero value otherwise.
+
+### GetFiltersOk
+
+`func (o *MetricPost) GetFiltersOk() (*EventFilter, bool)`
+
+GetFiltersOk returns a tuple with the Filters field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFilters
+
+`func (o *MetricPost) SetFilters(v EventFilter)`
+
+SetFilters sets Filters field to given value.
+
+### HasFilters
+
+`func (o *MetricPost) HasFilters() bool`
+
+HasFilters returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -24,24 +24,24 @@ Create workflow template
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    createWorkflowTemplateInput := *openapiclient.NewCreateWorkflowTemplateInput("Key_example") // CreateWorkflowTemplateInput | 
+	createWorkflowTemplateInput := *openapiclient.NewCreateWorkflowTemplateInput("Key_example") // CreateWorkflowTemplateInput | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.WorkflowTemplatesApi.CreateWorkflowTemplate(context.Background()).CreateWorkflowTemplateInput(createWorkflowTemplateInput).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `WorkflowTemplatesApi.CreateWorkflowTemplate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateWorkflowTemplate`: WorkflowTemplateOutput
-    fmt.Fprintf(os.Stdout, "Response from `WorkflowTemplatesApi.CreateWorkflowTemplate`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.WorkflowTemplatesApi.CreateWorkflowTemplate(context.Background()).CreateWorkflowTemplateInput(createWorkflowTemplateInput).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `WorkflowTemplatesApi.CreateWorkflowTemplate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateWorkflowTemplate`: WorkflowTemplateOutput
+	fmt.Fprintf(os.Stdout, "Response from `WorkflowTemplatesApi.CreateWorkflowTemplate`: %v\n", resp)
 }
 ```
 
@@ -90,22 +90,22 @@ Delete workflow template
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    templateKey := "templateKey_example" // string | The template key
+	templateKey := "templateKey_example" // string | The template key
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.WorkflowTemplatesApi.DeleteWorkflowTemplate(context.Background(), templateKey).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `WorkflowTemplatesApi.DeleteWorkflowTemplate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.WorkflowTemplatesApi.DeleteWorkflowTemplate(context.Background(), templateKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `WorkflowTemplatesApi.DeleteWorkflowTemplate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -158,25 +158,25 @@ Get workflow templates
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    summary := true // bool | Whether the entire template object or just a summary should be returned (optional)
-    search := "search_example" // string | The substring in either the name or description of a template (optional)
+	summary := true // bool | Whether the entire template object or just a summary should be returned (optional)
+	search := "search_example" // string | The substring in either the name or description of a template (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.WorkflowTemplatesApi.GetWorkflowTemplates(context.Background()).Summary(summary).Search(search).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `WorkflowTemplatesApi.GetWorkflowTemplates``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetWorkflowTemplates`: WorkflowTemplatesListingOutputRep
-    fmt.Fprintf(os.Stdout, "Response from `WorkflowTemplatesApi.GetWorkflowTemplates`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.WorkflowTemplatesApi.GetWorkflowTemplates(context.Background()).Summary(summary).Search(search).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `WorkflowTemplatesApi.GetWorkflowTemplates``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetWorkflowTemplates`: WorkflowTemplatesListingOutputRep
+	fmt.Fprintf(os.Stdout, "Response from `WorkflowTemplatesApi.GetWorkflowTemplates`: %v\n", resp)
 }
 ```
 

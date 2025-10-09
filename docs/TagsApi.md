@@ -22,29 +22,29 @@ List tags
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    kind := []string{"Inner_example"} // []string | Fetch tags associated with the specified resource type. Options are `flag`, `project`, `environment`, `segment`, `metric`. Returns all types by default. (optional)
-    pre := "pre_example" // string | Return tags with the specified prefix (optional)
-    archived := true // bool | Whether or not to return archived flags (optional)
-    limit := int32(56) // int32 | The number of tags to return. Maximum is 1000. (optional)
-    offset := int32(56) // int32 | The index of the first tag to return. Default is 0. (optional)
-    asOf := "asOf_example" // string | The time to retrieve tags as of. Default is the current time. (optional)
+	kind := []string{"Inner_example"} // []string | Fetch tags associated with the specified resource type. Options are `flag`, `project`, `environment`, `segment`, `metric`, `aiconfig`, and `view`. Returns all types by default. (optional)
+	pre := "pre_example" // string | Return tags with the specified prefix (optional)
+	archived := true // bool | Whether or not to return archived flags (optional)
+	limit := int32(56) // int32 | The number of tags to return. Maximum is 1000. (optional)
+	offset := int32(56) // int32 | The index of the first tag to return. Default is 0. (optional)
+	asOf := "asOf_example" // string | The time to retrieve tags as of. Default is the current time. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.TagsApi.GetTags(context.Background()).Kind(kind).Pre(pre).Archived(archived).Limit(limit).Offset(offset).AsOf(asOf).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `TagsApi.GetTags``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetTags`: TagsCollection
-    fmt.Fprintf(os.Stdout, "Response from `TagsApi.GetTags`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.TagsApi.GetTags(context.Background()).Kind(kind).Pre(pre).Archived(archived).Limit(limit).Offset(offset).AsOf(asOf).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `TagsApi.GetTags``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetTags`: TagsCollection
+	fmt.Fprintf(os.Stdout, "Response from `TagsApi.GetTags`: %v\n", resp)
 }
 ```
 
@@ -59,7 +59,7 @@ Other parameters are passed through a pointer to a apiGetTagsRequest struct via 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **kind** | **[]string** | Fetch tags associated with the specified resource type. Options are &#x60;flag&#x60;, &#x60;project&#x60;, &#x60;environment&#x60;, &#x60;segment&#x60;, &#x60;metric&#x60;. Returns all types by default. | 
+ **kind** | **[]string** | Fetch tags associated with the specified resource type. Options are &#x60;flag&#x60;, &#x60;project&#x60;, &#x60;environment&#x60;, &#x60;segment&#x60;, &#x60;metric&#x60;, &#x60;aiconfig&#x60;, and &#x60;view&#x60;. Returns all types by default. | 
  **pre** | **string** | Return tags with the specified prefix | 
  **archived** | **bool** | Whether or not to return archived flags | 
  **limit** | **int32** | The number of tags to return. Maximum is 1000. | 

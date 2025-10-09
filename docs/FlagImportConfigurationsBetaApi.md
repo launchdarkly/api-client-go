@@ -27,26 +27,26 @@ Create a flag import configuration
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    integrationKey := "integrationKey_example" // string | The integration key
-    flagImportConfigurationPost := *openapiclient.NewFlagImportConfigurationPost(map[string]interface{}{"key": interface{}(123)}) // FlagImportConfigurationPost | 
+	projectKey := "projectKey_example" // string | The project key
+	integrationKey := "integrationKey_example" // string | The integration key
+	flagImportConfigurationPost := *openapiclient.NewFlagImportConfigurationPost(map[string]interface{}{"key": interface{}(123)}) // FlagImportConfigurationPost | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FlagImportConfigurationsBetaApi.CreateFlagImportConfiguration(context.Background(), projectKey, integrationKey).FlagImportConfigurationPost(flagImportConfigurationPost).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FlagImportConfigurationsBetaApi.CreateFlagImportConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateFlagImportConfiguration`: FlagImportIntegration
-    fmt.Fprintf(os.Stdout, "Response from `FlagImportConfigurationsBetaApi.CreateFlagImportConfiguration`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FlagImportConfigurationsBetaApi.CreateFlagImportConfiguration(context.Background(), projectKey, integrationKey).FlagImportConfigurationPost(flagImportConfigurationPost).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FlagImportConfigurationsBetaApi.CreateFlagImportConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateFlagImportConfiguration`: FlagImportIntegration
+	fmt.Fprintf(os.Stdout, "Response from `FlagImportConfigurationsBetaApi.CreateFlagImportConfiguration`: %v\n", resp)
 }
 ```
 
@@ -102,24 +102,24 @@ Delete a flag import configuration
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    integrationKey := "integrationKey_example" // string | The integration key
-    integrationId := "integrationId_example" // string | The integration ID
+	projectKey := "projectKey_example" // string | The project key
+	integrationKey := "integrationKey_example" // string | The integration key
+	integrationId := "integrationId_example" // string | The integration ID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FlagImportConfigurationsBetaApi.DeleteFlagImportConfiguration(context.Background(), projectKey, integrationKey, integrationId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FlagImportConfigurationsBetaApi.DeleteFlagImportConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.FlagImportConfigurationsBetaApi.DeleteFlagImportConfiguration(context.Background(), projectKey, integrationKey, integrationId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FlagImportConfigurationsBetaApi.DeleteFlagImportConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -176,26 +176,26 @@ Get a single flag import configuration
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    integrationKey := "integrationKey_example" // string | The integration key, for example, `split`
-    integrationId := "integrationId_example" // string | The integration ID
+	projectKey := "projectKey_example" // string | The project key
+	integrationKey := "integrationKey_example" // string | The integration key, for example, `split`
+	integrationId := "integrationId_example" // string | The integration ID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FlagImportConfigurationsBetaApi.GetFlagImportConfiguration(context.Background(), projectKey, integrationKey, integrationId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FlagImportConfigurationsBetaApi.GetFlagImportConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetFlagImportConfiguration`: FlagImportIntegration
-    fmt.Fprintf(os.Stdout, "Response from `FlagImportConfigurationsBetaApi.GetFlagImportConfiguration`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FlagImportConfigurationsBetaApi.GetFlagImportConfiguration(context.Background(), projectKey, integrationKey, integrationId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FlagImportConfigurationsBetaApi.GetFlagImportConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetFlagImportConfiguration`: FlagImportIntegration
+	fmt.Fprintf(os.Stdout, "Response from `FlagImportConfigurationsBetaApi.GetFlagImportConfiguration`: %v\n", resp)
 }
 ```
 
@@ -252,23 +252,23 @@ List all flag import configurations
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FlagImportConfigurationsBetaApi.GetFlagImportConfigurations(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FlagImportConfigurationsBetaApi.GetFlagImportConfigurations``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetFlagImportConfigurations`: FlagImportIntegrationCollection
-    fmt.Fprintf(os.Stdout, "Response from `FlagImportConfigurationsBetaApi.GetFlagImportConfigurations`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FlagImportConfigurationsBetaApi.GetFlagImportConfigurations(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FlagImportConfigurationsBetaApi.GetFlagImportConfigurations``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetFlagImportConfigurations`: FlagImportIntegrationCollection
+	fmt.Fprintf(os.Stdout, "Response from `FlagImportConfigurationsBetaApi.GetFlagImportConfigurations`: %v\n", resp)
 }
 ```
 
@@ -313,27 +313,27 @@ Update a flag import configuration
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    integrationKey := "integrationKey_example" // string | The integration key
-    integrationId := "integrationId_example" // string | The integration ID
-    patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")} // []PatchOperation | 
+	projectKey := "projectKey_example" // string | The project key
+	integrationKey := "integrationKey_example" // string | The integration key
+	integrationId := "integrationId_example" // string | The integration ID
+	patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")} // []PatchOperation | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FlagImportConfigurationsBetaApi.PatchFlagImportConfiguration(context.Background(), projectKey, integrationKey, integrationId).PatchOperation(patchOperation).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FlagImportConfigurationsBetaApi.PatchFlagImportConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PatchFlagImportConfiguration`: FlagImportIntegration
-    fmt.Fprintf(os.Stdout, "Response from `FlagImportConfigurationsBetaApi.PatchFlagImportConfiguration`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.FlagImportConfigurationsBetaApi.PatchFlagImportConfiguration(context.Background(), projectKey, integrationKey, integrationId).PatchOperation(patchOperation).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FlagImportConfigurationsBetaApi.PatchFlagImportConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PatchFlagImportConfiguration`: FlagImportIntegration
+	fmt.Fprintf(os.Stdout, "Response from `FlagImportConfigurationsBetaApi.PatchFlagImportConfiguration`: %v\n", resp)
 }
 ```
 
@@ -391,24 +391,24 @@ Trigger a single flag import run
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    integrationKey := "integrationKey_example" // string | The integration key
-    integrationId := "integrationId_example" // string | The integration ID
+	projectKey := "projectKey_example" // string | The project key
+	integrationKey := "integrationKey_example" // string | The integration key
+	integrationId := "integrationId_example" // string | The integration ID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.FlagImportConfigurationsBetaApi.TriggerFlagImportJob(context.Background(), projectKey, integrationKey, integrationId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `FlagImportConfigurationsBetaApi.TriggerFlagImportJob``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.FlagImportConfigurationsBetaApi.TriggerFlagImportJob(context.Background(), projectKey, integrationKey, integrationId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `FlagImportConfigurationsBetaApi.TriggerFlagImportJob``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 

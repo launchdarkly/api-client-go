@@ -27,22 +27,22 @@ Delete account member
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    id := "id_example" // string | The member ID
+	id := "id_example" // string | The member ID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AccountMembersApi.DeleteMember(context.Background(), id).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AccountMembersApi.DeleteMember``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AccountMembersApi.DeleteMember(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AccountMembersApi.DeleteMember``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -95,25 +95,25 @@ Get account member
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    id := "id_example" // string | The member ID
-    expand := "expand_example" // string | A comma-separated list of properties that can reveal additional information in the response. (optional)
+	id := "id_example" // string | The member ID
+	expand := "expand_example" // string | A comma-separated list of properties that can reveal additional information in the response. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AccountMembersApi.GetMember(context.Background(), id).Expand(expand).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AccountMembersApi.GetMember``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetMember`: Member
-    fmt.Fprintf(os.Stdout, "Response from `AccountMembersApi.GetMember`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AccountMembersApi.GetMember(context.Background(), id).Expand(expand).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AccountMembersApi.GetMember``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetMember`: Member
+	fmt.Fprintf(os.Stdout, "Response from `AccountMembersApi.GetMember`: %v\n", resp)
 }
 ```
 
@@ -167,28 +167,28 @@ List account members
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    limit := int64(789) // int64 | The number of members to return in the response. Defaults to 20. (optional)
-    offset := int64(789) // int64 | Where to start in the list. This is for use with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
-    filter := "filter_example" // string | A comma-separated list of filters. Each filter is of the form `field:value`. Supported fields are explained above. (optional)
-    expand := "expand_example" // string | A comma-separated list of properties that can reveal additional information in the response. (optional)
-    sort := "sort_example" // string | A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order. (optional)
+	limit := int64(789) // int64 | The number of members to return in the response. Defaults to 20. (optional)
+	offset := int64(789) // int64 | Where to start in the list. This is for use with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
+	filter := "filter_example" // string | A comma-separated list of filters. Each filter is of the form `field:value`. Supported fields are explained above. (optional)
+	expand := "expand_example" // string | A comma-separated list of properties that can reveal additional information in the response. (optional)
+	sort := "sort_example" // string | A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AccountMembersApi.GetMembers(context.Background()).Limit(limit).Offset(offset).Filter(filter).Expand(expand).Sort(sort).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AccountMembersApi.GetMembers``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetMembers`: Members
-    fmt.Fprintf(os.Stdout, "Response from `AccountMembersApi.GetMembers`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AccountMembersApi.GetMembers(context.Background()).Limit(limit).Offset(offset).Filter(filter).Expand(expand).Sort(sort).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AccountMembersApi.GetMembers``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetMembers`: Members
+	fmt.Fprintf(os.Stdout, "Response from `AccountMembersApi.GetMembers`: %v\n", resp)
 }
 ```
 
@@ -241,25 +241,25 @@ Modify an account member
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    id := "id_example" // string | The member ID
-    patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")} // []PatchOperation | 
+	id := "id_example" // string | The member ID
+	patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")} // []PatchOperation | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AccountMembersApi.PatchMember(context.Background(), id).PatchOperation(patchOperation).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AccountMembersApi.PatchMember``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PatchMember`: Member
-    fmt.Fprintf(os.Stdout, "Response from `AccountMembersApi.PatchMember`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AccountMembersApi.PatchMember(context.Background(), id).PatchOperation(patchOperation).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AccountMembersApi.PatchMember``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PatchMember`: Member
+	fmt.Fprintf(os.Stdout, "Response from `AccountMembersApi.PatchMember`: %v\n", resp)
 }
 ```
 
@@ -313,25 +313,25 @@ Add a member to teams
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    id := "id_example" // string | The member ID
-    memberTeamsPostInput := *openapiclient.NewMemberTeamsPostInput([]string{"TeamKeys_example"}) // MemberTeamsPostInput | 
+	id := "id_example" // string | The member ID
+	memberTeamsPostInput := *openapiclient.NewMemberTeamsPostInput([]string{"TeamKeys_example"}) // MemberTeamsPostInput | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AccountMembersApi.PostMemberTeams(context.Background(), id).MemberTeamsPostInput(memberTeamsPostInput).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AccountMembersApi.PostMemberTeams``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostMemberTeams`: Member
-    fmt.Fprintf(os.Stdout, "Response from `AccountMembersApi.PostMemberTeams`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AccountMembersApi.PostMemberTeams(context.Background(), id).MemberTeamsPostInput(memberTeamsPostInput).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AccountMembersApi.PostMemberTeams``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostMemberTeams`: Member
+	fmt.Fprintf(os.Stdout, "Response from `AccountMembersApi.PostMemberTeams`: %v\n", resp)
 }
 ```
 
@@ -385,24 +385,24 @@ Invite new members
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    newMemberForm := []openapiclient.NewMemberForm{*openapiclient.NewNewMemberForm("sandy@acme.com")} // []NewMemberForm | 
+	newMemberForm := []openapiclient.NewMemberForm{*openapiclient.NewNewMemberForm("sandy@acme.com")} // []NewMemberForm | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AccountMembersApi.PostMembers(context.Background()).NewMemberForm(newMemberForm).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AccountMembersApi.PostMembers``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostMembers`: Members
-    fmt.Fprintf(os.Stdout, "Response from `AccountMembersApi.PostMembers`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AccountMembersApi.PostMembers(context.Background()).NewMemberForm(newMemberForm).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AccountMembersApi.PostMembers``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostMembers`: Members
+	fmt.Fprintf(os.Stdout, "Response from `AccountMembersApi.PostMembers`: %v\n", resp)
 }
 ```
 

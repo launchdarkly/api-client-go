@@ -26,33 +26,33 @@ Get deployment frequency chart data
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
+	"context"
+	"fmt"
+	"os"
     "time"
-    openapiclient "./openapi"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key (optional)
-    environmentKey := "environmentKey_example" // string | The environment key (optional)
-    applicationKey := "applicationKey_example" // string | Comma separated list of application keys (optional)
-    from := time.Now() // time.Time | Unix timestamp in milliseconds. Default value is 7 days ago. (optional)
-    to := time.Now() // time.Time | Unix timestamp in milliseconds. Default value is now. (optional)
-    bucketType := "bucketType_example" // string | Specify type of bucket. Options: `rolling`, `hour`, `day`. Default: `rolling`. (optional)
-    bucketMs := int64(789) // int64 | Duration of intervals for x-axis in milliseconds. Default value is one day (`86400000` milliseconds). (optional)
-    groupBy := "groupBy_example" // string | Options: `application`, `kind` (optional)
-    expand := "expand_example" // string | Options: `metrics` (optional)
+	projectKey := "projectKey_example" // string | The project key (optional)
+	environmentKey := "environmentKey_example" // string | The environment key (optional)
+	applicationKey := "applicationKey_example" // string | Comma separated list of application keys (optional)
+	from := time.Now() // time.Time | Unix timestamp in milliseconds. Default value is 7 days ago. (optional)
+	to := time.Now() // time.Time | Unix timestamp in milliseconds. Default value is now. (optional)
+	bucketType := "bucketType_example" // string | Specify type of bucket. Options: `rolling`, `hour`, `day`. Default: `rolling`. (optional)
+	bucketMs := int64(789) // int64 | Duration of intervals for x-axis in milliseconds. Default value is one day (`86400000` milliseconds). (optional)
+	groupBy := "groupBy_example" // string | Options: `application`, `kind` (optional)
+	expand := "expand_example" // string | Options: `metrics` (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.InsightsChartsBetaApi.GetDeploymentFrequencyChart(context.Background()).ProjectKey(projectKey).EnvironmentKey(environmentKey).ApplicationKey(applicationKey).From(from).To(to).BucketType(bucketType).BucketMs(bucketMs).GroupBy(groupBy).Expand(expand).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `InsightsChartsBetaApi.GetDeploymentFrequencyChart``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetDeploymentFrequencyChart`: InsightsChart
-    fmt.Fprintf(os.Stdout, "Response from `InsightsChartsBetaApi.GetDeploymentFrequencyChart`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.InsightsChartsBetaApi.GetDeploymentFrequencyChart(context.Background()).ProjectKey(projectKey).EnvironmentKey(environmentKey).ApplicationKey(applicationKey).From(from).To(to).BucketType(bucketType).BucketMs(bucketMs).GroupBy(groupBy).Expand(expand).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `InsightsChartsBetaApi.GetDeploymentFrequencyChart``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetDeploymentFrequencyChart`: InsightsChart
+	fmt.Fprintf(os.Stdout, "Response from `InsightsChartsBetaApi.GetDeploymentFrequencyChart`: %v\n", resp)
 }
 ```
 
@@ -109,26 +109,26 @@ Get flag status chart data
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    applicationKey := "applicationKey_example" // string | Comma separated list of application keys (optional)
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	applicationKey := "applicationKey_example" // string | Comma separated list of application keys (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.InsightsChartsBetaApi.GetFlagStatusChart(context.Background()).ProjectKey(projectKey).EnvironmentKey(environmentKey).ApplicationKey(applicationKey).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `InsightsChartsBetaApi.GetFlagStatusChart``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetFlagStatusChart`: InsightsChart
-    fmt.Fprintf(os.Stdout, "Response from `InsightsChartsBetaApi.GetFlagStatusChart`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.InsightsChartsBetaApi.GetFlagStatusChart(context.Background()).ProjectKey(projectKey).EnvironmentKey(environmentKey).ApplicationKey(applicationKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `InsightsChartsBetaApi.GetFlagStatusChart``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetFlagStatusChart`: InsightsChart
+	fmt.Fprintf(os.Stdout, "Response from `InsightsChartsBetaApi.GetFlagStatusChart`: %v\n", resp)
 }
 ```
 
@@ -179,32 +179,32 @@ Get lead time chart data
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key (optional)
-    applicationKey := "applicationKey_example" // string | Comma separated list of application keys (optional)
-    from := int64(789) // int64 | Unix timestamp in milliseconds. Default value is 7 days ago. (optional)
-    to := int64(789) // int64 | Unix timestamp in milliseconds. Default value is now. (optional)
-    bucketType := "bucketType_example" // string | Specify type of bucket. Options: `rolling`, `hour`, `day`. Default: `rolling`. (optional)
-    bucketMs := int64(789) // int64 | Duration of intervals for x-axis in milliseconds. Default value is one day (`86400000` milliseconds). (optional)
-    groupBy := "groupBy_example" // string | Options: `application`, `stage`. Default: `stage`. (optional)
-    expand := "expand_example" // string | Options: `metrics`, `percentiles`. (optional)
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key (optional)
+	applicationKey := "applicationKey_example" // string | Comma separated list of application keys (optional)
+	from := int64(789) // int64 | Unix timestamp in milliseconds. Default value is 7 days ago. (optional)
+	to := int64(789) // int64 | Unix timestamp in milliseconds. Default value is now. (optional)
+	bucketType := "bucketType_example" // string | Specify type of bucket. Options: `rolling`, `hour`, `day`. Default: `rolling`. (optional)
+	bucketMs := int64(789) // int64 | Duration of intervals for x-axis in milliseconds. Default value is one day (`86400000` milliseconds). (optional)
+	groupBy := "groupBy_example" // string | Options: `application`, `stage`. Default: `stage`. (optional)
+	expand := "expand_example" // string | Options: `metrics`, `percentiles`. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.InsightsChartsBetaApi.GetLeadTimeChart(context.Background()).ProjectKey(projectKey).EnvironmentKey(environmentKey).ApplicationKey(applicationKey).From(from).To(to).BucketType(bucketType).BucketMs(bucketMs).GroupBy(groupBy).Expand(expand).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `InsightsChartsBetaApi.GetLeadTimeChart``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetLeadTimeChart`: InsightsChart
-    fmt.Fprintf(os.Stdout, "Response from `InsightsChartsBetaApi.GetLeadTimeChart`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.InsightsChartsBetaApi.GetLeadTimeChart(context.Background()).ProjectKey(projectKey).EnvironmentKey(environmentKey).ApplicationKey(applicationKey).From(from).To(to).BucketType(bucketType).BucketMs(bucketMs).GroupBy(groupBy).Expand(expand).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `InsightsChartsBetaApi.GetLeadTimeChart``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetLeadTimeChart`: InsightsChart
+	fmt.Fprintf(os.Stdout, "Response from `InsightsChartsBetaApi.GetLeadTimeChart`: %v\n", resp)
 }
 ```
 
@@ -261,35 +261,35 @@ Get release frequency chart data
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
+	"context"
+	"fmt"
+	"os"
     "time"
-    openapiclient "./openapi"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    applicationKey := "applicationKey_example" // string | Comma separated list of application keys (optional)
-    hasExperiments := true // bool | Filter events to those associated with an experiment (`true`) or without an experiment (`false`) (optional)
-    global := "global_example" // string | Filter to include or exclude global events. Default value is `include`. Options: `include`, `exclude` (optional)
-    groupBy := "groupBy_example" // string | Property to group results by. Options: `impact` (optional)
-    from := time.Now() // time.Time | Unix timestamp in milliseconds. Default value is 7 days ago. (optional)
-    to := time.Now() // time.Time | Unix timestamp in milliseconds. Default value is now. (optional)
-    bucketType := "bucketType_example" // string | Specify type of bucket. Options: `rolling`, `hour`, `day`. Default: `rolling`. (optional)
-    bucketMs := int64(789) // int64 | Duration of intervals for x-axis in milliseconds. Default value is one day (`86400000` milliseconds). (optional)
-    expand := "expand_example" // string | Options: `metrics` (optional)
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	applicationKey := "applicationKey_example" // string | Comma separated list of application keys (optional)
+	hasExperiments := true // bool | Filter events to those associated with an experiment (`true`) or without an experiment (`false`) (optional)
+	global := "global_example" // string | Filter to include or exclude global events. Default value is `include`. Options: `include`, `exclude` (optional)
+	groupBy := "groupBy_example" // string | Property to group results by. Options: `impact` (optional)
+	from := time.Now() // time.Time | Unix timestamp in milliseconds. Default value is 7 days ago. (optional)
+	to := time.Now() // time.Time | Unix timestamp in milliseconds. Default value is now. (optional)
+	bucketType := "bucketType_example" // string | Specify type of bucket. Options: `rolling`, `hour`, `day`. Default: `rolling`. (optional)
+	bucketMs := int64(789) // int64 | Duration of intervals for x-axis in milliseconds. Default value is one day (`86400000` milliseconds). (optional)
+	expand := "expand_example" // string | Options: `metrics` (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.InsightsChartsBetaApi.GetReleaseFrequencyChart(context.Background()).ProjectKey(projectKey).EnvironmentKey(environmentKey).ApplicationKey(applicationKey).HasExperiments(hasExperiments).Global(global).GroupBy(groupBy).From(from).To(to).BucketType(bucketType).BucketMs(bucketMs).Expand(expand).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `InsightsChartsBetaApi.GetReleaseFrequencyChart``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetReleaseFrequencyChart`: InsightsChart
-    fmt.Fprintf(os.Stdout, "Response from `InsightsChartsBetaApi.GetReleaseFrequencyChart`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.InsightsChartsBetaApi.GetReleaseFrequencyChart(context.Background()).ProjectKey(projectKey).EnvironmentKey(environmentKey).ApplicationKey(applicationKey).HasExperiments(hasExperiments).Global(global).GroupBy(groupBy).From(from).To(to).BucketType(bucketType).BucketMs(bucketMs).Expand(expand).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `InsightsChartsBetaApi.GetReleaseFrequencyChart``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetReleaseFrequencyChart`: InsightsChart
+	fmt.Fprintf(os.Stdout, "Response from `InsightsChartsBetaApi.GetReleaseFrequencyChart`: %v\n", resp)
 }
 ```
 
@@ -348,30 +348,30 @@ Get stale flags chart data
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    applicationKey := "applicationKey_example" // string | Comma separated list of application keys (optional)
-    groupBy := "groupBy_example" // string | Property to group results by. Options: `maintainer` (optional)
-    maintainerId := "maintainerId_example" // string | Comma-separated list of individual maintainers to filter results. (optional)
-    maintainerTeamKey := "maintainerTeamKey_example" // string | Comma-separated list of team maintainer keys to filter results. (optional)
-    expand := "expand_example" // string | Options: `metrics` (optional)
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	applicationKey := "applicationKey_example" // string | Comma separated list of application keys (optional)
+	groupBy := "groupBy_example" // string | Property to group results by. Options: `maintainer` (optional)
+	maintainerId := "maintainerId_example" // string | Comma-separated list of individual maintainers to filter results. (optional)
+	maintainerTeamKey := "maintainerTeamKey_example" // string | Comma-separated list of team maintainer keys to filter results. (optional)
+	expand := "expand_example" // string | Options: `metrics` (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.InsightsChartsBetaApi.GetStaleFlagsChart(context.Background()).ProjectKey(projectKey).EnvironmentKey(environmentKey).ApplicationKey(applicationKey).GroupBy(groupBy).MaintainerId(maintainerId).MaintainerTeamKey(maintainerTeamKey).Expand(expand).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `InsightsChartsBetaApi.GetStaleFlagsChart``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetStaleFlagsChart`: InsightsChart
-    fmt.Fprintf(os.Stdout, "Response from `InsightsChartsBetaApi.GetStaleFlagsChart`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.InsightsChartsBetaApi.GetStaleFlagsChart(context.Background()).ProjectKey(projectKey).EnvironmentKey(environmentKey).ApplicationKey(applicationKey).GroupBy(groupBy).MaintainerId(maintainerId).MaintainerTeamKey(maintainerTeamKey).Expand(expand).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `InsightsChartsBetaApi.GetStaleFlagsChart``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetStaleFlagsChart`: InsightsChart
+	fmt.Fprintf(os.Stdout, "Response from `InsightsChartsBetaApi.GetStaleFlagsChart`: %v\n", resp)
 }
 ```
 

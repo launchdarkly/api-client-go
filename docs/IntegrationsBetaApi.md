@@ -26,25 +26,25 @@ Create integration configuration
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    integrationKey := "integrationKey_example" // string | The integration key
-    integrationConfigurationPost := *openapiclient.NewIntegrationConfigurationPost("Example integration configuration", map[string]interface{}{"key": interface{}(123)}) // IntegrationConfigurationPost | 
+	integrationKey := "integrationKey_example" // string | The integration key
+	integrationConfigurationPost := *openapiclient.NewIntegrationConfigurationPost("Example integration configuration", map[string]interface{}{"key": interface{}(123)}) // IntegrationConfigurationPost | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.IntegrationsBetaApi.CreateIntegrationConfiguration(context.Background(), integrationKey).IntegrationConfigurationPost(integrationConfigurationPost).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `IntegrationsBetaApi.CreateIntegrationConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateIntegrationConfiguration`: IntegrationConfigurationsRep
-    fmt.Fprintf(os.Stdout, "Response from `IntegrationsBetaApi.CreateIntegrationConfiguration`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IntegrationsBetaApi.CreateIntegrationConfiguration(context.Background(), integrationKey).IntegrationConfigurationPost(integrationConfigurationPost).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IntegrationsBetaApi.CreateIntegrationConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateIntegrationConfiguration`: IntegrationConfigurationsRep
+	fmt.Fprintf(os.Stdout, "Response from `IntegrationsBetaApi.CreateIntegrationConfiguration`: %v\n", resp)
 }
 ```
 
@@ -98,22 +98,22 @@ Delete integration configuration
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    integrationConfigurationId := "integrationConfigurationId_example" // string | The ID of the integration configuration to be deleted
+	integrationConfigurationId := "integrationConfigurationId_example" // string | The ID of the integration configuration to be deleted
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.IntegrationsBetaApi.DeleteIntegrationConfiguration(context.Background(), integrationConfigurationId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `IntegrationsBetaApi.DeleteIntegrationConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.IntegrationsBetaApi.DeleteIntegrationConfiguration(context.Background(), integrationConfigurationId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IntegrationsBetaApi.DeleteIntegrationConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -166,24 +166,24 @@ Get all configurations for the integration
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    integrationKey := "integrationKey_example" // string | Integration key
+	integrationKey := "integrationKey_example" // string | Integration key
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.IntegrationsBetaApi.GetAllIntegrationConfigurations(context.Background(), integrationKey).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `IntegrationsBetaApi.GetAllIntegrationConfigurations``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetAllIntegrationConfigurations`: IntegrationConfigurationCollectionRep
-    fmt.Fprintf(os.Stdout, "Response from `IntegrationsBetaApi.GetAllIntegrationConfigurations`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IntegrationsBetaApi.GetAllIntegrationConfigurations(context.Background(), integrationKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IntegrationsBetaApi.GetAllIntegrationConfigurations``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetAllIntegrationConfigurations`: IntegrationConfigurationCollectionRep
+	fmt.Fprintf(os.Stdout, "Response from `IntegrationsBetaApi.GetAllIntegrationConfigurations`: %v\n", resp)
 }
 ```
 
@@ -236,24 +236,24 @@ Get an integration configuration
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    integrationConfigurationId := "integrationConfigurationId_example" // string | Integration configuration ID
+	integrationConfigurationId := "integrationConfigurationId_example" // string | Integration configuration ID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.IntegrationsBetaApi.GetIntegrationConfiguration(context.Background(), integrationConfigurationId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `IntegrationsBetaApi.GetIntegrationConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetIntegrationConfiguration`: IntegrationConfigurationsRep
-    fmt.Fprintf(os.Stdout, "Response from `IntegrationsBetaApi.GetIntegrationConfiguration`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IntegrationsBetaApi.GetIntegrationConfiguration(context.Background(), integrationConfigurationId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IntegrationsBetaApi.GetIntegrationConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetIntegrationConfiguration`: IntegrationConfigurationsRep
+	fmt.Fprintf(os.Stdout, "Response from `IntegrationsBetaApi.GetIntegrationConfiguration`: %v\n", resp)
 }
 ```
 
@@ -306,25 +306,25 @@ Update integration configuration
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    integrationConfigurationId := "integrationConfigurationId_example" // string | The ID of the integration configuration
-    patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")} // []PatchOperation | 
+	integrationConfigurationId := "integrationConfigurationId_example" // string | The ID of the integration configuration
+	patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")} // []PatchOperation | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.IntegrationsBetaApi.UpdateIntegrationConfiguration(context.Background(), integrationConfigurationId).PatchOperation(patchOperation).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `IntegrationsBetaApi.UpdateIntegrationConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateIntegrationConfiguration`: IntegrationConfigurationsRep
-    fmt.Fprintf(os.Stdout, "Response from `IntegrationsBetaApi.UpdateIntegrationConfiguration`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IntegrationsBetaApi.UpdateIntegrationConfiguration(context.Background(), integrationConfigurationId).PatchOperation(patchOperation).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IntegrationsBetaApi.UpdateIntegrationConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateIntegrationConfiguration`: IntegrationConfigurationsRep
+	fmt.Fprintf(os.Stdout, "Response from `IntegrationsBetaApi.UpdateIntegrationConfiguration`: %v\n", resp)
 }
 ```
 

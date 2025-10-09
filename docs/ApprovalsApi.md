@@ -34,22 +34,22 @@ Delete approval request
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    id := "id_example" // string | The approval request ID
+	id := "id_example" // string | The approval request ID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ApprovalsApi.DeleteApprovalRequest(context.Background(), id).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.DeleteApprovalRequest``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.ApprovalsApi.DeleteApprovalRequest(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.DeleteApprovalRequest``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -102,25 +102,25 @@ Delete approval request for a flag
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
-    environmentKey := "environmentKey_example" // string | The environment key
-    id := "id_example" // string | The feature flag approval request ID
+	projectKey := "projectKey_example" // string | The project key
+	featureFlagKey := "featureFlagKey_example" // string | The feature flag key
+	environmentKey := "environmentKey_example" // string | The environment key
+	id := "id_example" // string | The feature flag approval request ID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ApprovalsApi.DeleteApprovalRequestForFlag(context.Background(), projectKey, featureFlagKey, environmentKey, id).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.DeleteApprovalRequestForFlag``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.ApprovalsApi.DeleteApprovalRequestForFlag(context.Background(), projectKey, featureFlagKey, environmentKey, id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.DeleteApprovalRequestForFlag``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -179,27 +179,27 @@ Get approval request for a flag
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
-    environmentKey := "environmentKey_example" // string | The environment key
-    id := "id_example" // string | The feature flag approval request ID
+	projectKey := "projectKey_example" // string | The project key
+	featureFlagKey := "featureFlagKey_example" // string | The feature flag key
+	environmentKey := "environmentKey_example" // string | The environment key
+	id := "id_example" // string | The feature flag approval request ID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ApprovalsApi.GetApprovalForFlag(context.Background(), projectKey, featureFlagKey, environmentKey, id).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.GetApprovalForFlag``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetApprovalForFlag`: FlagConfigApprovalRequestResponse
-    fmt.Fprintf(os.Stdout, "Response from `ApprovalsApi.GetApprovalForFlag`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ApprovalsApi.GetApprovalForFlag(context.Background(), projectKey, featureFlagKey, environmentKey, id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.GetApprovalForFlag``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetApprovalForFlag`: FlagConfigApprovalRequestResponse
+	fmt.Fprintf(os.Stdout, "Response from `ApprovalsApi.GetApprovalForFlag`: %v\n", resp)
 }
 ```
 
@@ -258,25 +258,25 @@ Get approval request
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    id := "id_example" // string | The approval request ID
-    expand := "expand_example" // string | A comma-separated list of fields to expand in the response. Supported fields are explained above. (optional)
+	id := "id_example" // string | The approval request ID
+	expand := "expand_example" // string | A comma-separated list of fields to expand in the response. Supported fields are explained above. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ApprovalsApi.GetApprovalRequest(context.Background(), id).Expand(expand).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.GetApprovalRequest``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetApprovalRequest`: ExpandableApprovalRequestResponse
-    fmt.Fprintf(os.Stdout, "Response from `ApprovalsApi.GetApprovalRequest`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ApprovalsApi.GetApprovalRequest(context.Background(), id).Expand(expand).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.GetApprovalRequest``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetApprovalRequest`: ExpandableApprovalRequestResponse
+	fmt.Fprintf(os.Stdout, "Response from `ApprovalsApi.GetApprovalRequest`: %v\n", resp)
 }
 ```
 
@@ -330,27 +330,27 @@ List approval requests
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    filter := "filter_example" // string | A comma-separated list of filters. Each filter is of the form `field operator value`. Supported fields are explained above. (optional)
-    expand := "expand_example" // string | A comma-separated list of fields to expand in the response. Supported fields are explained above. (optional)
-    limit := int64(789) // int64 | The number of approvals to return. Defaults to 20. Maximum limit is 200. (optional)
-    offset := int64(789) // int64 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
+	filter := "filter_example" // string | A comma-separated list of filters. Each filter is of the form `field operator value`. Supported fields are explained above. (optional)
+	expand := "expand_example" // string | A comma-separated list of fields to expand in the response. Supported fields are explained above. (optional)
+	limit := int64(789) // int64 | The number of approvals to return. Defaults to 20. Maximum limit is 200. (optional)
+	offset := int64(789) // int64 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ApprovalsApi.GetApprovalRequests(context.Background()).Filter(filter).Expand(expand).Limit(limit).Offset(offset).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.GetApprovalRequests``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetApprovalRequests`: ExpandableApprovalRequestsResponse
-    fmt.Fprintf(os.Stdout, "Response from `ApprovalsApi.GetApprovalRequests`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ApprovalsApi.GetApprovalRequests(context.Background()).Filter(filter).Expand(expand).Limit(limit).Offset(offset).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.GetApprovalRequests``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetApprovalRequests`: ExpandableApprovalRequestsResponse
+	fmt.Fprintf(os.Stdout, "Response from `ApprovalsApi.GetApprovalRequests`: %v\n", resp)
 }
 ```
 
@@ -402,26 +402,26 @@ List approval requests for a flag
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
-    environmentKey := "environmentKey_example" // string | The environment key
+	projectKey := "projectKey_example" // string | The project key
+	featureFlagKey := "featureFlagKey_example" // string | The feature flag key
+	environmentKey := "environmentKey_example" // string | The environment key
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ApprovalsApi.GetApprovalsForFlag(context.Background(), projectKey, featureFlagKey, environmentKey).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.GetApprovalsForFlag``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetApprovalsForFlag`: FlagConfigApprovalRequestsResponse
-    fmt.Fprintf(os.Stdout, "Response from `ApprovalsApi.GetApprovalsForFlag`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ApprovalsApi.GetApprovalsForFlag(context.Background(), projectKey, featureFlagKey, environmentKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.GetApprovalsForFlag``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetApprovalsForFlag`: FlagConfigApprovalRequestsResponse
+	fmt.Fprintf(os.Stdout, "Response from `ApprovalsApi.GetApprovalsForFlag`: %v\n", resp)
 }
 ```
 
@@ -478,24 +478,24 @@ Create approval request
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    createApprovalRequestRequest := *openapiclient.NewCreateApprovalRequestRequest("proj/projKey:env/envKey:flag/flagKey", "Requesting to update targeting", []map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}) // CreateApprovalRequestRequest | 
+	createApprovalRequestRequest := *openapiclient.NewCreateApprovalRequestRequest("proj/projKey:env/envKey:flag/flagKey", "Requesting to update targeting", []map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}) // CreateApprovalRequestRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ApprovalsApi.PostApprovalRequest(context.Background()).CreateApprovalRequestRequest(createApprovalRequestRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.PostApprovalRequest``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostApprovalRequest`: ApprovalRequestResponse
-    fmt.Fprintf(os.Stdout, "Response from `ApprovalsApi.PostApprovalRequest`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ApprovalsApi.PostApprovalRequest(context.Background()).CreateApprovalRequestRequest(createApprovalRequestRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.PostApprovalRequest``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostApprovalRequest`: ApprovalRequestResponse
+	fmt.Fprintf(os.Stdout, "Response from `ApprovalsApi.PostApprovalRequest`: %v\n", resp)
 }
 ```
 
@@ -544,25 +544,25 @@ Apply approval request
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    id := "id_example" // string | The approval request ID
-    postApprovalRequestApplyRequest := *openapiclient.NewPostApprovalRequestApplyRequest() // PostApprovalRequestApplyRequest | 
+	id := "id_example" // string | The approval request ID
+	postApprovalRequestApplyRequest := *openapiclient.NewPostApprovalRequestApplyRequest() // PostApprovalRequestApplyRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ApprovalsApi.PostApprovalRequestApply(context.Background(), id).PostApprovalRequestApplyRequest(postApprovalRequestApplyRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.PostApprovalRequestApply``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostApprovalRequestApply`: ApprovalRequestResponse
-    fmt.Fprintf(os.Stdout, "Response from `ApprovalsApi.PostApprovalRequestApply`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ApprovalsApi.PostApprovalRequestApply(context.Background(), id).PostApprovalRequestApplyRequest(postApprovalRequestApplyRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.PostApprovalRequestApply``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostApprovalRequestApply`: ApprovalRequestResponse
+	fmt.Fprintf(os.Stdout, "Response from `ApprovalsApi.PostApprovalRequestApply`: %v\n", resp)
 }
 ```
 
@@ -616,28 +616,28 @@ Apply approval request for a flag
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
-    environmentKey := "environmentKey_example" // string | The environment key
-    id := "id_example" // string | The feature flag approval request ID
-    postApprovalRequestApplyRequest := *openapiclient.NewPostApprovalRequestApplyRequest() // PostApprovalRequestApplyRequest | 
+	projectKey := "projectKey_example" // string | The project key
+	featureFlagKey := "featureFlagKey_example" // string | The feature flag key
+	environmentKey := "environmentKey_example" // string | The environment key
+	id := "id_example" // string | The feature flag approval request ID
+	postApprovalRequestApplyRequest := *openapiclient.NewPostApprovalRequestApplyRequest() // PostApprovalRequestApplyRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ApprovalsApi.PostApprovalRequestApplyForFlag(context.Background(), projectKey, featureFlagKey, environmentKey, id).PostApprovalRequestApplyRequest(postApprovalRequestApplyRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.PostApprovalRequestApplyForFlag``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostApprovalRequestApplyForFlag`: FlagConfigApprovalRequestResponse
-    fmt.Fprintf(os.Stdout, "Response from `ApprovalsApi.PostApprovalRequestApplyForFlag`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ApprovalsApi.PostApprovalRequestApplyForFlag(context.Background(), projectKey, featureFlagKey, environmentKey, id).PostApprovalRequestApplyRequest(postApprovalRequestApplyRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.PostApprovalRequestApplyForFlag``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostApprovalRequestApplyForFlag`: FlagConfigApprovalRequestResponse
+	fmt.Fprintf(os.Stdout, "Response from `ApprovalsApi.PostApprovalRequestApplyForFlag`: %v\n", resp)
 }
 ```
 
@@ -697,27 +697,27 @@ Create approval request for a flag
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
-    environmentKey := "environmentKey_example" // string | The environment key
-    createFlagConfigApprovalRequestRequest := *openapiclient.NewCreateFlagConfigApprovalRequestRequest("Requesting to update targeting", []map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}) // CreateFlagConfigApprovalRequestRequest | 
+	projectKey := "projectKey_example" // string | The project key
+	featureFlagKey := "featureFlagKey_example" // string | The feature flag key
+	environmentKey := "environmentKey_example" // string | The environment key
+	createFlagConfigApprovalRequestRequest := *openapiclient.NewCreateFlagConfigApprovalRequestRequest("Requesting to update targeting", []map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}) // CreateFlagConfigApprovalRequestRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ApprovalsApi.PostApprovalRequestForFlag(context.Background(), projectKey, featureFlagKey, environmentKey).CreateFlagConfigApprovalRequestRequest(createFlagConfigApprovalRequestRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.PostApprovalRequestForFlag``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostApprovalRequestForFlag`: FlagConfigApprovalRequestResponse
-    fmt.Fprintf(os.Stdout, "Response from `ApprovalsApi.PostApprovalRequestForFlag`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ApprovalsApi.PostApprovalRequestForFlag(context.Background(), projectKey, featureFlagKey, environmentKey).CreateFlagConfigApprovalRequestRequest(createFlagConfigApprovalRequestRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.PostApprovalRequestForFlag``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostApprovalRequestForFlag`: FlagConfigApprovalRequestResponse
+	fmt.Fprintf(os.Stdout, "Response from `ApprovalsApi.PostApprovalRequestForFlag`: %v\n", resp)
 }
 ```
 
@@ -775,25 +775,25 @@ Review approval request
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    id := "id_example" // string | The approval request ID
-    postApprovalRequestReviewRequest := *openapiclient.NewPostApprovalRequestReviewRequest() // PostApprovalRequestReviewRequest | 
+	id := "id_example" // string | The approval request ID
+	postApprovalRequestReviewRequest := *openapiclient.NewPostApprovalRequestReviewRequest() // PostApprovalRequestReviewRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ApprovalsApi.PostApprovalRequestReview(context.Background(), id).PostApprovalRequestReviewRequest(postApprovalRequestReviewRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.PostApprovalRequestReview``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostApprovalRequestReview`: ApprovalRequestResponse
-    fmt.Fprintf(os.Stdout, "Response from `ApprovalsApi.PostApprovalRequestReview`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ApprovalsApi.PostApprovalRequestReview(context.Background(), id).PostApprovalRequestReviewRequest(postApprovalRequestReviewRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.PostApprovalRequestReview``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostApprovalRequestReview`: ApprovalRequestResponse
+	fmt.Fprintf(os.Stdout, "Response from `ApprovalsApi.PostApprovalRequestReview`: %v\n", resp)
 }
 ```
 
@@ -847,28 +847,28 @@ Review approval request for a flag
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
-    environmentKey := "environmentKey_example" // string | The environment key
-    id := "id_example" // string | The feature flag approval request ID
-    postApprovalRequestReviewRequest := *openapiclient.NewPostApprovalRequestReviewRequest() // PostApprovalRequestReviewRequest | 
+	projectKey := "projectKey_example" // string | The project key
+	featureFlagKey := "featureFlagKey_example" // string | The feature flag key
+	environmentKey := "environmentKey_example" // string | The environment key
+	id := "id_example" // string | The feature flag approval request ID
+	postApprovalRequestReviewRequest := *openapiclient.NewPostApprovalRequestReviewRequest() // PostApprovalRequestReviewRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ApprovalsApi.PostApprovalRequestReviewForFlag(context.Background(), projectKey, featureFlagKey, environmentKey, id).PostApprovalRequestReviewRequest(postApprovalRequestReviewRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.PostApprovalRequestReviewForFlag``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostApprovalRequestReviewForFlag`: FlagConfigApprovalRequestResponse
-    fmt.Fprintf(os.Stdout, "Response from `ApprovalsApi.PostApprovalRequestReviewForFlag`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ApprovalsApi.PostApprovalRequestReviewForFlag(context.Background(), projectKey, featureFlagKey, environmentKey, id).PostApprovalRequestReviewRequest(postApprovalRequestReviewRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.PostApprovalRequestReviewForFlag``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostApprovalRequestReviewForFlag`: FlagConfigApprovalRequestResponse
+	fmt.Fprintf(os.Stdout, "Response from `ApprovalsApi.PostApprovalRequestReviewForFlag`: %v\n", resp)
 }
 ```
 
@@ -928,27 +928,27 @@ Create approval request to copy flag configurations across environments
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
-    environmentKey := "environmentKey_example" // string | The environment key for the target environment
-    createCopyFlagConfigApprovalRequestRequest := *openapiclient.NewCreateCopyFlagConfigApprovalRequestRequest("copy flag settings to another environment", *openapiclient.NewSourceFlag("environment-key-123abc")) // CreateCopyFlagConfigApprovalRequestRequest | 
+	projectKey := "projectKey_example" // string | The project key
+	featureFlagKey := "featureFlagKey_example" // string | The feature flag key
+	environmentKey := "environmentKey_example" // string | The environment key for the target environment
+	createCopyFlagConfigApprovalRequestRequest := *openapiclient.NewCreateCopyFlagConfigApprovalRequestRequest("copy flag settings to another environment", *openapiclient.NewSourceFlag("environment-key-123abc")) // CreateCopyFlagConfigApprovalRequestRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ApprovalsApi.PostFlagCopyConfigApprovalRequest(context.Background(), projectKey, featureFlagKey, environmentKey).CreateCopyFlagConfigApprovalRequestRequest(createCopyFlagConfigApprovalRequestRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.PostFlagCopyConfigApprovalRequest``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostFlagCopyConfigApprovalRequest`: FlagConfigApprovalRequestResponse
-    fmt.Fprintf(os.Stdout, "Response from `ApprovalsApi.PostFlagCopyConfigApprovalRequest`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ApprovalsApi.PostFlagCopyConfigApprovalRequest(context.Background(), projectKey, featureFlagKey, environmentKey).CreateCopyFlagConfigApprovalRequestRequest(createCopyFlagConfigApprovalRequestRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsApi.PostFlagCopyConfigApprovalRequest``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostFlagCopyConfigApprovalRequest`: FlagConfigApprovalRequestResponse
+	fmt.Fprintf(os.Stdout, "Response from `ApprovalsApi.PostFlagCopyConfigApprovalRequest`: %v\n", resp)
 }
 ```
 

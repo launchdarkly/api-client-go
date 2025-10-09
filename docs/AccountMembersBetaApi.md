@@ -22,24 +22,24 @@ Modify account members
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    membersPatchInput := *openapiclient.NewMembersPatchInput([]map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}) // MembersPatchInput | 
+	membersPatchInput := *openapiclient.NewMembersPatchInput([]map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}) // MembersPatchInput | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AccountMembersBetaApi.PatchMembers(context.Background()).MembersPatchInput(membersPatchInput).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AccountMembersBetaApi.PatchMembers``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PatchMembers`: BulkEditMembersRep
-    fmt.Fprintf(os.Stdout, "Response from `AccountMembersBetaApi.PatchMembers`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AccountMembersBetaApi.PatchMembers(context.Background()).MembersPatchInput(membersPatchInput).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AccountMembersBetaApi.PatchMembers``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PatchMembers`: BulkEditMembersRep
+	fmt.Fprintf(os.Stdout, "Response from `AccountMembersBetaApi.PatchMembers`: %v\n", resp)
 }
 ```
 

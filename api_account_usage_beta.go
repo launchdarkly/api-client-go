@@ -1,7 +1,7 @@
 /*
 LaunchDarkly REST API
 
-This documentation describes LaunchDarkly's REST API.  To access the complete OpenAPI spec directly, use [Get OpenAPI spec](https://launchdarkly.com/docs/api/other/get-openapi-spec).  ## Authentication  LaunchDarkly's REST API uses the HTTPS protocol with a minimum TLS version of 1.2.  All REST API resources are authenticated with either [personal or service access tokens](https://launchdarkly.com/docs/home/account/api), or session cookies. Other authentication mechanisms are not supported. You can manage personal access tokens on your [**Authorization**](https://app.launchdarkly.com/settings/authorization) page in the LaunchDarkly UI.  LaunchDarkly also has SDK keys, mobile keys, and client-side IDs that are used by our server-side SDKs, mobile SDKs, and JavaScript-based SDKs, respectively. **These keys cannot be used to access our REST API**. These keys are environment-specific, and can only perform read-only operations such as fetching feature flag settings.  | Auth mechanism                                                                                  | Allowed resources                                                                                     | Use cases                                          | | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | -------------------------------------------------- | | [Personal or service access tokens](https://launchdarkly.com/docs/home/account/api) | Can be customized on a per-token basis                                                                | Building scripts, custom integrations, data export. | | SDK keys                                                                                        | Can only access read-only resources specific to server-side SDKs. Restricted to a single environment. | Server-side SDKs                     | | Mobile keys                                                                                     | Can only access read-only resources specific to mobile SDKs, and only for flags marked available to mobile keys. Restricted to a single environment.           | Mobile SDKs                                        | | Client-side ID                                                                                  | Can only access read-only resources specific to JavaScript-based client-side SDKs, and only for flags marked available to client-side. Restricted to a single environment.           | Client-side JavaScript                             |  > #### Keep your access tokens and SDK keys private > > Access tokens should _never_ be exposed in untrusted contexts. Never put an access token in client-side JavaScript, or embed it in a mobile application. LaunchDarkly has special mobile keys that you can embed in mobile apps. If you accidentally expose an access token or SDK key, you can reset it from your [**Authorization**](https://app.launchdarkly.com/settings/authorization) page. > > The client-side ID is safe to embed in untrusted contexts. It's designed for use in client-side JavaScript.  ### Authentication using request header  The preferred way to authenticate with the API is by adding an `Authorization` header containing your access token to your requests. The value of the `Authorization` header must be your access token.  Manage personal access tokens from the [**Authorization**](https://app.launchdarkly.com/settings/authorization) page.  ### Authentication using session cookie  For testing purposes, you can make API calls directly from your web browser. If you are logged in to the LaunchDarkly application, the API will use your existing session to authenticate calls.  If you have a [role](https://launchdarkly.com/docs/home/account/built-in-roles) other than Admin, or have a [custom role](https://launchdarkly.com/docs/home/account/custom-roles) defined, you may not have permission to perform some API calls. You will receive a `401` response code in that case.  > ### Modifying the Origin header causes an error > > LaunchDarkly validates that the Origin header for any API request authenticated by a session cookie matches the expected Origin header. The expected Origin header is `https://app.launchdarkly.com`. > > If the Origin header does not match what's expected, LaunchDarkly returns an error. This error can prevent the LaunchDarkly app from working correctly. > > Any browser extension that intentionally changes the Origin header can cause this problem. For example, the `Allow-Control-Allow-Origin: *` Chrome extension changes the Origin header to `http://evil.com` and causes the app to fail. > > To prevent this error, do not modify your Origin header. > > LaunchDarkly does not require origin matching when authenticating with an access token, so this issue does not affect normal API usage.  ## Representations  All resources expect and return JSON response bodies. Error responses also send a JSON body. To learn more about the error format of the API, read [Errors](https://launchdarkly.com/docs/api#errors).  In practice this means that you always get a response with a `Content-Type` header set to `application/json`.  In addition, request bodies for `PATCH`, `POST`, and `PUT` requests must be encoded as JSON with a `Content-Type` header set to `application/json`.  ### Summary and detailed representations  When you fetch a list of resources, the response includes only the most important attributes of each resource. This is a _summary representation_ of the resource. When you fetch an individual resource, such as a single feature flag, you receive a _detailed representation_ of the resource.  The best way to find a detailed representation is to follow links. Every summary representation includes a link to its detailed representation.  ### Expanding responses  Sometimes the detailed representation of a resource does not include all of the attributes of the resource by default. If this is the case, the request method will clearly document this and describe which attributes you can include in an expanded response.  To include the additional attributes, append the `expand` request parameter to your request and add a comma-separated list of the attributes to include. For example, when you append `?expand=members,maintainers` to the [Get team](https://launchdarkly.com/docs/api/teams/get-team) endpoint, the expanded response includes both of these attributes.  ### Links and addressability  The best way to navigate the API is by following links. These are attributes in representations that link to other resources. The API always uses the same format for links:  - Links to other resources within the API are encapsulated in a `_links` object - If the resource has a corresponding link to HTML content on the site, it is stored in a special `_site` link  Each link has two attributes:  - An `href`, which contains the URL - A `type`, which describes the content type  For example, a feature resource might return the following:  ```json {   \"_links\": {     \"parent\": {       \"href\": \"/api/features\",       \"type\": \"application/json\"     },     \"self\": {       \"href\": \"/api/features/sort.order\",       \"type\": \"application/json\"     }   },   \"_site\": {     \"href\": \"/features/sort.order\",     \"type\": \"text/html\"   } } ```  From this, you can navigate to the parent collection of features by following the `parent` link, or navigate to the site page for the feature by following the `_site` link.  Collections are always represented as a JSON object with an `items` attribute containing an array of representations. Like all other representations, collections have `_links` defined at the top level.  Paginated collections include `first`, `last`, `next`, and `prev` links containing a URL with the respective set of elements in the collection.  ## Updates  Resources that accept partial updates use the `PATCH` verb. Most resources support the [JSON patch](https://launchdarkly.com/docs/api#updates-using-json-patch) format. Some resources also support the [JSON merge patch](https://launchdarkly.com/docs/api#updates-using-json-merge-patch) format, and some resources support the [semantic patch](https://launchdarkly.com/docs/api#updates-using-semantic-patch) format, which is a way to specify the modifications to perform as a set of executable instructions. Each resource supports optional [comments](https://launchdarkly.com/docs/api#updates-with-comments) that you can submit with updates. Comments appear in outgoing webhooks, the audit log, and other integrations.  When a resource supports both JSON patch and semantic patch, we document both in the request method. However, the specific request body fields and descriptions included in our documentation only match one type of patch or the other.  ### Updates using JSON patch  [JSON patch](https://datatracker.ietf.org/doc/html/rfc6902) is a way to specify the modifications to perform on a resource. JSON patch uses paths and a limited set of operations to describe how to transform the current state of the resource into a new state. JSON patch documents are always arrays, where each element contains an operation, a path to the field to update, and the new value.  For example, in this feature flag representation:  ```json {     \"name\": \"New recommendations engine\",     \"key\": \"engine.enable\",     \"description\": \"This is the description\",     ... } ``` You can change the feature flag's description with the following patch document:  ```json [{ \"op\": \"replace\", \"path\": \"/description\", \"value\": \"This is the new description\" }] ```  You can specify multiple modifications to perform in a single request. You can also test that certain preconditions are met before applying the patch:  ```json [   { \"op\": \"test\", \"path\": \"/version\", \"value\": 10 },   { \"op\": \"replace\", \"path\": \"/description\", \"value\": \"The new description\" } ] ```  The above patch request tests whether the feature flag's `version` is `10`, and if so, changes the feature flag's description.  Attributes that are not editable, such as a resource's `_links`, have names that start with an underscore.  ### Updates using JSON merge patch  [JSON merge patch](https://datatracker.ietf.org/doc/html/rfc7386) is another format for specifying the modifications to perform on a resource. JSON merge patch is less expressive than JSON patch. However, in many cases it is simpler to construct a merge patch document. For example, you can change a feature flag's description with the following merge patch document:  ```json {   \"description\": \"New flag description\" } ```  ### Updates using semantic patch  Some resources support the semantic patch format. A semantic patch is a way to specify the modifications to perform on a resource as a set of executable instructions.  Semantic patch allows you to be explicit about intent using precise, custom instructions. In many cases, you can define semantic patch instructions independently of the current state of the resource. This can be useful when defining a change that may be applied at a future date.  To make a semantic patch request, you must append `domain-model=launchdarkly.semanticpatch` to your `Content-Type` header.  Here's how:  ``` Content-Type: application/json; domain-model=launchdarkly.semanticpatch ```  If you call a semantic patch resource without this header, you will receive a `400` response because your semantic patch will be interpreted as a JSON patch.  The body of a semantic patch request takes the following properties:  * `comment` (string): (Optional) A description of the update. * `environmentKey` (string): (Required for some resources only) The environment key. * `instructions` (array): (Required) A list of actions the update should perform. Each action in the list must be an object with a `kind` property that indicates the instruction. If the instruction requires parameters, you must include those parameters as additional fields in the object. The documentation for each resource that supports semantic patch includes the available instructions and any additional parameters.  For example:  ```json {   \"comment\": \"optional comment\",   \"instructions\": [ {\"kind\": \"turnFlagOn\"} ] } ```  Semantic patches are not applied partially; either all of the instructions are applied or none of them are. If **any** instruction is invalid, the endpoint returns an error and will not change the resource. If all instructions are valid, the request succeeds and the resources are updated if necessary, or left unchanged if they are already in the state you request.  ### Updates with comments  You can submit optional comments with `PATCH` changes.  To submit a comment along with a JSON patch document, use the following format:  ```json {   \"comment\": \"This is a comment string\",   \"patch\": [{ \"op\": \"replace\", \"path\": \"/description\", \"value\": \"The new description\" }] } ```  To submit a comment along with a JSON merge patch document, use the following format:  ```json {   \"comment\": \"This is a comment string\",   \"merge\": { \"description\": \"New flag description\" } } ```  To submit a comment along with a semantic patch, use the following format:  ```json {   \"comment\": \"This is a comment string\",   \"instructions\": [ {\"kind\": \"turnFlagOn\"} ] } ```  ## Errors  The API always returns errors in a common format. Here's an example:  ```json {   \"code\": \"invalid_request\",   \"message\": \"A feature with that key already exists\",   \"id\": \"30ce6058-87da-11e4-b116-123b93f75cba\" } ```  The `code` indicates the general class of error. The `message` is a human-readable explanation of what went wrong. The `id` is a unique identifier. Use it when you're working with LaunchDarkly Support to debug a problem with a specific API call.  ### HTTP status error response codes  | Code | Definition        | Description                                                                                       | Possible Solution                                                | | ---- | ----------------- | ------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- | | 400  | Invalid request       | The request cannot be understood.                                    | Ensure JSON syntax in request body is correct.                   | | 401  | Invalid access token      | Requestor is unauthorized or does not have permission for this API call.                                                | Ensure your API access token is valid and has the appropriate permissions.                                     | | 403  | Forbidden         | Requestor does not have access to this resource.                                                | Ensure that the account member or access token has proper permissions set. | | 404  | Invalid resource identifier | The requested resource is not valid. | Ensure that the resource is correctly identified by ID or key. | | 405  | Method not allowed | The request method is not allowed on this resource. | Ensure that the HTTP verb is correct. | | 409  | Conflict          | The API request can not be completed because it conflicts with a concurrent API request. | Retry your request.                                              | | 422  | Unprocessable entity | The API request can not be completed because the update description can not be understood. | Ensure that the request body is correct for the type of patch you are using, either JSON patch or semantic patch. | 429  | Too many requests | Read [Rate limiting](https://launchdarkly.com/docs/api#rate-limiting).                                               | Wait and try again later.                                        |  ## CORS  The LaunchDarkly API supports Cross Origin Resource Sharing (CORS) for AJAX requests from any origin. If an `Origin` header is given in a request, it will be echoed as an explicitly allowed origin. Otherwise the request returns a wildcard, `Access-Control-Allow-Origin: *`. For more information on CORS, read the [CORS W3C Recommendation](http://www.w3.org/TR/cors). Example CORS headers might look like:  ```http Access-Control-Allow-Headers: Accept, Content-Type, Content-Length, Accept-Encoding, Authorization Access-Control-Allow-Methods: OPTIONS, GET, DELETE, PATCH Access-Control-Allow-Origin: * Access-Control-Max-Age: 300 ```  You can make authenticated CORS calls just as you would make same-origin calls, using either [token or session-based authentication](https://launchdarkly.com/docs/api#authentication). If you are using session authentication, you should set the `withCredentials` property for your `xhr` request to `true`. You should never expose your access tokens to untrusted entities.  ## Rate limiting  We use several rate limiting strategies to ensure the availability of our APIs. Rate-limited calls to our APIs return a `429` status code. Calls to our APIs include headers indicating the current rate limit status. The specific headers returned depend on the API route being called. The limits differ based on the route, authentication mechanism, and other factors. Routes that are not rate limited may not contain any of the headers described below.  > ### Rate limiting and SDKs > > LaunchDarkly SDKs are never rate limited and do not use the API endpoints defined here. LaunchDarkly uses a different set of approaches, including streaming/server-sent events and a global CDN, to ensure availability to the routes used by LaunchDarkly SDKs.  ### Global rate limits  Authenticated requests are subject to a global limit. This is the maximum number of calls that your account can make to the API per ten seconds. All service and personal access tokens on the account share this limit, so exceeding the limit with one access token will impact other tokens. Calls that are subject to global rate limits may return the headers below:  | Header name                    | Description                                                                      | | ------------------------------ | -------------------------------------------------------------------------------- | | `X-Ratelimit-Global-Remaining` | The maximum number of requests the account is permitted to make per ten seconds. | | `X-Ratelimit-Reset`            | The time at which the current rate limit window resets in epoch milliseconds.    |  We do not publicly document the specific number of calls that can be made globally. This limit may change, and we encourage clients to program against the specification, relying on the two headers defined above, rather than hardcoding to the current limit.  ### Route-level rate limits  Some authenticated routes have custom rate limits. These also reset every ten seconds. Any service or personal access tokens hitting the same route share this limit, so exceeding the limit with one access token may impact other tokens. Calls that are subject to route-level rate limits return the headers below:  | Header name                   | Description                                                                                           | | ----------------------------- | ----------------------------------------------------------------------------------------------------- | | `X-Ratelimit-Route-Remaining` | The maximum number of requests to the current route the account is permitted to make per ten seconds. | | `X-Ratelimit-Reset`           | The time at which the current rate limit window resets in epoch milliseconds.                         |  A _route_ represents a specific URL pattern and verb. For example, the [Delete environment](https://launchdarkly.com/docs/api/environments/delete-environment) endpoint is considered a single route, and each call to delete an environment counts against your route-level rate limit for that route.  We do not publicly document the specific number of calls that an account can make to each endpoint per ten seconds. These limits may change, and we encourage clients to program against the specification, relying on the two headers defined above, rather than hardcoding to the current limits.  ### IP-based rate limiting  We also employ IP-based rate limiting on some API routes. If you hit an IP-based rate limit, your API response will include a `Retry-After` header indicating how long to wait before re-trying the call. Clients must wait at least `Retry-After` seconds before making additional calls to our API, and should employ jitter and backoff strategies to avoid triggering rate limits again.  ## OpenAPI (Swagger) and client libraries  We have a [complete OpenAPI (Swagger) specification](https://app.launchdarkly.com/api/v2/openapi.json) for our API.  We auto-generate multiple client libraries based on our OpenAPI specification. To learn more, visit the [collection of client libraries on GitHub](https://github.com/search?q=topic%3Alaunchdarkly-api+org%3Alaunchdarkly&type=Repositories). You can also use this specification to generate client libraries to interact with our REST API in your language of choice.  Our OpenAPI specification is supported by several API-based tools such as Postman and Insomnia. In many cases, you can directly import our specification to explore our APIs.  ## Method overriding  Some firewalls and HTTP clients restrict the use of verbs other than `GET` and `POST`. In those environments, our API endpoints that use `DELETE`, `PATCH`, and `PUT` verbs are inaccessible.  To avoid this issue, our API supports the `X-HTTP-Method-Override` header, allowing clients to \"tunnel\" `DELETE`, `PATCH`, and `PUT` requests using a `POST` request.  For example, to call a `PATCH` endpoint using a `POST` request, you can include `X-HTTP-Method-Override:PATCH` as a header.  ## Beta resources  We sometimes release new API resources in **beta** status before we release them with general availability.  Resources that are in beta are still undergoing testing and development. They may change without notice, including becoming backwards incompatible.  We try to promote resources into general availability as quickly as possible. This happens after sufficient testing and when we're satisfied that we no longer need to make backwards-incompatible changes.  We mark beta resources with a \"Beta\" callout in our documentation, pictured below:  > ### This feature is in beta > > To use this feature, pass in a header including the `LD-API-Version` key with value set to `beta`. Use this header with each call. To learn more, read [Beta resources](https://launchdarkly.com/docs/api#beta-resources). > > Resources that are in beta are still undergoing testing and development. They may change without notice, including becoming backwards incompatible.  ### Using beta resources  To use a beta resource, you must include a header in the request. If you call a beta resource without this header, you receive a `403` response.  Use this header:  ``` LD-API-Version: beta ```  ## Federal environments  The version of LaunchDarkly that is available on domains controlled by the United States government is different from the version of LaunchDarkly available to the general public. If you are an employee or contractor for a United States federal agency and use LaunchDarkly in your work, you likely use the federal instance of LaunchDarkly.  If you are working in the federal instance of LaunchDarkly, the base URI for each request is `https://app.launchdarkly.us`.  To learn more, read [LaunchDarkly in federal environments](https://launchdarkly.com/docs/home/infrastructure/federal).  ## Versioning  We try hard to keep our REST API backwards compatible, but we occasionally have to make backwards-incompatible changes in the process of shipping new features. These breaking changes can cause unexpected behavior if you don't prepare for them accordingly.  Updates to our REST API include support for the latest features in LaunchDarkly. We also release a new version of our REST API every time we make a breaking change. We provide simultaneous support for multiple API versions so you can migrate from your current API version to a new version at your own pace.  ### Setting the API version per request  You can set the API version on a specific request by sending an `LD-API-Version` header, as shown in the example below:  ``` LD-API-Version: 20240415 ```  The header value is the version number of the API version you would like to request. The number for each version corresponds to the date the version was released in `yyyymmdd` format. In the example above the version `20240415` corresponds to April 15, 2024.  ### Setting the API version per access token  When you create an access token, you must specify a specific version of the API to use. This ensures that integrations using this token cannot be broken by version changes.  Tokens created before versioning was released have their version set to `20160426`, which is the version of the API that existed before the current versioning scheme, so that they continue working the same way they did before versioning.  If you would like to upgrade your integration to use a new API version, you can explicitly set the header described above.  > ### Best practice: Set the header for every client or integration > > We recommend that you set the API version header explicitly in any client or integration you build. > > Only rely on the access token API version during manual testing.  ### API version changelog  <table>   <tr>     <th>Version</th>     <th>Changes</th>     <th>End of life (EOL)</th>   </tr>   <tr>     <td>`20240415`</td>     <td>       <ul><li>Changed several endpoints from unpaginated to paginated. Use the `limit` and `offset` query parameters to page through the results.</li> <li>Changed the [list access tokens](https://launchdarkly.com/docs/api/access-tokens/get-tokens) endpoint: <ul><li>Response is now paginated with a default limit of `25`</li></ul></li> <li>Changed the [list account members](https://launchdarkly.com/docs/api/account-members/get-members) endpoint: <ul><li>The `accessCheck` filter is no longer available</li></ul></li> <li>Changed the [list custom roles](https://launchdarkly.com/docs/api/custom-roles/get-custom-roles) endpoint: <ul><li>Response is now paginated with a default limit of `20`</li></ul></li> <li>Changed the [list feature flags](https://launchdarkly.com/docs/api/feature-flags/get-feature-flags) endpoint: <ul><li>Response is now paginated with a default limit of `20`</li><li>The `environments` field is now only returned if the request is filtered by environment, using the `filterEnv` query parameter</li><li>The `followerId`, `hasDataExport`, `status`, `contextKindTargeted`, and `segmentTargeted` filters are no longer available</li><li>The `compare` query parameter is no longer available</li></ul></li> <li>Changed the [list segments](https://launchdarkly.com/docs/api/segments/get-segments) endpoint: <ul><li>Response is now paginated with a default limit of `20`</li></ul></li> <li>Changed the [list teams](https://launchdarkly.com/docs/api/teams/get-teams) endpoint: <ul><li>The `expand` parameter no longer supports including `projects` or `roles`</li><li>In paginated results, the maximum page size is now 100</li></ul></li> <li>Changed the [get workflows](https://launchdarkly.com/docs/api/workflows/get-workflows) endpoint: <ul><li>Response is now paginated with a default limit of `20`</li><li>The `_conflicts` field in the response is no longer available</li></ul></li> </ul>     </td>     <td>Current</td>   </tr>   <tr>     <td>`20220603`</td>     <td>       <ul><li>Changed the [list projects](https://launchdarkly.com/docs/api/projects/get-projects) return value:<ul><li>Response is now paginated with a default limit of `20`.</li><li>Added support for filter and sort.</li><li>The project `environments` field is now expandable. This field is omitted by default.</li></ul></li><li>Changed the [get project](https://launchdarkly.com/docs/api/projects/get-project) return value:<ul><li>The `environments` field is now expandable. This field is omitted by default.</li></ul></li></ul>     </td>     <td>2025-04-15</td>   </tr>   <tr>     <td>`20210729`</td>     <td>       <ul><li>Changed the [create approval request](https://launchdarkly.com/docs/api/approvals/post-approval-request) return value. It now returns HTTP Status Code `201` instead of `200`.</li><li> Changed the [get user](https://launchdarkly.com/docs/api/users/get-user) return value. It now returns a user record, not a user. </li><li>Added additional optional fields to environment, segments, flags, members, and segments, including the ability to create big segments. </li><li> Added default values for flag variations when new environments are created. </li><li>Added filtering and pagination for getting flags and members, including `limit`, `number`, `filter`, and `sort` query parameters. </li><li>Added endpoints for expiring user targets for flags and segments, scheduled changes, access tokens, Relay Proxy configuration, integrations and subscriptions, and approvals. </li></ul>     </td>     <td>2023-06-03</td>   </tr>   <tr>     <td>`20191212`</td>     <td>       <ul><li>[List feature flags](https://launchdarkly.com/docs/api/feature-flags/get-feature-flags) now defaults to sending summaries of feature flag configurations, equivalent to setting the query parameter `summary=true`. Summaries omit flag targeting rules and individual user targets from the payload. </li><li> Added endpoints for flags, flag status, projects, environments, audit logs, members, users, custom roles, segments, usage, streams, events, and data export. </li></ul>     </td>     <td>2022-07-29</td>   </tr>   <tr>     <td>`20160426`</td>     <td>       <ul><li>Initial versioning of API. Tokens created before versioning have their version set to this.</li></ul>     </td>     <td>2020-12-12</td>   </tr> </table>  To learn more about how EOL is determined, read LaunchDarkly's [End of Life (EOL) Policy](https://launchdarkly.com/policies/end-of-life-policy/). 
+This documentation describes LaunchDarkly's REST API. To access the complete OpenAPI spec directly, use [Get OpenAPI spec](https://launchdarkly.com/docs/api/other/get-openapi-spec).  To learn how to use LaunchDarkly using the user interface (UI) instead, read our [product documentation](https://launchdarkly.com/docs/home).  ## Authentication  LaunchDarkly's REST API uses the HTTPS protocol with a minimum TLS version of 1.2.  All REST API resources are authenticated with either [personal or service access tokens](https://launchdarkly.com/docs/home/account/api), or session cookies. Other authentication mechanisms are not supported. You can manage personal access tokens on your [**Authorization**](https://app.launchdarkly.com/settings/authorization) page in the LaunchDarkly UI.  LaunchDarkly also has SDK keys, mobile keys, and client-side IDs that are used by our server-side SDKs, mobile SDKs, and JavaScript-based SDKs, respectively. **These keys cannot be used to access our REST API**. These keys are environment-specific, and can only perform read-only operations such as fetching feature flag settings.  | Auth mechanism                                                                                  | Allowed resources                                                                                     | Use cases                                          | | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | -------------------------------------------------- | | [Personal or service access tokens](https://launchdarkly.com/docs/home/account/api) | Can be customized on a per-token basis                                                                | Building scripts, custom integrations, data export. | | SDK keys                                                                                        | Can only access read-only resources specific to server-side SDKs. Restricted to a single environment. | Server-side SDKs                     | | Mobile keys                                                                                     | Can only access read-only resources specific to mobile SDKs, and only for flags marked available to mobile keys. Restricted to a single environment.           | Mobile SDKs                                        | | Client-side ID                                                                                  | Can only access read-only resources specific to JavaScript-based client-side SDKs, and only for flags marked available to client-side. Restricted to a single environment.           | Client-side JavaScript                             |  > #### Keep your access tokens and SDK keys private > > Access tokens should _never_ be exposed in untrusted contexts. Never put an access token in client-side JavaScript, or embed it in a mobile application. LaunchDarkly has special mobile keys that you can embed in mobile apps. If you accidentally expose an access token or SDK key, you can reset it from your [**Authorization**](https://app.launchdarkly.com/settings/authorization) page. > > The client-side ID is safe to embed in untrusted contexts. It's designed for use in client-side JavaScript.  ### Authentication using request header  The preferred way to authenticate with the API is by adding an `Authorization` header containing your access token to your requests. The value of the `Authorization` header must be your access token.  Manage personal access tokens from the [**Authorization**](https://app.launchdarkly.com/settings/authorization) page.  ### Authentication using session cookie  For testing purposes, you can make API calls directly from your web browser. If you are logged in to the LaunchDarkly application, the API will use your existing session to authenticate calls.  Depending on the permissions granted as part of your [role](https://launchdarkly.com/docs/home/account/roles), you may not have permission to perform some API calls. You will receive a `401` response code in that case.  > ### Modifying the Origin header causes an error > > LaunchDarkly validates that the Origin header for any API request authenticated by a session cookie matches the expected Origin header. The expected Origin header is `https://app.launchdarkly.com`. > > If the Origin header does not match what's expected, LaunchDarkly returns an error. This error can prevent the LaunchDarkly app from working correctly. > > Any browser extension that intentionally changes the Origin header can cause this problem. For example, the `Allow-Control-Allow-Origin: *` Chrome extension changes the Origin header to `http://evil.com` and causes the app to fail. > > To prevent this error, do not modify your Origin header. > > LaunchDarkly does not require origin matching when authenticating with an access token, so this issue does not affect normal API usage.  ## Representations  All resources expect and return JSON response bodies. Error responses also send a JSON body. To learn more about the error format of the API, read [Errors](https://launchdarkly.com/docs/api#errors).  In practice this means that you always get a response with a `Content-Type` header set to `application/json`.  In addition, request bodies for `PATCH`, `POST`, and `PUT` requests must be encoded as JSON with a `Content-Type` header set to `application/json`.  ### Summary and detailed representations  When you fetch a list of resources, the response includes only the most important attributes of each resource. This is a _summary representation_ of the resource. When you fetch an individual resource, such as a single feature flag, you receive a _detailed representation_ of the resource.  The best way to find a detailed representation is to follow links. Every summary representation includes a link to its detailed representation.  ### Expanding responses  Sometimes the detailed representation of a resource does not include all of the attributes of the resource by default. If this is the case, the request method will clearly document this and describe which attributes you can include in an expanded response.  To include the additional attributes, append the `expand` request parameter to your request and add a comma-separated list of the attributes to include. For example, when you append `?expand=members,maintainers` to the [Get team](https://launchdarkly.com/docs/api/teams/get-team) endpoint, the expanded response includes both of these attributes.  ### Links and addressability  The best way to navigate the API is by following links. These are attributes in representations that link to other resources. The API always uses the same format for links:  - Links to other resources within the API are encapsulated in a `_links` object - If the resource has a corresponding link to HTML content on the site, it is stored in a special `_site` link  Each link has two attributes:  - An `href`, which contains the URL - A `type`, which describes the content type  For example, a feature resource might return the following:  ```json {   \"_links\": {     \"parent\": {       \"href\": \"/api/features\",       \"type\": \"application/json\"     },     \"self\": {       \"href\": \"/api/features/sort.order\",       \"type\": \"application/json\"     }   },   \"_site\": {     \"href\": \"/features/sort.order\",     \"type\": \"text/html\"   } } ```  From this, you can navigate to the parent collection of features by following the `parent` link, or navigate to the site page for the feature by following the `_site` link.  Collections are always represented as a JSON object with an `items` attribute containing an array of representations. Like all other representations, collections have `_links` defined at the top level.  Paginated collections include `first`, `last`, `next`, and `prev` links containing a URL with the respective set of elements in the collection.  ## Updates  Resources that accept partial updates use the `PATCH` verb. Most resources support the [JSON patch](https://launchdarkly.com/docs/api#updates-using-json-patch) format. Some resources also support the [JSON merge patch](https://launchdarkly.com/docs/api#updates-using-json-merge-patch) format, and some resources support the [semantic patch](https://launchdarkly.com/docs/api#updates-using-semantic-patch) format, which is a way to specify the modifications to perform as a set of executable instructions. Each resource supports optional [comments](https://launchdarkly.com/docs/api#updates-with-comments) that you can submit with updates. Comments appear in outgoing webhooks, the audit log, and other integrations.  When a resource supports both JSON patch and semantic patch, we document both in the request method. However, the specific request body fields and descriptions included in our documentation only match one type of patch or the other.  ### Updates using JSON patch  [JSON patch](https://datatracker.ietf.org/doc/html/rfc6902) is a way to specify the modifications to perform on a resource. JSON patch uses paths and a limited set of operations to describe how to transform the current state of the resource into a new state. JSON patch documents are always arrays, where each element contains an operation, a path to the field to update, and the new value.  For example, in this feature flag representation:  ```json {     \"name\": \"New recommendations engine\",     \"key\": \"engine.enable\",     \"description\": \"This is the description\",     ... } ``` You can change the feature flag's description with the following patch document:  ```json [{ \"op\": \"replace\", \"path\": \"/description\", \"value\": \"This is the new description\" }] ```  You can specify multiple modifications to perform in a single request. You can also test that certain preconditions are met before applying the patch:  ```json [   { \"op\": \"test\", \"path\": \"/version\", \"value\": 10 },   { \"op\": \"replace\", \"path\": \"/description\", \"value\": \"The new description\" } ] ```  The above patch request tests whether the feature flag's `version` is `10`, and if so, changes the feature flag's description.  Attributes that are not editable, such as a resource's `_links`, have names that start with an underscore.  ### Updates using JSON merge patch  [JSON merge patch](https://datatracker.ietf.org/doc/html/rfc7386) is another format for specifying the modifications to perform on a resource. JSON merge patch is less expressive than JSON patch. However, in many cases it is simpler to construct a merge patch document. For example, you can change a feature flag's description with the following merge patch document:  ```json {   \"description\": \"New flag description\" } ```  ### Updates using semantic patch  Some resources support the semantic patch format. A semantic patch is a way to specify the modifications to perform on a resource as a set of executable instructions.  Semantic patch allows you to be explicit about intent using precise, custom instructions. In many cases, you can define semantic patch instructions independently of the current state of the resource. This can be useful when defining a change that may be applied at a future date.  To make a semantic patch request, you must append `domain-model=launchdarkly.semanticpatch` to your `Content-Type` header.  Here's how:  ``` Content-Type: application/json; domain-model=launchdarkly.semanticpatch ```  If you call a semantic patch resource without this header, you will receive a `400` response because your semantic patch will be interpreted as a JSON patch.  The body of a semantic patch request takes the following properties:  * `comment` (string): (Optional) A description of the update. * `environmentKey` (string): (Required for some resources only) The environment key. * `instructions` (array): (Required) A list of actions the update should perform. Each action in the list must be an object with a `kind` property that indicates the instruction. If the instruction requires parameters, you must include those parameters as additional fields in the object. The documentation for each resource that supports semantic patch includes the available instructions and any additional parameters.  For example:  ```json {   \"comment\": \"optional comment\",   \"instructions\": [ {\"kind\": \"turnFlagOn\"} ] } ```  Semantic patches are not applied partially; either all of the instructions are applied or none of them are. If **any** instruction is invalid, the endpoint returns an error and will not change the resource. If all instructions are valid, the request succeeds and the resources are updated if necessary, or left unchanged if they are already in the state you request.  ### Updates with comments  You can submit optional comments with `PATCH` changes.  To submit a comment along with a JSON patch document, use the following format:  ```json {   \"comment\": \"This is a comment string\",   \"patch\": [{ \"op\": \"replace\", \"path\": \"/description\", \"value\": \"The new description\" }] } ```  To submit a comment along with a JSON merge patch document, use the following format:  ```json {   \"comment\": \"This is a comment string\",   \"merge\": { \"description\": \"New flag description\" } } ```  To submit a comment along with a semantic patch, use the following format:  ```json {   \"comment\": \"This is a comment string\",   \"instructions\": [ {\"kind\": \"turnFlagOn\"} ] } ```  ## Errors  The API always returns errors in a common format. Here's an example:  ```json {   \"code\": \"invalid_request\",   \"message\": \"A feature with that key already exists\",   \"id\": \"30ce6058-87da-11e4-b116-123b93f75cba\" } ```  The `code` indicates the general class of error. The `message` is a human-readable explanation of what went wrong. The `id` is a unique identifier. Use it when you're working with LaunchDarkly Support to debug a problem with a specific API call.  ### HTTP status error response codes  | Code | Definition        | Description                                                                                       | Possible Solution                                                | | ---- | ----------------- | ------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- | | 400  | Invalid request       | The request cannot be understood.                                    | Ensure JSON syntax in request body is correct.                   | | 401  | Invalid access token      | Requestor is unauthorized or does not have permission for this API call.                                                | Ensure your API access token is valid and has the appropriate permissions.                                     | | 403  | Forbidden         | Requestor does not have access to this resource.                                                | Ensure that the account member or access token has proper permissions set. | | 404  | Invalid resource identifier | The requested resource is not valid. | Ensure that the resource is correctly identified by ID or key. | | 405  | Method not allowed | The request method is not allowed on this resource. | Ensure that the HTTP verb is correct. | | 409  | Conflict          | The API request can not be completed because it conflicts with a concurrent API request. | Retry your request.                                              | | 422  | Unprocessable entity | The API request can not be completed because the update description can not be understood. | Ensure that the request body is correct for the type of patch you are using, either JSON patch or semantic patch. | 429  | Too many requests | Read [Rate limiting](https://launchdarkly.com/docs/api#rate-limiting).                                               | Wait and try again later.                                        |  ## CORS  The LaunchDarkly API supports Cross Origin Resource Sharing (CORS) for AJAX requests from any origin. If an `Origin` header is given in a request, it will be echoed as an explicitly allowed origin. Otherwise the request returns a wildcard, `Access-Control-Allow-Origin: *`. For more information on CORS, read the [CORS W3C Recommendation](http://www.w3.org/TR/cors). Example CORS headers might look like:  ```http Access-Control-Allow-Headers: Accept, Content-Type, Content-Length, Accept-Encoding, Authorization Access-Control-Allow-Methods: OPTIONS, GET, DELETE, PATCH Access-Control-Allow-Origin: * Access-Control-Max-Age: 300 ```  You can make authenticated CORS calls just as you would make same-origin calls, using either [token or session-based authentication](https://launchdarkly.com/docs/api#authentication). If you are using session authentication, you should set the `withCredentials` property for your `xhr` request to `true`. You should never expose your access tokens to untrusted entities.  ## Rate limiting  We use several rate limiting strategies to ensure the availability of our APIs. Rate-limited calls to our APIs return a `429` status code. Calls to our APIs include headers indicating the current rate limit status. The specific headers returned depend on the API route being called. The limits differ based on the route, authentication mechanism, and other factors. Routes that are not rate limited may not contain any of the headers described below.  > ### Rate limiting and SDKs > > LaunchDarkly SDKs are never rate limited and do not use the API endpoints defined here. LaunchDarkly uses a different set of approaches, including streaming/server-sent events and a global CDN, to ensure availability to the routes used by LaunchDarkly SDKs.  ### Global rate limits  Authenticated requests are subject to a global limit. This is the maximum number of calls that your account can make to the API per ten seconds. All service and personal access tokens on the account share this limit, so exceeding the limit with one access token will impact other tokens. Calls that are subject to global rate limits may return the headers below:  | Header name                    | Description                                                                      | | ------------------------------ | -------------------------------------------------------------------------------- | | `X-Ratelimit-Global-Remaining` | The maximum number of requests the account is permitted to make per ten seconds. | | `X-Ratelimit-Reset`            | The time at which the current rate limit window resets in epoch milliseconds.    |  We do not publicly document the specific number of calls that can be made globally. This limit may change, and we encourage clients to program against the specification, relying on the two headers defined above, rather than hardcoding to the current limit.  ### Route-level rate limits  Some authenticated routes have custom rate limits. These also reset every ten seconds. Any service or personal access tokens hitting the same route share this limit, so exceeding the limit with one access token may impact other tokens. Calls that are subject to route-level rate limits return the headers below:  | Header name                   | Description                                                                                           | | ----------------------------- | ----------------------------------------------------------------------------------------------------- | | `X-Ratelimit-Route-Remaining` | The maximum number of requests to the current route the account is permitted to make per ten seconds. | | `X-Ratelimit-Reset`           | The time at which the current rate limit window resets in epoch milliseconds.                         |  A _route_ represents a specific URL pattern and verb. For example, the [Delete environment](https://launchdarkly.com/docs/api/environments/delete-environment) endpoint is considered a single route, and each call to delete an environment counts against your route-level rate limit for that route.  We do not publicly document the specific number of calls that an account can make to each endpoint per ten seconds. These limits may change, and we encourage clients to program against the specification, relying on the two headers defined above, rather than hardcoding to the current limits.  ### IP-based rate limiting  We also employ IP-based rate limiting on some API routes. If you hit an IP-based rate limit, your API response will include a `Retry-After` header indicating how long to wait before re-trying the call. Clients must wait at least `Retry-After` seconds before making additional calls to our API, and should employ jitter and backoff strategies to avoid triggering rate limits again.  ## OpenAPI (Swagger) and client libraries  We have a [complete OpenAPI (Swagger) specification](https://app.launchdarkly.com/api/v2/openapi.json) for our API.  We auto-generate multiple client libraries based on our OpenAPI specification. To learn more, visit the [collection of client libraries on GitHub](https://github.com/search?q=topic%3Alaunchdarkly-api+org%3Alaunchdarkly&type=Repositories). You can also use this specification to generate client libraries to interact with our REST API in your language of choice.  Our OpenAPI specification is supported by several API-based tools such as Postman and Insomnia. In many cases, you can directly import our specification to explore our APIs.  ## Method overriding  Some firewalls and HTTP clients restrict the use of verbs other than `GET` and `POST`. In those environments, our API endpoints that use `DELETE`, `PATCH`, and `PUT` verbs are inaccessible.  To avoid this issue, our API supports the `X-HTTP-Method-Override` header, allowing clients to \"tunnel\" `DELETE`, `PATCH`, and `PUT` requests using a `POST` request.  For example, to call a `PATCH` endpoint using a `POST` request, you can include `X-HTTP-Method-Override:PATCH` as a header.  ## Beta resources  We sometimes release new API resources in **beta** status before we release them with general availability.  Resources that are in beta are still undergoing testing and development. They may change without notice, including becoming backwards incompatible.  We try to promote resources into general availability as quickly as possible. This happens after sufficient testing and when we're satisfied that we no longer need to make backwards-incompatible changes.  We mark beta resources with a \"Beta\" callout in our documentation, pictured below:  > ### This feature is in beta > > To use this feature, pass in a header including the `LD-API-Version` key with value set to `beta`. Use this header with each call. To learn more, read [Beta resources](https://launchdarkly.com/docs/api#beta-resources). > > Resources that are in beta are still undergoing testing and development. They may change without notice, including becoming backwards incompatible.  ### Using beta resources  To use a beta resource, you must include a header in the request. If you call a beta resource without this header, you receive a `403` response.  Use this header:  ``` LD-API-Version: beta ```  ## Federal and EU environments  In addition to the commercial versions, LaunchDarkly offers instances for federal agencies and those based in the European Union (EU).  ### Federal environments  The version of LaunchDarkly that is available on domains controlled by the United States government is different from the version of LaunchDarkly available to the general public. If you are an employee or contractor for a United States federal agency and use LaunchDarkly in your work, you likely use the federal instance of LaunchDarkly.  If you are working in the federal instance of LaunchDarkly, the base URI for each request is `https://app.launchdarkly.us`.  To learn more, read [LaunchDarkly in federal environments](https://launchdarkly.com/docs/home/infrastructure/federal).  ### EU environments  The version of LaunchDarkly that is available in the EU is different from the version of LaunchDarkly available to other regions. If you are based in the EU, you likely use the EU instance of LaunchDarkly. The LaunchDarkly EU instance complies with EU data residency principles, including the protection and confidentiality of EU customer information.  If you are working in the EU instance of LaunchDarkly, the base URI for each request is `https://app.eu.launchdarkly.com`.  To learn more, read [LaunchDarkly in the European Union (EU)](https://launchdarkly.com/docs/home/infrastructure/eu).  ## Versioning  We try hard to keep our REST API backwards compatible, but we occasionally have to make backwards-incompatible changes in the process of shipping new features. These breaking changes can cause unexpected behavior if you don't prepare for them accordingly.  Updates to our REST API include support for the latest features in LaunchDarkly. We also release a new version of our REST API every time we make a breaking change. We provide simultaneous support for multiple API versions so you can migrate from your current API version to a new version at your own pace.  ### Setting the API version per request  You can set the API version on a specific request by sending an `LD-API-Version` header, as shown in the example below:  ``` LD-API-Version: 20240415 ```  The header value is the version number of the API version you would like to request. The number for each version corresponds to the date the version was released in `yyyymmdd` format. In the example above the version `20240415` corresponds to April 15, 2024.  ### Setting the API version per access token  When you create an access token, you must specify a specific version of the API to use. This ensures that integrations using this token cannot be broken by version changes.  Tokens created before versioning was released have their version set to `20160426`, which is the version of the API that existed before the current versioning scheme, so that they continue working the same way they did before versioning.  If you would like to upgrade your integration to use a new API version, you can explicitly set the header described above.  > ### Best practice: Set the header for every client or integration > > We recommend that you set the API version header explicitly in any client or integration you build. > > Only rely on the access token API version during manual testing.  ### API version changelog  <table>   <tr>     <th>Version</th>     <th>Changes</th>     <th>End of life (EOL)</th>   </tr>   <tr>     <td>`20240415`</td>     <td>       <ul><li>Changed several endpoints from unpaginated to paginated. Use the `limit` and `offset` query parameters to page through the results.</li> <li>Changed the [list access tokens](https://launchdarkly.com/docs/api/access-tokens/get-tokens) endpoint: <ul><li>Response is now paginated with a default limit of `25`</li></ul></li> <li>Changed the [list account members](https://launchdarkly.com/docs/api/account-members/get-members) endpoint: <ul><li>The `accessCheck` filter is no longer available</li></ul></li> <li>Changed the [list custom roles](https://launchdarkly.com/docs/api/custom-roles/get-custom-roles) endpoint: <ul><li>Response is now paginated with a default limit of `20`</li></ul></li> <li>Changed the [list feature flags](https://launchdarkly.com/docs/api/feature-flags/get-feature-flags) endpoint: <ul><li>Response is now paginated with a default limit of `20`</li><li>The `environments` field is now only returned if the request is filtered by environment, using the `filterEnv` query parameter</li><li>The `followerId`, `hasDataExport`, `status`, `contextKindTargeted`, and `segmentTargeted` filters are no longer available</li><li>The `compare` query parameter is no longer available</li></ul></li> <li>Changed the [list segments](https://launchdarkly.com/docs/api/segments/get-segments) endpoint: <ul><li>Response is now paginated with a default limit of `20`</li></ul></li> <li>Changed the [list teams](https://launchdarkly.com/docs/api/teams/get-teams) endpoint: <ul><li>The `expand` parameter no longer supports including `projects` or `roles`</li><li>In paginated results, the maximum page size is now 100</li></ul></li> <li>Changed the [get workflows](https://launchdarkly.com/docs/api/workflows/get-workflows) endpoint: <ul><li>Response is now paginated with a default limit of `20`</li><li>The `_conflicts` field in the response is no longer available</li></ul></li> </ul>     </td>     <td>Current</td>   </tr>   <tr>     <td>`20220603`</td>     <td>       <ul><li>Changed the [list projects](https://launchdarkly.com/docs/api/projects/get-projects) return value:<ul><li>Response is now paginated with a default limit of `20`.</li><li>Added support for filter and sort.</li><li>The project `environments` field is now expandable. This field is omitted by default.</li></ul></li><li>Changed the [get project](https://launchdarkly.com/docs/api/projects/get-project) return value:<ul><li>The `environments` field is now expandable. This field is omitted by default.</li></ul></li></ul>     </td>     <td>2025-04-15</td>   </tr>   <tr>     <td>`20210729`</td>     <td>       <ul><li>Changed the [create approval request](https://launchdarkly.com/docs/api/approvals/post-approval-request) return value. It now returns HTTP Status Code `201` instead of `200`.</li><li> Changed the [get user](https://launchdarkly.com/docs/api/users/get-user) return value. It now returns a user record, not a user. </li><li>Added additional optional fields to environment, segments, flags, members, and segments, including the ability to create big segments. </li><li> Added default values for flag variations when new environments are created. </li><li>Added filtering and pagination for getting flags and members, including `limit`, `number`, `filter`, and `sort` query parameters. </li><li>Added endpoints for expiring user targets for flags and segments, scheduled changes, access tokens, Relay Proxy configuration, integrations and subscriptions, and approvals. </li></ul>     </td>     <td>2023-06-03</td>   </tr>   <tr>     <td>`20191212`</td>     <td>       <ul><li>[List feature flags](https://launchdarkly.com/docs/api/feature-flags/get-feature-flags) now defaults to sending summaries of feature flag configurations, equivalent to setting the query parameter `summary=true`. Summaries omit flag targeting rules and individual user targets from the payload. </li><li> Added endpoints for flags, flag status, projects, environments, audit logs, members, users, custom roles, segments, usage, streams, events, and data export. </li></ul>     </td>     <td>2022-07-29</td>   </tr>   <tr>     <td>`20160426`</td>     <td>       <ul><li>Initial versioning of API. Tokens created before versioning have their version set to this.</li></ul>     </td>     <td>2020-12-12</td>   </tr> </table>  To learn more about how EOL is determined, read LaunchDarkly's [End of Life (EOL) Policy](https://launchdarkly.com/policies/end-of-life-policy/). 
 
 API version: 2.0
 Contact: support@launchdarkly.com
@@ -14,7 +14,7 @@ package ldapi
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
@@ -24,9 +24,51 @@ import (
 type AccountUsageBetaApi interface {
 
 	/*
+	GetContextsClientsideUsage Get contexts clientside usage
+
+	Get a detailed time series of the number of context key usages observed by LaunchDarkly in your account, including non-primary context kinds. Use this for breakdowns that go beyond the primary-only aggregation of MAU endpoints. The counts reflect data reported by client-side SDKs.<br/><br/>The supported granularity varies by aggregation type. The maximum time range is 365 days.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetContextsClientsideUsageRequest
+	*/
+	GetContextsClientsideUsage(ctx context.Context) ApiGetContextsClientsideUsageRequest
+
+	// GetContextsClientsideUsageExecute executes the request
+	//  @return SeriesListRep
+	GetContextsClientsideUsageExecute(r ApiGetContextsClientsideUsageRequest) (*SeriesListRep, *http.Response, error)
+
+	/*
+	GetContextsServersideUsage Get contexts serverside usage
+
+	Get a detailed time series of the number of context key usages observed by LaunchDarkly in your account, including non-primary context kinds. Use this for breakdowns that go beyond the primary-only aggregation of MAU endpoints. The counts reflect data reported by server-side SDKs.<br/><br/>The supported granularity varies by aggregation type. The maximum time range is 365 days.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetContextsServersideUsageRequest
+	*/
+	GetContextsServersideUsage(ctx context.Context) ApiGetContextsServersideUsageRequest
+
+	// GetContextsServersideUsageExecute executes the request
+	//  @return SeriesListRep
+	GetContextsServersideUsageExecute(r ApiGetContextsServersideUsageRequest) (*SeriesListRep, *http.Response, error)
+
+	/*
+	GetContextsTotalUsage Get contexts total usage
+
+	Get a detailed time series of the number of context key usages observed by LaunchDarkly in your account, including non-primary context kinds. Use this for breakdowns that go beyond the primary-only aggregation of MAU endpoints.<br/><br/>The supported granularity varies by aggregation type. The maximum time range is 365 days.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetContextsTotalUsageRequest
+	*/
+	GetContextsTotalUsage(ctx context.Context) ApiGetContextsTotalUsageRequest
+
+	// GetContextsTotalUsageExecute executes the request
+	//  @return SeriesListRep
+	GetContextsTotalUsageExecute(r ApiGetContextsTotalUsageRequest) (*SeriesListRep, *http.Response, error)
+
+	/*
 	GetDataExportEventsUsage Get data export events usage
 
-	Get a time-series array of the number of monthly data export events from your account. The granularity is always daily, with a maximum of 31 days.
+	Get a time series array showing the number of data export events from your account. The supported granularity varies by aggregation type. The maximum time range is 365 days.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiGetDataExportEventsUsageRequest
@@ -34,8 +76,8 @@ type AccountUsageBetaApi interface {
 	GetDataExportEventsUsage(ctx context.Context) ApiGetDataExportEventsUsageRequest
 
 	// GetDataExportEventsUsageExecute executes the request
-	//  @return SeriesIntervalsRep
-	GetDataExportEventsUsageExecute(r ApiGetDataExportEventsUsageRequest) (*SeriesIntervalsRep, *http.Response, error)
+	//  @return SeriesListRep
+	GetDataExportEventsUsageExecute(r ApiGetDataExportEventsUsageRequest) (*SeriesListRep, *http.Response, error)
 
 	/*
 	GetEvaluationsUsage Get evaluations usage
@@ -70,9 +112,23 @@ type AccountUsageBetaApi interface {
 	GetEventsUsageExecute(r ApiGetEventsUsageRequest) (*SeriesListRep, *http.Response, error)
 
 	/*
+	GetExperimentationEventsUsage Get experimentation events usage
+
+	Get a time series array showing the number of experimentation events from your account. The supported granularity varies by aggregation type. The maximum time range is 365 days.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetExperimentationEventsUsageRequest
+	*/
+	GetExperimentationEventsUsage(ctx context.Context) ApiGetExperimentationEventsUsageRequest
+
+	// GetExperimentationEventsUsageExecute executes the request
+	//  @return SeriesListRep
+	GetExperimentationEventsUsageExecute(r ApiGetExperimentationEventsUsageRequest) (*SeriesListRep, *http.Response, error)
+
+	/*
 	GetExperimentationKeysUsage Get experimentation keys usage
 
-	Get a time-series array of the number of monthly experimentation keys from your account. The granularity is always daily, with a maximum of 31 days.
+	Get a time series array showing the number of experimentation keys from your account. The supported granularity varies by aggregation type. The maximum time range is 365 days.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiGetExperimentationKeysUsageRequest
@@ -80,22 +136,8 @@ type AccountUsageBetaApi interface {
 	GetExperimentationKeysUsage(ctx context.Context) ApiGetExperimentationKeysUsageRequest
 
 	// GetExperimentationKeysUsageExecute executes the request
-	//  @return SeriesIntervalsRep
-	GetExperimentationKeysUsageExecute(r ApiGetExperimentationKeysUsageRequest) (*SeriesIntervalsRep, *http.Response, error)
-
-	/*
-	GetExperimentationUnitsUsage Get experimentation units usage
-
-	Get a time-series array of the number of monthly experimentation units from your account. The granularity is always daily, with a maximum of 31 days.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetExperimentationUnitsUsageRequest
-	*/
-	GetExperimentationUnitsUsage(ctx context.Context) ApiGetExperimentationUnitsUsageRequest
-
-	// GetExperimentationUnitsUsageExecute executes the request
-	//  @return SeriesIntervalsRep
-	GetExperimentationUnitsUsageExecute(r ApiGetExperimentationUnitsUsageRequest) (*SeriesIntervalsRep, *http.Response, error)
+	//  @return SeriesListRep
+	GetExperimentationKeysUsageExecute(r ApiGetExperimentationKeysUsageRequest) (*SeriesListRep, *http.Response, error)
 
 	/*
 	GetMauSdksByType Get MAU SDKs by type
@@ -140,18 +182,74 @@ type AccountUsageBetaApi interface {
 	GetMauUsageByCategoryExecute(r ApiGetMauUsageByCategoryRequest) (*SeriesListRep, *http.Response, error)
 
 	/*
-	GetServiceConnectionUsage Get service connection usage
+	GetObservabilityErrorsUsage Get observability errors usage
 
-	Get a time-series array of the number of monthly service connections from your account. The granularity is always daily, with a maximum of 31 days.
+	Get time-series arrays of the number of observability errors. Supports `daily` and `monthly` granularity.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetServiceConnectionUsageRequest
+	@return ApiGetObservabilityErrorsUsageRequest
 	*/
-	GetServiceConnectionUsage(ctx context.Context) ApiGetServiceConnectionUsageRequest
+	GetObservabilityErrorsUsage(ctx context.Context) ApiGetObservabilityErrorsUsageRequest
 
-	// GetServiceConnectionUsageExecute executes the request
-	//  @return SeriesIntervalsRep
-	GetServiceConnectionUsageExecute(r ApiGetServiceConnectionUsageRequest) (*SeriesIntervalsRep, *http.Response, error)
+	// GetObservabilityErrorsUsageExecute executes the request
+	//  @return SeriesListRep
+	GetObservabilityErrorsUsageExecute(r ApiGetObservabilityErrorsUsageRequest) (*SeriesListRep, *http.Response, error)
+
+	/*
+	GetObservabilityLogsUsage Get observability logs usage
+
+	Get time-series arrays of the number of observability logs. Supports `daily` and `monthly` granularity.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetObservabilityLogsUsageRequest
+	*/
+	GetObservabilityLogsUsage(ctx context.Context) ApiGetObservabilityLogsUsageRequest
+
+	// GetObservabilityLogsUsageExecute executes the request
+	//  @return SeriesListRep
+	GetObservabilityLogsUsageExecute(r ApiGetObservabilityLogsUsageRequest) (*SeriesListRep, *http.Response, error)
+
+	/*
+	GetObservabilitySessionsUsage Get observability sessions usage
+
+	Get time-series arrays of the number of observability sessions. Supports `daily` and `monthly` granularity.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetObservabilitySessionsUsageRequest
+	*/
+	GetObservabilitySessionsUsage(ctx context.Context) ApiGetObservabilitySessionsUsageRequest
+
+	// GetObservabilitySessionsUsageExecute executes the request
+	//  @return SeriesListRep
+	GetObservabilitySessionsUsageExecute(r ApiGetObservabilitySessionsUsageRequest) (*SeriesListRep, *http.Response, error)
+
+	/*
+	GetObservabilityTracesUsage Get observability traces usage
+
+	Get time-series arrays of the number of observability traces. Supports `daily` and `monthly` granularity.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetObservabilityTracesUsageRequest
+	*/
+	GetObservabilityTracesUsage(ctx context.Context) ApiGetObservabilityTracesUsageRequest
+
+	// GetObservabilityTracesUsageExecute executes the request
+	//  @return SeriesListRep
+	GetObservabilityTracesUsageExecute(r ApiGetObservabilityTracesUsageRequest) (*SeriesListRep, *http.Response, error)
+
+	/*
+	GetServiceConnectionsUsage Get service connections usage
+
+	Get a time series array showing the number of service connection minutes from your account. The supported granularity varies by aggregation type. The maximum time range is 365 days.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetServiceConnectionsUsageRequest
+	*/
+	GetServiceConnectionsUsage(ctx context.Context) ApiGetServiceConnectionsUsageRequest
+
+	// GetServiceConnectionsUsageExecute executes the request
+	//  @return SeriesListRepFloat
+	GetServiceConnectionsUsageExecute(r ApiGetServiceConnectionsUsageRequest) (*SeriesListRepFloat, *http.Response, error)
 
 	/*
 	GetStreamUsage Get stream usage
@@ -202,90 +300,150 @@ type AccountUsageBetaApi interface {
 // AccountUsageBetaApiService AccountUsageBetaApi service
 type AccountUsageBetaApiService service
 
-type ApiGetDataExportEventsUsageRequest struct {
+type ApiGetContextsClientsideUsageRequest struct {
 	ctx context.Context
 	ApiService AccountUsageBetaApi
 	from *string
 	to *string
 	projectKey *string
 	environmentKey *string
+	contextKind *string
+	sdkName *string
+	anonymous *string
+	groupBy *string
+	aggregationType *string
+	granularity *string
 }
 
-// The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month.
-func (r ApiGetDataExportEventsUsageRequest) From(from string) ApiGetDataExportEventsUsageRequest {
+// The series of data returned starts from this timestamp (Unix milliseconds). Defaults to the beginning of the current month.
+func (r ApiGetContextsClientsideUsageRequest) From(from string) ApiGetContextsClientsideUsageRequest {
 	r.from = &from
 	return r
 }
 
-// The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time.
-func (r ApiGetDataExportEventsUsageRequest) To(to string) ApiGetDataExportEventsUsageRequest {
+// The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time.
+func (r ApiGetContextsClientsideUsageRequest) To(to string) ApiGetContextsClientsideUsageRequest {
 	r.to = &to
 	return r
 }
 
-// A project key. If specified, &#x60;environmentKey&#x60; is required and results apply to the corresponding environment in this project.
-func (r ApiGetDataExportEventsUsageRequest) ProjectKey(projectKey string) ApiGetDataExportEventsUsageRequest {
+// A project key to filter results by. Can be specified multiple times, one query parameter per project key.
+func (r ApiGetContextsClientsideUsageRequest) ProjectKey(projectKey string) ApiGetContextsClientsideUsageRequest {
 	r.projectKey = &projectKey
 	return r
 }
 
-// An environment key. If specified, &#x60;projectKey&#x60; is required and results apply to the corresponding environment in this project.
-func (r ApiGetDataExportEventsUsageRequest) EnvironmentKey(environmentKey string) ApiGetDataExportEventsUsageRequest {
+// An environment key to filter results by. If specified, exactly one &#x60;projectKey&#x60; must be provided. Can be specified multiple times, one query parameter per environment key.
+func (r ApiGetContextsClientsideUsageRequest) EnvironmentKey(environmentKey string) ApiGetContextsClientsideUsageRequest {
 	r.environmentKey = &environmentKey
 	return r
 }
 
-func (r ApiGetDataExportEventsUsageRequest) Execute() (*SeriesIntervalsRep, *http.Response, error) {
-	return r.ApiService.GetDataExportEventsUsageExecute(r)
+// A context kind to filter results by. Can be specified multiple times, one query parameter per context kind.
+func (r ApiGetContextsClientsideUsageRequest) ContextKind(contextKind string) ApiGetContextsClientsideUsageRequest {
+	r.contextKind = &contextKind
+	return r
+}
+
+// An SDK name to filter results by. Can be specified multiple times, one query parameter per SDK name.
+func (r ApiGetContextsClientsideUsageRequest) SdkName(sdkName string) ApiGetContextsClientsideUsageRequest {
+	r.sdkName = &sdkName
+	return r
+}
+
+// An anonymous value to filter results by. Can be specified multiple times, one query parameter per anonymous value.&lt;br/&gt;Valid values: &#x60;true&#x60;, &#x60;false&#x60;.
+func (r ApiGetContextsClientsideUsageRequest) Anonymous(anonymous string) ApiGetContextsClientsideUsageRequest {
+	r.anonymous = &anonymous
+	return r
+}
+
+// If specified, returns data for each distinct value of the given field. &#x60;contextKind&#x60; is always included as a grouping dimension. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.&lt;br/&gt;Valid values: &#x60;projectId&#x60;, &#x60;environmentId&#x60;, &#x60;sdkName&#x60;, &#x60;sdkAppId&#x60;, &#x60;anonymousV2&#x60;.
+func (r ApiGetContextsClientsideUsageRequest) GroupBy(groupBy string) ApiGetContextsClientsideUsageRequest {
+	r.groupBy = &groupBy
+	return r
+}
+
+// Specifies the aggregation method. Defaults to &#x60;month_to_date&#x60;.&lt;br/&gt;Valid values: &#x60;month_to_date&#x60;, &#x60;incremental&#x60;, &#x60;rolling_30d&#x60;.
+func (r ApiGetContextsClientsideUsageRequest) AggregationType(aggregationType string) ApiGetContextsClientsideUsageRequest {
+	r.aggregationType = &aggregationType
+	return r
+}
+
+// Specifies the data granularity. Defaults to &#x60;daily&#x60;. Valid values depend on &#x60;aggregationType&#x60;: **month_to_date** supports &#x60;daily&#x60; and &#x60;monthly&#x60;; **incremental** and **rolling_30d** support &#x60;daily&#x60; only.
+func (r ApiGetContextsClientsideUsageRequest) Granularity(granularity string) ApiGetContextsClientsideUsageRequest {
+	r.granularity = &granularity
+	return r
+}
+
+func (r ApiGetContextsClientsideUsageRequest) Execute() (*SeriesListRep, *http.Response, error) {
+	return r.ApiService.GetContextsClientsideUsageExecute(r)
 }
 
 /*
-GetDataExportEventsUsage Get data export events usage
+GetContextsClientsideUsage Get contexts clientside usage
 
-Get a time-series array of the number of monthly data export events from your account. The granularity is always daily, with a maximum of 31 days.
+Get a detailed time series of the number of context key usages observed by LaunchDarkly in your account, including non-primary context kinds. Use this for breakdowns that go beyond the primary-only aggregation of MAU endpoints. The counts reflect data reported by client-side SDKs.<br/><br/>The supported granularity varies by aggregation type. The maximum time range is 365 days.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetDataExportEventsUsageRequest
+ @return ApiGetContextsClientsideUsageRequest
 */
-func (a *AccountUsageBetaApiService) GetDataExportEventsUsage(ctx context.Context) ApiGetDataExportEventsUsageRequest {
-	return ApiGetDataExportEventsUsageRequest{
+func (a *AccountUsageBetaApiService) GetContextsClientsideUsage(ctx context.Context) ApiGetContextsClientsideUsageRequest {
+	return ApiGetContextsClientsideUsageRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//  @return SeriesIntervalsRep
-func (a *AccountUsageBetaApiService) GetDataExportEventsUsageExecute(r ApiGetDataExportEventsUsageRequest) (*SeriesIntervalsRep, *http.Response, error) {
+//  @return SeriesListRep
+func (a *AccountUsageBetaApiService) GetContextsClientsideUsageExecute(r ApiGetContextsClientsideUsageRequest) (*SeriesListRep, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *SeriesIntervalsRep
+		localVarReturnValue  *SeriesListRep
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountUsageBetaApiService.GetDataExportEventsUsage")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountUsageBetaApiService.GetContextsClientsideUsage")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v2/usage/data-export-events"
+	localVarPath := localBasePath + "/api/v2/usage/clientside-contexts"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.from != nil {
-		localVarQueryParams.Add("from", parameterToString(*r.from, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "")
 	}
 	if r.to != nil {
-		localVarQueryParams.Add("to", parameterToString(*r.to, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "")
 	}
 	if r.projectKey != nil {
-		localVarQueryParams.Add("projectKey", parameterToString(*r.projectKey, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "projectKey", r.projectKey, "")
 	}
 	if r.environmentKey != nil {
-		localVarQueryParams.Add("environmentKey", parameterToString(*r.environmentKey, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environmentKey", r.environmentKey, "")
+	}
+	if r.contextKind != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "contextKind", r.contextKind, "")
+	}
+	if r.sdkName != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sdkName", r.sdkName, "")
+	}
+	if r.anonymous != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "anonymous", r.anonymous, "")
+	}
+	if r.groupBy != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "groupBy", r.groupBy, "")
+	}
+	if r.aggregationType != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "aggregationType", r.aggregationType, "")
+	}
+	if r.granularity != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "granularity", r.granularity, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -328,9 +486,9 @@ func (a *AccountUsageBetaApiService) GetDataExportEventsUsageExecute(r ApiGetDat
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -347,7 +505,8 @@ func (a *AccountUsageBetaApiService) GetDataExportEventsUsageExecute(r ApiGetDat
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -357,7 +516,8 @@ func (a *AccountUsageBetaApiService) GetDataExportEventsUsageExecute(r ApiGetDat
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -367,7 +527,8 @@ func (a *AccountUsageBetaApiService) GetDataExportEventsUsageExecute(r ApiGetDat
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -377,7 +538,8 @@ func (a *AccountUsageBetaApiService) GetDataExportEventsUsageExecute(r ApiGetDat
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 503 {
@@ -387,7 +549,799 @@ func (a *AccountUsageBetaApiService) GetDataExportEventsUsageExecute(r ApiGetDat
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetContextsServersideUsageRequest struct {
+	ctx context.Context
+	ApiService AccountUsageBetaApi
+	from *string
+	to *string
+	projectKey *string
+	environmentKey *string
+	contextKind *string
+	sdkName *string
+	anonymous *string
+	groupBy *string
+	aggregationType *string
+	granularity *string
+}
+
+// The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month.
+func (r ApiGetContextsServersideUsageRequest) From(from string) ApiGetContextsServersideUsageRequest {
+	r.from = &from
+	return r
+}
+
+// The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time.
+func (r ApiGetContextsServersideUsageRequest) To(to string) ApiGetContextsServersideUsageRequest {
+	r.to = &to
+	return r
+}
+
+// A project key to filter results by. Can be specified multiple times, one query parameter per project key.
+func (r ApiGetContextsServersideUsageRequest) ProjectKey(projectKey string) ApiGetContextsServersideUsageRequest {
+	r.projectKey = &projectKey
+	return r
+}
+
+// An environment key to filter results by. If specified, exactly one &#x60;projectKey&#x60; must be provided. Can be specified multiple times, one query parameter per environment key.
+func (r ApiGetContextsServersideUsageRequest) EnvironmentKey(environmentKey string) ApiGetContextsServersideUsageRequest {
+	r.environmentKey = &environmentKey
+	return r
+}
+
+// A context kind to filter results by. Can be specified multiple times, one query parameter per context kind.
+func (r ApiGetContextsServersideUsageRequest) ContextKind(contextKind string) ApiGetContextsServersideUsageRequest {
+	r.contextKind = &contextKind
+	return r
+}
+
+// An SDK name to filter results by. Can be specified multiple times, one query parameter per SDK name.
+func (r ApiGetContextsServersideUsageRequest) SdkName(sdkName string) ApiGetContextsServersideUsageRequest {
+	r.sdkName = &sdkName
+	return r
+}
+
+// An anonymous value to filter results by. Can be specified multiple times, one query parameter per anonymous value.&lt;br/&gt;Valid values: &#x60;true&#x60;, &#x60;false&#x60;.
+func (r ApiGetContextsServersideUsageRequest) Anonymous(anonymous string) ApiGetContextsServersideUsageRequest {
+	r.anonymous = &anonymous
+	return r
+}
+
+// If specified, returns data for each distinct value of the given field. &#x60;contextKind&#x60; is always included as a grouping dimension. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.&lt;br/&gt;Valid values: &#x60;projectId&#x60;, &#x60;environmentId&#x60;, &#x60;sdkName&#x60;, &#x60;sdkAppId&#x60;, &#x60;anonymousV2&#x60;.
+func (r ApiGetContextsServersideUsageRequest) GroupBy(groupBy string) ApiGetContextsServersideUsageRequest {
+	r.groupBy = &groupBy
+	return r
+}
+
+// Specifies the aggregation method. Defaults to &#x60;month_to_date&#x60;.&lt;br/&gt;Valid values: &#x60;month_to_date&#x60;, &#x60;incremental&#x60;, &#x60;rolling_30d&#x60;.
+func (r ApiGetContextsServersideUsageRequest) AggregationType(aggregationType string) ApiGetContextsServersideUsageRequest {
+	r.aggregationType = &aggregationType
+	return r
+}
+
+// Specifies the data granularity. Defaults to &#x60;daily&#x60;. Valid values depend on &#x60;aggregationType&#x60;: **month_to_date** supports &#x60;daily&#x60; and &#x60;monthly&#x60;; **incremental** and **rolling_30d** support &#x60;daily&#x60; only.
+func (r ApiGetContextsServersideUsageRequest) Granularity(granularity string) ApiGetContextsServersideUsageRequest {
+	r.granularity = &granularity
+	return r
+}
+
+func (r ApiGetContextsServersideUsageRequest) Execute() (*SeriesListRep, *http.Response, error) {
+	return r.ApiService.GetContextsServersideUsageExecute(r)
+}
+
+/*
+GetContextsServersideUsage Get contexts serverside usage
+
+Get a detailed time series of the number of context key usages observed by LaunchDarkly in your account, including non-primary context kinds. Use this for breakdowns that go beyond the primary-only aggregation of MAU endpoints. The counts reflect data reported by server-side SDKs.<br/><br/>The supported granularity varies by aggregation type. The maximum time range is 365 days.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetContextsServersideUsageRequest
+*/
+func (a *AccountUsageBetaApiService) GetContextsServersideUsage(ctx context.Context) ApiGetContextsServersideUsageRequest {
+	return ApiGetContextsServersideUsageRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return SeriesListRep
+func (a *AccountUsageBetaApiService) GetContextsServersideUsageExecute(r ApiGetContextsServersideUsageRequest) (*SeriesListRep, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *SeriesListRep
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountUsageBetaApiService.GetContextsServersideUsage")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v2/usage/serverside-contexts"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.from != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "")
+	}
+	if r.to != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "")
+	}
+	if r.projectKey != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "projectKey", r.projectKey, "")
+	}
+	if r.environmentKey != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environmentKey", r.environmentKey, "")
+	}
+	if r.contextKind != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "contextKind", r.contextKind, "")
+	}
+	if r.sdkName != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sdkName", r.sdkName, "")
+	}
+	if r.anonymous != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "anonymous", r.anonymous, "")
+	}
+	if r.groupBy != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "groupBy", r.groupBy, "")
+	}
+	if r.aggregationType != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "aggregationType", r.aggregationType, "")
+	}
+	if r.granularity != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "granularity", r.granularity, "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["ApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v InvalidRequestErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v UnauthorizedErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v ForbiddenErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v RateLimitedErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 503 {
+			var v StatusServiceUnavailable
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetContextsTotalUsageRequest struct {
+	ctx context.Context
+	ApiService AccountUsageBetaApi
+	from *string
+	to *string
+	projectKey *string
+	environmentKey *string
+	contextKind *string
+	sdkName *string
+	sdkType *string
+	anonymous *string
+	groupBy *string
+	aggregationType *string
+	granularity *string
+}
+
+// The series of data returned starts from this timestamp (Unix milliseconds). Defaults to the beginning of the current month.
+func (r ApiGetContextsTotalUsageRequest) From(from string) ApiGetContextsTotalUsageRequest {
+	r.from = &from
+	return r
+}
+
+// The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time.
+func (r ApiGetContextsTotalUsageRequest) To(to string) ApiGetContextsTotalUsageRequest {
+	r.to = &to
+	return r
+}
+
+// A project key to filter results by. Can be specified multiple times, one query parameter per project key.
+func (r ApiGetContextsTotalUsageRequest) ProjectKey(projectKey string) ApiGetContextsTotalUsageRequest {
+	r.projectKey = &projectKey
+	return r
+}
+
+// An environment key to filter results by. If specified, exactly one &#x60;projectKey&#x60; must be provided. Can be specified multiple times, one query parameter per environment key.
+func (r ApiGetContextsTotalUsageRequest) EnvironmentKey(environmentKey string) ApiGetContextsTotalUsageRequest {
+	r.environmentKey = &environmentKey
+	return r
+}
+
+// A context kind to filter results by. Can be specified multiple times, one query parameter per context kind.
+func (r ApiGetContextsTotalUsageRequest) ContextKind(contextKind string) ApiGetContextsTotalUsageRequest {
+	r.contextKind = &contextKind
+	return r
+}
+
+// An SDK name to filter results by. Can be specified multiple times, one query parameter per SDK name.
+func (r ApiGetContextsTotalUsageRequest) SdkName(sdkName string) ApiGetContextsTotalUsageRequest {
+	r.sdkName = &sdkName
+	return r
+}
+
+// An SDK type to filter results by. Can be specified multiple times, one query parameter per SDK type.
+func (r ApiGetContextsTotalUsageRequest) SdkType(sdkType string) ApiGetContextsTotalUsageRequest {
+	r.sdkType = &sdkType
+	return r
+}
+
+// An anonymous value to filter results by. Can be specified multiple times, one query parameter per anonymous value.&lt;br/&gt;Valid values: &#x60;true&#x60;, &#x60;false&#x60;.
+func (r ApiGetContextsTotalUsageRequest) Anonymous(anonymous string) ApiGetContextsTotalUsageRequest {
+	r.anonymous = &anonymous
+	return r
+}
+
+// If specified, returns data for each distinct value of the given field. &#x60;contextKind&#x60; is always included as a grouping dimension. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.&lt;br/&gt;Valid values: &#x60;projectId&#x60;, &#x60;environmentId&#x60;, &#x60;sdkName&#x60;, &#x60;sdkType&#x60;, &#x60;sdkAppId&#x60;, &#x60;anonymousV2&#x60;.
+func (r ApiGetContextsTotalUsageRequest) GroupBy(groupBy string) ApiGetContextsTotalUsageRequest {
+	r.groupBy = &groupBy
+	return r
+}
+
+// Specifies the aggregation method. Defaults to &#x60;month_to_date&#x60;.&lt;br/&gt;Valid values: &#x60;month_to_date&#x60;, &#x60;incremental&#x60;, &#x60;rolling_30d&#x60;.
+func (r ApiGetContextsTotalUsageRequest) AggregationType(aggregationType string) ApiGetContextsTotalUsageRequest {
+	r.aggregationType = &aggregationType
+	return r
+}
+
+// Specifies the data granularity. Defaults to &#x60;daily&#x60;. Valid values depend on &#x60;aggregationType&#x60;: **month_to_date** supports &#x60;daily&#x60; and &#x60;monthly&#x60;; **incremental** and **rolling_30d** support &#x60;daily&#x60; only.
+func (r ApiGetContextsTotalUsageRequest) Granularity(granularity string) ApiGetContextsTotalUsageRequest {
+	r.granularity = &granularity
+	return r
+}
+
+func (r ApiGetContextsTotalUsageRequest) Execute() (*SeriesListRep, *http.Response, error) {
+	return r.ApiService.GetContextsTotalUsageExecute(r)
+}
+
+/*
+GetContextsTotalUsage Get contexts total usage
+
+Get a detailed time series of the number of context key usages observed by LaunchDarkly in your account, including non-primary context kinds. Use this for breakdowns that go beyond the primary-only aggregation of MAU endpoints.<br/><br/>The supported granularity varies by aggregation type. The maximum time range is 365 days.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetContextsTotalUsageRequest
+*/
+func (a *AccountUsageBetaApiService) GetContextsTotalUsage(ctx context.Context) ApiGetContextsTotalUsageRequest {
+	return ApiGetContextsTotalUsageRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return SeriesListRep
+func (a *AccountUsageBetaApiService) GetContextsTotalUsageExecute(r ApiGetContextsTotalUsageRequest) (*SeriesListRep, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *SeriesListRep
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountUsageBetaApiService.GetContextsTotalUsage")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v2/usage/total-contexts"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.from != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "")
+	}
+	if r.to != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "")
+	}
+	if r.projectKey != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "projectKey", r.projectKey, "")
+	}
+	if r.environmentKey != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environmentKey", r.environmentKey, "")
+	}
+	if r.contextKind != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "contextKind", r.contextKind, "")
+	}
+	if r.sdkName != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sdkName", r.sdkName, "")
+	}
+	if r.sdkType != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sdkType", r.sdkType, "")
+	}
+	if r.anonymous != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "anonymous", r.anonymous, "")
+	}
+	if r.groupBy != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "groupBy", r.groupBy, "")
+	}
+	if r.aggregationType != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "aggregationType", r.aggregationType, "")
+	}
+	if r.granularity != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "granularity", r.granularity, "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["ApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v InvalidRequestErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v UnauthorizedErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v ForbiddenErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v RateLimitedErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 503 {
+			var v StatusServiceUnavailable
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetDataExportEventsUsageRequest struct {
+	ctx context.Context
+	ApiService AccountUsageBetaApi
+	from *string
+	to *string
+	projectKey *string
+	environmentKey *string
+	eventKind *string
+	groupBy *string
+	aggregationType *string
+	granularity *string
+}
+
+// The series of data returned starts from this timestamp (Unix milliseconds). Defaults to the beginning of the current month.
+func (r ApiGetDataExportEventsUsageRequest) From(from string) ApiGetDataExportEventsUsageRequest {
+	r.from = &from
+	return r
+}
+
+// The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time.
+func (r ApiGetDataExportEventsUsageRequest) To(to string) ApiGetDataExportEventsUsageRequest {
+	r.to = &to
+	return r
+}
+
+// A project key to filter results by. Can be specified multiple times, one query parameter per project key.
+func (r ApiGetDataExportEventsUsageRequest) ProjectKey(projectKey string) ApiGetDataExportEventsUsageRequest {
+	r.projectKey = &projectKey
+	return r
+}
+
+// An environment key to filter results by. If specified, exactly one &#x60;projectKey&#x60; must be provided. Can be specified multiple times, one query parameter per environment key.
+func (r ApiGetDataExportEventsUsageRequest) EnvironmentKey(environmentKey string) ApiGetDataExportEventsUsageRequest {
+	r.environmentKey = &environmentKey
+	return r
+}
+
+// An event kind to filter results by. Can be specified multiple times, one query parameter per event kind.
+func (r ApiGetDataExportEventsUsageRequest) EventKind(eventKind string) ApiGetDataExportEventsUsageRequest {
+	r.eventKind = &eventKind
+	return r
+}
+
+// If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.&lt;br/&gt;Valid values: &#x60;environmentId&#x60;, &#x60;eventKind&#x60;.
+func (r ApiGetDataExportEventsUsageRequest) GroupBy(groupBy string) ApiGetDataExportEventsUsageRequest {
+	r.groupBy = &groupBy
+	return r
+}
+
+// Specifies the aggregation method. Defaults to &#x60;month_to_date&#x60;.&lt;br/&gt;Valid values: &#x60;month_to_date&#x60;, &#x60;incremental&#x60;.
+func (r ApiGetDataExportEventsUsageRequest) AggregationType(aggregationType string) ApiGetDataExportEventsUsageRequest {
+	r.aggregationType = &aggregationType
+	return r
+}
+
+// Specifies the data granularity. Defaults to &#x60;daily&#x60;. &#x60;monthly&#x60; granularity is only supported with the **month_to_date** aggregation type.&lt;br/&gt;Valid values: &#x60;daily&#x60;, &#x60;hourly&#x60;, &#x60;monthly&#x60;.
+func (r ApiGetDataExportEventsUsageRequest) Granularity(granularity string) ApiGetDataExportEventsUsageRequest {
+	r.granularity = &granularity
+	return r
+}
+
+func (r ApiGetDataExportEventsUsageRequest) Execute() (*SeriesListRep, *http.Response, error) {
+	return r.ApiService.GetDataExportEventsUsageExecute(r)
+}
+
+/*
+GetDataExportEventsUsage Get data export events usage
+
+Get a time series array showing the number of data export events from your account. The supported granularity varies by aggregation type. The maximum time range is 365 days.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetDataExportEventsUsageRequest
+*/
+func (a *AccountUsageBetaApiService) GetDataExportEventsUsage(ctx context.Context) ApiGetDataExportEventsUsageRequest {
+	return ApiGetDataExportEventsUsageRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return SeriesListRep
+func (a *AccountUsageBetaApiService) GetDataExportEventsUsageExecute(r ApiGetDataExportEventsUsageRequest) (*SeriesListRep, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *SeriesListRep
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountUsageBetaApiService.GetDataExportEventsUsage")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v2/usage/data-export-events"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.from != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "")
+	}
+	if r.to != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "")
+	}
+	if r.projectKey != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "projectKey", r.projectKey, "")
+	}
+	if r.environmentKey != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environmentKey", r.environmentKey, "")
+	}
+	if r.eventKind != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "eventKind", r.eventKind, "")
+	}
+	if r.groupBy != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "groupBy", r.groupBy, "")
+	}
+	if r.aggregationType != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "aggregationType", r.aggregationType, "")
+	}
+	if r.granularity != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "granularity", r.granularity, "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["ApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v InvalidRequestErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v UnauthorizedErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v ForbiddenErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v RateLimitedErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 503 {
+			var v StatusServiceUnavailable
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -474,22 +1428,22 @@ func (a *AccountUsageBetaApiService) GetEvaluationsUsageExecute(r ApiGetEvaluati
 	}
 
 	localVarPath := localBasePath + "/api/v2/usage/evaluations/{projectKey}/{environmentKey}/{featureFlagKey}"
-	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", url.PathEscape(parameterToString(r.projectKey, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"environmentKey"+"}", url.PathEscape(parameterToString(r.environmentKey, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"featureFlagKey"+"}", url.PathEscape(parameterToString(r.featureFlagKey, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", url.PathEscape(parameterValueToString(r.projectKey, "projectKey")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"environmentKey"+"}", url.PathEscape(parameterValueToString(r.environmentKey, "environmentKey")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"featureFlagKey"+"}", url.PathEscape(parameterValueToString(r.featureFlagKey, "featureFlagKey")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.from != nil {
-		localVarQueryParams.Add("from", parameterToString(*r.from, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "")
 	}
 	if r.to != nil {
-		localVarQueryParams.Add("to", parameterToString(*r.to, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "")
 	}
 	if r.tz != nil {
-		localVarQueryParams.Add("tz", parameterToString(*r.tz, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "tz", r.tz, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -532,9 +1486,9 @@ func (a *AccountUsageBetaApiService) GetEvaluationsUsageExecute(r ApiGetEvaluati
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -551,7 +1505,8 @@ func (a *AccountUsageBetaApiService) GetEvaluationsUsageExecute(r ApiGetEvaluati
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -561,7 +1516,8 @@ func (a *AccountUsageBetaApiService) GetEvaluationsUsageExecute(r ApiGetEvaluati
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -571,7 +1527,8 @@ func (a *AccountUsageBetaApiService) GetEvaluationsUsageExecute(r ApiGetEvaluati
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -581,7 +1538,8 @@ func (a *AccountUsageBetaApiService) GetEvaluationsUsageExecute(r ApiGetEvaluati
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -591,7 +1549,8 @@ func (a *AccountUsageBetaApiService) GetEvaluationsUsageExecute(r ApiGetEvaluati
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -665,17 +1624,17 @@ func (a *AccountUsageBetaApiService) GetEventsUsageExecute(r ApiGetEventsUsageRe
 	}
 
 	localVarPath := localBasePath + "/api/v2/usage/events/{type}"
-	localVarPath = strings.Replace(localVarPath, "{"+"type"+"}", url.PathEscape(parameterToString(r.type_, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"type"+"}", url.PathEscape(parameterValueToString(r.type_, "type_")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.from != nil {
-		localVarQueryParams.Add("from", parameterToString(*r.from, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "")
 	}
 	if r.to != nil {
-		localVarQueryParams.Add("to", parameterToString(*r.to, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -718,9 +1677,9 @@ func (a *AccountUsageBetaApiService) GetEventsUsageExecute(r ApiGetEventsUsageRe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -737,7 +1696,8 @@ func (a *AccountUsageBetaApiService) GetEventsUsageExecute(r ApiGetEventsUsageRe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -747,7 +1707,8 @@ func (a *AccountUsageBetaApiService) GetEventsUsageExecute(r ApiGetEventsUsageRe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -757,7 +1718,8 @@ func (a *AccountUsageBetaApiService) GetEventsUsageExecute(r ApiGetEventsUsageRe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -767,7 +1729,8 @@ func (a *AccountUsageBetaApiService) GetEventsUsageExecute(r ApiGetEventsUsageRe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -777,7 +1740,265 @@ func (a *AccountUsageBetaApiService) GetEventsUsageExecute(r ApiGetEventsUsageRe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetExperimentationEventsUsageRequest struct {
+	ctx context.Context
+	ApiService AccountUsageBetaApi
+	from *string
+	to *string
+	projectKey *string
+	environmentKey *string
+	eventKey *string
+	eventKind *string
+	groupBy *string
+	aggregationType *string
+	granularity *string
+}
+
+// The series of data returned starts from this timestamp (Unix milliseconds). Defaults to the beginning of the current month.
+func (r ApiGetExperimentationEventsUsageRequest) From(from string) ApiGetExperimentationEventsUsageRequest {
+	r.from = &from
+	return r
+}
+
+// The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time.
+func (r ApiGetExperimentationEventsUsageRequest) To(to string) ApiGetExperimentationEventsUsageRequest {
+	r.to = &to
+	return r
+}
+
+// A project key to filter results by. Can be specified multiple times, one query parameter per project key.
+func (r ApiGetExperimentationEventsUsageRequest) ProjectKey(projectKey string) ApiGetExperimentationEventsUsageRequest {
+	r.projectKey = &projectKey
+	return r
+}
+
+// An environment key to filter results by. If specified, exactly one &#x60;projectKey&#x60; must be provided. Can be specified multiple times, one query parameter per environment key.
+func (r ApiGetExperimentationEventsUsageRequest) EnvironmentKey(environmentKey string) ApiGetExperimentationEventsUsageRequest {
+	r.environmentKey = &environmentKey
+	return r
+}
+
+// An event key to filter results by. Can be specified multiple times, one query parameter per event key.
+func (r ApiGetExperimentationEventsUsageRequest) EventKey(eventKey string) ApiGetExperimentationEventsUsageRequest {
+	r.eventKey = &eventKey
+	return r
+}
+
+// An event kind to filter results by. Can be specified multiple times, one query parameter per event kind.
+func (r ApiGetExperimentationEventsUsageRequest) EventKind(eventKind string) ApiGetExperimentationEventsUsageRequest {
+	r.eventKind = &eventKind
+	return r
+}
+
+// If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.&lt;br/&gt;Valid values: &#x60;environmentId&#x60;, &#x60;eventKey&#x60;, &#x60;eventKind&#x60;.
+func (r ApiGetExperimentationEventsUsageRequest) GroupBy(groupBy string) ApiGetExperimentationEventsUsageRequest {
+	r.groupBy = &groupBy
+	return r
+}
+
+// Specifies the aggregation method. Defaults to &#x60;month_to_date&#x60;.&lt;br/&gt;Valid values: &#x60;month_to_date&#x60;, &#x60;incremental&#x60;.
+func (r ApiGetExperimentationEventsUsageRequest) AggregationType(aggregationType string) ApiGetExperimentationEventsUsageRequest {
+	r.aggregationType = &aggregationType
+	return r
+}
+
+// Specifies the data granularity. Defaults to &#x60;daily&#x60;. &#x60;monthly&#x60; granularity is only supported with the **month_to_date** aggregation type.&lt;br/&gt;Valid values: &#x60;daily&#x60;, &#x60;hourly&#x60;, &#x60;monthly&#x60;.
+func (r ApiGetExperimentationEventsUsageRequest) Granularity(granularity string) ApiGetExperimentationEventsUsageRequest {
+	r.granularity = &granularity
+	return r
+}
+
+func (r ApiGetExperimentationEventsUsageRequest) Execute() (*SeriesListRep, *http.Response, error) {
+	return r.ApiService.GetExperimentationEventsUsageExecute(r)
+}
+
+/*
+GetExperimentationEventsUsage Get experimentation events usage
+
+Get a time series array showing the number of experimentation events from your account. The supported granularity varies by aggregation type. The maximum time range is 365 days.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetExperimentationEventsUsageRequest
+*/
+func (a *AccountUsageBetaApiService) GetExperimentationEventsUsage(ctx context.Context) ApiGetExperimentationEventsUsageRequest {
+	return ApiGetExperimentationEventsUsageRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return SeriesListRep
+func (a *AccountUsageBetaApiService) GetExperimentationEventsUsageExecute(r ApiGetExperimentationEventsUsageRequest) (*SeriesListRep, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *SeriesListRep
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountUsageBetaApiService.GetExperimentationEventsUsage")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v2/usage/experimentation-events"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.from != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "")
+	}
+	if r.to != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "")
+	}
+	if r.projectKey != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "projectKey", r.projectKey, "")
+	}
+	if r.environmentKey != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environmentKey", r.environmentKey, "")
+	}
+	if r.eventKey != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "eventKey", r.eventKey, "")
+	}
+	if r.eventKind != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "eventKind", r.eventKind, "")
+	}
+	if r.groupBy != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "groupBy", r.groupBy, "")
+	}
+	if r.aggregationType != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "aggregationType", r.aggregationType, "")
+	}
+	if r.granularity != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "granularity", r.granularity, "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["ApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v InvalidRequestErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v UnauthorizedErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v ForbiddenErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v RateLimitedErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 503 {
+			var v StatusServiceUnavailable
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -801,40 +2022,68 @@ type ApiGetExperimentationKeysUsageRequest struct {
 	to *string
 	projectKey *string
 	environmentKey *string
+	experimentId *string
+	groupBy *string
+	aggregationType *string
+	granularity *string
 }
 
-// The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month.
+// The series of data returned starts from this timestamp (Unix milliseconds). Defaults to the beginning of the current month.
 func (r ApiGetExperimentationKeysUsageRequest) From(from string) ApiGetExperimentationKeysUsageRequest {
 	r.from = &from
 	return r
 }
 
-// The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time.
+// The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time.
 func (r ApiGetExperimentationKeysUsageRequest) To(to string) ApiGetExperimentationKeysUsageRequest {
 	r.to = &to
 	return r
 }
 
-// A project key. If specified, &#x60;environmentKey&#x60; is required and results apply to the corresponding environment in this project.
+// A project key to filter results by. Can be specified multiple times, one query parameter per project key.
 func (r ApiGetExperimentationKeysUsageRequest) ProjectKey(projectKey string) ApiGetExperimentationKeysUsageRequest {
 	r.projectKey = &projectKey
 	return r
 }
 
-// An environment key. If specified, &#x60;projectKey&#x60; is required and results apply to the corresponding environment in this project.
+// An environment key to filter results by. If specified, exactly one &#x60;projectKey&#x60; must be provided. Can be specified multiple times, one query parameter per environment key.
 func (r ApiGetExperimentationKeysUsageRequest) EnvironmentKey(environmentKey string) ApiGetExperimentationKeysUsageRequest {
 	r.environmentKey = &environmentKey
 	return r
 }
 
-func (r ApiGetExperimentationKeysUsageRequest) Execute() (*SeriesIntervalsRep, *http.Response, error) {
+// An experiment ID to filter results by. Can be specified multiple times, one query parameter per experiment ID.
+func (r ApiGetExperimentationKeysUsageRequest) ExperimentId(experimentId string) ApiGetExperimentationKeysUsageRequest {
+	r.experimentId = &experimentId
+	return r
+}
+
+// If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.&lt;br/&gt;Valid values: &#x60;projectId&#x60;, &#x60;environmentId&#x60;, &#x60;experimentId&#x60;.
+func (r ApiGetExperimentationKeysUsageRequest) GroupBy(groupBy string) ApiGetExperimentationKeysUsageRequest {
+	r.groupBy = &groupBy
+	return r
+}
+
+// Specifies the aggregation method. Defaults to &#x60;month_to_date&#x60;.&lt;br/&gt;Valid values: &#x60;month_to_date&#x60;, &#x60;incremental&#x60;.
+func (r ApiGetExperimentationKeysUsageRequest) AggregationType(aggregationType string) ApiGetExperimentationKeysUsageRequest {
+	r.aggregationType = &aggregationType
+	return r
+}
+
+// Specifies the data granularity. Defaults to &#x60;daily&#x60;. &#x60;monthly&#x60; granularity is only supported with the **month_to_date** aggregation type.&lt;br/&gt;Valid values: &#x60;daily&#x60;, &#x60;hourly&#x60;, &#x60;monthly&#x60;.
+func (r ApiGetExperimentationKeysUsageRequest) Granularity(granularity string) ApiGetExperimentationKeysUsageRequest {
+	r.granularity = &granularity
+	return r
+}
+
+func (r ApiGetExperimentationKeysUsageRequest) Execute() (*SeriesListRep, *http.Response, error) {
 	return r.ApiService.GetExperimentationKeysUsageExecute(r)
 }
 
 /*
 GetExperimentationKeysUsage Get experimentation keys usage
 
-Get a time-series array of the number of monthly experimentation keys from your account. The granularity is always daily, with a maximum of 31 days.
+Get a time series array showing the number of experimentation keys from your account. The supported granularity varies by aggregation type. The maximum time range is 365 days.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetExperimentationKeysUsageRequest
@@ -847,13 +2096,13 @@ func (a *AccountUsageBetaApiService) GetExperimentationKeysUsage(ctx context.Con
 }
 
 // Execute executes the request
-//  @return SeriesIntervalsRep
-func (a *AccountUsageBetaApiService) GetExperimentationKeysUsageExecute(r ApiGetExperimentationKeysUsageRequest) (*SeriesIntervalsRep, *http.Response, error) {
+//  @return SeriesListRep
+func (a *AccountUsageBetaApiService) GetExperimentationKeysUsageExecute(r ApiGetExperimentationKeysUsageRequest) (*SeriesListRep, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *SeriesIntervalsRep
+		localVarReturnValue  *SeriesListRep
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountUsageBetaApiService.GetExperimentationKeysUsage")
@@ -868,16 +2117,28 @@ func (a *AccountUsageBetaApiService) GetExperimentationKeysUsageExecute(r ApiGet
 	localVarFormParams := url.Values{}
 
 	if r.from != nil {
-		localVarQueryParams.Add("from", parameterToString(*r.from, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "")
 	}
 	if r.to != nil {
-		localVarQueryParams.Add("to", parameterToString(*r.to, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "")
 	}
 	if r.projectKey != nil {
-		localVarQueryParams.Add("projectKey", parameterToString(*r.projectKey, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "projectKey", r.projectKey, "")
 	}
 	if r.environmentKey != nil {
-		localVarQueryParams.Add("environmentKey", parameterToString(*r.environmentKey, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environmentKey", r.environmentKey, "")
+	}
+	if r.experimentId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "experimentId", r.experimentId, "")
+	}
+	if r.groupBy != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "groupBy", r.groupBy, "")
+	}
+	if r.aggregationType != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "aggregationType", r.aggregationType, "")
+	}
+	if r.granularity != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "granularity", r.granularity, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -920,9 +2181,9 @@ func (a *AccountUsageBetaApiService) GetExperimentationKeysUsageExecute(r ApiGet
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -939,7 +2200,8 @@ func (a *AccountUsageBetaApiService) GetExperimentationKeysUsageExecute(r ApiGet
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -949,7 +2211,8 @@ func (a *AccountUsageBetaApiService) GetExperimentationKeysUsageExecute(r ApiGet
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -959,7 +2222,8 @@ func (a *AccountUsageBetaApiService) GetExperimentationKeysUsageExecute(r ApiGet
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -969,7 +2233,8 @@ func (a *AccountUsageBetaApiService) GetExperimentationKeysUsageExecute(r ApiGet
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 503 {
@@ -979,209 +2244,8 @@ func (a *AccountUsageBetaApiService) GetExperimentationKeysUsageExecute(r ApiGet
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiGetExperimentationUnitsUsageRequest struct {
-	ctx context.Context
-	ApiService AccountUsageBetaApi
-	from *string
-	to *string
-	projectKey *string
-	environmentKey *string
-}
-
-// The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month.
-func (r ApiGetExperimentationUnitsUsageRequest) From(from string) ApiGetExperimentationUnitsUsageRequest {
-	r.from = &from
-	return r
-}
-
-// The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time.
-func (r ApiGetExperimentationUnitsUsageRequest) To(to string) ApiGetExperimentationUnitsUsageRequest {
-	r.to = &to
-	return r
-}
-
-// A project key. If specified, &#x60;environmentKey&#x60; is required and results apply to the corresponding environment in this project.
-func (r ApiGetExperimentationUnitsUsageRequest) ProjectKey(projectKey string) ApiGetExperimentationUnitsUsageRequest {
-	r.projectKey = &projectKey
-	return r
-}
-
-// An environment key. If specified, &#x60;projectKey&#x60; is required and results apply to the corresponding environment in this project.
-func (r ApiGetExperimentationUnitsUsageRequest) EnvironmentKey(environmentKey string) ApiGetExperimentationUnitsUsageRequest {
-	r.environmentKey = &environmentKey
-	return r
-}
-
-func (r ApiGetExperimentationUnitsUsageRequest) Execute() (*SeriesIntervalsRep, *http.Response, error) {
-	return r.ApiService.GetExperimentationUnitsUsageExecute(r)
-}
-
-/*
-GetExperimentationUnitsUsage Get experimentation units usage
-
-Get a time-series array of the number of monthly experimentation units from your account. The granularity is always daily, with a maximum of 31 days.
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetExperimentationUnitsUsageRequest
-*/
-func (a *AccountUsageBetaApiService) GetExperimentationUnitsUsage(ctx context.Context) ApiGetExperimentationUnitsUsageRequest {
-	return ApiGetExperimentationUnitsUsageRequest{
-		ApiService: a,
-		ctx: ctx,
-	}
-}
-
-// Execute executes the request
-//  @return SeriesIntervalsRep
-func (a *AccountUsageBetaApiService) GetExperimentationUnitsUsageExecute(r ApiGetExperimentationUnitsUsageRequest) (*SeriesIntervalsRep, *http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *SeriesIntervalsRep
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountUsageBetaApiService.GetExperimentationUnitsUsage")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/v2/usage/experimentation-units"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	if r.from != nil {
-		localVarQueryParams.Add("from", parameterToString(*r.from, ""))
-	}
-	if r.to != nil {
-		localVarQueryParams.Add("to", parameterToString(*r.to, ""))
-	}
-	if r.projectKey != nil {
-		localVarQueryParams.Add("projectKey", parameterToString(*r.projectKey, ""))
-	}
-	if r.environmentKey != nil {
-		localVarQueryParams.Add("environmentKey", parameterToString(*r.environmentKey, ""))
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["ApiKey"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["Authorization"] = key
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v InvalidRequestErrorRep
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v UnauthorizedErrorRep
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 403 {
-			var v ForbiddenErrorRep
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v RateLimitedErrorRep
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 503 {
-			var v StatusServiceUnavailable
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1265,13 +2329,13 @@ func (a *AccountUsageBetaApiService) GetMauSdksByTypeExecute(r ApiGetMauSdksByTy
 	localVarFormParams := url.Values{}
 
 	if r.from != nil {
-		localVarQueryParams.Add("from", parameterToString(*r.from, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "")
 	}
 	if r.to != nil {
-		localVarQueryParams.Add("to", parameterToString(*r.to, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "")
 	}
 	if r.sdktype != nil {
-		localVarQueryParams.Add("sdktype", parameterToString(*r.sdktype, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sdktype", r.sdktype, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1314,9 +2378,9 @@ func (a *AccountUsageBetaApiService) GetMauSdksByTypeExecute(r ApiGetMauSdksByTy
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1333,7 +2397,8 @@ func (a *AccountUsageBetaApiService) GetMauSdksByTypeExecute(r ApiGetMauSdksByTy
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -1343,7 +2408,8 @@ func (a *AccountUsageBetaApiService) GetMauSdksByTypeExecute(r ApiGetMauSdksByTy
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1353,7 +2419,8 @@ func (a *AccountUsageBetaApiService) GetMauSdksByTypeExecute(r ApiGetMauSdksByTy
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1363,7 +2430,8 @@ func (a *AccountUsageBetaApiService) GetMauSdksByTypeExecute(r ApiGetMauSdksByTy
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1496,34 +2564,34 @@ func (a *AccountUsageBetaApiService) GetMauUsageExecute(r ApiGetMauUsageRequest)
 	localVarFormParams := url.Values{}
 
 	if r.from != nil {
-		localVarQueryParams.Add("from", parameterToString(*r.from, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "")
 	}
 	if r.to != nil {
-		localVarQueryParams.Add("to", parameterToString(*r.to, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "")
 	}
 	if r.project != nil {
-		localVarQueryParams.Add("project", parameterToString(*r.project, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "project", r.project, "")
 	}
 	if r.environment != nil {
-		localVarQueryParams.Add("environment", parameterToString(*r.environment, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "")
 	}
 	if r.sdktype != nil {
-		localVarQueryParams.Add("sdktype", parameterToString(*r.sdktype, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sdktype", r.sdktype, "")
 	}
 	if r.sdk != nil {
-		localVarQueryParams.Add("sdk", parameterToString(*r.sdk, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sdk", r.sdk, "")
 	}
 	if r.anonymous != nil {
-		localVarQueryParams.Add("anonymous", parameterToString(*r.anonymous, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "anonymous", r.anonymous, "")
 	}
 	if r.groupby != nil {
-		localVarQueryParams.Add("groupby", parameterToString(*r.groupby, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "groupby", r.groupby, "")
 	}
 	if r.aggregationType != nil {
-		localVarQueryParams.Add("aggregationType", parameterToString(*r.aggregationType, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "aggregationType", r.aggregationType, "")
 	}
 	if r.contextKind != nil {
-		localVarQueryParams.Add("contextKind", parameterToString(*r.contextKind, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "contextKind", r.contextKind, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1566,9 +2634,9 @@ func (a *AccountUsageBetaApiService) GetMauUsageExecute(r ApiGetMauUsageRequest)
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1585,7 +2653,8 @@ func (a *AccountUsageBetaApiService) GetMauUsageExecute(r ApiGetMauUsageRequest)
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -1595,7 +2664,8 @@ func (a *AccountUsageBetaApiService) GetMauUsageExecute(r ApiGetMauUsageRequest)
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1605,7 +2675,8 @@ func (a *AccountUsageBetaApiService) GetMauUsageExecute(r ApiGetMauUsageRequest)
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1615,7 +2686,8 @@ func (a *AccountUsageBetaApiService) GetMauUsageExecute(r ApiGetMauUsageRequest)
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1692,10 +2764,10 @@ func (a *AccountUsageBetaApiService) GetMauUsageByCategoryExecute(r ApiGetMauUsa
 	localVarFormParams := url.Values{}
 
 	if r.from != nil {
-		localVarQueryParams.Add("from", parameterToString(*r.from, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "")
 	}
 	if r.to != nil {
-		localVarQueryParams.Add("to", parameterToString(*r.to, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1738,9 +2810,9 @@ func (a *AccountUsageBetaApiService) GetMauUsageByCategoryExecute(r ApiGetMauUsa
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1757,7 +2829,8 @@ func (a *AccountUsageBetaApiService) GetMauUsageByCategoryExecute(r ApiGetMauUsa
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -1767,7 +2840,8 @@ func (a *AccountUsageBetaApiService) GetMauUsageByCategoryExecute(r ApiGetMauUsa
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1777,7 +2851,8 @@ func (a *AccountUsageBetaApiService) GetMauUsageByCategoryExecute(r ApiGetMauUsa
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1787,7 +2862,8 @@ func (a *AccountUsageBetaApiService) GetMauUsageByCategoryExecute(r ApiGetMauUsa
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1797,7 +2873,8 @@ func (a *AccountUsageBetaApiService) GetMauUsageByCategoryExecute(r ApiGetMauUsa
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1814,90 +2891,100 @@ func (a *AccountUsageBetaApiService) GetMauUsageByCategoryExecute(r ApiGetMauUsa
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetServiceConnectionUsageRequest struct {
+type ApiGetObservabilityErrorsUsageRequest struct {
 	ctx context.Context
 	ApiService AccountUsageBetaApi
 	from *string
 	to *string
 	projectKey *string
-	environmentKey *string
+	granularity *string
+	aggregationType *string
 }
 
 // The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month.
-func (r ApiGetServiceConnectionUsageRequest) From(from string) ApiGetServiceConnectionUsageRequest {
+func (r ApiGetObservabilityErrorsUsageRequest) From(from string) ApiGetObservabilityErrorsUsageRequest {
 	r.from = &from
 	return r
 }
 
 // The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time.
-func (r ApiGetServiceConnectionUsageRequest) To(to string) ApiGetServiceConnectionUsageRequest {
+func (r ApiGetObservabilityErrorsUsageRequest) To(to string) ApiGetObservabilityErrorsUsageRequest {
 	r.to = &to
 	return r
 }
 
-// A project key. If specified, &#x60;environmentKey&#x60; is required and results apply to the corresponding environment in this project.
-func (r ApiGetServiceConnectionUsageRequest) ProjectKey(projectKey string) ApiGetServiceConnectionUsageRequest {
+// A project key to filter results by. Can be specified multiple times, one query parameter per project key.
+func (r ApiGetObservabilityErrorsUsageRequest) ProjectKey(projectKey string) ApiGetObservabilityErrorsUsageRequest {
 	r.projectKey = &projectKey
 	return r
 }
 
-// An environment key. If specified, &#x60;projectKey&#x60; is required and results apply to the corresponding environment in this project.
-func (r ApiGetServiceConnectionUsageRequest) EnvironmentKey(environmentKey string) ApiGetServiceConnectionUsageRequest {
-	r.environmentKey = &environmentKey
+// Specifies the data granularity. Defaults to &#x60;daily&#x60;. Valid values depend on &#x60;aggregationType&#x60;: **month_to_date** supports &#x60;daily&#x60; and &#x60;monthly&#x60;; **incremental** and **rolling_30d** support &#x60;daily&#x60; only.
+func (r ApiGetObservabilityErrorsUsageRequest) Granularity(granularity string) ApiGetObservabilityErrorsUsageRequest {
+	r.granularity = &granularity
 	return r
 }
 
-func (r ApiGetServiceConnectionUsageRequest) Execute() (*SeriesIntervalsRep, *http.Response, error) {
-	return r.ApiService.GetServiceConnectionUsageExecute(r)
+// Specifies the aggregation method. Defaults to &#x60;month_to_date&#x60;.&lt;br/&gt;Valid values: &#x60;month_to_date&#x60;, &#x60;incremental&#x60;, &#x60;rolling_30d&#x60;.
+func (r ApiGetObservabilityErrorsUsageRequest) AggregationType(aggregationType string) ApiGetObservabilityErrorsUsageRequest {
+	r.aggregationType = &aggregationType
+	return r
+}
+
+func (r ApiGetObservabilityErrorsUsageRequest) Execute() (*SeriesListRep, *http.Response, error) {
+	return r.ApiService.GetObservabilityErrorsUsageExecute(r)
 }
 
 /*
-GetServiceConnectionUsage Get service connection usage
+GetObservabilityErrorsUsage Get observability errors usage
 
-Get a time-series array of the number of monthly service connections from your account. The granularity is always daily, with a maximum of 31 days.
+Get time-series arrays of the number of observability errors. Supports `daily` and `monthly` granularity.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetServiceConnectionUsageRequest
+ @return ApiGetObservabilityErrorsUsageRequest
 */
-func (a *AccountUsageBetaApiService) GetServiceConnectionUsage(ctx context.Context) ApiGetServiceConnectionUsageRequest {
-	return ApiGetServiceConnectionUsageRequest{
+func (a *AccountUsageBetaApiService) GetObservabilityErrorsUsage(ctx context.Context) ApiGetObservabilityErrorsUsageRequest {
+	return ApiGetObservabilityErrorsUsageRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//  @return SeriesIntervalsRep
-func (a *AccountUsageBetaApiService) GetServiceConnectionUsageExecute(r ApiGetServiceConnectionUsageRequest) (*SeriesIntervalsRep, *http.Response, error) {
+//  @return SeriesListRep
+func (a *AccountUsageBetaApiService) GetObservabilityErrorsUsageExecute(r ApiGetObservabilityErrorsUsageRequest) (*SeriesListRep, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *SeriesIntervalsRep
+		localVarReturnValue  *SeriesListRep
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountUsageBetaApiService.GetServiceConnectionUsage")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountUsageBetaApiService.GetObservabilityErrorsUsage")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v2/usage/service-connections"
+	localVarPath := localBasePath + "/api/v2/usage/observability/errors"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.from != nil {
-		localVarQueryParams.Add("from", parameterToString(*r.from, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "")
 	}
 	if r.to != nil {
-		localVarQueryParams.Add("to", parameterToString(*r.to, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "")
 	}
 	if r.projectKey != nil {
-		localVarQueryParams.Add("projectKey", parameterToString(*r.projectKey, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "projectKey", r.projectKey, "")
 	}
-	if r.environmentKey != nil {
-		localVarQueryParams.Add("environmentKey", parameterToString(*r.environmentKey, ""))
+	if r.granularity != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "granularity", r.granularity, "")
+	}
+	if r.aggregationType != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "aggregationType", r.aggregationType, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1940,9 +3027,9 @@ func (a *AccountUsageBetaApiService) GetServiceConnectionUsageExecute(r ApiGetSe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1959,7 +3046,8 @@ func (a *AccountUsageBetaApiService) GetServiceConnectionUsageExecute(r ApiGetSe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -1969,7 +3057,8 @@ func (a *AccountUsageBetaApiService) GetServiceConnectionUsageExecute(r ApiGetSe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1979,7 +3068,19 @@ func (a *AccountUsageBetaApiService) GetServiceConnectionUsageExecute(r ApiGetSe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v NotFoundErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1989,7 +3090,935 @@ func (a *AccountUsageBetaApiService) GetServiceConnectionUsageExecute(r ApiGetSe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetObservabilityLogsUsageRequest struct {
+	ctx context.Context
+	ApiService AccountUsageBetaApi
+	from *string
+	to *string
+	projectKey *string
+	granularity *string
+	aggregationType *string
+}
+
+// The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month.
+func (r ApiGetObservabilityLogsUsageRequest) From(from string) ApiGetObservabilityLogsUsageRequest {
+	r.from = &from
+	return r
+}
+
+// The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time.
+func (r ApiGetObservabilityLogsUsageRequest) To(to string) ApiGetObservabilityLogsUsageRequest {
+	r.to = &to
+	return r
+}
+
+// A project key to filter results by. Can be specified multiple times, one query parameter per project key.
+func (r ApiGetObservabilityLogsUsageRequest) ProjectKey(projectKey string) ApiGetObservabilityLogsUsageRequest {
+	r.projectKey = &projectKey
+	return r
+}
+
+// Specifies the data granularity. Defaults to &#x60;daily&#x60;. Valid values depend on &#x60;aggregationType&#x60;: **month_to_date** supports &#x60;daily&#x60; and &#x60;monthly&#x60;; **incremental** and **rolling_30d** support &#x60;daily&#x60; only.
+func (r ApiGetObservabilityLogsUsageRequest) Granularity(granularity string) ApiGetObservabilityLogsUsageRequest {
+	r.granularity = &granularity
+	return r
+}
+
+// Specifies the aggregation method. Defaults to &#x60;month_to_date&#x60;.&lt;br/&gt;Valid values: &#x60;month_to_date&#x60;, &#x60;incremental&#x60;, &#x60;rolling_30d&#x60;.
+func (r ApiGetObservabilityLogsUsageRequest) AggregationType(aggregationType string) ApiGetObservabilityLogsUsageRequest {
+	r.aggregationType = &aggregationType
+	return r
+}
+
+func (r ApiGetObservabilityLogsUsageRequest) Execute() (*SeriesListRep, *http.Response, error) {
+	return r.ApiService.GetObservabilityLogsUsageExecute(r)
+}
+
+/*
+GetObservabilityLogsUsage Get observability logs usage
+
+Get time-series arrays of the number of observability logs. Supports `daily` and `monthly` granularity.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetObservabilityLogsUsageRequest
+*/
+func (a *AccountUsageBetaApiService) GetObservabilityLogsUsage(ctx context.Context) ApiGetObservabilityLogsUsageRequest {
+	return ApiGetObservabilityLogsUsageRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return SeriesListRep
+func (a *AccountUsageBetaApiService) GetObservabilityLogsUsageExecute(r ApiGetObservabilityLogsUsageRequest) (*SeriesListRep, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *SeriesListRep
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountUsageBetaApiService.GetObservabilityLogsUsage")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v2/usage/observability/logs"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.from != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "")
+	}
+	if r.to != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "")
+	}
+	if r.projectKey != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "projectKey", r.projectKey, "")
+	}
+	if r.granularity != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "granularity", r.granularity, "")
+	}
+	if r.aggregationType != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "aggregationType", r.aggregationType, "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["ApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v InvalidRequestErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v UnauthorizedErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v ForbiddenErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v NotFoundErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v RateLimitedErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetObservabilitySessionsUsageRequest struct {
+	ctx context.Context
+	ApiService AccountUsageBetaApi
+	from *string
+	to *string
+	projectKey *string
+	granularity *string
+	aggregationType *string
+}
+
+// The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month.
+func (r ApiGetObservabilitySessionsUsageRequest) From(from string) ApiGetObservabilitySessionsUsageRequest {
+	r.from = &from
+	return r
+}
+
+// The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time.
+func (r ApiGetObservabilitySessionsUsageRequest) To(to string) ApiGetObservabilitySessionsUsageRequest {
+	r.to = &to
+	return r
+}
+
+// A project key to filter results by. Can be specified multiple times, one query parameter per project key.
+func (r ApiGetObservabilitySessionsUsageRequest) ProjectKey(projectKey string) ApiGetObservabilitySessionsUsageRequest {
+	r.projectKey = &projectKey
+	return r
+}
+
+// Specifies the data granularity. Defaults to &#x60;daily&#x60;. Valid values depend on &#x60;aggregationType&#x60;: **month_to_date** supports &#x60;daily&#x60; and &#x60;monthly&#x60;; **incremental** and **rolling_30d** support &#x60;daily&#x60; only.
+func (r ApiGetObservabilitySessionsUsageRequest) Granularity(granularity string) ApiGetObservabilitySessionsUsageRequest {
+	r.granularity = &granularity
+	return r
+}
+
+// Specifies the aggregation method. Defaults to &#x60;month_to_date&#x60;.&lt;br/&gt;Valid values: &#x60;month_to_date&#x60;, &#x60;incremental&#x60;, &#x60;rolling_30d&#x60;.
+func (r ApiGetObservabilitySessionsUsageRequest) AggregationType(aggregationType string) ApiGetObservabilitySessionsUsageRequest {
+	r.aggregationType = &aggregationType
+	return r
+}
+
+func (r ApiGetObservabilitySessionsUsageRequest) Execute() (*SeriesListRep, *http.Response, error) {
+	return r.ApiService.GetObservabilitySessionsUsageExecute(r)
+}
+
+/*
+GetObservabilitySessionsUsage Get observability sessions usage
+
+Get time-series arrays of the number of observability sessions. Supports `daily` and `monthly` granularity.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetObservabilitySessionsUsageRequest
+*/
+func (a *AccountUsageBetaApiService) GetObservabilitySessionsUsage(ctx context.Context) ApiGetObservabilitySessionsUsageRequest {
+	return ApiGetObservabilitySessionsUsageRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return SeriesListRep
+func (a *AccountUsageBetaApiService) GetObservabilitySessionsUsageExecute(r ApiGetObservabilitySessionsUsageRequest) (*SeriesListRep, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *SeriesListRep
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountUsageBetaApiService.GetObservabilitySessionsUsage")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v2/usage/observability/sessions"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.from != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "")
+	}
+	if r.to != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "")
+	}
+	if r.projectKey != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "projectKey", r.projectKey, "")
+	}
+	if r.granularity != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "granularity", r.granularity, "")
+	}
+	if r.aggregationType != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "aggregationType", r.aggregationType, "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["ApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v InvalidRequestErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v UnauthorizedErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v ForbiddenErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v NotFoundErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v RateLimitedErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetObservabilityTracesUsageRequest struct {
+	ctx context.Context
+	ApiService AccountUsageBetaApi
+	from *string
+	to *string
+	projectKey *string
+	granularity *string
+	aggregationType *string
+}
+
+// The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month.
+func (r ApiGetObservabilityTracesUsageRequest) From(from string) ApiGetObservabilityTracesUsageRequest {
+	r.from = &from
+	return r
+}
+
+// The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time.
+func (r ApiGetObservabilityTracesUsageRequest) To(to string) ApiGetObservabilityTracesUsageRequest {
+	r.to = &to
+	return r
+}
+
+// A project key to filter results by. Can be specified multiple times, one query parameter per project key.
+func (r ApiGetObservabilityTracesUsageRequest) ProjectKey(projectKey string) ApiGetObservabilityTracesUsageRequest {
+	r.projectKey = &projectKey
+	return r
+}
+
+// Specifies the data granularity. Defaults to &#x60;daily&#x60;. Valid values depend on &#x60;aggregationType&#x60;: **month_to_date** supports &#x60;daily&#x60; and &#x60;monthly&#x60;; **incremental** and **rolling_30d** support &#x60;daily&#x60; only.
+func (r ApiGetObservabilityTracesUsageRequest) Granularity(granularity string) ApiGetObservabilityTracesUsageRequest {
+	r.granularity = &granularity
+	return r
+}
+
+// Specifies the aggregation method. Defaults to &#x60;month_to_date&#x60;.&lt;br/&gt;Valid values: &#x60;month_to_date&#x60;, &#x60;incremental&#x60;, &#x60;rolling_30d&#x60;.
+func (r ApiGetObservabilityTracesUsageRequest) AggregationType(aggregationType string) ApiGetObservabilityTracesUsageRequest {
+	r.aggregationType = &aggregationType
+	return r
+}
+
+func (r ApiGetObservabilityTracesUsageRequest) Execute() (*SeriesListRep, *http.Response, error) {
+	return r.ApiService.GetObservabilityTracesUsageExecute(r)
+}
+
+/*
+GetObservabilityTracesUsage Get observability traces usage
+
+Get time-series arrays of the number of observability traces. Supports `daily` and `monthly` granularity.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetObservabilityTracesUsageRequest
+*/
+func (a *AccountUsageBetaApiService) GetObservabilityTracesUsage(ctx context.Context) ApiGetObservabilityTracesUsageRequest {
+	return ApiGetObservabilityTracesUsageRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return SeriesListRep
+func (a *AccountUsageBetaApiService) GetObservabilityTracesUsageExecute(r ApiGetObservabilityTracesUsageRequest) (*SeriesListRep, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *SeriesListRep
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountUsageBetaApiService.GetObservabilityTracesUsage")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v2/usage/observability/traces"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.from != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "")
+	}
+	if r.to != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "")
+	}
+	if r.projectKey != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "projectKey", r.projectKey, "")
+	}
+	if r.granularity != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "granularity", r.granularity, "")
+	}
+	if r.aggregationType != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "aggregationType", r.aggregationType, "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["ApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v InvalidRequestErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v UnauthorizedErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v ForbiddenErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v NotFoundErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v RateLimitedErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetServiceConnectionsUsageRequest struct {
+	ctx context.Context
+	ApiService AccountUsageBetaApi
+	from *string
+	to *string
+	projectKey *string
+	environmentKey *string
+	connectionType *string
+	relayVersion *string
+	sdkName *string
+	sdkVersion *string
+	sdkType *string
+	groupBy *string
+	aggregationType *string
+	granularity *string
+}
+
+// The series of data returned starts from this timestamp (Unix milliseconds). Defaults to the beginning of the current month.
+func (r ApiGetServiceConnectionsUsageRequest) From(from string) ApiGetServiceConnectionsUsageRequest {
+	r.from = &from
+	return r
+}
+
+// The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time.
+func (r ApiGetServiceConnectionsUsageRequest) To(to string) ApiGetServiceConnectionsUsageRequest {
+	r.to = &to
+	return r
+}
+
+// A project key to filter results by. Can be specified multiple times, one query parameter per project key.
+func (r ApiGetServiceConnectionsUsageRequest) ProjectKey(projectKey string) ApiGetServiceConnectionsUsageRequest {
+	r.projectKey = &projectKey
+	return r
+}
+
+// An environment key to filter results by. If specified, exactly one &#x60;projectKey&#x60; must be provided. Can be specified multiple times, one query parameter per environment key.
+func (r ApiGetServiceConnectionsUsageRequest) EnvironmentKey(environmentKey string) ApiGetServiceConnectionsUsageRequest {
+	r.environmentKey = &environmentKey
+	return r
+}
+
+// A connection type to filter results by. Can be specified multiple times, one query parameter per connection type.
+func (r ApiGetServiceConnectionsUsageRequest) ConnectionType(connectionType string) ApiGetServiceConnectionsUsageRequest {
+	r.connectionType = &connectionType
+	return r
+}
+
+// A relay version to filter results by. Can be specified multiple times, one query parameter per relay version.
+func (r ApiGetServiceConnectionsUsageRequest) RelayVersion(relayVersion string) ApiGetServiceConnectionsUsageRequest {
+	r.relayVersion = &relayVersion
+	return r
+}
+
+// An SDK name to filter results by. Can be specified multiple times, one query parameter per SDK name.
+func (r ApiGetServiceConnectionsUsageRequest) SdkName(sdkName string) ApiGetServiceConnectionsUsageRequest {
+	r.sdkName = &sdkName
+	return r
+}
+
+// An SDK version to filter results by. Can be specified multiple times, one query parameter per SDK version.
+func (r ApiGetServiceConnectionsUsageRequest) SdkVersion(sdkVersion string) ApiGetServiceConnectionsUsageRequest {
+	r.sdkVersion = &sdkVersion
+	return r
+}
+
+// An SDK type to filter results by. Can be specified multiple times, one query parameter per SDK type.
+func (r ApiGetServiceConnectionsUsageRequest) SdkType(sdkType string) ApiGetServiceConnectionsUsageRequest {
+	r.sdkType = &sdkType
+	return r
+}
+
+// If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.&lt;br/&gt;Valid values: &#x60;projectId&#x60;, &#x60;environmentId&#x60;, &#x60;connectionType&#x60;, &#x60;relayVersion&#x60;, &#x60;sdkName&#x60;, &#x60;sdkVersion&#x60;, &#x60;sdkType&#x60;.
+func (r ApiGetServiceConnectionsUsageRequest) GroupBy(groupBy string) ApiGetServiceConnectionsUsageRequest {
+	r.groupBy = &groupBy
+	return r
+}
+
+// Specifies the aggregation method. Defaults to &#x60;month_to_date&#x60;.&lt;br/&gt;Valid values: &#x60;month_to_date&#x60;, &#x60;incremental&#x60;.
+func (r ApiGetServiceConnectionsUsageRequest) AggregationType(aggregationType string) ApiGetServiceConnectionsUsageRequest {
+	r.aggregationType = &aggregationType
+	return r
+}
+
+// Specifies the data granularity. Defaults to &#x60;daily&#x60;. &#x60;monthly&#x60; granularity is only supported with the **month_to_date** aggregation type.&lt;br/&gt;Valid values: &#x60;daily&#x60;, &#x60;hourly&#x60;, &#x60;monthly&#x60;.
+func (r ApiGetServiceConnectionsUsageRequest) Granularity(granularity string) ApiGetServiceConnectionsUsageRequest {
+	r.granularity = &granularity
+	return r
+}
+
+func (r ApiGetServiceConnectionsUsageRequest) Execute() (*SeriesListRepFloat, *http.Response, error) {
+	return r.ApiService.GetServiceConnectionsUsageExecute(r)
+}
+
+/*
+GetServiceConnectionsUsage Get service connections usage
+
+Get a time series array showing the number of service connection minutes from your account. The supported granularity varies by aggregation type. The maximum time range is 365 days.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetServiceConnectionsUsageRequest
+*/
+func (a *AccountUsageBetaApiService) GetServiceConnectionsUsage(ctx context.Context) ApiGetServiceConnectionsUsageRequest {
+	return ApiGetServiceConnectionsUsageRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return SeriesListRepFloat
+func (a *AccountUsageBetaApiService) GetServiceConnectionsUsageExecute(r ApiGetServiceConnectionsUsageRequest) (*SeriesListRepFloat, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *SeriesListRepFloat
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountUsageBetaApiService.GetServiceConnectionsUsage")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v2/usage/service-connections"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.from != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "")
+	}
+	if r.to != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "")
+	}
+	if r.projectKey != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "projectKey", r.projectKey, "")
+	}
+	if r.environmentKey != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environmentKey", r.environmentKey, "")
+	}
+	if r.connectionType != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "connectionType", r.connectionType, "")
+	}
+	if r.relayVersion != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "relayVersion", r.relayVersion, "")
+	}
+	if r.sdkName != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sdkName", r.sdkName, "")
+	}
+	if r.sdkVersion != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sdkVersion", r.sdkVersion, "")
+	}
+	if r.sdkType != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sdkType", r.sdkType, "")
+	}
+	if r.groupBy != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "groupBy", r.groupBy, "")
+	}
+	if r.aggregationType != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "aggregationType", r.aggregationType, "")
+	}
+	if r.granularity != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "granularity", r.granularity, "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["ApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v InvalidRequestErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v UnauthorizedErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v ForbiddenErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v RateLimitedErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 503 {
@@ -1999,7 +4028,8 @@ func (a *AccountUsageBetaApiService) GetServiceConnectionUsageExecute(r ApiGetSe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -2080,20 +4110,20 @@ func (a *AccountUsageBetaApiService) GetStreamUsageExecute(r ApiGetStreamUsageRe
 	}
 
 	localVarPath := localBasePath + "/api/v2/usage/streams/{source}"
-	localVarPath = strings.Replace(localVarPath, "{"+"source"+"}", url.PathEscape(parameterToString(r.source, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"source"+"}", url.PathEscape(parameterValueToString(r.source, "source")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.from != nil {
-		localVarQueryParams.Add("from", parameterToString(*r.from, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "")
 	}
 	if r.to != nil {
-		localVarQueryParams.Add("to", parameterToString(*r.to, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "")
 	}
 	if r.tz != nil {
-		localVarQueryParams.Add("tz", parameterToString(*r.tz, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "tz", r.tz, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -2136,9 +4166,9 @@ func (a *AccountUsageBetaApiService) GetStreamUsageExecute(r ApiGetStreamUsageRe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2155,7 +4185,8 @@ func (a *AccountUsageBetaApiService) GetStreamUsageExecute(r ApiGetStreamUsageRe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -2165,7 +4196,8 @@ func (a *AccountUsageBetaApiService) GetStreamUsageExecute(r ApiGetStreamUsageRe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -2175,7 +4207,8 @@ func (a *AccountUsageBetaApiService) GetStreamUsageExecute(r ApiGetStreamUsageRe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2185,7 +4218,8 @@ func (a *AccountUsageBetaApiService) GetStreamUsageExecute(r ApiGetStreamUsageRe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2195,7 +4229,8 @@ func (a *AccountUsageBetaApiService) GetStreamUsageExecute(r ApiGetStreamUsageRe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -2290,26 +4325,26 @@ func (a *AccountUsageBetaApiService) GetStreamUsageBySdkVersionExecute(r ApiGetS
 	}
 
 	localVarPath := localBasePath + "/api/v2/usage/streams/{source}/bysdkversion"
-	localVarPath = strings.Replace(localVarPath, "{"+"source"+"}", url.PathEscape(parameterToString(r.source, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"source"+"}", url.PathEscape(parameterValueToString(r.source, "source")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.from != nil {
-		localVarQueryParams.Add("from", parameterToString(*r.from, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "")
 	}
 	if r.to != nil {
-		localVarQueryParams.Add("to", parameterToString(*r.to, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "")
 	}
 	if r.tz != nil {
-		localVarQueryParams.Add("tz", parameterToString(*r.tz, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "tz", r.tz, "")
 	}
 	if r.sdk != nil {
-		localVarQueryParams.Add("sdk", parameterToString(*r.sdk, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sdk", r.sdk, "")
 	}
 	if r.version != nil {
-		localVarQueryParams.Add("version", parameterToString(*r.version, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "version", r.version, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -2352,9 +4387,9 @@ func (a *AccountUsageBetaApiService) GetStreamUsageBySdkVersionExecute(r ApiGetS
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2371,7 +4406,8 @@ func (a *AccountUsageBetaApiService) GetStreamUsageBySdkVersionExecute(r ApiGetS
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -2381,7 +4417,8 @@ func (a *AccountUsageBetaApiService) GetStreamUsageBySdkVersionExecute(r ApiGetS
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -2391,7 +4428,8 @@ func (a *AccountUsageBetaApiService) GetStreamUsageBySdkVersionExecute(r ApiGetS
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2401,7 +4439,8 @@ func (a *AccountUsageBetaApiService) GetStreamUsageBySdkVersionExecute(r ApiGetS
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2411,7 +4450,8 @@ func (a *AccountUsageBetaApiService) GetStreamUsageBySdkVersionExecute(r ApiGetS
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -2471,7 +4511,7 @@ func (a *AccountUsageBetaApiService) GetStreamUsageSdkversionExecute(r ApiGetStr
 	}
 
 	localVarPath := localBasePath + "/api/v2/usage/streams/{source}/sdkversions"
-	localVarPath = strings.Replace(localVarPath, "{"+"source"+"}", url.PathEscape(parameterToString(r.source, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"source"+"}", url.PathEscape(parameterValueToString(r.source, "source")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2518,9 +4558,9 @@ func (a *AccountUsageBetaApiService) GetStreamUsageSdkversionExecute(r ApiGetStr
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2537,7 +4577,8 @@ func (a *AccountUsageBetaApiService) GetStreamUsageSdkversionExecute(r ApiGetStr
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -2547,7 +4588,8 @@ func (a *AccountUsageBetaApiService) GetStreamUsageSdkversionExecute(r ApiGetStr
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2557,7 +4599,8 @@ func (a *AccountUsageBetaApiService) GetStreamUsageSdkversionExecute(r ApiGetStr
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

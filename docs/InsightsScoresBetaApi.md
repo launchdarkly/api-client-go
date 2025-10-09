@@ -27,24 +27,24 @@ Create insight group
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    postInsightGroupParams := *openapiclient.NewPostInsightGroupParams("Production - All Apps", "default-production-all-apps", "default", "production") // PostInsightGroupParams | 
+	postInsightGroupParams := *openapiclient.NewPostInsightGroupParams("Production - All Apps", "default-production-all-apps", "default", "production") // PostInsightGroupParams | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.InsightsScoresBetaApi.CreateInsightGroup(context.Background()).PostInsightGroupParams(postInsightGroupParams).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `InsightsScoresBetaApi.CreateInsightGroup``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateInsightGroup`: InsightGroup
-    fmt.Fprintf(os.Stdout, "Response from `InsightsScoresBetaApi.CreateInsightGroup`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.InsightsScoresBetaApi.CreateInsightGroup(context.Background()).PostInsightGroupParams(postInsightGroupParams).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `InsightsScoresBetaApi.CreateInsightGroup``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateInsightGroup`: InsightGroup
+	fmt.Fprintf(os.Stdout, "Response from `InsightsScoresBetaApi.CreateInsightGroup`: %v\n", resp)
 }
 ```
 
@@ -93,22 +93,22 @@ Delete insight group
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    insightGroupKey := "insightGroupKey_example" // string | The insight group key
+	insightGroupKey := "insightGroupKey_example" // string | The insight group key
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.InsightsScoresBetaApi.DeleteInsightGroup(context.Background(), insightGroupKey).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `InsightsScoresBetaApi.DeleteInsightGroup``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.InsightsScoresBetaApi.DeleteInsightGroup(context.Background(), insightGroupKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `InsightsScoresBetaApi.DeleteInsightGroup``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -161,25 +161,25 @@ Get insight group
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    insightGroupKey := "insightGroupKey_example" // string | The insight group key
-    expand := "expand_example" // string | Options: `scores`, `environment` (optional)
+	insightGroupKey := "insightGroupKey_example" // string | The insight group key
+	expand := "expand_example" // string | Options: `scores`, `environment` (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.InsightsScoresBetaApi.GetInsightGroup(context.Background(), insightGroupKey).Expand(expand).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `InsightsScoresBetaApi.GetInsightGroup``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetInsightGroup`: InsightGroup
-    fmt.Fprintf(os.Stdout, "Response from `InsightsScoresBetaApi.GetInsightGroup`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.InsightsScoresBetaApi.GetInsightGroup(context.Background(), insightGroupKey).Expand(expand).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `InsightsScoresBetaApi.GetInsightGroup``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetInsightGroup`: InsightGroup
+	fmt.Fprintf(os.Stdout, "Response from `InsightsScoresBetaApi.GetInsightGroup`: %v\n", resp)
 }
 ```
 
@@ -233,28 +233,28 @@ List insight groups
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    limit := int64(789) // int64 | The number of insight groups to return. Default is 20. Must be between 1 and 20 inclusive. (optional)
-    offset := int64(789) // int64 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
-    sort := "sort_example" // string | Sort flag list by field. Prefix field with <code>-</code> to sort in descending order. Allowed fields: name (optional)
-    query := "query_example" // string | Filter list of insights groups by name. (optional)
-    expand := "expand_example" // string | Options: `scores`, `environment`, `metadata` (optional)
+	limit := int64(789) // int64 | The number of insight groups to return. Default is 20. Must be between 1 and 20 inclusive. (optional)
+	offset := int64(789) // int64 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
+	sort := "sort_example" // string | Sort flag list by field. Prefix field with <code>-</code> to sort in descending order. Allowed fields: name (optional)
+	query := "query_example" // string | Filter list of insights groups by name. (optional)
+	expand := "expand_example" // string | Options: `scores`, `environment`, `metadata` (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.InsightsScoresBetaApi.GetInsightGroups(context.Background()).Limit(limit).Offset(offset).Sort(sort).Query(query).Expand(expand).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `InsightsScoresBetaApi.GetInsightGroups``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetInsightGroups`: InsightGroupCollection
-    fmt.Fprintf(os.Stdout, "Response from `InsightsScoresBetaApi.GetInsightGroups`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.InsightsScoresBetaApi.GetInsightGroups(context.Background()).Limit(limit).Offset(offset).Sort(sort).Query(query).Expand(expand).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `InsightsScoresBetaApi.GetInsightGroups``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetInsightGroups`: InsightGroupCollection
+	fmt.Fprintf(os.Stdout, "Response from `InsightsScoresBetaApi.GetInsightGroups`: %v\n", resp)
 }
 ```
 
@@ -307,26 +307,26 @@ Get insight scores
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    applicationKey := "applicationKey_example" // string | Comma separated list of application keys (optional)
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	applicationKey := "applicationKey_example" // string | Comma separated list of application keys (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.InsightsScoresBetaApi.GetInsightsScores(context.Background()).ProjectKey(projectKey).EnvironmentKey(environmentKey).ApplicationKey(applicationKey).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `InsightsScoresBetaApi.GetInsightsScores``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetInsightsScores`: InsightScores
-    fmt.Fprintf(os.Stdout, "Response from `InsightsScoresBetaApi.GetInsightsScores`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.InsightsScoresBetaApi.GetInsightsScores(context.Background()).ProjectKey(projectKey).EnvironmentKey(environmentKey).ApplicationKey(applicationKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `InsightsScoresBetaApi.GetInsightsScores``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetInsightsScores`: InsightScores
+	fmt.Fprintf(os.Stdout, "Response from `InsightsScoresBetaApi.GetInsightsScores`: %v\n", resp)
 }
 ```
 
@@ -377,25 +377,25 @@ Patch insight group
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    insightGroupKey := "insightGroupKey_example" // string | The insight group key
-    patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")} // []PatchOperation | 
+	insightGroupKey := "insightGroupKey_example" // string | The insight group key
+	patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")} // []PatchOperation | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.InsightsScoresBetaApi.PatchInsightGroup(context.Background(), insightGroupKey).PatchOperation(patchOperation).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `InsightsScoresBetaApi.PatchInsightGroup``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PatchInsightGroup`: InsightGroup
-    fmt.Fprintf(os.Stdout, "Response from `InsightsScoresBetaApi.PatchInsightGroup`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.InsightsScoresBetaApi.PatchInsightGroup(context.Background(), insightGroupKey).PatchOperation(patchOperation).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `InsightsScoresBetaApi.PatchInsightGroup``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PatchInsightGroup`: InsightGroup
+	fmt.Fprintf(os.Stdout, "Response from `InsightsScoresBetaApi.PatchInsightGroup`: %v\n", resp)
 }
 ```
 

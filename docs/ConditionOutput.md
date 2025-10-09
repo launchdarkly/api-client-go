@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **AllReviews** | [**[]ReviewOutput**](ReviewOutput.md) |  | 
 **ReviewStatus** | **string** |  | 
 **AppliedDate** | Pointer to **int64** |  | [optional] 
+**CreationConfig** | Pointer to **map[string]interface{}** |  | [optional] 
 
 ## Methods
 
@@ -305,6 +306,31 @@ SetAppliedDate sets AppliedDate field to given value.
 `func (o *ConditionOutput) HasAppliedDate() bool`
 
 HasAppliedDate returns a boolean if a field has been set.
+
+### GetCreationConfig
+
+`func (o *ConditionOutput) GetCreationConfig() map[string]interface{}`
+
+GetCreationConfig returns the CreationConfig field if non-nil, zero value otherwise.
+
+### GetCreationConfigOk
+
+`func (o *ConditionOutput) GetCreationConfigOk() (*map[string]interface{}, bool)`
+
+GetCreationConfigOk returns a tuple with the CreationConfig field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreationConfig
+
+`func (o *ConditionOutput) SetCreationConfig(v map[string]interface{})`
+
+SetCreationConfig sets CreationConfig field to given value.
+
+### HasCreationConfig
+
+`func (o *ConditionOutput) HasCreationConfig() bool`
+
+HasCreationConfig returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

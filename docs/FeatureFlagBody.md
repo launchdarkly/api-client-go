@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 **MaintainerId** | Pointer to **string** | The ID of the member who maintains this feature flag | [optional] 
 **MaintainerTeamKey** | Pointer to **string** | The key of the team that maintains this feature flag | [optional] 
 **InitialPrerequisites** | Pointer to [**[]FlagPrerequisitePost**](FlagPrerequisitePost.md) | Initial set of prerequisite flags for all environments | [optional] 
+**IsFlagOn** | Pointer to **bool** | Whether to automatically turn the flag on across all environments at creation. Defaults to &lt;code&gt;false&lt;/code&gt;. | [optional] 
 
 ## Methods
 
@@ -403,6 +404,31 @@ SetInitialPrerequisites sets InitialPrerequisites field to given value.
 `func (o *FeatureFlagBody) HasInitialPrerequisites() bool`
 
 HasInitialPrerequisites returns a boolean if a field has been set.
+
+### GetIsFlagOn
+
+`func (o *FeatureFlagBody) GetIsFlagOn() bool`
+
+GetIsFlagOn returns the IsFlagOn field if non-nil, zero value otherwise.
+
+### GetIsFlagOnOk
+
+`func (o *FeatureFlagBody) GetIsFlagOnOk() (*bool, bool)`
+
+GetIsFlagOnOk returns a tuple with the IsFlagOn field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsFlagOn
+
+`func (o *FeatureFlagBody) SetIsFlagOn(v bool)`
+
+SetIsFlagOn sets IsFlagOn field to given value.
+
+### HasIsFlagOn
+
+`func (o *FeatureFlagBody) HasIsFlagOn() bool`
+
+HasIsFlagOn returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -22,36 +22,36 @@ List flag events
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    applicationKey := "applicationKey_example" // string | Comma separated list of application keys (optional)
-    query := "query_example" // string | Filter events by flag key (optional)
-    impactSize := "impactSize_example" // string | Filter events by impact size. A small impact created a less than 20% change in the proportion of end users receiving one or more flag variations. A medium impact created between a 20%-80% change. A large impact created a more than 80% change. Options: `none`, `small`, `medium`, `large` (optional)
-    hasExperiments := true // bool | Filter events to those associated with an experiment (`true`) or without an experiment (`false`) (optional)
-    global := "global_example" // string | Filter to include or exclude global events. Default value is `include`. Options: `include`, `exclude` (optional)
-    expand := "expand_example" // string | Expand properties in response. Options: `experiments` (optional)
-    limit := int64(789) // int64 | The number of deployments to return. Default is 20. Maximum allowed is 100. (optional)
-    from := int64(789) // int64 | Unix timestamp in milliseconds. Default value is 7 days ago. (optional)
-    to := int64(789) // int64 | Unix timestamp in milliseconds. Default value is now. (optional)
-    after := "after_example" // string | Identifier used for pagination (optional)
-    before := "before_example" // string | Identifier used for pagination (optional)
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	applicationKey := "applicationKey_example" // string | Comma separated list of application keys (optional)
+	query := "query_example" // string | Filter events by flag key (optional)
+	impactSize := "impactSize_example" // string | Filter events by impact size. A small impact created a less than 20% change in the proportion of end users receiving one or more flag variations. A medium impact created between a 20%-80% change. A large impact created a more than 80% change. Options: `none`, `small`, `medium`, `large` (optional)
+	hasExperiments := true // bool | Filter events to those associated with an experiment (`true`) or without an experiment (`false`) (optional)
+	global := "global_example" // string | Filter to include or exclude global events. Default value is `include`. Options: `include`, `exclude` (optional)
+	expand := "expand_example" // string | Expand properties in response. Options: `experiments` (optional)
+	limit := int64(789) // int64 | The number of deployments to return. Default is 20. Maximum allowed is 100. (optional)
+	from := int64(789) // int64 | Unix timestamp in milliseconds. Default value is 7 days ago. (optional)
+	to := int64(789) // int64 | Unix timestamp in milliseconds. Default value is now. (optional)
+	after := "after_example" // string | Identifier used for pagination (optional)
+	before := "before_example" // string | Identifier used for pagination (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.InsightsFlagEventsBetaApi.GetFlagEvents(context.Background()).ProjectKey(projectKey).EnvironmentKey(environmentKey).ApplicationKey(applicationKey).Query(query).ImpactSize(impactSize).HasExperiments(hasExperiments).Global(global).Expand(expand).Limit(limit).From(from).To(to).After(after).Before(before).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `InsightsFlagEventsBetaApi.GetFlagEvents``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetFlagEvents`: FlagEventCollectionRep
-    fmt.Fprintf(os.Stdout, "Response from `InsightsFlagEventsBetaApi.GetFlagEvents`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.InsightsFlagEventsBetaApi.GetFlagEvents(context.Background()).ProjectKey(projectKey).EnvironmentKey(environmentKey).ApplicationKey(applicationKey).Query(query).ImpactSize(impactSize).HasExperiments(hasExperiments).Global(global).Expand(expand).Limit(limit).From(from).To(to).After(after).Before(before).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `InsightsFlagEventsBetaApi.GetFlagEvents``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetFlagEvents`: FlagEventCollectionRep
+	fmt.Fprintf(os.Stdout, "Response from `InsightsFlagEventsBetaApi.GetFlagEvents`: %v\n", resp)
 }
 ```
 

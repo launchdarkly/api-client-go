@@ -22,27 +22,27 @@ Update flag settings for context
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    contextKind := "contextKind_example" // string | The context kind
-    contextKey := "contextKey_example" // string | The context key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
-    valuePut := *openapiclient.NewValuePut() // ValuePut | 
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	contextKind := "contextKind_example" // string | The context kind
+	contextKey := "contextKey_example" // string | The context key
+	featureFlagKey := "featureFlagKey_example" // string | The feature flag key
+	valuePut := *openapiclient.NewValuePut() // ValuePut | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ContextSettingsApi.PutContextFlagSetting(context.Background(), projectKey, environmentKey, contextKind, contextKey, featureFlagKey).ValuePut(valuePut).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ContextSettingsApi.PutContextFlagSetting``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.ContextSettingsApi.PutContextFlagSetting(context.Background(), projectKey, environmentKey, contextKind, contextKey, featureFlagKey).ValuePut(valuePut).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ContextSettingsApi.PutContextFlagSetting``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 

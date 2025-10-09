@@ -28,22 +28,22 @@ Delete application
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    applicationKey := "applicationKey_example" // string | The application key
+	applicationKey := "applicationKey_example" // string | The application key
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ApplicationsBetaApi.DeleteApplication(context.Background(), applicationKey).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsBetaApi.DeleteApplication``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.ApplicationsBetaApi.DeleteApplication(context.Background(), applicationKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsBetaApi.DeleteApplication``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -96,23 +96,23 @@ Delete application version
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    applicationKey := "applicationKey_example" // string | The application key
-    versionKey := "versionKey_example" // string | The application version key
+	applicationKey := "applicationKey_example" // string | The application key
+	versionKey := "versionKey_example" // string | The application version key
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ApplicationsBetaApi.DeleteApplicationVersion(context.Background(), applicationKey, versionKey).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsBetaApi.DeleteApplicationVersion``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.ApplicationsBetaApi.DeleteApplicationVersion(context.Background(), applicationKey, versionKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsBetaApi.DeleteApplicationVersion``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -167,25 +167,25 @@ Get application by key
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    applicationKey := "applicationKey_example" // string | The application key
-    expand := "expand_example" // string | A comma-separated list of properties that can reveal additional information in the response. Options: `flags`. (optional)
+	applicationKey := "applicationKey_example" // string | The application key
+	expand := "expand_example" // string | A comma-separated list of properties that can reveal additional information in the response. Options: `flags`. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ApplicationsBetaApi.GetApplication(context.Background(), applicationKey).Expand(expand).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsBetaApi.GetApplication``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetApplication`: ApplicationRep
-    fmt.Fprintf(os.Stdout, "Response from `ApplicationsBetaApi.GetApplication`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ApplicationsBetaApi.GetApplication(context.Background(), applicationKey).Expand(expand).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsBetaApi.GetApplication``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetApplication`: ApplicationRep
+	fmt.Fprintf(os.Stdout, "Response from `ApplicationsBetaApi.GetApplication`: %v\n", resp)
 }
 ```
 
@@ -239,28 +239,28 @@ Get application versions by application key
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    applicationKey := "applicationKey_example" // string | The application key
-    filter := "filter_example" // string | Accepts filter by `key`, `name`, `supported`, and `autoAdded`. To learn more about the filter syntax, read [Filtering applications and application versions](https://launchdarkly.com/docs/api/applications-beta#filtering-applications-and-application-versions). (optional)
-    limit := int64(789) // int64 | The number of versions to return. Defaults to 50. (optional)
-    offset := int64(789) // int64 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
-    sort := "sort_example" // string | Accepts sorting order and fields. Fields can be comma separated. Possible fields are `creationDate`, `name`. Examples: `sort=name` sort by names ascending, `sort=-name,creationDate` sort by names descending and creationDate ascending. (optional)
+	applicationKey := "applicationKey_example" // string | The application key
+	filter := "filter_example" // string | Accepts filter by `key`, `name`, `supported`, and `autoAdded`. To learn more about the filter syntax, read [Filtering applications and application versions](https://launchdarkly.com/docs/api/applications-beta#filtering-applications-and-application-versions). (optional)
+	limit := int64(789) // int64 | The number of versions to return. Defaults to 50. (optional)
+	offset := int64(789) // int64 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
+	sort := "sort_example" // string | Accepts sorting order and fields. Fields can be comma separated. Possible fields are `creationDate`, `name`. Examples: `sort=name` sort by names ascending, `sort=-name,creationDate` sort by names descending and creationDate ascending. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ApplicationsBetaApi.GetApplicationVersions(context.Background(), applicationKey).Filter(filter).Limit(limit).Offset(offset).Sort(sort).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsBetaApi.GetApplicationVersions``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetApplicationVersions`: ApplicationVersionsCollectionRep
-    fmt.Fprintf(os.Stdout, "Response from `ApplicationsBetaApi.GetApplicationVersions`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ApplicationsBetaApi.GetApplicationVersions(context.Background(), applicationKey).Filter(filter).Limit(limit).Offset(offset).Sort(sort).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsBetaApi.GetApplicationVersions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetApplicationVersions`: ApplicationVersionsCollectionRep
+	fmt.Fprintf(os.Stdout, "Response from `ApplicationsBetaApi.GetApplicationVersions`: %v\n", resp)
 }
 ```
 
@@ -317,28 +317,28 @@ Get applications
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    filter := "filter_example" // string | Accepts filter by `key`, `name`, `kind`, and `autoAdded`. To learn more about the filter syntax, read [Filtering applications and application versions](https://launchdarkly.com/docs/api/applications-beta#filtering-applications-and-application-versions). (optional)
-    limit := int64(789) // int64 | The number of applications to return. Defaults to 10. (optional)
-    offset := int64(789) // int64 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
-    sort := "sort_example" // string | Accepts sorting order and fields. Fields can be comma separated. Possible fields are `creationDate`, `name`. Examples: `sort=name` sort by names ascending, `sort=-name,creationDate` sort by names descending and creationDate ascending. (optional)
-    expand := "expand_example" // string | A comma-separated list of properties that can reveal additional information in the response. Options: `flags`. (optional)
+	filter := "filter_example" // string | Accepts filter by `key`, `name`, `kind`, and `autoAdded`. To learn more about the filter syntax, read [Filtering applications and application versions](https://launchdarkly.com/docs/api/applications-beta#filtering-applications-and-application-versions). (optional)
+	limit := int64(789) // int64 | The number of applications to return. Defaults to 10. (optional)
+	offset := int64(789) // int64 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
+	sort := "sort_example" // string | Accepts sorting order and fields. Fields can be comma separated. Possible fields are `creationDate`, `name`. Examples: `sort=name` sort by names ascending, `sort=-name,creationDate` sort by names descending and creationDate ascending. (optional)
+	expand := "expand_example" // string | A comma-separated list of properties that can reveal additional information in the response. Options: `flags`. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ApplicationsBetaApi.GetApplications(context.Background()).Filter(filter).Limit(limit).Offset(offset).Sort(sort).Expand(expand).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsBetaApi.GetApplications``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetApplications`: ApplicationCollectionRep
-    fmt.Fprintf(os.Stdout, "Response from `ApplicationsBetaApi.GetApplications`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ApplicationsBetaApi.GetApplications(context.Background()).Filter(filter).Limit(limit).Offset(offset).Sort(sort).Expand(expand).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsBetaApi.GetApplications``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetApplications`: ApplicationCollectionRep
+	fmt.Fprintf(os.Stdout, "Response from `ApplicationsBetaApi.GetApplications`: %v\n", resp)
 }
 ```
 
@@ -391,25 +391,25 @@ Update application
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    applicationKey := "applicationKey_example" // string | The application key
-    patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")} // []PatchOperation | 
+	applicationKey := "applicationKey_example" // string | The application key
+	patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")} // []PatchOperation | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ApplicationsBetaApi.PatchApplication(context.Background(), applicationKey).PatchOperation(patchOperation).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsBetaApi.PatchApplication``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PatchApplication`: ApplicationRep
-    fmt.Fprintf(os.Stdout, "Response from `ApplicationsBetaApi.PatchApplication`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ApplicationsBetaApi.PatchApplication(context.Background(), applicationKey).PatchOperation(patchOperation).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsBetaApi.PatchApplication``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PatchApplication`: ApplicationRep
+	fmt.Fprintf(os.Stdout, "Response from `ApplicationsBetaApi.PatchApplication`: %v\n", resp)
 }
 ```
 
@@ -463,26 +463,26 @@ Update application version
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    applicationKey := "applicationKey_example" // string | The application key
-    versionKey := "versionKey_example" // string | The application version key
-    patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")} // []PatchOperation | 
+	applicationKey := "applicationKey_example" // string | The application key
+	versionKey := "versionKey_example" // string | The application version key
+	patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")} // []PatchOperation | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ApplicationsBetaApi.PatchApplicationVersion(context.Background(), applicationKey, versionKey).PatchOperation(patchOperation).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsBetaApi.PatchApplicationVersion``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PatchApplicationVersion`: ApplicationVersionRep
-    fmt.Fprintf(os.Stdout, "Response from `ApplicationsBetaApi.PatchApplicationVersion`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ApplicationsBetaApi.PatchApplicationVersion(context.Background(), applicationKey, versionKey).PatchOperation(patchOperation).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsBetaApi.PatchApplicationVersion``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PatchApplicationVersion`: ApplicationVersionRep
+	fmt.Fprintf(os.Stdout, "Response from `ApplicationsBetaApi.PatchApplicationVersion`: %v\n", resp)
 }
 ```
 

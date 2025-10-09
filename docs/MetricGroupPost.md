@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Key** | **string** | A unique key to reference the metric group | 
+**Key** | Pointer to **string** | A unique key to reference the metric group | [optional] 
 **Name** | **string** | A human-friendly name for the metric group | 
 **Kind** | **string** | The type of the metric group | 
 **Description** | Pointer to **string** | Description of the metric group | [optional] 
@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 
 ### NewMetricGroupPost
 
-`func NewMetricGroupPost(key string, name string, kind string, maintainerId string, tags []string, metrics []MetricInMetricGroupInput, ) *MetricGroupPost`
+`func NewMetricGroupPost(name string, kind string, maintainerId string, tags []string, metrics []MetricInMetricGroupInput, ) *MetricGroupPost`
 
 NewMetricGroupPost instantiates a new MetricGroupPost object
 This constructor will assign default values to properties that have it defined,
@@ -50,6 +50,11 @@ and a boolean to check if the value has been set.
 
 SetKey sets Key field to given value.
 
+### HasKey
+
+`func (o *MetricGroupPost) HasKey() bool`
+
+HasKey returns a boolean if a field has been set.
 
 ### GetName
 

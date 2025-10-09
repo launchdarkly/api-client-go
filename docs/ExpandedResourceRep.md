@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Kind** | **string** | The type of resource | 
+**AiConfig** | Pointer to [**AIConfigRep**](AIConfigRep.md) |  | [optional] 
 **Flag** | Pointer to [**ExpandedFlagRep**](ExpandedFlagRep.md) |  | [optional] 
 **Segment** | Pointer to [**UserSegment**](UserSegment.md) |  | [optional] 
 
@@ -46,6 +47,31 @@ and a boolean to check if the value has been set.
 
 SetKind sets Kind field to given value.
 
+
+### GetAiConfig
+
+`func (o *ExpandedResourceRep) GetAiConfig() AIConfigRep`
+
+GetAiConfig returns the AiConfig field if non-nil, zero value otherwise.
+
+### GetAiConfigOk
+
+`func (o *ExpandedResourceRep) GetAiConfigOk() (*AIConfigRep, bool)`
+
+GetAiConfigOk returns a tuple with the AiConfig field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAiConfig
+
+`func (o *ExpandedResourceRep) SetAiConfig(v AIConfigRep)`
+
+SetAiConfig sets AiConfig field to given value.
+
+### HasAiConfig
+
+`func (o *ExpandedResourceRep) HasAiConfig() bool`
+
+HasAiConfig returns a boolean if a field has been set.
 
 ### GetFlag
 

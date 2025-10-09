@@ -25,22 +25,22 @@ Create deployment event
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    postDeploymentEventInput := *openapiclient.NewPostDeploymentEventInput("default", "production", "billing-service", "a90a8a2", "started") // PostDeploymentEventInput | 
+	postDeploymentEventInput := *openapiclient.NewPostDeploymentEventInput("default", "production", "billing-service", "a90a8a2", "started") // PostDeploymentEventInput | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.InsightsDeploymentsBetaApi.CreateDeploymentEvent(context.Background()).PostDeploymentEventInput(postDeploymentEventInput).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `InsightsDeploymentsBetaApi.CreateDeploymentEvent``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.InsightsDeploymentsBetaApi.CreateDeploymentEvent(context.Background()).PostDeploymentEventInput(postDeploymentEventInput).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `InsightsDeploymentsBetaApi.CreateDeploymentEvent``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -89,25 +89,25 @@ Get deployment
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    deploymentID := "deploymentID_example" // string | The deployment ID
-    expand := "expand_example" // string | Expand properties in response. Options: `pullRequests`, `flagReferences` (optional)
+	deploymentID := "deploymentID_example" // string | The deployment ID
+	expand := "expand_example" // string | Expand properties in response. Options: `pullRequests`, `flagReferences` (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.InsightsDeploymentsBetaApi.GetDeployment(context.Background(), deploymentID).Expand(expand).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `InsightsDeploymentsBetaApi.GetDeployment``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetDeployment`: DeploymentRep
-    fmt.Fprintf(os.Stdout, "Response from `InsightsDeploymentsBetaApi.GetDeployment`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.InsightsDeploymentsBetaApi.GetDeployment(context.Background(), deploymentID).Expand(expand).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `InsightsDeploymentsBetaApi.GetDeployment``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetDeployment`: DeploymentRep
+	fmt.Fprintf(os.Stdout, "Response from `InsightsDeploymentsBetaApi.GetDeployment`: %v\n", resp)
 }
 ```
 
@@ -161,34 +161,34 @@ List deployments
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    applicationKey := "applicationKey_example" // string | Comma separated list of application keys (optional)
-    limit := int64(789) // int64 | The number of deployments to return. Default is 20. Maximum allowed is 100. (optional)
-    expand := "expand_example" // string | Expand properties in response. Options: `pullRequests`, `flagReferences` (optional)
-    from := int64(789) // int64 | Unix timestamp in milliseconds. Default value is 7 days ago. (optional)
-    to := int64(789) // int64 | Unix timestamp in milliseconds. Default value is now. (optional)
-    after := "after_example" // string | Identifier used for pagination (optional)
-    before := "before_example" // string | Identifier used for pagination (optional)
-    kind := "kind_example" // string | The deployment kind (optional)
-    status := "status_example" // string | The deployment status (optional)
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	applicationKey := "applicationKey_example" // string | Comma separated list of application keys (optional)
+	limit := int64(789) // int64 | The number of deployments to return. Default is 20. Maximum allowed is 100. (optional)
+	expand := "expand_example" // string | Expand properties in response. Options: `pullRequests`, `flagReferences` (optional)
+	from := int64(789) // int64 | Unix timestamp in milliseconds. Default value is 7 days ago. (optional)
+	to := int64(789) // int64 | Unix timestamp in milliseconds. Default value is now. (optional)
+	after := "after_example" // string | Identifier used for pagination (optional)
+	before := "before_example" // string | Identifier used for pagination (optional)
+	kind := "kind_example" // string | The deployment kind (optional)
+	status := "status_example" // string | The deployment status (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.InsightsDeploymentsBetaApi.GetDeployments(context.Background()).ProjectKey(projectKey).EnvironmentKey(environmentKey).ApplicationKey(applicationKey).Limit(limit).Expand(expand).From(from).To(to).After(after).Before(before).Kind(kind).Status(status).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `InsightsDeploymentsBetaApi.GetDeployments``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetDeployments`: DeploymentCollectionRep
-    fmt.Fprintf(os.Stdout, "Response from `InsightsDeploymentsBetaApi.GetDeployments`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.InsightsDeploymentsBetaApi.GetDeployments(context.Background()).ProjectKey(projectKey).EnvironmentKey(environmentKey).ApplicationKey(applicationKey).Limit(limit).Expand(expand).From(from).To(to).After(after).Before(before).Kind(kind).Status(status).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `InsightsDeploymentsBetaApi.GetDeployments``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetDeployments`: DeploymentCollectionRep
+	fmt.Fprintf(os.Stdout, "Response from `InsightsDeploymentsBetaApi.GetDeployments`: %v\n", resp)
 }
 ```
 
@@ -247,25 +247,25 @@ Update deployment
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    deploymentID := "deploymentID_example" // string | The deployment ID
-    patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")} // []PatchOperation | 
+	deploymentID := "deploymentID_example" // string | The deployment ID
+	patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")} // []PatchOperation | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.InsightsDeploymentsBetaApi.UpdateDeployment(context.Background(), deploymentID).PatchOperation(patchOperation).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `InsightsDeploymentsBetaApi.UpdateDeployment``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateDeployment`: DeploymentRep
-    fmt.Fprintf(os.Stdout, "Response from `InsightsDeploymentsBetaApi.UpdateDeployment`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.InsightsDeploymentsBetaApi.UpdateDeployment(context.Background(), deploymentID).PatchOperation(patchOperation).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `InsightsDeploymentsBetaApi.UpdateDeployment``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateDeployment`: DeploymentRep
+	fmt.Fprintf(os.Stdout, "Response from `InsightsDeploymentsBetaApi.UpdateDeployment`: %v\n", resp)
 }
 ```
 

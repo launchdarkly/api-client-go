@@ -26,26 +26,26 @@ Create a new release for flag
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    flagKey := "flagKey_example" // string | The flag key
-    createReleaseInput := *openapiclient.NewCreateReleaseInput("ReleasePipelineKey_example") // CreateReleaseInput | 
+	projectKey := "projectKey_example" // string | The project key
+	flagKey := "flagKey_example" // string | The flag key
+	createReleaseInput := *openapiclient.NewCreateReleaseInput("ReleasePipelineKey_example") // CreateReleaseInput | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ReleasesBetaApi.CreateReleaseForFlag(context.Background(), projectKey, flagKey).CreateReleaseInput(createReleaseInput).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ReleasesBetaApi.CreateReleaseForFlag``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateReleaseForFlag`: Release
-    fmt.Fprintf(os.Stdout, "Response from `ReleasesBetaApi.CreateReleaseForFlag`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ReleasesBetaApi.CreateReleaseForFlag(context.Background(), projectKey, flagKey).CreateReleaseInput(createReleaseInput).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ReleasesBetaApi.CreateReleaseForFlag``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateReleaseForFlag`: Release
+	fmt.Fprintf(os.Stdout, "Response from `ReleasesBetaApi.CreateReleaseForFlag`: %v\n", resp)
 }
 ```
 
@@ -101,23 +101,23 @@ Delete a release for flag
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    flagKey := "flagKey_example" // string | The flag key
+	projectKey := "projectKey_example" // string | The project key
+	flagKey := "flagKey_example" // string | The flag key
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ReleasesBetaApi.DeleteReleaseByFlagKey(context.Background(), projectKey, flagKey).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ReleasesBetaApi.DeleteReleaseByFlagKey``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.ReleasesBetaApi.DeleteReleaseByFlagKey(context.Background(), projectKey, flagKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ReleasesBetaApi.DeleteReleaseByFlagKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -172,25 +172,25 @@ Get release for flag
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    flagKey := "flagKey_example" // string | The flag key
+	projectKey := "projectKey_example" // string | The project key
+	flagKey := "flagKey_example" // string | The flag key
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ReleasesBetaApi.GetReleaseByFlagKey(context.Background(), projectKey, flagKey).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ReleasesBetaApi.GetReleaseByFlagKey``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetReleaseByFlagKey`: Release
-    fmt.Fprintf(os.Stdout, "Response from `ReleasesBetaApi.GetReleaseByFlagKey`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ReleasesBetaApi.GetReleaseByFlagKey(context.Background(), projectKey, flagKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ReleasesBetaApi.GetReleaseByFlagKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetReleaseByFlagKey`: Release
+	fmt.Fprintf(os.Stdout, "Response from `ReleasesBetaApi.GetReleaseByFlagKey`: %v\n", resp)
 }
 ```
 
@@ -245,26 +245,26 @@ Patch release for flag
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    flagKey := "flagKey_example" // string | The flag key
-    patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")} // []PatchOperation | 
+	projectKey := "projectKey_example" // string | The project key
+	flagKey := "flagKey_example" // string | The flag key
+	patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")} // []PatchOperation | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ReleasesBetaApi.PatchReleaseByFlagKey(context.Background(), projectKey, flagKey).PatchOperation(patchOperation).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ReleasesBetaApi.PatchReleaseByFlagKey``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PatchReleaseByFlagKey`: Release
-    fmt.Fprintf(os.Stdout, "Response from `ReleasesBetaApi.PatchReleaseByFlagKey`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ReleasesBetaApi.PatchReleaseByFlagKey(context.Background(), projectKey, flagKey).PatchOperation(patchOperation).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ReleasesBetaApi.PatchReleaseByFlagKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PatchReleaseByFlagKey`: Release
+	fmt.Fprintf(os.Stdout, "Response from `ReleasesBetaApi.PatchReleaseByFlagKey`: %v\n", resp)
 }
 ```
 
@@ -320,27 +320,27 @@ Update phase status for release
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    flagKey := "flagKey_example" // string | The flag key
-    phaseId := "phaseId_example" // string | The phase ID
-    updatePhaseStatusInput := *openapiclient.NewUpdatePhaseStatusInput() // UpdatePhaseStatusInput | 
+	projectKey := "projectKey_example" // string | The project key
+	flagKey := "flagKey_example" // string | The flag key
+	phaseId := "phaseId_example" // string | The phase ID
+	updatePhaseStatusInput := *openapiclient.NewUpdatePhaseStatusInput() // UpdatePhaseStatusInput | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ReleasesBetaApi.UpdatePhaseStatus(context.Background(), projectKey, flagKey, phaseId).UpdatePhaseStatusInput(updatePhaseStatusInput).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ReleasesBetaApi.UpdatePhaseStatus``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdatePhaseStatus`: Release
-    fmt.Fprintf(os.Stdout, "Response from `ReleasesBetaApi.UpdatePhaseStatus`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ReleasesBetaApi.UpdatePhaseStatus(context.Background(), projectKey, flagKey, phaseId).UpdatePhaseStatusInput(updatePhaseStatusInput).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ReleasesBetaApi.UpdatePhaseStatus``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdatePhaseStatus`: Release
+	fmt.Fprintf(os.Stdout, "Response from `ReleasesBetaApi.UpdatePhaseStatus`: %v\n", resp)
 }
 ```
 

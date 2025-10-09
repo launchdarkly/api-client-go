@@ -24,24 +24,24 @@ Associate repositories with projects
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    insightsRepositoryProjectMappings := *openapiclient.NewInsightsRepositoryProjectMappings([]openapiclient.InsightsRepositoryProject{*openapiclient.NewInsightsRepositoryProject("launchdarkly/LaunchDarkly-Docs", "default")}) // InsightsRepositoryProjectMappings | 
+	insightsRepositoryProjectMappings := *openapiclient.NewInsightsRepositoryProjectMappings([]openapiclient.InsightsRepositoryProject{*openapiclient.NewInsightsRepositoryProject("launchdarkly/LaunchDarkly-Docs", "default")}) // InsightsRepositoryProjectMappings | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.InsightsRepositoriesBetaApi.AssociateRepositoriesAndProjects(context.Background()).InsightsRepositoryProjectMappings(insightsRepositoryProjectMappings).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `InsightsRepositoriesBetaApi.AssociateRepositoriesAndProjects``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AssociateRepositoriesAndProjects`: InsightsRepositoryProjectCollection
-    fmt.Fprintf(os.Stdout, "Response from `InsightsRepositoriesBetaApi.AssociateRepositoriesAndProjects`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.InsightsRepositoriesBetaApi.AssociateRepositoriesAndProjects(context.Background()).InsightsRepositoryProjectMappings(insightsRepositoryProjectMappings).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `InsightsRepositoriesBetaApi.AssociateRepositoriesAndProjects``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AssociateRepositoriesAndProjects`: InsightsRepositoryProjectCollection
+	fmt.Fprintf(os.Stdout, "Response from `InsightsRepositoriesBetaApi.AssociateRepositoriesAndProjects`: %v\n", resp)
 }
 ```
 
@@ -90,23 +90,23 @@ Remove repository project association
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    repositoryKey := "repositoryKey_example" // string | The repository key
-    projectKey := "projectKey_example" // string | The project key
+	repositoryKey := "repositoryKey_example" // string | The repository key
+	projectKey := "projectKey_example" // string | The project key
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.InsightsRepositoriesBetaApi.DeleteRepositoryProject(context.Background(), repositoryKey, projectKey).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `InsightsRepositoriesBetaApi.DeleteRepositoryProject``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.InsightsRepositoriesBetaApi.DeleteRepositoryProject(context.Background(), repositoryKey, projectKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `InsightsRepositoriesBetaApi.DeleteRepositoryProject``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -161,24 +161,24 @@ List repositories
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    expand := "expand_example" // string | Expand properties in response. Options: `projects` (optional)
+	expand := "expand_example" // string | Expand properties in response. Options: `projects` (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.InsightsRepositoriesBetaApi.GetInsightsRepositories(context.Background()).Expand(expand).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `InsightsRepositoriesBetaApi.GetInsightsRepositories``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetInsightsRepositories`: InsightsRepositoryCollection
-    fmt.Fprintf(os.Stdout, "Response from `InsightsRepositoriesBetaApi.GetInsightsRepositories`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.InsightsRepositoriesBetaApi.GetInsightsRepositories(context.Background()).Expand(expand).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `InsightsRepositoriesBetaApi.GetInsightsRepositories``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetInsightsRepositories`: InsightsRepositoryCollection
+	fmt.Fprintf(os.Stdout, "Response from `InsightsRepositoriesBetaApi.GetInsightsRepositories`: %v\n", resp)
 }
 ```
 

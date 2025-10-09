@@ -25,25 +25,25 @@ Delete workflow
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
-    environmentKey := "environmentKey_example" // string | The environment key
-    workflowId := "workflowId_example" // string | The workflow id
+	projectKey := "projectKey_example" // string | The project key
+	featureFlagKey := "featureFlagKey_example" // string | The feature flag key
+	environmentKey := "environmentKey_example" // string | The environment key
+	workflowId := "workflowId_example" // string | The workflow id
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.WorkflowsApi.DeleteWorkflow(context.Background(), projectKey, featureFlagKey, environmentKey, workflowId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `WorkflowsApi.DeleteWorkflow``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.WorkflowsApi.DeleteWorkflow(context.Background(), projectKey, featureFlagKey, environmentKey, workflowId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `WorkflowsApi.DeleteWorkflow``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -102,27 +102,27 @@ Get custom workflow
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
-    environmentKey := "environmentKey_example" // string | The environment key
-    workflowId := "workflowId_example" // string | The workflow ID
+	projectKey := "projectKey_example" // string | The project key
+	featureFlagKey := "featureFlagKey_example" // string | The feature flag key
+	environmentKey := "environmentKey_example" // string | The environment key
+	workflowId := "workflowId_example" // string | The workflow ID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.WorkflowsApi.GetCustomWorkflow(context.Background(), projectKey, featureFlagKey, environmentKey, workflowId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `WorkflowsApi.GetCustomWorkflow``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetCustomWorkflow`: CustomWorkflowOutput
-    fmt.Fprintf(os.Stdout, "Response from `WorkflowsApi.GetCustomWorkflow`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.WorkflowsApi.GetCustomWorkflow(context.Background(), projectKey, featureFlagKey, environmentKey, workflowId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `WorkflowsApi.GetCustomWorkflow``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetCustomWorkflow`: CustomWorkflowOutput
+	fmt.Fprintf(os.Stdout, "Response from `WorkflowsApi.GetCustomWorkflow`: %v\n", resp)
 }
 ```
 
@@ -181,30 +181,30 @@ Get workflows
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
-    environmentKey := "environmentKey_example" // string | The environment key
-    status := "status_example" // string | Filter results by workflow status. Valid status filters are `active`, `completed`, and `failed`. (optional)
-    sort := "sort_example" // string | A field to sort the items by. Prefix field by a dash ( - ) to sort in descending order. This endpoint supports sorting by `creationDate` or `stopDate`. (optional)
-    limit := int64(789) // int64 | The maximum number of workflows to return. Defaults to 20. (optional)
-    offset := int64(789) // int64 | Where to start in the list. Defaults to 0. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
+	projectKey := "projectKey_example" // string | The project key
+	featureFlagKey := "featureFlagKey_example" // string | The feature flag key
+	environmentKey := "environmentKey_example" // string | The environment key
+	status := "status_example" // string | Filter results by workflow status. Valid status filters are `active`, `completed`, and `failed`. (optional)
+	sort := "sort_example" // string | A field to sort the items by. Prefix field by a dash ( - ) to sort in descending order. This endpoint supports sorting by `creationDate` or `stopDate`. (optional)
+	limit := int64(789) // int64 | The maximum number of workflows to return. Defaults to 20. (optional)
+	offset := int64(789) // int64 | Where to start in the list. Defaults to 0. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.WorkflowsApi.GetWorkflows(context.Background(), projectKey, featureFlagKey, environmentKey).Status(status).Sort(sort).Limit(limit).Offset(offset).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `WorkflowsApi.GetWorkflows``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetWorkflows`: CustomWorkflowsListingOutput
-    fmt.Fprintf(os.Stdout, "Response from `WorkflowsApi.GetWorkflows`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.WorkflowsApi.GetWorkflows(context.Background(), projectKey, featureFlagKey, environmentKey).Status(status).Sort(sort).Limit(limit).Offset(offset).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `WorkflowsApi.GetWorkflows``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetWorkflows`: CustomWorkflowsListingOutput
+	fmt.Fprintf(os.Stdout, "Response from `WorkflowsApi.GetWorkflows`: %v\n", resp)
 }
 ```
 
@@ -265,29 +265,29 @@ Create workflow
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    featureFlagKey := "featureFlagKey_example" // string | The feature flag key
-    environmentKey := "environmentKey_example" // string | The environment key
-    customWorkflowInput := *openapiclient.NewCustomWorkflowInput("Progressive rollout starting in two days") // CustomWorkflowInput | 
-    templateKey := "templateKey_example" // string | The template key to apply as a starting point for the new workflow (optional)
-    dryRun := true // bool | Whether to call the endpoint in dry-run mode (optional)
+	projectKey := "projectKey_example" // string | The project key
+	featureFlagKey := "featureFlagKey_example" // string | The feature flag key
+	environmentKey := "environmentKey_example" // string | The environment key
+	customWorkflowInput := *openapiclient.NewCustomWorkflowInput("Progressive rollout starting in two days") // CustomWorkflowInput | 
+	templateKey := "templateKey_example" // string | The template key to apply as a starting point for the new workflow (optional)
+	dryRun := true // bool | Whether to call the endpoint in dry-run mode (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.WorkflowsApi.PostWorkflow(context.Background(), projectKey, featureFlagKey, environmentKey).CustomWorkflowInput(customWorkflowInput).TemplateKey(templateKey).DryRun(dryRun).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `WorkflowsApi.PostWorkflow``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostWorkflow`: CustomWorkflowOutput
-    fmt.Fprintf(os.Stdout, "Response from `WorkflowsApi.PostWorkflow`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.WorkflowsApi.PostWorkflow(context.Background(), projectKey, featureFlagKey, environmentKey).CustomWorkflowInput(customWorkflowInput).TemplateKey(templateKey).DryRun(dryRun).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `WorkflowsApi.PostWorkflow``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostWorkflow`: CustomWorkflowOutput
+	fmt.Fprintf(os.Stdout, "Response from `WorkflowsApi.PostWorkflow`: %v\n", resp)
 }
 ```
 

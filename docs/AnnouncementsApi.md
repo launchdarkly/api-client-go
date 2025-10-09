@@ -25,26 +25,26 @@ Create an announcement
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    createAnnouncementBody := *openapiclient.NewCreateAnnouncementBody(true, "System Maintenance Notice", "**Important Update:**
+	createAnnouncementBody := *openapiclient.NewCreateAnnouncementBody(true, "System Maintenance Notice", "**Important Update:**
 
 Please be aware of the upcoming maintenance scheduled for *October 31st, 2024*. The system will be unavailable from **12:00 AM** to **4:00 AM**.", int64(1731439812), "warning") // CreateAnnouncementBody | Announcement request body
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AnnouncementsApi.CreateAnnouncementPublic(context.Background()).CreateAnnouncementBody(createAnnouncementBody).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AnnouncementsApi.CreateAnnouncementPublic``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateAnnouncementPublic`: AnnouncementResponse
-    fmt.Fprintf(os.Stdout, "Response from `AnnouncementsApi.CreateAnnouncementPublic`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AnnouncementsApi.CreateAnnouncementPublic(context.Background()).CreateAnnouncementBody(createAnnouncementBody).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AnnouncementsApi.CreateAnnouncementPublic``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateAnnouncementPublic`: AnnouncementResponse
+	fmt.Fprintf(os.Stdout, "Response from `AnnouncementsApi.CreateAnnouncementPublic`: %v\n", resp)
 }
 ```
 
@@ -93,22 +93,22 @@ Delete an announcement
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    announcementId := "1234567890" // string | 
+	announcementId := "1234567890" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AnnouncementsApi.DeleteAnnouncementPublic(context.Background(), announcementId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AnnouncementsApi.DeleteAnnouncementPublic``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AnnouncementsApi.DeleteAnnouncementPublic(context.Background(), announcementId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AnnouncementsApi.DeleteAnnouncementPublic``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -161,26 +161,26 @@ Get announcements
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    status := "active" // string | Filter announcements by status. (optional)
-    limit := int32(56) // int32 | The number of announcements to return. (optional)
-    offset := int32(56) // int32 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
+	status := "active" // string | Filter announcements by status. (optional)
+	limit := int32(56) // int32 | The number of announcements to return. (optional)
+	offset := int32(56) // int32 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AnnouncementsApi.GetAnnouncementsPublic(context.Background()).Status(status).Limit(limit).Offset(offset).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AnnouncementsApi.GetAnnouncementsPublic``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetAnnouncementsPublic`: GetAnnouncementsPublic200Response
-    fmt.Fprintf(os.Stdout, "Response from `AnnouncementsApi.GetAnnouncementsPublic`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AnnouncementsApi.GetAnnouncementsPublic(context.Background()).Status(status).Limit(limit).Offset(offset).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AnnouncementsApi.GetAnnouncementsPublic``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetAnnouncementsPublic`: GetAnnouncementsPublic200Response
+	fmt.Fprintf(os.Stdout, "Response from `AnnouncementsApi.GetAnnouncementsPublic`: %v\n", resp)
 }
 ```
 
@@ -231,25 +231,25 @@ Update an announcement
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    announcementId := "1234567890" // string | 
-    announcementPatchOperation := []openapiclient.AnnouncementPatchOperation{*openapiclient.NewAnnouncementPatchOperation("replace", "/exampleField")} // []AnnouncementPatchOperation | Update announcement request body
+	announcementId := "1234567890" // string | 
+	announcementPatchOperation := []openapiclient.AnnouncementPatchOperation{*openapiclient.NewAnnouncementPatchOperation("replace", "/exampleField")} // []AnnouncementPatchOperation | Update announcement request body
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AnnouncementsApi.UpdateAnnouncementPublic(context.Background(), announcementId).AnnouncementPatchOperation(announcementPatchOperation).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AnnouncementsApi.UpdateAnnouncementPublic``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateAnnouncementPublic`: AnnouncementResponse
-    fmt.Fprintf(os.Stdout, "Response from `AnnouncementsApi.UpdateAnnouncementPublic`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AnnouncementsApi.UpdateAnnouncementPublic(context.Background(), announcementId).AnnouncementPatchOperation(announcementPatchOperation).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AnnouncementsApi.UpdateAnnouncementPublic``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateAnnouncementPublic`: AnnouncementResponse
+	fmt.Fprintf(os.Stdout, "Response from `AnnouncementsApi.UpdateAnnouncementPublic`: %v\n", resp)
 }
 ```
 

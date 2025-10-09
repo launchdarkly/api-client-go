@@ -26,27 +26,27 @@ Create big segment store integration
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    integrationKey := "integrationKey_example" // string | The integration key, either `redis` or `dynamodb`
-    integrationDeliveryConfigurationPost := *openapiclient.NewIntegrationDeliveryConfigurationPost(map[string]interface{}{"key": interface{}(123)}) // IntegrationDeliveryConfigurationPost | 
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	integrationKey := "integrationKey_example" // string | The integration key, either `redis` or `dynamodb`
+	integrationDeliveryConfigurationPost := *openapiclient.NewIntegrationDeliveryConfigurationPost(map[string]interface{}{"key": interface{}(123)}) // IntegrationDeliveryConfigurationPost | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PersistentStoreIntegrationsBetaApi.CreateBigSegmentStoreIntegration(context.Background(), projectKey, environmentKey, integrationKey).IntegrationDeliveryConfigurationPost(integrationDeliveryConfigurationPost).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PersistentStoreIntegrationsBetaApi.CreateBigSegmentStoreIntegration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateBigSegmentStoreIntegration`: BigSegmentStoreIntegration
-    fmt.Fprintf(os.Stdout, "Response from `PersistentStoreIntegrationsBetaApi.CreateBigSegmentStoreIntegration`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PersistentStoreIntegrationsBetaApi.CreateBigSegmentStoreIntegration(context.Background(), projectKey, environmentKey, integrationKey).IntegrationDeliveryConfigurationPost(integrationDeliveryConfigurationPost).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PersistentStoreIntegrationsBetaApi.CreateBigSegmentStoreIntegration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateBigSegmentStoreIntegration`: BigSegmentStoreIntegration
+	fmt.Fprintf(os.Stdout, "Response from `PersistentStoreIntegrationsBetaApi.CreateBigSegmentStoreIntegration`: %v\n", resp)
 }
 ```
 
@@ -104,25 +104,25 @@ Delete big segment store integration
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    integrationKey := "integrationKey_example" // string | The integration key, either `redis` or `dynamodb`
-    integrationId := "integrationId_example" // string | The integration ID
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	integrationKey := "integrationKey_example" // string | The integration key, either `redis` or `dynamodb`
+	integrationId := "integrationId_example" // string | The integration ID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PersistentStoreIntegrationsBetaApi.DeleteBigSegmentStoreIntegration(context.Background(), projectKey, environmentKey, integrationKey, integrationId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PersistentStoreIntegrationsBetaApi.DeleteBigSegmentStoreIntegration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.PersistentStoreIntegrationsBetaApi.DeleteBigSegmentStoreIntegration(context.Background(), projectKey, environmentKey, integrationKey, integrationId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PersistentStoreIntegrationsBetaApi.DeleteBigSegmentStoreIntegration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -181,27 +181,27 @@ Get big segment store integration by ID
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    integrationKey := "integrationKey_example" // string | The integration key, either `redis` or `dynamodb`
-    integrationId := "integrationId_example" // string | The integration ID
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	integrationKey := "integrationKey_example" // string | The integration key, either `redis` or `dynamodb`
+	integrationId := "integrationId_example" // string | The integration ID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PersistentStoreIntegrationsBetaApi.GetBigSegmentStoreIntegration(context.Background(), projectKey, environmentKey, integrationKey, integrationId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PersistentStoreIntegrationsBetaApi.GetBigSegmentStoreIntegration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetBigSegmentStoreIntegration`: BigSegmentStoreIntegration
-    fmt.Fprintf(os.Stdout, "Response from `PersistentStoreIntegrationsBetaApi.GetBigSegmentStoreIntegration`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PersistentStoreIntegrationsBetaApi.GetBigSegmentStoreIntegration(context.Background(), projectKey, environmentKey, integrationKey, integrationId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PersistentStoreIntegrationsBetaApi.GetBigSegmentStoreIntegration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetBigSegmentStoreIntegration`: BigSegmentStoreIntegration
+	fmt.Fprintf(os.Stdout, "Response from `PersistentStoreIntegrationsBetaApi.GetBigSegmentStoreIntegration`: %v\n", resp)
 }
 ```
 
@@ -260,23 +260,23 @@ List all big segment store integrations
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PersistentStoreIntegrationsBetaApi.GetBigSegmentStoreIntegrations(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PersistentStoreIntegrationsBetaApi.GetBigSegmentStoreIntegrations``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetBigSegmentStoreIntegrations`: BigSegmentStoreIntegrationCollection
-    fmt.Fprintf(os.Stdout, "Response from `PersistentStoreIntegrationsBetaApi.GetBigSegmentStoreIntegrations`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PersistentStoreIntegrationsBetaApi.GetBigSegmentStoreIntegrations(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PersistentStoreIntegrationsBetaApi.GetBigSegmentStoreIntegrations``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetBigSegmentStoreIntegrations`: BigSegmentStoreIntegrationCollection
+	fmt.Fprintf(os.Stdout, "Response from `PersistentStoreIntegrationsBetaApi.GetBigSegmentStoreIntegrations`: %v\n", resp)
 }
 ```
 
@@ -321,28 +321,28 @@ Update big segment store integration
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    integrationKey := "integrationKey_example" // string | The integration key, either `redis` or `dynamodb`
-    integrationId := "integrationId_example" // string | The integration ID
-    patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")} // []PatchOperation | 
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	integrationKey := "integrationKey_example" // string | The integration key, either `redis` or `dynamodb`
+	integrationId := "integrationId_example" // string | The integration ID
+	patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")} // []PatchOperation | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.PersistentStoreIntegrationsBetaApi.PatchBigSegmentStoreIntegration(context.Background(), projectKey, environmentKey, integrationKey, integrationId).PatchOperation(patchOperation).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PersistentStoreIntegrationsBetaApi.PatchBigSegmentStoreIntegration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PatchBigSegmentStoreIntegration`: BigSegmentStoreIntegration
-    fmt.Fprintf(os.Stdout, "Response from `PersistentStoreIntegrationsBetaApi.PatchBigSegmentStoreIntegration`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PersistentStoreIntegrationsBetaApi.PatchBigSegmentStoreIntegration(context.Background(), projectKey, environmentKey, integrationKey, integrationId).PatchOperation(patchOperation).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PersistentStoreIntegrationsBetaApi.PatchBigSegmentStoreIntegration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PatchBigSegmentStoreIntegration`: BigSegmentStoreIntegration
+	fmt.Fprintf(os.Stdout, "Response from `PersistentStoreIntegrationsBetaApi.PatchBigSegmentStoreIntegration`: %v\n", resp)
 }
 ```
 

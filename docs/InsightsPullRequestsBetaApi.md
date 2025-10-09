@@ -22,36 +22,36 @@ List pull requests
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
+	"context"
+	"fmt"
+	"os"
     "time"
-    openapiclient "./openapi"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | Required if you are using the <code>sort</code> parameter's <code>leadTime</code> option to sort pull requests. (optional)
-    applicationKey := "applicationKey_example" // string | Filter the results to pull requests deployed to a comma separated list of applications (optional)
-    status := "status_example" // string | Filter results to pull requests with the given status. Options: `open`, `merged`, `closed`, `deployed`. (optional)
-    query := "query_example" // string | Filter list of pull requests by title or author (optional)
-    limit := int64(789) // int64 | The number of pull requests to return. Default is 20. Maximum allowed is 100. (optional)
-    expand := "expand_example" // string | Expand properties in response. Options: `deployments`, `flagReferences`, `leadTime`. (optional)
-    sort := "sort_example" // string | Sort results. Requires the `environmentKey` to be set. Options: `leadTime` (asc) and `-leadTime` (desc). When query option is excluded, default sort is by created or merged date. (optional)
-    from := time.Now() // time.Time | Unix timestamp in milliseconds. Default value is 7 days ago. (optional)
-    to := time.Now() // time.Time | Unix timestamp in milliseconds. Default value is now. (optional)
-    after := "after_example" // string | Identifier used for pagination (optional)
-    before := "before_example" // string | Identifier used for pagination (optional)
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | Required if you are using the <code>sort</code> parameter's <code>leadTime</code> option to sort pull requests. (optional)
+	applicationKey := "applicationKey_example" // string | Filter the results to pull requests deployed to a comma separated list of applications (optional)
+	status := "status_example" // string | Filter results to pull requests with the given status. Options: `open`, `merged`, `closed`, `deployed`. (optional)
+	query := "query_example" // string | Filter list of pull requests by title or author (optional)
+	limit := int64(789) // int64 | The number of pull requests to return. Default is 20. Maximum allowed is 100. (optional)
+	expand := "expand_example" // string | Expand properties in response. Options: `deployments`, `flagReferences`, `leadTime`. (optional)
+	sort := "sort_example" // string | Sort results. Requires the `environmentKey` to be set. Options: `leadTime` (asc) and `-leadTime` (desc). When query option is excluded, default sort is by created or merged date. (optional)
+	from := time.Now() // time.Time | Unix timestamp in milliseconds. Default value is 7 days ago. (optional)
+	to := time.Now() // time.Time | Unix timestamp in milliseconds. Default value is now. (optional)
+	after := "after_example" // string | Identifier used for pagination (optional)
+	before := "before_example" // string | Identifier used for pagination (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.InsightsPullRequestsBetaApi.GetPullRequests(context.Background()).ProjectKey(projectKey).EnvironmentKey(environmentKey).ApplicationKey(applicationKey).Status(status).Query(query).Limit(limit).Expand(expand).Sort(sort).From(from).To(to).After(after).Before(before).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `InsightsPullRequestsBetaApi.GetPullRequests``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetPullRequests`: PullRequestCollectionRep
-    fmt.Fprintf(os.Stdout, "Response from `InsightsPullRequestsBetaApi.GetPullRequests`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.InsightsPullRequestsBetaApi.GetPullRequests(context.Background()).ProjectKey(projectKey).EnvironmentKey(environmentKey).ApplicationKey(applicationKey).Status(status).Query(query).Limit(limit).Expand(expand).Sort(sort).From(from).To(to).After(after).Before(before).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `InsightsPullRequestsBetaApi.GetPullRequests``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetPullRequests`: PullRequestCollectionRep
+	fmt.Fprintf(os.Stdout, "Response from `InsightsPullRequestsBetaApi.GetPullRequests`: %v\n", resp)
 }
 ```
 

@@ -24,28 +24,28 @@ List audit log entries
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    before := int64(789) // int64 | A timestamp filter, expressed as a Unix epoch time in milliseconds.  All entries this returns occurred before the timestamp. (optional)
-    after := int64(789) // int64 | A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries this returns occurred after the timestamp. (optional)
-    q := "q_example" // string | Text to search for. You can search for the full or partial name of the resource. (optional)
-    limit := int64(789) // int64 | A limit on the number of audit log entries that return. Set between 1 and 20. The default is 10. (optional)
-    spec := "spec_example" // string | A resource specifier that lets you filter audit log listings by resource (optional)
+	before := int64(789) // int64 | A timestamp filter, expressed as a Unix epoch time in milliseconds.  All entries this returns occurred before the timestamp. (optional)
+	after := int64(789) // int64 | A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries this returns occurred after the timestamp. (optional)
+	q := "q_example" // string | Text to search for. You can search for the full or partial name of the resource. (optional)
+	limit := int64(789) // int64 | A limit on the number of audit log entries that return. Set between 1 and 20. The default is 10. (optional)
+	spec := "spec_example" // string | A resource specifier that lets you filter audit log listings by resource (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AuditLogApi.GetAuditLogEntries(context.Background()).Before(before).After(after).Q(q).Limit(limit).Spec(spec).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuditLogApi.GetAuditLogEntries``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetAuditLogEntries`: AuditLogEntryListingRepCollection
-    fmt.Fprintf(os.Stdout, "Response from `AuditLogApi.GetAuditLogEntries`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuditLogApi.GetAuditLogEntries(context.Background()).Before(before).After(after).Q(q).Limit(limit).Spec(spec).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuditLogApi.GetAuditLogEntries``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetAuditLogEntries`: AuditLogEntryListingRepCollection
+	fmt.Fprintf(os.Stdout, "Response from `AuditLogApi.GetAuditLogEntries`: %v\n", resp)
 }
 ```
 
@@ -98,24 +98,24 @@ Get audit log entry
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    id := "id_example" // string | The ID of the audit log entry
+	id := "id_example" // string | The ID of the audit log entry
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AuditLogApi.GetAuditLogEntry(context.Background(), id).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuditLogApi.GetAuditLogEntry``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetAuditLogEntry`: AuditLogEntryRep
-    fmt.Fprintf(os.Stdout, "Response from `AuditLogApi.GetAuditLogEntry`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuditLogApi.GetAuditLogEntry(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuditLogApi.GetAuditLogEntry``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetAuditLogEntry`: AuditLogEntryRep
+	fmt.Fprintf(os.Stdout, "Response from `AuditLogApi.GetAuditLogEntry`: %v\n", resp)
 }
 ```
 
@@ -168,28 +168,28 @@ Search audit log entries
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    before := int64(789) // int64 | A timestamp filter, expressed as a Unix epoch time in milliseconds.  All entries returned occurred before the timestamp. (optional)
-    after := int64(789) // int64 | A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries returned occurred after the timestamp. (optional)
-    q := "q_example" // string | Text to search for. You can search for the full or partial name of the resource. (optional)
-    limit := int64(789) // int64 | A limit on the number of audit log entries that return. Set between 1 and 20. The default is 10. (optional)
-    statementPost := []openapiclient.StatementPost{*openapiclient.NewStatementPost("allow")} // []StatementPost |  (optional)
+	before := int64(789) // int64 | A timestamp filter, expressed as a Unix epoch time in milliseconds.  All entries returned occurred before the timestamp. (optional)
+	after := int64(789) // int64 | A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries returned occurred after the timestamp. (optional)
+	q := "q_example" // string | Text to search for. You can search for the full or partial name of the resource. (optional)
+	limit := int64(789) // int64 | A limit on the number of audit log entries that return. Set between 1 and 20. The default is 10. (optional)
+	statementPost := []openapiclient.StatementPost{*openapiclient.NewStatementPost("allow")} // []StatementPost |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.AuditLogApi.PostAuditLogEntries(context.Background()).Before(before).After(after).Q(q).Limit(limit).StatementPost(statementPost).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AuditLogApi.PostAuditLogEntries``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostAuditLogEntries`: AuditLogEntryListingRepCollection
-    fmt.Fprintf(os.Stdout, "Response from `AuditLogApi.PostAuditLogEntries`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuditLogApi.PostAuditLogEntries(context.Background()).Before(before).After(after).Q(q).Limit(limit).StatementPost(statementPost).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuditLogApi.PostAuditLogEntries``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostAuditLogEntries`: AuditLogEntryListingRepCollection
+	fmt.Fprintf(os.Stdout, "Response from `AuditLogApi.PostAuditLogEntries`: %v\n", resp)
 }
 ```
 

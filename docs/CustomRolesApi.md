@@ -26,22 +26,22 @@ Delete custom role
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    customRoleKey := "customRoleKey_example" // string | The custom role key
+	customRoleKey := "customRoleKey_example" // string | The custom role key
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CustomRolesApi.DeleteCustomRole(context.Background(), customRoleKey).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CustomRolesApi.DeleteCustomRole``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CustomRolesApi.DeleteCustomRole(context.Background(), customRoleKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CustomRolesApi.DeleteCustomRole``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -94,24 +94,24 @@ Get custom role
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    customRoleKey := "customRoleKey_example" // string | The custom role key or ID
+	customRoleKey := "customRoleKey_example" // string | The custom role key or ID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CustomRolesApi.GetCustomRole(context.Background(), customRoleKey).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CustomRolesApi.GetCustomRole``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetCustomRole`: CustomRole
-    fmt.Fprintf(os.Stdout, "Response from `CustomRolesApi.GetCustomRole`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CustomRolesApi.GetCustomRole(context.Background(), customRoleKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CustomRolesApi.GetCustomRole``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetCustomRole`: CustomRole
+	fmt.Fprintf(os.Stdout, "Response from `CustomRolesApi.GetCustomRole`: %v\n", resp)
 }
 ```
 
@@ -164,25 +164,25 @@ List custom roles
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    limit := int64(789) // int64 | The maximum number of custom roles to return. Defaults to 20. (optional)
-    offset := int64(789) // int64 | Where to start in the list. Defaults to 0. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
+	limit := int64(789) // int64 | The maximum number of custom roles to return. Defaults to 20. (optional)
+	offset := int64(789) // int64 | Where to start in the list. Defaults to 0. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CustomRolesApi.GetCustomRoles(context.Background()).Limit(limit).Offset(offset).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CustomRolesApi.GetCustomRoles``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetCustomRoles`: CustomRoles
-    fmt.Fprintf(os.Stdout, "Response from `CustomRolesApi.GetCustomRoles`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CustomRolesApi.GetCustomRoles(context.Background()).Limit(limit).Offset(offset).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CustomRolesApi.GetCustomRoles``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetCustomRoles`: CustomRoles
+	fmt.Fprintf(os.Stdout, "Response from `CustomRolesApi.GetCustomRoles`: %v\n", resp)
 }
 ```
 
@@ -232,25 +232,25 @@ Update custom role
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    customRoleKey := "customRoleKey_example" // string | The custom role key
-    patchWithComment := *openapiclient.NewPatchWithComment([]openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")}) // PatchWithComment | 
+	customRoleKey := "customRoleKey_example" // string | The custom role key
+	patchWithComment := *openapiclient.NewPatchWithComment([]openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")}) // PatchWithComment | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CustomRolesApi.PatchCustomRole(context.Background(), customRoleKey).PatchWithComment(patchWithComment).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CustomRolesApi.PatchCustomRole``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PatchCustomRole`: CustomRole
-    fmt.Fprintf(os.Stdout, "Response from `CustomRolesApi.PatchCustomRole`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CustomRolesApi.PatchCustomRole(context.Background(), customRoleKey).PatchWithComment(patchWithComment).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CustomRolesApi.PatchCustomRole``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PatchCustomRole`: CustomRole
+	fmt.Fprintf(os.Stdout, "Response from `CustomRolesApi.PatchCustomRole`: %v\n", resp)
 }
 ```
 
@@ -304,24 +304,24 @@ Create custom role
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    customRolePost := *openapiclient.NewCustomRolePost("Ops team", "role-key-123abc", []openapiclient.StatementPost{*openapiclient.NewStatementPost("allow")}) // CustomRolePost | 
+	customRolePost := *openapiclient.NewCustomRolePost("Ops team", "role-key-123abc", []openapiclient.StatementPost{*openapiclient.NewStatementPost("allow")}) // CustomRolePost | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CustomRolesApi.PostCustomRole(context.Background()).CustomRolePost(customRolePost).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CustomRolesApi.PostCustomRole``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostCustomRole`: CustomRole
-    fmt.Fprintf(os.Stdout, "Response from `CustomRolesApi.PostCustomRole`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CustomRolesApi.PostCustomRole(context.Background()).CustomRolePost(customRolePost).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CustomRolesApi.PostCustomRole``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostCustomRole`: CustomRole
+	fmt.Fprintf(os.Stdout, "Response from `CustomRolesApi.PostCustomRole`: %v\n", resp)
 }
 ```
 

@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **Kind** | **string** | The kind of event the metric tracks | 
 **IsNumeric** | Pointer to **bool** | For custom metrics, whether to track numeric changes in value against a baseline (&lt;code&gt;true&lt;/code&gt;) or to track a conversion when an end user takes an action (&lt;code&gt;false&lt;/code&gt;). | [optional] 
 **UnitAggregationType** | Pointer to **string** | The type of unit aggregation to use for the metric | [optional] 
+**EventKey** | Pointer to **string** | The event key sent with the metric. Only relevant for custom metrics. | [optional] 
 **Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
 
 ## Methods
@@ -165,6 +166,31 @@ SetUnitAggregationType sets UnitAggregationType field to given value.
 `func (o *MetricV2Rep) HasUnitAggregationType() bool`
 
 HasUnitAggregationType returns a boolean if a field has been set.
+
+### GetEventKey
+
+`func (o *MetricV2Rep) GetEventKey() string`
+
+GetEventKey returns the EventKey field if non-nil, zero value otherwise.
+
+### GetEventKeyOk
+
+`func (o *MetricV2Rep) GetEventKeyOk() (*string, bool)`
+
+GetEventKeyOk returns a tuple with the EventKey field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEventKey
+
+`func (o *MetricV2Rep) SetEventKey(v string)`
+
+SetEventKey sets EventKey field to given value.
+
+### HasEventKey
+
+`func (o *MetricV2Rep) HasEventKey() bool`
+
+HasEventKey returns a boolean if a field has been set.
 
 ### GetLinks
 

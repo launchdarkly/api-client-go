@@ -24,25 +24,25 @@ Create layer
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    layerPost := *openapiclient.NewLayerPost("checkout-flow", "Checkout Flow", "Description_example") // LayerPost | 
+	projectKey := "projectKey_example" // string | The project key
+	layerPost := *openapiclient.NewLayerPost("checkout-flow", "Checkout Flow", "Description_example") // LayerPost | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.LayersApi.CreateLayer(context.Background(), projectKey).LayerPost(layerPost).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `LayersApi.CreateLayer``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateLayer`: LayerRep
-    fmt.Fprintf(os.Stdout, "Response from `LayersApi.CreateLayer`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.LayersApi.CreateLayer(context.Background(), projectKey).LayerPost(layerPost).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `LayersApi.CreateLayer``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateLayer`: LayerRep
+	fmt.Fprintf(os.Stdout, "Response from `LayersApi.CreateLayer`: %v\n", resp)
 }
 ```
 
@@ -96,25 +96,25 @@ Get layers
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    filter := "filter_example" // string | A comma-separated list of filters. This endpoint only accepts filtering by `experimentKey`. The filter returns layers which include that experiment for the selected environment(s). For example: `filter=reservations.experimentKey contains expKey`. (optional)
+	projectKey := "projectKey_example" // string | The project key
+	filter := "filter_example" // string | A comma-separated list of filters. This endpoint only accepts filtering by `experimentKey`. The filter returns layers which include that experiment for the selected environment(s). For example: `filter=reservations.experimentKey contains expKey`. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.LayersApi.GetLayers(context.Background(), projectKey).Filter(filter).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `LayersApi.GetLayers``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetLayers`: LayerCollectionRep
-    fmt.Fprintf(os.Stdout, "Response from `LayersApi.GetLayers`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.LayersApi.GetLayers(context.Background(), projectKey).Filter(filter).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `LayersApi.GetLayers``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetLayers`: LayerCollectionRep
+	fmt.Fprintf(os.Stdout, "Response from `LayersApi.GetLayers`: %v\n", resp)
 }
 ```
 
@@ -168,26 +168,26 @@ Update layer
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    layerKey := "layerKey_example" // string | The layer key
-    layerPatchInput := *openapiclient.NewLayerPatchInput([]map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}) // LayerPatchInput | 
+	projectKey := "projectKey_example" // string | The project key
+	layerKey := "layerKey_example" // string | The layer key
+	layerPatchInput := *openapiclient.NewLayerPatchInput([]map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}) // LayerPatchInput | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.LayersApi.UpdateLayer(context.Background(), projectKey, layerKey).LayerPatchInput(layerPatchInput).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `LayersApi.UpdateLayer``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateLayer`: LayerRep
-    fmt.Fprintf(os.Stdout, "Response from `LayersApi.UpdateLayer`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.LayersApi.UpdateLayer(context.Background(), projectKey, layerKey).LayerPatchInput(layerPatchInput).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `LayersApi.UpdateLayer``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateLayer`: LayerRep
+	fmt.Fprintf(os.Stdout, "Response from `LayersApi.UpdateLayer`: %v\n", resp)
 }
 ```
 

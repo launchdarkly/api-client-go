@@ -17,12 +17,13 @@ Name | Type | Description | Notes
 **Version** | **int32** |  | 
 **CostPerInputToken** | Pointer to **float64** | Cost per input token in USD | [optional] 
 **CostPerOutputToken** | Pointer to **float64** | Cost per output token in USD | [optional] 
+**IsRestricted** | **bool** | Whether the model is restricted | 
 
 ## Methods
 
 ### NewModelConfig
 
-`func NewModelConfig(name string, key string, id string, global bool, tags []string, version int32, ) *ModelConfig`
+`func NewModelConfig(name string, key string, id string, global bool, tags []string, version int32, isRestricted bool, ) *ModelConfig`
 
 NewModelConfig instantiates a new ModelConfig object
 This constructor will assign default values to properties that have it defined,
@@ -331,6 +332,26 @@ SetCostPerOutputToken sets CostPerOutputToken field to given value.
 `func (o *ModelConfig) HasCostPerOutputToken() bool`
 
 HasCostPerOutputToken returns a boolean if a field has been set.
+
+### GetIsRestricted
+
+`func (o *ModelConfig) GetIsRestricted() bool`
+
+GetIsRestricted returns the IsRestricted field if non-nil, zero value otherwise.
+
+### GetIsRestrictedOk
+
+`func (o *ModelConfig) GetIsRestrictedOk() (*bool, bool)`
+
+GetIsRestrictedOk returns a tuple with the IsRestricted field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsRestricted
+
+`func (o *ModelConfig) SetIsRestricted(v bool)`
+
+SetIsRestricted sets IsRestricted field to given value.
+
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

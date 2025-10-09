@@ -24,27 +24,27 @@ Get all holdouts
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    limit := int64(789) // int64 | The number of holdouts to return in the response. Defaults to 20 (optional)
-    offset := int64(789) // int64 | Where to start in the list. Use this with pagination. For example, an `offset` of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	limit := int64(789) // int64 | The number of holdouts to return in the response. Defaults to 20 (optional)
+	offset := int64(789) // int64 | Where to start in the list. Use this with pagination. For example, an `offset` of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.HoldoutsBetaApi.GetAllHoldouts(context.Background(), projectKey, environmentKey).Limit(limit).Offset(offset).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `HoldoutsBetaApi.GetAllHoldouts``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetAllHoldouts`: HoldoutsCollectionRep
-    fmt.Fprintf(os.Stdout, "Response from `HoldoutsBetaApi.GetAllHoldouts`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.HoldoutsBetaApi.GetAllHoldouts(context.Background(), projectKey, environmentKey).Limit(limit).Offset(offset).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `HoldoutsBetaApi.GetAllHoldouts``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetAllHoldouts`: HoldoutsCollectionRep
+	fmt.Fprintf(os.Stdout, "Response from `HoldoutsBetaApi.GetAllHoldouts`: %v\n", resp)
 }
 ```
 
@@ -101,27 +101,27 @@ Get holdout
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    holdoutKey := "holdoutKey_example" // string | The holdout experiment key
-    expand := "expand_example" // string | A comma-separated list of properties that can reveal additional information in the response. Supported fields are explained above. Holdout experiment expansion fields have no prefix. Related experiment expansion fields have `rel-` as a prefix. (optional)
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	holdoutKey := "holdoutKey_example" // string | The holdout experiment key
+	expand := "expand_example" // string | A comma-separated list of properties that can reveal additional information in the response. Supported fields are explained above. Holdout experiment expansion fields have no prefix. Related experiment expansion fields have `rel-` as a prefix. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.HoldoutsBetaApi.GetHoldout(context.Background(), projectKey, environmentKey, holdoutKey).Expand(expand).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `HoldoutsBetaApi.GetHoldout``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetHoldout`: HoldoutDetailRep
-    fmt.Fprintf(os.Stdout, "Response from `HoldoutsBetaApi.GetHoldout`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.HoldoutsBetaApi.GetHoldout(context.Background(), projectKey, environmentKey, holdoutKey).Expand(expand).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `HoldoutsBetaApi.GetHoldout``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetHoldout`: HoldoutDetailRep
+	fmt.Fprintf(os.Stdout, "Response from `HoldoutsBetaApi.GetHoldout`: %v\n", resp)
 }
 ```
 
@@ -177,26 +177,26 @@ Get Holdout by Id
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    holdoutId := "holdoutId_example" // string | The holdout experiment ID
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	holdoutId := "holdoutId_example" // string | The holdout experiment ID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.HoldoutsBetaApi.GetHoldoutById(context.Background(), projectKey, environmentKey, holdoutId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `HoldoutsBetaApi.GetHoldoutById``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetHoldoutById`: HoldoutRep
-    fmt.Fprintf(os.Stdout, "Response from `HoldoutsBetaApi.GetHoldoutById`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.HoldoutsBetaApi.GetHoldoutById(context.Background(), projectKey, environmentKey, holdoutId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `HoldoutsBetaApi.GetHoldoutById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetHoldoutById`: HoldoutRep
+	fmt.Fprintf(os.Stdout, "Response from `HoldoutsBetaApi.GetHoldoutById`: %v\n", resp)
 }
 ```
 
@@ -253,27 +253,27 @@ Patch holdout
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    holdoutKey := "holdoutKey_example" // string | The holdout key
-    holdoutPatchInput := *openapiclient.NewHoldoutPatchInput([]map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}) // HoldoutPatchInput | 
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	holdoutKey := "holdoutKey_example" // string | The holdout key
+	holdoutPatchInput := *openapiclient.NewHoldoutPatchInput([]map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}) // HoldoutPatchInput | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.HoldoutsBetaApi.PatchHoldout(context.Background(), projectKey, environmentKey, holdoutKey).HoldoutPatchInput(holdoutPatchInput).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `HoldoutsBetaApi.PatchHoldout``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PatchHoldout`: HoldoutRep
-    fmt.Fprintf(os.Stdout, "Response from `HoldoutsBetaApi.PatchHoldout`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.HoldoutsBetaApi.PatchHoldout(context.Background(), projectKey, environmentKey, holdoutKey).HoldoutPatchInput(holdoutPatchInput).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `HoldoutsBetaApi.PatchHoldout``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PatchHoldout`: HoldoutRep
+	fmt.Fprintf(os.Stdout, "Response from `HoldoutsBetaApi.PatchHoldout`: %v\n", resp)
 }
 ```
 
@@ -331,26 +331,26 @@ Create holdout
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    holdoutPostRequest := *openapiclient.NewHoldoutPostRequest() // HoldoutPostRequest | 
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	holdoutPostRequest := *openapiclient.NewHoldoutPostRequest() // HoldoutPostRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.HoldoutsBetaApi.PostHoldout(context.Background(), projectKey, environmentKey).HoldoutPostRequest(holdoutPostRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `HoldoutsBetaApi.PostHoldout``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostHoldout`: HoldoutRep
-    fmt.Fprintf(os.Stdout, "Response from `HoldoutsBetaApi.PostHoldout`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.HoldoutsBetaApi.PostHoldout(context.Background(), projectKey, environmentKey).HoldoutPostRequest(holdoutPostRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `HoldoutsBetaApi.PostHoldout``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostHoldout`: HoldoutRep
+	fmt.Fprintf(os.Stdout, "Response from `HoldoutsBetaApi.PostHoldout`: %v\n", resp)
 }
 ```
 

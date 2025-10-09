@@ -27,24 +27,24 @@ Delete Data Export destination
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    id := "id_example" // string | The Data Export destination ID
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	id := "id_example" // string | The Data Export destination ID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.DataExportDestinationsApi.DeleteDestination(context.Background(), projectKey, environmentKey, id).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DataExportDestinationsApi.DeleteDestination``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.DataExportDestinationsApi.DeleteDestination(context.Background(), projectKey, environmentKey, id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DataExportDestinationsApi.DeleteDestination``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -101,26 +101,26 @@ Get destination
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    id := "id_example" // string | The Data Export destination ID
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	id := "id_example" // string | The Data Export destination ID
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.DataExportDestinationsApi.GetDestination(context.Background(), projectKey, environmentKey, id).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DataExportDestinationsApi.GetDestination``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetDestination`: Destination
-    fmt.Fprintf(os.Stdout, "Response from `DataExportDestinationsApi.GetDestination`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DataExportDestinationsApi.GetDestination(context.Background(), projectKey, environmentKey, id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DataExportDestinationsApi.GetDestination``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetDestination`: Destination
+	fmt.Fprintf(os.Stdout, "Response from `DataExportDestinationsApi.GetDestination`: %v\n", resp)
 }
 ```
 
@@ -177,23 +177,23 @@ List destinations
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.DataExportDestinationsApi.GetDestinations(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DataExportDestinationsApi.GetDestinations``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetDestinations`: Destinations
-    fmt.Fprintf(os.Stdout, "Response from `DataExportDestinationsApi.GetDestinations`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DataExportDestinationsApi.GetDestinations(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DataExportDestinationsApi.GetDestinations``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetDestinations`: Destinations
+	fmt.Fprintf(os.Stdout, "Response from `DataExportDestinationsApi.GetDestinations`: %v\n", resp)
 }
 ```
 
@@ -238,27 +238,27 @@ Update Data Export destination
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    id := "id_example" // string | The Data Export destination ID
-    patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")} // []PatchOperation | 
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	id := "id_example" // string | The Data Export destination ID
+	patchOperation := []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")} // []PatchOperation | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.DataExportDestinationsApi.PatchDestination(context.Background(), projectKey, environmentKey, id).PatchOperation(patchOperation).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DataExportDestinationsApi.PatchDestination``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PatchDestination`: Destination
-    fmt.Fprintf(os.Stdout, "Response from `DataExportDestinationsApi.PatchDestination`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DataExportDestinationsApi.PatchDestination(context.Background(), projectKey, environmentKey, id).PatchOperation(patchOperation).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DataExportDestinationsApi.PatchDestination``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PatchDestination`: Destination
+	fmt.Fprintf(os.Stdout, "Response from `DataExportDestinationsApi.PatchDestination`: %v\n", resp)
 }
 ```
 
@@ -316,26 +316,26 @@ Create Data Export destination
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
-    projectKey := "projectKey_example" // string | The project key
-    environmentKey := "environmentKey_example" // string | The environment key
-    destinationPost := *openapiclient.NewDestinationPost() // DestinationPost | 
+	projectKey := "projectKey_example" // string | The project key
+	environmentKey := "environmentKey_example" // string | The environment key
+	destinationPost := *openapiclient.NewDestinationPost() // DestinationPost | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.DataExportDestinationsApi.PostDestination(context.Background(), projectKey, environmentKey).DestinationPost(destinationPost).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DataExportDestinationsApi.PostDestination``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostDestination`: Destination
-    fmt.Fprintf(os.Stdout, "Response from `DataExportDestinationsApi.PostDestination`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DataExportDestinationsApi.PostDestination(context.Background(), projectKey, environmentKey).DestinationPost(destinationPost).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DataExportDestinationsApi.PostDestination``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostDestination`: Destination
+	fmt.Fprintf(os.Stdout, "Response from `DataExportDestinationsApi.PostDestination`: %v\n", resp)
 }
 ```
 
@@ -391,23 +391,23 @@ Generate Snowflake destination key pair
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.DataExportDestinationsApi.PostGenerateWarehouseDestinationKeyPair(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DataExportDestinationsApi.PostGenerateWarehouseDestinationKeyPair``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostGenerateWarehouseDestinationKeyPair`: GenerateWarehouseDestinationKeyPairPostRep
-    fmt.Fprintf(os.Stdout, "Response from `DataExportDestinationsApi.PostGenerateWarehouseDestinationKeyPair`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DataExportDestinationsApi.PostGenerateWarehouseDestinationKeyPair(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DataExportDestinationsApi.PostGenerateWarehouseDestinationKeyPair``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostGenerateWarehouseDestinationKeyPair`: GenerateWarehouseDestinationKeyPairPostRep
+	fmt.Fprintf(os.Stdout, "Response from `DataExportDestinationsApi.PostGenerateWarehouseDestinationKeyPair`: %v\n", resp)
 }
 ```
 
