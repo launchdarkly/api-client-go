@@ -490,13 +490,13 @@ func (a *AccessTokensApiService) GetTokensExecute(r ApiGetTokensRequest) (*Token
 	localVarFormParams := url.Values{}
 
 	if r.showAll != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "showAll", r.showAll, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "showAll", r.showAll, "form", "")
 	}
 	if r.limit != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	}
 	if r.offset != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1026,7 +1026,7 @@ func (a *AccessTokensApiService) ResetTokenExecute(r ApiResetTokenRequest) (*Tok
 	localVarFormParams := url.Values{}
 
 	if r.expiry != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "expiry", r.expiry, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "expiry", r.expiry, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

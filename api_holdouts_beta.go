@@ -282,10 +282,10 @@ func (a *HoldoutsBetaApiService) GetAllHoldoutsExecute(r ApiGetAllHoldoutsReques
 	localVarFormParams := url.Values{}
 
 	if r.limit != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	}
 	if r.offset != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -482,7 +482,7 @@ func (a *HoldoutsBetaApiService) GetHoldoutExecute(r ApiGetHoldoutRequest) (*Hol
 	localVarFormParams := url.Values{}
 
 	if r.expand != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "expand", r.expand, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "expand", r.expand, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

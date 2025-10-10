@@ -422,25 +422,25 @@ func (a *UsersApiService) GetSearchUsersExecute(r ApiGetSearchUsersRequest) (*Us
 	localVarFormParams := url.Values{}
 
 	if r.q != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
 	}
 	if r.limit != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	}
 	if r.offset != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
 	}
 	if r.after != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "after", r.after, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "after", r.after, "form", "")
 	}
 	if r.sort != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "")
 	}
 	if r.searchAfter != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "searchAfter", r.searchAfter, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "searchAfter", r.searchAfter, "form", "")
 	}
 	if r.filter != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "filter", r.filter, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "filter", r.filter, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -829,10 +829,10 @@ func (a *UsersApiService) GetUsersExecute(r ApiGetUsersRequest) (*UsersRep, *htt
 	localVarFormParams := url.Values{}
 
 	if r.limit != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	}
 	if r.searchAfter != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "searchAfter", r.searchAfter, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "searchAfter", r.searchAfter, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

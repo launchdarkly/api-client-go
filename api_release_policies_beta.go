@@ -197,7 +197,7 @@ func (a *ReleasePoliciesBetaApiService) DeleteReleasePolicyExecute(r ApiDeleteRe
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "")
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -361,7 +361,7 @@ func (a *ReleasePoliciesBetaApiService) GetReleasePoliciesExecute(r ApiGetReleas
 	}
 
 	if r.excludeDefault != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "excludeDefault", r.excludeDefault, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "excludeDefault", r.excludeDefault, "form", "")
 	} else {
 		var defaultValue bool = false
 		r.excludeDefault = &defaultValue
@@ -383,7 +383,7 @@ func (a *ReleasePoliciesBetaApiService) GetReleasePoliciesExecute(r ApiGetReleas
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "")
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -569,7 +569,7 @@ func (a *ReleasePoliciesBetaApiService) GetReleasePolicyExecute(r ApiGetReleaseP
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "")
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -761,7 +761,7 @@ func (a *ReleasePoliciesBetaApiService) PostReleasePoliciesOrderExecute(r ApiPos
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "")
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	// body params
 	localVarPostBody = r.requestBody
 	if r.ctx != nil {
@@ -955,7 +955,7 @@ func (a *ReleasePoliciesBetaApiService) PostReleasePolicyExecute(r ApiPostReleas
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "")
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	// body params
 	localVarPostBody = r.postReleasePolicyRequest
 	if r.ctx != nil {
@@ -1164,7 +1164,7 @@ func (a *ReleasePoliciesBetaApiService) PutReleasePolicyExecute(r ApiPutReleaseP
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "")
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	// body params
 	localVarPostBody = r.putReleasePolicyRequest
 	if r.ctx != nil {

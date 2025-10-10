@@ -768,7 +768,7 @@ func (a *ExperimentsApiService) GetExperimentExecute(r ApiGetExperimentRequest) 
 	localVarFormParams := url.Values{}
 
 	if r.expand != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "expand", r.expand, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "expand", r.expand, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1198,19 +1198,19 @@ func (a *ExperimentsApiService) GetExperimentsExecute(r ApiGetExperimentsRequest
 	localVarFormParams := url.Values{}
 
 	if r.limit != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	}
 	if r.offset != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
 	}
 	if r.filter != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "filter", r.filter, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "filter", r.filter, "form", "")
 	}
 	if r.expand != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "expand", r.expand, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "expand", r.expand, "form", "")
 	}
 	if r.lifecycleState != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "lifecycleState", r.lifecycleState, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "lifecycleState", r.lifecycleState, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

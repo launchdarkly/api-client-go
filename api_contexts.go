@@ -481,16 +481,16 @@ func (a *ContextsApiService) EvaluateContextInstanceExecute(r ApiEvaluateContext
 	}
 
 	if r.limit != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	}
 	if r.offset != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
 	}
 	if r.sort != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "")
 	}
 	if r.filter != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "filter", r.filter, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "filter", r.filter, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -684,10 +684,10 @@ func (a *ContextsApiService) GetContextAttributeNamesExecute(r ApiGetContextAttr
 	localVarFormParams := url.Values{}
 
 	if r.filter != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "filter", r.filter, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "filter", r.filter, "form", "")
 	}
 	if r.limit != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -872,10 +872,10 @@ func (a *ContextsApiService) GetContextAttributeValuesExecute(r ApiGetContextAtt
 	localVarFormParams := url.Values{}
 
 	if r.filter != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "filter", r.filter, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "filter", r.filter, "form", "")
 	}
 	if r.limit != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1081,19 +1081,19 @@ func (a *ContextsApiService) GetContextInstancesExecute(r ApiGetContextInstances
 	localVarFormParams := url.Values{}
 
 	if r.limit != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	}
 	if r.continuationToken != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "continuationToken", r.continuationToken, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "continuationToken", r.continuationToken, "form", "")
 	}
 	if r.sort != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "")
 	}
 	if r.filter != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "filter", r.filter, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "filter", r.filter, "form", "")
 	}
 	if r.includeTotalCount != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "includeTotalCount", r.includeTotalCount, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "includeTotalCount", r.includeTotalCount, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1452,19 +1452,19 @@ func (a *ContextsApiService) GetContextsExecute(r ApiGetContextsRequest) (*Conte
 	localVarFormParams := url.Values{}
 
 	if r.limit != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	}
 	if r.continuationToken != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "continuationToken", r.continuationToken, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "continuationToken", r.continuationToken, "form", "")
 	}
 	if r.sort != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "")
 	}
 	if r.filter != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "filter", r.filter, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "filter", r.filter, "form", "")
 	}
 	if r.includeTotalCount != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "includeTotalCount", r.includeTotalCount, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "includeTotalCount", r.includeTotalCount, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1856,19 +1856,19 @@ func (a *ContextsApiService) SearchContextInstancesExecute(r ApiSearchContextIns
 	}
 
 	if r.limit != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	}
 	if r.continuationToken != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "continuationToken", r.continuationToken, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "continuationToken", r.continuationToken, "form", "")
 	}
 	if r.sort != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "")
 	}
 	if r.filter != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "filter", r.filter, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "filter", r.filter, "form", "")
 	}
 	if r.includeTotalCount != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "includeTotalCount", r.includeTotalCount, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "includeTotalCount", r.includeTotalCount, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -2087,19 +2087,19 @@ func (a *ContextsApiService) SearchContextsExecute(r ApiSearchContextsRequest) (
 	}
 
 	if r.limit != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	}
 	if r.continuationToken != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "continuationToken", r.continuationToken, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "continuationToken", r.continuationToken, "form", "")
 	}
 	if r.sort != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "")
 	}
 	if r.filter != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "filter", r.filter, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "filter", r.filter, "form", "")
 	}
 	if r.includeTotalCount != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "includeTotalCount", r.includeTotalCount, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "includeTotalCount", r.includeTotalCount, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}

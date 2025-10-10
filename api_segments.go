@@ -1404,10 +1404,10 @@ func (a *SegmentsApiService) CreateBigSegmentImportExecute(r ApiCreateBigSegment
 		formFiles = append(formFiles, formFile{fileBytes: fileLocalVarFileBytes, fileName: fileLocalVarFileName, formFileName: fileLocalVarFormFileName})
 	}
 	if r.mode != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "mode", r.mode, "")
+		parameterAddToHeaderOrQuery(localVarFormParams, "mode", r.mode, "", "")
 	}
 	if r.waitOnApprovals != nil {
-		parameterAddToHeaderOrQuery(localVarFormParams, "waitOnApprovals", r.waitOnApprovals, "")
+		parameterAddToHeaderOrQuery(localVarFormParams, "waitOnApprovals", r.waitOnApprovals, "", "")
 	}
 	if r.ctx != nil {
 		// API Key Authentication
@@ -3102,16 +3102,16 @@ func (a *SegmentsApiService) GetSegmentsExecute(r ApiGetSegmentsRequest) (*UserS
 	localVarFormParams := url.Values{}
 
 	if r.limit != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	}
 	if r.offset != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
 	}
 	if r.sort != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "")
 	}
 	if r.filter != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "filter", r.filter, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "filter", r.filter, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

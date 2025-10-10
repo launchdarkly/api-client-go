@@ -974,7 +974,7 @@ func (a *RelayProxyConfigurationsApiService) ResetRelayAutoConfigExecute(r ApiRe
 	localVarFormParams := url.Values{}
 
 	if r.expiry != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "expiry", r.expiry, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "expiry", r.expiry, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

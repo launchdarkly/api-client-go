@@ -487,7 +487,7 @@ func (a *InsightsRepositoriesBetaApiService) GetInsightsRepositoriesExecute(r Ap
 	localVarFormParams := url.Values{}
 
 	if r.expand != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "expand", r.expand, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "expand", r.expand, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

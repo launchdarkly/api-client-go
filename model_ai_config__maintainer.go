@@ -14,6 +14,7 @@ package ldapi
 import (
 	"encoding/json"
 	"fmt"
+	"gopkg.in/validator.v2"
 )
 
 // AIConfigMaintainer - struct for AIConfigMaintainer
@@ -48,7 +49,11 @@ func (dst *AIConfigMaintainer) UnmarshalJSON(data []byte) error {
 		if string(jsonAiConfigsMaintainerTeam) == "{}" { // empty struct
 			dst.AiConfigsMaintainerTeam = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.AiConfigsMaintainerTeam); err != nil {
+				dst.AiConfigsMaintainerTeam = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.AiConfigsMaintainerTeam = nil
@@ -61,7 +66,11 @@ func (dst *AIConfigMaintainer) UnmarshalJSON(data []byte) error {
 		if string(jsonMaintainerMember) == "{}" { // empty struct
 			dst.MaintainerMember = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.MaintainerMember); err != nil {
+				dst.MaintainerMember = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.MaintainerMember = nil
@@ -104,6 +113,20 @@ func (obj *AIConfigMaintainer) GetActualInstance() (interface{}) {
 
 	if obj.MaintainerMember != nil {
 		return obj.MaintainerMember
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj AIConfigMaintainer) GetActualInstanceValue() (interface{}) {
+	if obj.AiConfigsMaintainerTeam != nil {
+		return *obj.AiConfigsMaintainerTeam
+	}
+
+	if obj.MaintainerMember != nil {
+		return *obj.MaintainerMember
 	}
 
 	// all schemas are nil

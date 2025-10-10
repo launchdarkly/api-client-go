@@ -466,10 +466,10 @@ func (a *WorkflowTemplatesApiService) GetWorkflowTemplatesExecute(r ApiGetWorkfl
 	localVarFormParams := url.Values{}
 
 	if r.summary != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "summary", r.summary, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "summary", r.summary, "form", "")
 	}
 	if r.search != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "search", r.search, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "search", r.search, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

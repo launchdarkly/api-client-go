@@ -215,13 +215,13 @@ func (a *ApprovalsBetaApiService) GetApprovalRequestSettingsExecute(r ApiGetAppr
 	}
 
 	if r.environmentKey != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "environmentKey", r.environmentKey, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environmentKey", r.environmentKey, "form", "")
 	}
 	if r.resourceKind != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "resourceKind", r.resourceKind, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "resourceKind", r.resourceKind, "form", "")
 	}
 	if r.expand != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "expand", r.expand, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "expand", r.expand, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -240,7 +240,7 @@ func (a *ApprovalsBetaApiService) GetApprovalRequestSettingsExecute(r ApiGetAppr
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "")
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -606,7 +606,7 @@ func (a *ApprovalsBetaApiService) PatchApprovalRequestSettingsExecute(r ApiPatch
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "")
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	// body params
 	localVarPostBody = r.approvalRequestSettingsPatch
 	if r.ctx != nil {

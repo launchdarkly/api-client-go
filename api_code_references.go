@@ -616,10 +616,10 @@ func (a *CodeReferencesApiService) GetBranchExecute(r ApiGetBranchRequest) (*Bra
 	localVarFormParams := url.Values{}
 
 	if r.projKey != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "projKey", r.projKey, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "projKey", r.projKey, "form", "")
 	}
 	if r.flagKey != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "flagKey", r.flagKey, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "flagKey", r.flagKey, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1002,22 +1002,22 @@ func (a *CodeReferencesApiService) GetExtinctionsExecute(r ApiGetExtinctionsRequ
 	localVarFormParams := url.Values{}
 
 	if r.repoName != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "repoName", r.repoName, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "repoName", r.repoName, "form", "")
 	}
 	if r.branchName != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "branchName", r.branchName, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "branchName", r.branchName, "form", "")
 	}
 	if r.projKey != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "projKey", r.projKey, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "projKey", r.projKey, "form", "")
 	}
 	if r.flagKey != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "flagKey", r.flagKey, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "flagKey", r.flagKey, "form", "")
 	}
 	if r.from != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "form", "")
 	}
 	if r.to != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1193,16 +1193,16 @@ func (a *CodeReferencesApiService) GetRepositoriesExecute(r ApiGetRepositoriesRe
 	localVarFormParams := url.Values{}
 
 	if r.withBranches != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "withBranches", r.withBranches, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "withBranches", r.withBranches, "form", "")
 	}
 	if r.withReferencesForDefaultBranch != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "withReferencesForDefaultBranch", r.withReferencesForDefaultBranch, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "withReferencesForDefaultBranch", r.withReferencesForDefaultBranch, "form", "")
 	}
 	if r.projKey != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "projKey", r.projKey, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "projKey", r.projKey, "form", "")
 	}
 	if r.flagKey != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "flagKey", r.flagKey, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "flagKey", r.flagKey, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1688,7 +1688,7 @@ func (a *CodeReferencesApiService) GetStatisticsExecute(r ApiGetStatisticsReques
 	localVarFormParams := url.Values{}
 
 	if r.flagKey != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "flagKey", r.flagKey, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "flagKey", r.flagKey, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

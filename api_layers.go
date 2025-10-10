@@ -396,7 +396,7 @@ func (a *LayersApiService) GetLayersExecute(r ApiGetLayersRequest) (*LayerCollec
 	localVarFormParams := url.Values{}
 
 	if r.filter != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "filter", r.filter, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "filter", r.filter, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

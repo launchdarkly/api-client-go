@@ -2481,10 +2481,10 @@ func (a *FeatureFlagsApiService) GetFeatureFlagExecute(r ApiGetFeatureFlagReques
 	localVarFormParams := url.Values{}
 
 	if r.env != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "env", r.env, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "env", r.env, "form", "")
 	}
 	if r.expand != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "expand", r.expand, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "expand", r.expand, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -2826,7 +2826,7 @@ func (a *FeatureFlagsApiService) GetFeatureFlagStatusAcrossEnvironmentsExecute(r
 	localVarFormParams := url.Values{}
 
 	if r.env != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "env", r.env, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "env", r.env, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -3297,34 +3297,34 @@ func (a *FeatureFlagsApiService) GetFeatureFlagsExecute(r ApiGetFeatureFlagsRequ
 	localVarFormParams := url.Values{}
 
 	if r.env != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "env", r.env, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "env", r.env, "form", "")
 	}
 	if r.tag != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "tag", r.tag, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "tag", r.tag, "form", "")
 	}
 	if r.limit != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	}
 	if r.offset != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
 	}
 	if r.archived != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "archived", r.archived, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "archived", r.archived, "form", "")
 	}
 	if r.summary != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "summary", r.summary, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "summary", r.summary, "form", "")
 	}
 	if r.filter != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "filter", r.filter, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "filter", r.filter, "form", "")
 	}
 	if r.sort != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "")
 	}
 	if r.compare != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "compare", r.compare, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "compare", r.compare, "form", "")
 	}
 	if r.expand != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "expand", r.expand, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "expand", r.expand, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -5223,7 +5223,7 @@ func (a *FeatureFlagsApiService) PatchFeatureFlagExecute(r ApiPatchFeatureFlagRe
 	}
 
 	if r.ignoreConflicts != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "ignoreConflicts", r.ignoreConflicts, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "ignoreConflicts", r.ignoreConflicts, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -5453,7 +5453,7 @@ func (a *FeatureFlagsApiService) PostFeatureFlagExecute(r ApiPostFeatureFlagRequ
 	}
 
 	if r.clone != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "clone", r.clone, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "clone", r.clone, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}

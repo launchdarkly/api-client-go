@@ -133,26 +133,26 @@ func (a *TagsApiService) GetTagsExecute(r ApiGetTagsRequest) (*TagsCollection, *
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
 			s := reflect.ValueOf(t)
 			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "kind", s.Index(i).Interface(), "multi")
+				parameterAddToHeaderOrQuery(localVarQueryParams, "kind", s.Index(i).Interface(), "form", "multi")
 			}
 		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "kind", t, "multi")
+			parameterAddToHeaderOrQuery(localVarQueryParams, "kind", t, "form", "multi")
 		}
 	}
 	if r.pre != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "pre", r.pre, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "pre", r.pre, "form", "")
 	}
 	if r.archived != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "archived", r.archived, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "archived", r.archived, "form", "")
 	}
 	if r.limit != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	}
 	if r.offset != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
 	}
 	if r.asOf != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "asOf", r.asOf, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "asOf", r.asOf, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

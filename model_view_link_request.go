@@ -14,6 +14,7 @@ package ldapi
 import (
 	"encoding/json"
 	"fmt"
+	"gopkg.in/validator.v2"
 )
 
 // ViewLinkRequest - struct for ViewLinkRequest
@@ -48,7 +49,11 @@ func (dst *ViewLinkRequest) UnmarshalJSON(data []byte) error {
 		if string(jsonViewLinkRequestKeys) == "{}" { // empty struct
 			dst.ViewLinkRequestKeys = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.ViewLinkRequestKeys); err != nil {
+				dst.ViewLinkRequestKeys = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.ViewLinkRequestKeys = nil
@@ -61,7 +66,11 @@ func (dst *ViewLinkRequest) UnmarshalJSON(data []byte) error {
 		if string(jsonViewLinkRequestSegmentIdentifiers) == "{}" { // empty struct
 			dst.ViewLinkRequestSegmentIdentifiers = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.ViewLinkRequestSegmentIdentifiers); err != nil {
+				dst.ViewLinkRequestSegmentIdentifiers = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.ViewLinkRequestSegmentIdentifiers = nil
@@ -104,6 +113,20 @@ func (obj *ViewLinkRequest) GetActualInstance() (interface{}) {
 
 	if obj.ViewLinkRequestSegmentIdentifiers != nil {
 		return obj.ViewLinkRequestSegmentIdentifiers
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj ViewLinkRequest) GetActualInstanceValue() (interface{}) {
+	if obj.ViewLinkRequestKeys != nil {
+		return *obj.ViewLinkRequestKeys
+	}
+
+	if obj.ViewLinkRequestSegmentIdentifiers != nil {
+		return *obj.ViewLinkRequestSegmentIdentifiers
 	}
 
 	// all schemas are nil

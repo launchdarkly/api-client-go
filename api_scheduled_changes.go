@@ -838,7 +838,7 @@ func (a *ScheduledChangesApiService) PatchFlagConfigScheduledChangeExecute(r Api
 	}
 
 	if r.ignoreConflicts != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "ignoreConflicts", r.ignoreConflicts, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "ignoreConflicts", r.ignoreConflicts, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -1060,7 +1060,7 @@ func (a *ScheduledChangesApiService) PostFlagConfigScheduledChangesExecute(r Api
 	}
 
 	if r.ignoreConflicts != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "ignoreConflicts", r.ignoreConflicts, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "ignoreConflicts", r.ignoreConflicts, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}

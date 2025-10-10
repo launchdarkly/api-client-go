@@ -165,19 +165,19 @@ func (a *AuditLogApiService) GetAuditLogEntriesExecute(r ApiGetAuditLogEntriesRe
 	localVarFormParams := url.Values{}
 
 	if r.before != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "before", r.before, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "before", r.before, "form", "")
 	}
 	if r.after != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "after", r.after, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "after", r.after, "form", "")
 	}
 	if r.q != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
 	}
 	if r.limit != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	}
 	if r.spec != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "spec", r.spec, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "spec", r.spec, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -538,16 +538,16 @@ func (a *AuditLogApiService) PostAuditLogEntriesExecute(r ApiPostAuditLogEntries
 	localVarFormParams := url.Values{}
 
 	if r.before != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "before", r.before, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "before", r.before, "form", "")
 	}
 	if r.after != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "after", r.after, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "after", r.after, "form", "")
 	}
 	if r.q != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "q", r.q, "form", "")
 	}
 	if r.limit != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}

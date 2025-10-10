@@ -625,16 +625,16 @@ func (a *WorkflowsApiService) GetWorkflowsExecute(r ApiGetWorkflowsRequest) (*Cu
 	localVarFormParams := url.Values{}
 
 	if r.status != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "status", r.status, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "status", r.status, "form", "")
 	}
 	if r.sort != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "")
 	}
 	if r.limit != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	}
 	if r.offset != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -927,10 +927,10 @@ func (a *WorkflowsApiService) PostWorkflowExecute(r ApiPostWorkflowRequest) (*Cu
 	}
 
 	if r.templateKey != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "templateKey", r.templateKey, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "templateKey", r.templateKey, "form", "")
 	}
 	if r.dryRun != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "dryRun", r.dryRun, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "dryRun", r.dryRun, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}

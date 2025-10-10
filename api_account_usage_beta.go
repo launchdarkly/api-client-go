@@ -416,34 +416,34 @@ func (a *AccountUsageBetaApiService) GetContextsClientsideUsageExecute(r ApiGetC
 	localVarFormParams := url.Values{}
 
 	if r.from != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "form", "")
 	}
 	if r.to != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "form", "")
 	}
 	if r.projectKey != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "projectKey", r.projectKey, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "projectKey", r.projectKey, "form", "")
 	}
 	if r.environmentKey != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "environmentKey", r.environmentKey, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environmentKey", r.environmentKey, "form", "")
 	}
 	if r.contextKind != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "contextKind", r.contextKind, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "contextKind", r.contextKind, "form", "")
 	}
 	if r.sdkName != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sdkName", r.sdkName, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sdkName", r.sdkName, "form", "")
 	}
 	if r.anonymous != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "anonymous", r.anonymous, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "anonymous", r.anonymous, "form", "")
 	}
 	if r.groupBy != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "groupBy", r.groupBy, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "groupBy", r.groupBy, "form", "")
 	}
 	if r.aggregationType != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "aggregationType", r.aggregationType, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "aggregationType", r.aggregationType, "form", "")
 	}
 	if r.granularity != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "granularity", r.granularity, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "granularity", r.granularity, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -683,34 +683,34 @@ func (a *AccountUsageBetaApiService) GetContextsServersideUsageExecute(r ApiGetC
 	localVarFormParams := url.Values{}
 
 	if r.from != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "form", "")
 	}
 	if r.to != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "form", "")
 	}
 	if r.projectKey != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "projectKey", r.projectKey, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "projectKey", r.projectKey, "form", "")
 	}
 	if r.environmentKey != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "environmentKey", r.environmentKey, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environmentKey", r.environmentKey, "form", "")
 	}
 	if r.contextKind != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "contextKind", r.contextKind, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "contextKind", r.contextKind, "form", "")
 	}
 	if r.sdkName != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sdkName", r.sdkName, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sdkName", r.sdkName, "form", "")
 	}
 	if r.anonymous != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "anonymous", r.anonymous, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "anonymous", r.anonymous, "form", "")
 	}
 	if r.groupBy != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "groupBy", r.groupBy, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "groupBy", r.groupBy, "form", "")
 	}
 	if r.aggregationType != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "aggregationType", r.aggregationType, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "aggregationType", r.aggregationType, "form", "")
 	}
 	if r.granularity != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "granularity", r.granularity, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "granularity", r.granularity, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -957,37 +957,37 @@ func (a *AccountUsageBetaApiService) GetContextsTotalUsageExecute(r ApiGetContex
 	localVarFormParams := url.Values{}
 
 	if r.from != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "form", "")
 	}
 	if r.to != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "form", "")
 	}
 	if r.projectKey != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "projectKey", r.projectKey, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "projectKey", r.projectKey, "form", "")
 	}
 	if r.environmentKey != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "environmentKey", r.environmentKey, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environmentKey", r.environmentKey, "form", "")
 	}
 	if r.contextKind != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "contextKind", r.contextKind, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "contextKind", r.contextKind, "form", "")
 	}
 	if r.sdkName != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sdkName", r.sdkName, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sdkName", r.sdkName, "form", "")
 	}
 	if r.sdkType != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sdkType", r.sdkType, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sdkType", r.sdkType, "form", "")
 	}
 	if r.anonymous != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "anonymous", r.anonymous, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "anonymous", r.anonymous, "form", "")
 	}
 	if r.groupBy != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "groupBy", r.groupBy, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "groupBy", r.groupBy, "form", "")
 	}
 	if r.aggregationType != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "aggregationType", r.aggregationType, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "aggregationType", r.aggregationType, "form", "")
 	}
 	if r.granularity != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "granularity", r.granularity, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "granularity", r.granularity, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1213,28 +1213,28 @@ func (a *AccountUsageBetaApiService) GetDataExportEventsUsageExecute(r ApiGetDat
 	localVarFormParams := url.Values{}
 
 	if r.from != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "form", "")
 	}
 	if r.to != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "form", "")
 	}
 	if r.projectKey != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "projectKey", r.projectKey, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "projectKey", r.projectKey, "form", "")
 	}
 	if r.environmentKey != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "environmentKey", r.environmentKey, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environmentKey", r.environmentKey, "form", "")
 	}
 	if r.eventKind != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "eventKind", r.eventKind, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "eventKind", r.eventKind, "form", "")
 	}
 	if r.groupBy != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "groupBy", r.groupBy, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "groupBy", r.groupBy, "form", "")
 	}
 	if r.aggregationType != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "aggregationType", r.aggregationType, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "aggregationType", r.aggregationType, "form", "")
 	}
 	if r.granularity != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "granularity", r.granularity, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "granularity", r.granularity, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1437,13 +1437,13 @@ func (a *AccountUsageBetaApiService) GetEvaluationsUsageExecute(r ApiGetEvaluati
 	localVarFormParams := url.Values{}
 
 	if r.from != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "form", "")
 	}
 	if r.to != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "form", "")
 	}
 	if r.tz != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "tz", r.tz, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "tz", r.tz, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1631,10 +1631,10 @@ func (a *AccountUsageBetaApiService) GetEventsUsageExecute(r ApiGetEventsUsageRe
 	localVarFormParams := url.Values{}
 
 	if r.from != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "form", "")
 	}
 	if r.to != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1867,31 +1867,31 @@ func (a *AccountUsageBetaApiService) GetExperimentationEventsUsageExecute(r ApiG
 	localVarFormParams := url.Values{}
 
 	if r.from != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "form", "")
 	}
 	if r.to != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "form", "")
 	}
 	if r.projectKey != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "projectKey", r.projectKey, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "projectKey", r.projectKey, "form", "")
 	}
 	if r.environmentKey != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "environmentKey", r.environmentKey, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environmentKey", r.environmentKey, "form", "")
 	}
 	if r.eventKey != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "eventKey", r.eventKey, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "eventKey", r.eventKey, "form", "")
 	}
 	if r.eventKind != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "eventKind", r.eventKind, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "eventKind", r.eventKind, "form", "")
 	}
 	if r.groupBy != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "groupBy", r.groupBy, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "groupBy", r.groupBy, "form", "")
 	}
 	if r.aggregationType != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "aggregationType", r.aggregationType, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "aggregationType", r.aggregationType, "form", "")
 	}
 	if r.granularity != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "granularity", r.granularity, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "granularity", r.granularity, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -2117,28 +2117,28 @@ func (a *AccountUsageBetaApiService) GetExperimentationKeysUsageExecute(r ApiGet
 	localVarFormParams := url.Values{}
 
 	if r.from != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "form", "")
 	}
 	if r.to != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "form", "")
 	}
 	if r.projectKey != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "projectKey", r.projectKey, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "projectKey", r.projectKey, "form", "")
 	}
 	if r.environmentKey != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "environmentKey", r.environmentKey, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environmentKey", r.environmentKey, "form", "")
 	}
 	if r.experimentId != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "experimentId", r.experimentId, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "experimentId", r.experimentId, "form", "")
 	}
 	if r.groupBy != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "groupBy", r.groupBy, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "groupBy", r.groupBy, "form", "")
 	}
 	if r.aggregationType != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "aggregationType", r.aggregationType, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "aggregationType", r.aggregationType, "form", "")
 	}
 	if r.granularity != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "granularity", r.granularity, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "granularity", r.granularity, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -2329,13 +2329,13 @@ func (a *AccountUsageBetaApiService) GetMauSdksByTypeExecute(r ApiGetMauSdksByTy
 	localVarFormParams := url.Values{}
 
 	if r.from != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "form", "")
 	}
 	if r.to != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "form", "")
 	}
 	if r.sdktype != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sdktype", r.sdktype, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sdktype", r.sdktype, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -2564,34 +2564,34 @@ func (a *AccountUsageBetaApiService) GetMauUsageExecute(r ApiGetMauUsageRequest)
 	localVarFormParams := url.Values{}
 
 	if r.from != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "form", "")
 	}
 	if r.to != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "form", "")
 	}
 	if r.project != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "project", r.project, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "project", r.project, "form", "")
 	}
 	if r.environment != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environment", r.environment, "form", "")
 	}
 	if r.sdktype != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sdktype", r.sdktype, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sdktype", r.sdktype, "form", "")
 	}
 	if r.sdk != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sdk", r.sdk, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sdk", r.sdk, "form", "")
 	}
 	if r.anonymous != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "anonymous", r.anonymous, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "anonymous", r.anonymous, "form", "")
 	}
 	if r.groupby != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "groupby", r.groupby, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "groupby", r.groupby, "form", "")
 	}
 	if r.aggregationType != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "aggregationType", r.aggregationType, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "aggregationType", r.aggregationType, "form", "")
 	}
 	if r.contextKind != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "contextKind", r.contextKind, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "contextKind", r.contextKind, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -2764,10 +2764,10 @@ func (a *AccountUsageBetaApiService) GetMauUsageByCategoryExecute(r ApiGetMauUsa
 	localVarFormParams := url.Values{}
 
 	if r.from != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "form", "")
 	}
 	if r.to != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -2972,19 +2972,19 @@ func (a *AccountUsageBetaApiService) GetObservabilityErrorsUsageExecute(r ApiGet
 	localVarFormParams := url.Values{}
 
 	if r.from != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "form", "")
 	}
 	if r.to != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "form", "")
 	}
 	if r.projectKey != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "projectKey", r.projectKey, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "projectKey", r.projectKey, "form", "")
 	}
 	if r.granularity != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "granularity", r.granularity, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "granularity", r.granularity, "form", "")
 	}
 	if r.aggregationType != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "aggregationType", r.aggregationType, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "aggregationType", r.aggregationType, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -3189,19 +3189,19 @@ func (a *AccountUsageBetaApiService) GetObservabilityLogsUsageExecute(r ApiGetOb
 	localVarFormParams := url.Values{}
 
 	if r.from != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "form", "")
 	}
 	if r.to != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "form", "")
 	}
 	if r.projectKey != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "projectKey", r.projectKey, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "projectKey", r.projectKey, "form", "")
 	}
 	if r.granularity != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "granularity", r.granularity, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "granularity", r.granularity, "form", "")
 	}
 	if r.aggregationType != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "aggregationType", r.aggregationType, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "aggregationType", r.aggregationType, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -3406,19 +3406,19 @@ func (a *AccountUsageBetaApiService) GetObservabilitySessionsUsageExecute(r ApiG
 	localVarFormParams := url.Values{}
 
 	if r.from != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "form", "")
 	}
 	if r.to != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "form", "")
 	}
 	if r.projectKey != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "projectKey", r.projectKey, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "projectKey", r.projectKey, "form", "")
 	}
 	if r.granularity != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "granularity", r.granularity, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "granularity", r.granularity, "form", "")
 	}
 	if r.aggregationType != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "aggregationType", r.aggregationType, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "aggregationType", r.aggregationType, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -3623,19 +3623,19 @@ func (a *AccountUsageBetaApiService) GetObservabilityTracesUsageExecute(r ApiGet
 	localVarFormParams := url.Values{}
 
 	if r.from != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "form", "")
 	}
 	if r.to != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "form", "")
 	}
 	if r.projectKey != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "projectKey", r.projectKey, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "projectKey", r.projectKey, "form", "")
 	}
 	if r.granularity != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "granularity", r.granularity, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "granularity", r.granularity, "form", "")
 	}
 	if r.aggregationType != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "aggregationType", r.aggregationType, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "aggregationType", r.aggregationType, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -3889,40 +3889,40 @@ func (a *AccountUsageBetaApiService) GetServiceConnectionsUsageExecute(r ApiGetS
 	localVarFormParams := url.Values{}
 
 	if r.from != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "form", "")
 	}
 	if r.to != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "form", "")
 	}
 	if r.projectKey != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "projectKey", r.projectKey, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "projectKey", r.projectKey, "form", "")
 	}
 	if r.environmentKey != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "environmentKey", r.environmentKey, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environmentKey", r.environmentKey, "form", "")
 	}
 	if r.connectionType != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "connectionType", r.connectionType, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "connectionType", r.connectionType, "form", "")
 	}
 	if r.relayVersion != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "relayVersion", r.relayVersion, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "relayVersion", r.relayVersion, "form", "")
 	}
 	if r.sdkName != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sdkName", r.sdkName, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sdkName", r.sdkName, "form", "")
 	}
 	if r.sdkVersion != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sdkVersion", r.sdkVersion, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sdkVersion", r.sdkVersion, "form", "")
 	}
 	if r.sdkType != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sdkType", r.sdkType, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sdkType", r.sdkType, "form", "")
 	}
 	if r.groupBy != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "groupBy", r.groupBy, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "groupBy", r.groupBy, "form", "")
 	}
 	if r.aggregationType != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "aggregationType", r.aggregationType, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "aggregationType", r.aggregationType, "form", "")
 	}
 	if r.granularity != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "granularity", r.granularity, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "granularity", r.granularity, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -4117,13 +4117,13 @@ func (a *AccountUsageBetaApiService) GetStreamUsageExecute(r ApiGetStreamUsageRe
 	localVarFormParams := url.Values{}
 
 	if r.from != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "form", "")
 	}
 	if r.to != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "form", "")
 	}
 	if r.tz != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "tz", r.tz, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "tz", r.tz, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -4332,19 +4332,19 @@ func (a *AccountUsageBetaApiService) GetStreamUsageBySdkVersionExecute(r ApiGetS
 	localVarFormParams := url.Values{}
 
 	if r.from != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "form", "")
 	}
 	if r.to != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "form", "")
 	}
 	if r.tz != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "tz", r.tz, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "tz", r.tz, "form", "")
 	}
 	if r.sdk != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sdk", r.sdk, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sdk", r.sdk, "form", "")
 	}
 	if r.version != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "version", r.version, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "version", r.version, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

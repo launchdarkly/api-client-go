@@ -14,6 +14,7 @@ package ldapi
 import (
 	"encoding/json"
 	"fmt"
+	"gopkg.in/validator.v2"
 )
 
 // AIConfigTargetingVariationValue - struct for AIConfigTargetingVariationValue
@@ -64,7 +65,11 @@ func (dst *AIConfigTargetingVariationValue) UnmarshalJSON(data []byte) error {
 		if string(jsonBool) == "{}" { // empty struct
 			dst.Bool = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.Bool); err != nil {
+				dst.Bool = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.Bool = nil
@@ -77,7 +82,11 @@ func (dst *AIConfigTargetingVariationValue) UnmarshalJSON(data []byte) error {
 		if string(jsonFloat32) == "{}" { // empty struct
 			dst.Float32 = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.Float32); err != nil {
+				dst.Float32 = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.Float32 = nil
@@ -90,7 +99,11 @@ func (dst *AIConfigTargetingVariationValue) UnmarshalJSON(data []byte) error {
 		if string(jsonMapmapOfStringAny) == "{}" { // empty struct
 			dst.MapmapOfStringAny = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.MapmapOfStringAny); err != nil {
+				dst.MapmapOfStringAny = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.MapmapOfStringAny = nil
@@ -103,7 +116,11 @@ func (dst *AIConfigTargetingVariationValue) UnmarshalJSON(data []byte) error {
 		if string(jsonString) == "{}" { // empty struct
 			dst.String = nil
 		} else {
-			match++
+			if err = validator.Validate(dst.String); err != nil {
+				dst.String = nil
+			} else {
+				match++
+			}
 		}
 	} else {
 		dst.String = nil
@@ -164,6 +181,28 @@ func (obj *AIConfigTargetingVariationValue) GetActualInstance() (interface{}) {
 
 	if obj.String != nil {
 		return obj.String
+	}
+
+	// all schemas are nil
+	return nil
+}
+
+// Get the actual instance value
+func (obj AIConfigTargetingVariationValue) GetActualInstanceValue() (interface{}) {
+	if obj.Bool != nil {
+		return *obj.Bool
+	}
+
+	if obj.Float32 != nil {
+		return *obj.Float32
+	}
+
+	if obj.MapmapOfStringAny != nil {
+		return *obj.MapmapOfStringAny
+	}
+
+	if obj.String != nil {
+		return *obj.String
 	}
 
 	// all schemas are nil

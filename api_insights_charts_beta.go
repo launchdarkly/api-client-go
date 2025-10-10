@@ -239,31 +239,31 @@ func (a *InsightsChartsBetaApiService) GetDeploymentFrequencyChartExecute(r ApiG
 	localVarFormParams := url.Values{}
 
 	if r.projectKey != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "projectKey", r.projectKey, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "projectKey", r.projectKey, "form", "")
 	}
 	if r.environmentKey != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "environmentKey", r.environmentKey, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environmentKey", r.environmentKey, "form", "")
 	}
 	if r.applicationKey != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "applicationKey", r.applicationKey, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "applicationKey", r.applicationKey, "form", "")
 	}
 	if r.from != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "form", "")
 	}
 	if r.to != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "form", "")
 	}
 	if r.bucketType != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "bucketType", r.bucketType, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "bucketType", r.bucketType, "form", "")
 	}
 	if r.bucketMs != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "bucketMs", r.bucketMs, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "bucketMs", r.bucketMs, "form", "")
 	}
 	if r.groupBy != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "groupBy", r.groupBy, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "groupBy", r.groupBy, "form", "")
 	}
 	if r.expand != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "expand", r.expand, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "expand", r.expand, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -459,10 +459,10 @@ func (a *InsightsChartsBetaApiService) GetFlagStatusChartExecute(r ApiGetFlagSta
 		return localVarReturnValue, nil, reportError("environmentKey is required and must be specified")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "projectKey", r.projectKey, "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "environmentKey", r.environmentKey, "")
+	parameterAddToHeaderOrQuery(localVarQueryParams, "projectKey", r.projectKey, "form", "")
+	parameterAddToHeaderOrQuery(localVarQueryParams, "environmentKey", r.environmentKey, "form", "")
 	if r.applicationKey != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "applicationKey", r.applicationKey, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "applicationKey", r.applicationKey, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -697,30 +697,30 @@ func (a *InsightsChartsBetaApiService) GetLeadTimeChartExecute(r ApiGetLeadTimeC
 		return localVarReturnValue, nil, reportError("projectKey is required and must be specified")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "projectKey", r.projectKey, "")
+	parameterAddToHeaderOrQuery(localVarQueryParams, "projectKey", r.projectKey, "form", "")
 	if r.environmentKey != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "environmentKey", r.environmentKey, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environmentKey", r.environmentKey, "form", "")
 	}
 	if r.applicationKey != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "applicationKey", r.applicationKey, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "applicationKey", r.applicationKey, "form", "")
 	}
 	if r.from != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "form", "")
 	}
 	if r.to != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "form", "")
 	}
 	if r.bucketType != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "bucketType", r.bucketType, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "bucketType", r.bucketType, "form", "")
 	}
 	if r.bucketMs != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "bucketMs", r.bucketMs, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "bucketMs", r.bucketMs, "form", "")
 	}
 	if r.groupBy != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "groupBy", r.groupBy, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "groupBy", r.groupBy, "form", "")
 	}
 	if r.expand != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "expand", r.expand, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "expand", r.expand, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -972,34 +972,34 @@ func (a *InsightsChartsBetaApiService) GetReleaseFrequencyChartExecute(r ApiGetR
 		return localVarReturnValue, nil, reportError("environmentKey is required and must be specified")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "projectKey", r.projectKey, "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "environmentKey", r.environmentKey, "")
+	parameterAddToHeaderOrQuery(localVarQueryParams, "projectKey", r.projectKey, "form", "")
+	parameterAddToHeaderOrQuery(localVarQueryParams, "environmentKey", r.environmentKey, "form", "")
 	if r.applicationKey != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "applicationKey", r.applicationKey, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "applicationKey", r.applicationKey, "form", "")
 	}
 	if r.hasExperiments != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "hasExperiments", r.hasExperiments, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "hasExperiments", r.hasExperiments, "form", "")
 	}
 	if r.global != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "global", r.global, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "global", r.global, "form", "")
 	}
 	if r.groupBy != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "groupBy", r.groupBy, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "groupBy", r.groupBy, "form", "")
 	}
 	if r.from != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "form", "")
 	}
 	if r.to != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "form", "")
 	}
 	if r.bucketType != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "bucketType", r.bucketType, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "bucketType", r.bucketType, "form", "")
 	}
 	if r.bucketMs != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "bucketMs", r.bucketMs, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "bucketMs", r.bucketMs, "form", "")
 	}
 	if r.expand != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "expand", r.expand, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "expand", r.expand, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1234,22 +1234,22 @@ func (a *InsightsChartsBetaApiService) GetStaleFlagsChartExecute(r ApiGetStaleFl
 		return localVarReturnValue, nil, reportError("environmentKey is required and must be specified")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "projectKey", r.projectKey, "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "environmentKey", r.environmentKey, "")
+	parameterAddToHeaderOrQuery(localVarQueryParams, "projectKey", r.projectKey, "form", "")
+	parameterAddToHeaderOrQuery(localVarQueryParams, "environmentKey", r.environmentKey, "form", "")
 	if r.applicationKey != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "applicationKey", r.applicationKey, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "applicationKey", r.applicationKey, "form", "")
 	}
 	if r.groupBy != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "groupBy", r.groupBy, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "groupBy", r.groupBy, "form", "")
 	}
 	if r.maintainerId != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "maintainerId", r.maintainerId, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "maintainerId", r.maintainerId, "form", "")
 	}
 	if r.maintainerTeamKey != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "maintainerTeamKey", r.maintainerTeamKey, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "maintainerTeamKey", r.maintainerTeamKey, "form", "")
 	}
 	if r.expand != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "expand", r.expand, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "expand", r.expand, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

@@ -199,39 +199,39 @@ func (a *InsightsPullRequestsBetaApiService) GetPullRequestsExecute(r ApiGetPull
 		return localVarReturnValue, nil, reportError("projectKey is required and must be specified")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "projectKey", r.projectKey, "")
+	parameterAddToHeaderOrQuery(localVarQueryParams, "projectKey", r.projectKey, "form", "")
 	if r.environmentKey != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "environmentKey", r.environmentKey, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environmentKey", r.environmentKey, "form", "")
 	}
 	if r.applicationKey != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "applicationKey", r.applicationKey, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "applicationKey", r.applicationKey, "form", "")
 	}
 	if r.status != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "status", r.status, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "status", r.status, "form", "")
 	}
 	if r.query != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "query", r.query, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "query", r.query, "form", "")
 	}
 	if r.limit != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	}
 	if r.expand != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "expand", r.expand, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "expand", r.expand, "form", "")
 	}
 	if r.sort != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "")
 	}
 	if r.from != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "form", "")
 	}
 	if r.to != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "form", "")
 	}
 	if r.after != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "after", r.after, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "after", r.after, "form", "")
 	}
 	if r.before != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "before", r.before, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "before", r.before, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

@@ -1091,7 +1091,7 @@ func (a *AIConfigsBetaApiService) DeleteAIConfigExecute(r ApiDeleteAIConfigReque
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "")
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1259,7 +1259,7 @@ func (a *AIConfigsBetaApiService) DeleteAIConfigVariationExecute(r ApiDeleteAICo
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "")
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1423,7 +1423,7 @@ func (a *AIConfigsBetaApiService) DeleteAIToolExecute(r ApiDeleteAIToolRequest) 
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "")
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1587,7 +1587,7 @@ func (a *AIConfigsBetaApiService) DeleteModelConfigExecute(r ApiDeleteModelConfi
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "")
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1757,7 +1757,7 @@ func (a *AIConfigsBetaApiService) DeleteRestrictedModelsExecute(r ApiDeleteRestr
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "")
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	// body params
 	localVarPostBody = r.restrictedModelsRequest
 	if r.ctx != nil {
@@ -1925,7 +1925,7 @@ func (a *AIConfigsBetaApiService) GetAIConfigExecute(r ApiGetAIConfigRequest) (*
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "")
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2113,9 +2113,9 @@ func (a *AIConfigsBetaApiService) GetAIConfigMetricsExecute(r ApiGetAIConfigMetr
 		return localVarReturnValue, nil, reportError("env is required and must be specified")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "env", r.env, "")
+	parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "form", "")
+	parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "form", "")
+	parameterAddToHeaderOrQuery(localVarQueryParams, "env", r.env, "form", "")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -2133,7 +2133,7 @@ func (a *AIConfigsBetaApiService) GetAIConfigMetricsExecute(r ApiGetAIConfigMetr
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "")
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2321,9 +2321,9 @@ func (a *AIConfigsBetaApiService) GetAIConfigMetricsByVariationExecute(r ApiGetA
 		return localVarReturnValue, nil, reportError("env is required and must be specified")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "env", r.env, "")
+	parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "form", "")
+	parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "form", "")
+	parameterAddToHeaderOrQuery(localVarQueryParams, "env", r.env, "form", "")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -2341,7 +2341,7 @@ func (a *AIConfigsBetaApiService) GetAIConfigMetricsByVariationExecute(r ApiGetA
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "")
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2516,7 +2516,7 @@ func (a *AIConfigsBetaApiService) GetAIConfigTargetingExecute(r ApiGetAIConfigTa
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "")
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2684,7 +2684,7 @@ func (a *AIConfigsBetaApiService) GetAIConfigVariationExecute(r ApiGetAIConfigVa
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "")
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2867,16 +2867,16 @@ func (a *AIConfigsBetaApiService) GetAIConfigsExecute(r ApiGetAIConfigsRequest) 
 	}
 
 	if r.sort != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "")
 	}
 	if r.limit != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	}
 	if r.offset != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
 	}
 	if r.filter != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "filter", r.filter, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "filter", r.filter, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -2895,7 +2895,7 @@ func (a *AIConfigsBetaApiService) GetAIConfigsExecute(r ApiGetAIConfigsRequest) 
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "")
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -3070,7 +3070,7 @@ func (a *AIConfigsBetaApiService) GetAIToolExecute(r ApiGetAIToolRequest) (*AITo
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "")
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -3245,7 +3245,7 @@ func (a *AIConfigsBetaApiService) GetModelConfigExecute(r ApiGetModelConfigReque
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "")
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -3425,13 +3425,13 @@ func (a *AIConfigsBetaApiService) ListAIToolVersionsExecute(r ApiListAIToolVersi
 	}
 
 	if r.sort != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "")
 	}
 	if r.limit != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	}
 	if r.offset != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -3450,7 +3450,7 @@ func (a *AIConfigsBetaApiService) ListAIToolVersionsExecute(r ApiListAIToolVersi
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "")
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -3622,16 +3622,16 @@ func (a *AIConfigsBetaApiService) ListAIToolsExecute(r ApiListAIToolsRequest) (*
 	}
 
 	if r.sort != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "")
 	}
 	if r.limit != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	}
 	if r.offset != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
 	}
 	if r.filter != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "filter", r.filter, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "filter", r.filter, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -3650,7 +3650,7 @@ func (a *AIConfigsBetaApiService) ListAIToolsExecute(r ApiListAIToolsRequest) (*
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "")
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -3801,7 +3801,7 @@ func (a *AIConfigsBetaApiService) ListModelConfigsExecute(r ApiListModelConfigsR
 	}
 
 	if r.restricted != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "restricted", r.restricted, "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "restricted", r.restricted, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -3820,7 +3820,7 @@ func (a *AIConfigsBetaApiService) ListModelConfigsExecute(r ApiListModelConfigsR
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "")
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -4013,7 +4013,7 @@ func (a *AIConfigsBetaApiService) PatchAIConfigExecute(r ApiPatchAIConfigRequest
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "")
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	// body params
 	localVarPostBody = r.aIConfigPatch
 	if r.ctx != nil {
@@ -4755,7 +4755,7 @@ func (a *AIConfigsBetaApiService) PatchAIConfigTargetingExecute(r ApiPatchAIConf
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "")
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	// body params
 	localVarPostBody = r.aIConfigTargetingPatch
 	if r.ctx != nil {
@@ -4958,7 +4958,7 @@ func (a *AIConfigsBetaApiService) PatchAIConfigVariationExecute(r ApiPatchAIConf
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "")
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	// body params
 	localVarPostBody = r.aIConfigVariationPatch
 	if r.ctx != nil {
@@ -5142,7 +5142,7 @@ func (a *AIConfigsBetaApiService) PatchAIToolExecute(r ApiPatchAIToolRequest) (*
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "")
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	// body params
 	localVarPostBody = r.aIToolPatch
 	if r.ctx != nil {
@@ -5325,7 +5325,7 @@ func (a *AIConfigsBetaApiService) PostAIConfigExecute(r ApiPostAIConfigRequest) 
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "")
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	// body params
 	localVarPostBody = r.aIConfigPost
 	if r.ctx != nil {
@@ -5513,7 +5513,7 @@ func (a *AIConfigsBetaApiService) PostAIConfigVariationExecute(r ApiPostAIConfig
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "")
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	// body params
 	localVarPostBody = r.aIConfigVariationPost
 	if r.ctx != nil {
@@ -5685,7 +5685,7 @@ func (a *AIConfigsBetaApiService) PostAIToolExecute(r ApiPostAIToolRequest) (*AI
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "")
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	// body params
 	localVarPostBody = r.aIToolPost
 	if r.ctx != nil {
@@ -5857,7 +5857,7 @@ func (a *AIConfigsBetaApiService) PostModelConfigExecute(r ApiPostModelConfigReq
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "")
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	// body params
 	localVarPostBody = r.modelConfigPost
 	if r.ctx != nil {
@@ -6040,7 +6040,7 @@ func (a *AIConfigsBetaApiService) PostRestrictedModelsExecute(r ApiPostRestricte
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "")
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	// body params
 	localVarPostBody = r.restrictedModelsRequest
 	if r.ctx != nil {
