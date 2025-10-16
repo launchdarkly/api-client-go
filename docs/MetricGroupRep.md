@@ -19,6 +19,10 @@ Name | Type | Description | Notes
 **Version** | **int32** | The version of this metric group | 
 **Experiments** | Pointer to [**[]DependentExperimentRep**](DependentExperimentRep.md) |  | [optional] 
 **ExperimentCount** | Pointer to **int32** | The number of experiments using this metric group | [optional] 
+**ActiveExperimentCount** | Pointer to **int32** | The number of active experiments using this metric group | [optional] 
+**ActiveGuardedRolloutCount** | Pointer to **int32** | The number of active guarded rollouts using this metric group | [optional] 
+**TotalConnectionsCount** | Pointer to **int32** | The total number of connections using this metric group | [optional] 
+**TotalActiveConnectionsCount** | Pointer to **int32** | The total number of active connections using this metric group | [optional] 
 
 ## Methods
 
@@ -358,6 +362,106 @@ SetExperimentCount sets ExperimentCount field to given value.
 `func (o *MetricGroupRep) HasExperimentCount() bool`
 
 HasExperimentCount returns a boolean if a field has been set.
+
+### GetActiveExperimentCount
+
+`func (o *MetricGroupRep) GetActiveExperimentCount() int32`
+
+GetActiveExperimentCount returns the ActiveExperimentCount field if non-nil, zero value otherwise.
+
+### GetActiveExperimentCountOk
+
+`func (o *MetricGroupRep) GetActiveExperimentCountOk() (*int32, bool)`
+
+GetActiveExperimentCountOk returns a tuple with the ActiveExperimentCount field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetActiveExperimentCount
+
+`func (o *MetricGroupRep) SetActiveExperimentCount(v int32)`
+
+SetActiveExperimentCount sets ActiveExperimentCount field to given value.
+
+### HasActiveExperimentCount
+
+`func (o *MetricGroupRep) HasActiveExperimentCount() bool`
+
+HasActiveExperimentCount returns a boolean if a field has been set.
+
+### GetActiveGuardedRolloutCount
+
+`func (o *MetricGroupRep) GetActiveGuardedRolloutCount() int32`
+
+GetActiveGuardedRolloutCount returns the ActiveGuardedRolloutCount field if non-nil, zero value otherwise.
+
+### GetActiveGuardedRolloutCountOk
+
+`func (o *MetricGroupRep) GetActiveGuardedRolloutCountOk() (*int32, bool)`
+
+GetActiveGuardedRolloutCountOk returns a tuple with the ActiveGuardedRolloutCount field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetActiveGuardedRolloutCount
+
+`func (o *MetricGroupRep) SetActiveGuardedRolloutCount(v int32)`
+
+SetActiveGuardedRolloutCount sets ActiveGuardedRolloutCount field to given value.
+
+### HasActiveGuardedRolloutCount
+
+`func (o *MetricGroupRep) HasActiveGuardedRolloutCount() bool`
+
+HasActiveGuardedRolloutCount returns a boolean if a field has been set.
+
+### GetTotalConnectionsCount
+
+`func (o *MetricGroupRep) GetTotalConnectionsCount() int32`
+
+GetTotalConnectionsCount returns the TotalConnectionsCount field if non-nil, zero value otherwise.
+
+### GetTotalConnectionsCountOk
+
+`func (o *MetricGroupRep) GetTotalConnectionsCountOk() (*int32, bool)`
+
+GetTotalConnectionsCountOk returns a tuple with the TotalConnectionsCount field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTotalConnectionsCount
+
+`func (o *MetricGroupRep) SetTotalConnectionsCount(v int32)`
+
+SetTotalConnectionsCount sets TotalConnectionsCount field to given value.
+
+### HasTotalConnectionsCount
+
+`func (o *MetricGroupRep) HasTotalConnectionsCount() bool`
+
+HasTotalConnectionsCount returns a boolean if a field has been set.
+
+### GetTotalActiveConnectionsCount
+
+`func (o *MetricGroupRep) GetTotalActiveConnectionsCount() int32`
+
+GetTotalActiveConnectionsCount returns the TotalActiveConnectionsCount field if non-nil, zero value otherwise.
+
+### GetTotalActiveConnectionsCountOk
+
+`func (o *MetricGroupRep) GetTotalActiveConnectionsCountOk() (*int32, bool)`
+
+GetTotalActiveConnectionsCountOk returns a tuple with the TotalActiveConnectionsCount field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTotalActiveConnectionsCount
+
+`func (o *MetricGroupRep) SetTotalActiveConnectionsCount(v int32)`
+
+SetTotalActiveConnectionsCount sets TotalActiveConnectionsCount field to given value.
+
+### HasTotalActiveConnectionsCount
+
+`func (o *MetricGroupRep) HasTotalActiveConnectionsCount() bool`
+
+HasTotalActiveConnectionsCount returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
