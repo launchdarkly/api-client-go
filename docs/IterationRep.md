@@ -25,6 +25,7 @@ Name | Type | Description | Notes
 **SecondaryMetrics** | Pointer to [**[]MetricV2Rep**](MetricV2Rep.md) | Deprecated, use &lt;code&gt;metrics&lt;/code&gt; instead. Details on the secondary metrics for this experiment. | [optional] 
 **Metrics** | Pointer to [**[]DependentMetricOrMetricGroupRep**](DependentMetricOrMetricGroupRep.md) | Details on the metrics for this experiment | [optional] 
 **LayerSnapshot** | Pointer to [**LayerSnapshotRep**](LayerSnapshotRep.md) |  | [optional] 
+**CovarianceInfo** | Pointer to [**CovarianceInfoRep**](CovarianceInfoRep.md) |  | [optional] 
 
 ## Methods
 
@@ -554,6 +555,31 @@ SetLayerSnapshot sets LayerSnapshot field to given value.
 `func (o *IterationRep) HasLayerSnapshot() bool`
 
 HasLayerSnapshot returns a boolean if a field has been set.
+
+### GetCovarianceInfo
+
+`func (o *IterationRep) GetCovarianceInfo() CovarianceInfoRep`
+
+GetCovarianceInfo returns the CovarianceInfo field if non-nil, zero value otherwise.
+
+### GetCovarianceInfoOk
+
+`func (o *IterationRep) GetCovarianceInfoOk() (*CovarianceInfoRep, bool)`
+
+GetCovarianceInfoOk returns a tuple with the CovarianceInfo field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCovarianceInfo
+
+`func (o *IterationRep) SetCovarianceInfo(v CovarianceInfoRep)`
+
+SetCovarianceInfo sets CovarianceInfo field to given value.
+
+### HasCovarianceInfo
+
+`func (o *IterationRep) HasCovarianceInfo() bool`
+
+HasCovarianceInfo returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -5,7 +5,6 @@ README.md
 api/openapi.yaml
 api_access_tokens.go
 api_account_members.go
-api_account_members_beta.go
 api_account_usage_beta.go
 api_ai_configs_beta.go
 api_announcements.go
@@ -98,7 +97,6 @@ docs/AccessDeniedReason.md
 docs/AccessTokenPost.md
 docs/AccessTokensApi.md
 docs/AccountMembersApi.md
-docs/AccountMembersBetaApi.md
 docs/AccountUsageBetaApi.md
 docs/ActionInput.md
 docs/ActionOutput.md
@@ -205,6 +203,7 @@ docs/Contexts.md
 docs/ContextsApi.md
 docs/CopiedFromEnv.md
 docs/CoreLink.md
+docs/CovarianceInfoRep.md
 docs/CreateAnnouncementBody.md
 docs/CreateApprovalRequestRequest.md
 docs/CreateCopyFlagConfigApprovalRequestRequest.md
@@ -830,6 +829,7 @@ model_context_search.go
 model_contexts.go
 model_copied_from_env.go
 model_core_link.go
+model_covariance_info_rep.go
 model_create_announcement_body.go
 model_create_approval_request_request.go
 model_create_copy_flag_config_approval_request_request.go
@@ -1280,7 +1280,6 @@ model_workflow_template_parameter.go
 model_workflow_templates_listing_output_rep.go
 response.go
 test/api_access_tokens_test.go
-test/api_account_members_beta_test.go
 test/api_account_members_test.go
 test/api_account_usage_beta_test.go
 test/api_ai_configs_beta_test.go

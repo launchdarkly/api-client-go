@@ -1663,7 +1663,7 @@ func main() {
 	lDAPIVersion := "lDAPIVersion_example" // string | Version of the endpoint.
 	projectKey := "projectKey_example" // string | 
 	configKey := "configKey_example" // string | 
-	aIConfigVariationPost := *openapiclient.NewAIConfigVariationPost("Key_example", []openapiclient.Message{*openapiclient.NewMessage("Content_example", "Role_example")}, "Name_example") // AIConfigVariationPost | AI Config variation object to create
+	aIConfigVariationPost := *openapiclient.NewAIConfigVariationPost("Key_example", "Name_example") // AIConfigVariationPost | AI Config variation object to create
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

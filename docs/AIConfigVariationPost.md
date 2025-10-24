@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** | Returns the description for the agent. This is only returned for agent variations. | [optional] 
 **Instructions** | Pointer to **string** | Returns the instructions for the agent. This is only returned for agent variations. | [optional] 
 **Key** | **string** |  | 
-**Messages** | [**[]Message**](Message.md) |  | 
+**Messages** | Pointer to [**[]Message**](Message.md) |  | [optional] 
 **Model** | Pointer to **map[string]interface{}** |  | [optional] 
 **Name** | **string** |  | 
 **ModelConfigKey** | Pointer to **string** |  | [optional] 
@@ -20,7 +20,7 @@ Name | Type | Description | Notes
 
 ### NewAIConfigVariationPost
 
-`func NewAIConfigVariationPost(key string, messages []Message, name string, ) *AIConfigVariationPost`
+`func NewAIConfigVariationPost(key string, name string, ) *AIConfigVariationPost`
 
 NewAIConfigVariationPost instantiates a new AIConfigVariationPost object
 This constructor will assign default values to properties that have it defined,
@@ -149,6 +149,11 @@ and a boolean to check if the value has been set.
 
 SetMessages sets Messages field to given value.
 
+### HasMessages
+
+`func (o *AIConfigVariationPost) HasMessages() bool`
+
+HasMessages returns a boolean if a field has been set.
 
 ### GetModel
 

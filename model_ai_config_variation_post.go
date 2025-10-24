@@ -28,7 +28,7 @@ type AIConfigVariationPost struct {
 	// Returns the instructions for the agent. This is only returned for agent variations.
 	Instructions *string `json:"instructions,omitempty"`
 	Key string `json:"key"`
-	Messages []Message `json:"messages"`
+	Messages []Message `json:"messages,omitempty"`
 	Model map[string]interface{} `json:"model,omitempty"`
 	Name string `json:"name"`
 	ModelConfigKey *string `json:"modelConfigKey,omitempty"`
@@ -46,10 +46,9 @@ type _AIConfigVariationPost AIConfigVariationPost
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAIConfigVariationPost(key string, messages []Message, name string) *AIConfigVariationPost {
+func NewAIConfigVariationPost(key string, name string) *AIConfigVariationPost {
 	this := AIConfigVariationPost{}
 	this.Key = key
-	this.Messages = messages
 	this.Name = name
 	return &this
 }
@@ -182,26 +181,34 @@ func (o *AIConfigVariationPost) SetKey(v string) {
 	o.Key = v
 }
 
-// GetMessages returns the Messages field value
+// GetMessages returns the Messages field value if set, zero value otherwise.
 func (o *AIConfigVariationPost) GetMessages() []Message {
-	if o == nil {
+	if o == nil || IsNil(o.Messages) {
 		var ret []Message
 		return ret
 	}
-
 	return o.Messages
 }
 
-// GetMessagesOk returns a tuple with the Messages field value
+// GetMessagesOk returns a tuple with the Messages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AIConfigVariationPost) GetMessagesOk() ([]Message, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Messages) {
 		return nil, false
 	}
 	return o.Messages, true
 }
 
-// SetMessages sets field value
+// HasMessages returns a boolean if a field has been set.
+func (o *AIConfigVariationPost) HasMessages() bool {
+	if o != nil && !IsNil(o.Messages) {
+		return true
+	}
+
+	return false
+}
+
+// SetMessages gets a reference to the given []Message and assigns it to the Messages field.
 func (o *AIConfigVariationPost) SetMessages(v []Message) {
 	o.Messages = v
 }
@@ -410,7 +417,9 @@ func (o AIConfigVariationPost) ToMap() (map[string]interface{}, error) {
 		toSerialize["instructions"] = o.Instructions
 	}
 	toSerialize["key"] = o.Key
-	toSerialize["messages"] = o.Messages
+	if !IsNil(o.Messages) {
+		toSerialize["messages"] = o.Messages
+	}
 	if !IsNil(o.Model) {
 		toSerialize["model"] = o.Model
 	}
@@ -441,7 +450,6 @@ func (o *AIConfigVariationPost) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"key",
-		"messages",
 		"name",
 	}
 

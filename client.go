@@ -56,8 +56,6 @@ type APIClient struct {
 
 	AccountMembersApi AccountMembersApi
 
-	AccountMembersBetaApi AccountMembersBetaApi
-
 	AccountUsageBetaApi AccountUsageBetaApi
 
 	AnnouncementsApi AnnouncementsApi
@@ -182,7 +180,6 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.AIConfigsBetaApi = (*AIConfigsBetaApiService)(&c.common)
 	c.AccessTokensApi = (*AccessTokensApiService)(&c.common)
 	c.AccountMembersApi = (*AccountMembersApiService)(&c.common)
-	c.AccountMembersBetaApi = (*AccountMembersBetaApiService)(&c.common)
 	c.AccountUsageBetaApi = (*AccountUsageBetaApiService)(&c.common)
 	c.AnnouncementsApi = (*AnnouncementsApiService)(&c.common)
 	c.ApplicationsBetaApi = (*ApplicationsBetaApiService)(&c.common)

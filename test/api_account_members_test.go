@@ -75,6 +75,18 @@ func Test_ldapi_AccountMembersApiService(t *testing.T) {
 
 	})
 
+	t.Run("Test AccountMembersApiService PatchMembers", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.AccountMembersApi.PatchMembers(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test AccountMembersApiService PostMemberTeams", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test

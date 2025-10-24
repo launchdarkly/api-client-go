@@ -557,9 +557,9 @@ Class | Method | HTTP request | Description
 *AccountMembersApi* | [**GetMember**](docs/AccountMembersApi.md#getmember) | **Get** /api/v2/members/{id} | Get account member
 *AccountMembersApi* | [**GetMembers**](docs/AccountMembersApi.md#getmembers) | **Get** /api/v2/members | List account members
 *AccountMembersApi* | [**PatchMember**](docs/AccountMembersApi.md#patchmember) | **Patch** /api/v2/members/{id} | Modify an account member
+*AccountMembersApi* | [**PatchMembers**](docs/AccountMembersApi.md#patchmembers) | **Patch** /api/v2/members | Modify account members
 *AccountMembersApi* | [**PostMemberTeams**](docs/AccountMembersApi.md#postmemberteams) | **Post** /api/v2/members/{id}/teams | Add a member to teams
 *AccountMembersApi* | [**PostMembers**](docs/AccountMembersApi.md#postmembers) | **Post** /api/v2/members | Invite new members
-*AccountMembersBetaApi* | [**PatchMembers**](docs/AccountMembersBetaApi.md#patchmembers) | **Patch** /api/v2/members | Modify account members
 *AccountUsageBetaApi* | [**GetContextsClientsideUsage**](docs/AccountUsageBetaApi.md#getcontextsclientsideusage) | **Get** /api/v2/usage/clientside-contexts | Get contexts clientside usage
 *AccountUsageBetaApi* | [**GetContextsServersideUsage**](docs/AccountUsageBetaApi.md#getcontextsserversideusage) | **Get** /api/v2/usage/serverside-contexts | Get contexts serverside usage
 *AccountUsageBetaApi* | [**GetContextsTotalUsage**](docs/AccountUsageBetaApi.md#getcontextstotalusage) | **Get** /api/v2/usage/total-contexts | Get contexts total usage
@@ -994,6 +994,7 @@ Class | Method | HTTP request | Description
  - [Contexts](docs/Contexts.md)
  - [CopiedFromEnv](docs/CopiedFromEnv.md)
  - [CoreLink](docs/CoreLink.md)
+ - [CovarianceInfoRep](docs/CovarianceInfoRep.md)
  - [CreateAnnouncementBody](docs/CreateAnnouncementBody.md)
  - [CreateApprovalRequestRequest](docs/CreateApprovalRequestRequest.md)
  - [CreateCopyFlagConfigApprovalRequestRequest](docs/CreateCopyFlagConfigApprovalRequestRequest.md)

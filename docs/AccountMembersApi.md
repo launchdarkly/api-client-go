@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**GetMember**](AccountMembersApi.md#GetMember) | **Get** /api/v2/members/{id} | Get account member
 [**GetMembers**](AccountMembersApi.md#GetMembers) | **Get** /api/v2/members | List account members
 [**PatchMember**](AccountMembersApi.md#PatchMember) | **Patch** /api/v2/members/{id} | Modify an account member
+[**PatchMembers**](AccountMembersApi.md#PatchMembers) | **Patch** /api/v2/members | Modify account members
 [**PostMemberTeams**](AccountMembersApi.md#PostMemberTeams) | **Post** /api/v2/members/{id}/teams | Add a member to teams
 [**PostMembers**](AccountMembersApi.md#PostMembers) | **Post** /api/v2/members | Invite new members
 
@@ -284,6 +285,72 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Member**](Member.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PatchMembers
+
+> BulkEditMembersRep PatchMembers(ctx).MembersPatchInput(membersPatchInput).Execute()
+
+Modify account members
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
+)
+
+func main() {
+	membersPatchInput := *openapiclient.NewMembersPatchInput([]map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}) // MembersPatchInput | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AccountMembersApi.PatchMembers(context.Background()).MembersPatchInput(membersPatchInput).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AccountMembersApi.PatchMembers``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PatchMembers`: BulkEditMembersRep
+	fmt.Fprintf(os.Stdout, "Response from `AccountMembersApi.PatchMembers`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPatchMembersRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **membersPatchInput** | [**MembersPatchInput**](MembersPatchInput.md) |  | 
+
+### Return type
+
+[**BulkEditMembersRep**](BulkEditMembersRep.md)
 
 ### Authorization
 

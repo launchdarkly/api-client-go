@@ -57,6 +57,7 @@ type IterationRep struct {
 	// Details on the metrics for this experiment
 	Metrics []DependentMetricOrMetricGroupRep `json:"metrics,omitempty"`
 	LayerSnapshot *LayerSnapshotRep `json:"layerSnapshot,omitempty"`
+	CovarianceInfo *CovarianceInfoRep `json:"covarianceInfo,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -733,6 +734,38 @@ func (o *IterationRep) SetLayerSnapshot(v LayerSnapshotRep) {
 	o.LayerSnapshot = &v
 }
 
+// GetCovarianceInfo returns the CovarianceInfo field value if set, zero value otherwise.
+func (o *IterationRep) GetCovarianceInfo() CovarianceInfoRep {
+	if o == nil || IsNil(o.CovarianceInfo) {
+		var ret CovarianceInfoRep
+		return ret
+	}
+	return *o.CovarianceInfo
+}
+
+// GetCovarianceInfoOk returns a tuple with the CovarianceInfo field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IterationRep) GetCovarianceInfoOk() (*CovarianceInfoRep, bool) {
+	if o == nil || IsNil(o.CovarianceInfo) {
+		return nil, false
+	}
+	return o.CovarianceInfo, true
+}
+
+// HasCovarianceInfo returns a boolean if a field has been set.
+func (o *IterationRep) HasCovarianceInfo() bool {
+	if o != nil && !IsNil(o.CovarianceInfo) {
+		return true
+	}
+
+	return false
+}
+
+// SetCovarianceInfo gets a reference to the given CovarianceInfoRep and assigns it to the CovarianceInfo field.
+func (o *IterationRep) SetCovarianceInfo(v CovarianceInfoRep) {
+	o.CovarianceInfo = &v
+}
+
 func (o IterationRep) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -800,6 +833,9 @@ func (o IterationRep) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.LayerSnapshot) {
 		toSerialize["layerSnapshot"] = o.LayerSnapshot
 	}
+	if !IsNil(o.CovarianceInfo) {
+		toSerialize["covarianceInfo"] = o.CovarianceInfo
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -866,6 +902,7 @@ func (o *IterationRep) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "secondaryMetrics")
 		delete(additionalProperties, "metrics")
 		delete(additionalProperties, "layerSnapshot")
+		delete(additionalProperties, "covarianceInfo")
 		o.AdditionalProperties = additionalProperties
 	}
 
