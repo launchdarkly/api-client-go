@@ -34,6 +34,8 @@ type Experiment struct {
 	CreationDate int64 `json:"_creationDate"`
 	EnvironmentKey string `json:"environmentKey"`
 	ArchivedDate *int64 `json:"archivedDate,omitempty"`
+	// Tags for the experiment
+	Tags []string `json:"tags,omitempty"`
 	// The location and content type of related resources
 	Links map[string]Link `json:"_links"`
 	// The holdout ID
@@ -286,6 +288,38 @@ func (o *Experiment) SetArchivedDate(v int64) {
 	o.ArchivedDate = &v
 }
 
+// GetTags returns the Tags field value if set, zero value otherwise.
+func (o *Experiment) GetTags() []string {
+	if o == nil || IsNil(o.Tags) {
+		var ret []string
+		return ret
+	}
+	return o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Experiment) GetTagsOk() ([]string, bool) {
+	if o == nil || IsNil(o.Tags) {
+		return nil, false
+	}
+	return o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *Experiment) HasTags() bool {
+	if o != nil && !IsNil(o.Tags) {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given []string and assigns it to the Tags field.
+func (o *Experiment) SetTags(v []string) {
+	o.Tags = v
+}
+
 // GetLinks returns the Links field value
 func (o *Experiment) GetLinks() map[string]Link {
 	if o == nil {
@@ -462,6 +496,9 @@ func (o Experiment) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ArchivedDate) {
 		toSerialize["archivedDate"] = o.ArchivedDate
 	}
+	if !IsNil(o.Tags) {
+		toSerialize["tags"] = o.Tags
+	}
 	toSerialize["_links"] = o.Links
 	if !IsNil(o.HoldoutId) {
 		toSerialize["holdoutId"] = o.HoldoutId
@@ -531,6 +568,7 @@ func (o *Experiment) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "_creationDate")
 		delete(additionalProperties, "environmentKey")
 		delete(additionalProperties, "archivedDate")
+		delete(additionalProperties, "tags")
 		delete(additionalProperties, "_links")
 		delete(additionalProperties, "holdoutId")
 		delete(additionalProperties, "currentIteration")

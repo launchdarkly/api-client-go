@@ -86,13 +86,10 @@ For example, `expand=experiments` includes the `experiments` field in the respon
 	Get a list of all metric groups for the specified project.
 
 ### Expanding the metric groups response
-LaunchDarkly supports one field for expanding the "Get metric groups" response. By default, these fields are **not** included in the response.
 
-To expand the response, append the `expand` query parameter and add a comma-separated list with the following field:
+This endpoint does not support response expansion.
 
-- `experiments` includes all experiments from the specific project that use the metric group
-
-For example, `expand=experiments` includes the `experiments` field in the response.
+Although the API accepts an `expand` query parameter for compatibility reasons, it does not currently modify the response. The parameter is reserved for future use.
 
 ### Filtering metric groups
 
@@ -756,7 +753,7 @@ func (r ApiGetMetricGroupsRequest) Sort(sort string) ApiGetMetricGroupsRequest {
 	return r
 }
 
-// A comma-separated list of properties that can reveal additional information in the response.
+// This parameter is reserved for future use and is not currently supported on this endpoint.
 func (r ApiGetMetricGroupsRequest) Expand(expand string) ApiGetMetricGroupsRequest {
 	r.expand = &expand
 	return r
@@ -784,13 +781,10 @@ GetMetricGroups List metric groups
 Get a list of all metric groups for the specified project.
 
 ### Expanding the metric groups response
-LaunchDarkly supports one field for expanding the "Get metric groups" response. By default, these fields are **not** included in the response.
 
-To expand the response, append the `expand` query parameter and add a comma-separated list with the following field:
+This endpoint does not support response expansion.
 
-- `experiments` includes all experiments from the specific project that use the metric group
-
-For example, `expand=experiments` includes the `experiments` field in the response.
+Although the API accepts an `expand` query parameter for compatibility reasons, it does not currently modify the response. The parameter is reserved for future use.
 
 ### Filtering metric groups
 

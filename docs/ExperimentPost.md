@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **Key** | **string** | The experiment key | 
 **Iteration** | [**IterationInput**](IterationInput.md) |  | 
 **HoldoutId** | Pointer to **string** | The ID of the holdout | [optional] 
+**Tags** | Pointer to **[]string** | Tags for the experiment | [optional] 
 
 ## Methods
 
@@ -164,6 +165,31 @@ SetHoldoutId sets HoldoutId field to given value.
 `func (o *ExperimentPost) HasHoldoutId() bool`
 
 HasHoldoutId returns a boolean if a field has been set.
+
+### GetTags
+
+`func (o *ExperimentPost) GetTags() []string`
+
+GetTags returns the Tags field if non-nil, zero value otherwise.
+
+### GetTagsOk
+
+`func (o *ExperimentPost) GetTagsOk() (*[]string, bool)`
+
+GetTagsOk returns a tuple with the Tags field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTags
+
+`func (o *ExperimentPost) SetTags(v []string)`
+
+SetTags sets Tags field to given value.
+
+### HasTags
+
+`func (o *ExperimentPost) HasTags() bool`
+
+HasTags returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

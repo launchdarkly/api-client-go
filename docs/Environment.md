@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **Color** | **string** | The color used to indicate this environment in the UI | 
 **DefaultTtl** | **int32** | The default time (in minutes) that the PHP SDK can cache feature flag rules locally | 
 **SecureMode** | **bool** | Ensures that one end user of the client-side SDK cannot inspect the variations for another end user | 
+**Access** | Pointer to [**Access**](Access.md) |  | [optional] 
 **DefaultTrackEvents** | **bool** | Enables tracking detailed information for new flags by default | 
 **RequireComments** | **bool** | Whether members who modify flags and segments through the LaunchDarkly user interface are required to add a comment | 
 **ConfirmChanges** | **bool** | Whether members who modify flags and segments through the LaunchDarkly user interface are required to confirm those changes | 
@@ -219,6 +220,31 @@ and a boolean to check if the value has been set.
 
 SetSecureMode sets SecureMode field to given value.
 
+
+### GetAccess
+
+`func (o *Environment) GetAccess() Access`
+
+GetAccess returns the Access field if non-nil, zero value otherwise.
+
+### GetAccessOk
+
+`func (o *Environment) GetAccessOk() (*Access, bool)`
+
+GetAccessOk returns a tuple with the Access field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAccess
+
+`func (o *Environment) SetAccess(v Access)`
+
+SetAccess sets Access field to given value.
+
+### HasAccess
+
+`func (o *Environment) HasAccess() bool`
+
+HasAccess returns a boolean if a field has been set.
 
 ### GetDefaultTrackEvents
 

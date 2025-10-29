@@ -39,6 +39,7 @@ type Environment struct {
 	DefaultTtl int32 `json:"defaultTtl"`
 	// Ensures that one end user of the client-side SDK cannot inspect the variations for another end user
 	SecureMode bool `json:"secureMode"`
+	Access *Access `json:"_access,omitempty"`
 	// Enables tracking detailed information for new flags by default
 	DefaultTrackEvents bool `json:"defaultTrackEvents"`
 	// Whether members who modify flags and segments through the LaunchDarkly user interface are required to add a comment
@@ -304,6 +305,38 @@ func (o *Environment) SetSecureMode(v bool) {
 	o.SecureMode = v
 }
 
+// GetAccess returns the Access field value if set, zero value otherwise.
+func (o *Environment) GetAccess() Access {
+	if o == nil || IsNil(o.Access) {
+		var ret Access
+		return ret
+	}
+	return *o.Access
+}
+
+// GetAccessOk returns a tuple with the Access field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Environment) GetAccessOk() (*Access, bool) {
+	if o == nil || IsNil(o.Access) {
+		return nil, false
+	}
+	return o.Access, true
+}
+
+// HasAccess returns a boolean if a field has been set.
+func (o *Environment) HasAccess() bool {
+	if o != nil && !IsNil(o.Access) {
+		return true
+	}
+
+	return false
+}
+
+// SetAccess gets a reference to the given Access and assigns it to the Access field.
+func (o *Environment) SetAccess(v Access) {
+	o.Access = &v
+}
+
 // GetDefaultTrackEvents returns the DefaultTrackEvents field value
 func (o *Environment) GetDefaultTrackEvents() bool {
 	if o == nil {
@@ -507,6 +540,9 @@ func (o Environment) ToMap() (map[string]interface{}, error) {
 	toSerialize["color"] = o.Color
 	toSerialize["defaultTtl"] = o.DefaultTtl
 	toSerialize["secureMode"] = o.SecureMode
+	if !IsNil(o.Access) {
+		toSerialize["_access"] = o.Access
+	}
 	toSerialize["defaultTrackEvents"] = o.DefaultTrackEvents
 	toSerialize["requireComments"] = o.RequireComments
 	toSerialize["confirmChanges"] = o.ConfirmChanges
@@ -583,6 +619,7 @@ func (o *Environment) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "color")
 		delete(additionalProperties, "defaultTtl")
 		delete(additionalProperties, "secureMode")
+		delete(additionalProperties, "_access")
 		delete(additionalProperties, "defaultTrackEvents")
 		delete(additionalProperties, "requireComments")
 		delete(additionalProperties, "confirmChanges")

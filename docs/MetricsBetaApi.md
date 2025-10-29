@@ -254,7 +254,7 @@ func main() {
 	projectKey := "projectKey_example" // string | The project key
 	filter := "filter_example" // string | Accepts filter by `experimentStatus`, `query`, `kind`, `hasConnections`, `maintainerIds`, and `maintainerTeamKey`. Example: `filter=experimentStatus equals 'running' and query equals 'test'`. (optional)
 	sort := "sort_example" // string | A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order. Read the endpoint description for a full list of available sort fields. (optional)
-	expand := "expand_example" // string | A comma-separated list of properties that can reveal additional information in the response. (optional)
+	expand := "expand_example" // string | This parameter is reserved for future use and is not currently supported on this endpoint. (optional)
 	limit := int64(789) // int64 | The number of metric groups to return in the response. Defaults to 20. Maximum limit is 50. (optional)
 	offset := int64(789) // int64 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and returns the next `limit` items. (optional)
 
@@ -288,7 +288,7 @@ Name | Type | Description  | Notes
 
  **filter** | **string** | Accepts filter by &#x60;experimentStatus&#x60;, &#x60;query&#x60;, &#x60;kind&#x60;, &#x60;hasConnections&#x60;, &#x60;maintainerIds&#x60;, and &#x60;maintainerTeamKey&#x60;. Example: &#x60;filter&#x3D;experimentStatus equals &#39;running&#39; and query equals &#39;test&#39;&#x60;. | 
  **sort** | **string** | A comma-separated list of fields to sort by. Fields prefixed by a dash ( - ) sort in descending order. Read the endpoint description for a full list of available sort fields. | 
- **expand** | **string** | A comma-separated list of properties that can reveal additional information in the response. | 
+ **expand** | **string** | This parameter is reserved for future use and is not currently supported on this endpoint. | 
  **limit** | **int64** | The number of metric groups to return in the response. Defaults to 20. Maximum limit is 50. | 
  **offset** | **int64** | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and returns the next &#x60;limit&#x60; items. | 
 

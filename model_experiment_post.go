@@ -32,6 +32,8 @@ type ExperimentPost struct {
 	Iteration IterationInput `json:"iteration"`
 	// The ID of the holdout
 	HoldoutId *string `json:"holdoutId,omitempty"`
+	// Tags for the experiment
+	Tags []string `json:"tags,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -225,6 +227,38 @@ func (o *ExperimentPost) SetHoldoutId(v string) {
 	o.HoldoutId = &v
 }
 
+// GetTags returns the Tags field value if set, zero value otherwise.
+func (o *ExperimentPost) GetTags() []string {
+	if o == nil || IsNil(o.Tags) {
+		var ret []string
+		return ret
+	}
+	return o.Tags
+}
+
+// GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ExperimentPost) GetTagsOk() ([]string, bool) {
+	if o == nil || IsNil(o.Tags) {
+		return nil, false
+	}
+	return o.Tags, true
+}
+
+// HasTags returns a boolean if a field has been set.
+func (o *ExperimentPost) HasTags() bool {
+	if o != nil && !IsNil(o.Tags) {
+		return true
+	}
+
+	return false
+}
+
+// SetTags gets a reference to the given []string and assigns it to the Tags field.
+func (o *ExperimentPost) SetTags(v []string) {
+	o.Tags = v
+}
+
 func (o ExperimentPost) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -246,6 +280,9 @@ func (o ExperimentPost) ToMap() (map[string]interface{}, error) {
 	toSerialize["iteration"] = o.Iteration
 	if !IsNil(o.HoldoutId) {
 		toSerialize["holdoutId"] = o.HoldoutId
+	}
+	if !IsNil(o.Tags) {
+		toSerialize["tags"] = o.Tags
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -298,6 +335,7 @@ func (o *ExperimentPost) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "key")
 		delete(additionalProperties, "iteration")
 		delete(additionalProperties, "holdoutId")
+		delete(additionalProperties, "tags")
 		o.AdditionalProperties = additionalProperties
 	}
 

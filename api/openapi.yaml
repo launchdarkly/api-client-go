@@ -16994,13 +16994,10 @@ paths:
         Get a list of all metric groups for the specified project.
 
         ### Expanding the metric groups response
-        LaunchDarkly supports one field for expanding the "Get metric groups" response. By default, these fields are **not** included in the response.
 
-        To expand the response, append the `expand` query parameter and add a comma-separated list with the following field:
+        This endpoint does not support response expansion.
 
-        - `experiments` includes all experiments from the specific project that use the metric group
-
-        For example, `expand=experiments` includes the `experiments` field in the response.
+        Although the API accepts an `expand` query parameter for compatibility reasons, it does not currently modify the response. The parameter is reserved for future use.
 
         ### Filtering metric groups
 
@@ -17074,15 +17071,15 @@ paths:
           format: string
           type: string
         style: form
-      - description: A comma-separated list of properties that can reveal additional
-          information in the response.
+      - description: This parameter is reserved for future use and is not currently
+          supported on this endpoint.
         explode: true
         in: query
         name: expand
         required: false
         schema:
-          description: A comma-separated list of properties that can reveal additional
-            information in the response.
+          description: This parameter is reserved for future use and is not currently
+            supported on this endpoint.
           format: string
           type: string
         style: form
@@ -38414,6 +38411,65 @@ components:
         defaultTrackEvents: false
         tags:
         - ops
+        _access:
+          allowed:
+          - reason:
+              role_name: role_name
+              notActions:
+              - null
+              - null
+              notResources:
+              - notResources
+              - notResources
+              effect: allow
+              resources:
+              - proj/*:env/*;qa_*:/flag/*
+              actions:
+              - '*'
+            action: action
+          - reason:
+              role_name: role_name
+              notActions:
+              - null
+              - null
+              notResources:
+              - notResources
+              - notResources
+              effect: allow
+              resources:
+              - proj/*:env/*;qa_*:/flag/*
+              actions:
+              - '*'
+            action: action
+          denied:
+          - reason:
+              role_name: role_name
+              notActions:
+              - null
+              - null
+              notResources:
+              - notResources
+              - notResources
+              effect: allow
+              resources:
+              - proj/*:env/*;qa_*:/flag/*
+              actions:
+              - '*'
+            action: action
+          - reason:
+              role_name: role_name
+              notActions:
+              - null
+              - null
+              notResources:
+              - notResources
+              - notResources
+              effect: allow
+              resources:
+              - proj/*:env/*;qa_*:/flag/*
+              actions:
+              - '*'
+            action: action
         name: My Environment
         defaultTtl: 5
         _id: 57be1db38b75bf0772d11384
@@ -38467,6 +38523,8 @@ components:
             the variations for another end user
           example: true
           type: boolean
+        _access:
+          $ref: "#/components/schemas/Access"
         defaultTrackEvents:
           description: Enables tracking detailed information for new flags by default
           example: false
@@ -38672,6 +38730,65 @@ components:
           defaultTrackEvents: false
           tags:
           - ops
+          _access:
+            allowed:
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: allow
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+              action: action
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: allow
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+              action: action
+            denied:
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: allow
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+              action: action
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: allow
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+              action: action
           name: My Environment
           defaultTtl: 5
           _id: 57be1db38b75bf0772d11384
@@ -38717,6 +38834,65 @@ components:
           defaultTrackEvents: false
           tags:
           - ops
+          _access:
+            allowed:
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: allow
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+              action: action
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: allow
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+              action: action
+            denied:
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: allow
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+              action: action
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: allow
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+              action: action
           name: My Environment
           defaultTtl: 5
           _id: 57be1db38b75bf0772d11384
@@ -38948,6 +39124,65 @@ components:
           defaultTrackEvents: false
           tags:
           - ops
+          _access:
+            allowed:
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: allow
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+              action: action
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: allow
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+              action: action
+            denied:
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: allow
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+              action: action
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: allow
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+              action: action
           name: My Environment
           defaultTtl: 5
           _id: 57be1db38b75bf0772d11384
@@ -38993,6 +39228,65 @@ components:
           defaultTrackEvents: false
           tags:
           - ops
+          _access:
+            allowed:
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: allow
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+              action: action
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: allow
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+              action: action
+            denied:
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: allow
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+              action: action
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: allow
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+              action: action
           name: My Environment
           defaultTtl: 5
           _id: 57be1db38b75bf0772d11384
@@ -39115,6 +39409,65 @@ components:
               defaultTrackEvents: false
               tags:
               - ops
+              _access:
+                allowed:
+                - reason:
+                    role_name: role_name
+                    notActions:
+                    - null
+                    - null
+                    notResources:
+                    - notResources
+                    - notResources
+                    effect: allow
+                    resources:
+                    - proj/*:env/*;qa_*:/flag/*
+                    actions:
+                    - '*'
+                  action: action
+                - reason:
+                    role_name: role_name
+                    notActions:
+                    - null
+                    - null
+                    notResources:
+                    - notResources
+                    - notResources
+                    effect: allow
+                    resources:
+                    - proj/*:env/*;qa_*:/flag/*
+                    actions:
+                    - '*'
+                  action: action
+                denied:
+                - reason:
+                    role_name: role_name
+                    notActions:
+                    - null
+                    - null
+                    notResources:
+                    - notResources
+                    - notResources
+                    effect: allow
+                    resources:
+                    - proj/*:env/*;qa_*:/flag/*
+                    actions:
+                    - '*'
+                  action: action
+                - reason:
+                    role_name: role_name
+                    notActions:
+                    - null
+                    - null
+                    notResources:
+                    - notResources
+                    - notResources
+                    effect: allow
+                    resources:
+                    - proj/*:env/*;qa_*:/flag/*
+                    actions:
+                    - '*'
+                  action: action
               name: My Environment
               defaultTtl: 5
               _id: 57be1db38b75bf0772d11384
@@ -39160,6 +39513,65 @@ components:
               defaultTrackEvents: false
               tags:
               - ops
+              _access:
+                allowed:
+                - reason:
+                    role_name: role_name
+                    notActions:
+                    - null
+                    - null
+                    notResources:
+                    - notResources
+                    - notResources
+                    effect: allow
+                    resources:
+                    - proj/*:env/*;qa_*:/flag/*
+                    actions:
+                    - '*'
+                  action: action
+                - reason:
+                    role_name: role_name
+                    notActions:
+                    - null
+                    - null
+                    notResources:
+                    - notResources
+                    - notResources
+                    effect: allow
+                    resources:
+                    - proj/*:env/*;qa_*:/flag/*
+                    actions:
+                    - '*'
+                  action: action
+                denied:
+                - reason:
+                    role_name: role_name
+                    notActions:
+                    - null
+                    - null
+                    notResources:
+                    - notResources
+                    - notResources
+                    effect: allow
+                    resources:
+                    - proj/*:env/*;qa_*:/flag/*
+                    actions:
+                    - '*'
+                  action: action
+                - reason:
+                    role_name: role_name
+                    notActions:
+                    - null
+                    - null
+                    notResources:
+                    - notResources
+                    - notResources
+                    effect: allow
+                    resources:
+                    - proj/*:env/*;qa_*:/flag/*
+                    actions:
+                    - '*'
+                  action: action
               name: My Environment
               defaultTtl: 5
               _id: 57be1db38b75bf0772d11384
@@ -39647,6 +40059,65 @@ components:
             defaultTrackEvents: false
             tags:
             - ops
+            _access:
+              allowed:
+              - reason:
+                  role_name: role_name
+                  notActions:
+                  - null
+                  - null
+                  notResources:
+                  - notResources
+                  - notResources
+                  effect: allow
+                  resources:
+                  - proj/*:env/*;qa_*:/flag/*
+                  actions:
+                  - '*'
+                action: action
+              - reason:
+                  role_name: role_name
+                  notActions:
+                  - null
+                  - null
+                  notResources:
+                  - notResources
+                  - notResources
+                  effect: allow
+                  resources:
+                  - proj/*:env/*;qa_*:/flag/*
+                  actions:
+                  - '*'
+                action: action
+              denied:
+              - reason:
+                  role_name: role_name
+                  notActions:
+                  - null
+                  - null
+                  notResources:
+                  - notResources
+                  - notResources
+                  effect: allow
+                  resources:
+                  - proj/*:env/*;qa_*:/flag/*
+                  actions:
+                  - '*'
+                action: action
+              - reason:
+                  role_name: role_name
+                  notActions:
+                  - null
+                  - null
+                  notResources:
+                  - notResources
+                  - notResources
+                  effect: allow
+                  resources:
+                  - proj/*:env/*;qa_*:/flag/*
+                  actions:
+                  - '*'
+                action: action
             name: My Environment
             defaultTtl: 5
             _id: 57be1db38b75bf0772d11384
@@ -39692,6 +40163,65 @@ components:
             defaultTrackEvents: false
             tags:
             - ops
+            _access:
+              allowed:
+              - reason:
+                  role_name: role_name
+                  notActions:
+                  - null
+                  - null
+                  notResources:
+                  - notResources
+                  - notResources
+                  effect: allow
+                  resources:
+                  - proj/*:env/*;qa_*:/flag/*
+                  actions:
+                  - '*'
+                action: action
+              - reason:
+                  role_name: role_name
+                  notActions:
+                  - null
+                  - null
+                  notResources:
+                  - notResources
+                  - notResources
+                  effect: allow
+                  resources:
+                  - proj/*:env/*;qa_*:/flag/*
+                  actions:
+                  - '*'
+                action: action
+              denied:
+              - reason:
+                  role_name: role_name
+                  notActions:
+                  - null
+                  - null
+                  notResources:
+                  - notResources
+                  - notResources
+                  effect: allow
+                  resources:
+                  - proj/*:env/*;qa_*:/flag/*
+                  actions:
+                  - '*'
+                action: action
+              - reason:
+                  role_name: role_name
+                  notActions:
+                  - null
+                  - null
+                  notResources:
+                  - notResources
+                  - notResources
+                  effect: allow
+                  resources:
+                  - proj/*:env/*;qa_*:/flag/*
+                  actions:
+                  - '*'
+                action: action
             name: My Environment
             defaultTtl: 5
             _id: 57be1db38b75bf0772d11384
@@ -39814,6 +40344,65 @@ components:
                 defaultTrackEvents: false
                 tags:
                 - ops
+                _access:
+                  allowed:
+                  - reason:
+                      role_name: role_name
+                      notActions:
+                      - null
+                      - null
+                      notResources:
+                      - notResources
+                      - notResources
+                      effect: allow
+                      resources:
+                      - proj/*:env/*;qa_*:/flag/*
+                      actions:
+                      - '*'
+                    action: action
+                  - reason:
+                      role_name: role_name
+                      notActions:
+                      - null
+                      - null
+                      notResources:
+                      - notResources
+                      - notResources
+                      effect: allow
+                      resources:
+                      - proj/*:env/*;qa_*:/flag/*
+                      actions:
+                      - '*'
+                    action: action
+                  denied:
+                  - reason:
+                      role_name: role_name
+                      notActions:
+                      - null
+                      - null
+                      notResources:
+                      - notResources
+                      - notResources
+                      effect: allow
+                      resources:
+                      - proj/*:env/*;qa_*:/flag/*
+                      actions:
+                      - '*'
+                    action: action
+                  - reason:
+                      role_name: role_name
+                      notActions:
+                      - null
+                      - null
+                      notResources:
+                      - notResources
+                      - notResources
+                      effect: allow
+                      resources:
+                      - proj/*:env/*;qa_*:/flag/*
+                      actions:
+                      - '*'
+                    action: action
                 name: My Environment
                 defaultTtl: 5
                 _id: 57be1db38b75bf0772d11384
@@ -39859,6 +40448,65 @@ components:
                 defaultTrackEvents: false
                 tags:
                 - ops
+                _access:
+                  allowed:
+                  - reason:
+                      role_name: role_name
+                      notActions:
+                      - null
+                      - null
+                      notResources:
+                      - notResources
+                      - notResources
+                      effect: allow
+                      resources:
+                      - proj/*:env/*;qa_*:/flag/*
+                      actions:
+                      - '*'
+                    action: action
+                  - reason:
+                      role_name: role_name
+                      notActions:
+                      - null
+                      - null
+                      notResources:
+                      - notResources
+                      - notResources
+                      effect: allow
+                      resources:
+                      - proj/*:env/*;qa_*:/flag/*
+                      actions:
+                      - '*'
+                    action: action
+                  denied:
+                  - reason:
+                      role_name: role_name
+                      notActions:
+                      - null
+                      - null
+                      notResources:
+                      - notResources
+                      - notResources
+                      effect: allow
+                      resources:
+                      - proj/*:env/*;qa_*:/flag/*
+                      actions:
+                      - '*'
+                    action: action
+                  - reason:
+                      role_name: role_name
+                      notActions:
+                      - null
+                      - null
+                      notResources:
+                      - notResources
+                      - notResources
+                      effect: allow
+                      resources:
+                      - proj/*:env/*;qa_*:/flag/*
+                      actions:
+                      - '*'
+                    action: action
                 name: My Environment
                 defaultTtl: 5
                 _id: 57be1db38b75bf0772d11384
@@ -40219,6 +40867,65 @@ components:
             defaultTrackEvents: false
             tags:
             - ops
+            _access:
+              allowed:
+              - reason:
+                  role_name: role_name
+                  notActions:
+                  - null
+                  - null
+                  notResources:
+                  - notResources
+                  - notResources
+                  effect: allow
+                  resources:
+                  - proj/*:env/*;qa_*:/flag/*
+                  actions:
+                  - '*'
+                action: action
+              - reason:
+                  role_name: role_name
+                  notActions:
+                  - null
+                  - null
+                  notResources:
+                  - notResources
+                  - notResources
+                  effect: allow
+                  resources:
+                  - proj/*:env/*;qa_*:/flag/*
+                  actions:
+                  - '*'
+                action: action
+              denied:
+              - reason:
+                  role_name: role_name
+                  notActions:
+                  - null
+                  - null
+                  notResources:
+                  - notResources
+                  - notResources
+                  effect: allow
+                  resources:
+                  - proj/*:env/*;qa_*:/flag/*
+                  actions:
+                  - '*'
+                action: action
+              - reason:
+                  role_name: role_name
+                  notActions:
+                  - null
+                  - null
+                  notResources:
+                  - notResources
+                  - notResources
+                  effect: allow
+                  resources:
+                  - proj/*:env/*;qa_*:/flag/*
+                  actions:
+                  - '*'
+                action: action
             name: My Environment
             defaultTtl: 5
             _id: 57be1db38b75bf0772d11384
@@ -40264,6 +40971,65 @@ components:
             defaultTrackEvents: false
             tags:
             - ops
+            _access:
+              allowed:
+              - reason:
+                  role_name: role_name
+                  notActions:
+                  - null
+                  - null
+                  notResources:
+                  - notResources
+                  - notResources
+                  effect: allow
+                  resources:
+                  - proj/*:env/*;qa_*:/flag/*
+                  actions:
+                  - '*'
+                action: action
+              - reason:
+                  role_name: role_name
+                  notActions:
+                  - null
+                  - null
+                  notResources:
+                  - notResources
+                  - notResources
+                  effect: allow
+                  resources:
+                  - proj/*:env/*;qa_*:/flag/*
+                  actions:
+                  - '*'
+                action: action
+              denied:
+              - reason:
+                  role_name: role_name
+                  notActions:
+                  - null
+                  - null
+                  notResources:
+                  - notResources
+                  - notResources
+                  effect: allow
+                  resources:
+                  - proj/*:env/*;qa_*:/flag/*
+                  actions:
+                  - '*'
+                action: action
+              - reason:
+                  role_name: role_name
+                  notActions:
+                  - null
+                  - null
+                  notResources:
+                  - notResources
+                  - notResources
+                  effect: allow
+                  resources:
+                  - proj/*:env/*;qa_*:/flag/*
+                  actions:
+                  - '*'
+                action: action
             name: My Environment
             defaultTtl: 5
             _id: 57be1db38b75bf0772d11384
@@ -40386,6 +41152,65 @@ components:
                 defaultTrackEvents: false
                 tags:
                 - ops
+                _access:
+                  allowed:
+                  - reason:
+                      role_name: role_name
+                      notActions:
+                      - null
+                      - null
+                      notResources:
+                      - notResources
+                      - notResources
+                      effect: allow
+                      resources:
+                      - proj/*:env/*;qa_*:/flag/*
+                      actions:
+                      - '*'
+                    action: action
+                  - reason:
+                      role_name: role_name
+                      notActions:
+                      - null
+                      - null
+                      notResources:
+                      - notResources
+                      - notResources
+                      effect: allow
+                      resources:
+                      - proj/*:env/*;qa_*:/flag/*
+                      actions:
+                      - '*'
+                    action: action
+                  denied:
+                  - reason:
+                      role_name: role_name
+                      notActions:
+                      - null
+                      - null
+                      notResources:
+                      - notResources
+                      - notResources
+                      effect: allow
+                      resources:
+                      - proj/*:env/*;qa_*:/flag/*
+                      actions:
+                      - '*'
+                    action: action
+                  - reason:
+                      role_name: role_name
+                      notActions:
+                      - null
+                      - null
+                      notResources:
+                      - notResources
+                      - notResources
+                      effect: allow
+                      resources:
+                      - proj/*:env/*;qa_*:/flag/*
+                      actions:
+                      - '*'
+                    action: action
                 name: My Environment
                 defaultTtl: 5
                 _id: 57be1db38b75bf0772d11384
@@ -40431,6 +41256,65 @@ components:
                 defaultTrackEvents: false
                 tags:
                 - ops
+                _access:
+                  allowed:
+                  - reason:
+                      role_name: role_name
+                      notActions:
+                      - null
+                      - null
+                      notResources:
+                      - notResources
+                      - notResources
+                      effect: allow
+                      resources:
+                      - proj/*:env/*;qa_*:/flag/*
+                      actions:
+                      - '*'
+                    action: action
+                  - reason:
+                      role_name: role_name
+                      notActions:
+                      - null
+                      - null
+                      notResources:
+                      - notResources
+                      - notResources
+                      effect: allow
+                      resources:
+                      - proj/*:env/*;qa_*:/flag/*
+                      actions:
+                      - '*'
+                    action: action
+                  denied:
+                  - reason:
+                      role_name: role_name
+                      notActions:
+                      - null
+                      - null
+                      notResources:
+                      - notResources
+                      - notResources
+                      effect: allow
+                      resources:
+                      - proj/*:env/*;qa_*:/flag/*
+                      actions:
+                      - '*'
+                    action: action
+                  - reason:
+                      role_name: role_name
+                      notActions:
+                      - null
+                      - null
+                      notResources:
+                      - notResources
+                      - notResources
+                      effect: allow
+                      resources:
+                      - proj/*:env/*;qa_*:/flag/*
+                      actions:
+                      - '*'
+                    action: action
                 name: My Environment
                 defaultTtl: 5
                 _id: 57be1db38b75bf0772d11384
@@ -41833,6 +42717,9 @@ components:
           status: running
         _creationDate: 0
         environmentKey: environmentKey
+        tags:
+        - experiment
+        - feature
         _maintainerId: 12ab3c45de678910fgh12345
         draftIteration:
           primarySingleMetric:
@@ -42121,6 +43008,14 @@ components:
         archivedDate:
           format: int64
           type: integer
+        tags:
+          description: Tags for the experiment
+          example:
+          - experiment
+          - feature
+          items:
+            type: string
+          type: array
         _links:
           additionalProperties:
             $ref: "#/components/schemas/Link"
@@ -42948,6 +43843,9 @@ components:
             status: running
           _creationDate: 0
           environmentKey: environmentKey
+          tags:
+          - experiment
+          - feature
           _maintainerId: 12ab3c45de678910fgh12345
           draftIteration:
             primarySingleMetric:
@@ -43983,6 +44881,9 @@ components:
             status: running
           _creationDate: 0
           environmentKey: environmentKey
+          tags:
+          - experiment
+          - feature
           _maintainerId: 12ab3c45de678910fgh12345
           draftIteration:
             primarySingleMetric:
@@ -44660,6 +45561,9 @@ components:
               flagKey: example-flag-for-experiment
             allocationPercent: "10"
         key: experiment-key-123abc
+        tags:
+        - tags
+        - tags
       properties:
         name:
           description: The experiment name
@@ -44683,6 +45587,11 @@ components:
           description: The ID of the holdout
           example: f3b74309-d581-44e1-8a2b-bb2933b4fe40
           type: string
+        tags:
+          description: Tags for the experiment
+          items:
+            type: string
+          type: array
       required:
       - iteration
       - key
@@ -49295,6 +50204,9 @@ components:
             status: running
           _creationDate: 0
           environmentKey: environmentKey
+          tags:
+          - experiment
+          - feature
           _maintainerId: 12ab3c45de678910fgh12345
           draftIteration:
             primarySingleMetric:
@@ -50330,6 +51242,9 @@ components:
             status: running
           _creationDate: 0
           environmentKey: environmentKey
+          tags:
+          - experiment
+          - feature
           _maintainerId: 12ab3c45de678910fgh12345
           draftIteration:
             primarySingleMetric:
@@ -51368,6 +52283,9 @@ components:
             status: running
           _creationDate: 0
           environmentKey: environmentKey
+          tags:
+          - experiment
+          - feature
           _maintainerId: 12ab3c45de678910fgh12345
           draftIteration:
             primarySingleMetric:
@@ -52545,6 +53463,9 @@ components:
             status: running
           _creationDate: 0
           environmentKey: environmentKey
+          tags:
+          - experiment
+          - feature
           _maintainerId: 12ab3c45de678910fgh12345
           draftIteration:
             primarySingleMetric:
@@ -58479,6 +59400,65 @@ components:
             defaultTrackEvents: false
             tags:
             - ops
+            _access:
+              allowed:
+              - reason:
+                  role_name: role_name
+                  notActions:
+                  - null
+                  - null
+                  notResources:
+                  - notResources
+                  - notResources
+                  effect: allow
+                  resources:
+                  - proj/*:env/*;qa_*:/flag/*
+                  actions:
+                  - '*'
+                action: action
+              - reason:
+                  role_name: role_name
+                  notActions:
+                  - null
+                  - null
+                  notResources:
+                  - notResources
+                  - notResources
+                  effect: allow
+                  resources:
+                  - proj/*:env/*;qa_*:/flag/*
+                  actions:
+                  - '*'
+                action: action
+              denied:
+              - reason:
+                  role_name: role_name
+                  notActions:
+                  - null
+                  - null
+                  notResources:
+                  - notResources
+                  - notResources
+                  effect: allow
+                  resources:
+                  - proj/*:env/*;qa_*:/flag/*
+                  actions:
+                  - '*'
+                action: action
+              - reason:
+                  role_name: role_name
+                  notActions:
+                  - null
+                  - null
+                  notResources:
+                  - notResources
+                  - notResources
+                  effect: allow
+                  resources:
+                  - proj/*:env/*;qa_*:/flag/*
+                  actions:
+                  - '*'
+                action: action
             name: My Environment
             defaultTtl: 5
             _id: 57be1db38b75bf0772d11384
@@ -58524,6 +59504,65 @@ components:
             defaultTrackEvents: false
             tags:
             - ops
+            _access:
+              allowed:
+              - reason:
+                  role_name: role_name
+                  notActions:
+                  - null
+                  - null
+                  notResources:
+                  - notResources
+                  - notResources
+                  effect: allow
+                  resources:
+                  - proj/*:env/*;qa_*:/flag/*
+                  actions:
+                  - '*'
+                action: action
+              - reason:
+                  role_name: role_name
+                  notActions:
+                  - null
+                  - null
+                  notResources:
+                  - notResources
+                  - notResources
+                  effect: allow
+                  resources:
+                  - proj/*:env/*;qa_*:/flag/*
+                  actions:
+                  - '*'
+                action: action
+              denied:
+              - reason:
+                  role_name: role_name
+                  notActions:
+                  - null
+                  - null
+                  notResources:
+                  - notResources
+                  - notResources
+                  effect: allow
+                  resources:
+                  - proj/*:env/*;qa_*:/flag/*
+                  actions:
+                  - '*'
+                action: action
+              - reason:
+                  role_name: role_name
+                  notActions:
+                  - null
+                  - null
+                  notResources:
+                  - notResources
+                  - notResources
+                  effect: allow
+                  resources:
+                  - proj/*:env/*;qa_*:/flag/*
+                  actions:
+                  - '*'
+                action: action
             name: My Environment
             defaultTtl: 5
             _id: 57be1db38b75bf0772d11384
@@ -58779,6 +59818,65 @@ components:
           defaultTrackEvents: false
           tags:
           - ops
+          _access:
+            allowed:
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: allow
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+              action: action
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: allow
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+              action: action
+            denied:
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: allow
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+              action: action
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: allow
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+              action: action
           name: My Environment
           defaultTtl: 5
           _id: 57be1db38b75bf0772d11384
@@ -58824,6 +59922,65 @@ components:
           defaultTrackEvents: false
           tags:
           - ops
+          _access:
+            allowed:
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: allow
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+              action: action
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: allow
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+              action: action
+            denied:
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: allow
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+              action: action
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: allow
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+              action: action
           name: My Environment
           defaultTtl: 5
           _id: 57be1db38b75bf0772d11384
@@ -59061,6 +60218,65 @@ components:
               defaultTrackEvents: false
               tags:
               - ops
+              _access:
+                allowed:
+                - reason:
+                    role_name: role_name
+                    notActions:
+                    - null
+                    - null
+                    notResources:
+                    - notResources
+                    - notResources
+                    effect: allow
+                    resources:
+                    - proj/*:env/*;qa_*:/flag/*
+                    actions:
+                    - '*'
+                  action: action
+                - reason:
+                    role_name: role_name
+                    notActions:
+                    - null
+                    - null
+                    notResources:
+                    - notResources
+                    - notResources
+                    effect: allow
+                    resources:
+                    - proj/*:env/*;qa_*:/flag/*
+                    actions:
+                    - '*'
+                  action: action
+                denied:
+                - reason:
+                    role_name: role_name
+                    notActions:
+                    - null
+                    - null
+                    notResources:
+                    - notResources
+                    - notResources
+                    effect: allow
+                    resources:
+                    - proj/*:env/*;qa_*:/flag/*
+                    actions:
+                    - '*'
+                  action: action
+                - reason:
+                    role_name: role_name
+                    notActions:
+                    - null
+                    - null
+                    notResources:
+                    - notResources
+                    - notResources
+                    effect: allow
+                    resources:
+                    - proj/*:env/*;qa_*:/flag/*
+                    actions:
+                    - '*'
+                  action: action
               name: My Environment
               defaultTtl: 5
               _id: 57be1db38b75bf0772d11384
@@ -59106,6 +60322,65 @@ components:
               defaultTrackEvents: false
               tags:
               - ops
+              _access:
+                allowed:
+                - reason:
+                    role_name: role_name
+                    notActions:
+                    - null
+                    - null
+                    notResources:
+                    - notResources
+                    - notResources
+                    effect: allow
+                    resources:
+                    - proj/*:env/*;qa_*:/flag/*
+                    actions:
+                    - '*'
+                  action: action
+                - reason:
+                    role_name: role_name
+                    notActions:
+                    - null
+                    - null
+                    notResources:
+                    - notResources
+                    - notResources
+                    effect: allow
+                    resources:
+                    - proj/*:env/*;qa_*:/flag/*
+                    actions:
+                    - '*'
+                  action: action
+                denied:
+                - reason:
+                    role_name: role_name
+                    notActions:
+                    - null
+                    - null
+                    notResources:
+                    - notResources
+                    - notResources
+                    effect: allow
+                    resources:
+                    - proj/*:env/*;qa_*:/flag/*
+                    actions:
+                    - '*'
+                  action: action
+                - reason:
+                    role_name: role_name
+                    notActions:
+                    - null
+                    - null
+                    notResources:
+                    - notResources
+                    - notResources
+                    effect: allow
+                    resources:
+                    - proj/*:env/*;qa_*:/flag/*
+                    actions:
+                    - '*'
+                  action: action
               name: My Environment
               defaultTtl: 5
               _id: 57be1db38b75bf0772d11384
@@ -59234,6 +60509,65 @@ components:
               defaultTrackEvents: false
               tags:
               - ops
+              _access:
+                allowed:
+                - reason:
+                    role_name: role_name
+                    notActions:
+                    - null
+                    - null
+                    notResources:
+                    - notResources
+                    - notResources
+                    effect: allow
+                    resources:
+                    - proj/*:env/*;qa_*:/flag/*
+                    actions:
+                    - '*'
+                  action: action
+                - reason:
+                    role_name: role_name
+                    notActions:
+                    - null
+                    - null
+                    notResources:
+                    - notResources
+                    - notResources
+                    effect: allow
+                    resources:
+                    - proj/*:env/*;qa_*:/flag/*
+                    actions:
+                    - '*'
+                  action: action
+                denied:
+                - reason:
+                    role_name: role_name
+                    notActions:
+                    - null
+                    - null
+                    notResources:
+                    - notResources
+                    - notResources
+                    effect: allow
+                    resources:
+                    - proj/*:env/*;qa_*:/flag/*
+                    actions:
+                    - '*'
+                  action: action
+                - reason:
+                    role_name: role_name
+                    notActions:
+                    - null
+                    - null
+                    notResources:
+                    - notResources
+                    - notResources
+                    effect: allow
+                    resources:
+                    - proj/*:env/*;qa_*:/flag/*
+                    actions:
+                    - '*'
+                  action: action
               name: My Environment
               defaultTtl: 5
               _id: 57be1db38b75bf0772d11384
@@ -59279,6 +60613,65 @@ components:
               defaultTrackEvents: false
               tags:
               - ops
+              _access:
+                allowed:
+                - reason:
+                    role_name: role_name
+                    notActions:
+                    - null
+                    - null
+                    notResources:
+                    - notResources
+                    - notResources
+                    effect: allow
+                    resources:
+                    - proj/*:env/*;qa_*:/flag/*
+                    actions:
+                    - '*'
+                  action: action
+                - reason:
+                    role_name: role_name
+                    notActions:
+                    - null
+                    - null
+                    notResources:
+                    - notResources
+                    - notResources
+                    effect: allow
+                    resources:
+                    - proj/*:env/*;qa_*:/flag/*
+                    actions:
+                    - '*'
+                  action: action
+                denied:
+                - reason:
+                    role_name: role_name
+                    notActions:
+                    - null
+                    - null
+                    notResources:
+                    - notResources
+                    - notResources
+                    effect: allow
+                    resources:
+                    - proj/*:env/*;qa_*:/flag/*
+                    actions:
+                    - '*'
+                  action: action
+                - reason:
+                    role_name: role_name
+                    notActions:
+                    - null
+                    - null
+                    notResources:
+                    - notResources
+                    - notResources
+                    effect: allow
+                    resources:
+                    - proj/*:env/*;qa_*:/flag/*
+                    actions:
+                    - '*'
+                  action: action
               name: My Environment
               defaultTtl: 5
               _id: 57be1db38b75bf0772d11384
@@ -78651,9 +80044,11 @@ components:
           environmentKeys:
           - production
           - staging
-        progressiveReleaseConfig: "{}"
+        progressiveReleaseConfig:
+          rolloutContextKindKey: user
         name: Production Release
         guardedReleaseConfig:
+          rolloutContextKindKey: user
           minSampleSize: 100
           rollbackOnRegression: true
         key: production-release
@@ -78666,6 +80061,8 @@ components:
           $ref: "#/components/schemas/GuardedReleaseConfig"
         progressiveReleaseConfig:
           description: Configuration for progressive releases
+          example:
+            rolloutContextKindKey: user
           type: object
         name:
           description: The name of the release policy
@@ -78688,9 +80085,11 @@ components:
           environmentKeys:
           - production
           - staging
-        progressiveReleaseConfig: "{}"
+        progressiveReleaseConfig:
+          rolloutContextKindKey: user
         name: Production Release
         guardedReleaseConfig:
+          rolloutContextKindKey: user
           minSampleSize: 100
           rollbackOnRegression: true
       properties:
@@ -78702,6 +80101,8 @@ components:
           $ref: "#/components/schemas/GuardedReleaseConfig"
         progressiveReleaseConfig:
           description: Configuration for progressive releases
+          example:
+            rolloutContextKindKey: user
           type: object
         name:
           description: The name of the release policy
@@ -78778,11 +80179,13 @@ components:
           environmentKeys:
           - production
           - staging
-        progressiveReleaseConfig: "{}"
+        progressiveReleaseConfig:
+          rolloutContextKindKey: user
         name: Production Release
         rank: 1
         _id: 550e8400-e29b-41d4-a716-446655440000
         guardedReleaseConfig:
+          rolloutContextKindKey: user
           minSampleSize: 100
           rollbackOnRegression: true
         key: production-release
@@ -78805,6 +80208,8 @@ components:
           $ref: "#/components/schemas/GuardedReleaseConfig"
         progressiveReleaseConfig:
           description: Configuration for progressive releases
+          example:
+            rolloutContextKindKey: user
           type: object
         name:
           description: The name of the release policy
@@ -78840,6 +80245,7 @@ components:
     GuardedReleaseConfig:
       description: Configuration for guarded releases
       example:
+        rolloutContextKindKey: user
         minSampleSize: 100
         rollbackOnRegression: true
       properties:
@@ -78853,6 +80259,11 @@ components:
           type: boolean
       required:
       - rollbackOnRegression
+      type: object
+    ProgressiveReleaseConfig:
+      description: Configuration for progressive releases
+      example:
+        rolloutContextKindKey: user
       type: object
     ReleasePoliciesResponse:
       example:
@@ -78922,11 +80333,13 @@ components:
             environmentKeys:
             - production
             - staging
-          progressiveReleaseConfig: "{}"
+          progressiveReleaseConfig:
+            rolloutContextKindKey: user
           name: Production Release
           rank: 1
           _id: 550e8400-e29b-41d4-a716-446655440000
           guardedReleaseConfig:
+            rolloutContextKindKey: user
             minSampleSize: 100
             rollbackOnRegression: true
           key: production-release
@@ -78994,11 +80407,13 @@ components:
             environmentKeys:
             - production
             - staging
-          progressiveReleaseConfig: "{}"
+          progressiveReleaseConfig:
+            rolloutContextKindKey: user
           name: Production Release
           rank: 1
           _id: 550e8400-e29b-41d4-a716-446655440000
           guardedReleaseConfig:
+            rolloutContextKindKey: user
             minSampleSize: 100
             rollbackOnRegression: true
           key: production-release
@@ -80346,6 +81761,65 @@ components:
           defaultTrackEvents: false
           tags:
           - ops
+          _access:
+            allowed:
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: allow
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+              action: action
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: allow
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+              action: action
+            denied:
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: allow
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+              action: action
+            - reason:
+                role_name: role_name
+                notActions:
+                - null
+                - null
+                notResources:
+                - notResources
+                - notResources
+                effect: allow
+                resources:
+                - proj/*:env/*;qa_*:/flag/*
+                actions:
+                - '*'
+              action: action
           name: My Environment
           defaultTtl: 5
           _id: 57be1db38b75bf0772d11384
@@ -80594,6 +82068,65 @@ components:
             defaultTrackEvents: false
             tags:
             - ops
+            _access:
+              allowed:
+              - reason:
+                  role_name: role_name
+                  notActions:
+                  - null
+                  - null
+                  notResources:
+                  - notResources
+                  - notResources
+                  effect: allow
+                  resources:
+                  - proj/*:env/*;qa_*:/flag/*
+                  actions:
+                  - '*'
+                action: action
+              - reason:
+                  role_name: role_name
+                  notActions:
+                  - null
+                  - null
+                  notResources:
+                  - notResources
+                  - notResources
+                  effect: allow
+                  resources:
+                  - proj/*:env/*;qa_*:/flag/*
+                  actions:
+                  - '*'
+                action: action
+              denied:
+              - reason:
+                  role_name: role_name
+                  notActions:
+                  - null
+                  - null
+                  notResources:
+                  - notResources
+                  - notResources
+                  effect: allow
+                  resources:
+                  - proj/*:env/*;qa_*:/flag/*
+                  actions:
+                  - '*'
+                action: action
+              - reason:
+                  role_name: role_name
+                  notActions:
+                  - null
+                  - null
+                  notResources:
+                  - notResources
+                  - notResources
+                  effect: allow
+                  resources:
+                  - proj/*:env/*;qa_*:/flag/*
+                  actions:
+                  - '*'
+                action: action
             name: My Environment
             defaultTtl: 5
             _id: 57be1db38b75bf0772d11384
@@ -80777,6 +82310,65 @@ components:
             defaultTrackEvents: false
             tags:
             - ops
+            _access:
+              allowed:
+              - reason:
+                  role_name: role_name
+                  notActions:
+                  - null
+                  - null
+                  notResources:
+                  - notResources
+                  - notResources
+                  effect: allow
+                  resources:
+                  - proj/*:env/*;qa_*:/flag/*
+                  actions:
+                  - '*'
+                action: action
+              - reason:
+                  role_name: role_name
+                  notActions:
+                  - null
+                  - null
+                  notResources:
+                  - notResources
+                  - notResources
+                  effect: allow
+                  resources:
+                  - proj/*:env/*;qa_*:/flag/*
+                  actions:
+                  - '*'
+                action: action
+              denied:
+              - reason:
+                  role_name: role_name
+                  notActions:
+                  - null
+                  - null
+                  notResources:
+                  - notResources
+                  - notResources
+                  effect: allow
+                  resources:
+                  - proj/*:env/*;qa_*:/flag/*
+                  actions:
+                  - '*'
+                action: action
+              - reason:
+                  role_name: role_name
+                  notActions:
+                  - null
+                  - null
+                  notResources:
+                  - notResources
+                  - notResources
+                  effect: allow
+                  resources:
+                  - proj/*:env/*;qa_*:/flag/*
+                  actions:
+                  - '*'
+                action: action
             name: My Environment
             defaultTtl: 5
             _id: 57be1db38b75bf0772d11384
