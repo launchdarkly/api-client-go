@@ -50,10 +50,6 @@ type MetricGroupRep struct {
 	ActiveExperimentCount *int32 `json:"activeExperimentCount,omitempty"`
 	// The number of active guarded rollouts using this metric group
 	ActiveGuardedRolloutCount *int32 `json:"activeGuardedRolloutCount,omitempty"`
-	// The total number of connections using this metric group
-	TotalConnectionsCount *int32 `json:"totalConnectionsCount,omitempty"`
-	// The total number of active connections using this metric group
-	TotalActiveConnectionsCount *int32 `json:"totalActiveConnectionsCount,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -543,70 +539,6 @@ func (o *MetricGroupRep) SetActiveGuardedRolloutCount(v int32) {
 	o.ActiveGuardedRolloutCount = &v
 }
 
-// GetTotalConnectionsCount returns the TotalConnectionsCount field value if set, zero value otherwise.
-func (o *MetricGroupRep) GetTotalConnectionsCount() int32 {
-	if o == nil || IsNil(o.TotalConnectionsCount) {
-		var ret int32
-		return ret
-	}
-	return *o.TotalConnectionsCount
-}
-
-// GetTotalConnectionsCountOk returns a tuple with the TotalConnectionsCount field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *MetricGroupRep) GetTotalConnectionsCountOk() (*int32, bool) {
-	if o == nil || IsNil(o.TotalConnectionsCount) {
-		return nil, false
-	}
-	return o.TotalConnectionsCount, true
-}
-
-// HasTotalConnectionsCount returns a boolean if a field has been set.
-func (o *MetricGroupRep) HasTotalConnectionsCount() bool {
-	if o != nil && !IsNil(o.TotalConnectionsCount) {
-		return true
-	}
-
-	return false
-}
-
-// SetTotalConnectionsCount gets a reference to the given int32 and assigns it to the TotalConnectionsCount field.
-func (o *MetricGroupRep) SetTotalConnectionsCount(v int32) {
-	o.TotalConnectionsCount = &v
-}
-
-// GetTotalActiveConnectionsCount returns the TotalActiveConnectionsCount field value if set, zero value otherwise.
-func (o *MetricGroupRep) GetTotalActiveConnectionsCount() int32 {
-	if o == nil || IsNil(o.TotalActiveConnectionsCount) {
-		var ret int32
-		return ret
-	}
-	return *o.TotalActiveConnectionsCount
-}
-
-// GetTotalActiveConnectionsCountOk returns a tuple with the TotalActiveConnectionsCount field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *MetricGroupRep) GetTotalActiveConnectionsCountOk() (*int32, bool) {
-	if o == nil || IsNil(o.TotalActiveConnectionsCount) {
-		return nil, false
-	}
-	return o.TotalActiveConnectionsCount, true
-}
-
-// HasTotalActiveConnectionsCount returns a boolean if a field has been set.
-func (o *MetricGroupRep) HasTotalActiveConnectionsCount() bool {
-	if o != nil && !IsNil(o.TotalActiveConnectionsCount) {
-		return true
-	}
-
-	return false
-}
-
-// SetTotalActiveConnectionsCount gets a reference to the given int32 and assigns it to the TotalActiveConnectionsCount field.
-func (o *MetricGroupRep) SetTotalActiveConnectionsCount(v int32) {
-	o.TotalActiveConnectionsCount = &v
-}
-
 func (o MetricGroupRep) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -645,12 +577,6 @@ func (o MetricGroupRep) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.ActiveGuardedRolloutCount) {
 		toSerialize["activeGuardedRolloutCount"] = o.ActiveGuardedRolloutCount
-	}
-	if !IsNil(o.TotalConnectionsCount) {
-		toSerialize["totalConnectionsCount"] = o.TotalConnectionsCount
-	}
-	if !IsNil(o.TotalActiveConnectionsCount) {
-		toSerialize["totalActiveConnectionsCount"] = o.TotalActiveConnectionsCount
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -722,8 +648,6 @@ func (o *MetricGroupRep) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "experimentCount")
 		delete(additionalProperties, "activeExperimentCount")
 		delete(additionalProperties, "activeGuardedRolloutCount")
-		delete(additionalProperties, "totalConnectionsCount")
-		delete(additionalProperties, "totalActiveConnectionsCount")
 		o.AdditionalProperties = additionalProperties
 	}
 

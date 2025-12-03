@@ -33,6 +33,8 @@ type AIConfig struct {
 	Variations []AIConfigVariation `json:"variations"`
 	CreatedAt int64 `json:"createdAt"`
 	UpdatedAt int64 `json:"updatedAt"`
+	// List of evaluation metric keys for this AI config
+	EvaluationMetricKeys []string `json:"evaluationMetricKeys,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -387,6 +389,38 @@ func (o *AIConfig) SetUpdatedAt(v int64) {
 	o.UpdatedAt = v
 }
 
+// GetEvaluationMetricKeys returns the EvaluationMetricKeys field value if set, zero value otherwise.
+func (o *AIConfig) GetEvaluationMetricKeys() []string {
+	if o == nil || IsNil(o.EvaluationMetricKeys) {
+		var ret []string
+		return ret
+	}
+	return o.EvaluationMetricKeys
+}
+
+// GetEvaluationMetricKeysOk returns a tuple with the EvaluationMetricKeys field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AIConfig) GetEvaluationMetricKeysOk() ([]string, bool) {
+	if o == nil || IsNil(o.EvaluationMetricKeys) {
+		return nil, false
+	}
+	return o.EvaluationMetricKeys, true
+}
+
+// HasEvaluationMetricKeys returns a boolean if a field has been set.
+func (o *AIConfig) HasEvaluationMetricKeys() bool {
+	if o != nil && !IsNil(o.EvaluationMetricKeys) {
+		return true
+	}
+
+	return false
+}
+
+// SetEvaluationMetricKeys gets a reference to the given []string and assigns it to the EvaluationMetricKeys field.
+func (o *AIConfig) SetEvaluationMetricKeys(v []string) {
+	o.EvaluationMetricKeys = v
+}
+
 func (o AIConfig) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -417,6 +451,9 @@ func (o AIConfig) ToMap() (map[string]interface{}, error) {
 	toSerialize["variations"] = o.Variations
 	toSerialize["createdAt"] = o.CreatedAt
 	toSerialize["updatedAt"] = o.UpdatedAt
+	if !IsNil(o.EvaluationMetricKeys) {
+		toSerialize["evaluationMetricKeys"] = o.EvaluationMetricKeys
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -479,6 +516,7 @@ func (o *AIConfig) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "variations")
 		delete(additionalProperties, "createdAt")
 		delete(additionalProperties, "updatedAt")
+		delete(additionalProperties, "evaluationMetricKeys")
 		o.AdditionalProperties = additionalProperties
 	}
 

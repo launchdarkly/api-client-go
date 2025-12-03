@@ -159,6 +159,22 @@ To create a Data Export destination with a `kind` of `snowflake-v2`, the `config
 	PostDestinationExecute(r ApiPostDestinationRequest) (*Destination, *http.Response, error)
 
 	/*
+	PostGenerateTrustPolicy Generate trust policy
+
+	Trust policy to allow Data Export to assume the role and perform operations on AWS resources
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param projKey The project key
+	@param envKey The environment key
+	@return ApiPostGenerateTrustPolicyRequest
+	*/
+	PostGenerateTrustPolicy(ctx context.Context, projKey string, envKey string) ApiPostGenerateTrustPolicyRequest
+
+	// PostGenerateTrustPolicyExecute executes the request
+	//  @return GenerateTrustPolicyPostRep
+	PostGenerateTrustPolicyExecute(r ApiPostGenerateTrustPolicyRequest) (*GenerateTrustPolicyPostRep, *http.Response, error)
+
+	/*
 	PostGenerateWarehouseDestinationKeyPair Generate Snowflake destination key pair
 
 	Generate key pair to allow Data Export to authenticate into a Snowflake warehouse destination
@@ -983,6 +999,181 @@ func (a *DataExportDestinationsApiService) PostDestinationExecute(r ApiPostDesti
 	}
 	// body params
 	localVarPostBody = r.destinationPost
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["ApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v InvalidRequestErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v UnauthorizedErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v ForbiddenErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 409 {
+			var v StatusConflictErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v RateLimitedErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiPostGenerateTrustPolicyRequest struct {
+	ctx context.Context
+	ApiService DataExportDestinationsApi
+	projKey string
+	envKey string
+}
+
+func (r ApiPostGenerateTrustPolicyRequest) Execute() (*GenerateTrustPolicyPostRep, *http.Response, error) {
+	return r.ApiService.PostGenerateTrustPolicyExecute(r)
+}
+
+/*
+PostGenerateTrustPolicy Generate trust policy
+
+Trust policy to allow Data Export to assume the role and perform operations on AWS resources
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param projKey The project key
+ @param envKey The environment key
+ @return ApiPostGenerateTrustPolicyRequest
+*/
+func (a *DataExportDestinationsApiService) PostGenerateTrustPolicy(ctx context.Context, projKey string, envKey string) ApiPostGenerateTrustPolicyRequest {
+	return ApiPostGenerateTrustPolicyRequest{
+		ApiService: a,
+		ctx: ctx,
+		projKey: projKey,
+		envKey: envKey,
+	}
+}
+
+// Execute executes the request
+//  @return GenerateTrustPolicyPostRep
+func (a *DataExportDestinationsApiService) PostGenerateTrustPolicyExecute(r ApiPostGenerateTrustPolicyRequest) (*GenerateTrustPolicyPostRep, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *GenerateTrustPolicyPostRep
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DataExportDestinationsApiService.PostGenerateTrustPolicy")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v2/destinations/projects/{projKey}/environments/{envKey}/generate-trust-policy"
+	localVarPath = strings.Replace(localVarPath, "{"+"projKey"+"}", url.PathEscape(parameterValueToString(r.projKey, "projKey")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"envKey"+"}", url.PathEscape(parameterValueToString(r.envKey, "envKey")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {

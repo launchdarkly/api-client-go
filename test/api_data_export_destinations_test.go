@@ -96,6 +96,21 @@ func Test_ldapi_DataExportDestinationsApiService(t *testing.T) {
 
 	})
 
+	t.Run("Test DataExportDestinationsApiService PostGenerateTrustPolicy", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var projKey string
+		var envKey string
+
+		resp, httpRes, err := apiClient.DataExportDestinationsApi.PostGenerateTrustPolicy(context.Background(), projKey, envKey).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test DataExportDestinationsApiService PostGenerateWarehouseDestinationKeyPair", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test

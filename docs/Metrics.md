@@ -17,6 +17,9 @@ Name | Type | Description | Notes
 **SatisfactionRating** | Pointer to **float32** | A value between 0 and 1 representing satisfaction rating | [optional] 
 **InputCost** | Pointer to **float64** | Cost of input tokens in USD | [optional] 
 **OutputCost** | Pointer to **float64** | Cost of output tokens in USD | [optional] 
+**JudgeAccuracy** | Pointer to **float32** | Average accuracy judge score (0.0-1.0) | [optional] 
+**JudgeRelevance** | Pointer to **float32** | Average relevance judge score (0.0-1.0) | [optional] 
+**JudgeToxicity** | Pointer to **float32** | Average toxicity judge score (0.0-1.0) | [optional] 
 
 ## Methods
 
@@ -361,6 +364,81 @@ SetOutputCost sets OutputCost field to given value.
 `func (o *Metrics) HasOutputCost() bool`
 
 HasOutputCost returns a boolean if a field has been set.
+
+### GetJudgeAccuracy
+
+`func (o *Metrics) GetJudgeAccuracy() float32`
+
+GetJudgeAccuracy returns the JudgeAccuracy field if non-nil, zero value otherwise.
+
+### GetJudgeAccuracyOk
+
+`func (o *Metrics) GetJudgeAccuracyOk() (*float32, bool)`
+
+GetJudgeAccuracyOk returns a tuple with the JudgeAccuracy field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetJudgeAccuracy
+
+`func (o *Metrics) SetJudgeAccuracy(v float32)`
+
+SetJudgeAccuracy sets JudgeAccuracy field to given value.
+
+### HasJudgeAccuracy
+
+`func (o *Metrics) HasJudgeAccuracy() bool`
+
+HasJudgeAccuracy returns a boolean if a field has been set.
+
+### GetJudgeRelevance
+
+`func (o *Metrics) GetJudgeRelevance() float32`
+
+GetJudgeRelevance returns the JudgeRelevance field if non-nil, zero value otherwise.
+
+### GetJudgeRelevanceOk
+
+`func (o *Metrics) GetJudgeRelevanceOk() (*float32, bool)`
+
+GetJudgeRelevanceOk returns a tuple with the JudgeRelevance field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetJudgeRelevance
+
+`func (o *Metrics) SetJudgeRelevance(v float32)`
+
+SetJudgeRelevance sets JudgeRelevance field to given value.
+
+### HasJudgeRelevance
+
+`func (o *Metrics) HasJudgeRelevance() bool`
+
+HasJudgeRelevance returns a boolean if a field has been set.
+
+### GetJudgeToxicity
+
+`func (o *Metrics) GetJudgeToxicity() float32`
+
+GetJudgeToxicity returns the JudgeToxicity field if non-nil, zero value otherwise.
+
+### GetJudgeToxicityOk
+
+`func (o *Metrics) GetJudgeToxicityOk() (*float32, bool)`
+
+GetJudgeToxicityOk returns a tuple with the JudgeToxicity field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetJudgeToxicity
+
+`func (o *Metrics) SetJudgeToxicity(v float32)`
+
+SetJudgeToxicity sets JudgeToxicity field to given value.
+
+### HasJudgeToxicity
+
+`func (o *Metrics) HasJudgeToxicity() bool`
+
+HasJudgeToxicity returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

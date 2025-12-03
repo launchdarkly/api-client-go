@@ -78,7 +78,7 @@ type AiConfigsMetricListingRep struct {
 	// The percentile for the analysis method. An integer denoting the target percentile between 0 and 100. Required when <code>analysisType</code> is <code>percentile</code>.
 	PercentileValue *int32 `json:"percentileValue,omitempty"`
 	EventDefault *AiConfigsMetricEventDefaultRep `json:"eventDefault,omitempty"`
-	DataSource *AiConfigsMetricDataSourceRefRep `json:"dataSource,omitempty"`
+	DataSource AiConfigsMetricDataSourceRefRep `json:"dataSource"`
 	// Whether the metric version is archived
 	Archived *bool `json:"archived,omitempty"`
 	ArchivedAt *int64 `json:"archivedAt,omitempty"`
@@ -94,7 +94,7 @@ type _AiConfigsMetricListingRep AiConfigsMetricListingRep
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAiConfigsMetricListingRep(id string, versionId string, key string, name string, kind string, links map[string]AiConfigsLink, tags []string, creationDate int64) *AiConfigsMetricListingRep {
+func NewAiConfigsMetricListingRep(id string, versionId string, key string, name string, kind string, links map[string]AiConfigsLink, tags []string, creationDate int64, dataSource AiConfigsMetricDataSourceRefRep) *AiConfigsMetricListingRep {
 	this := AiConfigsMetricListingRep{}
 	this.Id = id
 	this.VersionId = versionId
@@ -104,6 +104,7 @@ func NewAiConfigsMetricListingRep(id string, versionId string, key string, name 
 	this.Links = links
 	this.Tags = tags
 	this.CreationDate = creationDate
+	this.DataSource = dataSource
 	return &this
 }
 
@@ -1075,36 +1076,28 @@ func (o *AiConfigsMetricListingRep) SetEventDefault(v AiConfigsMetricEventDefaul
 	o.EventDefault = &v
 }
 
-// GetDataSource returns the DataSource field value if set, zero value otherwise.
+// GetDataSource returns the DataSource field value
 func (o *AiConfigsMetricListingRep) GetDataSource() AiConfigsMetricDataSourceRefRep {
-	if o == nil || IsNil(o.DataSource) {
+	if o == nil {
 		var ret AiConfigsMetricDataSourceRefRep
 		return ret
 	}
-	return *o.DataSource
+
+	return o.DataSource
 }
 
-// GetDataSourceOk returns a tuple with the DataSource field value if set, nil otherwise
+// GetDataSourceOk returns a tuple with the DataSource field value
 // and a boolean to check if the value has been set.
 func (o *AiConfigsMetricListingRep) GetDataSourceOk() (*AiConfigsMetricDataSourceRefRep, bool) {
-	if o == nil || IsNil(o.DataSource) {
+	if o == nil {
 		return nil, false
 	}
-	return o.DataSource, true
+	return &o.DataSource, true
 }
 
-// HasDataSource returns a boolean if a field has been set.
-func (o *AiConfigsMetricListingRep) HasDataSource() bool {
-	if o != nil && !IsNil(o.DataSource) {
-		return true
-	}
-
-	return false
-}
-
-// SetDataSource gets a reference to the given AiConfigsMetricDataSourceRefRep and assigns it to the DataSource field.
+// SetDataSource sets field value
 func (o *AiConfigsMetricListingRep) SetDataSource(v AiConfigsMetricDataSourceRefRep) {
-	o.DataSource = &v
+	o.DataSource = v
 }
 
 // GetArchived returns the Archived field value if set, zero value otherwise.
@@ -1325,9 +1318,7 @@ func (o AiConfigsMetricListingRep) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.EventDefault) {
 		toSerialize["eventDefault"] = o.EventDefault
 	}
-	if !IsNil(o.DataSource) {
-		toSerialize["dataSource"] = o.DataSource
-	}
+	toSerialize["dataSource"] = o.DataSource
 	if !IsNil(o.Archived) {
 		toSerialize["archived"] = o.Archived
 	}
@@ -1361,6 +1352,7 @@ func (o *AiConfigsMetricListingRep) UnmarshalJSON(data []byte) (err error) {
 		"_links",
 		"tags",
 		"_creationDate",
+		"dataSource",
 	}
 
 	allProperties := make(map[string]interface{})

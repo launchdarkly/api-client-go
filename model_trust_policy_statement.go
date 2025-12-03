@@ -13,296 +13,174 @@ package ldapi
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
-// checks if the RelayAutoConfigRep type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &RelayAutoConfigRep{}
+// checks if the TrustPolicyStatement type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TrustPolicyStatement{}
 
-// RelayAutoConfigRep struct for RelayAutoConfigRep
-type RelayAutoConfigRep struct {
-	Id string `json:"_id"`
-	Creator *MemberSummary `json:"_creator,omitempty"`
-	Access *Access `json:"_access,omitempty"`
-	// A human-friendly name for the Relay Proxy configuration
-	Name string `json:"name"`
-	// A description of what environments and projects the Relay Proxy should include or exclude
-	Policy []Statement `json:"policy"`
-	// The Relay Proxy configuration key
-	FullKey *string `json:"fullKey,omitempty"`
-	// The last few characters of the Relay Proxy configuration key, displayed in the LaunchDarkly UI
-	DisplayKey string `json:"displayKey"`
-	CreationDate int64 `json:"creationDate"`
-	LastModified int64 `json:"lastModified"`
+// TrustPolicyStatement struct for TrustPolicyStatement
+type TrustPolicyStatement struct {
+	// The effect of trust policy statement
+	Effect *string `json:"Effect,omitempty"`
+	// The action of trust policy statement
+	Action []string `json:"Action,omitempty"`
+	// The principal of trust policy statement
+	Principal interface{} `json:"Principal,omitempty"`
+	// The condition of trust policy statement
+	Condition interface{} `json:"Condition,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
-type _RelayAutoConfigRep RelayAutoConfigRep
+type _TrustPolicyStatement TrustPolicyStatement
 
-// NewRelayAutoConfigRep instantiates a new RelayAutoConfigRep object
+// NewTrustPolicyStatement instantiates a new TrustPolicyStatement object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRelayAutoConfigRep(id string, name string, policy []Statement, displayKey string, creationDate int64, lastModified int64) *RelayAutoConfigRep {
-	this := RelayAutoConfigRep{}
-	this.Id = id
-	this.Name = name
-	this.Policy = policy
-	this.DisplayKey = displayKey
-	this.CreationDate = creationDate
-	this.LastModified = lastModified
+func NewTrustPolicyStatement() *TrustPolicyStatement {
+	this := TrustPolicyStatement{}
 	return &this
 }
 
-// NewRelayAutoConfigRepWithDefaults instantiates a new RelayAutoConfigRep object
+// NewTrustPolicyStatementWithDefaults instantiates a new TrustPolicyStatement object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewRelayAutoConfigRepWithDefaults() *RelayAutoConfigRep {
-	this := RelayAutoConfigRep{}
+func NewTrustPolicyStatementWithDefaults() *TrustPolicyStatement {
+	this := TrustPolicyStatement{}
 	return &this
 }
 
-// GetId returns the Id field value
-func (o *RelayAutoConfigRep) GetId() string {
-	if o == nil {
+// GetEffect returns the Effect field value if set, zero value otherwise.
+func (o *TrustPolicyStatement) GetEffect() string {
+	if o == nil || IsNil(o.Effect) {
 		var ret string
 		return ret
 	}
-
-	return o.Id
+	return *o.Effect
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetEffectOk returns a tuple with the Effect field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RelayAutoConfigRep) GetIdOk() (*string, bool) {
-	if o == nil {
+func (o *TrustPolicyStatement) GetEffectOk() (*string, bool) {
+	if o == nil || IsNil(o.Effect) {
 		return nil, false
 	}
-	return &o.Id, true
+	return o.Effect, true
 }
 
-// SetId sets field value
-func (o *RelayAutoConfigRep) SetId(v string) {
-	o.Id = v
-}
-
-// GetCreator returns the Creator field value if set, zero value otherwise.
-func (o *RelayAutoConfigRep) GetCreator() MemberSummary {
-	if o == nil || IsNil(o.Creator) {
-		var ret MemberSummary
-		return ret
-	}
-	return *o.Creator
-}
-
-// GetCreatorOk returns a tuple with the Creator field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *RelayAutoConfigRep) GetCreatorOk() (*MemberSummary, bool) {
-	if o == nil || IsNil(o.Creator) {
-		return nil, false
-	}
-	return o.Creator, true
-}
-
-// HasCreator returns a boolean if a field has been set.
-func (o *RelayAutoConfigRep) HasCreator() bool {
-	if o != nil && !IsNil(o.Creator) {
+// HasEffect returns a boolean if a field has been set.
+func (o *TrustPolicyStatement) HasEffect() bool {
+	if o != nil && !IsNil(o.Effect) {
 		return true
 	}
 
 	return false
 }
 
-// SetCreator gets a reference to the given MemberSummary and assigns it to the Creator field.
-func (o *RelayAutoConfigRep) SetCreator(v MemberSummary) {
-	o.Creator = &v
+// SetEffect gets a reference to the given string and assigns it to the Effect field.
+func (o *TrustPolicyStatement) SetEffect(v string) {
+	o.Effect = &v
 }
 
-// GetAccess returns the Access field value if set, zero value otherwise.
-func (o *RelayAutoConfigRep) GetAccess() Access {
-	if o == nil || IsNil(o.Access) {
-		var ret Access
+// GetAction returns the Action field value if set, zero value otherwise.
+func (o *TrustPolicyStatement) GetAction() []string {
+	if o == nil || IsNil(o.Action) {
+		var ret []string
 		return ret
 	}
-	return *o.Access
+	return o.Action
 }
 
-// GetAccessOk returns a tuple with the Access field value if set, nil otherwise
+// GetActionOk returns a tuple with the Action field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RelayAutoConfigRep) GetAccessOk() (*Access, bool) {
-	if o == nil || IsNil(o.Access) {
+func (o *TrustPolicyStatement) GetActionOk() ([]string, bool) {
+	if o == nil || IsNil(o.Action) {
 		return nil, false
 	}
-	return o.Access, true
+	return o.Action, true
 }
 
-// HasAccess returns a boolean if a field has been set.
-func (o *RelayAutoConfigRep) HasAccess() bool {
-	if o != nil && !IsNil(o.Access) {
+// HasAction returns a boolean if a field has been set.
+func (o *TrustPolicyStatement) HasAction() bool {
+	if o != nil && !IsNil(o.Action) {
 		return true
 	}
 
 	return false
 }
 
-// SetAccess gets a reference to the given Access and assigns it to the Access field.
-func (o *RelayAutoConfigRep) SetAccess(v Access) {
-	o.Access = &v
+// SetAction gets a reference to the given []string and assigns it to the Action field.
+func (o *TrustPolicyStatement) SetAction(v []string) {
+	o.Action = v
 }
 
-// GetName returns the Name field value
-func (o *RelayAutoConfigRep) GetName() string {
+// GetPrincipal returns the Principal field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *TrustPolicyStatement) GetPrincipal() interface{} {
 	if o == nil {
-		var ret string
+		var ret interface{}
 		return ret
 	}
-
-	return o.Name
+	return o.Principal
 }
 
-// GetNameOk returns a tuple with the Name field value
+// GetPrincipalOk returns a tuple with the Principal field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RelayAutoConfigRep) GetNameOk() (*string, bool) {
-	if o == nil {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *TrustPolicyStatement) GetPrincipalOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Principal) {
 		return nil, false
 	}
-	return &o.Name, true
+	return &o.Principal, true
 }
 
-// SetName sets field value
-func (o *RelayAutoConfigRep) SetName(v string) {
-	o.Name = v
-}
-
-// GetPolicy returns the Policy field value
-func (o *RelayAutoConfigRep) GetPolicy() []Statement {
-	if o == nil {
-		var ret []Statement
-		return ret
-	}
-
-	return o.Policy
-}
-
-// GetPolicyOk returns a tuple with the Policy field value
-// and a boolean to check if the value has been set.
-func (o *RelayAutoConfigRep) GetPolicyOk() ([]Statement, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Policy, true
-}
-
-// SetPolicy sets field value
-func (o *RelayAutoConfigRep) SetPolicy(v []Statement) {
-	o.Policy = v
-}
-
-// GetFullKey returns the FullKey field value if set, zero value otherwise.
-func (o *RelayAutoConfigRep) GetFullKey() string {
-	if o == nil || IsNil(o.FullKey) {
-		var ret string
-		return ret
-	}
-	return *o.FullKey
-}
-
-// GetFullKeyOk returns a tuple with the FullKey field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *RelayAutoConfigRep) GetFullKeyOk() (*string, bool) {
-	if o == nil || IsNil(o.FullKey) {
-		return nil, false
-	}
-	return o.FullKey, true
-}
-
-// HasFullKey returns a boolean if a field has been set.
-func (o *RelayAutoConfigRep) HasFullKey() bool {
-	if o != nil && !IsNil(o.FullKey) {
+// HasPrincipal returns a boolean if a field has been set.
+func (o *TrustPolicyStatement) HasPrincipal() bool {
+	if o != nil && !IsNil(o.Principal) {
 		return true
 	}
 
 	return false
 }
 
-// SetFullKey gets a reference to the given string and assigns it to the FullKey field.
-func (o *RelayAutoConfigRep) SetFullKey(v string) {
-	o.FullKey = &v
+// SetPrincipal gets a reference to the given interface{} and assigns it to the Principal field.
+func (o *TrustPolicyStatement) SetPrincipal(v interface{}) {
+	o.Principal = v
 }
 
-// GetDisplayKey returns the DisplayKey field value
-func (o *RelayAutoConfigRep) GetDisplayKey() string {
+// GetCondition returns the Condition field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *TrustPolicyStatement) GetCondition() interface{} {
 	if o == nil {
-		var ret string
+		var ret interface{}
 		return ret
 	}
-
-	return o.DisplayKey
+	return o.Condition
 }
 
-// GetDisplayKeyOk returns a tuple with the DisplayKey field value
+// GetConditionOk returns a tuple with the Condition field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RelayAutoConfigRep) GetDisplayKeyOk() (*string, bool) {
-	if o == nil {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *TrustPolicyStatement) GetConditionOk() (*interface{}, bool) {
+	if o == nil || IsNil(o.Condition) {
 		return nil, false
 	}
-	return &o.DisplayKey, true
+	return &o.Condition, true
 }
 
-// SetDisplayKey sets field value
-func (o *RelayAutoConfigRep) SetDisplayKey(v string) {
-	o.DisplayKey = v
-}
-
-// GetCreationDate returns the CreationDate field value
-func (o *RelayAutoConfigRep) GetCreationDate() int64 {
-	if o == nil {
-		var ret int64
-		return ret
+// HasCondition returns a boolean if a field has been set.
+func (o *TrustPolicyStatement) HasCondition() bool {
+	if o != nil && !IsNil(o.Condition) {
+		return true
 	}
 
-	return o.CreationDate
+	return false
 }
 
-// GetCreationDateOk returns a tuple with the CreationDate field value
-// and a boolean to check if the value has been set.
-func (o *RelayAutoConfigRep) GetCreationDateOk() (*int64, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.CreationDate, true
+// SetCondition gets a reference to the given interface{} and assigns it to the Condition field.
+func (o *TrustPolicyStatement) SetCondition(v interface{}) {
+	o.Condition = v
 }
 
-// SetCreationDate sets field value
-func (o *RelayAutoConfigRep) SetCreationDate(v int64) {
-	o.CreationDate = v
-}
-
-// GetLastModified returns the LastModified field value
-func (o *RelayAutoConfigRep) GetLastModified() int64 {
-	if o == nil {
-		var ret int64
-		return ret
-	}
-
-	return o.LastModified
-}
-
-// GetLastModifiedOk returns a tuple with the LastModified field value
-// and a boolean to check if the value has been set.
-func (o *RelayAutoConfigRep) GetLastModifiedOk() (*int64, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.LastModified, true
-}
-
-// SetLastModified sets field value
-func (o *RelayAutoConfigRep) SetLastModified(v int64) {
-	o.LastModified = v
-}
-
-func (o RelayAutoConfigRep) MarshalJSON() ([]byte, error) {
+func (o TrustPolicyStatement) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -310,23 +188,20 @@ func (o RelayAutoConfigRep) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o RelayAutoConfigRep) ToMap() (map[string]interface{}, error) {
+func (o TrustPolicyStatement) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["_id"] = o.Id
-	if !IsNil(o.Creator) {
-		toSerialize["_creator"] = o.Creator
+	if !IsNil(o.Effect) {
+		toSerialize["Effect"] = o.Effect
 	}
-	if !IsNil(o.Access) {
-		toSerialize["_access"] = o.Access
+	if !IsNil(o.Action) {
+		toSerialize["Action"] = o.Action
 	}
-	toSerialize["name"] = o.Name
-	toSerialize["policy"] = o.Policy
-	if !IsNil(o.FullKey) {
-		toSerialize["fullKey"] = o.FullKey
+	if o.Principal != nil {
+		toSerialize["Principal"] = o.Principal
 	}
-	toSerialize["displayKey"] = o.DisplayKey
-	toSerialize["creationDate"] = o.CreationDate
-	toSerialize["lastModified"] = o.LastModified
+	if o.Condition != nil {
+		toSerialize["Condition"] = o.Condition
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -335,93 +210,62 @@ func (o RelayAutoConfigRep) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-func (o *RelayAutoConfigRep) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"_id",
-		"name",
-		"policy",
-		"displayKey",
-		"creationDate",
-		"lastModified",
-	}
+func (o *TrustPolicyStatement) UnmarshalJSON(data []byte) (err error) {
+	varTrustPolicyStatement := _TrustPolicyStatement{}
 
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err;
-	}
-
-	for _, requiredProperty := range(requiredProperties) {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
-	varRelayAutoConfigRep := _RelayAutoConfigRep{}
-
-	err = json.Unmarshal(data, &varRelayAutoConfigRep)
+	err = json.Unmarshal(data, &varTrustPolicyStatement)
 
 	if err != nil {
 		return err
 	}
 
-	*o = RelayAutoConfigRep(varRelayAutoConfigRep)
+	*o = TrustPolicyStatement(varTrustPolicyStatement)
 
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "_id")
-		delete(additionalProperties, "_creator")
-		delete(additionalProperties, "_access")
-		delete(additionalProperties, "name")
-		delete(additionalProperties, "policy")
-		delete(additionalProperties, "fullKey")
-		delete(additionalProperties, "displayKey")
-		delete(additionalProperties, "creationDate")
-		delete(additionalProperties, "lastModified")
+		delete(additionalProperties, "Effect")
+		delete(additionalProperties, "Action")
+		delete(additionalProperties, "Principal")
+		delete(additionalProperties, "Condition")
 		o.AdditionalProperties = additionalProperties
 	}
 
 	return err
 }
 
-type NullableRelayAutoConfigRep struct {
-	value *RelayAutoConfigRep
+type NullableTrustPolicyStatement struct {
+	value *TrustPolicyStatement
 	isSet bool
 }
 
-func (v NullableRelayAutoConfigRep) Get() *RelayAutoConfigRep {
+func (v NullableTrustPolicyStatement) Get() *TrustPolicyStatement {
 	return v.value
 }
 
-func (v *NullableRelayAutoConfigRep) Set(val *RelayAutoConfigRep) {
+func (v *NullableTrustPolicyStatement) Set(val *TrustPolicyStatement) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableRelayAutoConfigRep) IsSet() bool {
+func (v NullableTrustPolicyStatement) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableRelayAutoConfigRep) Unset() {
+func (v *NullableTrustPolicyStatement) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableRelayAutoConfigRep(val *RelayAutoConfigRep) *NullableRelayAutoConfigRep {
-	return &NullableRelayAutoConfigRep{value: val, isSet: true}
+func NewNullableTrustPolicyStatement(val *TrustPolicyStatement) *NullableTrustPolicyStatement {
+	return &NullableTrustPolicyStatement{value: val, isSet: true}
 }
 
-func (v NullableRelayAutoConfigRep) MarshalJSON() ([]byte, error) {
+func (v NullableTrustPolicyStatement) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableRelayAutoConfigRep) UnmarshalJSON(src []byte) error {
+func (v *NullableTrustPolicyStatement) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

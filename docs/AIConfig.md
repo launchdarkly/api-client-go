@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **Variations** | [**[]AIConfigVariation**](AIConfigVariation.md) |  | 
 **CreatedAt** | **int64** |  | 
 **UpdatedAt** | **int64** |  | 
+**EvaluationMetricKeys** | Pointer to **[]string** | List of evaluation metric keys for this AI config | [optional] 
 
 ## Methods
 
@@ -295,6 +296,31 @@ and a boolean to check if the value has been set.
 
 SetUpdatedAt sets UpdatedAt field to given value.
 
+
+### GetEvaluationMetricKeys
+
+`func (o *AIConfig) GetEvaluationMetricKeys() []string`
+
+GetEvaluationMetricKeys returns the EvaluationMetricKeys field if non-nil, zero value otherwise.
+
+### GetEvaluationMetricKeysOk
+
+`func (o *AIConfig) GetEvaluationMetricKeysOk() (*[]string, bool)`
+
+GetEvaluationMetricKeysOk returns a tuple with the EvaluationMetricKeys field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEvaluationMetricKeys
+
+`func (o *AIConfig) SetEvaluationMetricKeys(v []string)`
+
+SetEvaluationMetricKeys sets EvaluationMetricKeys field to given value.
+
+### HasEvaluationMetricKeys
+
+`func (o *AIConfig) HasEvaluationMetricKeys() bool`
+
+HasEvaluationMetricKeys returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

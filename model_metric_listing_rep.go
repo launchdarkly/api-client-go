@@ -76,7 +76,7 @@ type MetricListingRep struct {
 	// The percentile for the analysis method. An integer denoting the target percentile between 0 and 100. Required when <code>analysisType</code> is <code>percentile</code>.
 	PercentileValue *int32 `json:"percentileValue,omitempty"`
 	EventDefault *MetricEventDefaultRep `json:"eventDefault,omitempty"`
-	DataSource *MetricDataSourceRefRep `json:"dataSource,omitempty"`
+	DataSource MetricDataSourceRefRep `json:"dataSource"`
 	// Whether the metric version is archived
 	Archived *bool `json:"archived,omitempty"`
 	ArchivedAt *int64 `json:"archivedAt,omitempty"`
@@ -92,7 +92,7 @@ type _MetricListingRep MetricListingRep
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMetricListingRep(id string, versionId string, key string, name string, kind string, links map[string]Link, tags []string, creationDate int64) *MetricListingRep {
+func NewMetricListingRep(id string, versionId string, key string, name string, kind string, links map[string]Link, tags []string, creationDate int64, dataSource MetricDataSourceRefRep) *MetricListingRep {
 	this := MetricListingRep{}
 	this.Id = id
 	this.VersionId = versionId
@@ -102,6 +102,7 @@ func NewMetricListingRep(id string, versionId string, key string, name string, k
 	this.Links = links
 	this.Tags = tags
 	this.CreationDate = creationDate
+	this.DataSource = dataSource
 	return &this
 }
 
@@ -1041,36 +1042,28 @@ func (o *MetricListingRep) SetEventDefault(v MetricEventDefaultRep) {
 	o.EventDefault = &v
 }
 
-// GetDataSource returns the DataSource field value if set, zero value otherwise.
+// GetDataSource returns the DataSource field value
 func (o *MetricListingRep) GetDataSource() MetricDataSourceRefRep {
-	if o == nil || IsNil(o.DataSource) {
+	if o == nil {
 		var ret MetricDataSourceRefRep
 		return ret
 	}
-	return *o.DataSource
+
+	return o.DataSource
 }
 
-// GetDataSourceOk returns a tuple with the DataSource field value if set, nil otherwise
+// GetDataSourceOk returns a tuple with the DataSource field value
 // and a boolean to check if the value has been set.
 func (o *MetricListingRep) GetDataSourceOk() (*MetricDataSourceRefRep, bool) {
-	if o == nil || IsNil(o.DataSource) {
+	if o == nil {
 		return nil, false
 	}
-	return o.DataSource, true
+	return &o.DataSource, true
 }
 
-// HasDataSource returns a boolean if a field has been set.
-func (o *MetricListingRep) HasDataSource() bool {
-	if o != nil && !IsNil(o.DataSource) {
-		return true
-	}
-
-	return false
-}
-
-// SetDataSource gets a reference to the given MetricDataSourceRefRep and assigns it to the DataSource field.
+// SetDataSource sets field value
 func (o *MetricListingRep) SetDataSource(v MetricDataSourceRefRep) {
-	o.DataSource = &v
+	o.DataSource = v
 }
 
 // GetArchived returns the Archived field value if set, zero value otherwise.
@@ -1288,9 +1281,7 @@ func (o MetricListingRep) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.EventDefault) {
 		toSerialize["eventDefault"] = o.EventDefault
 	}
-	if !IsNil(o.DataSource) {
-		toSerialize["dataSource"] = o.DataSource
-	}
+	toSerialize["dataSource"] = o.DataSource
 	if !IsNil(o.Archived) {
 		toSerialize["archived"] = o.Archived
 	}
@@ -1324,6 +1315,7 @@ func (o *MetricListingRep) UnmarshalJSON(data []byte) (err error) {
 		"_links",
 		"tags",
 		"_creationDate",
+		"dataSource",
 	}
 
 	allProperties := make(map[string]interface{})

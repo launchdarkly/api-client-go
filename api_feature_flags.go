@@ -3158,7 +3158,7 @@ func (r ApiGetFeatureFlagsRequest) Archived(archived bool) ApiGetFeatureFlagsReq
 	return r
 }
 
-// By default, flags do _not_ include their lists of prerequisites, targets, or rules for each environment. Set &#x60;summary&#x3D;0&#x60; to include these fields for each flag returned.
+// By default, flags do _not_ include their lists of prerequisites, targets, or rules for each environment. Set &#x60;summary&#x3D;0&#x60; and include the &#x60;env&#x60; query parameter to include these fields for each flag returned.
 func (r ApiGetFeatureFlagsRequest) Summary(summary bool) ApiGetFeatureFlagsRequest {
 	r.summary = &summary
 	return r

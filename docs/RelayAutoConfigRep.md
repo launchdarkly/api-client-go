@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Access** | Pointer to [**Access**](Access.md) |  | [optional] 
 **Name** | **string** | A human-friendly name for the Relay Proxy configuration | 
 **Policy** | [**[]Statement**](Statement.md) | A description of what environments and projects the Relay Proxy should include or exclude | 
-**FullKey** | **string** | The Relay Proxy configuration key | 
+**FullKey** | Pointer to **string** | The Relay Proxy configuration key | [optional] 
 **DisplayKey** | **string** | The last few characters of the Relay Proxy configuration key, displayed in the LaunchDarkly UI | 
 **CreationDate** | **int64** |  | 
 **LastModified** | **int64** |  | 
@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 
 ### NewRelayAutoConfigRep
 
-`func NewRelayAutoConfigRep(id string, name string, policy []Statement, fullKey string, displayKey string, creationDate int64, lastModified int64, ) *RelayAutoConfigRep`
+`func NewRelayAutoConfigRep(id string, name string, policy []Statement, displayKey string, creationDate int64, lastModified int64, ) *RelayAutoConfigRep`
 
 NewRelayAutoConfigRep instantiates a new RelayAutoConfigRep object
 This constructor will assign default values to properties that have it defined,
@@ -162,6 +162,11 @@ and a boolean to check if the value has been set.
 
 SetFullKey sets FullKey field to given value.
 
+### HasFullKey
+
+`func (o *RelayAutoConfigRep) HasFullKey() bool`
+
+HasFullKey returns a boolean if a field has been set.
 
 ### GetDisplayKey
 

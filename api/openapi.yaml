@@ -612,7 +612,7 @@ tags:
 
     ### Filtering contexts and context instances
 
-    When you [search for contexts](https://launchdarkly.com/docs/api/contexts/search-contexts) or [context instances](https://launchdarkly.com/docs/api/contexts/search-context-instances), you can filter on certain fields using the `filter` parameter either as a query parameter or as a request body parameter.
+    When you [search for contexts](https://launchdarkly.com/docs/api/contexts/search-contexts) or [context instances](https://launchdarkly.com/docs/api/contexts/search-context-instances), you can filter the results using fields and operators with the `filter` parameter. Specify `filter` either as a query parameter or as a request body parameter.
 
     The `filter` parameter supports the following operators: `after`, `anyOf`, `before`, `contains`, `equals`, `exists`, `notEquals`, `startsWith`.
 
@@ -621,13 +621,13 @@ tags:
 
     #### after
 
-    Returns contexts or context instances if any of the values in a field, which should be dates, are after the provided time. For example:
+    Returns contexts or context instances if the date field value occurs after the specified time. For example:
 
     * `myField after "2022-09-21T19:03:15+00:00"`
 
     #### anyOf
 
-    Returns contexts or context instances if any of the values in a field match any of the values in the match value. For example:
+    Returns contexts or context instances if any field value matches any of the provided values. For example:
 
     * `myField anyOf [44]`
     * `myField anyOf ["phone","tablet"]`
@@ -635,13 +635,13 @@ tags:
 
     #### before
 
-    Returns contexts or context instances if any of the values in a field, which should be dates, are before the provided time. For example:
+    Returns contexts or context instances if the date field value occurs before the provided time. For example:
 
     * `myField before "2022-09-21T19:03:15+00:00"`
 
     #### contains
 
-    Returns contexts or context instances if all the match values are found in the list of values in this field. For example:
+    Returns contexts or context instances if the field's list of values contains all of the provided values. For example:
 
     * `myListField contains 44`
     * `myListField contains ["phone","tablet"]`
@@ -649,7 +649,7 @@ tags:
 
     #### equals
 
-    Returns contexts or context instances if there is an exact match on the entire field. For example:
+    Returns contexts or context instances only if the field value exactly matches the provided value. For example:
 
     * `myField equals 44`
     * `myField equals "device"`
@@ -659,7 +659,7 @@ tags:
 
     #### exists
 
-    Returns contexts or context instances if the field matches the specified existence. For example:
+    Returns contexts or context instances based on whether the specified field exists. For example:
 
     * `myField exists true`
     * `myField exists false`
@@ -667,7 +667,7 @@ tags:
 
     #### notEquals
 
-    Returns contexts or context instances if there is not an exact match on the entire field. For example:
+    Returns contexts or context instances if the field value does not exactly match the provided value. For example:
 
     * `myField notEquals 44`
     * `myField notEquals "device"`
@@ -677,7 +677,7 @@ tags:
 
     #### startsWith
 
-    Returns contexts or context instances if the value in a field, which should be a singular string, begins with the provided substring. For example:
+    Returns contexts or context instances if a singular string field value begins with the provided substring. For example:
 
     * `myField startsWith "do"`
 
@@ -696,31 +696,31 @@ tags:
 
     #### Supported fields and operators
 
-    You can only filter certain fields in contexts and context instances when using the `filter` parameter. Additionally, you can only filter some fields with certain operators.
+    The `filter` parameter accepts different field types depending on whether you search for contexts or context instances. Also, you can only filter some fields using certain operators.
 
     When you search for [contexts](https://launchdarkly.com/docs/api/contexts/search-contexts), the `filter` parameter supports the following fields and operators:
 
     |<div style="width:120px">Field</div> |Description |Supported operators |
     |---|---|---|
-    |`applicationId` |An identifier representing the application where the LaunchDarkly SDK is running. |`equals`, `notEquals`, `anyOf` |
-    |`id` |Unique identifier for the context. |`equals`, `notEquals`, `anyOf` |
+    |`applicationId` |An identifier that represents the application where the LaunchDarkly SDK is running. |`equals`, `notEquals`, `anyOf` |
+    |`id` |The unique identifier for the context. |`equals`, `notEquals`, `anyOf` |
     |`key` |The context key. |`equals`, `notEquals`, `anyOf`, `startsWith` |
     |`kind` |The context kind. |`equals`, `notEquals`, `anyOf` |
     |`kinds` |A list of all kinds found in the context. Supply a list of strings to the operator. |`equals`, `anyOf`, `contains` |
-    |`kindKey` |The kind and key for the context. They are joined with `:`, for example, `user:user-key-abc123`. |`equals`, `notEquals`, `anyOf` |
-    |`kindKeys` |A list of all kinds and keys found in the context. The kind and key are joined with `:`, for example, `user:user-key-abc123`. Supply a list of strings to the operator. |`equals`, `anyOf`, `contains` |
+    |`kindKey` |The kind and key for the context, joined with a `:`. For example, `user:user-key-abc123`. |`equals`, `notEquals`, `anyOf` |
+    |`kindKeys` |A list of all kinds and keys found in the context. Join the kind and key with a `:`. For example, `user:user-key-abc123`. Supply a list of strings to the operator. |`equals`, `anyOf`, `contains` |
     |`q` |A "fuzzy" search across context attribute values and the context key. Supply a string or list of strings to the operator.  |`equals` |
     |`name` |The name for the context. |`equals`, `notEquals`, `exists`, `anyOf`, `startsWith` |
-    |`<a kind>.<an attribute name>` |A kind and the name of any attribute that appears in a context of that kind, for example, `user.email`. To filter all kinds, use `*` in place of the kind, for example, `*.email`. You can use either a literal attribute name or a JSON path to specify the attribute. If you use a JSON path, then you must escape the `/` character, using `~1`, and the `~` character, using `~0`. For example, use `user.job/title` or `user./job~1title` to filter the `/job/title` field in a user context kind. If the field or value includes whitespace, it should be enclosed in double quotes. |`equals`, `notEquals`, `exists`, `startsWith`, `before`, `after`.|
+    |`<a kind>.<an attribute name>` |A kind and the name of any attribute that appears in a context of that kind, for example, `user.email`. To filter all kinds use `*` in place of the kind. For example, `*.email`. You can use either a literal attribute name or a JSON path to specify the attribute. If you use a JSON path, then you must escape the `/` character using `~1`, and escape the `~` character using `~0`. For example, use `user.job/title` or `user./job~1title` to filter the `/job/title` field in a user context kind. If the field or value includes whitespace, enclose it in double quotes. |`equals`, `notEquals`, `exists`, `startsWith`, `before`, `after`.|
 
-    When searching for [context instances](https://launchdarkly.com/docs/api/contexts/search-context-instances), the `filter` parameter supports the following fields and operators
+    When searching for [context instances](https://launchdarkly.com/docs/api/contexts/search-context-instances), the `filter` parameter supports the following fields and operators:
 
     |<div style="width:120px">Field</div> |Description |Supported operators |
     |---|---|---|
     |`applicationId` |An identifier representing the application where the LaunchDarkly SDK is running. |`equals`, `notEquals`, `anyOf` |
-    |`id` |Unique identifier for the context instance. |`equals`, `notEquals`, `anyOf` |
+    |`id` |The unique identifier for the context instance. |`equals`, `notEquals`, `anyOf` |
     |`kinds` |A list of all kinds found in the context instance. Supply a list of strings to the operator. |`equals`, `anyOf`, `contains` |
-    |`kindKeys` |A list of all kinds and keys found in the context instance. The kind and key are joined with `:`, for example, `user:user-key-abc123`. Supply a list of strings to the operator. |`equals`, `anyOf`, `contains` |
+    |`kindKeys` |A list of all kinds and keys found in the context instance. The kind and key are joined with `:`. For example, `user:user-key-abc123`. Supply a list of strings to the operator. |`equals`, `anyOf`, `contains` |
   name: Contexts
 - description: |
     > ### Custom roles is an Enterprise feature
@@ -1507,9 +1507,9 @@ tags:
     >
     > Scheduled flag changes is available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
 
-    Schedule the specified flag targeting changes to take effect at the selected time. You may schedule multiple changes for a flag each with a different `ExecutionDate`. To learn more, read [Scheduled flag changes](https://launchdarkly.com/docs/home/releases/scheduled-changes).
+    You can schedule flag targeting rule changes to take place at a selected time. You may schedule multiple changes for a single flag with each change having a different `ExecutionDate`. To learn more, read [Scheduled flag changes](https://launchdarkly.com/docs/home/releases/scheduled-changes).
 
-    Several of the endpoints in the scheduled changes API require a scheduled change ID. The scheduled change ID is returned as part of the [Create scheduled changes workflow](https://launchdarkly.com/docs/api/scheduled-changes/post-flag-config-scheduled-changes) and [List scheduled changes](https://launchdarkly.com/docs/api/scheduled-changes/get-flag-config-scheduled-changes) responses. It is the `_id` field, or the `_id` field of each element in the `items` array.
+    Several endpoints in the scheduled changes API require an existing scheduled change ID. This ID is returned in the `_id` field from the [Create scheduled changes workflow](https://launchdarkly.com/docs/api/scheduled-changes/post-flag-config-scheduled-changes) response, or in the `_id` field of each element in the `items` array from the [List scheduled changes](https://launchdarkly.com/docs/api/scheduled-changes/get-flag-config-scheduled-changes) response.
   name: Scheduled changes
 - description: |2
 
@@ -4349,6 +4349,72 @@ paths:
       summary: Generate Snowflake destination key pair
       tags:
       - Data Export destinations
+  /api/v2/destinations/projects/{projKey}/environments/{envKey}/generate-trust-policy:
+    post:
+      description: Trust policy to allow Data Export to assume the role and perform
+        operations on AWS resources
+      operationId: postGenerateTrustPolicy
+      parameters:
+      - description: The project key
+        explode: false
+        in: path
+        name: projKey
+        required: true
+        schema:
+          description: The project key
+          format: string
+          type: string
+        style: simple
+      - description: The environment key
+        explode: false
+        in: path
+        name: envKey
+        required: true
+        schema:
+          description: The environment key
+          format: string
+          type: string
+        style: simple
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenerateTrustPolicyPostRep"
+          description: Generate trust policy response
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidRequestErrorRep"
+          description: Invalid request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorRep"
+          description: Invalid access token
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ForbiddenErrorRep"
+          description: Forbidden
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StatusConflictErrorRep"
+          description: Status conflict
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RateLimitedErrorRep"
+          description: Rate limited
+      summary: Generate trust policy
+      tags:
+      - Data Export destinations
   /api/v2/destinations/{projectKey}/{environmentKey}:
     post:
       description: |2
@@ -5340,16 +5406,16 @@ paths:
           type: boolean
         style: form
       - description: "By default, flags do _not_ include their lists of prerequisites,\
-          \ targets, or rules for each environment. Set `summary=0` to include these\
-          \ fields for each flag returned."
+          \ targets, or rules for each environment. Set `summary=0` and include the\
+          \ `env` query parameter to include these fields for each flag returned."
         explode: true
         in: query
         name: summary
         required: false
         schema:
           description: "By default, flags do _not_ include their lists of prerequisites,\
-            \ targets, or rules for each environment. Set `summary=0` to include these\
-            \ fields for each flag returned."
+            \ targets, or rules for each environment. Set `summary=0` and include\
+            \ the `env` query parameter to include these fields for each flag returned."
           type: boolean
         style: form
       - description: A comma-separated list of filters. Each filter is of the form
@@ -10273,6 +10339,7 @@ paths:
         | `isNumeric` | Whether the metric is numeric. One of `true`, `false`. | `equals` |
         | `maintainerIds` | A comma-separated list of metric maintainer IDs. | `anyOf` |
         | `maintainerTeamKey` | The metric maintainer team key. | `equals` |
+        | `metricUsedIn` | Filter by where the metric is used. One of `experiments`, `guarded_rollouts`, `any`, `none`. | `equals` |
         | `query` | A "fuzzy" search across metric key and name. Supply a string or list of strings to the operator. | `equals` |
         | `tags` | The metric tags. | `contains` |
         | `unitAggregationType` | The metric's unit aggregation type. One of `sum`, `average`. | `equals` |
@@ -10356,8 +10423,8 @@ paths:
         style: form
       - description: "A comma-separated list of filters. This endpoint accepts filtering\
           \ by `query`, `tags`, 'eventKind', 'isNumeric', 'unitAggregationType`, `hasConnections`,\
-          \ `maintainerIds`, `maintainerTeamKey`, `view`, and `dataSourceKeys`. To\
-          \ learn more about the filter syntax, read the 'Filtering metrics' section\
+          \ `maintainerIds`, `maintainerTeamKey`, `view`, `dataSourceKeys`, and `metricUsedIn`.\
+          \ To learn more about the filter syntax, read the 'Filtering metrics' section\
           \ above."
         explode: true
         in: query
@@ -10366,9 +10433,9 @@ paths:
         schema:
           description: "A comma-separated list of filters. This endpoint accepts filtering\
             \ by `query`, `tags`, 'eventKind', 'isNumeric', 'unitAggregationType`,\
-            \ `hasConnections`, `maintainerIds`, `maintainerTeamKey`, `view`, and\
-            \ `dataSourceKeys`. To learn more about the filter syntax, read the 'Filtering\
-            \ metrics' section above."
+            \ `hasConnections`, `maintainerIds`, `maintainerTeamKey`, `view`, `dataSourceKeys`,\
+            \ and `metricUsedIn`. To learn more about the filter syntax, read the\
+            \ 'Filtering metrics' section above."
           format: string
           type: string
         style: form
@@ -15560,7 +15627,7 @@ paths:
       description: "Create scheduled changes for a feature flag. The changes you schedule\
         \ may include any semantic patch instructions available when [updating a feature\
         \ flag](https://launchdarkly.com/docs/api/feature-flags/patch-feature-flag#using-semantic-patches-on-a-feature-flag).\
-        \ If the `ignoreConficts` query parameter is false and there are conflicts\
+        \ If the `ignoreConflicts` query parameter is false and there are conflicts\
         \ between these instructions and existing scheduled changes, the request will\
         \ fail. If the parameter is true and there are conflicts, the request will\
         \ succeed."
@@ -18566,7 +18633,7 @@ paths:
 
         #### addExcludedTargets
 
-        Adds context keys to the individual context targets excluded from the segment for the specified `contextKind`. Returns an error if this causes the same context key to be both included and excluded.
+        Adds context keys to the individual context targets excluded from the segment for the specified `contextKind`. Returns an error if this causes the same context key to be both included and excluded, or if the number of operations on targets exceeds the batch limit of 1,500.
 
         ##### Parameters
 
@@ -18587,7 +18654,7 @@ paths:
 
         #### addExcludedUsers
 
-        Adds user keys to the individual user targets excluded from the segment. Returns an error if this causes the same user key to be both included and excluded. If you are working with contexts, use `addExcludedTargets` instead of this instruction.
+        Adds user keys to the individual user targets excluded from the segment. Returns an error if this causes the same user key to be both included and excluded, or if the number of operations on targets exceeds the batch limit of 1,500. If you are working with contexts, use `addExcludedTargets` instead of this instruction.
 
         ##### Parameters
 
@@ -18606,7 +18673,7 @@ paths:
 
         #### addIncludedTargets
 
-        Adds context keys to the individual context targets included in the segment for the specified `contextKind`. Returns an error if this causes the same context key to be both included and excluded.
+        Adds context keys to the individual context targets included in the segment for the specified `contextKind`. Returns an error if this causes the same context key to be both included and excluded, or if the number of operations on targets exceeds the batch limit of 1,500.
 
         ##### Parameters
 
@@ -18627,7 +18694,7 @@ paths:
 
         #### addIncludedUsers
 
-        Adds user keys to the individual user targets included in the segment. Returns an error if this causes the same user key to be both included and excluded. If you are working with contexts, use `addIncludedTargets` instead of this instruction.
+        Adds user keys to the individual user targets included in the segment. Returns an error if this causes the same user key to be both included and excluded, or if the number of operations on targets exceeds the batch limit of 1,500. If you are working with contexts, use `addIncludedTargets` instead of this instruction.
 
         ##### Parameters
 
@@ -18646,7 +18713,7 @@ paths:
 
         #### removeExcludedTargets
 
-        Removes context keys from the individual context targets excluded from the segment for the specified `contextKind`.
+        Removes context keys from the individual context targets excluded from the segment for the specified `contextKind`. Returns an error if the number of operations on targets exceeds the batch limit of 1,500.
 
         ##### Parameters
 
@@ -18667,7 +18734,7 @@ paths:
 
         #### removeExcludedUsers
 
-        Removes user keys from the individual user targets excluded from the segment. If you are working with contexts, use `removeExcludedTargets` instead of this instruction.
+        Removes user keys from the individual user targets excluded from the segment. If you are working with contexts, use `removeExcludedTargets` instead of this instruction. Returns an error if the number of operations on targets exceeds the batch limit of 1,500.
 
         ##### Parameters
 
@@ -18686,7 +18753,7 @@ paths:
 
         #### removeIncludedTargets
 
-        Removes context keys from the individual context targets included in the segment for the specified `contextKind`.
+        Removes context keys from the individual context targets included in the segment for the specified `contextKind`. Returns an error if the number of operations on targets exceeds the batch limit of 1,500.
 
         ##### Parameters
 
@@ -18707,7 +18774,7 @@ paths:
 
         #### removeIncludedUsers
 
-        Removes user keys from the individual user targets included in the segment. If you are working with contexts, use `removeIncludedTargets` instead of this instruction.
+        Removes user keys from the individual user targets included in the segment. If you are working with contexts, use `removeIncludedTargets` instead of this instruction. Returns an error if the number of operations on targets exceeds the batch limit of 1,500.
 
         ##### Parameters
 
@@ -38121,6 +38188,7 @@ components:
           - snowflake-v2
           - databricks
           - bigquery
+          - redshift
           example: google-pubsub
           type: string
         version:
@@ -38160,6 +38228,7 @@ components:
           - snowflake-v2
           - databricks
           - bigquery
+          - redshift
           example: google-pubsub
           type: string
         config:
@@ -49396,6 +49465,27 @@ components:
     FormVariableConfig:
       additionalProperties: {}
       type: object
+    GenerateTrustPolicyPostRep:
+      example:
+        awsTrustPolicy:
+          Version: Version
+          Statement:
+          - Condition: ""
+            Action:
+            - Action
+            - Action
+            Effect: Effect
+            Principal: ""
+          - Condition: ""
+            Action:
+            - Action
+            - Action
+            Effect: Effect
+            Principal: ""
+      properties:
+        awsTrustPolicy:
+          $ref: "#/components/schemas/TrustPolicyDetails"
+      type: object
     GenerateWarehouseDestinationKeyPairPostRep:
       example:
         public_key: public_key
@@ -55655,6 +55745,10 @@ components:
         status:
           description: "The status of the iteration: <code>not_started</code>, <code>running</code>,\
             \ <code>stopped</code>"
+          enum:
+          - not_started
+          - running
+          - stopped
           example: running
           type: string
         createdAt:
@@ -57039,6 +57133,8 @@ components:
           type: string
         _integrationKey:
           type: string
+      required:
+      - key
       type: object
     MetricEventDefaultRep:
       example:
@@ -57073,7 +57169,6 @@ components:
             self:
               href: /api/v2/projects/my-project/metric-groups/my-metric-group
               type: application/json
-          totalConnectionsCount: 0
           kind: funnel
           experiments:
           - archivedDate: 5
@@ -57105,7 +57200,6 @@ components:
           description: Description of the metric group
           activeExperimentCount: 0
           activeGuardedRolloutCount: 0
-          totalActiveConnectionsCount: 0
           _creationDate: 0
           maintainer:
             member:
@@ -57230,7 +57324,6 @@ components:
             self:
               href: /api/v2/projects/my-project/metric-groups/my-metric-group
               type: application/json
-          totalConnectionsCount: 0
           kind: funnel
           experiments:
           - archivedDate: 5
@@ -57262,7 +57355,6 @@ components:
           description: Description of the metric group
           activeExperimentCount: 0
           activeGuardedRolloutCount: 0
-          totalActiveConnectionsCount: 0
           _creationDate: 0
           maintainer:
             member:
@@ -57470,7 +57562,6 @@ components:
           self:
             href: /api/v2/projects/my-project/metric-groups/my-metric-group
             type: application/json
-        totalConnectionsCount: 0
         kind: funnel
         experiments:
         - archivedDate: 5
@@ -57502,7 +57593,6 @@ components:
         description: Description of the metric group
         activeExperimentCount: 0
         activeGuardedRolloutCount: 0
-        totalActiveConnectionsCount: 0
         _creationDate: 0
         maintainer:
           member:
@@ -57697,14 +57787,6 @@ components:
           type: integer
         activeGuardedRolloutCount:
           description: The number of active guarded rollouts using this metric group
-          example: 0
-          type: integer
-        totalConnectionsCount:
-          description: The total number of connections using this metric group
-          example: 0
-          type: integer
-        totalActiveConnectionsCount:
-          description: The total number of active connections using this metric group
           example: 0
           type: integer
       required:
@@ -58134,6 +58216,7 @@ components:
       - _id
       - _links
       - _versionId
+      - dataSource
       - key
       - kind
       - name
@@ -58681,6 +58764,7 @@ components:
       - _id
       - _links
       - _versionId
+      - dataSource
       - key
       - kind
       - name
@@ -58933,6 +59017,7 @@ components:
           - upperCamelCase
           - snakeCase
           - kebabCase
+          - constantCase
           example: kebabCase
           type: string
         prefix:
@@ -61280,7 +61365,6 @@ components:
       - _id
       - creationDate
       - displayKey
-      - fullKey
       - lastModified
       - name
       - policy
@@ -65309,6 +65393,54 @@ components:
           description: The location and content type of related resources
           type: object
       type: object
+    TrustPolicyDetails:
+      example:
+        Version: Version
+        Statement:
+        - Condition: ""
+          Action:
+          - Action
+          - Action
+          Effect: Effect
+          Principal: ""
+        - Condition: ""
+          Action:
+          - Action
+          - Action
+          Effect: Effect
+          Principal: ""
+      properties:
+        Version:
+          description: The version of the trust policy
+          type: string
+        Statement:
+          description: The statements of the trust policy
+          items:
+            $ref: "#/components/schemas/TrustPolicyStatement"
+          type: array
+      type: object
+    TrustPolicyStatement:
+      example:
+        Condition: ""
+        Action:
+        - Action
+        - Action
+        Effect: Effect
+        Principal: ""
+      properties:
+        Effect:
+          description: The effect of trust policy statement
+          type: string
+        Action:
+          description: The action of trust policy statement
+          items:
+            type: string
+          type: array
+        Principal:
+          description: The principal of trust policy statement
+        Condition:
+          description: The condition of trust policy statement
+      type: object
     UnauthorizedErrorRep:
       example:
         code: unauthorized
@@ -68624,10 +68756,25 @@ components:
             type: type
         totalCount: 2
         items:
-        - mode: completion
-          createdAt: 9
-          _maintainer:
+        - _maintainer:
             kind: kind
+          _links:
+            parent:
+              href: href
+              type: type
+            self:
+              href: href
+              type: type
+          description: description
+          version: 0
+          tags:
+          - tags
+          - tags
+          mode: completion
+          createdAt: 9
+          evaluationMetricKeys:
+          - evaluationMetricKeys
+          - evaluationMetricKeys
           _access:
             allowed:
             - reason:
@@ -68687,13 +68834,6 @@ components:
                 actions:
                 - '*'
               action: action
-          _links:
-            parent:
-              href: href
-              type: type
-            self:
-              href: href
-              type: type
           variations:
           - judgeConfiguration:
               judges:
@@ -68770,17 +68910,27 @@ components:
             state: state
             key: key
           name: name
-          description: description
-          version: 0
           key: key
-          tags:
-          - tags
-          - tags
           updatedAt: 3
-        - mode: completion
-          createdAt: 9
-          _maintainer:
+        - _maintainer:
             kind: kind
+          _links:
+            parent:
+              href: href
+              type: type
+            self:
+              href: href
+              type: type
+          description: description
+          version: 0
+          tags:
+          - tags
+          - tags
+          mode: completion
+          createdAt: 9
+          evaluationMetricKeys:
+          - evaluationMetricKeys
+          - evaluationMetricKeys
           _access:
             allowed:
             - reason:
@@ -68840,13 +68990,6 @@ components:
                 actions:
                 - '*'
               action: action
-          _links:
-            parent:
-              href: href
-              type: type
-            self:
-              href: href
-              type: type
           variations:
           - judgeConfiguration:
               judges:
@@ -68923,12 +69066,7 @@ components:
             state: state
             key: key
           name: name
-          description: description
-          version: 0
           key: key
-          tags:
-          - tags
-          - tags
           updatedAt: 3
       properties:
         _links:
@@ -68945,10 +69083,25 @@ components:
       type: object
     AIConfig:
       example:
-        mode: completion
-        createdAt: 9
         _maintainer:
           kind: kind
+        _links:
+          parent:
+            href: href
+            type: type
+          self:
+            href: href
+            type: type
+        description: description
+        version: 0
+        tags:
+        - tags
+        - tags
+        mode: completion
+        createdAt: 9
+        evaluationMetricKeys:
+        - evaluationMetricKeys
+        - evaluationMetricKeys
         _access:
           allowed:
           - reason:
@@ -69008,13 +69161,6 @@ components:
               actions:
               - '*'
             action: action
-        _links:
-          parent:
-            href: href
-            type: type
-          self:
-            href: href
-            type: type
         variations:
         - judgeConfiguration:
             judges:
@@ -69091,12 +69237,7 @@ components:
           state: state
           key: key
         name: name
-        description: description
-        version: 0
         key: key
-        tags:
-        - tags
-        - tags
         updatedAt: 3
       properties:
         _access:
@@ -69134,6 +69275,11 @@ components:
         updatedAt:
           format: int64
           type: integer
+        evaluationMetricKeys:
+          description: List of evaluation metric keys for this AI config
+          items:
+            type: string
+          type: array
       required:
       - createdAt
       - description
@@ -70291,13 +70437,16 @@ components:
       type: object
     Metrics:
       example:
+        judgeRelevance: 0.14894159
         inputCost: 7.386281948385884
         outputCost: 1.2315135367772556
         generationSuccessCount: 5
         inputTokens: 0
         generationErrorCount: 2
         thumbsDown: 9
+        judgeToxicity: 0.6846853
         totalTokens: 1
+        judgeAccuracy: 0.10246457
         generationCount: 5
         timeToFirstTokenMs: 2
         outputTokens: 6
@@ -70343,17 +70492,38 @@ components:
           description: Cost of output tokens in USD
           format: double
           type: number
+        judgeAccuracy:
+          description: Average accuracy judge score (0.0-1.0)
+          format: float
+          maximum: 1
+          minimum: 0
+          type: number
+        judgeRelevance:
+          description: Average relevance judge score (0.0-1.0)
+          format: float
+          maximum: 1
+          minimum: 0
+          type: number
+        judgeToxicity:
+          description: Average toxicity judge score (0.0-1.0)
+          format: float
+          maximum: 1
+          minimum: 0
+          type: number
       type: object
     MetricByVariation:
       example:
         metrics:
+          judgeRelevance: 0.14894159
           inputCost: 7.386281948385884
           outputCost: 1.2315135367772556
           generationSuccessCount: 5
           inputTokens: 0
           generationErrorCount: 2
           thumbsDown: 9
+          judgeToxicity: 0.6846853
           totalTokens: 1
+          judgeAccuracy: 0.10246457
           generationCount: 5
           timeToFirstTokenMs: 2
           outputTokens: 6
@@ -72105,6 +72275,7 @@ components:
       - _id
       - _links
       - _versionId
+      - dataSource
       - key
       - kind
       - name
@@ -72254,6 +72425,8 @@ components:
           type: string
         _integrationKey:
           type: string
+      required:
+      - key
       type: object
     AiConfigsExperimentEnvironmentSettingRep:
       example:
@@ -80044,12 +80217,35 @@ components:
           environmentKeys:
           - production
           - staging
+          flagTagKeys:
+          - frontend
+          - backend
+          viewKeys:
+          - feature-a
+          - team-a
         progressiveReleaseConfig:
           rolloutContextKindKey: user
+          stages:
+          - allocation: 25000
+            durationMillis: 60000
+          - allocation: 25000
+            durationMillis: 60000
         name: Production Release
         guardedReleaseConfig:
+          metricKeys:
+          - http-errors
+          - latency
           rolloutContextKindKey: user
+          metricRegressionThreshold: 0.05
+          metricGroupKeys:
+          - frontend-metrics
+          - backend-metrics
           minSampleSize: 100
+          stages:
+          - allocation: 25000
+            durationMillis: 60000
+          - allocation: 25000
+            durationMillis: 60000
           rollbackOnRegression: true
         key: production-release
       properties:
@@ -80063,6 +80259,11 @@ components:
           description: Configuration for progressive releases
           example:
             rolloutContextKindKey: user
+            stages:
+            - allocation: 25000
+              durationMillis: 60000
+            - allocation: 25000
+              durationMillis: 60000
           type: object
         name:
           description: The name of the release policy
@@ -80085,12 +80286,35 @@ components:
           environmentKeys:
           - production
           - staging
+          flagTagKeys:
+          - frontend
+          - backend
+          viewKeys:
+          - feature-a
+          - team-a
         progressiveReleaseConfig:
           rolloutContextKindKey: user
+          stages:
+          - allocation: 25000
+            durationMillis: 60000
+          - allocation: 25000
+            durationMillis: 60000
         name: Production Release
         guardedReleaseConfig:
+          metricKeys:
+          - http-errors
+          - latency
           rolloutContextKindKey: user
+          metricRegressionThreshold: 0.05
+          metricGroupKeys:
+          - frontend-metrics
+          - backend-metrics
           minSampleSize: 100
+          stages:
+          - allocation: 25000
+            durationMillis: 60000
+          - allocation: 25000
+            durationMillis: 60000
           rollbackOnRegression: true
       properties:
         scope:
@@ -80103,6 +80327,11 @@ components:
           description: Configuration for progressive releases
           example:
             rolloutContextKindKey: user
+            stages:
+            - allocation: 25000
+              durationMillis: 60000
+            - allocation: 25000
+              durationMillis: 60000
           type: object
         name:
           description: The name of the release policy
@@ -80179,14 +80408,37 @@ components:
           environmentKeys:
           - production
           - staging
+          flagTagKeys:
+          - frontend
+          - backend
+          viewKeys:
+          - feature-a
+          - team-a
         progressiveReleaseConfig:
           rolloutContextKindKey: user
+          stages:
+          - allocation: 25000
+            durationMillis: 60000
+          - allocation: 25000
+            durationMillis: 60000
         name: Production Release
         rank: 1
         _id: 550e8400-e29b-41d4-a716-446655440000
         guardedReleaseConfig:
+          metricKeys:
+          - http-errors
+          - latency
           rolloutContextKindKey: user
+          metricRegressionThreshold: 0.05
+          metricGroupKeys:
+          - frontend-metrics
+          - backend-metrics
           minSampleSize: 100
+          stages:
+          - allocation: 25000
+            durationMillis: 60000
+          - allocation: 25000
+            durationMillis: 60000
           rollbackOnRegression: true
         key: production-release
       properties:
@@ -80210,6 +80462,11 @@ components:
           description: Configuration for progressive releases
           example:
             rolloutContextKindKey: user
+            stages:
+            - allocation: 25000
+              durationMillis: 60000
+            - allocation: 25000
+              durationMillis: 60000
           type: object
         name:
           description: The name of the release policy
@@ -80232,6 +80489,12 @@ components:
         environmentKeys:
         - production
         - staging
+        flagTagKeys:
+        - frontend
+        - backend
+        viewKeys:
+        - feature-a
+        - team-a
       properties:
         environmentKeys:
           description: List of environment keys this policy applies to
@@ -80245,8 +80508,20 @@ components:
     GuardedReleaseConfig:
       description: Configuration for guarded releases
       example:
+        metricKeys:
+        - http-errors
+        - latency
         rolloutContextKindKey: user
+        metricRegressionThreshold: 0.05
+        metricGroupKeys:
+        - frontend-metrics
+        - backend-metrics
         minSampleSize: 100
+        stages:
+        - allocation: 25000
+          durationMillis: 60000
+        - allocation: 25000
+          durationMillis: 60000
         rollbackOnRegression: true
       properties:
         minSampleSize:
@@ -80264,6 +80539,11 @@ components:
       description: Configuration for progressive releases
       example:
         rolloutContextKindKey: user
+        stages:
+        - allocation: 25000
+          durationMillis: 60000
+        - allocation: 25000
+          durationMillis: 60000
       type: object
     ReleasePoliciesResponse:
       example:
@@ -80333,14 +80613,37 @@ components:
             environmentKeys:
             - production
             - staging
+            flagTagKeys:
+            - frontend
+            - backend
+            viewKeys:
+            - feature-a
+            - team-a
           progressiveReleaseConfig:
             rolloutContextKindKey: user
+            stages:
+            - allocation: 25000
+              durationMillis: 60000
+            - allocation: 25000
+              durationMillis: 60000
           name: Production Release
           rank: 1
           _id: 550e8400-e29b-41d4-a716-446655440000
           guardedReleaseConfig:
+            metricKeys:
+            - http-errors
+            - latency
             rolloutContextKindKey: user
+            metricRegressionThreshold: 0.05
+            metricGroupKeys:
+            - frontend-metrics
+            - backend-metrics
             minSampleSize: 100
+            stages:
+            - allocation: 25000
+              durationMillis: 60000
+            - allocation: 25000
+              durationMillis: 60000
             rollbackOnRegression: true
           key: production-release
         - releaseMethod: guarded-release
@@ -80407,14 +80710,37 @@ components:
             environmentKeys:
             - production
             - staging
+            flagTagKeys:
+            - frontend
+            - backend
+            viewKeys:
+            - feature-a
+            - team-a
           progressiveReleaseConfig:
             rolloutContextKindKey: user
+            stages:
+            - allocation: 25000
+              durationMillis: 60000
+            - allocation: 25000
+              durationMillis: 60000
           name: Production Release
           rank: 1
           _id: 550e8400-e29b-41d4-a716-446655440000
           guardedReleaseConfig:
+            metricKeys:
+            - http-errors
+            - latency
             rolloutContextKindKey: user
+            metricRegressionThreshold: 0.05
+            metricGroupKeys:
+            - frontend-metrics
+            - backend-metrics
             minSampleSize: 100
+            stages:
+            - allocation: 25000
+              durationMillis: 60000
+            - allocation: 25000
+              durationMillis: 60000
             rollbackOnRegression: true
           key: production-release
       properties:

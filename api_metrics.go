@@ -89,6 +89,7 @@ When you search for metrics, the `filter` parameter supports the following field
 | `isNumeric` | Whether the metric is numeric. One of `true`, `false`. | `equals` |
 | `maintainerIds` | A comma-separated list of metric maintainer IDs. | `anyOf` |
 | `maintainerTeamKey` | The metric maintainer team key. | `equals` |
+| `metricUsedIn` | Filter by where the metric is used. One of `experiments`, `guarded_rollouts`, `any`, `none`. | `equals` |
 | `query` | A "fuzzy" search across metric key and name. Supply a string or list of strings to the operator. | `equals` |
 | `tags` | The metric tags. | `contains` |
 | `unitAggregationType` | The metric's unit aggregation type. One of `sum`, `average`. | `equals` |
@@ -538,7 +539,7 @@ func (r ApiGetMetricsRequest) Sort(sort string) ApiGetMetricsRequest {
 	return r
 }
 
-// A comma-separated list of filters. This endpoint accepts filtering by &#x60;query&#x60;, &#x60;tags&#x60;, &#39;eventKind&#39;, &#39;isNumeric&#39;, &#39;unitAggregationType&#x60;, &#x60;hasConnections&#x60;, &#x60;maintainerIds&#x60;, &#x60;maintainerTeamKey&#x60;, &#x60;view&#x60;, and &#x60;dataSourceKeys&#x60;. To learn more about the filter syntax, read the &#39;Filtering metrics&#39; section above.
+// A comma-separated list of filters. This endpoint accepts filtering by &#x60;query&#x60;, &#x60;tags&#x60;, &#39;eventKind&#39;, &#39;isNumeric&#39;, &#39;unitAggregationType&#x60;, &#x60;hasConnections&#x60;, &#x60;maintainerIds&#x60;, &#x60;maintainerTeamKey&#x60;, &#x60;view&#x60;, &#x60;dataSourceKeys&#x60;, and &#x60;metricUsedIn&#x60;. To learn more about the filter syntax, read the &#39;Filtering metrics&#39; section above.
 func (r ApiGetMetricsRequest) Filter(filter string) ApiGetMetricsRequest {
 	r.filter = &filter
 	return r
@@ -570,6 +571,7 @@ When you search for metrics, the `filter` parameter supports the following field
 | `isNumeric` | Whether the metric is numeric. One of `true`, `false`. | `equals` |
 | `maintainerIds` | A comma-separated list of metric maintainer IDs. | `anyOf` |
 | `maintainerTeamKey` | The metric maintainer team key. | `equals` |
+| `metricUsedIn` | Filter by where the metric is used. One of `experiments`, `guarded_rollouts`, `any`, `none`. | `equals` |
 | `query` | A "fuzzy" search across metric key and name. Supply a string or list of strings to the operator. | `equals` |
 | `tags` | The metric tags. | `contains` |
 | `unitAggregationType` | The metric's unit aggregation type. One of `sum`, `average`. | `equals` |

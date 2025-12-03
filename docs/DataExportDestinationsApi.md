@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**GetDestinations**](DataExportDestinationsApi.md#GetDestinations) | **Get** /api/v2/destinations | List destinations
 [**PatchDestination**](DataExportDestinationsApi.md#PatchDestination) | **Patch** /api/v2/destinations/{projectKey}/{environmentKey}/{id} | Update Data Export destination
 [**PostDestination**](DataExportDestinationsApi.md#PostDestination) | **Post** /api/v2/destinations/{projectKey}/{environmentKey} | Create Data Export destination
+[**PostGenerateTrustPolicy**](DataExportDestinationsApi.md#PostGenerateTrustPolicy) | **Post** /api/v2/destinations/projects/{projKey}/environments/{envKey}/generate-trust-policy | Generate trust policy
 [**PostGenerateWarehouseDestinationKeyPair**](DataExportDestinationsApi.md#PostGenerateWarehouseDestinationKeyPair) | **Post** /api/v2/destinations/generate-warehouse-destination-key-pair | Generate Snowflake destination key pair
 
 
@@ -370,6 +371,79 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostGenerateTrustPolicy
+
+> GenerateTrustPolicyPostRep PostGenerateTrustPolicy(ctx, projKey, envKey).Execute()
+
+Generate trust policy
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
+)
+
+func main() {
+	projKey := "projKey_example" // string | The project key
+	envKey := "envKey_example" // string | The environment key
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DataExportDestinationsApi.PostGenerateTrustPolicy(context.Background(), projKey, envKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DataExportDestinationsApi.PostGenerateTrustPolicy``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostGenerateTrustPolicy`: GenerateTrustPolicyPostRep
+	fmt.Fprintf(os.Stdout, "Response from `DataExportDestinationsApi.PostGenerateTrustPolicy`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projKey** | **string** | The project key | 
+**envKey** | **string** | The environment key | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostGenerateTrustPolicyRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+[**GenerateTrustPolicyPostRep**](GenerateTrustPolicyPostRep.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

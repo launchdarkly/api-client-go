@@ -40,6 +40,12 @@ type Metrics struct {
 	InputCost *float64 `json:"inputCost,omitempty"`
 	// Cost of output tokens in USD
 	OutputCost *float64 `json:"outputCost,omitempty"`
+	// Average accuracy judge score (0.0-1.0)
+	JudgeAccuracy *float32 `json:"judgeAccuracy,omitempty"`
+	// Average relevance judge score (0.0-1.0)
+	JudgeRelevance *float32 `json:"judgeRelevance,omitempty"`
+	// Average toxicity judge score (0.0-1.0)
+	JudgeToxicity *float32 `json:"judgeToxicity,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -481,6 +487,102 @@ func (o *Metrics) SetOutputCost(v float64) {
 	o.OutputCost = &v
 }
 
+// GetJudgeAccuracy returns the JudgeAccuracy field value if set, zero value otherwise.
+func (o *Metrics) GetJudgeAccuracy() float32 {
+	if o == nil || IsNil(o.JudgeAccuracy) {
+		var ret float32
+		return ret
+	}
+	return *o.JudgeAccuracy
+}
+
+// GetJudgeAccuracyOk returns a tuple with the JudgeAccuracy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Metrics) GetJudgeAccuracyOk() (*float32, bool) {
+	if o == nil || IsNil(o.JudgeAccuracy) {
+		return nil, false
+	}
+	return o.JudgeAccuracy, true
+}
+
+// HasJudgeAccuracy returns a boolean if a field has been set.
+func (o *Metrics) HasJudgeAccuracy() bool {
+	if o != nil && !IsNil(o.JudgeAccuracy) {
+		return true
+	}
+
+	return false
+}
+
+// SetJudgeAccuracy gets a reference to the given float32 and assigns it to the JudgeAccuracy field.
+func (o *Metrics) SetJudgeAccuracy(v float32) {
+	o.JudgeAccuracy = &v
+}
+
+// GetJudgeRelevance returns the JudgeRelevance field value if set, zero value otherwise.
+func (o *Metrics) GetJudgeRelevance() float32 {
+	if o == nil || IsNil(o.JudgeRelevance) {
+		var ret float32
+		return ret
+	}
+	return *o.JudgeRelevance
+}
+
+// GetJudgeRelevanceOk returns a tuple with the JudgeRelevance field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Metrics) GetJudgeRelevanceOk() (*float32, bool) {
+	if o == nil || IsNil(o.JudgeRelevance) {
+		return nil, false
+	}
+	return o.JudgeRelevance, true
+}
+
+// HasJudgeRelevance returns a boolean if a field has been set.
+func (o *Metrics) HasJudgeRelevance() bool {
+	if o != nil && !IsNil(o.JudgeRelevance) {
+		return true
+	}
+
+	return false
+}
+
+// SetJudgeRelevance gets a reference to the given float32 and assigns it to the JudgeRelevance field.
+func (o *Metrics) SetJudgeRelevance(v float32) {
+	o.JudgeRelevance = &v
+}
+
+// GetJudgeToxicity returns the JudgeToxicity field value if set, zero value otherwise.
+func (o *Metrics) GetJudgeToxicity() float32 {
+	if o == nil || IsNil(o.JudgeToxicity) {
+		var ret float32
+		return ret
+	}
+	return *o.JudgeToxicity
+}
+
+// GetJudgeToxicityOk returns a tuple with the JudgeToxicity field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Metrics) GetJudgeToxicityOk() (*float32, bool) {
+	if o == nil || IsNil(o.JudgeToxicity) {
+		return nil, false
+	}
+	return o.JudgeToxicity, true
+}
+
+// HasJudgeToxicity returns a boolean if a field has been set.
+func (o *Metrics) HasJudgeToxicity() bool {
+	if o != nil && !IsNil(o.JudgeToxicity) {
+		return true
+	}
+
+	return false
+}
+
+// SetJudgeToxicity gets a reference to the given float32 and assigns it to the JudgeToxicity field.
+func (o *Metrics) SetJudgeToxicity(v float32) {
+	o.JudgeToxicity = &v
+}
+
 func (o Metrics) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -530,6 +632,15 @@ func (o Metrics) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.OutputCost) {
 		toSerialize["outputCost"] = o.OutputCost
 	}
+	if !IsNil(o.JudgeAccuracy) {
+		toSerialize["judgeAccuracy"] = o.JudgeAccuracy
+	}
+	if !IsNil(o.JudgeRelevance) {
+		toSerialize["judgeRelevance"] = o.JudgeRelevance
+	}
+	if !IsNil(o.JudgeToxicity) {
+		toSerialize["judgeToxicity"] = o.JudgeToxicity
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -565,6 +676,9 @@ func (o *Metrics) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "satisfactionRating")
 		delete(additionalProperties, "inputCost")
 		delete(additionalProperties, "outputCost")
+		delete(additionalProperties, "judgeAccuracy")
+		delete(additionalProperties, "judgeRelevance")
+		delete(additionalProperties, "judgeToxicity")
 		o.AdditionalProperties = additionalProperties
 	}
 

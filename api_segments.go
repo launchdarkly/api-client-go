@@ -531,7 +531,7 @@ Here's an example:
 
 #### addExcludedTargets
 
-Adds context keys to the individual context targets excluded from the segment for the specified `contextKind`. Returns an error if this causes the same context key to be both included and excluded.
+Adds context keys to the individual context targets excluded from the segment for the specified `contextKind`. Returns an error if this causes the same context key to be both included and excluded, or if the number of operations on targets exceeds the batch limit of 1,500.
 
 ##### Parameters
 
@@ -552,7 +552,7 @@ Here's an example:
 
 #### addExcludedUsers
 
-Adds user keys to the individual user targets excluded from the segment. Returns an error if this causes the same user key to be both included and excluded. If you are working with contexts, use `addExcludedTargets` instead of this instruction.
+Adds user keys to the individual user targets excluded from the segment. Returns an error if this causes the same user key to be both included and excluded, or if the number of operations on targets exceeds the batch limit of 1,500. If you are working with contexts, use `addExcludedTargets` instead of this instruction.
 
 ##### Parameters
 
@@ -571,7 +571,7 @@ Here's an example:
 
 #### addIncludedTargets
 
-Adds context keys to the individual context targets included in the segment for the specified `contextKind`. Returns an error if this causes the same context key to be both included and excluded.
+Adds context keys to the individual context targets included in the segment for the specified `contextKind`. Returns an error if this causes the same context key to be both included and excluded, or if the number of operations on targets exceeds the batch limit of 1,500.
 
 ##### Parameters
 
@@ -592,7 +592,7 @@ Here's an example:
 
 #### addIncludedUsers
 
-Adds user keys to the individual user targets included in the segment. Returns an error if this causes the same user key to be both included and excluded. If you are working with contexts, use `addIncludedTargets` instead of this instruction.
+Adds user keys to the individual user targets included in the segment. Returns an error if this causes the same user key to be both included and excluded, or if the number of operations on targets exceeds the batch limit of 1,500. If you are working with contexts, use `addIncludedTargets` instead of this instruction.
 
 ##### Parameters
 
@@ -611,7 +611,7 @@ Here's an example:
 
 #### removeExcludedTargets
 
-Removes context keys from the individual context targets excluded from the segment for the specified `contextKind`.
+Removes context keys from the individual context targets excluded from the segment for the specified `contextKind`. Returns an error if the number of operations on targets exceeds the batch limit of 1,500.
 
 ##### Parameters
 
@@ -632,7 +632,7 @@ Here's an example:
 
 #### removeExcludedUsers
 
-Removes user keys from the individual user targets excluded from the segment. If you are working with contexts, use `removeExcludedTargets` instead of this instruction.
+Removes user keys from the individual user targets excluded from the segment. If you are working with contexts, use `removeExcludedTargets` instead of this instruction. Returns an error if the number of operations on targets exceeds the batch limit of 1,500.
 
 ##### Parameters
 
@@ -651,7 +651,7 @@ Here's an example:
 
 #### removeIncludedTargets
 
-Removes context keys from the individual context targets included in the segment for the specified `contextKind`.
+Removes context keys from the individual context targets included in the segment for the specified `contextKind`. Returns an error if the number of operations on targets exceeds the batch limit of 1,500.
 
 ##### Parameters
 
@@ -672,7 +672,7 @@ Here's an example:
 
 #### removeIncludedUsers
 
-Removes user keys from the individual user targets included in the segment. If you are working with contexts, use `removeIncludedTargets` instead of this instruction.
+Removes user keys from the individual user targets included in the segment. If you are working with contexts, use `removeIncludedTargets` instead of this instruction. Returns an error if the number of operations on targets exceeds the batch limit of 1,500.
 
 ##### Parameters
 
@@ -3846,7 +3846,7 @@ Here's an example:
 
 #### addExcludedTargets
 
-Adds context keys to the individual context targets excluded from the segment for the specified `contextKind`. Returns an error if this causes the same context key to be both included and excluded.
+Adds context keys to the individual context targets excluded from the segment for the specified `contextKind`. Returns an error if this causes the same context key to be both included and excluded, or if the number of operations on targets exceeds the batch limit of 1,500.
 
 ##### Parameters
 
@@ -3867,7 +3867,7 @@ Here's an example:
 
 #### addExcludedUsers
 
-Adds user keys to the individual user targets excluded from the segment. Returns an error if this causes the same user key to be both included and excluded. If you are working with contexts, use `addExcludedTargets` instead of this instruction.
+Adds user keys to the individual user targets excluded from the segment. Returns an error if this causes the same user key to be both included and excluded, or if the number of operations on targets exceeds the batch limit of 1,500. If you are working with contexts, use `addExcludedTargets` instead of this instruction.
 
 ##### Parameters
 
@@ -3886,7 +3886,7 @@ Here's an example:
 
 #### addIncludedTargets
 
-Adds context keys to the individual context targets included in the segment for the specified `contextKind`. Returns an error if this causes the same context key to be both included and excluded.
+Adds context keys to the individual context targets included in the segment for the specified `contextKind`. Returns an error if this causes the same context key to be both included and excluded, or if the number of operations on targets exceeds the batch limit of 1,500.
 
 ##### Parameters
 
@@ -3907,7 +3907,7 @@ Here's an example:
 
 #### addIncludedUsers
 
-Adds user keys to the individual user targets included in the segment. Returns an error if this causes the same user key to be both included and excluded. If you are working with contexts, use `addIncludedTargets` instead of this instruction.
+Adds user keys to the individual user targets included in the segment. Returns an error if this causes the same user key to be both included and excluded, or if the number of operations on targets exceeds the batch limit of 1,500. If you are working with contexts, use `addIncludedTargets` instead of this instruction.
 
 ##### Parameters
 
@@ -3926,7 +3926,7 @@ Here's an example:
 
 #### removeExcludedTargets
 
-Removes context keys from the individual context targets excluded from the segment for the specified `contextKind`.
+Removes context keys from the individual context targets excluded from the segment for the specified `contextKind`. Returns an error if the number of operations on targets exceeds the batch limit of 1,500.
 
 ##### Parameters
 
@@ -3947,7 +3947,7 @@ Here's an example:
 
 #### removeExcludedUsers
 
-Removes user keys from the individual user targets excluded from the segment. If you are working with contexts, use `removeExcludedTargets` instead of this instruction.
+Removes user keys from the individual user targets excluded from the segment. If you are working with contexts, use `removeExcludedTargets` instead of this instruction. Returns an error if the number of operations on targets exceeds the batch limit of 1,500.
 
 ##### Parameters
 
@@ -3966,7 +3966,7 @@ Here's an example:
 
 #### removeIncludedTargets
 
-Removes context keys from the individual context targets included in the segment for the specified `contextKind`.
+Removes context keys from the individual context targets included in the segment for the specified `contextKind`. Returns an error if the number of operations on targets exceeds the batch limit of 1,500.
 
 ##### Parameters
 
@@ -3987,7 +3987,7 @@ Here's an example:
 
 #### removeIncludedUsers
 
-Removes user keys from the individual user targets included in the segment. If you are working with contexts, use `removeIncludedTargets` instead of this instruction.
+Removes user keys from the individual user targets included in the segment. If you are working with contexts, use `removeIncludedTargets` instead of this instruction. Returns an error if the number of operations on targets exceeds the batch limit of 1,500.
 
 ##### Parameters
 

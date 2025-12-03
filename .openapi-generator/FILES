@@ -355,6 +355,7 @@ docs/FollowFlagsApi.md
 docs/FollowersPerFlag.md
 docs/ForbiddenErrorRep.md
 docs/FormVariable.md
+docs/GenerateTrustPolicyPostRep.md
 docs/GenerateWarehouseDestinationKeyPairPostRep.md
 docs/GetAnnouncementsPublic200Response.md
 docs/GuardedReleaseConfig.md
@@ -630,6 +631,8 @@ docs/TreatmentRep.md
 docs/TriggerPost.md
 docs/TriggerWorkflowCollectionRep.md
 docs/TriggerWorkflowRep.md
+docs/TrustPolicyDetails.md
+docs/TrustPolicyStatement.md
 docs/UnauthorizedErrorRep.md
 docs/UnlinkResourceSuccessResponse.md
 docs/UpdatePhaseStatusInput.md
@@ -971,6 +974,7 @@ model_follow_flag_member.go
 model_followers_per_flag.go
 model_forbidden_error_rep.go
 model_form_variable.go
+model_generate_trust_policy_post_rep.go
 model_generate_warehouse_destination_key_pair_post_rep.go
 model_get_announcements_public_200_response.go
 model_guarded_release_config.go
@@ -1220,6 +1224,8 @@ model_treatment_rep.go
 model_trigger_post.go
 model_trigger_workflow_collection_rep.go
 model_trigger_workflow_rep.go
+model_trust_policy_details.go
+model_trust_policy_statement.go
 model_unauthorized_error_rep.go
 model_unlink_resource_success_response.go
 model_update_phase_status_input.go

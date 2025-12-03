@@ -35,7 +35,7 @@ Name | Type | Description | Notes
 **AnalysisType** | Pointer to **string** | The method for analyzing metric events | [optional] 
 **PercentileValue** | Pointer to **int32** | The percentile for the analysis method. An integer denoting the target percentile between 0 and 100. Required when &lt;code&gt;analysisType&lt;/code&gt; is &lt;code&gt;percentile&lt;/code&gt;. | [optional] 
 **EventDefault** | Pointer to [**MetricEventDefaultRep**](MetricEventDefaultRep.md) |  | [optional] 
-**DataSource** | Pointer to [**MetricDataSourceRefRep**](MetricDataSourceRefRep.md) |  | [optional] 
+**DataSource** | [**MetricDataSourceRefRep**](MetricDataSourceRefRep.md) |  | 
 **Archived** | Pointer to **bool** | Whether the metric version is archived | [optional] 
 **ArchivedAt** | Pointer to **int64** |  | [optional] 
 **Selector** | Pointer to **string** | For click metrics, the CSS selectors | [optional] 
@@ -45,7 +45,7 @@ Name | Type | Description | Notes
 
 ### NewMetricListingRep
 
-`func NewMetricListingRep(id string, versionId string, key string, name string, kind string, links map[string]Link, tags []string, creationDate int64, ) *MetricListingRep`
+`func NewMetricListingRep(id string, versionId string, key string, name string, kind string, links map[string]Link, tags []string, creationDate int64, dataSource MetricDataSourceRefRep, ) *MetricListingRep`
 
 NewMetricListingRep instantiates a new MetricListingRep object
 This constructor will assign default values to properties that have it defined,
@@ -814,11 +814,6 @@ and a boolean to check if the value has been set.
 
 SetDataSource sets DataSource field to given value.
 
-### HasDataSource
-
-`func (o *MetricListingRep) HasDataSource() bool`
-
-HasDataSource returns a boolean if a field has been set.
 
 ### GetArchived
 

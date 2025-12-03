@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Key** | Pointer to **string** |  | [optional] 
+**Key** | **string** |  | 
 **EnvironmentKey** | Pointer to **string** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **IntegrationKey** | Pointer to **string** |  | [optional] 
@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 
 ### NewMetricDataSourceRefRep
 
-`func NewMetricDataSourceRefRep() *MetricDataSourceRefRep`
+`func NewMetricDataSourceRefRep(key string, ) *MetricDataSourceRefRep`
 
 NewMetricDataSourceRefRep instantiates a new MetricDataSourceRefRep object
 This constructor will assign default values to properties that have it defined,
@@ -47,11 +47,6 @@ and a boolean to check if the value has been set.
 
 SetKey sets Key field to given value.
 
-### HasKey
-
-`func (o *MetricDataSourceRefRep) HasKey() bool`
-
-HasKey returns a boolean if a field has been set.
 
 ### GetEnvironmentKey
 
