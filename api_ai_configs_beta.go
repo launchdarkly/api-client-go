@@ -70,6 +70,21 @@ type AIConfigsBetaApi interface {
 	DeleteAIToolExecute(r ApiDeleteAIToolRequest) (*http.Response, error)
 
 	/*
+	DeleteAgentGraph Delete agent graph
+
+	Delete an existing agent graph and all of its edges.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param projectKey
+	@param graphKey
+	@return ApiDeleteAgentGraphRequest
+	*/
+	DeleteAgentGraph(ctx context.Context, projectKey string, graphKey string) ApiDeleteAgentGraphRequest
+
+	// DeleteAgentGraphExecute executes the request
+	DeleteAgentGraphExecute(r ApiDeleteAgentGraphRequest) (*http.Response, error)
+
+	/*
 	DeleteModelConfig Delete an AI model config
 
 	Delete an AI model config.
@@ -209,6 +224,22 @@ type AIConfigsBetaApi interface {
 	// GetAIToolExecute executes the request
 	//  @return AITool
 	GetAIToolExecute(r ApiGetAIToolRequest) (*AITool, *http.Response, error)
+
+	/*
+	GetAgentGraph Get agent graph
+
+	Retrieve a specific agent graph by its key, including its edges.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param projectKey
+	@param graphKey
+	@return ApiGetAgentGraphRequest
+	*/
+	GetAgentGraph(ctx context.Context, projectKey string, graphKey string) ApiGetAgentGraphRequest
+
+	// GetAgentGraphExecute executes the request
+	//  @return AgentGraph
+	GetAgentGraphExecute(r ApiGetAgentGraphRequest) (*AgentGraph, *http.Response, error)
 
 	/*
 	GetModelConfig Get AI model config
@@ -937,6 +968,27 @@ Here's an example:
 	PatchAIToolExecute(r ApiPatchAIToolRequest) (*AITool, *http.Response, error)
 
 	/*
+	PatchAgentGraph Update agent graph
+
+	Edit an existing agent graph.
+
+The request body must be a JSON object of the fields to update. The values you include replace the existing values for the fields.
+
+If the update includes `rootConfigKey` or `edges`, both must be present and will be treated as full replacements.
+
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param projectKey
+	@param graphKey
+	@return ApiPatchAgentGraphRequest
+	*/
+	PatchAgentGraph(ctx context.Context, projectKey string, graphKey string) ApiPatchAgentGraphRequest
+
+	// PatchAgentGraphExecute executes the request
+	//  @return AgentGraph
+	PatchAgentGraphExecute(r ApiPatchAgentGraphRequest) (*AgentGraph, *http.Response, error)
+
+	/*
 	PostAIConfig Create new AI Config
 
 	Create a new AI Config within the given project.
@@ -1428,6 +1480,170 @@ func (a *AIConfigsBetaApiService) DeleteAIToolExecute(r ApiDeleteAIToolRequest) 
 	localVarPath := localBasePath + "/api/v2/projects/{projectKey}/ai-tools/{toolKey}"
 	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", url.PathEscape(parameterValueToString(r.projectKey, "projectKey")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"toolKey"+"}", url.PathEscape(parameterValueToString(r.toolKey, "toolKey")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.lDAPIVersion == nil {
+		return nil, reportError("lDAPIVersion is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["ApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type ApiDeleteAgentGraphRequest struct {
+	ctx context.Context
+	ApiService AIConfigsBetaApi
+	lDAPIVersion *string
+	projectKey string
+	graphKey string
+}
+
+// Version of the endpoint.
+func (r ApiDeleteAgentGraphRequest) LDAPIVersion(lDAPIVersion string) ApiDeleteAgentGraphRequest {
+	r.lDAPIVersion = &lDAPIVersion
+	return r
+}
+
+func (r ApiDeleteAgentGraphRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteAgentGraphExecute(r)
+}
+
+/*
+DeleteAgentGraph Delete agent graph
+
+Delete an existing agent graph and all of its edges.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param projectKey
+ @param graphKey
+ @return ApiDeleteAgentGraphRequest
+*/
+func (a *AIConfigsBetaApiService) DeleteAgentGraph(ctx context.Context, projectKey string, graphKey string) ApiDeleteAgentGraphRequest {
+	return ApiDeleteAgentGraphRequest{
+		ApiService: a,
+		ctx: ctx,
+		projectKey: projectKey,
+		graphKey: graphKey,
+	}
+}
+
+// Execute executes the request
+func (a *AIConfigsBetaApiService) DeleteAgentGraphExecute(r ApiDeleteAgentGraphRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodDelete
+		localVarPostBody     interface{}
+		formFiles            []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsBetaApiService.DeleteAgentGraph")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v2/projects/{projectKey}/agent-graphs/{graphKey}"
+	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", url.PathEscape(parameterValueToString(r.projectKey, "projectKey")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"graphKey"+"}", url.PathEscape(parameterValueToString(r.graphKey, "graphKey")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3075,6 +3291,181 @@ func (a *AIConfigsBetaApiService) GetAIToolExecute(r ApiGetAIToolRequest) (*AITo
 	localVarPath := localBasePath + "/api/v2/projects/{projectKey}/ai-tools/{toolKey}"
 	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", url.PathEscape(parameterValueToString(r.projectKey, "projectKey")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"toolKey"+"}", url.PathEscape(parameterValueToString(r.toolKey, "toolKey")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.lDAPIVersion == nil {
+		return localVarReturnValue, nil, reportError("lDAPIVersion is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["ApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetAgentGraphRequest struct {
+	ctx context.Context
+	ApiService AIConfigsBetaApi
+	lDAPIVersion *string
+	projectKey string
+	graphKey string
+}
+
+// Version of the endpoint.
+func (r ApiGetAgentGraphRequest) LDAPIVersion(lDAPIVersion string) ApiGetAgentGraphRequest {
+	r.lDAPIVersion = &lDAPIVersion
+	return r
+}
+
+func (r ApiGetAgentGraphRequest) Execute() (*AgentGraph, *http.Response, error) {
+	return r.ApiService.GetAgentGraphExecute(r)
+}
+
+/*
+GetAgentGraph Get agent graph
+
+Retrieve a specific agent graph by its key, including its edges.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param projectKey
+ @param graphKey
+ @return ApiGetAgentGraphRequest
+*/
+func (a *AIConfigsBetaApiService) GetAgentGraph(ctx context.Context, projectKey string, graphKey string) ApiGetAgentGraphRequest {
+	return ApiGetAgentGraphRequest{
+		ApiService: a,
+		ctx: ctx,
+		projectKey: projectKey,
+		graphKey: graphKey,
+	}
+}
+
+// Execute executes the request
+//  @return AgentGraph
+func (a *AIConfigsBetaApiService) GetAgentGraphExecute(r ApiGetAgentGraphRequest) (*AgentGraph, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *AgentGraph
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsBetaApiService.GetAgentGraph")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v2/projects/{projectKey}/agent-graphs/{graphKey}"
+	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", url.PathEscape(parameterValueToString(r.projectKey, "projectKey")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"graphKey"+"}", url.PathEscape(parameterValueToString(r.graphKey, "graphKey")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -5355,6 +5746,195 @@ func (a *AIConfigsBetaApiService) PatchAIToolExecute(r ApiPatchAIToolRequest) (*
 	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	// body params
 	localVarPostBody = r.aIToolPatch
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["ApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiPatchAgentGraphRequest struct {
+	ctx context.Context
+	ApiService AIConfigsBetaApi
+	lDAPIVersion *string
+	projectKey string
+	graphKey string
+	agentGraphPatch *AgentGraphPatch
+}
+
+// Version of the endpoint.
+func (r ApiPatchAgentGraphRequest) LDAPIVersion(lDAPIVersion string) ApiPatchAgentGraphRequest {
+	r.lDAPIVersion = &lDAPIVersion
+	return r
+}
+
+// Agent graph object to update
+func (r ApiPatchAgentGraphRequest) AgentGraphPatch(agentGraphPatch AgentGraphPatch) ApiPatchAgentGraphRequest {
+	r.agentGraphPatch = &agentGraphPatch
+	return r
+}
+
+func (r ApiPatchAgentGraphRequest) Execute() (*AgentGraph, *http.Response, error) {
+	return r.ApiService.PatchAgentGraphExecute(r)
+}
+
+/*
+PatchAgentGraph Update agent graph
+
+Edit an existing agent graph.
+
+The request body must be a JSON object of the fields to update. The values you include replace the existing values for the fields.
+
+If the update includes `rootConfigKey` or `edges`, both must be present and will be treated as full replacements.
+
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param projectKey
+ @param graphKey
+ @return ApiPatchAgentGraphRequest
+*/
+func (a *AIConfigsBetaApiService) PatchAgentGraph(ctx context.Context, projectKey string, graphKey string) ApiPatchAgentGraphRequest {
+	return ApiPatchAgentGraphRequest{
+		ApiService: a,
+		ctx: ctx,
+		projectKey: projectKey,
+		graphKey: graphKey,
+	}
+}
+
+// Execute executes the request
+//  @return AgentGraph
+func (a *AIConfigsBetaApiService) PatchAgentGraphExecute(r ApiPatchAgentGraphRequest) (*AgentGraph, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPatch
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *AgentGraph
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsBetaApiService.PatchAgentGraph")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v2/projects/{projectKey}/agent-graphs/{graphKey}"
+	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", url.PathEscape(parameterValueToString(r.projectKey, "projectKey")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"graphKey"+"}", url.PathEscape(parameterValueToString(r.graphKey, "graphKey")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.lDAPIVersion == nil {
+		return localVarReturnValue, nil, reportError("lDAPIVersion is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
+	// body params
+	localVarPostBody = r.agentGraphPatch
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {

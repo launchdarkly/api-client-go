@@ -525,6 +525,7 @@ Class | Method | HTTP request | Description
 *AIConfigsBetaApi* | [**DeleteAIConfig**](docs/AIConfigsBetaApi.md#deleteaiconfig) | **Delete** /api/v2/projects/{projectKey}/ai-configs/{configKey} | Delete AI Config
 *AIConfigsBetaApi* | [**DeleteAIConfigVariation**](docs/AIConfigsBetaApi.md#deleteaiconfigvariation) | **Delete** /api/v2/projects/{projectKey}/ai-configs/{configKey}/variations/{variationKey} | Delete AI Config variation
 *AIConfigsBetaApi* | [**DeleteAITool**](docs/AIConfigsBetaApi.md#deleteaitool) | **Delete** /api/v2/projects/{projectKey}/ai-tools/{toolKey} | Delete AI tool
+*AIConfigsBetaApi* | [**DeleteAgentGraph**](docs/AIConfigsBetaApi.md#deleteagentgraph) | **Delete** /api/v2/projects/{projectKey}/agent-graphs/{graphKey} | Delete agent graph
 *AIConfigsBetaApi* | [**DeleteModelConfig**](docs/AIConfigsBetaApi.md#deletemodelconfig) | **Delete** /api/v2/projects/{projectKey}/ai-configs/model-configs/{modelConfigKey} | Delete an AI model config
 *AIConfigsBetaApi* | [**DeleteRestrictedModels**](docs/AIConfigsBetaApi.md#deleterestrictedmodels) | **Delete** /api/v2/projects/{projectKey}/ai-configs/model-configs/restricted | Remove AI models from the restricted list
 *AIConfigsBetaApi* | [**GetAIConfig**](docs/AIConfigsBetaApi.md#getaiconfig) | **Get** /api/v2/projects/{projectKey}/ai-configs/{configKey} | Get AI Config
@@ -534,6 +535,7 @@ Class | Method | HTTP request | Description
 *AIConfigsBetaApi* | [**GetAIConfigVariation**](docs/AIConfigsBetaApi.md#getaiconfigvariation) | **Get** /api/v2/projects/{projectKey}/ai-configs/{configKey}/variations/{variationKey} | Get AI Config variation
 *AIConfigsBetaApi* | [**GetAIConfigs**](docs/AIConfigsBetaApi.md#getaiconfigs) | **Get** /api/v2/projects/{projectKey}/ai-configs | List AI Configs
 *AIConfigsBetaApi* | [**GetAITool**](docs/AIConfigsBetaApi.md#getaitool) | **Get** /api/v2/projects/{projectKey}/ai-tools/{toolKey} | Get AI tool
+*AIConfigsBetaApi* | [**GetAgentGraph**](docs/AIConfigsBetaApi.md#getagentgraph) | **Get** /api/v2/projects/{projectKey}/agent-graphs/{graphKey} | Get agent graph
 *AIConfigsBetaApi* | [**GetModelConfig**](docs/AIConfigsBetaApi.md#getmodelconfig) | **Get** /api/v2/projects/{projectKey}/ai-configs/model-configs/{modelConfigKey} | Get AI model config
 *AIConfigsBetaApi* | [**ListAIToolVersions**](docs/AIConfigsBetaApi.md#listaitoolversions) | **Get** /api/v2/projects/{projectKey}/ai-tools/{toolKey}/versions | List AI tool versions
 *AIConfigsBetaApi* | [**ListAITools**](docs/AIConfigsBetaApi.md#listaitools) | **Get** /api/v2/projects/{projectKey}/ai-tools | List AI tools
@@ -543,6 +545,7 @@ Class | Method | HTTP request | Description
 *AIConfigsBetaApi* | [**PatchAIConfigTargeting**](docs/AIConfigsBetaApi.md#patchaiconfigtargeting) | **Patch** /api/v2/projects/{projectKey}/ai-configs/{configKey}/targeting | Update AI Config targeting
 *AIConfigsBetaApi* | [**PatchAIConfigVariation**](docs/AIConfigsBetaApi.md#patchaiconfigvariation) | **Patch** /api/v2/projects/{projectKey}/ai-configs/{configKey}/variations/{variationKey} | Update AI Config variation
 *AIConfigsBetaApi* | [**PatchAITool**](docs/AIConfigsBetaApi.md#patchaitool) | **Patch** /api/v2/projects/{projectKey}/ai-tools/{toolKey} | Update AI tool
+*AIConfigsBetaApi* | [**PatchAgentGraph**](docs/AIConfigsBetaApi.md#patchagentgraph) | **Patch** /api/v2/projects/{projectKey}/agent-graphs/{graphKey} | Update agent graph
 *AIConfigsBetaApi* | [**PostAIConfig**](docs/AIConfigsBetaApi.md#postaiconfig) | **Post** /api/v2/projects/{projectKey}/ai-configs | Create new AI Config
 *AIConfigsBetaApi* | [**PostAIConfigVariation**](docs/AIConfigsBetaApi.md#postaiconfigvariation) | **Post** /api/v2/projects/{projectKey}/ai-configs/{configKey}/variations | Create AI Config variation
 *AIConfigsBetaApi* | [**PostAITool**](docs/AIConfigsBetaApi.md#postaitool) | **Post** /api/v2/projects/{projectKey}/ai-tools | Create an AI tool
@@ -907,6 +910,7 @@ Class | Method | HTTP request | Description
  - [AgentGraph](docs/AgentGraph.md)
  - [AgentGraphEdge](docs/AgentGraphEdge.md)
  - [AgentGraphEdgePost](docs/AgentGraphEdgePost.md)
+ - [AgentGraphPatch](docs/AgentGraphPatch.md)
  - [AgentGraphPost](docs/AgentGraphPost.md)
  - [AgentGraphs](docs/AgentGraphs.md)
  - [AiConfigsAccess](docs/AiConfigsAccess.md)

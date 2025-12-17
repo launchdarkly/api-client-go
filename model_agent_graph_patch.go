@@ -13,152 +13,172 @@ package ldapi
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
-// checks if the AgentGraphEdge type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &AgentGraphEdge{}
+// checks if the AgentGraphPatch type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AgentGraphPatch{}
 
-// AgentGraphEdge An edge in an agent graph connecting two AI Configs
-type AgentGraphEdge struct {
-	// A unique key for this edge within the graph
-	Key string `json:"key"`
-	// The AI Config key that is the source of this edge
-	SourceConfig string `json:"sourceConfig"`
-	// The AI Config key that is the target of this edge
-	TargetConfig string `json:"targetConfig"`
-	// The handoff options from the source AI Config to the target AI Config
-	Handoff map[string]interface{} `json:"handoff,omitempty"`
+// AgentGraphPatch Request body for updating an agent graph. If rootConfigKey or edges are present, both must be present.
+type AgentGraphPatch struct {
+	// A human-readable name for the agent graph
+	Name *string `json:"name,omitempty"`
+	// A description of the agent graph
+	Description *string `json:"description,omitempty"`
+	// The AI Config key of the root node. If present, edges must also be present.
+	RootConfigKey *string `json:"rootConfigKey,omitempty"`
+	// The edges in the graph. If present, rootConfigKey must also be present. Replaces all existing edges.
+	Edges []AgentGraphEdge `json:"edges,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
-type _AgentGraphEdge AgentGraphEdge
+type _AgentGraphPatch AgentGraphPatch
 
-// NewAgentGraphEdge instantiates a new AgentGraphEdge object
+// NewAgentGraphPatch instantiates a new AgentGraphPatch object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAgentGraphEdge(key string, sourceConfig string, targetConfig string) *AgentGraphEdge {
-	this := AgentGraphEdge{}
-	this.Key = key
-	this.SourceConfig = sourceConfig
-	this.TargetConfig = targetConfig
+func NewAgentGraphPatch() *AgentGraphPatch {
+	this := AgentGraphPatch{}
 	return &this
 }
 
-// NewAgentGraphEdgeWithDefaults instantiates a new AgentGraphEdge object
+// NewAgentGraphPatchWithDefaults instantiates a new AgentGraphPatch object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewAgentGraphEdgeWithDefaults() *AgentGraphEdge {
-	this := AgentGraphEdge{}
+func NewAgentGraphPatchWithDefaults() *AgentGraphPatch {
+	this := AgentGraphPatch{}
 	return &this
 }
 
-// GetKey returns the Key field value
-func (o *AgentGraphEdge) GetKey() string {
-	if o == nil {
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *AgentGraphPatch) GetName() string {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
-
-	return o.Key
+	return *o.Name
 }
 
-// GetKeyOk returns a tuple with the Key field value
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AgentGraphEdge) GetKeyOk() (*string, bool) {
-	if o == nil {
+func (o *AgentGraphPatch) GetNameOk() (*string, bool) {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
-	return &o.Key, true
+	return o.Name, true
 }
 
-// SetKey sets field value
-func (o *AgentGraphEdge) SetKey(v string) {
-	o.Key = v
-}
-
-// GetSourceConfig returns the SourceConfig field value
-func (o *AgentGraphEdge) GetSourceConfig() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.SourceConfig
-}
-
-// GetSourceConfigOk returns a tuple with the SourceConfig field value
-// and a boolean to check if the value has been set.
-func (o *AgentGraphEdge) GetSourceConfigOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.SourceConfig, true
-}
-
-// SetSourceConfig sets field value
-func (o *AgentGraphEdge) SetSourceConfig(v string) {
-	o.SourceConfig = v
-}
-
-// GetTargetConfig returns the TargetConfig field value
-func (o *AgentGraphEdge) GetTargetConfig() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.TargetConfig
-}
-
-// GetTargetConfigOk returns a tuple with the TargetConfig field value
-// and a boolean to check if the value has been set.
-func (o *AgentGraphEdge) GetTargetConfigOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.TargetConfig, true
-}
-
-// SetTargetConfig sets field value
-func (o *AgentGraphEdge) SetTargetConfig(v string) {
-	o.TargetConfig = v
-}
-
-// GetHandoff returns the Handoff field value if set, zero value otherwise.
-func (o *AgentGraphEdge) GetHandoff() map[string]interface{} {
-	if o == nil || IsNil(o.Handoff) {
-		var ret map[string]interface{}
-		return ret
-	}
-	return o.Handoff
-}
-
-// GetHandoffOk returns a tuple with the Handoff field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AgentGraphEdge) GetHandoffOk() (map[string]interface{}, bool) {
-	if o == nil || IsNil(o.Handoff) {
-		return map[string]interface{}{}, false
-	}
-	return o.Handoff, true
-}
-
-// HasHandoff returns a boolean if a field has been set.
-func (o *AgentGraphEdge) HasHandoff() bool {
-	if o != nil && !IsNil(o.Handoff) {
+// HasName returns a boolean if a field has been set.
+func (o *AgentGraphPatch) HasName() bool {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
 	return false
 }
 
-// SetHandoff gets a reference to the given map[string]interface{} and assigns it to the Handoff field.
-func (o *AgentGraphEdge) SetHandoff(v map[string]interface{}) {
-	o.Handoff = v
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *AgentGraphPatch) SetName(v string) {
+	o.Name = &v
 }
 
-func (o AgentGraphEdge) MarshalJSON() ([]byte, error) {
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *AgentGraphPatch) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AgentGraphPatch) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *AgentGraphPatch) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *AgentGraphPatch) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetRootConfigKey returns the RootConfigKey field value if set, zero value otherwise.
+func (o *AgentGraphPatch) GetRootConfigKey() string {
+	if o == nil || IsNil(o.RootConfigKey) {
+		var ret string
+		return ret
+	}
+	return *o.RootConfigKey
+}
+
+// GetRootConfigKeyOk returns a tuple with the RootConfigKey field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AgentGraphPatch) GetRootConfigKeyOk() (*string, bool) {
+	if o == nil || IsNil(o.RootConfigKey) {
+		return nil, false
+	}
+	return o.RootConfigKey, true
+}
+
+// HasRootConfigKey returns a boolean if a field has been set.
+func (o *AgentGraphPatch) HasRootConfigKey() bool {
+	if o != nil && !IsNil(o.RootConfigKey) {
+		return true
+	}
+
+	return false
+}
+
+// SetRootConfigKey gets a reference to the given string and assigns it to the RootConfigKey field.
+func (o *AgentGraphPatch) SetRootConfigKey(v string) {
+	o.RootConfigKey = &v
+}
+
+// GetEdges returns the Edges field value if set, zero value otherwise.
+func (o *AgentGraphPatch) GetEdges() []AgentGraphEdge {
+	if o == nil || IsNil(o.Edges) {
+		var ret []AgentGraphEdge
+		return ret
+	}
+	return o.Edges
+}
+
+// GetEdgesOk returns a tuple with the Edges field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AgentGraphPatch) GetEdgesOk() ([]AgentGraphEdge, bool) {
+	if o == nil || IsNil(o.Edges) {
+		return nil, false
+	}
+	return o.Edges, true
+}
+
+// HasEdges returns a boolean if a field has been set.
+func (o *AgentGraphPatch) HasEdges() bool {
+	if o != nil && !IsNil(o.Edges) {
+		return true
+	}
+
+	return false
+}
+
+// SetEdges gets a reference to the given []AgentGraphEdge and assigns it to the Edges field.
+func (o *AgentGraphPatch) SetEdges(v []AgentGraphEdge) {
+	o.Edges = v
+}
+
+func (o AgentGraphPatch) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -166,13 +186,19 @@ func (o AgentGraphEdge) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o AgentGraphEdge) ToMap() (map[string]interface{}, error) {
+func (o AgentGraphPatch) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["key"] = o.Key
-	toSerialize["sourceConfig"] = o.SourceConfig
-	toSerialize["targetConfig"] = o.TargetConfig
-	if !IsNil(o.Handoff) {
-		toSerialize["handoff"] = o.Handoff
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.RootConfigKey) {
+		toSerialize["rootConfigKey"] = o.RootConfigKey
+	}
+	if !IsNil(o.Edges) {
+		toSerialize["edges"] = o.Edges
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -182,85 +208,62 @@ func (o AgentGraphEdge) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-func (o *AgentGraphEdge) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"key",
-		"sourceConfig",
-		"targetConfig",
-	}
+func (o *AgentGraphPatch) UnmarshalJSON(data []byte) (err error) {
+	varAgentGraphPatch := _AgentGraphPatch{}
 
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err;
-	}
-
-	for _, requiredProperty := range(requiredProperties) {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
-	varAgentGraphEdge := _AgentGraphEdge{}
-
-	err = json.Unmarshal(data, &varAgentGraphEdge)
+	err = json.Unmarshal(data, &varAgentGraphPatch)
 
 	if err != nil {
 		return err
 	}
 
-	*o = AgentGraphEdge(varAgentGraphEdge)
+	*o = AgentGraphPatch(varAgentGraphPatch)
 
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "key")
-		delete(additionalProperties, "sourceConfig")
-		delete(additionalProperties, "targetConfig")
-		delete(additionalProperties, "handoff")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "rootConfigKey")
+		delete(additionalProperties, "edges")
 		o.AdditionalProperties = additionalProperties
 	}
 
 	return err
 }
 
-type NullableAgentGraphEdge struct {
-	value *AgentGraphEdge
+type NullableAgentGraphPatch struct {
+	value *AgentGraphPatch
 	isSet bool
 }
 
-func (v NullableAgentGraphEdge) Get() *AgentGraphEdge {
+func (v NullableAgentGraphPatch) Get() *AgentGraphPatch {
 	return v.value
 }
 
-func (v *NullableAgentGraphEdge) Set(val *AgentGraphEdge) {
+func (v *NullableAgentGraphPatch) Set(val *AgentGraphPatch) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableAgentGraphEdge) IsSet() bool {
+func (v NullableAgentGraphPatch) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableAgentGraphEdge) Unset() {
+func (v *NullableAgentGraphPatch) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableAgentGraphEdge(val *AgentGraphEdge) *NullableAgentGraphEdge {
-	return &NullableAgentGraphEdge{value: val, isSet: true}
+func NewNullableAgentGraphPatch(val *AgentGraphPatch) *NullableAgentGraphPatch {
+	return &NullableAgentGraphPatch{value: val, isSet: true}
 }
 
-func (v NullableAgentGraphEdge) MarshalJSON() ([]byte, error) {
+func (v NullableAgentGraphPatch) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableAgentGraphEdge) UnmarshalJSON(src []byte) error {
+func (v *NullableAgentGraphPatch) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

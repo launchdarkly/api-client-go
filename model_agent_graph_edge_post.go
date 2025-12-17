@@ -21,6 +21,8 @@ var _ MappedNullable = &AgentGraphEdgePost{}
 
 // AgentGraphEdgePost An edge in an agent graph connecting two AI Configs
 type AgentGraphEdgePost struct {
+	// A unique key for this edge within the graph
+	Key string `json:"key"`
 	// The AI Config key that is the source of this edge
 	SourceConfig string `json:"sourceConfig"`
 	// The AI Config key that is the target of this edge
@@ -36,8 +38,9 @@ type _AgentGraphEdgePost AgentGraphEdgePost
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAgentGraphEdgePost(sourceConfig string, targetConfig string) *AgentGraphEdgePost {
+func NewAgentGraphEdgePost(key string, sourceConfig string, targetConfig string) *AgentGraphEdgePost {
 	this := AgentGraphEdgePost{}
+	this.Key = key
 	this.SourceConfig = sourceConfig
 	this.TargetConfig = targetConfig
 	return &this
@@ -49,6 +52,30 @@ func NewAgentGraphEdgePost(sourceConfig string, targetConfig string) *AgentGraph
 func NewAgentGraphEdgePostWithDefaults() *AgentGraphEdgePost {
 	this := AgentGraphEdgePost{}
 	return &this
+}
+
+// GetKey returns the Key field value
+func (o *AgentGraphEdgePost) GetKey() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Key
+}
+
+// GetKeyOk returns a tuple with the Key field value
+// and a boolean to check if the value has been set.
+func (o *AgentGraphEdgePost) GetKeyOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Key, true
+}
+
+// SetKey sets field value
+func (o *AgentGraphEdgePost) SetKey(v string) {
+	o.Key = v
 }
 
 // GetSourceConfig returns the SourceConfig field value
@@ -141,6 +168,7 @@ func (o AgentGraphEdgePost) MarshalJSON() ([]byte, error) {
 
 func (o AgentGraphEdgePost) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["key"] = o.Key
 	toSerialize["sourceConfig"] = o.SourceConfig
 	toSerialize["targetConfig"] = o.TargetConfig
 	if !IsNil(o.Handoff) {
@@ -159,6 +187,7 @@ func (o *AgentGraphEdgePost) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
+		"key",
 		"sourceConfig",
 		"targetConfig",
 	}
@@ -190,6 +219,7 @@ func (o *AgentGraphEdgePost) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "key")
 		delete(additionalProperties, "sourceConfig")
 		delete(additionalProperties, "targetConfig")
 		delete(additionalProperties, "handoff")

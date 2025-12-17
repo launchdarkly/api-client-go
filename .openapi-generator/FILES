@@ -103,6 +103,7 @@ docs/ActionOutput.md
 docs/AgentGraph.md
 docs/AgentGraphEdge.md
 docs/AgentGraphEdgePost.md
+docs/AgentGraphPatch.md
 docs/AgentGraphPost.md
 docs/AgentGraphs.md
 docs/AiConfigsAccess.md
@@ -718,6 +719,7 @@ model_action_output.go
 model_agent_graph.go
 model_agent_graph_edge.go
 model_agent_graph_edge_post.go
+model_agent_graph_patch.go
 model_agent_graph_post.go
 model_agent_graphs.go
 model_ai_config.go

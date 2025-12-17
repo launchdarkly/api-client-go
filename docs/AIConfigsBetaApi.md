@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**DeleteAIConfig**](AIConfigsBetaApi.md#DeleteAIConfig) | **Delete** /api/v2/projects/{projectKey}/ai-configs/{configKey} | Delete AI Config
 [**DeleteAIConfigVariation**](AIConfigsBetaApi.md#DeleteAIConfigVariation) | **Delete** /api/v2/projects/{projectKey}/ai-configs/{configKey}/variations/{variationKey} | Delete AI Config variation
 [**DeleteAITool**](AIConfigsBetaApi.md#DeleteAITool) | **Delete** /api/v2/projects/{projectKey}/ai-tools/{toolKey} | Delete AI tool
+[**DeleteAgentGraph**](AIConfigsBetaApi.md#DeleteAgentGraph) | **Delete** /api/v2/projects/{projectKey}/agent-graphs/{graphKey} | Delete agent graph
 [**DeleteModelConfig**](AIConfigsBetaApi.md#DeleteModelConfig) | **Delete** /api/v2/projects/{projectKey}/ai-configs/model-configs/{modelConfigKey} | Delete an AI model config
 [**DeleteRestrictedModels**](AIConfigsBetaApi.md#DeleteRestrictedModels) | **Delete** /api/v2/projects/{projectKey}/ai-configs/model-configs/restricted | Remove AI models from the restricted list
 [**GetAIConfig**](AIConfigsBetaApi.md#GetAIConfig) | **Get** /api/v2/projects/{projectKey}/ai-configs/{configKey} | Get AI Config
@@ -16,6 +17,7 @@ Method | HTTP request | Description
 [**GetAIConfigVariation**](AIConfigsBetaApi.md#GetAIConfigVariation) | **Get** /api/v2/projects/{projectKey}/ai-configs/{configKey}/variations/{variationKey} | Get AI Config variation
 [**GetAIConfigs**](AIConfigsBetaApi.md#GetAIConfigs) | **Get** /api/v2/projects/{projectKey}/ai-configs | List AI Configs
 [**GetAITool**](AIConfigsBetaApi.md#GetAITool) | **Get** /api/v2/projects/{projectKey}/ai-tools/{toolKey} | Get AI tool
+[**GetAgentGraph**](AIConfigsBetaApi.md#GetAgentGraph) | **Get** /api/v2/projects/{projectKey}/agent-graphs/{graphKey} | Get agent graph
 [**GetModelConfig**](AIConfigsBetaApi.md#GetModelConfig) | **Get** /api/v2/projects/{projectKey}/ai-configs/model-configs/{modelConfigKey} | Get AI model config
 [**ListAIToolVersions**](AIConfigsBetaApi.md#ListAIToolVersions) | **Get** /api/v2/projects/{projectKey}/ai-tools/{toolKey}/versions | List AI tool versions
 [**ListAITools**](AIConfigsBetaApi.md#ListAITools) | **Get** /api/v2/projects/{projectKey}/ai-tools | List AI tools
@@ -25,6 +27,7 @@ Method | HTTP request | Description
 [**PatchAIConfigTargeting**](AIConfigsBetaApi.md#PatchAIConfigTargeting) | **Patch** /api/v2/projects/{projectKey}/ai-configs/{configKey}/targeting | Update AI Config targeting
 [**PatchAIConfigVariation**](AIConfigsBetaApi.md#PatchAIConfigVariation) | **Patch** /api/v2/projects/{projectKey}/ai-configs/{configKey}/variations/{variationKey} | Update AI Config variation
 [**PatchAITool**](AIConfigsBetaApi.md#PatchAITool) | **Patch** /api/v2/projects/{projectKey}/ai-tools/{toolKey} | Update AI tool
+[**PatchAgentGraph**](AIConfigsBetaApi.md#PatchAgentGraph) | **Patch** /api/v2/projects/{projectKey}/agent-graphs/{graphKey} | Update agent graph
 [**PostAIConfig**](AIConfigsBetaApi.md#PostAIConfig) | **Post** /api/v2/projects/{projectKey}/ai-configs | Create new AI Config
 [**PostAIConfigVariation**](AIConfigsBetaApi.md#PostAIConfigVariation) | **Post** /api/v2/projects/{projectKey}/ai-configs/{configKey}/variations | Create AI Config variation
 [**PostAITool**](AIConfigsBetaApi.md#PostAITool) | **Post** /api/v2/projects/{projectKey}/ai-tools | Create an AI tool
@@ -230,6 +233,79 @@ Name | Type | Description  | Notes
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiDeleteAIToolRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **lDAPIVersion** | **string** | Version of the endpoint. | 
+
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeleteAgentGraph
+
+> DeleteAgentGraph(ctx, projectKey, graphKey).LDAPIVersion(lDAPIVersion).Execute()
+
+Delete agent graph
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
+)
+
+func main() {
+	lDAPIVersion := "lDAPIVersion_example" // string | Version of the endpoint.
+	projectKey := "projectKey_example" // string | 
+	graphKey := "graphKey_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AIConfigsBetaApi.DeleteAgentGraph(context.Background(), projectKey, graphKey).LDAPIVersion(lDAPIVersion).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsBetaApi.DeleteAgentGraph``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projectKey** | **string** |  | 
+**graphKey** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteAgentGraphRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -946,6 +1022,81 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## GetAgentGraph
+
+> AgentGraph GetAgentGraph(ctx, projectKey, graphKey).LDAPIVersion(lDAPIVersion).Execute()
+
+Get agent graph
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
+)
+
+func main() {
+	lDAPIVersion := "lDAPIVersion_example" // string | Version of the endpoint.
+	projectKey := "projectKey_example" // string | 
+	graphKey := "graphKey_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AIConfigsBetaApi.GetAgentGraph(context.Background(), projectKey, graphKey).LDAPIVersion(lDAPIVersion).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsBetaApi.GetAgentGraph``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetAgentGraph`: AgentGraph
+	fmt.Fprintf(os.Stdout, "Response from `AIConfigsBetaApi.GetAgentGraph`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projectKey** | **string** |  | 
+**graphKey** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetAgentGraphRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **lDAPIVersion** | **string** | Version of the endpoint. | 
+
+
+
+### Return type
+
+[**AgentGraph**](AgentGraph.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetModelConfig
 
 > ModelConfig GetModelConfig(ctx, projectKey, modelConfigKey).LDAPIVersion(lDAPIVersion).Execute()
@@ -1628,6 +1779,83 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**AITool**](AITool.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PatchAgentGraph
+
+> AgentGraph PatchAgentGraph(ctx, projectKey, graphKey).LDAPIVersion(lDAPIVersion).AgentGraphPatch(agentGraphPatch).Execute()
+
+Update agent graph
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
+)
+
+func main() {
+	lDAPIVersion := "lDAPIVersion_example" // string | Version of the endpoint.
+	projectKey := "projectKey_example" // string | 
+	graphKey := "graphKey_example" // string | 
+	agentGraphPatch := *openapiclient.NewAgentGraphPatch() // AgentGraphPatch | Agent graph object to update (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AIConfigsBetaApi.PatchAgentGraph(context.Background(), projectKey, graphKey).LDAPIVersion(lDAPIVersion).AgentGraphPatch(agentGraphPatch).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsBetaApi.PatchAgentGraph``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PatchAgentGraph`: AgentGraph
+	fmt.Fprintf(os.Stdout, "Response from `AIConfigsBetaApi.PatchAgentGraph`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projectKey** | **string** |  | 
+**graphKey** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPatchAgentGraphRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **lDAPIVersion** | **string** | Version of the endpoint. | 
+
+
+ **agentGraphPatch** | [**AgentGraphPatch**](AgentGraphPatch.md) | Agent graph object to update | 
+
+### Return type
+
+[**AgentGraph**](AgentGraph.md)
 
 ### Authorization
 

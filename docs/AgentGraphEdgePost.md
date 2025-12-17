@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Key** | **string** | A unique key for this edge within the graph | 
 **SourceConfig** | **string** | The AI Config key that is the source of this edge | 
 **TargetConfig** | **string** | The AI Config key that is the target of this edge | 
 **Handoff** | Pointer to **map[string]interface{}** | The handoff options from the source AI Config to the target AI Config | [optional] 
@@ -12,7 +13,7 @@ Name | Type | Description | Notes
 
 ### NewAgentGraphEdgePost
 
-`func NewAgentGraphEdgePost(sourceConfig string, targetConfig string, ) *AgentGraphEdgePost`
+`func NewAgentGraphEdgePost(key string, sourceConfig string, targetConfig string, ) *AgentGraphEdgePost`
 
 NewAgentGraphEdgePost instantiates a new AgentGraphEdgePost object
 This constructor will assign default values to properties that have it defined,
@@ -26,6 +27,26 @@ will change when the set of required properties is changed
 NewAgentGraphEdgePostWithDefaults instantiates a new AgentGraphEdgePost object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetKey
+
+`func (o *AgentGraphEdgePost) GetKey() string`
+
+GetKey returns the Key field if non-nil, zero value otherwise.
+
+### GetKeyOk
+
+`func (o *AgentGraphEdgePost) GetKeyOk() (*string, bool)`
+
+GetKeyOk returns a tuple with the Key field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetKey
+
+`func (o *AgentGraphEdgePost) SetKey(v string)`
+
+SetKey sets Key field to given value.
+
 
 ### GetSourceConfig
 

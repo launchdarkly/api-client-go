@@ -28531,6 +28531,200 @@ paths:
       summary: Create new agent graph
       tags:
       - AI Configs (beta)
+  /api/v2/projects/{projectKey}/agent-graphs/{graphKey}:
+    delete:
+      description: Delete an existing agent graph and all of its edges.
+      operationId: deleteAgentGraph
+      parameters:
+      - description: Version of the endpoint.
+        explode: false
+        in: header
+        name: LD-API-Version
+        required: true
+        schema:
+          enum:
+          - beta
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: projectKey
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: graphKey
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: No content
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Bad request
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Internal server error
+      summary: Delete agent graph
+      tags:
+      - AI Configs (beta)
+    get:
+      description: "Retrieve a specific agent graph by its key, including its edges."
+      operationId: getAgentGraph
+      parameters:
+      - description: Version of the endpoint.
+        explode: false
+        in: header
+        name: LD-API-Version
+        required: true
+        schema:
+          enum:
+          - beta
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: projectKey
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: graphKey
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AgentGraph"
+          description: Agent graph found
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Bad request
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Internal server error
+      summary: Get agent graph
+      tags:
+      - AI Configs (beta)
+    patch:
+      description: |
+        Edit an existing agent graph.
+
+        The request body must be a JSON object of the fields to update. The values you include replace the existing values for the fields.
+
+        If the update includes `rootConfigKey` or `edges`, both must be present and will be treated as full replacements.
+      operationId: patchAgentGraph
+      parameters:
+      - description: Version of the endpoint.
+        explode: false
+        in: header
+        name: LD-API-Version
+        required: true
+        schema:
+          enum:
+          - beta
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: projectKey
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: graphKey
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AgentGraphPatch"
+        description: Agent graph object to update
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AgentGraph"
+          description: Agent graph updated
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Bad request
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Internal server error
+      summary: Update agent graph
+      tags:
+      - AI Configs (beta)
   /api/v2/announcements:
     get:
       description: Get announcements
@@ -71700,9 +71894,11 @@ components:
         - sourceConfig: sourceConfig
           targetConfig: targetConfig
           handoff: "{}"
+          key: key
         - sourceConfig: sourceConfig
           targetConfig: targetConfig
           handoff: "{}"
+          key: key
         description: description
         key: key
       properties:
@@ -71735,7 +71931,11 @@ components:
         sourceConfig: sourceConfig
         targetConfig: targetConfig
         handoff: "{}"
+        key: key
       properties:
+        key:
+          description: A unique key for this edge within the graph
+          type: string
         sourceConfig:
           description: The AI Config key that is the source of this edge
           type: string
@@ -71747,6 +71947,7 @@ components:
             AI Config
           type: object
       required:
+      - key
       - sourceConfig
       - targetConfig
       type: object
@@ -71760,9 +71961,11 @@ components:
         - sourceConfig: sourceConfig
           targetConfig: targetConfig
           handoff: "{}"
+          key: key
         - sourceConfig: sourceConfig
           targetConfig: targetConfig
           handoff: "{}"
+          key: key
         description: description
         key: key
         updatedAt: 6
@@ -71802,7 +72005,11 @@ components:
         sourceConfig: sourceConfig
         targetConfig: targetConfig
         handoff: "{}"
+        key: key
       properties:
+        key:
+          description: A unique key for this edge within the graph
+          type: string
         sourceConfig:
           description: The AI Config key that is the source of this edge
           type: string
@@ -71814,6 +72021,7 @@ components:
             AI Config
           type: object
       required:
+      - key
       - sourceConfig
       - targetConfig
       type: object
@@ -71845,9 +72053,11 @@ components:
           - sourceConfig: sourceConfig
             targetConfig: targetConfig
             handoff: "{}"
+            key: key
           - sourceConfig: sourceConfig
             targetConfig: targetConfig
             handoff: "{}"
+            key: key
           description: description
           key: key
           updatedAt: 6
@@ -71858,9 +72068,11 @@ components:
           - sourceConfig: sourceConfig
             targetConfig: targetConfig
             handoff: "{}"
+            key: key
           - sourceConfig: sourceConfig
             targetConfig: targetConfig
             handoff: "{}"
+            key: key
           description: description
           key: key
           updatedAt: 6
@@ -71876,6 +72088,40 @@ components:
       required:
       - items
       - totalCount
+      type: object
+    AgentGraphPatch:
+      description: "Request body for updating an agent graph. If rootConfigKey or\
+        \ edges are present, both must be present."
+      example:
+        rootConfigKey: rootConfigKey
+        name: name
+        edges:
+        - sourceConfig: sourceConfig
+          targetConfig: targetConfig
+          handoff: "{}"
+          key: key
+        - sourceConfig: sourceConfig
+          targetConfig: targetConfig
+          handoff: "{}"
+          key: key
+        description: description
+      properties:
+        name:
+          description: A human-readable name for the agent graph
+          type: string
+        description:
+          description: A description of the agent graph
+          type: string
+        rootConfigKey:
+          description: "The AI Config key of the root node. If present, edges must\
+            \ also be present."
+          type: string
+        edges:
+          description: "The edges in the graph. If present, rootConfigKey must also\
+            \ be present. Replaces all existing edges."
+          items:
+            $ref: "#/components/schemas/AgentGraphEdge"
+          type: array
       type: object
     AccessRep:
       $ref: "#/components/schemas/AiConfigsAccess"

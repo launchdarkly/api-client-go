@@ -65,6 +65,20 @@ func Test_ldapi_AIConfigsBetaApiService(t *testing.T) {
 
 	})
 
+	t.Run("Test AIConfigsBetaApiService DeleteAgentGraph", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var projectKey string
+		var graphKey string
+
+		httpRes, err := apiClient.AIConfigsBetaApi.DeleteAgentGraph(context.Background(), projectKey, graphKey).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test AIConfigsBetaApiService DeleteModelConfig", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
@@ -190,6 +204,21 @@ func Test_ldapi_AIConfigsBetaApiService(t *testing.T) {
 		var toolKey string
 
 		resp, httpRes, err := apiClient.AIConfigsBetaApi.GetAITool(context.Background(), projectKey, toolKey).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test AIConfigsBetaApiService GetAgentGraph", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var projectKey string
+		var graphKey string
+
+		resp, httpRes, err := apiClient.AIConfigsBetaApi.GetAgentGraph(context.Background(), projectKey, graphKey).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -323,6 +352,21 @@ func Test_ldapi_AIConfigsBetaApiService(t *testing.T) {
 		var toolKey string
 
 		resp, httpRes, err := apiClient.AIConfigsBetaApi.PatchAITool(context.Background(), projectKey, toolKey).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test AIConfigsBetaApiService PatchAgentGraph", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var projectKey string
+		var graphKey string
+
+		resp, httpRes, err := apiClient.AIConfigsBetaApi.PatchAgentGraph(context.Background(), projectKey, graphKey).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
