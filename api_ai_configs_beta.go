@@ -258,6 +258,21 @@ type AIConfigsBetaApi interface {
 	ListAIToolsExecute(r ApiListAIToolsRequest) (*AITools, *http.Response, error)
 
 	/*
+	ListAgentGraphs List agent graphs
+
+	Get a list of all agent graphs in the given project. Returns metadata only, without edge data.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param projectKey
+	@return ApiListAgentGraphsRequest
+	*/
+	ListAgentGraphs(ctx context.Context, projectKey string) ApiListAgentGraphsRequest
+
+	// ListAgentGraphsExecute executes the request
+	//  @return AgentGraphs
+	ListAgentGraphsExecute(r ApiListAgentGraphsRequest) (*AgentGraphs, *http.Response, error)
+
+	/*
 	ListModelConfigs List AI model configs
 
 	Get all AI model configs for a project.
@@ -978,6 +993,21 @@ The <code>model</code> in the request body requires a <code>modelName</code> and
 	// PostAIToolExecute executes the request
 	//  @return AITool
 	PostAIToolExecute(r ApiPostAIToolRequest) (*AITool, *http.Response, error)
+
+	/*
+	PostAgentGraph Create new agent graph
+
+	Create a new agent graph within the given project.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param projectKey
+	@return ApiPostAgentGraphRequest
+	*/
+	PostAgentGraph(ctx context.Context, projectKey string) ApiPostAgentGraphRequest
+
+	// PostAgentGraphExecute executes the request
+	//  @return AgentGraph
+	PostAgentGraphExecute(r ApiPostAgentGraphRequest) (*AgentGraph, *http.Response, error)
 
 	/*
 	PostModelConfig Create an AI model config
@@ -3734,6 +3764,186 @@ func (a *AIConfigsBetaApiService) ListAIToolsExecute(r ApiListAIToolsRequest) (*
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiListAgentGraphsRequest struct {
+	ctx context.Context
+	ApiService AIConfigsBetaApi
+	lDAPIVersion *string
+	projectKey string
+	limit *int32
+	offset *int32
+}
+
+// Version of the endpoint.
+func (r ApiListAgentGraphsRequest) LDAPIVersion(lDAPIVersion string) ApiListAgentGraphsRequest {
+	r.lDAPIVersion = &lDAPIVersion
+	return r
+}
+
+// The number of AI Configs to return.
+func (r ApiListAgentGraphsRequest) Limit(limit int32) ApiListAgentGraphsRequest {
+	r.limit = &limit
+	return r
+}
+
+// Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;.
+func (r ApiListAgentGraphsRequest) Offset(offset int32) ApiListAgentGraphsRequest {
+	r.offset = &offset
+	return r
+}
+
+func (r ApiListAgentGraphsRequest) Execute() (*AgentGraphs, *http.Response, error) {
+	return r.ApiService.ListAgentGraphsExecute(r)
+}
+
+/*
+ListAgentGraphs List agent graphs
+
+Get a list of all agent graphs in the given project. Returns metadata only, without edge data.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param projectKey
+ @return ApiListAgentGraphsRequest
+*/
+func (a *AIConfigsBetaApiService) ListAgentGraphs(ctx context.Context, projectKey string) ApiListAgentGraphsRequest {
+	return ApiListAgentGraphsRequest{
+		ApiService: a,
+		ctx: ctx,
+		projectKey: projectKey,
+	}
+}
+
+// Execute executes the request
+//  @return AgentGraphs
+func (a *AIConfigsBetaApiService) ListAgentGraphsExecute(r ApiListAgentGraphsRequest) (*AgentGraphs, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *AgentGraphs
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsBetaApiService.ListAgentGraphs")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v2/projects/{projectKey}/agent-graphs"
+	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", url.PathEscape(parameterValueToString(r.projectKey, "projectKey")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.lDAPIVersion == nil {
+		return localVarReturnValue, nil, reportError("lDAPIVersion is required and must be specified")
+	}
+
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	}
+	if r.offset != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["ApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiListModelConfigsRequest struct {
 	ctx context.Context
 	ApiService AIConfigsBetaApi
@@ -5736,6 +5946,189 @@ func (a *AIConfigsBetaApiService) PostAIToolExecute(r ApiPostAIToolRequest) (*AI
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiPostAgentGraphRequest struct {
+	ctx context.Context
+	ApiService AIConfigsBetaApi
+	lDAPIVersion *string
+	projectKey string
+	agentGraphPost *AgentGraphPost
+}
+
+// Version of the endpoint.
+func (r ApiPostAgentGraphRequest) LDAPIVersion(lDAPIVersion string) ApiPostAgentGraphRequest {
+	r.lDAPIVersion = &lDAPIVersion
+	return r
+}
+
+// Agent graph object to create
+func (r ApiPostAgentGraphRequest) AgentGraphPost(agentGraphPost AgentGraphPost) ApiPostAgentGraphRequest {
+	r.agentGraphPost = &agentGraphPost
+	return r
+}
+
+func (r ApiPostAgentGraphRequest) Execute() (*AgentGraph, *http.Response, error) {
+	return r.ApiService.PostAgentGraphExecute(r)
+}
+
+/*
+PostAgentGraph Create new agent graph
+
+Create a new agent graph within the given project.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param projectKey
+ @return ApiPostAgentGraphRequest
+*/
+func (a *AIConfigsBetaApiService) PostAgentGraph(ctx context.Context, projectKey string) ApiPostAgentGraphRequest {
+	return ApiPostAgentGraphRequest{
+		ApiService: a,
+		ctx: ctx,
+		projectKey: projectKey,
+	}
+}
+
+// Execute executes the request
+//  @return AgentGraph
+func (a *AIConfigsBetaApiService) PostAgentGraphExecute(r ApiPostAgentGraphRequest) (*AgentGraph, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *AgentGraph
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsBetaApiService.PostAgentGraph")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v2/projects/{projectKey}/agent-graphs"
+	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", url.PathEscape(parameterValueToString(r.projectKey, "projectKey")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.lDAPIVersion == nil {
+		return localVarReturnValue, nil, reportError("lDAPIVersion is required and must be specified")
+	}
+	if r.agentGraphPost == nil {
+		return localVarReturnValue, nil, reportError("agentGraphPost is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
+	// body params
+	localVarPostBody = r.agentGraphPost
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["ApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 413 {
 			var v Error
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {

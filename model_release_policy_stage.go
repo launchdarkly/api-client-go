@@ -16,213 +16,86 @@ import (
 	"fmt"
 )
 
-// checks if the PostReleasePolicyRequest type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &PostReleasePolicyRequest{}
+// checks if the ReleasePolicyStage type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ReleasePolicyStage{}
 
-// PostReleasePolicyRequest struct for PostReleasePolicyRequest
-type PostReleasePolicyRequest struct {
-	Scope *ReleasePolicyScope `json:"scope,omitempty"`
-	ReleaseMethod ReleaseMethod `json:"releaseMethod"`
-	GuardedReleaseConfig *GuardedReleaseConfig `json:"guardedReleaseConfig,omitempty"`
-	ProgressiveReleaseConfig *ProgressiveReleaseConfig `json:"progressiveReleaseConfig,omitempty"`
-	// The name of the release policy
-	Name string `json:"name"`
-	// The human-readable key of the release policy
-	Key string `json:"key"`
+// ReleasePolicyStage struct for ReleasePolicyStage
+type ReleasePolicyStage struct {
+	Allocation int32 `json:"allocation"`
+	DurationMillis int64 `json:"durationMillis"`
 	AdditionalProperties map[string]interface{}
 }
 
-type _PostReleasePolicyRequest PostReleasePolicyRequest
+type _ReleasePolicyStage ReleasePolicyStage
 
-// NewPostReleasePolicyRequest instantiates a new PostReleasePolicyRequest object
+// NewReleasePolicyStage instantiates a new ReleasePolicyStage object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPostReleasePolicyRequest(releaseMethod ReleaseMethod, name string, key string) *PostReleasePolicyRequest {
-	this := PostReleasePolicyRequest{}
-	this.ReleaseMethod = releaseMethod
-	this.Name = name
-	this.Key = key
+func NewReleasePolicyStage(allocation int32, durationMillis int64) *ReleasePolicyStage {
+	this := ReleasePolicyStage{}
+	this.Allocation = allocation
+	this.DurationMillis = durationMillis
 	return &this
 }
 
-// NewPostReleasePolicyRequestWithDefaults instantiates a new PostReleasePolicyRequest object
+// NewReleasePolicyStageWithDefaults instantiates a new ReleasePolicyStage object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewPostReleasePolicyRequestWithDefaults() *PostReleasePolicyRequest {
-	this := PostReleasePolicyRequest{}
+func NewReleasePolicyStageWithDefaults() *ReleasePolicyStage {
+	this := ReleasePolicyStage{}
 	return &this
 }
 
-// GetScope returns the Scope field value if set, zero value otherwise.
-func (o *PostReleasePolicyRequest) GetScope() ReleasePolicyScope {
-	if o == nil || IsNil(o.Scope) {
-		var ret ReleasePolicyScope
-		return ret
-	}
-	return *o.Scope
-}
-
-// GetScopeOk returns a tuple with the Scope field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PostReleasePolicyRequest) GetScopeOk() (*ReleasePolicyScope, bool) {
-	if o == nil || IsNil(o.Scope) {
-		return nil, false
-	}
-	return o.Scope, true
-}
-
-// HasScope returns a boolean if a field has been set.
-func (o *PostReleasePolicyRequest) HasScope() bool {
-	if o != nil && !IsNil(o.Scope) {
-		return true
-	}
-
-	return false
-}
-
-// SetScope gets a reference to the given ReleasePolicyScope and assigns it to the Scope field.
-func (o *PostReleasePolicyRequest) SetScope(v ReleasePolicyScope) {
-	o.Scope = &v
-}
-
-// GetReleaseMethod returns the ReleaseMethod field value
-func (o *PostReleasePolicyRequest) GetReleaseMethod() ReleaseMethod {
+// GetAllocation returns the Allocation field value
+func (o *ReleasePolicyStage) GetAllocation() int32 {
 	if o == nil {
-		var ret ReleaseMethod
+		var ret int32
 		return ret
 	}
 
-	return o.ReleaseMethod
+	return o.Allocation
 }
 
-// GetReleaseMethodOk returns a tuple with the ReleaseMethod field value
+// GetAllocationOk returns a tuple with the Allocation field value
 // and a boolean to check if the value has been set.
-func (o *PostReleasePolicyRequest) GetReleaseMethodOk() (*ReleaseMethod, bool) {
+func (o *ReleasePolicyStage) GetAllocationOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.ReleaseMethod, true
+	return &o.Allocation, true
 }
 
-// SetReleaseMethod sets field value
-func (o *PostReleasePolicyRequest) SetReleaseMethod(v ReleaseMethod) {
-	o.ReleaseMethod = v
+// SetAllocation sets field value
+func (o *ReleasePolicyStage) SetAllocation(v int32) {
+	o.Allocation = v
 }
 
-// GetGuardedReleaseConfig returns the GuardedReleaseConfig field value if set, zero value otherwise.
-func (o *PostReleasePolicyRequest) GetGuardedReleaseConfig() GuardedReleaseConfig {
-	if o == nil || IsNil(o.GuardedReleaseConfig) {
-		var ret GuardedReleaseConfig
-		return ret
-	}
-	return *o.GuardedReleaseConfig
-}
-
-// GetGuardedReleaseConfigOk returns a tuple with the GuardedReleaseConfig field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PostReleasePolicyRequest) GetGuardedReleaseConfigOk() (*GuardedReleaseConfig, bool) {
-	if o == nil || IsNil(o.GuardedReleaseConfig) {
-		return nil, false
-	}
-	return o.GuardedReleaseConfig, true
-}
-
-// HasGuardedReleaseConfig returns a boolean if a field has been set.
-func (o *PostReleasePolicyRequest) HasGuardedReleaseConfig() bool {
-	if o != nil && !IsNil(o.GuardedReleaseConfig) {
-		return true
-	}
-
-	return false
-}
-
-// SetGuardedReleaseConfig gets a reference to the given GuardedReleaseConfig and assigns it to the GuardedReleaseConfig field.
-func (o *PostReleasePolicyRequest) SetGuardedReleaseConfig(v GuardedReleaseConfig) {
-	o.GuardedReleaseConfig = &v
-}
-
-// GetProgressiveReleaseConfig returns the ProgressiveReleaseConfig field value if set, zero value otherwise.
-func (o *PostReleasePolicyRequest) GetProgressiveReleaseConfig() ProgressiveReleaseConfig {
-	if o == nil || IsNil(o.ProgressiveReleaseConfig) {
-		var ret ProgressiveReleaseConfig
-		return ret
-	}
-	return *o.ProgressiveReleaseConfig
-}
-
-// GetProgressiveReleaseConfigOk returns a tuple with the ProgressiveReleaseConfig field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PostReleasePolicyRequest) GetProgressiveReleaseConfigOk() (*ProgressiveReleaseConfig, bool) {
-	if o == nil || IsNil(o.ProgressiveReleaseConfig) {
-		return nil, false
-	}
-	return o.ProgressiveReleaseConfig, true
-}
-
-// HasProgressiveReleaseConfig returns a boolean if a field has been set.
-func (o *PostReleasePolicyRequest) HasProgressiveReleaseConfig() bool {
-	if o != nil && !IsNil(o.ProgressiveReleaseConfig) {
-		return true
-	}
-
-	return false
-}
-
-// SetProgressiveReleaseConfig gets a reference to the given ProgressiveReleaseConfig and assigns it to the ProgressiveReleaseConfig field.
-func (o *PostReleasePolicyRequest) SetProgressiveReleaseConfig(v ProgressiveReleaseConfig) {
-	o.ProgressiveReleaseConfig = &v
-}
-
-// GetName returns the Name field value
-func (o *PostReleasePolicyRequest) GetName() string {
+// GetDurationMillis returns the DurationMillis field value
+func (o *ReleasePolicyStage) GetDurationMillis() int64 {
 	if o == nil {
-		var ret string
+		var ret int64
 		return ret
 	}
 
-	return o.Name
+	return o.DurationMillis
 }
 
-// GetNameOk returns a tuple with the Name field value
+// GetDurationMillisOk returns a tuple with the DurationMillis field value
 // and a boolean to check if the value has been set.
-func (o *PostReleasePolicyRequest) GetNameOk() (*string, bool) {
+func (o *ReleasePolicyStage) GetDurationMillisOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Name, true
+	return &o.DurationMillis, true
 }
 
-// SetName sets field value
-func (o *PostReleasePolicyRequest) SetName(v string) {
-	o.Name = v
+// SetDurationMillis sets field value
+func (o *ReleasePolicyStage) SetDurationMillis(v int64) {
+	o.DurationMillis = v
 }
 
-// GetKey returns the Key field value
-func (o *PostReleasePolicyRequest) GetKey() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Key
-}
-
-// GetKeyOk returns a tuple with the Key field value
-// and a boolean to check if the value has been set.
-func (o *PostReleasePolicyRequest) GetKeyOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Key, true
-}
-
-// SetKey sets field value
-func (o *PostReleasePolicyRequest) SetKey(v string) {
-	o.Key = v
-}
-
-func (o PostReleasePolicyRequest) MarshalJSON() ([]byte, error) {
+func (o ReleasePolicyStage) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -230,20 +103,10 @@ func (o PostReleasePolicyRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o PostReleasePolicyRequest) ToMap() (map[string]interface{}, error) {
+func (o ReleasePolicyStage) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Scope) {
-		toSerialize["scope"] = o.Scope
-	}
-	toSerialize["releaseMethod"] = o.ReleaseMethod
-	if !IsNil(o.GuardedReleaseConfig) {
-		toSerialize["guardedReleaseConfig"] = o.GuardedReleaseConfig
-	}
-	if !IsNil(o.ProgressiveReleaseConfig) {
-		toSerialize["progressiveReleaseConfig"] = o.ProgressiveReleaseConfig
-	}
-	toSerialize["name"] = o.Name
-	toSerialize["key"] = o.Key
+	toSerialize["allocation"] = o.Allocation
+	toSerialize["durationMillis"] = o.DurationMillis
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -252,14 +115,13 @@ func (o PostReleasePolicyRequest) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-func (o *PostReleasePolicyRequest) UnmarshalJSON(data []byte) (err error) {
+func (o *ReleasePolicyStage) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"releaseMethod",
-		"name",
-		"key",
+		"allocation",
+		"durationMillis",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -276,63 +138,59 @@ func (o *PostReleasePolicyRequest) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varPostReleasePolicyRequest := _PostReleasePolicyRequest{}
+	varReleasePolicyStage := _ReleasePolicyStage{}
 
-	err = json.Unmarshal(data, &varPostReleasePolicyRequest)
+	err = json.Unmarshal(data, &varReleasePolicyStage)
 
 	if err != nil {
 		return err
 	}
 
-	*o = PostReleasePolicyRequest(varPostReleasePolicyRequest)
+	*o = ReleasePolicyStage(varReleasePolicyStage)
 
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "scope")
-		delete(additionalProperties, "releaseMethod")
-		delete(additionalProperties, "guardedReleaseConfig")
-		delete(additionalProperties, "progressiveReleaseConfig")
-		delete(additionalProperties, "name")
-		delete(additionalProperties, "key")
+		delete(additionalProperties, "allocation")
+		delete(additionalProperties, "durationMillis")
 		o.AdditionalProperties = additionalProperties
 	}
 
 	return err
 }
 
-type NullablePostReleasePolicyRequest struct {
-	value *PostReleasePolicyRequest
+type NullableReleasePolicyStage struct {
+	value *ReleasePolicyStage
 	isSet bool
 }
 
-func (v NullablePostReleasePolicyRequest) Get() *PostReleasePolicyRequest {
+func (v NullableReleasePolicyStage) Get() *ReleasePolicyStage {
 	return v.value
 }
 
-func (v *NullablePostReleasePolicyRequest) Set(val *PostReleasePolicyRequest) {
+func (v *NullableReleasePolicyStage) Set(val *ReleasePolicyStage) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullablePostReleasePolicyRequest) IsSet() bool {
+func (v NullableReleasePolicyStage) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullablePostReleasePolicyRequest) Unset() {
+func (v *NullableReleasePolicyStage) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullablePostReleasePolicyRequest(val *PostReleasePolicyRequest) *NullablePostReleasePolicyRequest {
-	return &NullablePostReleasePolicyRequest{value: val, isSet: true}
+func NewNullableReleasePolicyStage(val *ReleasePolicyStage) *NullableReleasePolicyStage {
+	return &NullableReleasePolicyStage{value: val, isSet: true}
 }
 
-func (v NullablePostReleasePolicyRequest) MarshalJSON() ([]byte, error) {
+func (v NullableReleasePolicyStage) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullablePostReleasePolicyRequest) UnmarshalJSON(src []byte) error {
+func (v *NullableReleasePolicyStage) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

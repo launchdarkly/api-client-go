@@ -868,7 +868,7 @@ Name | Type | Description  | Notes
 
 ## PatchFeatureFlag
 
-> FeatureFlag PatchFeatureFlag(ctx, projectKey, featureFlagKey).PatchWithComment(patchWithComment).IgnoreConflicts(ignoreConflicts).Execute()
+> FeatureFlag PatchFeatureFlag(ctx, projectKey, featureFlagKey).PatchWithComment(patchWithComment).IgnoreConflicts(ignoreConflicts).DryRun(dryRun).Execute()
 
 Update feature flag
 
@@ -891,10 +891,11 @@ func main() {
 	featureFlagKey := "featureFlagKey_example" // string | The feature flag key. The key identifies the flag in your code.
 	patchWithComment := *openapiclient.NewPatchWithComment([]openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")}) // PatchWithComment | 
 	ignoreConflicts := true // bool | If true, the patch will be applied even if it causes a pending scheduled change or approval request to fail. (optional)
+	dryRun := true // bool | If true, the patch will be validated but not persisted. Returns a preview of the flag after the patch is applied. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FeatureFlagsApi.PatchFeatureFlag(context.Background(), projectKey, featureFlagKey).PatchWithComment(patchWithComment).IgnoreConflicts(ignoreConflicts).Execute()
+	resp, r, err := apiClient.FeatureFlagsApi.PatchFeatureFlag(context.Background(), projectKey, featureFlagKey).PatchWithComment(patchWithComment).IgnoreConflicts(ignoreConflicts).DryRun(dryRun).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FeatureFlagsApi.PatchFeatureFlag``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -924,6 +925,7 @@ Name | Type | Description  | Notes
 
  **patchWithComment** | [**PatchWithComment**](PatchWithComment.md) |  | 
  **ignoreConflicts** | **bool** | If true, the patch will be applied even if it causes a pending scheduled change or approval request to fail. | 
+ **dryRun** | **bool** | If true, the patch will be validated but not persisted. Returns a preview of the flag after the patch is applied. | 
 
 ### Return type
 

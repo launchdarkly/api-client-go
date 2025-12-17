@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** | The flag rule ID | [optional] 
+**Disabled** | Pointer to **bool** | Whether the rule is disabled | [optional] 
 **Variation** | Pointer to **int32** | The index of the variation, from the array of variations for this flag | [optional] 
 **Rollout** | Pointer to [**Rollout**](Rollout.md) |  | [optional] 
 **Clauses** | [**[]Clause**](Clause.md) | An array of clauses used for individual targeting based on attributes | 
@@ -55,6 +56,31 @@ SetId sets Id field to given value.
 `func (o *Rule) HasId() bool`
 
 HasId returns a boolean if a field has been set.
+
+### GetDisabled
+
+`func (o *Rule) GetDisabled() bool`
+
+GetDisabled returns the Disabled field if non-nil, zero value otherwise.
+
+### GetDisabledOk
+
+`func (o *Rule) GetDisabledOk() (*bool, bool)`
+
+GetDisabledOk returns a tuple with the Disabled field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDisabled
+
+`func (o *Rule) SetDisabled(v bool)`
+
+SetDisabled sets Disabled field to given value.
+
+### HasDisabled
+
+`func (o *Rule) HasDisabled() bool`
+
+HasDisabled returns a boolean if a field has been set.
 
 ### GetVariation
 

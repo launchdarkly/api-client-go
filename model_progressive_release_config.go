@@ -13,117 +13,104 @@ package ldapi
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
-// checks if the CovarianceInfoRep type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &CovarianceInfoRep{}
+// checks if the ProgressiveReleaseConfig type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ProgressiveReleaseConfig{}
 
-// CovarianceInfoRep struct for CovarianceInfoRep
-type CovarianceInfoRep struct {
-	// The ID of the covariance matrix
-	Id string `json:"id"`
-	// The file name of the uploaded covariance matrix
-	FileName string `json:"fileName"`
-	CreatedAt int64 `json:"createdAt"`
+// ProgressiveReleaseConfig Configuration for progressive releases
+type ProgressiveReleaseConfig struct {
+	// Context kind key to use as the randomization unit for the rollout
+	RolloutContextKindKey *string `json:"rolloutContextKindKey,omitempty"`
+	// List of stages
+	Stages []ReleasePolicyStage `json:"stages,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
-type _CovarianceInfoRep CovarianceInfoRep
+type _ProgressiveReleaseConfig ProgressiveReleaseConfig
 
-// NewCovarianceInfoRep instantiates a new CovarianceInfoRep object
+// NewProgressiveReleaseConfig instantiates a new ProgressiveReleaseConfig object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCovarianceInfoRep(id string, fileName string, createdAt int64) *CovarianceInfoRep {
-	this := CovarianceInfoRep{}
-	this.Id = id
-	this.FileName = fileName
-	this.CreatedAt = createdAt
+func NewProgressiveReleaseConfig() *ProgressiveReleaseConfig {
+	this := ProgressiveReleaseConfig{}
 	return &this
 }
 
-// NewCovarianceInfoRepWithDefaults instantiates a new CovarianceInfoRep object
+// NewProgressiveReleaseConfigWithDefaults instantiates a new ProgressiveReleaseConfig object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewCovarianceInfoRepWithDefaults() *CovarianceInfoRep {
-	this := CovarianceInfoRep{}
+func NewProgressiveReleaseConfigWithDefaults() *ProgressiveReleaseConfig {
+	this := ProgressiveReleaseConfig{}
 	return &this
 }
 
-// GetId returns the Id field value
-func (o *CovarianceInfoRep) GetId() string {
-	if o == nil {
+// GetRolloutContextKindKey returns the RolloutContextKindKey field value if set, zero value otherwise.
+func (o *ProgressiveReleaseConfig) GetRolloutContextKindKey() string {
+	if o == nil || IsNil(o.RolloutContextKindKey) {
 		var ret string
 		return ret
 	}
-
-	return o.Id
+	return *o.RolloutContextKindKey
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetRolloutContextKindKeyOk returns a tuple with the RolloutContextKindKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CovarianceInfoRep) GetIdOk() (*string, bool) {
-	if o == nil {
+func (o *ProgressiveReleaseConfig) GetRolloutContextKindKeyOk() (*string, bool) {
+	if o == nil || IsNil(o.RolloutContextKindKey) {
 		return nil, false
 	}
-	return &o.Id, true
+	return o.RolloutContextKindKey, true
 }
 
-// SetId sets field value
-func (o *CovarianceInfoRep) SetId(v string) {
-	o.Id = v
+// HasRolloutContextKindKey returns a boolean if a field has been set.
+func (o *ProgressiveReleaseConfig) HasRolloutContextKindKey() bool {
+	if o != nil && !IsNil(o.RolloutContextKindKey) {
+		return true
+	}
+
+	return false
 }
 
-// GetFileName returns the FileName field value
-func (o *CovarianceInfoRep) GetFileName() string {
-	if o == nil {
-		var ret string
+// SetRolloutContextKindKey gets a reference to the given string and assigns it to the RolloutContextKindKey field.
+func (o *ProgressiveReleaseConfig) SetRolloutContextKindKey(v string) {
+	o.RolloutContextKindKey = &v
+}
+
+// GetStages returns the Stages field value if set, zero value otherwise.
+func (o *ProgressiveReleaseConfig) GetStages() []ReleasePolicyStage {
+	if o == nil || IsNil(o.Stages) {
+		var ret []ReleasePolicyStage
 		return ret
 	}
-
-	return o.FileName
+	return o.Stages
 }
 
-// GetFileNameOk returns a tuple with the FileName field value
+// GetStagesOk returns a tuple with the Stages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CovarianceInfoRep) GetFileNameOk() (*string, bool) {
-	if o == nil {
+func (o *ProgressiveReleaseConfig) GetStagesOk() ([]ReleasePolicyStage, bool) {
+	if o == nil || IsNil(o.Stages) {
 		return nil, false
 	}
-	return &o.FileName, true
+	return o.Stages, true
 }
 
-// SetFileName sets field value
-func (o *CovarianceInfoRep) SetFileName(v string) {
-	o.FileName = v
-}
-
-// GetCreatedAt returns the CreatedAt field value
-func (o *CovarianceInfoRep) GetCreatedAt() int64 {
-	if o == nil {
-		var ret int64
-		return ret
+// HasStages returns a boolean if a field has been set.
+func (o *ProgressiveReleaseConfig) HasStages() bool {
+	if o != nil && !IsNil(o.Stages) {
+		return true
 	}
 
-	return o.CreatedAt
+	return false
 }
 
-// GetCreatedAtOk returns a tuple with the CreatedAt field value
-// and a boolean to check if the value has been set.
-func (o *CovarianceInfoRep) GetCreatedAtOk() (*int64, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.CreatedAt, true
+// SetStages gets a reference to the given []ReleasePolicyStage and assigns it to the Stages field.
+func (o *ProgressiveReleaseConfig) SetStages(v []ReleasePolicyStage) {
+	o.Stages = v
 }
 
-// SetCreatedAt sets field value
-func (o *CovarianceInfoRep) SetCreatedAt(v int64) {
-	o.CreatedAt = v
-}
-
-func (o CovarianceInfoRep) MarshalJSON() ([]byte, error) {
+func (o ProgressiveReleaseConfig) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -131,11 +118,14 @@ func (o CovarianceInfoRep) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o CovarianceInfoRep) ToMap() (map[string]interface{}, error) {
+func (o ProgressiveReleaseConfig) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["id"] = o.Id
-	toSerialize["fileName"] = o.FileName
-	toSerialize["createdAt"] = o.CreatedAt
+	if !IsNil(o.RolloutContextKindKey) {
+		toSerialize["rolloutContextKindKey"] = o.RolloutContextKindKey
+	}
+	if !IsNil(o.Stages) {
+		toSerialize["stages"] = o.Stages
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -144,84 +134,60 @@ func (o CovarianceInfoRep) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-func (o *CovarianceInfoRep) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"id",
-		"fileName",
-		"createdAt",
-	}
+func (o *ProgressiveReleaseConfig) UnmarshalJSON(data []byte) (err error) {
+	varProgressiveReleaseConfig := _ProgressiveReleaseConfig{}
 
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err;
-	}
-
-	for _, requiredProperty := range(requiredProperties) {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
-	varCovarianceInfoRep := _CovarianceInfoRep{}
-
-	err = json.Unmarshal(data, &varCovarianceInfoRep)
+	err = json.Unmarshal(data, &varProgressiveReleaseConfig)
 
 	if err != nil {
 		return err
 	}
 
-	*o = CovarianceInfoRep(varCovarianceInfoRep)
+	*o = ProgressiveReleaseConfig(varProgressiveReleaseConfig)
 
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "id")
-		delete(additionalProperties, "fileName")
-		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "rolloutContextKindKey")
+		delete(additionalProperties, "stages")
 		o.AdditionalProperties = additionalProperties
 	}
 
 	return err
 }
 
-type NullableCovarianceInfoRep struct {
-	value *CovarianceInfoRep
+type NullableProgressiveReleaseConfig struct {
+	value *ProgressiveReleaseConfig
 	isSet bool
 }
 
-func (v NullableCovarianceInfoRep) Get() *CovarianceInfoRep {
+func (v NullableProgressiveReleaseConfig) Get() *ProgressiveReleaseConfig {
 	return v.value
 }
 
-func (v *NullableCovarianceInfoRep) Set(val *CovarianceInfoRep) {
+func (v *NullableProgressiveReleaseConfig) Set(val *ProgressiveReleaseConfig) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableCovarianceInfoRep) IsSet() bool {
+func (v NullableProgressiveReleaseConfig) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableCovarianceInfoRep) Unset() {
+func (v *NullableProgressiveReleaseConfig) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableCovarianceInfoRep(val *CovarianceInfoRep) *NullableCovarianceInfoRep {
-	return &NullableCovarianceInfoRep{value: val, isSet: true}
+func NewNullableProgressiveReleaseConfig(val *ProgressiveReleaseConfig) *NullableProgressiveReleaseConfig {
+	return &NullableProgressiveReleaseConfig{value: val, isSet: true}
 }
 
-func (v NullableCovarianceInfoRep) MarshalJSON() ([]byte, error) {
+func (v NullableProgressiveReleaseConfig) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableCovarianceInfoRep) UnmarshalJSON(src []byte) error {
+func (v *NullableProgressiveReleaseConfig) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

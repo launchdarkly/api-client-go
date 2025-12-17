@@ -12,7 +12,6 @@ Name | Type | Description | Notes
 **Treatments** | [**[]TreatmentInput**](TreatmentInput.md) |  | 
 **Flags** | [**map[string]FlagInput**](FlagInput.md) |  | 
 **RandomizationUnit** | Pointer to **string** | The unit of randomization for this iteration. Defaults to user. | [optional] 
-**CovarianceId** | Pointer to **string** | The ID of the covariance CSV | [optional] 
 **Attributes** | Pointer to **[]string** | The attributes that this iteration&#39;s results can be sliced by | [optional] 
 
 ## Methods
@@ -213,31 +212,6 @@ SetRandomizationUnit sets RandomizationUnit field to given value.
 `func (o *IterationInput) HasRandomizationUnit() bool`
 
 HasRandomizationUnit returns a boolean if a field has been set.
-
-### GetCovarianceId
-
-`func (o *IterationInput) GetCovarianceId() string`
-
-GetCovarianceId returns the CovarianceId field if non-nil, zero value otherwise.
-
-### GetCovarianceIdOk
-
-`func (o *IterationInput) GetCovarianceIdOk() (*string, bool)`
-
-GetCovarianceIdOk returns a tuple with the CovarianceId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCovarianceId
-
-`func (o *IterationInput) SetCovarianceId(v string)`
-
-SetCovarianceId sets CovarianceId field to given value.
-
-### HasCovarianceId
-
-`func (o *IterationInput) HasCovarianceId() bool`
-
-HasCovarianceId returns a boolean if a field has been set.
 
 ### GetAttributes
 

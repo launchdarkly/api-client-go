@@ -16,190 +16,51 @@ import (
 	"fmt"
 )
 
-// checks if the PostReleasePolicyRequest type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &PostReleasePolicyRequest{}
+// checks if the AgentGraph type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AgentGraph{}
 
-// PostReleasePolicyRequest struct for PostReleasePolicyRequest
-type PostReleasePolicyRequest struct {
-	Scope *ReleasePolicyScope `json:"scope,omitempty"`
-	ReleaseMethod ReleaseMethod `json:"releaseMethod"`
-	GuardedReleaseConfig *GuardedReleaseConfig `json:"guardedReleaseConfig,omitempty"`
-	ProgressiveReleaseConfig *ProgressiveReleaseConfig `json:"progressiveReleaseConfig,omitempty"`
-	// The name of the release policy
-	Name string `json:"name"`
-	// The human-readable key of the release policy
+// AgentGraph An agent graph representing a directed graph of AI Configs
+type AgentGraph struct {
+	// A unique key for the agent graph
 	Key string `json:"key"`
+	// A human-readable name for the agent graph
+	Name string `json:"name"`
+	// A description of the agent graph
+	Description *string `json:"description,omitempty"`
+	// The AI Config key of the root node
+	RootConfigKey *string `json:"rootConfigKey,omitempty"`
+	// The edges in the graph
+	Edges []AgentGraphEdge `json:"edges,omitempty"`
+	CreatedAt int64 `json:"createdAt"`
+	UpdatedAt int64 `json:"updatedAt"`
 	AdditionalProperties map[string]interface{}
 }
 
-type _PostReleasePolicyRequest PostReleasePolicyRequest
+type _AgentGraph AgentGraph
 
-// NewPostReleasePolicyRequest instantiates a new PostReleasePolicyRequest object
+// NewAgentGraph instantiates a new AgentGraph object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPostReleasePolicyRequest(releaseMethod ReleaseMethod, name string, key string) *PostReleasePolicyRequest {
-	this := PostReleasePolicyRequest{}
-	this.ReleaseMethod = releaseMethod
-	this.Name = name
+func NewAgentGraph(key string, name string, createdAt int64, updatedAt int64) *AgentGraph {
+	this := AgentGraph{}
 	this.Key = key
+	this.Name = name
+	this.CreatedAt = createdAt
+	this.UpdatedAt = updatedAt
 	return &this
 }
 
-// NewPostReleasePolicyRequestWithDefaults instantiates a new PostReleasePolicyRequest object
+// NewAgentGraphWithDefaults instantiates a new AgentGraph object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewPostReleasePolicyRequestWithDefaults() *PostReleasePolicyRequest {
-	this := PostReleasePolicyRequest{}
+func NewAgentGraphWithDefaults() *AgentGraph {
+	this := AgentGraph{}
 	return &this
-}
-
-// GetScope returns the Scope field value if set, zero value otherwise.
-func (o *PostReleasePolicyRequest) GetScope() ReleasePolicyScope {
-	if o == nil || IsNil(o.Scope) {
-		var ret ReleasePolicyScope
-		return ret
-	}
-	return *o.Scope
-}
-
-// GetScopeOk returns a tuple with the Scope field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PostReleasePolicyRequest) GetScopeOk() (*ReleasePolicyScope, bool) {
-	if o == nil || IsNil(o.Scope) {
-		return nil, false
-	}
-	return o.Scope, true
-}
-
-// HasScope returns a boolean if a field has been set.
-func (o *PostReleasePolicyRequest) HasScope() bool {
-	if o != nil && !IsNil(o.Scope) {
-		return true
-	}
-
-	return false
-}
-
-// SetScope gets a reference to the given ReleasePolicyScope and assigns it to the Scope field.
-func (o *PostReleasePolicyRequest) SetScope(v ReleasePolicyScope) {
-	o.Scope = &v
-}
-
-// GetReleaseMethod returns the ReleaseMethod field value
-func (o *PostReleasePolicyRequest) GetReleaseMethod() ReleaseMethod {
-	if o == nil {
-		var ret ReleaseMethod
-		return ret
-	}
-
-	return o.ReleaseMethod
-}
-
-// GetReleaseMethodOk returns a tuple with the ReleaseMethod field value
-// and a boolean to check if the value has been set.
-func (o *PostReleasePolicyRequest) GetReleaseMethodOk() (*ReleaseMethod, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.ReleaseMethod, true
-}
-
-// SetReleaseMethod sets field value
-func (o *PostReleasePolicyRequest) SetReleaseMethod(v ReleaseMethod) {
-	o.ReleaseMethod = v
-}
-
-// GetGuardedReleaseConfig returns the GuardedReleaseConfig field value if set, zero value otherwise.
-func (o *PostReleasePolicyRequest) GetGuardedReleaseConfig() GuardedReleaseConfig {
-	if o == nil || IsNil(o.GuardedReleaseConfig) {
-		var ret GuardedReleaseConfig
-		return ret
-	}
-	return *o.GuardedReleaseConfig
-}
-
-// GetGuardedReleaseConfigOk returns a tuple with the GuardedReleaseConfig field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PostReleasePolicyRequest) GetGuardedReleaseConfigOk() (*GuardedReleaseConfig, bool) {
-	if o == nil || IsNil(o.GuardedReleaseConfig) {
-		return nil, false
-	}
-	return o.GuardedReleaseConfig, true
-}
-
-// HasGuardedReleaseConfig returns a boolean if a field has been set.
-func (o *PostReleasePolicyRequest) HasGuardedReleaseConfig() bool {
-	if o != nil && !IsNil(o.GuardedReleaseConfig) {
-		return true
-	}
-
-	return false
-}
-
-// SetGuardedReleaseConfig gets a reference to the given GuardedReleaseConfig and assigns it to the GuardedReleaseConfig field.
-func (o *PostReleasePolicyRequest) SetGuardedReleaseConfig(v GuardedReleaseConfig) {
-	o.GuardedReleaseConfig = &v
-}
-
-// GetProgressiveReleaseConfig returns the ProgressiveReleaseConfig field value if set, zero value otherwise.
-func (o *PostReleasePolicyRequest) GetProgressiveReleaseConfig() ProgressiveReleaseConfig {
-	if o == nil || IsNil(o.ProgressiveReleaseConfig) {
-		var ret ProgressiveReleaseConfig
-		return ret
-	}
-	return *o.ProgressiveReleaseConfig
-}
-
-// GetProgressiveReleaseConfigOk returns a tuple with the ProgressiveReleaseConfig field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PostReleasePolicyRequest) GetProgressiveReleaseConfigOk() (*ProgressiveReleaseConfig, bool) {
-	if o == nil || IsNil(o.ProgressiveReleaseConfig) {
-		return nil, false
-	}
-	return o.ProgressiveReleaseConfig, true
-}
-
-// HasProgressiveReleaseConfig returns a boolean if a field has been set.
-func (o *PostReleasePolicyRequest) HasProgressiveReleaseConfig() bool {
-	if o != nil && !IsNil(o.ProgressiveReleaseConfig) {
-		return true
-	}
-
-	return false
-}
-
-// SetProgressiveReleaseConfig gets a reference to the given ProgressiveReleaseConfig and assigns it to the ProgressiveReleaseConfig field.
-func (o *PostReleasePolicyRequest) SetProgressiveReleaseConfig(v ProgressiveReleaseConfig) {
-	o.ProgressiveReleaseConfig = &v
-}
-
-// GetName returns the Name field value
-func (o *PostReleasePolicyRequest) GetName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Name
-}
-
-// GetNameOk returns a tuple with the Name field value
-// and a boolean to check if the value has been set.
-func (o *PostReleasePolicyRequest) GetNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Name, true
-}
-
-// SetName sets field value
-func (o *PostReleasePolicyRequest) SetName(v string) {
-	o.Name = v
 }
 
 // GetKey returns the Key field value
-func (o *PostReleasePolicyRequest) GetKey() string {
+func (o *AgentGraph) GetKey() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -210,7 +71,7 @@ func (o *PostReleasePolicyRequest) GetKey() string {
 
 // GetKeyOk returns a tuple with the Key field value
 // and a boolean to check if the value has been set.
-func (o *PostReleasePolicyRequest) GetKeyOk() (*string, bool) {
+func (o *AgentGraph) GetKeyOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -218,11 +79,179 @@ func (o *PostReleasePolicyRequest) GetKeyOk() (*string, bool) {
 }
 
 // SetKey sets field value
-func (o *PostReleasePolicyRequest) SetKey(v string) {
+func (o *AgentGraph) SetKey(v string) {
 	o.Key = v
 }
 
-func (o PostReleasePolicyRequest) MarshalJSON() ([]byte, error) {
+// GetName returns the Name field value
+func (o *AgentGraph) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *AgentGraph) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *AgentGraph) SetName(v string) {
+	o.Name = v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *AgentGraph) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AgentGraph) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *AgentGraph) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *AgentGraph) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetRootConfigKey returns the RootConfigKey field value if set, zero value otherwise.
+func (o *AgentGraph) GetRootConfigKey() string {
+	if o == nil || IsNil(o.RootConfigKey) {
+		var ret string
+		return ret
+	}
+	return *o.RootConfigKey
+}
+
+// GetRootConfigKeyOk returns a tuple with the RootConfigKey field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AgentGraph) GetRootConfigKeyOk() (*string, bool) {
+	if o == nil || IsNil(o.RootConfigKey) {
+		return nil, false
+	}
+	return o.RootConfigKey, true
+}
+
+// HasRootConfigKey returns a boolean if a field has been set.
+func (o *AgentGraph) HasRootConfigKey() bool {
+	if o != nil && !IsNil(o.RootConfigKey) {
+		return true
+	}
+
+	return false
+}
+
+// SetRootConfigKey gets a reference to the given string and assigns it to the RootConfigKey field.
+func (o *AgentGraph) SetRootConfigKey(v string) {
+	o.RootConfigKey = &v
+}
+
+// GetEdges returns the Edges field value if set, zero value otherwise.
+func (o *AgentGraph) GetEdges() []AgentGraphEdge {
+	if o == nil || IsNil(o.Edges) {
+		var ret []AgentGraphEdge
+		return ret
+	}
+	return o.Edges
+}
+
+// GetEdgesOk returns a tuple with the Edges field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AgentGraph) GetEdgesOk() ([]AgentGraphEdge, bool) {
+	if o == nil || IsNil(o.Edges) {
+		return nil, false
+	}
+	return o.Edges, true
+}
+
+// HasEdges returns a boolean if a field has been set.
+func (o *AgentGraph) HasEdges() bool {
+	if o != nil && !IsNil(o.Edges) {
+		return true
+	}
+
+	return false
+}
+
+// SetEdges gets a reference to the given []AgentGraphEdge and assigns it to the Edges field.
+func (o *AgentGraph) SetEdges(v []AgentGraphEdge) {
+	o.Edges = v
+}
+
+// GetCreatedAt returns the CreatedAt field value
+func (o *AgentGraph) GetCreatedAt() int64 {
+	if o == nil {
+		var ret int64
+		return ret
+	}
+
+	return o.CreatedAt
+}
+
+// GetCreatedAtOk returns a tuple with the CreatedAt field value
+// and a boolean to check if the value has been set.
+func (o *AgentGraph) GetCreatedAtOk() (*int64, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.CreatedAt, true
+}
+
+// SetCreatedAt sets field value
+func (o *AgentGraph) SetCreatedAt(v int64) {
+	o.CreatedAt = v
+}
+
+// GetUpdatedAt returns the UpdatedAt field value
+func (o *AgentGraph) GetUpdatedAt() int64 {
+	if o == nil {
+		var ret int64
+		return ret
+	}
+
+	return o.UpdatedAt
+}
+
+// GetUpdatedAtOk returns a tuple with the UpdatedAt field value
+// and a boolean to check if the value has been set.
+func (o *AgentGraph) GetUpdatedAtOk() (*int64, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.UpdatedAt, true
+}
+
+// SetUpdatedAt sets field value
+func (o *AgentGraph) SetUpdatedAt(v int64) {
+	o.UpdatedAt = v
+}
+
+func (o AgentGraph) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -230,20 +259,21 @@ func (o PostReleasePolicyRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o PostReleasePolicyRequest) ToMap() (map[string]interface{}, error) {
+func (o AgentGraph) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Scope) {
-		toSerialize["scope"] = o.Scope
-	}
-	toSerialize["releaseMethod"] = o.ReleaseMethod
-	if !IsNil(o.GuardedReleaseConfig) {
-		toSerialize["guardedReleaseConfig"] = o.GuardedReleaseConfig
-	}
-	if !IsNil(o.ProgressiveReleaseConfig) {
-		toSerialize["progressiveReleaseConfig"] = o.ProgressiveReleaseConfig
-	}
-	toSerialize["name"] = o.Name
 	toSerialize["key"] = o.Key
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.RootConfigKey) {
+		toSerialize["rootConfigKey"] = o.RootConfigKey
+	}
+	if !IsNil(o.Edges) {
+		toSerialize["edges"] = o.Edges
+	}
+	toSerialize["createdAt"] = o.CreatedAt
+	toSerialize["updatedAt"] = o.UpdatedAt
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -252,14 +282,15 @@ func (o PostReleasePolicyRequest) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-func (o *PostReleasePolicyRequest) UnmarshalJSON(data []byte) (err error) {
+func (o *AgentGraph) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"releaseMethod",
-		"name",
 		"key",
+		"name",
+		"createdAt",
+		"updatedAt",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -276,63 +307,64 @@ func (o *PostReleasePolicyRequest) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varPostReleasePolicyRequest := _PostReleasePolicyRequest{}
+	varAgentGraph := _AgentGraph{}
 
-	err = json.Unmarshal(data, &varPostReleasePolicyRequest)
+	err = json.Unmarshal(data, &varAgentGraph)
 
 	if err != nil {
 		return err
 	}
 
-	*o = PostReleasePolicyRequest(varPostReleasePolicyRequest)
+	*o = AgentGraph(varAgentGraph)
 
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "scope")
-		delete(additionalProperties, "releaseMethod")
-		delete(additionalProperties, "guardedReleaseConfig")
-		delete(additionalProperties, "progressiveReleaseConfig")
-		delete(additionalProperties, "name")
 		delete(additionalProperties, "key")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "rootConfigKey")
+		delete(additionalProperties, "edges")
+		delete(additionalProperties, "createdAt")
+		delete(additionalProperties, "updatedAt")
 		o.AdditionalProperties = additionalProperties
 	}
 
 	return err
 }
 
-type NullablePostReleasePolicyRequest struct {
-	value *PostReleasePolicyRequest
+type NullableAgentGraph struct {
+	value *AgentGraph
 	isSet bool
 }
 
-func (v NullablePostReleasePolicyRequest) Get() *PostReleasePolicyRequest {
+func (v NullableAgentGraph) Get() *AgentGraph {
 	return v.value
 }
 
-func (v *NullablePostReleasePolicyRequest) Set(val *PostReleasePolicyRequest) {
+func (v *NullableAgentGraph) Set(val *AgentGraph) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullablePostReleasePolicyRequest) IsSet() bool {
+func (v NullableAgentGraph) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullablePostReleasePolicyRequest) Unset() {
+func (v *NullableAgentGraph) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullablePostReleasePolicyRequest(val *PostReleasePolicyRequest) *NullablePostReleasePolicyRequest {
-	return &NullablePostReleasePolicyRequest{value: val, isSet: true}
+func NewNullableAgentGraph(val *AgentGraph) *NullableAgentGraph {
+	return &NullableAgentGraph{value: val, isSet: true}
 }
 
-func (v NullablePostReleasePolicyRequest) MarshalJSON() ([]byte, error) {
+func (v NullableAgentGraph) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullablePostReleasePolicyRequest) UnmarshalJSON(src []byte) error {
+func (v *NullableAgentGraph) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

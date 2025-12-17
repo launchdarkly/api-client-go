@@ -3749,10 +3749,17 @@ type ApiPatchSegmentRequest struct {
 	environmentKey string
 	segmentKey string
 	patchWithComment *PatchWithComment
+	dryRun *bool
 }
 
 func (r ApiPatchSegmentRequest) PatchWithComment(patchWithComment PatchWithComment) ApiPatchSegmentRequest {
 	r.patchWithComment = &patchWithComment
+	return r
+}
+
+// If true, the patch will be validated but not persisted. Returns a preview of the segment after the patch is applied.
+func (r ApiPatchSegmentRequest) DryRun(dryRun bool) ApiPatchSegmentRequest {
+	r.dryRun = &dryRun
 	return r
 }
 
@@ -4432,6 +4439,9 @@ func (a *SegmentsApiService) PatchSegmentExecute(r ApiPatchSegmentRequest) (*Use
 		return localVarReturnValue, nil, reportError("patchWithComment is required and must be specified")
 	}
 
+	if r.dryRun != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "dryRun", r.dryRun, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 

@@ -23,6 +23,8 @@ var _ MappedNullable = &Rule{}
 type Rule struct {
 	// The flag rule ID
 	Id *string `json:"_id,omitempty"`
+	// Whether the rule is disabled
+	Disabled *bool `json:"disabled,omitempty"`
 	// The index of the variation, from the array of variations for this flag
 	Variation *int32 `json:"variation,omitempty"`
 	Rollout *Rollout `json:"rollout,omitempty"`
@@ -87,6 +89,38 @@ func (o *Rule) HasId() bool {
 // SetId gets a reference to the given string and assigns it to the Id field.
 func (o *Rule) SetId(v string) {
 	o.Id = &v
+}
+
+// GetDisabled returns the Disabled field value if set, zero value otherwise.
+func (o *Rule) GetDisabled() bool {
+	if o == nil || IsNil(o.Disabled) {
+		var ret bool
+		return ret
+	}
+	return *o.Disabled
+}
+
+// GetDisabledOk returns a tuple with the Disabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Rule) GetDisabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.Disabled) {
+		return nil, false
+	}
+	return o.Disabled, true
+}
+
+// HasDisabled returns a boolean if a field has been set.
+func (o *Rule) HasDisabled() bool {
+	if o != nil && !IsNil(o.Disabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetDisabled gets a reference to the given bool and assigns it to the Disabled field.
+func (o *Rule) SetDisabled(v bool) {
+	o.Disabled = &v
 }
 
 // GetVariation returns the Variation field value if set, zero value otherwise.
@@ -278,6 +312,9 @@ func (o Rule) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Id) {
 		toSerialize["_id"] = o.Id
 	}
+	if !IsNil(o.Disabled) {
+		toSerialize["disabled"] = o.Disabled
+	}
 	if !IsNil(o.Variation) {
 		toSerialize["variation"] = o.Variation
 	}
@@ -337,6 +374,7 @@ func (o *Rule) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "_id")
+		delete(additionalProperties, "disabled")
 		delete(additionalProperties, "variation")
 		delete(additionalProperties, "rollout")
 		delete(additionalProperties, "clauses")

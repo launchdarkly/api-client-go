@@ -3971,6 +3971,7 @@ type ApiPatchFeatureFlagRequest struct {
 	featureFlagKey string
 	patchWithComment *PatchWithComment
 	ignoreConflicts *bool
+	dryRun *bool
 }
 
 func (r ApiPatchFeatureFlagRequest) PatchWithComment(patchWithComment PatchWithComment) ApiPatchFeatureFlagRequest {
@@ -3981,6 +3982,12 @@ func (r ApiPatchFeatureFlagRequest) PatchWithComment(patchWithComment PatchWithC
 // If true, the patch will be applied even if it causes a pending scheduled change or approval request to fail.
 func (r ApiPatchFeatureFlagRequest) IgnoreConflicts(ignoreConflicts bool) ApiPatchFeatureFlagRequest {
 	r.ignoreConflicts = &ignoreConflicts
+	return r
+}
+
+// If true, the patch will be validated but not persisted. Returns a preview of the flag after the patch is applied.
+func (r ApiPatchFeatureFlagRequest) DryRun(dryRun bool) ApiPatchFeatureFlagRequest {
+	r.dryRun = &dryRun
 	return r
 }
 
@@ -5224,6 +5231,9 @@ func (a *FeatureFlagsApiService) PatchFeatureFlagExecute(r ApiPatchFeatureFlagRe
 
 	if r.ignoreConflicts != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "ignoreConflicts", r.ignoreConflicts, "form", "")
+	}
+	if r.dryRun != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "dryRun", r.dryRun, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}

@@ -29,8 +29,7 @@ type ReleasePolicy struct {
 	Rank int32 `json:"rank"`
 	ReleaseMethod ReleaseMethod `json:"releaseMethod"`
 	GuardedReleaseConfig *GuardedReleaseConfig `json:"guardedReleaseConfig,omitempty"`
-	// Configuration for progressive releases
-	ProgressiveReleaseConfig map[string]interface{} `json:"progressiveReleaseConfig,omitempty"`
+	ProgressiveReleaseConfig *ProgressiveReleaseConfig `json:"progressiveReleaseConfig,omitempty"`
 	// The name of the release policy
 	Name string `json:"name"`
 	// The human-readable key of the release policy
@@ -231,19 +230,19 @@ func (o *ReleasePolicy) SetGuardedReleaseConfig(v GuardedReleaseConfig) {
 }
 
 // GetProgressiveReleaseConfig returns the ProgressiveReleaseConfig field value if set, zero value otherwise.
-func (o *ReleasePolicy) GetProgressiveReleaseConfig() map[string]interface{} {
+func (o *ReleasePolicy) GetProgressiveReleaseConfig() ProgressiveReleaseConfig {
 	if o == nil || IsNil(o.ProgressiveReleaseConfig) {
-		var ret map[string]interface{}
+		var ret ProgressiveReleaseConfig
 		return ret
 	}
-	return o.ProgressiveReleaseConfig
+	return *o.ProgressiveReleaseConfig
 }
 
 // GetProgressiveReleaseConfigOk returns a tuple with the ProgressiveReleaseConfig field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ReleasePolicy) GetProgressiveReleaseConfigOk() (map[string]interface{}, bool) {
+func (o *ReleasePolicy) GetProgressiveReleaseConfigOk() (*ProgressiveReleaseConfig, bool) {
 	if o == nil || IsNil(o.ProgressiveReleaseConfig) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
 	return o.ProgressiveReleaseConfig, true
 }
@@ -257,9 +256,9 @@ func (o *ReleasePolicy) HasProgressiveReleaseConfig() bool {
 	return false
 }
 
-// SetProgressiveReleaseConfig gets a reference to the given map[string]interface{} and assigns it to the ProgressiveReleaseConfig field.
-func (o *ReleasePolicy) SetProgressiveReleaseConfig(v map[string]interface{}) {
-	o.ProgressiveReleaseConfig = v
+// SetProgressiveReleaseConfig gets a reference to the given ProgressiveReleaseConfig and assigns it to the ProgressiveReleaseConfig field.
+func (o *ReleasePolicy) SetProgressiveReleaseConfig(v ProgressiveReleaseConfig) {
+	o.ProgressiveReleaseConfig = &v
 }
 
 // GetName returns the Name field value

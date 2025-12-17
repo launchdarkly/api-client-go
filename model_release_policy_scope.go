@@ -22,6 +22,8 @@ var _ MappedNullable = &ReleasePolicyScope{}
 type ReleasePolicyScope struct {
 	// List of environment keys this policy applies to
 	EnvironmentKeys []string `json:"environmentKeys,omitempty"`
+	// List of flag tag keys this policy applies to
+	FlagTagKeys []string `json:"flagTagKeys,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -76,6 +78,38 @@ func (o *ReleasePolicyScope) SetEnvironmentKeys(v []string) {
 	o.EnvironmentKeys = v
 }
 
+// GetFlagTagKeys returns the FlagTagKeys field value if set, zero value otherwise.
+func (o *ReleasePolicyScope) GetFlagTagKeys() []string {
+	if o == nil || IsNil(o.FlagTagKeys) {
+		var ret []string
+		return ret
+	}
+	return o.FlagTagKeys
+}
+
+// GetFlagTagKeysOk returns a tuple with the FlagTagKeys field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ReleasePolicyScope) GetFlagTagKeysOk() ([]string, bool) {
+	if o == nil || IsNil(o.FlagTagKeys) {
+		return nil, false
+	}
+	return o.FlagTagKeys, true
+}
+
+// HasFlagTagKeys returns a boolean if a field has been set.
+func (o *ReleasePolicyScope) HasFlagTagKeys() bool {
+	if o != nil && !IsNil(o.FlagTagKeys) {
+		return true
+	}
+
+	return false
+}
+
+// SetFlagTagKeys gets a reference to the given []string and assigns it to the FlagTagKeys field.
+func (o *ReleasePolicyScope) SetFlagTagKeys(v []string) {
+	o.FlagTagKeys = v
+}
+
 func (o ReleasePolicyScope) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -88,6 +122,9 @@ func (o ReleasePolicyScope) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.EnvironmentKeys) {
 		toSerialize["environmentKeys"] = o.EnvironmentKeys
+	}
+	if !IsNil(o.FlagTagKeys) {
+		toSerialize["flagTagKeys"] = o.FlagTagKeys
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -112,6 +149,7 @@ func (o *ReleasePolicyScope) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "environmentKeys")
+		delete(additionalProperties, "flagTagKeys")
 		o.AdditionalProperties = additionalProperties
 	}
 

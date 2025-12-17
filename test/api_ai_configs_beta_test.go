@@ -241,6 +241,20 @@ func Test_ldapi_AIConfigsBetaApiService(t *testing.T) {
 
 	})
 
+	t.Run("Test AIConfigsBetaApiService ListAgentGraphs", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var projectKey string
+
+		resp, httpRes, err := apiClient.AIConfigsBetaApi.ListAgentGraphs(context.Background(), projectKey).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test AIConfigsBetaApiService ListModelConfigs", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
@@ -352,6 +366,20 @@ func Test_ldapi_AIConfigsBetaApiService(t *testing.T) {
 		var projectKey string
 
 		resp, httpRes, err := apiClient.AIConfigsBetaApi.PostAITool(context.Background(), projectKey).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test AIConfigsBetaApiService PostAgentGraph", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var projectKey string
+
+		resp, httpRes, err := apiClient.AIConfigsBetaApi.PostAgentGraph(context.Background(), projectKey).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

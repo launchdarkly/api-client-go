@@ -34,8 +34,6 @@ type IterationInput struct {
 	Flags map[string]FlagInput `json:"flags"`
 	// The unit of randomization for this iteration. Defaults to user.
 	RandomizationUnit *string `json:"randomizationUnit,omitempty"`
-	// The ID of the covariance CSV
-	CovarianceId *string `json:"covarianceId,omitempty"`
 	// The attributes that this iteration's results can be sliced by
 	Attributes []string `json:"attributes,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -288,38 +286,6 @@ func (o *IterationInput) SetRandomizationUnit(v string) {
 	o.RandomizationUnit = &v
 }
 
-// GetCovarianceId returns the CovarianceId field value if set, zero value otherwise.
-func (o *IterationInput) GetCovarianceId() string {
-	if o == nil || IsNil(o.CovarianceId) {
-		var ret string
-		return ret
-	}
-	return *o.CovarianceId
-}
-
-// GetCovarianceIdOk returns a tuple with the CovarianceId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *IterationInput) GetCovarianceIdOk() (*string, bool) {
-	if o == nil || IsNil(o.CovarianceId) {
-		return nil, false
-	}
-	return o.CovarianceId, true
-}
-
-// HasCovarianceId returns a boolean if a field has been set.
-func (o *IterationInput) HasCovarianceId() bool {
-	if o != nil && !IsNil(o.CovarianceId) {
-		return true
-	}
-
-	return false
-}
-
-// SetCovarianceId gets a reference to the given string and assigns it to the CovarianceId field.
-func (o *IterationInput) SetCovarianceId(v string) {
-	o.CovarianceId = &v
-}
-
 // GetAttributes returns the Attributes field value if set, zero value otherwise.
 func (o *IterationInput) GetAttributes() []string {
 	if o == nil || IsNil(o.Attributes) {
@@ -378,9 +344,6 @@ func (o IterationInput) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.RandomizationUnit) {
 		toSerialize["randomizationUnit"] = o.RandomizationUnit
 	}
-	if !IsNil(o.CovarianceId) {
-		toSerialize["covarianceId"] = o.CovarianceId
-	}
 	if !IsNil(o.Attributes) {
 		toSerialize["attributes"] = o.Attributes
 	}
@@ -438,7 +401,6 @@ func (o *IterationInput) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "treatments")
 		delete(additionalProperties, "flags")
 		delete(additionalProperties, "randomizationUnit")
-		delete(additionalProperties, "covarianceId")
 		delete(additionalProperties, "attributes")
 		o.AdditionalProperties = additionalProperties
 	}

@@ -12,6 +12,8 @@ Method | HTTP request | Description
 [**GetEventsUsage**](AccountUsageBetaApi.md#GetEventsUsage) | **Get** /api/v2/usage/events/{type} | Get events usage
 [**GetExperimentationEventsUsage**](AccountUsageBetaApi.md#GetExperimentationEventsUsage) | **Get** /api/v2/usage/experimentation-events | Get experimentation events usage
 [**GetExperimentationKeysUsage**](AccountUsageBetaApi.md#GetExperimentationKeysUsage) | **Get** /api/v2/usage/experimentation-keys | Get experimentation keys usage
+[**GetMAUClientsideUsage**](AccountUsageBetaApi.md#GetMAUClientsideUsage) | **Get** /api/v2/usage/clientside-mau | Get MAU clientside usage
+[**GetMAUTotalUsage**](AccountUsageBetaApi.md#GetMAUTotalUsage) | **Get** /api/v2/usage/total-mau | Get MAU total usage
 [**GetMauSdksByType**](AccountUsageBetaApi.md#GetMauSdksByType) | **Get** /api/v2/usage/mau/sdks | Get MAU SDKs by type
 [**GetMauUsage**](AccountUsageBetaApi.md#GetMauUsage) | **Get** /api/v2/usage/mau | Get MAU usage
 [**GetMauUsageByCategory**](AccountUsageBetaApi.md#GetMauUsageByCategory) | **Get** /api/v2/usage/mau/bycategory | Get MAU usage by category
@@ -659,6 +661,172 @@ Name | Type | Description  | Notes
  **groupBy** | **string** | If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.&lt;br/&gt;Valid values: &#x60;projectId&#x60;, &#x60;environmentId&#x60;, &#x60;experimentId&#x60;. | 
  **aggregationType** | **string** | Specifies the aggregation method. Defaults to &#x60;month_to_date&#x60;.&lt;br/&gt;Valid values: &#x60;month_to_date&#x60;, &#x60;incremental&#x60;. | 
  **granularity** | **string** | Specifies the data granularity. Defaults to &#x60;daily&#x60;. &#x60;monthly&#x60; granularity is only supported with the **month_to_date** aggregation type.&lt;br/&gt;Valid values: &#x60;daily&#x60;, &#x60;hourly&#x60;, &#x60;monthly&#x60;. | 
+
+### Return type
+
+[**SeriesListRep**](SeriesListRep.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetMAUClientsideUsage
+
+> SeriesListRep GetMAUClientsideUsage(ctx).From(from).To(to).ProjectKey(projectKey).EnvironmentKey(environmentKey).SdkName(sdkName).Anonymous(anonymous).GroupBy(groupBy).AggregationType(aggregationType).Granularity(granularity).Execute()
+
+Get MAU clientside usage
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
+)
+
+func main() {
+	from := "from_example" // string | The series of data returned starts from this timestamp (Unix milliseconds). Defaults to the beginning of the current month. (optional)
+	to := "to_example" // string | The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time. (optional)
+	projectKey := "projectKey_example" // string | A project key to filter results by. Can be specified multiple times, one query parameter per project key. (optional)
+	environmentKey := "environmentKey_example" // string | An environment key to filter results by. If specified, exactly one `projectKey` must be provided. Can be specified multiple times, one query parameter per environment key. (optional)
+	sdkName := "sdkName_example" // string | An SDK name to filter results by. Can be specified multiple times, one query parameter per SDK name. (optional)
+	anonymous := "anonymous_example" // string | An anonymous value to filter results by. Can be specified multiple times, one query parameter per anonymous value.<br/>Valid values: `true`, `false`. (optional)
+	groupBy := "groupBy_example" // string | If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.<br/>Valid values: `projectId`, `environmentId`, `sdkName`, `sdkAppId`, `anonymousV2`. (optional)
+	aggregationType := "aggregationType_example" // string | Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`, `rolling_30d`. (optional)
+	granularity := "granularity_example" // string | Specifies the data granularity. Defaults to `daily`. Valid values depend on `aggregationType`: **month_to_date** supports `daily` and `monthly`; **incremental** and **rolling_30d** support `daily` only. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AccountUsageBetaApi.GetMAUClientsideUsage(context.Background()).From(from).To(to).ProjectKey(projectKey).EnvironmentKey(environmentKey).SdkName(sdkName).Anonymous(anonymous).GroupBy(groupBy).AggregationType(aggregationType).Granularity(granularity).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AccountUsageBetaApi.GetMAUClientsideUsage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetMAUClientsideUsage`: SeriesListRep
+	fmt.Fprintf(os.Stdout, "Response from `AccountUsageBetaApi.GetMAUClientsideUsage`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetMAUClientsideUsageRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **from** | **string** | The series of data returned starts from this timestamp (Unix milliseconds). Defaults to the beginning of the current month. | 
+ **to** | **string** | The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time. | 
+ **projectKey** | **string** | A project key to filter results by. Can be specified multiple times, one query parameter per project key. | 
+ **environmentKey** | **string** | An environment key to filter results by. If specified, exactly one &#x60;projectKey&#x60; must be provided. Can be specified multiple times, one query parameter per environment key. | 
+ **sdkName** | **string** | An SDK name to filter results by. Can be specified multiple times, one query parameter per SDK name. | 
+ **anonymous** | **string** | An anonymous value to filter results by. Can be specified multiple times, one query parameter per anonymous value.&lt;br/&gt;Valid values: &#x60;true&#x60;, &#x60;false&#x60;. | 
+ **groupBy** | **string** | If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.&lt;br/&gt;Valid values: &#x60;projectId&#x60;, &#x60;environmentId&#x60;, &#x60;sdkName&#x60;, &#x60;sdkAppId&#x60;, &#x60;anonymousV2&#x60;. | 
+ **aggregationType** | **string** | Specifies the aggregation method. Defaults to &#x60;month_to_date&#x60;.&lt;br/&gt;Valid values: &#x60;month_to_date&#x60;, &#x60;incremental&#x60;, &#x60;rolling_30d&#x60;. | 
+ **granularity** | **string** | Specifies the data granularity. Defaults to &#x60;daily&#x60;. Valid values depend on &#x60;aggregationType&#x60;: **month_to_date** supports &#x60;daily&#x60; and &#x60;monthly&#x60;; **incremental** and **rolling_30d** support &#x60;daily&#x60; only. | 
+
+### Return type
+
+[**SeriesListRep**](SeriesListRep.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetMAUTotalUsage
+
+> SeriesListRep GetMAUTotalUsage(ctx).From(from).To(to).ProjectKey(projectKey).EnvironmentKey(environmentKey).SdkName(sdkName).SdkType(sdkType).Anonymous(anonymous).GroupBy(groupBy).AggregationType(aggregationType).Granularity(granularity).Execute()
+
+Get MAU total usage
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
+)
+
+func main() {
+	from := "from_example" // string | The series of data returned starts from this timestamp (Unix milliseconds). Defaults to the beginning of the current month. (optional)
+	to := "to_example" // string | The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time. (optional)
+	projectKey := "projectKey_example" // string | A project key to filter results by. Can be specified multiple times, one query parameter per project key. (optional)
+	environmentKey := "environmentKey_example" // string | An environment key to filter results by. If specified, exactly one `projectKey` must be provided. Can be specified multiple times, one query parameter per environment key. (optional)
+	sdkName := "sdkName_example" // string | An SDK name to filter results by. Can be specified multiple times, one query parameter per SDK name. (optional)
+	sdkType := "sdkType_example" // string | An SDK type to filter results by. Can be specified multiple times, one query parameter per SDK type. (optional)
+	anonymous := "anonymous_example" // string | An anonymous value to filter results by. Can be specified multiple times, one query parameter per anonymous value.<br/>Valid values: `true`, `false`. (optional)
+	groupBy := "groupBy_example" // string | If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.<br/>Valid values: `projectId`, `environmentId`, `sdkName`, `sdkType`, `sdkAppId`, `anonymousV2`. (optional)
+	aggregationType := "aggregationType_example" // string | Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`, `rolling_30d`. (optional)
+	granularity := "granularity_example" // string | Specifies the data granularity. Defaults to `daily`. Valid values depend on `aggregationType`: **month_to_date** supports `daily` and `monthly`; **incremental** and **rolling_30d** support `daily` only. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AccountUsageBetaApi.GetMAUTotalUsage(context.Background()).From(from).To(to).ProjectKey(projectKey).EnvironmentKey(environmentKey).SdkName(sdkName).SdkType(sdkType).Anonymous(anonymous).GroupBy(groupBy).AggregationType(aggregationType).Granularity(granularity).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AccountUsageBetaApi.GetMAUTotalUsage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetMAUTotalUsage`: SeriesListRep
+	fmt.Fprintf(os.Stdout, "Response from `AccountUsageBetaApi.GetMAUTotalUsage`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetMAUTotalUsageRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **from** | **string** | The series of data returned starts from this timestamp (Unix milliseconds). Defaults to the beginning of the current month. | 
+ **to** | **string** | The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time. | 
+ **projectKey** | **string** | A project key to filter results by. Can be specified multiple times, one query parameter per project key. | 
+ **environmentKey** | **string** | An environment key to filter results by. If specified, exactly one &#x60;projectKey&#x60; must be provided. Can be specified multiple times, one query parameter per environment key. | 
+ **sdkName** | **string** | An SDK name to filter results by. Can be specified multiple times, one query parameter per SDK name. | 
+ **sdkType** | **string** | An SDK type to filter results by. Can be specified multiple times, one query parameter per SDK type. | 
+ **anonymous** | **string** | An anonymous value to filter results by. Can be specified multiple times, one query parameter per anonymous value.&lt;br/&gt;Valid values: &#x60;true&#x60;, &#x60;false&#x60;. | 
+ **groupBy** | **string** | If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.&lt;br/&gt;Valid values: &#x60;projectId&#x60;, &#x60;environmentId&#x60;, &#x60;sdkName&#x60;, &#x60;sdkType&#x60;, &#x60;sdkAppId&#x60;, &#x60;anonymousV2&#x60;. | 
+ **aggregationType** | **string** | Specifies the aggregation method. Defaults to &#x60;month_to_date&#x60;.&lt;br/&gt;Valid values: &#x60;month_to_date&#x60;, &#x60;incremental&#x60;, &#x60;rolling_30d&#x60;. | 
+ **granularity** | **string** | Specifies the data granularity. Defaults to &#x60;daily&#x60;. Valid values depend on &#x60;aggregationType&#x60;: **month_to_date** supports &#x60;daily&#x60; and &#x60;monthly&#x60;; **incremental** and **rolling_30d** support &#x60;daily&#x60; only. | 
 
 ### Return type
 

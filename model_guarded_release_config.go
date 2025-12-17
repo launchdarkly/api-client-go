@@ -13,7 +13,6 @@ package ldapi
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the GuardedReleaseConfig type satisfies the MappedNullable interface at compile time
@@ -21,10 +20,18 @@ var _ MappedNullable = &GuardedReleaseConfig{}
 
 // GuardedReleaseConfig Configuration for guarded releases
 type GuardedReleaseConfig struct {
+	// Context kind key to use as the randomization unit for the rollout
+	RolloutContextKindKey *string `json:"rolloutContextKindKey,omitempty"`
 	// The minimum number of samples required to make a decision
 	MinSampleSize *int32 `json:"minSampleSize,omitempty"`
 	// Whether to roll back on regression
-	RollbackOnRegression bool `json:"rollbackOnRegression"`
+	RollbackOnRegression *bool `json:"rollbackOnRegression,omitempty"`
+	// List of metric keys
+	MetricKeys []string `json:"metricKeys,omitempty"`
+	// List of metric group keys
+	MetricGroupKeys []string `json:"metricGroupKeys,omitempty"`
+	// List of stages
+	Stages []ReleasePolicyStage `json:"stages,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -34,9 +41,8 @@ type _GuardedReleaseConfig GuardedReleaseConfig
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGuardedReleaseConfig(rollbackOnRegression bool) *GuardedReleaseConfig {
+func NewGuardedReleaseConfig() *GuardedReleaseConfig {
 	this := GuardedReleaseConfig{}
-	this.RollbackOnRegression = rollbackOnRegression
 	return &this
 }
 
@@ -46,6 +52,38 @@ func NewGuardedReleaseConfig(rollbackOnRegression bool) *GuardedReleaseConfig {
 func NewGuardedReleaseConfigWithDefaults() *GuardedReleaseConfig {
 	this := GuardedReleaseConfig{}
 	return &this
+}
+
+// GetRolloutContextKindKey returns the RolloutContextKindKey field value if set, zero value otherwise.
+func (o *GuardedReleaseConfig) GetRolloutContextKindKey() string {
+	if o == nil || IsNil(o.RolloutContextKindKey) {
+		var ret string
+		return ret
+	}
+	return *o.RolloutContextKindKey
+}
+
+// GetRolloutContextKindKeyOk returns a tuple with the RolloutContextKindKey field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GuardedReleaseConfig) GetRolloutContextKindKeyOk() (*string, bool) {
+	if o == nil || IsNil(o.RolloutContextKindKey) {
+		return nil, false
+	}
+	return o.RolloutContextKindKey, true
+}
+
+// HasRolloutContextKindKey returns a boolean if a field has been set.
+func (o *GuardedReleaseConfig) HasRolloutContextKindKey() bool {
+	if o != nil && !IsNil(o.RolloutContextKindKey) {
+		return true
+	}
+
+	return false
+}
+
+// SetRolloutContextKindKey gets a reference to the given string and assigns it to the RolloutContextKindKey field.
+func (o *GuardedReleaseConfig) SetRolloutContextKindKey(v string) {
+	o.RolloutContextKindKey = &v
 }
 
 // GetMinSampleSize returns the MinSampleSize field value if set, zero value otherwise.
@@ -80,28 +118,132 @@ func (o *GuardedReleaseConfig) SetMinSampleSize(v int32) {
 	o.MinSampleSize = &v
 }
 
-// GetRollbackOnRegression returns the RollbackOnRegression field value
+// GetRollbackOnRegression returns the RollbackOnRegression field value if set, zero value otherwise.
 func (o *GuardedReleaseConfig) GetRollbackOnRegression() bool {
-	if o == nil {
+	if o == nil || IsNil(o.RollbackOnRegression) {
 		var ret bool
 		return ret
 	}
-
-	return o.RollbackOnRegression
+	return *o.RollbackOnRegression
 }
 
-// GetRollbackOnRegressionOk returns a tuple with the RollbackOnRegression field value
+// GetRollbackOnRegressionOk returns a tuple with the RollbackOnRegression field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GuardedReleaseConfig) GetRollbackOnRegressionOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.RollbackOnRegression) {
 		return nil, false
 	}
-	return &o.RollbackOnRegression, true
+	return o.RollbackOnRegression, true
 }
 
-// SetRollbackOnRegression sets field value
+// HasRollbackOnRegression returns a boolean if a field has been set.
+func (o *GuardedReleaseConfig) HasRollbackOnRegression() bool {
+	if o != nil && !IsNil(o.RollbackOnRegression) {
+		return true
+	}
+
+	return false
+}
+
+// SetRollbackOnRegression gets a reference to the given bool and assigns it to the RollbackOnRegression field.
 func (o *GuardedReleaseConfig) SetRollbackOnRegression(v bool) {
-	o.RollbackOnRegression = v
+	o.RollbackOnRegression = &v
+}
+
+// GetMetricKeys returns the MetricKeys field value if set, zero value otherwise.
+func (o *GuardedReleaseConfig) GetMetricKeys() []string {
+	if o == nil || IsNil(o.MetricKeys) {
+		var ret []string
+		return ret
+	}
+	return o.MetricKeys
+}
+
+// GetMetricKeysOk returns a tuple with the MetricKeys field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GuardedReleaseConfig) GetMetricKeysOk() ([]string, bool) {
+	if o == nil || IsNil(o.MetricKeys) {
+		return nil, false
+	}
+	return o.MetricKeys, true
+}
+
+// HasMetricKeys returns a boolean if a field has been set.
+func (o *GuardedReleaseConfig) HasMetricKeys() bool {
+	if o != nil && !IsNil(o.MetricKeys) {
+		return true
+	}
+
+	return false
+}
+
+// SetMetricKeys gets a reference to the given []string and assigns it to the MetricKeys field.
+func (o *GuardedReleaseConfig) SetMetricKeys(v []string) {
+	o.MetricKeys = v
+}
+
+// GetMetricGroupKeys returns the MetricGroupKeys field value if set, zero value otherwise.
+func (o *GuardedReleaseConfig) GetMetricGroupKeys() []string {
+	if o == nil || IsNil(o.MetricGroupKeys) {
+		var ret []string
+		return ret
+	}
+	return o.MetricGroupKeys
+}
+
+// GetMetricGroupKeysOk returns a tuple with the MetricGroupKeys field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GuardedReleaseConfig) GetMetricGroupKeysOk() ([]string, bool) {
+	if o == nil || IsNil(o.MetricGroupKeys) {
+		return nil, false
+	}
+	return o.MetricGroupKeys, true
+}
+
+// HasMetricGroupKeys returns a boolean if a field has been set.
+func (o *GuardedReleaseConfig) HasMetricGroupKeys() bool {
+	if o != nil && !IsNil(o.MetricGroupKeys) {
+		return true
+	}
+
+	return false
+}
+
+// SetMetricGroupKeys gets a reference to the given []string and assigns it to the MetricGroupKeys field.
+func (o *GuardedReleaseConfig) SetMetricGroupKeys(v []string) {
+	o.MetricGroupKeys = v
+}
+
+// GetStages returns the Stages field value if set, zero value otherwise.
+func (o *GuardedReleaseConfig) GetStages() []ReleasePolicyStage {
+	if o == nil || IsNil(o.Stages) {
+		var ret []ReleasePolicyStage
+		return ret
+	}
+	return o.Stages
+}
+
+// GetStagesOk returns a tuple with the Stages field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GuardedReleaseConfig) GetStagesOk() ([]ReleasePolicyStage, bool) {
+	if o == nil || IsNil(o.Stages) {
+		return nil, false
+	}
+	return o.Stages, true
+}
+
+// HasStages returns a boolean if a field has been set.
+func (o *GuardedReleaseConfig) HasStages() bool {
+	if o != nil && !IsNil(o.Stages) {
+		return true
+	}
+
+	return false
+}
+
+// SetStages gets a reference to the given []ReleasePolicyStage and assigns it to the Stages field.
+func (o *GuardedReleaseConfig) SetStages(v []ReleasePolicyStage) {
+	o.Stages = v
 }
 
 func (o GuardedReleaseConfig) MarshalJSON() ([]byte, error) {
@@ -114,10 +256,24 @@ func (o GuardedReleaseConfig) MarshalJSON() ([]byte, error) {
 
 func (o GuardedReleaseConfig) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.RolloutContextKindKey) {
+		toSerialize["rolloutContextKindKey"] = o.RolloutContextKindKey
+	}
 	if !IsNil(o.MinSampleSize) {
 		toSerialize["minSampleSize"] = o.MinSampleSize
 	}
-	toSerialize["rollbackOnRegression"] = o.RollbackOnRegression
+	if !IsNil(o.RollbackOnRegression) {
+		toSerialize["rollbackOnRegression"] = o.RollbackOnRegression
+	}
+	if !IsNil(o.MetricKeys) {
+		toSerialize["metricKeys"] = o.MetricKeys
+	}
+	if !IsNil(o.MetricGroupKeys) {
+		toSerialize["metricGroupKeys"] = o.MetricGroupKeys
+	}
+	if !IsNil(o.Stages) {
+		toSerialize["stages"] = o.Stages
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -127,27 +283,6 @@ func (o GuardedReleaseConfig) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *GuardedReleaseConfig) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"rollbackOnRegression",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err;
-	}
-
-	for _, requiredProperty := range(requiredProperties) {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varGuardedReleaseConfig := _GuardedReleaseConfig{}
 
 	err = json.Unmarshal(data, &varGuardedReleaseConfig)
@@ -161,8 +296,12 @@ func (o *GuardedReleaseConfig) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "rolloutContextKindKey")
 		delete(additionalProperties, "minSampleSize")
 		delete(additionalProperties, "rollbackOnRegression")
+		delete(additionalProperties, "metricKeys")
+		delete(additionalProperties, "metricGroupKeys")
+		delete(additionalProperties, "stages")
 		o.AdditionalProperties = additionalProperties
 	}
 

@@ -28,6 +28,7 @@ type AIConfigPost struct {
 	Mode *string `json:"mode,omitempty"`
 	Name string `json:"name"`
 	Tags []string `json:"tags,omitempty"`
+	DefaultVariation *AIConfigVariationPost `json:"defaultVariation,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -268,6 +269,38 @@ func (o *AIConfigPost) SetTags(v []string) {
 	o.Tags = v
 }
 
+// GetDefaultVariation returns the DefaultVariation field value if set, zero value otherwise.
+func (o *AIConfigPost) GetDefaultVariation() AIConfigVariationPost {
+	if o == nil || IsNil(o.DefaultVariation) {
+		var ret AIConfigVariationPost
+		return ret
+	}
+	return *o.DefaultVariation
+}
+
+// GetDefaultVariationOk returns a tuple with the DefaultVariation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AIConfigPost) GetDefaultVariationOk() (*AIConfigVariationPost, bool) {
+	if o == nil || IsNil(o.DefaultVariation) {
+		return nil, false
+	}
+	return o.DefaultVariation, true
+}
+
+// HasDefaultVariation returns a boolean if a field has been set.
+func (o *AIConfigPost) HasDefaultVariation() bool {
+	if o != nil && !IsNil(o.DefaultVariation) {
+		return true
+	}
+
+	return false
+}
+
+// SetDefaultVariation gets a reference to the given AIConfigVariationPost and assigns it to the DefaultVariation field.
+func (o *AIConfigPost) SetDefaultVariation(v AIConfigVariationPost) {
+	o.DefaultVariation = &v
+}
+
 func (o AIConfigPost) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -294,6 +327,9 @@ func (o AIConfigPost) ToMap() (map[string]interface{}, error) {
 	toSerialize["name"] = o.Name
 	if !IsNil(o.Tags) {
 		toSerialize["tags"] = o.Tags
+	}
+	if !IsNil(o.DefaultVariation) {
+		toSerialize["defaultVariation"] = o.DefaultVariation
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -346,6 +382,7 @@ func (o *AIConfigPost) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "mode")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "tags")
+		delete(additionalProperties, "defaultVariation")
 		o.AdditionalProperties = additionalProperties
 	}
 

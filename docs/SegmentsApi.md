@@ -1111,7 +1111,7 @@ Name | Type | Description  | Notes
 
 ## PatchSegment
 
-> UserSegment PatchSegment(ctx, projectKey, environmentKey, segmentKey).PatchWithComment(patchWithComment).Execute()
+> UserSegment PatchSegment(ctx, projectKey, environmentKey, segmentKey).PatchWithComment(patchWithComment).DryRun(dryRun).Execute()
 
 Patch segment
 
@@ -1134,10 +1134,11 @@ func main() {
 	environmentKey := "environmentKey_example" // string | The environment key
 	segmentKey := "segmentKey_example" // string | The segment key
 	patchWithComment := *openapiclient.NewPatchWithComment([]openapiclient.PatchOperation{*openapiclient.NewPatchOperation("replace", "/exampleField")}) // PatchWithComment | 
+	dryRun := true // bool | If true, the patch will be validated but not persisted. Returns a preview of the segment after the patch is applied. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.SegmentsApi.PatchSegment(context.Background(), projectKey, environmentKey, segmentKey).PatchWithComment(patchWithComment).Execute()
+	resp, r, err := apiClient.SegmentsApi.PatchSegment(context.Background(), projectKey, environmentKey, segmentKey).PatchWithComment(patchWithComment).DryRun(dryRun).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.PatchSegment``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1168,6 +1169,7 @@ Name | Type | Description  | Notes
 
 
  **patchWithComment** | [**PatchWithComment**](PatchWithComment.md) |  | 
+ **dryRun** | **bool** | If true, the patch will be validated but not persisted. Returns a preview of the segment after the patch is applied. | 
 
 ### Return type
 

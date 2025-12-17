@@ -19,6 +19,7 @@ Method | HTTP request | Description
 [**GetModelConfig**](AIConfigsBetaApi.md#GetModelConfig) | **Get** /api/v2/projects/{projectKey}/ai-configs/model-configs/{modelConfigKey} | Get AI model config
 [**ListAIToolVersions**](AIConfigsBetaApi.md#ListAIToolVersions) | **Get** /api/v2/projects/{projectKey}/ai-tools/{toolKey}/versions | List AI tool versions
 [**ListAITools**](AIConfigsBetaApi.md#ListAITools) | **Get** /api/v2/projects/{projectKey}/ai-tools | List AI tools
+[**ListAgentGraphs**](AIConfigsBetaApi.md#ListAgentGraphs) | **Get** /api/v2/projects/{projectKey}/agent-graphs | List agent graphs
 [**ListModelConfigs**](AIConfigsBetaApi.md#ListModelConfigs) | **Get** /api/v2/projects/{projectKey}/ai-configs/model-configs | List AI model configs
 [**PatchAIConfig**](AIConfigsBetaApi.md#PatchAIConfig) | **Patch** /api/v2/projects/{projectKey}/ai-configs/{configKey} | Update AI Config
 [**PatchAIConfigTargeting**](AIConfigsBetaApi.md#PatchAIConfigTargeting) | **Patch** /api/v2/projects/{projectKey}/ai-configs/{configKey}/targeting | Update AI Config targeting
@@ -27,6 +28,7 @@ Method | HTTP request | Description
 [**PostAIConfig**](AIConfigsBetaApi.md#PostAIConfig) | **Post** /api/v2/projects/{projectKey}/ai-configs | Create new AI Config
 [**PostAIConfigVariation**](AIConfigsBetaApi.md#PostAIConfigVariation) | **Post** /api/v2/projects/{projectKey}/ai-configs/{configKey}/variations | Create AI Config variation
 [**PostAITool**](AIConfigsBetaApi.md#PostAITool) | **Post** /api/v2/projects/{projectKey}/ai-tools | Create an AI tool
+[**PostAgentGraph**](AIConfigsBetaApi.md#PostAgentGraph) | **Post** /api/v2/projects/{projectKey}/agent-graphs | Create new agent graph
 [**PostModelConfig**](AIConfigsBetaApi.md#PostModelConfig) | **Post** /api/v2/projects/{projectKey}/ai-configs/model-configs | Create an AI model config
 [**PostRestrictedModels**](AIConfigsBetaApi.md#PostRestrictedModels) | **Post** /api/v2/projects/{projectKey}/ai-configs/model-configs/restricted | Add AI models to the restricted list
 
@@ -1180,6 +1182,82 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## ListAgentGraphs
+
+> AgentGraphs ListAgentGraphs(ctx, projectKey).LDAPIVersion(lDAPIVersion).Limit(limit).Offset(offset).Execute()
+
+List agent graphs
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
+)
+
+func main() {
+	lDAPIVersion := "lDAPIVersion_example" // string | Version of the endpoint.
+	projectKey := "projectKey_example" // string | 
+	limit := int32(56) // int32 | The number of AI Configs to return. (optional)
+	offset := int32(56) // int32 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AIConfigsBetaApi.ListAgentGraphs(context.Background(), projectKey).LDAPIVersion(lDAPIVersion).Limit(limit).Offset(offset).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsBetaApi.ListAgentGraphs``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListAgentGraphs`: AgentGraphs
+	fmt.Fprintf(os.Stdout, "Response from `AIConfigsBetaApi.ListAgentGraphs`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projectKey** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListAgentGraphsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **lDAPIVersion** | **string** | Version of the endpoint. | 
+
+ **limit** | **int32** | The number of AI Configs to return. | 
+ **offset** | **int32** | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | 
+
+### Return type
+
+[**AgentGraphs**](AgentGraphs.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## ListModelConfigs
 
 > []ModelConfig ListModelConfigs(ctx, projectKey).LDAPIVersion(lDAPIVersion).Restricted(restricted).Execute()
@@ -1775,6 +1853,80 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**AITool**](AITool.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostAgentGraph
+
+> AgentGraph PostAgentGraph(ctx, projectKey).LDAPIVersion(lDAPIVersion).AgentGraphPost(agentGraphPost).Execute()
+
+Create new agent graph
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
+)
+
+func main() {
+	lDAPIVersion := "lDAPIVersion_example" // string | Version of the endpoint.
+	projectKey := "projectKey_example" // string | 
+	agentGraphPost := *openapiclient.NewAgentGraphPost("Key_example", "Name_example") // AgentGraphPost | Agent graph object to create
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AIConfigsBetaApi.PostAgentGraph(context.Background(), projectKey).LDAPIVersion(lDAPIVersion).AgentGraphPost(agentGraphPost).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsBetaApi.PostAgentGraph``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostAgentGraph`: AgentGraph
+	fmt.Fprintf(os.Stdout, "Response from `AIConfigsBetaApi.PostAgentGraph`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projectKey** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostAgentGraphRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **lDAPIVersion** | **string** | Version of the endpoint. | 
+
+ **agentGraphPost** | [**AgentGraphPost**](AgentGraphPost.md) | Agent graph object to create | 
+
+### Return type
+
+[**AgentGraph**](AgentGraph.md)
 
 ### Authorization
 

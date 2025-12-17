@@ -24,8 +24,7 @@ type PutReleasePolicyRequest struct {
 	Scope *ReleasePolicyScope `json:"scope,omitempty"`
 	ReleaseMethod ReleaseMethod `json:"releaseMethod"`
 	GuardedReleaseConfig *GuardedReleaseConfig `json:"guardedReleaseConfig,omitempty"`
-	// Configuration for progressive releases
-	ProgressiveReleaseConfig map[string]interface{} `json:"progressiveReleaseConfig,omitempty"`
+	ProgressiveReleaseConfig *ProgressiveReleaseConfig `json:"progressiveReleaseConfig,omitempty"`
 	// The name of the release policy
 	Name string `json:"name"`
 	AdditionalProperties map[string]interface{}
@@ -141,19 +140,19 @@ func (o *PutReleasePolicyRequest) SetGuardedReleaseConfig(v GuardedReleaseConfig
 }
 
 // GetProgressiveReleaseConfig returns the ProgressiveReleaseConfig field value if set, zero value otherwise.
-func (o *PutReleasePolicyRequest) GetProgressiveReleaseConfig() map[string]interface{} {
+func (o *PutReleasePolicyRequest) GetProgressiveReleaseConfig() ProgressiveReleaseConfig {
 	if o == nil || IsNil(o.ProgressiveReleaseConfig) {
-		var ret map[string]interface{}
+		var ret ProgressiveReleaseConfig
 		return ret
 	}
-	return o.ProgressiveReleaseConfig
+	return *o.ProgressiveReleaseConfig
 }
 
 // GetProgressiveReleaseConfigOk returns a tuple with the ProgressiveReleaseConfig field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PutReleasePolicyRequest) GetProgressiveReleaseConfigOk() (map[string]interface{}, bool) {
+func (o *PutReleasePolicyRequest) GetProgressiveReleaseConfigOk() (*ProgressiveReleaseConfig, bool) {
 	if o == nil || IsNil(o.ProgressiveReleaseConfig) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
 	return o.ProgressiveReleaseConfig, true
 }
@@ -167,9 +166,9 @@ func (o *PutReleasePolicyRequest) HasProgressiveReleaseConfig() bool {
 	return false
 }
 
-// SetProgressiveReleaseConfig gets a reference to the given map[string]interface{} and assigns it to the ProgressiveReleaseConfig field.
-func (o *PutReleasePolicyRequest) SetProgressiveReleaseConfig(v map[string]interface{}) {
-	o.ProgressiveReleaseConfig = v
+// SetProgressiveReleaseConfig gets a reference to the given ProgressiveReleaseConfig and assigns it to the ProgressiveReleaseConfig field.
+func (o *PutReleasePolicyRequest) SetProgressiveReleaseConfig(v ProgressiveReleaseConfig) {
+	o.ProgressiveReleaseConfig = &v
 }
 
 // GetName returns the Name field value

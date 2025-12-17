@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **Rank** | **int32** | The rank/priority of the release policy | 
 **ReleaseMethod** | [**ReleaseMethod**](ReleaseMethod.md) |  | 
 **GuardedReleaseConfig** | Pointer to [**GuardedReleaseConfig**](GuardedReleaseConfig.md) |  | [optional] 
-**ProgressiveReleaseConfig** | Pointer to **map[string]interface{}** | Configuration for progressive releases | [optional] 
+**ProgressiveReleaseConfig** | Pointer to [**ProgressiveReleaseConfig**](ProgressiveReleaseConfig.md) |  | [optional] 
 **Name** | **string** | The name of the release policy | 
 **Key** | **string** | The human-readable key of the release policy | 
 
@@ -170,20 +170,20 @@ HasGuardedReleaseConfig returns a boolean if a field has been set.
 
 ### GetProgressiveReleaseConfig
 
-`func (o *ReleasePolicy) GetProgressiveReleaseConfig() map[string]interface{}`
+`func (o *ReleasePolicy) GetProgressiveReleaseConfig() ProgressiveReleaseConfig`
 
 GetProgressiveReleaseConfig returns the ProgressiveReleaseConfig field if non-nil, zero value otherwise.
 
 ### GetProgressiveReleaseConfigOk
 
-`func (o *ReleasePolicy) GetProgressiveReleaseConfigOk() (*map[string]interface{}, bool)`
+`func (o *ReleasePolicy) GetProgressiveReleaseConfigOk() (*ProgressiveReleaseConfig, bool)`
 
 GetProgressiveReleaseConfigOk returns a tuple with the ProgressiveReleaseConfig field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetProgressiveReleaseConfig
 
-`func (o *ReleasePolicy) SetProgressiveReleaseConfig(v map[string]interface{})`
+`func (o *ReleasePolicy) SetProgressiveReleaseConfig(v ProgressiveReleaseConfig)`
 
 SetProgressiveReleaseConfig sets ProgressiveReleaseConfig field to given value.
 

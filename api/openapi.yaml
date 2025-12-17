@@ -1463,22 +1463,26 @@ tags:
 
     Several of the endpoints in the Relay Proxy automatic configuration API require a configuration ID. The Relay Proxy configuration ID is returned as part of the [Create a new Relay Proxy config](https://launchdarkly.com/docs/api/relay-proxy-configurations/post-relay-auto-config) and [List Relay Proxy configs](https://launchdarkly.com/docs/api/relay-proxy-configurations/get-relay-proxy-configs) responses. It is the `_id` field, or the `_id` field of each element in the `items` array.
   name: Relay Proxy configurations
-- description: |
-    > ### This feature is in beta
-    >
-    > To use this feature, pass in a header including the `LD-API-Version` key with value set to `beta`. Use this header with each call. To learn more, read [Beta resources](https://launchdarkly.com/docs/api#beta-resources).
-    >
-    > Resources that are in beta are still undergoing testing and development. They may change without notice, including becoming backwards incompatible.
-
-    Release pipelines standardize the release process for feature flags across a series of phases, where each phase consists of one or more environments. When you add a flag to a release pipeline, you create a "release" to automate that flag's progress through the pipeline.
-
-    You can use release pipelines to ensure that you correctly roll out the flag in each environment before moving on to the next. A release can use an immediate or guarded rollout to a designated audience, and can require approvals for selected environments. You can also use release pipelines to view the status of ongoing releases across all flags within a project, enforcing a standardized process and ensuring they are following best practices. To learn more, read [Release pipelines](https://launchdarkly.com/docs/home/releases/release-pipelines).
-
-    With the release pipelines API, you can view, create, update, and delete release pipelines.
-
-    With the related [releases API](https://launchdarkly.com/docs/api/releases-beta), you can view and update the active releases for a given flag.
-
-    To add a feature flag to an existing release pipeline, use the [Update feature flag](https://launchdarkly.com/docs/api/feature-flags/patch-feature-flag) endpoint.
+- description: "> ### This feature is in beta\n>\n> To use this feature, pass in a\
+    \ header including the `LD-API-Version` key with value set to `beta`. Use this\
+    \ header with each call. To learn more, read [Beta resources](https://launchdarkly.com/docs/api#beta-resources).\n\
+    >\n> Resources that are in beta are still undergoing testing and development.\
+    \ They may change without notice, including becoming backwards incompatible.\n\
+    \nRelease pipelines standardize and automate the release process for feature flags\
+    \ across a series of phases, where each phase consists of one or more environments\
+    \ and audiences. Each phase can use an immediate or guarded rollout to a designated\
+    \ audience, and can require approvals for selected environments. You can use release\
+    \ pipelines to ensure that you correctly roll out a flag in one environment before\
+    \ moving on to the next. To learn more, read [Release pipelines](https://launchdarkly.com/docs/home/releases/release-pipelines).\n\
+    \nUse the release pipelines API to view, create, update, and delete release pipelines.\
+    \ You can also use this API to view the progress of all ongoing releases across\
+    \ all flags in a project for a given release pipeline. \n\n### Creating releases\
+    \ and updating release phases\n\nWhen you add a flag to a release pipeline, you\
+    \ create a new \"release\" to automate that flag's progress through phases in\
+    \ the pipeline.\n\nUse the related [releases API](https://launchdarkly.com/docs/api/releases-beta)\
+    \ to create a new release, or to view or update a release for a given flag. For\
+    \ example, you can use the releases API to add a flag to an existing release pipeline,\
+    \ or to start the next phase of a flag's ongoing release.\n"
   name: Release pipelines (beta)
 - description: |
     > ### This feature is in beta
@@ -1489,18 +1493,36 @@ tags:
 
     Release policies let you specify your preferred rollout method for a given set of environments.
   name: Release policies (beta)
-- description: |
-    > ### This feature is in beta
-    >
-    > To use this feature, pass in a header including the `LD-API-Version` key with value set to `beta`. Use this header with each call. To learn more, read [Beta resources](https://launchdarkly.com/docs/api#beta-resources).
-    >
-    > Resources that are in beta are still undergoing testing and development. They may change without notice, including becoming backwards incompatible.
-
-    Release pipelines track the progression of a feature flag across a series of phases, where each phase consists of one or more environments. When you add a flag to a release pipeline, you create a "release" to track that flag's progress through the pipeline. To learn more, read [Release pipelines](https://launchdarkly.com/docs/home/releases/release-pipelines).
-
-    With the releases API, you can view and update the active releases for a given flag.
-
-    With the related [release pipelines API](https://launchdarkly.com/docs/api/release-pipelines-beta), you can view, create, and delete release pipelines.
+- description: "> ### This feature is in beta\n>\n> To use this feature, pass in a\
+    \ header including the `LD-API-Version` key with value set to `beta`. Use this\
+    \ header with each call. To learn more, read [Beta resources](https://launchdarkly.com/docs/api#beta-resources).\n\
+    >\n> Resources that are in beta are still undergoing testing and development.\
+    \ They may change without notice, including becoming backwards incompatible.\n\
+    \nRelease pipelines standardize and automate the release process for feature flags\
+    \ across a series of phases, where each phase consists of one or more environments\
+    \ and audiences. When you add a flag to an existing release pipeline, you create\
+    \ a \"release\" to automate that flag's progress through the pipeline. \n\nUse\
+    \ the releases API to add a flag to an existing release pipeline, or to monitor\
+    \ or update an ongoing release for a flag. Updating an ongoing release generally\
+    \ involves the following steps:\n\n1. Obtain the release phases associated with\
+    \ the release. The `phases` field provides an ordered list of all pipeline phases\
+    \ associated with the flag's release. `phases` is returned in the response when\
+    \ you [Create a new release for a flag](https://launchdarkly.com/docs/api/releases-beta/create-release-for-flag)\
+    \ or [Get the release for a flag](https://launchdarkly.com/docs/api/releases-beta/get-release-by-flag-key).\n\
+    \n2. Determine the `_id` of the phase you want to start. Release pipeline phases\
+    \ take place in their configured order, so find the first incomplete, unstarted\
+    \ phase in the `phases` list. For example, in a newly-created release the first\
+    \ phase in the `phases` list has both the `complete` and `started` fields set\
+    \ to `false`.\n\n3. Use the phase `_id` value with the [Update phase status for\
+    \ release](https://launchdarkly.com/docs/api/releases-beta/update-phase-status)\
+    \ endpoint to start the release phase. At a minimum, you must provide `{\"status\"\
+    : active}` in the request object to start a pipeline phase. If the phase requires\
+    \ approvals or guarded rollouts, provide the additional required information in\
+    \ the `audiences` list.\n\n### Configuring release pipelines\n\nUse the related\
+    \ [release pipelines API](https://launchdarkly.com/docs/api/release-pipelines-beta)\
+    \ to view, create, update, and delete release pipelines, or to view the progress\
+    \ of all ongoing releases across all flags in a project for a given release pipeline.\
+    \ \n"
   name: Releases (beta)
 - description: |
     > ### Scheduled flag changes is an Enterprise feature
@@ -6304,6 +6326,17 @@ paths:
         schema:
           description: "If true, the patch will be applied even if it causes a pending\
             \ scheduled change or approval request to fail."
+          type: boolean
+        style: form
+      - description: "If true, the patch will be validated but not persisted. Returns\
+          \ a preview of the flag after the patch is applied."
+        explode: true
+        in: query
+        name: dryRun
+        required: false
+        schema:
+          description: "If true, the patch will be validated but not persisted. Returns\
+            \ a preview of the flag after the patch is applied."
           type: boolean
         style: form
       requestBody:
@@ -19206,6 +19239,17 @@ paths:
           format: string
           type: string
         style: simple
+      - description: "If true, the patch will be validated but not persisted. Returns\
+          \ a preview of the segment after the patch is applied."
+        explode: true
+        in: query
+        name: dryRun
+        required: false
+        schema:
+          description: "If true, the patch will be validated but not persisted. Returns\
+            \ a preview of the segment after the patch is applied."
+          type: boolean
+        style: form
       requestBody:
         content:
           application/json:
@@ -22103,6 +22147,175 @@ paths:
       summary: Get contexts clientside usage
       tags:
       - Account usage (beta)
+  /api/v2/usage/clientside-mau:
+    get:
+      description: "Get a time series of the number of context key usages observed\
+        \ by LaunchDarkly in your account, for the primary context kind only. The\
+        \ counts reflect data reported from client-side SDKs.<br/><br/>For past months,\
+        \ the primary context kind is fixed and reflects the last known primary kind\
+        \ for that month. For the current month, it may vary as new primary context\
+        \ kinds are observed.<br/><br/>The supported granularity varies by aggregation\
+        \ type. The maximum time range is 365 days."
+      operationId: getMAUClientsideUsage
+      parameters:
+      - description: The series of data returned starts from this timestamp (Unix
+          milliseconds). Defaults to the beginning of the current month.
+        explode: true
+        in: query
+        name: from
+        required: false
+        schema:
+          description: The series of data returned starts from this timestamp (Unix
+            milliseconds). Defaults to the beginning of the current month.
+          format: string
+          type: string
+        style: form
+      - description: The series of data returned ends at this timestamp (Unix milliseconds).
+          Defaults to the current time.
+        explode: true
+        in: query
+        name: to
+        required: false
+        schema:
+          description: The series of data returned ends at this timestamp (Unix milliseconds).
+            Defaults to the current time.
+          format: string
+          type: string
+        style: form
+      - description: "A project key to filter results by. Can be specified multiple\
+          \ times, one query parameter per project key."
+        explode: true
+        in: query
+        name: projectKey
+        required: false
+        schema:
+          description: "A project key to filter results by. Can be specified multiple\
+            \ times, one query parameter per project key."
+          format: string
+          type: string
+        style: form
+      - description: "An environment key to filter results by. If specified, exactly\
+          \ one `projectKey` must be provided. Can be specified multiple times, one\
+          \ query parameter per environment key."
+        explode: true
+        in: query
+        name: environmentKey
+        required: false
+        schema:
+          description: "An environment key to filter results by. If specified, exactly\
+            \ one `projectKey` must be provided. Can be specified multiple times,\
+            \ one query parameter per environment key."
+          format: string
+          type: string
+        style: form
+      - description: "An SDK name to filter results by. Can be specified multiple\
+          \ times, one query parameter per SDK name."
+        explode: true
+        in: query
+        name: sdkName
+        required: false
+        schema:
+          description: "An SDK name to filter results by. Can be specified multiple\
+            \ times, one query parameter per SDK name."
+          format: string
+          type: string
+        style: form
+      - description: "An anonymous value to filter results by. Can be specified multiple\
+          \ times, one query parameter per anonymous value.<br/>Valid values: `true`,\
+          \ `false`."
+        explode: true
+        in: query
+        name: anonymous
+        required: false
+        schema:
+          description: "An anonymous value to filter results by. Can be specified\
+            \ multiple times, one query parameter per anonymous value.<br/>Valid values:\
+            \ `true`, `false`."
+          format: string
+          type: string
+        style: form
+      - description: "If specified, returns data for each distinct value of the given\
+          \ field. Can be specified multiple times to group data by multiple dimensions,\
+          \ one query parameter per dimension.<br/>Valid values: `projectId`, `environmentId`,\
+          \ `sdkName`, `sdkAppId`, `anonymousV2`."
+        explode: true
+        in: query
+        name: groupBy
+        required: false
+        schema:
+          description: "If specified, returns data for each distinct value of the\
+            \ given field. Can be specified multiple times to group data by multiple\
+            \ dimensions, one query parameter per dimension.<br/>Valid values: `projectId`,\
+            \ `environmentId`, `sdkName`, `sdkAppId`, `anonymousV2`."
+          format: string
+          type: string
+        style: form
+      - description: "Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid\
+          \ values: `month_to_date`, `incremental`, `rolling_30d`."
+        explode: true
+        in: query
+        name: aggregationType
+        required: false
+        schema:
+          description: "Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid\
+            \ values: `month_to_date`, `incremental`, `rolling_30d`."
+          format: string
+          type: string
+        style: form
+      - description: "Specifies the data granularity. Defaults to `daily`. Valid values\
+          \ depend on `aggregationType`: **month_to_date** supports `daily` and `monthly`;\
+          \ **incremental** and **rolling_30d** support `daily` only."
+        explode: true
+        in: query
+        name: granularity
+        required: false
+        schema:
+          description: "Specifies the data granularity. Defaults to `daily`. Valid\
+            \ values depend on `aggregationType`: **month_to_date** supports `daily`\
+            \ and `monthly`; **incremental** and **rolling_30d** support `daily` only."
+          format: string
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SeriesListRep"
+          description: Usage response
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidRequestErrorRep"
+          description: Invalid request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorRep"
+          description: Invalid access token
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ForbiddenErrorRep"
+          description: Forbidden
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RateLimitedErrorRep"
+          description: Rate limited
+        "503":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StatusServiceUnavailable"
+          description: Service unavailable
+      summary: Get MAU clientside usage
+      tags:
+      - Account usage (beta)
   /api/v2/usage/data-export-events:
     get:
       description: Get a time series array showing the number of data export events
@@ -22769,6 +22982,7 @@ paths:
       - Account usage (beta)
   /api/v2/usage/mau:
     get:
+      deprecated: true
       description: "Get a time-series array of the number of monthly active users\
         \ (MAU) seen by LaunchDarkly from your account. The granularity is always\
         \ daily.<br/><br/>Endpoints for retrieving monthly active users (MAU) do not\
@@ -22947,6 +23161,7 @@ paths:
       - Account usage (beta)
   /api/v2/usage/mau/bycategory:
     get:
+      deprecated: true
       description: "Get time-series arrays of the number of monthly active users (MAU)\
         \ seen by LaunchDarkly from your account, broken down by the category of users.\
         \ The category is either `browser`, `mobile`, or `backend`.<br/><br/>Endpoints\
@@ -24374,6 +24589,186 @@ paths:
       summary: Get contexts total usage
       tags:
       - Account usage (beta)
+  /api/v2/usage/total-mau:
+    get:
+      description: "Get a time series of the number of context key usages observed\
+        \ by LaunchDarkly in your account, for the primary context kind only.<br/><br/>For\
+        \ past months, this reflects the context kind that was most recently marked\
+        \ as primary for that month. For the current month, the context kind may vary\
+        \ as new primary kinds are observed.<br/><br/>The supported granularity varies\
+        \ by aggregation type. The maximum time range is 365 days."
+      operationId: getMAUTotalUsage
+      parameters:
+      - description: The series of data returned starts from this timestamp (Unix
+          milliseconds). Defaults to the beginning of the current month.
+        explode: true
+        in: query
+        name: from
+        required: false
+        schema:
+          description: The series of data returned starts from this timestamp (Unix
+            milliseconds). Defaults to the beginning of the current month.
+          format: string
+          type: string
+        style: form
+      - description: The series of data returned ends at this timestamp (Unix milliseconds).
+          Defaults to the current time.
+        explode: true
+        in: query
+        name: to
+        required: false
+        schema:
+          description: The series of data returned ends at this timestamp (Unix milliseconds).
+            Defaults to the current time.
+          format: string
+          type: string
+        style: form
+      - description: "A project key to filter results by. Can be specified multiple\
+          \ times, one query parameter per project key."
+        explode: true
+        in: query
+        name: projectKey
+        required: false
+        schema:
+          description: "A project key to filter results by. Can be specified multiple\
+            \ times, one query parameter per project key."
+          format: string
+          type: string
+        style: form
+      - description: "An environment key to filter results by. If specified, exactly\
+          \ one `projectKey` must be provided. Can be specified multiple times, one\
+          \ query parameter per environment key."
+        explode: true
+        in: query
+        name: environmentKey
+        required: false
+        schema:
+          description: "An environment key to filter results by. If specified, exactly\
+            \ one `projectKey` must be provided. Can be specified multiple times,\
+            \ one query parameter per environment key."
+          format: string
+          type: string
+        style: form
+      - description: "An SDK name to filter results by. Can be specified multiple\
+          \ times, one query parameter per SDK name."
+        explode: true
+        in: query
+        name: sdkName
+        required: false
+        schema:
+          description: "An SDK name to filter results by. Can be specified multiple\
+            \ times, one query parameter per SDK name."
+          format: string
+          type: string
+        style: form
+      - description: "An SDK type to filter results by. Can be specified multiple\
+          \ times, one query parameter per SDK type."
+        explode: true
+        in: query
+        name: sdkType
+        required: false
+        schema:
+          description: "An SDK type to filter results by. Can be specified multiple\
+            \ times, one query parameter per SDK type."
+          format: string
+          type: string
+        style: form
+      - description: "An anonymous value to filter results by. Can be specified multiple\
+          \ times, one query parameter per anonymous value.<br/>Valid values: `true`,\
+          \ `false`."
+        explode: true
+        in: query
+        name: anonymous
+        required: false
+        schema:
+          description: "An anonymous value to filter results by. Can be specified\
+            \ multiple times, one query parameter per anonymous value.<br/>Valid values:\
+            \ `true`, `false`."
+          format: string
+          type: string
+        style: form
+      - description: "If specified, returns data for each distinct value of the given\
+          \ field. Can be specified multiple times to group data by multiple dimensions,\
+          \ one query parameter per dimension.<br/>Valid values: `projectId`, `environmentId`,\
+          \ `sdkName`, `sdkType`, `sdkAppId`, `anonymousV2`."
+        explode: true
+        in: query
+        name: groupBy
+        required: false
+        schema:
+          description: "If specified, returns data for each distinct value of the\
+            \ given field. Can be specified multiple times to group data by multiple\
+            \ dimensions, one query parameter per dimension.<br/>Valid values: `projectId`,\
+            \ `environmentId`, `sdkName`, `sdkType`, `sdkAppId`, `anonymousV2`."
+          format: string
+          type: string
+        style: form
+      - description: "Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid\
+          \ values: `month_to_date`, `incremental`, `rolling_30d`."
+        explode: true
+        in: query
+        name: aggregationType
+        required: false
+        schema:
+          description: "Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid\
+            \ values: `month_to_date`, `incremental`, `rolling_30d`."
+          format: string
+          type: string
+        style: form
+      - description: "Specifies the data granularity. Defaults to `daily`. Valid values\
+          \ depend on `aggregationType`: **month_to_date** supports `daily` and `monthly`;\
+          \ **incremental** and **rolling_30d** support `daily` only."
+        explode: true
+        in: query
+        name: granularity
+        required: false
+        schema:
+          description: "Specifies the data granularity. Defaults to `daily`. Valid\
+            \ values depend on `aggregationType`: **month_to_date** supports `daily`\
+            \ and `monthly`; **incremental** and **rolling_30d** support `daily` only."
+          format: string
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SeriesListRep"
+          description: Usage response
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvalidRequestErrorRep"
+          description: Invalid request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UnauthorizedErrorRep"
+          description: Invalid access token
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ForbiddenErrorRep"
+          description: Forbidden
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RateLimitedErrorRep"
+          description: Rate limited
+        "503":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StatusServiceUnavailable"
+          description: Service unavailable
+      summary: Get MAU total usage
+      tags:
+      - Account usage (beta)
   /api/v2/user-attributes/{projectKey}/{environmentKey}:
     get:
       deprecated: true
@@ -25606,8 +26001,8 @@ paths:
       operationId: getTags
       parameters:
       - description: "Fetch tags associated with the specified resource type. Options\
-          \ are `flag`, `project`, `environment`, `segment`, `metric`, `aiconfig`,\
-          \ and `view`. Returns all types by default."
+          \ are `flag`, `project`, `environment`, `segment`, `metric`, `metric-data-source`,\
+          \ `aiconfig`, and `view`. Returns all types by default."
         explode: true
         in: query
         name: kind
@@ -28003,6 +28398,137 @@ paths:
                 $ref: "#/components/schemas/Error"
           description: Internal server error
       summary: Update AI tool
+      tags:
+      - AI Configs (beta)
+  /api/v2/projects/{projectKey}/agent-graphs:
+    get:
+      description: "Get a list of all agent graphs in the given project. Returns metadata\
+        \ only, without edge data."
+      operationId: listAgentGraphs
+      parameters:
+      - description: Version of the endpoint.
+        explode: false
+        in: header
+        name: LD-API-Version
+        required: true
+        schema:
+          enum:
+          - beta
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: projectKey
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The number of AI Configs to return.
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: "Where to start in the list. Use this with pagination. For example,\
+          \ an offset of 10 skips the first ten items and then returns the next items\
+          \ in the list, up to the query `limit`."
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AgentGraphs"
+          description: Successful response
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Bad request
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Forbidden
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Internal server error
+      summary: List agent graphs
+      tags:
+      - AI Configs (beta)
+    post:
+      description: Create a new agent graph within the given project.
+      operationId: postAgentGraph
+      parameters:
+      - description: Version of the endpoint.
+        explode: false
+        in: header
+        name: LD-API-Version
+        required: true
+        schema:
+          enum:
+          - beta
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: projectKey
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AgentGraphPost"
+        description: Agent graph object to create
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AgentGraph"
+          description: Agent graph created
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Bad request
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Forbidden
+        "413":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Payload too large
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Internal server error
+      summary: Create new agent graph
       tags:
       - AI Configs (beta)
   /api/v2/announcements:
@@ -36341,28 +36867,6 @@ components:
       required:
       - key
       type: object
-    CovarianceInfoRep:
-      example:
-        createdAt: 2
-        fileName: covariance.csv
-        id: 74a49a2b-4834-4246-917e-5d85231d8c2a
-      properties:
-        id:
-          description: The ID of the covariance matrix
-          example: 74a49a2b-4834-4246-917e-5d85231d8c2a
-          type: string
-        fileName:
-          description: The file name of the uploaded covariance matrix
-          example: covariance.csv
-          type: string
-        createdAt:
-          format: int64
-          type: integer
-      required:
-      - createdAt
-      - fileName
-      - id
-      type: object
     CreateApprovalRequestRequest:
       example:
         instructions:
@@ -42151,10 +42655,6 @@ components:
             unitAggregationType: sum
             key: metric-key-123abc
           version: 0
-          covarianceInfo:
-            createdAt: 2
-            fileName: covariance.csv
-            id: 74a49a2b-4834-4246-917e-5d85231d8c2a
           treatments:
           - name: Treatment 1
             _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
@@ -42414,10 +42914,6 @@ components:
             unitAggregationType: sum
             key: metric-key-123abc
           version: 0
-          covarianceInfo:
-            createdAt: 2
-            fileName: covariance.csv
-            id: 74a49a2b-4834-4246-917e-5d85231d8c2a
           treatments:
           - name: Treatment 1
             _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
@@ -42668,10 +43164,6 @@ components:
             unitAggregationType: sum
             key: metric-key-123abc
           version: 0
-          covarianceInfo:
-            createdAt: 2
-            fileName: covariance.csv
-            id: 74a49a2b-4834-4246-917e-5d85231d8c2a
           treatments:
           - name: Treatment 1
             _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
@@ -42929,10 +43421,6 @@ components:
             unitAggregationType: sum
             key: metric-key-123abc
           version: 0
-          covarianceInfo:
-            createdAt: 2
-            fileName: covariance.csv
-            id: 74a49a2b-4834-4246-917e-5d85231d8c2a
           treatments:
           - name: Treatment 1
             _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
@@ -43134,7 +43622,7 @@ components:
           key:
             href: href
             type: type
-        total_count: 7
+        total_count: 2
         items:
         - archivedDate: 6
           holdoutId: f3b74309-d581-44e1-8a2b-bb2933b4fe40
@@ -43277,10 +43765,6 @@ components:
               unitAggregationType: sum
               key: metric-key-123abc
             version: 0
-            covarianceInfo:
-              createdAt: 2
-              fileName: covariance.csv
-              id: 74a49a2b-4834-4246-917e-5d85231d8c2a
             treatments:
             - name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
@@ -43540,10 +44024,6 @@ components:
               unitAggregationType: sum
               key: metric-key-123abc
             version: 0
-            covarianceInfo:
-              createdAt: 2
-              fileName: covariance.csv
-              id: 74a49a2b-4834-4246-917e-5d85231d8c2a
             treatments:
             - name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
@@ -43794,10 +44274,6 @@ components:
               unitAggregationType: sum
               key: metric-key-123abc
             version: 0
-            covarianceInfo:
-              createdAt: 2
-              fileName: covariance.csv
-              id: 74a49a2b-4834-4246-917e-5d85231d8c2a
             treatments:
             - name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
@@ -44055,10 +44531,6 @@ components:
               unitAggregationType: sum
               key: metric-key-123abc
             version: 0
-            covarianceInfo:
-              createdAt: 2
-              fileName: covariance.csv
-              id: 74a49a2b-4834-4246-917e-5d85231d8c2a
             treatments:
             - name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
@@ -44315,10 +44787,6 @@ components:
               unitAggregationType: sum
               key: metric-key-123abc
             version: 0
-            covarianceInfo:
-              createdAt: 2
-              fileName: covariance.csv
-              id: 74a49a2b-4834-4246-917e-5d85231d8c2a
             treatments:
             - name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
@@ -44578,10 +45046,6 @@ components:
               unitAggregationType: sum
               key: metric-key-123abc
             version: 0
-            covarianceInfo:
-              createdAt: 2
-              fileName: covariance.csv
-              id: 74a49a2b-4834-4246-917e-5d85231d8c2a
             treatments:
             - name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
@@ -44832,10 +45296,6 @@ components:
               unitAggregationType: sum
               key: metric-key-123abc
             version: 0
-            covarianceInfo:
-              createdAt: 2
-              fileName: covariance.csv
-              id: 74a49a2b-4834-4246-917e-5d85231d8c2a
             treatments:
             - name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
@@ -45093,10 +45553,6 @@ components:
               unitAggregationType: sum
               key: metric-key-123abc
             version: 0
-            covarianceInfo:
-              createdAt: 2
-              fileName: covariance.csv
-              id: 74a49a2b-4834-4246-917e-5d85231d8c2a
             treatments:
             - name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
@@ -45589,7 +46045,6 @@ components:
         name: Example experiment
         description: "An example experiment, used in testing"
         iteration:
-          covarianceId: covarianceId
           canReshuffleTraffic: true
           flags:
             key:
@@ -49659,10 +50114,6 @@ components:
               unitAggregationType: sum
               key: metric-key-123abc
             version: 0
-            covarianceInfo:
-              createdAt: 2
-              fileName: covariance.csv
-              id: 74a49a2b-4834-4246-917e-5d85231d8c2a
             treatments:
             - name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
@@ -49922,10 +50373,6 @@ components:
               unitAggregationType: sum
               key: metric-key-123abc
             version: 0
-            covarianceInfo:
-              createdAt: 2
-              fileName: covariance.csv
-              id: 74a49a2b-4834-4246-917e-5d85231d8c2a
             treatments:
             - name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
@@ -50176,10 +50623,6 @@ components:
               unitAggregationType: sum
               key: metric-key-123abc
             version: 0
-            covarianceInfo:
-              createdAt: 2
-              fileName: covariance.csv
-              id: 74a49a2b-4834-4246-917e-5d85231d8c2a
             treatments:
             - name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
@@ -50437,10 +50880,6 @@ components:
               unitAggregationType: sum
               key: metric-key-123abc
             version: 0
-            covarianceInfo:
-              createdAt: 2
-              fileName: covariance.csv
-              id: 74a49a2b-4834-4246-917e-5d85231d8c2a
             treatments:
             - name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
@@ -50697,10 +51136,6 @@ components:
               unitAggregationType: sum
               key: metric-key-123abc
             version: 0
-            covarianceInfo:
-              createdAt: 2
-              fileName: covariance.csv
-              id: 74a49a2b-4834-4246-917e-5d85231d8c2a
             treatments:
             - name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
@@ -50960,10 +51395,6 @@ components:
               unitAggregationType: sum
               key: metric-key-123abc
             version: 0
-            covarianceInfo:
-              createdAt: 2
-              fileName: covariance.csv
-              id: 74a49a2b-4834-4246-917e-5d85231d8c2a
             treatments:
             - name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
@@ -51214,10 +51645,6 @@ components:
               unitAggregationType: sum
               key: metric-key-123abc
             version: 0
-            covarianceInfo:
-              createdAt: 2
-              fileName: covariance.csv
-              id: 74a49a2b-4834-4246-917e-5d85231d8c2a
             treatments:
             - name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
@@ -51475,10 +51902,6 @@ components:
               unitAggregationType: sum
               key: metric-key-123abc
             version: 0
-            covarianceInfo:
-              createdAt: 2
-              fileName: covariance.csv
-              id: 74a49a2b-4834-4246-917e-5d85231d8c2a
             treatments:
             - name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
@@ -51738,10 +52161,6 @@ components:
               unitAggregationType: sum
               key: metric-key-123abc
             version: 0
-            covarianceInfo:
-              createdAt: 2
-              fileName: covariance.csv
-              id: 74a49a2b-4834-4246-917e-5d85231d8c2a
             treatments:
             - name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
@@ -52001,10 +52420,6 @@ components:
               unitAggregationType: sum
               key: metric-key-123abc
             version: 0
-            covarianceInfo:
-              createdAt: 2
-              fileName: covariance.csv
-              id: 74a49a2b-4834-4246-917e-5d85231d8c2a
             treatments:
             - name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
@@ -52255,10 +52670,6 @@ components:
               unitAggregationType: sum
               key: metric-key-123abc
             version: 0
-            covarianceInfo:
-              createdAt: 2
-              fileName: covariance.csv
-              id: 74a49a2b-4834-4246-917e-5d85231d8c2a
             treatments:
             - name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
@@ -52516,10 +52927,6 @@ components:
               unitAggregationType: sum
               key: metric-key-123abc
             version: 0
-            covarianceInfo:
-              createdAt: 2
-              fileName: covariance.csv
-              id: 74a49a2b-4834-4246-917e-5d85231d8c2a
             treatments:
             - name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
@@ -52918,10 +53325,6 @@ components:
               unitAggregationType: sum
               key: metric-key-123abc
             version: 0
-            covarianceInfo:
-              createdAt: 2
-              fileName: covariance.csv
-              id: 74a49a2b-4834-4246-917e-5d85231d8c2a
             treatments:
             - name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
@@ -53181,10 +53584,6 @@ components:
               unitAggregationType: sum
               key: metric-key-123abc
             version: 0
-            covarianceInfo:
-              createdAt: 2
-              fileName: covariance.csv
-              id: 74a49a2b-4834-4246-917e-5d85231d8c2a
             treatments:
             - name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
@@ -53435,10 +53834,6 @@ components:
               unitAggregationType: sum
               key: metric-key-123abc
             version: 0
-            covarianceInfo:
-              createdAt: 2
-              fileName: covariance.csv
-              id: 74a49a2b-4834-4246-917e-5d85231d8c2a
             treatments:
             - name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
@@ -53696,10 +54091,6 @@ components:
               unitAggregationType: sum
               key: metric-key-123abc
             version: 0
-            covarianceInfo:
-              createdAt: 2
-              fileName: covariance.csv
-              id: 74a49a2b-4834-4246-917e-5d85231d8c2a
             treatments:
             - name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
@@ -55380,7 +55771,6 @@ components:
       type: object
     IterationInput:
       example:
-        covarianceId: covarianceId
         canReshuffleTraffic: true
         flags:
           key:
@@ -55457,9 +55847,6 @@ components:
         randomizationUnit:
           description: The unit of randomization for this iteration. Defaults to user.
           example: user
-          type: string
-        covarianceId:
-          description: The ID of the covariance CSV
           type: string
         attributes:
           description: The attributes that this iteration's results can be sliced
@@ -55617,10 +56004,6 @@ components:
           unitAggregationType: sum
           key: metric-key-123abc
         version: 0
-        covarianceInfo:
-          createdAt: 2
-          fileName: covariance.csv
-          id: 74a49a2b-4834-4246-917e-5d85231d8c2a
         treatments:
         - name: Treatment 1
           _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
@@ -55823,8 +56206,6 @@ components:
           type: array
         layerSnapshot:
           $ref: "#/components/schemas/LayerSnapshotRep"
-        covarianceInfo:
-          $ref: "#/components/schemas/CovarianceInfoRep"
       required:
       - createdAt
       - hypothesis
@@ -63298,6 +63679,9 @@ components:
         _id:
           description: The flag rule ID
           type: string
+        disabled:
+          description: Whether the rule is disabled
+          type: boolean
         variation:
           description: "The index of the variation, from the array of variations for\
             \ this flag"
@@ -69293,6 +69677,33 @@ components:
     AIConfigPost:
       example:
         mode: completion
+        defaultVariation:
+          judgeConfiguration:
+            judges:
+            - samplingRate: 0.7061401
+              judgeConfigKey: judgeConfigKey
+            - samplingRate: 0.7061401
+              judgeConfigKey: judgeConfigKey
+          instructions: instructions
+          toolKeys:
+          - toolKeys
+          - toolKeys
+          name: name
+          description: description
+          messages:
+          - role: role
+            content: content
+          - role: role
+            content: content
+          comment: comment
+          model: "{}"
+          modelConfigKey: modelConfigKey
+          tools:
+          - version: 0
+            key: key
+          - version: 0
+            key: key
+          key: key
         maintainerId: maintainerId
         maintainerTeamKey: maintainerTeamKey
         name: name
@@ -69324,6 +69735,8 @@ components:
           items:
             type: string
           type: array
+        defaultVariation:
+          $ref: "#/components/schemas/AIConfigVariationPost"
       required:
       - key
       - name
@@ -71277,6 +71690,192 @@ components:
       required:
       - key
       - version
+      type: object
+    AgentGraphPost:
+      description: Request body for creating an agent graph
+      example:
+        rootConfigKey: rootConfigKey
+        name: name
+        edges:
+        - sourceConfig: sourceConfig
+          targetConfig: targetConfig
+          handoff: "{}"
+        - sourceConfig: sourceConfig
+          targetConfig: targetConfig
+          handoff: "{}"
+        description: description
+        key: key
+      properties:
+        key:
+          description: A unique key for the agent graph
+          type: string
+        name:
+          description: A human-readable name for the agent graph
+          type: string
+        description:
+          description: A description of the agent graph
+          type: string
+        rootConfigKey:
+          description: The AI Config key of the root node. A missing root implies
+            a newly created graph with metadata only.
+          type: string
+        edges:
+          description: "The edges in the graph. If edges or rootConfigKey is present,\
+            \ both must be present."
+          items:
+            $ref: "#/components/schemas/AgentGraphEdgePost"
+          type: array
+      required:
+      - key
+      - name
+      type: object
+    AgentGraphEdgePost:
+      description: An edge in an agent graph connecting two AI Configs
+      example:
+        sourceConfig: sourceConfig
+        targetConfig: targetConfig
+        handoff: "{}"
+      properties:
+        sourceConfig:
+          description: The AI Config key that is the source of this edge
+          type: string
+        targetConfig:
+          description: The AI Config key that is the target of this edge
+          type: string
+        handoff:
+          description: The handoff options from the source AI Config to the target
+            AI Config
+          type: object
+      required:
+      - sourceConfig
+      - targetConfig
+      type: object
+    AgentGraph:
+      description: An agent graph representing a directed graph of AI Configs
+      example:
+        createdAt: 0
+        rootConfigKey: rootConfigKey
+        name: name
+        edges:
+        - sourceConfig: sourceConfig
+          targetConfig: targetConfig
+          handoff: "{}"
+        - sourceConfig: sourceConfig
+          targetConfig: targetConfig
+          handoff: "{}"
+        description: description
+        key: key
+        updatedAt: 6
+      properties:
+        key:
+          description: A unique key for the agent graph
+          type: string
+        name:
+          description: A human-readable name for the agent graph
+          type: string
+        description:
+          description: A description of the agent graph
+          type: string
+        rootConfigKey:
+          description: The AI Config key of the root node
+          type: string
+        edges:
+          description: The edges in the graph
+          items:
+            $ref: "#/components/schemas/AgentGraphEdge"
+          type: array
+        createdAt:
+          format: int64
+          type: integer
+        updatedAt:
+          format: int64
+          type: integer
+      required:
+      - createdAt
+      - key
+      - name
+      - updatedAt
+      type: object
+    AgentGraphEdge:
+      description: An edge in an agent graph connecting two AI Configs
+      example:
+        sourceConfig: sourceConfig
+        targetConfig: targetConfig
+        handoff: "{}"
+      properties:
+        sourceConfig:
+          description: The AI Config key that is the source of this edge
+          type: string
+        targetConfig:
+          description: The AI Config key that is the target of this edge
+          type: string
+        handoff:
+          description: The handoff options from the source AI Config to the target
+            AI Config
+          type: object
+      required:
+      - sourceConfig
+      - targetConfig
+      type: object
+    AgentGraphs:
+      description: A collection of agent graphs
+      example:
+        _links:
+          next:
+            href: href
+            type: type
+          last:
+            href: href
+            type: type
+          prev:
+            href: href
+            type: type
+          self:
+            href: href
+            type: type
+          first:
+            href: href
+            type: type
+        totalCount: 1
+        items:
+        - createdAt: 0
+          rootConfigKey: rootConfigKey
+          name: name
+          edges:
+          - sourceConfig: sourceConfig
+            targetConfig: targetConfig
+            handoff: "{}"
+          - sourceConfig: sourceConfig
+            targetConfig: targetConfig
+            handoff: "{}"
+          description: description
+          key: key
+          updatedAt: 6
+        - createdAt: 0
+          rootConfigKey: rootConfigKey
+          name: name
+          edges:
+          - sourceConfig: sourceConfig
+            targetConfig: targetConfig
+            handoff: "{}"
+          - sourceConfig: sourceConfig
+            targetConfig: targetConfig
+            handoff: "{}"
+          description: description
+          key: key
+          updatedAt: 6
+      properties:
+        _links:
+          $ref: "#/components/schemas/PaginatedLinks"
+        items:
+          items:
+            $ref: "#/components/schemas/AgentGraph"
+          type: array
+        totalCount:
+          type: integer
+      required:
+      - items
+      - totalCount
       type: object
     AccessRep:
       $ref: "#/components/schemas/AiConfigsAccess"
@@ -80256,15 +80855,7 @@ components:
         guardedReleaseConfig:
           $ref: "#/components/schemas/GuardedReleaseConfig"
         progressiveReleaseConfig:
-          description: Configuration for progressive releases
-          example:
-            rolloutContextKindKey: user
-            stages:
-            - allocation: 25000
-              durationMillis: 60000
-            - allocation: 25000
-              durationMillis: 60000
-          type: object
+          $ref: "#/components/schemas/ProgressiveReleaseConfig"
         name:
           description: The name of the release policy
           example: Production Release
@@ -80324,15 +80915,7 @@ components:
         guardedReleaseConfig:
           $ref: "#/components/schemas/GuardedReleaseConfig"
         progressiveReleaseConfig:
-          description: Configuration for progressive releases
-          example:
-            rolloutContextKindKey: user
-            stages:
-            - allocation: 25000
-              durationMillis: 60000
-            - allocation: 25000
-              durationMillis: 60000
-          type: object
+          $ref: "#/components/schemas/ProgressiveReleaseConfig"
         name:
           description: The name of the release policy
           example: Production Release
@@ -80459,15 +81042,7 @@ components:
         guardedReleaseConfig:
           $ref: "#/components/schemas/GuardedReleaseConfig"
         progressiveReleaseConfig:
-          description: Configuration for progressive releases
-          example:
-            rolloutContextKindKey: user
-            stages:
-            - allocation: 25000
-              durationMillis: 60000
-            - allocation: 25000
-              durationMillis: 60000
-          type: object
+          $ref: "#/components/schemas/ProgressiveReleaseConfig"
         name:
           description: The name of the release policy
           example: Production Release
@@ -80504,6 +81079,14 @@ components:
           items:
             type: string
           type: array
+        flagTagKeys:
+          description: List of flag tag keys this policy applies to
+          example:
+          - frontend
+          - backend
+          items:
+            type: string
+          type: array
       type: object
     GuardedReleaseConfig:
       description: Configuration for guarded releases
@@ -80524,6 +81107,10 @@ components:
           durationMillis: 60000
         rollbackOnRegression: true
       properties:
+        rolloutContextKindKey:
+          description: Context kind key to use as the randomization unit for the rollout
+          example: user
+          type: string
         minSampleSize:
           description: The minimum number of samples required to make a decision
           example: 100
@@ -80532,8 +81119,27 @@ components:
           description: Whether to roll back on regression
           example: true
           type: boolean
-      required:
-      - rollbackOnRegression
+        metricKeys:
+          description: List of metric keys
+          example:
+          - http-errors
+          - latency
+          items:
+            type: string
+          type: array
+        metricGroupKeys:
+          description: List of metric group keys
+          example:
+          - frontend-metrics
+          - backend-metrics
+          items:
+            type: string
+          type: array
+        stages:
+          description: List of stages
+          items:
+            $ref: "#/components/schemas/ReleasePolicyStage"
+          type: array
       type: object
     ProgressiveReleaseConfig:
       description: Configuration for progressive releases
@@ -80544,6 +81150,16 @@ components:
           durationMillis: 60000
         - allocation: 25000
           durationMillis: 60000
+      properties:
+        rolloutContextKindKey:
+          description: Context kind key to use as the randomization unit for the rollout
+          example: user
+          type: string
+        stages:
+          description: List of stages
+          items:
+            $ref: "#/components/schemas/ReleasePolicyStage"
+          type: array
       type: object
     ReleasePoliciesResponse:
       example:
@@ -80763,6 +81379,22 @@ components:
       - guarded-release
       - progressive-release
       type: string
+    ReleasePolicyStage:
+      example:
+        allocation: 25000
+        durationMillis: 60000
+      properties:
+        allocation:
+          example: 25000
+          type: integer
+        durationMillis:
+          example: 60000
+          format: int64
+          type: integer
+      required:
+      - allocation
+      - durationMillis
+      type: object
     ReleasePoliciesAccessRep:
       allOf:
       - $ref: "#/components/schemas/ReleasePoliciesAccess"

@@ -100,6 +100,11 @@ docs/AccountMembersApi.md
 docs/AccountUsageBetaApi.md
 docs/ActionInput.md
 docs/ActionOutput.md
+docs/AgentGraph.md
+docs/AgentGraphEdge.md
+docs/AgentGraphEdgePost.md
+docs/AgentGraphPost.md
+docs/AgentGraphs.md
 docs/AiConfigsAccess.md
 docs/AiConfigsAccessAllowedReason.md
 docs/AiConfigsAccessAllowedRep.md
@@ -203,7 +208,6 @@ docs/Contexts.md
 docs/ContextsApi.md
 docs/CopiedFromEnv.md
 docs/CoreLink.md
-docs/CovarianceInfoRep.md
 docs/CreateAnnouncementBody.md
 docs/CreateApprovalRequestRequest.md
 docs/CreateCopyFlagConfigApprovalRequestRequest.md
@@ -511,6 +515,7 @@ docs/PostFlagScheduledChangesInput.md
 docs/PostInsightGroupParams.md
 docs/PostReleasePolicyRequest.md
 docs/Prerequisite.md
+docs/ProgressiveReleaseConfig.md
 docs/Project.md
 docs/ProjectPost.md
 docs/ProjectRep.md
@@ -554,6 +559,7 @@ docs/ReleasePoliciesBetaApi.md
 docs/ReleasePoliciesResponse.md
 docs/ReleasePolicy.md
 docs/ReleasePolicyScope.md
+docs/ReleasePolicyStage.md
 docs/ReleaseProgression.md
 docs/ReleaseProgressionCollection.md
 docs/ReleaserAudienceConfigInput.md
@@ -709,6 +715,11 @@ model_access_denied_reason.go
 model_access_token_post.go
 model_action_input.go
 model_action_output.go
+model_agent_graph.go
+model_agent_graph_edge.go
+model_agent_graph_edge_post.go
+model_agent_graph_post.go
+model_agent_graphs.go
 model_ai_config.go
 model_ai_config__maintainer.go
 model_ai_config_patch.go
@@ -832,7 +843,6 @@ model_context_search.go
 model_contexts.go
 model_copied_from_env.go
 model_core_link.go
-model_covariance_info_rep.go
 model_create_announcement_body.go
 model_create_approval_request_request.go
 model_create_copy_flag_config_approval_request_request.go
@@ -1114,6 +1124,7 @@ model_post_flag_scheduled_changes_input.go
 model_post_insight_group_params.go
 model_post_release_policy_request.go
 model_prerequisite.go
+model_progressive_release_config.go
 model_project.go
 model_project_post.go
 model_project_rep.go
@@ -1153,6 +1164,7 @@ model_release_policies_access_rep.go
 model_release_policies_response.go
 model_release_policy.go
 model_release_policy_scope.go
+model_release_policy_stage.go
 model_release_progression.go
 model_release_progression_collection.go
 model_releaser_audience_config_input.go

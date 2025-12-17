@@ -52,7 +52,7 @@ type ApiGetTagsRequest struct {
 	asOf *string
 }
 
-// Fetch tags associated with the specified resource type. Options are &#x60;flag&#x60;, &#x60;project&#x60;, &#x60;environment&#x60;, &#x60;segment&#x60;, &#x60;metric&#x60;, &#x60;aiconfig&#x60;, and &#x60;view&#x60;. Returns all types by default.
+// Fetch tags associated with the specified resource type. Options are &#x60;flag&#x60;, &#x60;project&#x60;, &#x60;environment&#x60;, &#x60;segment&#x60;, &#x60;metric&#x60;, &#x60;metric-data-source&#x60;, &#x60;aiconfig&#x60;, and &#x60;view&#x60;. Returns all types by default.
 func (r ApiGetTagsRequest) Kind(kind []string) ApiGetTagsRequest {
 	r.kind = &kind
 	return r

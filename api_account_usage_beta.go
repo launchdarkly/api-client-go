@@ -140,6 +140,34 @@ type AccountUsageBetaApi interface {
 	GetExperimentationKeysUsageExecute(r ApiGetExperimentationKeysUsageRequest) (*SeriesListRep, *http.Response, error)
 
 	/*
+	GetMAUClientsideUsage Get MAU clientside usage
+
+	Get a time series of the number of context key usages observed by LaunchDarkly in your account, for the primary context kind only. The counts reflect data reported from client-side SDKs.<br/><br/>For past months, the primary context kind is fixed and reflects the last known primary kind for that month. For the current month, it may vary as new primary context kinds are observed.<br/><br/>The supported granularity varies by aggregation type. The maximum time range is 365 days.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetMAUClientsideUsageRequest
+	*/
+	GetMAUClientsideUsage(ctx context.Context) ApiGetMAUClientsideUsageRequest
+
+	// GetMAUClientsideUsageExecute executes the request
+	//  @return SeriesListRep
+	GetMAUClientsideUsageExecute(r ApiGetMAUClientsideUsageRequest) (*SeriesListRep, *http.Response, error)
+
+	/*
+	GetMAUTotalUsage Get MAU total usage
+
+	Get a time series of the number of context key usages observed by LaunchDarkly in your account, for the primary context kind only.<br/><br/>For past months, this reflects the context kind that was most recently marked as primary for that month. For the current month, the context kind may vary as new primary kinds are observed.<br/><br/>The supported granularity varies by aggregation type. The maximum time range is 365 days.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetMAUTotalUsageRequest
+	*/
+	GetMAUTotalUsage(ctx context.Context) ApiGetMAUTotalUsageRequest
+
+	// GetMAUTotalUsageExecute executes the request
+	//  @return SeriesListRep
+	GetMAUTotalUsageExecute(r ApiGetMAUTotalUsageRequest) (*SeriesListRep, *http.Response, error)
+
+	/*
 	GetMauSdksByType Get MAU SDKs by type
 
 	Get a list of SDKs. These are all of the SDKs that have connected to LaunchDarkly by monthly active users (MAU) in the requested time period.<br/><br/>Endpoints for retrieving monthly active users (MAU) do not return information about active context instances. After you have upgraded your LaunchDarkly SDK to use contexts instead of users, you should not rely on this endpoint. To learn more, read [Account usage metrics](https://launchdarkly.com/docs/home/account/metrics).
@@ -160,11 +188,14 @@ type AccountUsageBetaApi interface {
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiGetMauUsageRequest
+
+	Deprecated
 	*/
 	GetMauUsage(ctx context.Context) ApiGetMauUsageRequest
 
 	// GetMauUsageExecute executes the request
 	//  @return SeriesListRep
+	// Deprecated
 	GetMauUsageExecute(r ApiGetMauUsageRequest) (*SeriesListRep, *http.Response, error)
 
 	/*
@@ -174,11 +205,14 @@ type AccountUsageBetaApi interface {
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiGetMauUsageByCategoryRequest
+
+	Deprecated
 	*/
 	GetMauUsageByCategory(ctx context.Context) ApiGetMauUsageByCategoryRequest
 
 	// GetMauUsageByCategoryExecute executes the request
 	//  @return SeriesListRep
+	// Deprecated
 	GetMauUsageByCategoryExecute(r ApiGetMauUsageByCategoryRequest) (*SeriesListRep, *http.Response, error)
 
 	/*
@@ -2262,6 +2296,530 @@ func (a *AccountUsageBetaApiService) GetExperimentationKeysUsageExecute(r ApiGet
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiGetMAUClientsideUsageRequest struct {
+	ctx context.Context
+	ApiService AccountUsageBetaApi
+	from *string
+	to *string
+	projectKey *string
+	environmentKey *string
+	sdkName *string
+	anonymous *string
+	groupBy *string
+	aggregationType *string
+	granularity *string
+}
+
+// The series of data returned starts from this timestamp (Unix milliseconds). Defaults to the beginning of the current month.
+func (r ApiGetMAUClientsideUsageRequest) From(from string) ApiGetMAUClientsideUsageRequest {
+	r.from = &from
+	return r
+}
+
+// The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time.
+func (r ApiGetMAUClientsideUsageRequest) To(to string) ApiGetMAUClientsideUsageRequest {
+	r.to = &to
+	return r
+}
+
+// A project key to filter results by. Can be specified multiple times, one query parameter per project key.
+func (r ApiGetMAUClientsideUsageRequest) ProjectKey(projectKey string) ApiGetMAUClientsideUsageRequest {
+	r.projectKey = &projectKey
+	return r
+}
+
+// An environment key to filter results by. If specified, exactly one &#x60;projectKey&#x60; must be provided. Can be specified multiple times, one query parameter per environment key.
+func (r ApiGetMAUClientsideUsageRequest) EnvironmentKey(environmentKey string) ApiGetMAUClientsideUsageRequest {
+	r.environmentKey = &environmentKey
+	return r
+}
+
+// An SDK name to filter results by. Can be specified multiple times, one query parameter per SDK name.
+func (r ApiGetMAUClientsideUsageRequest) SdkName(sdkName string) ApiGetMAUClientsideUsageRequest {
+	r.sdkName = &sdkName
+	return r
+}
+
+// An anonymous value to filter results by. Can be specified multiple times, one query parameter per anonymous value.&lt;br/&gt;Valid values: &#x60;true&#x60;, &#x60;false&#x60;.
+func (r ApiGetMAUClientsideUsageRequest) Anonymous(anonymous string) ApiGetMAUClientsideUsageRequest {
+	r.anonymous = &anonymous
+	return r
+}
+
+// If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.&lt;br/&gt;Valid values: &#x60;projectId&#x60;, &#x60;environmentId&#x60;, &#x60;sdkName&#x60;, &#x60;sdkAppId&#x60;, &#x60;anonymousV2&#x60;.
+func (r ApiGetMAUClientsideUsageRequest) GroupBy(groupBy string) ApiGetMAUClientsideUsageRequest {
+	r.groupBy = &groupBy
+	return r
+}
+
+// Specifies the aggregation method. Defaults to &#x60;month_to_date&#x60;.&lt;br/&gt;Valid values: &#x60;month_to_date&#x60;, &#x60;incremental&#x60;, &#x60;rolling_30d&#x60;.
+func (r ApiGetMAUClientsideUsageRequest) AggregationType(aggregationType string) ApiGetMAUClientsideUsageRequest {
+	r.aggregationType = &aggregationType
+	return r
+}
+
+// Specifies the data granularity. Defaults to &#x60;daily&#x60;. Valid values depend on &#x60;aggregationType&#x60;: **month_to_date** supports &#x60;daily&#x60; and &#x60;monthly&#x60;; **incremental** and **rolling_30d** support &#x60;daily&#x60; only.
+func (r ApiGetMAUClientsideUsageRequest) Granularity(granularity string) ApiGetMAUClientsideUsageRequest {
+	r.granularity = &granularity
+	return r
+}
+
+func (r ApiGetMAUClientsideUsageRequest) Execute() (*SeriesListRep, *http.Response, error) {
+	return r.ApiService.GetMAUClientsideUsageExecute(r)
+}
+
+/*
+GetMAUClientsideUsage Get MAU clientside usage
+
+Get a time series of the number of context key usages observed by LaunchDarkly in your account, for the primary context kind only. The counts reflect data reported from client-side SDKs.<br/><br/>For past months, the primary context kind is fixed and reflects the last known primary kind for that month. For the current month, it may vary as new primary context kinds are observed.<br/><br/>The supported granularity varies by aggregation type. The maximum time range is 365 days.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetMAUClientsideUsageRequest
+*/
+func (a *AccountUsageBetaApiService) GetMAUClientsideUsage(ctx context.Context) ApiGetMAUClientsideUsageRequest {
+	return ApiGetMAUClientsideUsageRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return SeriesListRep
+func (a *AccountUsageBetaApiService) GetMAUClientsideUsageExecute(r ApiGetMAUClientsideUsageRequest) (*SeriesListRep, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *SeriesListRep
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountUsageBetaApiService.GetMAUClientsideUsage")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v2/usage/clientside-mau"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.from != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "form", "")
+	}
+	if r.to != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "form", "")
+	}
+	if r.projectKey != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "projectKey", r.projectKey, "form", "")
+	}
+	if r.environmentKey != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environmentKey", r.environmentKey, "form", "")
+	}
+	if r.sdkName != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sdkName", r.sdkName, "form", "")
+	}
+	if r.anonymous != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "anonymous", r.anonymous, "form", "")
+	}
+	if r.groupBy != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "groupBy", r.groupBy, "form", "")
+	}
+	if r.aggregationType != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "aggregationType", r.aggregationType, "form", "")
+	}
+	if r.granularity != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "granularity", r.granularity, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["ApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v InvalidRequestErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v UnauthorizedErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v ForbiddenErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v RateLimitedErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 503 {
+			var v StatusServiceUnavailable
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetMAUTotalUsageRequest struct {
+	ctx context.Context
+	ApiService AccountUsageBetaApi
+	from *string
+	to *string
+	projectKey *string
+	environmentKey *string
+	sdkName *string
+	sdkType *string
+	anonymous *string
+	groupBy *string
+	aggregationType *string
+	granularity *string
+}
+
+// The series of data returned starts from this timestamp (Unix milliseconds). Defaults to the beginning of the current month.
+func (r ApiGetMAUTotalUsageRequest) From(from string) ApiGetMAUTotalUsageRequest {
+	r.from = &from
+	return r
+}
+
+// The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time.
+func (r ApiGetMAUTotalUsageRequest) To(to string) ApiGetMAUTotalUsageRequest {
+	r.to = &to
+	return r
+}
+
+// A project key to filter results by. Can be specified multiple times, one query parameter per project key.
+func (r ApiGetMAUTotalUsageRequest) ProjectKey(projectKey string) ApiGetMAUTotalUsageRequest {
+	r.projectKey = &projectKey
+	return r
+}
+
+// An environment key to filter results by. If specified, exactly one &#x60;projectKey&#x60; must be provided. Can be specified multiple times, one query parameter per environment key.
+func (r ApiGetMAUTotalUsageRequest) EnvironmentKey(environmentKey string) ApiGetMAUTotalUsageRequest {
+	r.environmentKey = &environmentKey
+	return r
+}
+
+// An SDK name to filter results by. Can be specified multiple times, one query parameter per SDK name.
+func (r ApiGetMAUTotalUsageRequest) SdkName(sdkName string) ApiGetMAUTotalUsageRequest {
+	r.sdkName = &sdkName
+	return r
+}
+
+// An SDK type to filter results by. Can be specified multiple times, one query parameter per SDK type.
+func (r ApiGetMAUTotalUsageRequest) SdkType(sdkType string) ApiGetMAUTotalUsageRequest {
+	r.sdkType = &sdkType
+	return r
+}
+
+// An anonymous value to filter results by. Can be specified multiple times, one query parameter per anonymous value.&lt;br/&gt;Valid values: &#x60;true&#x60;, &#x60;false&#x60;.
+func (r ApiGetMAUTotalUsageRequest) Anonymous(anonymous string) ApiGetMAUTotalUsageRequest {
+	r.anonymous = &anonymous
+	return r
+}
+
+// If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.&lt;br/&gt;Valid values: &#x60;projectId&#x60;, &#x60;environmentId&#x60;, &#x60;sdkName&#x60;, &#x60;sdkType&#x60;, &#x60;sdkAppId&#x60;, &#x60;anonymousV2&#x60;.
+func (r ApiGetMAUTotalUsageRequest) GroupBy(groupBy string) ApiGetMAUTotalUsageRequest {
+	r.groupBy = &groupBy
+	return r
+}
+
+// Specifies the aggregation method. Defaults to &#x60;month_to_date&#x60;.&lt;br/&gt;Valid values: &#x60;month_to_date&#x60;, &#x60;incremental&#x60;, &#x60;rolling_30d&#x60;.
+func (r ApiGetMAUTotalUsageRequest) AggregationType(aggregationType string) ApiGetMAUTotalUsageRequest {
+	r.aggregationType = &aggregationType
+	return r
+}
+
+// Specifies the data granularity. Defaults to &#x60;daily&#x60;. Valid values depend on &#x60;aggregationType&#x60;: **month_to_date** supports &#x60;daily&#x60; and &#x60;monthly&#x60;; **incremental** and **rolling_30d** support &#x60;daily&#x60; only.
+func (r ApiGetMAUTotalUsageRequest) Granularity(granularity string) ApiGetMAUTotalUsageRequest {
+	r.granularity = &granularity
+	return r
+}
+
+func (r ApiGetMAUTotalUsageRequest) Execute() (*SeriesListRep, *http.Response, error) {
+	return r.ApiService.GetMAUTotalUsageExecute(r)
+}
+
+/*
+GetMAUTotalUsage Get MAU total usage
+
+Get a time series of the number of context key usages observed by LaunchDarkly in your account, for the primary context kind only.<br/><br/>For past months, this reflects the context kind that was most recently marked as primary for that month. For the current month, the context kind may vary as new primary kinds are observed.<br/><br/>The supported granularity varies by aggregation type. The maximum time range is 365 days.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetMAUTotalUsageRequest
+*/
+func (a *AccountUsageBetaApiService) GetMAUTotalUsage(ctx context.Context) ApiGetMAUTotalUsageRequest {
+	return ApiGetMAUTotalUsageRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return SeriesListRep
+func (a *AccountUsageBetaApiService) GetMAUTotalUsageExecute(r ApiGetMAUTotalUsageRequest) (*SeriesListRep, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *SeriesListRep
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountUsageBetaApiService.GetMAUTotalUsage")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v2/usage/total-mau"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.from != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "form", "")
+	}
+	if r.to != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "form", "")
+	}
+	if r.projectKey != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "projectKey", r.projectKey, "form", "")
+	}
+	if r.environmentKey != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "environmentKey", r.environmentKey, "form", "")
+	}
+	if r.sdkName != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sdkName", r.sdkName, "form", "")
+	}
+	if r.sdkType != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sdkType", r.sdkType, "form", "")
+	}
+	if r.anonymous != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "anonymous", r.anonymous, "form", "")
+	}
+	if r.groupBy != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "groupBy", r.groupBy, "form", "")
+	}
+	if r.aggregationType != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "aggregationType", r.aggregationType, "form", "")
+	}
+	if r.granularity != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "granularity", r.granularity, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["ApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v InvalidRequestErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v UnauthorizedErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v ForbiddenErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v RateLimitedErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 503 {
+			var v StatusServiceUnavailable
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiGetMauSdksByTypeRequest struct {
 	ctx context.Context
 	ApiService AccountUsageBetaApi
@@ -2534,6 +3092,8 @@ Get a time-series array of the number of monthly active users (MAU) seen by Laun
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetMauUsageRequest
+
+Deprecated
 */
 func (a *AccountUsageBetaApiService) GetMauUsage(ctx context.Context) ApiGetMauUsageRequest {
 	return ApiGetMauUsageRequest{
@@ -2544,6 +3104,7 @@ func (a *AccountUsageBetaApiService) GetMauUsage(ctx context.Context) ApiGetMauU
 
 // Execute executes the request
 //  @return SeriesListRep
+// Deprecated
 func (a *AccountUsageBetaApiService) GetMauUsageExecute(r ApiGetMauUsageRequest) (*SeriesListRep, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
@@ -2734,6 +3295,8 @@ Get time-series arrays of the number of monthly active users (MAU) seen by Launc
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetMauUsageByCategoryRequest
+
+Deprecated
 */
 func (a *AccountUsageBetaApiService) GetMauUsageByCategory(ctx context.Context) ApiGetMauUsageByCategoryRequest {
 	return ApiGetMauUsageByCategoryRequest{
@@ -2744,6 +3307,7 @@ func (a *AccountUsageBetaApiService) GetMauUsageByCategory(ctx context.Context) 
 
 // Execute executes the request
 //  @return SeriesListRep
+// Deprecated
 func (a *AccountUsageBetaApiService) GetMauUsageByCategoryExecute(r ApiGetMauUsageByCategoryRequest) (*SeriesListRep, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
