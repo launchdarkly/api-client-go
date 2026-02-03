@@ -16,7 +16,9 @@ Name | Type | Description | Notes
 **Variations** | [**[]AIConfigVariation**](AIConfigVariation.md) |  | 
 **CreatedAt** | **int64** |  | 
 **UpdatedAt** | **int64** |  | 
-**EvaluationMetricKeys** | Pointer to **[]string** | List of evaluation metric keys for this AI config | [optional] 
+**EvaluationMetricKey** | Pointer to **string** | Evaluation metric key for this AI Config | [optional] 
+**EvaluationMetricKeys** | Pointer to **[]string** | List of evaluation metric keys for this AI Config | [optional] 
+**IsInverted** | Pointer to **bool** | Whether the evaluation metric is inverted, meaning a lower value is better if set as true | [optional] 
 
 ## Methods
 
@@ -297,6 +299,31 @@ and a boolean to check if the value has been set.
 SetUpdatedAt sets UpdatedAt field to given value.
 
 
+### GetEvaluationMetricKey
+
+`func (o *AIConfig) GetEvaluationMetricKey() string`
+
+GetEvaluationMetricKey returns the EvaluationMetricKey field if non-nil, zero value otherwise.
+
+### GetEvaluationMetricKeyOk
+
+`func (o *AIConfig) GetEvaluationMetricKeyOk() (*string, bool)`
+
+GetEvaluationMetricKeyOk returns a tuple with the EvaluationMetricKey field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEvaluationMetricKey
+
+`func (o *AIConfig) SetEvaluationMetricKey(v string)`
+
+SetEvaluationMetricKey sets EvaluationMetricKey field to given value.
+
+### HasEvaluationMetricKey
+
+`func (o *AIConfig) HasEvaluationMetricKey() bool`
+
+HasEvaluationMetricKey returns a boolean if a field has been set.
+
 ### GetEvaluationMetricKeys
 
 `func (o *AIConfig) GetEvaluationMetricKeys() []string`
@@ -321,6 +348,31 @@ SetEvaluationMetricKeys sets EvaluationMetricKeys field to given value.
 `func (o *AIConfig) HasEvaluationMetricKeys() bool`
 
 HasEvaluationMetricKeys returns a boolean if a field has been set.
+
+### GetIsInverted
+
+`func (o *AIConfig) GetIsInverted() bool`
+
+GetIsInverted returns the IsInverted field if non-nil, zero value otherwise.
+
+### GetIsInvertedOk
+
+`func (o *AIConfig) GetIsInvertedOk() (*bool, bool)`
+
+GetIsInvertedOk returns a tuple with the IsInverted field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsInverted
+
+`func (o *AIConfig) SetIsInverted(v bool)`
+
+SetIsInverted sets IsInverted field to given value.
+
+### HasIsInverted
+
+`func (o *AIConfig) HasIsInverted() bool`
+
+HasIsInverted returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -306,7 +306,7 @@ info:
 
     We have a [complete OpenAPI (Swagger) specification](https://app.launchdarkly.com/api/v2/openapi.json) for our API.
 
-    We auto-generate multiple client libraries based on our OpenAPI specification. To learn more, visit the [collection of client libraries on GitHub](https://github.com/search?q=topic%3Alaunchdarkly-api+org%3Alaunchdarkly&type=Repositories). You can also use this specification to generate client libraries to interact with our REST API in your language of choice.
+    We auto-generate multiple client libraries based on our OpenAPI specification. To learn more, visit the [collection of client libraries on GitHub](https://github.com/search?q=topic%3Alaunchdarkly-api+org%3Alaunchdarkly&type=Repositories). Alternatively, you can use the specification to generate client libraries to interact with our REST API in your language of choice. Or, you can refer to our API endpoints' documentation for guidance on how to make requests with a common HTTP library in your language of choice.
 
     Our OpenAPI specification is supported by several API-based tools such as Postman and Insomnia. In many cases, you can directly import our specification to explore our APIs.
 
@@ -486,17 +486,12 @@ tags:
     Each endpoint returns time-series data in the form of an array of data points with timestamps. Each one contains data for that time from one or more series. It also includes a metadata array describing what each of the series is.
   name: Account usage (beta)
 - description: |
-    > ### This feature is in beta
-    >
-    > To use this feature, pass in a header including the `LD-API-Version` key with value set to `beta`. Use this header with each call. To learn more, read [Beta resources](https://launchdarkly.com/docs/api#beta-resources).
-    >
-    > Resources that are in beta are still undergoing testing and development. They may change without notice, including becoming backwards incompatible.
     The AI Configs API allows you to create, retrieve, and edit AI Configs, AI Config variations, and AI model configurations.
 
     An AI Config is a resource in LaunchDarkly that you can use to customize, test, and roll out new large language models (LLMs) within your generative AI applications. Within each AI Config, you define one or more AI Config variations, each of which includes a model configuration and one or more messages. The model configuration can be a standard one from the list provided by LaunchDarkly, or you can define your own custom AI model configuration.
 
     To learn more, read [AI Configs](https://launchdarkly.com/docs/home/ai-configs).
-  name: AI Configs (beta)
+  name: AI Configs
 - description: |
     The announcements API lets you create and update a custom announcement banner that appears in the LaunchDarkly user interface for everyone in your organization. You can use the banner to display organization-wide information, such as upcoming holidays, code freeze periods, or reminders on best practices. You can have one banner visible at a time.
 
@@ -2788,7 +2783,7 @@ paths:
 
         ### AI Configs
 
-        If you are creating an approval request for an AI Config, you can use the semantic patch instructions listed under [Update AI Config targeting](https://launchdarkly.com/docs/api/ai-configs-beta/patch-ai-config-targeting).
+        If you are creating an approval request for an AI Config, you can use the semantic patch instructions listed under [Update AI Config targeting](https://launchdarkly.com/docs/api/ai-configs/patch-ai-config-targeting).
 
         ### Segments
 
@@ -2965,7 +2960,7 @@ paths:
 
         ### Instructions
 
-        Semantic patch requests support the following `kind` instruction for updating an approval request.
+        Semantic patch requests support the following `kind` instructions for updating an approval request.
 
         #### addReviewers
 
@@ -2987,6 +2982,25 @@ paths:
           }]
         }
         ```
+
+        #### updateDescription
+
+        Updates the description (title) of the approval request.
+
+        ##### Parameters
+
+        - `value`: (Required) The new description for the approval request. Must be non-empty and no more than 5000 characters.
+
+        Here's an example:
+
+        ```json
+        {
+          "instructions": [{
+            "kind": "updateDescription",
+            "value": "Updated approval request title"
+          }]
+        }
+        ```
       operationId: patchApprovalRequest
       parameters:
       - description: The approval ID
@@ -2999,6 +3013,16 @@ paths:
           format: string
           type: string
         style: simple
+      requestBody:
+        content:
+          application/json:
+            example:
+              instructions:
+              - kind: updateDescription
+                value: New description
+            schema:
+              $ref: "#/components/schemas/approvalRequestPatchInput"
+        required: true
       responses:
         "200":
           content:
@@ -15094,7 +15118,7 @@ paths:
 
         ### Instructions
 
-        Semantic patch requests support the following `kind` instruction for updating an approval request.
+        Semantic patch requests support the following `kind` instructions for updating an approval request.
 
         #### addReviewers
 
@@ -15104,6 +15128,14 @@ paths:
 
         - `notifyMemberIds`: (Optional) List of member IDs.
         - `notifyTeamKeys`: (Optional) List of team keys.
+
+        #### updateDescription
+
+        Updates the description (title) of the approval request.
+
+        ##### Parameters
+
+        - `value`: (Required) The new description for the approval request. Must be non-empty and no more than 5000 characters.
       operationId: patchFlagConfigApprovalRequest
       parameters:
       - description: The project key
@@ -26097,16 +26129,6 @@ paths:
       description: Retrieves a specific AI Config's targeting by its key
       operationId: getAIConfigTargeting
       parameters:
-      - description: Version of the endpoint.
-        explode: false
-        in: header
-        name: LD-API-Version
-        required: true
-        schema:
-          enum:
-          - beta
-          type: string
-        style: simple
       - explode: false
         in: path
         name: projectKey
@@ -26148,7 +26170,7 @@ paths:
           description: Internal server error
       summary: Show an AI Config's targeting
       tags:
-      - AI Configs (beta)
+      - AI Configs
     patch:
       description: |
         Perform a partial update to an AI Config's targeting. The request body must be a valid semantic patch.
@@ -26711,16 +26733,6 @@ paths:
         </details>
       operationId: patchAIConfigTargeting
       parameters:
-      - description: Version of the endpoint.
-        explode: false
-        in: header
-        name: LD-API-Version
-        required: true
-        schema:
-          enum:
-          - beta
-          type: string
-        style: simple
       - explode: false
         in: path
         name: projectKey
@@ -26774,22 +26786,12 @@ paths:
           description: Internal server error
       summary: Update AI Config targeting
       tags:
-      - AI Configs (beta)
+      - AI Configs
   /api/v2/projects/{projectKey}/ai-configs:
     get:
       description: Get a list of all AI Configs in the given project.
       operationId: getAIConfigs
       parameters:
-      - description: Version of the endpoint.
-        explode: false
-        in: header
-        name: LD-API-Version
-        required: true
-        schema:
-          enum:
-          - beta
-          type: string
-        style: simple
       - example: default
         explode: false
         in: path
@@ -26865,21 +26867,11 @@ paths:
           description: Internal server error
       summary: List AI Configs
       tags:
-      - AI Configs (beta)
+      - AI Configs
     post:
       description: Create a new AI Config within the given project.
       operationId: postAIConfig
       parameters:
-      - description: Version of the endpoint.
-        explode: false
-        in: header
-        name: LD-API-Version
-        required: true
-        schema:
-          enum:
-          - beta
-          type: string
-        style: simple
       - explode: false
         in: path
         name: projectKey
@@ -26921,22 +26913,12 @@ paths:
           description: Internal server error
       summary: Create new AI Config
       tags:
-      - AI Configs (beta)
+      - AI Configs
   /api/v2/projects/{projectKey}/ai-configs/{configKey}:
     delete:
       description: Delete an existing AI Config.
       operationId: deleteAIConfig
       parameters:
-      - description: Version of the endpoint.
-        explode: false
-        in: header
-        name: LD-API-Version
-        required: true
-        schema:
-          enum:
-          - beta
-          type: string
-        style: simple
       - example: default
         explode: false
         in: path
@@ -26981,21 +26963,11 @@ paths:
           description: Internal server error
       summary: Delete AI Config
       tags:
-      - AI Configs (beta)
+      - AI Configs
     get:
       description: Retrieve a specific AI Config by its key.
       operationId: getAIConfig
       parameters:
-      - description: Version of the endpoint.
-        explode: false
-        in: header
-        name: LD-API-Version
-        required: true
-        schema:
-          enum:
-          - beta
-          type: string
-        style: simple
       - explode: false
         in: path
         name: projectKey
@@ -27043,7 +27015,7 @@ paths:
           description: Internal server error
       summary: Get AI Config
       tags:
-      - AI Configs (beta)
+      - AI Configs
     patch:
       description: |
         Edit an existing AI Config.
@@ -27059,16 +27031,6 @@ paths:
           ```
       operationId: patchAIConfig
       parameters:
-      - description: Version of the endpoint.
-        explode: false
-        in: header
-        name: LD-API-Version
-        required: true
-        schema:
-          enum:
-          - beta
-          type: string
-        style: simple
       - explode: false
         in: path
         name: projectKey
@@ -27122,7 +27084,7 @@ paths:
           description: Internal server error
       summary: Update AI Config
       tags:
-      - AI Configs (beta)
+      - AI Configs
   /api/v2/projects/{projectKey}/ai-configs/{configKey}/variations:
     post:
       description: |
@@ -27140,16 +27102,6 @@ paths:
         ```
       operationId: postAIConfigVariation
       parameters:
-      - description: Version of the endpoint.
-        explode: false
-        in: header
-        name: LD-API-Version
-        required: true
-        schema:
-          enum:
-          - beta
-          type: string
-        style: simple
       - explode: false
         in: path
         name: projectKey
@@ -27198,23 +27150,13 @@ paths:
           description: Internal server error
       summary: Create AI Config variation
       tags:
-      - AI Configs (beta)
+      - AI Configs
   /api/v2/projects/{projectKey}/ai-configs/{configKey}/variations/{variationKey}:
     delete:
       description: Delete a specific variation of an AI Config by config key and variation
         key.
       operationId: deleteAIConfigVariation
       parameters:
-      - description: Version of the endpoint.
-        explode: false
-        in: header
-        name: LD-API-Version
-        required: true
-        schema:
-          enum:
-          - beta
-          type: string
-        style: simple
       - explode: false
         in: path
         name: projectKey
@@ -27265,22 +27207,12 @@ paths:
           description: Internal server error
       summary: Delete AI Config variation
       tags:
-      - AI Configs (beta)
+      - AI Configs
     get:
       description: Get an AI Config variation by key. The response includes all variation
         versions for the given variation key.
       operationId: getAIConfigVariation
       parameters:
-      - description: Version of the endpoint.
-        explode: false
-        in: header
-        name: LD-API-Version
-        required: true
-        schema:
-          enum:
-          - beta
-          type: string
-        style: simple
       - example: default
         explode: false
         in: path
@@ -27338,7 +27270,7 @@ paths:
           description: Internal server error
       summary: Get AI Config variation
       tags:
-      - AI Configs (beta)
+      - AI Configs
     patch:
       description: |
         Edit an existing variation of an AI Config. This creates a new version of the variation.
@@ -27358,16 +27290,6 @@ paths:
         ```
       operationId: patchAIConfigVariation
       parameters:
-      - description: Version of the endpoint.
-        explode: false
-        in: header
-        name: LD-API-Version
-        required: true
-        schema:
-          enum:
-          - beta
-          type: string
-        style: simple
       - explode: false
         in: path
         name: projectKey
@@ -27428,22 +27350,12 @@ paths:
           description: Internal server error
       summary: Update AI Config variation
       tags:
-      - AI Configs (beta)
+      - AI Configs
   /api/v2/projects/{projectKey}/ai-configs/{configKey}/metrics:
     get:
       description: Retrieve usage metrics for an AI Config by config key.
       operationId: getAIConfigMetrics
       parameters:
-      - description: Version of the endpoint.
-        explode: false
-        in: header
-        name: LD-API-Version
-        required: true
-        schema:
-          enum:
-          - beta
-          type: string
-        style: simple
       - explode: false
         in: path
         name: projectKey
@@ -27517,23 +27429,13 @@ paths:
           description: Internal server error
       summary: Get AI Config metrics
       tags:
-      - AI Configs (beta)
+      - AI Configs
   /api/v2/projects/{projectKey}/ai-configs/{configKey}/metrics-by-variation:
     get:
       description: "Retrieve usage metrics for an AI Config by config key, with results\
         \ split by variation."
       operationId: getAIConfigMetricsByVariation
       parameters:
-      - description: Version of the endpoint.
-        explode: false
-        in: header
-        name: LD-API-Version
-        required: true
-        schema:
-          enum:
-          - beta
-          type: string
-        style: simple
       - explode: false
         in: path
         name: projectKey
@@ -27607,22 +27509,12 @@ paths:
           description: Internal server error
       summary: Get AI Config metrics by variation
       tags:
-      - AI Configs (beta)
+      - AI Configs
   /api/v2/projects/{projectKey}/ai-configs/model-configs/restricted:
     delete:
       description: "Remove AI models, by key, from the restricted list."
       operationId: deleteRestrictedModels
       parameters:
-      - description: Version of the endpoint.
-        explode: false
-        in: header
-        name: LD-API-Version
-        required: true
-        schema:
-          enum:
-          - beta
-          type: string
-        style: simple
       - example: default
         explode: false
         in: path
@@ -27667,23 +27559,13 @@ paths:
           description: Internal server error
       summary: Remove AI models from the restricted list
       tags:
-      - AI Configs (beta)
+      - AI Configs
     post:
       description: "Add AI models, by key, to the restricted list. Keys are included\
-        \ in the response from the [List AI model configs](https://launchdarkly.com/docs/api/ai-configs-beta/list-model-configs)\
+        \ in the response from the [List AI model configs](https://launchdarkly.com/docs/api/ai-configs/list-model-configs)\
         \ endpoint."
       operationId: postRestrictedModels
       parameters:
-      - description: Version of the endpoint.
-        explode: false
-        in: header
-        name: LD-API-Version
-        required: true
-        schema:
-          enum:
-          - beta
-          type: string
-        style: simple
       - example: default
         explode: false
         in: path
@@ -27732,22 +27614,12 @@ paths:
           description: Internal server error
       summary: Add AI models to the restricted list
       tags:
-      - AI Configs (beta)
+      - AI Configs
   /api/v2/projects/{projectKey}/ai-configs/model-configs:
     get:
       description: Get all AI model configs for a project.
       operationId: listModelConfigs
       parameters:
-      - description: Version of the endpoint.
-        explode: false
-        in: header
-        name: LD-API-Version
-        required: true
-        schema:
-          enum:
-          - beta
-          type: string
-        style: simple
       - example: default
         explode: false
         in: path
@@ -27799,22 +27671,12 @@ paths:
           description: Internal server error
       summary: List AI model configs
       tags:
-      - AI Configs (beta)
+      - AI Configs
     post:
       description: Create an AI model config. You can use this in any variation for
         any AI Config in your project.
       operationId: postModelConfig
       parameters:
-      - description: Version of the endpoint.
-        explode: false
-        in: header
-        name: LD-API-Version
-        required: true
-        schema:
-          enum:
-          - beta
-          type: string
-        style: simple
       - example: default
         explode: false
         in: path
@@ -27863,22 +27725,12 @@ paths:
           description: Internal server error
       summary: Create an AI model config
       tags:
-      - AI Configs (beta)
+      - AI Configs
   /api/v2/projects/{projectKey}/ai-configs/model-configs/{modelConfigKey}:
     delete:
       description: Delete an AI model config.
       operationId: deleteModelConfig
       parameters:
-      - description: Version of the endpoint.
-        explode: false
-        in: header
-        name: LD-API-Version
-        required: true
-        schema:
-          enum:
-          - beta
-          type: string
-        style: simple
       - example: default
         explode: false
         in: path
@@ -27923,21 +27775,11 @@ paths:
           description: Internal server error
       summary: Delete an AI model config
       tags:
-      - AI Configs (beta)
+      - AI Configs
     get:
       description: Get an AI model config by key.
       operationId: getModelConfig
       parameters:
-      - description: Version of the endpoint.
-        explode: false
-        in: header
-        name: LD-API-Version
-        required: true
-        schema:
-          enum:
-          - beta
-          type: string
-        style: simple
       - example: default
         explode: false
         in: path
@@ -27987,22 +27829,12 @@ paths:
           description: Internal server error
       summary: Get AI model config
       tags:
-      - AI Configs (beta)
+      - AI Configs
   /api/v2/projects/{projectKey}/ai-tools:
     get:
       description: Get a list of all AI tools in the given project.
       operationId: listAITools
       parameters:
-      - description: Version of the endpoint.
-        explode: false
-        in: header
-        name: LD-API-Version
-        required: true
-        schema:
-          enum:
-          - beta
-          type: string
-        style: simple
       - explode: false
         in: path
         name: projectKey
@@ -28071,21 +27903,11 @@ paths:
           description: Internal server error
       summary: List AI tools
       tags:
-      - AI Configs (beta)
+      - AI Configs
     post:
       description: Create an AI tool
       operationId: postAITool
       parameters:
-      - description: Version of the endpoint.
-        explode: false
-        in: header
-        name: LD-API-Version
-        required: true
-        schema:
-          enum:
-          - beta
-          type: string
-        style: simple
       - explode: false
         in: path
         name: projectKey
@@ -28127,22 +27949,12 @@ paths:
           description: Internal server error
       summary: Create an AI tool
       tags:
-      - AI Configs (beta)
+      - AI Configs
   /api/v2/projects/{projectKey}/ai-tools/{toolKey}/versions:
     get:
       description: Get a list of all versions of an AI tool in the given project.
       operationId: listAIToolVersions
       parameters:
-      - description: Version of the endpoint.
-        explode: false
-        in: header
-        name: LD-API-Version
-        required: true
-        schema:
-          enum:
-          - beta
-          type: string
-        style: simple
       - explode: false
         in: path
         name: projectKey
@@ -28210,22 +28022,12 @@ paths:
           description: Internal server error
       summary: List AI tool versions
       tags:
-      - AI Configs (beta)
+      - AI Configs
   /api/v2/projects/{projectKey}/ai-tools/{toolKey}:
     delete:
       description: Delete an existing AI tool.
       operationId: deleteAITool
       parameters:
-      - description: Version of the endpoint.
-        explode: false
-        in: header
-        name: LD-API-Version
-        required: true
-        schema:
-          enum:
-          - beta
-          type: string
-        style: simple
       - explode: false
         in: path
         name: projectKey
@@ -28269,21 +28071,11 @@ paths:
           description: Internal server error
       summary: Delete AI tool
       tags:
-      - AI Configs (beta)
+      - AI Configs
     get:
       description: Retrieve a specific AI tool by its key.
       operationId: getAITool
       parameters:
-      - description: Version of the endpoint.
-        explode: false
-        in: header
-        name: LD-API-Version
-        required: true
-        schema:
-          enum:
-          - beta
-          type: string
-        style: simple
       - explode: false
         in: path
         name: projectKey
@@ -28331,21 +28123,11 @@ paths:
           description: Internal server error
       summary: Get AI tool
       tags:
-      - AI Configs (beta)
+      - AI Configs
     patch:
       description: Edit an existing AI tool.
       operationId: patchAITool
       parameters:
-      - description: Version of the endpoint.
-        explode: false
-        in: header
-        name: LD-API-Version
-        required: true
-        schema:
-          enum:
-          - beta
-          type: string
-        style: simple
       - explode: false
         in: path
         name: projectKey
@@ -28399,7 +28181,7 @@ paths:
           description: Internal server error
       summary: Update AI tool
       tags:
-      - AI Configs (beta)
+      - AI Configs
   /api/v2/projects/{projectKey}/agent-graphs:
     get:
       description: "Get a list of all agent graphs in the given project. Returns metadata\
@@ -28468,7 +28250,7 @@ paths:
           description: Internal server error
       summary: List agent graphs
       tags:
-      - AI Configs (beta)
+      - AI Configs
     post:
       description: Create a new agent graph within the given project.
       operationId: postAgentGraph
@@ -28530,7 +28312,7 @@ paths:
           description: Internal server error
       summary: Create new agent graph
       tags:
-      - AI Configs (beta)
+      - AI Configs
   /api/v2/projects/{projectKey}/agent-graphs/{graphKey}:
     delete:
       description: Delete an existing agent graph and all of its edges.
@@ -28589,7 +28371,7 @@ paths:
           description: Internal server error
       summary: Delete agent graph
       tags:
-      - AI Configs (beta)
+      - AI Configs
     get:
       description: "Retrieve a specific agent graph by its key, including its edges."
       operationId: getAgentGraph
@@ -28651,7 +28433,7 @@ paths:
           description: Internal server error
       summary: Get agent graph
       tags:
-      - AI Configs (beta)
+      - AI Configs
     patch:
       description: |
         Edit an existing agent graph.
@@ -28724,7 +28506,7 @@ paths:
           description: Internal server error
       summary: Update agent graph
       tags:
-      - AI Configs (beta)
+      - AI Configs
   /api/v2/announcements:
     get:
       description: Get announcements
@@ -38491,6 +38273,7 @@ components:
       type: object
     DependentMeasuredRolloutRep:
       example:
+        flagPurpose: migration
         _links:
           self:
             href: /api/v2/projects/my-project/flags/my-flag/environments/production/measured-rollouts/885ccadf-181b-4a9a-8414-7ad6f7ba2db0
@@ -38514,6 +38297,10 @@ components:
         flagName:
           description: 'The guarded rollout flag name '
           example: My Flag
+          type: string
+        flagPurpose:
+          description: The guarded rollout flag purpose
+          example: migration
           type: string
         environmentKey:
           description: The guarded rollout environment key
@@ -58975,6 +58762,7 @@ components:
             href: /api/v2/metrics/my-project/my-metric
             type: application/json
         lastUsedInGuardedRollout:
+          flagPurpose: migration
           _links:
             self:
               href: /api/v2/projects/my-project/flags/my-flag/environments/production/measured-rollouts/885ccadf-181b-4a9a-8414-7ad6f7ba2db0
@@ -65506,7 +65294,7 @@ components:
           email: ariel@acme.com
         ownerId: ownerId
         creationDate: 0
-        defaultApiVersion: 20220603
+        defaultApiVersion: 20240415
         token: "1234"
         inlineRole: []
         lastUsed: 1
@@ -65579,7 +65367,7 @@ components:
           type: object
         defaultApiVersion:
           description: The default API version for this token
-          example: 20220603
+          example: 20240415
           type: integer
         lastUsed:
           format: int64
@@ -65652,7 +65440,7 @@ components:
             email: ariel@acme.com
           ownerId: ownerId
           creationDate: 0
-          defaultApiVersion: 20220603
+          defaultApiVersion: 20240415
           token: "1234"
           inlineRole: []
           lastUsed: 1
@@ -65683,7 +65471,7 @@ components:
             email: ariel@acme.com
           ownerId: ownerId
           creationDate: 0
-          defaultApiVersion: 20220603
+          defaultApiVersion: 20240415
           token: "1234"
           inlineRole: []
           lastUsed: 1
@@ -68385,6 +68173,19 @@ components:
       required:
       - items
       type: object
+    approvalRequestPatchInput:
+      properties:
+        comment:
+          description: Optional comment describing the update
+          example: Update targeting to serve true to beta testers
+          type: string
+        instructions:
+          items:
+            $ref: "#/components/schemas/Instruction"
+          type: array
+      required:
+      - instructions
+      type: object
     createCopyFlagConfigApprovalRequestRequest:
       properties:
         comment:
@@ -69344,6 +69145,7 @@ components:
               href: href
               type: type
           description: description
+          evaluationMetricKey: evaluationMetricKey
           version: 0
           tags:
           - tags
@@ -69489,6 +69291,7 @@ components:
             key: key
           name: name
           key: key
+          isInverted: true
           updatedAt: 3
         - _maintainer:
             kind: kind
@@ -69500,6 +69303,7 @@ components:
               href: href
               type: type
           description: description
+          evaluationMetricKey: evaluationMetricKey
           version: 0
           tags:
           - tags
@@ -69645,6 +69449,7 @@ components:
             key: key
           name: name
           key: key
+          isInverted: true
           updatedAt: 3
       properties:
         _links:
@@ -69671,6 +69476,7 @@ components:
             href: href
             type: type
         description: description
+        evaluationMetricKey: evaluationMetricKey
         version: 0
         tags:
         - tags
@@ -69816,6 +69622,7 @@ components:
           key: key
         name: name
         key: key
+        isInverted: true
         updatedAt: 3
       properties:
         _access:
@@ -69853,11 +69660,19 @@ components:
         updatedAt:
           format: int64
           type: integer
+        evaluationMetricKey:
+          description: Evaluation metric key for this AI Config
+          type: string
         evaluationMetricKeys:
-          description: List of evaluation metric keys for this AI config
+          deprecated: true
+          description: List of evaluation metric keys for this AI Config
           items:
             type: string
           type: array
+        isInverted:
+          description: "Whether the evaluation metric is inverted, meaning a lower\
+            \ value is better if set as true"
+          type: boolean
       required:
       - createdAt
       - description
@@ -69902,7 +69717,9 @@ components:
         maintainerTeamKey: maintainerTeamKey
         name: name
         description: ""
+        evaluationMetricKey: evaluationMetricKey
         key: key
+        isInverted: true
         tags:
         - tags
         - tags
@@ -69931,6 +69748,13 @@ components:
           type: array
         defaultVariation:
           $ref: "#/components/schemas/AIConfigVariationPost"
+        evaluationMetricKey:
+          description: Evaluation metric key for this AI Config
+          type: string
+        isInverted:
+          description: "Whether the evaluation metric is inverted, meaning a lower\
+            \ value is better if set as true"
+          type: boolean
       required:
       - key
       - name
@@ -69941,6 +69765,8 @@ components:
         maintainerTeamKey: maintainerTeamKey
         name: name
         description: description
+        evaluationMetricKey: evaluationMetricKey
+        isInverted: true
         tags:
         - tags
         - tags
@@ -69957,6 +69783,13 @@ components:
           items:
             type: string
           type: array
+        evaluationMetricKey:
+          description: Evaluation metric key for this AI Config
+          type: string
+        isInverted:
+          description: "Whether the evaluation metric is inverted, meaning a lower\
+            \ value is better if set as true"
+          type: boolean
       type: object
     AIConfigVariation:
       example:
@@ -70306,7 +70139,7 @@ components:
         judgeConfigKey: judgeConfigKey
       properties:
         judgeConfigKey:
-          description: Key of the judge AI config
+          description: Key of the judge AI Config
           type: string
         samplingRate:
           description: Sampling rate for this judge attachment (0.0 to 1.0)

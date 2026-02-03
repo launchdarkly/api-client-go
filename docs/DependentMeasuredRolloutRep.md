@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Id** | **string** | The guarded rollout measured rollout Id | 
 **FlagKey** | **string** | The guarded rollout flag key  | 
 **FlagName** | **string** | The guarded rollout flag name  | 
+**FlagPurpose** | Pointer to **string** | The guarded rollout flag purpose | [optional] 
 **EnvironmentKey** | **string** | The guarded rollout environment key | 
 **EnvironmentName** | **string** | The guarded rollout environment name | 
 **Status** | **string** | The guarded rollout status | 
@@ -91,6 +92,31 @@ and a boolean to check if the value has been set.
 
 SetFlagName sets FlagName field to given value.
 
+
+### GetFlagPurpose
+
+`func (o *DependentMeasuredRolloutRep) GetFlagPurpose() string`
+
+GetFlagPurpose returns the FlagPurpose field if non-nil, zero value otherwise.
+
+### GetFlagPurposeOk
+
+`func (o *DependentMeasuredRolloutRep) GetFlagPurposeOk() (*string, bool)`
+
+GetFlagPurposeOk returns a tuple with the FlagPurpose field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFlagPurpose
+
+`func (o *DependentMeasuredRolloutRep) SetFlagPurpose(v string)`
+
+SetFlagPurpose sets FlagPurpose field to given value.
+
+### HasFlagPurpose
+
+`func (o *DependentMeasuredRolloutRep) HasFlagPurpose() bool`
+
+HasFlagPurpose returns a boolean if a field has been set.
 
 ### GetEnvironmentKey
 

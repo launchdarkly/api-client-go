@@ -1,45 +1,45 @@
-# \AIConfigsBetaApi
+# \AIConfigsApi
 
 All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteAIConfig**](AIConfigsBetaApi.md#DeleteAIConfig) | **Delete** /api/v2/projects/{projectKey}/ai-configs/{configKey} | Delete AI Config
-[**DeleteAIConfigVariation**](AIConfigsBetaApi.md#DeleteAIConfigVariation) | **Delete** /api/v2/projects/{projectKey}/ai-configs/{configKey}/variations/{variationKey} | Delete AI Config variation
-[**DeleteAITool**](AIConfigsBetaApi.md#DeleteAITool) | **Delete** /api/v2/projects/{projectKey}/ai-tools/{toolKey} | Delete AI tool
-[**DeleteAgentGraph**](AIConfigsBetaApi.md#DeleteAgentGraph) | **Delete** /api/v2/projects/{projectKey}/agent-graphs/{graphKey} | Delete agent graph
-[**DeleteModelConfig**](AIConfigsBetaApi.md#DeleteModelConfig) | **Delete** /api/v2/projects/{projectKey}/ai-configs/model-configs/{modelConfigKey} | Delete an AI model config
-[**DeleteRestrictedModels**](AIConfigsBetaApi.md#DeleteRestrictedModels) | **Delete** /api/v2/projects/{projectKey}/ai-configs/model-configs/restricted | Remove AI models from the restricted list
-[**GetAIConfig**](AIConfigsBetaApi.md#GetAIConfig) | **Get** /api/v2/projects/{projectKey}/ai-configs/{configKey} | Get AI Config
-[**GetAIConfigMetrics**](AIConfigsBetaApi.md#GetAIConfigMetrics) | **Get** /api/v2/projects/{projectKey}/ai-configs/{configKey}/metrics | Get AI Config metrics
-[**GetAIConfigMetricsByVariation**](AIConfigsBetaApi.md#GetAIConfigMetricsByVariation) | **Get** /api/v2/projects/{projectKey}/ai-configs/{configKey}/metrics-by-variation | Get AI Config metrics by variation
-[**GetAIConfigTargeting**](AIConfigsBetaApi.md#GetAIConfigTargeting) | **Get** /api/v2/projects/{projectKey}/ai-configs/{configKey}/targeting | Show an AI Config&#39;s targeting
-[**GetAIConfigVariation**](AIConfigsBetaApi.md#GetAIConfigVariation) | **Get** /api/v2/projects/{projectKey}/ai-configs/{configKey}/variations/{variationKey} | Get AI Config variation
-[**GetAIConfigs**](AIConfigsBetaApi.md#GetAIConfigs) | **Get** /api/v2/projects/{projectKey}/ai-configs | List AI Configs
-[**GetAITool**](AIConfigsBetaApi.md#GetAITool) | **Get** /api/v2/projects/{projectKey}/ai-tools/{toolKey} | Get AI tool
-[**GetAgentGraph**](AIConfigsBetaApi.md#GetAgentGraph) | **Get** /api/v2/projects/{projectKey}/agent-graphs/{graphKey} | Get agent graph
-[**GetModelConfig**](AIConfigsBetaApi.md#GetModelConfig) | **Get** /api/v2/projects/{projectKey}/ai-configs/model-configs/{modelConfigKey} | Get AI model config
-[**ListAIToolVersions**](AIConfigsBetaApi.md#ListAIToolVersions) | **Get** /api/v2/projects/{projectKey}/ai-tools/{toolKey}/versions | List AI tool versions
-[**ListAITools**](AIConfigsBetaApi.md#ListAITools) | **Get** /api/v2/projects/{projectKey}/ai-tools | List AI tools
-[**ListAgentGraphs**](AIConfigsBetaApi.md#ListAgentGraphs) | **Get** /api/v2/projects/{projectKey}/agent-graphs | List agent graphs
-[**ListModelConfigs**](AIConfigsBetaApi.md#ListModelConfigs) | **Get** /api/v2/projects/{projectKey}/ai-configs/model-configs | List AI model configs
-[**PatchAIConfig**](AIConfigsBetaApi.md#PatchAIConfig) | **Patch** /api/v2/projects/{projectKey}/ai-configs/{configKey} | Update AI Config
-[**PatchAIConfigTargeting**](AIConfigsBetaApi.md#PatchAIConfigTargeting) | **Patch** /api/v2/projects/{projectKey}/ai-configs/{configKey}/targeting | Update AI Config targeting
-[**PatchAIConfigVariation**](AIConfigsBetaApi.md#PatchAIConfigVariation) | **Patch** /api/v2/projects/{projectKey}/ai-configs/{configKey}/variations/{variationKey} | Update AI Config variation
-[**PatchAITool**](AIConfigsBetaApi.md#PatchAITool) | **Patch** /api/v2/projects/{projectKey}/ai-tools/{toolKey} | Update AI tool
-[**PatchAgentGraph**](AIConfigsBetaApi.md#PatchAgentGraph) | **Patch** /api/v2/projects/{projectKey}/agent-graphs/{graphKey} | Update agent graph
-[**PostAIConfig**](AIConfigsBetaApi.md#PostAIConfig) | **Post** /api/v2/projects/{projectKey}/ai-configs | Create new AI Config
-[**PostAIConfigVariation**](AIConfigsBetaApi.md#PostAIConfigVariation) | **Post** /api/v2/projects/{projectKey}/ai-configs/{configKey}/variations | Create AI Config variation
-[**PostAITool**](AIConfigsBetaApi.md#PostAITool) | **Post** /api/v2/projects/{projectKey}/ai-tools | Create an AI tool
-[**PostAgentGraph**](AIConfigsBetaApi.md#PostAgentGraph) | **Post** /api/v2/projects/{projectKey}/agent-graphs | Create new agent graph
-[**PostModelConfig**](AIConfigsBetaApi.md#PostModelConfig) | **Post** /api/v2/projects/{projectKey}/ai-configs/model-configs | Create an AI model config
-[**PostRestrictedModels**](AIConfigsBetaApi.md#PostRestrictedModels) | **Post** /api/v2/projects/{projectKey}/ai-configs/model-configs/restricted | Add AI models to the restricted list
+[**DeleteAIConfig**](AIConfigsApi.md#DeleteAIConfig) | **Delete** /api/v2/projects/{projectKey}/ai-configs/{configKey} | Delete AI Config
+[**DeleteAIConfigVariation**](AIConfigsApi.md#DeleteAIConfigVariation) | **Delete** /api/v2/projects/{projectKey}/ai-configs/{configKey}/variations/{variationKey} | Delete AI Config variation
+[**DeleteAITool**](AIConfigsApi.md#DeleteAITool) | **Delete** /api/v2/projects/{projectKey}/ai-tools/{toolKey} | Delete AI tool
+[**DeleteAgentGraph**](AIConfigsApi.md#DeleteAgentGraph) | **Delete** /api/v2/projects/{projectKey}/agent-graphs/{graphKey} | Delete agent graph
+[**DeleteModelConfig**](AIConfigsApi.md#DeleteModelConfig) | **Delete** /api/v2/projects/{projectKey}/ai-configs/model-configs/{modelConfigKey} | Delete an AI model config
+[**DeleteRestrictedModels**](AIConfigsApi.md#DeleteRestrictedModels) | **Delete** /api/v2/projects/{projectKey}/ai-configs/model-configs/restricted | Remove AI models from the restricted list
+[**GetAIConfig**](AIConfigsApi.md#GetAIConfig) | **Get** /api/v2/projects/{projectKey}/ai-configs/{configKey} | Get AI Config
+[**GetAIConfigMetrics**](AIConfigsApi.md#GetAIConfigMetrics) | **Get** /api/v2/projects/{projectKey}/ai-configs/{configKey}/metrics | Get AI Config metrics
+[**GetAIConfigMetricsByVariation**](AIConfigsApi.md#GetAIConfigMetricsByVariation) | **Get** /api/v2/projects/{projectKey}/ai-configs/{configKey}/metrics-by-variation | Get AI Config metrics by variation
+[**GetAIConfigTargeting**](AIConfigsApi.md#GetAIConfigTargeting) | **Get** /api/v2/projects/{projectKey}/ai-configs/{configKey}/targeting | Show an AI Config&#39;s targeting
+[**GetAIConfigVariation**](AIConfigsApi.md#GetAIConfigVariation) | **Get** /api/v2/projects/{projectKey}/ai-configs/{configKey}/variations/{variationKey} | Get AI Config variation
+[**GetAIConfigs**](AIConfigsApi.md#GetAIConfigs) | **Get** /api/v2/projects/{projectKey}/ai-configs | List AI Configs
+[**GetAITool**](AIConfigsApi.md#GetAITool) | **Get** /api/v2/projects/{projectKey}/ai-tools/{toolKey} | Get AI tool
+[**GetAgentGraph**](AIConfigsApi.md#GetAgentGraph) | **Get** /api/v2/projects/{projectKey}/agent-graphs/{graphKey} | Get agent graph
+[**GetModelConfig**](AIConfigsApi.md#GetModelConfig) | **Get** /api/v2/projects/{projectKey}/ai-configs/model-configs/{modelConfigKey} | Get AI model config
+[**ListAIToolVersions**](AIConfigsApi.md#ListAIToolVersions) | **Get** /api/v2/projects/{projectKey}/ai-tools/{toolKey}/versions | List AI tool versions
+[**ListAITools**](AIConfigsApi.md#ListAITools) | **Get** /api/v2/projects/{projectKey}/ai-tools | List AI tools
+[**ListAgentGraphs**](AIConfigsApi.md#ListAgentGraphs) | **Get** /api/v2/projects/{projectKey}/agent-graphs | List agent graphs
+[**ListModelConfigs**](AIConfigsApi.md#ListModelConfigs) | **Get** /api/v2/projects/{projectKey}/ai-configs/model-configs | List AI model configs
+[**PatchAIConfig**](AIConfigsApi.md#PatchAIConfig) | **Patch** /api/v2/projects/{projectKey}/ai-configs/{configKey} | Update AI Config
+[**PatchAIConfigTargeting**](AIConfigsApi.md#PatchAIConfigTargeting) | **Patch** /api/v2/projects/{projectKey}/ai-configs/{configKey}/targeting | Update AI Config targeting
+[**PatchAIConfigVariation**](AIConfigsApi.md#PatchAIConfigVariation) | **Patch** /api/v2/projects/{projectKey}/ai-configs/{configKey}/variations/{variationKey} | Update AI Config variation
+[**PatchAITool**](AIConfigsApi.md#PatchAITool) | **Patch** /api/v2/projects/{projectKey}/ai-tools/{toolKey} | Update AI tool
+[**PatchAgentGraph**](AIConfigsApi.md#PatchAgentGraph) | **Patch** /api/v2/projects/{projectKey}/agent-graphs/{graphKey} | Update agent graph
+[**PostAIConfig**](AIConfigsApi.md#PostAIConfig) | **Post** /api/v2/projects/{projectKey}/ai-configs | Create new AI Config
+[**PostAIConfigVariation**](AIConfigsApi.md#PostAIConfigVariation) | **Post** /api/v2/projects/{projectKey}/ai-configs/{configKey}/variations | Create AI Config variation
+[**PostAITool**](AIConfigsApi.md#PostAITool) | **Post** /api/v2/projects/{projectKey}/ai-tools | Create an AI tool
+[**PostAgentGraph**](AIConfigsApi.md#PostAgentGraph) | **Post** /api/v2/projects/{projectKey}/agent-graphs | Create new agent graph
+[**PostModelConfig**](AIConfigsApi.md#PostModelConfig) | **Post** /api/v2/projects/{projectKey}/ai-configs/model-configs | Create an AI model config
+[**PostRestrictedModels**](AIConfigsApi.md#PostRestrictedModels) | **Post** /api/v2/projects/{projectKey}/ai-configs/model-configs/restricted | Add AI models to the restricted list
 
 
 
 ## DeleteAIConfig
 
-> DeleteAIConfig(ctx, projectKey, configKey).LDAPIVersion(lDAPIVersion).Execute()
+> DeleteAIConfig(ctx, projectKey, configKey).Execute()
 
 Delete AI Config
 
@@ -58,15 +58,14 @@ import (
 )
 
 func main() {
-	lDAPIVersion := "lDAPIVersion_example" // string | Version of the endpoint.
 	projectKey := "default" // string | 
 	configKey := "configKey_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AIConfigsBetaApi.DeleteAIConfig(context.Background(), projectKey, configKey).LDAPIVersion(lDAPIVersion).Execute()
+	r, err := apiClient.AIConfigsApi.DeleteAIConfig(context.Background(), projectKey, configKey).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsBetaApi.DeleteAIConfig``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsApi.DeleteAIConfig``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -88,7 +87,6 @@ Other parameters are passed through a pointer to a apiDeleteAIConfigRequest stru
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **lDAPIVersion** | **string** | Version of the endpoint. | 
 
 
 
@@ -112,7 +110,7 @@ Name | Type | Description  | Notes
 
 ## DeleteAIConfigVariation
 
-> DeleteAIConfigVariation(ctx, projectKey, configKey, variationKey).LDAPIVersion(lDAPIVersion).Execute()
+> DeleteAIConfigVariation(ctx, projectKey, configKey, variationKey).Execute()
 
 Delete AI Config variation
 
@@ -131,16 +129,15 @@ import (
 )
 
 func main() {
-	lDAPIVersion := "lDAPIVersion_example" // string | Version of the endpoint.
 	projectKey := "projectKey_example" // string | 
 	configKey := "configKey_example" // string | 
 	variationKey := "variationKey_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AIConfigsBetaApi.DeleteAIConfigVariation(context.Background(), projectKey, configKey, variationKey).LDAPIVersion(lDAPIVersion).Execute()
+	r, err := apiClient.AIConfigsApi.DeleteAIConfigVariation(context.Background(), projectKey, configKey, variationKey).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsBetaApi.DeleteAIConfigVariation``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsApi.DeleteAIConfigVariation``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -163,7 +160,6 @@ Other parameters are passed through a pointer to a apiDeleteAIConfigVariationReq
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **lDAPIVersion** | **string** | Version of the endpoint. | 
 
 
 
@@ -188,7 +184,7 @@ Name | Type | Description  | Notes
 
 ## DeleteAITool
 
-> DeleteAITool(ctx, projectKey, toolKey).LDAPIVersion(lDAPIVersion).Execute()
+> DeleteAITool(ctx, projectKey, toolKey).Execute()
 
 Delete AI tool
 
@@ -207,15 +203,14 @@ import (
 )
 
 func main() {
-	lDAPIVersion := "lDAPIVersion_example" // string | Version of the endpoint.
 	projectKey := "projectKey_example" // string | 
 	toolKey := "toolKey_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AIConfigsBetaApi.DeleteAITool(context.Background(), projectKey, toolKey).LDAPIVersion(lDAPIVersion).Execute()
+	r, err := apiClient.AIConfigsApi.DeleteAITool(context.Background(), projectKey, toolKey).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsBetaApi.DeleteAITool``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsApi.DeleteAITool``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -237,7 +232,6 @@ Other parameters are passed through a pointer to a apiDeleteAIToolRequest struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **lDAPIVersion** | **string** | Version of the endpoint. | 
 
 
 
@@ -286,9 +280,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AIConfigsBetaApi.DeleteAgentGraph(context.Background(), projectKey, graphKey).LDAPIVersion(lDAPIVersion).Execute()
+	r, err := apiClient.AIConfigsApi.DeleteAgentGraph(context.Background(), projectKey, graphKey).LDAPIVersion(lDAPIVersion).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsBetaApi.DeleteAgentGraph``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsApi.DeleteAgentGraph``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -334,7 +328,7 @@ Name | Type | Description  | Notes
 
 ## DeleteModelConfig
 
-> DeleteModelConfig(ctx, projectKey, modelConfigKey).LDAPIVersion(lDAPIVersion).Execute()
+> DeleteModelConfig(ctx, projectKey, modelConfigKey).Execute()
 
 Delete an AI model config
 
@@ -353,15 +347,14 @@ import (
 )
 
 func main() {
-	lDAPIVersion := "lDAPIVersion_example" // string | Version of the endpoint.
 	projectKey := "default" // string | 
 	modelConfigKey := "modelConfigKey_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AIConfigsBetaApi.DeleteModelConfig(context.Background(), projectKey, modelConfigKey).LDAPIVersion(lDAPIVersion).Execute()
+	r, err := apiClient.AIConfigsApi.DeleteModelConfig(context.Background(), projectKey, modelConfigKey).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsBetaApi.DeleteModelConfig``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsApi.DeleteModelConfig``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -383,7 +376,6 @@ Other parameters are passed through a pointer to a apiDeleteModelConfigRequest s
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **lDAPIVersion** | **string** | Version of the endpoint. | 
 
 
 
@@ -407,7 +399,7 @@ Name | Type | Description  | Notes
 
 ## DeleteRestrictedModels
 
-> DeleteRestrictedModels(ctx, projectKey).LDAPIVersion(lDAPIVersion).RestrictedModelsRequest(restrictedModelsRequest).Execute()
+> DeleteRestrictedModels(ctx, projectKey).RestrictedModelsRequest(restrictedModelsRequest).Execute()
 
 Remove AI models from the restricted list
 
@@ -426,15 +418,14 @@ import (
 )
 
 func main() {
-	lDAPIVersion := "lDAPIVersion_example" // string | Version of the endpoint.
 	projectKey := "default" // string | 
 	restrictedModelsRequest := *openapiclient.NewRestrictedModelsRequest([]string{"Keys_example"}) // RestrictedModelsRequest | List of AI model keys to remove from the restricted list
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.AIConfigsBetaApi.DeleteRestrictedModels(context.Background(), projectKey).LDAPIVersion(lDAPIVersion).RestrictedModelsRequest(restrictedModelsRequest).Execute()
+	r, err := apiClient.AIConfigsApi.DeleteRestrictedModels(context.Background(), projectKey).RestrictedModelsRequest(restrictedModelsRequest).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsBetaApi.DeleteRestrictedModels``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsApi.DeleteRestrictedModels``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -455,7 +446,6 @@ Other parameters are passed through a pointer to a apiDeleteRestrictedModelsRequ
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **lDAPIVersion** | **string** | Version of the endpoint. | 
 
  **restrictedModelsRequest** | [**RestrictedModelsRequest**](RestrictedModelsRequest.md) | List of AI model keys to remove from the restricted list | 
 
@@ -479,7 +469,7 @@ Name | Type | Description  | Notes
 
 ## GetAIConfig
 
-> AIConfig GetAIConfig(ctx, projectKey, configKey).LDAPIVersion(lDAPIVersion).Execute()
+> AIConfig GetAIConfig(ctx, projectKey, configKey).Execute()
 
 Get AI Config
 
@@ -498,19 +488,18 @@ import (
 )
 
 func main() {
-	lDAPIVersion := "lDAPIVersion_example" // string | Version of the endpoint.
 	projectKey := "projectKey_example" // string | 
 	configKey := "configKey_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AIConfigsBetaApi.GetAIConfig(context.Background(), projectKey, configKey).LDAPIVersion(lDAPIVersion).Execute()
+	resp, r, err := apiClient.AIConfigsApi.GetAIConfig(context.Background(), projectKey, configKey).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsBetaApi.GetAIConfig``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsApi.GetAIConfig``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `GetAIConfig`: AIConfig
-	fmt.Fprintf(os.Stdout, "Response from `AIConfigsBetaApi.GetAIConfig`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `AIConfigsApi.GetAIConfig`: %v\n", resp)
 }
 ```
 
@@ -530,7 +519,6 @@ Other parameters are passed through a pointer to a apiGetAIConfigRequest struct 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **lDAPIVersion** | **string** | Version of the endpoint. | 
 
 
 
@@ -554,7 +542,7 @@ Name | Type | Description  | Notes
 
 ## GetAIConfigMetrics
 
-> Metrics GetAIConfigMetrics(ctx, projectKey, configKey).LDAPIVersion(lDAPIVersion).From(from).To(to).Env(env).Execute()
+> Metrics GetAIConfigMetrics(ctx, projectKey, configKey).From(from).To(to).Env(env).Execute()
 
 Get AI Config metrics
 
@@ -573,7 +561,6 @@ import (
 )
 
 func main() {
-	lDAPIVersion := "lDAPIVersion_example" // string | Version of the endpoint.
 	projectKey := "projectKey_example" // string | 
 	configKey := "configKey_example" // string | 
 	from := int32(56) // int32 | The starting time, as milliseconds since epoch (inclusive).
@@ -582,13 +569,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AIConfigsBetaApi.GetAIConfigMetrics(context.Background(), projectKey, configKey).LDAPIVersion(lDAPIVersion).From(from).To(to).Env(env).Execute()
+	resp, r, err := apiClient.AIConfigsApi.GetAIConfigMetrics(context.Background(), projectKey, configKey).From(from).To(to).Env(env).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsBetaApi.GetAIConfigMetrics``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsApi.GetAIConfigMetrics``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `GetAIConfigMetrics`: Metrics
-	fmt.Fprintf(os.Stdout, "Response from `AIConfigsBetaApi.GetAIConfigMetrics`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `AIConfigsApi.GetAIConfigMetrics`: %v\n", resp)
 }
 ```
 
@@ -608,7 +595,6 @@ Other parameters are passed through a pointer to a apiGetAIConfigMetricsRequest 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **lDAPIVersion** | **string** | Version of the endpoint. | 
 
 
  **from** | **int32** | The starting time, as milliseconds since epoch (inclusive). | 
@@ -635,7 +621,7 @@ Name | Type | Description  | Notes
 
 ## GetAIConfigMetricsByVariation
 
-> []MetricByVariation GetAIConfigMetricsByVariation(ctx, projectKey, configKey).LDAPIVersion(lDAPIVersion).From(from).To(to).Env(env).Execute()
+> []MetricByVariation GetAIConfigMetricsByVariation(ctx, projectKey, configKey).From(from).To(to).Env(env).Execute()
 
 Get AI Config metrics by variation
 
@@ -654,7 +640,6 @@ import (
 )
 
 func main() {
-	lDAPIVersion := "lDAPIVersion_example" // string | Version of the endpoint.
 	projectKey := "projectKey_example" // string | 
 	configKey := "configKey_example" // string | 
 	from := int32(56) // int32 | The starting time, as milliseconds since epoch (inclusive).
@@ -663,13 +648,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AIConfigsBetaApi.GetAIConfigMetricsByVariation(context.Background(), projectKey, configKey).LDAPIVersion(lDAPIVersion).From(from).To(to).Env(env).Execute()
+	resp, r, err := apiClient.AIConfigsApi.GetAIConfigMetricsByVariation(context.Background(), projectKey, configKey).From(from).To(to).Env(env).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsBetaApi.GetAIConfigMetricsByVariation``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsApi.GetAIConfigMetricsByVariation``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `GetAIConfigMetricsByVariation`: []MetricByVariation
-	fmt.Fprintf(os.Stdout, "Response from `AIConfigsBetaApi.GetAIConfigMetricsByVariation`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `AIConfigsApi.GetAIConfigMetricsByVariation`: %v\n", resp)
 }
 ```
 
@@ -689,7 +674,6 @@ Other parameters are passed through a pointer to a apiGetAIConfigMetricsByVariat
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **lDAPIVersion** | **string** | Version of the endpoint. | 
 
 
  **from** | **int32** | The starting time, as milliseconds since epoch (inclusive). | 
@@ -716,7 +700,7 @@ Name | Type | Description  | Notes
 
 ## GetAIConfigTargeting
 
-> AIConfigTargeting GetAIConfigTargeting(ctx, projectKey, configKey).LDAPIVersion(lDAPIVersion).Execute()
+> AIConfigTargeting GetAIConfigTargeting(ctx, projectKey, configKey).Execute()
 
 Show an AI Config's targeting
 
@@ -735,19 +719,18 @@ import (
 )
 
 func main() {
-	lDAPIVersion := "lDAPIVersion_example" // string | Version of the endpoint.
 	projectKey := "projectKey_example" // string | 
 	configKey := "configKey_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AIConfigsBetaApi.GetAIConfigTargeting(context.Background(), projectKey, configKey).LDAPIVersion(lDAPIVersion).Execute()
+	resp, r, err := apiClient.AIConfigsApi.GetAIConfigTargeting(context.Background(), projectKey, configKey).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsBetaApi.GetAIConfigTargeting``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsApi.GetAIConfigTargeting``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `GetAIConfigTargeting`: AIConfigTargeting
-	fmt.Fprintf(os.Stdout, "Response from `AIConfigsBetaApi.GetAIConfigTargeting`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `AIConfigsApi.GetAIConfigTargeting`: %v\n", resp)
 }
 ```
 
@@ -767,7 +750,6 @@ Other parameters are passed through a pointer to a apiGetAIConfigTargetingReques
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **lDAPIVersion** | **string** | Version of the endpoint. | 
 
 
 
@@ -791,7 +773,7 @@ Name | Type | Description  | Notes
 
 ## GetAIConfigVariation
 
-> AIConfigVariationsResponse GetAIConfigVariation(ctx, projectKey, configKey, variationKey).LDAPIVersion(lDAPIVersion).Execute()
+> AIConfigVariationsResponse GetAIConfigVariation(ctx, projectKey, configKey, variationKey).Execute()
 
 Get AI Config variation
 
@@ -810,20 +792,19 @@ import (
 )
 
 func main() {
-	lDAPIVersion := "lDAPIVersion_example" // string | Version of the endpoint.
 	projectKey := "default" // string | 
 	configKey := "default" // string | 
 	variationKey := "default" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AIConfigsBetaApi.GetAIConfigVariation(context.Background(), projectKey, configKey, variationKey).LDAPIVersion(lDAPIVersion).Execute()
+	resp, r, err := apiClient.AIConfigsApi.GetAIConfigVariation(context.Background(), projectKey, configKey, variationKey).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsBetaApi.GetAIConfigVariation``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsApi.GetAIConfigVariation``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `GetAIConfigVariation`: AIConfigVariationsResponse
-	fmt.Fprintf(os.Stdout, "Response from `AIConfigsBetaApi.GetAIConfigVariation`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `AIConfigsApi.GetAIConfigVariation`: %v\n", resp)
 }
 ```
 
@@ -844,7 +825,6 @@ Other parameters are passed through a pointer to a apiGetAIConfigVariationReques
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **lDAPIVersion** | **string** | Version of the endpoint. | 
 
 
 
@@ -869,7 +849,7 @@ Name | Type | Description  | Notes
 
 ## GetAIConfigs
 
-> AIConfigs GetAIConfigs(ctx, projectKey).LDAPIVersion(lDAPIVersion).Sort(sort).Limit(limit).Offset(offset).Filter(filter).Execute()
+> AIConfigs GetAIConfigs(ctx, projectKey).Sort(sort).Limit(limit).Offset(offset).Filter(filter).Execute()
 
 List AI Configs
 
@@ -888,7 +868,6 @@ import (
 )
 
 func main() {
-	lDAPIVersion := "lDAPIVersion_example" // string | Version of the endpoint.
 	projectKey := "default" // string | 
 	sort := "sort_example" // string | A sort to apply to the list of AI Configs. (optional)
 	limit := int32(56) // int32 | The number of AI Configs to return. (optional)
@@ -897,13 +876,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AIConfigsBetaApi.GetAIConfigs(context.Background(), projectKey).LDAPIVersion(lDAPIVersion).Sort(sort).Limit(limit).Offset(offset).Filter(filter).Execute()
+	resp, r, err := apiClient.AIConfigsApi.GetAIConfigs(context.Background(), projectKey).Sort(sort).Limit(limit).Offset(offset).Filter(filter).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsBetaApi.GetAIConfigs``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsApi.GetAIConfigs``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `GetAIConfigs`: AIConfigs
-	fmt.Fprintf(os.Stdout, "Response from `AIConfigsBetaApi.GetAIConfigs`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `AIConfigsApi.GetAIConfigs`: %v\n", resp)
 }
 ```
 
@@ -922,7 +901,6 @@ Other parameters are passed through a pointer to a apiGetAIConfigsRequest struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **lDAPIVersion** | **string** | Version of the endpoint. | 
 
  **sort** | **string** | A sort to apply to the list of AI Configs. | 
  **limit** | **int32** | The number of AI Configs to return. | 
@@ -949,7 +927,7 @@ Name | Type | Description  | Notes
 
 ## GetAITool
 
-> AITool GetAITool(ctx, projectKey, toolKey).LDAPIVersion(lDAPIVersion).Execute()
+> AITool GetAITool(ctx, projectKey, toolKey).Execute()
 
 Get AI tool
 
@@ -968,19 +946,18 @@ import (
 )
 
 func main() {
-	lDAPIVersion := "lDAPIVersion_example" // string | Version of the endpoint.
 	projectKey := "projectKey_example" // string | 
 	toolKey := "toolKey_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AIConfigsBetaApi.GetAITool(context.Background(), projectKey, toolKey).LDAPIVersion(lDAPIVersion).Execute()
+	resp, r, err := apiClient.AIConfigsApi.GetAITool(context.Background(), projectKey, toolKey).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsBetaApi.GetAITool``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsApi.GetAITool``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `GetAITool`: AITool
-	fmt.Fprintf(os.Stdout, "Response from `AIConfigsBetaApi.GetAITool`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `AIConfigsApi.GetAITool`: %v\n", resp)
 }
 ```
 
@@ -1000,7 +977,6 @@ Other parameters are passed through a pointer to a apiGetAIToolRequest struct vi
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **lDAPIVersion** | **string** | Version of the endpoint. | 
 
 
 
@@ -1049,13 +1025,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AIConfigsBetaApi.GetAgentGraph(context.Background(), projectKey, graphKey).LDAPIVersion(lDAPIVersion).Execute()
+	resp, r, err := apiClient.AIConfigsApi.GetAgentGraph(context.Background(), projectKey, graphKey).LDAPIVersion(lDAPIVersion).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsBetaApi.GetAgentGraph``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsApi.GetAgentGraph``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `GetAgentGraph`: AgentGraph
-	fmt.Fprintf(os.Stdout, "Response from `AIConfigsBetaApi.GetAgentGraph`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `AIConfigsApi.GetAgentGraph`: %v\n", resp)
 }
 ```
 
@@ -1099,7 +1075,7 @@ Name | Type | Description  | Notes
 
 ## GetModelConfig
 
-> ModelConfig GetModelConfig(ctx, projectKey, modelConfigKey).LDAPIVersion(lDAPIVersion).Execute()
+> ModelConfig GetModelConfig(ctx, projectKey, modelConfigKey).Execute()
 
 Get AI model config
 
@@ -1118,19 +1094,18 @@ import (
 )
 
 func main() {
-	lDAPIVersion := "lDAPIVersion_example" // string | Version of the endpoint.
 	projectKey := "default" // string | 
 	modelConfigKey := "default" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AIConfigsBetaApi.GetModelConfig(context.Background(), projectKey, modelConfigKey).LDAPIVersion(lDAPIVersion).Execute()
+	resp, r, err := apiClient.AIConfigsApi.GetModelConfig(context.Background(), projectKey, modelConfigKey).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsBetaApi.GetModelConfig``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsApi.GetModelConfig``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `GetModelConfig`: ModelConfig
-	fmt.Fprintf(os.Stdout, "Response from `AIConfigsBetaApi.GetModelConfig`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `AIConfigsApi.GetModelConfig`: %v\n", resp)
 }
 ```
 
@@ -1150,7 +1125,6 @@ Other parameters are passed through a pointer to a apiGetModelConfigRequest stru
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **lDAPIVersion** | **string** | Version of the endpoint. | 
 
 
 
@@ -1174,7 +1148,7 @@ Name | Type | Description  | Notes
 
 ## ListAIToolVersions
 
-> AITools ListAIToolVersions(ctx, projectKey, toolKey).LDAPIVersion(lDAPIVersion).Sort(sort).Limit(limit).Offset(offset).Execute()
+> AITools ListAIToolVersions(ctx, projectKey, toolKey).Sort(sort).Limit(limit).Offset(offset).Execute()
 
 List AI tool versions
 
@@ -1193,7 +1167,6 @@ import (
 )
 
 func main() {
-	lDAPIVersion := "lDAPIVersion_example" // string | Version of the endpoint.
 	projectKey := "projectKey_example" // string | 
 	toolKey := "toolKey_example" // string | 
 	sort := "sort_example" // string | A sort to apply to the list of AI Configs. (optional)
@@ -1202,13 +1175,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AIConfigsBetaApi.ListAIToolVersions(context.Background(), projectKey, toolKey).LDAPIVersion(lDAPIVersion).Sort(sort).Limit(limit).Offset(offset).Execute()
+	resp, r, err := apiClient.AIConfigsApi.ListAIToolVersions(context.Background(), projectKey, toolKey).Sort(sort).Limit(limit).Offset(offset).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsBetaApi.ListAIToolVersions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsApi.ListAIToolVersions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `ListAIToolVersions`: AITools
-	fmt.Fprintf(os.Stdout, "Response from `AIConfigsBetaApi.ListAIToolVersions`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `AIConfigsApi.ListAIToolVersions`: %v\n", resp)
 }
 ```
 
@@ -1228,7 +1201,6 @@ Other parameters are passed through a pointer to a apiListAIToolVersionsRequest 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **lDAPIVersion** | **string** | Version of the endpoint. | 
 
 
  **sort** | **string** | A sort to apply to the list of AI Configs. | 
@@ -1255,7 +1227,7 @@ Name | Type | Description  | Notes
 
 ## ListAITools
 
-> AITools ListAITools(ctx, projectKey).LDAPIVersion(lDAPIVersion).Sort(sort).Limit(limit).Offset(offset).Filter(filter).Execute()
+> AITools ListAITools(ctx, projectKey).Sort(sort).Limit(limit).Offset(offset).Filter(filter).Execute()
 
 List AI tools
 
@@ -1274,7 +1246,6 @@ import (
 )
 
 func main() {
-	lDAPIVersion := "lDAPIVersion_example" // string | Version of the endpoint.
 	projectKey := "projectKey_example" // string | 
 	sort := "sort_example" // string | A sort to apply to the list of AI Configs. (optional)
 	limit := int32(56) // int32 | The number of AI Configs to return. (optional)
@@ -1283,13 +1254,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AIConfigsBetaApi.ListAITools(context.Background(), projectKey).LDAPIVersion(lDAPIVersion).Sort(sort).Limit(limit).Offset(offset).Filter(filter).Execute()
+	resp, r, err := apiClient.AIConfigsApi.ListAITools(context.Background(), projectKey).Sort(sort).Limit(limit).Offset(offset).Filter(filter).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsBetaApi.ListAITools``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsApi.ListAITools``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `ListAITools`: AITools
-	fmt.Fprintf(os.Stdout, "Response from `AIConfigsBetaApi.ListAITools`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `AIConfigsApi.ListAITools`: %v\n", resp)
 }
 ```
 
@@ -1308,7 +1279,6 @@ Other parameters are passed through a pointer to a apiListAIToolsRequest struct 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **lDAPIVersion** | **string** | Version of the endpoint. | 
 
  **sort** | **string** | A sort to apply to the list of AI Configs. | 
  **limit** | **int32** | The number of AI Configs to return. | 
@@ -1361,13 +1331,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AIConfigsBetaApi.ListAgentGraphs(context.Background(), projectKey).LDAPIVersion(lDAPIVersion).Limit(limit).Offset(offset).Execute()
+	resp, r, err := apiClient.AIConfigsApi.ListAgentGraphs(context.Background(), projectKey).LDAPIVersion(lDAPIVersion).Limit(limit).Offset(offset).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsBetaApi.ListAgentGraphs``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsApi.ListAgentGraphs``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `ListAgentGraphs`: AgentGraphs
-	fmt.Fprintf(os.Stdout, "Response from `AIConfigsBetaApi.ListAgentGraphs`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `AIConfigsApi.ListAgentGraphs`: %v\n", resp)
 }
 ```
 
@@ -1411,7 +1381,7 @@ Name | Type | Description  | Notes
 
 ## ListModelConfigs
 
-> []ModelConfig ListModelConfigs(ctx, projectKey).LDAPIVersion(lDAPIVersion).Restricted(restricted).Execute()
+> []ModelConfig ListModelConfigs(ctx, projectKey).Restricted(restricted).Execute()
 
 List AI model configs
 
@@ -1430,19 +1400,18 @@ import (
 )
 
 func main() {
-	lDAPIVersion := "lDAPIVersion_example" // string | Version of the endpoint.
 	projectKey := "default" // string | 
 	restricted := true // bool | Whether to return only restricted models (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AIConfigsBetaApi.ListModelConfigs(context.Background(), projectKey).LDAPIVersion(lDAPIVersion).Restricted(restricted).Execute()
+	resp, r, err := apiClient.AIConfigsApi.ListModelConfigs(context.Background(), projectKey).Restricted(restricted).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsBetaApi.ListModelConfigs``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsApi.ListModelConfigs``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `ListModelConfigs`: []ModelConfig
-	fmt.Fprintf(os.Stdout, "Response from `AIConfigsBetaApi.ListModelConfigs`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `AIConfigsApi.ListModelConfigs`: %v\n", resp)
 }
 ```
 
@@ -1461,7 +1430,6 @@ Other parameters are passed through a pointer to a apiListModelConfigsRequest st
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **lDAPIVersion** | **string** | Version of the endpoint. | 
 
  **restricted** | **bool** | Whether to return only restricted models | 
 
@@ -1485,7 +1453,7 @@ Name | Type | Description  | Notes
 
 ## PatchAIConfig
 
-> AIConfig PatchAIConfig(ctx, projectKey, configKey).LDAPIVersion(lDAPIVersion).AIConfigPatch(aIConfigPatch).Execute()
+> AIConfig PatchAIConfig(ctx, projectKey, configKey).AIConfigPatch(aIConfigPatch).Execute()
 
 Update AI Config
 
@@ -1504,20 +1472,19 @@ import (
 )
 
 func main() {
-	lDAPIVersion := "lDAPIVersion_example" // string | Version of the endpoint.
 	projectKey := "projectKey_example" // string | 
 	configKey := "configKey_example" // string | 
 	aIConfigPatch := *openapiclient.NewAIConfigPatch() // AIConfigPatch | AI Config object to update (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AIConfigsBetaApi.PatchAIConfig(context.Background(), projectKey, configKey).LDAPIVersion(lDAPIVersion).AIConfigPatch(aIConfigPatch).Execute()
+	resp, r, err := apiClient.AIConfigsApi.PatchAIConfig(context.Background(), projectKey, configKey).AIConfigPatch(aIConfigPatch).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsBetaApi.PatchAIConfig``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsApi.PatchAIConfig``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `PatchAIConfig`: AIConfig
-	fmt.Fprintf(os.Stdout, "Response from `AIConfigsBetaApi.PatchAIConfig`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `AIConfigsApi.PatchAIConfig`: %v\n", resp)
 }
 ```
 
@@ -1537,7 +1504,6 @@ Other parameters are passed through a pointer to a apiPatchAIConfigRequest struc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **lDAPIVersion** | **string** | Version of the endpoint. | 
 
 
  **aIConfigPatch** | [**AIConfigPatch**](AIConfigPatch.md) | AI Config object to update | 
@@ -1562,7 +1528,7 @@ Name | Type | Description  | Notes
 
 ## PatchAIConfigTargeting
 
-> AIConfigTargeting PatchAIConfigTargeting(ctx, projectKey, configKey).LDAPIVersion(lDAPIVersion).AIConfigTargetingPatch(aIConfigTargetingPatch).Execute()
+> AIConfigTargeting PatchAIConfigTargeting(ctx, projectKey, configKey).AIConfigTargetingPatch(aIConfigTargetingPatch).Execute()
 
 Update AI Config targeting
 
@@ -1581,20 +1547,19 @@ import (
 )
 
 func main() {
-	lDAPIVersion := "lDAPIVersion_example" // string | Version of the endpoint.
 	projectKey := "projectKey_example" // string | 
 	configKey := "configKey_example" // string | 
 	aIConfigTargetingPatch := *openapiclient.NewAIConfigTargetingPatch("EnvironmentKey_example", []map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}) // AIConfigTargetingPatch | AI Config targeting semantic patch instructions (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AIConfigsBetaApi.PatchAIConfigTargeting(context.Background(), projectKey, configKey).LDAPIVersion(lDAPIVersion).AIConfigTargetingPatch(aIConfigTargetingPatch).Execute()
+	resp, r, err := apiClient.AIConfigsApi.PatchAIConfigTargeting(context.Background(), projectKey, configKey).AIConfigTargetingPatch(aIConfigTargetingPatch).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsBetaApi.PatchAIConfigTargeting``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsApi.PatchAIConfigTargeting``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `PatchAIConfigTargeting`: AIConfigTargeting
-	fmt.Fprintf(os.Stdout, "Response from `AIConfigsBetaApi.PatchAIConfigTargeting`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `AIConfigsApi.PatchAIConfigTargeting`: %v\n", resp)
 }
 ```
 
@@ -1614,7 +1579,6 @@ Other parameters are passed through a pointer to a apiPatchAIConfigTargetingRequ
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **lDAPIVersion** | **string** | Version of the endpoint. | 
 
 
  **aIConfigTargetingPatch** | [**AIConfigTargetingPatch**](AIConfigTargetingPatch.md) | AI Config targeting semantic patch instructions | 
@@ -1639,7 +1603,7 @@ Name | Type | Description  | Notes
 
 ## PatchAIConfigVariation
 
-> AIConfigVariation PatchAIConfigVariation(ctx, projectKey, configKey, variationKey).LDAPIVersion(lDAPIVersion).AIConfigVariationPatch(aIConfigVariationPatch).Execute()
+> AIConfigVariation PatchAIConfigVariation(ctx, projectKey, configKey, variationKey).AIConfigVariationPatch(aIConfigVariationPatch).Execute()
 
 Update AI Config variation
 
@@ -1658,7 +1622,6 @@ import (
 )
 
 func main() {
-	lDAPIVersion := "lDAPIVersion_example" // string | Version of the endpoint.
 	projectKey := "projectKey_example" // string | 
 	configKey := "configKey_example" // string | 
 	variationKey := "variationKey_example" // string | 
@@ -1666,13 +1629,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AIConfigsBetaApi.PatchAIConfigVariation(context.Background(), projectKey, configKey, variationKey).LDAPIVersion(lDAPIVersion).AIConfigVariationPatch(aIConfigVariationPatch).Execute()
+	resp, r, err := apiClient.AIConfigsApi.PatchAIConfigVariation(context.Background(), projectKey, configKey, variationKey).AIConfigVariationPatch(aIConfigVariationPatch).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsBetaApi.PatchAIConfigVariation``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsApi.PatchAIConfigVariation``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `PatchAIConfigVariation`: AIConfigVariation
-	fmt.Fprintf(os.Stdout, "Response from `AIConfigsBetaApi.PatchAIConfigVariation`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `AIConfigsApi.PatchAIConfigVariation`: %v\n", resp)
 }
 ```
 
@@ -1693,7 +1656,6 @@ Other parameters are passed through a pointer to a apiPatchAIConfigVariationRequ
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **lDAPIVersion** | **string** | Version of the endpoint. | 
 
 
 
@@ -1719,7 +1681,7 @@ Name | Type | Description  | Notes
 
 ## PatchAITool
 
-> AITool PatchAITool(ctx, projectKey, toolKey).LDAPIVersion(lDAPIVersion).AIToolPatch(aIToolPatch).Execute()
+> AITool PatchAITool(ctx, projectKey, toolKey).AIToolPatch(aIToolPatch).Execute()
 
 Update AI tool
 
@@ -1738,20 +1700,19 @@ import (
 )
 
 func main() {
-	lDAPIVersion := "lDAPIVersion_example" // string | Version of the endpoint.
 	projectKey := "projectKey_example" // string | 
 	toolKey := "toolKey_example" // string | 
 	aIToolPatch := *openapiclient.NewAIToolPatch() // AIToolPatch | AI tool object to update (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AIConfigsBetaApi.PatchAITool(context.Background(), projectKey, toolKey).LDAPIVersion(lDAPIVersion).AIToolPatch(aIToolPatch).Execute()
+	resp, r, err := apiClient.AIConfigsApi.PatchAITool(context.Background(), projectKey, toolKey).AIToolPatch(aIToolPatch).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsBetaApi.PatchAITool``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsApi.PatchAITool``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `PatchAITool`: AITool
-	fmt.Fprintf(os.Stdout, "Response from `AIConfigsBetaApi.PatchAITool`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `AIConfigsApi.PatchAITool`: %v\n", resp)
 }
 ```
 
@@ -1771,7 +1732,6 @@ Other parameters are passed through a pointer to a apiPatchAIToolRequest struct 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **lDAPIVersion** | **string** | Version of the endpoint. | 
 
 
  **aIToolPatch** | [**AIToolPatch**](AIToolPatch.md) | AI tool object to update | 
@@ -1822,13 +1782,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AIConfigsBetaApi.PatchAgentGraph(context.Background(), projectKey, graphKey).LDAPIVersion(lDAPIVersion).AgentGraphPatch(agentGraphPatch).Execute()
+	resp, r, err := apiClient.AIConfigsApi.PatchAgentGraph(context.Background(), projectKey, graphKey).LDAPIVersion(lDAPIVersion).AgentGraphPatch(agentGraphPatch).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsBetaApi.PatchAgentGraph``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsApi.PatchAgentGraph``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `PatchAgentGraph`: AgentGraph
-	fmt.Fprintf(os.Stdout, "Response from `AIConfigsBetaApi.PatchAgentGraph`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `AIConfigsApi.PatchAgentGraph`: %v\n", resp)
 }
 ```
 
@@ -1873,7 +1833,7 @@ Name | Type | Description  | Notes
 
 ## PostAIConfig
 
-> AIConfig PostAIConfig(ctx, projectKey).LDAPIVersion(lDAPIVersion).AIConfigPost(aIConfigPost).Execute()
+> AIConfig PostAIConfig(ctx, projectKey).AIConfigPost(aIConfigPost).Execute()
 
 Create new AI Config
 
@@ -1892,19 +1852,18 @@ import (
 )
 
 func main() {
-	lDAPIVersion := "lDAPIVersion_example" // string | Version of the endpoint.
 	projectKey := "projectKey_example" // string | 
 	aIConfigPost := *openapiclient.NewAIConfigPost("Key_example", "Name_example") // AIConfigPost | AI Config object to create
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AIConfigsBetaApi.PostAIConfig(context.Background(), projectKey).LDAPIVersion(lDAPIVersion).AIConfigPost(aIConfigPost).Execute()
+	resp, r, err := apiClient.AIConfigsApi.PostAIConfig(context.Background(), projectKey).AIConfigPost(aIConfigPost).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsBetaApi.PostAIConfig``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsApi.PostAIConfig``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `PostAIConfig`: AIConfig
-	fmt.Fprintf(os.Stdout, "Response from `AIConfigsBetaApi.PostAIConfig`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `AIConfigsApi.PostAIConfig`: %v\n", resp)
 }
 ```
 
@@ -1923,7 +1882,6 @@ Other parameters are passed through a pointer to a apiPostAIConfigRequest struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **lDAPIVersion** | **string** | Version of the endpoint. | 
 
  **aIConfigPost** | [**AIConfigPost**](AIConfigPost.md) | AI Config object to create | 
 
@@ -1947,7 +1905,7 @@ Name | Type | Description  | Notes
 
 ## PostAIConfigVariation
 
-> AIConfigVariation PostAIConfigVariation(ctx, projectKey, configKey).LDAPIVersion(lDAPIVersion).AIConfigVariationPost(aIConfigVariationPost).Execute()
+> AIConfigVariation PostAIConfigVariation(ctx, projectKey, configKey).AIConfigVariationPost(aIConfigVariationPost).Execute()
 
 Create AI Config variation
 
@@ -1966,20 +1924,19 @@ import (
 )
 
 func main() {
-	lDAPIVersion := "lDAPIVersion_example" // string | Version of the endpoint.
 	projectKey := "projectKey_example" // string | 
 	configKey := "configKey_example" // string | 
 	aIConfigVariationPost := *openapiclient.NewAIConfigVariationPost("Key_example", "Name_example") // AIConfigVariationPost | AI Config variation object to create
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AIConfigsBetaApi.PostAIConfigVariation(context.Background(), projectKey, configKey).LDAPIVersion(lDAPIVersion).AIConfigVariationPost(aIConfigVariationPost).Execute()
+	resp, r, err := apiClient.AIConfigsApi.PostAIConfigVariation(context.Background(), projectKey, configKey).AIConfigVariationPost(aIConfigVariationPost).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsBetaApi.PostAIConfigVariation``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsApi.PostAIConfigVariation``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `PostAIConfigVariation`: AIConfigVariation
-	fmt.Fprintf(os.Stdout, "Response from `AIConfigsBetaApi.PostAIConfigVariation`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `AIConfigsApi.PostAIConfigVariation`: %v\n", resp)
 }
 ```
 
@@ -1999,7 +1956,6 @@ Other parameters are passed through a pointer to a apiPostAIConfigVariationReque
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **lDAPIVersion** | **string** | Version of the endpoint. | 
 
 
  **aIConfigVariationPost** | [**AIConfigVariationPost**](AIConfigVariationPost.md) | AI Config variation object to create | 
@@ -2024,7 +1980,7 @@ Name | Type | Description  | Notes
 
 ## PostAITool
 
-> AITool PostAITool(ctx, projectKey).LDAPIVersion(lDAPIVersion).AIToolPost(aIToolPost).Execute()
+> AITool PostAITool(ctx, projectKey).AIToolPost(aIToolPost).Execute()
 
 Create an AI tool
 
@@ -2043,19 +1999,18 @@ import (
 )
 
 func main() {
-	lDAPIVersion := "lDAPIVersion_example" // string | Version of the endpoint.
 	projectKey := "projectKey_example" // string | 
 	aIToolPost := *openapiclient.NewAIToolPost("Key_example", map[string]interface{}(123)) // AIToolPost | AI tool object to create
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AIConfigsBetaApi.PostAITool(context.Background(), projectKey).LDAPIVersion(lDAPIVersion).AIToolPost(aIToolPost).Execute()
+	resp, r, err := apiClient.AIConfigsApi.PostAITool(context.Background(), projectKey).AIToolPost(aIToolPost).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsBetaApi.PostAITool``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsApi.PostAITool``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `PostAITool`: AITool
-	fmt.Fprintf(os.Stdout, "Response from `AIConfigsBetaApi.PostAITool`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `AIConfigsApi.PostAITool`: %v\n", resp)
 }
 ```
 
@@ -2074,7 +2029,6 @@ Other parameters are passed through a pointer to a apiPostAIToolRequest struct v
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **lDAPIVersion** | **string** | Version of the endpoint. | 
 
  **aIToolPost** | [**AIToolPost**](AIToolPost.md) | AI tool object to create | 
 
@@ -2123,13 +2077,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AIConfigsBetaApi.PostAgentGraph(context.Background(), projectKey).LDAPIVersion(lDAPIVersion).AgentGraphPost(agentGraphPost).Execute()
+	resp, r, err := apiClient.AIConfigsApi.PostAgentGraph(context.Background(), projectKey).LDAPIVersion(lDAPIVersion).AgentGraphPost(agentGraphPost).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsBetaApi.PostAgentGraph``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsApi.PostAgentGraph``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `PostAgentGraph`: AgentGraph
-	fmt.Fprintf(os.Stdout, "Response from `AIConfigsBetaApi.PostAgentGraph`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `AIConfigsApi.PostAgentGraph`: %v\n", resp)
 }
 ```
 
@@ -2172,7 +2126,7 @@ Name | Type | Description  | Notes
 
 ## PostModelConfig
 
-> ModelConfig PostModelConfig(ctx, projectKey).LDAPIVersion(lDAPIVersion).ModelConfigPost(modelConfigPost).Execute()
+> ModelConfig PostModelConfig(ctx, projectKey).ModelConfigPost(modelConfigPost).Execute()
 
 Create an AI model config
 
@@ -2191,19 +2145,18 @@ import (
 )
 
 func main() {
-	lDAPIVersion := "lDAPIVersion_example" // string | Version of the endpoint.
 	projectKey := "default" // string | 
 	modelConfigPost := *openapiclient.NewModelConfigPost("Name_example", "Key_example", "Id_example") // ModelConfigPost | AI model config object to create
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AIConfigsBetaApi.PostModelConfig(context.Background(), projectKey).LDAPIVersion(lDAPIVersion).ModelConfigPost(modelConfigPost).Execute()
+	resp, r, err := apiClient.AIConfigsApi.PostModelConfig(context.Background(), projectKey).ModelConfigPost(modelConfigPost).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsBetaApi.PostModelConfig``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsApi.PostModelConfig``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `PostModelConfig`: ModelConfig
-	fmt.Fprintf(os.Stdout, "Response from `AIConfigsBetaApi.PostModelConfig`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `AIConfigsApi.PostModelConfig`: %v\n", resp)
 }
 ```
 
@@ -2222,7 +2175,6 @@ Other parameters are passed through a pointer to a apiPostModelConfigRequest str
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **lDAPIVersion** | **string** | Version of the endpoint. | 
 
  **modelConfigPost** | [**ModelConfigPost**](ModelConfigPost.md) | AI model config object to create | 
 
@@ -2246,7 +2198,7 @@ Name | Type | Description  | Notes
 
 ## PostRestrictedModels
 
-> RestrictedModelsResponse PostRestrictedModels(ctx, projectKey).LDAPIVersion(lDAPIVersion).RestrictedModelsRequest(restrictedModelsRequest).Execute()
+> RestrictedModelsResponse PostRestrictedModels(ctx, projectKey).RestrictedModelsRequest(restrictedModelsRequest).Execute()
 
 Add AI models to the restricted list
 
@@ -2265,19 +2217,18 @@ import (
 )
 
 func main() {
-	lDAPIVersion := "lDAPIVersion_example" // string | Version of the endpoint.
 	projectKey := "default" // string | 
 	restrictedModelsRequest := *openapiclient.NewRestrictedModelsRequest([]string{"Keys_example"}) // RestrictedModelsRequest | List of AI model keys to add to the restricted list.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AIConfigsBetaApi.PostRestrictedModels(context.Background(), projectKey).LDAPIVersion(lDAPIVersion).RestrictedModelsRequest(restrictedModelsRequest).Execute()
+	resp, r, err := apiClient.AIConfigsApi.PostRestrictedModels(context.Background(), projectKey).RestrictedModelsRequest(restrictedModelsRequest).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsBetaApi.PostRestrictedModels``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `AIConfigsApi.PostRestrictedModels``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `PostRestrictedModels`: RestrictedModelsResponse
-	fmt.Fprintf(os.Stdout, "Response from `AIConfigsBetaApi.PostRestrictedModels`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `AIConfigsApi.PostRestrictedModels`: %v\n", resp)
 }
 ```
 
@@ -2296,7 +2247,6 @@ Other parameters are passed through a pointer to a apiPostRestrictedModelsReques
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **lDAPIVersion** | **string** | Version of the endpoint. | 
 
  **restrictedModelsRequest** | [**RestrictedModelsRequest**](RestrictedModelsRequest.md) | List of AI model keys to add to the restricted list. | 
 

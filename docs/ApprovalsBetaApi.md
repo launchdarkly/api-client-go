@@ -91,7 +91,7 @@ Name | Type | Description  | Notes
 
 ## PatchApprovalRequest
 
-> FlagConfigApprovalRequestResponse PatchApprovalRequest(ctx, id).Execute()
+> FlagConfigApprovalRequestResponse PatchApprovalRequest(ctx, id).ApprovalRequestPatchInput(approvalRequestPatchInput).Execute()
 
 Update approval request
 
@@ -111,10 +111,11 @@ import (
 
 func main() {
 	id := "id_example" // string | The approval ID
+	approvalRequestPatchInput := *openapiclient.NewApprovalRequestPatchInput([]map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}) // ApprovalRequestPatchInput | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ApprovalsBetaApi.PatchApprovalRequest(context.Background(), id).Execute()
+	resp, r, err := apiClient.ApprovalsBetaApi.PatchApprovalRequest(context.Background(), id).ApprovalRequestPatchInput(approvalRequestPatchInput).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApprovalsBetaApi.PatchApprovalRequest``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -140,6 +141,7 @@ Other parameters are passed through a pointer to a apiPatchApprovalRequestReques
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **approvalRequestPatchInput** | [**ApprovalRequestPatchInput**](ApprovalRequestPatchInput.md) |  | 
 
 ### Return type
 
@@ -151,7 +153,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

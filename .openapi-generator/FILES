@@ -6,7 +6,7 @@ api/openapi.yaml
 api_access_tokens.go
 api_account_members.go
 api_account_usage_beta.go
-api_ai_configs_beta.go
+api_ai_configs.go
 api_announcements.go
 api_applications_beta.go
 api_approvals.go
@@ -83,7 +83,7 @@ docs/AIConfigVariationPatch.md
 docs/AIConfigVariationPost.md
 docs/AIConfigVariationsResponse.md
 docs/AIConfigs.md
-docs/AIConfigsBetaApi.md
+docs/AIConfigsApi.md
 docs/AIConfigsSummary.md
 docs/AITool.md
 docs/AIToolPatch.md
@@ -141,6 +141,7 @@ docs/ApplicationRep.md
 docs/ApplicationVersionRep.md
 docs/ApplicationVersionsCollectionRep.md
 docs/ApplicationsBetaApi.md
+docs/ApprovalRequestPatchInput.md
 docs/ApprovalRequestResponse.md
 docs/ApprovalRequestSetting.md
 docs/ApprovalRequestSettingWithEnvs.md
@@ -783,6 +784,7 @@ model_application_flag_collection_rep.go
 model_application_rep.go
 model_application_version_rep.go
 model_application_versions_collection_rep.go
+model_approval_request_patch_input.go
 model_approval_request_response.go
 model_approval_request_setting.go
 model_approval_request_setting_with_envs.go
@@ -1302,7 +1304,7 @@ response.go
 test/api_access_tokens_test.go
 test/api_account_members_test.go
 test/api_account_usage_beta_test.go
-test/api_ai_configs_beta_test.go
+test/api_ai_configs_test.go
 test/api_announcements_test.go
 test/api_applications_beta_test.go
 test/api_approvals_beta_test.go

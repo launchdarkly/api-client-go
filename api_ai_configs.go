@@ -1,7 +1,7 @@
 /*
 LaunchDarkly REST API
 
-This documentation describes LaunchDarkly's REST API. To access the complete OpenAPI spec directly, use [Get OpenAPI spec](https://launchdarkly.com/docs/api/other/get-openapi-spec).  To learn how to use LaunchDarkly using the user interface (UI) instead, read our [product documentation](https://launchdarkly.com/docs/home).  ## Authentication  LaunchDarkly's REST API uses the HTTPS protocol with a minimum TLS version of 1.2.  All REST API resources are authenticated with either [personal or service access tokens](https://launchdarkly.com/docs/home/account/api), or session cookies. Other authentication mechanisms are not supported. You can manage personal access tokens on your [**Authorization**](https://app.launchdarkly.com/settings/authorization) page in the LaunchDarkly UI.  LaunchDarkly also has SDK keys, mobile keys, and client-side IDs that are used by our server-side SDKs, mobile SDKs, and JavaScript-based SDKs, respectively. **These keys cannot be used to access our REST API**. These keys are environment-specific, and can only perform read-only operations such as fetching feature flag settings.  | Auth mechanism                                                                                  | Allowed resources                                                                                     | Use cases                                          | | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | -------------------------------------------------- | | [Personal or service access tokens](https://launchdarkly.com/docs/home/account/api) | Can be customized on a per-token basis                                                                | Building scripts, custom integrations, data export. | | SDK keys                                                                                        | Can only access read-only resources specific to server-side SDKs. Restricted to a single environment. | Server-side SDKs                     | | Mobile keys                                                                                     | Can only access read-only resources specific to mobile SDKs, and only for flags marked available to mobile keys. Restricted to a single environment.           | Mobile SDKs                                        | | Client-side ID                                                                                  | Can only access read-only resources specific to JavaScript-based client-side SDKs, and only for flags marked available to client-side. Restricted to a single environment.           | Client-side JavaScript                             |  > #### Keep your access tokens and SDK keys private > > Access tokens should _never_ be exposed in untrusted contexts. Never put an access token in client-side JavaScript, or embed it in a mobile application. LaunchDarkly has special mobile keys that you can embed in mobile apps. If you accidentally expose an access token or SDK key, you can reset it from your [**Authorization**](https://app.launchdarkly.com/settings/authorization) page. > > The client-side ID is safe to embed in untrusted contexts. It's designed for use in client-side JavaScript.  ### Authentication using request header  The preferred way to authenticate with the API is by adding an `Authorization` header containing your access token to your requests. The value of the `Authorization` header must be your access token.  Manage personal access tokens from the [**Authorization**](https://app.launchdarkly.com/settings/authorization) page.  ### Authentication using session cookie  For testing purposes, you can make API calls directly from your web browser. If you are logged in to the LaunchDarkly application, the API will use your existing session to authenticate calls.  Depending on the permissions granted as part of your [role](https://launchdarkly.com/docs/home/account/roles), you may not have permission to perform some API calls. You will receive a `401` response code in that case.  > ### Modifying the Origin header causes an error > > LaunchDarkly validates that the Origin header for any API request authenticated by a session cookie matches the expected Origin header. The expected Origin header is `https://app.launchdarkly.com`. > > If the Origin header does not match what's expected, LaunchDarkly returns an error. This error can prevent the LaunchDarkly app from working correctly. > > Any browser extension that intentionally changes the Origin header can cause this problem. For example, the `Allow-Control-Allow-Origin: *` Chrome extension changes the Origin header to `http://evil.com` and causes the app to fail. > > To prevent this error, do not modify your Origin header. > > LaunchDarkly does not require origin matching when authenticating with an access token, so this issue does not affect normal API usage.  ## Representations  All resources expect and return JSON response bodies. Error responses also send a JSON body. To learn more about the error format of the API, read [Errors](https://launchdarkly.com/docs/api#errors).  In practice this means that you always get a response with a `Content-Type` header set to `application/json`.  In addition, request bodies for `PATCH`, `POST`, and `PUT` requests must be encoded as JSON with a `Content-Type` header set to `application/json`.  ### Summary and detailed representations  When you fetch a list of resources, the response includes only the most important attributes of each resource. This is a _summary representation_ of the resource. When you fetch an individual resource, such as a single feature flag, you receive a _detailed representation_ of the resource.  The best way to find a detailed representation is to follow links. Every summary representation includes a link to its detailed representation.  ### Expanding responses  Sometimes the detailed representation of a resource does not include all of the attributes of the resource by default. If this is the case, the request method will clearly document this and describe which attributes you can include in an expanded response.  To include the additional attributes, append the `expand` request parameter to your request and add a comma-separated list of the attributes to include. For example, when you append `?expand=members,maintainers` to the [Get team](https://launchdarkly.com/docs/api/teams/get-team) endpoint, the expanded response includes both of these attributes.  ### Links and addressability  The best way to navigate the API is by following links. These are attributes in representations that link to other resources. The API always uses the same format for links:  - Links to other resources within the API are encapsulated in a `_links` object - If the resource has a corresponding link to HTML content on the site, it is stored in a special `_site` link  Each link has two attributes:  - An `href`, which contains the URL - A `type`, which describes the content type  For example, a feature resource might return the following:  ```json {   \"_links\": {     \"parent\": {       \"href\": \"/api/features\",       \"type\": \"application/json\"     },     \"self\": {       \"href\": \"/api/features/sort.order\",       \"type\": \"application/json\"     }   },   \"_site\": {     \"href\": \"/features/sort.order\",     \"type\": \"text/html\"   } } ```  From this, you can navigate to the parent collection of features by following the `parent` link, or navigate to the site page for the feature by following the `_site` link.  Collections are always represented as a JSON object with an `items` attribute containing an array of representations. Like all other representations, collections have `_links` defined at the top level.  Paginated collections include `first`, `last`, `next`, and `prev` links containing a URL with the respective set of elements in the collection.  ## Updates  Resources that accept partial updates use the `PATCH` verb. Most resources support the [JSON patch](https://launchdarkly.com/docs/api#updates-using-json-patch) format. Some resources also support the [JSON merge patch](https://launchdarkly.com/docs/api#updates-using-json-merge-patch) format, and some resources support the [semantic patch](https://launchdarkly.com/docs/api#updates-using-semantic-patch) format, which is a way to specify the modifications to perform as a set of executable instructions. Each resource supports optional [comments](https://launchdarkly.com/docs/api#updates-with-comments) that you can submit with updates. Comments appear in outgoing webhooks, the audit log, and other integrations.  When a resource supports both JSON patch and semantic patch, we document both in the request method. However, the specific request body fields and descriptions included in our documentation only match one type of patch or the other.  ### Updates using JSON patch  [JSON patch](https://datatracker.ietf.org/doc/html/rfc6902) is a way to specify the modifications to perform on a resource. JSON patch uses paths and a limited set of operations to describe how to transform the current state of the resource into a new state. JSON patch documents are always arrays, where each element contains an operation, a path to the field to update, and the new value.  For example, in this feature flag representation:  ```json {     \"name\": \"New recommendations engine\",     \"key\": \"engine.enable\",     \"description\": \"This is the description\",     ... } ``` You can change the feature flag's description with the following patch document:  ```json [{ \"op\": \"replace\", \"path\": \"/description\", \"value\": \"This is the new description\" }] ```  You can specify multiple modifications to perform in a single request. You can also test that certain preconditions are met before applying the patch:  ```json [   { \"op\": \"test\", \"path\": \"/version\", \"value\": 10 },   { \"op\": \"replace\", \"path\": \"/description\", \"value\": \"The new description\" } ] ```  The above patch request tests whether the feature flag's `version` is `10`, and if so, changes the feature flag's description.  Attributes that are not editable, such as a resource's `_links`, have names that start with an underscore.  ### Updates using JSON merge patch  [JSON merge patch](https://datatracker.ietf.org/doc/html/rfc7386) is another format for specifying the modifications to perform on a resource. JSON merge patch is less expressive than JSON patch. However, in many cases it is simpler to construct a merge patch document. For example, you can change a feature flag's description with the following merge patch document:  ```json {   \"description\": \"New flag description\" } ```  ### Updates using semantic patch  Some resources support the semantic patch format. A semantic patch is a way to specify the modifications to perform on a resource as a set of executable instructions.  Semantic patch allows you to be explicit about intent using precise, custom instructions. In many cases, you can define semantic patch instructions independently of the current state of the resource. This can be useful when defining a change that may be applied at a future date.  To make a semantic patch request, you must append `domain-model=launchdarkly.semanticpatch` to your `Content-Type` header.  Here's how:  ``` Content-Type: application/json; domain-model=launchdarkly.semanticpatch ```  If you call a semantic patch resource without this header, you will receive a `400` response because your semantic patch will be interpreted as a JSON patch.  The body of a semantic patch request takes the following properties:  * `comment` (string): (Optional) A description of the update. * `environmentKey` (string): (Required for some resources only) The environment key. * `instructions` (array): (Required) A list of actions the update should perform. Each action in the list must be an object with a `kind` property that indicates the instruction. If the instruction requires parameters, you must include those parameters as additional fields in the object. The documentation for each resource that supports semantic patch includes the available instructions and any additional parameters.  For example:  ```json {   \"comment\": \"optional comment\",   \"instructions\": [ {\"kind\": \"turnFlagOn\"} ] } ```  Semantic patches are not applied partially; either all of the instructions are applied or none of them are. If **any** instruction is invalid, the endpoint returns an error and will not change the resource. If all instructions are valid, the request succeeds and the resources are updated if necessary, or left unchanged if they are already in the state you request.  ### Updates with comments  You can submit optional comments with `PATCH` changes.  To submit a comment along with a JSON patch document, use the following format:  ```json {   \"comment\": \"This is a comment string\",   \"patch\": [{ \"op\": \"replace\", \"path\": \"/description\", \"value\": \"The new description\" }] } ```  To submit a comment along with a JSON merge patch document, use the following format:  ```json {   \"comment\": \"This is a comment string\",   \"merge\": { \"description\": \"New flag description\" } } ```  To submit a comment along with a semantic patch, use the following format:  ```json {   \"comment\": \"This is a comment string\",   \"instructions\": [ {\"kind\": \"turnFlagOn\"} ] } ```  ## Errors  The API always returns errors in a common format. Here's an example:  ```json {   \"code\": \"invalid_request\",   \"message\": \"A feature with that key already exists\",   \"id\": \"30ce6058-87da-11e4-b116-123b93f75cba\" } ```  The `code` indicates the general class of error. The `message` is a human-readable explanation of what went wrong. The `id` is a unique identifier. Use it when you're working with LaunchDarkly Support to debug a problem with a specific API call.  ### HTTP status error response codes  | Code | Definition        | Description                                                                                       | Possible Solution                                                | | ---- | ----------------- | ------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- | | 400  | Invalid request       | The request cannot be understood.                                    | Ensure JSON syntax in request body is correct.                   | | 401  | Invalid access token      | Requestor is unauthorized or does not have permission for this API call.                                                | Ensure your API access token is valid and has the appropriate permissions.                                     | | 403  | Forbidden         | Requestor does not have access to this resource.                                                | Ensure that the account member or access token has proper permissions set. | | 404  | Invalid resource identifier | The requested resource is not valid. | Ensure that the resource is correctly identified by ID or key. | | 405  | Method not allowed | The request method is not allowed on this resource. | Ensure that the HTTP verb is correct. | | 409  | Conflict          | The API request can not be completed because it conflicts with a concurrent API request. | Retry your request.                                              | | 422  | Unprocessable entity | The API request can not be completed because the update description can not be understood. | Ensure that the request body is correct for the type of patch you are using, either JSON patch or semantic patch. | 429  | Too many requests | Read [Rate limiting](https://launchdarkly.com/docs/api#rate-limiting).                                               | Wait and try again later.                                        |  ## CORS  The LaunchDarkly API supports Cross Origin Resource Sharing (CORS) for AJAX requests from any origin. If an `Origin` header is given in a request, it will be echoed as an explicitly allowed origin. Otherwise the request returns a wildcard, `Access-Control-Allow-Origin: *`. For more information on CORS, read the [CORS W3C Recommendation](http://www.w3.org/TR/cors). Example CORS headers might look like:  ```http Access-Control-Allow-Headers: Accept, Content-Type, Content-Length, Accept-Encoding, Authorization Access-Control-Allow-Methods: OPTIONS, GET, DELETE, PATCH Access-Control-Allow-Origin: * Access-Control-Max-Age: 300 ```  You can make authenticated CORS calls just as you would make same-origin calls, using either [token or session-based authentication](https://launchdarkly.com/docs/api#authentication). If you are using session authentication, you should set the `withCredentials` property for your `xhr` request to `true`. You should never expose your access tokens to untrusted entities.  ## Rate limiting  We use several rate limiting strategies to ensure the availability of our APIs. Rate-limited calls to our APIs return a `429` status code. Calls to our APIs include headers indicating the current rate limit status. The specific headers returned depend on the API route being called. The limits differ based on the route, authentication mechanism, and other factors. Routes that are not rate limited may not contain any of the headers described below.  > ### Rate limiting and SDKs > > LaunchDarkly SDKs are never rate limited and do not use the API endpoints defined here. LaunchDarkly uses a different set of approaches, including streaming/server-sent events and a global CDN, to ensure availability to the routes used by LaunchDarkly SDKs.  ### Global rate limits  Authenticated requests are subject to a global limit. This is the maximum number of calls that your account can make to the API per ten seconds. All service and personal access tokens on the account share this limit, so exceeding the limit with one access token will impact other tokens. Calls that are subject to global rate limits may return the headers below:  | Header name                    | Description                                                                      | | ------------------------------ | -------------------------------------------------------------------------------- | | `X-Ratelimit-Global-Remaining` | The maximum number of requests the account is permitted to make per ten seconds. | | `X-Ratelimit-Reset`            | The time at which the current rate limit window resets in epoch milliseconds.    |  We do not publicly document the specific number of calls that can be made globally. This limit may change, and we encourage clients to program against the specification, relying on the two headers defined above, rather than hardcoding to the current limit.  ### Route-level rate limits  Some authenticated routes have custom rate limits. These also reset every ten seconds. Any service or personal access tokens hitting the same route share this limit, so exceeding the limit with one access token may impact other tokens. Calls that are subject to route-level rate limits return the headers below:  | Header name                   | Description                                                                                           | | ----------------------------- | ----------------------------------------------------------------------------------------------------- | | `X-Ratelimit-Route-Remaining` | The maximum number of requests to the current route the account is permitted to make per ten seconds. | | `X-Ratelimit-Reset`           | The time at which the current rate limit window resets in epoch milliseconds.                         |  A _route_ represents a specific URL pattern and verb. For example, the [Delete environment](https://launchdarkly.com/docs/api/environments/delete-environment) endpoint is considered a single route, and each call to delete an environment counts against your route-level rate limit for that route.  We do not publicly document the specific number of calls that an account can make to each endpoint per ten seconds. These limits may change, and we encourage clients to program against the specification, relying on the two headers defined above, rather than hardcoding to the current limits.  ### IP-based rate limiting  We also employ IP-based rate limiting on some API routes. If you hit an IP-based rate limit, your API response will include a `Retry-After` header indicating how long to wait before re-trying the call. Clients must wait at least `Retry-After` seconds before making additional calls to our API, and should employ jitter and backoff strategies to avoid triggering rate limits again.  ## OpenAPI (Swagger) and client libraries  We have a [complete OpenAPI (Swagger) specification](https://app.launchdarkly.com/api/v2/openapi.json) for our API.  We auto-generate multiple client libraries based on our OpenAPI specification. To learn more, visit the [collection of client libraries on GitHub](https://github.com/search?q=topic%3Alaunchdarkly-api+org%3Alaunchdarkly&type=Repositories). You can also use this specification to generate client libraries to interact with our REST API in your language of choice.  Our OpenAPI specification is supported by several API-based tools such as Postman and Insomnia. In many cases, you can directly import our specification to explore our APIs.  ## Method overriding  Some firewalls and HTTP clients restrict the use of verbs other than `GET` and `POST`. In those environments, our API endpoints that use `DELETE`, `PATCH`, and `PUT` verbs are inaccessible.  To avoid this issue, our API supports the `X-HTTP-Method-Override` header, allowing clients to \"tunnel\" `DELETE`, `PATCH`, and `PUT` requests using a `POST` request.  For example, to call a `PATCH` endpoint using a `POST` request, you can include `X-HTTP-Method-Override:PATCH` as a header.  ## Beta resources  We sometimes release new API resources in **beta** status before we release them with general availability.  Resources that are in beta are still undergoing testing and development. They may change without notice, including becoming backwards incompatible.  We try to promote resources into general availability as quickly as possible. This happens after sufficient testing and when we're satisfied that we no longer need to make backwards-incompatible changes.  We mark beta resources with a \"Beta\" callout in our documentation, pictured below:  > ### This feature is in beta > > To use this feature, pass in a header including the `LD-API-Version` key with value set to `beta`. Use this header with each call. To learn more, read [Beta resources](https://launchdarkly.com/docs/api#beta-resources). > > Resources that are in beta are still undergoing testing and development. They may change without notice, including becoming backwards incompatible.  ### Using beta resources  To use a beta resource, you must include a header in the request. If you call a beta resource without this header, you receive a `403` response.  Use this header:  ``` LD-API-Version: beta ```  ## Federal and EU environments  In addition to the commercial versions, LaunchDarkly offers instances for federal agencies and those based in the European Union (EU).  ### Federal environments  The version of LaunchDarkly that is available on domains controlled by the United States government is different from the version of LaunchDarkly available to the general public. If you are an employee or contractor for a United States federal agency and use LaunchDarkly in your work, you likely use the federal instance of LaunchDarkly.  If you are working in the federal instance of LaunchDarkly, the base URI for each request is `https://app.launchdarkly.us`.  To learn more, read [LaunchDarkly in federal environments](https://launchdarkly.com/docs/home/infrastructure/federal).  ### EU environments  The version of LaunchDarkly that is available in the EU is different from the version of LaunchDarkly available to other regions. If you are based in the EU, you likely use the EU instance of LaunchDarkly. The LaunchDarkly EU instance complies with EU data residency principles, including the protection and confidentiality of EU customer information.  If you are working in the EU instance of LaunchDarkly, the base URI for each request is `https://app.eu.launchdarkly.com`.  To learn more, read [LaunchDarkly in the European Union (EU)](https://launchdarkly.com/docs/home/infrastructure/eu).  ## Versioning  We try hard to keep our REST API backwards compatible, but we occasionally have to make backwards-incompatible changes in the process of shipping new features. These breaking changes can cause unexpected behavior if you don't prepare for them accordingly.  Updates to our REST API include support for the latest features in LaunchDarkly. We also release a new version of our REST API every time we make a breaking change. We provide simultaneous support for multiple API versions so you can migrate from your current API version to a new version at your own pace.  ### Setting the API version per request  You can set the API version on a specific request by sending an `LD-API-Version` header, as shown in the example below:  ``` LD-API-Version: 20240415 ```  The header value is the version number of the API version you would like to request. The number for each version corresponds to the date the version was released in `yyyymmdd` format. In the example above the version `20240415` corresponds to April 15, 2024.  ### Setting the API version per access token  When you create an access token, you must specify a specific version of the API to use. This ensures that integrations using this token cannot be broken by version changes.  Tokens created before versioning was released have their version set to `20160426`, which is the version of the API that existed before the current versioning scheme, so that they continue working the same way they did before versioning.  If you would like to upgrade your integration to use a new API version, you can explicitly set the header described above.  > ### Best practice: Set the header for every client or integration > > We recommend that you set the API version header explicitly in any client or integration you build. > > Only rely on the access token API version during manual testing.  ### API version changelog  <table>   <tr>     <th>Version</th>     <th>Changes</th>     <th>End of life (EOL)</th>   </tr>   <tr>     <td>`20240415`</td>     <td>       <ul><li>Changed several endpoints from unpaginated to paginated. Use the `limit` and `offset` query parameters to page through the results.</li> <li>Changed the [list access tokens](https://launchdarkly.com/docs/api/access-tokens/get-tokens) endpoint: <ul><li>Response is now paginated with a default limit of `25`</li></ul></li> <li>Changed the [list account members](https://launchdarkly.com/docs/api/account-members/get-members) endpoint: <ul><li>The `accessCheck` filter is no longer available</li></ul></li> <li>Changed the [list custom roles](https://launchdarkly.com/docs/api/custom-roles/get-custom-roles) endpoint: <ul><li>Response is now paginated with a default limit of `20`</li></ul></li> <li>Changed the [list feature flags](https://launchdarkly.com/docs/api/feature-flags/get-feature-flags) endpoint: <ul><li>Response is now paginated with a default limit of `20`</li><li>The `environments` field is now only returned if the request is filtered by environment, using the `filterEnv` query parameter</li><li>The `followerId`, `hasDataExport`, `status`, `contextKindTargeted`, and `segmentTargeted` filters are no longer available</li><li>The `compare` query parameter is no longer available</li></ul></li> <li>Changed the [list segments](https://launchdarkly.com/docs/api/segments/get-segments) endpoint: <ul><li>Response is now paginated with a default limit of `20`</li></ul></li> <li>Changed the [list teams](https://launchdarkly.com/docs/api/teams/get-teams) endpoint: <ul><li>The `expand` parameter no longer supports including `projects` or `roles`</li><li>In paginated results, the maximum page size is now 100</li></ul></li> <li>Changed the [get workflows](https://launchdarkly.com/docs/api/workflows/get-workflows) endpoint: <ul><li>Response is now paginated with a default limit of `20`</li><li>The `_conflicts` field in the response is no longer available</li></ul></li> </ul>     </td>     <td>Current</td>   </tr>   <tr>     <td>`20220603`</td>     <td>       <ul><li>Changed the [list projects](https://launchdarkly.com/docs/api/projects/get-projects) return value:<ul><li>Response is now paginated with a default limit of `20`.</li><li>Added support for filter and sort.</li><li>The project `environments` field is now expandable. This field is omitted by default.</li></ul></li><li>Changed the [get project](https://launchdarkly.com/docs/api/projects/get-project) return value:<ul><li>The `environments` field is now expandable. This field is omitted by default.</li></ul></li></ul>     </td>     <td>2025-04-15</td>   </tr>   <tr>     <td>`20210729`</td>     <td>       <ul><li>Changed the [create approval request](https://launchdarkly.com/docs/api/approvals/post-approval-request) return value. It now returns HTTP Status Code `201` instead of `200`.</li><li> Changed the [get user](https://launchdarkly.com/docs/api/users/get-user) return value. It now returns a user record, not a user. </li><li>Added additional optional fields to environment, segments, flags, members, and segments, including the ability to create big segments. </li><li> Added default values for flag variations when new environments are created. </li><li>Added filtering and pagination for getting flags and members, including `limit`, `number`, `filter`, and `sort` query parameters. </li><li>Added endpoints for expiring user targets for flags and segments, scheduled changes, access tokens, Relay Proxy configuration, integrations and subscriptions, and approvals. </li></ul>     </td>     <td>2023-06-03</td>   </tr>   <tr>     <td>`20191212`</td>     <td>       <ul><li>[List feature flags](https://launchdarkly.com/docs/api/feature-flags/get-feature-flags) now defaults to sending summaries of feature flag configurations, equivalent to setting the query parameter `summary=true`. Summaries omit flag targeting rules and individual user targets from the payload. </li><li> Added endpoints for flags, flag status, projects, environments, audit logs, members, users, custom roles, segments, usage, streams, events, and data export. </li></ul>     </td>     <td>2022-07-29</td>   </tr>   <tr>     <td>`20160426`</td>     <td>       <ul><li>Initial versioning of API. Tokens created before versioning have their version set to this.</li></ul>     </td>     <td>2020-12-12</td>   </tr> </table>  To learn more about how EOL is determined, read LaunchDarkly's [End of Life (EOL) Policy](https://launchdarkly.com/policies/end-of-life-policy/). 
+This documentation describes LaunchDarkly's REST API. To access the complete OpenAPI spec directly, use [Get OpenAPI spec](https://launchdarkly.com/docs/api/other/get-openapi-spec).  To learn how to use LaunchDarkly using the user interface (UI) instead, read our [product documentation](https://launchdarkly.com/docs/home).  ## Authentication  LaunchDarkly's REST API uses the HTTPS protocol with a minimum TLS version of 1.2.  All REST API resources are authenticated with either [personal or service access tokens](https://launchdarkly.com/docs/home/account/api), or session cookies. Other authentication mechanisms are not supported. You can manage personal access tokens on your [**Authorization**](https://app.launchdarkly.com/settings/authorization) page in the LaunchDarkly UI.  LaunchDarkly also has SDK keys, mobile keys, and client-side IDs that are used by our server-side SDKs, mobile SDKs, and JavaScript-based SDKs, respectively. **These keys cannot be used to access our REST API**. These keys are environment-specific, and can only perform read-only operations such as fetching feature flag settings.  | Auth mechanism                                                                                  | Allowed resources                                                                                     | Use cases                                          | | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | -------------------------------------------------- | | [Personal or service access tokens](https://launchdarkly.com/docs/home/account/api) | Can be customized on a per-token basis                                                                | Building scripts, custom integrations, data export. | | SDK keys                                                                                        | Can only access read-only resources specific to server-side SDKs. Restricted to a single environment. | Server-side SDKs                     | | Mobile keys                                                                                     | Can only access read-only resources specific to mobile SDKs, and only for flags marked available to mobile keys. Restricted to a single environment.           | Mobile SDKs                                        | | Client-side ID                                                                                  | Can only access read-only resources specific to JavaScript-based client-side SDKs, and only for flags marked available to client-side. Restricted to a single environment.           | Client-side JavaScript                             |  > #### Keep your access tokens and SDK keys private > > Access tokens should _never_ be exposed in untrusted contexts. Never put an access token in client-side JavaScript, or embed it in a mobile application. LaunchDarkly has special mobile keys that you can embed in mobile apps. If you accidentally expose an access token or SDK key, you can reset it from your [**Authorization**](https://app.launchdarkly.com/settings/authorization) page. > > The client-side ID is safe to embed in untrusted contexts. It's designed for use in client-side JavaScript.  ### Authentication using request header  The preferred way to authenticate with the API is by adding an `Authorization` header containing your access token to your requests. The value of the `Authorization` header must be your access token.  Manage personal access tokens from the [**Authorization**](https://app.launchdarkly.com/settings/authorization) page.  ### Authentication using session cookie  For testing purposes, you can make API calls directly from your web browser. If you are logged in to the LaunchDarkly application, the API will use your existing session to authenticate calls.  Depending on the permissions granted as part of your [role](https://launchdarkly.com/docs/home/account/roles), you may not have permission to perform some API calls. You will receive a `401` response code in that case.  > ### Modifying the Origin header causes an error > > LaunchDarkly validates that the Origin header for any API request authenticated by a session cookie matches the expected Origin header. The expected Origin header is `https://app.launchdarkly.com`. > > If the Origin header does not match what's expected, LaunchDarkly returns an error. This error can prevent the LaunchDarkly app from working correctly. > > Any browser extension that intentionally changes the Origin header can cause this problem. For example, the `Allow-Control-Allow-Origin: *` Chrome extension changes the Origin header to `http://evil.com` and causes the app to fail. > > To prevent this error, do not modify your Origin header. > > LaunchDarkly does not require origin matching when authenticating with an access token, so this issue does not affect normal API usage.  ## Representations  All resources expect and return JSON response bodies. Error responses also send a JSON body. To learn more about the error format of the API, read [Errors](https://launchdarkly.com/docs/api#errors).  In practice this means that you always get a response with a `Content-Type` header set to `application/json`.  In addition, request bodies for `PATCH`, `POST`, and `PUT` requests must be encoded as JSON with a `Content-Type` header set to `application/json`.  ### Summary and detailed representations  When you fetch a list of resources, the response includes only the most important attributes of each resource. This is a _summary representation_ of the resource. When you fetch an individual resource, such as a single feature flag, you receive a _detailed representation_ of the resource.  The best way to find a detailed representation is to follow links. Every summary representation includes a link to its detailed representation.  ### Expanding responses  Sometimes the detailed representation of a resource does not include all of the attributes of the resource by default. If this is the case, the request method will clearly document this and describe which attributes you can include in an expanded response.  To include the additional attributes, append the `expand` request parameter to your request and add a comma-separated list of the attributes to include. For example, when you append `?expand=members,maintainers` to the [Get team](https://launchdarkly.com/docs/api/teams/get-team) endpoint, the expanded response includes both of these attributes.  ### Links and addressability  The best way to navigate the API is by following links. These are attributes in representations that link to other resources. The API always uses the same format for links:  - Links to other resources within the API are encapsulated in a `_links` object - If the resource has a corresponding link to HTML content on the site, it is stored in a special `_site` link  Each link has two attributes:  - An `href`, which contains the URL - A `type`, which describes the content type  For example, a feature resource might return the following:  ```json {   \"_links\": {     \"parent\": {       \"href\": \"/api/features\",       \"type\": \"application/json\"     },     \"self\": {       \"href\": \"/api/features/sort.order\",       \"type\": \"application/json\"     }   },   \"_site\": {     \"href\": \"/features/sort.order\",     \"type\": \"text/html\"   } } ```  From this, you can navigate to the parent collection of features by following the `parent` link, or navigate to the site page for the feature by following the `_site` link.  Collections are always represented as a JSON object with an `items` attribute containing an array of representations. Like all other representations, collections have `_links` defined at the top level.  Paginated collections include `first`, `last`, `next`, and `prev` links containing a URL with the respective set of elements in the collection.  ## Updates  Resources that accept partial updates use the `PATCH` verb. Most resources support the [JSON patch](https://launchdarkly.com/docs/api#updates-using-json-patch) format. Some resources also support the [JSON merge patch](https://launchdarkly.com/docs/api#updates-using-json-merge-patch) format, and some resources support the [semantic patch](https://launchdarkly.com/docs/api#updates-using-semantic-patch) format, which is a way to specify the modifications to perform as a set of executable instructions. Each resource supports optional [comments](https://launchdarkly.com/docs/api#updates-with-comments) that you can submit with updates. Comments appear in outgoing webhooks, the audit log, and other integrations.  When a resource supports both JSON patch and semantic patch, we document both in the request method. However, the specific request body fields and descriptions included in our documentation only match one type of patch or the other.  ### Updates using JSON patch  [JSON patch](https://datatracker.ietf.org/doc/html/rfc6902) is a way to specify the modifications to perform on a resource. JSON patch uses paths and a limited set of operations to describe how to transform the current state of the resource into a new state. JSON patch documents are always arrays, where each element contains an operation, a path to the field to update, and the new value.  For example, in this feature flag representation:  ```json {     \"name\": \"New recommendations engine\",     \"key\": \"engine.enable\",     \"description\": \"This is the description\",     ... } ``` You can change the feature flag's description with the following patch document:  ```json [{ \"op\": \"replace\", \"path\": \"/description\", \"value\": \"This is the new description\" }] ```  You can specify multiple modifications to perform in a single request. You can also test that certain preconditions are met before applying the patch:  ```json [   { \"op\": \"test\", \"path\": \"/version\", \"value\": 10 },   { \"op\": \"replace\", \"path\": \"/description\", \"value\": \"The new description\" } ] ```  The above patch request tests whether the feature flag's `version` is `10`, and if so, changes the feature flag's description.  Attributes that are not editable, such as a resource's `_links`, have names that start with an underscore.  ### Updates using JSON merge patch  [JSON merge patch](https://datatracker.ietf.org/doc/html/rfc7386) is another format for specifying the modifications to perform on a resource. JSON merge patch is less expressive than JSON patch. However, in many cases it is simpler to construct a merge patch document. For example, you can change a feature flag's description with the following merge patch document:  ```json {   \"description\": \"New flag description\" } ```  ### Updates using semantic patch  Some resources support the semantic patch format. A semantic patch is a way to specify the modifications to perform on a resource as a set of executable instructions.  Semantic patch allows you to be explicit about intent using precise, custom instructions. In many cases, you can define semantic patch instructions independently of the current state of the resource. This can be useful when defining a change that may be applied at a future date.  To make a semantic patch request, you must append `domain-model=launchdarkly.semanticpatch` to your `Content-Type` header.  Here's how:  ``` Content-Type: application/json; domain-model=launchdarkly.semanticpatch ```  If you call a semantic patch resource without this header, you will receive a `400` response because your semantic patch will be interpreted as a JSON patch.  The body of a semantic patch request takes the following properties:  * `comment` (string): (Optional) A description of the update. * `environmentKey` (string): (Required for some resources only) The environment key. * `instructions` (array): (Required) A list of actions the update should perform. Each action in the list must be an object with a `kind` property that indicates the instruction. If the instruction requires parameters, you must include those parameters as additional fields in the object. The documentation for each resource that supports semantic patch includes the available instructions and any additional parameters.  For example:  ```json {   \"comment\": \"optional comment\",   \"instructions\": [ {\"kind\": \"turnFlagOn\"} ] } ```  Semantic patches are not applied partially; either all of the instructions are applied or none of them are. If **any** instruction is invalid, the endpoint returns an error and will not change the resource. If all instructions are valid, the request succeeds and the resources are updated if necessary, or left unchanged if they are already in the state you request.  ### Updates with comments  You can submit optional comments with `PATCH` changes.  To submit a comment along with a JSON patch document, use the following format:  ```json {   \"comment\": \"This is a comment string\",   \"patch\": [{ \"op\": \"replace\", \"path\": \"/description\", \"value\": \"The new description\" }] } ```  To submit a comment along with a JSON merge patch document, use the following format:  ```json {   \"comment\": \"This is a comment string\",   \"merge\": { \"description\": \"New flag description\" } } ```  To submit a comment along with a semantic patch, use the following format:  ```json {   \"comment\": \"This is a comment string\",   \"instructions\": [ {\"kind\": \"turnFlagOn\"} ] } ```  ## Errors  The API always returns errors in a common format. Here's an example:  ```json {   \"code\": \"invalid_request\",   \"message\": \"A feature with that key already exists\",   \"id\": \"30ce6058-87da-11e4-b116-123b93f75cba\" } ```  The `code` indicates the general class of error. The `message` is a human-readable explanation of what went wrong. The `id` is a unique identifier. Use it when you're working with LaunchDarkly Support to debug a problem with a specific API call.  ### HTTP status error response codes  | Code | Definition        | Description                                                                                       | Possible Solution                                                | | ---- | ----------------- | ------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- | | 400  | Invalid request       | The request cannot be understood.                                    | Ensure JSON syntax in request body is correct.                   | | 401  | Invalid access token      | Requestor is unauthorized or does not have permission for this API call.                                                | Ensure your API access token is valid and has the appropriate permissions.                                     | | 403  | Forbidden         | Requestor does not have access to this resource.                                                | Ensure that the account member or access token has proper permissions set. | | 404  | Invalid resource identifier | The requested resource is not valid. | Ensure that the resource is correctly identified by ID or key. | | 405  | Method not allowed | The request method is not allowed on this resource. | Ensure that the HTTP verb is correct. | | 409  | Conflict          | The API request can not be completed because it conflicts with a concurrent API request. | Retry your request.                                              | | 422  | Unprocessable entity | The API request can not be completed because the update description can not be understood. | Ensure that the request body is correct for the type of patch you are using, either JSON patch or semantic patch. | 429  | Too many requests | Read [Rate limiting](https://launchdarkly.com/docs/api#rate-limiting).                                               | Wait and try again later.                                        |  ## CORS  The LaunchDarkly API supports Cross Origin Resource Sharing (CORS) for AJAX requests from any origin. If an `Origin` header is given in a request, it will be echoed as an explicitly allowed origin. Otherwise the request returns a wildcard, `Access-Control-Allow-Origin: *`. For more information on CORS, read the [CORS W3C Recommendation](http://www.w3.org/TR/cors). Example CORS headers might look like:  ```http Access-Control-Allow-Headers: Accept, Content-Type, Content-Length, Accept-Encoding, Authorization Access-Control-Allow-Methods: OPTIONS, GET, DELETE, PATCH Access-Control-Allow-Origin: * Access-Control-Max-Age: 300 ```  You can make authenticated CORS calls just as you would make same-origin calls, using either [token or session-based authentication](https://launchdarkly.com/docs/api#authentication). If you are using session authentication, you should set the `withCredentials` property for your `xhr` request to `true`. You should never expose your access tokens to untrusted entities.  ## Rate limiting  We use several rate limiting strategies to ensure the availability of our APIs. Rate-limited calls to our APIs return a `429` status code. Calls to our APIs include headers indicating the current rate limit status. The specific headers returned depend on the API route being called. The limits differ based on the route, authentication mechanism, and other factors. Routes that are not rate limited may not contain any of the headers described below.  > ### Rate limiting and SDKs > > LaunchDarkly SDKs are never rate limited and do not use the API endpoints defined here. LaunchDarkly uses a different set of approaches, including streaming/server-sent events and a global CDN, to ensure availability to the routes used by LaunchDarkly SDKs.  ### Global rate limits  Authenticated requests are subject to a global limit. This is the maximum number of calls that your account can make to the API per ten seconds. All service and personal access tokens on the account share this limit, so exceeding the limit with one access token will impact other tokens. Calls that are subject to global rate limits may return the headers below:  | Header name                    | Description                                                                      | | ------------------------------ | -------------------------------------------------------------------------------- | | `X-Ratelimit-Global-Remaining` | The maximum number of requests the account is permitted to make per ten seconds. | | `X-Ratelimit-Reset`            | The time at which the current rate limit window resets in epoch milliseconds.    |  We do not publicly document the specific number of calls that can be made globally. This limit may change, and we encourage clients to program against the specification, relying on the two headers defined above, rather than hardcoding to the current limit.  ### Route-level rate limits  Some authenticated routes have custom rate limits. These also reset every ten seconds. Any service or personal access tokens hitting the same route share this limit, so exceeding the limit with one access token may impact other tokens. Calls that are subject to route-level rate limits return the headers below:  | Header name                   | Description                                                                                           | | ----------------------------- | ----------------------------------------------------------------------------------------------------- | | `X-Ratelimit-Route-Remaining` | The maximum number of requests to the current route the account is permitted to make per ten seconds. | | `X-Ratelimit-Reset`           | The time at which the current rate limit window resets in epoch milliseconds.                         |  A _route_ represents a specific URL pattern and verb. For example, the [Delete environment](https://launchdarkly.com/docs/api/environments/delete-environment) endpoint is considered a single route, and each call to delete an environment counts against your route-level rate limit for that route.  We do not publicly document the specific number of calls that an account can make to each endpoint per ten seconds. These limits may change, and we encourage clients to program against the specification, relying on the two headers defined above, rather than hardcoding to the current limits.  ### IP-based rate limiting  We also employ IP-based rate limiting on some API routes. If you hit an IP-based rate limit, your API response will include a `Retry-After` header indicating how long to wait before re-trying the call. Clients must wait at least `Retry-After` seconds before making additional calls to our API, and should employ jitter and backoff strategies to avoid triggering rate limits again.  ## OpenAPI (Swagger) and client libraries  We have a [complete OpenAPI (Swagger) specification](https://app.launchdarkly.com/api/v2/openapi.json) for our API.  We auto-generate multiple client libraries based on our OpenAPI specification. To learn more, visit the [collection of client libraries on GitHub](https://github.com/search?q=topic%3Alaunchdarkly-api+org%3Alaunchdarkly&type=Repositories). Alternatively, you can use the specification to generate client libraries to interact with our REST API in your language of choice. Or, you can refer to our API endpoints' documentation for guidance on how to make requests with a common HTTP library in your language of choice.  Our OpenAPI specification is supported by several API-based tools such as Postman and Insomnia. In many cases, you can directly import our specification to explore our APIs.  ## Method overriding  Some firewalls and HTTP clients restrict the use of verbs other than `GET` and `POST`. In those environments, our API endpoints that use `DELETE`, `PATCH`, and `PUT` verbs are inaccessible.  To avoid this issue, our API supports the `X-HTTP-Method-Override` header, allowing clients to \"tunnel\" `DELETE`, `PATCH`, and `PUT` requests using a `POST` request.  For example, to call a `PATCH` endpoint using a `POST` request, you can include `X-HTTP-Method-Override:PATCH` as a header.  ## Beta resources  We sometimes release new API resources in **beta** status before we release them with general availability.  Resources that are in beta are still undergoing testing and development. They may change without notice, including becoming backwards incompatible.  We try to promote resources into general availability as quickly as possible. This happens after sufficient testing and when we're satisfied that we no longer need to make backwards-incompatible changes.  We mark beta resources with a \"Beta\" callout in our documentation, pictured below:  > ### This feature is in beta > > To use this feature, pass in a header including the `LD-API-Version` key with value set to `beta`. Use this header with each call. To learn more, read [Beta resources](https://launchdarkly.com/docs/api#beta-resources). > > Resources that are in beta are still undergoing testing and development. They may change without notice, including becoming backwards incompatible.  ### Using beta resources  To use a beta resource, you must include a header in the request. If you call a beta resource without this header, you receive a `403` response.  Use this header:  ``` LD-API-Version: beta ```  ## Federal and EU environments  In addition to the commercial versions, LaunchDarkly offers instances for federal agencies and those based in the European Union (EU).  ### Federal environments  The version of LaunchDarkly that is available on domains controlled by the United States government is different from the version of LaunchDarkly available to the general public. If you are an employee or contractor for a United States federal agency and use LaunchDarkly in your work, you likely use the federal instance of LaunchDarkly.  If you are working in the federal instance of LaunchDarkly, the base URI for each request is `https://app.launchdarkly.us`.  To learn more, read [LaunchDarkly in federal environments](https://launchdarkly.com/docs/home/infrastructure/federal).  ### EU environments  The version of LaunchDarkly that is available in the EU is different from the version of LaunchDarkly available to other regions. If you are based in the EU, you likely use the EU instance of LaunchDarkly. The LaunchDarkly EU instance complies with EU data residency principles, including the protection and confidentiality of EU customer information.  If you are working in the EU instance of LaunchDarkly, the base URI for each request is `https://app.eu.launchdarkly.com`.  To learn more, read [LaunchDarkly in the European Union (EU)](https://launchdarkly.com/docs/home/infrastructure/eu).  ## Versioning  We try hard to keep our REST API backwards compatible, but we occasionally have to make backwards-incompatible changes in the process of shipping new features. These breaking changes can cause unexpected behavior if you don't prepare for them accordingly.  Updates to our REST API include support for the latest features in LaunchDarkly. We also release a new version of our REST API every time we make a breaking change. We provide simultaneous support for multiple API versions so you can migrate from your current API version to a new version at your own pace.  ### Setting the API version per request  You can set the API version on a specific request by sending an `LD-API-Version` header, as shown in the example below:  ``` LD-API-Version: 20240415 ```  The header value is the version number of the API version you would like to request. The number for each version corresponds to the date the version was released in `yyyymmdd` format. In the example above the version `20240415` corresponds to April 15, 2024.  ### Setting the API version per access token  When you create an access token, you must specify a specific version of the API to use. This ensures that integrations using this token cannot be broken by version changes.  Tokens created before versioning was released have their version set to `20160426`, which is the version of the API that existed before the current versioning scheme, so that they continue working the same way they did before versioning.  If you would like to upgrade your integration to use a new API version, you can explicitly set the header described above.  > ### Best practice: Set the header for every client or integration > > We recommend that you set the API version header explicitly in any client or integration you build. > > Only rely on the access token API version during manual testing.  ### API version changelog  <table>   <tr>     <th>Version</th>     <th>Changes</th>     <th>End of life (EOL)</th>   </tr>   <tr>     <td>`20240415`</td>     <td>       <ul><li>Changed several endpoints from unpaginated to paginated. Use the `limit` and `offset` query parameters to page through the results.</li> <li>Changed the [list access tokens](https://launchdarkly.com/docs/api/access-tokens/get-tokens) endpoint: <ul><li>Response is now paginated with a default limit of `25`</li></ul></li> <li>Changed the [list account members](https://launchdarkly.com/docs/api/account-members/get-members) endpoint: <ul><li>The `accessCheck` filter is no longer available</li></ul></li> <li>Changed the [list custom roles](https://launchdarkly.com/docs/api/custom-roles/get-custom-roles) endpoint: <ul><li>Response is now paginated with a default limit of `20`</li></ul></li> <li>Changed the [list feature flags](https://launchdarkly.com/docs/api/feature-flags/get-feature-flags) endpoint: <ul><li>Response is now paginated with a default limit of `20`</li><li>The `environments` field is now only returned if the request is filtered by environment, using the `filterEnv` query parameter</li><li>The `followerId`, `hasDataExport`, `status`, `contextKindTargeted`, and `segmentTargeted` filters are no longer available</li><li>The `compare` query parameter is no longer available</li></ul></li> <li>Changed the [list segments](https://launchdarkly.com/docs/api/segments/get-segments) endpoint: <ul><li>Response is now paginated with a default limit of `20`</li></ul></li> <li>Changed the [list teams](https://launchdarkly.com/docs/api/teams/get-teams) endpoint: <ul><li>The `expand` parameter no longer supports including `projects` or `roles`</li><li>In paginated results, the maximum page size is now 100</li></ul></li> <li>Changed the [get workflows](https://launchdarkly.com/docs/api/workflows/get-workflows) endpoint: <ul><li>Response is now paginated with a default limit of `20`</li><li>The `_conflicts` field in the response is no longer available</li></ul></li> </ul>     </td>     <td>Current</td>   </tr>   <tr>     <td>`20220603`</td>     <td>       <ul><li>Changed the [list projects](https://launchdarkly.com/docs/api/projects/get-projects) return value:<ul><li>Response is now paginated with a default limit of `20`.</li><li>Added support for filter and sort.</li><li>The project `environments` field is now expandable. This field is omitted by default.</li></ul></li><li>Changed the [get project](https://launchdarkly.com/docs/api/projects/get-project) return value:<ul><li>The `environments` field is now expandable. This field is omitted by default.</li></ul></li></ul>     </td>     <td>2025-04-15</td>   </tr>   <tr>     <td>`20210729`</td>     <td>       <ul><li>Changed the [create approval request](https://launchdarkly.com/docs/api/approvals/post-approval-request) return value. It now returns HTTP Status Code `201` instead of `200`.</li><li> Changed the [get user](https://launchdarkly.com/docs/api/users/get-user) return value. It now returns a user record, not a user. </li><li>Added additional optional fields to environment, segments, flags, members, and segments, including the ability to create big segments. </li><li> Added default values for flag variations when new environments are created. </li><li>Added filtering and pagination for getting flags and members, including `limit`, `number`, `filter`, and `sort` query parameters. </li><li>Added endpoints for expiring user targets for flags and segments, scheduled changes, access tokens, Relay Proxy configuration, integrations and subscriptions, and approvals. </li></ul>     </td>     <td>2023-06-03</td>   </tr>   <tr>     <td>`20191212`</td>     <td>       <ul><li>[List feature flags](https://launchdarkly.com/docs/api/feature-flags/get-feature-flags) now defaults to sending summaries of feature flag configurations, equivalent to setting the query parameter `summary=true`. Summaries omit flag targeting rules and individual user targets from the payload. </li><li> Added endpoints for flags, flag status, projects, environments, audit logs, members, users, custom roles, segments, usage, streams, events, and data export. </li></ul>     </td>     <td>2022-07-29</td>   </tr>   <tr>     <td>`20160426`</td>     <td>       <ul><li>Initial versioning of API. Tokens created before versioning have their version set to this.</li></ul>     </td>     <td>2020-12-12</td>   </tr> </table>  To learn more about how EOL is determined, read LaunchDarkly's [End of Life (EOL) Policy](https://launchdarkly.com/policies/end-of-life-policy/). 
 
 API version: 2.0
 Contact: support@launchdarkly.com
@@ -21,7 +21,7 @@ import (
 )
 
 
-type AIConfigsBetaApi interface {
+type AIConfigsApi interface {
 
 	/*
 	DeleteAIConfig Delete AI Config
@@ -1079,7 +1079,7 @@ The <code>model</code> in the request body requires a <code>modelName</code> and
 	/*
 	PostRestrictedModels Add AI models to the restricted list
 
-	Add AI models, by key, to the restricted list. Keys are included in the response from the [List AI model configs](https://launchdarkly.com/docs/api/ai-configs-beta/list-model-configs) endpoint.
+	Add AI models, by key, to the restricted list. Keys are included in the response from the [List AI model configs](https://launchdarkly.com/docs/api/ai-configs/list-model-configs) endpoint.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectKey
@@ -1092,21 +1092,14 @@ The <code>model</code> in the request body requires a <code>modelName</code> and
 	PostRestrictedModelsExecute(r ApiPostRestrictedModelsRequest) (*RestrictedModelsResponse, *http.Response, error)
 }
 
-// AIConfigsBetaApiService AIConfigsBetaApi service
-type AIConfigsBetaApiService service
+// AIConfigsApiService AIConfigsApi service
+type AIConfigsApiService service
 
 type ApiDeleteAIConfigRequest struct {
 	ctx context.Context
-	ApiService AIConfigsBetaApi
-	lDAPIVersion *string
+	ApiService AIConfigsApi
 	projectKey string
 	configKey string
-}
-
-// Version of the endpoint.
-func (r ApiDeleteAIConfigRequest) LDAPIVersion(lDAPIVersion string) ApiDeleteAIConfigRequest {
-	r.lDAPIVersion = &lDAPIVersion
-	return r
 }
 
 func (r ApiDeleteAIConfigRequest) Execute() (*http.Response, error) {
@@ -1123,7 +1116,7 @@ Delete an existing AI Config.
  @param configKey
  @return ApiDeleteAIConfigRequest
 */
-func (a *AIConfigsBetaApiService) DeleteAIConfig(ctx context.Context, projectKey string, configKey string) ApiDeleteAIConfigRequest {
+func (a *AIConfigsApiService) DeleteAIConfig(ctx context.Context, projectKey string, configKey string) ApiDeleteAIConfigRequest {
 	return ApiDeleteAIConfigRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1133,14 +1126,14 @@ func (a *AIConfigsBetaApiService) DeleteAIConfig(ctx context.Context, projectKey
 }
 
 // Execute executes the request
-func (a *AIConfigsBetaApiService) DeleteAIConfigExecute(r ApiDeleteAIConfigRequest) (*http.Response, error) {
+func (a *AIConfigsApiService) DeleteAIConfigExecute(r ApiDeleteAIConfigRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsBetaApiService.DeleteAIConfig")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsApiService.DeleteAIConfig")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1152,9 +1145,6 @@ func (a *AIConfigsBetaApiService) DeleteAIConfigExecute(r ApiDeleteAIConfigReque
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.lDAPIVersion == nil {
-		return nil, reportError("lDAPIVersion is required and must be specified")
-	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1173,7 +1163,6 @@ func (a *AIConfigsBetaApiService) DeleteAIConfigExecute(r ApiDeleteAIConfigReque
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1261,17 +1250,10 @@ func (a *AIConfigsBetaApiService) DeleteAIConfigExecute(r ApiDeleteAIConfigReque
 
 type ApiDeleteAIConfigVariationRequest struct {
 	ctx context.Context
-	ApiService AIConfigsBetaApi
-	lDAPIVersion *string
+	ApiService AIConfigsApi
 	projectKey string
 	configKey string
 	variationKey string
-}
-
-// Version of the endpoint.
-func (r ApiDeleteAIConfigVariationRequest) LDAPIVersion(lDAPIVersion string) ApiDeleteAIConfigVariationRequest {
-	r.lDAPIVersion = &lDAPIVersion
-	return r
 }
 
 func (r ApiDeleteAIConfigVariationRequest) Execute() (*http.Response, error) {
@@ -1289,7 +1271,7 @@ Delete a specific variation of an AI Config by config key and variation key.
  @param variationKey
  @return ApiDeleteAIConfigVariationRequest
 */
-func (a *AIConfigsBetaApiService) DeleteAIConfigVariation(ctx context.Context, projectKey string, configKey string, variationKey string) ApiDeleteAIConfigVariationRequest {
+func (a *AIConfigsApiService) DeleteAIConfigVariation(ctx context.Context, projectKey string, configKey string, variationKey string) ApiDeleteAIConfigVariationRequest {
 	return ApiDeleteAIConfigVariationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1300,14 +1282,14 @@ func (a *AIConfigsBetaApiService) DeleteAIConfigVariation(ctx context.Context, p
 }
 
 // Execute executes the request
-func (a *AIConfigsBetaApiService) DeleteAIConfigVariationExecute(r ApiDeleteAIConfigVariationRequest) (*http.Response, error) {
+func (a *AIConfigsApiService) DeleteAIConfigVariationExecute(r ApiDeleteAIConfigVariationRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsBetaApiService.DeleteAIConfigVariation")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsApiService.DeleteAIConfigVariation")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1320,9 +1302,6 @@ func (a *AIConfigsBetaApiService) DeleteAIConfigVariationExecute(r ApiDeleteAICo
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.lDAPIVersion == nil {
-		return nil, reportError("lDAPIVersion is required and must be specified")
-	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1341,7 +1320,6 @@ func (a *AIConfigsBetaApiService) DeleteAIConfigVariationExecute(r ApiDeleteAICo
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1429,16 +1407,9 @@ func (a *AIConfigsBetaApiService) DeleteAIConfigVariationExecute(r ApiDeleteAICo
 
 type ApiDeleteAIToolRequest struct {
 	ctx context.Context
-	ApiService AIConfigsBetaApi
-	lDAPIVersion *string
+	ApiService AIConfigsApi
 	projectKey string
 	toolKey string
-}
-
-// Version of the endpoint.
-func (r ApiDeleteAIToolRequest) LDAPIVersion(lDAPIVersion string) ApiDeleteAIToolRequest {
-	r.lDAPIVersion = &lDAPIVersion
-	return r
 }
 
 func (r ApiDeleteAIToolRequest) Execute() (*http.Response, error) {
@@ -1455,7 +1426,7 @@ Delete an existing AI tool.
  @param toolKey
  @return ApiDeleteAIToolRequest
 */
-func (a *AIConfigsBetaApiService) DeleteAITool(ctx context.Context, projectKey string, toolKey string) ApiDeleteAIToolRequest {
+func (a *AIConfigsApiService) DeleteAITool(ctx context.Context, projectKey string, toolKey string) ApiDeleteAIToolRequest {
 	return ApiDeleteAIToolRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1465,14 +1436,14 @@ func (a *AIConfigsBetaApiService) DeleteAITool(ctx context.Context, projectKey s
 }
 
 // Execute executes the request
-func (a *AIConfigsBetaApiService) DeleteAIToolExecute(r ApiDeleteAIToolRequest) (*http.Response, error) {
+func (a *AIConfigsApiService) DeleteAIToolExecute(r ApiDeleteAIToolRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsBetaApiService.DeleteAITool")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsApiService.DeleteAITool")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1484,9 +1455,6 @@ func (a *AIConfigsBetaApiService) DeleteAIToolExecute(r ApiDeleteAIToolRequest) 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.lDAPIVersion == nil {
-		return nil, reportError("lDAPIVersion is required and must be specified")
-	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1505,7 +1473,6 @@ func (a *AIConfigsBetaApiService) DeleteAIToolExecute(r ApiDeleteAIToolRequest) 
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1593,7 +1560,7 @@ func (a *AIConfigsBetaApiService) DeleteAIToolExecute(r ApiDeleteAIToolRequest) 
 
 type ApiDeleteAgentGraphRequest struct {
 	ctx context.Context
-	ApiService AIConfigsBetaApi
+	ApiService AIConfigsApi
 	lDAPIVersion *string
 	projectKey string
 	graphKey string
@@ -1619,7 +1586,7 @@ Delete an existing agent graph and all of its edges.
  @param graphKey
  @return ApiDeleteAgentGraphRequest
 */
-func (a *AIConfigsBetaApiService) DeleteAgentGraph(ctx context.Context, projectKey string, graphKey string) ApiDeleteAgentGraphRequest {
+func (a *AIConfigsApiService) DeleteAgentGraph(ctx context.Context, projectKey string, graphKey string) ApiDeleteAgentGraphRequest {
 	return ApiDeleteAgentGraphRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1629,14 +1596,14 @@ func (a *AIConfigsBetaApiService) DeleteAgentGraph(ctx context.Context, projectK
 }
 
 // Execute executes the request
-func (a *AIConfigsBetaApiService) DeleteAgentGraphExecute(r ApiDeleteAgentGraphRequest) (*http.Response, error) {
+func (a *AIConfigsApiService) DeleteAgentGraphExecute(r ApiDeleteAgentGraphRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsBetaApiService.DeleteAgentGraph")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsApiService.DeleteAgentGraph")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1757,16 +1724,9 @@ func (a *AIConfigsBetaApiService) DeleteAgentGraphExecute(r ApiDeleteAgentGraphR
 
 type ApiDeleteModelConfigRequest struct {
 	ctx context.Context
-	ApiService AIConfigsBetaApi
-	lDAPIVersion *string
+	ApiService AIConfigsApi
 	projectKey string
 	modelConfigKey string
-}
-
-// Version of the endpoint.
-func (r ApiDeleteModelConfigRequest) LDAPIVersion(lDAPIVersion string) ApiDeleteModelConfigRequest {
-	r.lDAPIVersion = &lDAPIVersion
-	return r
 }
 
 func (r ApiDeleteModelConfigRequest) Execute() (*http.Response, error) {
@@ -1783,7 +1743,7 @@ Delete an AI model config.
  @param modelConfigKey
  @return ApiDeleteModelConfigRequest
 */
-func (a *AIConfigsBetaApiService) DeleteModelConfig(ctx context.Context, projectKey string, modelConfigKey string) ApiDeleteModelConfigRequest {
+func (a *AIConfigsApiService) DeleteModelConfig(ctx context.Context, projectKey string, modelConfigKey string) ApiDeleteModelConfigRequest {
 	return ApiDeleteModelConfigRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1793,14 +1753,14 @@ func (a *AIConfigsBetaApiService) DeleteModelConfig(ctx context.Context, project
 }
 
 // Execute executes the request
-func (a *AIConfigsBetaApiService) DeleteModelConfigExecute(r ApiDeleteModelConfigRequest) (*http.Response, error) {
+func (a *AIConfigsApiService) DeleteModelConfigExecute(r ApiDeleteModelConfigRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsBetaApiService.DeleteModelConfig")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsApiService.DeleteModelConfig")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1812,9 +1772,6 @@ func (a *AIConfigsBetaApiService) DeleteModelConfigExecute(r ApiDeleteModelConfi
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.lDAPIVersion == nil {
-		return nil, reportError("lDAPIVersion is required and must be specified")
-	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1833,7 +1790,6 @@ func (a *AIConfigsBetaApiService) DeleteModelConfigExecute(r ApiDeleteModelConfi
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -1921,16 +1877,9 @@ func (a *AIConfigsBetaApiService) DeleteModelConfigExecute(r ApiDeleteModelConfi
 
 type ApiDeleteRestrictedModelsRequest struct {
 	ctx context.Context
-	ApiService AIConfigsBetaApi
-	lDAPIVersion *string
+	ApiService AIConfigsApi
 	projectKey string
 	restrictedModelsRequest *RestrictedModelsRequest
-}
-
-// Version of the endpoint.
-func (r ApiDeleteRestrictedModelsRequest) LDAPIVersion(lDAPIVersion string) ApiDeleteRestrictedModelsRequest {
-	r.lDAPIVersion = &lDAPIVersion
-	return r
 }
 
 // List of AI model keys to remove from the restricted list
@@ -1952,7 +1901,7 @@ Remove AI models, by key, from the restricted list.
  @param projectKey
  @return ApiDeleteRestrictedModelsRequest
 */
-func (a *AIConfigsBetaApiService) DeleteRestrictedModels(ctx context.Context, projectKey string) ApiDeleteRestrictedModelsRequest {
+func (a *AIConfigsApiService) DeleteRestrictedModels(ctx context.Context, projectKey string) ApiDeleteRestrictedModelsRequest {
 	return ApiDeleteRestrictedModelsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1961,14 +1910,14 @@ func (a *AIConfigsBetaApiService) DeleteRestrictedModels(ctx context.Context, pr
 }
 
 // Execute executes the request
-func (a *AIConfigsBetaApiService) DeleteRestrictedModelsExecute(r ApiDeleteRestrictedModelsRequest) (*http.Response, error) {
+func (a *AIConfigsApiService) DeleteRestrictedModelsExecute(r ApiDeleteRestrictedModelsRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsBetaApiService.DeleteRestrictedModels")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsApiService.DeleteRestrictedModels")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1979,9 +1928,6 @@ func (a *AIConfigsBetaApiService) DeleteRestrictedModelsExecute(r ApiDeleteRestr
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.lDAPIVersion == nil {
-		return nil, reportError("lDAPIVersion is required and must be specified")
-	}
 	if r.restrictedModelsRequest == nil {
 		return nil, reportError("restrictedModelsRequest is required and must be specified")
 	}
@@ -2003,7 +1949,6 @@ func (a *AIConfigsBetaApiService) DeleteRestrictedModelsExecute(r ApiDeleteRestr
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	// body params
 	localVarPostBody = r.restrictedModelsRequest
 	if r.ctx != nil {
@@ -2093,16 +2038,9 @@ func (a *AIConfigsBetaApiService) DeleteRestrictedModelsExecute(r ApiDeleteRestr
 
 type ApiGetAIConfigRequest struct {
 	ctx context.Context
-	ApiService AIConfigsBetaApi
-	lDAPIVersion *string
+	ApiService AIConfigsApi
 	projectKey string
 	configKey string
-}
-
-// Version of the endpoint.
-func (r ApiGetAIConfigRequest) LDAPIVersion(lDAPIVersion string) ApiGetAIConfigRequest {
-	r.lDAPIVersion = &lDAPIVersion
-	return r
 }
 
 func (r ApiGetAIConfigRequest) Execute() (*AIConfig, *http.Response, error) {
@@ -2119,7 +2057,7 @@ Retrieve a specific AI Config by its key.
  @param configKey
  @return ApiGetAIConfigRequest
 */
-func (a *AIConfigsBetaApiService) GetAIConfig(ctx context.Context, projectKey string, configKey string) ApiGetAIConfigRequest {
+func (a *AIConfigsApiService) GetAIConfig(ctx context.Context, projectKey string, configKey string) ApiGetAIConfigRequest {
 	return ApiGetAIConfigRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -2130,7 +2068,7 @@ func (a *AIConfigsBetaApiService) GetAIConfig(ctx context.Context, projectKey st
 
 // Execute executes the request
 //  @return AIConfig
-func (a *AIConfigsBetaApiService) GetAIConfigExecute(r ApiGetAIConfigRequest) (*AIConfig, *http.Response, error) {
+func (a *AIConfigsApiService) GetAIConfigExecute(r ApiGetAIConfigRequest) (*AIConfig, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -2138,7 +2076,7 @@ func (a *AIConfigsBetaApiService) GetAIConfigExecute(r ApiGetAIConfigRequest) (*
 		localVarReturnValue  *AIConfig
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsBetaApiService.GetAIConfig")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsApiService.GetAIConfig")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -2150,9 +2088,6 @@ func (a *AIConfigsBetaApiService) GetAIConfigExecute(r ApiGetAIConfigRequest) (*
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.lDAPIVersion == nil {
-		return localVarReturnValue, nil, reportError("lDAPIVersion is required and must be specified")
-	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -2171,7 +2106,6 @@ func (a *AIConfigsBetaApiService) GetAIConfigExecute(r ApiGetAIConfigRequest) (*
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2268,19 +2202,12 @@ func (a *AIConfigsBetaApiService) GetAIConfigExecute(r ApiGetAIConfigRequest) (*
 
 type ApiGetAIConfigMetricsRequest struct {
 	ctx context.Context
-	ApiService AIConfigsBetaApi
-	lDAPIVersion *string
+	ApiService AIConfigsApi
 	projectKey string
 	configKey string
 	from *int32
 	to *int32
 	env *string
-}
-
-// Version of the endpoint.
-func (r ApiGetAIConfigMetricsRequest) LDAPIVersion(lDAPIVersion string) ApiGetAIConfigMetricsRequest {
-	r.lDAPIVersion = &lDAPIVersion
-	return r
 }
 
 // The starting time, as milliseconds since epoch (inclusive).
@@ -2315,7 +2242,7 @@ Retrieve usage metrics for an AI Config by config key.
  @param configKey
  @return ApiGetAIConfigMetricsRequest
 */
-func (a *AIConfigsBetaApiService) GetAIConfigMetrics(ctx context.Context, projectKey string, configKey string) ApiGetAIConfigMetricsRequest {
+func (a *AIConfigsApiService) GetAIConfigMetrics(ctx context.Context, projectKey string, configKey string) ApiGetAIConfigMetricsRequest {
 	return ApiGetAIConfigMetricsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -2326,7 +2253,7 @@ func (a *AIConfigsBetaApiService) GetAIConfigMetrics(ctx context.Context, projec
 
 // Execute executes the request
 //  @return Metrics
-func (a *AIConfigsBetaApiService) GetAIConfigMetricsExecute(r ApiGetAIConfigMetricsRequest) (*Metrics, *http.Response, error) {
+func (a *AIConfigsApiService) GetAIConfigMetricsExecute(r ApiGetAIConfigMetricsRequest) (*Metrics, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -2334,7 +2261,7 @@ func (a *AIConfigsBetaApiService) GetAIConfigMetricsExecute(r ApiGetAIConfigMetr
 		localVarReturnValue  *Metrics
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsBetaApiService.GetAIConfigMetrics")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsApiService.GetAIConfigMetrics")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -2346,9 +2273,6 @@ func (a *AIConfigsBetaApiService) GetAIConfigMetricsExecute(r ApiGetAIConfigMetr
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.lDAPIVersion == nil {
-		return localVarReturnValue, nil, reportError("lDAPIVersion is required and must be specified")
-	}
 	if r.from == nil {
 		return localVarReturnValue, nil, reportError("from is required and must be specified")
 	}
@@ -2379,7 +2303,6 @@ func (a *AIConfigsBetaApiService) GetAIConfigMetricsExecute(r ApiGetAIConfigMetr
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2476,19 +2399,12 @@ func (a *AIConfigsBetaApiService) GetAIConfigMetricsExecute(r ApiGetAIConfigMetr
 
 type ApiGetAIConfigMetricsByVariationRequest struct {
 	ctx context.Context
-	ApiService AIConfigsBetaApi
-	lDAPIVersion *string
+	ApiService AIConfigsApi
 	projectKey string
 	configKey string
 	from *int32
 	to *int32
 	env *string
-}
-
-// Version of the endpoint.
-func (r ApiGetAIConfigMetricsByVariationRequest) LDAPIVersion(lDAPIVersion string) ApiGetAIConfigMetricsByVariationRequest {
-	r.lDAPIVersion = &lDAPIVersion
-	return r
 }
 
 // The starting time, as milliseconds since epoch (inclusive).
@@ -2523,7 +2439,7 @@ Retrieve usage metrics for an AI Config by config key, with results split by var
  @param configKey
  @return ApiGetAIConfigMetricsByVariationRequest
 */
-func (a *AIConfigsBetaApiService) GetAIConfigMetricsByVariation(ctx context.Context, projectKey string, configKey string) ApiGetAIConfigMetricsByVariationRequest {
+func (a *AIConfigsApiService) GetAIConfigMetricsByVariation(ctx context.Context, projectKey string, configKey string) ApiGetAIConfigMetricsByVariationRequest {
 	return ApiGetAIConfigMetricsByVariationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -2534,7 +2450,7 @@ func (a *AIConfigsBetaApiService) GetAIConfigMetricsByVariation(ctx context.Cont
 
 // Execute executes the request
 //  @return []MetricByVariation
-func (a *AIConfigsBetaApiService) GetAIConfigMetricsByVariationExecute(r ApiGetAIConfigMetricsByVariationRequest) ([]MetricByVariation, *http.Response, error) {
+func (a *AIConfigsApiService) GetAIConfigMetricsByVariationExecute(r ApiGetAIConfigMetricsByVariationRequest) ([]MetricByVariation, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -2542,7 +2458,7 @@ func (a *AIConfigsBetaApiService) GetAIConfigMetricsByVariationExecute(r ApiGetA
 		localVarReturnValue  []MetricByVariation
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsBetaApiService.GetAIConfigMetricsByVariation")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsApiService.GetAIConfigMetricsByVariation")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -2554,9 +2470,6 @@ func (a *AIConfigsBetaApiService) GetAIConfigMetricsByVariationExecute(r ApiGetA
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.lDAPIVersion == nil {
-		return localVarReturnValue, nil, reportError("lDAPIVersion is required and must be specified")
-	}
 	if r.from == nil {
 		return localVarReturnValue, nil, reportError("from is required and must be specified")
 	}
@@ -2587,7 +2500,6 @@ func (a *AIConfigsBetaApiService) GetAIConfigMetricsByVariationExecute(r ApiGetA
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2684,16 +2596,9 @@ func (a *AIConfigsBetaApiService) GetAIConfigMetricsByVariationExecute(r ApiGetA
 
 type ApiGetAIConfigTargetingRequest struct {
 	ctx context.Context
-	ApiService AIConfigsBetaApi
-	lDAPIVersion *string
+	ApiService AIConfigsApi
 	projectKey string
 	configKey string
-}
-
-// Version of the endpoint.
-func (r ApiGetAIConfigTargetingRequest) LDAPIVersion(lDAPIVersion string) ApiGetAIConfigTargetingRequest {
-	r.lDAPIVersion = &lDAPIVersion
-	return r
 }
 
 func (r ApiGetAIConfigTargetingRequest) Execute() (*AIConfigTargeting, *http.Response, error) {
@@ -2710,7 +2615,7 @@ Retrieves a specific AI Config's targeting by its key
  @param configKey
  @return ApiGetAIConfigTargetingRequest
 */
-func (a *AIConfigsBetaApiService) GetAIConfigTargeting(ctx context.Context, projectKey string, configKey string) ApiGetAIConfigTargetingRequest {
+func (a *AIConfigsApiService) GetAIConfigTargeting(ctx context.Context, projectKey string, configKey string) ApiGetAIConfigTargetingRequest {
 	return ApiGetAIConfigTargetingRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -2721,7 +2626,7 @@ func (a *AIConfigsBetaApiService) GetAIConfigTargeting(ctx context.Context, proj
 
 // Execute executes the request
 //  @return AIConfigTargeting
-func (a *AIConfigsBetaApiService) GetAIConfigTargetingExecute(r ApiGetAIConfigTargetingRequest) (*AIConfigTargeting, *http.Response, error) {
+func (a *AIConfigsApiService) GetAIConfigTargetingExecute(r ApiGetAIConfigTargetingRequest) (*AIConfigTargeting, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -2729,7 +2634,7 @@ func (a *AIConfigsBetaApiService) GetAIConfigTargetingExecute(r ApiGetAIConfigTa
 		localVarReturnValue  *AIConfigTargeting
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsBetaApiService.GetAIConfigTargeting")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsApiService.GetAIConfigTargeting")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -2741,9 +2646,6 @@ func (a *AIConfigsBetaApiService) GetAIConfigTargetingExecute(r ApiGetAIConfigTa
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.lDAPIVersion == nil {
-		return localVarReturnValue, nil, reportError("lDAPIVersion is required and must be specified")
-	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -2762,7 +2664,6 @@ func (a *AIConfigsBetaApiService) GetAIConfigTargetingExecute(r ApiGetAIConfigTa
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -2848,17 +2749,10 @@ func (a *AIConfigsBetaApiService) GetAIConfigTargetingExecute(r ApiGetAIConfigTa
 
 type ApiGetAIConfigVariationRequest struct {
 	ctx context.Context
-	ApiService AIConfigsBetaApi
-	lDAPIVersion *string
+	ApiService AIConfigsApi
 	projectKey string
 	configKey string
 	variationKey string
-}
-
-// Version of the endpoint.
-func (r ApiGetAIConfigVariationRequest) LDAPIVersion(lDAPIVersion string) ApiGetAIConfigVariationRequest {
-	r.lDAPIVersion = &lDAPIVersion
-	return r
 }
 
 func (r ApiGetAIConfigVariationRequest) Execute() (*AIConfigVariationsResponse, *http.Response, error) {
@@ -2876,7 +2770,7 @@ Get an AI Config variation by key. The response includes all variation versions 
  @param variationKey
  @return ApiGetAIConfigVariationRequest
 */
-func (a *AIConfigsBetaApiService) GetAIConfigVariation(ctx context.Context, projectKey string, configKey string, variationKey string) ApiGetAIConfigVariationRequest {
+func (a *AIConfigsApiService) GetAIConfigVariation(ctx context.Context, projectKey string, configKey string, variationKey string) ApiGetAIConfigVariationRequest {
 	return ApiGetAIConfigVariationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -2888,7 +2782,7 @@ func (a *AIConfigsBetaApiService) GetAIConfigVariation(ctx context.Context, proj
 
 // Execute executes the request
 //  @return AIConfigVariationsResponse
-func (a *AIConfigsBetaApiService) GetAIConfigVariationExecute(r ApiGetAIConfigVariationRequest) (*AIConfigVariationsResponse, *http.Response, error) {
+func (a *AIConfigsApiService) GetAIConfigVariationExecute(r ApiGetAIConfigVariationRequest) (*AIConfigVariationsResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -2896,7 +2790,7 @@ func (a *AIConfigsBetaApiService) GetAIConfigVariationExecute(r ApiGetAIConfigVa
 		localVarReturnValue  *AIConfigVariationsResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsBetaApiService.GetAIConfigVariation")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsApiService.GetAIConfigVariation")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -2909,9 +2803,6 @@ func (a *AIConfigsBetaApiService) GetAIConfigVariationExecute(r ApiGetAIConfigVa
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.lDAPIVersion == nil {
-		return localVarReturnValue, nil, reportError("lDAPIVersion is required and must be specified")
-	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -2930,7 +2821,6 @@ func (a *AIConfigsBetaApiService) GetAIConfigVariationExecute(r ApiGetAIConfigVa
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -3027,19 +2917,12 @@ func (a *AIConfigsBetaApiService) GetAIConfigVariationExecute(r ApiGetAIConfigVa
 
 type ApiGetAIConfigsRequest struct {
 	ctx context.Context
-	ApiService AIConfigsBetaApi
-	lDAPIVersion *string
+	ApiService AIConfigsApi
 	projectKey string
 	sort *string
 	limit *int32
 	offset *int32
 	filter *string
-}
-
-// Version of the endpoint.
-func (r ApiGetAIConfigsRequest) LDAPIVersion(lDAPIVersion string) ApiGetAIConfigsRequest {
-	r.lDAPIVersion = &lDAPIVersion
-	return r
 }
 
 // A sort to apply to the list of AI Configs.
@@ -3079,7 +2962,7 @@ Get a list of all AI Configs in the given project.
  @param projectKey
  @return ApiGetAIConfigsRequest
 */
-func (a *AIConfigsBetaApiService) GetAIConfigs(ctx context.Context, projectKey string) ApiGetAIConfigsRequest {
+func (a *AIConfigsApiService) GetAIConfigs(ctx context.Context, projectKey string) ApiGetAIConfigsRequest {
 	return ApiGetAIConfigsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -3089,7 +2972,7 @@ func (a *AIConfigsBetaApiService) GetAIConfigs(ctx context.Context, projectKey s
 
 // Execute executes the request
 //  @return AIConfigs
-func (a *AIConfigsBetaApiService) GetAIConfigsExecute(r ApiGetAIConfigsRequest) (*AIConfigs, *http.Response, error) {
+func (a *AIConfigsApiService) GetAIConfigsExecute(r ApiGetAIConfigsRequest) (*AIConfigs, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -3097,7 +2980,7 @@ func (a *AIConfigsBetaApiService) GetAIConfigsExecute(r ApiGetAIConfigsRequest) 
 		localVarReturnValue  *AIConfigs
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsBetaApiService.GetAIConfigs")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsApiService.GetAIConfigs")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -3108,9 +2991,6 @@ func (a *AIConfigsBetaApiService) GetAIConfigsExecute(r ApiGetAIConfigsRequest) 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.lDAPIVersion == nil {
-		return localVarReturnValue, nil, reportError("lDAPIVersion is required and must be specified")
-	}
 
 	if r.sort != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "")
@@ -3141,7 +3021,6 @@ func (a *AIConfigsBetaApiService) GetAIConfigsExecute(r ApiGetAIConfigsRequest) 
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -3238,16 +3117,9 @@ func (a *AIConfigsBetaApiService) GetAIConfigsExecute(r ApiGetAIConfigsRequest) 
 
 type ApiGetAIToolRequest struct {
 	ctx context.Context
-	ApiService AIConfigsBetaApi
-	lDAPIVersion *string
+	ApiService AIConfigsApi
 	projectKey string
 	toolKey string
-}
-
-// Version of the endpoint.
-func (r ApiGetAIToolRequest) LDAPIVersion(lDAPIVersion string) ApiGetAIToolRequest {
-	r.lDAPIVersion = &lDAPIVersion
-	return r
 }
 
 func (r ApiGetAIToolRequest) Execute() (*AITool, *http.Response, error) {
@@ -3264,7 +3136,7 @@ Retrieve a specific AI tool by its key.
  @param toolKey
  @return ApiGetAIToolRequest
 */
-func (a *AIConfigsBetaApiService) GetAITool(ctx context.Context, projectKey string, toolKey string) ApiGetAIToolRequest {
+func (a *AIConfigsApiService) GetAITool(ctx context.Context, projectKey string, toolKey string) ApiGetAIToolRequest {
 	return ApiGetAIToolRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -3275,7 +3147,7 @@ func (a *AIConfigsBetaApiService) GetAITool(ctx context.Context, projectKey stri
 
 // Execute executes the request
 //  @return AITool
-func (a *AIConfigsBetaApiService) GetAIToolExecute(r ApiGetAIToolRequest) (*AITool, *http.Response, error) {
+func (a *AIConfigsApiService) GetAIToolExecute(r ApiGetAIToolRequest) (*AITool, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -3283,7 +3155,7 @@ func (a *AIConfigsBetaApiService) GetAIToolExecute(r ApiGetAIToolRequest) (*AITo
 		localVarReturnValue  *AITool
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsBetaApiService.GetAITool")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsApiService.GetAITool")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -3295,9 +3167,6 @@ func (a *AIConfigsBetaApiService) GetAIToolExecute(r ApiGetAIToolRequest) (*AITo
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.lDAPIVersion == nil {
-		return localVarReturnValue, nil, reportError("lDAPIVersion is required and must be specified")
-	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -3316,7 +3185,6 @@ func (a *AIConfigsBetaApiService) GetAIToolExecute(r ApiGetAIToolRequest) (*AITo
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -3413,7 +3281,7 @@ func (a *AIConfigsBetaApiService) GetAIToolExecute(r ApiGetAIToolRequest) (*AITo
 
 type ApiGetAgentGraphRequest struct {
 	ctx context.Context
-	ApiService AIConfigsBetaApi
+	ApiService AIConfigsApi
 	lDAPIVersion *string
 	projectKey string
 	graphKey string
@@ -3439,7 +3307,7 @@ Retrieve a specific agent graph by its key, including its edges.
  @param graphKey
  @return ApiGetAgentGraphRequest
 */
-func (a *AIConfigsBetaApiService) GetAgentGraph(ctx context.Context, projectKey string, graphKey string) ApiGetAgentGraphRequest {
+func (a *AIConfigsApiService) GetAgentGraph(ctx context.Context, projectKey string, graphKey string) ApiGetAgentGraphRequest {
 	return ApiGetAgentGraphRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -3450,7 +3318,7 @@ func (a *AIConfigsBetaApiService) GetAgentGraph(ctx context.Context, projectKey 
 
 // Execute executes the request
 //  @return AgentGraph
-func (a *AIConfigsBetaApiService) GetAgentGraphExecute(r ApiGetAgentGraphRequest) (*AgentGraph, *http.Response, error) {
+func (a *AIConfigsApiService) GetAgentGraphExecute(r ApiGetAgentGraphRequest) (*AgentGraph, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -3458,7 +3326,7 @@ func (a *AIConfigsBetaApiService) GetAgentGraphExecute(r ApiGetAgentGraphRequest
 		localVarReturnValue  *AgentGraph
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsBetaApiService.GetAgentGraph")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsApiService.GetAgentGraph")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -3588,16 +3456,9 @@ func (a *AIConfigsBetaApiService) GetAgentGraphExecute(r ApiGetAgentGraphRequest
 
 type ApiGetModelConfigRequest struct {
 	ctx context.Context
-	ApiService AIConfigsBetaApi
-	lDAPIVersion *string
+	ApiService AIConfigsApi
 	projectKey string
 	modelConfigKey string
-}
-
-// Version of the endpoint.
-func (r ApiGetModelConfigRequest) LDAPIVersion(lDAPIVersion string) ApiGetModelConfigRequest {
-	r.lDAPIVersion = &lDAPIVersion
-	return r
 }
 
 func (r ApiGetModelConfigRequest) Execute() (*ModelConfig, *http.Response, error) {
@@ -3614,7 +3475,7 @@ Get an AI model config by key.
  @param modelConfigKey
  @return ApiGetModelConfigRequest
 */
-func (a *AIConfigsBetaApiService) GetModelConfig(ctx context.Context, projectKey string, modelConfigKey string) ApiGetModelConfigRequest {
+func (a *AIConfigsApiService) GetModelConfig(ctx context.Context, projectKey string, modelConfigKey string) ApiGetModelConfigRequest {
 	return ApiGetModelConfigRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -3625,7 +3486,7 @@ func (a *AIConfigsBetaApiService) GetModelConfig(ctx context.Context, projectKey
 
 // Execute executes the request
 //  @return ModelConfig
-func (a *AIConfigsBetaApiService) GetModelConfigExecute(r ApiGetModelConfigRequest) (*ModelConfig, *http.Response, error) {
+func (a *AIConfigsApiService) GetModelConfigExecute(r ApiGetModelConfigRequest) (*ModelConfig, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -3633,7 +3494,7 @@ func (a *AIConfigsBetaApiService) GetModelConfigExecute(r ApiGetModelConfigReque
 		localVarReturnValue  *ModelConfig
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsBetaApiService.GetModelConfig")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsApiService.GetModelConfig")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -3645,9 +3506,6 @@ func (a *AIConfigsBetaApiService) GetModelConfigExecute(r ApiGetModelConfigReque
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.lDAPIVersion == nil {
-		return localVarReturnValue, nil, reportError("lDAPIVersion is required and must be specified")
-	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -3666,7 +3524,6 @@ func (a *AIConfigsBetaApiService) GetModelConfigExecute(r ApiGetModelConfigReque
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -3763,19 +3620,12 @@ func (a *AIConfigsBetaApiService) GetModelConfigExecute(r ApiGetModelConfigReque
 
 type ApiListAIToolVersionsRequest struct {
 	ctx context.Context
-	ApiService AIConfigsBetaApi
-	lDAPIVersion *string
+	ApiService AIConfigsApi
 	projectKey string
 	toolKey string
 	sort *string
 	limit *int32
 	offset *int32
-}
-
-// Version of the endpoint.
-func (r ApiListAIToolVersionsRequest) LDAPIVersion(lDAPIVersion string) ApiListAIToolVersionsRequest {
-	r.lDAPIVersion = &lDAPIVersion
-	return r
 }
 
 // A sort to apply to the list of AI Configs.
@@ -3810,7 +3660,7 @@ Get a list of all versions of an AI tool in the given project.
  @param toolKey
  @return ApiListAIToolVersionsRequest
 */
-func (a *AIConfigsBetaApiService) ListAIToolVersions(ctx context.Context, projectKey string, toolKey string) ApiListAIToolVersionsRequest {
+func (a *AIConfigsApiService) ListAIToolVersions(ctx context.Context, projectKey string, toolKey string) ApiListAIToolVersionsRequest {
 	return ApiListAIToolVersionsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -3821,7 +3671,7 @@ func (a *AIConfigsBetaApiService) ListAIToolVersions(ctx context.Context, projec
 
 // Execute executes the request
 //  @return AITools
-func (a *AIConfigsBetaApiService) ListAIToolVersionsExecute(r ApiListAIToolVersionsRequest) (*AITools, *http.Response, error) {
+func (a *AIConfigsApiService) ListAIToolVersionsExecute(r ApiListAIToolVersionsRequest) (*AITools, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -3829,7 +3679,7 @@ func (a *AIConfigsBetaApiService) ListAIToolVersionsExecute(r ApiListAIToolVersi
 		localVarReturnValue  *AITools
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsBetaApiService.ListAIToolVersions")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsApiService.ListAIToolVersions")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -3841,9 +3691,6 @@ func (a *AIConfigsBetaApiService) ListAIToolVersionsExecute(r ApiListAIToolVersi
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.lDAPIVersion == nil {
-		return localVarReturnValue, nil, reportError("lDAPIVersion is required and must be specified")
-	}
 
 	if r.sort != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "")
@@ -3871,7 +3718,6 @@ func (a *AIConfigsBetaApiService) ListAIToolVersionsExecute(r ApiListAIToolVersi
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -3957,19 +3803,12 @@ func (a *AIConfigsBetaApiService) ListAIToolVersionsExecute(r ApiListAIToolVersi
 
 type ApiListAIToolsRequest struct {
 	ctx context.Context
-	ApiService AIConfigsBetaApi
-	lDAPIVersion *string
+	ApiService AIConfigsApi
 	projectKey string
 	sort *string
 	limit *int32
 	offset *int32
 	filter *string
-}
-
-// Version of the endpoint.
-func (r ApiListAIToolsRequest) LDAPIVersion(lDAPIVersion string) ApiListAIToolsRequest {
-	r.lDAPIVersion = &lDAPIVersion
-	return r
 }
 
 // A sort to apply to the list of AI Configs.
@@ -4009,7 +3848,7 @@ Get a list of all AI tools in the given project.
  @param projectKey
  @return ApiListAIToolsRequest
 */
-func (a *AIConfigsBetaApiService) ListAITools(ctx context.Context, projectKey string) ApiListAIToolsRequest {
+func (a *AIConfigsApiService) ListAITools(ctx context.Context, projectKey string) ApiListAIToolsRequest {
 	return ApiListAIToolsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -4019,7 +3858,7 @@ func (a *AIConfigsBetaApiService) ListAITools(ctx context.Context, projectKey st
 
 // Execute executes the request
 //  @return AITools
-func (a *AIConfigsBetaApiService) ListAIToolsExecute(r ApiListAIToolsRequest) (*AITools, *http.Response, error) {
+func (a *AIConfigsApiService) ListAIToolsExecute(r ApiListAIToolsRequest) (*AITools, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -4027,7 +3866,7 @@ func (a *AIConfigsBetaApiService) ListAIToolsExecute(r ApiListAIToolsRequest) (*
 		localVarReturnValue  *AITools
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsBetaApiService.ListAITools")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsApiService.ListAITools")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -4038,9 +3877,6 @@ func (a *AIConfigsBetaApiService) ListAIToolsExecute(r ApiListAIToolsRequest) (*
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.lDAPIVersion == nil {
-		return localVarReturnValue, nil, reportError("lDAPIVersion is required and must be specified")
-	}
 
 	if r.sort != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "")
@@ -4071,7 +3907,6 @@ func (a *AIConfigsBetaApiService) ListAIToolsExecute(r ApiListAIToolsRequest) (*
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -4157,7 +3992,7 @@ func (a *AIConfigsBetaApiService) ListAIToolsExecute(r ApiListAIToolsRequest) (*
 
 type ApiListAgentGraphsRequest struct {
 	ctx context.Context
-	ApiService AIConfigsBetaApi
+	ApiService AIConfigsApi
 	lDAPIVersion *string
 	projectKey string
 	limit *int32
@@ -4195,7 +4030,7 @@ Get a list of all agent graphs in the given project. Returns metadata only, with
  @param projectKey
  @return ApiListAgentGraphsRequest
 */
-func (a *AIConfigsBetaApiService) ListAgentGraphs(ctx context.Context, projectKey string) ApiListAgentGraphsRequest {
+func (a *AIConfigsApiService) ListAgentGraphs(ctx context.Context, projectKey string) ApiListAgentGraphsRequest {
 	return ApiListAgentGraphsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -4205,7 +4040,7 @@ func (a *AIConfigsBetaApiService) ListAgentGraphs(ctx context.Context, projectKe
 
 // Execute executes the request
 //  @return AgentGraphs
-func (a *AIConfigsBetaApiService) ListAgentGraphsExecute(r ApiListAgentGraphsRequest) (*AgentGraphs, *http.Response, error) {
+func (a *AIConfigsApiService) ListAgentGraphsExecute(r ApiListAgentGraphsRequest) (*AgentGraphs, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -4213,7 +4048,7 @@ func (a *AIConfigsBetaApiService) ListAgentGraphsExecute(r ApiListAgentGraphsReq
 		localVarReturnValue  *AgentGraphs
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsBetaApiService.ListAgentGraphs")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsApiService.ListAgentGraphs")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -4337,16 +4172,9 @@ func (a *AIConfigsBetaApiService) ListAgentGraphsExecute(r ApiListAgentGraphsReq
 
 type ApiListModelConfigsRequest struct {
 	ctx context.Context
-	ApiService AIConfigsBetaApi
-	lDAPIVersion *string
+	ApiService AIConfigsApi
 	projectKey string
 	restricted *bool
-}
-
-// Version of the endpoint.
-func (r ApiListModelConfigsRequest) LDAPIVersion(lDAPIVersion string) ApiListModelConfigsRequest {
-	r.lDAPIVersion = &lDAPIVersion
-	return r
 }
 
 // Whether to return only restricted models
@@ -4368,7 +4196,7 @@ Get all AI model configs for a project.
  @param projectKey
  @return ApiListModelConfigsRequest
 */
-func (a *AIConfigsBetaApiService) ListModelConfigs(ctx context.Context, projectKey string) ApiListModelConfigsRequest {
+func (a *AIConfigsApiService) ListModelConfigs(ctx context.Context, projectKey string) ApiListModelConfigsRequest {
 	return ApiListModelConfigsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -4378,7 +4206,7 @@ func (a *AIConfigsBetaApiService) ListModelConfigs(ctx context.Context, projectK
 
 // Execute executes the request
 //  @return []ModelConfig
-func (a *AIConfigsBetaApiService) ListModelConfigsExecute(r ApiListModelConfigsRequest) ([]ModelConfig, *http.Response, error) {
+func (a *AIConfigsApiService) ListModelConfigsExecute(r ApiListModelConfigsRequest) ([]ModelConfig, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -4386,7 +4214,7 @@ func (a *AIConfigsBetaApiService) ListModelConfigsExecute(r ApiListModelConfigsR
 		localVarReturnValue  []ModelConfig
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsBetaApiService.ListModelConfigs")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsApiService.ListModelConfigs")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -4397,9 +4225,6 @@ func (a *AIConfigsBetaApiService) ListModelConfigsExecute(r ApiListModelConfigsR
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.lDAPIVersion == nil {
-		return localVarReturnValue, nil, reportError("lDAPIVersion is required and must be specified")
-	}
 
 	if r.restricted != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "restricted", r.restricted, "form", "")
@@ -4421,7 +4246,6 @@ func (a *AIConfigsBetaApiService) ListModelConfigsExecute(r ApiListModelConfigsR
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -4518,17 +4342,10 @@ func (a *AIConfigsBetaApiService) ListModelConfigsExecute(r ApiListModelConfigsR
 
 type ApiPatchAIConfigRequest struct {
 	ctx context.Context
-	ApiService AIConfigsBetaApi
-	lDAPIVersion *string
+	ApiService AIConfigsApi
 	projectKey string
 	configKey string
 	aIConfigPatch *AIConfigPatch
-}
-
-// Version of the endpoint.
-func (r ApiPatchAIConfigRequest) LDAPIVersion(lDAPIVersion string) ApiPatchAIConfigRequest {
-	r.lDAPIVersion = &lDAPIVersion
-	return r
 }
 
 // AI Config object to update
@@ -4562,7 +4379,7 @@ Here's an example:
  @param configKey
  @return ApiPatchAIConfigRequest
 */
-func (a *AIConfigsBetaApiService) PatchAIConfig(ctx context.Context, projectKey string, configKey string) ApiPatchAIConfigRequest {
+func (a *AIConfigsApiService) PatchAIConfig(ctx context.Context, projectKey string, configKey string) ApiPatchAIConfigRequest {
 	return ApiPatchAIConfigRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -4573,7 +4390,7 @@ func (a *AIConfigsBetaApiService) PatchAIConfig(ctx context.Context, projectKey 
 
 // Execute executes the request
 //  @return AIConfig
-func (a *AIConfigsBetaApiService) PatchAIConfigExecute(r ApiPatchAIConfigRequest) (*AIConfig, *http.Response, error) {
+func (a *AIConfigsApiService) PatchAIConfigExecute(r ApiPatchAIConfigRequest) (*AIConfig, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPatch
 		localVarPostBody     interface{}
@@ -4581,7 +4398,7 @@ func (a *AIConfigsBetaApiService) PatchAIConfigExecute(r ApiPatchAIConfigRequest
 		localVarReturnValue  *AIConfig
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsBetaApiService.PatchAIConfig")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsApiService.PatchAIConfig")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -4593,9 +4410,6 @@ func (a *AIConfigsBetaApiService) PatchAIConfigExecute(r ApiPatchAIConfigRequest
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.lDAPIVersion == nil {
-		return localVarReturnValue, nil, reportError("lDAPIVersion is required and must be specified")
-	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -4614,7 +4428,6 @@ func (a *AIConfigsBetaApiService) PatchAIConfigExecute(r ApiPatchAIConfigRequest
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	// body params
 	localVarPostBody = r.aIConfigPatch
 	if r.ctx != nil {
@@ -4713,17 +4526,10 @@ func (a *AIConfigsBetaApiService) PatchAIConfigExecute(r ApiPatchAIConfigRequest
 
 type ApiPatchAIConfigTargetingRequest struct {
 	ctx context.Context
-	ApiService AIConfigsBetaApi
-	lDAPIVersion *string
+	ApiService AIConfigsApi
 	projectKey string
 	configKey string
 	aIConfigTargetingPatch *AIConfigTargetingPatch
-}
-
-// Version of the endpoint.
-func (r ApiPatchAIConfigTargetingRequest) LDAPIVersion(lDAPIVersion string) ApiPatchAIConfigTargetingRequest {
-	r.lDAPIVersion = &lDAPIVersion
-	return r
 }
 
 // AI Config targeting semantic patch instructions
@@ -5304,7 +5110,7 @@ Here's an example:
  @param configKey
  @return ApiPatchAIConfigTargetingRequest
 */
-func (a *AIConfigsBetaApiService) PatchAIConfigTargeting(ctx context.Context, projectKey string, configKey string) ApiPatchAIConfigTargetingRequest {
+func (a *AIConfigsApiService) PatchAIConfigTargeting(ctx context.Context, projectKey string, configKey string) ApiPatchAIConfigTargetingRequest {
 	return ApiPatchAIConfigTargetingRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -5315,7 +5121,7 @@ func (a *AIConfigsBetaApiService) PatchAIConfigTargeting(ctx context.Context, pr
 
 // Execute executes the request
 //  @return AIConfigTargeting
-func (a *AIConfigsBetaApiService) PatchAIConfigTargetingExecute(r ApiPatchAIConfigTargetingRequest) (*AIConfigTargeting, *http.Response, error) {
+func (a *AIConfigsApiService) PatchAIConfigTargetingExecute(r ApiPatchAIConfigTargetingRequest) (*AIConfigTargeting, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPatch
 		localVarPostBody     interface{}
@@ -5323,7 +5129,7 @@ func (a *AIConfigsBetaApiService) PatchAIConfigTargetingExecute(r ApiPatchAIConf
 		localVarReturnValue  *AIConfigTargeting
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsBetaApiService.PatchAIConfigTargeting")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsApiService.PatchAIConfigTargeting")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -5335,9 +5141,6 @@ func (a *AIConfigsBetaApiService) PatchAIConfigTargetingExecute(r ApiPatchAIConf
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.lDAPIVersion == nil {
-		return localVarReturnValue, nil, reportError("lDAPIVersion is required and must be specified")
-	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -5356,7 +5159,6 @@ func (a *AIConfigsBetaApiService) PatchAIConfigTargetingExecute(r ApiPatchAIConf
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	// body params
 	localVarPostBody = r.aIConfigTargetingPatch
 	if r.ctx != nil {
@@ -5455,18 +5257,11 @@ func (a *AIConfigsBetaApiService) PatchAIConfigTargetingExecute(r ApiPatchAIConf
 
 type ApiPatchAIConfigVariationRequest struct {
 	ctx context.Context
-	ApiService AIConfigsBetaApi
-	lDAPIVersion *string
+	ApiService AIConfigsApi
 	projectKey string
 	configKey string
 	variationKey string
 	aIConfigVariationPatch *AIConfigVariationPatch
-}
-
-// Version of the endpoint.
-func (r ApiPatchAIConfigVariationRequest) LDAPIVersion(lDAPIVersion string) ApiPatchAIConfigVariationRequest {
-	r.lDAPIVersion = &lDAPIVersion
-	return r
 }
 
 // AI Config variation object to update
@@ -5505,7 +5300,7 @@ Here's an example:
  @param variationKey
  @return ApiPatchAIConfigVariationRequest
 */
-func (a *AIConfigsBetaApiService) PatchAIConfigVariation(ctx context.Context, projectKey string, configKey string, variationKey string) ApiPatchAIConfigVariationRequest {
+func (a *AIConfigsApiService) PatchAIConfigVariation(ctx context.Context, projectKey string, configKey string, variationKey string) ApiPatchAIConfigVariationRequest {
 	return ApiPatchAIConfigVariationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -5517,7 +5312,7 @@ func (a *AIConfigsBetaApiService) PatchAIConfigVariation(ctx context.Context, pr
 
 // Execute executes the request
 //  @return AIConfigVariation
-func (a *AIConfigsBetaApiService) PatchAIConfigVariationExecute(r ApiPatchAIConfigVariationRequest) (*AIConfigVariation, *http.Response, error) {
+func (a *AIConfigsApiService) PatchAIConfigVariationExecute(r ApiPatchAIConfigVariationRequest) (*AIConfigVariation, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPatch
 		localVarPostBody     interface{}
@@ -5525,7 +5320,7 @@ func (a *AIConfigsBetaApiService) PatchAIConfigVariationExecute(r ApiPatchAIConf
 		localVarReturnValue  *AIConfigVariation
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsBetaApiService.PatchAIConfigVariation")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsApiService.PatchAIConfigVariation")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -5538,9 +5333,6 @@ func (a *AIConfigsBetaApiService) PatchAIConfigVariationExecute(r ApiPatchAIConf
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.lDAPIVersion == nil {
-		return localVarReturnValue, nil, reportError("lDAPIVersion is required and must be specified")
-	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -5559,7 +5351,6 @@ func (a *AIConfigsBetaApiService) PatchAIConfigVariationExecute(r ApiPatchAIConf
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	// body params
 	localVarPostBody = r.aIConfigVariationPatch
 	if r.ctx != nil {
@@ -5658,17 +5449,10 @@ func (a *AIConfigsBetaApiService) PatchAIConfigVariationExecute(r ApiPatchAIConf
 
 type ApiPatchAIToolRequest struct {
 	ctx context.Context
-	ApiService AIConfigsBetaApi
-	lDAPIVersion *string
+	ApiService AIConfigsApi
 	projectKey string
 	toolKey string
 	aIToolPatch *AIToolPatch
-}
-
-// Version of the endpoint.
-func (r ApiPatchAIToolRequest) LDAPIVersion(lDAPIVersion string) ApiPatchAIToolRequest {
-	r.lDAPIVersion = &lDAPIVersion
-	return r
 }
 
 // AI tool object to update
@@ -5691,7 +5475,7 @@ Edit an existing AI tool.
  @param toolKey
  @return ApiPatchAIToolRequest
 */
-func (a *AIConfigsBetaApiService) PatchAITool(ctx context.Context, projectKey string, toolKey string) ApiPatchAIToolRequest {
+func (a *AIConfigsApiService) PatchAITool(ctx context.Context, projectKey string, toolKey string) ApiPatchAIToolRequest {
 	return ApiPatchAIToolRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -5702,7 +5486,7 @@ func (a *AIConfigsBetaApiService) PatchAITool(ctx context.Context, projectKey st
 
 // Execute executes the request
 //  @return AITool
-func (a *AIConfigsBetaApiService) PatchAIToolExecute(r ApiPatchAIToolRequest) (*AITool, *http.Response, error) {
+func (a *AIConfigsApiService) PatchAIToolExecute(r ApiPatchAIToolRequest) (*AITool, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPatch
 		localVarPostBody     interface{}
@@ -5710,7 +5494,7 @@ func (a *AIConfigsBetaApiService) PatchAIToolExecute(r ApiPatchAIToolRequest) (*
 		localVarReturnValue  *AITool
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsBetaApiService.PatchAITool")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsApiService.PatchAITool")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -5722,9 +5506,6 @@ func (a *AIConfigsBetaApiService) PatchAIToolExecute(r ApiPatchAIToolRequest) (*
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.lDAPIVersion == nil {
-		return localVarReturnValue, nil, reportError("lDAPIVersion is required and must be specified")
-	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -5743,7 +5524,6 @@ func (a *AIConfigsBetaApiService) PatchAIToolExecute(r ApiPatchAIToolRequest) (*
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	// body params
 	localVarPostBody = r.aIToolPatch
 	if r.ctx != nil {
@@ -5842,7 +5622,7 @@ func (a *AIConfigsBetaApiService) PatchAIToolExecute(r ApiPatchAIToolRequest) (*
 
 type ApiPatchAgentGraphRequest struct {
 	ctx context.Context
-	ApiService AIConfigsBetaApi
+	ApiService AIConfigsApi
 	lDAPIVersion *string
 	projectKey string
 	graphKey string
@@ -5880,7 +5660,7 @@ If the update includes `rootConfigKey` or `edges`, both must be present and will
  @param graphKey
  @return ApiPatchAgentGraphRequest
 */
-func (a *AIConfigsBetaApiService) PatchAgentGraph(ctx context.Context, projectKey string, graphKey string) ApiPatchAgentGraphRequest {
+func (a *AIConfigsApiService) PatchAgentGraph(ctx context.Context, projectKey string, graphKey string) ApiPatchAgentGraphRequest {
 	return ApiPatchAgentGraphRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -5891,7 +5671,7 @@ func (a *AIConfigsBetaApiService) PatchAgentGraph(ctx context.Context, projectKe
 
 // Execute executes the request
 //  @return AgentGraph
-func (a *AIConfigsBetaApiService) PatchAgentGraphExecute(r ApiPatchAgentGraphRequest) (*AgentGraph, *http.Response, error) {
+func (a *AIConfigsApiService) PatchAgentGraphExecute(r ApiPatchAgentGraphRequest) (*AgentGraph, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPatch
 		localVarPostBody     interface{}
@@ -5899,7 +5679,7 @@ func (a *AIConfigsBetaApiService) PatchAgentGraphExecute(r ApiPatchAgentGraphReq
 		localVarReturnValue  *AgentGraph
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsBetaApiService.PatchAgentGraph")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsApiService.PatchAgentGraph")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -6031,16 +5811,9 @@ func (a *AIConfigsBetaApiService) PatchAgentGraphExecute(r ApiPatchAgentGraphReq
 
 type ApiPostAIConfigRequest struct {
 	ctx context.Context
-	ApiService AIConfigsBetaApi
-	lDAPIVersion *string
+	ApiService AIConfigsApi
 	projectKey string
 	aIConfigPost *AIConfigPost
-}
-
-// Version of the endpoint.
-func (r ApiPostAIConfigRequest) LDAPIVersion(lDAPIVersion string) ApiPostAIConfigRequest {
-	r.lDAPIVersion = &lDAPIVersion
-	return r
 }
 
 // AI Config object to create
@@ -6062,7 +5835,7 @@ Create a new AI Config within the given project.
  @param projectKey
  @return ApiPostAIConfigRequest
 */
-func (a *AIConfigsBetaApiService) PostAIConfig(ctx context.Context, projectKey string) ApiPostAIConfigRequest {
+func (a *AIConfigsApiService) PostAIConfig(ctx context.Context, projectKey string) ApiPostAIConfigRequest {
 	return ApiPostAIConfigRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -6072,7 +5845,7 @@ func (a *AIConfigsBetaApiService) PostAIConfig(ctx context.Context, projectKey s
 
 // Execute executes the request
 //  @return AIConfig
-func (a *AIConfigsBetaApiService) PostAIConfigExecute(r ApiPostAIConfigRequest) (*AIConfig, *http.Response, error) {
+func (a *AIConfigsApiService) PostAIConfigExecute(r ApiPostAIConfigRequest) (*AIConfig, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -6080,7 +5853,7 @@ func (a *AIConfigsBetaApiService) PostAIConfigExecute(r ApiPostAIConfigRequest) 
 		localVarReturnValue  *AIConfig
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsBetaApiService.PostAIConfig")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsApiService.PostAIConfig")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -6091,9 +5864,6 @@ func (a *AIConfigsBetaApiService) PostAIConfigExecute(r ApiPostAIConfigRequest) 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.lDAPIVersion == nil {
-		return localVarReturnValue, nil, reportError("lDAPIVersion is required and must be specified")
-	}
 	if r.aIConfigPost == nil {
 		return localVarReturnValue, nil, reportError("aIConfigPost is required and must be specified")
 	}
@@ -6115,7 +5885,6 @@ func (a *AIConfigsBetaApiService) PostAIConfigExecute(r ApiPostAIConfigRequest) 
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	// body params
 	localVarPostBody = r.aIConfigPost
 	if r.ctx != nil {
@@ -6203,17 +5972,10 @@ func (a *AIConfigsBetaApiService) PostAIConfigExecute(r ApiPostAIConfigRequest) 
 
 type ApiPostAIConfigVariationRequest struct {
 	ctx context.Context
-	ApiService AIConfigsBetaApi
-	lDAPIVersion *string
+	ApiService AIConfigsApi
 	projectKey string
 	configKey string
 	aIConfigVariationPost *AIConfigVariationPost
-}
-
-// Version of the endpoint.
-func (r ApiPostAIConfigVariationRequest) LDAPIVersion(lDAPIVersion string) ApiPostAIConfigVariationRequest {
-	r.lDAPIVersion = &lDAPIVersion
-	return r
 }
 
 // AI Config variation object to create
@@ -6248,7 +6010,7 @@ The <code>model</code> in the request body requires a <code>modelName</code> and
  @param configKey
  @return ApiPostAIConfigVariationRequest
 */
-func (a *AIConfigsBetaApiService) PostAIConfigVariation(ctx context.Context, projectKey string, configKey string) ApiPostAIConfigVariationRequest {
+func (a *AIConfigsApiService) PostAIConfigVariation(ctx context.Context, projectKey string, configKey string) ApiPostAIConfigVariationRequest {
 	return ApiPostAIConfigVariationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -6259,7 +6021,7 @@ func (a *AIConfigsBetaApiService) PostAIConfigVariation(ctx context.Context, pro
 
 // Execute executes the request
 //  @return AIConfigVariation
-func (a *AIConfigsBetaApiService) PostAIConfigVariationExecute(r ApiPostAIConfigVariationRequest) (*AIConfigVariation, *http.Response, error) {
+func (a *AIConfigsApiService) PostAIConfigVariationExecute(r ApiPostAIConfigVariationRequest) (*AIConfigVariation, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -6267,7 +6029,7 @@ func (a *AIConfigsBetaApiService) PostAIConfigVariationExecute(r ApiPostAIConfig
 		localVarReturnValue  *AIConfigVariation
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsBetaApiService.PostAIConfigVariation")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsApiService.PostAIConfigVariation")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -6279,9 +6041,6 @@ func (a *AIConfigsBetaApiService) PostAIConfigVariationExecute(r ApiPostAIConfig
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.lDAPIVersion == nil {
-		return localVarReturnValue, nil, reportError("lDAPIVersion is required and must be specified")
-	}
 	if r.aIConfigVariationPost == nil {
 		return localVarReturnValue, nil, reportError("aIConfigVariationPost is required and must be specified")
 	}
@@ -6303,7 +6062,6 @@ func (a *AIConfigsBetaApiService) PostAIConfigVariationExecute(r ApiPostAIConfig
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	// body params
 	localVarPostBody = r.aIConfigVariationPost
 	if r.ctx != nil {
@@ -6391,16 +6149,9 @@ func (a *AIConfigsBetaApiService) PostAIConfigVariationExecute(r ApiPostAIConfig
 
 type ApiPostAIToolRequest struct {
 	ctx context.Context
-	ApiService AIConfigsBetaApi
-	lDAPIVersion *string
+	ApiService AIConfigsApi
 	projectKey string
 	aIToolPost *AIToolPost
-}
-
-// Version of the endpoint.
-func (r ApiPostAIToolRequest) LDAPIVersion(lDAPIVersion string) ApiPostAIToolRequest {
-	r.lDAPIVersion = &lDAPIVersion
-	return r
 }
 
 // AI tool object to create
@@ -6422,7 +6173,7 @@ Create an AI tool
  @param projectKey
  @return ApiPostAIToolRequest
 */
-func (a *AIConfigsBetaApiService) PostAITool(ctx context.Context, projectKey string) ApiPostAIToolRequest {
+func (a *AIConfigsApiService) PostAITool(ctx context.Context, projectKey string) ApiPostAIToolRequest {
 	return ApiPostAIToolRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -6432,7 +6183,7 @@ func (a *AIConfigsBetaApiService) PostAITool(ctx context.Context, projectKey str
 
 // Execute executes the request
 //  @return AITool
-func (a *AIConfigsBetaApiService) PostAIToolExecute(r ApiPostAIToolRequest) (*AITool, *http.Response, error) {
+func (a *AIConfigsApiService) PostAIToolExecute(r ApiPostAIToolRequest) (*AITool, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -6440,7 +6191,7 @@ func (a *AIConfigsBetaApiService) PostAIToolExecute(r ApiPostAIToolRequest) (*AI
 		localVarReturnValue  *AITool
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsBetaApiService.PostAITool")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsApiService.PostAITool")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -6451,9 +6202,6 @@ func (a *AIConfigsBetaApiService) PostAIToolExecute(r ApiPostAIToolRequest) (*AI
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.lDAPIVersion == nil {
-		return localVarReturnValue, nil, reportError("lDAPIVersion is required and must be specified")
-	}
 	if r.aIToolPost == nil {
 		return localVarReturnValue, nil, reportError("aIToolPost is required and must be specified")
 	}
@@ -6475,7 +6223,6 @@ func (a *AIConfigsBetaApiService) PostAIToolExecute(r ApiPostAIToolRequest) (*AI
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	// body params
 	localVarPostBody = r.aIToolPost
 	if r.ctx != nil {
@@ -6563,7 +6310,7 @@ func (a *AIConfigsBetaApiService) PostAIToolExecute(r ApiPostAIToolRequest) (*AI
 
 type ApiPostAgentGraphRequest struct {
 	ctx context.Context
-	ApiService AIConfigsBetaApi
+	ApiService AIConfigsApi
 	lDAPIVersion *string
 	projectKey string
 	agentGraphPost *AgentGraphPost
@@ -6594,7 +6341,7 @@ Create a new agent graph within the given project.
  @param projectKey
  @return ApiPostAgentGraphRequest
 */
-func (a *AIConfigsBetaApiService) PostAgentGraph(ctx context.Context, projectKey string) ApiPostAgentGraphRequest {
+func (a *AIConfigsApiService) PostAgentGraph(ctx context.Context, projectKey string) ApiPostAgentGraphRequest {
 	return ApiPostAgentGraphRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -6604,7 +6351,7 @@ func (a *AIConfigsBetaApiService) PostAgentGraph(ctx context.Context, projectKey
 
 // Execute executes the request
 //  @return AgentGraph
-func (a *AIConfigsBetaApiService) PostAgentGraphExecute(r ApiPostAgentGraphRequest) (*AgentGraph, *http.Response, error) {
+func (a *AIConfigsApiService) PostAgentGraphExecute(r ApiPostAgentGraphRequest) (*AgentGraph, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -6612,7 +6359,7 @@ func (a *AIConfigsBetaApiService) PostAgentGraphExecute(r ApiPostAgentGraphReque
 		localVarReturnValue  *AgentGraph
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsBetaApiService.PostAgentGraph")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsApiService.PostAgentGraph")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -6746,16 +6493,9 @@ func (a *AIConfigsBetaApiService) PostAgentGraphExecute(r ApiPostAgentGraphReque
 
 type ApiPostModelConfigRequest struct {
 	ctx context.Context
-	ApiService AIConfigsBetaApi
-	lDAPIVersion *string
+	ApiService AIConfigsApi
 	projectKey string
 	modelConfigPost *ModelConfigPost
-}
-
-// Version of the endpoint.
-func (r ApiPostModelConfigRequest) LDAPIVersion(lDAPIVersion string) ApiPostModelConfigRequest {
-	r.lDAPIVersion = &lDAPIVersion
-	return r
 }
 
 // AI model config object to create
@@ -6777,7 +6517,7 @@ Create an AI model config. You can use this in any variation for any AI Config i
  @param projectKey
  @return ApiPostModelConfigRequest
 */
-func (a *AIConfigsBetaApiService) PostModelConfig(ctx context.Context, projectKey string) ApiPostModelConfigRequest {
+func (a *AIConfigsApiService) PostModelConfig(ctx context.Context, projectKey string) ApiPostModelConfigRequest {
 	return ApiPostModelConfigRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -6787,7 +6527,7 @@ func (a *AIConfigsBetaApiService) PostModelConfig(ctx context.Context, projectKe
 
 // Execute executes the request
 //  @return ModelConfig
-func (a *AIConfigsBetaApiService) PostModelConfigExecute(r ApiPostModelConfigRequest) (*ModelConfig, *http.Response, error) {
+func (a *AIConfigsApiService) PostModelConfigExecute(r ApiPostModelConfigRequest) (*ModelConfig, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -6795,7 +6535,7 @@ func (a *AIConfigsBetaApiService) PostModelConfigExecute(r ApiPostModelConfigReq
 		localVarReturnValue  *ModelConfig
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsBetaApiService.PostModelConfig")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsApiService.PostModelConfig")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -6806,9 +6546,6 @@ func (a *AIConfigsBetaApiService) PostModelConfigExecute(r ApiPostModelConfigReq
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.lDAPIVersion == nil {
-		return localVarReturnValue, nil, reportError("lDAPIVersion is required and must be specified")
-	}
 	if r.modelConfigPost == nil {
 		return localVarReturnValue, nil, reportError("modelConfigPost is required and must be specified")
 	}
@@ -6830,7 +6567,6 @@ func (a *AIConfigsBetaApiService) PostModelConfigExecute(r ApiPostModelConfigReq
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	// body params
 	localVarPostBody = r.modelConfigPost
 	if r.ctx != nil {
@@ -6929,16 +6665,9 @@ func (a *AIConfigsBetaApiService) PostModelConfigExecute(r ApiPostModelConfigReq
 
 type ApiPostRestrictedModelsRequest struct {
 	ctx context.Context
-	ApiService AIConfigsBetaApi
-	lDAPIVersion *string
+	ApiService AIConfigsApi
 	projectKey string
 	restrictedModelsRequest *RestrictedModelsRequest
-}
-
-// Version of the endpoint.
-func (r ApiPostRestrictedModelsRequest) LDAPIVersion(lDAPIVersion string) ApiPostRestrictedModelsRequest {
-	r.lDAPIVersion = &lDAPIVersion
-	return r
 }
 
 // List of AI model keys to add to the restricted list.
@@ -6954,13 +6683,13 @@ func (r ApiPostRestrictedModelsRequest) Execute() (*RestrictedModelsResponse, *h
 /*
 PostRestrictedModels Add AI models to the restricted list
 
-Add AI models, by key, to the restricted list. Keys are included in the response from the [List AI model configs](https://launchdarkly.com/docs/api/ai-configs-beta/list-model-configs) endpoint.
+Add AI models, by key, to the restricted list. Keys are included in the response from the [List AI model configs](https://launchdarkly.com/docs/api/ai-configs/list-model-configs) endpoint.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param projectKey
  @return ApiPostRestrictedModelsRequest
 */
-func (a *AIConfigsBetaApiService) PostRestrictedModels(ctx context.Context, projectKey string) ApiPostRestrictedModelsRequest {
+func (a *AIConfigsApiService) PostRestrictedModels(ctx context.Context, projectKey string) ApiPostRestrictedModelsRequest {
 	return ApiPostRestrictedModelsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -6970,7 +6699,7 @@ func (a *AIConfigsBetaApiService) PostRestrictedModels(ctx context.Context, proj
 
 // Execute executes the request
 //  @return RestrictedModelsResponse
-func (a *AIConfigsBetaApiService) PostRestrictedModelsExecute(r ApiPostRestrictedModelsRequest) (*RestrictedModelsResponse, *http.Response, error) {
+func (a *AIConfigsApiService) PostRestrictedModelsExecute(r ApiPostRestrictedModelsRequest) (*RestrictedModelsResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -6978,7 +6707,7 @@ func (a *AIConfigsBetaApiService) PostRestrictedModelsExecute(r ApiPostRestricte
 		localVarReturnValue  *RestrictedModelsResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsBetaApiService.PostRestrictedModels")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AIConfigsApiService.PostRestrictedModels")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -6989,9 +6718,6 @@ func (a *AIConfigsBetaApiService) PostRestrictedModelsExecute(r ApiPostRestricte
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.lDAPIVersion == nil {
-		return localVarReturnValue, nil, reportError("lDAPIVersion is required and must be specified")
-	}
 	if r.restrictedModelsRequest == nil {
 		return localVarReturnValue, nil, reportError("restrictedModelsRequest is required and must be specified")
 	}
@@ -7013,7 +6739,6 @@ func (a *AIConfigsBetaApiService) PostRestrictedModelsExecute(r ApiPostRestricte
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "LD-API-Version", r.lDAPIVersion, "simple", "")
 	// body params
 	localVarPostBody = r.restrictedModelsRequest
 	if r.ctx != nil {

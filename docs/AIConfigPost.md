@@ -12,6 +12,8 @@ Name | Type | Description | Notes
 **Name** | **string** |  | 
 **Tags** | Pointer to **[]string** |  | [optional] 
 **DefaultVariation** | Pointer to [**AIConfigVariationPost**](AIConfigVariationPost.md) |  | [optional] 
+**EvaluationMetricKey** | Pointer to **string** | Evaluation metric key for this AI Config | [optional] 
+**IsInverted** | Pointer to **bool** | Whether the evaluation metric is inverted, meaning a lower value is better if set as true | [optional] 
 
 ## Methods
 
@@ -221,6 +223,56 @@ SetDefaultVariation sets DefaultVariation field to given value.
 `func (o *AIConfigPost) HasDefaultVariation() bool`
 
 HasDefaultVariation returns a boolean if a field has been set.
+
+### GetEvaluationMetricKey
+
+`func (o *AIConfigPost) GetEvaluationMetricKey() string`
+
+GetEvaluationMetricKey returns the EvaluationMetricKey field if non-nil, zero value otherwise.
+
+### GetEvaluationMetricKeyOk
+
+`func (o *AIConfigPost) GetEvaluationMetricKeyOk() (*string, bool)`
+
+GetEvaluationMetricKeyOk returns a tuple with the EvaluationMetricKey field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEvaluationMetricKey
+
+`func (o *AIConfigPost) SetEvaluationMetricKey(v string)`
+
+SetEvaluationMetricKey sets EvaluationMetricKey field to given value.
+
+### HasEvaluationMetricKey
+
+`func (o *AIConfigPost) HasEvaluationMetricKey() bool`
+
+HasEvaluationMetricKey returns a boolean if a field has been set.
+
+### GetIsInverted
+
+`func (o *AIConfigPost) GetIsInverted() bool`
+
+GetIsInverted returns the IsInverted field if non-nil, zero value otherwise.
+
+### GetIsInvertedOk
+
+`func (o *AIConfigPost) GetIsInvertedOk() (*bool, bool)`
+
+GetIsInvertedOk returns a tuple with the IsInverted field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsInverted
+
+`func (o *AIConfigPost) SetIsInverted(v bool)`
+
+SetIsInverted sets IsInverted field to given value.
+
+### HasIsInverted
+
+`func (o *AIConfigPost) HasIsInverted() bool`
+
+HasIsInverted returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

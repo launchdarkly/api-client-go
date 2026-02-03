@@ -9,6 +9,8 @@ Name | Type | Description | Notes
 **MaintainerTeamKey** | Pointer to **string** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **Tags** | Pointer to **[]string** |  | [optional] 
+**EvaluationMetricKey** | Pointer to **string** | Evaluation metric key for this AI Config | [optional] 
+**IsInverted** | Pointer to **bool** | Whether the evaluation metric is inverted, meaning a lower value is better if set as true | [optional] 
 
 ## Methods
 
@@ -153,6 +155,56 @@ SetTags sets Tags field to given value.
 `func (o *AIConfigPatch) HasTags() bool`
 
 HasTags returns a boolean if a field has been set.
+
+### GetEvaluationMetricKey
+
+`func (o *AIConfigPatch) GetEvaluationMetricKey() string`
+
+GetEvaluationMetricKey returns the EvaluationMetricKey field if non-nil, zero value otherwise.
+
+### GetEvaluationMetricKeyOk
+
+`func (o *AIConfigPatch) GetEvaluationMetricKeyOk() (*string, bool)`
+
+GetEvaluationMetricKeyOk returns a tuple with the EvaluationMetricKey field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEvaluationMetricKey
+
+`func (o *AIConfigPatch) SetEvaluationMetricKey(v string)`
+
+SetEvaluationMetricKey sets EvaluationMetricKey field to given value.
+
+### HasEvaluationMetricKey
+
+`func (o *AIConfigPatch) HasEvaluationMetricKey() bool`
+
+HasEvaluationMetricKey returns a boolean if a field has been set.
+
+### GetIsInverted
+
+`func (o *AIConfigPatch) GetIsInverted() bool`
+
+GetIsInverted returns the IsInverted field if non-nil, zero value otherwise.
+
+### GetIsInvertedOk
+
+`func (o *AIConfigPatch) GetIsInvertedOk() (*bool, bool)`
+
+GetIsInvertedOk returns a tuple with the IsInverted field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsInverted
+
+`func (o *AIConfigPatch) SetIsInverted(v bool)`
+
+SetIsInverted sets IsInverted field to given value.
+
+### HasIsInverted
+
+`func (o *AIConfigPatch) HasIsInverted() bool`
+
+HasIsInverted returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
