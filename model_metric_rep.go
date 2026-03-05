@@ -77,6 +77,7 @@ type MetricRep struct {
 	PercentileValue *int32 `json:"percentileValue,omitempty"`
 	EventDefault *MetricEventDefaultRep `json:"eventDefault,omitempty"`
 	DataSource MetricDataSourceRefRep `json:"dataSource"`
+	LastSeen *int64 `json:"lastSeen,omitempty"`
 	// Whether the metric version is archived
 	Archived *bool `json:"archived,omitempty"`
 	ArchivedAt *int64 `json:"archivedAt,omitempty"`
@@ -1075,6 +1076,38 @@ func (o *MetricRep) SetDataSource(v MetricDataSourceRefRep) {
 	o.DataSource = v
 }
 
+// GetLastSeen returns the LastSeen field value if set, zero value otherwise.
+func (o *MetricRep) GetLastSeen() int64 {
+	if o == nil || IsNil(o.LastSeen) {
+		var ret int64
+		return ret
+	}
+	return *o.LastSeen
+}
+
+// GetLastSeenOk returns a tuple with the LastSeen field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MetricRep) GetLastSeenOk() (*int64, bool) {
+	if o == nil || IsNil(o.LastSeen) {
+		return nil, false
+	}
+	return o.LastSeen, true
+}
+
+// HasLastSeen returns a boolean if a field has been set.
+func (o *MetricRep) HasLastSeen() bool {
+	if o != nil && !IsNil(o.LastSeen) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastSeen gets a reference to the given int64 and assigns it to the LastSeen field.
+func (o *MetricRep) SetLastSeen(v int64) {
+	o.LastSeen = &v
+}
+
 // GetArchived returns the Archived field value if set, zero value otherwise.
 func (o *MetricRep) GetArchived() bool {
 	if o == nil || IsNil(o.Archived) {
@@ -1483,6 +1516,9 @@ func (o MetricRep) ToMap() (map[string]interface{}, error) {
 		toSerialize["eventDefault"] = o.EventDefault
 	}
 	toSerialize["dataSource"] = o.DataSource
+	if !IsNil(o.LastSeen) {
+		toSerialize["lastSeen"] = o.LastSeen
+	}
 	if !IsNil(o.Archived) {
 		toSerialize["archived"] = o.Archived
 	}
@@ -1596,6 +1632,7 @@ func (o *MetricRep) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "percentileValue")
 		delete(additionalProperties, "eventDefault")
 		delete(additionalProperties, "dataSource")
+		delete(additionalProperties, "lastSeen")
 		delete(additionalProperties, "archived")
 		delete(additionalProperties, "archivedAt")
 		delete(additionalProperties, "selector")

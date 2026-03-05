@@ -4,9 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Access** | Pointer to [**AiConfigsAccess**](AiConfigsAccess.md) |  | [optional] 
 **Key** | **string** | A unique key for the agent graph | 
 **Name** | **string** | A human-readable name for the agent graph | 
 **Description** | Pointer to **string** | A description of the agent graph | [optional] 
+**Maintainer** | Pointer to [**AgentGraphMaintainer**](AgentGraphMaintainer.md) |  | [optional] 
 **RootConfigKey** | Pointer to **string** | The AI Config key of the root node | [optional] 
 **Edges** | Pointer to [**[]AgentGraphEdge**](AgentGraphEdge.md) | The edges in the graph | [optional] 
 **CreatedAt** | **int64** |  | 
@@ -30,6 +32,31 @@ will change when the set of required properties is changed
 NewAgentGraphWithDefaults instantiates a new AgentGraph object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetAccess
+
+`func (o *AgentGraph) GetAccess() AiConfigsAccess`
+
+GetAccess returns the Access field if non-nil, zero value otherwise.
+
+### GetAccessOk
+
+`func (o *AgentGraph) GetAccessOk() (*AiConfigsAccess, bool)`
+
+GetAccessOk returns a tuple with the Access field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAccess
+
+`func (o *AgentGraph) SetAccess(v AiConfigsAccess)`
+
+SetAccess sets Access field to given value.
+
+### HasAccess
+
+`func (o *AgentGraph) HasAccess() bool`
+
+HasAccess returns a boolean if a field has been set.
 
 ### GetKey
 
@@ -95,6 +122,31 @@ SetDescription sets Description field to given value.
 `func (o *AgentGraph) HasDescription() bool`
 
 HasDescription returns a boolean if a field has been set.
+
+### GetMaintainer
+
+`func (o *AgentGraph) GetMaintainer() AgentGraphMaintainer`
+
+GetMaintainer returns the Maintainer field if non-nil, zero value otherwise.
+
+### GetMaintainerOk
+
+`func (o *AgentGraph) GetMaintainerOk() (*AgentGraphMaintainer, bool)`
+
+GetMaintainerOk returns a tuple with the Maintainer field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMaintainer
+
+`func (o *AgentGraph) SetMaintainer(v AgentGraphMaintainer)`
+
+SetMaintainer sets Maintainer field to given value.
+
+### HasMaintainer
+
+`func (o *AgentGraph) HasMaintainer() bool`
+
+HasMaintainer returns a boolean if a field has been set.
 
 ### GetRootConfigKey
 

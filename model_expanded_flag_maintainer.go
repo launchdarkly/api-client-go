@@ -13,240 +13,157 @@ package ldapi
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
-// checks if the AgentGraphPatch type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &AgentGraphPatch{}
+// checks if the ExpandedFlagMaintainer type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ExpandedFlagMaintainer{}
 
-// AgentGraphPatch Request body for updating an agent graph. If rootConfigKey or edges are present, both must be present.
-type AgentGraphPatch struct {
-	// A human-readable name for the agent graph
-	Name *string `json:"name,omitempty"`
-	// A description of the agent graph
-	Description *string `json:"description,omitempty"`
-	// The ID of the member who maintains this agent graph. Pass an empty string to remove maintainer.
-	MaintainerId *string `json:"maintainerId,omitempty"`
-	// The key of the team that maintains this agent graph. Pass an empty string to remove maintainer.
-	MaintainerTeamKey *string `json:"maintainerTeamKey,omitempty"`
-	// The AI Config key of the root node. If present, edges must also be present.
-	RootConfigKey *string `json:"rootConfigKey,omitempty"`
-	// The edges in the graph. If present, rootConfigKey must also be present. Replaces all existing edges.
-	Edges []AgentGraphEdge `json:"edges,omitempty"`
+// ExpandedFlagMaintainer struct for ExpandedFlagMaintainer
+type ExpandedFlagMaintainer struct {
+	// The ID of the maintainer member, or the key of the maintainer team
+	Key string `json:"key"`
+	// The type of the maintainer
+	Kind string `json:"kind"`
+	Member *ViewsMemberSummary `json:"_member,omitempty"`
+	Team *ViewsMemberTeamSummaryRep `json:"_team,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
-type _AgentGraphPatch AgentGraphPatch
+type _ExpandedFlagMaintainer ExpandedFlagMaintainer
 
-// NewAgentGraphPatch instantiates a new AgentGraphPatch object
+// NewExpandedFlagMaintainer instantiates a new ExpandedFlagMaintainer object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAgentGraphPatch() *AgentGraphPatch {
-	this := AgentGraphPatch{}
+func NewExpandedFlagMaintainer(key string, kind string) *ExpandedFlagMaintainer {
+	this := ExpandedFlagMaintainer{}
+	this.Key = key
+	this.Kind = kind
 	return &this
 }
 
-// NewAgentGraphPatchWithDefaults instantiates a new AgentGraphPatch object
+// NewExpandedFlagMaintainerWithDefaults instantiates a new ExpandedFlagMaintainer object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewAgentGraphPatchWithDefaults() *AgentGraphPatch {
-	this := AgentGraphPatch{}
+func NewExpandedFlagMaintainerWithDefaults() *ExpandedFlagMaintainer {
+	this := ExpandedFlagMaintainer{}
 	return &this
 }
 
-// GetName returns the Name field value if set, zero value otherwise.
-func (o *AgentGraphPatch) GetName() string {
-	if o == nil || IsNil(o.Name) {
+// GetKey returns the Key field value
+func (o *ExpandedFlagMaintainer) GetKey() string {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Name
+
+	return o.Key
 }
 
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// GetKeyOk returns a tuple with the Key field value
 // and a boolean to check if the value has been set.
-func (o *AgentGraphPatch) GetNameOk() (*string, bool) {
-	if o == nil || IsNil(o.Name) {
+func (o *ExpandedFlagMaintainer) GetKeyOk() (*string, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Name, true
+	return &o.Key, true
 }
 
-// HasName returns a boolean if a field has been set.
-func (o *AgentGraphPatch) HasName() bool {
-	if o != nil && !IsNil(o.Name) {
-		return true
-	}
-
-	return false
+// SetKey sets field value
+func (o *ExpandedFlagMaintainer) SetKey(v string) {
+	o.Key = v
 }
 
-// SetName gets a reference to the given string and assigns it to the Name field.
-func (o *AgentGraphPatch) SetName(v string) {
-	o.Name = &v
-}
-
-// GetDescription returns the Description field value if set, zero value otherwise.
-func (o *AgentGraphPatch) GetDescription() string {
-	if o == nil || IsNil(o.Description) {
+// GetKind returns the Kind field value
+func (o *ExpandedFlagMaintainer) GetKind() string {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Description
+
+	return o.Kind
 }
 
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// GetKindOk returns a tuple with the Kind field value
 // and a boolean to check if the value has been set.
-func (o *AgentGraphPatch) GetDescriptionOk() (*string, bool) {
-	if o == nil || IsNil(o.Description) {
+func (o *ExpandedFlagMaintainer) GetKindOk() (*string, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Description, true
+	return &o.Kind, true
 }
 
-// HasDescription returns a boolean if a field has been set.
-func (o *AgentGraphPatch) HasDescription() bool {
-	if o != nil && !IsNil(o.Description) {
-		return true
-	}
-
-	return false
+// SetKind sets field value
+func (o *ExpandedFlagMaintainer) SetKind(v string) {
+	o.Kind = v
 }
 
-// SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *AgentGraphPatch) SetDescription(v string) {
-	o.Description = &v
-}
-
-// GetMaintainerId returns the MaintainerId field value if set, zero value otherwise.
-func (o *AgentGraphPatch) GetMaintainerId() string {
-	if o == nil || IsNil(o.MaintainerId) {
-		var ret string
+// GetMember returns the Member field value if set, zero value otherwise.
+func (o *ExpandedFlagMaintainer) GetMember() ViewsMemberSummary {
+	if o == nil || IsNil(o.Member) {
+		var ret ViewsMemberSummary
 		return ret
 	}
-	return *o.MaintainerId
+	return *o.Member
 }
 
-// GetMaintainerIdOk returns a tuple with the MaintainerId field value if set, nil otherwise
+// GetMemberOk returns a tuple with the Member field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AgentGraphPatch) GetMaintainerIdOk() (*string, bool) {
-	if o == nil || IsNil(o.MaintainerId) {
+func (o *ExpandedFlagMaintainer) GetMemberOk() (*ViewsMemberSummary, bool) {
+	if o == nil || IsNil(o.Member) {
 		return nil, false
 	}
-	return o.MaintainerId, true
+	return o.Member, true
 }
 
-// HasMaintainerId returns a boolean if a field has been set.
-func (o *AgentGraphPatch) HasMaintainerId() bool {
-	if o != nil && !IsNil(o.MaintainerId) {
+// HasMember returns a boolean if a field has been set.
+func (o *ExpandedFlagMaintainer) HasMember() bool {
+	if o != nil && !IsNil(o.Member) {
 		return true
 	}
 
 	return false
 }
 
-// SetMaintainerId gets a reference to the given string and assigns it to the MaintainerId field.
-func (o *AgentGraphPatch) SetMaintainerId(v string) {
-	o.MaintainerId = &v
+// SetMember gets a reference to the given ViewsMemberSummary and assigns it to the Member field.
+func (o *ExpandedFlagMaintainer) SetMember(v ViewsMemberSummary) {
+	o.Member = &v
 }
 
-// GetMaintainerTeamKey returns the MaintainerTeamKey field value if set, zero value otherwise.
-func (o *AgentGraphPatch) GetMaintainerTeamKey() string {
-	if o == nil || IsNil(o.MaintainerTeamKey) {
-		var ret string
+// GetTeam returns the Team field value if set, zero value otherwise.
+func (o *ExpandedFlagMaintainer) GetTeam() ViewsMemberTeamSummaryRep {
+	if o == nil || IsNil(o.Team) {
+		var ret ViewsMemberTeamSummaryRep
 		return ret
 	}
-	return *o.MaintainerTeamKey
+	return *o.Team
 }
 
-// GetMaintainerTeamKeyOk returns a tuple with the MaintainerTeamKey field value if set, nil otherwise
+// GetTeamOk returns a tuple with the Team field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AgentGraphPatch) GetMaintainerTeamKeyOk() (*string, bool) {
-	if o == nil || IsNil(o.MaintainerTeamKey) {
+func (o *ExpandedFlagMaintainer) GetTeamOk() (*ViewsMemberTeamSummaryRep, bool) {
+	if o == nil || IsNil(o.Team) {
 		return nil, false
 	}
-	return o.MaintainerTeamKey, true
+	return o.Team, true
 }
 
-// HasMaintainerTeamKey returns a boolean if a field has been set.
-func (o *AgentGraphPatch) HasMaintainerTeamKey() bool {
-	if o != nil && !IsNil(o.MaintainerTeamKey) {
+// HasTeam returns a boolean if a field has been set.
+func (o *ExpandedFlagMaintainer) HasTeam() bool {
+	if o != nil && !IsNil(o.Team) {
 		return true
 	}
 
 	return false
 }
 
-// SetMaintainerTeamKey gets a reference to the given string and assigns it to the MaintainerTeamKey field.
-func (o *AgentGraphPatch) SetMaintainerTeamKey(v string) {
-	o.MaintainerTeamKey = &v
+// SetTeam gets a reference to the given ViewsMemberTeamSummaryRep and assigns it to the Team field.
+func (o *ExpandedFlagMaintainer) SetTeam(v ViewsMemberTeamSummaryRep) {
+	o.Team = &v
 }
 
-// GetRootConfigKey returns the RootConfigKey field value if set, zero value otherwise.
-func (o *AgentGraphPatch) GetRootConfigKey() string {
-	if o == nil || IsNil(o.RootConfigKey) {
-		var ret string
-		return ret
-	}
-	return *o.RootConfigKey
-}
-
-// GetRootConfigKeyOk returns a tuple with the RootConfigKey field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AgentGraphPatch) GetRootConfigKeyOk() (*string, bool) {
-	if o == nil || IsNil(o.RootConfigKey) {
-		return nil, false
-	}
-	return o.RootConfigKey, true
-}
-
-// HasRootConfigKey returns a boolean if a field has been set.
-func (o *AgentGraphPatch) HasRootConfigKey() bool {
-	if o != nil && !IsNil(o.RootConfigKey) {
-		return true
-	}
-
-	return false
-}
-
-// SetRootConfigKey gets a reference to the given string and assigns it to the RootConfigKey field.
-func (o *AgentGraphPatch) SetRootConfigKey(v string) {
-	o.RootConfigKey = &v
-}
-
-// GetEdges returns the Edges field value if set, zero value otherwise.
-func (o *AgentGraphPatch) GetEdges() []AgentGraphEdge {
-	if o == nil || IsNil(o.Edges) {
-		var ret []AgentGraphEdge
-		return ret
-	}
-	return o.Edges
-}
-
-// GetEdgesOk returns a tuple with the Edges field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AgentGraphPatch) GetEdgesOk() ([]AgentGraphEdge, bool) {
-	if o == nil || IsNil(o.Edges) {
-		return nil, false
-	}
-	return o.Edges, true
-}
-
-// HasEdges returns a boolean if a field has been set.
-func (o *AgentGraphPatch) HasEdges() bool {
-	if o != nil && !IsNil(o.Edges) {
-		return true
-	}
-
-	return false
-}
-
-// SetEdges gets a reference to the given []AgentGraphEdge and assigns it to the Edges field.
-func (o *AgentGraphPatch) SetEdges(v []AgentGraphEdge) {
-	o.Edges = v
-}
-
-func (o AgentGraphPatch) MarshalJSON() ([]byte, error) {
+func (o ExpandedFlagMaintainer) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -254,25 +171,15 @@ func (o AgentGraphPatch) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o AgentGraphPatch) ToMap() (map[string]interface{}, error) {
+func (o ExpandedFlagMaintainer) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Name) {
-		toSerialize["name"] = o.Name
+	toSerialize["key"] = o.Key
+	toSerialize["kind"] = o.Kind
+	if !IsNil(o.Member) {
+		toSerialize["_member"] = o.Member
 	}
-	if !IsNil(o.Description) {
-		toSerialize["description"] = o.Description
-	}
-	if !IsNil(o.MaintainerId) {
-		toSerialize["maintainerId"] = o.MaintainerId
-	}
-	if !IsNil(o.MaintainerTeamKey) {
-		toSerialize["maintainerTeamKey"] = o.MaintainerTeamKey
-	}
-	if !IsNil(o.RootConfigKey) {
-		toSerialize["rootConfigKey"] = o.RootConfigKey
-	}
-	if !IsNil(o.Edges) {
-		toSerialize["edges"] = o.Edges
+	if !IsNil(o.Team) {
+		toSerialize["_team"] = o.Team
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -282,64 +189,84 @@ func (o AgentGraphPatch) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-func (o *AgentGraphPatch) UnmarshalJSON(data []byte) (err error) {
-	varAgentGraphPatch := _AgentGraphPatch{}
+func (o *ExpandedFlagMaintainer) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"key",
+		"kind",
+	}
 
-	err = json.Unmarshal(data, &varAgentGraphPatch)
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varExpandedFlagMaintainer := _ExpandedFlagMaintainer{}
+
+	err = json.Unmarshal(data, &varExpandedFlagMaintainer)
 
 	if err != nil {
 		return err
 	}
 
-	*o = AgentGraphPatch(varAgentGraphPatch)
+	*o = ExpandedFlagMaintainer(varExpandedFlagMaintainer)
 
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "name")
-		delete(additionalProperties, "description")
-		delete(additionalProperties, "maintainerId")
-		delete(additionalProperties, "maintainerTeamKey")
-		delete(additionalProperties, "rootConfigKey")
-		delete(additionalProperties, "edges")
+		delete(additionalProperties, "key")
+		delete(additionalProperties, "kind")
+		delete(additionalProperties, "_member")
+		delete(additionalProperties, "_team")
 		o.AdditionalProperties = additionalProperties
 	}
 
 	return err
 }
 
-type NullableAgentGraphPatch struct {
-	value *AgentGraphPatch
+type NullableExpandedFlagMaintainer struct {
+	value *ExpandedFlagMaintainer
 	isSet bool
 }
 
-func (v NullableAgentGraphPatch) Get() *AgentGraphPatch {
+func (v NullableExpandedFlagMaintainer) Get() *ExpandedFlagMaintainer {
 	return v.value
 }
 
-func (v *NullableAgentGraphPatch) Set(val *AgentGraphPatch) {
+func (v *NullableExpandedFlagMaintainer) Set(val *ExpandedFlagMaintainer) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableAgentGraphPatch) IsSet() bool {
+func (v NullableExpandedFlagMaintainer) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableAgentGraphPatch) Unset() {
+func (v *NullableExpandedFlagMaintainer) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableAgentGraphPatch(val *AgentGraphPatch) *NullableAgentGraphPatch {
-	return &NullableAgentGraphPatch{value: val, isSet: true}
+func NewNullableExpandedFlagMaintainer(val *ExpandedFlagMaintainer) *NullableExpandedFlagMaintainer {
+	return &NullableExpandedFlagMaintainer{value: val, isSet: true}
 }
 
-func (v NullableAgentGraphPatch) MarshalJSON() ([]byte, error) {
+func (v NullableExpandedFlagMaintainer) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableAgentGraphPatch) UnmarshalJSON(src []byte) error {
+func (v *NullableExpandedFlagMaintainer) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

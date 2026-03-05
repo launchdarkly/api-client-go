@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **ExperimentCount** | Pointer to **int32** | The number of experiments using this metric | [optional] 
 **MetricGroupCount** | Pointer to **int32** | The number of metric groups using this metric | [optional] 
 **GuardedRolloutCount** | Pointer to **int32** | The number of guarded rollouts using this metric | [optional] 
+**ReleasePolicyCount** | Pointer to **int32** | The number of release policies using this metric | [optional] 
 **ActiveExperimentCount** | Pointer to **int32** | The number of active experiments using this metric | [optional] 
 **ActiveGuardedRolloutCount** | Pointer to **int32** | The number of active guarded rollouts using this metric | [optional] 
 **Id** | **string** | The ID of this metric | 
@@ -37,6 +38,7 @@ Name | Type | Description | Notes
 **PercentileValue** | Pointer to **int32** | The percentile for the analysis method. An integer denoting the target percentile between 0 and 100. Required when &lt;code&gt;analysisType&lt;/code&gt; is &lt;code&gt;percentile&lt;/code&gt;. | [optional] 
 **EventDefault** | Pointer to [**AiConfigsMetricEventDefaultRep**](AiConfigsMetricEventDefaultRep.md) |  | [optional] 
 **DataSource** | [**AiConfigsMetricDataSourceRefRep**](AiConfigsMetricDataSourceRefRep.md) |  | 
+**LastSeen** | Pointer to **int64** |  | [optional] 
 **Archived** | Pointer to **bool** | Whether the metric version is archived | [optional] 
 **ArchivedAt** | Pointer to **int64** |  | [optional] 
 **Selector** | Pointer to **string** | For click metrics, the CSS selectors | [optional] 
@@ -135,6 +137,31 @@ SetGuardedRolloutCount sets GuardedRolloutCount field to given value.
 `func (o *AiConfigsMetricListingRep) HasGuardedRolloutCount() bool`
 
 HasGuardedRolloutCount returns a boolean if a field has been set.
+
+### GetReleasePolicyCount
+
+`func (o *AiConfigsMetricListingRep) GetReleasePolicyCount() int32`
+
+GetReleasePolicyCount returns the ReleasePolicyCount field if non-nil, zero value otherwise.
+
+### GetReleasePolicyCountOk
+
+`func (o *AiConfigsMetricListingRep) GetReleasePolicyCountOk() (*int32, bool)`
+
+GetReleasePolicyCountOk returns a tuple with the ReleasePolicyCount field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetReleasePolicyCount
+
+`func (o *AiConfigsMetricListingRep) SetReleasePolicyCount(v int32)`
+
+SetReleasePolicyCount sets ReleasePolicyCount field to given value.
+
+### HasReleasePolicyCount
+
+`func (o *AiConfigsMetricListingRep) HasReleasePolicyCount() bool`
+
+HasReleasePolicyCount returns a boolean if a field has been set.
 
 ### GetActiveExperimentCount
 
@@ -840,6 +867,31 @@ and a boolean to check if the value has been set.
 
 SetDataSource sets DataSource field to given value.
 
+
+### GetLastSeen
+
+`func (o *AiConfigsMetricListingRep) GetLastSeen() int64`
+
+GetLastSeen returns the LastSeen field if non-nil, zero value otherwise.
+
+### GetLastSeenOk
+
+`func (o *AiConfigsMetricListingRep) GetLastSeenOk() (*int64, bool)`
+
+GetLastSeenOk returns a tuple with the LastSeen field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLastSeen
+
+`func (o *AiConfigsMetricListingRep) SetLastSeen(v int64)`
+
+SetLastSeen sets LastSeen field to given value.
+
+### HasLastSeen
+
+`func (o *AiConfigsMetricListingRep) HasLastSeen() bool`
+
+HasLastSeen returns a boolean if a field has been set.
 
 ### GetArchived
 

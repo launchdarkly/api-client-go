@@ -23,8 +23,6 @@ var _ MappedNullable = &ResourceSummary{}
 type ResourceSummary struct {
 	FlagCount int32 `json:"flagCount"`
 	SegmentCount *int32 `json:"segmentCount,omitempty"`
-	MetricCount *int32 `json:"metricCount,omitempty"`
-	AiConfigCount *int32 `json:"aiConfigCount,omitempty"`
 	TotalCount int32 `json:"totalCount"`
 	AdditionalProperties map[string]interface{}
 }
@@ -106,70 +104,6 @@ func (o *ResourceSummary) SetSegmentCount(v int32) {
 	o.SegmentCount = &v
 }
 
-// GetMetricCount returns the MetricCount field value if set, zero value otherwise.
-func (o *ResourceSummary) GetMetricCount() int32 {
-	if o == nil || IsNil(o.MetricCount) {
-		var ret int32
-		return ret
-	}
-	return *o.MetricCount
-}
-
-// GetMetricCountOk returns a tuple with the MetricCount field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ResourceSummary) GetMetricCountOk() (*int32, bool) {
-	if o == nil || IsNil(o.MetricCount) {
-		return nil, false
-	}
-	return o.MetricCount, true
-}
-
-// HasMetricCount returns a boolean if a field has been set.
-func (o *ResourceSummary) HasMetricCount() bool {
-	if o != nil && !IsNil(o.MetricCount) {
-		return true
-	}
-
-	return false
-}
-
-// SetMetricCount gets a reference to the given int32 and assigns it to the MetricCount field.
-func (o *ResourceSummary) SetMetricCount(v int32) {
-	o.MetricCount = &v
-}
-
-// GetAiConfigCount returns the AiConfigCount field value if set, zero value otherwise.
-func (o *ResourceSummary) GetAiConfigCount() int32 {
-	if o == nil || IsNil(o.AiConfigCount) {
-		var ret int32
-		return ret
-	}
-	return *o.AiConfigCount
-}
-
-// GetAiConfigCountOk returns a tuple with the AiConfigCount field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ResourceSummary) GetAiConfigCountOk() (*int32, bool) {
-	if o == nil || IsNil(o.AiConfigCount) {
-		return nil, false
-	}
-	return o.AiConfigCount, true
-}
-
-// HasAiConfigCount returns a boolean if a field has been set.
-func (o *ResourceSummary) HasAiConfigCount() bool {
-	if o != nil && !IsNil(o.AiConfigCount) {
-		return true
-	}
-
-	return false
-}
-
-// SetAiConfigCount gets a reference to the given int32 and assigns it to the AiConfigCount field.
-func (o *ResourceSummary) SetAiConfigCount(v int32) {
-	o.AiConfigCount = &v
-}
-
 // GetTotalCount returns the TotalCount field value
 func (o *ResourceSummary) GetTotalCount() int32 {
 	if o == nil {
@@ -207,12 +141,6 @@ func (o ResourceSummary) ToMap() (map[string]interface{}, error) {
 	toSerialize["flagCount"] = o.FlagCount
 	if !IsNil(o.SegmentCount) {
 		toSerialize["segmentCount"] = o.SegmentCount
-	}
-	if !IsNil(o.MetricCount) {
-		toSerialize["metricCount"] = o.MetricCount
-	}
-	if !IsNil(o.AiConfigCount) {
-		toSerialize["aiConfigCount"] = o.AiConfigCount
 	}
 	toSerialize["totalCount"] = o.TotalCount
 
@@ -261,8 +189,6 @@ func (o *ResourceSummary) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "flagCount")
 		delete(additionalProperties, "segmentCount")
-		delete(additionalProperties, "metricCount")
-		delete(additionalProperties, "aiConfigCount")
 		delete(additionalProperties, "totalCount")
 		o.AdditionalProperties = additionalProperties
 	}

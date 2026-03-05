@@ -8,7 +8,8 @@ Name | Type | Description | Notes
 **MaintainerId** | Pointer to **string** |  | [optional] 
 **MaintainerTeamKey** | Pointer to **string** |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
-**Schema** | **map[string]interface{}** |  | 
+**Schema** | **map[string]interface{}** | JSON Schema defining the tool&#39;s parameters for LLM consumption | 
+**CustomParameters** | Pointer to **map[string]interface{}** | Custom metadata and configuration for application-level use (not sent to LLM) | [optional] 
 
 ## Methods
 
@@ -143,6 +144,31 @@ and a boolean to check if the value has been set.
 
 SetSchema sets Schema field to given value.
 
+
+### GetCustomParameters
+
+`func (o *AIToolPost) GetCustomParameters() map[string]interface{}`
+
+GetCustomParameters returns the CustomParameters field if non-nil, zero value otherwise.
+
+### GetCustomParametersOk
+
+`func (o *AIToolPost) GetCustomParametersOk() (*map[string]interface{}, bool)`
+
+GetCustomParametersOk returns a tuple with the CustomParameters field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCustomParameters
+
+`func (o *AIToolPost) SetCustomParameters(v map[string]interface{})`
+
+SetCustomParameters sets CustomParameters field to given value.
+
+### HasCustomParameters
+
+`func (o *AIToolPost) HasCustomParameters() bool`
+
+HasCustomParameters returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

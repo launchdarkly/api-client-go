@@ -23,7 +23,10 @@ type AIToolPatch struct {
 	MaintainerId *string `json:"maintainerId,omitempty"`
 	MaintainerTeamKey *string `json:"maintainerTeamKey,omitempty"`
 	Description *string `json:"description,omitempty"`
+	// JSON Schema defining the tool's parameters for LLM consumption
 	Schema map[string]interface{} `json:"schema,omitempty"`
+	// Custom metadata and configuration for application-level use (not sent to LLM)
+	CustomParameters map[string]interface{} `json:"customParameters,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -174,6 +177,38 @@ func (o *AIToolPatch) SetSchema(v map[string]interface{}) {
 	o.Schema = v
 }
 
+// GetCustomParameters returns the CustomParameters field value if set, zero value otherwise.
+func (o *AIToolPatch) GetCustomParameters() map[string]interface{} {
+	if o == nil || IsNil(o.CustomParameters) {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.CustomParameters
+}
+
+// GetCustomParametersOk returns a tuple with the CustomParameters field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AIToolPatch) GetCustomParametersOk() (map[string]interface{}, bool) {
+	if o == nil || IsNil(o.CustomParameters) {
+		return map[string]interface{}{}, false
+	}
+	return o.CustomParameters, true
+}
+
+// HasCustomParameters returns a boolean if a field has been set.
+func (o *AIToolPatch) HasCustomParameters() bool {
+	if o != nil && !IsNil(o.CustomParameters) {
+		return true
+	}
+
+	return false
+}
+
+// SetCustomParameters gets a reference to the given map[string]interface{} and assigns it to the CustomParameters field.
+func (o *AIToolPatch) SetCustomParameters(v map[string]interface{}) {
+	o.CustomParameters = v
+}
+
 func (o AIToolPatch) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -195,6 +230,9 @@ func (o AIToolPatch) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Schema) {
 		toSerialize["schema"] = o.Schema
+	}
+	if !IsNil(o.CustomParameters) {
+		toSerialize["customParameters"] = o.CustomParameters
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -222,6 +260,7 @@ func (o *AIToolPatch) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "maintainerTeamKey")
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "schema")
+		delete(additionalProperties, "customParameters")
 		o.AdditionalProperties = additionalProperties
 	}
 

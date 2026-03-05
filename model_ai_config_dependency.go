@@ -16,86 +16,88 @@ import (
 	"fmt"
 )
 
-// checks if the ExpandedLinkedResourcesMetrics type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &ExpandedLinkedResourcesMetrics{}
+// checks if the AIConfigDependency type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AIConfigDependency{}
 
-// ExpandedLinkedResourcesMetrics struct for ExpandedLinkedResourcesMetrics
-type ExpandedLinkedResourcesMetrics struct {
-	Items []ExpandedMetric `json:"items"`
-	TotalCount int32 `json:"totalCount"`
+// AIConfigDependency A resource that depends on this AI Config
+type AIConfigDependency struct {
+	// The type of the dependent resource
+	Type string `json:"type"`
+	// The key of the dependent resource
+	Key string `json:"key"`
 	AdditionalProperties map[string]interface{}
 }
 
-type _ExpandedLinkedResourcesMetrics ExpandedLinkedResourcesMetrics
+type _AIConfigDependency AIConfigDependency
 
-// NewExpandedLinkedResourcesMetrics instantiates a new ExpandedLinkedResourcesMetrics object
+// NewAIConfigDependency instantiates a new AIConfigDependency object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewExpandedLinkedResourcesMetrics(items []ExpandedMetric, totalCount int32) *ExpandedLinkedResourcesMetrics {
-	this := ExpandedLinkedResourcesMetrics{}
-	this.Items = items
-	this.TotalCount = totalCount
+func NewAIConfigDependency(type_ string, key string) *AIConfigDependency {
+	this := AIConfigDependency{}
+	this.Type = type_
+	this.Key = key
 	return &this
 }
 
-// NewExpandedLinkedResourcesMetricsWithDefaults instantiates a new ExpandedLinkedResourcesMetrics object
+// NewAIConfigDependencyWithDefaults instantiates a new AIConfigDependency object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewExpandedLinkedResourcesMetricsWithDefaults() *ExpandedLinkedResourcesMetrics {
-	this := ExpandedLinkedResourcesMetrics{}
+func NewAIConfigDependencyWithDefaults() *AIConfigDependency {
+	this := AIConfigDependency{}
 	return &this
 }
 
-// GetItems returns the Items field value
-func (o *ExpandedLinkedResourcesMetrics) GetItems() []ExpandedMetric {
+// GetType returns the Type field value
+func (o *AIConfigDependency) GetType() string {
 	if o == nil {
-		var ret []ExpandedMetric
+		var ret string
 		return ret
 	}
 
-	return o.Items
+	return o.Type
 }
 
-// GetItemsOk returns a tuple with the Items field value
+// GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
-func (o *ExpandedLinkedResourcesMetrics) GetItemsOk() ([]ExpandedMetric, bool) {
+func (o *AIConfigDependency) GetTypeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.Items, true
+	return &o.Type, true
 }
 
-// SetItems sets field value
-func (o *ExpandedLinkedResourcesMetrics) SetItems(v []ExpandedMetric) {
-	o.Items = v
+// SetType sets field value
+func (o *AIConfigDependency) SetType(v string) {
+	o.Type = v
 }
 
-// GetTotalCount returns the TotalCount field value
-func (o *ExpandedLinkedResourcesMetrics) GetTotalCount() int32 {
+// GetKey returns the Key field value
+func (o *AIConfigDependency) GetKey() string {
 	if o == nil {
-		var ret int32
+		var ret string
 		return ret
 	}
 
-	return o.TotalCount
+	return o.Key
 }
 
-// GetTotalCountOk returns a tuple with the TotalCount field value
+// GetKeyOk returns a tuple with the Key field value
 // and a boolean to check if the value has been set.
-func (o *ExpandedLinkedResourcesMetrics) GetTotalCountOk() (*int32, bool) {
+func (o *AIConfigDependency) GetKeyOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.TotalCount, true
+	return &o.Key, true
 }
 
-// SetTotalCount sets field value
-func (o *ExpandedLinkedResourcesMetrics) SetTotalCount(v int32) {
-	o.TotalCount = v
+// SetKey sets field value
+func (o *AIConfigDependency) SetKey(v string) {
+	o.Key = v
 }
 
-func (o ExpandedLinkedResourcesMetrics) MarshalJSON() ([]byte, error) {
+func (o AIConfigDependency) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -103,10 +105,10 @@ func (o ExpandedLinkedResourcesMetrics) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o ExpandedLinkedResourcesMetrics) ToMap() (map[string]interface{}, error) {
+func (o AIConfigDependency) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["items"] = o.Items
-	toSerialize["totalCount"] = o.TotalCount
+	toSerialize["type"] = o.Type
+	toSerialize["key"] = o.Key
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -115,13 +117,13 @@ func (o ExpandedLinkedResourcesMetrics) ToMap() (map[string]interface{}, error) 
 	return toSerialize, nil
 }
 
-func (o *ExpandedLinkedResourcesMetrics) UnmarshalJSON(data []byte) (err error) {
+func (o *AIConfigDependency) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"items",
-		"totalCount",
+		"type",
+		"key",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -138,59 +140,59 @@ func (o *ExpandedLinkedResourcesMetrics) UnmarshalJSON(data []byte) (err error) 
 		}
 	}
 
-	varExpandedLinkedResourcesMetrics := _ExpandedLinkedResourcesMetrics{}
+	varAIConfigDependency := _AIConfigDependency{}
 
-	err = json.Unmarshal(data, &varExpandedLinkedResourcesMetrics)
+	err = json.Unmarshal(data, &varAIConfigDependency)
 
 	if err != nil {
 		return err
 	}
 
-	*o = ExpandedLinkedResourcesMetrics(varExpandedLinkedResourcesMetrics)
+	*o = AIConfigDependency(varAIConfigDependency)
 
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "items")
-		delete(additionalProperties, "totalCount")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "key")
 		o.AdditionalProperties = additionalProperties
 	}
 
 	return err
 }
 
-type NullableExpandedLinkedResourcesMetrics struct {
-	value *ExpandedLinkedResourcesMetrics
+type NullableAIConfigDependency struct {
+	value *AIConfigDependency
 	isSet bool
 }
 
-func (v NullableExpandedLinkedResourcesMetrics) Get() *ExpandedLinkedResourcesMetrics {
+func (v NullableAIConfigDependency) Get() *AIConfigDependency {
 	return v.value
 }
 
-func (v *NullableExpandedLinkedResourcesMetrics) Set(val *ExpandedLinkedResourcesMetrics) {
+func (v *NullableAIConfigDependency) Set(val *AIConfigDependency) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableExpandedLinkedResourcesMetrics) IsSet() bool {
+func (v NullableAIConfigDependency) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableExpandedLinkedResourcesMetrics) Unset() {
+func (v *NullableAIConfigDependency) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableExpandedLinkedResourcesMetrics(val *ExpandedLinkedResourcesMetrics) *NullableExpandedLinkedResourcesMetrics {
-	return &NullableExpandedLinkedResourcesMetrics{value: val, isSet: true}
+func NewNullableAIConfigDependency(val *AIConfigDependency) *NullableAIConfigDependency {
+	return &NullableAIConfigDependency{value: val, isSet: true}
 }
 
-func (v NullableExpandedLinkedResourcesMetrics) MarshalJSON() ([]byte, error) {
+func (v NullableAIConfigDependency) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableExpandedLinkedResourcesMetrics) UnmarshalJSON(src []byte) error {
+func (v *NullableAIConfigDependency) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

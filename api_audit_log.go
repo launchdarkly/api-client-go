@@ -76,6 +76,20 @@ LaunchDarkly uses a resource specifier syntax to name resources or collections o
 	// PostAuditLogEntriesExecute executes the request
 	//  @return AuditLogEntryListingRepCollection
 	PostAuditLogEntriesExecute(r ApiPostAuditLogEntriesRequest) (*AuditLogEntryListingRepCollection, *http.Response, error)
+
+	/*
+	PostAuditLogEntryCounts Get audit log entry counts
+
+	Returns aggregate counts of audit log entries per time bucket. Used for dashboard overlays that show flag targeting changes.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiPostAuditLogEntryCountsRequest
+	*/
+	PostAuditLogEntryCounts(ctx context.Context) ApiPostAuditLogEntryCountsRequest
+
+	// PostAuditLogEntryCountsExecute executes the request
+	//  @return CountBucketsResult
+	PostAuditLogEntryCountsExecute(r ApiPostAuditLogEntryCountsRequest) (*CountBucketsResult, *http.Response, error)
 }
 
 // AuditLogApiService AuditLogApi service
@@ -548,6 +562,204 @@ func (a *AuditLogApiService) PostAuditLogEntriesExecute(r ApiPostAuditLogEntries
 	}
 	if r.limit != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.statementPost
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["ApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v InvalidRequestErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v UnauthorizedErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v ForbiddenErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v RateLimitedErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiPostAuditLogEntryCountsRequest struct {
+	ctx context.Context
+	ApiService AuditLogApi
+	after *int64
+	statementPost *[]StatementPost
+	before *int64
+	buckets *int64
+}
+
+// A timestamp filter, expressed as a Unix epoch time in milliseconds. Required.
+func (r ApiPostAuditLogEntryCountsRequest) After(after int64) ApiPostAuditLogEntryCountsRequest {
+	r.after = &after
+	return r
+}
+
+func (r ApiPostAuditLogEntryCountsRequest) StatementPost(statementPost []StatementPost) ApiPostAuditLogEntryCountsRequest {
+	r.statementPost = &statementPost
+	return r
+}
+
+// A timestamp filter, expressed as a Unix epoch time in milliseconds. Defaults to now.
+func (r ApiPostAuditLogEntryCountsRequest) Before(before int64) ApiPostAuditLogEntryCountsRequest {
+	r.before = &before
+	return r
+}
+
+// Number of time buckets to divide the range into. Default 50, max 500.
+func (r ApiPostAuditLogEntryCountsRequest) Buckets(buckets int64) ApiPostAuditLogEntryCountsRequest {
+	r.buckets = &buckets
+	return r
+}
+
+func (r ApiPostAuditLogEntryCountsRequest) Execute() (*CountBucketsResult, *http.Response, error) {
+	return r.ApiService.PostAuditLogEntryCountsExecute(r)
+}
+
+/*
+PostAuditLogEntryCounts Get audit log entry counts
+
+Returns aggregate counts of audit log entries per time bucket. Used for dashboard overlays that show flag targeting changes.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiPostAuditLogEntryCountsRequest
+*/
+func (a *AuditLogApiService) PostAuditLogEntryCounts(ctx context.Context) ApiPostAuditLogEntryCountsRequest {
+	return ApiPostAuditLogEntryCountsRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return CountBucketsResult
+func (a *AuditLogApiService) PostAuditLogEntryCountsExecute(r ApiPostAuditLogEntryCountsRequest) (*CountBucketsResult, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *CountBucketsResult
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AuditLogApiService.PostAuditLogEntryCounts")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v2/auditlog/counts"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.after == nil {
+		return localVarReturnValue, nil, reportError("after is required and must be specified")
+	}
+	if r.statementPost == nil {
+		return localVarReturnValue, nil, reportError("statementPost is required and must be specified")
+	}
+
+	if r.before != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "before", r.before, "form", "")
+	}
+	parameterAddToHeaderOrQuery(localVarQueryParams, "after", r.after, "form", "")
+	if r.buckets != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "buckets", r.buckets, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}

@@ -32,6 +32,7 @@ type CallerIdentityRep struct {
 	TokenId *string `json:"tokenId,omitempty"`
 	MemberId *string `json:"memberId,omitempty"`
 	ServiceToken *bool `json:"serviceToken,omitempty"`
+	Scopes []string `json:"scopes,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -438,6 +439,38 @@ func (o *CallerIdentityRep) SetServiceToken(v bool) {
 	o.ServiceToken = &v
 }
 
+// GetScopes returns the Scopes field value if set, zero value otherwise.
+func (o *CallerIdentityRep) GetScopes() []string {
+	if o == nil || IsNil(o.Scopes) {
+		var ret []string
+		return ret
+	}
+	return o.Scopes
+}
+
+// GetScopesOk returns a tuple with the Scopes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CallerIdentityRep) GetScopesOk() ([]string, bool) {
+	if o == nil || IsNil(o.Scopes) {
+		return nil, false
+	}
+	return o.Scopes, true
+}
+
+// HasScopes returns a boolean if a field has been set.
+func (o *CallerIdentityRep) HasScopes() bool {
+	if o != nil && !IsNil(o.Scopes) {
+		return true
+	}
+
+	return false
+}
+
+// SetScopes gets a reference to the given []string and assigns it to the Scopes field.
+func (o *CallerIdentityRep) SetScopes(v []string) {
+	o.Scopes = v
+}
+
 func (o CallerIdentityRep) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -484,6 +517,9 @@ func (o CallerIdentityRep) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ServiceToken) {
 		toSerialize["serviceToken"] = o.ServiceToken
 	}
+	if !IsNil(o.Scopes) {
+		toSerialize["scopes"] = o.Scopes
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -518,6 +554,7 @@ func (o *CallerIdentityRep) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "tokenId")
 		delete(additionalProperties, "memberId")
 		delete(additionalProperties, "serviceToken")
+		delete(additionalProperties, "scopes")
 		o.AdditionalProperties = additionalProperties
 	}
 

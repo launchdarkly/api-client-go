@@ -4,7 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Keys** | **[]string** | Keys of the resources (flags, segments, AI configs) to link/unlink | 
+**Keys** | **[]string** | Keys of the resources (flags, segments) to link/unlink | 
+**Filter** | Pointer to **string** | Optional filter string to determine which resources should be linked. Resources only need to match either the filter or explicitly-listed keys to be linked (union). Uses the same syntax as list endpoints: flags use comma-separated field:value filters, segments use queryfilter syntax.  Supported filters by resource type: - flags: query, tags, maintainerId, maintainerTeamKey, type, status, state, staleState, sdkAvailability, targeting, hasExperiment, hasDataExport, evaluated, creationDate, contextKindTargeted, contextKindsEvaluated, filterEnv, segmentTargeted, codeReferences.min, codeReferences.max, excludeSettings, releasePipeline, applicationEvaluated, purpose, guardedRollout, view, key, name, archived, followerId - segments (queryfilter): query, tags, keys, excludedKeys, unbounded, external, view, type Some filters are only available when the corresponding feature is enabled on your account.  | [optional] 
 **Comment** | Pointer to **string** | Optional comment for the link/unlink operation | [optional] [default to ""]
 
 ## Methods
@@ -45,6 +46,31 @@ and a boolean to check if the value has been set.
 
 SetKeys sets Keys field to given value.
 
+
+### GetFilter
+
+`func (o *ViewLinkRequestKeys) GetFilter() string`
+
+GetFilter returns the Filter field if non-nil, zero value otherwise.
+
+### GetFilterOk
+
+`func (o *ViewLinkRequestKeys) GetFilterOk() (*string, bool)`
+
+GetFilterOk returns a tuple with the Filter field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFilter
+
+`func (o *ViewLinkRequestKeys) SetFilter(v string)`
+
+SetFilter sets Filter field to given value.
+
+### HasFilter
+
+`func (o *ViewLinkRequestKeys) HasFilter() bool`
+
+HasFilter returns a boolean if a field has been set.
 
 ### GetComment
 

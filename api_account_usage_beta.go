@@ -244,6 +244,20 @@ type AccountUsageBetaApi interface {
 	GetObservabilityLogsUsageExecute(r ApiGetObservabilityLogsUsageRequest) (*SeriesListRep, *http.Response, error)
 
 	/*
+	GetObservabilityMetricsUsage Get observability metrics usage
+
+	Get time-series arrays of the number of observability metrics. Supports `daily` and `monthly` granularity.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetObservabilityMetricsUsageRequest
+	*/
+	GetObservabilityMetricsUsage(ctx context.Context) ApiGetObservabilityMetricsUsageRequest
+
+	// GetObservabilityMetricsUsageExecute executes the request
+	//  @return SeriesListRep
+	GetObservabilityMetricsUsageExecute(r ApiGetObservabilityMetricsUsageRequest) (*SeriesListRep, *http.Response, error)
+
+	/*
 	GetObservabilitySessionsUsage Get observability sessions usage
 
 	Get time-series arrays of the number of observability sessions. Supports `daily` and `monthly` granularity.
@@ -329,6 +343,20 @@ type AccountUsageBetaApi interface {
 	// GetStreamUsageSdkversionExecute executes the request
 	//  @return SdkVersionListRep
 	GetStreamUsageSdkversionExecute(r ApiGetStreamUsageSdkversionRequest) (*SdkVersionListRep, *http.Response, error)
+
+	/*
+	GetVegaAIUsage Get Vega AI usage
+
+	Get time-series arrays of the number of Vega AI usage. Supports `daily` and `monthly` granularity.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetVegaAIUsageRequest
+	*/
+	GetVegaAIUsage(ctx context.Context) ApiGetVegaAIUsageRequest
+
+	// GetVegaAIUsageExecute executes the request
+	//  @return SeriesListRep
+	GetVegaAIUsageExecute(r ApiGetVegaAIUsageRequest) (*SeriesListRep, *http.Response, error)
 }
 
 // AccountUsageBetaApiService AccountUsageBetaApi service
@@ -3889,6 +3917,223 @@ func (a *AccountUsageBetaApiService) GetObservabilityLogsUsageExecute(r ApiGetOb
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiGetObservabilityMetricsUsageRequest struct {
+	ctx context.Context
+	ApiService AccountUsageBetaApi
+	from *string
+	to *string
+	projectKey *string
+	granularity *string
+	aggregationType *string
+}
+
+// The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month.
+func (r ApiGetObservabilityMetricsUsageRequest) From(from string) ApiGetObservabilityMetricsUsageRequest {
+	r.from = &from
+	return r
+}
+
+// The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time.
+func (r ApiGetObservabilityMetricsUsageRequest) To(to string) ApiGetObservabilityMetricsUsageRequest {
+	r.to = &to
+	return r
+}
+
+// A project key to filter results by. Can be specified multiple times, one query parameter per project key.
+func (r ApiGetObservabilityMetricsUsageRequest) ProjectKey(projectKey string) ApiGetObservabilityMetricsUsageRequest {
+	r.projectKey = &projectKey
+	return r
+}
+
+// Specifies the data granularity. Defaults to &#x60;daily&#x60;. Valid values depend on &#x60;aggregationType&#x60;: **month_to_date** supports &#x60;daily&#x60; and &#x60;monthly&#x60;; **incremental** and **rolling_30d** support &#x60;daily&#x60; only.
+func (r ApiGetObservabilityMetricsUsageRequest) Granularity(granularity string) ApiGetObservabilityMetricsUsageRequest {
+	r.granularity = &granularity
+	return r
+}
+
+// Specifies the aggregation method. Defaults to &#x60;month_to_date&#x60;.&lt;br/&gt;Valid values: &#x60;month_to_date&#x60;, &#x60;incremental&#x60;, &#x60;rolling_30d&#x60;.
+func (r ApiGetObservabilityMetricsUsageRequest) AggregationType(aggregationType string) ApiGetObservabilityMetricsUsageRequest {
+	r.aggregationType = &aggregationType
+	return r
+}
+
+func (r ApiGetObservabilityMetricsUsageRequest) Execute() (*SeriesListRep, *http.Response, error) {
+	return r.ApiService.GetObservabilityMetricsUsageExecute(r)
+}
+
+/*
+GetObservabilityMetricsUsage Get observability metrics usage
+
+Get time-series arrays of the number of observability metrics. Supports `daily` and `monthly` granularity.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetObservabilityMetricsUsageRequest
+*/
+func (a *AccountUsageBetaApiService) GetObservabilityMetricsUsage(ctx context.Context) ApiGetObservabilityMetricsUsageRequest {
+	return ApiGetObservabilityMetricsUsageRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return SeriesListRep
+func (a *AccountUsageBetaApiService) GetObservabilityMetricsUsageExecute(r ApiGetObservabilityMetricsUsageRequest) (*SeriesListRep, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *SeriesListRep
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountUsageBetaApiService.GetObservabilityMetricsUsage")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v2/usage/observability/metrics"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.from != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "form", "")
+	}
+	if r.to != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "form", "")
+	}
+	if r.projectKey != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "projectKey", r.projectKey, "form", "")
+	}
+	if r.granularity != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "granularity", r.granularity, "form", "")
+	}
+	if r.aggregationType != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "aggregationType", r.aggregationType, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["ApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v InvalidRequestErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v UnauthorizedErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v ForbiddenErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v NotFoundErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v RateLimitedErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiGetObservabilitySessionsUsageRequest struct {
 	ctx context.Context
 	ApiService AccountUsageBetaApi
@@ -5147,6 +5392,223 @@ func (a *AccountUsageBetaApiService) GetStreamUsageSdkversionExecute(r ApiGetStr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
 			var v ForbiddenErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v RateLimitedErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetVegaAIUsageRequest struct {
+	ctx context.Context
+	ApiService AccountUsageBetaApi
+	from *string
+	to *string
+	projectKey *string
+	granularity *string
+	aggregationType *string
+}
+
+// The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month.
+func (r ApiGetVegaAIUsageRequest) From(from string) ApiGetVegaAIUsageRequest {
+	r.from = &from
+	return r
+}
+
+// The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time.
+func (r ApiGetVegaAIUsageRequest) To(to string) ApiGetVegaAIUsageRequest {
+	r.to = &to
+	return r
+}
+
+// A project key to filter results by. Can be specified multiple times, one query parameter per project key.
+func (r ApiGetVegaAIUsageRequest) ProjectKey(projectKey string) ApiGetVegaAIUsageRequest {
+	r.projectKey = &projectKey
+	return r
+}
+
+// Specifies the data granularity. Defaults to &#x60;daily&#x60;. Valid values depend on &#x60;aggregationType&#x60;: **month_to_date** supports &#x60;daily&#x60; and &#x60;monthly&#x60;; **incremental** and **rolling_30d** support &#x60;daily&#x60; only.
+func (r ApiGetVegaAIUsageRequest) Granularity(granularity string) ApiGetVegaAIUsageRequest {
+	r.granularity = &granularity
+	return r
+}
+
+// Specifies the aggregation method. Defaults to &#x60;month_to_date&#x60;.&lt;br/&gt;Valid values: &#x60;month_to_date&#x60;, &#x60;incremental&#x60;, &#x60;rolling_30d&#x60;.
+func (r ApiGetVegaAIUsageRequest) AggregationType(aggregationType string) ApiGetVegaAIUsageRequest {
+	r.aggregationType = &aggregationType
+	return r
+}
+
+func (r ApiGetVegaAIUsageRequest) Execute() (*SeriesListRep, *http.Response, error) {
+	return r.ApiService.GetVegaAIUsageExecute(r)
+}
+
+/*
+GetVegaAIUsage Get Vega AI usage
+
+Get time-series arrays of the number of Vega AI usage. Supports `daily` and `monthly` granularity.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetVegaAIUsageRequest
+*/
+func (a *AccountUsageBetaApiService) GetVegaAIUsage(ctx context.Context) ApiGetVegaAIUsageRequest {
+	return ApiGetVegaAIUsageRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return SeriesListRep
+func (a *AccountUsageBetaApiService) GetVegaAIUsageExecute(r ApiGetVegaAIUsageRequest) (*SeriesListRep, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *SeriesListRep
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountUsageBetaApiService.GetVegaAIUsage")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v2/usage/vega-ai"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.from != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "from", r.from, "form", "")
+	}
+	if r.to != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "to", r.to, "form", "")
+	}
+	if r.projectKey != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "projectKey", r.projectKey, "form", "")
+	}
+	if r.granularity != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "granularity", r.granularity, "form", "")
+	}
+	if r.aggregationType != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "aggregationType", r.aggregationType, "form", "")
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["ApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v InvalidRequestErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v UnauthorizedErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v ForbiddenErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v NotFoundErrorRep
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

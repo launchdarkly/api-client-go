@@ -19,8 +19,16 @@ import (
 
 // ViewLinkRequest - struct for ViewLinkRequest
 type ViewLinkRequest struct {
+	ViewLinkRequestFilter *ViewLinkRequestFilter
 	ViewLinkRequestKeys *ViewLinkRequestKeys
 	ViewLinkRequestSegmentIdentifiers *ViewLinkRequestSegmentIdentifiers
+}
+
+// ViewLinkRequestFilterAsViewLinkRequest is a convenience function that returns ViewLinkRequestFilter wrapped in ViewLinkRequest
+func ViewLinkRequestFilterAsViewLinkRequest(v *ViewLinkRequestFilter) ViewLinkRequest {
+	return ViewLinkRequest{
+		ViewLinkRequestFilter: v,
+	}
 }
 
 // ViewLinkRequestKeysAsViewLinkRequest is a convenience function that returns ViewLinkRequestKeys wrapped in ViewLinkRequest
@@ -42,6 +50,23 @@ func ViewLinkRequestSegmentIdentifiersAsViewLinkRequest(v *ViewLinkRequestSegmen
 func (dst *ViewLinkRequest) UnmarshalJSON(data []byte) error {
 	var err error
 	match := 0
+	// try to unmarshal data into ViewLinkRequestFilter
+	err = newStrictDecoder(data).Decode(&dst.ViewLinkRequestFilter)
+	if err == nil {
+		jsonViewLinkRequestFilter, _ := json.Marshal(dst.ViewLinkRequestFilter)
+		if string(jsonViewLinkRequestFilter) == "{}" { // empty struct
+			dst.ViewLinkRequestFilter = nil
+		} else {
+			if err = validator.Validate(dst.ViewLinkRequestFilter); err != nil {
+				dst.ViewLinkRequestFilter = nil
+			} else {
+				match++
+			}
+		}
+	} else {
+		dst.ViewLinkRequestFilter = nil
+	}
+
 	// try to unmarshal data into ViewLinkRequestKeys
 	err = newStrictDecoder(data).Decode(&dst.ViewLinkRequestKeys)
 	if err == nil {
@@ -78,6 +103,7 @@ func (dst *ViewLinkRequest) UnmarshalJSON(data []byte) error {
 
 	if match > 1 { // more than 1 match
 		// reset to nil
+		dst.ViewLinkRequestFilter = nil
 		dst.ViewLinkRequestKeys = nil
 		dst.ViewLinkRequestSegmentIdentifiers = nil
 
@@ -91,6 +117,10 @@ func (dst *ViewLinkRequest) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src ViewLinkRequest) MarshalJSON() ([]byte, error) {
+	if src.ViewLinkRequestFilter != nil {
+		return json.Marshal(&src.ViewLinkRequestFilter)
+	}
+
 	if src.ViewLinkRequestKeys != nil {
 		return json.Marshal(&src.ViewLinkRequestKeys)
 	}
@@ -107,6 +137,10 @@ func (obj *ViewLinkRequest) GetActualInstance() (interface{}) {
 	if obj == nil {
 		return nil
 	}
+	if obj.ViewLinkRequestFilter != nil {
+		return obj.ViewLinkRequestFilter
+	}
+
 	if obj.ViewLinkRequestKeys != nil {
 		return obj.ViewLinkRequestKeys
 	}
@@ -121,6 +155,10 @@ func (obj *ViewLinkRequest) GetActualInstance() (interface{}) {
 
 // Get the actual instance value
 func (obj ViewLinkRequest) GetActualInstanceValue() (interface{}) {
+	if obj.ViewLinkRequestFilter != nil {
+		return *obj.ViewLinkRequestFilter
+	}
+
 	if obj.ViewLinkRequestKeys != nil {
 		return *obj.ViewLinkRequestKeys
 	}

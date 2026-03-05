@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**GetAuditLogEntries**](AuditLogApi.md#GetAuditLogEntries) | **Get** /api/v2/auditlog | List audit log entries
 [**GetAuditLogEntry**](AuditLogApi.md#GetAuditLogEntry) | **Get** /api/v2/auditlog/{id} | Get audit log entry
 [**PostAuditLogEntries**](AuditLogApi.md#PostAuditLogEntries) | **Post** /api/v2/auditlog | Search audit log entries
+[**PostAuditLogEntryCounts**](AuditLogApi.md#PostAuditLogEntryCounts) | **Post** /api/v2/auditlog/counts | Get audit log entry counts
 
 
 
@@ -213,6 +214,78 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**AuditLogEntryListingRepCollection**](AuditLogEntryListingRepCollection.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostAuditLogEntryCounts
+
+> CountBucketsResult PostAuditLogEntryCounts(ctx).After(after).StatementPost(statementPost).Before(before).Buckets(buckets).Execute()
+
+Get audit log entry counts
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
+)
+
+func main() {
+	after := int64(789) // int64 | A timestamp filter, expressed as a Unix epoch time in milliseconds. Required.
+	statementPost := []openapiclient.StatementPost{*openapiclient.NewStatementPost("allow")} // []StatementPost | 
+	before := int64(789) // int64 | A timestamp filter, expressed as a Unix epoch time in milliseconds. Defaults to now. (optional)
+	buckets := int64(789) // int64 | Number of time buckets to divide the range into. Default 50, max 500. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AuditLogApi.PostAuditLogEntryCounts(context.Background()).After(after).StatementPost(statementPost).Before(before).Buckets(buckets).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AuditLogApi.PostAuditLogEntryCounts``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostAuditLogEntryCounts`: CountBucketsResult
+	fmt.Fprintf(os.Stdout, "Response from `AuditLogApi.PostAuditLogEntryCounts`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostAuditLogEntryCountsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **after** | **int64** | A timestamp filter, expressed as a Unix epoch time in milliseconds. Required. | 
+ **statementPost** | [**[]StatementPost**](StatementPost.md) |  | 
+ **before** | **int64** | A timestamp filter, expressed as a Unix epoch time in milliseconds. Defaults to now. | 
+ **buckets** | **int64** | Number of time buckets to divide the range into. Default 50, max 500. | 
+
+### Return type
+
+[**CountBucketsResult**](CountBucketsResult.md)
 
 ### Authorization
 

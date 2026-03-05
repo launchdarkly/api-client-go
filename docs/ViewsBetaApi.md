@@ -165,7 +165,7 @@ Name | Type | Description  | Notes
 
 ## GetLinkedResources
 
-> ViewLinkedResources GetLinkedResources(ctx, projectKey, viewKey, resourceType).LDAPIVersion(lDAPIVersion).Limit(limit).Offset(offset).Sort(sort).Execute()
+> ViewLinkedResources GetLinkedResources(ctx, projectKey, viewKey, resourceType).LDAPIVersion(lDAPIVersion).Limit(limit).Offset(offset).Sort(sort).Query(query).Filter(filter).Expand(expand).Execute()
 
 Get linked resources
 
@@ -191,10 +191,13 @@ func main() {
 	limit := int32(56) // int32 | The number of views to return. (optional)
 	offset := int32(56) // int32 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
 	sort := "sort_example" // string | Field to sort by. Default field is `linkedAt`, default order is ascending. (optional) (default to "linkedAt")
+	query := "query_example" // string | Case-insensitive search query for linked resources. Matches resource key and, when expanded, resource name. (optional)
+	filter := "filter_example" // string | Optional resource filter expression for linked resources. - Supported for `flags` and `segments` resource types. - Uses the same syntax as link/unlink and list endpoints. - For `segments`, `environmentId` is required when `filter` is provided.  (optional)
+	expand := []string{"Expand_example"} // []string | A comma-separated list of fields to expand. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ViewsBetaApi.GetLinkedResources(context.Background(), projectKey, viewKey, resourceType).LDAPIVersion(lDAPIVersion).Limit(limit).Offset(offset).Sort(sort).Execute()
+	resp, r, err := apiClient.ViewsBetaApi.GetLinkedResources(context.Background(), projectKey, viewKey, resourceType).LDAPIVersion(lDAPIVersion).Limit(limit).Offset(offset).Sort(sort).Query(query).Filter(filter).Expand(expand).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ViewsBetaApi.GetLinkedResources``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -228,6 +231,9 @@ Name | Type | Description  | Notes
  **limit** | **int32** | The number of views to return. | 
  **offset** | **int32** | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | 
  **sort** | **string** | Field to sort by. Default field is &#x60;linkedAt&#x60;, default order is ascending. | [default to &quot;linkedAt&quot;]
+ **query** | **string** | Case-insensitive search query for linked resources. Matches resource key and, when expanded, resource name. | 
+ **filter** | **string** | Optional resource filter expression for linked resources. - Supported for &#x60;flags&#x60; and &#x60;segments&#x60; resource types. - Uses the same syntax as link/unlink and list endpoints. - For &#x60;segments&#x60;, &#x60;environmentId&#x60; is required when &#x60;filter&#x60; is provided.  | 
+ **expand** | **[]string** | A comma-separated list of fields to expand. | 
 
 ### Return type
 
@@ -358,7 +364,7 @@ func main() {
 	sort := "sort_example" // string | A sort to apply to the list of views. (optional)
 	limit := int32(56) // int32 | The number of views to return. (optional)
 	offset := int32(56) // int32 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
-	filter := "filter_example" // string | A filter to apply to the list of views. (optional)
+	filter := "filter_example" // string | A filter to apply to the list of views. Supports the following fields and operators: `name` (equals, notEquals, startsWith, contains, anyOf), `key` (equals, notEquals, startsWith, contains, anyOf), `tag` (equals, anyOf), `maintainerId` (equals, anyOf), `isPayloadView` (equals). (optional)
 	expand := []string{"Expand_example"} // []string | A comma-separated list of fields to expand. (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -395,7 +401,7 @@ Name | Type | Description  | Notes
  **sort** | **string** | A sort to apply to the list of views. | 
  **limit** | **int32** | The number of views to return. | 
  **offset** | **int32** | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | 
- **filter** | **string** | A filter to apply to the list of views. | 
+ **filter** | **string** | A filter to apply to the list of views. Supports the following fields and operators: &#x60;name&#x60; (equals, notEquals, startsWith, contains, anyOf), &#x60;key&#x60; (equals, notEquals, startsWith, contains, anyOf), &#x60;tag&#x60; (equals, anyOf), &#x60;maintainerId&#x60; (equals, anyOf), &#x60;isPayloadView&#x60; (equals). | 
  **expand** | **[]string** | A comma-separated list of fields to expand. | 
 
 ### Return type
@@ -442,7 +448,7 @@ func main() {
 	sort := "sort_example" // string | A sort to apply to the list of views. (optional)
 	limit := int32(56) // int32 | The number of views to return. (optional)
 	offset := int32(56) // int32 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
-	filter := "filter_example" // string | A filter to apply to the list of views. (optional)
+	filter := "filter_example" // string | A filter to apply to the list of views. Supports the following fields and operators: `name` (equals, notEquals, startsWith, contains, anyOf), `key` (equals, notEquals, startsWith, contains, anyOf), `tag` (equals, anyOf), `maintainerId` (equals, anyOf), `isPayloadView` (equals). (optional)
 	expand := []string{"Expand_example"} // []string | A comma-separated list of fields to expand. (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -477,7 +483,7 @@ Name | Type | Description  | Notes
  **sort** | **string** | A sort to apply to the list of views. | 
  **limit** | **int32** | The number of views to return. | 
  **offset** | **int32** | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | 
- **filter** | **string** | A filter to apply to the list of views. | 
+ **filter** | **string** | A filter to apply to the list of views. Supports the following fields and operators: &#x60;name&#x60; (equals, notEquals, startsWith, contains, anyOf), &#x60;key&#x60; (equals, notEquals, startsWith, contains, anyOf), &#x60;tag&#x60; (equals, anyOf), &#x60;maintainerId&#x60; (equals, anyOf), &#x60;isPayloadView&#x60; (equals). | 
  **expand** | **[]string** | A comma-separated list of fields to expand. | 
 
 ### Return type
@@ -523,7 +529,7 @@ func main() {
 	projectKey := "default" // string | 
 	viewKey := "my-view" // string | 
 	resourceType := "flags" // string | 
-	viewLinkRequest := openapiclient.ViewLinkRequest{ViewLinkRequestKeys: openapiclient.NewViewLinkRequestKeys([]string{"Keys_example"})} // ViewLinkRequest | The resource to link to the view. Flags are identified by key. Segments are identified by segment ID.
+	viewLinkRequest := openapiclient.ViewLinkRequest{ViewLinkRequestFilter: openapiclient.NewViewLinkRequestFilter("maintainerId:507f1f77bcf86cd799439011,tags:backend+beta")} // ViewLinkRequest | Resources to link to the view. You can provide explicit keys/IDs, filters, or both. - Flags: identified by key or filtered by maintainerId, maintainerTeamKey, tags, state, query - Segments: identified by segment ID or filtered by tags, query, unbounded 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -558,7 +564,7 @@ Name | Type | Description  | Notes
 
 
 
- **viewLinkRequest** | [**ViewLinkRequest**](ViewLinkRequest.md) | The resource to link to the view. Flags are identified by key. Segments are identified by segment ID. | 
+ **viewLinkRequest** | [**ViewLinkRequest**](ViewLinkRequest.md) | Resources to link to the view. You can provide explicit keys/IDs, filters, or both. - Flags: identified by key or filtered by maintainerId, maintainerTeamKey, tags, state, query - Segments: identified by segment ID or filtered by tags, query, unbounded  | 
 
 ### Return type
 
@@ -603,7 +609,7 @@ func main() {
 	projectKey := "default" // string | 
 	viewKey := "my-view" // string | 
 	resourceType := "flags" // string | 
-	viewLinkRequest := openapiclient.ViewLinkRequest{ViewLinkRequestKeys: openapiclient.NewViewLinkRequestKeys([]string{"Keys_example"})} // ViewLinkRequest | The resource to link to the view. Flags are identified by key. Segments are identified by segment ID.
+	viewLinkRequest := openapiclient.ViewLinkRequest{ViewLinkRequestFilter: openapiclient.NewViewLinkRequestFilter("maintainerId:507f1f77bcf86cd799439011,tags:backend+beta")} // ViewLinkRequest | The resource to link to the view. Flags are identified by key. Segments are identified by segment ID.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

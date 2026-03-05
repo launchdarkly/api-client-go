@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **TokenId** | Pointer to **string** |  | [optional] 
 **MemberId** | Pointer to **string** |  | [optional] 
 **ServiceToken** | Pointer to **bool** |  | [optional] 
+**Scopes** | Pointer to **[]string** |  | [optional] 
 
 ## Methods
 
@@ -335,6 +336,31 @@ SetServiceToken sets ServiceToken field to given value.
 `func (o *CallerIdentityRep) HasServiceToken() bool`
 
 HasServiceToken returns a boolean if a field has been set.
+
+### GetScopes
+
+`func (o *CallerIdentityRep) GetScopes() []string`
+
+GetScopes returns the Scopes field if non-nil, zero value otherwise.
+
+### GetScopesOk
+
+`func (o *CallerIdentityRep) GetScopesOk() (*[]string, bool)`
+
+GetScopesOk returns a tuple with the Scopes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetScopes
+
+`func (o *CallerIdentityRep) SetScopes(v []string)`
+
+SetScopes sets Scopes field to given value.
+
+### HasScopes
+
+`func (o *CallerIdentityRep) HasScopes() bool`
+
+HasScopes returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

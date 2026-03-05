@@ -13,240 +13,136 @@ package ldapi
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
 
-// checks if the AgentGraphPatch type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &AgentGraphPatch{}
+// checks if the ViewLinkRequestFilter type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ViewLinkRequestFilter{}
 
-// AgentGraphPatch Request body for updating an agent graph. If rootConfigKey or edges are present, both must be present.
-type AgentGraphPatch struct {
-	// A human-readable name for the agent graph
-	Name *string `json:"name,omitempty"`
-	// A description of the agent graph
-	Description *string `json:"description,omitempty"`
-	// The ID of the member who maintains this agent graph. Pass an empty string to remove maintainer.
-	MaintainerId *string `json:"maintainerId,omitempty"`
-	// The key of the team that maintains this agent graph. Pass an empty string to remove maintainer.
-	MaintainerTeamKey *string `json:"maintainerTeamKey,omitempty"`
-	// The AI Config key of the root node. If present, edges must also be present.
-	RootConfigKey *string `json:"rootConfigKey,omitempty"`
-	// The edges in the graph. If present, rootConfigKey must also be present. Replaces all existing edges.
-	Edges []AgentGraphEdge `json:"edges,omitempty"`
-	AdditionalProperties map[string]interface{}
+// ViewLinkRequestFilter struct for ViewLinkRequestFilter
+type ViewLinkRequestFilter struct {
+	// Filter string to match resources for linking. Uses the same syntax as list endpoints: flags use comma-separated field:value filters, segments use queryfilter syntax.  Supported filters by resource type: - flags: query, tags, maintainerId, maintainerTeamKey, type, status, state, staleState, sdkAvailability, targeting, hasExperiment, hasDataExport, evaluated, creationDate, contextKindTargeted, contextKindsEvaluated, filterEnv, segmentTargeted, codeReferences.min, codeReferences.max, excludeSettings, releasePipeline, applicationEvaluated, purpose, guardedRollout, view, key, name, archived, followerId - segments (queryfilter): query, tags, keys, excludedKeys, unbounded, external, view, type Some filters are only available when the corresponding feature is enabled on your account. 
+	Filter string `json:"filter"`
+	// Required when using filter for segment resources. Specifies which environment to query for segments matching the filter. Ignored for flag resources (flags are global across environments). 
+	EnvironmentId *string `json:"environmentId,omitempty"`
+	// Optional comment for the link/unlink operation
+	Comment *string `json:"comment,omitempty"`
 }
 
-type _AgentGraphPatch AgentGraphPatch
+type _ViewLinkRequestFilter ViewLinkRequestFilter
 
-// NewAgentGraphPatch instantiates a new AgentGraphPatch object
+// NewViewLinkRequestFilter instantiates a new ViewLinkRequestFilter object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAgentGraphPatch() *AgentGraphPatch {
-	this := AgentGraphPatch{}
+func NewViewLinkRequestFilter(filter string) *ViewLinkRequestFilter {
+	this := ViewLinkRequestFilter{}
+	this.Filter = filter
+	var comment string = ""
+	this.Comment = &comment
 	return &this
 }
 
-// NewAgentGraphPatchWithDefaults instantiates a new AgentGraphPatch object
+// NewViewLinkRequestFilterWithDefaults instantiates a new ViewLinkRequestFilter object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewAgentGraphPatchWithDefaults() *AgentGraphPatch {
-	this := AgentGraphPatch{}
+func NewViewLinkRequestFilterWithDefaults() *ViewLinkRequestFilter {
+	this := ViewLinkRequestFilter{}
+	var comment string = ""
+	this.Comment = &comment
 	return &this
 }
 
-// GetName returns the Name field value if set, zero value otherwise.
-func (o *AgentGraphPatch) GetName() string {
-	if o == nil || IsNil(o.Name) {
+// GetFilter returns the Filter field value
+func (o *ViewLinkRequestFilter) GetFilter() string {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Name
+
+	return o.Filter
 }
 
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// GetFilterOk returns a tuple with the Filter field value
 // and a boolean to check if the value has been set.
-func (o *AgentGraphPatch) GetNameOk() (*string, bool) {
-	if o == nil || IsNil(o.Name) {
+func (o *ViewLinkRequestFilter) GetFilterOk() (*string, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Name, true
+	return &o.Filter, true
 }
 
-// HasName returns a boolean if a field has been set.
-func (o *AgentGraphPatch) HasName() bool {
-	if o != nil && !IsNil(o.Name) {
-		return true
-	}
-
-	return false
+// SetFilter sets field value
+func (o *ViewLinkRequestFilter) SetFilter(v string) {
+	o.Filter = v
 }
 
-// SetName gets a reference to the given string and assigns it to the Name field.
-func (o *AgentGraphPatch) SetName(v string) {
-	o.Name = &v
-}
-
-// GetDescription returns the Description field value if set, zero value otherwise.
-func (o *AgentGraphPatch) GetDescription() string {
-	if o == nil || IsNil(o.Description) {
+// GetEnvironmentId returns the EnvironmentId field value if set, zero value otherwise.
+func (o *ViewLinkRequestFilter) GetEnvironmentId() string {
+	if o == nil || IsNil(o.EnvironmentId) {
 		var ret string
 		return ret
 	}
-	return *o.Description
+	return *o.EnvironmentId
 }
 
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// GetEnvironmentIdOk returns a tuple with the EnvironmentId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AgentGraphPatch) GetDescriptionOk() (*string, bool) {
-	if o == nil || IsNil(o.Description) {
+func (o *ViewLinkRequestFilter) GetEnvironmentIdOk() (*string, bool) {
+	if o == nil || IsNil(o.EnvironmentId) {
 		return nil, false
 	}
-	return o.Description, true
+	return o.EnvironmentId, true
 }
 
-// HasDescription returns a boolean if a field has been set.
-func (o *AgentGraphPatch) HasDescription() bool {
-	if o != nil && !IsNil(o.Description) {
+// HasEnvironmentId returns a boolean if a field has been set.
+func (o *ViewLinkRequestFilter) HasEnvironmentId() bool {
+	if o != nil && !IsNil(o.EnvironmentId) {
 		return true
 	}
 
 	return false
 }
 
-// SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *AgentGraphPatch) SetDescription(v string) {
-	o.Description = &v
+// SetEnvironmentId gets a reference to the given string and assigns it to the EnvironmentId field.
+func (o *ViewLinkRequestFilter) SetEnvironmentId(v string) {
+	o.EnvironmentId = &v
 }
 
-// GetMaintainerId returns the MaintainerId field value if set, zero value otherwise.
-func (o *AgentGraphPatch) GetMaintainerId() string {
-	if o == nil || IsNil(o.MaintainerId) {
+// GetComment returns the Comment field value if set, zero value otherwise.
+func (o *ViewLinkRequestFilter) GetComment() string {
+	if o == nil || IsNil(o.Comment) {
 		var ret string
 		return ret
 	}
-	return *o.MaintainerId
+	return *o.Comment
 }
 
-// GetMaintainerIdOk returns a tuple with the MaintainerId field value if set, nil otherwise
+// GetCommentOk returns a tuple with the Comment field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AgentGraphPatch) GetMaintainerIdOk() (*string, bool) {
-	if o == nil || IsNil(o.MaintainerId) {
+func (o *ViewLinkRequestFilter) GetCommentOk() (*string, bool) {
+	if o == nil || IsNil(o.Comment) {
 		return nil, false
 	}
-	return o.MaintainerId, true
+	return o.Comment, true
 }
 
-// HasMaintainerId returns a boolean if a field has been set.
-func (o *AgentGraphPatch) HasMaintainerId() bool {
-	if o != nil && !IsNil(o.MaintainerId) {
+// HasComment returns a boolean if a field has been set.
+func (o *ViewLinkRequestFilter) HasComment() bool {
+	if o != nil && !IsNil(o.Comment) {
 		return true
 	}
 
 	return false
 }
 
-// SetMaintainerId gets a reference to the given string and assigns it to the MaintainerId field.
-func (o *AgentGraphPatch) SetMaintainerId(v string) {
-	o.MaintainerId = &v
+// SetComment gets a reference to the given string and assigns it to the Comment field.
+func (o *ViewLinkRequestFilter) SetComment(v string) {
+	o.Comment = &v
 }
 
-// GetMaintainerTeamKey returns the MaintainerTeamKey field value if set, zero value otherwise.
-func (o *AgentGraphPatch) GetMaintainerTeamKey() string {
-	if o == nil || IsNil(o.MaintainerTeamKey) {
-		var ret string
-		return ret
-	}
-	return *o.MaintainerTeamKey
-}
-
-// GetMaintainerTeamKeyOk returns a tuple with the MaintainerTeamKey field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AgentGraphPatch) GetMaintainerTeamKeyOk() (*string, bool) {
-	if o == nil || IsNil(o.MaintainerTeamKey) {
-		return nil, false
-	}
-	return o.MaintainerTeamKey, true
-}
-
-// HasMaintainerTeamKey returns a boolean if a field has been set.
-func (o *AgentGraphPatch) HasMaintainerTeamKey() bool {
-	if o != nil && !IsNil(o.MaintainerTeamKey) {
-		return true
-	}
-
-	return false
-}
-
-// SetMaintainerTeamKey gets a reference to the given string and assigns it to the MaintainerTeamKey field.
-func (o *AgentGraphPatch) SetMaintainerTeamKey(v string) {
-	o.MaintainerTeamKey = &v
-}
-
-// GetRootConfigKey returns the RootConfigKey field value if set, zero value otherwise.
-func (o *AgentGraphPatch) GetRootConfigKey() string {
-	if o == nil || IsNil(o.RootConfigKey) {
-		var ret string
-		return ret
-	}
-	return *o.RootConfigKey
-}
-
-// GetRootConfigKeyOk returns a tuple with the RootConfigKey field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AgentGraphPatch) GetRootConfigKeyOk() (*string, bool) {
-	if o == nil || IsNil(o.RootConfigKey) {
-		return nil, false
-	}
-	return o.RootConfigKey, true
-}
-
-// HasRootConfigKey returns a boolean if a field has been set.
-func (o *AgentGraphPatch) HasRootConfigKey() bool {
-	if o != nil && !IsNil(o.RootConfigKey) {
-		return true
-	}
-
-	return false
-}
-
-// SetRootConfigKey gets a reference to the given string and assigns it to the RootConfigKey field.
-func (o *AgentGraphPatch) SetRootConfigKey(v string) {
-	o.RootConfigKey = &v
-}
-
-// GetEdges returns the Edges field value if set, zero value otherwise.
-func (o *AgentGraphPatch) GetEdges() []AgentGraphEdge {
-	if o == nil || IsNil(o.Edges) {
-		var ret []AgentGraphEdge
-		return ret
-	}
-	return o.Edges
-}
-
-// GetEdgesOk returns a tuple with the Edges field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AgentGraphPatch) GetEdgesOk() ([]AgentGraphEdge, bool) {
-	if o == nil || IsNil(o.Edges) {
-		return nil, false
-	}
-	return o.Edges, true
-}
-
-// HasEdges returns a boolean if a field has been set.
-func (o *AgentGraphPatch) HasEdges() bool {
-	if o != nil && !IsNil(o.Edges) {
-		return true
-	}
-
-	return false
-}
-
-// SetEdges gets a reference to the given []AgentGraphEdge and assigns it to the Edges field.
-func (o *AgentGraphPatch) SetEdges(v []AgentGraphEdge) {
-	o.Edges = v
-}
-
-func (o AgentGraphPatch) MarshalJSON() ([]byte, error) {
+func (o ViewLinkRequestFilter) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -254,92 +150,87 @@ func (o AgentGraphPatch) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o AgentGraphPatch) ToMap() (map[string]interface{}, error) {
+func (o ViewLinkRequestFilter) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Name) {
-		toSerialize["name"] = o.Name
+	toSerialize["filter"] = o.Filter
+	if !IsNil(o.EnvironmentId) {
+		toSerialize["environmentId"] = o.EnvironmentId
 	}
-	if !IsNil(o.Description) {
-		toSerialize["description"] = o.Description
+	if !IsNil(o.Comment) {
+		toSerialize["comment"] = o.Comment
 	}
-	if !IsNil(o.MaintainerId) {
-		toSerialize["maintainerId"] = o.MaintainerId
-	}
-	if !IsNil(o.MaintainerTeamKey) {
-		toSerialize["maintainerTeamKey"] = o.MaintainerTeamKey
-	}
-	if !IsNil(o.RootConfigKey) {
-		toSerialize["rootConfigKey"] = o.RootConfigKey
-	}
-	if !IsNil(o.Edges) {
-		toSerialize["edges"] = o.Edges
-	}
-
-	for key, value := range o.AdditionalProperties {
-		toSerialize[key] = value
-	}
-
 	return toSerialize, nil
 }
 
-func (o *AgentGraphPatch) UnmarshalJSON(data []byte) (err error) {
-	varAgentGraphPatch := _AgentGraphPatch{}
+func (o *ViewLinkRequestFilter) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"filter",
+	}
 
-	err = json.Unmarshal(data, &varAgentGraphPatch)
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varViewLinkRequestFilter := _ViewLinkRequestFilter{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varViewLinkRequestFilter)
 
 	if err != nil {
 		return err
 	}
 
-	*o = AgentGraphPatch(varAgentGraphPatch)
-
-	additionalProperties := make(map[string]interface{})
-
-	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "name")
-		delete(additionalProperties, "description")
-		delete(additionalProperties, "maintainerId")
-		delete(additionalProperties, "maintainerTeamKey")
-		delete(additionalProperties, "rootConfigKey")
-		delete(additionalProperties, "edges")
-		o.AdditionalProperties = additionalProperties
-	}
+	*o = ViewLinkRequestFilter(varViewLinkRequestFilter)
 
 	return err
 }
 
-type NullableAgentGraphPatch struct {
-	value *AgentGraphPatch
+type NullableViewLinkRequestFilter struct {
+	value *ViewLinkRequestFilter
 	isSet bool
 }
 
-func (v NullableAgentGraphPatch) Get() *AgentGraphPatch {
+func (v NullableViewLinkRequestFilter) Get() *ViewLinkRequestFilter {
 	return v.value
 }
 
-func (v *NullableAgentGraphPatch) Set(val *AgentGraphPatch) {
+func (v *NullableViewLinkRequestFilter) Set(val *ViewLinkRequestFilter) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableAgentGraphPatch) IsSet() bool {
+func (v NullableViewLinkRequestFilter) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableAgentGraphPatch) Unset() {
+func (v *NullableViewLinkRequestFilter) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableAgentGraphPatch(val *AgentGraphPatch) *NullableAgentGraphPatch {
-	return &NullableAgentGraphPatch{value: val, isSet: true}
+func NewNullableViewLinkRequestFilter(val *ViewLinkRequestFilter) *NullableViewLinkRequestFilter {
+	return &NullableViewLinkRequestFilter{value: val, isSet: true}
 }
 
-func (v NullableAgentGraphPatch) MarshalJSON() ([]byte, error) {
+func (v NullableViewLinkRequestFilter) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableAgentGraphPatch) UnmarshalJSON(src []byte) error {
+func (v *NullableViewLinkRequestFilter) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

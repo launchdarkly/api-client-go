@@ -6,8 +6,6 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Flags** | [**ExpandedLinkedResourcesFlags**](ExpandedLinkedResourcesFlags.md) |  | 
 **Segments** | Pointer to [**ExpandedLinkedResourcesSegments**](ExpandedLinkedResourcesSegments.md) |  | [optional] 
-**AiConfigs** | Pointer to [**ExpandedLinkedResourcesAIConfigs**](ExpandedLinkedResourcesAIConfigs.md) |  | [optional] 
-**Metrics** | Pointer to [**ExpandedLinkedResourcesMetrics**](ExpandedLinkedResourcesMetrics.md) |  | [optional] 
 
 ## Methods
 
@@ -72,56 +70,6 @@ SetSegments sets Segments field to given value.
 `func (o *ExpandedLinkedResourcesItems) HasSegments() bool`
 
 HasSegments returns a boolean if a field has been set.
-
-### GetAiConfigs
-
-`func (o *ExpandedLinkedResourcesItems) GetAiConfigs() ExpandedLinkedResourcesAIConfigs`
-
-GetAiConfigs returns the AiConfigs field if non-nil, zero value otherwise.
-
-### GetAiConfigsOk
-
-`func (o *ExpandedLinkedResourcesItems) GetAiConfigsOk() (*ExpandedLinkedResourcesAIConfigs, bool)`
-
-GetAiConfigsOk returns a tuple with the AiConfigs field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetAiConfigs
-
-`func (o *ExpandedLinkedResourcesItems) SetAiConfigs(v ExpandedLinkedResourcesAIConfigs)`
-
-SetAiConfigs sets AiConfigs field to given value.
-
-### HasAiConfigs
-
-`func (o *ExpandedLinkedResourcesItems) HasAiConfigs() bool`
-
-HasAiConfigs returns a boolean if a field has been set.
-
-### GetMetrics
-
-`func (o *ExpandedLinkedResourcesItems) GetMetrics() ExpandedLinkedResourcesMetrics`
-
-GetMetrics returns the Metrics field if non-nil, zero value otherwise.
-
-### GetMetricsOk
-
-`func (o *ExpandedLinkedResourcesItems) GetMetricsOk() (*ExpandedLinkedResourcesMetrics, bool)`
-
-GetMetricsOk returns a tuple with the Metrics field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetMetrics
-
-`func (o *ExpandedLinkedResourcesItems) SetMetrics(v ExpandedLinkedResourcesMetrics)`
-
-SetMetrics sets Metrics field to given value.
-
-### HasMetrics
-
-`func (o *ExpandedLinkedResourcesItems) HasMetrics() bool`
-
-HasMetrics returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

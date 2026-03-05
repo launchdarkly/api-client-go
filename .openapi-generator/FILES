@@ -61,6 +61,7 @@ api_workflows.go
 client.go
 configuration.go
 docs/AIConfig.md
+docs/AIConfigDependency.md
 docs/AIConfigMaintainer.md
 docs/AIConfigPatch.md
 docs/AIConfigPost.md
@@ -103,6 +104,7 @@ docs/ActionOutput.md
 docs/AgentGraph.md
 docs/AgentGraphEdge.md
 docs/AgentGraphEdgePost.md
+docs/AgentGraphMaintainer.md
 docs/AgentGraphPatch.md
 docs/AgentGraphPost.md
 docs/AgentGraphs.md
@@ -210,6 +212,8 @@ docs/Contexts.md
 docs/ContextsApi.md
 docs/CopiedFromEnv.md
 docs/CoreLink.md
+docs/CountBucket.md
+docs/CountBucketsResult.md
 docs/CreateAnnouncementBody.md
 docs/CreateApprovalRequestRequest.md
 docs/CreateCopyFlagConfigApprovalRequestRequest.md
@@ -266,15 +270,14 @@ docs/ExpandedDirectlyLinkedFlags.md
 docs/ExpandedDirectlyLinkedSegment.md
 docs/ExpandedDirectlyLinkedSegments.md
 docs/ExpandedFlag.md
+docs/ExpandedFlagMaintainer.md
 docs/ExpandedFlagRep.md
 docs/ExpandedLinkedAIConfigs.md
 docs/ExpandedLinkedFlags.md
 docs/ExpandedLinkedMetrics.md
 docs/ExpandedLinkedResources.md
-docs/ExpandedLinkedResourcesAIConfigs.md
 docs/ExpandedLinkedResourcesFlags.md
 docs/ExpandedLinkedResourcesItems.md
-docs/ExpandedLinkedResourcesMetrics.md
 docs/ExpandedLinkedResourcesSegments.md
 docs/ExpandedLinkedSegments.md
 docs/ExpandedMetric.md
@@ -674,6 +677,7 @@ docs/VariationToolPost.md
 docs/VersionsRep.md
 docs/View.md
 docs/ViewLinkRequest.md
+docs/ViewLinkRequestFilter.md
 docs/ViewLinkRequestKeys.md
 docs/ViewLinkRequestSegmentIdentifier.md
 docs/ViewLinkRequestSegmentIdentifiers.md
@@ -693,6 +697,8 @@ docs/ViewsBetaApi.md
 docs/ViewsLink.md
 docs/ViewsMaintainerMember.md
 docs/ViewsMaintainerTeam.md
+docs/ViewsMemberSummary.md
+docs/ViewsMemberTeamSummaryRep.md
 docs/ViewsPaginatedLinks.md
 docs/ViewsSelfLink.md
 docs/Webhook.md
@@ -718,6 +724,7 @@ model_access_token_post.go
 model_action_input.go
 model_action_output.go
 model_agent_graph.go
+model_agent_graph__maintainer.go
 model_agent_graph_edge.go
 model_agent_graph_edge_post.go
 model_agent_graph_patch.go
@@ -725,6 +732,7 @@ model_agent_graph_post.go
 model_agent_graphs.go
 model_ai_config.go
 model_ai_config__maintainer.go
+model_ai_config_dependency.go
 model_ai_config_patch.go
 model_ai_config_post.go
 model_ai_config_rep.go
@@ -847,6 +855,8 @@ model_context_search.go
 model_contexts.go
 model_copied_from_env.go
 model_core_link.go
+model_count_bucket.go
+model_count_buckets_result.go
 model_create_announcement_body.go
 model_create_approval_request_request.go
 model_create_copy_flag_config_approval_request_request.go
@@ -900,15 +910,14 @@ model_expanded_directly_linked_flags.go
 model_expanded_directly_linked_segment.go
 model_expanded_directly_linked_segments.go
 model_expanded_flag.go
+model_expanded_flag_maintainer.go
 model_expanded_flag_rep.go
 model_expanded_linked_ai_configs.go
 model_expanded_linked_flags.go
 model_expanded_linked_metrics.go
 model_expanded_linked_resources.go
-model_expanded_linked_resources_ai_configs.go
 model_expanded_linked_resources_flags.go
 model_expanded_linked_resources_items.go
-model_expanded_linked_resources_metrics.go
 model_expanded_linked_resources_segments.go
 model_expanded_linked_segments.go
 model_expanded_metric.go
@@ -1272,6 +1281,7 @@ model_variation_tool_post.go
 model_versions_rep.go
 model_view.go
 model_view_link_request.go
+model_view_link_request_filter.go
 model_view_link_request_keys.go
 model_view_link_request_segment_identifier.go
 model_view_link_request_segment_identifiers.go
@@ -1290,6 +1300,8 @@ model_views_access_rep.go
 model_views_link.go
 model_views_maintainer_member.go
 model_views_maintainer_team.go
+model_views_member_summary.go
+model_views_member_team_summary_rep.go
 model_views_paginated_links.go
 model_views_self_link.go
 model_webhook.go

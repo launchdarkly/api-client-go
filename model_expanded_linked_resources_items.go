@@ -23,8 +23,6 @@ var _ MappedNullable = &ExpandedLinkedResourcesItems{}
 type ExpandedLinkedResourcesItems struct {
 	Flags ExpandedLinkedResourcesFlags `json:"flags"`
 	Segments *ExpandedLinkedResourcesSegments `json:"segments,omitempty"`
-	AiConfigs *ExpandedLinkedResourcesAIConfigs `json:"aiConfigs,omitempty"`
-	Metrics *ExpandedLinkedResourcesMetrics `json:"metrics,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -104,70 +102,6 @@ func (o *ExpandedLinkedResourcesItems) SetSegments(v ExpandedLinkedResourcesSegm
 	o.Segments = &v
 }
 
-// GetAiConfigs returns the AiConfigs field value if set, zero value otherwise.
-func (o *ExpandedLinkedResourcesItems) GetAiConfigs() ExpandedLinkedResourcesAIConfigs {
-	if o == nil || IsNil(o.AiConfigs) {
-		var ret ExpandedLinkedResourcesAIConfigs
-		return ret
-	}
-	return *o.AiConfigs
-}
-
-// GetAiConfigsOk returns a tuple with the AiConfigs field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ExpandedLinkedResourcesItems) GetAiConfigsOk() (*ExpandedLinkedResourcesAIConfigs, bool) {
-	if o == nil || IsNil(o.AiConfigs) {
-		return nil, false
-	}
-	return o.AiConfigs, true
-}
-
-// HasAiConfigs returns a boolean if a field has been set.
-func (o *ExpandedLinkedResourcesItems) HasAiConfigs() bool {
-	if o != nil && !IsNil(o.AiConfigs) {
-		return true
-	}
-
-	return false
-}
-
-// SetAiConfigs gets a reference to the given ExpandedLinkedResourcesAIConfigs and assigns it to the AiConfigs field.
-func (o *ExpandedLinkedResourcesItems) SetAiConfigs(v ExpandedLinkedResourcesAIConfigs) {
-	o.AiConfigs = &v
-}
-
-// GetMetrics returns the Metrics field value if set, zero value otherwise.
-func (o *ExpandedLinkedResourcesItems) GetMetrics() ExpandedLinkedResourcesMetrics {
-	if o == nil || IsNil(o.Metrics) {
-		var ret ExpandedLinkedResourcesMetrics
-		return ret
-	}
-	return *o.Metrics
-}
-
-// GetMetricsOk returns a tuple with the Metrics field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ExpandedLinkedResourcesItems) GetMetricsOk() (*ExpandedLinkedResourcesMetrics, bool) {
-	if o == nil || IsNil(o.Metrics) {
-		return nil, false
-	}
-	return o.Metrics, true
-}
-
-// HasMetrics returns a boolean if a field has been set.
-func (o *ExpandedLinkedResourcesItems) HasMetrics() bool {
-	if o != nil && !IsNil(o.Metrics) {
-		return true
-	}
-
-	return false
-}
-
-// SetMetrics gets a reference to the given ExpandedLinkedResourcesMetrics and assigns it to the Metrics field.
-func (o *ExpandedLinkedResourcesItems) SetMetrics(v ExpandedLinkedResourcesMetrics) {
-	o.Metrics = &v
-}
-
 func (o ExpandedLinkedResourcesItems) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -181,12 +115,6 @@ func (o ExpandedLinkedResourcesItems) ToMap() (map[string]interface{}, error) {
 	toSerialize["flags"] = o.Flags
 	if !IsNil(o.Segments) {
 		toSerialize["segments"] = o.Segments
-	}
-	if !IsNil(o.AiConfigs) {
-		toSerialize["aiConfigs"] = o.AiConfigs
-	}
-	if !IsNil(o.Metrics) {
-		toSerialize["metrics"] = o.Metrics
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -233,8 +161,6 @@ func (o *ExpandedLinkedResourcesItems) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "flags")
 		delete(additionalProperties, "segments")
-		delete(additionalProperties, "aiConfigs")
-		delete(additionalProperties, "metrics")
 		o.AdditionalProperties = additionalProperties
 	}
 

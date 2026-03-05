@@ -6,6 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | Pointer to **string** | A human-readable name for the agent graph | [optional] 
 **Description** | Pointer to **string** | A description of the agent graph | [optional] 
+**MaintainerId** | Pointer to **string** | The ID of the member who maintains this agent graph. Pass an empty string to remove maintainer. | [optional] 
+**MaintainerTeamKey** | Pointer to **string** | The key of the team that maintains this agent graph. Pass an empty string to remove maintainer. | [optional] 
 **RootConfigKey** | Pointer to **string** | The AI Config key of the root node. If present, edges must also be present. | [optional] 
 **Edges** | Pointer to [**[]AgentGraphEdge**](AgentGraphEdge.md) | The edges in the graph. If present, rootConfigKey must also be present. Replaces all existing edges. | [optional] 
 
@@ -77,6 +79,56 @@ SetDescription sets Description field to given value.
 `func (o *AgentGraphPatch) HasDescription() bool`
 
 HasDescription returns a boolean if a field has been set.
+
+### GetMaintainerId
+
+`func (o *AgentGraphPatch) GetMaintainerId() string`
+
+GetMaintainerId returns the MaintainerId field if non-nil, zero value otherwise.
+
+### GetMaintainerIdOk
+
+`func (o *AgentGraphPatch) GetMaintainerIdOk() (*string, bool)`
+
+GetMaintainerIdOk returns a tuple with the MaintainerId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMaintainerId
+
+`func (o *AgentGraphPatch) SetMaintainerId(v string)`
+
+SetMaintainerId sets MaintainerId field to given value.
+
+### HasMaintainerId
+
+`func (o *AgentGraphPatch) HasMaintainerId() bool`
+
+HasMaintainerId returns a boolean if a field has been set.
+
+### GetMaintainerTeamKey
+
+`func (o *AgentGraphPatch) GetMaintainerTeamKey() string`
+
+GetMaintainerTeamKey returns the MaintainerTeamKey field if non-nil, zero value otherwise.
+
+### GetMaintainerTeamKeyOk
+
+`func (o *AgentGraphPatch) GetMaintainerTeamKeyOk() (*string, bool)`
+
+GetMaintainerTeamKeyOk returns a tuple with the MaintainerTeamKey field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMaintainerTeamKey
+
+`func (o *AgentGraphPatch) SetMaintainerTeamKey(v string)`
+
+SetMaintainerTeamKey sets MaintainerTeamKey field to given value.
+
+### HasMaintainerTeamKey
+
+`func (o *AgentGraphPatch) HasMaintainerTeamKey() bool`
+
+HasMaintainerTeamKey returns a boolean if a field has been set.
 
 ### GetRootConfigKey
 

@@ -21,12 +21,14 @@ var _ MappedNullable = &AgentGraph{}
 
 // AgentGraph An agent graph representing a directed graph of AI Configs
 type AgentGraph struct {
+	Access *AiConfigsAccess `json:"_access,omitempty"`
 	// A unique key for the agent graph
 	Key string `json:"key"`
 	// A human-readable name for the agent graph
 	Name string `json:"name"`
 	// A description of the agent graph
 	Description *string `json:"description,omitempty"`
+	Maintainer *AgentGraphMaintainer `json:"_maintainer,omitempty"`
 	// The AI Config key of the root node
 	RootConfigKey *string `json:"rootConfigKey,omitempty"`
 	// The edges in the graph
@@ -57,6 +59,38 @@ func NewAgentGraph(key string, name string, createdAt int64, updatedAt int64) *A
 func NewAgentGraphWithDefaults() *AgentGraph {
 	this := AgentGraph{}
 	return &this
+}
+
+// GetAccess returns the Access field value if set, zero value otherwise.
+func (o *AgentGraph) GetAccess() AiConfigsAccess {
+	if o == nil || IsNil(o.Access) {
+		var ret AiConfigsAccess
+		return ret
+	}
+	return *o.Access
+}
+
+// GetAccessOk returns a tuple with the Access field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AgentGraph) GetAccessOk() (*AiConfigsAccess, bool) {
+	if o == nil || IsNil(o.Access) {
+		return nil, false
+	}
+	return o.Access, true
+}
+
+// HasAccess returns a boolean if a field has been set.
+func (o *AgentGraph) HasAccess() bool {
+	if o != nil && !IsNil(o.Access) {
+		return true
+	}
+
+	return false
+}
+
+// SetAccess gets a reference to the given AiConfigsAccess and assigns it to the Access field.
+func (o *AgentGraph) SetAccess(v AiConfigsAccess) {
+	o.Access = &v
 }
 
 // GetKey returns the Key field value
@@ -137,6 +171,38 @@ func (o *AgentGraph) HasDescription() bool {
 // SetDescription gets a reference to the given string and assigns it to the Description field.
 func (o *AgentGraph) SetDescription(v string) {
 	o.Description = &v
+}
+
+// GetMaintainer returns the Maintainer field value if set, zero value otherwise.
+func (o *AgentGraph) GetMaintainer() AgentGraphMaintainer {
+	if o == nil || IsNil(o.Maintainer) {
+		var ret AgentGraphMaintainer
+		return ret
+	}
+	return *o.Maintainer
+}
+
+// GetMaintainerOk returns a tuple with the Maintainer field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AgentGraph) GetMaintainerOk() (*AgentGraphMaintainer, bool) {
+	if o == nil || IsNil(o.Maintainer) {
+		return nil, false
+	}
+	return o.Maintainer, true
+}
+
+// HasMaintainer returns a boolean if a field has been set.
+func (o *AgentGraph) HasMaintainer() bool {
+	if o != nil && !IsNil(o.Maintainer) {
+		return true
+	}
+
+	return false
+}
+
+// SetMaintainer gets a reference to the given AgentGraphMaintainer and assigns it to the Maintainer field.
+func (o *AgentGraph) SetMaintainer(v AgentGraphMaintainer) {
+	o.Maintainer = &v
 }
 
 // GetRootConfigKey returns the RootConfigKey field value if set, zero value otherwise.
@@ -261,10 +327,16 @@ func (o AgentGraph) MarshalJSON() ([]byte, error) {
 
 func (o AgentGraph) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Access) {
+		toSerialize["_access"] = o.Access
+	}
 	toSerialize["key"] = o.Key
 	toSerialize["name"] = o.Name
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.Maintainer) {
+		toSerialize["_maintainer"] = o.Maintainer
 	}
 	if !IsNil(o.RootConfigKey) {
 		toSerialize["rootConfigKey"] = o.RootConfigKey
@@ -320,9 +392,11 @@ func (o *AgentGraph) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "_access")
 		delete(additionalProperties, "key")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "description")
+		delete(additionalProperties, "_maintainer")
 		delete(additionalProperties, "rootConfigKey")
 		delete(additionalProperties, "edges")
 		delete(additionalProperties, "createdAt")

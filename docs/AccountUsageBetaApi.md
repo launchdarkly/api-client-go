@@ -19,12 +19,14 @@ Method | HTTP request | Description
 [**GetMauUsageByCategory**](AccountUsageBetaApi.md#GetMauUsageByCategory) | **Get** /api/v2/usage/mau/bycategory | Get MAU usage by category
 [**GetObservabilityErrorsUsage**](AccountUsageBetaApi.md#GetObservabilityErrorsUsage) | **Get** /api/v2/usage/observability/errors | Get observability errors usage
 [**GetObservabilityLogsUsage**](AccountUsageBetaApi.md#GetObservabilityLogsUsage) | **Get** /api/v2/usage/observability/logs | Get observability logs usage
+[**GetObservabilityMetricsUsage**](AccountUsageBetaApi.md#GetObservabilityMetricsUsage) | **Get** /api/v2/usage/observability/metrics | Get observability metrics usage
 [**GetObservabilitySessionsUsage**](AccountUsageBetaApi.md#GetObservabilitySessionsUsage) | **Get** /api/v2/usage/observability/sessions | Get observability sessions usage
 [**GetObservabilityTracesUsage**](AccountUsageBetaApi.md#GetObservabilityTracesUsage) | **Get** /api/v2/usage/observability/traces | Get observability traces usage
 [**GetServiceConnectionsUsage**](AccountUsageBetaApi.md#GetServiceConnectionsUsage) | **Get** /api/v2/usage/service-connections | Get service connections usage
 [**GetStreamUsage**](AccountUsageBetaApi.md#GetStreamUsage) | **Get** /api/v2/usage/streams/{source} | Get stream usage
 [**GetStreamUsageBySdkVersion**](AccountUsageBetaApi.md#GetStreamUsageBySdkVersion) | **Get** /api/v2/usage/streams/{source}/bysdkversion | Get stream usage by SDK version
 [**GetStreamUsageSdkversion**](AccountUsageBetaApi.md#GetStreamUsageSdkversion) | **Get** /api/v2/usage/streams/{source}/sdkversions | Get stream usage SDK versions
+[**GetVegaAIUsage**](AccountUsageBetaApi.md#GetVegaAIUsage) | **Get** /api/v2/usage/vega-ai | Get Vega AI usage
 
 
 
@@ -1216,6 +1218,80 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## GetObservabilityMetricsUsage
+
+> SeriesListRep GetObservabilityMetricsUsage(ctx).From(from).To(to).ProjectKey(projectKey).Granularity(granularity).AggregationType(aggregationType).Execute()
+
+Get observability metrics usage
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
+)
+
+func main() {
+	from := "from_example" // string | The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month. (optional)
+	to := "to_example" // string | The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time. (optional)
+	projectKey := "projectKey_example" // string | A project key to filter results by. Can be specified multiple times, one query parameter per project key. (optional)
+	granularity := "granularity_example" // string | Specifies the data granularity. Defaults to `daily`. Valid values depend on `aggregationType`: **month_to_date** supports `daily` and `monthly`; **incremental** and **rolling_30d** support `daily` only. (optional)
+	aggregationType := "aggregationType_example" // string | Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`, `rolling_30d`. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AccountUsageBetaApi.GetObservabilityMetricsUsage(context.Background()).From(from).To(to).ProjectKey(projectKey).Granularity(granularity).AggregationType(aggregationType).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AccountUsageBetaApi.GetObservabilityMetricsUsage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetObservabilityMetricsUsage`: SeriesListRep
+	fmt.Fprintf(os.Stdout, "Response from `AccountUsageBetaApi.GetObservabilityMetricsUsage`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetObservabilityMetricsUsageRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **from** | **string** | The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month. | 
+ **to** | **string** | The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time. | 
+ **projectKey** | **string** | A project key to filter results by. Can be specified multiple times, one query parameter per project key. | 
+ **granularity** | **string** | Specifies the data granularity. Defaults to &#x60;daily&#x60;. Valid values depend on &#x60;aggregationType&#x60;: **month_to_date** supports &#x60;daily&#x60; and &#x60;monthly&#x60;; **incremental** and **rolling_30d** support &#x60;daily&#x60; only. | 
+ **aggregationType** | **string** | Specifies the aggregation method. Defaults to &#x60;month_to_date&#x60;.&lt;br/&gt;Valid values: &#x60;month_to_date&#x60;, &#x60;incremental&#x60;, &#x60;rolling_30d&#x60;. | 
+
+### Return type
+
+[**SeriesListRep**](SeriesListRep.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetObservabilitySessionsUsage
 
 > SeriesListRep GetObservabilitySessionsUsage(ctx).From(from).To(to).ProjectKey(projectKey).Granularity(granularity).AggregationType(aggregationType).Execute()
@@ -1663,6 +1739,80 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**SdkVersionListRep**](SdkVersionListRep.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetVegaAIUsage
+
+> SeriesListRep GetVegaAIUsage(ctx).From(from).To(to).ProjectKey(projectKey).Granularity(granularity).AggregationType(aggregationType).Execute()
+
+Get Vega AI usage
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
+)
+
+func main() {
+	from := "from_example" // string | The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month. (optional)
+	to := "to_example" // string | The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time. (optional)
+	projectKey := "projectKey_example" // string | A project key to filter results by. Can be specified multiple times, one query parameter per project key. (optional)
+	granularity := "granularity_example" // string | Specifies the data granularity. Defaults to `daily`. Valid values depend on `aggregationType`: **month_to_date** supports `daily` and `monthly`; **incremental** and **rolling_30d** support `daily` only. (optional)
+	aggregationType := "aggregationType_example" // string | Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`, `rolling_30d`. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AccountUsageBetaApi.GetVegaAIUsage(context.Background()).From(from).To(to).ProjectKey(projectKey).Granularity(granularity).AggregationType(aggregationType).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AccountUsageBetaApi.GetVegaAIUsage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetVegaAIUsage`: SeriesListRep
+	fmt.Fprintf(os.Stdout, "Response from `AccountUsageBetaApi.GetVegaAIUsage`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetVegaAIUsageRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **from** | **string** | The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month. | 
+ **to** | **string** | The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time. | 
+ **projectKey** | **string** | A project key to filter results by. Can be specified multiple times, one query parameter per project key. | 
+ **granularity** | **string** | Specifies the data granularity. Defaults to &#x60;daily&#x60;. Valid values depend on &#x60;aggregationType&#x60;: **month_to_date** supports &#x60;daily&#x60; and &#x60;monthly&#x60;; **incremental** and **rolling_30d** support &#x60;daily&#x60; only. | 
+ **aggregationType** | **string** | Specifies the aggregation method. Defaults to &#x60;month_to_date&#x60;.&lt;br/&gt;Valid values: &#x60;month_to_date&#x60;, &#x60;incremental&#x60;, &#x60;rolling_30d&#x60;. | 
+
+### Return type
+
+[**SeriesListRep**](SeriesListRep.md)
 
 ### Authorization
 

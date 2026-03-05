@@ -22,7 +22,7 @@ var _ MappedNullable = &ViewLinkedResource{}
 // ViewLinkedResource struct for ViewLinkedResource
 type ViewLinkedResource struct {
 	Links ParentAndSelfLinks `json:"_links"`
-	// Key of the resource (flag, segment, AI config or metric)
+	// Key of the resource (flag or segment)
 	ResourceKey string `json:"resourceKey"`
 	// Environment ID of the resource (only present for segments)
 	EnvironmentId *string `json:"environmentId,omitempty"`

@@ -26,7 +26,10 @@ type AITool struct {
 	Links *ParentAndSelfLinks `json:"_links,omitempty"`
 	Maintainer *AIConfigMaintainer `json:"_maintainer,omitempty"`
 	Description *string `json:"description,omitempty"`
+	// JSON Schema defining the tool's parameters for LLM consumption
 	Schema map[string]interface{} `json:"schema"`
+	// Custom metadata and configuration for application-level use (not sent to LLM)
+	CustomParameters map[string]interface{} `json:"customParameters,omitempty"`
 	Version int32 `json:"version"`
 	CreatedAt int64 `json:"createdAt"`
 	AdditionalProperties map[string]interface{}
@@ -231,6 +234,38 @@ func (o *AITool) SetSchema(v map[string]interface{}) {
 	o.Schema = v
 }
 
+// GetCustomParameters returns the CustomParameters field value if set, zero value otherwise.
+func (o *AITool) GetCustomParameters() map[string]interface{} {
+	if o == nil || IsNil(o.CustomParameters) {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.CustomParameters
+}
+
+// GetCustomParametersOk returns a tuple with the CustomParameters field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AITool) GetCustomParametersOk() (map[string]interface{}, bool) {
+	if o == nil || IsNil(o.CustomParameters) {
+		return map[string]interface{}{}, false
+	}
+	return o.CustomParameters, true
+}
+
+// HasCustomParameters returns a boolean if a field has been set.
+func (o *AITool) HasCustomParameters() bool {
+	if o != nil && !IsNil(o.CustomParameters) {
+		return true
+	}
+
+	return false
+}
+
+// SetCustomParameters gets a reference to the given map[string]interface{} and assigns it to the CustomParameters field.
+func (o *AITool) SetCustomParameters(v map[string]interface{}) {
+	o.CustomParameters = v
+}
+
 // GetVersion returns the Version field value
 func (o *AITool) GetVersion() int32 {
 	if o == nil {
@@ -303,6 +338,9 @@ func (o AITool) ToMap() (map[string]interface{}, error) {
 		toSerialize["description"] = o.Description
 	}
 	toSerialize["schema"] = o.Schema
+	if !IsNil(o.CustomParameters) {
+		toSerialize["customParameters"] = o.CustomParameters
+	}
 	toSerialize["version"] = o.Version
 	toSerialize["createdAt"] = o.CreatedAt
 
@@ -357,6 +395,7 @@ func (o *AITool) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "_maintainer")
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "schema")
+		delete(additionalProperties, "customParameters")
 		delete(additionalProperties, "version")
 		delete(additionalProperties, "createdAt")
 		o.AdditionalProperties = additionalProperties

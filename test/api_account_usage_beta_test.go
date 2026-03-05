@@ -208,6 +208,18 @@ func Test_ldapi_AccountUsageBetaApiService(t *testing.T) {
 
 	})
 
+	t.Run("Test AccountUsageBetaApiService GetObservabilityMetricsUsage", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.AccountUsageBetaApi.GetObservabilityMetricsUsage(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test AccountUsageBetaApiService GetObservabilitySessionsUsage", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
@@ -279,6 +291,18 @@ func Test_ldapi_AccountUsageBetaApiService(t *testing.T) {
 		var source string
 
 		resp, httpRes, err := apiClient.AccountUsageBetaApi.GetStreamUsageSdkversion(context.Background(), source).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test AccountUsageBetaApiService GetVegaAIUsage", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.AccountUsageBetaApi.GetVegaAIUsage(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

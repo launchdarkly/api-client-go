@@ -13,240 +13,213 @@ package ldapi
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
-// checks if the AgentGraphPatch type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &AgentGraphPatch{}
+// checks if the ViewsMemberSummary type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ViewsMemberSummary{}
 
-// AgentGraphPatch Request body for updating an agent graph. If rootConfigKey or edges are present, both must be present.
-type AgentGraphPatch struct {
-	// A human-readable name for the agent graph
-	Name *string `json:"name,omitempty"`
-	// A description of the agent graph
-	Description *string `json:"description,omitempty"`
-	// The ID of the member who maintains this agent graph. Pass an empty string to remove maintainer.
-	MaintainerId *string `json:"maintainerId,omitempty"`
-	// The key of the team that maintains this agent graph. Pass an empty string to remove maintainer.
-	MaintainerTeamKey *string `json:"maintainerTeamKey,omitempty"`
-	// The AI Config key of the root node. If present, edges must also be present.
-	RootConfigKey *string `json:"rootConfigKey,omitempty"`
-	// The edges in the graph. If present, rootConfigKey must also be present. Replaces all existing edges.
-	Edges []AgentGraphEdge `json:"edges,omitempty"`
+// ViewsMemberSummary struct for ViewsMemberSummary
+type ViewsMemberSummary struct {
+	// The location and content type of related resources
+	Links map[string]ViewsLink `json:"_links"`
+	// The member's ID
+	Id string `json:"_id"`
+	// The member's first name
+	FirstName *string `json:"firstName,omitempty"`
+	// The member's last name
+	LastName *string `json:"lastName,omitempty"`
+	// The member's base role. If the member has no additional roles, this role will be in effect.
+	Role string `json:"role"`
+	// The member's email address
+	Email string `json:"email"`
 	AdditionalProperties map[string]interface{}
 }
 
-type _AgentGraphPatch AgentGraphPatch
+type _ViewsMemberSummary ViewsMemberSummary
 
-// NewAgentGraphPatch instantiates a new AgentGraphPatch object
+// NewViewsMemberSummary instantiates a new ViewsMemberSummary object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAgentGraphPatch() *AgentGraphPatch {
-	this := AgentGraphPatch{}
+func NewViewsMemberSummary(links map[string]ViewsLink, id string, role string, email string) *ViewsMemberSummary {
+	this := ViewsMemberSummary{}
+	this.Links = links
+	this.Id = id
+	this.Role = role
+	this.Email = email
 	return &this
 }
 
-// NewAgentGraphPatchWithDefaults instantiates a new AgentGraphPatch object
+// NewViewsMemberSummaryWithDefaults instantiates a new ViewsMemberSummary object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewAgentGraphPatchWithDefaults() *AgentGraphPatch {
-	this := AgentGraphPatch{}
+func NewViewsMemberSummaryWithDefaults() *ViewsMemberSummary {
+	this := ViewsMemberSummary{}
 	return &this
 }
 
-// GetName returns the Name field value if set, zero value otherwise.
-func (o *AgentGraphPatch) GetName() string {
-	if o == nil || IsNil(o.Name) {
+// GetLinks returns the Links field value
+func (o *ViewsMemberSummary) GetLinks() map[string]ViewsLink {
+	if o == nil {
+		var ret map[string]ViewsLink
+		return ret
+	}
+
+	return o.Links
+}
+
+// GetLinksOk returns a tuple with the Links field value
+// and a boolean to check if the value has been set.
+func (o *ViewsMemberSummary) GetLinksOk() (*map[string]ViewsLink, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Links, true
+}
+
+// SetLinks sets field value
+func (o *ViewsMemberSummary) SetLinks(v map[string]ViewsLink) {
+	o.Links = v
+}
+
+// GetId returns the Id field value
+func (o *ViewsMemberSummary) GetId() string {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Name
+
+	return o.Id
 }
 
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
-func (o *AgentGraphPatch) GetNameOk() (*string, bool) {
-	if o == nil || IsNil(o.Name) {
+func (o *ViewsMemberSummary) GetIdOk() (*string, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Name, true
+	return &o.Id, true
 }
 
-// HasName returns a boolean if a field has been set.
-func (o *AgentGraphPatch) HasName() bool {
-	if o != nil && !IsNil(o.Name) {
-		return true
-	}
-
-	return false
+// SetId sets field value
+func (o *ViewsMemberSummary) SetId(v string) {
+	o.Id = v
 }
 
-// SetName gets a reference to the given string and assigns it to the Name field.
-func (o *AgentGraphPatch) SetName(v string) {
-	o.Name = &v
-}
-
-// GetDescription returns the Description field value if set, zero value otherwise.
-func (o *AgentGraphPatch) GetDescription() string {
-	if o == nil || IsNil(o.Description) {
+// GetFirstName returns the FirstName field value if set, zero value otherwise.
+func (o *ViewsMemberSummary) GetFirstName() string {
+	if o == nil || IsNil(o.FirstName) {
 		var ret string
 		return ret
 	}
-	return *o.Description
+	return *o.FirstName
 }
 
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// GetFirstNameOk returns a tuple with the FirstName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AgentGraphPatch) GetDescriptionOk() (*string, bool) {
-	if o == nil || IsNil(o.Description) {
+func (o *ViewsMemberSummary) GetFirstNameOk() (*string, bool) {
+	if o == nil || IsNil(o.FirstName) {
 		return nil, false
 	}
-	return o.Description, true
+	return o.FirstName, true
 }
 
-// HasDescription returns a boolean if a field has been set.
-func (o *AgentGraphPatch) HasDescription() bool {
-	if o != nil && !IsNil(o.Description) {
+// HasFirstName returns a boolean if a field has been set.
+func (o *ViewsMemberSummary) HasFirstName() bool {
+	if o != nil && !IsNil(o.FirstName) {
 		return true
 	}
 
 	return false
 }
 
-// SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *AgentGraphPatch) SetDescription(v string) {
-	o.Description = &v
+// SetFirstName gets a reference to the given string and assigns it to the FirstName field.
+func (o *ViewsMemberSummary) SetFirstName(v string) {
+	o.FirstName = &v
 }
 
-// GetMaintainerId returns the MaintainerId field value if set, zero value otherwise.
-func (o *AgentGraphPatch) GetMaintainerId() string {
-	if o == nil || IsNil(o.MaintainerId) {
+// GetLastName returns the LastName field value if set, zero value otherwise.
+func (o *ViewsMemberSummary) GetLastName() string {
+	if o == nil || IsNil(o.LastName) {
 		var ret string
 		return ret
 	}
-	return *o.MaintainerId
+	return *o.LastName
 }
 
-// GetMaintainerIdOk returns a tuple with the MaintainerId field value if set, nil otherwise
+// GetLastNameOk returns a tuple with the LastName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AgentGraphPatch) GetMaintainerIdOk() (*string, bool) {
-	if o == nil || IsNil(o.MaintainerId) {
+func (o *ViewsMemberSummary) GetLastNameOk() (*string, bool) {
+	if o == nil || IsNil(o.LastName) {
 		return nil, false
 	}
-	return o.MaintainerId, true
+	return o.LastName, true
 }
 
-// HasMaintainerId returns a boolean if a field has been set.
-func (o *AgentGraphPatch) HasMaintainerId() bool {
-	if o != nil && !IsNil(o.MaintainerId) {
+// HasLastName returns a boolean if a field has been set.
+func (o *ViewsMemberSummary) HasLastName() bool {
+	if o != nil && !IsNil(o.LastName) {
 		return true
 	}
 
 	return false
 }
 
-// SetMaintainerId gets a reference to the given string and assigns it to the MaintainerId field.
-func (o *AgentGraphPatch) SetMaintainerId(v string) {
-	o.MaintainerId = &v
+// SetLastName gets a reference to the given string and assigns it to the LastName field.
+func (o *ViewsMemberSummary) SetLastName(v string) {
+	o.LastName = &v
 }
 
-// GetMaintainerTeamKey returns the MaintainerTeamKey field value if set, zero value otherwise.
-func (o *AgentGraphPatch) GetMaintainerTeamKey() string {
-	if o == nil || IsNil(o.MaintainerTeamKey) {
+// GetRole returns the Role field value
+func (o *ViewsMemberSummary) GetRole() string {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.MaintainerTeamKey
+
+	return o.Role
 }
 
-// GetMaintainerTeamKeyOk returns a tuple with the MaintainerTeamKey field value if set, nil otherwise
+// GetRoleOk returns a tuple with the Role field value
 // and a boolean to check if the value has been set.
-func (o *AgentGraphPatch) GetMaintainerTeamKeyOk() (*string, bool) {
-	if o == nil || IsNil(o.MaintainerTeamKey) {
+func (o *ViewsMemberSummary) GetRoleOk() (*string, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.MaintainerTeamKey, true
+	return &o.Role, true
 }
 
-// HasMaintainerTeamKey returns a boolean if a field has been set.
-func (o *AgentGraphPatch) HasMaintainerTeamKey() bool {
-	if o != nil && !IsNil(o.MaintainerTeamKey) {
-		return true
-	}
-
-	return false
+// SetRole sets field value
+func (o *ViewsMemberSummary) SetRole(v string) {
+	o.Role = v
 }
 
-// SetMaintainerTeamKey gets a reference to the given string and assigns it to the MaintainerTeamKey field.
-func (o *AgentGraphPatch) SetMaintainerTeamKey(v string) {
-	o.MaintainerTeamKey = &v
-}
-
-// GetRootConfigKey returns the RootConfigKey field value if set, zero value otherwise.
-func (o *AgentGraphPatch) GetRootConfigKey() string {
-	if o == nil || IsNil(o.RootConfigKey) {
+// GetEmail returns the Email field value
+func (o *ViewsMemberSummary) GetEmail() string {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.RootConfigKey
+
+	return o.Email
 }
 
-// GetRootConfigKeyOk returns a tuple with the RootConfigKey field value if set, nil otherwise
+// GetEmailOk returns a tuple with the Email field value
 // and a boolean to check if the value has been set.
-func (o *AgentGraphPatch) GetRootConfigKeyOk() (*string, bool) {
-	if o == nil || IsNil(o.RootConfigKey) {
+func (o *ViewsMemberSummary) GetEmailOk() (*string, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.RootConfigKey, true
+	return &o.Email, true
 }
 
-// HasRootConfigKey returns a boolean if a field has been set.
-func (o *AgentGraphPatch) HasRootConfigKey() bool {
-	if o != nil && !IsNil(o.RootConfigKey) {
-		return true
-	}
-
-	return false
+// SetEmail sets field value
+func (o *ViewsMemberSummary) SetEmail(v string) {
+	o.Email = v
 }
 
-// SetRootConfigKey gets a reference to the given string and assigns it to the RootConfigKey field.
-func (o *AgentGraphPatch) SetRootConfigKey(v string) {
-	o.RootConfigKey = &v
-}
-
-// GetEdges returns the Edges field value if set, zero value otherwise.
-func (o *AgentGraphPatch) GetEdges() []AgentGraphEdge {
-	if o == nil || IsNil(o.Edges) {
-		var ret []AgentGraphEdge
-		return ret
-	}
-	return o.Edges
-}
-
-// GetEdgesOk returns a tuple with the Edges field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AgentGraphPatch) GetEdgesOk() ([]AgentGraphEdge, bool) {
-	if o == nil || IsNil(o.Edges) {
-		return nil, false
-	}
-	return o.Edges, true
-}
-
-// HasEdges returns a boolean if a field has been set.
-func (o *AgentGraphPatch) HasEdges() bool {
-	if o != nil && !IsNil(o.Edges) {
-		return true
-	}
-
-	return false
-}
-
-// SetEdges gets a reference to the given []AgentGraphEdge and assigns it to the Edges field.
-func (o *AgentGraphPatch) SetEdges(v []AgentGraphEdge) {
-	o.Edges = v
-}
-
-func (o AgentGraphPatch) MarshalJSON() ([]byte, error) {
+func (o ViewsMemberSummary) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -254,26 +227,18 @@ func (o AgentGraphPatch) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o AgentGraphPatch) ToMap() (map[string]interface{}, error) {
+func (o ViewsMemberSummary) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Name) {
-		toSerialize["name"] = o.Name
+	toSerialize["_links"] = o.Links
+	toSerialize["_id"] = o.Id
+	if !IsNil(o.FirstName) {
+		toSerialize["firstName"] = o.FirstName
 	}
-	if !IsNil(o.Description) {
-		toSerialize["description"] = o.Description
+	if !IsNil(o.LastName) {
+		toSerialize["lastName"] = o.LastName
 	}
-	if !IsNil(o.MaintainerId) {
-		toSerialize["maintainerId"] = o.MaintainerId
-	}
-	if !IsNil(o.MaintainerTeamKey) {
-		toSerialize["maintainerTeamKey"] = o.MaintainerTeamKey
-	}
-	if !IsNil(o.RootConfigKey) {
-		toSerialize["rootConfigKey"] = o.RootConfigKey
-	}
-	if !IsNil(o.Edges) {
-		toSerialize["edges"] = o.Edges
-	}
+	toSerialize["role"] = o.Role
+	toSerialize["email"] = o.Email
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -282,64 +247,88 @@ func (o AgentGraphPatch) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-func (o *AgentGraphPatch) UnmarshalJSON(data []byte) (err error) {
-	varAgentGraphPatch := _AgentGraphPatch{}
+func (o *ViewsMemberSummary) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"_links",
+		"_id",
+		"role",
+		"email",
+	}
 
-	err = json.Unmarshal(data, &varAgentGraphPatch)
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varViewsMemberSummary := _ViewsMemberSummary{}
+
+	err = json.Unmarshal(data, &varViewsMemberSummary)
 
 	if err != nil {
 		return err
 	}
 
-	*o = AgentGraphPatch(varAgentGraphPatch)
+	*o = ViewsMemberSummary(varViewsMemberSummary)
 
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "name")
-		delete(additionalProperties, "description")
-		delete(additionalProperties, "maintainerId")
-		delete(additionalProperties, "maintainerTeamKey")
-		delete(additionalProperties, "rootConfigKey")
-		delete(additionalProperties, "edges")
+		delete(additionalProperties, "_links")
+		delete(additionalProperties, "_id")
+		delete(additionalProperties, "firstName")
+		delete(additionalProperties, "lastName")
+		delete(additionalProperties, "role")
+		delete(additionalProperties, "email")
 		o.AdditionalProperties = additionalProperties
 	}
 
 	return err
 }
 
-type NullableAgentGraphPatch struct {
-	value *AgentGraphPatch
+type NullableViewsMemberSummary struct {
+	value *ViewsMemberSummary
 	isSet bool
 }
 
-func (v NullableAgentGraphPatch) Get() *AgentGraphPatch {
+func (v NullableViewsMemberSummary) Get() *ViewsMemberSummary {
 	return v.value
 }
 
-func (v *NullableAgentGraphPatch) Set(val *AgentGraphPatch) {
+func (v *NullableViewsMemberSummary) Set(val *ViewsMemberSummary) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableAgentGraphPatch) IsSet() bool {
+func (v NullableViewsMemberSummary) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableAgentGraphPatch) Unset() {
+func (v *NullableViewsMemberSummary) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableAgentGraphPatch(val *AgentGraphPatch) *NullableAgentGraphPatch {
-	return &NullableAgentGraphPatch{value: val, isSet: true}
+func NewNullableViewsMemberSummary(val *ViewsMemberSummary) *NullableViewsMemberSummary {
+	return &NullableViewsMemberSummary{value: val, isSet: true}
 }
 
-func (v NullableAgentGraphPatch) MarshalJSON() ([]byte, error) {
+func (v NullableViewsMemberSummary) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableAgentGraphPatch) UnmarshalJSON(src []byte) error {
+func (v *NullableViewsMemberSummary) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

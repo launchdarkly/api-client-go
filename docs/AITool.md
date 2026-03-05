@@ -9,7 +9,8 @@ Name | Type | Description | Notes
 **Links** | Pointer to [**ParentAndSelfLinks**](ParentAndSelfLinks.md) |  | [optional] 
 **Maintainer** | Pointer to [**AIConfigMaintainer**](AIConfigMaintainer.md) |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
-**Schema** | **map[string]interface{}** |  | 
+**Schema** | **map[string]interface{}** | JSON Schema defining the tool&#39;s parameters for LLM consumption | 
+**CustomParameters** | Pointer to **map[string]interface{}** | Custom metadata and configuration for application-level use (not sent to LLM) | [optional] 
 **Version** | **int32** |  | 
 **CreatedAt** | **int64** |  | 
 
@@ -171,6 +172,31 @@ and a boolean to check if the value has been set.
 
 SetSchema sets Schema field to given value.
 
+
+### GetCustomParameters
+
+`func (o *AITool) GetCustomParameters() map[string]interface{}`
+
+GetCustomParameters returns the CustomParameters field if non-nil, zero value otherwise.
+
+### GetCustomParametersOk
+
+`func (o *AITool) GetCustomParametersOk() (*map[string]interface{}, bool)`
+
+GetCustomParametersOk returns a tuple with the CustomParameters field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCustomParameters
+
+`func (o *AITool) SetCustomParameters(v map[string]interface{})`
+
+SetCustomParameters sets CustomParameters field to given value.
+
+### HasCustomParameters
+
+`func (o *AITool) HasCustomParameters() bool`
+
+HasCustomParameters returns a boolean if a field has been set.
 
 ### GetVersion
 

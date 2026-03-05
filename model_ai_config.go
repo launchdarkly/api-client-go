@@ -40,6 +40,8 @@ type AIConfig struct {
 	EvaluationMetricKeys []string `json:"evaluationMetricKeys,omitempty"`
 	// Whether the evaluation metric is inverted, meaning a lower value is better if set as true
 	IsInverted *bool `json:"isInverted,omitempty"`
+	// Resources that depend on this AI Config, grouped by type
+	Dependencies []AIConfigDependency `json:"dependencies,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -493,6 +495,38 @@ func (o *AIConfig) SetIsInverted(v bool) {
 	o.IsInverted = &v
 }
 
+// GetDependencies returns the Dependencies field value if set, zero value otherwise.
+func (o *AIConfig) GetDependencies() []AIConfigDependency {
+	if o == nil || IsNil(o.Dependencies) {
+		var ret []AIConfigDependency
+		return ret
+	}
+	return o.Dependencies
+}
+
+// GetDependenciesOk returns a tuple with the Dependencies field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AIConfig) GetDependenciesOk() ([]AIConfigDependency, bool) {
+	if o == nil || IsNil(o.Dependencies) {
+		return nil, false
+	}
+	return o.Dependencies, true
+}
+
+// HasDependencies returns a boolean if a field has been set.
+func (o *AIConfig) HasDependencies() bool {
+	if o != nil && !IsNil(o.Dependencies) {
+		return true
+	}
+
+	return false
+}
+
+// SetDependencies gets a reference to the given []AIConfigDependency and assigns it to the Dependencies field.
+func (o *AIConfig) SetDependencies(v []AIConfigDependency) {
+	o.Dependencies = v
+}
+
 func (o AIConfig) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -531,6 +565,9 @@ func (o AIConfig) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.IsInverted) {
 		toSerialize["isInverted"] = o.IsInverted
+	}
+	if !IsNil(o.Dependencies) {
+		toSerialize["dependencies"] = o.Dependencies
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -597,6 +634,7 @@ func (o *AIConfig) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "evaluationMetricKey")
 		delete(additionalProperties, "evaluationMetricKeys")
 		delete(additionalProperties, "isInverted")
+		delete(additionalProperties, "dependencies")
 		o.AdditionalProperties = additionalProperties
 	}
 

@@ -26,7 +26,7 @@ type EventFilter struct {
 	// If not a group node, the context attribute name or event property name to filter on
 	Attribute *string `json:"attribute,omitempty"`
 	Op string `json:"op"`
-	// The context attribute / event property values or group member nodes
+	// The context attribute / event property values or group member nodes. Numeric values must not exceed 14 decimal places.
 	Values []interface{} `json:"values"`
 	// For context attribute filters, the context kind.
 	ContextKind *string `json:"contextKind,omitempty"`

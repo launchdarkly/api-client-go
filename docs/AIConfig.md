@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 **EvaluationMetricKey** | Pointer to **string** | Evaluation metric key for this AI Config | [optional] 
 **EvaluationMetricKeys** | Pointer to **[]string** | List of evaluation metric keys for this AI Config | [optional] 
 **IsInverted** | Pointer to **bool** | Whether the evaluation metric is inverted, meaning a lower value is better if set as true | [optional] 
+**Dependencies** | Pointer to [**[]AIConfigDependency**](AIConfigDependency.md) | Resources that depend on this AI Config, grouped by type | [optional] 
 
 ## Methods
 
@@ -373,6 +374,31 @@ SetIsInverted sets IsInverted field to given value.
 `func (o *AIConfig) HasIsInverted() bool`
 
 HasIsInverted returns a boolean if a field has been set.
+
+### GetDependencies
+
+`func (o *AIConfig) GetDependencies() []AIConfigDependency`
+
+GetDependencies returns the Dependencies field if non-nil, zero value otherwise.
+
+### GetDependenciesOk
+
+`func (o *AIConfig) GetDependenciesOk() (*[]AIConfigDependency, bool)`
+
+GetDependenciesOk returns a tuple with the Dependencies field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDependencies
+
+`func (o *AIConfig) SetDependencies(v []AIConfigDependency)`
+
+SetDependencies sets Dependencies field to given value.
+
+### HasDependencies
+
+`func (o *AIConfig) HasDependencies() bool`
+
+HasDependencies returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

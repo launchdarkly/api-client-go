@@ -13,6 +13,7 @@ package ldapi
 
 import (
 	"encoding/json"
+	"bytes"
 	"fmt"
 )
 
@@ -23,9 +24,12 @@ var _ MappedNullable = &ViewLinkRequestSegmentIdentifiers{}
 type ViewLinkRequestSegmentIdentifiers struct {
 	// Identifiers of the segments to link/unlink (environmentId and segmentKey)
 	SegmentIdentifiers []ViewLinkRequestSegmentIdentifier `json:"segmentIdentifiers"`
+	// Optional filter string to determine which resources should be linked. Resources only need to match either the filter or explicitly-listed keys to be linked (union). Uses the same queryfilter syntax as the segments list endpoint.  Supported filters for segments: query, tags, keys, excludedKeys, unbounded, external, view, type 
+	Filter *string `json:"filter,omitempty"`
+	// Required when using filter for segment resources. Specifies which environment to query for segments matching the filter. Ignored when only using explicit segmentIdentifiers (since each identifier contains its own environmentId). 
+	EnvironmentId *string `json:"environmentId,omitempty"`
 	// Optional comment for the link/unlink operation
 	Comment *string `json:"comment,omitempty"`
-	AdditionalProperties map[string]interface{}
 }
 
 type _ViewLinkRequestSegmentIdentifiers ViewLinkRequestSegmentIdentifiers
@@ -76,6 +80,70 @@ func (o *ViewLinkRequestSegmentIdentifiers) SetSegmentIdentifiers(v []ViewLinkRe
 	o.SegmentIdentifiers = v
 }
 
+// GetFilter returns the Filter field value if set, zero value otherwise.
+func (o *ViewLinkRequestSegmentIdentifiers) GetFilter() string {
+	if o == nil || IsNil(o.Filter) {
+		var ret string
+		return ret
+	}
+	return *o.Filter
+}
+
+// GetFilterOk returns a tuple with the Filter field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ViewLinkRequestSegmentIdentifiers) GetFilterOk() (*string, bool) {
+	if o == nil || IsNil(o.Filter) {
+		return nil, false
+	}
+	return o.Filter, true
+}
+
+// HasFilter returns a boolean if a field has been set.
+func (o *ViewLinkRequestSegmentIdentifiers) HasFilter() bool {
+	if o != nil && !IsNil(o.Filter) {
+		return true
+	}
+
+	return false
+}
+
+// SetFilter gets a reference to the given string and assigns it to the Filter field.
+func (o *ViewLinkRequestSegmentIdentifiers) SetFilter(v string) {
+	o.Filter = &v
+}
+
+// GetEnvironmentId returns the EnvironmentId field value if set, zero value otherwise.
+func (o *ViewLinkRequestSegmentIdentifiers) GetEnvironmentId() string {
+	if o == nil || IsNil(o.EnvironmentId) {
+		var ret string
+		return ret
+	}
+	return *o.EnvironmentId
+}
+
+// GetEnvironmentIdOk returns a tuple with the EnvironmentId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ViewLinkRequestSegmentIdentifiers) GetEnvironmentIdOk() (*string, bool) {
+	if o == nil || IsNil(o.EnvironmentId) {
+		return nil, false
+	}
+	return o.EnvironmentId, true
+}
+
+// HasEnvironmentId returns a boolean if a field has been set.
+func (o *ViewLinkRequestSegmentIdentifiers) HasEnvironmentId() bool {
+	if o != nil && !IsNil(o.EnvironmentId) {
+		return true
+	}
+
+	return false
+}
+
+// SetEnvironmentId gets a reference to the given string and assigns it to the EnvironmentId field.
+func (o *ViewLinkRequestSegmentIdentifiers) SetEnvironmentId(v string) {
+	o.EnvironmentId = &v
+}
+
 // GetComment returns the Comment field value if set, zero value otherwise.
 func (o *ViewLinkRequestSegmentIdentifiers) GetComment() string {
 	if o == nil || IsNil(o.Comment) {
@@ -119,14 +187,15 @@ func (o ViewLinkRequestSegmentIdentifiers) MarshalJSON() ([]byte, error) {
 func (o ViewLinkRequestSegmentIdentifiers) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["segmentIdentifiers"] = o.SegmentIdentifiers
+	if !IsNil(o.Filter) {
+		toSerialize["filter"] = o.Filter
+	}
+	if !IsNil(o.EnvironmentId) {
+		toSerialize["environmentId"] = o.EnvironmentId
+	}
 	if !IsNil(o.Comment) {
 		toSerialize["comment"] = o.Comment
 	}
-
-	for key, value := range o.AdditionalProperties {
-		toSerialize[key] = value
-	}
-
 	return toSerialize, nil
 }
 
@@ -154,21 +223,15 @@ func (o *ViewLinkRequestSegmentIdentifiers) UnmarshalJSON(data []byte) (err erro
 
 	varViewLinkRequestSegmentIdentifiers := _ViewLinkRequestSegmentIdentifiers{}
 
-	err = json.Unmarshal(data, &varViewLinkRequestSegmentIdentifiers)
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varViewLinkRequestSegmentIdentifiers)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ViewLinkRequestSegmentIdentifiers(varViewLinkRequestSegmentIdentifiers)
-
-	additionalProperties := make(map[string]interface{})
-
-	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "segmentIdentifiers")
-		delete(additionalProperties, "comment")
-		o.AdditionalProperties = additionalProperties
-	}
 
 	return err
 }

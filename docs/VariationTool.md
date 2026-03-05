@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Key** | **string** | The key of the tool to use. | 
 **Version** | **int32** | The version of the tool. | 
+**CustomParameters** | Pointer to **map[string]interface{}** | Custom metadata and configuration for application-level use | [optional] 
 
 ## Methods
 
@@ -65,6 +66,31 @@ and a boolean to check if the value has been set.
 
 SetVersion sets Version field to given value.
 
+
+### GetCustomParameters
+
+`func (o *VariationTool) GetCustomParameters() map[string]interface{}`
+
+GetCustomParameters returns the CustomParameters field if non-nil, zero value otherwise.
+
+### GetCustomParametersOk
+
+`func (o *VariationTool) GetCustomParametersOk() (*map[string]interface{}, bool)`
+
+GetCustomParametersOk returns a tuple with the CustomParameters field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCustomParameters
+
+`func (o *VariationTool) SetCustomParameters(v map[string]interface{})`
+
+SetCustomParameters sets CustomParameters field to given value.
+
+### HasCustomParameters
+
+`func (o *VariationTool) HasCustomParameters() bool`
+
+HasCustomParameters returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

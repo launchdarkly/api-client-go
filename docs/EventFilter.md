@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Type** | **string** | Filter type. One of [contextAttribute, eventProperty, group] | 
 **Attribute** | Pointer to **string** | If not a group node, the context attribute name or event property name to filter on | [optional] 
 **Op** | **string** |  | 
-**Values** | **[]interface{}** | The context attribute / event property values or group member nodes | 
+**Values** | **[]interface{}** | The context attribute / event property values or group member nodes. Numeric values must not exceed 14 decimal places. | 
 **ContextKind** | Pointer to **string** | For context attribute filters, the context kind. | [optional] 
 **Negate** | **bool** | If set, then take the inverse of the operator. &#39;in&#39; becomes &#39;not in&#39;. | 
 

@@ -6,8 +6,6 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **FlagCount** | **int32** |  | 
 **SegmentCount** | Pointer to **int32** |  | [optional] 
-**MetricCount** | Pointer to **int32** |  | [optional] 
-**AiConfigCount** | Pointer to **int32** |  | [optional] 
 **TotalCount** | **int32** |  | 
 
 ## Methods
@@ -73,56 +71,6 @@ SetSegmentCount sets SegmentCount field to given value.
 `func (o *ResourceSummary) HasSegmentCount() bool`
 
 HasSegmentCount returns a boolean if a field has been set.
-
-### GetMetricCount
-
-`func (o *ResourceSummary) GetMetricCount() int32`
-
-GetMetricCount returns the MetricCount field if non-nil, zero value otherwise.
-
-### GetMetricCountOk
-
-`func (o *ResourceSummary) GetMetricCountOk() (*int32, bool)`
-
-GetMetricCountOk returns a tuple with the MetricCount field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetMetricCount
-
-`func (o *ResourceSummary) SetMetricCount(v int32)`
-
-SetMetricCount sets MetricCount field to given value.
-
-### HasMetricCount
-
-`func (o *ResourceSummary) HasMetricCount() bool`
-
-HasMetricCount returns a boolean if a field has been set.
-
-### GetAiConfigCount
-
-`func (o *ResourceSummary) GetAiConfigCount() int32`
-
-GetAiConfigCount returns the AiConfigCount field if non-nil, zero value otherwise.
-
-### GetAiConfigCountOk
-
-`func (o *ResourceSummary) GetAiConfigCountOk() (*int32, bool)`
-
-GetAiConfigCountOk returns a tuple with the AiConfigCount field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetAiConfigCount
-
-`func (o *ResourceSummary) SetAiConfigCount(v int32)`
-
-SetAiConfigCount sets AiConfigCount field to given value.
-
-### HasAiConfigCount
-
-`func (o *ResourceSummary) HasAiConfigCount() bool`
-
-HasAiConfigCount returns a boolean if a field has been set.
 
 ### GetTotalCount
 

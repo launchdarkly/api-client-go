@@ -16,86 +16,86 @@ import (
 	"fmt"
 )
 
-// checks if the ExpandedLinkedResourcesAIConfigs type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &ExpandedLinkedResourcesAIConfigs{}
+// checks if the CountBucket type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CountBucket{}
 
-// ExpandedLinkedResourcesAIConfigs struct for ExpandedLinkedResourcesAIConfigs
-type ExpandedLinkedResourcesAIConfigs struct {
-	Items []ExpandedAIConfig `json:"items"`
-	TotalCount int32 `json:"totalCount"`
+// CountBucket struct for CountBucket
+type CountBucket struct {
+	Timestamp int64 `json:"timestamp"`
+	Count int64 `json:"count"`
 	AdditionalProperties map[string]interface{}
 }
 
-type _ExpandedLinkedResourcesAIConfigs ExpandedLinkedResourcesAIConfigs
+type _CountBucket CountBucket
 
-// NewExpandedLinkedResourcesAIConfigs instantiates a new ExpandedLinkedResourcesAIConfigs object
+// NewCountBucket instantiates a new CountBucket object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewExpandedLinkedResourcesAIConfigs(items []ExpandedAIConfig, totalCount int32) *ExpandedLinkedResourcesAIConfigs {
-	this := ExpandedLinkedResourcesAIConfigs{}
-	this.Items = items
-	this.TotalCount = totalCount
+func NewCountBucket(timestamp int64, count int64) *CountBucket {
+	this := CountBucket{}
+	this.Timestamp = timestamp
+	this.Count = count
 	return &this
 }
 
-// NewExpandedLinkedResourcesAIConfigsWithDefaults instantiates a new ExpandedLinkedResourcesAIConfigs object
+// NewCountBucketWithDefaults instantiates a new CountBucket object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewExpandedLinkedResourcesAIConfigsWithDefaults() *ExpandedLinkedResourcesAIConfigs {
-	this := ExpandedLinkedResourcesAIConfigs{}
+func NewCountBucketWithDefaults() *CountBucket {
+	this := CountBucket{}
 	return &this
 }
 
-// GetItems returns the Items field value
-func (o *ExpandedLinkedResourcesAIConfigs) GetItems() []ExpandedAIConfig {
+// GetTimestamp returns the Timestamp field value
+func (o *CountBucket) GetTimestamp() int64 {
 	if o == nil {
-		var ret []ExpandedAIConfig
+		var ret int64
 		return ret
 	}
 
-	return o.Items
+	return o.Timestamp
 }
 
-// GetItemsOk returns a tuple with the Items field value
+// GetTimestampOk returns a tuple with the Timestamp field value
 // and a boolean to check if the value has been set.
-func (o *ExpandedLinkedResourcesAIConfigs) GetItemsOk() ([]ExpandedAIConfig, bool) {
+func (o *CountBucket) GetTimestampOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.Items, true
+	return &o.Timestamp, true
 }
 
-// SetItems sets field value
-func (o *ExpandedLinkedResourcesAIConfigs) SetItems(v []ExpandedAIConfig) {
-	o.Items = v
+// SetTimestamp sets field value
+func (o *CountBucket) SetTimestamp(v int64) {
+	o.Timestamp = v
 }
 
-// GetTotalCount returns the TotalCount field value
-func (o *ExpandedLinkedResourcesAIConfigs) GetTotalCount() int32 {
+// GetCount returns the Count field value
+func (o *CountBucket) GetCount() int64 {
 	if o == nil {
-		var ret int32
+		var ret int64
 		return ret
 	}
 
-	return o.TotalCount
+	return o.Count
 }
 
-// GetTotalCountOk returns a tuple with the TotalCount field value
+// GetCountOk returns a tuple with the Count field value
 // and a boolean to check if the value has been set.
-func (o *ExpandedLinkedResourcesAIConfigs) GetTotalCountOk() (*int32, bool) {
+func (o *CountBucket) GetCountOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.TotalCount, true
+	return &o.Count, true
 }
 
-// SetTotalCount sets field value
-func (o *ExpandedLinkedResourcesAIConfigs) SetTotalCount(v int32) {
-	o.TotalCount = v
+// SetCount sets field value
+func (o *CountBucket) SetCount(v int64) {
+	o.Count = v
 }
 
-func (o ExpandedLinkedResourcesAIConfigs) MarshalJSON() ([]byte, error) {
+func (o CountBucket) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -103,10 +103,10 @@ func (o ExpandedLinkedResourcesAIConfigs) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o ExpandedLinkedResourcesAIConfigs) ToMap() (map[string]interface{}, error) {
+func (o CountBucket) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["items"] = o.Items
-	toSerialize["totalCount"] = o.TotalCount
+	toSerialize["timestamp"] = o.Timestamp
+	toSerialize["count"] = o.Count
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -115,13 +115,13 @@ func (o ExpandedLinkedResourcesAIConfigs) ToMap() (map[string]interface{}, error
 	return toSerialize, nil
 }
 
-func (o *ExpandedLinkedResourcesAIConfigs) UnmarshalJSON(data []byte) (err error) {
+func (o *CountBucket) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"items",
-		"totalCount",
+		"timestamp",
+		"count",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -138,59 +138,59 @@ func (o *ExpandedLinkedResourcesAIConfigs) UnmarshalJSON(data []byte) (err error
 		}
 	}
 
-	varExpandedLinkedResourcesAIConfigs := _ExpandedLinkedResourcesAIConfigs{}
+	varCountBucket := _CountBucket{}
 
-	err = json.Unmarshal(data, &varExpandedLinkedResourcesAIConfigs)
+	err = json.Unmarshal(data, &varCountBucket)
 
 	if err != nil {
 		return err
 	}
 
-	*o = ExpandedLinkedResourcesAIConfigs(varExpandedLinkedResourcesAIConfigs)
+	*o = CountBucket(varCountBucket)
 
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "items")
-		delete(additionalProperties, "totalCount")
+		delete(additionalProperties, "timestamp")
+		delete(additionalProperties, "count")
 		o.AdditionalProperties = additionalProperties
 	}
 
 	return err
 }
 
-type NullableExpandedLinkedResourcesAIConfigs struct {
-	value *ExpandedLinkedResourcesAIConfigs
+type NullableCountBucket struct {
+	value *CountBucket
 	isSet bool
 }
 
-func (v NullableExpandedLinkedResourcesAIConfigs) Get() *ExpandedLinkedResourcesAIConfigs {
+func (v NullableCountBucket) Get() *CountBucket {
 	return v.value
 }
 
-func (v *NullableExpandedLinkedResourcesAIConfigs) Set(val *ExpandedLinkedResourcesAIConfigs) {
+func (v *NullableCountBucket) Set(val *CountBucket) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableExpandedLinkedResourcesAIConfigs) IsSet() bool {
+func (v NullableCountBucket) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableExpandedLinkedResourcesAIConfigs) Unset() {
+func (v *NullableCountBucket) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableExpandedLinkedResourcesAIConfigs(val *ExpandedLinkedResourcesAIConfigs) *NullableExpandedLinkedResourcesAIConfigs {
-	return &NullableExpandedLinkedResourcesAIConfigs{value: val, isSet: true}
+func NewNullableCountBucket(val *CountBucket) *NullableCountBucket {
+	return &NullableCountBucket{value: val, isSet: true}
 }
 
-func (v NullableExpandedLinkedResourcesAIConfigs) MarshalJSON() ([]byte, error) {
+func (v NullableCountBucket) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableExpandedLinkedResourcesAIConfigs) UnmarshalJSON(src []byte) error {
+func (v *NullableCountBucket) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

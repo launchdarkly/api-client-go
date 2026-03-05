@@ -27,6 +27,10 @@ type AgentGraphPost struct {
 	Name string `json:"name"`
 	// A description of the agent graph
 	Description *string `json:"description,omitempty"`
+	// The ID of the member who maintains this agent graph
+	MaintainerId *string `json:"maintainerId,omitempty"`
+	// The key of the team that maintains this agent graph
+	MaintainerTeamKey *string `json:"maintainerTeamKey,omitempty"`
 	// The AI Config key of the root node. A missing root implies a newly created graph with metadata only.
 	RootConfigKey *string `json:"rootConfigKey,omitempty"`
 	// The edges in the graph. If edges or rootConfigKey is present, both must be present.
@@ -135,6 +139,70 @@ func (o *AgentGraphPost) SetDescription(v string) {
 	o.Description = &v
 }
 
+// GetMaintainerId returns the MaintainerId field value if set, zero value otherwise.
+func (o *AgentGraphPost) GetMaintainerId() string {
+	if o == nil || IsNil(o.MaintainerId) {
+		var ret string
+		return ret
+	}
+	return *o.MaintainerId
+}
+
+// GetMaintainerIdOk returns a tuple with the MaintainerId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AgentGraphPost) GetMaintainerIdOk() (*string, bool) {
+	if o == nil || IsNil(o.MaintainerId) {
+		return nil, false
+	}
+	return o.MaintainerId, true
+}
+
+// HasMaintainerId returns a boolean if a field has been set.
+func (o *AgentGraphPost) HasMaintainerId() bool {
+	if o != nil && !IsNil(o.MaintainerId) {
+		return true
+	}
+
+	return false
+}
+
+// SetMaintainerId gets a reference to the given string and assigns it to the MaintainerId field.
+func (o *AgentGraphPost) SetMaintainerId(v string) {
+	o.MaintainerId = &v
+}
+
+// GetMaintainerTeamKey returns the MaintainerTeamKey field value if set, zero value otherwise.
+func (o *AgentGraphPost) GetMaintainerTeamKey() string {
+	if o == nil || IsNil(o.MaintainerTeamKey) {
+		var ret string
+		return ret
+	}
+	return *o.MaintainerTeamKey
+}
+
+// GetMaintainerTeamKeyOk returns a tuple with the MaintainerTeamKey field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AgentGraphPost) GetMaintainerTeamKeyOk() (*string, bool) {
+	if o == nil || IsNil(o.MaintainerTeamKey) {
+		return nil, false
+	}
+	return o.MaintainerTeamKey, true
+}
+
+// HasMaintainerTeamKey returns a boolean if a field has been set.
+func (o *AgentGraphPost) HasMaintainerTeamKey() bool {
+	if o != nil && !IsNil(o.MaintainerTeamKey) {
+		return true
+	}
+
+	return false
+}
+
+// SetMaintainerTeamKey gets a reference to the given string and assigns it to the MaintainerTeamKey field.
+func (o *AgentGraphPost) SetMaintainerTeamKey(v string) {
+	o.MaintainerTeamKey = &v
+}
+
 // GetRootConfigKey returns the RootConfigKey field value if set, zero value otherwise.
 func (o *AgentGraphPost) GetRootConfigKey() string {
 	if o == nil || IsNil(o.RootConfigKey) {
@@ -214,6 +282,12 @@ func (o AgentGraphPost) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
+	if !IsNil(o.MaintainerId) {
+		toSerialize["maintainerId"] = o.MaintainerId
+	}
+	if !IsNil(o.MaintainerTeamKey) {
+		toSerialize["maintainerTeamKey"] = o.MaintainerTeamKey
+	}
 	if !IsNil(o.RootConfigKey) {
 		toSerialize["rootConfigKey"] = o.RootConfigKey
 	}
@@ -267,6 +341,8 @@ func (o *AgentGraphPost) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "key")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "description")
+		delete(additionalProperties, "maintainerId")
+		delete(additionalProperties, "maintainerTeamKey")
 		delete(additionalProperties, "rootConfigKey")
 		delete(additionalProperties, "edges")
 		o.AdditionalProperties = additionalProperties

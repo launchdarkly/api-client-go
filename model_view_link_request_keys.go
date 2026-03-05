@@ -13,6 +13,7 @@ package ldapi
 
 import (
 	"encoding/json"
+	"bytes"
 	"fmt"
 )
 
@@ -21,11 +22,12 @@ var _ MappedNullable = &ViewLinkRequestKeys{}
 
 // ViewLinkRequestKeys struct for ViewLinkRequestKeys
 type ViewLinkRequestKeys struct {
-	// Keys of the resources (flags, segments, AI configs) to link/unlink
+	// Keys of the resources (flags, segments) to link/unlink
 	Keys []string `json:"keys"`
+	// Optional filter string to determine which resources should be linked. Resources only need to match either the filter or explicitly-listed keys to be linked (union). Uses the same syntax as list endpoints: flags use comma-separated field:value filters, segments use queryfilter syntax.  Supported filters by resource type: - flags: query, tags, maintainerId, maintainerTeamKey, type, status, state, staleState, sdkAvailability, targeting, hasExperiment, hasDataExport, evaluated, creationDate, contextKindTargeted, contextKindsEvaluated, filterEnv, segmentTargeted, codeReferences.min, codeReferences.max, excludeSettings, releasePipeline, applicationEvaluated, purpose, guardedRollout, view, key, name, archived, followerId - segments (queryfilter): query, tags, keys, excludedKeys, unbounded, external, view, type Some filters are only available when the corresponding feature is enabled on your account. 
+	Filter *string `json:"filter,omitempty"`
 	// Optional comment for the link/unlink operation
 	Comment *string `json:"comment,omitempty"`
-	AdditionalProperties map[string]interface{}
 }
 
 type _ViewLinkRequestKeys ViewLinkRequestKeys
@@ -76,6 +78,38 @@ func (o *ViewLinkRequestKeys) SetKeys(v []string) {
 	o.Keys = v
 }
 
+// GetFilter returns the Filter field value if set, zero value otherwise.
+func (o *ViewLinkRequestKeys) GetFilter() string {
+	if o == nil || IsNil(o.Filter) {
+		var ret string
+		return ret
+	}
+	return *o.Filter
+}
+
+// GetFilterOk returns a tuple with the Filter field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ViewLinkRequestKeys) GetFilterOk() (*string, bool) {
+	if o == nil || IsNil(o.Filter) {
+		return nil, false
+	}
+	return o.Filter, true
+}
+
+// HasFilter returns a boolean if a field has been set.
+func (o *ViewLinkRequestKeys) HasFilter() bool {
+	if o != nil && !IsNil(o.Filter) {
+		return true
+	}
+
+	return false
+}
+
+// SetFilter gets a reference to the given string and assigns it to the Filter field.
+func (o *ViewLinkRequestKeys) SetFilter(v string) {
+	o.Filter = &v
+}
+
 // GetComment returns the Comment field value if set, zero value otherwise.
 func (o *ViewLinkRequestKeys) GetComment() string {
 	if o == nil || IsNil(o.Comment) {
@@ -119,14 +153,12 @@ func (o ViewLinkRequestKeys) MarshalJSON() ([]byte, error) {
 func (o ViewLinkRequestKeys) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["keys"] = o.Keys
+	if !IsNil(o.Filter) {
+		toSerialize["filter"] = o.Filter
+	}
 	if !IsNil(o.Comment) {
 		toSerialize["comment"] = o.Comment
 	}
-
-	for key, value := range o.AdditionalProperties {
-		toSerialize[key] = value
-	}
-
 	return toSerialize, nil
 }
 
@@ -154,21 +186,15 @@ func (o *ViewLinkRequestKeys) UnmarshalJSON(data []byte) (err error) {
 
 	varViewLinkRequestKeys := _ViewLinkRequestKeys{}
 
-	err = json.Unmarshal(data, &varViewLinkRequestKeys)
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varViewLinkRequestKeys)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ViewLinkRequestKeys(varViewLinkRequestKeys)
-
-	additionalProperties := make(map[string]interface{})
-
-	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "keys")
-		delete(additionalProperties, "comment")
-		o.AdditionalProperties = additionalProperties
-	}
 
 	return err
 }

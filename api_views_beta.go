@@ -74,7 +74,7 @@ type ViewsBetaApi interface {
 	/*
 	GetLinkedViews Get linked views for a given resource
 
-	Get a list of all linked views for a resource. Flags, AI configs and metrics are identified by key. Segments are identified by segment ID.
+	Get a list of all linked views for a resource. Flags are identified by key. Segments are identified by segment ID.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectKey
@@ -122,11 +122,11 @@ type ViewsBetaApi interface {
 	/*
 	LinkResource Link resource
 
-	Link one or multiple resources to a view:
-- Link flags using flag keys
-- Link AI configs using AI config keys
-- Link metrics using metric keys
-- Link segments using segment IDs
+	Link one or multiple resources to a view by keys, filters, or both:
+- Link flags using flag keys or filters (maintainerId, maintainerTeamKey, tags, state, query)
+- Link segments using segment IDs or filters (tags, query, unbounded)
+
+When both keys and filters are provided, resources matching either condition are linked (union).
 
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -147,8 +147,6 @@ type ViewsBetaApi interface {
 	Unlink one or multiple resources from a view:
 - Unlink flags using flag keys
 - Unlink segments using segment IDs
-- Unlink AI configs using AI config keys
-- Unlink metrics using metric keys
 
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -540,6 +538,9 @@ type ApiGetLinkedResourcesRequest struct {
 	limit *int32
 	offset *int32
 	sort *string
+	query *string
+	filter *string
+	expand *[]string
 }
 
 // Version of the endpoint.
@@ -563,6 +564,24 @@ func (r ApiGetLinkedResourcesRequest) Offset(offset int32) ApiGetLinkedResources
 // Field to sort by. Default field is &#x60;linkedAt&#x60;, default order is ascending.
 func (r ApiGetLinkedResourcesRequest) Sort(sort string) ApiGetLinkedResourcesRequest {
 	r.sort = &sort
+	return r
+}
+
+// Case-insensitive search query for linked resources. Matches resource key and, when expanded, resource name.
+func (r ApiGetLinkedResourcesRequest) Query(query string) ApiGetLinkedResourcesRequest {
+	r.query = &query
+	return r
+}
+
+// Optional resource filter expression for linked resources. - Supported for &#x60;flags&#x60; and &#x60;segments&#x60; resource types. - Uses the same syntax as link/unlink and list endpoints. - For &#x60;segments&#x60;, &#x60;environmentId&#x60; is required when &#x60;filter&#x60; is provided. 
+func (r ApiGetLinkedResourcesRequest) Filter(filter string) ApiGetLinkedResourcesRequest {
+	r.filter = &filter
+	return r
+}
+
+// A comma-separated list of fields to expand.
+func (r ApiGetLinkedResourcesRequest) Expand(expand []string) ApiGetLinkedResourcesRequest {
+	r.expand = &expand
 	return r
 }
 
@@ -630,6 +649,15 @@ func (a *ViewsBetaApiService) GetLinkedResourcesExecute(r ApiGetLinkedResourcesR
         var defaultValue string = "linkedAt"
         parameterAddToHeaderOrQuery(localVarQueryParams, "sort", defaultValue, "form", "")
         r.sort = &defaultValue
+	}
+	if r.query != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "query", r.query, "form", "")
+	}
+	if r.filter != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "filter", r.filter, "form", "")
+	}
+	if r.expand != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "expand", r.expand, "form", "csv")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -786,7 +814,7 @@ func (r ApiGetLinkedViewsRequest) Execute() (*Views, *http.Response, error) {
 /*
 GetLinkedViews Get linked views for a given resource
 
-Get a list of all linked views for a resource. Flags, AI configs and metrics are identified by key. Segments are identified by segment ID.
+Get a list of all linked views for a resource. Flags are identified by key. Segments are identified by segment ID.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param projectKey
@@ -989,7 +1017,7 @@ func (r ApiGetViewRequest) Offset(offset int32) ApiGetViewRequest {
 	return r
 }
 
-// A filter to apply to the list of views.
+// A filter to apply to the list of views. Supports the following fields and operators: &#x60;name&#x60; (equals, notEquals, startsWith, contains, anyOf), &#x60;key&#x60; (equals, notEquals, startsWith, contains, anyOf), &#x60;tag&#x60; (equals, anyOf), &#x60;maintainerId&#x60; (equals, anyOf), &#x60;isPayloadView&#x60; (equals).
 func (r ApiGetViewRequest) Filter(filter string) ApiGetViewRequest {
 	r.filter = &filter
 	return r
@@ -1221,7 +1249,7 @@ func (r ApiGetViewsRequest) Offset(offset int32) ApiGetViewsRequest {
 	return r
 }
 
-// A filter to apply to the list of views.
+// A filter to apply to the list of views. Supports the following fields and operators: &#x60;name&#x60; (equals, notEquals, startsWith, contains, anyOf), &#x60;key&#x60; (equals, notEquals, startsWith, contains, anyOf), &#x60;tag&#x60; (equals, anyOf), &#x60;maintainerId&#x60; (equals, anyOf), &#x60;isPayloadView&#x60; (equals).
 func (r ApiGetViewsRequest) Filter(filter string) ApiGetViewsRequest {
 	r.filter = &filter
 	return r
@@ -1422,7 +1450,7 @@ func (r ApiLinkResourceRequest) LDAPIVersion(lDAPIVersion string) ApiLinkResourc
 	return r
 }
 
-// The resource to link to the view. Flags are identified by key. Segments are identified by segment ID.
+// Resources to link to the view. You can provide explicit keys/IDs, filters, or both. - Flags: identified by key or filtered by maintainerId, maintainerTeamKey, tags, state, query - Segments: identified by segment ID or filtered by tags, query, unbounded 
 func (r ApiLinkResourceRequest) ViewLinkRequest(viewLinkRequest ViewLinkRequest) ApiLinkResourceRequest {
 	r.viewLinkRequest = &viewLinkRequest
 	return r
@@ -1435,11 +1463,11 @@ func (r ApiLinkResourceRequest) Execute() (*LinkResourceSuccessResponse, *http.R
 /*
 LinkResource Link resource
 
-Link one or multiple resources to a view:
-- Link flags using flag keys
-- Link AI configs using AI config keys
-- Link metrics using metric keys
-- Link segments using segment IDs
+Link one or multiple resources to a view by keys, filters, or both:
+- Link flags using flag keys or filters (maintainerId, maintainerTeamKey, tags, state, query)
+- Link segments using segment IDs or filters (tags, query, unbounded)
+
+When both keys and filters are provided, resources matching either condition are linked (union).
 
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -1634,8 +1662,6 @@ UnlinkResource Unlink resource
 Unlink one or multiple resources from a view:
 - Unlink flags using flag keys
 - Unlink segments using segment IDs
-- Unlink AI configs using AI config keys
-- Unlink metrics using metric keys
 
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().

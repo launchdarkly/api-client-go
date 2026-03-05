@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **Tags** | Pointer to **[]string** | Tags for the flag | [optional] 
 **Temporary** | Pointer to **bool** | Whether the flag is temporary | [optional] 
 **IncludeInSnippet** | Pointer to **bool** | Whether to include in snippet | [optional] 
+**Maintainer** | Pointer to [**ExpandedFlagMaintainer**](ExpandedFlagMaintainer.md) |  | [optional] 
 **Links** | Pointer to [**ParentAndSelfLinks**](ParentAndSelfLinks.md) |  | [optional] 
 
 ## Methods
@@ -248,6 +249,31 @@ SetIncludeInSnippet sets IncludeInSnippet field to given value.
 `func (o *ExpandedFlag) HasIncludeInSnippet() bool`
 
 HasIncludeInSnippet returns a boolean if a field has been set.
+
+### GetMaintainer
+
+`func (o *ExpandedFlag) GetMaintainer() ExpandedFlagMaintainer`
+
+GetMaintainer returns the Maintainer field if non-nil, zero value otherwise.
+
+### GetMaintainerOk
+
+`func (o *ExpandedFlag) GetMaintainerOk() (*ExpandedFlagMaintainer, bool)`
+
+GetMaintainerOk returns a tuple with the Maintainer field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMaintainer
+
+`func (o *ExpandedFlag) SetMaintainer(v ExpandedFlagMaintainer)`
+
+SetMaintainer sets Maintainer field to given value.
+
+### HasMaintainer
+
+`func (o *ExpandedFlag) HasMaintainer() bool`
+
+HasMaintainer returns a boolean if a field has been set.
 
 ### GetLinks
 

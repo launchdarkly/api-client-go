@@ -30,7 +30,7 @@ type ExpandedFlag struct {
 	// Creation date in milliseconds
 	CreationDate *int64 `json:"creationDate,omitempty"`
 	// Version of the flag
-	Version *int32 `json:"version,omitempty"`
+	Version *int32 `json:"_version,omitempty"`
 	// Whether the flag is archived
 	Archived *bool `json:"archived,omitempty"`
 	// Tags for the flag
@@ -39,6 +39,7 @@ type ExpandedFlag struct {
 	Temporary *bool `json:"temporary,omitempty"`
 	// Whether to include in snippet
 	IncludeInSnippet *bool `json:"includeInSnippet,omitempty"`
+	Maintainer *ExpandedFlagMaintainer `json:"maintainer,omitempty"`
 	Links *ParentAndSelfLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -336,6 +337,38 @@ func (o *ExpandedFlag) SetIncludeInSnippet(v bool) {
 	o.IncludeInSnippet = &v
 }
 
+// GetMaintainer returns the Maintainer field value if set, zero value otherwise.
+func (o *ExpandedFlag) GetMaintainer() ExpandedFlagMaintainer {
+	if o == nil || IsNil(o.Maintainer) {
+		var ret ExpandedFlagMaintainer
+		return ret
+	}
+	return *o.Maintainer
+}
+
+// GetMaintainerOk returns a tuple with the Maintainer field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ExpandedFlag) GetMaintainerOk() (*ExpandedFlagMaintainer, bool) {
+	if o == nil || IsNil(o.Maintainer) {
+		return nil, false
+	}
+	return o.Maintainer, true
+}
+
+// HasMaintainer returns a boolean if a field has been set.
+func (o *ExpandedFlag) HasMaintainer() bool {
+	if o != nil && !IsNil(o.Maintainer) {
+		return true
+	}
+
+	return false
+}
+
+// SetMaintainer gets a reference to the given ExpandedFlagMaintainer and assigns it to the Maintainer field.
+func (o *ExpandedFlag) SetMaintainer(v ExpandedFlagMaintainer) {
+	o.Maintainer = &v
+}
+
 // GetLinks returns the Links field value if set, zero value otherwise.
 func (o *ExpandedFlag) GetLinks() ParentAndSelfLinks {
 	if o == nil || IsNil(o.Links) {
@@ -387,7 +420,7 @@ func (o ExpandedFlag) ToMap() (map[string]interface{}, error) {
 		toSerialize["creationDate"] = o.CreationDate
 	}
 	if !IsNil(o.Version) {
-		toSerialize["version"] = o.Version
+		toSerialize["_version"] = o.Version
 	}
 	if !IsNil(o.Archived) {
 		toSerialize["archived"] = o.Archived
@@ -400,6 +433,9 @@ func (o ExpandedFlag) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.IncludeInSnippet) {
 		toSerialize["includeInSnippet"] = o.IncludeInSnippet
+	}
+	if !IsNil(o.Maintainer) {
+		toSerialize["maintainer"] = o.Maintainer
 	}
 	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
@@ -452,11 +488,12 @@ func (o *ExpandedFlag) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "creationDate")
-		delete(additionalProperties, "version")
+		delete(additionalProperties, "_version")
 		delete(additionalProperties, "archived")
 		delete(additionalProperties, "tags")
 		delete(additionalProperties, "temporary")
 		delete(additionalProperties, "includeInSnippet")
+		delete(additionalProperties, "maintainer")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
 	}

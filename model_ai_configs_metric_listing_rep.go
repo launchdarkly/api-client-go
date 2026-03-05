@@ -27,6 +27,8 @@ type AiConfigsMetricListingRep struct {
 	MetricGroupCount *int32 `json:"metricGroupCount,omitempty"`
 	// The number of guarded rollouts using this metric
 	GuardedRolloutCount *int32 `json:"guardedRolloutCount,omitempty"`
+	// The number of release policies using this metric
+	ReleasePolicyCount *int32 `json:"releasePolicyCount,omitempty"`
 	// The number of active experiments using this metric
 	ActiveExperimentCount *int32 `json:"activeExperimentCount,omitempty"`
 	// The number of active guarded rollouts using this metric
@@ -79,6 +81,7 @@ type AiConfigsMetricListingRep struct {
 	PercentileValue *int32 `json:"percentileValue,omitempty"`
 	EventDefault *AiConfigsMetricEventDefaultRep `json:"eventDefault,omitempty"`
 	DataSource AiConfigsMetricDataSourceRefRep `json:"dataSource"`
+	LastSeen *int64 `json:"lastSeen,omitempty"`
 	// Whether the metric version is archived
 	Archived *bool `json:"archived,omitempty"`
 	ArchivedAt *int64 `json:"archivedAt,omitempty"`
@@ -210,6 +213,38 @@ func (o *AiConfigsMetricListingRep) HasGuardedRolloutCount() bool {
 // SetGuardedRolloutCount gets a reference to the given int32 and assigns it to the GuardedRolloutCount field.
 func (o *AiConfigsMetricListingRep) SetGuardedRolloutCount(v int32) {
 	o.GuardedRolloutCount = &v
+}
+
+// GetReleasePolicyCount returns the ReleasePolicyCount field value if set, zero value otherwise.
+func (o *AiConfigsMetricListingRep) GetReleasePolicyCount() int32 {
+	if o == nil || IsNil(o.ReleasePolicyCount) {
+		var ret int32
+		return ret
+	}
+	return *o.ReleasePolicyCount
+}
+
+// GetReleasePolicyCountOk returns a tuple with the ReleasePolicyCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AiConfigsMetricListingRep) GetReleasePolicyCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.ReleasePolicyCount) {
+		return nil, false
+	}
+	return o.ReleasePolicyCount, true
+}
+
+// HasReleasePolicyCount returns a boolean if a field has been set.
+func (o *AiConfigsMetricListingRep) HasReleasePolicyCount() bool {
+	if o != nil && !IsNil(o.ReleasePolicyCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetReleasePolicyCount gets a reference to the given int32 and assigns it to the ReleasePolicyCount field.
+func (o *AiConfigsMetricListingRep) SetReleasePolicyCount(v int32) {
+	o.ReleasePolicyCount = &v
 }
 
 // GetActiveExperimentCount returns the ActiveExperimentCount field value if set, zero value otherwise.
@@ -1100,6 +1135,38 @@ func (o *AiConfigsMetricListingRep) SetDataSource(v AiConfigsMetricDataSourceRef
 	o.DataSource = v
 }
 
+// GetLastSeen returns the LastSeen field value if set, zero value otherwise.
+func (o *AiConfigsMetricListingRep) GetLastSeen() int64 {
+	if o == nil || IsNil(o.LastSeen) {
+		var ret int64
+		return ret
+	}
+	return *o.LastSeen
+}
+
+// GetLastSeenOk returns a tuple with the LastSeen field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AiConfigsMetricListingRep) GetLastSeenOk() (*int64, bool) {
+	if o == nil || IsNil(o.LastSeen) {
+		return nil, false
+	}
+	return o.LastSeen, true
+}
+
+// HasLastSeen returns a boolean if a field has been set.
+func (o *AiConfigsMetricListingRep) HasLastSeen() bool {
+	if o != nil && !IsNil(o.LastSeen) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastSeen gets a reference to the given int64 and assigns it to the LastSeen field.
+func (o *AiConfigsMetricListingRep) SetLastSeen(v int64) {
+	o.LastSeen = &v
+}
+
 // GetArchived returns the Archived field value if set, zero value otherwise.
 func (o *AiConfigsMetricListingRep) GetArchived() bool {
 	if o == nil || IsNil(o.Archived) {
@@ -1247,6 +1314,9 @@ func (o AiConfigsMetricListingRep) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.GuardedRolloutCount) {
 		toSerialize["guardedRolloutCount"] = o.GuardedRolloutCount
 	}
+	if !IsNil(o.ReleasePolicyCount) {
+		toSerialize["releasePolicyCount"] = o.ReleasePolicyCount
+	}
 	if !IsNil(o.ActiveExperimentCount) {
 		toSerialize["activeExperimentCount"] = o.ActiveExperimentCount
 	}
@@ -1319,6 +1389,9 @@ func (o AiConfigsMetricListingRep) ToMap() (map[string]interface{}, error) {
 		toSerialize["eventDefault"] = o.EventDefault
 	}
 	toSerialize["dataSource"] = o.DataSource
+	if !IsNil(o.LastSeen) {
+		toSerialize["lastSeen"] = o.LastSeen
+	}
 	if !IsNil(o.Archived) {
 		toSerialize["archived"] = o.Archived
 	}
@@ -1385,6 +1458,7 @@ func (o *AiConfigsMetricListingRep) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "experimentCount")
 		delete(additionalProperties, "metricGroupCount")
 		delete(additionalProperties, "guardedRolloutCount")
+		delete(additionalProperties, "releasePolicyCount")
 		delete(additionalProperties, "activeExperimentCount")
 		delete(additionalProperties, "activeGuardedRolloutCount")
 		delete(additionalProperties, "_id")
@@ -1415,6 +1489,7 @@ func (o *AiConfigsMetricListingRep) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "percentileValue")
 		delete(additionalProperties, "eventDefault")
 		delete(additionalProperties, "dataSource")
+		delete(additionalProperties, "lastSeen")
 		delete(additionalProperties, "archived")
 		delete(additionalProperties, "archivedAt")
 		delete(additionalProperties, "selector")

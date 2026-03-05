@@ -25,6 +25,8 @@ type VariationTool struct {
 	Key string `json:"key"`
 	// The version of the tool.
 	Version int32 `json:"version"`
+	// Custom metadata and configuration for application-level use
+	CustomParameters map[string]interface{} `json:"customParameters,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -97,6 +99,38 @@ func (o *VariationTool) SetVersion(v int32) {
 	o.Version = v
 }
 
+// GetCustomParameters returns the CustomParameters field value if set, zero value otherwise.
+func (o *VariationTool) GetCustomParameters() map[string]interface{} {
+	if o == nil || IsNil(o.CustomParameters) {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.CustomParameters
+}
+
+// GetCustomParametersOk returns a tuple with the CustomParameters field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *VariationTool) GetCustomParametersOk() (map[string]interface{}, bool) {
+	if o == nil || IsNil(o.CustomParameters) {
+		return map[string]interface{}{}, false
+	}
+	return o.CustomParameters, true
+}
+
+// HasCustomParameters returns a boolean if a field has been set.
+func (o *VariationTool) HasCustomParameters() bool {
+	if o != nil && !IsNil(o.CustomParameters) {
+		return true
+	}
+
+	return false
+}
+
+// SetCustomParameters gets a reference to the given map[string]interface{} and assigns it to the CustomParameters field.
+func (o *VariationTool) SetCustomParameters(v map[string]interface{}) {
+	o.CustomParameters = v
+}
+
 func (o VariationTool) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -109,6 +143,9 @@ func (o VariationTool) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["key"] = o.Key
 	toSerialize["version"] = o.Version
+	if !IsNil(o.CustomParameters) {
+		toSerialize["customParameters"] = o.CustomParameters
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -155,6 +192,7 @@ func (o *VariationTool) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "key")
 		delete(additionalProperties, "version")
+		delete(additionalProperties, "customParameters")
 		o.AdditionalProperties = additionalProperties
 	}
 

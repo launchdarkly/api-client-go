@@ -36,6 +36,7 @@ Name | Type | Description | Notes
 **PercentileValue** | Pointer to **int32** | The percentile for the analysis method. An integer denoting the target percentile between 0 and 100. Required when &lt;code&gt;analysisType&lt;/code&gt; is &lt;code&gt;percentile&lt;/code&gt;. | [optional] 
 **EventDefault** | Pointer to [**MetricEventDefaultRep**](MetricEventDefaultRep.md) |  | [optional] 
 **DataSource** | [**MetricDataSourceRefRep**](MetricDataSourceRefRep.md) |  | 
+**LastSeen** | Pointer to **int64** |  | [optional] 
 **Archived** | Pointer to **bool** | Whether the metric version is archived | [optional] 
 **ArchivedAt** | Pointer to **int64** |  | [optional] 
 **Selector** | Pointer to **string** | For click metrics, the CSS selectors | [optional] 
@@ -814,6 +815,31 @@ and a boolean to check if the value has been set.
 
 SetDataSource sets DataSource field to given value.
 
+
+### GetLastSeen
+
+`func (o *MetricListingRep) GetLastSeen() int64`
+
+GetLastSeen returns the LastSeen field if non-nil, zero value otherwise.
+
+### GetLastSeenOk
+
+`func (o *MetricListingRep) GetLastSeenOk() (*int64, bool)`
+
+GetLastSeenOk returns a tuple with the LastSeen field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLastSeen
+
+`func (o *MetricListingRep) SetLastSeen(v int64)`
+
+SetLastSeen sets LastSeen field to given value.
+
+### HasLastSeen
+
+`func (o *MetricListingRep) HasLastSeen() bool`
+
+HasLastSeen returns a boolean if a field has been set.
 
 ### GetArchived
 
