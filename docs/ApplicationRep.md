@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** | The application description | [optional] 
 **Key** | **string** | The unique identifier of this application | 
 **Kind** | **string** | To distinguish the kind of application | 
-**Maintainer** | Pointer to [**MaintainerRep**](MaintainerRep.md) |  | [optional] 
+**Maintainer** | Pointer to [**ApplicationMaintainerRep**](ApplicationMaintainerRep.md) |  | [optional] 
 **Name** | **string** | The name of the application | 
 
 ## Methods
@@ -247,20 +247,20 @@ SetKind sets Kind field to given value.
 
 ### GetMaintainer
 
-`func (o *ApplicationRep) GetMaintainer() MaintainerRep`
+`func (o *ApplicationRep) GetMaintainer() ApplicationMaintainerRep`
 
 GetMaintainer returns the Maintainer field if non-nil, zero value otherwise.
 
 ### GetMaintainerOk
 
-`func (o *ApplicationRep) GetMaintainerOk() (*MaintainerRep, bool)`
+`func (o *ApplicationRep) GetMaintainerOk() (*ApplicationMaintainerRep, bool)`
 
 GetMaintainerOk returns a tuple with the Maintainer field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMaintainer
 
-`func (o *ApplicationRep) SetMaintainer(v MaintainerRep)`
+`func (o *ApplicationRep) SetMaintainer(v ApplicationMaintainerRep)`
 
 SetMaintainer sets Maintainer field to given value.
 

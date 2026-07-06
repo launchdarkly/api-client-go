@@ -1,14 +1,14 @@
-# \HoldoutsBetaApi
+# \HoldoutsApi
 
 All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetAllHoldouts**](HoldoutsBetaApi.md#GetAllHoldouts) | **Get** /api/v2/projects/{projectKey}/environments/{environmentKey}/holdouts | Get all holdouts
-[**GetHoldout**](HoldoutsBetaApi.md#GetHoldout) | **Get** /api/v2/projects/{projectKey}/environments/{environmentKey}/holdouts/{holdoutKey} | Get holdout
-[**GetHoldoutById**](HoldoutsBetaApi.md#GetHoldoutById) | **Get** /api/v2/projects/{projectKey}/environments/{environmentKey}/holdouts/id/{holdoutId} | Get Holdout by Id
-[**PatchHoldout**](HoldoutsBetaApi.md#PatchHoldout) | **Patch** /api/v2/projects/{projectKey}/environments/{environmentKey}/holdouts/{holdoutKey} | Patch holdout
-[**PostHoldout**](HoldoutsBetaApi.md#PostHoldout) | **Post** /api/v2/projects/{projectKey}/environments/{environmentKey}/holdouts | Create holdout
+[**GetAllHoldouts**](HoldoutsApi.md#GetAllHoldouts) | **Get** /api/v2/projects/{projectKey}/environments/{environmentKey}/holdouts | Get all holdouts
+[**GetHoldout**](HoldoutsApi.md#GetHoldout) | **Get** /api/v2/projects/{projectKey}/environments/{environmentKey}/holdouts/{holdoutKey} | Get holdout
+[**GetHoldoutById**](HoldoutsApi.md#GetHoldoutById) | **Get** /api/v2/projects/{projectKey}/environments/{environmentKey}/holdouts/id/{holdoutId} | Get Holdout by Id
+[**PatchHoldout**](HoldoutsApi.md#PatchHoldout) | **Patch** /api/v2/projects/{projectKey}/environments/{environmentKey}/holdouts/{holdoutKey} | Patch holdout
+[**PostHoldout**](HoldoutsApi.md#PostHoldout) | **Post** /api/v2/projects/{projectKey}/environments/{environmentKey}/holdouts | Create holdout
 
 
 
@@ -38,13 +38,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.HoldoutsBetaApi.GetAllHoldouts(context.Background(), projectKey, environmentKey).Limit(limit).Offset(offset).Execute()
+	resp, r, err := apiClient.HoldoutsApi.GetAllHoldouts(context.Background(), projectKey, environmentKey).Limit(limit).Offset(offset).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `HoldoutsBetaApi.GetAllHoldouts``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `HoldoutsApi.GetAllHoldouts``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `GetAllHoldouts`: HoldoutsCollectionRep
-	fmt.Fprintf(os.Stdout, "Response from `HoldoutsBetaApi.GetAllHoldouts`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `HoldoutsApi.GetAllHoldouts`: %v\n", resp)
 }
 ```
 
@@ -115,13 +115,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.HoldoutsBetaApi.GetHoldout(context.Background(), projectKey, environmentKey, holdoutKey).Expand(expand).Execute()
+	resp, r, err := apiClient.HoldoutsApi.GetHoldout(context.Background(), projectKey, environmentKey, holdoutKey).Expand(expand).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `HoldoutsBetaApi.GetHoldout``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `HoldoutsApi.GetHoldout``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `GetHoldout`: HoldoutDetailRep
-	fmt.Fprintf(os.Stdout, "Response from `HoldoutsBetaApi.GetHoldout`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `HoldoutsApi.GetHoldout`: %v\n", resp)
 }
 ```
 
@@ -190,13 +190,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.HoldoutsBetaApi.GetHoldoutById(context.Background(), projectKey, environmentKey, holdoutId).Execute()
+	resp, r, err := apiClient.HoldoutsApi.GetHoldoutById(context.Background(), projectKey, environmentKey, holdoutId).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `HoldoutsBetaApi.GetHoldoutById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `HoldoutsApi.GetHoldoutById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `GetHoldoutById`: HoldoutRep
-	fmt.Fprintf(os.Stdout, "Response from `HoldoutsBetaApi.GetHoldoutById`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `HoldoutsApi.GetHoldoutById`: %v\n", resp)
 }
 ```
 
@@ -267,13 +267,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.HoldoutsBetaApi.PatchHoldout(context.Background(), projectKey, environmentKey, holdoutKey).HoldoutPatchInput(holdoutPatchInput).Execute()
+	resp, r, err := apiClient.HoldoutsApi.PatchHoldout(context.Background(), projectKey, environmentKey, holdoutKey).HoldoutPatchInput(holdoutPatchInput).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `HoldoutsBetaApi.PatchHoldout``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `HoldoutsApi.PatchHoldout``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `PatchHoldout`: HoldoutRep
-	fmt.Fprintf(os.Stdout, "Response from `HoldoutsBetaApi.PatchHoldout`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `HoldoutsApi.PatchHoldout`: %v\n", resp)
 }
 ```
 
@@ -344,13 +344,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.HoldoutsBetaApi.PostHoldout(context.Background(), projectKey, environmentKey).HoldoutPostRequest(holdoutPostRequest).Execute()
+	resp, r, err := apiClient.HoldoutsApi.PostHoldout(context.Background(), projectKey, environmentKey).HoldoutPostRequest(holdoutPostRequest).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `HoldoutsBetaApi.PostHoldout``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `HoldoutsApi.PostHoldout``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 	// response from `PostHoldout`: HoldoutRep
-	fmt.Fprintf(os.Stdout, "Response from `HoldoutsBetaApi.PostHoldout`: %v\n", resp)
+	fmt.Fprintf(os.Stdout, "Response from `HoldoutsApi.PostHoldout`: %v\n", resp)
 }
 ```
 

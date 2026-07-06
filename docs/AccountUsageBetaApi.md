@@ -4,6 +4,7 @@ All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**GetAIRunsUsage**](AccountUsageBetaApi.md#GetAIRunsUsage) | **Get** /api/v2/usage/ai-runs | Get AI runs usage
 [**GetContextsClientsideUsage**](AccountUsageBetaApi.md#GetContextsClientsideUsage) | **Get** /api/v2/usage/clientside-contexts | Get contexts clientside usage
 [**GetContextsServersideUsage**](AccountUsageBetaApi.md#GetContextsServersideUsage) | **Get** /api/v2/usage/serverside-contexts | Get contexts serverside usage
 [**GetContextsTotalUsage**](AccountUsageBetaApi.md#GetContextsTotalUsage) | **Get** /api/v2/usage/total-contexts | Get contexts total usage
@@ -22,12 +23,99 @@ Method | HTTP request | Description
 [**GetObservabilityMetricsUsage**](AccountUsageBetaApi.md#GetObservabilityMetricsUsage) | **Get** /api/v2/usage/observability/metrics | Get observability metrics usage
 [**GetObservabilitySessionsUsage**](AccountUsageBetaApi.md#GetObservabilitySessionsUsage) | **Get** /api/v2/usage/observability/sessions | Get observability sessions usage
 [**GetObservabilityTracesUsage**](AccountUsageBetaApi.md#GetObservabilityTracesUsage) | **Get** /api/v2/usage/observability/traces | Get observability traces usage
+[**GetSdkAllVersions**](AccountUsageBetaApi.md#GetSdkAllVersions) | **Get** /api/v2/usage/sdk-versions/all | Get usage details for all SDK versions
+[**GetSdkVersionsDetails**](AccountUsageBetaApi.md#GetSdkVersionsDetails) | **Get** /api/v2/usage/sdk-versions/details | Get SDK versions usage details
 [**GetServiceConnectionsUsage**](AccountUsageBetaApi.md#GetServiceConnectionsUsage) | **Get** /api/v2/usage/service-connections | Get service connections usage
 [**GetStreamUsage**](AccountUsageBetaApi.md#GetStreamUsage) | **Get** /api/v2/usage/streams/{source} | Get stream usage
 [**GetStreamUsageBySdkVersion**](AccountUsageBetaApi.md#GetStreamUsageBySdkVersion) | **Get** /api/v2/usage/streams/{source}/bysdkversion | Get stream usage by SDK version
 [**GetStreamUsageSdkversion**](AccountUsageBetaApi.md#GetStreamUsageSdkversion) | **Get** /api/v2/usage/streams/{source}/sdkversions | Get stream usage SDK versions
 [**GetVegaAIUsage**](AccountUsageBetaApi.md#GetVegaAIUsage) | **Get** /api/v2/usage/vega-ai | Get Vega AI usage
+[**GetWarehouseExportUsage**](AccountUsageBetaApi.md#GetWarehouseExportUsage) | **Get** /api/v2/usage/warehouse-export | Get warehouse Data Export usage
 
+
+
+## GetAIRunsUsage
+
+> SeriesListRep GetAIRunsUsage(ctx).From(from).To(to).ProjectKey(projectKey).EnvironmentKey(environmentKey).SdkName(sdkName).SdkVersion(sdkVersion).SdkType(sdkType).GroupBy(groupBy).AggregationType(aggregationType).Granularity(granularity).Execute()
+
+Get AI runs usage
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
+)
+
+func main() {
+	from := "from_example" // string | The series of data returned starts from this timestamp (Unix milliseconds). Defaults to the beginning of the current month. (optional)
+	to := "to_example" // string | The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time. (optional)
+	projectKey := "projectKey_example" // string | A project key to filter results by. Can be specified multiple times, one query parameter per project key. (optional)
+	environmentKey := "environmentKey_example" // string | An environment key to filter results by. If specified, exactly one `projectKey` must be provided. Can be specified multiple times, one query parameter per environment key. (optional)
+	sdkName := "sdkName_example" // string | An SDK name to filter results by. Can be specified multiple times, one query parameter per SDK name. (optional)
+	sdkVersion := "sdkVersion_example" // string | An SDK version to filter results by. Can be specified multiple times, one query parameter per SDK version. (optional)
+	sdkType := "sdkType_example" // string | An SDK type to filter results by. Can be specified multiple times, one query parameter per SDK type. (optional)
+	groupBy := "groupBy_example" // string | If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.<br/>Valid values: `projectId`, `environmentId`, `sdkName`, `sdkVersion`, `sdkType`. (optional)
+	aggregationType := "aggregationType_example" // string | Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`. (optional)
+	granularity := "granularity_example" // string | Specifies the data granularity. Defaults to `daily`. `monthly` granularity is only supported with the **month_to_date** aggregation type.<br/>Valid values: `daily`, `hourly`, `monthly`. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AccountUsageBetaApi.GetAIRunsUsage(context.Background()).From(from).To(to).ProjectKey(projectKey).EnvironmentKey(environmentKey).SdkName(sdkName).SdkVersion(sdkVersion).SdkType(sdkType).GroupBy(groupBy).AggregationType(aggregationType).Granularity(granularity).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AccountUsageBetaApi.GetAIRunsUsage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetAIRunsUsage`: SeriesListRep
+	fmt.Fprintf(os.Stdout, "Response from `AccountUsageBetaApi.GetAIRunsUsage`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetAIRunsUsageRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **from** | **string** | The series of data returned starts from this timestamp (Unix milliseconds). Defaults to the beginning of the current month. | 
+ **to** | **string** | The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time. | 
+ **projectKey** | **string** | A project key to filter results by. Can be specified multiple times, one query parameter per project key. | 
+ **environmentKey** | **string** | An environment key to filter results by. If specified, exactly one &#x60;projectKey&#x60; must be provided. Can be specified multiple times, one query parameter per environment key. | 
+ **sdkName** | **string** | An SDK name to filter results by. Can be specified multiple times, one query parameter per SDK name. | 
+ **sdkVersion** | **string** | An SDK version to filter results by. Can be specified multiple times, one query parameter per SDK version. | 
+ **sdkType** | **string** | An SDK type to filter results by. Can be specified multiple times, one query parameter per SDK type. | 
+ **groupBy** | **string** | If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.&lt;br/&gt;Valid values: &#x60;projectId&#x60;, &#x60;environmentId&#x60;, &#x60;sdkName&#x60;, &#x60;sdkVersion&#x60;, &#x60;sdkType&#x60;. | 
+ **aggregationType** | **string** | Specifies the aggregation method. Defaults to &#x60;month_to_date&#x60;.&lt;br/&gt;Valid values: &#x60;month_to_date&#x60;, &#x60;incremental&#x60;. | 
+ **granularity** | **string** | Specifies the data granularity. Defaults to &#x60;daily&#x60;. &#x60;monthly&#x60; granularity is only supported with the **month_to_date** aggregation type.&lt;br/&gt;Valid values: &#x60;daily&#x60;, &#x60;hourly&#x60;, &#x60;monthly&#x60;. | 
+
+### Return type
+
+[**SeriesListRep**](SeriesListRep.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## GetContextsClientsideUsage
@@ -1242,8 +1330,8 @@ func main() {
 	from := "from_example" // string | The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month. (optional)
 	to := "to_example" // string | The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time. (optional)
 	projectKey := "projectKey_example" // string | A project key to filter results by. Can be specified multiple times, one query parameter per project key. (optional)
-	granularity := "granularity_example" // string | Specifies the data granularity. Defaults to `daily`. Valid values depend on `aggregationType`: **month_to_date** supports `daily` and `monthly`; **incremental** and **rolling_30d** support `daily` only. (optional)
-	aggregationType := "aggregationType_example" // string | Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`, `rolling_30d`. (optional)
+	granularity := "granularity_example" // string | Specifies the data granularity. Defaults to `daily`. Valid values depend on `aggregationType`: **month_to_date** supports `hourly`, `daily`, and `monthly`; **average** supports `hourly`, `daily`, and `monthly`. (optional)
+	aggregationType := "aggregationType_example" // string | Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `average`. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1271,8 +1359,8 @@ Name | Type | Description  | Notes
  **from** | **string** | The series of data returned starts from this timestamp (Unix seconds). Defaults to the beginning of the current month. | 
  **to** | **string** | The series of data returned ends at this timestamp (Unix seconds). Defaults to the current time. | 
  **projectKey** | **string** | A project key to filter results by. Can be specified multiple times, one query parameter per project key. | 
- **granularity** | **string** | Specifies the data granularity. Defaults to &#x60;daily&#x60;. Valid values depend on &#x60;aggregationType&#x60;: **month_to_date** supports &#x60;daily&#x60; and &#x60;monthly&#x60;; **incremental** and **rolling_30d** support &#x60;daily&#x60; only. | 
- **aggregationType** | **string** | Specifies the aggregation method. Defaults to &#x60;month_to_date&#x60;.&lt;br/&gt;Valid values: &#x60;month_to_date&#x60;, &#x60;incremental&#x60;, &#x60;rolling_30d&#x60;. | 
+ **granularity** | **string** | Specifies the data granularity. Defaults to &#x60;daily&#x60;. Valid values depend on &#x60;aggregationType&#x60;: **month_to_date** supports &#x60;hourly&#x60;, &#x60;daily&#x60;, and &#x60;monthly&#x60;; **average** supports &#x60;hourly&#x60;, &#x60;daily&#x60;, and &#x60;monthly&#x60;. | 
+ **aggregationType** | **string** | Specifies the aggregation method. Defaults to &#x60;month_to_date&#x60;.&lt;br/&gt;Valid values: &#x60;month_to_date&#x60;, &#x60;average&#x60;. | 
 
 ### Return type
 
@@ -1440,9 +1528,146 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## GetSdkAllVersions
+
+> []SdkVersionDetailsRep GetSdkAllVersions(ctx).EnvironmentId(environmentId).ProjectId(projectId).SdkName(sdkName).SdkType(sdkType).SdkAppId(sdkAppId).ConnectionType(connectionType).Execute()
+
+Get usage details for all SDK versions
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
+)
+
+func main() {
+	environmentId := "environmentId_example" // string | Filter to a specific environment ID. (optional)
+	projectId := "projectId_example" // string | Filter to a specific project ID. (optional)
+	sdkName := "sdkName_example" // string | Filter to a specific SDK name. (optional)
+	sdkType := "sdkType_example" // string | Filter to a specific SDK type (for example, 'server', 'browser', 'mobile'). (optional)
+	sdkAppId := "sdkAppId_example" // string | Filter to a specific SDK application ID. (optional)
+	connectionType := "connectionType_example" // string | Filter to a specific connection type (for example, 'direct', 'proxy'). (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AccountUsageBetaApi.GetSdkAllVersions(context.Background()).EnvironmentId(environmentId).ProjectId(projectId).SdkName(sdkName).SdkType(sdkType).SdkAppId(sdkAppId).ConnectionType(connectionType).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AccountUsageBetaApi.GetSdkAllVersions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetSdkAllVersions`: []SdkVersionDetailsRep
+	fmt.Fprintf(os.Stdout, "Response from `AccountUsageBetaApi.GetSdkAllVersions`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetSdkAllVersionsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **environmentId** | **string** | Filter to a specific environment ID. | 
+ **projectId** | **string** | Filter to a specific project ID. | 
+ **sdkName** | **string** | Filter to a specific SDK name. | 
+ **sdkType** | **string** | Filter to a specific SDK type (for example, &#39;server&#39;, &#39;browser&#39;, &#39;mobile&#39;). | 
+ **sdkAppId** | **string** | Filter to a specific SDK application ID. | 
+ **connectionType** | **string** | Filter to a specific connection type (for example, &#39;direct&#39;, &#39;proxy&#39;). | 
+
+### Return type
+
+[**[]SdkVersionDetailsRep**](SdkVersionDetailsRep.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetSdkVersionsDetails
+
+> []SdkVersionDetailsRep GetSdkVersionsDetails(ctx).Execute()
+
+Get SDK versions usage details
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AccountUsageBetaApi.GetSdkVersionsDetails(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AccountUsageBetaApi.GetSdkVersionsDetails``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetSdkVersionsDetails`: []SdkVersionDetailsRep
+	fmt.Fprintf(os.Stdout, "Response from `AccountUsageBetaApi.GetSdkVersionsDetails`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetSdkVersionsDetailsRequest struct via the builder pattern
+
+
+### Return type
+
+[**[]SdkVersionDetailsRep**](SdkVersionDetailsRep.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetServiceConnectionsUsage
 
-> SeriesListRepFloat GetServiceConnectionsUsage(ctx).From(from).To(to).ProjectKey(projectKey).EnvironmentKey(environmentKey).ConnectionType(connectionType).RelayVersion(relayVersion).SdkName(sdkName).SdkVersion(sdkVersion).SdkType(sdkType).GroupBy(groupBy).AggregationType(aggregationType).Granularity(granularity).Execute()
+> SeriesListRepFloat GetServiceConnectionsUsage(ctx).From(from).To(to).ProjectKey(projectKey).EnvironmentKey(environmentKey).ConnectionType(connectionType).RelayVersion(relayVersion).SdkName(sdkName).SdkVersion(sdkVersion).SdkType(sdkType).SdkAppId(sdkAppId).GroupBy(groupBy).AggregationType(aggregationType).Granularity(granularity).Execute()
 
 Get service connections usage
 
@@ -1470,13 +1695,14 @@ func main() {
 	sdkName := "sdkName_example" // string | An SDK name to filter results by. Can be specified multiple times, one query parameter per SDK name. (optional)
 	sdkVersion := "sdkVersion_example" // string | An SDK version to filter results by. Can be specified multiple times, one query parameter per SDK version. (optional)
 	sdkType := "sdkType_example" // string | An SDK type to filter results by. Can be specified multiple times, one query parameter per SDK type. (optional)
-	groupBy := "groupBy_example" // string | If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.<br/>Valid values: `projectId`, `environmentId`, `connectionType`, `relayVersion`, `sdkName`, `sdkVersion`, `sdkType`. (optional)
+	sdkAppId := "sdkAppId_example" // string | An SDK app ID to filter results by. Can be specified multiple times, one query parameter per SDK app ID. (optional)
+	groupBy := "groupBy_example" // string | If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.<br/>Valid values: `projectId`, `environmentId`, `connectionType`, `relayVersion`, `sdkName`, `sdkVersion`, `sdkType`, `sdkAppId`. (optional)
 	aggregationType := "aggregationType_example" // string | Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`. (optional)
 	granularity := "granularity_example" // string | Specifies the data granularity. Defaults to `daily`. `monthly` granularity is only supported with the **month_to_date** aggregation type.<br/>Valid values: `daily`, `hourly`, `monthly`. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AccountUsageBetaApi.GetServiceConnectionsUsage(context.Background()).From(from).To(to).ProjectKey(projectKey).EnvironmentKey(environmentKey).ConnectionType(connectionType).RelayVersion(relayVersion).SdkName(sdkName).SdkVersion(sdkVersion).SdkType(sdkType).GroupBy(groupBy).AggregationType(aggregationType).Granularity(granularity).Execute()
+	resp, r, err := apiClient.AccountUsageBetaApi.GetServiceConnectionsUsage(context.Background()).From(from).To(to).ProjectKey(projectKey).EnvironmentKey(environmentKey).ConnectionType(connectionType).RelayVersion(relayVersion).SdkName(sdkName).SdkVersion(sdkVersion).SdkType(sdkType).SdkAppId(sdkAppId).GroupBy(groupBy).AggregationType(aggregationType).Granularity(granularity).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AccountUsageBetaApi.GetServiceConnectionsUsage``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1506,7 +1732,8 @@ Name | Type | Description  | Notes
  **sdkName** | **string** | An SDK name to filter results by. Can be specified multiple times, one query parameter per SDK name. | 
  **sdkVersion** | **string** | An SDK version to filter results by. Can be specified multiple times, one query parameter per SDK version. | 
  **sdkType** | **string** | An SDK type to filter results by. Can be specified multiple times, one query parameter per SDK type. | 
- **groupBy** | **string** | If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.&lt;br/&gt;Valid values: &#x60;projectId&#x60;, &#x60;environmentId&#x60;, &#x60;connectionType&#x60;, &#x60;relayVersion&#x60;, &#x60;sdkName&#x60;, &#x60;sdkVersion&#x60;, &#x60;sdkType&#x60;. | 
+ **sdkAppId** | **string** | An SDK app ID to filter results by. Can be specified multiple times, one query parameter per SDK app ID. | 
+ **groupBy** | **string** | If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.&lt;br/&gt;Valid values: &#x60;projectId&#x60;, &#x60;environmentId&#x60;, &#x60;connectionType&#x60;, &#x60;relayVersion&#x60;, &#x60;sdkName&#x60;, &#x60;sdkVersion&#x60;, &#x60;sdkType&#x60;, &#x60;sdkAppId&#x60;. | 
  **aggregationType** | **string** | Specifies the aggregation method. Defaults to &#x60;month_to_date&#x60;.&lt;br/&gt;Valid values: &#x60;month_to_date&#x60;, &#x60;incremental&#x60;. | 
  **granularity** | **string** | Specifies the data granularity. Defaults to &#x60;daily&#x60;. &#x60;monthly&#x60; granularity is only supported with the **month_to_date** aggregation type.&lt;br/&gt;Valid values: &#x60;daily&#x60;, &#x60;hourly&#x60;, &#x60;monthly&#x60;. | 
 
@@ -1809,6 +2036,86 @@ Name | Type | Description  | Notes
  **projectKey** | **string** | A project key to filter results by. Can be specified multiple times, one query parameter per project key. | 
  **granularity** | **string** | Specifies the data granularity. Defaults to &#x60;daily&#x60;. Valid values depend on &#x60;aggregationType&#x60;: **month_to_date** supports &#x60;daily&#x60; and &#x60;monthly&#x60;; **incremental** and **rolling_30d** support &#x60;daily&#x60; only. | 
  **aggregationType** | **string** | Specifies the aggregation method. Defaults to &#x60;month_to_date&#x60;.&lt;br/&gt;Valid values: &#x60;month_to_date&#x60;, &#x60;incremental&#x60;, &#x60;rolling_30d&#x60;. | 
+
+### Return type
+
+[**SeriesListRep**](SeriesListRep.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetWarehouseExportUsage
+
+> SeriesListRep GetWarehouseExportUsage(ctx).From(from).To(to).ProjectKey(projectKey).EnvironmentKey(environmentKey).Destination(destination).GroupBy(groupBy).AggregationType(aggregationType).Granularity(granularity).Execute()
+
+Get warehouse Data Export usage
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
+)
+
+func main() {
+	from := "from_example" // string | The series of data returned starts from this timestamp (Unix milliseconds). Defaults to the beginning of the current month. (optional)
+	to := "to_example" // string | The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time. (optional)
+	projectKey := "projectKey_example" // string | A project key to filter results by. Can be specified multiple times, one query parameter per project key. (optional)
+	environmentKey := "environmentKey_example" // string | An environment key to filter results by. If specified, exactly one `projectKey` must be provided. Can be specified multiple times, one query parameter per environment key. (optional)
+	destination := "destination_example" // string | A destination kind to filter results by. Can be specified multiple times, one query parameter per destination kind.<br/>Valid values: `snowflake-v2`, `databricks`, `bigquery`, `redshift`, `clickhouse`. (optional)
+	groupBy := "groupBy_example" // string | If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.<br/>Valid values: `projectId`, `environmentId`, `destination`. (optional)
+	aggregationType := "aggregationType_example" // string | Specifies the aggregation method. Defaults to `month_to_date`.<br/>Valid values: `month_to_date`, `incremental`. (optional)
+	granularity := "granularity_example" // string | Specifies the data granularity. Defaults to `daily`. `monthly` granularity is only supported with the **month_to_date** aggregation type.<br/>Valid values: `daily`, `hourly`, `monthly`. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AccountUsageBetaApi.GetWarehouseExportUsage(context.Background()).From(from).To(to).ProjectKey(projectKey).EnvironmentKey(environmentKey).Destination(destination).GroupBy(groupBy).AggregationType(aggregationType).Granularity(granularity).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AccountUsageBetaApi.GetWarehouseExportUsage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetWarehouseExportUsage`: SeriesListRep
+	fmt.Fprintf(os.Stdout, "Response from `AccountUsageBetaApi.GetWarehouseExportUsage`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetWarehouseExportUsageRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **from** | **string** | The series of data returned starts from this timestamp (Unix milliseconds). Defaults to the beginning of the current month. | 
+ **to** | **string** | The series of data returned ends at this timestamp (Unix milliseconds). Defaults to the current time. | 
+ **projectKey** | **string** | A project key to filter results by. Can be specified multiple times, one query parameter per project key. | 
+ **environmentKey** | **string** | An environment key to filter results by. If specified, exactly one &#x60;projectKey&#x60; must be provided. Can be specified multiple times, one query parameter per environment key. | 
+ **destination** | **string** | A destination kind to filter results by. Can be specified multiple times, one query parameter per destination kind.&lt;br/&gt;Valid values: &#x60;snowflake-v2&#x60;, &#x60;databricks&#x60;, &#x60;bigquery&#x60;, &#x60;redshift&#x60;, &#x60;clickhouse&#x60;. | 
+ **groupBy** | **string** | If specified, returns data for each distinct value of the given field. Can be specified multiple times to group data by multiple dimensions, one query parameter per dimension.&lt;br/&gt;Valid values: &#x60;projectId&#x60;, &#x60;environmentId&#x60;, &#x60;destination&#x60;. | 
+ **aggregationType** | **string** | Specifies the aggregation method. Defaults to &#x60;month_to_date&#x60;.&lt;br/&gt;Valid values: &#x60;month_to_date&#x60;, &#x60;incremental&#x60;. | 
+ **granularity** | **string** | Specifies the data granularity. Defaults to &#x60;daily&#x60;. &#x60;monthly&#x60; granularity is only supported with the **month_to_date** aggregation type.&lt;br/&gt;Valid values: &#x60;daily&#x60;, &#x60;hourly&#x60;, &#x60;monthly&#x60;. | 
 
 ### Return type
 

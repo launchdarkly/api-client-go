@@ -14,6 +14,11 @@ Name | Type | Description | Notes
 **Access** | Pointer to [**Access**](Access.md) |  | [optional] 
 **ConfigValues** | Pointer to **map[string]interface{}** | Details on configuration for an integration of this type. Refer to the &lt;code&gt;formVariables&lt;/code&gt; field in the corresponding &lt;code&gt;manifest.json&lt;/code&gt; for a full list of fields for each integration. | [optional] 
 **CapabilityConfig** | Pointer to [**CapabilityConfigRep**](CapabilityConfigRep.md) |  | [optional] 
+**SnowflakeSetupScript** | Pointer to **string** | Consolidated SQL script for Snowflake Warehouse Native Experimentation setup. Present only for setup endpoint responses. | [optional] 
+**RedshiftSetupScripts** | Pointer to **[]string** | SQL setup scripts (4 parts) for Redshift Native Experimentation setup. Present only for setup endpoint responses. | [optional] 
+**RedshiftIAMPermissionsPolicy** | Pointer to **string** | IAM permissions policy JSON for the customer&#39;s Redshift IAM role. Present only for setup endpoint responses. | [optional] 
+**RedshiftIAMTrustPolicy** | Pointer to **string** | IAM trust policy JSON for the customer&#39;s Redshift IAM role. Present only for setup endpoint responses. | [optional] 
+**MaintainerId** | Pointer to **string** | The ID of the member who maintains this integration configuration. Defaults to the member who created it. | [optional] 
 
 ## Methods
 
@@ -268,6 +273,131 @@ SetCapabilityConfig sets CapabilityConfig field to given value.
 `func (o *IntegrationConfigurationsRep) HasCapabilityConfig() bool`
 
 HasCapabilityConfig returns a boolean if a field has been set.
+
+### GetSnowflakeSetupScript
+
+`func (o *IntegrationConfigurationsRep) GetSnowflakeSetupScript() string`
+
+GetSnowflakeSetupScript returns the SnowflakeSetupScript field if non-nil, zero value otherwise.
+
+### GetSnowflakeSetupScriptOk
+
+`func (o *IntegrationConfigurationsRep) GetSnowflakeSetupScriptOk() (*string, bool)`
+
+GetSnowflakeSetupScriptOk returns a tuple with the SnowflakeSetupScript field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSnowflakeSetupScript
+
+`func (o *IntegrationConfigurationsRep) SetSnowflakeSetupScript(v string)`
+
+SetSnowflakeSetupScript sets SnowflakeSetupScript field to given value.
+
+### HasSnowflakeSetupScript
+
+`func (o *IntegrationConfigurationsRep) HasSnowflakeSetupScript() bool`
+
+HasSnowflakeSetupScript returns a boolean if a field has been set.
+
+### GetRedshiftSetupScripts
+
+`func (o *IntegrationConfigurationsRep) GetRedshiftSetupScripts() []string`
+
+GetRedshiftSetupScripts returns the RedshiftSetupScripts field if non-nil, zero value otherwise.
+
+### GetRedshiftSetupScriptsOk
+
+`func (o *IntegrationConfigurationsRep) GetRedshiftSetupScriptsOk() (*[]string, bool)`
+
+GetRedshiftSetupScriptsOk returns a tuple with the RedshiftSetupScripts field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRedshiftSetupScripts
+
+`func (o *IntegrationConfigurationsRep) SetRedshiftSetupScripts(v []string)`
+
+SetRedshiftSetupScripts sets RedshiftSetupScripts field to given value.
+
+### HasRedshiftSetupScripts
+
+`func (o *IntegrationConfigurationsRep) HasRedshiftSetupScripts() bool`
+
+HasRedshiftSetupScripts returns a boolean if a field has been set.
+
+### GetRedshiftIAMPermissionsPolicy
+
+`func (o *IntegrationConfigurationsRep) GetRedshiftIAMPermissionsPolicy() string`
+
+GetRedshiftIAMPermissionsPolicy returns the RedshiftIAMPermissionsPolicy field if non-nil, zero value otherwise.
+
+### GetRedshiftIAMPermissionsPolicyOk
+
+`func (o *IntegrationConfigurationsRep) GetRedshiftIAMPermissionsPolicyOk() (*string, bool)`
+
+GetRedshiftIAMPermissionsPolicyOk returns a tuple with the RedshiftIAMPermissionsPolicy field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRedshiftIAMPermissionsPolicy
+
+`func (o *IntegrationConfigurationsRep) SetRedshiftIAMPermissionsPolicy(v string)`
+
+SetRedshiftIAMPermissionsPolicy sets RedshiftIAMPermissionsPolicy field to given value.
+
+### HasRedshiftIAMPermissionsPolicy
+
+`func (o *IntegrationConfigurationsRep) HasRedshiftIAMPermissionsPolicy() bool`
+
+HasRedshiftIAMPermissionsPolicy returns a boolean if a field has been set.
+
+### GetRedshiftIAMTrustPolicy
+
+`func (o *IntegrationConfigurationsRep) GetRedshiftIAMTrustPolicy() string`
+
+GetRedshiftIAMTrustPolicy returns the RedshiftIAMTrustPolicy field if non-nil, zero value otherwise.
+
+### GetRedshiftIAMTrustPolicyOk
+
+`func (o *IntegrationConfigurationsRep) GetRedshiftIAMTrustPolicyOk() (*string, bool)`
+
+GetRedshiftIAMTrustPolicyOk returns a tuple with the RedshiftIAMTrustPolicy field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRedshiftIAMTrustPolicy
+
+`func (o *IntegrationConfigurationsRep) SetRedshiftIAMTrustPolicy(v string)`
+
+SetRedshiftIAMTrustPolicy sets RedshiftIAMTrustPolicy field to given value.
+
+### HasRedshiftIAMTrustPolicy
+
+`func (o *IntegrationConfigurationsRep) HasRedshiftIAMTrustPolicy() bool`
+
+HasRedshiftIAMTrustPolicy returns a boolean if a field has been set.
+
+### GetMaintainerId
+
+`func (o *IntegrationConfigurationsRep) GetMaintainerId() string`
+
+GetMaintainerId returns the MaintainerId field if non-nil, zero value otherwise.
+
+### GetMaintainerIdOk
+
+`func (o *IntegrationConfigurationsRep) GetMaintainerIdOk() (*string, bool)`
+
+GetMaintainerIdOk returns a tuple with the MaintainerId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMaintainerId
+
+`func (o *IntegrationConfigurationsRep) SetMaintainerId(v string)`
+
+SetMaintainerId sets MaintainerId field to given value.
+
+### HasMaintainerId
+
+`func (o *IntegrationConfigurationsRep) HasMaintainerId() bool`
+
+HasMaintainerId returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

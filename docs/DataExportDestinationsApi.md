@@ -8,9 +8,12 @@ Method | HTTP request | Description
 [**GetDestination**](DataExportDestinationsApi.md#GetDestination) | **Get** /api/v2/destinations/{projectKey}/{environmentKey}/{id} | Get destination
 [**GetDestinations**](DataExportDestinationsApi.md#GetDestinations) | **Get** /api/v2/destinations | List destinations
 [**PatchDestination**](DataExportDestinationsApi.md#PatchDestination) | **Patch** /api/v2/destinations/{projectKey}/{environmentKey}/{id} | Update Data Export destination
+[**PostCompleteWarehouseDestinationSetup**](DataExportDestinationsApi.md#PostCompleteWarehouseDestinationSetup) | **Post** /api/v2/destinations/projects/{projKey}/environments/{envKey}/kinds/{kind}/complete-setup | Complete warehouse destination setup
 [**PostDestination**](DataExportDestinationsApi.md#PostDestination) | **Post** /api/v2/destinations/{projectKey}/{environmentKey} | Create Data Export destination
+[**PostGenerateProjectEnvWarehouseDestinationKeyPair**](DataExportDestinationsApi.md#PostGenerateProjectEnvWarehouseDestinationKeyPair) | **Post** /api/v2/destinations/projects/{projKey}/environments/{envKey}/generate-warehouse-destination-key-pair | Generate Snowflake destination key pair
 [**PostGenerateTrustPolicy**](DataExportDestinationsApi.md#PostGenerateTrustPolicy) | **Post** /api/v2/destinations/projects/{projKey}/environments/{envKey}/generate-trust-policy | Generate trust policy
 [**PostGenerateWarehouseDestinationKeyPair**](DataExportDestinationsApi.md#PostGenerateWarehouseDestinationKeyPair) | **Post** /api/v2/destinations/generate-warehouse-destination-key-pair | Generate Snowflake destination key pair
+[**PostGenerateWarehouseDestinationSetupScript**](DataExportDestinationsApi.md#PostGenerateWarehouseDestinationSetupScript) | **Post** /api/v2/destinations/projects/{projKey}/environments/{envKey}/kinds/{kind}/setup | Generate warehouse destination setup script
 
 
 
@@ -303,6 +306,84 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## PostCompleteWarehouseDestinationSetup
+
+> Destination PostCompleteWarehouseDestinationSetup(ctx, projKey, envKey, kind).CompleteSetupPostBody(completeSetupPostBody).Execute()
+
+Complete warehouse destination setup
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
+)
+
+func main() {
+	projKey := "projKey_example" // string | The project key
+	envKey := "envKey_example" // string | The environment key
+	kind := "kind_example" // string | The destination kind (snowflake-v2, bigquery, clickhouse, redshift)
+	completeSetupPostBody := *openapiclient.NewCompleteSetupPostBody() // CompleteSetupPostBody | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DataExportDestinationsApi.PostCompleteWarehouseDestinationSetup(context.Background(), projKey, envKey, kind).CompleteSetupPostBody(completeSetupPostBody).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DataExportDestinationsApi.PostCompleteWarehouseDestinationSetup``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostCompleteWarehouseDestinationSetup`: Destination
+	fmt.Fprintf(os.Stdout, "Response from `DataExportDestinationsApi.PostCompleteWarehouseDestinationSetup`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projKey** | **string** | The project key | 
+**envKey** | **string** | The environment key | 
+**kind** | **string** | The destination kind (snowflake-v2, bigquery, clickhouse, redshift) | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostCompleteWarehouseDestinationSetupRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+ **completeSetupPostBody** | [**CompleteSetupPostBody**](CompleteSetupPostBody.md) |  | 
+
+### Return type
+
+[**Destination**](Destination.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## PostDestination
 
 > Destination PostDestination(ctx, projectKey, environmentKey).DestinationPost(destinationPost).Execute()
@@ -371,6 +452,79 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostGenerateProjectEnvWarehouseDestinationKeyPair
+
+> GenerateWarehouseDestinationKeyPairPostRep PostGenerateProjectEnvWarehouseDestinationKeyPair(ctx, projKey, envKey).Execute()
+
+Generate Snowflake destination key pair
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
+)
+
+func main() {
+	projKey := "projKey_example" // string | The project key
+	envKey := "envKey_example" // string | The environment key
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DataExportDestinationsApi.PostGenerateProjectEnvWarehouseDestinationKeyPair(context.Background(), projKey, envKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DataExportDestinationsApi.PostGenerateProjectEnvWarehouseDestinationKeyPair``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostGenerateProjectEnvWarehouseDestinationKeyPair`: GenerateWarehouseDestinationKeyPairPostRep
+	fmt.Fprintf(os.Stdout, "Response from `DataExportDestinationsApi.PostGenerateProjectEnvWarehouseDestinationKeyPair`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projKey** | **string** | The project key | 
+**envKey** | **string** | The environment key | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostGenerateProjectEnvWarehouseDestinationKeyPairRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+[**GenerateWarehouseDestinationKeyPairPostRep**](GenerateWarehouseDestinationKeyPairPostRep.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -505,6 +659,84 @@ Other parameters are passed through a pointer to a apiPostGenerateWarehouseDesti
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostGenerateWarehouseDestinationSetupScript
+
+> WarehouseDestinationSetupScriptRep PostGenerateWarehouseDestinationSetupScript(ctx, projKey, envKey, kind).WarehouseSetupScriptPostBody(warehouseSetupScriptPostBody).Execute()
+
+Generate warehouse destination setup script
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
+)
+
+func main() {
+	projKey := "projKey_example" // string | The project key
+	envKey := "envKey_example" // string | The environment key
+	kind := "kind_example" // string | The destination kind (snowflake-v2, redshift, clickhouse)
+	warehouseSetupScriptPostBody := *openapiclient.NewWarehouseSetupScriptPostBody() // WarehouseSetupScriptPostBody |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DataExportDestinationsApi.PostGenerateWarehouseDestinationSetupScript(context.Background(), projKey, envKey, kind).WarehouseSetupScriptPostBody(warehouseSetupScriptPostBody).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DataExportDestinationsApi.PostGenerateWarehouseDestinationSetupScript``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostGenerateWarehouseDestinationSetupScript`: WarehouseDestinationSetupScriptRep
+	fmt.Fprintf(os.Stdout, "Response from `DataExportDestinationsApi.PostGenerateWarehouseDestinationSetupScript`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projKey** | **string** | The project key | 
+**envKey** | **string** | The environment key | 
+**kind** | **string** | The destination kind (snowflake-v2, redshift, clickhouse) | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostGenerateWarehouseDestinationSetupScriptRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+ **warehouseSetupScriptPostBody** | [**WarehouseSetupScriptPostBody**](WarehouseSetupScriptPostBody.md) |  | 
+
+### Return type
+
+[**WarehouseDestinationSetupScriptRep**](WarehouseDestinationSetupScriptRep.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

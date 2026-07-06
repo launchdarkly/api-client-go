@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Id** | **string** |  | 
 **CreationDate** | **int64** |  | 
 **MaintainerId** | **string** | The ID of the scheduled change maintainer | 
+**MaintainerServiceTokenId** | Pointer to **string** | The ID of the service token that created or updated this scheduled change | [optional] 
 **Version** | **int32** | Version of the scheduled change | 
 **ExecutionDate** | **int64** |  | 
 **Instructions** | **[]map[string]interface{}** |  | 
@@ -91,6 +92,31 @@ and a boolean to check if the value has been set.
 
 SetMaintainerId sets MaintainerId field to given value.
 
+
+### GetMaintainerServiceTokenId
+
+`func (o *FeatureFlagScheduledChange) GetMaintainerServiceTokenId() string`
+
+GetMaintainerServiceTokenId returns the MaintainerServiceTokenId field if non-nil, zero value otherwise.
+
+### GetMaintainerServiceTokenIdOk
+
+`func (o *FeatureFlagScheduledChange) GetMaintainerServiceTokenIdOk() (*string, bool)`
+
+GetMaintainerServiceTokenIdOk returns a tuple with the MaintainerServiceTokenId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMaintainerServiceTokenId
+
+`func (o *FeatureFlagScheduledChange) SetMaintainerServiceTokenId(v string)`
+
+SetMaintainerServiceTokenId sets MaintainerServiceTokenId field to given value.
+
+### HasMaintainerServiceTokenId
+
+`func (o *FeatureFlagScheduledChange) HasMaintainerServiceTokenId() bool`
+
+HasMaintainerServiceTokenId returns a boolean if a field has been set.
 
 ### GetVersion
 

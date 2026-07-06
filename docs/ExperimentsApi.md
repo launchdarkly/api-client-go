@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**GetExperiment**](ExperimentsApi.md#GetExperiment) | **Get** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey} | Get experiment
 [**GetExperimentationSettings**](ExperimentsApi.md#GetExperimentationSettings) | **Get** /api/v2/projects/{projectKey}/experimentation-settings | Get experimentation settings
 [**GetExperiments**](ExperimentsApi.md#GetExperiments) | **Get** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments | Get experiments
+[**GetExperimentsAnyEnv**](ExperimentsApi.md#GetExperimentsAnyEnv) | **Get** /api/v2/projects/{projectKey}/experiments | Get experiments any environment
 [**PatchExperiment**](ExperimentsApi.md#PatchExperiment) | **Patch** /api/v2/projects/{projectKey}/environments/{environmentKey}/experiments/{experimentKey} | Patch experiment
 [**PutExperimentationSettings**](ExperimentsApi.md#PutExperimentationSettings) | **Put** /api/v2/projects/{projectKey}/experimentation-settings | Update experimentation settings
 
@@ -373,6 +374,86 @@ Other parameters are passed through a pointer to a apiGetExperimentsRequest stru
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+
+ **limit** | **int64** | The maximum number of experiments to return. Defaults to 20. | 
+ **offset** | **int64** | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | 
+ **filter** | **string** | A comma-separated list of filters. Each filter is of the form &#x60;field:value&#x60;. Supported fields are explained above. | 
+ **expand** | **string** | A comma-separated list of properties that can reveal additional information in the response. Supported fields are explained above. | 
+ **lifecycleState** | **string** | A comma-separated list of experiment archived states. Supports &#x60;archived&#x60;, &#x60;active&#x60;, or both. Defaults to &#x60;active&#x60; experiments. | 
+
+### Return type
+
+[**ExperimentCollectionRep**](ExperimentCollectionRep.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetExperimentsAnyEnv
+
+> ExperimentCollectionRep GetExperimentsAnyEnv(ctx, projectKey).Limit(limit).Offset(offset).Filter(filter).Expand(expand).LifecycleState(lifecycleState).Execute()
+
+Get experiments any environment
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
+)
+
+func main() {
+	projectKey := "projectKey_example" // string | The project key
+	limit := int64(789) // int64 | The maximum number of experiments to return. Defaults to 20. (optional)
+	offset := int64(789) // int64 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
+	filter := "filter_example" // string | A comma-separated list of filters. Each filter is of the form `field:value`. Supported fields are explained above. (optional)
+	expand := "expand_example" // string | A comma-separated list of properties that can reveal additional information in the response. Supported fields are explained above. (optional)
+	lifecycleState := "lifecycleState_example" // string | A comma-separated list of experiment archived states. Supports `archived`, `active`, or both. Defaults to `active` experiments. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ExperimentsApi.GetExperimentsAnyEnv(context.Background(), projectKey).Limit(limit).Offset(offset).Filter(filter).Expand(expand).LifecycleState(lifecycleState).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ExperimentsApi.GetExperimentsAnyEnv``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetExperimentsAnyEnv`: ExperimentCollectionRep
+	fmt.Fprintf(os.Stdout, "Response from `ExperimentsApi.GetExperimentsAnyEnv`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projectKey** | **string** | The project key | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetExperimentsAnyEnvRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
  **limit** | **int64** | The maximum number of experiments to return. Defaults to 20. | 
  **offset** | **int64** | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | 

@@ -25,6 +25,7 @@ Name | Type | Description | Notes
 **SecondaryMetrics** | Pointer to [**[]MetricV2Rep**](MetricV2Rep.md) | Deprecated, use &lt;code&gt;metrics&lt;/code&gt; instead. Details on the secondary metrics for this experiment. | [optional] 
 **Metrics** | Pointer to [**[]DependentMetricOrMetricGroupRep**](DependentMetricOrMetricGroupRep.md) | Details on the metrics for this experiment | [optional] 
 **LayerSnapshot** | Pointer to [**LayerSnapshotRep**](LayerSnapshotRep.md) |  | [optional] 
+**CovariateInfo** | Pointer to [**CovariateInfoRep**](CovariateInfoRep.md) |  | [optional] 
 
 ## Methods
 
@@ -554,6 +555,31 @@ SetLayerSnapshot sets LayerSnapshot field to given value.
 `func (o *IterationRep) HasLayerSnapshot() bool`
 
 HasLayerSnapshot returns a boolean if a field has been set.
+
+### GetCovariateInfo
+
+`func (o *IterationRep) GetCovariateInfo() CovariateInfoRep`
+
+GetCovariateInfo returns the CovariateInfo field if non-nil, zero value otherwise.
+
+### GetCovariateInfoOk
+
+`func (o *IterationRep) GetCovariateInfoOk() (*CovariateInfoRep, bool)`
+
+GetCovariateInfoOk returns a tuple with the CovariateInfo field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCovariateInfo
+
+`func (o *IterationRep) SetCovariateInfo(v CovariateInfoRep)`
+
+SetCovariateInfo sets CovariateInfo field to given value.
+
+### HasCovariateInfo
+
+`func (o *IterationRep) HasCovariateInfo() bool`
+
+HasCovariateInfo returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

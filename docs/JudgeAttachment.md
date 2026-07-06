@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**JudgeConfigKey** | **string** | Key of the judge AI Config | 
+**JudgeConfigKey** | **string** | Judge config key | 
 **SamplingRate** | **float32** | Sampling rate for this judge attachment (0.0 to 1.0) | 
 
 ## Methods

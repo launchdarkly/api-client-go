@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **Model** | Pointer to **map[string]interface{}** |  | [optional] 
 **Name** | **string** |  | 
 **ModelConfigKey** | Pointer to **string** |  | [optional] 
+**OutputFormat** | Pointer to **map[string]interface{}** | JSON Schema defining the structured output format for the variation. | [optional] 
 **Tools** | Pointer to [**[]VariationToolPost**](VariationToolPost.md) | List of tools to use for this variation. The latest version of the tool will be used. | [optional] 
 **ToolKeys** | Pointer to **[]string** | List of tool keys to use for this variation. The latest version of the tool will be used. | [optional] 
 **JudgeConfiguration** | Pointer to [**JudgeConfiguration**](JudgeConfiguration.md) |  | [optional] 
@@ -224,6 +225,31 @@ SetModelConfigKey sets ModelConfigKey field to given value.
 `func (o *AIConfigVariationPost) HasModelConfigKey() bool`
 
 HasModelConfigKey returns a boolean if a field has been set.
+
+### GetOutputFormat
+
+`func (o *AIConfigVariationPost) GetOutputFormat() map[string]interface{}`
+
+GetOutputFormat returns the OutputFormat field if non-nil, zero value otherwise.
+
+### GetOutputFormatOk
+
+`func (o *AIConfigVariationPost) GetOutputFormatOk() (*map[string]interface{}, bool)`
+
+GetOutputFormatOk returns a tuple with the OutputFormat field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOutputFormat
+
+`func (o *AIConfigVariationPost) SetOutputFormat(v map[string]interface{})`
+
+SetOutputFormat sets OutputFormat field to given value.
+
+### HasOutputFormat
+
+`func (o *AIConfigVariationPost) HasOutputFormat() bool`
+
+HasOutputFormat returns a boolean if a field has been set.
 
 ### GetTools
 

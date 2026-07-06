@@ -13,7 +13,8 @@ Name | Type | Description | Notes
 **Key** | **string** | Unique key for the view within the account/project | 
 **Name** | **string** | Human-readable name for the view | 
 **Description** | **string** | Optional detailed description of the view | 
-**GenerateSdkKeys** | **bool** | Whether to generate SDK keys for this view. Defaults to false. | 
+**AffectsSdkPayload** | **bool** | Whether this view is used to filter SDK payloads | 
+**GenerateSdkKeys** | Pointer to **bool** | Deprecated compatibility field. Mirrors &#x60;_affectsSdkPayload&#x60; during rollout. | [optional] [readonly] 
 **Version** | **int32** | Version number for tracking changes | 
 **Tags** | **[]string** | Tags associated with this view | 
 **CreatedAt** | **int64** |  | 
@@ -38,7 +39,7 @@ Name | Type | Description | Notes
 
 ### NewView
 
-`func NewView(id string, accountId string, projectId string, projectKey string, key string, name string, description string, generateSdkKeys bool, version int32, tags []string, createdAt int64, updatedAt int64, archived bool, deleted bool, ) *View`
+`func NewView(id string, accountId string, projectId string, projectKey string, key string, name string, description string, affectsSdkPayload bool, version int32, tags []string, createdAt int64, updatedAt int64, archived bool, deleted bool, ) *View`
 
 NewView instantiates a new View object
 This constructor will assign default values to properties that have it defined,
@@ -243,6 +244,26 @@ and a boolean to check if the value has been set.
 SetDescription sets Description field to given value.
 
 
+### GetAffectsSdkPayload
+
+`func (o *View) GetAffectsSdkPayload() bool`
+
+GetAffectsSdkPayload returns the AffectsSdkPayload field if non-nil, zero value otherwise.
+
+### GetAffectsSdkPayloadOk
+
+`func (o *View) GetAffectsSdkPayloadOk() (*bool, bool)`
+
+GetAffectsSdkPayloadOk returns a tuple with the AffectsSdkPayload field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAffectsSdkPayload
+
+`func (o *View) SetAffectsSdkPayload(v bool)`
+
+SetAffectsSdkPayload sets AffectsSdkPayload field to given value.
+
+
 ### GetGenerateSdkKeys
 
 `func (o *View) GetGenerateSdkKeys() bool`
@@ -262,6 +283,11 @@ and a boolean to check if the value has been set.
 
 SetGenerateSdkKeys sets GenerateSdkKeys field to given value.
 
+### HasGenerateSdkKeys
+
+`func (o *View) HasGenerateSdkKeys() bool`
+
+HasGenerateSdkKeys returns a boolean if a field has been set.
 
 ### GetVersion
 

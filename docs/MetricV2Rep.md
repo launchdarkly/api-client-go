@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **Kind** | **string** | The kind of event the metric tracks | 
 **IsNumeric** | Pointer to **bool** | For custom metrics, whether to track numeric changes in value against a baseline (&lt;code&gt;true&lt;/code&gt;) or to track a conversion when an end user takes an action (&lt;code&gt;false&lt;/code&gt;). | [optional] 
 **UnitAggregationType** | Pointer to **string** | The type of unit aggregation to use for the metric | [optional] 
+**AnalysisType** | Pointer to **string** | The method for analyzing metric events | [optional] 
 **EventKey** | Pointer to **string** | The event key sent with the metric. Only relevant for custom metrics. | [optional] 
 **Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
 
@@ -166,6 +167,31 @@ SetUnitAggregationType sets UnitAggregationType field to given value.
 `func (o *MetricV2Rep) HasUnitAggregationType() bool`
 
 HasUnitAggregationType returns a boolean if a field has been set.
+
+### GetAnalysisType
+
+`func (o *MetricV2Rep) GetAnalysisType() string`
+
+GetAnalysisType returns the AnalysisType field if non-nil, zero value otherwise.
+
+### GetAnalysisTypeOk
+
+`func (o *MetricV2Rep) GetAnalysisTypeOk() (*string, bool)`
+
+GetAnalysisTypeOk returns a tuple with the AnalysisType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAnalysisType
+
+`func (o *MetricV2Rep) SetAnalysisType(v string)`
+
+SetAnalysisType sets AnalysisType field to given value.
+
+### HasAnalysisType
+
+`func (o *MetricV2Rep) HasAnalysisType() bool`
+
+HasAnalysisType returns a boolean if a field has been set.
 
 ### GetEventKey
 

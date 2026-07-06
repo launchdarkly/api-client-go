@@ -81,6 +81,22 @@ func Test_ldapi_DataExportDestinationsApiService(t *testing.T) {
 
 	})
 
+	t.Run("Test DataExportDestinationsApiService PostCompleteWarehouseDestinationSetup", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var projKey string
+		var envKey string
+		var kind string
+
+		resp, httpRes, err := apiClient.DataExportDestinationsApi.PostCompleteWarehouseDestinationSetup(context.Background(), projKey, envKey, kind).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test DataExportDestinationsApiService PostDestination", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
@@ -89,6 +105,21 @@ func Test_ldapi_DataExportDestinationsApiService(t *testing.T) {
 		var environmentKey string
 
 		resp, httpRes, err := apiClient.DataExportDestinationsApi.PostDestination(context.Background(), projectKey, environmentKey).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test DataExportDestinationsApiService PostGenerateProjectEnvWarehouseDestinationKeyPair", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var projKey string
+		var envKey string
+
+		resp, httpRes, err := apiClient.DataExportDestinationsApi.PostGenerateProjectEnvWarehouseDestinationKeyPair(context.Background(), projKey, envKey).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -116,6 +147,22 @@ func Test_ldapi_DataExportDestinationsApiService(t *testing.T) {
 		t.Skip("skip test")  // remove to run test
 
 		resp, httpRes, err := apiClient.DataExportDestinationsApi.PostGenerateWarehouseDestinationKeyPair(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test DataExportDestinationsApiService PostGenerateWarehouseDestinationSetupScript", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var projKey string
+		var envKey string
+		var kind string
+
+		resp, httpRes, err := apiClient.DataExportDestinationsApi.PostGenerateWarehouseDestinationSetupScript(context.Background(), projKey, envKey, kind).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

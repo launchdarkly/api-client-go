@@ -11,13 +11,19 @@ Name | Type | Description | Notes
 **MaintainerId** | **string** | The ID of the member who maintains this experiment. | 
 **CreationDate** | **int64** |  | 
 **EnvironmentKey** | **string** |  | 
+**Methodology** | Pointer to **string** | The results analysis approach. | [optional] 
+**DataSource** | Pointer to **string** | The source of metric data in order to analyze results. Defaults to \&quot;launchdarkly\&quot; when not provided. | [optional] 
 **ArchivedDate** | Pointer to **int64** |  | [optional] 
 **Tags** | Pointer to **[]string** | Tags for the experiment | [optional] 
 **Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
 **HoldoutId** | Pointer to **string** | The holdout ID | [optional] 
 **CurrentIteration** | Pointer to [**IterationRep**](IterationRep.md) |  | [optional] 
+**Type** | Pointer to **string** | The experiment type | [optional] 
+**Access** | Pointer to [**Access**](Access.md) |  | [optional] 
 **DraftIteration** | Pointer to [**IterationRep**](IterationRep.md) |  | [optional] 
 **PreviousIterations** | Pointer to [**[]IterationRep**](IterationRep.md) | Details on the previous iterations for this experiment. | [optional] 
+**AnalysisConfig** | Pointer to [**AnalysisConfigRep**](AnalysisConfigRep.md) |  | [optional] 
+**MutableFieldsByStatus** | Pointer to [**MutableFieldsByStatusRep**](MutableFieldsByStatusRep.md) |  | [optional] 
 
 ## Methods
 
@@ -188,6 +194,56 @@ and a boolean to check if the value has been set.
 SetEnvironmentKey sets EnvironmentKey field to given value.
 
 
+### GetMethodology
+
+`func (o *Experiment) GetMethodology() string`
+
+GetMethodology returns the Methodology field if non-nil, zero value otherwise.
+
+### GetMethodologyOk
+
+`func (o *Experiment) GetMethodologyOk() (*string, bool)`
+
+GetMethodologyOk returns a tuple with the Methodology field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMethodology
+
+`func (o *Experiment) SetMethodology(v string)`
+
+SetMethodology sets Methodology field to given value.
+
+### HasMethodology
+
+`func (o *Experiment) HasMethodology() bool`
+
+HasMethodology returns a boolean if a field has been set.
+
+### GetDataSource
+
+`func (o *Experiment) GetDataSource() string`
+
+GetDataSource returns the DataSource field if non-nil, zero value otherwise.
+
+### GetDataSourceOk
+
+`func (o *Experiment) GetDataSourceOk() (*string, bool)`
+
+GetDataSourceOk returns a tuple with the DataSource field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDataSource
+
+`func (o *Experiment) SetDataSource(v string)`
+
+SetDataSource sets DataSource field to given value.
+
+### HasDataSource
+
+`func (o *Experiment) HasDataSource() bool`
+
+HasDataSource returns a boolean if a field has been set.
+
 ### GetArchivedDate
 
 `func (o *Experiment) GetArchivedDate() int64`
@@ -308,6 +364,56 @@ SetCurrentIteration sets CurrentIteration field to given value.
 
 HasCurrentIteration returns a boolean if a field has been set.
 
+### GetType
+
+`func (o *Experiment) GetType() string`
+
+GetType returns the Type field if non-nil, zero value otherwise.
+
+### GetTypeOk
+
+`func (o *Experiment) GetTypeOk() (*string, bool)`
+
+GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetType
+
+`func (o *Experiment) SetType(v string)`
+
+SetType sets Type field to given value.
+
+### HasType
+
+`func (o *Experiment) HasType() bool`
+
+HasType returns a boolean if a field has been set.
+
+### GetAccess
+
+`func (o *Experiment) GetAccess() Access`
+
+GetAccess returns the Access field if non-nil, zero value otherwise.
+
+### GetAccessOk
+
+`func (o *Experiment) GetAccessOk() (*Access, bool)`
+
+GetAccessOk returns a tuple with the Access field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAccess
+
+`func (o *Experiment) SetAccess(v Access)`
+
+SetAccess sets Access field to given value.
+
+### HasAccess
+
+`func (o *Experiment) HasAccess() bool`
+
+HasAccess returns a boolean if a field has been set.
+
 ### GetDraftIteration
 
 `func (o *Experiment) GetDraftIteration() IterationRep`
@@ -357,6 +463,56 @@ SetPreviousIterations sets PreviousIterations field to given value.
 `func (o *Experiment) HasPreviousIterations() bool`
 
 HasPreviousIterations returns a boolean if a field has been set.
+
+### GetAnalysisConfig
+
+`func (o *Experiment) GetAnalysisConfig() AnalysisConfigRep`
+
+GetAnalysisConfig returns the AnalysisConfig field if non-nil, zero value otherwise.
+
+### GetAnalysisConfigOk
+
+`func (o *Experiment) GetAnalysisConfigOk() (*AnalysisConfigRep, bool)`
+
+GetAnalysisConfigOk returns a tuple with the AnalysisConfig field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAnalysisConfig
+
+`func (o *Experiment) SetAnalysisConfig(v AnalysisConfigRep)`
+
+SetAnalysisConfig sets AnalysisConfig field to given value.
+
+### HasAnalysisConfig
+
+`func (o *Experiment) HasAnalysisConfig() bool`
+
+HasAnalysisConfig returns a boolean if a field has been set.
+
+### GetMutableFieldsByStatus
+
+`func (o *Experiment) GetMutableFieldsByStatus() MutableFieldsByStatusRep`
+
+GetMutableFieldsByStatus returns the MutableFieldsByStatus field if non-nil, zero value otherwise.
+
+### GetMutableFieldsByStatusOk
+
+`func (o *Experiment) GetMutableFieldsByStatusOk() (*MutableFieldsByStatusRep, bool)`
+
+GetMutableFieldsByStatusOk returns a tuple with the MutableFieldsByStatus field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMutableFieldsByStatus
+
+`func (o *Experiment) SetMutableFieldsByStatus(v MutableFieldsByStatusRep)`
+
+SetMutableFieldsByStatus sets MutableFieldsByStatus field to given value.
+
+### HasMutableFieldsByStatus
+
+`func (o *Experiment) HasMutableFieldsByStatus() bool`
+
+HasMutableFieldsByStatus returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

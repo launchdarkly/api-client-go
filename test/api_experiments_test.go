@@ -98,6 +98,20 @@ func Test_ldapi_ExperimentsApiService(t *testing.T) {
 
 	})
 
+	t.Run("Test ExperimentsApiService GetExperimentsAnyEnv", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var projectKey string
+
+		resp, httpRes, err := apiClient.ExperimentsApi.GetExperimentsAnyEnv(context.Background(), projectKey).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test ExperimentsApiService PatchExperiment", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test

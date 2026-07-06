@@ -1,7 +1,7 @@
 /*
 LaunchDarkly REST API
 
-Testing HoldoutsBetaApiService
+Testing HoldoutsApiService
 
 */
 
@@ -17,19 +17,19 @@ import (
 	openapiclient "github.com/launchdarkly/api-client-go"
 )
 
-func Test_ldapi_HoldoutsBetaApiService(t *testing.T) {
+func Test_ldapi_HoldoutsApiService(t *testing.T) {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
-	t.Run("Test HoldoutsBetaApiService GetAllHoldouts", func(t *testing.T) {
+	t.Run("Test HoldoutsApiService GetAllHoldouts", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
 		var projectKey string
 		var environmentKey string
 
-		resp, httpRes, err := apiClient.HoldoutsBetaApi.GetAllHoldouts(context.Background(), projectKey, environmentKey).Execute()
+		resp, httpRes, err := apiClient.HoldoutsApi.GetAllHoldouts(context.Background(), projectKey, environmentKey).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -37,7 +37,7 @@ func Test_ldapi_HoldoutsBetaApiService(t *testing.T) {
 
 	})
 
-	t.Run("Test HoldoutsBetaApiService GetHoldout", func(t *testing.T) {
+	t.Run("Test HoldoutsApiService GetHoldout", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
@@ -45,7 +45,7 @@ func Test_ldapi_HoldoutsBetaApiService(t *testing.T) {
 		var environmentKey string
 		var holdoutKey string
 
-		resp, httpRes, err := apiClient.HoldoutsBetaApi.GetHoldout(context.Background(), projectKey, environmentKey, holdoutKey).Execute()
+		resp, httpRes, err := apiClient.HoldoutsApi.GetHoldout(context.Background(), projectKey, environmentKey, holdoutKey).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -53,7 +53,7 @@ func Test_ldapi_HoldoutsBetaApiService(t *testing.T) {
 
 	})
 
-	t.Run("Test HoldoutsBetaApiService GetHoldoutById", func(t *testing.T) {
+	t.Run("Test HoldoutsApiService GetHoldoutById", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
@@ -61,7 +61,7 @@ func Test_ldapi_HoldoutsBetaApiService(t *testing.T) {
 		var environmentKey string
 		var holdoutId string
 
-		resp, httpRes, err := apiClient.HoldoutsBetaApi.GetHoldoutById(context.Background(), projectKey, environmentKey, holdoutId).Execute()
+		resp, httpRes, err := apiClient.HoldoutsApi.GetHoldoutById(context.Background(), projectKey, environmentKey, holdoutId).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -69,7 +69,7 @@ func Test_ldapi_HoldoutsBetaApiService(t *testing.T) {
 
 	})
 
-	t.Run("Test HoldoutsBetaApiService PatchHoldout", func(t *testing.T) {
+	t.Run("Test HoldoutsApiService PatchHoldout", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
@@ -77,7 +77,7 @@ func Test_ldapi_HoldoutsBetaApiService(t *testing.T) {
 		var environmentKey string
 		var holdoutKey string
 
-		resp, httpRes, err := apiClient.HoldoutsBetaApi.PatchHoldout(context.Background(), projectKey, environmentKey, holdoutKey).Execute()
+		resp, httpRes, err := apiClient.HoldoutsApi.PatchHoldout(context.Background(), projectKey, environmentKey, holdoutKey).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -85,14 +85,14 @@ func Test_ldapi_HoldoutsBetaApiService(t *testing.T) {
 
 	})
 
-	t.Run("Test HoldoutsBetaApiService PostHoldout", func(t *testing.T) {
+	t.Run("Test HoldoutsApiService PostHoldout", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
 		var projectKey string
 		var environmentKey string
 
-		resp, httpRes, err := apiClient.HoldoutsBetaApi.PostHoldout(context.Background(), projectKey, environmentKey).Execute()
+		resp, httpRes, err := apiClient.HoldoutsApi.PostHoldout(context.Background(), projectKey, environmentKey).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

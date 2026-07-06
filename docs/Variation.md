@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** | The ID of the variation. Leave empty when you are creating a flag. | [optional] 
 **Value** | **interface{}** | The value of the variation. For boolean flags, this must be &lt;code&gt;true&lt;/code&gt; or &lt;code&gt;false&lt;/code&gt;. For multivariate flags, this may be a string, number, or JSON object. | 
+**ValueHash** | Pointer to **string** | A deterministic hash of the canonicalized variation &lt;code&gt;value&lt;/code&gt;. Computed server-side; ignored if supplied in request bodies. | [optional] 
 **Description** | Pointer to **string** | Description of the variation. Defaults to an empty string, but is omitted from the response if not set. | [optional] 
 **Name** | Pointer to **string** | A human-friendly name for the variation. Defaults to an empty string, but is omitted from the response if not set. | [optional] 
 
@@ -83,6 +84,31 @@ SetValue sets Value field to given value.
 `func (o *Variation) UnsetValue()`
 
 UnsetValue ensures that no value is present for Value, not even an explicit nil
+### GetValueHash
+
+`func (o *Variation) GetValueHash() string`
+
+GetValueHash returns the ValueHash field if non-nil, zero value otherwise.
+
+### GetValueHashOk
+
+`func (o *Variation) GetValueHashOk() (*string, bool)`
+
+GetValueHashOk returns a tuple with the ValueHash field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetValueHash
+
+`func (o *Variation) SetValueHash(v string)`
+
+SetValueHash sets ValueHash field to given value.
+
+### HasValueHash
+
+`func (o *Variation) HasValueHash() bool`
+
+HasValueHash returns a boolean if a field has been set.
+
 ### GetDescription
 
 `func (o *Variation) GetDescription() string`

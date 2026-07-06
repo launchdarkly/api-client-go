@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Kind** | **string** | The type of resource | 
 **AiConfig** | Pointer to [**AIConfigRep**](AIConfigRep.md) |  | [optional] 
+**Experiment** | Pointer to [**ExpandedExperimentRep**](ExpandedExperimentRep.md) |  | [optional] 
 **Flag** | Pointer to [**ExpandedFlagRep**](ExpandedFlagRep.md) |  | [optional] 
 **Segment** | Pointer to [**UserSegment**](UserSegment.md) |  | [optional] 
 
@@ -72,6 +73,31 @@ SetAiConfig sets AiConfig field to given value.
 `func (o *ExpandedResourceRep) HasAiConfig() bool`
 
 HasAiConfig returns a boolean if a field has been set.
+
+### GetExperiment
+
+`func (o *ExpandedResourceRep) GetExperiment() ExpandedExperimentRep`
+
+GetExperiment returns the Experiment field if non-nil, zero value otherwise.
+
+### GetExperimentOk
+
+`func (o *ExpandedResourceRep) GetExperimentOk() (*ExpandedExperimentRep, bool)`
+
+GetExperimentOk returns a tuple with the Experiment field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExperiment
+
+`func (o *ExpandedResourceRep) SetExperiment(v ExpandedExperimentRep)`
+
+SetExperiment sets Experiment field to given value.
+
+### HasExperiment
+
+`func (o *ExpandedResourceRep) HasExperiment() bool`
+
+HasExperiment returns a boolean if a field has been set.
 
 ### GetFlag
 

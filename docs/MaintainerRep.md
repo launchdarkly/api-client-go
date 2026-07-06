@@ -4,6 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Key** | **string** | The ID of the maintainer member, or the key of the maintainer team | 
+**Kind** | **string** | The type of the maintainer | 
 **Member** | Pointer to [**MemberSummary**](MemberSummary.md) |  | [optional] 
 **Team** | Pointer to [**MemberTeamSummaryRep**](MemberTeamSummaryRep.md) |  | [optional] 
 
@@ -11,7 +13,7 @@ Name | Type | Description | Notes
 
 ### NewMaintainerRep
 
-`func NewMaintainerRep() *MaintainerRep`
+`func NewMaintainerRep(key string, kind string, ) *MaintainerRep`
 
 NewMaintainerRep instantiates a new MaintainerRep object
 This constructor will assign default values to properties that have it defined,
@@ -25,6 +27,46 @@ will change when the set of required properties is changed
 NewMaintainerRepWithDefaults instantiates a new MaintainerRep object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetKey
+
+`func (o *MaintainerRep) GetKey() string`
+
+GetKey returns the Key field if non-nil, zero value otherwise.
+
+### GetKeyOk
+
+`func (o *MaintainerRep) GetKeyOk() (*string, bool)`
+
+GetKeyOk returns a tuple with the Key field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetKey
+
+`func (o *MaintainerRep) SetKey(v string)`
+
+SetKey sets Key field to given value.
+
+
+### GetKind
+
+`func (o *MaintainerRep) GetKind() string`
+
+GetKind returns the Kind field if non-nil, zero value otherwise.
+
+### GetKindOk
+
+`func (o *MaintainerRep) GetKindOk() (*string, bool)`
+
+GetKindOk returns a tuple with the Kind field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetKind
+
+`func (o *MaintainerRep) SetKind(v string)`
+
+SetKind sets Kind field to given value.
+
 
 ### GetMember
 

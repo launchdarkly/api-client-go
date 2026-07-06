@@ -7,7 +7,6 @@ Name | Type | Description | Notes
 **Key** | **string** | Unique key for the view within the account/project | 
 **Name** | **string** | Human-readable name for the view | 
 **Description** | Pointer to **string** | Optional detailed description of the view | [optional] [default to ""]
-**GenerateSdkKeys** | Pointer to **bool** | Whether to generate SDK keys for this view | [optional] [default to false]
 **MaintainerId** | Pointer to **string** | Member ID of the maintainer for this view. Only one of &#x60;maintainerId&#x60; or &#x60;maintainerTeamKey&#x60; can be specified. | [optional] 
 **MaintainerTeamKey** | Pointer to **string** | Key of the maintainer team for this view. Only one of &#x60;maintainerId&#x60; or &#x60;maintainerTeamKey&#x60; can be specified. | [optional] 
 **Tags** | Pointer to **[]string** | Tags associated with this view | [optional] 
@@ -95,31 +94,6 @@ SetDescription sets Description field to given value.
 `func (o *ViewPost) HasDescription() bool`
 
 HasDescription returns a boolean if a field has been set.
-
-### GetGenerateSdkKeys
-
-`func (o *ViewPost) GetGenerateSdkKeys() bool`
-
-GetGenerateSdkKeys returns the GenerateSdkKeys field if non-nil, zero value otherwise.
-
-### GetGenerateSdkKeysOk
-
-`func (o *ViewPost) GetGenerateSdkKeysOk() (*bool, bool)`
-
-GetGenerateSdkKeysOk returns a tuple with the GenerateSdkKeys field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetGenerateSdkKeys
-
-`func (o *ViewPost) SetGenerateSdkKeys(v bool)`
-
-SetGenerateSdkKeys sets GenerateSdkKeys field to given value.
-
-### HasGenerateSdkKeys
-
-`func (o *ViewPost) HasGenerateSdkKeys() bool`
-
-HasGenerateSdkKeys returns a boolean if a field has been set.
 
 ### GetMaintainerId
 

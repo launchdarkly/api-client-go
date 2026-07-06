@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Key** | **string** | A unique key for this edge within the graph | 
-**SourceConfig** | **string** | The AI Config key that is the source of this edge | 
-**TargetConfig** | **string** | The AI Config key that is the target of this edge | 
-**Handoff** | Pointer to **map[string]interface{}** | The handoff options from the source AI Config to the target AI Config | [optional] 
+**SourceConfig** | **string** | The config key that is the source of this edge | 
+**TargetConfig** | **string** | The config key that is the target of this edge | 
+**Handoff** | Pointer to **map[string]interface{}** | The handoff options from the source config to the target config | [optional] 
 
 ## Methods
 

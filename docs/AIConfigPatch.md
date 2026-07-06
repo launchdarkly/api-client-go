@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **MaintainerTeamKey** | Pointer to **string** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **Tags** | Pointer to **[]string** |  | [optional] 
-**EvaluationMetricKey** | Pointer to **string** | Evaluation metric key for this AI Config | [optional] 
+**EvaluationMetricKey** | Pointer to **string** | Evaluation metric key for this config | [optional] 
 **IsInverted** | Pointer to **bool** | Whether the evaluation metric is inverted, meaning a lower value is better if set as true | [optional] 
 
 ## Methods

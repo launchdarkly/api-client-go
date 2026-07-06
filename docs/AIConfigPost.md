@@ -11,8 +11,9 @@ Name | Type | Description | Notes
 **Mode** | Pointer to **string** |  | [optional] [default to "completion"]
 **Name** | **string** |  | 
 **Tags** | Pointer to **[]string** |  | [optional] 
+**ViewKeys** | Pointer to **[]string** |  | [optional] 
 **DefaultVariation** | Pointer to [**AIConfigVariationPost**](AIConfigVariationPost.md) |  | [optional] 
-**EvaluationMetricKey** | Pointer to **string** | Evaluation metric key for this AI Config | [optional] 
+**EvaluationMetricKey** | Pointer to **string** | Evaluation metric key for this config | [optional] 
 **IsInverted** | Pointer to **bool** | Whether the evaluation metric is inverted, meaning a lower value is better if set as true | [optional] 
 
 ## Methods
@@ -198,6 +199,31 @@ SetTags sets Tags field to given value.
 `func (o *AIConfigPost) HasTags() bool`
 
 HasTags returns a boolean if a field has been set.
+
+### GetViewKeys
+
+`func (o *AIConfigPost) GetViewKeys() []string`
+
+GetViewKeys returns the ViewKeys field if non-nil, zero value otherwise.
+
+### GetViewKeysOk
+
+`func (o *AIConfigPost) GetViewKeysOk() (*[]string, bool)`
+
+GetViewKeysOk returns a tuple with the ViewKeys field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetViewKeys
+
+`func (o *AIConfigPost) SetViewKeys(v []string)`
+
+SetViewKeys sets ViewKeys field to given value.
+
+### HasViewKeys
+
+`func (o *AIConfigPost) HasViewKeys() bool`
+
+HasViewKeys returns a boolean if a field has been set.
 
 ### GetDefaultVariation
 

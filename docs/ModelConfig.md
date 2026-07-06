@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **Version** | **int32** |  | 
 **CostPerInputToken** | Pointer to **float64** | Cost per input token in USD | [optional] 
 **CostPerOutputToken** | Pointer to **float64** | Cost per output token in USD | [optional] 
+**CostPerCachedInputToken** | Pointer to **float64** | Cost per cached input token in USD | [optional] 
 **IsRestricted** | **bool** | Whether the model is restricted | 
 
 ## Methods
@@ -332,6 +333,31 @@ SetCostPerOutputToken sets CostPerOutputToken field to given value.
 `func (o *ModelConfig) HasCostPerOutputToken() bool`
 
 HasCostPerOutputToken returns a boolean if a field has been set.
+
+### GetCostPerCachedInputToken
+
+`func (o *ModelConfig) GetCostPerCachedInputToken() float64`
+
+GetCostPerCachedInputToken returns the CostPerCachedInputToken field if non-nil, zero value otherwise.
+
+### GetCostPerCachedInputTokenOk
+
+`func (o *ModelConfig) GetCostPerCachedInputTokenOk() (*float64, bool)`
+
+GetCostPerCachedInputTokenOk returns a tuple with the CostPerCachedInputToken field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCostPerCachedInputToken
+
+`func (o *ModelConfig) SetCostPerCachedInputToken(v float64)`
+
+SetCostPerCachedInputToken sets CostPerCachedInputToken field to given value.
+
+### HasCostPerCachedInputToken
+
+`func (o *ModelConfig) HasCostPerCachedInputToken() bool`
+
+HasCostPerCachedInputToken returns a boolean if a field has been set.
 
 ### GetIsRestricted
 

@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** |  | [optional] 
 **Schema** | **map[string]interface{}** | JSON Schema defining the tool&#39;s parameters for LLM consumption | 
 **CustomParameters** | Pointer to **map[string]interface{}** | Custom metadata and configuration for application-level use (not sent to LLM) | [optional] 
+**Tags** | Pointer to **[]string** |  | [optional] 
 **Version** | **int32** |  | 
 **CreatedAt** | **int64** |  | 
 
@@ -197,6 +198,31 @@ SetCustomParameters sets CustomParameters field to given value.
 `func (o *AITool) HasCustomParameters() bool`
 
 HasCustomParameters returns a boolean if a field has been set.
+
+### GetTags
+
+`func (o *AITool) GetTags() []string`
+
+GetTags returns the Tags field if non-nil, zero value otherwise.
+
+### GetTagsOk
+
+`func (o *AITool) GetTagsOk() (*[]string, bool)`
+
+GetTagsOk returns a tuple with the Tags field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTags
+
+`func (o *AITool) SetTags(v []string)`
+
+SetTags sets Tags field to given value.
+
+### HasTags
+
+`func (o *AITool) HasTags() bool`
+
+HasTags returns a boolean if a field has been set.
 
 ### GetVersion
 

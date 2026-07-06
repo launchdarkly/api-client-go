@@ -27,11 +27,12 @@ Name | Type | Description | Notes
 **Maintainer** | Pointer to [**AiConfigsMemberSummary**](AiConfigsMemberSummary.md) |  | [optional] 
 **Description** | Pointer to **string** | Description of the metric | [optional] 
 **Category** | Pointer to **string** | The category of the metric | [optional] 
-**IsNumeric** | Pointer to **bool** | For custom metrics, whether to track numeric changes in value against a baseline (&lt;code&gt;true&lt;/code&gt;) or to track a conversion when an end user takes an action (&lt;code&gt;false&lt;/code&gt;). | [optional] 
-**SuccessCriteria** | Pointer to **string** | For custom metrics, the success criteria | [optional] 
-**Unit** | Pointer to **string** | For numeric custom metrics, the unit of measure | [optional] 
+**IsNumeric** | Pointer to **bool** | For custom and trace metrics, whether to track numeric changes in value against a baseline (&lt;code&gt;true&lt;/code&gt;) or to track a conversion when an end user takes an action (&lt;code&gt;false&lt;/code&gt;). | [optional] 
+**SuccessCriteria** | Pointer to **string** | For custom and trace metrics, the success criteria | [optional] 
+**Unit** | Pointer to **string** | For numeric custom and trace metrics, the unit of measure | [optional] 
 **EventKey** | Pointer to **string** | For custom metrics, the event key to use in your code | [optional] 
-**RandomizationUnits** | Pointer to **[]string** | An array of randomization units allowed for this metric | [optional] 
+**RandomizationUnits** | Pointer to **[]string** | Deprecated, use &lt;code&gt;analysisUnits&lt;/code&gt; instead. | [optional] 
+**AnalysisUnits** | Pointer to **[]string** | An array of analysis units allowed for this metric. | [optional] 
 **Filters** | Pointer to [**AiConfigsFilter**](AiConfigsFilter.md) |  | [optional] 
 **UnitAggregationType** | Pointer to **string** | The method by which multiple unit event values are aggregated | [optional] 
 **AnalysisType** | Pointer to **string** | The method for analyzing metric events | [optional] 
@@ -43,6 +44,15 @@ Name | Type | Description | Notes
 **ArchivedAt** | Pointer to **int64** |  | [optional] 
 **Selector** | Pointer to **string** | For click metrics, the CSS selectors | [optional] 
 **Urls** | Pointer to **[]map[string]interface{}** |  | [optional] 
+**WindowStartOffset** | Pointer to **int64** | Not yet implemented - The start of the measurement window, in milliseconds relative to the unit&#39;s first exposure to a flag variation | [optional] 
+**WindowEndOffset** | Pointer to **int64** | Not yet implemented - The end of the measurement window, in milliseconds relative to the unit&#39;s first exposure to a flag variation | [optional] 
+**WinsorLowerPercentile** | Pointer to **float32** | Lower winsorization percentile, expressed as a percent in the open interval (0, 100). When both bounds are set, defines a two-sided clamp range. Otherwise lower-only winsorization. | [optional] 
+**WinsorUpperPercentile** | Pointer to **float32** | Upper winsorization percentile, expressed as a percent in the open interval (0, 100). When both bounds are set, must be greater than winsorLowerPercentile. | [optional] 
+**WinsorExcludeImputed** | Pointer to **bool** | Deprecated and ignored. Use winsorIncludeImputed instead. | [optional] 
+**WinsorIncludeImputed** | Pointer to **bool** | When true, the percentile bound calculation includes imputed zeros. Only meaningful when at least one bound is set and the metric includes units that didn&#39;t send events. | [optional] 
+**TraceQuery** | Pointer to **string** | For trace metrics, the trace query to use for the metric. | [optional] 
+**TraceValueLocation** | Pointer to **string** | For trace metrics, the location in the trace to use for numeric values. | [optional] 
+**Denominator** | Pointer to [**AiConfigsMetricDenominatorRep**](AiConfigsMetricDenominatorRep.md) |  | [optional] 
 
 ## Methods
 
@@ -723,6 +733,31 @@ SetRandomizationUnits sets RandomizationUnits field to given value.
 
 HasRandomizationUnits returns a boolean if a field has been set.
 
+### GetAnalysisUnits
+
+`func (o *AiConfigsMetricListingRep) GetAnalysisUnits() []string`
+
+GetAnalysisUnits returns the AnalysisUnits field if non-nil, zero value otherwise.
+
+### GetAnalysisUnitsOk
+
+`func (o *AiConfigsMetricListingRep) GetAnalysisUnitsOk() (*[]string, bool)`
+
+GetAnalysisUnitsOk returns a tuple with the AnalysisUnits field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAnalysisUnits
+
+`func (o *AiConfigsMetricListingRep) SetAnalysisUnits(v []string)`
+
+SetAnalysisUnits sets AnalysisUnits field to given value.
+
+### HasAnalysisUnits
+
+`func (o *AiConfigsMetricListingRep) HasAnalysisUnits() bool`
+
+HasAnalysisUnits returns a boolean if a field has been set.
+
 ### GetFilters
 
 `func (o *AiConfigsMetricListingRep) GetFilters() AiConfigsFilter`
@@ -992,6 +1027,231 @@ SetUrls sets Urls field to given value.
 `func (o *AiConfigsMetricListingRep) HasUrls() bool`
 
 HasUrls returns a boolean if a field has been set.
+
+### GetWindowStartOffset
+
+`func (o *AiConfigsMetricListingRep) GetWindowStartOffset() int64`
+
+GetWindowStartOffset returns the WindowStartOffset field if non-nil, zero value otherwise.
+
+### GetWindowStartOffsetOk
+
+`func (o *AiConfigsMetricListingRep) GetWindowStartOffsetOk() (*int64, bool)`
+
+GetWindowStartOffsetOk returns a tuple with the WindowStartOffset field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetWindowStartOffset
+
+`func (o *AiConfigsMetricListingRep) SetWindowStartOffset(v int64)`
+
+SetWindowStartOffset sets WindowStartOffset field to given value.
+
+### HasWindowStartOffset
+
+`func (o *AiConfigsMetricListingRep) HasWindowStartOffset() bool`
+
+HasWindowStartOffset returns a boolean if a field has been set.
+
+### GetWindowEndOffset
+
+`func (o *AiConfigsMetricListingRep) GetWindowEndOffset() int64`
+
+GetWindowEndOffset returns the WindowEndOffset field if non-nil, zero value otherwise.
+
+### GetWindowEndOffsetOk
+
+`func (o *AiConfigsMetricListingRep) GetWindowEndOffsetOk() (*int64, bool)`
+
+GetWindowEndOffsetOk returns a tuple with the WindowEndOffset field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetWindowEndOffset
+
+`func (o *AiConfigsMetricListingRep) SetWindowEndOffset(v int64)`
+
+SetWindowEndOffset sets WindowEndOffset field to given value.
+
+### HasWindowEndOffset
+
+`func (o *AiConfigsMetricListingRep) HasWindowEndOffset() bool`
+
+HasWindowEndOffset returns a boolean if a field has been set.
+
+### GetWinsorLowerPercentile
+
+`func (o *AiConfigsMetricListingRep) GetWinsorLowerPercentile() float32`
+
+GetWinsorLowerPercentile returns the WinsorLowerPercentile field if non-nil, zero value otherwise.
+
+### GetWinsorLowerPercentileOk
+
+`func (o *AiConfigsMetricListingRep) GetWinsorLowerPercentileOk() (*float32, bool)`
+
+GetWinsorLowerPercentileOk returns a tuple with the WinsorLowerPercentile field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetWinsorLowerPercentile
+
+`func (o *AiConfigsMetricListingRep) SetWinsorLowerPercentile(v float32)`
+
+SetWinsorLowerPercentile sets WinsorLowerPercentile field to given value.
+
+### HasWinsorLowerPercentile
+
+`func (o *AiConfigsMetricListingRep) HasWinsorLowerPercentile() bool`
+
+HasWinsorLowerPercentile returns a boolean if a field has been set.
+
+### GetWinsorUpperPercentile
+
+`func (o *AiConfigsMetricListingRep) GetWinsorUpperPercentile() float32`
+
+GetWinsorUpperPercentile returns the WinsorUpperPercentile field if non-nil, zero value otherwise.
+
+### GetWinsorUpperPercentileOk
+
+`func (o *AiConfigsMetricListingRep) GetWinsorUpperPercentileOk() (*float32, bool)`
+
+GetWinsorUpperPercentileOk returns a tuple with the WinsorUpperPercentile field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetWinsorUpperPercentile
+
+`func (o *AiConfigsMetricListingRep) SetWinsorUpperPercentile(v float32)`
+
+SetWinsorUpperPercentile sets WinsorUpperPercentile field to given value.
+
+### HasWinsorUpperPercentile
+
+`func (o *AiConfigsMetricListingRep) HasWinsorUpperPercentile() bool`
+
+HasWinsorUpperPercentile returns a boolean if a field has been set.
+
+### GetWinsorExcludeImputed
+
+`func (o *AiConfigsMetricListingRep) GetWinsorExcludeImputed() bool`
+
+GetWinsorExcludeImputed returns the WinsorExcludeImputed field if non-nil, zero value otherwise.
+
+### GetWinsorExcludeImputedOk
+
+`func (o *AiConfigsMetricListingRep) GetWinsorExcludeImputedOk() (*bool, bool)`
+
+GetWinsorExcludeImputedOk returns a tuple with the WinsorExcludeImputed field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetWinsorExcludeImputed
+
+`func (o *AiConfigsMetricListingRep) SetWinsorExcludeImputed(v bool)`
+
+SetWinsorExcludeImputed sets WinsorExcludeImputed field to given value.
+
+### HasWinsorExcludeImputed
+
+`func (o *AiConfigsMetricListingRep) HasWinsorExcludeImputed() bool`
+
+HasWinsorExcludeImputed returns a boolean if a field has been set.
+
+### GetWinsorIncludeImputed
+
+`func (o *AiConfigsMetricListingRep) GetWinsorIncludeImputed() bool`
+
+GetWinsorIncludeImputed returns the WinsorIncludeImputed field if non-nil, zero value otherwise.
+
+### GetWinsorIncludeImputedOk
+
+`func (o *AiConfigsMetricListingRep) GetWinsorIncludeImputedOk() (*bool, bool)`
+
+GetWinsorIncludeImputedOk returns a tuple with the WinsorIncludeImputed field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetWinsorIncludeImputed
+
+`func (o *AiConfigsMetricListingRep) SetWinsorIncludeImputed(v bool)`
+
+SetWinsorIncludeImputed sets WinsorIncludeImputed field to given value.
+
+### HasWinsorIncludeImputed
+
+`func (o *AiConfigsMetricListingRep) HasWinsorIncludeImputed() bool`
+
+HasWinsorIncludeImputed returns a boolean if a field has been set.
+
+### GetTraceQuery
+
+`func (o *AiConfigsMetricListingRep) GetTraceQuery() string`
+
+GetTraceQuery returns the TraceQuery field if non-nil, zero value otherwise.
+
+### GetTraceQueryOk
+
+`func (o *AiConfigsMetricListingRep) GetTraceQueryOk() (*string, bool)`
+
+GetTraceQueryOk returns a tuple with the TraceQuery field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTraceQuery
+
+`func (o *AiConfigsMetricListingRep) SetTraceQuery(v string)`
+
+SetTraceQuery sets TraceQuery field to given value.
+
+### HasTraceQuery
+
+`func (o *AiConfigsMetricListingRep) HasTraceQuery() bool`
+
+HasTraceQuery returns a boolean if a field has been set.
+
+### GetTraceValueLocation
+
+`func (o *AiConfigsMetricListingRep) GetTraceValueLocation() string`
+
+GetTraceValueLocation returns the TraceValueLocation field if non-nil, zero value otherwise.
+
+### GetTraceValueLocationOk
+
+`func (o *AiConfigsMetricListingRep) GetTraceValueLocationOk() (*string, bool)`
+
+GetTraceValueLocationOk returns a tuple with the TraceValueLocation field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTraceValueLocation
+
+`func (o *AiConfigsMetricListingRep) SetTraceValueLocation(v string)`
+
+SetTraceValueLocation sets TraceValueLocation field to given value.
+
+### HasTraceValueLocation
+
+`func (o *AiConfigsMetricListingRep) HasTraceValueLocation() bool`
+
+HasTraceValueLocation returns a boolean if a field has been set.
+
+### GetDenominator
+
+`func (o *AiConfigsMetricListingRep) GetDenominator() AiConfigsMetricDenominatorRep`
+
+GetDenominator returns the Denominator field if non-nil, zero value otherwise.
+
+### GetDenominatorOk
+
+`func (o *AiConfigsMetricListingRep) GetDenominatorOk() (*AiConfigsMetricDenominatorRep, bool)`
+
+GetDenominatorOk returns a tuple with the Denominator field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDenominator
+
+`func (o *AiConfigsMetricListingRep) SetDenominator(v AiConfigsMetricDenominatorRep)`
+
+SetDenominator sets Denominator field to given value.
+
+### HasDenominator
+
+`func (o *AiConfigsMetricListingRep) HasDenominator() bool`
+
+HasDenominator returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

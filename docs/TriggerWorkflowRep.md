@@ -10,6 +10,8 @@ Name | Type | Description | Notes
 **MaintainerId** | Pointer to **string** | The ID of the flag trigger maintainer | [optional] 
 **Maintainer** | Pointer to [**MemberSummary**](MemberSummary.md) |  | [optional] 
 **Enabled** | Pointer to **bool** | Whether the flag trigger is currently enabled | [optional] 
+**Status** | Pointer to **string** | The trigger state: active, inactive, or failed | [optional] 
+**LastFailedAt** | Pointer to **int64** |  | [optional] 
 **IntegrationKey** | Pointer to **string** | The unique identifier of the integration for your trigger | [optional] 
 **Instructions** | Pointer to **[]map[string]interface{}** |  | [optional] 
 **LastTriggeredAt** | Pointer to **int64** |  | [optional] 
@@ -186,6 +188,56 @@ SetEnabled sets Enabled field to given value.
 `func (o *TriggerWorkflowRep) HasEnabled() bool`
 
 HasEnabled returns a boolean if a field has been set.
+
+### GetStatus
+
+`func (o *TriggerWorkflowRep) GetStatus() string`
+
+GetStatus returns the Status field if non-nil, zero value otherwise.
+
+### GetStatusOk
+
+`func (o *TriggerWorkflowRep) GetStatusOk() (*string, bool)`
+
+GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStatus
+
+`func (o *TriggerWorkflowRep) SetStatus(v string)`
+
+SetStatus sets Status field to given value.
+
+### HasStatus
+
+`func (o *TriggerWorkflowRep) HasStatus() bool`
+
+HasStatus returns a boolean if a field has been set.
+
+### GetLastFailedAt
+
+`func (o *TriggerWorkflowRep) GetLastFailedAt() int64`
+
+GetLastFailedAt returns the LastFailedAt field if non-nil, zero value otherwise.
+
+### GetLastFailedAtOk
+
+`func (o *TriggerWorkflowRep) GetLastFailedAtOk() (*int64, bool)`
+
+GetLastFailedAtOk returns a tuple with the LastFailedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLastFailedAt
+
+`func (o *TriggerWorkflowRep) SetLastFailedAt(v int64)`
+
+SetLastFailedAt sets LastFailedAt field to given value.
+
+### HasLastFailedAt
+
+`func (o *TriggerWorkflowRep) HasLastFailedAt() bool`
+
+HasLastFailedAt returns a boolean if a field has been set.
 
 ### GetIntegrationKey
 

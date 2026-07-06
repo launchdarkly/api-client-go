@@ -12,6 +12,8 @@ Name | Type | Description | Notes
 **Treatments** | [**[]TreatmentInput**](TreatmentInput.md) |  | 
 **Flags** | [**map[string]FlagInput**](FlagInput.md) |  | 
 **RandomizationUnit** | Pointer to **string** | The unit of randomization for this iteration. Defaults to user. | [optional] 
+**ReallocationFrequencyMillis** | Pointer to **int32** | The cadence (in milliseconds) to update the allocation. | [optional] 
+**CovariateId** | Pointer to **string** | The ID of the covariate CSV | [optional] 
 **Attributes** | Pointer to **[]string** | The attributes that this iteration&#39;s results can be sliced by | [optional] 
 
 ## Methods
@@ -212,6 +214,56 @@ SetRandomizationUnit sets RandomizationUnit field to given value.
 `func (o *IterationInput) HasRandomizationUnit() bool`
 
 HasRandomizationUnit returns a boolean if a field has been set.
+
+### GetReallocationFrequencyMillis
+
+`func (o *IterationInput) GetReallocationFrequencyMillis() int32`
+
+GetReallocationFrequencyMillis returns the ReallocationFrequencyMillis field if non-nil, zero value otherwise.
+
+### GetReallocationFrequencyMillisOk
+
+`func (o *IterationInput) GetReallocationFrequencyMillisOk() (*int32, bool)`
+
+GetReallocationFrequencyMillisOk returns a tuple with the ReallocationFrequencyMillis field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetReallocationFrequencyMillis
+
+`func (o *IterationInput) SetReallocationFrequencyMillis(v int32)`
+
+SetReallocationFrequencyMillis sets ReallocationFrequencyMillis field to given value.
+
+### HasReallocationFrequencyMillis
+
+`func (o *IterationInput) HasReallocationFrequencyMillis() bool`
+
+HasReallocationFrequencyMillis returns a boolean if a field has been set.
+
+### GetCovariateId
+
+`func (o *IterationInput) GetCovariateId() string`
+
+GetCovariateId returns the CovariateId field if non-nil, zero value otherwise.
+
+### GetCovariateIdOk
+
+`func (o *IterationInput) GetCovariateIdOk() (*string, bool)`
+
+GetCovariateIdOk returns a tuple with the CovariateId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCovariateId
+
+`func (o *IterationInput) SetCovariateId(v string)`
+
+SetCovariateId sets CovariateId field to given value.
+
+### HasCovariateId
+
+`func (o *IterationInput) HasCovariateId() bool`
+
+HasCovariateId returns a boolean if a field has been set.
 
 ### GetAttributes
 

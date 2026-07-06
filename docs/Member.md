@@ -23,8 +23,11 @@ Name | Type | Description | Notes
 **PermissionGrants** | Pointer to [**[]MemberPermissionGrantSummaryRep**](MemberPermissionGrantSummaryRep.md) | A list of permission grants. Permission grants allow a member to have access to a specific action, without having to create or update a custom role. | [optional] 
 **CreationDate** | **int64** |  | 
 **OauthProviders** | Pointer to **[]string** | A list of OAuth providers | [optional] 
+**HasPassword** | Pointer to **bool** | Whether the member has a password set (basic auth). False for OAuth-only or SCIM-provisioned members without a password. | [optional] 
 **Version** | Pointer to **int32** | Version of the current configuration | [optional] 
 **RoleAttributes** | Pointer to **map[string][]string** |  | [optional] 
+**MfaEnforced** | Pointer to **bool** |  | [optional] 
+**MfaGracePeriodExpiresAt** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 
@@ -470,6 +473,31 @@ SetOauthProviders sets OauthProviders field to given value.
 
 HasOauthProviders returns a boolean if a field has been set.
 
+### GetHasPassword
+
+`func (o *Member) GetHasPassword() bool`
+
+GetHasPassword returns the HasPassword field if non-nil, zero value otherwise.
+
+### GetHasPasswordOk
+
+`func (o *Member) GetHasPasswordOk() (*bool, bool)`
+
+GetHasPasswordOk returns a tuple with the HasPassword field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHasPassword
+
+`func (o *Member) SetHasPassword(v bool)`
+
+SetHasPassword sets HasPassword field to given value.
+
+### HasHasPassword
+
+`func (o *Member) HasHasPassword() bool`
+
+HasHasPassword returns a boolean if a field has been set.
+
 ### GetVersion
 
 `func (o *Member) GetVersion() int32`
@@ -519,6 +547,56 @@ SetRoleAttributes sets RoleAttributes field to given value.
 `func (o *Member) HasRoleAttributes() bool`
 
 HasRoleAttributes returns a boolean if a field has been set.
+
+### GetMfaEnforced
+
+`func (o *Member) GetMfaEnforced() bool`
+
+GetMfaEnforced returns the MfaEnforced field if non-nil, zero value otherwise.
+
+### GetMfaEnforcedOk
+
+`func (o *Member) GetMfaEnforcedOk() (*bool, bool)`
+
+GetMfaEnforcedOk returns a tuple with the MfaEnforced field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMfaEnforced
+
+`func (o *Member) SetMfaEnforced(v bool)`
+
+SetMfaEnforced sets MfaEnforced field to given value.
+
+### HasMfaEnforced
+
+`func (o *Member) HasMfaEnforced() bool`
+
+HasMfaEnforced returns a boolean if a field has been set.
+
+### GetMfaGracePeriodExpiresAt
+
+`func (o *Member) GetMfaGracePeriodExpiresAt() int64`
+
+GetMfaGracePeriodExpiresAt returns the MfaGracePeriodExpiresAt field if non-nil, zero value otherwise.
+
+### GetMfaGracePeriodExpiresAtOk
+
+`func (o *Member) GetMfaGracePeriodExpiresAtOk() (*int64, bool)`
+
+GetMfaGracePeriodExpiresAtOk returns a tuple with the MfaGracePeriodExpiresAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMfaGracePeriodExpiresAt
+
+`func (o *Member) SetMfaGracePeriodExpiresAt(v int64)`
+
+SetMfaGracePeriodExpiresAt sets MfaGracePeriodExpiresAt field to given value.
+
+### HasMfaGracePeriodExpiresAt
+
+`func (o *Member) HasMfaGracePeriodExpiresAt() bool`
+
+HasMfaGracePeriodExpiresAt returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

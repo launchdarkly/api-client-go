@@ -11,6 +11,10 @@ Name | Type | Description | Notes
 **Iteration** | [**IterationInput**](IterationInput.md) |  | 
 **HoldoutId** | Pointer to **string** | The ID of the holdout | [optional] 
 **Tags** | Pointer to **[]string** | Tags for the experiment | [optional] 
+**Methodology** | Pointer to **string** | The results analysis approach. | [optional] 
+**AnalysisConfig** | Pointer to [**AnalysisConfigInput**](AnalysisConfigInput.md) |  | [optional] 
+**DataSource** | Pointer to **string** | The source of metric data in order to analyze results. Defaults to \&quot;launchdarkly\&quot; when not provided. | [optional] 
+**Type** | Pointer to **string** | The type of experiment. | [optional] 
 
 ## Methods
 
@@ -190,6 +194,106 @@ SetTags sets Tags field to given value.
 `func (o *ExperimentPost) HasTags() bool`
 
 HasTags returns a boolean if a field has been set.
+
+### GetMethodology
+
+`func (o *ExperimentPost) GetMethodology() string`
+
+GetMethodology returns the Methodology field if non-nil, zero value otherwise.
+
+### GetMethodologyOk
+
+`func (o *ExperimentPost) GetMethodologyOk() (*string, bool)`
+
+GetMethodologyOk returns a tuple with the Methodology field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMethodology
+
+`func (o *ExperimentPost) SetMethodology(v string)`
+
+SetMethodology sets Methodology field to given value.
+
+### HasMethodology
+
+`func (o *ExperimentPost) HasMethodology() bool`
+
+HasMethodology returns a boolean if a field has been set.
+
+### GetAnalysisConfig
+
+`func (o *ExperimentPost) GetAnalysisConfig() AnalysisConfigInput`
+
+GetAnalysisConfig returns the AnalysisConfig field if non-nil, zero value otherwise.
+
+### GetAnalysisConfigOk
+
+`func (o *ExperimentPost) GetAnalysisConfigOk() (*AnalysisConfigInput, bool)`
+
+GetAnalysisConfigOk returns a tuple with the AnalysisConfig field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAnalysisConfig
+
+`func (o *ExperimentPost) SetAnalysisConfig(v AnalysisConfigInput)`
+
+SetAnalysisConfig sets AnalysisConfig field to given value.
+
+### HasAnalysisConfig
+
+`func (o *ExperimentPost) HasAnalysisConfig() bool`
+
+HasAnalysisConfig returns a boolean if a field has been set.
+
+### GetDataSource
+
+`func (o *ExperimentPost) GetDataSource() string`
+
+GetDataSource returns the DataSource field if non-nil, zero value otherwise.
+
+### GetDataSourceOk
+
+`func (o *ExperimentPost) GetDataSourceOk() (*string, bool)`
+
+GetDataSourceOk returns a tuple with the DataSource field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDataSource
+
+`func (o *ExperimentPost) SetDataSource(v string)`
+
+SetDataSource sets DataSource field to given value.
+
+### HasDataSource
+
+`func (o *ExperimentPost) HasDataSource() bool`
+
+HasDataSource returns a boolean if a field has been set.
+
+### GetType
+
+`func (o *ExperimentPost) GetType() string`
+
+GetType returns the Type field if non-nil, zero value otherwise.
+
+### GetTypeOk
+
+`func (o *ExperimentPost) GetTypeOk() (*string, bool)`
+
+GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetType
+
+`func (o *ExperimentPost) SetType(v string)`
+
+SetType sets Type field to given value.
+
+### HasType
+
+`func (o *ExperimentPost) HasType() bool`
+
+HasType returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

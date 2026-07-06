@@ -14,6 +14,9 @@ Name | Type | Description | Notes
 **Description** | **string** | Description of the change recorded in the audit log entry | 
 **ShortDescription** | **string** | Shorter version of the change recorded in the audit log entry | 
 **Comment** | Pointer to **string** | Optional comment for the audit log entry | [optional] 
+**RelatedFlag** | Pointer to [**RelatedFlag**](RelatedFlag.md) |  | [optional] 
+**RelatedExperiment** | Pointer to [**RelatedExperiment**](RelatedExperiment.md) |  | [optional] 
+**RelatedAIConfig** | Pointer to [**RelatedAIConfig**](RelatedAIConfig.md) |  | [optional] 
 **Subject** | Pointer to [**SubjectDataRep**](SubjectDataRep.md) |  | [optional] 
 **Member** | Pointer to [**MemberDataRep**](MemberDataRep.md) |  | [optional] 
 **Token** | Pointer to [**TokenSummary**](TokenSummary.md) |  | [optional] 
@@ -246,6 +249,81 @@ SetComment sets Comment field to given value.
 `func (o *AuditLogEntryListingRep) HasComment() bool`
 
 HasComment returns a boolean if a field has been set.
+
+### GetRelatedFlag
+
+`func (o *AuditLogEntryListingRep) GetRelatedFlag() RelatedFlag`
+
+GetRelatedFlag returns the RelatedFlag field if non-nil, zero value otherwise.
+
+### GetRelatedFlagOk
+
+`func (o *AuditLogEntryListingRep) GetRelatedFlagOk() (*RelatedFlag, bool)`
+
+GetRelatedFlagOk returns a tuple with the RelatedFlag field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRelatedFlag
+
+`func (o *AuditLogEntryListingRep) SetRelatedFlag(v RelatedFlag)`
+
+SetRelatedFlag sets RelatedFlag field to given value.
+
+### HasRelatedFlag
+
+`func (o *AuditLogEntryListingRep) HasRelatedFlag() bool`
+
+HasRelatedFlag returns a boolean if a field has been set.
+
+### GetRelatedExperiment
+
+`func (o *AuditLogEntryListingRep) GetRelatedExperiment() RelatedExperiment`
+
+GetRelatedExperiment returns the RelatedExperiment field if non-nil, zero value otherwise.
+
+### GetRelatedExperimentOk
+
+`func (o *AuditLogEntryListingRep) GetRelatedExperimentOk() (*RelatedExperiment, bool)`
+
+GetRelatedExperimentOk returns a tuple with the RelatedExperiment field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRelatedExperiment
+
+`func (o *AuditLogEntryListingRep) SetRelatedExperiment(v RelatedExperiment)`
+
+SetRelatedExperiment sets RelatedExperiment field to given value.
+
+### HasRelatedExperiment
+
+`func (o *AuditLogEntryListingRep) HasRelatedExperiment() bool`
+
+HasRelatedExperiment returns a boolean if a field has been set.
+
+### GetRelatedAIConfig
+
+`func (o *AuditLogEntryListingRep) GetRelatedAIConfig() RelatedAIConfig`
+
+GetRelatedAIConfig returns the RelatedAIConfig field if non-nil, zero value otherwise.
+
+### GetRelatedAIConfigOk
+
+`func (o *AuditLogEntryListingRep) GetRelatedAIConfigOk() (*RelatedAIConfig, bool)`
+
+GetRelatedAIConfigOk returns a tuple with the RelatedAIConfig field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRelatedAIConfig
+
+`func (o *AuditLogEntryListingRep) SetRelatedAIConfig(v RelatedAIConfig)`
+
+SetRelatedAIConfig sets RelatedAIConfig field to given value.
+
+### HasRelatedAIConfig
+
+`func (o *AuditLogEntryListingRep) HasRelatedAIConfig() bool`
+
+HasRelatedAIConfig returns a boolean if a field has been set.
 
 ### GetSubject
 

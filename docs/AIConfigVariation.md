@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **Model** | **map[string]interface{}** |  | 
 **ModelConfigKey** | Pointer to **string** |  | [optional] 
 **Name** | **string** |  | 
+**OutputFormat** | Pointer to **map[string]interface{}** | JSON Schema defining the structured output format for the variation. | [optional] 
 **CreatedAt** | **int64** |  | 
 **Version** | **int32** |  | 
 **State** | Pointer to **string** |  | [optional] 
@@ -297,6 +298,31 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
+
+### GetOutputFormat
+
+`func (o *AIConfigVariation) GetOutputFormat() map[string]interface{}`
+
+GetOutputFormat returns the OutputFormat field if non-nil, zero value otherwise.
+
+### GetOutputFormatOk
+
+`func (o *AIConfigVariation) GetOutputFormatOk() (*map[string]interface{}, bool)`
+
+GetOutputFormatOk returns a tuple with the OutputFormat field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOutputFormat
+
+`func (o *AIConfigVariation) SetOutputFormat(v map[string]interface{})`
+
+SetOutputFormat sets OutputFormat field to given value.
+
+### HasOutputFormat
+
+`func (o *AIConfigVariation) HasOutputFormat() bool`
+
+HasOutputFormat returns a boolean if a field has been set.
 
 ### GetCreatedAt
 

@@ -11,7 +11,10 @@ Name | Type | Description | Notes
 **Version** | Pointer to **float32** |  | [optional] 
 **Config** | Pointer to **interface{}** | An object with the configuration parameters required for the destination type | [optional] 
 **On** | Pointer to **bool** | Whether the export is on, that is, the status of the integration | [optional] 
+**CreatedAt** | Pointer to **int64** |  | [optional] 
+**MaintainerId** | Pointer to **string** | The ID of the member who maintains this Data Export destination | [optional] 
 **Access** | Pointer to [**Access**](Access.md) |  | [optional] 
+**CompletedArtifacts** | Pointer to [**RedshiftDataExportCompletedArtifactsRep**](RedshiftDataExportCompletedArtifactsRep.md) |  | [optional] 
 
 ## Methods
 
@@ -217,6 +220,56 @@ SetOn sets On field to given value.
 
 HasOn returns a boolean if a field has been set.
 
+### GetCreatedAt
+
+`func (o *Destination) GetCreatedAt() int64`
+
+GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
+
+### GetCreatedAtOk
+
+`func (o *Destination) GetCreatedAtOk() (*int64, bool)`
+
+GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreatedAt
+
+`func (o *Destination) SetCreatedAt(v int64)`
+
+SetCreatedAt sets CreatedAt field to given value.
+
+### HasCreatedAt
+
+`func (o *Destination) HasCreatedAt() bool`
+
+HasCreatedAt returns a boolean if a field has been set.
+
+### GetMaintainerId
+
+`func (o *Destination) GetMaintainerId() string`
+
+GetMaintainerId returns the MaintainerId field if non-nil, zero value otherwise.
+
+### GetMaintainerIdOk
+
+`func (o *Destination) GetMaintainerIdOk() (*string, bool)`
+
+GetMaintainerIdOk returns a tuple with the MaintainerId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMaintainerId
+
+`func (o *Destination) SetMaintainerId(v string)`
+
+SetMaintainerId sets MaintainerId field to given value.
+
+### HasMaintainerId
+
+`func (o *Destination) HasMaintainerId() bool`
+
+HasMaintainerId returns a boolean if a field has been set.
+
 ### GetAccess
 
 `func (o *Destination) GetAccess() Access`
@@ -241,6 +294,31 @@ SetAccess sets Access field to given value.
 `func (o *Destination) HasAccess() bool`
 
 HasAccess returns a boolean if a field has been set.
+
+### GetCompletedArtifacts
+
+`func (o *Destination) GetCompletedArtifacts() RedshiftDataExportCompletedArtifactsRep`
+
+GetCompletedArtifacts returns the CompletedArtifacts field if non-nil, zero value otherwise.
+
+### GetCompletedArtifactsOk
+
+`func (o *Destination) GetCompletedArtifactsOk() (*RedshiftDataExportCompletedArtifactsRep, bool)`
+
+GetCompletedArtifactsOk returns a tuple with the CompletedArtifacts field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCompletedArtifacts
+
+`func (o *Destination) SetCompletedArtifacts(v RedshiftDataExportCompletedArtifactsRep)`
+
+SetCompletedArtifacts sets CompletedArtifacts field to given value.
+
+### HasCompletedArtifacts
+
+`func (o *Destination) HasCompletedArtifacts() bool`
+
+HasCompletedArtifacts returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

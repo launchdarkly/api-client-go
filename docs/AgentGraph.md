@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Name** | **string** | A human-readable name for the agent graph | 
 **Description** | Pointer to **string** | A description of the agent graph | [optional] 
 **Maintainer** | Pointer to [**AgentGraphMaintainer**](AgentGraphMaintainer.md) |  | [optional] 
-**RootConfigKey** | Pointer to **string** | The AI Config key of the root node | [optional] 
+**RootConfigKey** | Pointer to **string** | The config key of the root node | [optional] 
 **Edges** | Pointer to [**[]AgentGraphEdge**](AgentGraphEdge.md) | The edges in the graph | [optional] 
 **CreatedAt** | **int64** |  | 
 **UpdatedAt** | **int64** |  | 

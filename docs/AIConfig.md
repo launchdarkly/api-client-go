@@ -16,10 +16,10 @@ Name | Type | Description | Notes
 **Variations** | [**[]AIConfigVariation**](AIConfigVariation.md) |  | 
 **CreatedAt** | **int64** |  | 
 **UpdatedAt** | **int64** |  | 
-**EvaluationMetricKey** | Pointer to **string** | Evaluation metric key for this AI Config | [optional] 
-**EvaluationMetricKeys** | Pointer to **[]string** | List of evaluation metric keys for this AI Config | [optional] 
+**EvaluationMetricKey** | Pointer to **string** | Evaluation metric key for this config | [optional] 
+**EvaluationMetricKeys** | Pointer to **[]string** | List of evaluation metric keys for this config | [optional] 
 **IsInverted** | Pointer to **bool** | Whether the evaluation metric is inverted, meaning a lower value is better if set as true | [optional] 
-**Dependencies** | Pointer to [**[]AIConfigDependency**](AIConfigDependency.md) | Resources that depend on this AI Config, grouped by type | [optional] 
+**Dependencies** | Pointer to [**[]AIConfigDependency**](AIConfigDependency.md) | Resources that depend on this config, grouped by type | [optional] 
 
 ## Methods
 
