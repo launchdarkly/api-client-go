@@ -148,7 +148,7 @@ Name | Type | Description  | Notes
 
 ## GetIpAllowlist
 
-> IpAllowlistResponse GetIpAllowlist(ctx).Execute()
+> IpAllowlistResponse GetIpAllowlist(ctx).Search(search).Limit(limit).Offset(offset).Execute()
 
 Get IP Allowlist
 
@@ -167,10 +167,13 @@ import (
 )
 
 func main() {
+	search := "search_example" // string | A case-insensitive substring to filter entries by. Matches against the IP address or CIDR block and the description. (optional)
+	limit := int32(56) // int32 | The number of entries to return. When omitted, all matching entries are returned. Maximum is 100. (optional)
+	offset := int32(56) // int32 | The number of entries to skip. Used for pagination. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IPAllowlistBetaApi.GetIpAllowlist(context.Background()).Execute()
+	resp, r, err := apiClient.IPAllowlistBetaApi.GetIpAllowlist(context.Background()).Search(search).Limit(limit).Offset(offset).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `IPAllowlistBetaApi.GetIpAllowlist``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -182,12 +185,18 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiGetIpAllowlistRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **search** | **string** | A case-insensitive substring to filter entries by. Matches against the IP address or CIDR block and the description. | 
+ **limit** | **int32** | The number of entries to return. When omitted, all matching entries are returned. Maximum is 100. | 
+ **offset** | **int32** | The number of entries to skip. Used for pagination. | 
 
 ### Return type
 

@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **UnitAggregationType** | Pointer to **string** | The type of unit aggregation to use for the metric | [optional] 
 **AnalysisType** | Pointer to **string** | The method for analyzing metric events | [optional] 
 **EventKey** | Pointer to **string** | The event key sent with the metric. Only relevant for custom metrics. | [optional] 
+**AnalysisUnit** | Pointer to **string** | The context kind used as the analysis unit for this metric in the experiment iteration | [optional] 
 **Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
 
 ## Methods
@@ -217,6 +218,31 @@ SetEventKey sets EventKey field to given value.
 `func (o *MetricV2Rep) HasEventKey() bool`
 
 HasEventKey returns a boolean if a field has been set.
+
+### GetAnalysisUnit
+
+`func (o *MetricV2Rep) GetAnalysisUnit() string`
+
+GetAnalysisUnit returns the AnalysisUnit field if non-nil, zero value otherwise.
+
+### GetAnalysisUnitOk
+
+`func (o *MetricV2Rep) GetAnalysisUnitOk() (*string, bool)`
+
+GetAnalysisUnitOk returns a tuple with the AnalysisUnit field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAnalysisUnit
+
+`func (o *MetricV2Rep) SetAnalysisUnit(v string)`
+
+SetAnalysisUnit sets AnalysisUnit field to given value.
+
+### HasAnalysisUnit
+
+`func (o *MetricV2Rep) HasAnalysisUnit() bool`
+
+HasAnalysisUnit returns a boolean if a field has been set.
 
 ### GetLinks
 

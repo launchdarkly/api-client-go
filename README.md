@@ -271,7 +271,11 @@ You can make authenticated CORS calls just as you would make same-origin calls, 
 
 ## Rate limiting
 
-We use several rate limiting strategies to ensure the availability of our APIs. Rate-limited calls to our APIs return a `429` status code. Calls to our APIs include headers indicating the current rate limit status. The specific headers returned depend on the API route being called. The limits differ based on the route, authentication mechanism, and other factors. Routes that are not rate limited may not contain any of the headers described below.
+We use several rate-limiting strategies to ensure the availability of our APIs. Rate-limited calls to our APIs return a `429` status code and include headers to indicate the current rate limit status. The specific headers returned depend on the API route that was called. Limits differ based on the route, authentication mechanism, and other factors.
+
+Each set of headers below appears only when the corresponding limit is being enforced for your call. A given route may be subject to any combination of these limits, so a response can include one, several, or none of these headers. A missing header indicates that the limit was not applied to this specific call; it does not necessarily indicate that the limit does not exist. To reduce usage before hitting a `429` status, program against whichever rate limit headers are present rather than expecting a specific header.
+
+We do not publicly document the specific number of calls permitted by any of these limits, and these limits may change. We encourage clients to program against the specification and rely on the headers described below, rather than hardcoding the current limits.
 
 > ### Rate limiting and SDKs
 >
@@ -283,10 +287,9 @@ Authenticated requests are subject to a global limit. This is the maximum number
 
 | Header name                    | Description                                                                      |
 | ------------------------------ | -------------------------------------------------------------------------------- |
-| `X-Ratelimit-Global-Remaining` | The maximum number of requests the account is permitted to make per ten seconds. |
+| `X-Ratelimit-Global-Limit`     | The maximum number of requests the account is permitted to make per ten seconds. |
+| `X-Ratelimit-Global-Remaining` | The number of requests remaining in the current global rate limit window.        |
 | `X-Ratelimit-Reset`            | The time at which the current rate limit window resets in epoch milliseconds.    |
-
-We do not publicly document the specific number of calls that can be made globally. This limit may change, and we encourage clients to program against the specification, relying on the two headers defined above, rather than hardcoding to the current limit.
 
 ### Route-level rate limits
 
@@ -294,12 +297,23 @@ Some authenticated routes have custom rate limits. These also reset every ten se
 
 | Header name                   | Description                                                                                           |
 | ----------------------------- | ----------------------------------------------------------------------------------------------------- |
-| `X-Ratelimit-Route-Remaining` | The maximum number of requests to the current route the account is permitted to make per ten seconds. |
-| `X-Ratelimit-Reset`           | The time at which the current rate limit window resets in epoch milliseconds.                         |
+| `X-Ratelimit-Route-Limit`     | The maximum number of requests to the current route permitted per ten seconds.           |
+| `X-Ratelimit-Route-Remaining` | The number of requests remaining for the current route in the current rate limit window. |
+| `X-Ratelimit-Reset`           | The time at which the current rate limit window resets in epoch milliseconds.            |
 
 A _route_ represents a specific URL pattern and verb. For example, the [Delete environment](https://launchdarkly.com/docs/api/environments/delete-environment) endpoint is considered a single route, and each call to delete an environment counts against your route-level rate limit for that route.
 
-We do not publicly document the specific number of calls that an account can make to each endpoint per ten seconds. These limits may change, and we encourage clients to program against the specification, relying on the two headers defined above, rather than hardcoding to the current limits.
+### Access token rate limits
+
+Some calls are rate limited per access token. Unlike the global and route-level limits, this limit applies to a single service or personal access token on its own. Exceeding a limit with one access token does not affect other tokens on the account. Calls that are subject to access token rate limits return these headers:
+
+| Header name                        | Description                                                                             |
+| ---------------------------------- | --------------------------------------------------------------------------------------- |
+| `X-Ratelimit-Auth-Token-Limit`     | The maximum number of requests the access token can make per ten seconds.               |
+| `X-Ratelimit-Auth-Token-Remaining` | The number of requests remaining for the access token in the current rate limit window. |
+| `X-Ratelimit-Auth-Token-Reset`     | The time at which the current rate limit window resets in epoch milliseconds.           |
+
+Unlike the other rate limits, access token rate limits report their own reset time in the `X-Ratelimit-Auth-Token-Reset` header instead of in `X-Ratelimit-Reset`.
 
 ### IP-based rate limiting
 
@@ -449,7 +463,7 @@ To learn more about how EOL is determined, read LaunchDarkly's [End of Life (EOL
 This API client was generated by the [OpenAPI Generator](https://openapi-generator.tech) project.  By using the [OpenAPI-spec](https://www.openapis.org/) from a remote server, you can easily generate an API client.
 
 - API version: 2.0
-- Package version: 23
+- Package version: 24
 - Generator version: 7.18.0
 - Build package: org.openapitools.codegen.languages.GoClientCodegen
 For more information, please visit [https://support.launchdarkly.com](https://support.launchdarkly.com)
@@ -570,6 +584,7 @@ Class | Method | HTTP request | Description
 *AgentControlApi* | [**DeleteAgentGraph**](docs/AgentControlApi.md#deleteagentgraph) | **Delete** /api/v2/projects/{projectKey}/agent-graphs/{graphKey} | Delete agent graph
 *AgentControlApi* | [**DeleteAgentOptimization**](docs/AgentControlApi.md#deleteagentoptimization) | **Delete** /api/v2/projects/{projectKey}/agent-optimizations/{optimizationKey} | Delete an agent optimization
 *AgentControlApi* | [**DeleteAgentOptimizationRun**](docs/AgentControlApi.md#deleteagentoptimizationrun) | **Delete** /api/v2/projects/{projectKey}/agent-optimizations/{optimizationKey}/runs/{runId} | Delete an agent optimization run
+*AgentControlApi* | [**DeleteAgentSkill**](docs/AgentControlApi.md#deleteagentskill) | **Delete** /api/v2/projects/{projectKey}/ai-configs/skills/{skillKey} | Delete an agent skill
 *AgentControlApi* | [**DeleteModelConfig**](docs/AgentControlApi.md#deletemodelconfig) | **Delete** /api/v2/projects/{projectKey}/ai-configs/model-configs/{modelConfigKey} | Delete an AI model config
 *AgentControlApi* | [**DeletePromptSnippet**](docs/AgentControlApi.md#deletepromptsnippet) | **Delete** /api/v2/projects/{projectKey}/ai-configs/prompt-snippets/{snippetKey} | Delete a prompt snippet
 *AgentControlApi* | [**DeleteRestrictedModels**](docs/AgentControlApi.md#deleterestrictedmodels) | **Delete** /api/v2/projects/{projectKey}/ai-configs/model-configs/restricted | Remove AI models from the restricted list
@@ -583,6 +598,7 @@ Class | Method | HTTP request | Description
 *AgentControlApi* | [**GetAITool**](docs/AgentControlApi.md#getaitool) | **Get** /api/v2/projects/{projectKey}/ai-tools/{toolKey} | Get AI tool
 *AgentControlApi* | [**GetAgentGraph**](docs/AgentControlApi.md#getagentgraph) | **Get** /api/v2/projects/{projectKey}/agent-graphs/{graphKey} | Get agent graph
 *AgentControlApi* | [**GetAgentOptimization**](docs/AgentControlApi.md#getagentoptimization) | **Get** /api/v2/projects/{projectKey}/agent-optimizations/{optimizationKey} | Get an agent optimization
+*AgentControlApi* | [**GetAgentSkill**](docs/AgentControlApi.md#getagentskill) | **Get** /api/v2/projects/{projectKey}/ai-configs/skills/{skillKey} | Get an agent skill
 *AgentControlApi* | [**GetModelConfig**](docs/AgentControlApi.md#getmodelconfig) | **Get** /api/v2/projects/{projectKey}/ai-configs/model-configs/{modelConfigKey} | Get AI model config
 *AgentControlApi* | [**GetPromptSnippet**](docs/AgentControlApi.md#getpromptsnippet) | **Get** /api/v2/projects/{projectKey}/ai-configs/prompt-snippets/{snippetKey} | Get a prompt snippet
 *AgentControlApi* | [**ListAIToolVersions**](docs/AgentControlApi.md#listaitoolversions) | **Get** /api/v2/projects/{projectKey}/ai-tools/{toolKey}/versions | List AI tool versions
@@ -591,7 +607,11 @@ Class | Method | HTTP request | Description
 *AgentControlApi* | [**ListAgentOptimizationResults**](docs/AgentControlApi.md#listagentoptimizationresults) | **Get** /api/v2/projects/{projectKey}/agent-optimizations/{optimizationKey}/results | List agent optimization runs
 *AgentControlApi* | [**ListAgentOptimizationResultsByRunId**](docs/AgentControlApi.md#listagentoptimizationresultsbyrunid) | **Get** /api/v2/projects/{projectKey}/agent-optimizations/{optimizationKey}/runs/{runId}/results | List agent optimization results for a run
 *AgentControlApi* | [**ListAgentOptimizations**](docs/AgentControlApi.md#listagentoptimizations) | **Get** /api/v2/projects/{projectKey}/agent-optimizations | List agent optimizations
+*AgentControlApi* | [**ListAgentSkillReferences**](docs/AgentControlApi.md#listagentskillreferences) | **Get** /api/v2/projects/{projectKey}/ai-configs/skills/{skillKey}/references | List agent skill references
+*AgentControlApi* | [**ListAgentSkillVersions**](docs/AgentControlApi.md#listagentskillversions) | **Get** /api/v2/projects/{projectKey}/ai-configs/skills/{skillKey}/versions | List agent skill versions
+*AgentControlApi* | [**ListAgentSkills**](docs/AgentControlApi.md#listagentskills) | **Get** /api/v2/projects/{projectKey}/ai-configs/skills | List agent skills
 *AgentControlApi* | [**ListAllAgentOptimizationResults**](docs/AgentControlApi.md#listallagentoptimizationresults) | **Get** /api/v2/projects/{projectKey}/agent-optimizations/{optimizationKey}/all-results | List all agent optimization results across versions
+*AgentControlApi* | [**ListModelConfigVersions**](docs/AgentControlApi.md#listmodelconfigversions) | **Get** /api/v2/projects/{projectKey}/ai-configs/model-configs/{modelConfigKey}/versions | List AI model config versions
 *AgentControlApi* | [**ListModelConfigs**](docs/AgentControlApi.md#listmodelconfigs) | **Get** /api/v2/projects/{projectKey}/ai-configs/model-configs | List AI model configs
 *AgentControlApi* | [**ListPromptSnippetReferences**](docs/AgentControlApi.md#listpromptsnippetreferences) | **Get** /api/v2/projects/{projectKey}/ai-configs/prompt-snippets/{snippetKey}/references | List prompt snippet references
 *AgentControlApi* | [**ListPromptSnippetVersions**](docs/AgentControlApi.md#listpromptsnippetversions) | **Get** /api/v2/projects/{projectKey}/ai-configs/prompt-snippets/{snippetKey}/versions | List prompt snippet versions
@@ -603,6 +623,8 @@ Class | Method | HTTP request | Description
 *AgentControlApi* | [**PatchAgentGraph**](docs/AgentControlApi.md#patchagentgraph) | **Patch** /api/v2/projects/{projectKey}/agent-graphs/{graphKey} | Update agent graph
 *AgentControlApi* | [**PatchAgentOptimization**](docs/AgentControlApi.md#patchagentoptimization) | **Patch** /api/v2/projects/{projectKey}/agent-optimizations/{optimizationKey} | Update an agent optimization
 *AgentControlApi* | [**PatchAgentOptimizationResult**](docs/AgentControlApi.md#patchagentoptimizationresult) | **Patch** /api/v2/projects/{projectKey}/agent-optimizations/{optimizationKey}/results/{resultId} | Update an agent optimization result
+*AgentControlApi* | [**PatchAgentSkill**](docs/AgentControlApi.md#patchagentskill) | **Patch** /api/v2/projects/{projectKey}/ai-configs/skills/{skillKey} | Update an agent skill
+*AgentControlApi* | [**PatchModelConfig**](docs/AgentControlApi.md#patchmodelconfig) | **Patch** /api/v2/projects/{projectKey}/ai-configs/model-configs/{modelConfigKey} | Update an AI model config
 *AgentControlApi* | [**PatchPromptSnippet**](docs/AgentControlApi.md#patchpromptsnippet) | **Patch** /api/v2/projects/{projectKey}/ai-configs/prompt-snippets/{snippetKey} | Update a prompt snippet
 *AgentControlApi* | [**PostAIConfig**](docs/AgentControlApi.md#postaiconfig) | **Post** /api/v2/projects/{projectKey}/ai-configs | Create new AI Config
 *AgentControlApi* | [**PostAIConfigVariation**](docs/AgentControlApi.md#postaiconfigvariation) | **Post** /api/v2/projects/{projectKey}/ai-configs/{configKey}/variations | Create AI Config variation
@@ -610,6 +632,7 @@ Class | Method | HTTP request | Description
 *AgentControlApi* | [**PostAgentGraph**](docs/AgentControlApi.md#postagentgraph) | **Post** /api/v2/projects/{projectKey}/agent-graphs | Create new agent graph
 *AgentControlApi* | [**PostAgentOptimization**](docs/AgentControlApi.md#postagentoptimization) | **Post** /api/v2/projects/{projectKey}/agent-optimizations | Create agent optimization
 *AgentControlApi* | [**PostAgentOptimizationResult**](docs/AgentControlApi.md#postagentoptimizationresult) | **Post** /api/v2/projects/{projectKey}/agent-optimizations/{optimizationKey}/results | Create agent optimization result
+*AgentControlApi* | [**PostAgentSkill**](docs/AgentControlApi.md#postagentskill) | **Post** /api/v2/projects/{projectKey}/ai-configs/skills | Create an agent skill
 *AgentControlApi* | [**PostModelConfig**](docs/AgentControlApi.md#postmodelconfig) | **Post** /api/v2/projects/{projectKey}/ai-configs/model-configs | Create an AI model config
 *AgentControlApi* | [**PostPromptSnippet**](docs/AgentControlApi.md#postpromptsnippet) | **Post** /api/v2/projects/{projectKey}/ai-configs/prompt-snippets | Create a prompt snippet
 *AgentControlApi* | [**PostRestrictedModels**](docs/AgentControlApi.md#postrestrictedmodels) | **Post** /api/v2/projects/{projectKey}/ai-configs/model-configs/restricted | Add AI models to the restricted list
@@ -842,6 +865,7 @@ Class | Method | HTTP request | Description
 *ReleasesBetaApi* | [**UpdatePhaseStatus**](docs/ReleasesBetaApi.md#updatephasestatus) | **Put** /api/v2/projects/{projectKey}/flags/{flagKey}/release/phases/{phaseId} | Update phase status for release
 *SDKKeysBetaApi* | [**DeleteSdkKeyByKey**](docs/SDKKeysBetaApi.md#deletesdkkeybykey) | **Delete** /api/v2/projects/{projectKey}/environments/{environmentKey}/sdk-keys/{sdkKeyKey} | Delete SDK key
 *SDKKeysBetaApi* | [**GetSdkKeyByKey**](docs/SDKKeysBetaApi.md#getsdkkeybykey) | **Get** /api/v2/projects/{projectKey}/environments/{environmentKey}/sdk-keys/{sdkKeyKey} | Get SDK key
+*SDKKeysBetaApi* | [**GetSdkKeys**](docs/SDKKeysBetaApi.md#getsdkkeys) | **Get** /api/v2/projects/{projectKey}/environments/{environmentKey}/sdk-keys | Get all environment SDK keys
 *SDKKeysBetaApi* | [**PatchSdkKeyByKey**](docs/SDKKeysBetaApi.md#patchsdkkeybykey) | **Patch** /api/v2/projects/{projectKey}/environments/{environmentKey}/sdk-keys/{sdkKeyKey} | Update SDK key
 *SDKKeysBetaApi* | [**PostSdkKey**](docs/SDKKeysBetaApi.md#postsdkkey) | **Post** /api/v2/projects/{projectKey}/environments/{environmentKey}/sdk-keys | Create SDK key
 *ScheduledChangesApi* | [**DeleteFlagConfigScheduledChanges**](docs/ScheduledChangesApi.md#deleteflagconfigscheduledchanges) | **Delete** /api/v2/projects/{projectKey}/flags/{featureFlagKey}/environments/{environmentKey}/scheduled-changes/{id} | Delete scheduled changes workflow
@@ -882,7 +906,6 @@ Class | Method | HTTP request | Description
 *UserSettingsApi* | [**GetUserFlagSettings**](docs/UserSettingsApi.md#getuserflagsettings) | **Get** /api/v2/users/{projectKey}/{environmentKey}/{userKey}/flags | List flag settings for user
 *UserSettingsApi* | [**PatchExpiringFlagsForUser**](docs/UserSettingsApi.md#patchexpiringflagsforuser) | **Patch** /api/v2/users/{projectKey}/{userKey}/expiring-user-targets/{environmentKey} | Update expiring user target for flags
 *UserSettingsApi* | [**PutFlagSetting**](docs/UserSettingsApi.md#putflagsetting) | **Put** /api/v2/users/{projectKey}/{environmentKey}/{userKey}/flags/{featureFlagKey} | Update flag settings for user
-*UsersApi* | [**DeleteUser**](docs/UsersApi.md#deleteuser) | **Delete** /api/v2/users/{projectKey}/{environmentKey}/{userKey} | Delete user
 *UsersApi* | [**GetSearchUsers**](docs/UsersApi.md#getsearchusers) | **Get** /api/v2/user-search/{projectKey}/{environmentKey} | Find users
 *UsersApi* | [**GetUser**](docs/UsersApi.md#getuser) | **Get** /api/v2/users/{projectKey}/{environmentKey}/{userKey} | Get user
 *UsersApi* | [**GetUsers**](docs/UsersApi.md#getusers) | **Get** /api/v2/users/{projectKey}/{environmentKey} | List users
@@ -969,6 +992,12 @@ Class | Method | HTTP request | Description
  - [AgentOptimizationRun](docs/AgentOptimizationRun.md)
  - [AgentOptimizationRuns](docs/AgentOptimizationRuns.md)
  - [AgentOptimizations](docs/AgentOptimizations.md)
+ - [AgentSkill](docs/AgentSkill.md)
+ - [AgentSkillPatch](docs/AgentSkillPatch.md)
+ - [AgentSkillPost](docs/AgentSkillPost.md)
+ - [AgentSkillReference](docs/AgentSkillReference.md)
+ - [AgentSkillReferences](docs/AgentSkillReferences.md)
+ - [AgentSkills](docs/AgentSkills.md)
  - [AiConfigsAccess](docs/AiConfigsAccess.md)
  - [AiConfigsAccessAllowedReason](docs/AiConfigsAccessAllowedReason.md)
  - [AiConfigsAccessAllowedRep](docs/AiConfigsAccessAllowedRep.md)
@@ -1063,6 +1092,7 @@ Class | Method | HTTP request | Description
  - [ContextInstanceSegmentMembership](docs/ContextInstanceSegmentMembership.md)
  - [ContextInstanceSegmentMemberships](docs/ContextInstanceSegmentMemberships.md)
  - [ContextInstances](docs/ContextInstances.md)
+ - [ContextKindEnvironmentObservation](docs/ContextKindEnvironmentObservation.md)
  - [ContextKindRep](docs/ContextKindRep.md)
  - [ContextKindsCollectionRep](docs/ContextKindsCollectionRep.md)
  - [ContextRecord](docs/ContextRecord.md)
@@ -1228,6 +1258,7 @@ Class | Method | HTTP request | Description
  - [HoldoutRep](docs/HoldoutRep.md)
  - [HoldoutsCollectionRep](docs/HoldoutsCollectionRep.md)
  - [HunkRep](docs/HunkRep.md)
+ - [IPAllowlistSelfLink](docs/IPAllowlistSelfLink.md)
  - [Import](docs/Import.md)
  - [InitiatorRep](docs/InitiatorRep.md)
  - [InsightGroup](docs/InsightGroup.md)
@@ -1325,7 +1356,9 @@ Class | Method | HTTP request | Description
  - [MigrationSafetyIssueRep](docs/MigrationSafetyIssueRep.md)
  - [MigrationSettingsPost](docs/MigrationSettingsPost.md)
  - [ModelConfig](docs/ModelConfig.md)
+ - [ModelConfigPatch](docs/ModelConfigPatch.md)
  - [ModelConfigPost](docs/ModelConfigPost.md)
+ - [ModelConfigs](docs/ModelConfigs.md)
  - [Modification](docs/Modification.md)
  - [MultiEnvironmentDependentFlag](docs/MultiEnvironmentDependentFlag.md)
  - [MultiEnvironmentDependentFlags](docs/MultiEnvironmentDependentFlags.md)
@@ -1432,9 +1465,14 @@ Class | Method | HTTP request | Description
  - [Rule](docs/Rule.md)
  - [RuleClause](docs/RuleClause.md)
  - [SdkKey](docs/SdkKey.md)
+ - [SdkKeyForPutSdkKeyViews](docs/SdkKeyForPutSdkKeyViews.md)
  - [SdkKeyKind](docs/SdkKeyKind.md)
+ - [SdkKeyListItem](docs/SdkKeyListItem.md)
  - [SdkKeyPatch](docs/SdkKeyPatch.md)
  - [SdkKeyPost](docs/SdkKeyPost.md)
+ - [SdkKeysEnvironmentSummary](docs/SdkKeysEnvironmentSummary.md)
+ - [SdkKeysForGetSdkKeys](docs/SdkKeysForGetSdkKeys.md)
+ - [SdkKeysSelfLink](docs/SdkKeysSelfLink.md)
  - [SdkListRep](docs/SdkListRep.md)
  - [SdkVersionDetailsRep](docs/SdkVersionDetailsRep.md)
  - [SdkVersionListRep](docs/SdkVersionListRep.md)
@@ -1454,6 +1492,7 @@ Class | Method | HTTP request | Description
  - [SourceFlag](docs/SourceFlag.md)
  - [StageInput](docs/StageInput.md)
  - [StageOutput](docs/StageOutput.md)
+ - [StaleFlagData](docs/StaleFlagData.md)
  - [Statement](docs/Statement.md)
  - [StatementPost](docs/StatementPost.md)
  - [StatisticCollectionRep](docs/StatisticCollectionRep.md)
@@ -1517,6 +1556,8 @@ Class | Method | HTTP request | Description
  - [Variation](docs/Variation.md)
  - [VariationEvalSummary](docs/VariationEvalSummary.md)
  - [VariationOrRolloutRep](docs/VariationOrRolloutRep.md)
+ - [VariationSkill](docs/VariationSkill.md)
+ - [VariationSkillPost](docs/VariationSkillPost.md)
  - [VariationSummary](docs/VariationSummary.md)
  - [VariationTool](docs/VariationTool.md)
  - [VariationToolPost](docs/VariationToolPost.md)

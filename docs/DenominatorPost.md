@@ -9,12 +9,12 @@ Name | Type | Description | Notes
 **DataSource** | Pointer to [**MetricDataSourceRefRep**](MetricDataSourceRefRep.md) |  | [optional] 
 **UnitAggregationType** | Pointer to **string** | How individual unit values are aggregated. One of: average, sum, count_distinct | [optional] 
 **UnitAggregationField** | Pointer to **string** | The warehouse column to use for counting distinct values. Required when the unitAggregationType is count_distinct. | [optional] 
+**ValueColumn** | Pointer to **string** | For a numeric denominator, the column holding the numeric value. Overrides the value column mapped on the denominator data source. | [optional] 
 **Filters** | Pointer to [**EventFilter**](EventFilter.md) |  | [optional] 
 **WindowStartOffset** | Pointer to **int64** | Start of the measurement window in milliseconds | [optional] 
 **WindowEndOffset** | Pointer to **int64** | End of the measurement window in milliseconds | [optional] 
 **WinsorLowerPercentile** | Pointer to **float32** | Lower winsorization percentile in the open interval (0, 100) | [optional] 
 **WinsorUpperPercentile** | Pointer to **float32** | Upper winsorization percentile in the open interval (0, 100) | [optional] 
-**WinsorExcludeImputed** | Pointer to **bool** | Deprecated and ignored. Use winsorIncludeImputed instead. | [optional] 
 **WinsorIncludeImputed** | Pointer to **bool** | When true, includes imputed zeros in the percentile bound calculation | [optional] 
 
 ## Methods
@@ -161,6 +161,31 @@ SetUnitAggregationField sets UnitAggregationField field to given value.
 
 HasUnitAggregationField returns a boolean if a field has been set.
 
+### GetValueColumn
+
+`func (o *DenominatorPost) GetValueColumn() string`
+
+GetValueColumn returns the ValueColumn field if non-nil, zero value otherwise.
+
+### GetValueColumnOk
+
+`func (o *DenominatorPost) GetValueColumnOk() (*string, bool)`
+
+GetValueColumnOk returns a tuple with the ValueColumn field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetValueColumn
+
+`func (o *DenominatorPost) SetValueColumn(v string)`
+
+SetValueColumn sets ValueColumn field to given value.
+
+### HasValueColumn
+
+`func (o *DenominatorPost) HasValueColumn() bool`
+
+HasValueColumn returns a boolean if a field has been set.
+
 ### GetFilters
 
 `func (o *DenominatorPost) GetFilters() EventFilter`
@@ -285,31 +310,6 @@ SetWinsorUpperPercentile sets WinsorUpperPercentile field to given value.
 `func (o *DenominatorPost) HasWinsorUpperPercentile() bool`
 
 HasWinsorUpperPercentile returns a boolean if a field has been set.
-
-### GetWinsorExcludeImputed
-
-`func (o *DenominatorPost) GetWinsorExcludeImputed() bool`
-
-GetWinsorExcludeImputed returns the WinsorExcludeImputed field if non-nil, zero value otherwise.
-
-### GetWinsorExcludeImputedOk
-
-`func (o *DenominatorPost) GetWinsorExcludeImputedOk() (*bool, bool)`
-
-GetWinsorExcludeImputedOk returns a tuple with the WinsorExcludeImputed field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetWinsorExcludeImputed
-
-`func (o *DenominatorPost) SetWinsorExcludeImputed(v bool)`
-
-SetWinsorExcludeImputed sets WinsorExcludeImputed field to given value.
-
-### HasWinsorExcludeImputed
-
-`func (o *DenominatorPost) HasWinsorExcludeImputed() bool`
-
-HasWinsorExcludeImputed returns a boolean if a field has been set.
 
 ### GetWinsorIncludeImputed
 

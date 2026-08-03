@@ -10,6 +10,7 @@ Method | HTTP request | Description
 [**DeleteAgentGraph**](AgentControlApi.md#DeleteAgentGraph) | **Delete** /api/v2/projects/{projectKey}/agent-graphs/{graphKey} | Delete agent graph
 [**DeleteAgentOptimization**](AgentControlApi.md#DeleteAgentOptimization) | **Delete** /api/v2/projects/{projectKey}/agent-optimizations/{optimizationKey} | Delete an agent optimization
 [**DeleteAgentOptimizationRun**](AgentControlApi.md#DeleteAgentOptimizationRun) | **Delete** /api/v2/projects/{projectKey}/agent-optimizations/{optimizationKey}/runs/{runId} | Delete an agent optimization run
+[**DeleteAgentSkill**](AgentControlApi.md#DeleteAgentSkill) | **Delete** /api/v2/projects/{projectKey}/ai-configs/skills/{skillKey} | Delete an agent skill
 [**DeleteModelConfig**](AgentControlApi.md#DeleteModelConfig) | **Delete** /api/v2/projects/{projectKey}/ai-configs/model-configs/{modelConfigKey} | Delete an AI model config
 [**DeletePromptSnippet**](AgentControlApi.md#DeletePromptSnippet) | **Delete** /api/v2/projects/{projectKey}/ai-configs/prompt-snippets/{snippetKey} | Delete a prompt snippet
 [**DeleteRestrictedModels**](AgentControlApi.md#DeleteRestrictedModels) | **Delete** /api/v2/projects/{projectKey}/ai-configs/model-configs/restricted | Remove AI models from the restricted list
@@ -23,6 +24,7 @@ Method | HTTP request | Description
 [**GetAITool**](AgentControlApi.md#GetAITool) | **Get** /api/v2/projects/{projectKey}/ai-tools/{toolKey} | Get AI tool
 [**GetAgentGraph**](AgentControlApi.md#GetAgentGraph) | **Get** /api/v2/projects/{projectKey}/agent-graphs/{graphKey} | Get agent graph
 [**GetAgentOptimization**](AgentControlApi.md#GetAgentOptimization) | **Get** /api/v2/projects/{projectKey}/agent-optimizations/{optimizationKey} | Get an agent optimization
+[**GetAgentSkill**](AgentControlApi.md#GetAgentSkill) | **Get** /api/v2/projects/{projectKey}/ai-configs/skills/{skillKey} | Get an agent skill
 [**GetModelConfig**](AgentControlApi.md#GetModelConfig) | **Get** /api/v2/projects/{projectKey}/ai-configs/model-configs/{modelConfigKey} | Get AI model config
 [**GetPromptSnippet**](AgentControlApi.md#GetPromptSnippet) | **Get** /api/v2/projects/{projectKey}/ai-configs/prompt-snippets/{snippetKey} | Get a prompt snippet
 [**ListAIToolVersions**](AgentControlApi.md#ListAIToolVersions) | **Get** /api/v2/projects/{projectKey}/ai-tools/{toolKey}/versions | List AI tool versions
@@ -31,7 +33,11 @@ Method | HTTP request | Description
 [**ListAgentOptimizationResults**](AgentControlApi.md#ListAgentOptimizationResults) | **Get** /api/v2/projects/{projectKey}/agent-optimizations/{optimizationKey}/results | List agent optimization runs
 [**ListAgentOptimizationResultsByRunId**](AgentControlApi.md#ListAgentOptimizationResultsByRunId) | **Get** /api/v2/projects/{projectKey}/agent-optimizations/{optimizationKey}/runs/{runId}/results | List agent optimization results for a run
 [**ListAgentOptimizations**](AgentControlApi.md#ListAgentOptimizations) | **Get** /api/v2/projects/{projectKey}/agent-optimizations | List agent optimizations
+[**ListAgentSkillReferences**](AgentControlApi.md#ListAgentSkillReferences) | **Get** /api/v2/projects/{projectKey}/ai-configs/skills/{skillKey}/references | List agent skill references
+[**ListAgentSkillVersions**](AgentControlApi.md#ListAgentSkillVersions) | **Get** /api/v2/projects/{projectKey}/ai-configs/skills/{skillKey}/versions | List agent skill versions
+[**ListAgentSkills**](AgentControlApi.md#ListAgentSkills) | **Get** /api/v2/projects/{projectKey}/ai-configs/skills | List agent skills
 [**ListAllAgentOptimizationResults**](AgentControlApi.md#ListAllAgentOptimizationResults) | **Get** /api/v2/projects/{projectKey}/agent-optimizations/{optimizationKey}/all-results | List all agent optimization results across versions
+[**ListModelConfigVersions**](AgentControlApi.md#ListModelConfigVersions) | **Get** /api/v2/projects/{projectKey}/ai-configs/model-configs/{modelConfigKey}/versions | List AI model config versions
 [**ListModelConfigs**](AgentControlApi.md#ListModelConfigs) | **Get** /api/v2/projects/{projectKey}/ai-configs/model-configs | List AI model configs
 [**ListPromptSnippetReferences**](AgentControlApi.md#ListPromptSnippetReferences) | **Get** /api/v2/projects/{projectKey}/ai-configs/prompt-snippets/{snippetKey}/references | List prompt snippet references
 [**ListPromptSnippetVersions**](AgentControlApi.md#ListPromptSnippetVersions) | **Get** /api/v2/projects/{projectKey}/ai-configs/prompt-snippets/{snippetKey}/versions | List prompt snippet versions
@@ -43,6 +49,8 @@ Method | HTTP request | Description
 [**PatchAgentGraph**](AgentControlApi.md#PatchAgentGraph) | **Patch** /api/v2/projects/{projectKey}/agent-graphs/{graphKey} | Update agent graph
 [**PatchAgentOptimization**](AgentControlApi.md#PatchAgentOptimization) | **Patch** /api/v2/projects/{projectKey}/agent-optimizations/{optimizationKey} | Update an agent optimization
 [**PatchAgentOptimizationResult**](AgentControlApi.md#PatchAgentOptimizationResult) | **Patch** /api/v2/projects/{projectKey}/agent-optimizations/{optimizationKey}/results/{resultId} | Update an agent optimization result
+[**PatchAgentSkill**](AgentControlApi.md#PatchAgentSkill) | **Patch** /api/v2/projects/{projectKey}/ai-configs/skills/{skillKey} | Update an agent skill
+[**PatchModelConfig**](AgentControlApi.md#PatchModelConfig) | **Patch** /api/v2/projects/{projectKey}/ai-configs/model-configs/{modelConfigKey} | Update an AI model config
 [**PatchPromptSnippet**](AgentControlApi.md#PatchPromptSnippet) | **Patch** /api/v2/projects/{projectKey}/ai-configs/prompt-snippets/{snippetKey} | Update a prompt snippet
 [**PostAIConfig**](AgentControlApi.md#PostAIConfig) | **Post** /api/v2/projects/{projectKey}/ai-configs | Create new AI Config
 [**PostAIConfigVariation**](AgentControlApi.md#PostAIConfigVariation) | **Post** /api/v2/projects/{projectKey}/ai-configs/{configKey}/variations | Create AI Config variation
@@ -50,6 +58,7 @@ Method | HTTP request | Description
 [**PostAgentGraph**](AgentControlApi.md#PostAgentGraph) | **Post** /api/v2/projects/{projectKey}/agent-graphs | Create new agent graph
 [**PostAgentOptimization**](AgentControlApi.md#PostAgentOptimization) | **Post** /api/v2/projects/{projectKey}/agent-optimizations | Create agent optimization
 [**PostAgentOptimizationResult**](AgentControlApi.md#PostAgentOptimizationResult) | **Post** /api/v2/projects/{projectKey}/agent-optimizations/{optimizationKey}/results | Create agent optimization result
+[**PostAgentSkill**](AgentControlApi.md#PostAgentSkill) | **Post** /api/v2/projects/{projectKey}/ai-configs/skills | Create an agent skill
 [**PostModelConfig**](AgentControlApi.md#PostModelConfig) | **Post** /api/v2/projects/{projectKey}/ai-configs/model-configs | Create an AI model config
 [**PostPromptSnippet**](AgentControlApi.md#PostPromptSnippet) | **Post** /api/v2/projects/{projectKey}/ai-configs/prompt-snippets | Create a prompt snippet
 [**PostRestrictedModels**](AgentControlApi.md#PostRestrictedModels) | **Post** /api/v2/projects/{projectKey}/ai-configs/model-configs/restricted | Add AI models to the restricted list
@@ -471,6 +480,77 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **lDAPIVersion** | **string** | Version of the endpoint. | 
 
+
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeleteAgentSkill
+
+> DeleteAgentSkill(ctx, projectKey, skillKey).Execute()
+
+Delete an agent skill
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
+)
+
+func main() {
+	projectKey := "projectKey_example" // string | 
+	skillKey := "skillKey_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.AgentControlApi.DeleteAgentSkill(context.Background(), projectKey, skillKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentControlApi.DeleteAgentSkill``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projectKey** | **string** |  | 
+**skillKey** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteAgentSkillRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 
 
@@ -1463,9 +1543,82 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## GetAgentSkill
+
+> AgentSkill GetAgentSkill(ctx, projectKey, skillKey).Execute()
+
+Get an agent skill
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
+)
+
+func main() {
+	projectKey := "projectKey_example" // string | 
+	skillKey := "skillKey_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AgentControlApi.GetAgentSkill(context.Background(), projectKey, skillKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentControlApi.GetAgentSkill``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetAgentSkill`: AgentSkill
+	fmt.Fprintf(os.Stdout, "Response from `AgentControlApi.GetAgentSkill`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projectKey** | **string** |  | 
+**skillKey** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetAgentSkillRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+[**AgentSkill**](AgentSkill.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetModelConfig
 
-> ModelConfig GetModelConfig(ctx, projectKey, modelConfigKey).Execute()
+> ModelConfig GetModelConfig(ctx, projectKey, modelConfigKey).Version(version).Execute()
 
 Get AI model config
 
@@ -1486,10 +1639,11 @@ import (
 func main() {
 	projectKey := "default" // string | 
 	modelConfigKey := "default" // string | 
+	version := int32(56) // int32 | Specific model config version to return. Omit to return the latest version. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentControlApi.GetModelConfig(context.Background(), projectKey, modelConfigKey).Execute()
+	resp, r, err := apiClient.AgentControlApi.GetModelConfig(context.Background(), projectKey, modelConfigKey).Version(version).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AgentControlApi.GetModelConfig``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1517,6 +1671,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **version** | **int32** | Specific model config version to return. Omit to return the latest version. | 
 
 ### Return type
 
@@ -2073,6 +2228,236 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## ListAgentSkillReferences
+
+> AgentSkillReferences ListAgentSkillReferences(ctx, projectKey, skillKey).Limit(limit).Offset(offset).Execute()
+
+List agent skill references
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
+)
+
+func main() {
+	projectKey := "projectKey_example" // string | 
+	skillKey := "skillKey_example" // string | 
+	limit := int32(56) // int32 | The number of resources to return. (optional)
+	offset := int32(56) // int32 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AgentControlApi.ListAgentSkillReferences(context.Background(), projectKey, skillKey).Limit(limit).Offset(offset).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentControlApi.ListAgentSkillReferences``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListAgentSkillReferences`: AgentSkillReferences
+	fmt.Fprintf(os.Stdout, "Response from `AgentControlApi.ListAgentSkillReferences`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projectKey** | **string** |  | 
+**skillKey** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListAgentSkillReferencesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **limit** | **int32** | The number of resources to return. | 
+ **offset** | **int32** | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | 
+
+### Return type
+
+[**AgentSkillReferences**](AgentSkillReferences.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ListAgentSkillVersions
+
+> AgentSkills ListAgentSkillVersions(ctx, projectKey, skillKey).Limit(limit).Offset(offset).Execute()
+
+List agent skill versions
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
+)
+
+func main() {
+	projectKey := "projectKey_example" // string | 
+	skillKey := "skillKey_example" // string | 
+	limit := int32(56) // int32 | The number of resources to return. (optional)
+	offset := int32(56) // int32 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AgentControlApi.ListAgentSkillVersions(context.Background(), projectKey, skillKey).Limit(limit).Offset(offset).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentControlApi.ListAgentSkillVersions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListAgentSkillVersions`: AgentSkills
+	fmt.Fprintf(os.Stdout, "Response from `AgentControlApi.ListAgentSkillVersions`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projectKey** | **string** |  | 
+**skillKey** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListAgentSkillVersionsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **limit** | **int32** | The number of resources to return. | 
+ **offset** | **int32** | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | 
+
+### Return type
+
+[**AgentSkills**](AgentSkills.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ListAgentSkills
+
+> AgentSkills ListAgentSkills(ctx, projectKey).Limit(limit).Offset(offset).Filter(filter).Execute()
+
+List agent skills
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
+)
+
+func main() {
+	projectKey := "projectKey_example" // string | 
+	limit := int32(56) // int32 | The number of resources to return. (optional)
+	offset := int32(56) // int32 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
+	filter := "filter_example" // string | A filter to apply to the list. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AgentControlApi.ListAgentSkills(context.Background(), projectKey).Limit(limit).Offset(offset).Filter(filter).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentControlApi.ListAgentSkills``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListAgentSkills`: AgentSkills
+	fmt.Fprintf(os.Stdout, "Response from `AgentControlApi.ListAgentSkills`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projectKey** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListAgentSkillsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **limit** | **int32** | The number of resources to return. | 
+ **offset** | **int32** | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | 
+ **filter** | **string** | A filter to apply to the list. | 
+
+### Return type
+
+[**AgentSkills**](AgentSkills.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## ListAllAgentOptimizationResults
 
 > AgentOptimizationResults ListAllAgentOptimizationResults(ctx, projectKey, optimizationKey).Limit(limit).Offset(offset).Execute()
@@ -2135,6 +2520,83 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**AgentOptimizationResults**](AgentOptimizationResults.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ListModelConfigVersions
+
+> ModelConfigs ListModelConfigVersions(ctx, projectKey, modelConfigKey).Limit(limit).Offset(offset).Execute()
+
+List AI model config versions
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
+)
+
+func main() {
+	projectKey := "default" // string | 
+	modelConfigKey := "default" // string | 
+	limit := int32(56) // int32 | The number of resources to return. (optional)
+	offset := int32(56) // int32 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AgentControlApi.ListModelConfigVersions(context.Background(), projectKey, modelConfigKey).Limit(limit).Offset(offset).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentControlApi.ListModelConfigVersions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListModelConfigVersions`: ModelConfigs
+	fmt.Fprintf(os.Stdout, "Response from `AgentControlApi.ListModelConfigVersions`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projectKey** | **string** |  | 
+**modelConfigKey** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListModelConfigVersionsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **limit** | **int32** | The number of resources to return. | 
+ **offset** | **int32** | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | 
+
+### Return type
+
+[**ModelConfigs**](ModelConfigs.md)
 
 ### Authorization
 
@@ -2985,6 +3447,156 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## PatchAgentSkill
+
+> AgentSkill PatchAgentSkill(ctx, projectKey, skillKey).AgentSkillPatch(agentSkillPatch).Execute()
+
+Update an agent skill
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
+)
+
+func main() {
+	projectKey := "projectKey_example" // string | 
+	skillKey := "skillKey_example" // string | 
+	agentSkillPatch := *openapiclient.NewAgentSkillPatch() // AgentSkillPatch | Agent skill fields to update
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AgentControlApi.PatchAgentSkill(context.Background(), projectKey, skillKey).AgentSkillPatch(agentSkillPatch).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentControlApi.PatchAgentSkill``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PatchAgentSkill`: AgentSkill
+	fmt.Fprintf(os.Stdout, "Response from `AgentControlApi.PatchAgentSkill`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projectKey** | **string** |  | 
+**skillKey** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPatchAgentSkillRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **agentSkillPatch** | [**AgentSkillPatch**](AgentSkillPatch.md) | Agent skill fields to update | 
+
+### Return type
+
+[**AgentSkill**](AgentSkill.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PatchModelConfig
+
+> ModelConfig PatchModelConfig(ctx, projectKey, modelConfigKey).ModelConfigPatch(modelConfigPatch).Execute()
+
+Update an AI model config
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
+)
+
+func main() {
+	projectKey := "default" // string | 
+	modelConfigKey := "modelConfigKey_example" // string | 
+	modelConfigPatch := *openapiclient.NewModelConfigPatch() // ModelConfigPatch | AI model config object to update
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AgentControlApi.PatchModelConfig(context.Background(), projectKey, modelConfigKey).ModelConfigPatch(modelConfigPatch).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentControlApi.PatchModelConfig``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PatchModelConfig`: ModelConfig
+	fmt.Fprintf(os.Stdout, "Response from `AgentControlApi.PatchModelConfig`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projectKey** | **string** |  | 
+**modelConfigKey** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPatchModelConfigRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **modelConfigPatch** | [**ModelConfigPatch**](ModelConfigPatch.md) | AI model config object to update | 
+
+### Return type
+
+[**ModelConfig**](ModelConfig.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## PatchPromptSnippet
 
 > PromptSnippet PatchPromptSnippet(ctx, projectKey, snippetKey).PromptSnippetPatch(promptSnippetPatch).Execute()
@@ -3485,6 +4097,78 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**AgentOptimizationResult**](AgentOptimizationResult.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostAgentSkill
+
+> AgentSkill PostAgentSkill(ctx, projectKey).AgentSkillPost(agentSkillPost).Execute()
+
+Create an agent skill
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
+)
+
+func main() {
+	projectKey := "projectKey_example" // string | 
+	agentSkillPost := *openapiclient.NewAgentSkillPost("Key_example", "Name_example", "Markdown_example") // AgentSkillPost | Agent skill object to create
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AgentControlApi.PostAgentSkill(context.Background(), projectKey).AgentSkillPost(agentSkillPost).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentControlApi.PostAgentSkill``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostAgentSkill`: AgentSkill
+	fmt.Fprintf(os.Stdout, "Response from `AgentControlApi.PostAgentSkill`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projectKey** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostAgentSkillRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **agentSkillPost** | [**AgentSkillPost**](AgentSkillPost.md) | Agent skill object to create | 
+
+### Return type
+
+[**AgentSkill**](AgentSkill.md)
 
 ### Authorization
 

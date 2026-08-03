@@ -22,6 +22,7 @@ Name | Type | Description | Notes
 **ClickHouseIncludeHostRestriction** | Pointer to **bool** |  | [optional] 
 **ClickHouseServiceRoleArn** | Pointer to **string** |  | [optional] 
 **ClickHousePassword** | Pointer to **string** |  | [optional] 
+**S3BucketName** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -491,6 +492,31 @@ SetClickHousePassword sets ClickHousePassword field to given value.
 `func (o *WarehouseSetupScriptPostBody) HasClickHousePassword() bool`
 
 HasClickHousePassword returns a boolean if a field has been set.
+
+### GetS3BucketName
+
+`func (o *WarehouseSetupScriptPostBody) GetS3BucketName() string`
+
+GetS3BucketName returns the S3BucketName field if non-nil, zero value otherwise.
+
+### GetS3BucketNameOk
+
+`func (o *WarehouseSetupScriptPostBody) GetS3BucketNameOk() (*string, bool)`
+
+GetS3BucketNameOk returns a tuple with the S3BucketName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetS3BucketName
+
+`func (o *WarehouseSetupScriptPostBody) SetS3BucketName(v string)`
+
+SetS3BucketName sets S3BucketName field to given value.
+
+### HasS3BucketName
+
+`func (o *WarehouseSetupScriptPostBody) HasS3BucketName() bool`
+
+HasS3BucketName returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

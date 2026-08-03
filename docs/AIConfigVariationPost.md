@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **OutputFormat** | Pointer to **map[string]interface{}** | JSON Schema defining the structured output format for the variation. | [optional] 
 **Tools** | Pointer to [**[]VariationToolPost**](VariationToolPost.md) | List of tools to use for this variation. The latest version of the tool will be used. | [optional] 
 **ToolKeys** | Pointer to **[]string** | List of tool keys to use for this variation. The latest version of the tool will be used. | [optional] 
+**Skills** | Pointer to [**[]VariationSkillPost**](VariationSkillPost.md) | List of agent skills to attach to this variation. | [optional] 
 **JudgeConfiguration** | Pointer to [**JudgeConfiguration**](JudgeConfiguration.md) |  | [optional] 
 
 ## Methods
@@ -300,6 +301,31 @@ SetToolKeys sets ToolKeys field to given value.
 `func (o *AIConfigVariationPost) HasToolKeys() bool`
 
 HasToolKeys returns a boolean if a field has been set.
+
+### GetSkills
+
+`func (o *AIConfigVariationPost) GetSkills() []VariationSkillPost`
+
+GetSkills returns the Skills field if non-nil, zero value otherwise.
+
+### GetSkillsOk
+
+`func (o *AIConfigVariationPost) GetSkillsOk() (*[]VariationSkillPost, bool)`
+
+GetSkillsOk returns a tuple with the Skills field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSkills
+
+`func (o *AIConfigVariationPost) SetSkills(v []VariationSkillPost)`
+
+SetSkills sets Skills field to given value.
+
+### HasSkills
+
+`func (o *AIConfigVariationPost) HasSkills() bool`
+
+HasSkills returns a boolean if a field has been set.
 
 ### GetJudgeConfiguration
 

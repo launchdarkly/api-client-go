@@ -22,6 +22,7 @@ Name | Type | Description | Notes
 **ArchivedAt** | Pointer to **int64** |  | [optional] 
 **PublishedAt** | Pointer to **int64** |  | [optional] 
 **Tools** | Pointer to [**[]VariationTool**](VariationTool.md) |  | [optional] 
+**Skills** | Pointer to [**[]VariationSkill**](VariationSkill.md) |  | [optional] 
 **JudgeConfiguration** | Pointer to [**JudgeConfiguration**](JudgeConfiguration.md) |  | [optional] 
 **JudgingConfigKeys** | Pointer to **[]string** |  | [optional] 
 
@@ -463,6 +464,31 @@ SetTools sets Tools field to given value.
 `func (o *AIConfigVariation) HasTools() bool`
 
 HasTools returns a boolean if a field has been set.
+
+### GetSkills
+
+`func (o *AIConfigVariation) GetSkills() []VariationSkill`
+
+GetSkills returns the Skills field if non-nil, zero value otherwise.
+
+### GetSkillsOk
+
+`func (o *AIConfigVariation) GetSkillsOk() (*[]VariationSkill, bool)`
+
+GetSkillsOk returns a tuple with the Skills field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSkills
+
+`func (o *AIConfigVariation) SetSkills(v []VariationSkill)`
+
+SetSkills sets Skills field to given value.
+
+### HasSkills
+
+`func (o *AIConfigVariation) HasSkills() bool`
+
+HasSkills returns a boolean if a field has been set.
 
 ### GetJudgeConfiguration
 

@@ -46,7 +46,6 @@ Name | Type | Description | Notes
 **WindowEndOffset** | Pointer to **int64** | Not yet implemented - The end of the measurement window, in milliseconds relative to the unit&#39;s first exposure to a flag variation | [optional] 
 **WinsorLowerPercentile** | Pointer to **float32** | Lower winsorization percentile, expressed as a percent in the open interval (0, 100). When both bounds are set, defines a two-sided clamp range. Otherwise lower-only winsorization. | [optional] 
 **WinsorUpperPercentile** | Pointer to **float32** | Upper winsorization percentile, expressed as a percent in the open interval (0, 100). When both bounds are set, must be greater than winsorLowerPercentile. | [optional] 
-**WinsorExcludeImputed** | Pointer to **bool** | Deprecated and ignored. Use winsorIncludeImputed instead. | [optional] 
 **WinsorIncludeImputed** | Pointer to **bool** | When true, the percentile bound calculation includes imputed zeros. Only meaningful when at least one bound is set and the metric includes units that didn&#39;t send events. | [optional] 
 **TraceQuery** | Pointer to **string** | For trace metrics, the trace query to use for the metric. | [optional] 
 **TraceValueLocation** | Pointer to **string** | For trace metrics, the location in the trace to use for numeric values. | [optional] 
@@ -1081,31 +1080,6 @@ SetWinsorUpperPercentile sets WinsorUpperPercentile field to given value.
 `func (o *MetricRep) HasWinsorUpperPercentile() bool`
 
 HasWinsorUpperPercentile returns a boolean if a field has been set.
-
-### GetWinsorExcludeImputed
-
-`func (o *MetricRep) GetWinsorExcludeImputed() bool`
-
-GetWinsorExcludeImputed returns the WinsorExcludeImputed field if non-nil, zero value otherwise.
-
-### GetWinsorExcludeImputedOk
-
-`func (o *MetricRep) GetWinsorExcludeImputedOk() (*bool, bool)`
-
-GetWinsorExcludeImputedOk returns a tuple with the WinsorExcludeImputed field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetWinsorExcludeImputed
-
-`func (o *MetricRep) SetWinsorExcludeImputed(v bool)`
-
-SetWinsorExcludeImputed sets WinsorExcludeImputed field to given value.
-
-### HasWinsorExcludeImputed
-
-`func (o *MetricRep) HasWinsorExcludeImputed() bool`
-
-HasWinsorExcludeImputed returns a boolean if a field has been set.
 
 ### GetWinsorIncludeImputed
 

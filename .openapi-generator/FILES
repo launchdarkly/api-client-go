@@ -125,6 +125,12 @@ docs/AgentOptimizationResults.md
 docs/AgentOptimizationRun.md
 docs/AgentOptimizationRuns.md
 docs/AgentOptimizations.md
+docs/AgentSkill.md
+docs/AgentSkillPatch.md
+docs/AgentSkillPost.md
+docs/AgentSkillReference.md
+docs/AgentSkillReferences.md
+docs/AgentSkills.md
 docs/AiConfigsAccess.md
 docs/AiConfigsAccessAllowedReason.md
 docs/AiConfigsAccessAllowedRep.md
@@ -225,6 +231,7 @@ docs/ContextInstanceSearch.md
 docs/ContextInstanceSegmentMembership.md
 docs/ContextInstanceSegmentMemberships.md
 docs/ContextInstances.md
+docs/ContextKindEnvironmentObservation.md
 docs/ContextKindRep.md
 docs/ContextKindsCollectionRep.md
 docs/ContextRecord.md
@@ -404,6 +411,7 @@ docs/HoldoutsApi.md
 docs/HoldoutsCollectionRep.md
 docs/HunkRep.md
 docs/IPAllowlistBetaApi.md
+docs/IPAllowlistSelfLink.md
 docs/Import.md
 docs/InitiatorRep.md
 docs/InsightGroup.md
@@ -513,7 +521,9 @@ docs/MetricsSummary.md
 docs/MigrationSafetyIssueRep.md
 docs/MigrationSettingsPost.md
 docs/ModelConfig.md
+docs/ModelConfigPatch.md
 docs/ModelConfigPost.md
+docs/ModelConfigs.md
 docs/Modification.md
 docs/MultiEnvironmentDependentFlag.md
 docs/MultiEnvironmentDependentFlags.md
@@ -630,9 +640,14 @@ docs/RuleClause.md
 docs/SDKKeysBetaApi.md
 docs/ScheduledChangesApi.md
 docs/SdkKey.md
+docs/SdkKeyForPutSdkKeyViews.md
 docs/SdkKeyKind.md
+docs/SdkKeyListItem.md
 docs/SdkKeyPatch.md
 docs/SdkKeyPost.md
+docs/SdkKeysEnvironmentSummary.md
+docs/SdkKeysForGetSdkKeys.md
+docs/SdkKeysSelfLink.md
 docs/SdkListRep.md
 docs/SdkVersionDetailsRep.md
 docs/SdkVersionListRep.md
@@ -653,6 +668,7 @@ docs/SourceEnv.md
 docs/SourceFlag.md
 docs/StageInput.md
 docs/StageOutput.md
+docs/StaleFlagData.md
 docs/Statement.md
 docs/StatementPost.md
 docs/StatisticCollectionRep.md
@@ -721,6 +737,8 @@ docs/ValuePut.md
 docs/Variation.md
 docs/VariationEvalSummary.md
 docs/VariationOrRolloutRep.md
+docs/VariationSkill.md
+docs/VariationSkillPost.md
 docs/VariationSummary.md
 docs/VariationTool.md
 docs/VariationToolPost.md
@@ -798,6 +816,12 @@ model_agent_optimization_results.go
 model_agent_optimization_run.go
 model_agent_optimization_runs.go
 model_agent_optimizations.go
+model_agent_skill.go
+model_agent_skill_patch.go
+model_agent_skill_post.go
+model_agent_skill_reference.go
+model_agent_skill_references.go
+model_agent_skills.go
 model_ai_config.go
 model_ai_config__maintainer.go
 model_ai_config_dependency.go
@@ -921,6 +945,7 @@ model_context_instance_search.go
 model_context_instance_segment_membership.go
 model_context_instance_segment_memberships.go
 model_context_instances.go
+model_context_kind_environment_observation.go
 model_context_kind_rep.go
 model_context_kinds_collection_rep.go
 model_context_record.go
@@ -1131,6 +1156,7 @@ model_integrations.go
 model_invalid_request_error_rep.go
 model_ip_allowlist_entry_response.go
 model_ip_allowlist_response.go
+model_ip_allowlist_self_link.go
 model_ip_list.go
 model_iteration_input.go
 model_iteration_rep.go
@@ -1183,7 +1209,9 @@ model_metrics_summary.go
 model_migration_safety_issue_rep.go
 model_migration_settings_post.go
 model_model_config.go
+model_model_config_patch.go
 model_model_config_post.go
+model_model_configs.go
 model_modification.go
 model_multi_environment_dependent_flag.go
 model_multi_environment_dependent_flags.go
@@ -1290,9 +1318,14 @@ model_root_response.go
 model_rule.go
 model_rule_clause.go
 model_sdk_key.go
+model_sdk_key_for_put_sdk_key_views.go
 model_sdk_key_kind.go
+model_sdk_key_list_item.go
 model_sdk_key_patch.go
 model_sdk_key_post.go
+model_sdk_keys_environment_summary.go
+model_sdk_keys_for_get_sdk_keys.go
+model_sdk_keys_self_link.go
 model_sdk_list_rep.go
 model_sdk_version_details_rep.go
 model_sdk_version_list_rep.go
@@ -1312,6 +1345,7 @@ model_source_env.go
 model_source_flag.go
 model_stage_input.go
 model_stage_output.go
+model_stale_flag_data.go
 model_statement.go
 model_statement_post.go
 model_statistic_collection_rep.go
@@ -1375,6 +1409,8 @@ model_value_put.go
 model_variation.go
 model_variation_eval_summary.go
 model_variation_or_rollout_rep.go
+model_variation_skill.go
+model_variation_skill_post.go
 model_variation_summary.go
 model_variation_tool.go
 model_variation_tool_post.go

@@ -9,7 +9,6 @@ Name | Type | Description | Notes
 **MaintainerId** | Pointer to **string** | Member ID of the maintainer for this view. Only one of &#x60;maintainerId&#x60; or &#x60;maintainerTeamKey&#x60; can be specified. | [optional] 
 **MaintainerTeamKey** | Pointer to **string** | Key of the maintainer team for this view. Only one of &#x60;maintainerId&#x60; or &#x60;maintainerTeamKey&#x60; can be specified. | [optional] 
 **Tags** | Pointer to **[]string** | Tags associated with this view | [optional] 
-**Archived** | Pointer to **bool** | Whether or not the view is archived | [optional] 
 
 ## Methods
 
@@ -154,31 +153,6 @@ SetTags sets Tags field to given value.
 `func (o *ViewPatch) HasTags() bool`
 
 HasTags returns a boolean if a field has been set.
-
-### GetArchived
-
-`func (o *ViewPatch) GetArchived() bool`
-
-GetArchived returns the Archived field if non-nil, zero value otherwise.
-
-### GetArchivedOk
-
-`func (o *ViewPatch) GetArchivedOk() (*bool, bool)`
-
-GetArchivedOk returns a tuple with the Archived field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetArchived
-
-`func (o *ViewPatch) SetArchived(v bool)`
-
-SetArchived sets Archived field to given value.
-
-### HasArchived
-
-`func (o *ViewPatch) HasArchived() bool`
-
-HasArchived returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -28,11 +28,11 @@ Name | Type | Description | Notes
 **WindowEndOffset** | Pointer to **int64** | Not yet implemented - The end of the measurement window, in milliseconds relative to the unit&#39;s first exposure to a flag variation | [optional] 
 **WinsorLowerPercentile** | Pointer to **float32** | Lower winsorization percentile, expressed as a percent in the open interval (0, 100). When both bounds are set, defines a two-sided clamp range. Otherwise lower-only winsorization. | [optional] 
 **WinsorUpperPercentile** | Pointer to **float32** | Upper winsorization percentile, expressed as a percent in the open interval (0, 100). When both bounds are set, must be greater than winsorLowerPercentile. | [optional] 
-**WinsorExcludeImputed** | Pointer to **bool** | Deprecated and ignored. Use winsorIncludeImputed instead. | [optional] 
 **WinsorIncludeImputed** | Pointer to **bool** | When true, the percentile bound calculation includes imputed zeros. Only meaningful when at least one bound is set and the metric includes units that didn&#39;t send events. | [optional] 
 **TraceQuery** | Pointer to **string** | The trace query to use for the metric. Required for trace metrics. | [optional] 
 **TraceValueLocation** | Pointer to **string** | The location in the trace to use for numeric values. Required for numeric trace metrics. | [optional] 
 **UnitAggregationField** | Pointer to **string** | The warehouse column to use for counting distinct values. Required when the unitAggregationType is count_distinct. | [optional] 
+**ValueColumn** | Pointer to **string** | For numeric warehouse-native metrics, the column holding the numeric value. Overrides the value column mapped on the data source. | [optional] 
 **Denominator** | Pointer to [**DenominatorPost**](DenominatorPost.md) |  | [optional] 
 
 ## Methods
@@ -644,31 +644,6 @@ SetWinsorUpperPercentile sets WinsorUpperPercentile field to given value.
 
 HasWinsorUpperPercentile returns a boolean if a field has been set.
 
-### GetWinsorExcludeImputed
-
-`func (o *MetricPost) GetWinsorExcludeImputed() bool`
-
-GetWinsorExcludeImputed returns the WinsorExcludeImputed field if non-nil, zero value otherwise.
-
-### GetWinsorExcludeImputedOk
-
-`func (o *MetricPost) GetWinsorExcludeImputedOk() (*bool, bool)`
-
-GetWinsorExcludeImputedOk returns a tuple with the WinsorExcludeImputed field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetWinsorExcludeImputed
-
-`func (o *MetricPost) SetWinsorExcludeImputed(v bool)`
-
-SetWinsorExcludeImputed sets WinsorExcludeImputed field to given value.
-
-### HasWinsorExcludeImputed
-
-`func (o *MetricPost) HasWinsorExcludeImputed() bool`
-
-HasWinsorExcludeImputed returns a boolean if a field has been set.
-
 ### GetWinsorIncludeImputed
 
 `func (o *MetricPost) GetWinsorIncludeImputed() bool`
@@ -768,6 +743,31 @@ SetUnitAggregationField sets UnitAggregationField field to given value.
 `func (o *MetricPost) HasUnitAggregationField() bool`
 
 HasUnitAggregationField returns a boolean if a field has been set.
+
+### GetValueColumn
+
+`func (o *MetricPost) GetValueColumn() string`
+
+GetValueColumn returns the ValueColumn field if non-nil, zero value otherwise.
+
+### GetValueColumnOk
+
+`func (o *MetricPost) GetValueColumnOk() (*string, bool)`
+
+GetValueColumnOk returns a tuple with the ValueColumn field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetValueColumn
+
+`func (o *MetricPost) SetValueColumn(v string)`
+
+SetValueColumn sets ValueColumn field to given value.
+
+### HasValueColumn
+
+`func (o *MetricPost) HasValueColumn() bool`
+
+HasValueColumn returns a boolean if a field has been set.
 
 ### GetDenominator
 

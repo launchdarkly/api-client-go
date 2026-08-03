@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Key** | **string** | The metric key | 
 **IsGroup** | Pointer to **bool** | Whether this is a metric group (true) or a metric (false). Defaults to false | [optional] 
 **Primary** | Pointer to **bool** | Deprecated, use &lt;code&gt;primarySingleMetricKey&lt;/code&gt; and &lt;code&gt;primaryFunnelKey&lt;/code&gt;. Whether this is a primary metric (true) or a secondary metric (false) | [optional] 
+**AnalysisUnit** | Pointer to **string** | The analysis unit to use for this metric. If omitted, analysis uses the iteration&#39;s randomization unit. | [optional] 
 
 ## Methods
 
@@ -96,6 +97,31 @@ SetPrimary sets Primary field to given value.
 `func (o *MetricInput) HasPrimary() bool`
 
 HasPrimary returns a boolean if a field has been set.
+
+### GetAnalysisUnit
+
+`func (o *MetricInput) GetAnalysisUnit() string`
+
+GetAnalysisUnit returns the AnalysisUnit field if non-nil, zero value otherwise.
+
+### GetAnalysisUnitOk
+
+`func (o *MetricInput) GetAnalysisUnitOk() (*string, bool)`
+
+GetAnalysisUnitOk returns a tuple with the AnalysisUnit field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAnalysisUnit
+
+`func (o *MetricInput) SetAnalysisUnit(v string)`
+
+SetAnalysisUnit sets AnalysisUnit field to given value.
+
+### HasAnalysisUnit
+
+`func (o *MetricInput) HasAnalysisUnit() bool`
+
+HasAnalysisUnit returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

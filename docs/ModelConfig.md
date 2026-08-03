@@ -5,7 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Access** | Pointer to [**AiConfigsAccess**](AiConfigsAccess.md) |  | [optional] 
-**Name** | **string** | Human readable name of the model | 
+**Maintainer** | Pointer to [**AIConfigMaintainer**](AIConfigMaintainer.md) |  | [optional] 
+**Name** | **string** | Human-readable name of the model | 
 **Key** | **string** | Unique key for the model | 
 **Id** | **string** | Identifier for the model, for use with third party providers | 
 **Icon** | Pointer to **string** | Icon for the model | [optional] 
@@ -63,6 +64,31 @@ SetAccess sets Access field to given value.
 `func (o *ModelConfig) HasAccess() bool`
 
 HasAccess returns a boolean if a field has been set.
+
+### GetMaintainer
+
+`func (o *ModelConfig) GetMaintainer() AIConfigMaintainer`
+
+GetMaintainer returns the Maintainer field if non-nil, zero value otherwise.
+
+### GetMaintainerOk
+
+`func (o *ModelConfig) GetMaintainerOk() (*AIConfigMaintainer, bool)`
+
+GetMaintainerOk returns a tuple with the Maintainer field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMaintainer
+
+`func (o *ModelConfig) SetMaintainer(v AIConfigMaintainer)`
+
+SetMaintainer sets Maintainer field to given value.
+
+### HasMaintainer
+
+`func (o *ModelConfig) HasMaintainer() bool`
+
+HasMaintainer returns a boolean if a field has been set.
 
 ### GetName
 

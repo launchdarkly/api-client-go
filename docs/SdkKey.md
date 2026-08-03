@@ -16,7 +16,6 @@ Name | Type | Description | Notes
 **CreatedAt** | **int64** |  | 
 **UpdatedAt** | **int64** |  | 
 **Version** | **int32** | The auto-incremented version number of the SDK key. | 
-**ViewSummaries** | Pointer to [**[]ViewSummary**](ViewSummary.md) | Summaries of views associated with the SDK key. | [optional] 
 
 ## Methods
 
@@ -296,31 +295,6 @@ and a boolean to check if the value has been set.
 
 SetVersion sets Version field to given value.
 
-
-### GetViewSummaries
-
-`func (o *SdkKey) GetViewSummaries() []ViewSummary`
-
-GetViewSummaries returns the ViewSummaries field if non-nil, zero value otherwise.
-
-### GetViewSummariesOk
-
-`func (o *SdkKey) GetViewSummariesOk() (*[]ViewSummary, bool)`
-
-GetViewSummariesOk returns a tuple with the ViewSummaries field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetViewSummaries
-
-`func (o *SdkKey) SetViewSummaries(v []ViewSummary)`
-
-SetViewSummaries sets ViewSummaries field to given value.
-
-### HasViewSummaries
-
-`func (o *SdkKey) HasViewSummaries() bool`
-
-HasViewSummaries returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

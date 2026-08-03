@@ -30,6 +30,7 @@ Name | Type | Description | Notes
 **Defaults** | Pointer to [**Defaults**](Defaults.md) |  | [optional] 
 **Purpose** | Pointer to **string** |  | [optional] 
 **MigrationSettings** | Pointer to [**FlagMigrationSettingsRep**](FlagMigrationSettingsRep.md) |  | [optional] 
+**Stale** | Pointer to [**StaleFlagData**](StaleFlagData.md) |  | [optional] 
 **Environments** | Pointer to [**map[string]FeatureFlagConfig**](FeatureFlagConfig.md) | Details on the environments for this flag. Only returned if the request is filtered by environment, using the &lt;code&gt;filterEnv&lt;/code&gt; query parameter. | [optional] 
 
 ## Methods
@@ -640,6 +641,31 @@ SetMigrationSettings sets MigrationSettings field to given value.
 `func (o *FeatureFlag) HasMigrationSettings() bool`
 
 HasMigrationSettings returns a boolean if a field has been set.
+
+### GetStale
+
+`func (o *FeatureFlag) GetStale() StaleFlagData`
+
+GetStale returns the Stale field if non-nil, zero value otherwise.
+
+### GetStaleOk
+
+`func (o *FeatureFlag) GetStaleOk() (*StaleFlagData, bool)`
+
+GetStaleOk returns a tuple with the Stale field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStale
+
+`func (o *FeatureFlag) SetStale(v StaleFlagData)`
+
+SetStale sets Stale field to given value.
+
+### HasStale
+
+`func (o *FeatureFlag) HasStale() bool`
+
+HasStale returns a boolean if a field has been set.
 
 ### GetEnvironments
 

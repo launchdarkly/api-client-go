@@ -329,7 +329,7 @@ import (
 func main() {
 	projKey := "projKey_example" // string | The project key
 	envKey := "envKey_example" // string | The environment key
-	kind := "kind_example" // string | The destination kind (snowflake-v2, bigquery, clickhouse, redshift)
+	kind := "kind_example" // string | The destination kind (snowflake-v2, bigquery, clickhouse, redshift, databricks)
 	completeSetupPostBody := *openapiclient.NewCompleteSetupPostBody() // CompleteSetupPostBody | 
 
 	configuration := openapiclient.NewConfiguration()
@@ -352,7 +352,7 @@ Name | Type | Description  | Notes
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **projKey** | **string** | The project key | 
 **envKey** | **string** | The environment key | 
-**kind** | **string** | The destination kind (snowflake-v2, bigquery, clickhouse, redshift) | 
+**kind** | **string** | The destination kind (snowflake-v2, bigquery, clickhouse, redshift, databricks) | 
 
 ### Other Parameters
 

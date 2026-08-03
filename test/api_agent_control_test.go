@@ -108,6 +108,20 @@ func Test_ldapi_AgentControlApiService(t *testing.T) {
 
 	})
 
+	t.Run("Test AgentControlApiService DeleteAgentSkill", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var projectKey string
+		var skillKey string
+
+		httpRes, err := apiClient.AgentControlApi.DeleteAgentSkill(context.Background(), projectKey, skillKey).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test AgentControlApiService DeleteModelConfig", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
@@ -298,6 +312,21 @@ func Test_ldapi_AgentControlApiService(t *testing.T) {
 
 	})
 
+	t.Run("Test AgentControlApiService GetAgentSkill", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var projectKey string
+		var skillKey string
+
+		resp, httpRes, err := apiClient.AgentControlApi.GetAgentSkill(context.Background(), projectKey, skillKey).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test AgentControlApiService GetModelConfig", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
@@ -416,6 +445,50 @@ func Test_ldapi_AgentControlApiService(t *testing.T) {
 
 	})
 
+	t.Run("Test AgentControlApiService ListAgentSkillReferences", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var projectKey string
+		var skillKey string
+
+		resp, httpRes, err := apiClient.AgentControlApi.ListAgentSkillReferences(context.Background(), projectKey, skillKey).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test AgentControlApiService ListAgentSkillVersions", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var projectKey string
+		var skillKey string
+
+		resp, httpRes, err := apiClient.AgentControlApi.ListAgentSkillVersions(context.Background(), projectKey, skillKey).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test AgentControlApiService ListAgentSkills", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var projectKey string
+
+		resp, httpRes, err := apiClient.AgentControlApi.ListAgentSkills(context.Background(), projectKey).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test AgentControlApiService ListAllAgentOptimizationResults", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
@@ -424,6 +497,21 @@ func Test_ldapi_AgentControlApiService(t *testing.T) {
 		var optimizationKey string
 
 		resp, httpRes, err := apiClient.AgentControlApi.ListAllAgentOptimizationResults(context.Background(), projectKey, optimizationKey).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test AgentControlApiService ListModelConfigVersions", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var projectKey string
+		var modelConfigKey string
+
+		resp, httpRes, err := apiClient.AgentControlApi.ListModelConfigVersions(context.Background(), projectKey, modelConfigKey).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -596,6 +684,36 @@ func Test_ldapi_AgentControlApiService(t *testing.T) {
 
 	})
 
+	t.Run("Test AgentControlApiService PatchAgentSkill", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var projectKey string
+		var skillKey string
+
+		resp, httpRes, err := apiClient.AgentControlApi.PatchAgentSkill(context.Background(), projectKey, skillKey).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test AgentControlApiService PatchModelConfig", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var projectKey string
+		var modelConfigKey string
+
+		resp, httpRes, err := apiClient.AgentControlApi.PatchModelConfig(context.Background(), projectKey, modelConfigKey).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test AgentControlApiService PatchPromptSnippet", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
@@ -690,6 +808,20 @@ func Test_ldapi_AgentControlApiService(t *testing.T) {
 		var optimizationKey string
 
 		resp, httpRes, err := apiClient.AgentControlApi.PostAgentOptimizationResult(context.Background(), projectKey, optimizationKey).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test AgentControlApiService PostAgentSkill", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var projectKey string
+
+		resp, httpRes, err := apiClient.AgentControlApi.PostAgentSkill(context.Background(), projectKey).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

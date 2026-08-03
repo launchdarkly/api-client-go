@@ -19,8 +19,6 @@ Name | Type | Description | Notes
 **Tags** | **[]string** | Tags associated with this view | 
 **CreatedAt** | **int64** |  | 
 **UpdatedAt** | **int64** |  | 
-**Archived** | **bool** | Whether this view is archived | [default to false]
-**ArchivedAt** | Pointer to **int64** |  | [optional] 
 **DeletedAt** | Pointer to **int64** |  | [optional] 
 **Deleted** | **bool** | Whether this view is deleted | [default to false]
 **Maintainer** | Pointer to [**Maintainer**](Maintainer.md) |  | [optional] 
@@ -39,7 +37,7 @@ Name | Type | Description | Notes
 
 ### NewView
 
-`func NewView(id string, accountId string, projectId string, projectKey string, key string, name string, description string, affectsSdkPayload bool, version int32, tags []string, createdAt int64, updatedAt int64, archived bool, deleted bool, ) *View`
+`func NewView(id string, accountId string, projectId string, projectKey string, key string, name string, description string, affectsSdkPayload bool, version int32, tags []string, createdAt int64, updatedAt int64, deleted bool, ) *View`
 
 NewView instantiates a new View object
 This constructor will assign default values to properties that have it defined,
@@ -368,51 +366,6 @@ and a boolean to check if the value has been set.
 
 SetUpdatedAt sets UpdatedAt field to given value.
 
-
-### GetArchived
-
-`func (o *View) GetArchived() bool`
-
-GetArchived returns the Archived field if non-nil, zero value otherwise.
-
-### GetArchivedOk
-
-`func (o *View) GetArchivedOk() (*bool, bool)`
-
-GetArchivedOk returns a tuple with the Archived field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetArchived
-
-`func (o *View) SetArchived(v bool)`
-
-SetArchived sets Archived field to given value.
-
-
-### GetArchivedAt
-
-`func (o *View) GetArchivedAt() int64`
-
-GetArchivedAt returns the ArchivedAt field if non-nil, zero value otherwise.
-
-### GetArchivedAtOk
-
-`func (o *View) GetArchivedAtOk() (*int64, bool)`
-
-GetArchivedAtOk returns a tuple with the ArchivedAt field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetArchivedAt
-
-`func (o *View) SetArchivedAt(v int64)`
-
-SetArchivedAt sets ArchivedAt field to given value.
-
-### HasArchivedAt
-
-`func (o *View) HasArchivedAt() bool`
-
-HasArchivedAt returns a boolean if a field has been set.
 
 ### GetDeletedAt
 

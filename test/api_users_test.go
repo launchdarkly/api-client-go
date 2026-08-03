@@ -22,21 +22,6 @@ func Test_ldapi_UsersApiService(t *testing.T) {
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
-	t.Run("Test UsersApiService DeleteUser", func(t *testing.T) {
-
-		t.Skip("skip test")  // remove to run test
-
-		var projectKey string
-		var environmentKey string
-		var userKey string
-
-		httpRes, err := apiClient.UsersApi.DeleteUser(context.Background(), projectKey, environmentKey, userKey).Execute()
-
-		require.Nil(t, err)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
 	t.Run("Test UsersApiService GetSearchUsers", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test

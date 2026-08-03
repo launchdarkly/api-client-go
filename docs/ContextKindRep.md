@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **CreationDate** | **int64** |  | 
 **LastModified** | **int64** |  | 
 **LastSeen** | Pointer to **int64** |  | [optional] 
+**EnvironmentObservations** | Pointer to [**[]ContextKindEnvironmentObservation**](ContextKindEnvironmentObservation.md) | Recent environment observations retained from flag evaluations. This is not a complete historical record. | [optional] 
 **CreatedFrom** | **string** |  | 
 **HideInTargeting** | Pointer to **bool** | Alias for archived. | [optional] 
 **Archived** | Pointer to **bool** | Whether the context kind is archived. Archived context kinds are unavailable for targeting. | [optional] 
@@ -179,6 +180,31 @@ SetLastSeen sets LastSeen field to given value.
 `func (o *ContextKindRep) HasLastSeen() bool`
 
 HasLastSeen returns a boolean if a field has been set.
+
+### GetEnvironmentObservations
+
+`func (o *ContextKindRep) GetEnvironmentObservations() []ContextKindEnvironmentObservation`
+
+GetEnvironmentObservations returns the EnvironmentObservations field if non-nil, zero value otherwise.
+
+### GetEnvironmentObservationsOk
+
+`func (o *ContextKindRep) GetEnvironmentObservationsOk() (*[]ContextKindEnvironmentObservation, bool)`
+
+GetEnvironmentObservationsOk returns a tuple with the EnvironmentObservations field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEnvironmentObservations
+
+`func (o *ContextKindRep) SetEnvironmentObservations(v []ContextKindEnvironmentObservation)`
+
+SetEnvironmentObservations sets EnvironmentObservations field to given value.
+
+### HasEnvironmentObservations
+
+`func (o *ContextKindRep) HasEnvironmentObservations() bool`
+
+HasEnvironmentObservations returns a boolean if a field has been set.
 
 ### GetCreatedFrom
 

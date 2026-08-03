@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **CompletedAt** | Pointer to **int64** |  | [optional] 
 **FlagKey** | **string** | The flag key | 
 **ActivePhaseId** | Pointer to **string** | The ID of the currently active release phase | [optional] 
+**ActivePhaseStatus** | Pointer to **string** |  | [optional] 
 **Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
 
 ## Methods
@@ -118,6 +119,31 @@ SetActivePhaseId sets ActivePhaseId field to given value.
 `func (o *ReleaseProgression) HasActivePhaseId() bool`
 
 HasActivePhaseId returns a boolean if a field has been set.
+
+### GetActivePhaseStatus
+
+`func (o *ReleaseProgression) GetActivePhaseStatus() string`
+
+GetActivePhaseStatus returns the ActivePhaseStatus field if non-nil, zero value otherwise.
+
+### GetActivePhaseStatusOk
+
+`func (o *ReleaseProgression) GetActivePhaseStatusOk() (*string, bool)`
+
+GetActivePhaseStatusOk returns a tuple with the ActivePhaseStatus field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetActivePhaseStatus
+
+`func (o *ReleaseProgression) SetActivePhaseStatus(v string)`
+
+SetActivePhaseStatus sets ActivePhaseStatus field to given value.
+
+### HasActivePhaseStatus
+
+`func (o *ReleaseProgression) HasActivePhaseStatus() bool`
+
+HasActivePhaseStatus returns a boolean if a field has been set.
 
 ### GetLinks
 

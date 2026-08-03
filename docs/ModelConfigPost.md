@@ -7,6 +7,8 @@ Name | Type | Description | Notes
 **Name** | **string** | Human readable name of the model | 
 **Key** | **string** | Unique key for the model | 
 **Id** | **string** | Identifier for the model, for use with third party providers | 
+**MaintainerId** | Pointer to **string** |  | [optional] 
+**MaintainerTeamKey** | Pointer to **string** |  | [optional] 
 **Icon** | Pointer to **string** | Icon for the model | [optional] 
 **Provider** | Pointer to **string** | Provider for the model | [optional] 
 **Params** | Pointer to **map[string]interface{}** |  | [optional] 
@@ -94,6 +96,56 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
+
+### GetMaintainerId
+
+`func (o *ModelConfigPost) GetMaintainerId() string`
+
+GetMaintainerId returns the MaintainerId field if non-nil, zero value otherwise.
+
+### GetMaintainerIdOk
+
+`func (o *ModelConfigPost) GetMaintainerIdOk() (*string, bool)`
+
+GetMaintainerIdOk returns a tuple with the MaintainerId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMaintainerId
+
+`func (o *ModelConfigPost) SetMaintainerId(v string)`
+
+SetMaintainerId sets MaintainerId field to given value.
+
+### HasMaintainerId
+
+`func (o *ModelConfigPost) HasMaintainerId() bool`
+
+HasMaintainerId returns a boolean if a field has been set.
+
+### GetMaintainerTeamKey
+
+`func (o *ModelConfigPost) GetMaintainerTeamKey() string`
+
+GetMaintainerTeamKey returns the MaintainerTeamKey field if non-nil, zero value otherwise.
+
+### GetMaintainerTeamKeyOk
+
+`func (o *ModelConfigPost) GetMaintainerTeamKeyOk() (*string, bool)`
+
+GetMaintainerTeamKeyOk returns a tuple with the MaintainerTeamKey field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMaintainerTeamKey
+
+`func (o *ModelConfigPost) SetMaintainerTeamKey(v string)`
+
+SetMaintainerTeamKey sets MaintainerTeamKey field to given value.
+
+### HasMaintainerTeamKey
+
+`func (o *ModelConfigPost) HasMaintainerTeamKey() bool`
+
+HasMaintainerTeamKey returns a boolean if a field has been set.
 
 ### GetIcon
 

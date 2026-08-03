@@ -419,7 +419,7 @@ Name | Type | Description  | Notes
 
 ## GetContextKindsByProjectKey
 
-> ContextKindsCollectionRep GetContextKindsByProjectKey(ctx, projectKey).Execute()
+> ContextKindsCollectionRep GetContextKindsByProjectKey(ctx, projectKey).Expand(expand).Execute()
 
 Get context kinds
 
@@ -439,10 +439,11 @@ import (
 
 func main() {
 	projectKey := "projectKey_example" // string | The project key
+	expand := "expand_example" // string | A comma-separated list of properties that can reveal additional information in the response. Options: `environmentObservations`. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ContextsApi.GetContextKindsByProjectKey(context.Background(), projectKey).Execute()
+	resp, r, err := apiClient.ContextsApi.GetContextKindsByProjectKey(context.Background(), projectKey).Expand(expand).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ContextsApi.GetContextKindsByProjectKey``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -468,6 +469,7 @@ Other parameters are passed through a pointer to a apiGetContextKindsByProjectKe
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **expand** | **string** | A comma-separated list of properties that can reveal additional information in the response. Options: &#x60;environmentObservations&#x60;. | 
 
 ### Return type
 
