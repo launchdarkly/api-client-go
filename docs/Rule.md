@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Variation** | Pointer to **int32** | The index of the variation, from the array of variations for this flag | [optional] 
 **Rollout** | Pointer to [**Rollout**](Rollout.md) |  | [optional] 
 **Clauses** | [**[]Clause**](Clause.md) | An array of clauses used for individual targeting based on attributes | 
-**TrackEvents** | **bool** | Whether LaunchDarkly tracks events for this rule | 
+**TrackEvents** | **bool** | Whether the SDK sends a detailed event for every evaluation of this rule, instead of only summary counts. Required for Data Export, but doesn&#39;t enable Data Export on its own. | 
 **Description** | Pointer to **string** | The rule description | [optional] 
 **Ref** | Pointer to **string** |  | [optional] 
 

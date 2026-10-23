@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Key** | **string** |  | 
-**Threshold** | **float64** |  | 
+**Key** | **string** | The key of the judge AI Config | 
+**Threshold** | **float64** | The minimum score needed to pass | 
 
 ## Methods
 

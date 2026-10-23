@@ -19,8 +19,8 @@ Name | Type | Description | Notes
 **Site** | [**Link**](Link.md) |  | 
 **Access** | Pointer to [**Access**](Access.md) |  | [optional] 
 **EnvironmentName** | **string** | The environment name | 
-**TrackEvents** | **bool** | Whether LaunchDarkly tracks events for the feature flag, for all rules | 
-**TrackEventsFallthrough** | **bool** | Whether LaunchDarkly tracks events for the feature flag, for the default rule | 
+**TrackEvents** | **bool** | Whether the SDK sends a detailed event for every evaluation of this flag, across all rules, instead of only summary counts. Required for Data Export, but doesn&#39;t enable Data Export on its own. | 
+**TrackEventsFallthrough** | **bool** | Whether the SDK sends a detailed event for every evaluation of this flag&#39;s default rule, instead of only summary counts. Required for Data Export, but doesn&#39;t enable Data Export on its own. | 
 **DebugEventsUntilDate** | Pointer to **int64** |  | [optional] 
 **Summary** | Pointer to [**FlagSummary**](FlagSummary.md) |  | [optional] 
 **Evaluation** | Pointer to [**FlagConfigEvaluation**](FlagConfigEvaluation.md) |  | [optional] 

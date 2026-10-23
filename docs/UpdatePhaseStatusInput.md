@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Status** | Pointer to **string** |  | [optional] 
-**Audiences** | Pointer to [**[]ReleaserAudienceConfigInput**](ReleaserAudienceConfigInput.md) | Extra configuration for audiences required upon phase initialization. | [optional] 
+**Audiences** | Pointer to [**[]PipelineReleaseAudienceConfigInput**](PipelineReleaseAudienceConfigInput.md) | Extra configuration for audiences required upon phase initialization. | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasStatus returns a boolean if a field has been set.
 
 ### GetAudiences
 
-`func (o *UpdatePhaseStatusInput) GetAudiences() []ReleaserAudienceConfigInput`
+`func (o *UpdatePhaseStatusInput) GetAudiences() []PipelineReleaseAudienceConfigInput`
 
 GetAudiences returns the Audiences field if non-nil, zero value otherwise.
 
 ### GetAudiencesOk
 
-`func (o *UpdatePhaseStatusInput) GetAudiencesOk() (*[]ReleaserAudienceConfigInput, bool)`
+`func (o *UpdatePhaseStatusInput) GetAudiencesOk() (*[]PipelineReleaseAudienceConfigInput, bool)`
 
 GetAudiencesOk returns a tuple with the Audiences field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAudiences
 
-`func (o *UpdatePhaseStatusInput) SetAudiences(v []ReleaserAudienceConfigInput)`
+`func (o *UpdatePhaseStatusInput) SetAudiences(v []PipelineReleaseAudienceConfigInput)`
 
 SetAudiences sets Audiences field to given value.
 

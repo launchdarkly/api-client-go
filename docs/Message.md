@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Content** | **string** |  | 
-**Role** | **string** |  | 
+**Content** | **string** | The message text | 
+**Role** | **string** | The message role, such as system, user, or assistant | 
 
 ## Methods
 

@@ -4,21 +4,21 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**MaxAttempts** | Pointer to **int32** |  | [optional] 
-**ModelChoices** | Pointer to **[]string** |  | [optional] 
-**JudgeModel** | Pointer to **string** |  | [optional] 
-**VariableChoices** | Pointer to **[]map[string]interface{}** |  | [optional] 
-**AcceptanceStatements** | Pointer to [**[]AgentOptimizationAcceptanceStatement**](AgentOptimizationAcceptanceStatement.md) |  | [optional] 
-**Judges** | Pointer to [**[]AgentOptimizationJudge**](AgentOptimizationJudge.md) |  | [optional] 
-**UserInputOptions** | Pointer to **[]string** |  | [optional] 
-**GroundTruthResponses** | Pointer to **[]string** |  | [optional] 
-**MetricKey** | Pointer to **string** |  | [optional] 
-**TokenLimit** | Pointer to **int32** |  | [optional] 
-**VariationKey** | Pointer to **string** |  | [optional] 
-**Label** | Pointer to **string** |  | [optional] 
-**LatencyOptimization** | Pointer to **bool** |  | [optional] 
-**TokenOptimization** | Pointer to **bool** |  | [optional] 
-**AutoCommit** | Pointer to **bool** |  | [optional] 
+**MaxAttempts** | Pointer to **int32** | The maximum number of attempts | [optional] 
+**ModelChoices** | Pointer to **[]string** | The models to try | [optional] 
+**JudgeModel** | Pointer to **string** | The model used to judge responses | [optional] 
+**VariableChoices** | Pointer to **[]map[string]interface{}** | Sets of prompt variable values to try | [optional] 
+**AcceptanceStatements** | Pointer to [**[]AgentOptimizationAcceptanceStatement**](AgentOptimizationAcceptanceStatement.md) | Statements a response must satisfy to pass | [optional] 
+**Judges** | Pointer to [**[]AgentOptimizationJudge**](AgentOptimizationJudge.md) | Judges that score each response | [optional] 
+**UserInputOptions** | Pointer to **[]string** | User inputs to test with | [optional] 
+**GroundTruthResponses** | Pointer to **[]string** | Expected responses to compare against | [optional] 
+**MetricKey** | Pointer to **string** | The key of the metric to optimize | [optional] 
+**TokenLimit** | Pointer to **int32** | The maximum number of tokens to use | [optional] 
+**VariationKey** | Pointer to **string** | The key of the variation to start from | [optional] 
+**Label** | Pointer to **string** | A label for the optimization | [optional] 
+**LatencyOptimization** | Pointer to **bool** | Whether to optimize for lower latency | [optional] 
+**TokenOptimization** | Pointer to **bool** | Whether to optimize for lower token use | [optional] 
+**AutoCommit** | Pointer to **bool** | Whether to save the best result as a new variation automatically | [optional] 
 
 ## Methods
 

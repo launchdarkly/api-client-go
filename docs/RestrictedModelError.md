@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Key** | **string** |  | 
-**Message** | **string** |  | 
-**Code** | **int32** |  | 
+**Key** | **string** | The model config key that was not added | 
+**Message** | **string** | Why the key was not added. A key that a config variation uses cannot be restricted. Move those variations to a different model first. | 
+**Code** | **int32** | HTTP status code for this key. &#x60;400&#x60; means a config variation uses the key. &#x60;404&#x60; means the key does not exist in the project. | 
 
 ## Methods
 

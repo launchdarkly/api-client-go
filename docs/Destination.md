@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Links** | Pointer to [**map[string]Link**](Link.md) | The location and content type of related resources | [optional] 
 **Name** | Pointer to **string** | A human-readable name for your Data Export destination | [optional] 
 **Kind** | Pointer to **string** | The type of Data Export destination | [optional] 
-**Version** | Pointer to **float32** |  | [optional] 
+**Version** | Pointer to **float64** |  | [optional] 
 **Config** | Pointer to **interface{}** | An object with the configuration parameters required for the destination type | [optional] 
 **On** | Pointer to **bool** | Whether the export is on, that is, the status of the integration | [optional] 
 **CreatedAt** | Pointer to **int64** |  | [optional] 
@@ -137,20 +137,20 @@ HasKind returns a boolean if a field has been set.
 
 ### GetVersion
 
-`func (o *Destination) GetVersion() float32`
+`func (o *Destination) GetVersion() float64`
 
 GetVersion returns the Version field if non-nil, zero value otherwise.
 
 ### GetVersionOk
 
-`func (o *Destination) GetVersionOk() (*float32, bool)`
+`func (o *Destination) GetVersionOk() (*float64, bool)`
 
 GetVersionOk returns a tuple with the Version field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVersion
 
-`func (o *Destination) SetVersion(v float32)`
+`func (o *Destination) SetVersion(v float64)`
 
 SetVersion sets Version field to given value.
 

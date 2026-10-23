@@ -6,26 +6,26 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Access** | Pointer to [**AiConfigsAccess**](AiConfigsAccess.md) |  | [optional] 
 **Links** | Pointer to [**ParentAndSelfLinks**](ParentAndSelfLinks.md) |  | [optional] 
-**Id** | **string** |  | 
-**Key** | **string** |  | 
-**AiConfigKey** | **string** |  | 
-**MaxAttempts** | **int32** |  | 
-**ModelChoices** | **[]string** |  | 
-**JudgeModel** | **string** |  | 
-**VariableChoices** | **[]map[string]interface{}** |  | 
-**AcceptanceStatements** | [**[]AgentOptimizationAcceptanceStatement**](AgentOptimizationAcceptanceStatement.md) |  | 
-**Judges** | [**[]AgentOptimizationJudge**](AgentOptimizationJudge.md) |  | 
-**UserInputOptions** | **[]string** |  | 
-**GroundTruthResponses** | **[]string** |  | 
-**MetricKey** | Pointer to **string** |  | [optional] 
-**TokenLimit** | Pointer to **int32** |  | [optional] 
-**VariationKey** | Pointer to **string** |  | [optional] 
-**Label** | Pointer to **string** |  | [optional] 
-**LatencyOptimization** | Pointer to **bool** |  | [optional] 
-**TokenOptimization** | Pointer to **bool** |  | [optional] 
-**AutoCommit** | Pointer to **bool** |  | [optional] 
-**Version** | **int32** |  | 
-**CreatedAt** | **int64** |  | 
+**Id** | **string** | The agent optimization ID | 
+**Key** | **string** | The agent optimization key | 
+**AiConfigKey** | **string** | The key of the AI Config to optimize | 
+**MaxAttempts** | **int32** | The maximum number of attempts | 
+**ModelChoices** | **[]string** | The models to try | 
+**JudgeModel** | **string** | The model used to judge responses | 
+**VariableChoices** | **[]map[string]interface{}** | Sets of prompt variable values to try | 
+**AcceptanceStatements** | [**[]AgentOptimizationAcceptanceStatement**](AgentOptimizationAcceptanceStatement.md) | Statements a response must satisfy to pass | 
+**Judges** | [**[]AgentOptimizationJudge**](AgentOptimizationJudge.md) | Judges that score each response | 
+**UserInputOptions** | **[]string** | User inputs to test with | 
+**GroundTruthResponses** | **[]string** | Expected responses to compare against | 
+**MetricKey** | Pointer to **string** | The key of the metric to optimize | [optional] 
+**TokenLimit** | Pointer to **int32** | The maximum number of tokens to use | [optional] 
+**VariationKey** | Pointer to **string** | The key of the variation to start from | [optional] 
+**Label** | Pointer to **string** | A label for the optimization | [optional] 
+**LatencyOptimization** | Pointer to **bool** | Whether to optimize for lower latency | [optional] 
+**TokenOptimization** | Pointer to **bool** | Whether to optimize for lower token use | [optional] 
+**AutoCommit** | Pointer to **bool** | Whether to save the best result as a new variation automatically | [optional] 
+**Version** | **int32** | The version number of this resource | 
+**CreatedAt** | **int64** | When this resource was created, in Unix milliseconds | 
 
 ## Methods
 

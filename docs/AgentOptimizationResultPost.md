@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**RunId** | **string** |  | 
-**AgentOptimizationVersion** | **int32** |  | 
-**Iteration** | **int32** |  | 
-**Instructions** | **string** |  | 
-**UserInput** | **string** |  | 
-**Parameters** | Pointer to **map[string]interface{}** |  | [optional] 
+**RunId** | **string** | The ID of the run this result belongs to | 
+**AgentOptimizationVersion** | **int32** | The version of the agent optimization used | 
+**Iteration** | **int32** | The iteration number within the run | 
+**Instructions** | **string** | The instructions used for this attempt | 
+**UserInput** | **string** | The user input used for this attempt | 
+**Parameters** | Pointer to **map[string]interface{}** | The model parameters used for this attempt | [optional] 
 
 ## Methods
 

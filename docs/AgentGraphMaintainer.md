@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Kind** | Pointer to **string** |  | [optional] 
-**Id** | **string** |  | 
-**Email** | **string** |  | 
-**FirstName** | Pointer to **string** |  | [optional] 
-**LastName** | Pointer to **string** |  | [optional] 
-**Role** | **string** |  | 
-**Key** | **string** |  | 
-**Name** | **string** |  | 
+**Id** | **string** | The member ID | 
+**Email** | **string** | The member email address | 
+**FirstName** | Pointer to **string** | The member first name | [optional] 
+**LastName** | Pointer to **string** | The member last name | [optional] 
+**Role** | **string** | The member role | 
+**Key** | **string** | The team key | 
+**Name** | **string** | The team name | 
 
 ## Methods
 

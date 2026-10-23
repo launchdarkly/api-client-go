@@ -6,13 +6,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Links** | **map[string]interface{}** | The location and content type of related resources | 
 **Metadata** | **[]map[string]interface{}** | Metadata about each series | 
-**Series** | **[]map[string]int32** | An array of data points with timestamps. Each element of the array is an object with a &#39;time&#39; field, whose value is the timestamp, and one or more key fields. If there are multiple key fields, they are labeled &#39;0&#39;, &#39;1&#39;, and so on, and are explained in the &lt;code&gt;metadata&lt;/code&gt;. | 
+**Series** | **[]map[string]int64** | An array of data points with timestamps. Each element of the array is an object with a &#39;time&#39; field, whose value is the timestamp, and one or more key fields. If there are multiple key fields, they are labeled &#39;0&#39;, &#39;1&#39;, and so on, and are explained in the &lt;code&gt;metadata&lt;/code&gt;. | 
 
 ## Methods
 
 ### NewSeriesListRep
 
-`func NewSeriesListRep(links map[string]interface{}, metadata []map[string]interface{}, series []map[string]int32, ) *SeriesListRep`
+`func NewSeriesListRep(links map[string]interface{}, metadata []map[string]interface{}, series []map[string]int64, ) *SeriesListRep`
 
 NewSeriesListRep instantiates a new SeriesListRep object
 This constructor will assign default values to properties that have it defined,
@@ -69,20 +69,20 @@ SetMetadata sets Metadata field to given value.
 
 ### GetSeries
 
-`func (o *SeriesListRep) GetSeries() []map[string]int32`
+`func (o *SeriesListRep) GetSeries() []map[string]int64`
 
 GetSeries returns the Series field if non-nil, zero value otherwise.
 
 ### GetSeriesOk
 
-`func (o *SeriesListRep) GetSeriesOk() (*[]map[string]int32, bool)`
+`func (o *SeriesListRep) GetSeriesOk() (*[]map[string]int64, bool)`
 
 GetSeriesOk returns a tuple with the Series field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSeries
 
-`func (o *SeriesListRep) SetSeries(v []map[string]int32)`
+`func (o *SeriesListRep) SetSeries(v []map[string]int64)`
 
 SetSeries sets Series field to given value.
 

@@ -15,9 +15,10 @@ Name | Type | Description | Notes
 **ConfigValues** | Pointer to **map[string]interface{}** | Details on configuration for an integration of this type. Refer to the &lt;code&gt;formVariables&lt;/code&gt; field in the corresponding &lt;code&gt;manifest.json&lt;/code&gt; for a full list of fields for each integration. | [optional] 
 **CapabilityConfig** | Pointer to [**CapabilityConfigRep**](CapabilityConfigRep.md) |  | [optional] 
 **SnowflakeSetupScript** | Pointer to **string** | Consolidated SQL script for Snowflake Warehouse Native Experimentation setup. Present only for setup endpoint responses. | [optional] 
-**RedshiftSetupScripts** | Pointer to **[]string** | SQL setup scripts (4 parts) for Redshift Native Experimentation setup. Present only for setup endpoint responses. | [optional] 
+**RedshiftSetupScripts** | Pointer to **[]string** | SQL setup scripts (4 parts) for Redshift native Experimentation setup. Present on setup endpoint responses and, rehydrated from the persisted config, on active (finalized) Redshift native Experimentation configurations. | [optional] 
 **RedshiftIAMPermissionsPolicy** | Pointer to **string** | IAM permissions policy JSON for the customer&#39;s Redshift IAM role. Present only for setup endpoint responses. | [optional] 
 **RedshiftIAMTrustPolicy** | Pointer to **string** | IAM trust policy JSON for the customer&#39;s Redshift IAM role. Present only for setup endpoint responses. | [optional] 
+**ClickHouseSetupScript** | Pointer to **string** | SQL setup script for ClickHouse native Experimentation. On setup endpoint responses it also creates the experimentation user with the submitted password. When the two-step setup flow is enabled, it is rehydrated from the persisted config on other responses with only the grants, never the password. | [optional] 
 **MaintainerId** | Pointer to **string** | The ID of the member who maintains this integration configuration. Defaults to the member who created it. | [optional] 
 
 ## Methods
@@ -373,6 +374,31 @@ SetRedshiftIAMTrustPolicy sets RedshiftIAMTrustPolicy field to given value.
 `func (o *IntegrationConfigurationsRep) HasRedshiftIAMTrustPolicy() bool`
 
 HasRedshiftIAMTrustPolicy returns a boolean if a field has been set.
+
+### GetClickHouseSetupScript
+
+`func (o *IntegrationConfigurationsRep) GetClickHouseSetupScript() string`
+
+GetClickHouseSetupScript returns the ClickHouseSetupScript field if non-nil, zero value otherwise.
+
+### GetClickHouseSetupScriptOk
+
+`func (o *IntegrationConfigurationsRep) GetClickHouseSetupScriptOk() (*string, bool)`
+
+GetClickHouseSetupScriptOk returns a tuple with the ClickHouseSetupScript field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetClickHouseSetupScript
+
+`func (o *IntegrationConfigurationsRep) SetClickHouseSetupScript(v string)`
+
+SetClickHouseSetupScript sets ClickHouseSetupScript field to given value.
+
+### HasClickHouseSetupScript
+
+`func (o *IntegrationConfigurationsRep) HasClickHouseSetupScript() bool`
+
+HasClickHouseSetupScript returns a boolean if a field has been set.
 
 ### GetMaintainerId
 

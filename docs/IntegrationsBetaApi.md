@@ -154,7 +154,7 @@ Name | Type | Description  | Notes
 
 ## GetAllIntegrationConfigurations
 
-> IntegrationConfigurationCollectionRep GetAllIntegrationConfigurations(ctx, integrationKey).Execute()
+> IntegrationConfigurationCollectionRep GetAllIntegrationConfigurations(ctx, integrationKey).IncludePending(includePending).Execute()
 
 Get all configurations for the integration
 
@@ -173,11 +173,12 @@ import (
 )
 
 func main() {
-	integrationKey := "integrationKey_example" // string | Integration key
+	integrationKey := "integrationKey_example" // string | A key that corresponds to the third-party integration you are configuring. For example, `mezmo`.
+	includePending := true // bool | When `true`, includes pending two-step setup drafts that were created using `/setup` but are not yet finalized. Defaults to `false`, which returns only active configurations. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IntegrationsBetaApi.GetAllIntegrationConfigurations(context.Background(), integrationKey).Execute()
+	resp, r, err := apiClient.IntegrationsBetaApi.GetAllIntegrationConfigurations(context.Background(), integrationKey).IncludePending(includePending).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `IntegrationsBetaApi.GetAllIntegrationConfigurations``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -193,7 +194,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**integrationKey** | **string** | Integration key | 
+**integrationKey** | **string** | A key that corresponds to the third-party integration you are configuring. For example, &#x60;mezmo&#x60;. | 
 
 ### Other Parameters
 
@@ -203,6 +204,7 @@ Other parameters are passed through a pointer to a apiGetAllIntegrationConfigura
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **includePending** | **bool** | When &#x60;true&#x60;, includes pending two-step setup drafts that were created using &#x60;/setup&#x60; but are not yet finalized. Defaults to &#x60;false&#x60;, which returns only active configurations. | 
 
 ### Return type
 

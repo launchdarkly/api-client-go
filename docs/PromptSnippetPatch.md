@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | Pointer to **string** |  | [optional] 
-**Description** | Pointer to **string** |  | [optional] 
+**Name** | Pointer to **string** | A human-readable name for the prompt snippet | [optional] 
+**Description** | Pointer to **string** | A description of the prompt snippet | [optional] 
 **Text** | Pointer to **string** | The text content of the prompt snippet | [optional] 
-**MaintainerId** | Pointer to **string** |  | [optional] 
-**MaintainerTeamKey** | Pointer to **string** |  | [optional] 
-**Tags** | Pointer to **[]string** |  | [optional] 
+**MaintainerId** | Pointer to **string** | The ID of the member who maintains this resource | [optional] 
+**MaintainerTeamKey** | Pointer to **string** | The key of the team that maintains this resource | [optional] 
+**Tags** | Pointer to **[]string** | Tags for this resource | [optional] 
 
 ## Methods
 

@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **ReviewStatus** | **string** | Current status of the review of this approval request | 
 **AllReviews** | [**[]ReviewResponse**](ReviewResponse.md) | An array of individual reviews of this approval request | 
 **NotifyMemberIds** | **[]string** | An array of member IDs. These members are notified to review the approval request. | 
+**NotifyTeamKeys** | Pointer to **[]string** | An array of team keys, if teams were specified when the approval request was created. The members of these teams are listed in &lt;code&gt;notifyMemberIds&lt;/code&gt;, resolved when the request was made. Team membership may have changed since then. | [optional] 
 **AppliedDate** | Pointer to **int64** |  | [optional] 
 **AppliedByMemberId** | Pointer to **string** | The member ID of the member who applied the approval request | [optional] 
 **AppliedByServiceTokenId** | Pointer to **string** | The service token ID of the service token which applied the approval request | [optional] 
@@ -234,6 +235,31 @@ and a boolean to check if the value has been set.
 
 SetNotifyMemberIds sets NotifyMemberIds field to given value.
 
+
+### GetNotifyTeamKeys
+
+`func (o *FlagConfigApprovalRequestResponse) GetNotifyTeamKeys() []string`
+
+GetNotifyTeamKeys returns the NotifyTeamKeys field if non-nil, zero value otherwise.
+
+### GetNotifyTeamKeysOk
+
+`func (o *FlagConfigApprovalRequestResponse) GetNotifyTeamKeysOk() (*[]string, bool)`
+
+GetNotifyTeamKeysOk returns a tuple with the NotifyTeamKeys field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNotifyTeamKeys
+
+`func (o *FlagConfigApprovalRequestResponse) SetNotifyTeamKeys(v []string)`
+
+SetNotifyTeamKeys sets NotifyTeamKeys field to given value.
+
+### HasNotifyTeamKeys
+
+`func (o *FlagConfigApprovalRequestResponse) HasNotifyTeamKeys() bool`
+
+HasNotifyTeamKeys returns a boolean if a field has been set.
 
 ### GetAppliedDate
 

@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Access** | Pointer to [**AiConfigsAccess**](AiConfigsAccess.md) |  | [optional] 
+**Site** | Pointer to [**CoreLink**](CoreLink.md) |  | [optional] 
 **Key** | **string** | A unique key for the agent graph | 
 **Name** | **string** | A human-readable name for the agent graph | 
 **Description** | Pointer to **string** | A description of the agent graph | [optional] 
@@ -57,6 +58,31 @@ SetAccess sets Access field to given value.
 `func (o *AgentGraph) HasAccess() bool`
 
 HasAccess returns a boolean if a field has been set.
+
+### GetSite
+
+`func (o *AgentGraph) GetSite() CoreLink`
+
+GetSite returns the Site field if non-nil, zero value otherwise.
+
+### GetSiteOk
+
+`func (o *AgentGraph) GetSiteOk() (*CoreLink, bool)`
+
+GetSiteOk returns a tuple with the Site field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSite
+
+`func (o *AgentGraph) SetSite(v CoreLink)`
+
+SetSite sets Site field to given value.
+
+### HasSite
+
+`func (o *AgentGraph) HasSite() bool`
+
+HasSite returns a boolean if a field has been set.
 
 ### GetKey
 

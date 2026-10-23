@@ -5,15 +5,15 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | Human readable name of the model | 
-**Key** | **string** | Unique key for the model | 
-**Id** | **string** | Identifier for the model, for use with third party providers | 
-**MaintainerId** | Pointer to **string** |  | [optional] 
-**MaintainerTeamKey** | Pointer to **string** |  | [optional] 
+**Key** | **string** | Unique key for the model config in the project, in the format &#x60;Provider.model-id&#x60;. Config variations reject other formats. Keys of global catalog models are reserved. | 
+**Id** | **string** | Model ID that the provider&#39;s API uses. Cannot be changed after creation. | 
+**MaintainerId** | Pointer to **string** | The member ID of the maintainer. Not applied on create. To set the maintainer, update the model config after you create it. | [optional] 
+**MaintainerTeamKey** | Pointer to **string** | The key of the team that maintains the model config. Not applied on create. To set the maintainer, update the model config after you create it. | [optional] 
 **Icon** | Pointer to **string** | Icon for the model | [optional] 
-**Provider** | Pointer to **string** | Provider for the model | [optional] 
-**Params** | Pointer to **map[string]interface{}** |  | [optional] 
-**CustomParams** | Pointer to **map[string]interface{}** |  | [optional] 
-**Tags** | Pointer to **[]string** |  | [optional] 
+**Provider** | Pointer to **string** | Provider for the model. Use the provider prefix of &#x60;key&#x60;. Cannot be changed after creation. | [optional] 
+**Params** | Pointer to **map[string]interface{}** | Freeform JSON object. LaunchDarkly does not validate the keys. In a model config, &#x60;params&#x60; and &#x60;customParams&#x60; hold parameters that the provider&#39;s API accepts, for example &#x60;{\&quot;temperature\&quot;: 0.7, \&quot;maxTokens\&quot;: 4096}&#x60;. | [optional] 
+**CustomParams** | Pointer to **map[string]interface{}** | Freeform JSON object. LaunchDarkly does not validate the keys. In a model config, &#x60;params&#x60; and &#x60;customParams&#x60; hold parameters that the provider&#39;s API accepts, for example &#x60;{\&quot;temperature\&quot;: 0.7, \&quot;maxTokens\&quot;: 4096}&#x60;. | [optional] 
+**Tags** | Pointer to **[]string** | Tags for the model config | [optional] 
 **CostPerInputToken** | Pointer to **float64** | Cost per input token in USD | [optional] 
 **CostPerOutputToken** | Pointer to **float64** | Cost per output token in USD | [optional] 
 **CostPerCachedInputToken** | Pointer to **float64** | Cost per cached input token in USD | [optional] 

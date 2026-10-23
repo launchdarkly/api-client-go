@@ -37,6 +37,20 @@ func Test_ldapi_SDKKeysBetaApiService(t *testing.T) {
 
 	})
 
+	t.Run("Test SDKKeysBetaApiService GetProjectSdkKeys", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var projectKey string
+
+		resp, httpRes, err := apiClient.SDKKeysBetaApi.GetProjectSdkKeys(context.Background(), projectKey).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test SDKKeysBetaApiService GetSdkKeyByKey", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
@@ -92,6 +106,22 @@ func Test_ldapi_SDKKeysBetaApiService(t *testing.T) {
 		var environmentKey string
 
 		resp, httpRes, err := apiClient.SDKKeysBetaApi.PostSdkKey(context.Background(), projectKey, environmentKey).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test SDKKeysBetaApiService PutSdkKeyViews", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var projectKey string
+		var environmentKey string
+		var sdkKeyKey string
+
+		resp, httpRes, err := apiClient.SDKKeysBetaApi.PutSdkKeyViews(context.Background(), projectKey, environmentKey, sdkKeyKey).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

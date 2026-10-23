@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Links** | Pointer to [**PaginatedLinks**](PaginatedLinks.md) |  | [optional] 
 **ResourceKey** | **string** | The key of the agent skill. | 
 **ResourceType** | **string** | The type of the resource being referenced. | 
-**Items** | [**[]AgentSkillReference**](AgentSkillReference.md) |  | 
+**Items** | [**[]AgentSkillReference**](AgentSkillReference.md) | The resources that reference this agent skill | 
 **TotalCount** | **int32** | The total number of references. | 
 
 ## Methods

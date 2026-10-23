@@ -5,11 +5,11 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **LastSeen** | Pointer to **time.Time** | Timestamp of the last time an evaluation occurred for this context | [optional] 
-**ApplicationId** | Pointer to **string** | An identifier representing the application where the LaunchDarkly SDK is running | [optional] 
+**ApplicationId** | Pointer to **string** | An identifier representing the application where the LaunchDarkly SDK is running. Populated when you get contexts by kind and key. Empty in search results, which return each context&#39;s most recently reported data. | [optional] 
 **Context** | **interface{}** | The context, including its kind and attributes | 
 **Links** | Pointer to [**map[string]Link**](Link.md) | The location and content type of related resources | [optional] 
 **Access** | Pointer to [**Access**](Access.md) |  | [optional] 
-**AssociatedContexts** | Pointer to **int32** | The total number of associated contexts. Associated contexts are contexts that have appeared in the same context instance, that is, they were part of the same flag evaluation. | [optional] 
+**AssociatedContexts** | Pointer to **int32** | Deprecated. This value is always 1. | [optional] 
 
 ## Methods
 

@@ -357,6 +357,21 @@ func Test_ldapi_AgentControlApiService(t *testing.T) {
 
 	})
 
+	t.Run("Test AgentControlApiService ListAIToolReferences", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var projectKey string
+		var toolKey string
+
+		resp, httpRes, err := apiClient.AgentControlApi.ListAIToolReferences(context.Background(), projectKey, toolKey).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test AgentControlApiService ListAIToolVersions", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
@@ -424,6 +439,21 @@ func Test_ldapi_AgentControlApiService(t *testing.T) {
 		var runId string
 
 		resp, httpRes, err := apiClient.AgentControlApi.ListAgentOptimizationResultsByRunId(context.Background(), projectKey, optimizationKey, runId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test AgentControlApiService ListAgentOptimizationRuns", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var projectKey string
+		var optimizationKey string
+
+		resp, httpRes, err := apiClient.AgentControlApi.ListAgentOptimizationRuns(context.Background(), projectKey, optimizationKey).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

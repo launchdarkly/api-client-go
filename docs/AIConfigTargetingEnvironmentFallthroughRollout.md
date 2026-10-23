@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**BucketBy** | Pointer to **string** |  | [optional] 
-**ContextKind** | **string** |  | 
+**BucketBy** | Pointer to **string** | The context attribute used to bucket contexts | [optional] 
+**ContextKind** | **string** | The context kind used to bucket contexts | 
 **ExperimentAllocation** | Pointer to [**AIConfigTargetingEnvironmentFallthroughRolloutExperimentationAllocation**](AIConfigTargetingEnvironmentFallthroughRolloutExperimentationAllocation.md) |  | [optional] 
-**Seed** | Pointer to **int32** |  | [optional] 
-**Variations** | [**[]AIConfigTargetingEnvironmentFallthroughRolloutVariation**](AIConfigTargetingEnvironmentFallthroughRolloutVariation.md) |  | 
+**Seed** | Pointer to **int32** | The seed used for bucketing | [optional] 
+**Variations** | [**[]AIConfigTargetingEnvironmentFallthroughRolloutVariation**](AIConfigTargetingEnvironmentFallthroughRolloutVariation.md) | The variations and their weights | 
 
 ## Methods
 

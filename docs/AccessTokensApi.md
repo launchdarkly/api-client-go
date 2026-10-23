@@ -9,7 +9,7 @@ Method | HTTP request | Description
 [**GetTokens**](AccessTokensApi.md#GetTokens) | **Get** /api/v2/tokens | List access tokens
 [**PatchToken**](AccessTokensApi.md#PatchToken) | **Patch** /api/v2/tokens/{id} | Patch access token
 [**PostToken**](AccessTokensApi.md#PostToken) | **Post** /api/v2/tokens | Create access token
-[**ResetToken**](AccessTokensApi.md#ResetToken) | **Post** /api/v2/tokens/{id}/reset | Reset access token
+[**ResetToken**](AccessTokensApi.md#ResetToken) | **Post** /api/v2/tokens/{id}/reset | Reset access token (legacy)
 
 
 
@@ -363,7 +363,7 @@ Name | Type | Description  | Notes
 
 > Token ResetToken(ctx, id).Expiry(expiry).Execute()
 
-Reset access token
+Reset access token (legacy)
 
 
 

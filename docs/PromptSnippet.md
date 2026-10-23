@@ -4,15 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Key** | **string** |  | 
+**Key** | **string** | The prompt snippet key | 
 **Access** | Pointer to [**AiConfigsAccess**](AiConfigsAccess.md) |  | [optional] 
 **Links** | Pointer to [**ParentAndSelfLinks**](ParentAndSelfLinks.md) |  | [optional] 
+**Site** | Pointer to [**CoreLink**](CoreLink.md) |  | [optional] 
 **Maintainer** | Pointer to [**AIConfigMaintainer**](AIConfigMaintainer.md) |  | [optional] 
-**Name** | **string** |  | 
-**Description** | Pointer to **string** |  | [optional] 
+**Name** | **string** | The prompt snippet name | 
+**Description** | Pointer to **string** | A description of the prompt snippet | [optional] 
 **Text** | **string** | The text content of the prompt snippet | 
-**Tags** | **[]string** |  | 
-**Version** | **int32** |  | 
+**Tags** | **[]string** | Tags for this resource | 
+**Version** | **int32** | The version number of this resource | 
 **CreatedAt** | **int64** |  | 
 
 ## Methods
@@ -103,6 +104,31 @@ SetLinks sets Links field to given value.
 `func (o *PromptSnippet) HasLinks() bool`
 
 HasLinks returns a boolean if a field has been set.
+
+### GetSite
+
+`func (o *PromptSnippet) GetSite() CoreLink`
+
+GetSite returns the Site field if non-nil, zero value otherwise.
+
+### GetSiteOk
+
+`func (o *PromptSnippet) GetSiteOk() (*CoreLink, bool)`
+
+GetSiteOk returns a tuple with the Site field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSite
+
+`func (o *PromptSnippet) SetSite(v CoreLink)`
+
+SetSite sets Site field to given value.
+
+### HasSite
+
+`func (o *PromptSnippet) HasSite() bool`
+
+HasSite returns a boolean if a field has been set.
 
 ### GetMaintainer
 

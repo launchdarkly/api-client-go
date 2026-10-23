@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ActiveConfigs** | **int32** |  | 
-**ActiveExperiments** | **int32** |  | 
-**AverageSatisfaction7D** | Pointer to **NullableFloat32** |  | [optional] 
-**SpendMonthToDate** | Pointer to **NullableFloat64** |  | [optional] 
+**ActiveConfigs** | **int32** | Number of active AI Configs | 
+**ActiveExperiments** | **int32** | Number of active experiments on AI Configs | 
+**AverageSatisfaction7D** | Pointer to **NullableFloat32** | Average satisfaction rating over the last 7 days | [optional] 
+**SpendMonthToDate** | Pointer to **NullableFloat64** | Spend so far this month | [optional] 
 
 ## Methods
 

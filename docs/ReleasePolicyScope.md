@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **EnvironmentKeys** | Pointer to **[]string** | List of environment keys this policy applies to | [optional] 
-**FlagTagKeys** | Pointer to **[]string** | List of flag tag keys this policy applies to | [optional] 
+**FlagTagKeys** | Pointer to **[]string** | List of flag tag keys this policy applies to. At most 1000 keys. Each key must only contain letters, numbers, &#39;-&#39;, &#39;_&#39;, or &#39;.&#39;, and be at most 64 characters. | [optional] 
 
 ## Methods
 

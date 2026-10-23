@@ -49,11 +49,12 @@ Name | Type | Description | Notes
 **WinsorIncludeImputed** | Pointer to **bool** | When true, the percentile bound calculation includes imputed zeros. Only meaningful when at least one bound is set and the metric includes units that didn&#39;t send events. | [optional] 
 **TraceQuery** | Pointer to **string** | For trace metrics, the trace query to use for the metric. | [optional] 
 **TraceValueLocation** | Pointer to **string** | For trace metrics, the location in the trace to use for numeric values. | [optional] 
+**UnitAggregationField** | Pointer to **string** | For count_distinct metrics, the column to count distinct values of | [optional] 
 **Denominator** | Pointer to [**MetricDenominatorRep**](MetricDenominatorRep.md) |  | [optional] 
 **Experiments** | Pointer to [**[]DependentExperimentRep**](DependentExperimentRep.md) |  | [optional] 
 **MetricGroups** | Pointer to [**[]DependentMetricGroupRep**](DependentMetricGroupRep.md) | Metric groups that use this metric | [optional] 
 **LastUsedInExperiment** | Pointer to [**DependentExperimentRep**](DependentExperimentRep.md) |  | [optional] 
-**LastUsedInGuardedRollout** | Pointer to [**DependentMeasuredRolloutRep**](DependentMeasuredRolloutRep.md) |  | [optional] 
+**LastUsedInGuardedRollout** | Pointer to [**DependentReleasePhaseRep**](DependentReleasePhaseRep.md) |  | [optional] 
 **IsActive** | Pointer to **bool** | Whether the metric is active | [optional] 
 **AttachedFeatures** | Pointer to [**[]FlagListingRep**](FlagListingRep.md) | Details on the flags attached to this metric | [optional] 
 
@@ -1156,6 +1157,31 @@ SetTraceValueLocation sets TraceValueLocation field to given value.
 
 HasTraceValueLocation returns a boolean if a field has been set.
 
+### GetUnitAggregationField
+
+`func (o *MetricRep) GetUnitAggregationField() string`
+
+GetUnitAggregationField returns the UnitAggregationField field if non-nil, zero value otherwise.
+
+### GetUnitAggregationFieldOk
+
+`func (o *MetricRep) GetUnitAggregationFieldOk() (*string, bool)`
+
+GetUnitAggregationFieldOk returns a tuple with the UnitAggregationField field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUnitAggregationField
+
+`func (o *MetricRep) SetUnitAggregationField(v string)`
+
+SetUnitAggregationField sets UnitAggregationField field to given value.
+
+### HasUnitAggregationField
+
+`func (o *MetricRep) HasUnitAggregationField() bool`
+
+HasUnitAggregationField returns a boolean if a field has been set.
+
 ### GetDenominator
 
 `func (o *MetricRep) GetDenominator() MetricDenominatorRep`
@@ -1258,20 +1284,20 @@ HasLastUsedInExperiment returns a boolean if a field has been set.
 
 ### GetLastUsedInGuardedRollout
 
-`func (o *MetricRep) GetLastUsedInGuardedRollout() DependentMeasuredRolloutRep`
+`func (o *MetricRep) GetLastUsedInGuardedRollout() DependentReleasePhaseRep`
 
 GetLastUsedInGuardedRollout returns the LastUsedInGuardedRollout field if non-nil, zero value otherwise.
 
 ### GetLastUsedInGuardedRolloutOk
 
-`func (o *MetricRep) GetLastUsedInGuardedRolloutOk() (*DependentMeasuredRolloutRep, bool)`
+`func (o *MetricRep) GetLastUsedInGuardedRolloutOk() (*DependentReleasePhaseRep, bool)`
 
 GetLastUsedInGuardedRolloutOk returns a tuple with the LastUsedInGuardedRollout field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLastUsedInGuardedRollout
 
-`func (o *MetricRep) SetLastUsedInGuardedRollout(v DependentMeasuredRolloutRep)`
+`func (o *MetricRep) SetLastUsedInGuardedRollout(v DependentReleasePhaseRep)`
 
 SetLastUsedInGuardedRollout sets LastUsedInGuardedRollout field to given value.
 

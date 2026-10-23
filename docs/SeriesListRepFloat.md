@@ -6,14 +6,14 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Links** | **map[string]interface{}** | The location and content type of related resources | 
 **Metadata** | **[]map[string]interface{}** | Metadata about each series | 
-**Series** | **[]map[string]float32** | An array of data points with timestamps. Each element of the array is an object with a &#39;time&#39; field, whose value is the timestamp, and one or more key fields. If there are multiple key fields, they are labeled &#39;0&#39;, &#39;1&#39;, and so on, and are explained in the &lt;code&gt;metadata&lt;/code&gt;. | 
-**ProjectedSeries** | Pointer to **[]map[string]float32** | Cumulative projected usage by day for the full billing period, when available. Each element matches the structure of &lt;code&gt;series&lt;/code&gt;: an object with a &#39;time&#39; field and a &#39;0&#39; value field. The projected (non-actual) portion begins where the actual &lt;code&gt;series&lt;/code&gt; ends. | [optional] 
+**Series** | **[]map[string]float64** | An array of data points with timestamps. Each element of the array is an object with a &#39;time&#39; field, whose value is the timestamp, and one or more key fields. If there are multiple key fields, they are labeled &#39;0&#39;, &#39;1&#39;, and so on, and are explained in the &lt;code&gt;metadata&lt;/code&gt;. | 
+**ProjectedSeries** | Pointer to **[]map[string]float64** | Cumulative projected usage by day for the full billing period, when available. Each element matches the structure of &lt;code&gt;series&lt;/code&gt;: an object with a &#39;time&#39; field and a &#39;0&#39; value field. The projected (non-actual) portion begins where the actual &lt;code&gt;series&lt;/code&gt; ends. | [optional] 
 
 ## Methods
 
 ### NewSeriesListRepFloat
 
-`func NewSeriesListRepFloat(links map[string]interface{}, metadata []map[string]interface{}, series []map[string]float32, ) *SeriesListRepFloat`
+`func NewSeriesListRepFloat(links map[string]interface{}, metadata []map[string]interface{}, series []map[string]float64, ) *SeriesListRepFloat`
 
 NewSeriesListRepFloat instantiates a new SeriesListRepFloat object
 This constructor will assign default values to properties that have it defined,
@@ -70,40 +70,40 @@ SetMetadata sets Metadata field to given value.
 
 ### GetSeries
 
-`func (o *SeriesListRepFloat) GetSeries() []map[string]float32`
+`func (o *SeriesListRepFloat) GetSeries() []map[string]float64`
 
 GetSeries returns the Series field if non-nil, zero value otherwise.
 
 ### GetSeriesOk
 
-`func (o *SeriesListRepFloat) GetSeriesOk() (*[]map[string]float32, bool)`
+`func (o *SeriesListRepFloat) GetSeriesOk() (*[]map[string]float64, bool)`
 
 GetSeriesOk returns a tuple with the Series field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSeries
 
-`func (o *SeriesListRepFloat) SetSeries(v []map[string]float32)`
+`func (o *SeriesListRepFloat) SetSeries(v []map[string]float64)`
 
 SetSeries sets Series field to given value.
 
 
 ### GetProjectedSeries
 
-`func (o *SeriesListRepFloat) GetProjectedSeries() []map[string]float32`
+`func (o *SeriesListRepFloat) GetProjectedSeries() []map[string]float64`
 
 GetProjectedSeries returns the ProjectedSeries field if non-nil, zero value otherwise.
 
 ### GetProjectedSeriesOk
 
-`func (o *SeriesListRepFloat) GetProjectedSeriesOk() (*[]map[string]float32, bool)`
+`func (o *SeriesListRepFloat) GetProjectedSeriesOk() (*[]map[string]float64, bool)`
 
 GetProjectedSeriesOk returns a tuple with the ProjectedSeries field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetProjectedSeries
 
-`func (o *SeriesListRepFloat) SetProjectedSeries(v []map[string]float32)`
+`func (o *SeriesListRepFloat) SetProjectedSeries(v []map[string]float64)`
 
 SetProjectedSeries sets ProjectedSeries field to given value.
 

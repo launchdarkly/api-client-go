@@ -51,6 +51,7 @@ Name | Type | Description | Notes
 **WinsorIncludeImputed** | Pointer to **bool** | When true, the percentile bound calculation includes imputed zeros. Only meaningful when at least one bound is set and the metric includes units that didn&#39;t send events. | [optional] 
 **TraceQuery** | Pointer to **string** | For trace metrics, the trace query to use for the metric. | [optional] 
 **TraceValueLocation** | Pointer to **string** | For trace metrics, the location in the trace to use for numeric values. | [optional] 
+**UnitAggregationField** | Pointer to **string** | For count_distinct metrics, the column to count distinct values of | [optional] 
 **Denominator** | Pointer to [**AiConfigsMetricDenominatorRep**](AiConfigsMetricDenominatorRep.md) |  | [optional] 
 
 ## Methods
@@ -1201,6 +1202,31 @@ SetTraceValueLocation sets TraceValueLocation field to given value.
 `func (o *AiConfigsMetricListingRep) HasTraceValueLocation() bool`
 
 HasTraceValueLocation returns a boolean if a field has been set.
+
+### GetUnitAggregationField
+
+`func (o *AiConfigsMetricListingRep) GetUnitAggregationField() string`
+
+GetUnitAggregationField returns the UnitAggregationField field if non-nil, zero value otherwise.
+
+### GetUnitAggregationFieldOk
+
+`func (o *AiConfigsMetricListingRep) GetUnitAggregationFieldOk() (*string, bool)`
+
+GetUnitAggregationFieldOk returns a tuple with the UnitAggregationField field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUnitAggregationField
+
+`func (o *AiConfigsMetricListingRep) SetUnitAggregationField(v string)`
+
+SetUnitAggregationField sets UnitAggregationField field to given value.
+
+### HasUnitAggregationField
+
+`func (o *AiConfigsMetricListingRep) HasUnitAggregationField() bool`
+
+HasUnitAggregationField returns a boolean if a field has been set.
 
 ### GetDenominator
 

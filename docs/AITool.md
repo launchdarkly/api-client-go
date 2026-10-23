@@ -4,15 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Key** | **string** |  | 
+**Key** | **string** | The tool key | 
 **Access** | Pointer to [**AiConfigsAccess**](AiConfigsAccess.md) |  | [optional] 
 **Links** | Pointer to [**ParentAndSelfLinks**](ParentAndSelfLinks.md) |  | [optional] 
+**Site** | Pointer to [**CoreLink**](CoreLink.md) |  | [optional] 
 **Maintainer** | Pointer to [**AIConfigMaintainer**](AIConfigMaintainer.md) |  | [optional] 
-**Description** | Pointer to **string** |  | [optional] 
+**Description** | Pointer to **string** | A description of the tool | [optional] 
 **Schema** | **map[string]interface{}** | JSON Schema defining the tool&#39;s parameters for LLM consumption | 
 **CustomParameters** | Pointer to **map[string]interface{}** | Custom metadata and configuration for application-level use (not sent to LLM) | [optional] 
-**Tags** | Pointer to **[]string** |  | [optional] 
-**Version** | **int32** |  | 
+**Tags** | Pointer to **[]string** | Tags for the tool. Tags can be used in custom role policies. | [optional] 
+**Version** | **int32** | Version of the tool. Starts at 1, and each update that changes the description, schema, custom parameters, or tags creates a new version. Pass this value with &#x60;key&#x60; in a variation&#39;s &#x60;tools: [{key, version}]&#x60;. | 
 **CreatedAt** | **int64** |  | 
 
 ## Methods
@@ -103,6 +104,31 @@ SetLinks sets Links field to given value.
 `func (o *AITool) HasLinks() bool`
 
 HasLinks returns a boolean if a field has been set.
+
+### GetSite
+
+`func (o *AITool) GetSite() CoreLink`
+
+GetSite returns the Site field if non-nil, zero value otherwise.
+
+### GetSiteOk
+
+`func (o *AITool) GetSiteOk() (*CoreLink, bool)`
+
+GetSiteOk returns a tuple with the Site field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSite
+
+`func (o *AITool) SetSite(v CoreLink)`
+
+SetSite sets Site field to given value.
+
+### HasSite
+
+`func (o *AITool) HasSite() bool`
+
+HasSite returns a boolean if a field has been set.
 
 ### GetMaintainer
 

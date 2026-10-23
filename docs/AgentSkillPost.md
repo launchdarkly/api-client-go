@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Key** | **string** |  | 
-**Name** | **string** |  | 
-**Description** | Pointer to **string** |  | [optional] 
+**Key** | **string** | A unique key for the agent skill. The key must match &#x60;^[a-z0-9][a-z0-9-]*$&#x60;: it can only contain lowercase letters, numbers, or &#39;-&#39;, and must start with a lowercase letter or number. The key can be at most 64 characters, and Windows reserved file names (&#x60;con&#x60;, &#x60;prn&#x60;, &#x60;aux&#x60;, &#x60;nul&#x60;, &#x60;com0&#x60;-&#x60;com9&#x60;, and &#x60;lpt0&#x60;-&#x60;lpt9&#x60;) aren&#39;t allowed. | 
+**Name** | **string** | Human-readable name of the agent skill. | 
+**Description** | Pointer to **string** | Human-readable description of what the agent skill does. | [optional] 
 **Markdown** | **string** | The verbatim SKILL.md content of the agent skill | 
-**MaintainerId** | Pointer to **string** |  | [optional] 
-**MaintainerTeamKey** | Pointer to **string** |  | [optional] 
-**Tags** | Pointer to **[]string** |  | [optional] 
+**MaintainerId** | Pointer to **string** | The ID of the member who maintains this resource | [optional] 
+**MaintainerTeamKey** | Pointer to **string** | The key of the team that maintains this resource | [optional] 
+**Tags** | Pointer to **[]string** | Tags for the agent skill. Tags can be used in custom role policies. | [optional] 
 
 ## Methods
 

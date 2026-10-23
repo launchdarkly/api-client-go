@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **InlineRole** | Pointer to [**[]StatementPost**](StatementPost.md) | A JSON array of statements represented as JSON objects with three attributes: effect, resources, actions. May be used in place of a role. | [optional] 
 **ServiceToken** | Pointer to **bool** | Whether the token is a service token | [optional] 
 **DefaultApiVersion** | Pointer to **int32** | The default API version for this token | [optional] 
+**Expiry** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 
@@ -205,6 +206,31 @@ SetDefaultApiVersion sets DefaultApiVersion field to given value.
 `func (o *AccessTokenPost) HasDefaultApiVersion() bool`
 
 HasDefaultApiVersion returns a boolean if a field has been set.
+
+### GetExpiry
+
+`func (o *AccessTokenPost) GetExpiry() int64`
+
+GetExpiry returns the Expiry field if non-nil, zero value otherwise.
+
+### GetExpiryOk
+
+`func (o *AccessTokenPost) GetExpiryOk() (*int64, bool)`
+
+GetExpiryOk returns a tuple with the Expiry field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExpiry
+
+`func (o *AccessTokenPost) SetExpiry(v int64)`
+
+SetExpiry sets Expiry field to given value.
+
+### HasExpiry
+
+`func (o *AccessTokenPost) HasExpiry() bool`
+
+HasExpiry returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

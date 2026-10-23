@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**InputTokens** | Pointer to **int32** |  | [optional] 
-**OutputTokens** | Pointer to **int32** |  | [optional] 
-**TotalTokens** | Pointer to **int32** |  | [optional] 
+**InputTokens** | Pointer to **int32** | Number of input tokens | [optional] 
+**OutputTokens** | Pointer to **int32** | Number of output tokens | [optional] 
+**TotalTokens** | Pointer to **int32** | Total number of tokens | [optional] 
 **GenerationCount** | Pointer to **int32** | Number of attempted generations | [optional] 
 **GenerationSuccessCount** | Pointer to **int32** | Number of successful generations | [optional] 
 **GenerationErrorCount** | Pointer to **int32** | Number of generations with errors | [optional] 
-**ThumbsUp** | Pointer to **int32** |  | [optional] 
-**ThumbsDown** | Pointer to **int32** |  | [optional] 
-**DurationMs** | Pointer to **int32** |  | [optional] 
-**TimeToFirstTokenMs** | Pointer to **int32** |  | [optional] 
+**ThumbsUp** | Pointer to **int32** | Number of positive feedback ratings | [optional] 
+**ThumbsDown** | Pointer to **int32** | Number of negative feedback ratings | [optional] 
+**DurationMs** | Pointer to **int32** | Total generation duration, in milliseconds | [optional] 
+**TimeToFirstTokenMs** | Pointer to **int32** | Time to the first token, in milliseconds | [optional] 
 **SatisfactionRating** | Pointer to **float32** | A value between 0 and 1 representing satisfaction rating | [optional] 
 **InputCost** | Pointer to **float64** | Cost of input tokens in USD | [optional] 
 **OutputCost** | Pointer to **float64** | Cost of output tokens in USD | [optional] 

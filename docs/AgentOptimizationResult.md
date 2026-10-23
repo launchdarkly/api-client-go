@@ -6,27 +6,27 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Access** | Pointer to [**AiConfigsAccess**](AiConfigsAccess.md) |  | [optional] 
 **Links** | Pointer to [**ParentAndSelfLinks**](ParentAndSelfLinks.md) |  | [optional] 
-**Id** | **string** |  | 
-**RunId** | **string** |  | 
-**AgentOptimizationId** | **string** |  | 
-**AgentOptimizationVersion** | **int32** |  | 
+**Id** | **string** | The result ID | 
+**RunId** | **string** | The ID of the run this result belongs to | 
+**AgentOptimizationId** | **string** | The agent optimization ID | 
+**AgentOptimizationVersion** | **int32** | The version of the agent optimization used | 
 **Status** | [**AgentOptimizationResultStatus**](AgentOptimizationResultStatus.md) |  | 
 **Activity** | [**AgentOptimizationResultActivity**](AgentOptimizationResultActivity.md) |  | 
-**Iteration** | **int32** |  | 
-**Instructions** | **string** |  | 
-**Parameters** | Pointer to **map[string]interface{}** |  | [optional] 
-**UserInput** | **string** |  | 
-**CompletionResponse** | Pointer to **string** |  | [optional] 
-**Variation** | Pointer to **map[string]interface{}** |  | [optional] 
-**Scores** | Pointer to **map[string]interface{}** |  | [optional] 
-**GenerationTokens** | Pointer to **map[string]interface{}** |  | [optional] 
-**EvaluationTokens** | Pointer to **map[string]interface{}** |  | [optional] 
-**GenerationLatency** | Pointer to **int32** |  | [optional] 
-**EvaluationLatencies** | Pointer to **map[string]interface{}** |  | [optional] 
-**CompletedAt** | Pointer to **int64** |  | [optional] 
-**CreatedVariationKey** | Pointer to **string** |  | [optional] 
-**CreatedAt** | **int64** |  | 
-**UpdatedAt** | **int64** |  | 
+**Iteration** | **int32** | The iteration number within the run | 
+**Instructions** | **string** | The instructions used for this attempt | 
+**Parameters** | Pointer to **map[string]interface{}** | The model parameters used for this attempt | [optional] 
+**UserInput** | **string** | The user input used for this attempt | 
+**CompletionResponse** | Pointer to **string** | The model response | [optional] 
+**Variation** | Pointer to **map[string]interface{}** | The variation that was tested | [optional] 
+**Scores** | Pointer to **map[string]interface{}** | The scores for the response | [optional] 
+**GenerationTokens** | Pointer to **map[string]interface{}** | Token usage for generating the response | [optional] 
+**EvaluationTokens** | Pointer to **map[string]interface{}** | Token usage for judging the response | [optional] 
+**GenerationLatency** | Pointer to **int32** | How long the response took to generate | [optional] 
+**EvaluationLatencies** | Pointer to **map[string]interface{}** | How long each evaluation took | [optional] 
+**CompletedAt** | Pointer to **int64** | When this finished, in Unix milliseconds | [optional] 
+**CreatedVariationKey** | Pointer to **string** | The key of the variation created from this result | [optional] 
+**CreatedAt** | **int64** | When this resource was created, in Unix milliseconds | 
+**UpdatedAt** | **int64** | When this resource was last updated, in Unix milliseconds | 
 
 ## Methods
 

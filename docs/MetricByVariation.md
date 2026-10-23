@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**VariationKey** | Pointer to **string** |  | [optional] 
+**VariationKey** | Pointer to **string** | The variation key | [optional] 
 **Metrics** | Pointer to [**Metrics**](Metrics.md) |  | [optional] 
 
 ## Methods

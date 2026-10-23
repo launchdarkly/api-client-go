@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Links** | Pointer to [**PaginatedLinks**](PaginatedLinks.md) |  | [optional] 
-**Items** | [**[]AgentSkill**](AgentSkill.md) |  | 
-**TotalCount** | **int32** |  | 
+**Items** | [**[]AgentSkill**](AgentSkill.md) | The items on this page | 
+**TotalCount** | **int32** | The total number of items | 
 
 ## Methods
 

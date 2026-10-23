@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Disabled** | Pointer to **bool** | Whether to disable defaulting missing unit events when calculating results. Defaults to false | [optional] 
-**Value** | Pointer to **float32** | The default value applied to missing unit events. Set to 0 when &lt;code&gt;disabled&lt;/code&gt; is false. No other values are currently supported. | [optional] 
+**Value** | Pointer to **float64** | The default value applied to missing unit events. Set to 0 when &lt;code&gt;disabled&lt;/code&gt; is false. No other values are currently supported. | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasDisabled returns a boolean if a field has been set.
 
 ### GetValue
 
-`func (o *MetricEventDefaultRep) GetValue() float32`
+`func (o *MetricEventDefaultRep) GetValue() float64`
 
 GetValue returns the Value field if non-nil, zero value otherwise.
 
 ### GetValueOk
 
-`func (o *MetricEventDefaultRep) GetValueOk() (*float32, bool)`
+`func (o *MetricEventDefaultRep) GetValueOk() (*float64, bool)`
 
 GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetValue
 
-`func (o *MetricEventDefaultRep) SetValue(v float32)`
+`func (o *MetricEventDefaultRep) SetValue(v float64)`
 
 SetValue sets Value field to given value.
 

@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** |  | 
-**Email** | **string** |  | 
-**FirstName** | Pointer to **string** |  | [optional] 
-**LastName** | Pointer to **string** |  | [optional] 
-**Role** | **string** |  | 
+**Id** | **string** | The member ID | 
+**Email** | **string** | The member email address | 
+**FirstName** | Pointer to **string** | The member first name | [optional] 
+**LastName** | Pointer to **string** | The member last name | [optional] 
+**Role** | **string** | The member role | 
 
 ## Methods
 

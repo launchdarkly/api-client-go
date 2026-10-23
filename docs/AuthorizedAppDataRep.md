@@ -8,7 +8,9 @@ Name | Type | Description | Notes
 **Id** | Pointer to **string** | The ID of the authorized application | [optional] 
 **IsScim** | Pointer to **bool** | Whether the application is authorized through SCIM | [optional] 
 **Name** | Pointer to **string** | The authorized application name | [optional] 
+**IconUrl** | Pointer to **string** | The icon for this authorized application, if it has one | [optional] 
 **MaintainerName** | Pointer to **string** | The name of the maintainer for this authorized application | [optional] 
+**IsAgent** | Pointer to **bool** | Whether this application acted on behalf of the member in this entry. When true, the member and the application are co-authors of the change rather than the member acting alone. Omitted for applications that act on their own. | [optional] 
 
 ## Methods
 
@@ -129,6 +131,31 @@ SetName sets Name field to given value.
 
 HasName returns a boolean if a field has been set.
 
+### GetIconUrl
+
+`func (o *AuthorizedAppDataRep) GetIconUrl() string`
+
+GetIconUrl returns the IconUrl field if non-nil, zero value otherwise.
+
+### GetIconUrlOk
+
+`func (o *AuthorizedAppDataRep) GetIconUrlOk() (*string, bool)`
+
+GetIconUrlOk returns a tuple with the IconUrl field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIconUrl
+
+`func (o *AuthorizedAppDataRep) SetIconUrl(v string)`
+
+SetIconUrl sets IconUrl field to given value.
+
+### HasIconUrl
+
+`func (o *AuthorizedAppDataRep) HasIconUrl() bool`
+
+HasIconUrl returns a boolean if a field has been set.
+
 ### GetMaintainerName
 
 `func (o *AuthorizedAppDataRep) GetMaintainerName() string`
@@ -153,6 +180,31 @@ SetMaintainerName sets MaintainerName field to given value.
 `func (o *AuthorizedAppDataRep) HasMaintainerName() bool`
 
 HasMaintainerName returns a boolean if a field has been set.
+
+### GetIsAgent
+
+`func (o *AuthorizedAppDataRep) GetIsAgent() bool`
+
+GetIsAgent returns the IsAgent field if non-nil, zero value otherwise.
+
+### GetIsAgentOk
+
+`func (o *AuthorizedAppDataRep) GetIsAgentOk() (*bool, bool)`
+
+GetIsAgentOk returns a tuple with the IsAgent field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsAgent
+
+`func (o *AuthorizedAppDataRep) SetIsAgent(v bool)`
+
+SetIsAgent sets IsAgent field to given value.
+
+### HasIsAgent
+
+`func (o *AuthorizedAppDataRep) HasIsAgent() bool`
+
+HasIsAgent returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

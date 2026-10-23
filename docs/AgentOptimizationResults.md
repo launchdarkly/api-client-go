@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Links** | Pointer to [**PaginatedLinks**](PaginatedLinks.md) |  | [optional] 
-**Items** | [**[]AgentOptimizationResult**](AgentOptimizationResult.md) |  | 
-**TotalCount** | Pointer to **int32** |  | [optional] 
+**Items** | [**[]AgentOptimizationResult**](AgentOptimizationResult.md) | The items on this page | 
+**TotalCount** | Pointer to **int32** | The total number of items | [optional] 
 
 ## Methods
 

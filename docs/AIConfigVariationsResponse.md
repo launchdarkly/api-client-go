@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Items** | [**[]AIConfigVariation**](AIConfigVariation.md) |  | 
-**TotalCount** | **int32** |  | 
+**Items** | [**[]AIConfigVariation**](AIConfigVariation.md) | The items on this page | 
+**TotalCount** | **int32** | The total number of items | 
 
 ## Methods
 

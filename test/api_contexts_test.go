@@ -22,21 +22,6 @@ func Test_ldapi_ContextsApiService(t *testing.T) {
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
-	t.Run("Test ContextsApiService DeleteContextInstances", func(t *testing.T) {
-
-		t.Skip("skip test")  // remove to run test
-
-		var projectKey string
-		var environmentKey string
-		var id string
-
-		httpRes, err := apiClient.ContextsApi.DeleteContextInstances(context.Background(), projectKey, environmentKey, id).Execute()
-
-		require.Nil(t, err)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
 	t.Run("Test ContextsApiService EvaluateContextInstance", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
@@ -83,22 +68,6 @@ func Test_ldapi_ContextsApiService(t *testing.T) {
 
 	})
 
-	t.Run("Test ContextsApiService GetContextInstances", func(t *testing.T) {
-
-		t.Skip("skip test")  // remove to run test
-
-		var projectKey string
-		var environmentKey string
-		var id string
-
-		resp, httpRes, err := apiClient.ContextsApi.GetContextInstances(context.Background(), projectKey, environmentKey, id).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
 	t.Run("Test ContextsApiService GetContextKindsByProjectKey", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
@@ -138,21 +107,6 @@ func Test_ldapi_ContextsApiService(t *testing.T) {
 		var key string
 
 		resp, httpRes, err := apiClient.ContextsApi.PutContextKind(context.Background(), projectKey, key).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test ContextsApiService SearchContextInstances", func(t *testing.T) {
-
-		t.Skip("skip test")  // remove to run test
-
-		var projectKey string
-		var environmentKey string
-
-		resp, httpRes, err := apiClient.ContextsApi.SearchContextInstances(context.Background(), projectKey, environmentKey).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

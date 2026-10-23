@@ -4,14 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Classifiers** | Pointer to [**[]Classifier**](Classifier.md) | Classifier rules for a judge variation. When this array is non-empty, messages must be empty.  | [optional] 
 **Comment** | Pointer to **string** | Human-readable description of this variation | [optional] 
 **Description** | Pointer to **string** | Returns the description for the agent. This is only returned for agent variations. | [optional] 
 **Instructions** | Pointer to **string** | Returns the instructions for the agent. This is only returned for agent variations. | [optional] 
-**Key** | **string** |  | 
-**Messages** | Pointer to [**[]Message**](Message.md) |  | [optional] 
-**Model** | Pointer to **map[string]interface{}** |  | [optional] 
-**Name** | **string** |  | 
-**ModelConfigKey** | Pointer to **string** |  | [optional] 
+**Key** | **string** | A unique key for the variation | 
+**Messages** | Pointer to [**[]Message**](Message.md) | The prompt messages for this variation | [optional] 
+**Model** | Pointer to **map[string]interface{}** | Freeform JSON object. LaunchDarkly does not validate the keys. In a model config, &#x60;params&#x60; and &#x60;customParams&#x60; hold parameters that the provider&#39;s API accepts, for example &#x60;{\&quot;temperature\&quot;: 0.7, \&quot;maxTokens\&quot;: 4096}&#x60;. | [optional] 
+**Name** | **string** | A human-readable name for the variation | 
+**ModelConfigKey** | Pointer to **string** | The key that GET /api/v2/projects/{projectKey}/ai-configs/model-configs returns for the model config. Do not use a custom model config&#39;s ID, which is the provider model ID.  | [optional] 
+**ModelConfigVersion** | Pointer to **int32** | The exact model config version to set this variation to. Requires modelConfigKey to be set, and the version must exist for that model config. When omitted, the variation records the model config&#39;s current (latest) version.  | [optional] 
 **OutputFormat** | Pointer to **map[string]interface{}** | JSON Schema defining the structured output format for the variation. | [optional] 
 **Tools** | Pointer to [**[]VariationToolPost**](VariationToolPost.md) | List of tools to use for this variation. The latest version of the tool will be used. | [optional] 
 **ToolKeys** | Pointer to **[]string** | List of tool keys to use for this variation. The latest version of the tool will be used. | [optional] 
@@ -36,6 +38,31 @@ will change when the set of required properties is changed
 NewAIConfigVariationPostWithDefaults instantiates a new AIConfigVariationPost object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetClassifiers
+
+`func (o *AIConfigVariationPost) GetClassifiers() []Classifier`
+
+GetClassifiers returns the Classifiers field if non-nil, zero value otherwise.
+
+### GetClassifiersOk
+
+`func (o *AIConfigVariationPost) GetClassifiersOk() (*[]Classifier, bool)`
+
+GetClassifiersOk returns a tuple with the Classifiers field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetClassifiers
+
+`func (o *AIConfigVariationPost) SetClassifiers(v []Classifier)`
+
+SetClassifiers sets Classifiers field to given value.
+
+### HasClassifiers
+
+`func (o *AIConfigVariationPost) HasClassifiers() bool`
+
+HasClassifiers returns a boolean if a field has been set.
 
 ### GetComment
 
@@ -226,6 +253,31 @@ SetModelConfigKey sets ModelConfigKey field to given value.
 `func (o *AIConfigVariationPost) HasModelConfigKey() bool`
 
 HasModelConfigKey returns a boolean if a field has been set.
+
+### GetModelConfigVersion
+
+`func (o *AIConfigVariationPost) GetModelConfigVersion() int32`
+
+GetModelConfigVersion returns the ModelConfigVersion field if non-nil, zero value otherwise.
+
+### GetModelConfigVersionOk
+
+`func (o *AIConfigVariationPost) GetModelConfigVersionOk() (*int32, bool)`
+
+GetModelConfigVersionOk returns a tuple with the ModelConfigVersion field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetModelConfigVersion
+
+`func (o *AIConfigVariationPost) SetModelConfigVersion(v int32)`
+
+SetModelConfigVersion sets ModelConfigVersion field to given value.
+
+### HasModelConfigVersion
+
+`func (o *AIConfigVariationPost) HasModelConfigVersion() bool`
+
+HasModelConfigVersion returns a boolean if a field has been set.
 
 ### GetOutputFormat
 

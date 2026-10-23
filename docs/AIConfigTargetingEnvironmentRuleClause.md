@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Attribute** | **string** |  | 
-**Id** | **string** |  | 
-**Negate** | **bool** |  | 
-**Op** | **string** |  | 
-**Values** | **[]interface{}** |  | 
+**Attribute** | **string** | The context attribute to match | 
+**Id** | **string** | The clause ID | 
+**Negate** | **bool** | Whether to negate the match | 
+**Op** | **string** | The operator to use | 
+**Values** | **[]interface{}** | The values to match against | 
 
 ## Methods
 

@@ -10,11 +10,11 @@ Name | Type | Description | Notes
 **CostPerInputToken** | Pointer to **float64** | Cost per input token in USD | [optional] 
 **CostPerOutputToken** | Pointer to **float64** | Cost per output token in USD | [optional] 
 **CostPerCachedInputToken** | Pointer to **float64** | Cost per cached input token in USD | [optional] 
-**Params** | Pointer to **map[string]interface{}** |  | [optional] 
-**CustomParams** | Pointer to **map[string]interface{}** |  | [optional] 
-**Tags** | Pointer to **[]string** |  | [optional] 
-**MaintainerId** | Pointer to **string** |  | [optional] 
-**MaintainerTeamKey** | Pointer to **string** |  | [optional] 
+**Params** | Pointer to **map[string]interface{}** | Freeform JSON object. LaunchDarkly does not validate the keys. In a model config, &#x60;params&#x60; and &#x60;customParams&#x60; hold parameters that the provider&#39;s API accepts, for example &#x60;{\&quot;temperature\&quot;: 0.7, \&quot;maxTokens\&quot;: 4096}&#x60;. | [optional] 
+**CustomParams** | Pointer to **map[string]interface{}** | Freeform JSON object. LaunchDarkly does not validate the keys. In a model config, &#x60;params&#x60; and &#x60;customParams&#x60; hold parameters that the provider&#39;s API accepts, for example &#x60;{\&quot;temperature\&quot;: 0.7, \&quot;maxTokens\&quot;: 4096}&#x60;. | [optional] 
+**Tags** | Pointer to **[]string** | Tags for the model config. Replaces the current tags. | [optional] 
+**MaintainerId** | Pointer to **string** | The member ID of the new maintainer. Set &#x60;maintainerId&#x60; or &#x60;maintainerTeamKey&#x60;, not both. An empty string removes the maintainer. | [optional] 
+**MaintainerTeamKey** | Pointer to **string** | The key of the team to set as the new maintainer. Set &#x60;maintainerId&#x60; or &#x60;maintainerTeamKey&#x60;, not both. | [optional] 
 
 ## Methods
 
