@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**OnVariation** | **int32** |  | 
-**OffVariation** | **int32** |  | 
+**OnVariation** | **int32** | Index of the variation served when targeting is on | 
+**OffVariation** | **int32** | Index of the variation served when targeting is off | 
 
 ## Methods
 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Variation** | Pointer to **int32** |  | [optional] 
+**Variation** | Pointer to **int32** | Index of the variation served by the default rule | [optional] 
 **Rollout** | Pointer to [**AIConfigTargetingEnvironmentFallthroughRollout**](AIConfigTargetingEnvironmentFallthroughRollout.md) |  | [optional] 
 
 ## Methods

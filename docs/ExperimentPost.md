@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **Iteration** | [**IterationInput**](IterationInput.md) |  | 
 **HoldoutId** | Pointer to **string** | The ID of the holdout | [optional] 
 **Tags** | Pointer to **[]string** | Tags for the experiment | [optional] 
-**Methodology** | Pointer to **string** | The results analysis approach. | [optional] 
+**Methodology** | Pointer to **string** | The results analysis approach. Defaults to \&quot;frequentist\&quot; when not provided, or \&quot;bayesian\&quot; for multi-armed bandit experiments. | [optional] 
 **AnalysisConfig** | Pointer to [**AnalysisConfigInput**](AnalysisConfigInput.md) |  | [optional] 
 **DataSource** | Pointer to **string** | The source of metric data in order to analyze results. Defaults to \&quot;launchdarkly\&quot; when not provided. | [optional] 
 **Type** | Pointer to **string** | The type of experiment. | [optional] 

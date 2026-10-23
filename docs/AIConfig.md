@@ -6,14 +6,15 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Access** | Pointer to [**AiConfigsAccess**](AiConfigsAccess.md) |  | [optional] 
 **Links** | Pointer to [**ParentAndSelfLinks**](ParentAndSelfLinks.md) |  | [optional] 
-**Description** | **string** |  | 
-**Key** | **string** |  | 
+**Site** | Pointer to [**CoreLink**](CoreLink.md) |  | [optional] 
+**Description** | **string** | A description of the AI Config | 
+**Key** | **string** | The AI Config key | 
 **Maintainer** | Pointer to [**AIConfigMaintainer**](AIConfigMaintainer.md) |  | [optional] 
-**Mode** | Pointer to **string** |  | [optional] [default to "completion"]
-**Name** | **string** |  | 
-**Tags** | **[]string** |  | 
-**Version** | **int32** |  | 
-**Variations** | [**[]AIConfigVariation**](AIConfigVariation.md) |  | 
+**Mode** | Pointer to **string** | The AI Config mode | [optional] [default to "completion"]
+**Name** | **string** | The AI Config name | 
+**Tags** | **[]string** | Tags for this resource | 
+**Version** | **int32** | The version number of this resource | 
+**Variations** | [**[]AIConfigVariation**](AIConfigVariation.md) | The variations of this AI Config | 
 **CreatedAt** | **int64** |  | 
 **UpdatedAt** | **int64** |  | 
 **EvaluationMetricKey** | Pointer to **string** | Evaluation metric key for this config | [optional] 
@@ -89,6 +90,31 @@ SetLinks sets Links field to given value.
 `func (o *AIConfig) HasLinks() bool`
 
 HasLinks returns a boolean if a field has been set.
+
+### GetSite
+
+`func (o *AIConfig) GetSite() CoreLink`
+
+GetSite returns the Site field if non-nil, zero value otherwise.
+
+### GetSiteOk
+
+`func (o *AIConfig) GetSiteOk() (*CoreLink, bool)`
+
+GetSiteOk returns a tuple with the Site field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSite
+
+`func (o *AIConfig) SetSite(v CoreLink)`
+
+SetSite sets Site field to given value.
+
+### HasSite
+
+`func (o *AIConfig) HasSite() bool`
+
+HasSite returns a boolean if a field has been set.
 
 ### GetDescription
 

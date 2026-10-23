@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** |  | 
-**Description** | **string** |  | 
-**Name** | **string** |  | 
+**Id** | **string** | The variation ID | 
+**Description** | **string** | A description of the variation | 
+**Name** | **string** | The variation name | 
 **Value** | [**AIConfigTargetingVariationValue**](AIConfigTargetingVariationValue.md) |  | 
 
 ## Methods

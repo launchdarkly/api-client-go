@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## GetAuditLogEntries
 
-> AuditLogEntryListingRepCollection GetAuditLogEntries(ctx).Before(before).After(after).Q(q).Limit(limit).Spec(spec).Execute()
+> AuditLogEntryListingRepCollection GetAuditLogEntries(ctx).Before(before).After(after).Q(q).Limit(limit).Spec(spec).Member(member).Token(token).Execute()
 
 List audit log entries
 
@@ -37,10 +37,12 @@ func main() {
 	q := "q_example" // string | Text to search for. You can search for the full or partial name of the resource. (optional)
 	limit := int64(789) // int64 | A limit on the number of audit log entries that return. Set between 1 and 20. The default is 10. (optional)
 	spec := "spec_example" // string | A resource specifier that lets you filter audit log listings by resource (optional)
+	member := "member_example" // string | A member ID that lets you filter audit log listings by the member who made the change. Repeat the parameter to filter by multiple members. (optional)
+	token := "token_example" // string | An access token ID that lets you filter audit log listings by the token that made the change. Repeat the parameter to filter by multiple tokens. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AuditLogApi.GetAuditLogEntries(context.Background()).Before(before).After(after).Q(q).Limit(limit).Spec(spec).Execute()
+	resp, r, err := apiClient.AuditLogApi.GetAuditLogEntries(context.Background()).Before(before).After(after).Q(q).Limit(limit).Spec(spec).Member(member).Token(token).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AuditLogApi.GetAuditLogEntries``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -66,6 +68,8 @@ Name | Type | Description  | Notes
  **q** | **string** | Text to search for. You can search for the full or partial name of the resource. | 
  **limit** | **int64** | A limit on the number of audit log entries that return. Set between 1 and 20. The default is 10. | 
  **spec** | **string** | A resource specifier that lets you filter audit log listings by resource | 
+ **member** | **string** | A member ID that lets you filter audit log listings by the member who made the change. Repeat the parameter to filter by multiple members. | 
+ **token** | **string** | An access token ID that lets you filter audit log listings by the token that made the change. Repeat the parameter to filter by multiple tokens. | 
 
 ### Return type
 
@@ -157,7 +161,7 @@ Name | Type | Description  | Notes
 
 ## PostAuditLogEntries
 
-> AuditLogEntryListingRepCollection PostAuditLogEntries(ctx).Before(before).After(after).Q(q).Limit(limit).StatementPost(statementPost).Execute()
+> AuditLogEntryListingRepCollection PostAuditLogEntries(ctx).Before(before).After(after).Q(q).Limit(limit).Member(member).Token(token).StatementPost(statementPost).Execute()
 
 Search audit log entries
 
@@ -180,11 +184,13 @@ func main() {
 	after := int64(789) // int64 | A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries returned occurred after the timestamp. (optional)
 	q := "q_example" // string | Text to search for. You can search for the full or partial name of the resource. (optional)
 	limit := int64(789) // int64 | A limit on the number of audit log entries that return. Set between 1 and 20. The default is 10. (optional)
+	member := "member_example" // string | A member ID that lets you filter audit log listings by the member who made the change. Repeat the parameter to filter by multiple members. (optional)
+	token := "token_example" // string | An access token ID that lets you filter audit log listings by the token that made the change. Repeat the parameter to filter by multiple tokens. (optional)
 	statementPost := []openapiclient.StatementPost{*openapiclient.NewStatementPost("allow")} // []StatementPost |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AuditLogApi.PostAuditLogEntries(context.Background()).Before(before).After(after).Q(q).Limit(limit).StatementPost(statementPost).Execute()
+	resp, r, err := apiClient.AuditLogApi.PostAuditLogEntries(context.Background()).Before(before).After(after).Q(q).Limit(limit).Member(member).Token(token).StatementPost(statementPost).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AuditLogApi.PostAuditLogEntries``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -209,6 +215,8 @@ Name | Type | Description  | Notes
  **after** | **int64** | A timestamp filter, expressed as a Unix epoch time in milliseconds. All entries returned occurred after the timestamp. | 
  **q** | **string** | Text to search for. You can search for the full or partial name of the resource. | 
  **limit** | **int64** | A limit on the number of audit log entries that return. Set between 1 and 20. The default is 10. | 
+ **member** | **string** | A member ID that lets you filter audit log listings by the member who made the change. Repeat the parameter to filter by multiple members. | 
+ **token** | **string** | An access token ID that lets you filter audit log listings by the token that made the change. Repeat the parameter to filter by multiple tokens. | 
  **statementPost** | [**[]StatementPost**](StatementPost.md) |  | 
 
 ### Return type
@@ -231,7 +239,7 @@ Name | Type | Description  | Notes
 
 ## PostAuditLogEntryCounts
 
-> CountBucketsResult PostAuditLogEntryCounts(ctx).After(after).StatementPost(statementPost).Before(before).Buckets(buckets).Execute()
+> CountBucketsResult PostAuditLogEntryCounts(ctx).After(after).StatementPost(statementPost).Before(before).Buckets(buckets).Member(member).Token(token).Execute()
 
 Get audit log entry counts
 
@@ -254,10 +262,12 @@ func main() {
 	statementPost := []openapiclient.StatementPost{*openapiclient.NewStatementPost("allow")} // []StatementPost | 
 	before := int64(789) // int64 | A timestamp filter, expressed as a Unix epoch time in milliseconds. Defaults to now. (optional)
 	buckets := int64(789) // int64 | Number of time buckets to divide the range into. Default 50, max 500. (optional)
+	member := "member_example" // string | A member ID that lets you filter counts to changes made by that member. Repeat the parameter to filter by multiple members. (optional)
+	token := "token_example" // string | An access token ID that lets you filter counts to changes made by that token. Repeat the parameter to filter by multiple tokens. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AuditLogApi.PostAuditLogEntryCounts(context.Background()).After(after).StatementPost(statementPost).Before(before).Buckets(buckets).Execute()
+	resp, r, err := apiClient.AuditLogApi.PostAuditLogEntryCounts(context.Background()).After(after).StatementPost(statementPost).Before(before).Buckets(buckets).Member(member).Token(token).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AuditLogApi.PostAuditLogEntryCounts``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -282,6 +292,8 @@ Name | Type | Description  | Notes
  **statementPost** | [**[]StatementPost**](StatementPost.md) |  | 
  **before** | **int64** | A timestamp filter, expressed as a Unix epoch time in milliseconds. Defaults to now. | 
  **buckets** | **int64** | Number of time buckets to divide the range into. Default 50, max 500. | 
+ **member** | **string** | A member ID that lets you filter counts to changes made by that member. Repeat the parameter to filter by multiple members. | 
+ **token** | **string** | An access token ID that lets you filter counts to changes made by that token. Repeat the parameter to filter by multiple tokens. | 
 
 ### Return type
 

@@ -12,6 +12,9 @@ Name | Type | Description | Notes
 **AuthKind** | Pointer to **string** |  | [optional] 
 **TokenKind** | Pointer to **string** |  | [optional] 
 **ClientId** | Pointer to **string** |  | [optional] 
+**ClientName** | Pointer to **string** | The registered name of the OAuth client the access token was issued to. Only present for OAuth access tokens, and omitted when the client&#39;s name can&#39;t be resolved. | [optional] 
+**Audience** | Pointer to **[]string** | The resources (RFC 8707) the OAuth access token was issued for. Only present for OAuth access tokens issued for a specific resource. | [optional] 
+**ExpiresAt** | Pointer to **int64** |  | [optional] 
 **TokenName** | Pointer to **string** |  | [optional] 
 **TokenId** | Pointer to **string** |  | [optional] 
 **MemberId** | Pointer to **string** |  | [optional] 
@@ -236,6 +239,81 @@ SetClientId sets ClientId field to given value.
 `func (o *CallerIdentityRep) HasClientId() bool`
 
 HasClientId returns a boolean if a field has been set.
+
+### GetClientName
+
+`func (o *CallerIdentityRep) GetClientName() string`
+
+GetClientName returns the ClientName field if non-nil, zero value otherwise.
+
+### GetClientNameOk
+
+`func (o *CallerIdentityRep) GetClientNameOk() (*string, bool)`
+
+GetClientNameOk returns a tuple with the ClientName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetClientName
+
+`func (o *CallerIdentityRep) SetClientName(v string)`
+
+SetClientName sets ClientName field to given value.
+
+### HasClientName
+
+`func (o *CallerIdentityRep) HasClientName() bool`
+
+HasClientName returns a boolean if a field has been set.
+
+### GetAudience
+
+`func (o *CallerIdentityRep) GetAudience() []string`
+
+GetAudience returns the Audience field if non-nil, zero value otherwise.
+
+### GetAudienceOk
+
+`func (o *CallerIdentityRep) GetAudienceOk() (*[]string, bool)`
+
+GetAudienceOk returns a tuple with the Audience field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAudience
+
+`func (o *CallerIdentityRep) SetAudience(v []string)`
+
+SetAudience sets Audience field to given value.
+
+### HasAudience
+
+`func (o *CallerIdentityRep) HasAudience() bool`
+
+HasAudience returns a boolean if a field has been set.
+
+### GetExpiresAt
+
+`func (o *CallerIdentityRep) GetExpiresAt() int64`
+
+GetExpiresAt returns the ExpiresAt field if non-nil, zero value otherwise.
+
+### GetExpiresAtOk
+
+`func (o *CallerIdentityRep) GetExpiresAtOk() (*int64, bool)`
+
+GetExpiresAtOk returns a tuple with the ExpiresAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExpiresAt
+
+`func (o *CallerIdentityRep) SetExpiresAt(v int64)`
+
+SetExpiresAt sets ExpiresAt field to given value.
+
+### HasExpiresAt
+
+`func (o *CallerIdentityRep) HasExpiresAt() bool`
+
+HasExpiresAt returns a boolean if a field has been set.
 
 ### GetTokenName
 

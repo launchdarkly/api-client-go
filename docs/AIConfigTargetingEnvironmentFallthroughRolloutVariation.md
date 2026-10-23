@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Untracked** | Pointer to **bool** |  | [optional] 
-**Variation** | **int32** |  | 
-**Weight** | **int32** |  | 
+**Untracked** | Pointer to **bool** | Whether this variation is excluded from experiment tracking | [optional] 
+**Variation** | **int32** | Index of the variation | 
+**Weight** | **int32** | The weight of this variation, in thousandths of a percent | 
 
 ## Methods
 

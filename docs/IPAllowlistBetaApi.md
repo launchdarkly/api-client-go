@@ -168,7 +168,7 @@ import (
 
 func main() {
 	search := "search_example" // string | A case-insensitive substring to filter entries by. Matches against the IP address or CIDR block and the description. (optional)
-	limit := int32(56) // int32 | The number of entries to return. When omitted, all matching entries are returned. Maximum is 100. (optional)
+	limit := int32(56) // int32 | The number of entries to return. Defaults to 20. Maximum is 100. (optional)
 	offset := int32(56) // int32 | The number of entries to skip. Used for pagination. (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -195,7 +195,7 @@ Other parameters are passed through a pointer to a apiGetIpAllowlistRequest stru
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **search** | **string** | A case-insensitive substring to filter entries by. Matches against the IP address or CIDR block and the description. | 
- **limit** | **int32** | The number of entries to return. When omitted, all matching entries are returned. Maximum is 100. | 
+ **limit** | **int32** | The number of entries to return. Defaults to 20. Maximum is 100. | 
  **offset** | **int32** | The number of entries to skip. Used for pagination. | 
 
 ### Return type

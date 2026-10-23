@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**MaintainerId** | Pointer to **string** |  | [optional] 
-**MaintainerTeamKey** | Pointer to **string** |  | [optional] 
-**Description** | Pointer to **string** |  | [optional] 
+**MaintainerId** | Pointer to **string** | The ID of the member who maintains this resource | [optional] 
+**MaintainerTeamKey** | Pointer to **string** | The key of the team that maintains this resource | [optional] 
+**Description** | Pointer to **string** | A description of the tool | [optional] 
 **Schema** | Pointer to **map[string]interface{}** | JSON Schema defining the tool&#39;s parameters for LLM consumption | [optional] 
 **CustomParameters** | Pointer to **map[string]interface{}** | Custom metadata and configuration for application-level use (not sent to LLM) | [optional] 
-**Tags** | Pointer to **[]string** |  | [optional] 
+**Tags** | Pointer to **[]string** | Replaces the tags on the tool. Tags can be used in custom role policies. | [optional] 
 
 ## Methods
 

@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Comment** | Pointer to **string** |  | [optional] 
-**EnvironmentKey** | **string** |  | 
-**Instructions** | **[]map[string]interface{}** |  | 
+**Comment** | Pointer to **string** | A comment describing the change | [optional] 
+**EnvironmentKey** | **string** | The environment key | 
+**Instructions** | **[]map[string]interface{}** | The semantic patch instructions to apply | 
 
 ## Methods
 

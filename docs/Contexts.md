@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Links** | Pointer to [**map[string]Link**](Link.md) | The location and content type of related resources | [optional] 
-**TotalCount** | Pointer to **int32** | The number of contexts | [optional] 
+**TotalCount** | Pointer to **int32** | The number of matching contexts. This value is approximate and may be omitted if it is unavailable. | [optional] 
 **EnvironmentId** | **string** | The environment ID where the context was evaluated | 
-**ContinuationToken** | Pointer to **string** | An obfuscated string that references the last context instance on the previous page of results. You can use this for pagination, however, we recommend using the &lt;code&gt;next&lt;/code&gt; link instead. | [optional] 
+**ContinuationToken** | Pointer to **string** | An obfuscated string that references the last context on the previous page of results. You can use this for pagination, however, we recommend using the &lt;code&gt;next&lt;/code&gt; link instead. | [optional] 
 **Items** | [**[]ContextRecord**](ContextRecord.md) | A collection of contexts. Can include multiple versions of contexts that have the same &lt;code&gt;kind&lt;/code&gt; and &lt;code&gt;key&lt;/code&gt;, but different &lt;code&gt;applicationId&lt;/code&gt;s. | 
 
 ## Methods

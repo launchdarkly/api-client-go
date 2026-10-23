@@ -6,13 +6,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CreatedAt** | **int64** | Unix timestamp in milliseconds | 
 **Defaults** | Pointer to [**AIConfigTargetingDefaults**](AIConfigTargetingDefaults.md) |  | [optional] 
-**Environments** | [**map[string]AIConfigTargetingEnvironment**](AIConfigTargetingEnvironment.md) |  | 
+**Environments** | [**map[string]AIConfigTargetingEnvironment**](AIConfigTargetingEnvironment.md) | Targeting for each environment, keyed by environment key | 
 **Experiments** | [**AiConfigsExperimentInfoRep**](AiConfigsExperimentInfoRep.md) |  | 
-**Key** | **string** |  | 
-**Name** | **string** |  | 
-**Tags** | **[]string** |  | 
-**Variations** | [**[]AIConfigTargetingVariation**](AIConfigTargetingVariation.md) |  | 
-**Version** | **int32** |  | 
+**Key** | **string** | The AI Config key | 
+**Name** | **string** | The AI Config name | 
+**Tags** | **[]string** | Tags for this resource | 
+**Variations** | [**[]AIConfigTargetingVariation**](AIConfigTargetingVariation.md) | The variations of this AI Config | 
+**Version** | **int32** | The version number of this resource | 
 
 ## Methods
 

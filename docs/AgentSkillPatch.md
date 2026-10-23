@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | Pointer to **string** |  | [optional] 
-**Description** | Pointer to **string** |  | [optional] 
+**Name** | Pointer to **string** | Human-readable name of the agent skill. | [optional] 
+**Description** | Pointer to **string** | Human-readable description of what the agent skill does. | [optional] 
 **Markdown** | Pointer to **string** | The verbatim SKILL.md content of the agent skill | [optional] 
-**MaintainerId** | Pointer to **string** |  | [optional] 
-**MaintainerTeamKey** | Pointer to **string** |  | [optional] 
-**Tags** | Pointer to **[]string** |  | [optional] 
+**MaintainerId** | Pointer to **string** | The ID of the member who maintains this resource | [optional] 
+**MaintainerTeamKey** | Pointer to **string** | The key of the team that maintains this resource | [optional] 
+**Tags** | Pointer to **[]string** | Replaces the tags on the agent skill. Tags can be used in custom role policies. Changing only the tags does not create a new version. | [optional] 
 
 ## Methods
 

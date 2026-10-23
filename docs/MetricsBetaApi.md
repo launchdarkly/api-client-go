@@ -34,7 +34,7 @@ import (
 
 func main() {
 	projectKey := "projectKey_example" // string | The project key
-	metricGroupPost := *openapiclient.NewMetricGroupPost("My metric group", "funnel", "569fdeadbeef1644facecafe", []string{"Tags_example"}, []openapiclient.MetricInMetricGroupInput{*openapiclient.NewMetricInMetricGroupInput("metric-key-123abc", "Step 1")}) // MetricGroupPost | 
+	metricGroupPost := *openapiclient.NewMetricGroupPost("metric-group-key-123abc", "My metric group", "funnel", "569fdeadbeef1644facecafe", []string{"Tags_example"}, []openapiclient.MetricInMetricGroupInput{*openapiclient.NewMetricInMetricGroupInput("metric-key-123abc", "Step 1")}) // MetricGroupPost | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

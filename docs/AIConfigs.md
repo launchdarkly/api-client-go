@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Links** | Pointer to [**PaginatedLinks**](PaginatedLinks.md) |  | [optional] 
-**Items** | [**[]AIConfig**](AIConfig.md) |  | 
-**TotalCount** | **int32** |  | 
+**Items** | [**[]AIConfig**](AIConfig.md) | The items on this page | 
+**TotalCount** | **int32** | The total number of items | 
 
 ## Methods
 

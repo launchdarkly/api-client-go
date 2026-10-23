@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Key** | **string** | Unique key for the view within the account/project | 
+**Key** | **string** | Unique key for the view within the account/project. The key is converted to lowercase when the view is created, so use the lowercase form to reference the view afterward. | 
 **Name** | **string** | Human-readable name for the view | 
 **Description** | Pointer to **string** | Optional detailed description of the view | [optional] [default to ""]
 **MaintainerId** | Pointer to **string** | Member ID of the maintainer for this view. Only one of &#x60;maintainerId&#x60; or &#x60;maintainerTeamKey&#x60; can be specified. | [optional] 

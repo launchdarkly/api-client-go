@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Successes** | **[]string** |  | 
-**Errors** | [**[]RestrictedModelError**](RestrictedModelError.md) |  | 
+**Successes** | **[]string** | Model config keys that were added to the restricted list | 
+**Errors** | [**[]RestrictedModelError**](RestrictedModelError.md) | Model config keys that were not added, with the reason for each key | 
 
 ## Methods
 

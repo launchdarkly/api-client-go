@@ -4,11 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Description** | Pointer to **string** |  | [optional] 
-**MaintainerId** | Pointer to **string** |  | [optional] 
-**MaintainerTeamKey** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** |  | [optional] 
-**Tags** | Pointer to **[]string** |  | [optional] 
+**DefaultVariationKey** | Pointer to **string** | Key of the variation this config serves by default | [optional] 
+**Description** | Pointer to **string** | A description of the AI Config | [optional] 
+**MaintainerId** | Pointer to **string** | The ID of the member who maintains this resource | [optional] 
+**MaintainerTeamKey** | Pointer to **string** | The key of the team that maintains this resource | [optional] 
+**Name** | Pointer to **string** | A human-readable name for the AI Config | [optional] 
+**Tags** | Pointer to **[]string** | Tags for this resource | [optional] 
 **EvaluationMetricKey** | Pointer to **string** | Evaluation metric key for this config | [optional] 
 **IsInverted** | Pointer to **bool** | Whether the evaluation metric is inverted, meaning a lower value is better if set as true | [optional] 
 
@@ -30,6 +31,31 @@ will change when the set of required properties is changed
 NewAIConfigPatchWithDefaults instantiates a new AIConfigPatch object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetDefaultVariationKey
+
+`func (o *AIConfigPatch) GetDefaultVariationKey() string`
+
+GetDefaultVariationKey returns the DefaultVariationKey field if non-nil, zero value otherwise.
+
+### GetDefaultVariationKeyOk
+
+`func (o *AIConfigPatch) GetDefaultVariationKeyOk() (*string, bool)`
+
+GetDefaultVariationKeyOk returns a tuple with the DefaultVariationKey field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDefaultVariationKey
+
+`func (o *AIConfigPatch) SetDefaultVariationKey(v string)`
+
+SetDefaultVariationKey sets DefaultVariationKey field to given value.
+
+### HasDefaultVariationKey
+
+`func (o *AIConfigPatch) HasDefaultVariationKey() bool`
+
+HasDefaultVariationKey returns a boolean if a field has been set.
 
 ### GetDescription
 

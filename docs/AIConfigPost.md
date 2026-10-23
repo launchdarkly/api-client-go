@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Description** | Pointer to **string** |  | [optional] [default to ""]
-**Key** | **string** |  | 
-**MaintainerId** | Pointer to **string** |  | [optional] 
-**MaintainerTeamKey** | Pointer to **string** |  | [optional] 
-**Mode** | Pointer to **string** |  | [optional] [default to "completion"]
-**Name** | **string** |  | 
-**Tags** | Pointer to **[]string** |  | [optional] 
-**ViewKeys** | Pointer to **[]string** |  | [optional] 
+**Description** | Pointer to **string** | A description of the AI Config | [optional] [default to ""]
+**Key** | **string** | A unique key for the AI Config | 
+**MaintainerId** | Pointer to **string** | The ID of the member who maintains this resource | [optional] 
+**MaintainerTeamKey** | Pointer to **string** | The key of the team that maintains this resource | [optional] 
+**Mode** | Pointer to **string** | The AI Config mode | [optional] [default to "completion"]
+**Name** | **string** | A human-readable name for the AI Config | 
+**Tags** | Pointer to **[]string** | Tags for this resource | [optional] 
+**ViewKeys** | Pointer to **[]string** | Keys of the views to add the AI Config to | [optional] 
 **DefaultVariation** | Pointer to [**AIConfigVariationPost**](AIConfigVariationPost.md) |  | [optional] 
 **EvaluationMetricKey** | Pointer to **string** | Evaluation metric key for this config | [optional] 
 **IsInverted** | Pointer to **bool** | Whether the evaluation metric is inverted, meaning a lower value is better if set as true | [optional] 

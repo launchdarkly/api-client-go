@@ -27,11 +27,13 @@ Method | HTTP request | Description
 [**GetAgentSkill**](AgentControlApi.md#GetAgentSkill) | **Get** /api/v2/projects/{projectKey}/ai-configs/skills/{skillKey} | Get an agent skill
 [**GetModelConfig**](AgentControlApi.md#GetModelConfig) | **Get** /api/v2/projects/{projectKey}/ai-configs/model-configs/{modelConfigKey} | Get AI model config
 [**GetPromptSnippet**](AgentControlApi.md#GetPromptSnippet) | **Get** /api/v2/projects/{projectKey}/ai-configs/prompt-snippets/{snippetKey} | Get a prompt snippet
+[**ListAIToolReferences**](AgentControlApi.md#ListAIToolReferences) | **Get** /api/v2/projects/{projectKey}/ai-tools/{toolKey}/references | List AI tool references
 [**ListAIToolVersions**](AgentControlApi.md#ListAIToolVersions) | **Get** /api/v2/projects/{projectKey}/ai-tools/{toolKey}/versions | List AI tool versions
 [**ListAITools**](AgentControlApi.md#ListAITools) | **Get** /api/v2/projects/{projectKey}/ai-tools | List AI tools
 [**ListAgentGraphs**](AgentControlApi.md#ListAgentGraphs) | **Get** /api/v2/projects/{projectKey}/agent-graphs | List agent graphs
-[**ListAgentOptimizationResults**](AgentControlApi.md#ListAgentOptimizationResults) | **Get** /api/v2/projects/{projectKey}/agent-optimizations/{optimizationKey}/results | List agent optimization runs
+[**ListAgentOptimizationResults**](AgentControlApi.md#ListAgentOptimizationResults) | **Get** /api/v2/projects/{projectKey}/agent-optimizations/{optimizationKey}/results | List latest agent optimization result per run
 [**ListAgentOptimizationResultsByRunId**](AgentControlApi.md#ListAgentOptimizationResultsByRunId) | **Get** /api/v2/projects/{projectKey}/agent-optimizations/{optimizationKey}/runs/{runId}/results | List agent optimization results for a run
+[**ListAgentOptimizationRuns**](AgentControlApi.md#ListAgentOptimizationRuns) | **Get** /api/v2/projects/{projectKey}/agent-optimizations/{optimizationKey}/runs | List agent optimization runs
 [**ListAgentOptimizations**](AgentControlApi.md#ListAgentOptimizations) | **Get** /api/v2/projects/{projectKey}/agent-optimizations | List agent optimizations
 [**ListAgentSkillReferences**](AgentControlApi.md#ListAgentSkillReferences) | **Get** /api/v2/projects/{projectKey}/ai-configs/skills/{skillKey}/references | List agent skill references
 [**ListAgentSkillVersions**](AgentControlApi.md#ListAgentSkillVersions) | **Get** /api/v2/projects/{projectKey}/ai-configs/skills/{skillKey}/versions | List agent skill versions
@@ -86,8 +88,8 @@ import (
 )
 
 func main() {
-	projectKey := "default" // string | 
-	configKey := "configKey_example" // string | 
+	projectKey := "default" // string | The project key
+	configKey := "configKey_example" // string | The AI Config key
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -105,8 +107,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
-**configKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
+**configKey** | **string** | The AI Config key | 
 
 ### Other Parameters
 
@@ -157,9 +159,9 @@ import (
 )
 
 func main() {
-	projectKey := "projectKey_example" // string | 
-	configKey := "configKey_example" // string | 
-	variationKey := "variationKey_example" // string | 
+	projectKey := "projectKey_example" // string | The project key
+	configKey := "configKey_example" // string | The AI Config key
+	variationKey := "variationKey_example" // string | The AI Config variation key
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -177,9 +179,9 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
-**configKey** | **string** |  | 
-**variationKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
+**configKey** | **string** | The AI Config key | 
+**variationKey** | **string** | The AI Config variation key | 
 
 ### Other Parameters
 
@@ -231,8 +233,8 @@ import (
 )
 
 func main() {
-	projectKey := "projectKey_example" // string | 
-	toolKey := "toolKey_example" // string | 
+	projectKey := "projectKey_example" // string | The project key
+	toolKey := "toolKey_example" // string | The AI tool key
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -250,8 +252,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
-**toolKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
+**toolKey** | **string** | The AI tool key | 
 
 ### Other Parameters
 
@@ -303,8 +305,8 @@ import (
 
 func main() {
 	lDAPIVersion := "lDAPIVersion_example" // string | Version of the endpoint.
-	projectKey := "projectKey_example" // string | 
-	graphKey := "graphKey_example" // string | 
+	projectKey := "projectKey_example" // string | The project key
+	graphKey := "graphKey_example" // string | The agent graph key
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -322,8 +324,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
-**graphKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
+**graphKey** | **string** | The agent graph key | 
 
 ### Other Parameters
 
@@ -375,8 +377,8 @@ import (
 )
 
 func main() {
-	projectKey := "projectKey_example" // string | 
-	optimizationKey := "optimizationKey_example" // string | 
+	projectKey := "projectKey_example" // string | The project key
+	optimizationKey := "optimizationKey_example" // string | The agent optimization key
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -394,8 +396,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
-**optimizationKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
+**optimizationKey** | **string** | The agent optimization key | 
 
 ### Other Parameters
 
@@ -447,9 +449,9 @@ import (
 
 func main() {
 	lDAPIVersion := "lDAPIVersion_example" // string | Version of the endpoint.
-	projectKey := "projectKey_example" // string | 
-	optimizationKey := "optimizationKey_example" // string | 
-	runId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
+	projectKey := "projectKey_example" // string | The project key
+	optimizationKey := "optimizationKey_example" // string | The agent optimization key
+	runId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The agent optimization run ID
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -467,9 +469,9 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
-**optimizationKey** | **string** |  | 
-**runId** | **string** |  | 
+**projectKey** | **string** | The project key | 
+**optimizationKey** | **string** | The agent optimization key | 
+**runId** | **string** | The agent optimization run ID | 
 
 ### Other Parameters
 
@@ -522,8 +524,8 @@ import (
 )
 
 func main() {
-	projectKey := "projectKey_example" // string | 
-	skillKey := "skillKey_example" // string | 
+	projectKey := "projectKey_example" // string | The project key
+	skillKey := "skillKey_example" // string | The agent skill key
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -541,8 +543,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
-**skillKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
+**skillKey** | **string** | The agent skill key | 
 
 ### Other Parameters
 
@@ -593,8 +595,8 @@ import (
 )
 
 func main() {
-	projectKey := "default" // string | 
-	modelConfigKey := "modelConfigKey_example" // string | 
+	projectKey := "default" // string | The project key
+	modelConfigKey := "modelConfigKey_example" // string | The AI model config key
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -612,8 +614,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
-**modelConfigKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
+**modelConfigKey** | **string** | The AI model config key | 
 
 ### Other Parameters
 
@@ -664,8 +666,8 @@ import (
 )
 
 func main() {
-	projectKey := "projectKey_example" // string | 
-	snippetKey := "snippetKey_example" // string | 
+	projectKey := "projectKey_example" // string | The project key
+	snippetKey := "snippetKey_example" // string | The prompt snippet key
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -683,8 +685,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
-**snippetKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
+**snippetKey** | **string** | The prompt snippet key | 
 
 ### Other Parameters
 
@@ -735,7 +737,7 @@ import (
 )
 
 func main() {
-	projectKey := "default" // string | 
+	projectKey := "default" // string | The project key
 	restrictedModelsRequest := *openapiclient.NewRestrictedModelsRequest([]string{"Keys_example"}) // RestrictedModelsRequest | List of AI model keys to remove from the restricted list
 
 	configuration := openapiclient.NewConfiguration()
@@ -754,7 +756,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
 
 ### Other Parameters
 
@@ -805,8 +807,8 @@ import (
 )
 
 func main() {
-	projectKey := "projectKey_example" // string | 
-	configKey := "configKey_example" // string | 
+	projectKey := "projectKey_example" // string | The project key
+	configKey := "configKey_example" // string | The AI Config key
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -826,8 +828,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
-**configKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
+**configKey** | **string** | The AI Config key | 
 
 ### Other Parameters
 
@@ -878,8 +880,8 @@ import (
 )
 
 func main() {
-	projectKey := "projectKey_example" // string | 
-	configKey := "configKey_example" // string | 
+	projectKey := "projectKey_example" // string | The project key
+	configKey := "configKey_example" // string | The AI Config key
 	from := int32(56) // int32 | The starting time, as milliseconds since epoch (inclusive).
 	to := int32(56) // int32 | The ending time, as milliseconds since epoch (exclusive). May not be more than 100 days after `from`.
 	env := "env_example" // string | An environment key. Only metrics from this environment will be included.
@@ -904,8 +906,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
-**configKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
+**configKey** | **string** | The AI Config key | 
 
 ### Other Parameters
 
@@ -961,8 +963,8 @@ import (
 )
 
 func main() {
-	projectKey := "projectKey_example" // string | 
-	configKey := "configKey_example" // string | 
+	projectKey := "projectKey_example" // string | The project key
+	configKey := "configKey_example" // string | The AI Config key
 	from := int32(56) // int32 | The starting time, as milliseconds since epoch (inclusive).
 	to := int32(56) // int32 | The ending time, as milliseconds since epoch (exclusive). May not be more than 100 days after `from`.
 	env := "env_example" // string | An environment key. Only metrics from this environment will be included.
@@ -987,8 +989,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
-**configKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
+**configKey** | **string** | The AI Config key | 
 
 ### Other Parameters
 
@@ -1044,7 +1046,7 @@ import (
 )
 
 func main() {
-	projectKey := "projectKey_example" // string | 
+	projectKey := "projectKey_example" // string | The project key
 	env := "env_example" // string | An environment key. Only metrics from this environment will be included.
 
 	configuration := openapiclient.NewConfiguration()
@@ -1065,7 +1067,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
 
 ### Other Parameters
 
@@ -1116,8 +1118,8 @@ import (
 )
 
 func main() {
-	projectKey := "projectKey_example" // string | 
-	configKey := "configKey_example" // string | 
+	projectKey := "projectKey_example" // string | The project key
+	configKey := "configKey_example" // string | The AI Config key
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1137,8 +1139,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
-**configKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
+**configKey** | **string** | The AI Config key | 
 
 ### Other Parameters
 
@@ -1189,9 +1191,9 @@ import (
 )
 
 func main() {
-	projectKey := "default" // string | 
-	configKey := "default" // string | 
-	variationKey := "default" // string | 
+	projectKey := "default" // string | The project key
+	configKey := "default" // string | The AI Config key
+	variationKey := "default" // string | The AI Config variation key
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1211,9 +1213,9 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
-**configKey** | **string** |  | 
-**variationKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
+**configKey** | **string** | The AI Config key | 
+**variationKey** | **string** | The AI Config variation key | 
 
 ### Other Parameters
 
@@ -1265,7 +1267,7 @@ import (
 )
 
 func main() {
-	projectKey := "default" // string | 
+	projectKey := "default" // string | The project key
 	sort := "sort_example" // string | A sort to apply to the list of AgentControl configs. (optional)
 	limit := int32(56) // int32 | The number of resources to return. (optional)
 	offset := int32(56) // int32 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
@@ -1289,7 +1291,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
 
 ### Other Parameters
 
@@ -1343,8 +1345,8 @@ import (
 )
 
 func main() {
-	projectKey := "projectKey_example" // string | 
-	toolKey := "toolKey_example" // string | 
+	projectKey := "projectKey_example" // string | The project key
+	toolKey := "toolKey_example" // string | The AI tool key
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1364,8 +1366,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
-**toolKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
+**toolKey** | **string** | The AI tool key | 
 
 ### Other Parameters
 
@@ -1417,8 +1419,8 @@ import (
 
 func main() {
 	lDAPIVersion := "lDAPIVersion_example" // string | Version of the endpoint.
-	projectKey := "projectKey_example" // string | 
-	graphKey := "graphKey_example" // string | 
+	projectKey := "projectKey_example" // string | The project key
+	graphKey := "graphKey_example" // string | The agent graph key
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1438,8 +1440,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
-**graphKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
+**graphKey** | **string** | The agent graph key | 
 
 ### Other Parameters
 
@@ -1491,8 +1493,8 @@ import (
 )
 
 func main() {
-	projectKey := "projectKey_example" // string | 
-	optimizationKey := "optimizationKey_example" // string | 
+	projectKey := "projectKey_example" // string | The project key
+	optimizationKey := "optimizationKey_example" // string | The agent optimization key
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1512,8 +1514,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
-**optimizationKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
+**optimizationKey** | **string** | The agent optimization key | 
 
 ### Other Parameters
 
@@ -1564,8 +1566,8 @@ import (
 )
 
 func main() {
-	projectKey := "projectKey_example" // string | 
-	skillKey := "skillKey_example" // string | 
+	projectKey := "projectKey_example" // string | The project key
+	skillKey := "skillKey_example" // string | The agent skill key
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1585,8 +1587,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
-**skillKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
+**skillKey** | **string** | The agent skill key | 
 
 ### Other Parameters
 
@@ -1637,8 +1639,8 @@ import (
 )
 
 func main() {
-	projectKey := "default" // string | 
-	modelConfigKey := "default" // string | 
+	projectKey := "default" // string | The project key
+	modelConfigKey := "default" // string | The AI model config key
 	version := int32(56) // int32 | Specific model config version to return. Omit to return the latest version. (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -1659,8 +1661,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
-**modelConfigKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
+**modelConfigKey** | **string** | The AI model config key | 
 
 ### Other Parameters
 
@@ -1712,8 +1714,8 @@ import (
 )
 
 func main() {
-	projectKey := "projectKey_example" // string | 
-	snippetKey := "snippetKey_example" // string | 
+	projectKey := "projectKey_example" // string | The project key
+	snippetKey := "snippetKey_example" // string | The prompt snippet key
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1733,8 +1735,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
-**snippetKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
+**snippetKey** | **string** | The prompt snippet key | 
 
 ### Other Parameters
 
@@ -1749,6 +1751,83 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**PromptSnippet**](PromptSnippet.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ListAIToolReferences
+
+> ToolReferences ListAIToolReferences(ctx, projectKey, toolKey).Limit(limit).Offset(offset).Execute()
+
+List AI tool references
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
+)
+
+func main() {
+	projectKey := "projectKey_example" // string | The project key
+	toolKey := "toolKey_example" // string | The AI tool key
+	limit := int32(56) // int32 | The number of resources to return. (optional)
+	offset := int32(56) // int32 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AgentControlApi.ListAIToolReferences(context.Background(), projectKey, toolKey).Limit(limit).Offset(offset).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentControlApi.ListAIToolReferences``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListAIToolReferences`: ToolReferences
+	fmt.Fprintf(os.Stdout, "Response from `AgentControlApi.ListAIToolReferences`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projectKey** | **string** | The project key | 
+**toolKey** | **string** | The AI tool key | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListAIToolReferencesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **limit** | **int32** | The number of resources to return. | 
+ **offset** | **int32** | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | 
+
+### Return type
+
+[**ToolReferences**](ToolReferences.md)
 
 ### Authorization
 
@@ -1785,8 +1864,8 @@ import (
 )
 
 func main() {
-	projectKey := "projectKey_example" // string | 
-	toolKey := "toolKey_example" // string | 
+	projectKey := "projectKey_example" // string | The project key
+	toolKey := "toolKey_example" // string | The AI tool key
 	sort := "sort_example" // string | A sort to apply to the list of AgentControl configs. (optional)
 	limit := int32(56) // int32 | The number of resources to return. (optional)
 	offset := int32(56) // int32 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
@@ -1809,8 +1888,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
-**toolKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
+**toolKey** | **string** | The AI tool key | 
 
 ### Other Parameters
 
@@ -1864,7 +1943,7 @@ import (
 )
 
 func main() {
-	projectKey := "projectKey_example" // string | 
+	projectKey := "projectKey_example" // string | The project key
 	sort := "sort_example" // string | A sort to apply to the list of AgentControl configs. (optional)
 	limit := int32(56) // int32 | The number of resources to return. (optional)
 	offset := int32(56) // int32 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
@@ -1888,7 +1967,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
 
 ### Other Parameters
 
@@ -1943,7 +2022,7 @@ import (
 
 func main() {
 	lDAPIVersion := "lDAPIVersion_example" // string | Version of the endpoint.
-	projectKey := "projectKey_example" // string | 
+	projectKey := "projectKey_example" // string | The project key
 	limit := int32(56) // int32 | The number of resources to return. (optional)
 	offset := int32(56) // int32 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
 	filter := "filter_example" // string | A filter to apply to the list. (optional)
@@ -1966,7 +2045,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
 
 ### Other Parameters
 
@@ -2003,7 +2082,7 @@ Name | Type | Description  | Notes
 
 > AgentOptimizationResults ListAgentOptimizationResults(ctx, projectKey, optimizationKey).Limit(limit).Offset(offset).Execute()
 
-List agent optimization runs
+List latest agent optimization result per run
 
 
 
@@ -2020,8 +2099,8 @@ import (
 )
 
 func main() {
-	projectKey := "projectKey_example" // string | 
-	optimizationKey := "optimizationKey_example" // string | 
+	projectKey := "projectKey_example" // string | The project key
+	optimizationKey := "optimizationKey_example" // string | The agent optimization key
 	limit := int32(56) // int32 | The number of resources to return. (optional)
 	offset := int32(56) // int32 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
 
@@ -2043,8 +2122,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
-**optimizationKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
+**optimizationKey** | **string** | The agent optimization key | 
 
 ### Other Parameters
 
@@ -2097,9 +2176,9 @@ import (
 )
 
 func main() {
-	projectKey := "projectKey_example" // string | 
-	optimizationKey := "optimizationKey_example" // string | 
-	runId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
+	projectKey := "projectKey_example" // string | The project key
+	optimizationKey := "optimizationKey_example" // string | The agent optimization key
+	runId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The agent optimization run ID
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -2119,9 +2198,9 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
-**optimizationKey** | **string** |  | 
-**runId** | **string** |  | 
+**projectKey** | **string** | The project key | 
+**optimizationKey** | **string** | The agent optimization key | 
+**runId** | **string** | The agent optimization run ID | 
 
 ### Other Parameters
 
@@ -2137,6 +2216,83 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**AgentOptimizationResults**](AgentOptimizationResults.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ListAgentOptimizationRuns
+
+> AgentOptimizationRuns ListAgentOptimizationRuns(ctx, projectKey, optimizationKey).Limit(limit).Offset(offset).Execute()
+
+List agent optimization runs
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
+)
+
+func main() {
+	projectKey := "projectKey_example" // string | The project key
+	optimizationKey := "optimizationKey_example" // string | The agent optimization key
+	limit := int32(56) // int32 | The number of resources to return. (optional)
+	offset := int32(56) // int32 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.AgentControlApi.ListAgentOptimizationRuns(context.Background(), projectKey, optimizationKey).Limit(limit).Offset(offset).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `AgentControlApi.ListAgentOptimizationRuns``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListAgentOptimizationRuns`: AgentOptimizationRuns
+	fmt.Fprintf(os.Stdout, "Response from `AgentControlApi.ListAgentOptimizationRuns`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projectKey** | **string** | The project key | 
+**optimizationKey** | **string** | The agent optimization key | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListAgentOptimizationRunsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **limit** | **int32** | The number of resources to return. | 
+ **offset** | **int32** | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | 
+
+### Return type
+
+[**AgentOptimizationRuns**](AgentOptimizationRuns.md)
 
 ### Authorization
 
@@ -2173,7 +2329,7 @@ import (
 )
 
 func main() {
-	projectKey := "projectKey_example" // string | 
+	projectKey := "projectKey_example" // string | The project key
 	limit := int32(56) // int32 | The number of resources to return. (optional)
 	offset := int32(56) // int32 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
 	filter := "filter_example" // string | A filter to apply to the list. (optional)
@@ -2196,7 +2352,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
 
 ### Other Parameters
 
@@ -2249,8 +2405,8 @@ import (
 )
 
 func main() {
-	projectKey := "projectKey_example" // string | 
-	skillKey := "skillKey_example" // string | 
+	projectKey := "projectKey_example" // string | The project key
+	skillKey := "skillKey_example" // string | The agent skill key
 	limit := int32(56) // int32 | The number of resources to return. (optional)
 	offset := int32(56) // int32 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
 
@@ -2272,8 +2428,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
-**skillKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
+**skillKey** | **string** | The agent skill key | 
 
 ### Other Parameters
 
@@ -2326,8 +2482,8 @@ import (
 )
 
 func main() {
-	projectKey := "projectKey_example" // string | 
-	skillKey := "skillKey_example" // string | 
+	projectKey := "projectKey_example" // string | The project key
+	skillKey := "skillKey_example" // string | The agent skill key
 	limit := int32(56) // int32 | The number of resources to return. (optional)
 	offset := int32(56) // int32 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
 
@@ -2349,8 +2505,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
-**skillKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
+**skillKey** | **string** | The agent skill key | 
 
 ### Other Parameters
 
@@ -2403,7 +2559,7 @@ import (
 )
 
 func main() {
-	projectKey := "projectKey_example" // string | 
+	projectKey := "projectKey_example" // string | The project key
 	limit := int32(56) // int32 | The number of resources to return. (optional)
 	offset := int32(56) // int32 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
 	filter := "filter_example" // string | A filter to apply to the list. (optional)
@@ -2426,7 +2582,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
 
 ### Other Parameters
 
@@ -2479,8 +2635,8 @@ import (
 )
 
 func main() {
-	projectKey := "projectKey_example" // string | 
-	optimizationKey := "optimizationKey_example" // string | 
+	projectKey := "projectKey_example" // string | The project key
+	optimizationKey := "optimizationKey_example" // string | The agent optimization key
 	limit := int32(56) // int32 | The number of resources to return. (optional)
 	offset := int32(56) // int32 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
 
@@ -2502,8 +2658,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
-**optimizationKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
+**optimizationKey** | **string** | The agent optimization key | 
 
 ### Other Parameters
 
@@ -2556,8 +2712,8 @@ import (
 )
 
 func main() {
-	projectKey := "default" // string | 
-	modelConfigKey := "default" // string | 
+	projectKey := "default" // string | The project key
+	modelConfigKey := "default" // string | The AI model config key
 	limit := int32(56) // int32 | The number of resources to return. (optional)
 	offset := int32(56) // int32 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
 
@@ -2579,8 +2735,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
-**modelConfigKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
+**modelConfigKey** | **string** | The AI model config key | 
 
 ### Other Parameters
 
@@ -2614,7 +2770,7 @@ Name | Type | Description  | Notes
 
 ## ListModelConfigs
 
-> []ModelConfig ListModelConfigs(ctx, projectKey).Restricted(restricted).Execute()
+> []ModelConfig ListModelConfigs(ctx, projectKey).Restricted(restricted).Sort(sort).Filter(filter).Execute()
 
 List AI model configs
 
@@ -2633,12 +2789,14 @@ import (
 )
 
 func main() {
-	projectKey := "default" // string | 
+	projectKey := "default" // string | The project key
 	restricted := true // bool | Whether to return only restricted models (optional)
+	sort := "sort_example" // string | A sort to apply to the list of AgentControl configs. (optional)
+	filter := "filter_example" // string | A filter to apply to the list. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentControlApi.ListModelConfigs(context.Background(), projectKey).Restricted(restricted).Execute()
+	resp, r, err := apiClient.AgentControlApi.ListModelConfigs(context.Background(), projectKey).Restricted(restricted).Sort(sort).Filter(filter).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AgentControlApi.ListModelConfigs``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -2654,7 +2812,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
 
 ### Other Parameters
 
@@ -2665,6 +2823,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **restricted** | **bool** | Whether to return only restricted models | 
+ **sort** | **string** | A sort to apply to the list of AgentControl configs. | 
+ **filter** | **string** | A filter to apply to the list. | 
 
 ### Return type
 
@@ -2705,8 +2865,8 @@ import (
 )
 
 func main() {
-	projectKey := "projectKey_example" // string | 
-	snippetKey := "snippetKey_example" // string | 
+	projectKey := "projectKey_example" // string | The project key
+	snippetKey := "snippetKey_example" // string | The prompt snippet key
 	limit := int32(56) // int32 | The number of resources to return. (optional)
 	offset := int32(56) // int32 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
 
@@ -2728,8 +2888,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
-**snippetKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
+**snippetKey** | **string** | The prompt snippet key | 
 
 ### Other Parameters
 
@@ -2782,8 +2942,8 @@ import (
 )
 
 func main() {
-	projectKey := "projectKey_example" // string | 
-	snippetKey := "snippetKey_example" // string | 
+	projectKey := "projectKey_example" // string | The project key
+	snippetKey := "snippetKey_example" // string | The prompt snippet key
 	limit := int32(56) // int32 | The number of resources to return. (optional)
 	offset := int32(56) // int32 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
 
@@ -2805,8 +2965,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
-**snippetKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
+**snippetKey** | **string** | The prompt snippet key | 
 
 ### Other Parameters
 
@@ -2859,7 +3019,7 @@ import (
 )
 
 func main() {
-	projectKey := "projectKey_example" // string | 
+	projectKey := "projectKey_example" // string | The project key
 	limit := int32(56) // int32 | The number of resources to return. (optional)
 	offset := int32(56) // int32 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
 	filter := "filter_example" // string | A filter to apply to the list. (optional)
@@ -2882,7 +3042,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
 
 ### Other Parameters
 
@@ -2935,8 +3095,8 @@ import (
 )
 
 func main() {
-	projectKey := "projectKey_example" // string | 
-	configKey := "configKey_example" // string | 
+	projectKey := "projectKey_example" // string | The project key
+	configKey := "configKey_example" // string | The AI Config key
 	aIConfigPatch := *openapiclient.NewAIConfigPatch() // AIConfigPatch | AI Config object to update (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -2957,8 +3117,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
-**configKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
+**configKey** | **string** | The AI Config key | 
 
 ### Other Parameters
 
@@ -3010,8 +3170,8 @@ import (
 )
 
 func main() {
-	projectKey := "projectKey_example" // string | 
-	configKey := "configKey_example" // string | 
+	projectKey := "projectKey_example" // string | The project key
+	configKey := "configKey_example" // string | The AI Config key
 	aIConfigTargetingPatch := *openapiclient.NewAIConfigTargetingPatch("EnvironmentKey_example", []map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}) // AIConfigTargetingPatch | AI Config targeting semantic patch instructions (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -3032,8 +3192,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
-**configKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
+**configKey** | **string** | The AI Config key | 
 
 ### Other Parameters
 
@@ -3085,9 +3245,9 @@ import (
 )
 
 func main() {
-	projectKey := "projectKey_example" // string | 
-	configKey := "configKey_example" // string | 
-	variationKey := "variationKey_example" // string | 
+	projectKey := "projectKey_example" // string | The project key
+	configKey := "configKey_example" // string | The AI Config key
+	variationKey := "variationKey_example" // string | The AI Config variation key
 	aIConfigVariationPatch := *openapiclient.NewAIConfigVariationPatch() // AIConfigVariationPatch | AI Config variation object to update (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -3108,9 +3268,9 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
-**configKey** | **string** |  | 
-**variationKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
+**configKey** | **string** | The AI Config key | 
+**variationKey** | **string** | The AI Config variation key | 
 
 ### Other Parameters
 
@@ -3163,8 +3323,8 @@ import (
 )
 
 func main() {
-	projectKey := "projectKey_example" // string | 
-	toolKey := "toolKey_example" // string | 
+	projectKey := "projectKey_example" // string | The project key
+	toolKey := "toolKey_example" // string | The AI tool key
 	aIToolPatch := *openapiclient.NewAIToolPatch() // AIToolPatch | AI tool object to update (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -3185,8 +3345,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
-**toolKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
+**toolKey** | **string** | The AI tool key | 
 
 ### Other Parameters
 
@@ -3239,8 +3399,8 @@ import (
 
 func main() {
 	lDAPIVersion := "lDAPIVersion_example" // string | Version of the endpoint.
-	projectKey := "projectKey_example" // string | 
-	graphKey := "graphKey_example" // string | 
+	projectKey := "projectKey_example" // string | The project key
+	graphKey := "graphKey_example" // string | The agent graph key
 	agentGraphPatch := *openapiclient.NewAgentGraphPatch() // AgentGraphPatch | Agent graph object to update (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -3261,8 +3421,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
-**graphKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
+**graphKey** | **string** | The agent graph key | 
 
 ### Other Parameters
 
@@ -3315,8 +3475,8 @@ import (
 )
 
 func main() {
-	projectKey := "projectKey_example" // string | 
-	optimizationKey := "optimizationKey_example" // string | 
+	projectKey := "projectKey_example" // string | The project key
+	optimizationKey := "optimizationKey_example" // string | The agent optimization key
 	agentOptimizationPatch := *openapiclient.NewAgentOptimizationPatch() // AgentOptimizationPatch | Agent optimization fields to update
 
 	configuration := openapiclient.NewConfiguration()
@@ -3337,8 +3497,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
-**optimizationKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
+**optimizationKey** | **string** | The agent optimization key | 
 
 ### Other Parameters
 
@@ -3390,9 +3550,9 @@ import (
 )
 
 func main() {
-	projectKey := "projectKey_example" // string | 
-	optimizationKey := "optimizationKey_example" // string | 
-	resultId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | 
+	projectKey := "projectKey_example" // string | The project key
+	optimizationKey := "optimizationKey_example" // string | The agent optimization key
+	resultId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | The agent optimization result ID
 	agentOptimizationResultPatch := *openapiclient.NewAgentOptimizationResultPatch() // AgentOptimizationResultPatch | Agent optimization result fields to update
 
 	configuration := openapiclient.NewConfiguration()
@@ -3413,9 +3573,9 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
-**optimizationKey** | **string** |  | 
-**resultId** | **string** |  | 
+**projectKey** | **string** | The project key | 
+**optimizationKey** | **string** | The agent optimization key | 
+**resultId** | **string** | The agent optimization result ID | 
 
 ### Other Parameters
 
@@ -3468,8 +3628,8 @@ import (
 )
 
 func main() {
-	projectKey := "projectKey_example" // string | 
-	skillKey := "skillKey_example" // string | 
+	projectKey := "projectKey_example" // string | The project key
+	skillKey := "skillKey_example" // string | The agent skill key
 	agentSkillPatch := *openapiclient.NewAgentSkillPatch() // AgentSkillPatch | Agent skill fields to update
 
 	configuration := openapiclient.NewConfiguration()
@@ -3490,8 +3650,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
-**skillKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
+**skillKey** | **string** | The agent skill key | 
 
 ### Other Parameters
 
@@ -3543,8 +3703,8 @@ import (
 )
 
 func main() {
-	projectKey := "default" // string | 
-	modelConfigKey := "modelConfigKey_example" // string | 
+	projectKey := "default" // string | The project key
+	modelConfigKey := "modelConfigKey_example" // string | The AI model config key
 	modelConfigPatch := *openapiclient.NewModelConfigPatch() // ModelConfigPatch | AI model config object to update
 
 	configuration := openapiclient.NewConfiguration()
@@ -3565,8 +3725,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
-**modelConfigKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
+**modelConfigKey** | **string** | The AI model config key | 
 
 ### Other Parameters
 
@@ -3618,8 +3778,8 @@ import (
 )
 
 func main() {
-	projectKey := "projectKey_example" // string | 
-	snippetKey := "snippetKey_example" // string | 
+	projectKey := "projectKey_example" // string | The project key
+	snippetKey := "snippetKey_example" // string | The prompt snippet key
 	promptSnippetPatch := *openapiclient.NewPromptSnippetPatch() // PromptSnippetPatch | Prompt snippet fields to update
 
 	configuration := openapiclient.NewConfiguration()
@@ -3640,8 +3800,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
-**snippetKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
+**snippetKey** | **string** | The prompt snippet key | 
 
 ### Other Parameters
 
@@ -3693,7 +3853,7 @@ import (
 )
 
 func main() {
-	projectKey := "projectKey_example" // string | 
+	projectKey := "projectKey_example" // string | The project key
 	aIConfigPost := *openapiclient.NewAIConfigPost("Key_example", "Name_example") // AIConfigPost | AI Config object to create
 
 	configuration := openapiclient.NewConfiguration()
@@ -3714,7 +3874,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
 
 ### Other Parameters
 
@@ -3765,8 +3925,8 @@ import (
 )
 
 func main() {
-	projectKey := "projectKey_example" // string | 
-	configKey := "configKey_example" // string | 
+	projectKey := "projectKey_example" // string | The project key
+	configKey := "configKey_example" // string | The AI Config key
 	aIConfigVariationPost := *openapiclient.NewAIConfigVariationPost("Key_example", "Name_example") // AIConfigVariationPost | AI Config variation object to create
 
 	configuration := openapiclient.NewConfiguration()
@@ -3787,8 +3947,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
-**configKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
+**configKey** | **string** | The AI Config key | 
 
 ### Other Parameters
 
@@ -3840,7 +4000,7 @@ import (
 )
 
 func main() {
-	projectKey := "projectKey_example" // string | 
+	projectKey := "projectKey_example" // string | The project key
 	aIToolPost := *openapiclient.NewAIToolPost("Key_example", map[string]interface{}(123)) // AIToolPost | AI tool object to create
 
 	configuration := openapiclient.NewConfiguration()
@@ -3861,7 +4021,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
 
 ### Other Parameters
 
@@ -3913,7 +4073,7 @@ import (
 
 func main() {
 	lDAPIVersion := "lDAPIVersion_example" // string | Version of the endpoint.
-	projectKey := "projectKey_example" // string | 
+	projectKey := "projectKey_example" // string | The project key
 	agentGraphPost := *openapiclient.NewAgentGraphPost("Key_example", "Name_example") // AgentGraphPost | Agent graph object to create
 
 	configuration := openapiclient.NewConfiguration()
@@ -3934,7 +4094,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
 
 ### Other Parameters
 
@@ -3986,7 +4146,7 @@ import (
 )
 
 func main() {
-	projectKey := "projectKey_example" // string | 
+	projectKey := "projectKey_example" // string | The project key
 	agentOptimizationPost := *openapiclient.NewAgentOptimizationPost("Key_example", "AiConfigKey_example", int32(123), "JudgeModel_example") // AgentOptimizationPost | Agent optimization object to create
 
 	configuration := openapiclient.NewConfiguration()
@@ -4007,7 +4167,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
 
 ### Other Parameters
 
@@ -4058,8 +4218,8 @@ import (
 )
 
 func main() {
-	projectKey := "projectKey_example" // string | 
-	optimizationKey := "optimizationKey_example" // string | 
+	projectKey := "projectKey_example" // string | The project key
+	optimizationKey := "optimizationKey_example" // string | The agent optimization key
 	agentOptimizationResultPost := *openapiclient.NewAgentOptimizationResultPost("RunId_example", int32(123), int32(123), "Instructions_example", "UserInput_example") // AgentOptimizationResultPost | Agent optimization result to create
 
 	configuration := openapiclient.NewConfiguration()
@@ -4080,8 +4240,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
-**optimizationKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
+**optimizationKey** | **string** | The agent optimization key | 
 
 ### Other Parameters
 
@@ -4133,8 +4293,8 @@ import (
 )
 
 func main() {
-	projectKey := "projectKey_example" // string | 
-	agentSkillPost := *openapiclient.NewAgentSkillPost("Key_example", "Name_example", "Markdown_example") // AgentSkillPost | Agent skill object to create
+	projectKey := "projectKey_example" // string | The project key
+	agentSkillPost := *openapiclient.NewAgentSkillPost("pdf-extraction", "PDF extraction", "Markdown_example") // AgentSkillPost | Agent skill object to create
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -4154,7 +4314,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
 
 ### Other Parameters
 
@@ -4205,8 +4365,8 @@ import (
 )
 
 func main() {
-	projectKey := "default" // string | 
-	modelConfigPost := *openapiclient.NewModelConfigPost("Name_example", "Key_example", "Id_example") // ModelConfigPost | AI model config object to create
+	projectKey := "default" // string | The project key
+	modelConfigPost := *openapiclient.NewModelConfigPost("GPT Image 2", "OpenAI.gpt-image-2", "gpt-image-2") // ModelConfigPost | AI model config object to create
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -4226,7 +4386,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
 
 ### Other Parameters
 
@@ -4277,7 +4437,7 @@ import (
 )
 
 func main() {
-	projectKey := "projectKey_example" // string | 
+	projectKey := "projectKey_example" // string | The project key
 	promptSnippetPost := *openapiclient.NewPromptSnippetPost("Key_example", "Name_example", "Text_example") // PromptSnippetPost | Prompt snippet object to create
 
 	configuration := openapiclient.NewConfiguration()
@@ -4298,7 +4458,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
 
 ### Other Parameters
 
@@ -4349,7 +4509,7 @@ import (
 )
 
 func main() {
-	projectKey := "default" // string | 
+	projectKey := "default" // string | The project key
 	restrictedModelsRequest := *openapiclient.NewRestrictedModelsRequest([]string{"Keys_example"}) // RestrictedModelsRequest | List of AI model keys to add to the restricted list.
 
 	configuration := openapiclient.NewConfiguration()
@@ -4370,7 +4530,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**projectKey** | **string** |  | 
+**projectKey** | **string** | The project key | 
 
 ### Other Parameters
 

@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CanReshuffle** | **bool** |  | 
-**DefaultVariation** | **int32** |  | 
-**Type** | **string** |  | 
+**CanReshuffle** | **bool** | Whether contexts can be reassigned to new buckets | 
+**DefaultVariation** | **int32** | Index of the default variation | 
+**Type** | **string** | The allocation type | 
 
 ## Methods
 

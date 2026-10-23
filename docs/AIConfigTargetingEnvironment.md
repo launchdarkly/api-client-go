@@ -4,17 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ContextTargets** | [**[]AIConfigTargetingEnvironmentTarget**](AIConfigTargetingEnvironmentTarget.md) |  | 
-**Enabled** | **bool** |  | 
+**ContextTargets** | [**[]AIConfigTargetingEnvironmentTarget**](AIConfigTargetingEnvironmentTarget.md) | Individual context targets for non-user context kinds | 
+**Enabled** | **bool** | Whether targeting is on in this environment | 
 **Fallthrough** | [**AIConfigTargetingEnvironmentFallthrough**](AIConfigTargetingEnvironmentFallthrough.md) |  | 
 **LastModified** | **int64** |  | 
-**OffVariation** | Pointer to **int32** |  | [optional] 
-**Rules** | [**[]AIConfigTargetingEnvironmentRule**](AIConfigTargetingEnvironmentRule.md) |  | 
-**Targets** | [**[]AIConfigTargetingEnvironmentTarget**](AIConfigTargetingEnvironmentTarget.md) |  | 
-**TrackEvents** | **bool** |  | 
-**TrackEventsFallthrough** | **bool** |  | 
-**EnvironmentName** | **string** |  | 
-**Version** | **int32** |  | 
+**OffVariation** | Pointer to **int32** | Index of the variation served when targeting is off | [optional] 
+**Rules** | [**[]AIConfigTargetingEnvironmentRule**](AIConfigTargetingEnvironmentRule.md) | The targeting rules | 
+**Targets** | [**[]AIConfigTargetingEnvironmentTarget**](AIConfigTargetingEnvironmentTarget.md) | Individual user targets | 
+**TrackEvents** | **bool** | Whether to send detailed events for all evaluations | 
+**TrackEventsFallthrough** | **bool** | Whether to send detailed events for evaluations that fall through to the default rule | 
+**EnvironmentName** | **string** | The environment name | 
+**Version** | **int32** | The version of the targeting in this environment | 
 
 ## Methods
 

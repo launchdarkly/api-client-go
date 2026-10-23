@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Links** | Pointer to [**PaginatedLinks**](PaginatedLinks.md) |  | [optional] 
-**Items** | [**[]AgentGraph**](AgentGraph.md) |  | 
-**TotalCount** | **int32** |  | 
+**Items** | [**[]AgentGraph**](AgentGraph.md) | The items on this page | 
+**TotalCount** | **int32** | The total number of items | 
 
 ## Methods
 

@@ -5,26 +5,28 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Links** | Pointer to [**ParentLink**](ParentLink.md) |  | [optional] 
-**Color** | Pointer to **string** |  | [optional] 
-**Comment** | Pointer to **string** |  | [optional] 
+**Color** | Pointer to **string** | The color used for this variation in the UI | [optional] 
+**Classifiers** | Pointer to [**[]Classifier**](Classifier.md) | Classifier rules for a judge variation. When this array is non-empty, messages must be empty.  | [optional] 
+**Comment** | Pointer to **string** | A comment describing this version of the variation | [optional] 
 **Description** | Pointer to **string** | Returns the description for the agent. This is only returned for agent variations. | [optional] 
 **Instructions** | Pointer to **string** | Returns the instructions for the agent. This is only returned for agent variations. | [optional] 
-**Key** | **string** |  | 
-**Id** | **string** |  | 
-**Messages** | Pointer to [**[]Message**](Message.md) |  | [optional] 
-**Model** | **map[string]interface{}** |  | 
-**ModelConfigKey** | Pointer to **string** |  | [optional] 
-**Name** | **string** |  | 
+**Key** | **string** | The variation key | 
+**Id** | **string** | The variation ID | 
+**Messages** | Pointer to [**[]Message**](Message.md) | The prompt messages for this variation | [optional] 
+**Model** | **map[string]interface{}** | Freeform JSON object. LaunchDarkly does not validate the keys. In a model config, &#x60;params&#x60; and &#x60;customParams&#x60; hold parameters that the provider&#39;s API accepts, for example &#x60;{\&quot;temperature\&quot;: 0.7, \&quot;maxTokens\&quot;: 4096}&#x60;. | 
+**ModelConfigKey** | Pointer to **string** | The key of the model config that this variation uses, not the provider model ID. Absent when the variation does not use a model config.  | [optional] 
+**ModelConfigVersion** | Pointer to **int32** | The version of the model config that this variation is pinned to, when it references a custom model config. Absent when the variation does not reference a model config, when the variation is not pinned to a specific version, or when custom model config versioning is not enabled for the project.  | [optional] 
+**Name** | **string** | The variation name | 
 **OutputFormat** | Pointer to **map[string]interface{}** | JSON Schema defining the structured output format for the variation. | [optional] 
 **CreatedAt** | **int64** |  | 
-**Version** | **int32** |  | 
-**State** | Pointer to **string** |  | [optional] 
+**Version** | **int32** | The version number of this resource | 
+**State** | Pointer to **string** | The state of the variation. - &#x60;archived&#x60;: The variation is archived. To restore it, update the variation with &#x60;state&#x60; set to &#x60;published&#x60;. - &#x60;published&#x60;: The variation is active.  | [optional] 
 **ArchivedAt** | Pointer to **int64** |  | [optional] 
 **PublishedAt** | Pointer to **int64** |  | [optional] 
-**Tools** | Pointer to [**[]VariationTool**](VariationTool.md) |  | [optional] 
-**Skills** | Pointer to [**[]VariationSkill**](VariationSkill.md) |  | [optional] 
+**Tools** | Pointer to [**[]VariationTool**](VariationTool.md) | The tools this variation can use | [optional] 
+**Skills** | Pointer to [**[]VariationSkill**](VariationSkill.md) | The agent skills this variation can use | [optional] 
 **JudgeConfiguration** | Pointer to [**JudgeConfiguration**](JudgeConfiguration.md) |  | [optional] 
-**JudgingConfigKeys** | Pointer to **[]string** |  | [optional] 
+**JudgingConfigKeys** | Pointer to **[]string** | Keys of the judge AI Configs attached to this variation | [optional] 
 
 ## Methods
 
@@ -94,6 +96,31 @@ SetColor sets Color field to given value.
 `func (o *AIConfigVariation) HasColor() bool`
 
 HasColor returns a boolean if a field has been set.
+
+### GetClassifiers
+
+`func (o *AIConfigVariation) GetClassifiers() []Classifier`
+
+GetClassifiers returns the Classifiers field if non-nil, zero value otherwise.
+
+### GetClassifiersOk
+
+`func (o *AIConfigVariation) GetClassifiersOk() (*[]Classifier, bool)`
+
+GetClassifiersOk returns a tuple with the Classifiers field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetClassifiers
+
+`func (o *AIConfigVariation) SetClassifiers(v []Classifier)`
+
+SetClassifiers sets Classifiers field to given value.
+
+### HasClassifiers
+
+`func (o *AIConfigVariation) HasClassifiers() bool`
+
+HasClassifiers returns a boolean if a field has been set.
 
 ### GetComment
 
@@ -279,6 +306,31 @@ SetModelConfigKey sets ModelConfigKey field to given value.
 `func (o *AIConfigVariation) HasModelConfigKey() bool`
 
 HasModelConfigKey returns a boolean if a field has been set.
+
+### GetModelConfigVersion
+
+`func (o *AIConfigVariation) GetModelConfigVersion() int32`
+
+GetModelConfigVersion returns the ModelConfigVersion field if non-nil, zero value otherwise.
+
+### GetModelConfigVersionOk
+
+`func (o *AIConfigVariation) GetModelConfigVersionOk() (*int32, bool)`
+
+GetModelConfigVersionOk returns a tuple with the ModelConfigVersion field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetModelConfigVersion
+
+`func (o *AIConfigVariation) SetModelConfigVersion(v int32)`
+
+SetModelConfigVersion sets ModelConfigVersion field to given value.
+
+### HasModelConfigVersion
+
+`func (o *AIConfigVariation) HasModelConfigVersion() bool`
+
+HasModelConfigVersion returns a boolean if a field has been set.
 
 ### GetName
 

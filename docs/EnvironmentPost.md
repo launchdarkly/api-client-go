@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Color** | **string** | A color to indicate this environment in the UI | 
 **DefaultTtl** | Pointer to **int32** | The default time (in minutes) that the PHP SDK can cache feature flag rules locally | [optional] 
 **SecureMode** | Pointer to **bool** | Ensures that one end user of the client-side SDK cannot inspect the variations for another end user | [optional] 
-**DefaultTrackEvents** | Pointer to **bool** | Enables tracking detailed information for new flags by default | [optional] 
+**DefaultTrackEvents** | Pointer to **bool** | The initial value of trackEvents for flags created in this environment. Does not affect existing flags. Required for Data Export, but doesn&#39;t enable Data Export on its own. | [optional] 
 **ConfirmChanges** | Pointer to **bool** | Requires confirmation for all flag and segment changes via the UI in this environment | [optional] 
 **RequireComments** | Pointer to **bool** | Requires comments for all flag and segment changes via the UI in this environment | [optional] 
 **Tags** | Pointer to **[]string** | Tags to apply to the new environment | [optional] 

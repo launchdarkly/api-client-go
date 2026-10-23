@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Statement** | **string** |  | 
-**Threshold** | **float64** |  | 
+**Statement** | **string** | A statement the response must satisfy | 
+**Threshold** | **float64** | The minimum score needed to pass | 
 
 ## Methods
 

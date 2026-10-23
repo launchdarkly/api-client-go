@@ -6,14 +6,14 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Status** | Pointer to [**AgentOptimizationResultStatus**](AgentOptimizationResultStatus.md) |  | [optional] 
 **Activity** | Pointer to [**AgentOptimizationResultActivity**](AgentOptimizationResultActivity.md) |  | [optional] 
-**CompletionResponse** | Pointer to **string** |  | [optional] 
-**Variation** | Pointer to **map[string]interface{}** |  | [optional] 
-**Scores** | Pointer to **map[string]interface{}** |  | [optional] 
-**GenerationTokens** | Pointer to **map[string]interface{}** |  | [optional] 
-**EvaluationTokens** | Pointer to **map[string]interface{}** |  | [optional] 
-**GenerationLatency** | Pointer to **int32** |  | [optional] 
-**EvaluationLatencies** | Pointer to **map[string]interface{}** |  | [optional] 
-**CreatedVariationKey** | Pointer to **string** |  | [optional] 
+**CompletionResponse** | Pointer to **string** | The model response | [optional] 
+**Variation** | Pointer to **map[string]interface{}** | The variation that was tested | [optional] 
+**Scores** | Pointer to **map[string]interface{}** | The scores for the response | [optional] 
+**GenerationTokens** | Pointer to **map[string]interface{}** | Token usage for generating the response | [optional] 
+**EvaluationTokens** | Pointer to **map[string]interface{}** | Token usage for judging the response | [optional] 
+**GenerationLatency** | Pointer to **int32** | How long the response took to generate | [optional] 
+**EvaluationLatencies** | Pointer to **map[string]interface{}** | How long each evaluation took | [optional] 
+**CreatedVariationKey** | Pointer to **string** | The key of the variation created from this result | [optional] 
 
 ## Methods
 

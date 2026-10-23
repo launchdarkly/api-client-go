@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **RequireApproval** | **bool** | Whether or not the audience requires approval | 
 **NotifyMemberIds** | Pointer to **[]string** | An array of member IDs. These members are notified to review the approval request. | [optional] 
 **NotifyTeamKeys** | Pointer to **[]string** | An array of team keys. The members of these teams are notified to review the approval request. | [optional] 
-**ReleaseGuardianConfiguration** | Pointer to [**ReleaseGuardianConfiguration**](ReleaseGuardianConfiguration.md) |  | [optional] 
+**ReleaseGuardianConfiguration** | Pointer to [**PipelineReleaseGuardianConfiguration**](PipelineReleaseGuardianConfiguration.md) |  | [optional] 
 
 ## Methods
 
@@ -121,20 +121,20 @@ HasNotifyTeamKeys returns a boolean if a field has been set.
 
 ### GetReleaseGuardianConfiguration
 
-`func (o *AudienceConfiguration) GetReleaseGuardianConfiguration() ReleaseGuardianConfiguration`
+`func (o *AudienceConfiguration) GetReleaseGuardianConfiguration() PipelineReleaseGuardianConfiguration`
 
 GetReleaseGuardianConfiguration returns the ReleaseGuardianConfiguration field if non-nil, zero value otherwise.
 
 ### GetReleaseGuardianConfigurationOk
 
-`func (o *AudienceConfiguration) GetReleaseGuardianConfigurationOk() (*ReleaseGuardianConfiguration, bool)`
+`func (o *AudienceConfiguration) GetReleaseGuardianConfigurationOk() (*PipelineReleaseGuardianConfiguration, bool)`
 
 GetReleaseGuardianConfigurationOk returns a tuple with the ReleaseGuardianConfiguration field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetReleaseGuardianConfiguration
 
-`func (o *AudienceConfiguration) SetReleaseGuardianConfiguration(v ReleaseGuardianConfiguration)`
+`func (o *AudienceConfiguration) SetReleaseGuardianConfiguration(v PipelineReleaseGuardianConfiguration)`
 
 SetReleaseGuardianConfiguration sets ReleaseGuardianConfiguration field to given value.
 

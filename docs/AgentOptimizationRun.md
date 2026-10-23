@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**RunId** | **string** |  | 
-**OptimizationKey** | **string** |  | 
-**AgentOptimizationId** | **string** |  | 
-**AgentOptimizationVersion** | **int32** |  | 
+**RunId** | **string** | The run ID | 
+**OptimizationKey** | **string** | The agent optimization key | 
+**AgentOptimizationId** | **string** | The agent optimization ID | 
+**AgentOptimizationVersion** | **int32** | The version of the agent optimization used | 
 **Status** | [**AgentOptimizationResultStatus**](AgentOptimizationResultStatus.md) |  | 
 **Activity** | [**AgentOptimizationResultActivity**](AgentOptimizationResultActivity.md) |  | 
-**CreatedAt** | **int64** |  | 
-**CompletedAt** | Pointer to **NullableInt64** |  | [optional] 
+**CreatedAt** | **int64** | When this resource was created, in Unix milliseconds | 
+**CompletedAt** | Pointer to **NullableInt64** | When this finished, in Unix milliseconds | [optional] 
 
 ## Methods
 

@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **Name** | **string** | The human-readable name of the SDK key. | 
 **Description** | Pointer to **string** | The optional description of the SDK key. | [optional] 
 **Expiry** | Pointer to **int64** |  | [optional] 
+**ViewKeys** | Pointer to **[]string** | List of view keys to associate with the SDK key. | [optional] 
 
 ## Methods
 
@@ -143,6 +144,31 @@ SetExpiry sets Expiry field to given value.
 `func (o *SdkKeyPost) HasExpiry() bool`
 
 HasExpiry returns a boolean if a field has been set.
+
+### GetViewKeys
+
+`func (o *SdkKeyPost) GetViewKeys() []string`
+
+GetViewKeys returns the ViewKeys field if non-nil, zero value otherwise.
+
+### GetViewKeysOk
+
+`func (o *SdkKeyPost) GetViewKeysOk() (*[]string, bool)`
+
+GetViewKeysOk returns a tuple with the ViewKeys field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetViewKeys
+
+`func (o *SdkKeyPost) SetViewKeys(v []string)`
+
+SetViewKeys sets ViewKeys field to given value.
+
+### HasViewKeys
+
+`func (o *SdkKeyPost) HasViewKeys() bool`
+
+HasViewKeys returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

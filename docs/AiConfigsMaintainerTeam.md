@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Key** | **string** |  | 
-**Name** | **string** |  | 
+**Key** | **string** | The team key | 
+**Name** | **string** | The team name | 
 
 ## Methods
 

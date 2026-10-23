@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ContextKind** | **string** |  | 
-**Values** | **[]string** |  | 
-**Variation** | **int32** |  | 
+**ContextKind** | **string** | The context kind | 
+**Values** | **[]string** | The context keys to target | 
+**Variation** | **int32** | Index of the variation to serve | 
 
 ## Methods
 

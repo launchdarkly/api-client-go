@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **RollbackOnRegression** | Pointer to **bool** | Whether to roll back on regression | [optional] 
 **MetricKeys** | Pointer to **[]string** | List of metric keys | [optional] 
 **MetricGroupKeys** | Pointer to **[]string** | List of metric group keys | [optional] 
-**Stages** | Pointer to [**[]ReleasePolicyStage**](ReleasePolicyStage.md) | List of stages | [optional] 
+**Stages** | Pointer to [**[]ReleasePolicyStage**](ReleasePolicyStage.md) | List of stages. At most 10 stages by default; the server enforces the per-account limit, which is never more than 20. | [optional] 
 
 ## Methods
 
