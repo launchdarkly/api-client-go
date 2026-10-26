@@ -758,7 +758,7 @@ tags:
     >
     > Resources that are in beta are still undergoing testing and development. They may change without notice, including becoming backwards incompatible.
 
-    Environment releases progressively or guardedly roll out a flag targeting change in one environment. Use the environment releases API to list and retrieve releases, start a release, or stop an active release.
+    An environment release [progressively](https://launchdarkly.com/docs/home/releases/progressive-rollouts#progressive-rollouts) rolls out a new flag variation in one environment. On select plans, you can [guard](https://launchdarkly.com/docs/home/releases/guarded-rollouts) one or more metrics, monitoring them for regressions. Use the environment releases API to list releases, get a release, start a release, or stop an active release.
   name: Environment releases (beta)
 - description: |
     Environments allow you to maintain separate rollout rules in different contexts, from local development to QA, staging, and production. With the LaunchDarkly Environments API, you can programmatically list, create, and manage environments. To learn more, read [Environments](https://launchdarkly.com/docs/home/account/environment).
