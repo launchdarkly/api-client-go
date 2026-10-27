@@ -24,6 +24,8 @@ type EnvironmentReleaseMetricInput struct {
 	MetricKey string `json:"metricKey"`
 	// Whether a regression on this metric automatically reverts the release. When `false`, a detected regression pauses the release instead: it reports `waiting` with reason `waiting_regression_detected` and does not advance until the regression is dismissed or the release is stopped. 
 	AutoRollback *bool `json:"autoRollback,omitempty"`
+	// Key of the context kind to analyze this metric on. Omit it to analyze on the randomization unit. A value must differ from the randomization unit and be one of the metric's units. Percentile metrics, ratio metrics, and metrics in a group cannot set it. The value cannot be changed after the release starts. 
+	AnalysisUnit *string `json:"analysisUnit,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -107,6 +109,38 @@ func (o *EnvironmentReleaseMetricInput) SetAutoRollback(v bool) {
 	o.AutoRollback = &v
 }
 
+// GetAnalysisUnit returns the AnalysisUnit field value if set, zero value otherwise.
+func (o *EnvironmentReleaseMetricInput) GetAnalysisUnit() string {
+	if o == nil || IsNil(o.AnalysisUnit) {
+		var ret string
+		return ret
+	}
+	return *o.AnalysisUnit
+}
+
+// GetAnalysisUnitOk returns a tuple with the AnalysisUnit field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EnvironmentReleaseMetricInput) GetAnalysisUnitOk() (*string, bool) {
+	if o == nil || IsNil(o.AnalysisUnit) {
+		return nil, false
+	}
+	return o.AnalysisUnit, true
+}
+
+// HasAnalysisUnit returns a boolean if a field has been set.
+func (o *EnvironmentReleaseMetricInput) HasAnalysisUnit() bool {
+	if o != nil && !IsNil(o.AnalysisUnit) {
+		return true
+	}
+
+	return false
+}
+
+// SetAnalysisUnit gets a reference to the given string and assigns it to the AnalysisUnit field.
+func (o *EnvironmentReleaseMetricInput) SetAnalysisUnit(v string) {
+	o.AnalysisUnit = &v
+}
+
 func (o EnvironmentReleaseMetricInput) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -120,6 +154,9 @@ func (o EnvironmentReleaseMetricInput) ToMap() (map[string]interface{}, error) {
 	toSerialize["metricKey"] = o.MetricKey
 	if !IsNil(o.AutoRollback) {
 		toSerialize["autoRollback"] = o.AutoRollback
+	}
+	if !IsNil(o.AnalysisUnit) {
+		toSerialize["analysisUnit"] = o.AnalysisUnit
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -166,6 +203,7 @@ func (o *EnvironmentReleaseMetricInput) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "metricKey")
 		delete(additionalProperties, "autoRollback")
+		delete(additionalProperties, "analysisUnit")
 		o.AdditionalProperties = additionalProperties
 	}
 

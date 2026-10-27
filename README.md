@@ -1359,6 +1359,7 @@ Class | Method | HTTP request | Description
  - [IterationRep](docs/IterationRep.md)
  - [JudgeAttachment](docs/JudgeAttachment.md)
  - [JudgeConfiguration](docs/JudgeConfiguration.md)
+ - [JudgeScore](docs/JudgeScore.md)
  - [LastSeenMetadata](docs/LastSeenMetadata.md)
  - [LayerCollectionRep](docs/LayerCollectionRep.md)
  - [LayerConfigurationRep](docs/LayerConfigurationRep.md)
