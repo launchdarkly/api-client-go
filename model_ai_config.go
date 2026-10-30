@@ -46,7 +46,7 @@ type AIConfig struct {
 	// List of evaluation metric keys for this config
 	// Deprecated
 	EvaluationMetricKeys []string `json:"evaluationMetricKeys,omitempty"`
-	// Whether the evaluation metric is inverted, meaning a lower value is better if set as true
+	// The success direction of a judge. Offline evaluations use it to decide whether a score passes.  - `true`: A lower score is better. Use this for a judge that scores bad output, such as a toxicity or hallucination judge. - `false`: A higher score is better. Use this for a judge that scores good output, such as an accuracy or relevance judge.  The response includes this field only when `mode` is `judge`. For a built-in judge key, the value is always the built-in direction. Built-in judge keys are `ld-ai-judge-accuracy`, `ld-ai-judge-relevance`, and `ld-ai-judge-toxicity`, with or without a `-<timestamp>` suffix such as `ld-ai-judge-accuracy-1760000000000`. A custom judge with no stored direction omits this field. 
 	IsInverted *bool `json:"isInverted,omitempty"`
 	// Resources that depend on this config, grouped by type
 	Dependencies []AIConfigDependency `json:"dependencies,omitempty"`

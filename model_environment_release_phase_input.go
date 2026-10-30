@@ -14,7 +14,6 @@ package ldapi
 import (
 	"encoding/json"
 	"fmt"
-	"gopkg.in/validator.v2"
 )
 
 // EnvironmentReleasePhaseInput - One phase of a release. Each phase creates a flag rule unless it sets `ruleId`.
@@ -43,34 +42,26 @@ func (dst *EnvironmentReleasePhaseInput) UnmarshalJSON(data []byte) error {
 	var err error
 	match := 0
 	// try to unmarshal data into EnvironmentReleaseExistingRulePhaseInput
-	err = newStrictDecoder(data).Decode(&dst.EnvironmentReleaseExistingRulePhaseInput)
+	err = json.Unmarshal(data, &dst.EnvironmentReleaseExistingRulePhaseInput)
 	if err == nil {
 		jsonEnvironmentReleaseExistingRulePhaseInput, _ := json.Marshal(dst.EnvironmentReleaseExistingRulePhaseInput)
 		if string(jsonEnvironmentReleaseExistingRulePhaseInput) == "{}" { // empty struct
 			dst.EnvironmentReleaseExistingRulePhaseInput = nil
 		} else {
-			if err = validator.Validate(dst.EnvironmentReleaseExistingRulePhaseInput); err != nil {
-				dst.EnvironmentReleaseExistingRulePhaseInput = nil
-			} else {
-				match++
-			}
+			match++
 		}
 	} else {
 		dst.EnvironmentReleaseExistingRulePhaseInput = nil
 	}
 
 	// try to unmarshal data into EnvironmentReleaseNewRulePhaseInput
-	err = newStrictDecoder(data).Decode(&dst.EnvironmentReleaseNewRulePhaseInput)
+	err = json.Unmarshal(data, &dst.EnvironmentReleaseNewRulePhaseInput)
 	if err == nil {
 		jsonEnvironmentReleaseNewRulePhaseInput, _ := json.Marshal(dst.EnvironmentReleaseNewRulePhaseInput)
 		if string(jsonEnvironmentReleaseNewRulePhaseInput) == "{}" { // empty struct
 			dst.EnvironmentReleaseNewRulePhaseInput = nil
 		} else {
-			if err = validator.Validate(dst.EnvironmentReleaseNewRulePhaseInput); err != nil {
-				dst.EnvironmentReleaseNewRulePhaseInput = nil
-			} else {
-				match++
-			}
+			match++
 		}
 	} else {
 		dst.EnvironmentReleaseNewRulePhaseInput = nil

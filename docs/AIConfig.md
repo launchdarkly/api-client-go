@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 **UpdatedAt** | **int64** |  | 
 **EvaluationMetricKey** | Pointer to **string** | Evaluation metric key for this config | [optional] 
 **EvaluationMetricKeys** | Pointer to **[]string** | List of evaluation metric keys for this config | [optional] 
-**IsInverted** | Pointer to **bool** | Whether the evaluation metric is inverted, meaning a lower value is better if set as true | [optional] 
+**IsInverted** | Pointer to **bool** | The success direction of a judge. Offline evaluations use it to decide whether a score passes.  - &#x60;true&#x60;: A lower score is better. Use this for a judge that scores bad output, such as a toxicity or hallucination judge. - &#x60;false&#x60;: A higher score is better. Use this for a judge that scores good output, such as an accuracy or relevance judge.  The response includes this field only when &#x60;mode&#x60; is &#x60;judge&#x60;. For a built-in judge key, the value is always the built-in direction. Built-in judge keys are &#x60;ld-ai-judge-accuracy&#x60;, &#x60;ld-ai-judge-relevance&#x60;, and &#x60;ld-ai-judge-toxicity&#x60;, with or without a &#x60;-&lt;timestamp&gt;&#x60; suffix such as &#x60;ld-ai-judge-accuracy-1760000000000&#x60;. A custom judge with no stored direction omits this field.  | [optional] 
 **Dependencies** | Pointer to [**[]AIConfigDependency**](AIConfigDependency.md) | Resources that depend on this config, grouped by type | [optional] 
 
 ## Methods

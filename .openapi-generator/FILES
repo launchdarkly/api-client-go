@@ -509,6 +509,7 @@ docs/IterationInput.md
 docs/IterationRep.md
 docs/JudgeAttachment.md
 docs/JudgeConfiguration.md
+docs/JudgeScore.md
 docs/LastSeenMetadata.md
 docs/LayerCollectionRep.md
 docs/LayerConfigurationRep.md
@@ -1251,6 +1252,7 @@ model_iteration_input.go
 model_iteration_rep.go
 model_judge_attachment.go
 model_judge_configuration.go
+model_judge_score.go
 model_last_seen_metadata.go
 model_layer_collection_rep.go
 model_layer_configuration_rep.go

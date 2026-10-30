@@ -758,7 +758,7 @@ tags:
     >
     > Resources that are in beta are still undergoing testing and development. They may change without notice, including becoming backwards incompatible.
 
-    Environment releases progressively or guardedly roll out a flag targeting change in one environment. Use the environment releases API to list and retrieve releases, start a release, or stop an active release.
+    An environment release [progressively](https://launchdarkly.com/docs/home/releases/progressive-rollouts#progressive-rollouts) rolls out a new flag variation in one environment. On select plans, you can [guard](https://launchdarkly.com/docs/home/releases/guarded-rollouts) one or more metrics, monitoring them for regressions. Use the environment releases API to list releases, get a release, start a release, or stop an active release.
   name: Environment releases (beta)
 - description: |
     Environments allow you to maintain separate rollout rules in different contexts, from local development to QA, staging, and production. With the LaunchDarkly Environments API, you can programmatically list, create, and manage environments. To learn more, read [Environments](https://launchdarkly.com/docs/home/account/environment).
@@ -78967,8 +78967,14 @@ components:
             type: string
           type: array
         isInverted:
-          description: "Whether the evaluation metric is inverted, meaning a lower\
-            \ value is better if set as true"
+          description: |
+            The success direction of a judge. Offline evaluations use it to decide whether a score passes.
+
+            - `true`: A lower score is better. Use this for a judge that scores bad output, such as a toxicity or hallucination judge.
+            - `false`: A higher score is better. Use this for a judge that scores good output, such as an accuracy or relevance judge.
+
+            The response includes this field only when `mode` is `judge`. For a built-in judge key, the value is always the built-in direction. Built-in judge keys are `ld-ai-judge-accuracy`, `ld-ai-judge-relevance`, and `ld-ai-judge-toxicity`, with or without a `-<timestamp>` suffix such as `ld-ai-judge-accuracy-1760000000000`. A custom judge with no stored direction omits this field.
+          example: true
           type: boolean
         dependencies:
           description: "Resources that depend on this config, grouped by type"
@@ -79088,8 +79094,23 @@ components:
           description: Evaluation metric key for this config
           type: string
         isInverted:
-          description: "Whether the evaluation metric is inverted, meaning a lower\
-            \ value is better if set as true"
+          description: |
+            The success direction of a judge. Offline evaluations use it to decide whether a score passes.
+
+            - `true`: A lower score is better. Use this for a judge that scores bad output, such as a toxicity or hallucination judge.
+            - `false`: A higher score is better. Use this for a judge that scores good output, such as an accuracy or relevance judge.
+
+            **Required for a custom judge.** A custom judge has `mode` set to `judge` and a `key` that is not a built-in judge key. Built-in judge keys are `ld-ai-judge-accuracy`, `ld-ai-judge-relevance`, and `ld-ai-judge-toxicity`, with or without a `-<timestamp>` suffix such as `ld-ai-judge-accuracy-1760000000000`. For a built-in judge key, this field is optional, and the API always uses the built-in direction.
+
+            Do not send this field when `mode` is `agent` or `completion`.
+
+            This field is not in the schema's `required` list, because only custom judges need it.
+
+            The API returns a `400` error in these cases:
+            - `isInverted is required for a custom judge: ...`: You create a custom judge without this field. Send `true` or `false`.
+            - `isInverted is only supported for judge mode`: You send this field and `mode` is `agent` or `completion`. Remove the field, or set `mode` to `judge`.
+            - `isInverted is not supported`: Custom judges are not available for your account. Remove the field from the request.
+          example: true
           type: boolean
       required:
       - key
@@ -79134,8 +79155,18 @@ components:
           description: Evaluation metric key for this config
           type: string
         isInverted:
-          description: "Whether the evaluation metric is inverted, meaning a lower\
-            \ value is better if set as true"
+          description: |
+            The success direction of a judge. Offline evaluations use it to decide whether a score passes.
+
+            - `true`: A lower score is better. Use this for a judge that scores bad output, such as a toxicity or hallucination judge.
+            - `false`: A higher score is better. Use this for a judge that scores good output, such as an accuracy or relevance judge.
+
+            Send this field only when the AI Config's `mode` is `judge`. If you omit it, the current direction does not change. For a built-in judge key, the API always returns the built-in direction. Built-in judge keys are `ld-ai-judge-accuracy`, `ld-ai-judge-relevance`, and `ld-ai-judge-toxicity`, with or without a `-<timestamp>` suffix such as `ld-ai-judge-accuracy-1760000000000`.
+
+            The API returns a `400` error in these cases:
+            - `isInverted is only supported for judge mode`: You send this field and the AI Config's `mode` is `agent` or `completion`. Remove the field.
+            - `isInverted is not supported`: Custom judges are not available for your account. Remove the field from the request.
+          example: true
           type: boolean
       type: object
     AIConfigVariation:
@@ -80431,6 +80462,23 @@ components:
                 - ""
                 attribute: attribute
                 id: id
+              shadows:
+              - variationId: variationId
+                endCondition:
+                  kind: kind
+                  value: 4
+                samplingRate: 0.20271230230023218
+                id: id
+                ownerId: ownerId
+                ownerKind: ownerKind
+              - variationId: variationId
+                endCondition:
+                  kind: kind
+                  value: 4
+                samplingRate: 0.20271230230023218
+                id: id
+                ownerId: ownerId
+                ownerKind: ownerKind
               trackEvents: true
             - clauses:
               - op: op
@@ -80447,8 +80495,25 @@ components:
                 - ""
                 attribute: attribute
                 id: id
+              shadows:
+              - variationId: variationId
+                endCondition:
+                  kind: kind
+                  value: 4
+                samplingRate: 0.20271230230023218
+                id: id
+                ownerId: ownerId
+                ownerKind: ownerKind
+              - variationId: variationId
+                endCondition:
+                  kind: kind
+                  value: 4
+                samplingRate: 0.20271230230023218
+                id: id
+                ownerId: ownerId
+                ownerKind: ownerKind
               trackEvents: true
-            lastModified: 2
+            lastModified: 7
             trackEvents: true
             fallthrough:
               rollout:
@@ -80466,8 +80531,25 @@ components:
                   variation: 9
                 contextKind: contextKind
                 bucketBy: bucketBy
+              shadows:
+              - variationId: variationId
+                endCondition:
+                  kind: kind
+                  value: 4
+                samplingRate: 0.20271230230023218
+                id: id
+                ownerId: ownerId
+                ownerKind: ownerKind
+              - variationId: variationId
+                endCondition:
+                  kind: kind
+                  value: 4
+                samplingRate: 0.20271230230023218
+                id: id
+                ownerId: ownerId
+                ownerKind: ownerKind
               variation: 5
-            offVariation: 4
+            offVariation: 1
             targets:
             - values:
               - values
@@ -80479,7 +80561,7 @@ components:
               - values
               contextKind: contextKind
               variation: 5
-            _version: 7
+            _version: 1
             enabled: true
         variations:
         - name: name
@@ -80500,12 +80582,12 @@ components:
             - my-environment
             _environmentSettings:
               key:
-                startDate: 6
-                stopDate: 8
+                startDate: 9
+                stopDate: 6
                 enabledPeriods:
-                - startDate: 9
+                - startDate: 3
                   stopDate: 6
-                - startDate: 9
+                - startDate: 3
                   stopDate: 6
             _metric:
               _links:
@@ -80516,7 +80598,7 @@ components:
                   href: /api/v2/metrics/my-project/my-metric
                   type: application/json
               activeExperimentCount: 2
-              windowEndOffset: 1
+              windowEndOffset: 5
               randomizationUnits:
               - user
               guardedRolloutCount: 0
@@ -80586,8 +80668,8 @@ components:
               kind: custom
               _attachedFlagCount: 0
               metricGroupCount: 0
-              _creationDate: 1
-              windowStartOffset: 7
+              _creationDate: 6
+              windowStartOffset: 4
               tags: []
               winsorIncludeImputed: false
               denominator:
@@ -80609,14 +80691,14 @@ components:
                   _integrationKey: _integrationKey
                   key: key
                   environmentKey: environmentKey
-                windowStartOffset: 4
-                windowEndOffset: 5
-                winsorLowerPercentile: 9.965781217890562
-                winsorUpperPercentile: 9.369310271410669
+                windowStartOffset: 9
+                windowEndOffset: 9
+                winsorLowerPercentile: 6.683562403749608
+                winsorUpperPercentile: 8.762042012749001
                 winsorIncludeImputed: true
               maintainerId: 569fdeadbeef1644facecafe
               unit: unit
-              lastSeen: 1
+              lastSeen: 7
               isNumeric: true
               experimentCount: 0
               name: My metric
@@ -80665,7 +80747,7 @@ components:
               eventDefault:
                 disabled: true
                 value: 0
-              archivedAt: 6
+              archivedAt: 1
               successCriteria: HigherThanBaseline
               releasePolicyCount: 0
               _versionId: version-id-123abc
@@ -80680,12 +80762,12 @@ components:
             - my-environment
             _environmentSettings:
               key:
-                startDate: 6
-                stopDate: 8
+                startDate: 9
+                stopDate: 6
                 enabledPeriods:
-                - startDate: 9
+                - startDate: 3
                   stopDate: 6
-                - startDate: 9
+                - startDate: 3
                   stopDate: 6
             _metric:
               _links:
@@ -80696,7 +80778,7 @@ components:
                   href: /api/v2/metrics/my-project/my-metric
                   type: application/json
               activeExperimentCount: 2
-              windowEndOffset: 1
+              windowEndOffset: 5
               randomizationUnits:
               - user
               guardedRolloutCount: 0
@@ -80766,8 +80848,8 @@ components:
               kind: custom
               _attachedFlagCount: 0
               metricGroupCount: 0
-              _creationDate: 1
-              windowStartOffset: 7
+              _creationDate: 6
+              windowStartOffset: 4
               tags: []
               winsorIncludeImputed: false
               denominator:
@@ -80789,14 +80871,14 @@ components:
                   _integrationKey: _integrationKey
                   key: key
                   environmentKey: environmentKey
-                windowStartOffset: 4
-                windowEndOffset: 5
-                winsorLowerPercentile: 9.965781217890562
-                winsorUpperPercentile: 9.369310271410669
+                windowStartOffset: 9
+                windowEndOffset: 9
+                winsorLowerPercentile: 6.683562403749608
+                winsorUpperPercentile: 8.762042012749001
                 winsorIncludeImputed: true
               maintainerId: 569fdeadbeef1644facecafe
               unit: unit
-              lastSeen: 1
+              lastSeen: 7
               isNumeric: true
               experimentCount: 0
               name: My metric
@@ -80845,7 +80927,7 @@ components:
               eventDefault:
                 disabled: true
                 value: 0
-              archivedAt: 6
+              archivedAt: 1
               successCriteria: HigherThanBaseline
               releasePolicyCount: 0
               _versionId: version-id-123abc
@@ -80854,7 +80936,7 @@ components:
               category: Error monitoring
               analysisType: mean
         name: name
-        _version: 3
+        _version: 1
         key: key
         tags:
         - tags
@@ -80938,6 +81020,13 @@ components:
         judgeToxicity: 0.6846853
         totalTokens: 1
         judgeAccuracy: 0.10246457
+        judgeScores:
+        - score: 7.4577446
+          metricKey: $ld:ai:judge:helpfulness
+          count: 1
+        - score: 7.4577446
+          metricKey: $ld:ai:judge:helpfulness
+          count: 1
         generationCount: 5
         timeToFirstTokenMs: 2
         outputTokens: 6
@@ -81008,6 +81097,36 @@ components:
           maximum: 1
           minimum: 0
           type: number
+        judgeScores:
+          description: "Average score and sample count for every judge metric recorded\
+            \ in the time range, keyed by the judge's evaluation metric key. Includes\
+            \ custom judges and the built-in accuracy, relevance, and toxicity judges.\
+            \ Omitted when no judge scores were recorded."
+          items:
+            $ref: "#/components/schemas/JudgeScore"
+          type: array
+      type: object
+    JudgeScore:
+      example:
+        score: 7.4577446
+        metricKey: $ld:ai:judge:helpfulness
+        count: 1
+      properties:
+        metricKey:
+          description: The judge's evaluation metric key
+          example: $ld:ai:judge:helpfulness
+          type: string
+        score:
+          description: Average judge score across the recorded samples
+          format: float
+          type: number
+        count:
+          description: Number of judge scores recorded
+          type: integer
+      required:
+      - count
+      - metricKey
+      - score
       type: object
     MetricByVariation:
       example:
@@ -81022,6 +81141,13 @@ components:
           judgeToxicity: 0.6846853
           totalTokens: 1
           judgeAccuracy: 0.10246457
+          judgeScores:
+          - score: 7.4577446
+            metricKey: $ld:ai:judge:helpfulness
+            count: 1
+          - score: 7.4577446
+            metricKey: $ld:ai:judge:helpfulness
+            count: 1
           generationCount: 5
           timeToFirstTokenMs: 2
           outputTokens: 6
@@ -81145,6 +81271,23 @@ components:
             - ""
             attribute: attribute
             id: id
+          shadows:
+          - variationId: variationId
+            endCondition:
+              kind: kind
+              value: 4
+            samplingRate: 0.20271230230023218
+            id: id
+            ownerId: ownerId
+            ownerKind: ownerKind
+          - variationId: variationId
+            endCondition:
+              kind: kind
+              value: 4
+            samplingRate: 0.20271230230023218
+            id: id
+            ownerId: ownerId
+            ownerKind: ownerKind
           trackEvents: true
         - clauses:
           - op: op
@@ -81161,8 +81304,25 @@ components:
             - ""
             attribute: attribute
             id: id
+          shadows:
+          - variationId: variationId
+            endCondition:
+              kind: kind
+              value: 4
+            samplingRate: 0.20271230230023218
+            id: id
+            ownerId: ownerId
+            ownerKind: ownerKind
+          - variationId: variationId
+            endCondition:
+              kind: kind
+              value: 4
+            samplingRate: 0.20271230230023218
+            id: id
+            ownerId: ownerId
+            ownerKind: ownerKind
           trackEvents: true
-        lastModified: 2
+        lastModified: 7
         trackEvents: true
         fallthrough:
           rollout:
@@ -81180,8 +81340,25 @@ components:
               variation: 9
             contextKind: contextKind
             bucketBy: bucketBy
+          shadows:
+          - variationId: variationId
+            endCondition:
+              kind: kind
+              value: 4
+            samplingRate: 0.20271230230023218
+            id: id
+            ownerId: ownerId
+            ownerKind: ownerKind
+          - variationId: variationId
+            endCondition:
+              kind: kind
+              value: 4
+            samplingRate: 0.20271230230023218
+            id: id
+            ownerId: ownerId
+            ownerKind: ownerKind
           variation: 5
-        offVariation: 4
+        offVariation: 1
         targets:
         - values:
           - values
@@ -81193,7 +81370,7 @@ components:
           - values
           contextKind: contextKind
           variation: 5
-        _version: 7
+        _version: 1
         enabled: true
       properties:
         contextTargets:
@@ -81263,6 +81440,23 @@ components:
             variation: 9
           contextKind: contextKind
           bucketBy: bucketBy
+        shadows:
+        - variationId: variationId
+          endCondition:
+            kind: kind
+            value: 4
+          samplingRate: 0.20271230230023218
+          id: id
+          ownerId: ownerId
+          ownerKind: ownerKind
+        - variationId: variationId
+          endCondition:
+            kind: kind
+            value: 4
+          samplingRate: 0.20271230230023218
+          id: id
+          ownerId: ownerId
+          ownerKind: ownerKind
         variation: 5
       properties:
         variation:
@@ -81364,6 +81558,23 @@ components:
           - ""
           attribute: attribute
           id: id
+        shadows:
+        - variationId: variationId
+          endCondition:
+            kind: kind
+            value: 4
+          samplingRate: 0.20271230230023218
+          id: id
+          ownerId: ownerId
+          ownerKind: ownerKind
+        - variationId: variationId
+          endCondition:
+            kind: kind
+            value: 4
+          samplingRate: 0.20271230230023218
+          id: id
+          ownerId: ownerId
+          ownerKind: ownerKind
         trackEvents: true
       properties:
         clauses:
@@ -85027,12 +85238,12 @@ components:
           - my-environment
           _environmentSettings:
             key:
-              startDate: 6
-              stopDate: 8
+              startDate: 9
+              stopDate: 6
               enabledPeriods:
-              - startDate: 9
+              - startDate: 3
                 stopDate: 6
-              - startDate: 9
+              - startDate: 3
                 stopDate: 6
           _metric:
             _links:
@@ -85043,7 +85254,7 @@ components:
                 href: /api/v2/metrics/my-project/my-metric
                 type: application/json
             activeExperimentCount: 2
-            windowEndOffset: 1
+            windowEndOffset: 5
             randomizationUnits:
             - user
             guardedRolloutCount: 0
@@ -85113,8 +85324,8 @@ components:
             kind: custom
             _attachedFlagCount: 0
             metricGroupCount: 0
-            _creationDate: 1
-            windowStartOffset: 7
+            _creationDate: 6
+            windowStartOffset: 4
             tags: []
             winsorIncludeImputed: false
             denominator:
@@ -85136,14 +85347,14 @@ components:
                 _integrationKey: _integrationKey
                 key: key
                 environmentKey: environmentKey
-              windowStartOffset: 4
-              windowEndOffset: 5
-              winsorLowerPercentile: 9.965781217890562
-              winsorUpperPercentile: 9.369310271410669
+              windowStartOffset: 9
+              windowEndOffset: 9
+              winsorLowerPercentile: 6.683562403749608
+              winsorUpperPercentile: 8.762042012749001
               winsorIncludeImputed: true
             maintainerId: 569fdeadbeef1644facecafe
             unit: unit
-            lastSeen: 1
+            lastSeen: 7
             isNumeric: true
             experimentCount: 0
             name: My metric
@@ -85192,7 +85403,7 @@ components:
             eventDefault:
               disabled: true
               value: 0
-            archivedAt: 6
+            archivedAt: 1
             successCriteria: HigherThanBaseline
             releasePolicyCount: 0
             _versionId: version-id-123abc
@@ -85207,12 +85418,12 @@ components:
           - my-environment
           _environmentSettings:
             key:
-              startDate: 6
-              stopDate: 8
+              startDate: 9
+              stopDate: 6
               enabledPeriods:
-              - startDate: 9
+              - startDate: 3
                 stopDate: 6
-              - startDate: 9
+              - startDate: 3
                 stopDate: 6
           _metric:
             _links:
@@ -85223,7 +85434,7 @@ components:
                 href: /api/v2/metrics/my-project/my-metric
                 type: application/json
             activeExperimentCount: 2
-            windowEndOffset: 1
+            windowEndOffset: 5
             randomizationUnits:
             - user
             guardedRolloutCount: 0
@@ -85293,8 +85504,8 @@ components:
             kind: custom
             _attachedFlagCount: 0
             metricGroupCount: 0
-            _creationDate: 1
-            windowStartOffset: 7
+            _creationDate: 6
+            windowStartOffset: 4
             tags: []
             winsorIncludeImputed: false
             denominator:
@@ -85316,14 +85527,14 @@ components:
                 _integrationKey: _integrationKey
                 key: key
                 environmentKey: environmentKey
-              windowStartOffset: 4
-              windowEndOffset: 5
-              winsorLowerPercentile: 9.965781217890562
-              winsorUpperPercentile: 9.369310271410669
+              windowStartOffset: 9
+              windowEndOffset: 9
+              winsorLowerPercentile: 6.683562403749608
+              winsorUpperPercentile: 8.762042012749001
               winsorIncludeImputed: true
             maintainerId: 569fdeadbeef1644facecafe
             unit: unit
-            lastSeen: 1
+            lastSeen: 7
             isNumeric: true
             experimentCount: 0
             name: My metric
@@ -85372,7 +85583,7 @@ components:
             eventDefault:
               disabled: true
               value: 0
-            archivedAt: 6
+            archivedAt: 1
             successCriteria: HigherThanBaseline
             releasePolicyCount: 0
             _versionId: version-id-123abc
@@ -85400,12 +85611,12 @@ components:
         - my-environment
         _environmentSettings:
           key:
-            startDate: 6
-            stopDate: 8
+            startDate: 9
+            stopDate: 6
             enabledPeriods:
-            - startDate: 9
+            - startDate: 3
               stopDate: 6
-            - startDate: 9
+            - startDate: 3
               stopDate: 6
         _metric:
           _links:
@@ -85416,7 +85627,7 @@ components:
               href: /api/v2/metrics/my-project/my-metric
               type: application/json
           activeExperimentCount: 2
-          windowEndOffset: 1
+          windowEndOffset: 5
           randomizationUnits:
           - user
           guardedRolloutCount: 0
@@ -85486,8 +85697,8 @@ components:
           kind: custom
           _attachedFlagCount: 0
           metricGroupCount: 0
-          _creationDate: 1
-          windowStartOffset: 7
+          _creationDate: 6
+          windowStartOffset: 4
           tags: []
           winsorIncludeImputed: false
           denominator:
@@ -85509,14 +85720,14 @@ components:
               _integrationKey: _integrationKey
               key: key
               environmentKey: environmentKey
-            windowStartOffset: 4
-            windowEndOffset: 5
-            winsorLowerPercentile: 9.965781217890562
-            winsorUpperPercentile: 9.369310271410669
+            windowStartOffset: 9
+            windowEndOffset: 9
+            winsorLowerPercentile: 6.683562403749608
+            winsorUpperPercentile: 8.762042012749001
             winsorIncludeImputed: true
           maintainerId: 569fdeadbeef1644facecafe
           unit: unit
-          lastSeen: 1
+          lastSeen: 7
           isNumeric: true
           experimentCount: 0
           name: My metric
@@ -85565,7 +85776,7 @@ components:
           eventDefault:
             disabled: true
             value: 0
-          archivedAt: 6
+          archivedAt: 1
           successCriteria: HigherThanBaseline
           releasePolicyCount: 0
           _versionId: version-id-123abc
@@ -85602,7 +85813,7 @@ components:
             href: /api/v2/metrics/my-project/my-metric
             type: application/json
         activeExperimentCount: 2
-        windowEndOffset: 1
+        windowEndOffset: 5
         randomizationUnits:
         - user
         guardedRolloutCount: 0
@@ -85672,8 +85883,8 @@ components:
         kind: custom
         _attachedFlagCount: 0
         metricGroupCount: 0
-        _creationDate: 1
-        windowStartOffset: 7
+        _creationDate: 6
+        windowStartOffset: 4
         tags: []
         winsorIncludeImputed: false
         denominator:
@@ -85695,14 +85906,14 @@ components:
             _integrationKey: _integrationKey
             key: key
             environmentKey: environmentKey
-          windowStartOffset: 4
-          windowEndOffset: 5
-          winsorLowerPercentile: 9.965781217890562
-          winsorUpperPercentile: 9.369310271410669
+          windowStartOffset: 9
+          windowEndOffset: 9
+          winsorLowerPercentile: 6.683562403749608
+          winsorUpperPercentile: 8.762042012749001
           winsorIncludeImputed: true
         maintainerId: 569fdeadbeef1644facecafe
         unit: unit
-        lastSeen: 1
+        lastSeen: 7
         isNumeric: true
         experimentCount: 0
         name: My metric
@@ -85751,7 +85962,7 @@ components:
         eventDefault:
           disabled: true
           value: 0
-        archivedAt: 6
+        archivedAt: 1
         successCriteria: HigherThanBaseline
         releasePolicyCount: 0
         _versionId: version-id-123abc
@@ -86156,10 +86367,10 @@ components:
           _integrationKey: _integrationKey
           key: key
           environmentKey: environmentKey
-        windowStartOffset: 4
-        windowEndOffset: 5
-        winsorLowerPercentile: 9.965781217890562
-        winsorUpperPercentile: 9.369310271410669
+        windowStartOffset: 9
+        windowEndOffset: 9
+        winsorLowerPercentile: 6.683562403749608
+        winsorUpperPercentile: 8.762042012749001
         winsorIncludeImputed: true
       properties:
         eventName:
@@ -86204,12 +86415,12 @@ components:
       type: object
     AiConfigsExperimentEnvironmentSettingRep:
       example:
-        startDate: 6
-        stopDate: 8
+        startDate: 9
+        stopDate: 6
         enabledPeriods:
-        - startDate: 9
+        - startDate: 3
           stopDate: 6
-        - startDate: 9
+        - startDate: 3
           stopDate: 6
       properties:
         startDate:
@@ -86225,7 +86436,7 @@ components:
       type: object
     AiConfigsExperimentEnabledPeriodRep:
       example:
-        startDate: 9
+        startDate: 3
         stopDate: 6
       properties:
         startDate:
@@ -96324,6 +96535,7 @@ components:
         metricKey: metricKey
         definition: ""
         autoRollback: true
+        analysisUnit: analysisUnit
         metricVersionId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
       properties:
         metricKey:
@@ -96335,6 +96547,14 @@ components:
         autoRollback:
           description: Whether a regression automatically reverts the release.
           type: boolean
+        analysisUnit:
+          description: |
+            Key of the context kind this metric is analyzed on. It is the release's
+            randomization unit unless the metric uses a decoupled unit of analysis.
+            Omitted on releases started before analysis units were recorded. Those
+            metrics are analyzed on the randomization unit.
+          readOnly: true
+          type: string
         definition:
           allOf:
           - $ref: "#/components/schemas/EnvironmentReleasesMetricListingRep"
@@ -96386,10 +96606,12 @@ components:
         - metricKey: metricKey
           definition: ""
           autoRollback: true
+          analysisUnit: analysisUnit
           metricVersionId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         - metricKey: metricKey
           definition: ""
           autoRollback: true
+          analysisUnit: analysisUnit
           metricVersionId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         randomizationUnit: randomizationUnit
         currentPhaseIndex: 0
@@ -96606,6 +96828,7 @@ components:
       example:
         metricKey: metricKey
         autoRollback: false
+        analysisUnit: analysisUnit
       properties:
         metricKey:
           type: string
@@ -96618,6 +96841,14 @@ components:
             `waiting_regression_detected` and does not advance until the
             regression is dismissed or the release is stopped.
           type: boolean
+        analysisUnit:
+          description: |
+            Key of the context kind to analyze this metric on. Omit it to analyze
+            on the randomization unit. A value must differ from the randomization
+            unit and be one of the metric's units. Percentile metrics, ratio
+            metrics, and metrics in a group cannot set it. The value cannot be
+            changed after the release starts.
+          type: string
       required:
       - metricKey
       type: object
@@ -96700,8 +96931,10 @@ components:
         metrics:
         - metricKey: metricKey
           autoRollback: false
+          analysisUnit: analysisUnit
         - metricKey: metricKey
           autoRollback: false
+          analysisUnit: analysisUnit
         randomizationUnit: randomizationUnit
         releasePlanKey: releasePlanKey
         cleanupBehavior: ""
@@ -96883,10 +97116,12 @@ components:
           - metricKey: metricKey
             definition: ""
             autoRollback: true
+            analysisUnit: analysisUnit
             metricVersionId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           - metricKey: metricKey
             definition: ""
             autoRollback: true
+            analysisUnit: analysisUnit
             metricVersionId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           randomizationUnit: randomizationUnit
           currentPhaseIndex: 0
@@ -96959,10 +97194,12 @@ components:
           - metricKey: metricKey
             definition: ""
             autoRollback: true
+            analysisUnit: analysisUnit
             metricVersionId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           - metricKey: metricKey
             definition: ""
             autoRollback: true
+            analysisUnit: analysisUnit
             metricVersionId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           randomizationUnit: randomizationUnit
           currentPhaseIndex: 0

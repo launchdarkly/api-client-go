@@ -40,7 +40,7 @@ type AIConfigPost struct {
 	DefaultVariation *AIConfigVariationPost `json:"defaultVariation,omitempty"`
 	// Evaluation metric key for this config
 	EvaluationMetricKey *string `json:"evaluationMetricKey,omitempty"`
-	// Whether the evaluation metric is inverted, meaning a lower value is better if set as true
+	// The success direction of a judge. Offline evaluations use it to decide whether a score passes.  - `true`: A lower score is better. Use this for a judge that scores bad output, such as a toxicity or hallucination judge. - `false`: A higher score is better. Use this for a judge that scores good output, such as an accuracy or relevance judge.  **Required for a custom judge.** A custom judge has `mode` set to `judge` and a `key` that is not a built-in judge key. Built-in judge keys are `ld-ai-judge-accuracy`, `ld-ai-judge-relevance`, and `ld-ai-judge-toxicity`, with or without a `-<timestamp>` suffix such as `ld-ai-judge-accuracy-1760000000000`. For a built-in judge key, this field is optional, and the API always uses the built-in direction.  Do not send this field when `mode` is `agent` or `completion`.  This field is not in the schema's `required` list, because only custom judges need it.  The API returns a `400` error in these cases: - `isInverted is required for a custom judge: ...`: You create a custom judge without this field. Send `true` or `false`. - `isInverted is only supported for judge mode`: You send this field and `mode` is `agent` or `completion`. Remove the field, or set `mode` to `judge`. - `isInverted is not supported`: Custom judges are not available for your account. Remove the field from the request. 
 	IsInverted *bool `json:"isInverted,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
