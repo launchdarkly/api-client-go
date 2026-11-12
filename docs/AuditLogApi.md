@@ -161,7 +161,7 @@ Name | Type | Description  | Notes
 
 ## PostAuditLogEntries
 
-> AuditLogEntryListingRepCollection PostAuditLogEntries(ctx).Before(before).After(after).Q(q).Limit(limit).Member(member).Token(token).StatementPost(statementPost).Execute()
+> AuditLogEntryListingRepCollection PostAuditLogEntries(ctx).Before(before).After(after).Q(q).Limit(limit).Member(member).Token(token).Rollup(rollup).StatementPost(statementPost).Execute()
 
 Search audit log entries
 
@@ -186,11 +186,12 @@ func main() {
 	limit := int64(789) // int64 | A limit on the number of audit log entries that return. Set between 1 and 20. The default is 10. (optional)
 	member := "member_example" // string | A member ID that lets you filter audit log listings by the member who made the change. Repeat the parameter to filter by multiple members. (optional)
 	token := "token_example" // string | An access token ID that lets you filter audit log listings by the token that made the change. Repeat the parameter to filter by multiple tokens. (optional)
+	rollup := int64(789) // int64 | Set to 1 to return rolled-up audit log entries, which group related changes into one entry. By default, entries aren't rolled up. (optional)
 	statementPost := []openapiclient.StatementPost{*openapiclient.NewStatementPost("allow")} // []StatementPost |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AuditLogApi.PostAuditLogEntries(context.Background()).Before(before).After(after).Q(q).Limit(limit).Member(member).Token(token).StatementPost(statementPost).Execute()
+	resp, r, err := apiClient.AuditLogApi.PostAuditLogEntries(context.Background()).Before(before).After(after).Q(q).Limit(limit).Member(member).Token(token).Rollup(rollup).StatementPost(statementPost).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AuditLogApi.PostAuditLogEntries``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -217,6 +218,7 @@ Name | Type | Description  | Notes
  **limit** | **int64** | A limit on the number of audit log entries that return. Set between 1 and 20. The default is 10. | 
  **member** | **string** | A member ID that lets you filter audit log listings by the member who made the change. Repeat the parameter to filter by multiple members. | 
  **token** | **string** | An access token ID that lets you filter audit log listings by the token that made the change. Repeat the parameter to filter by multiple tokens. | 
+ **rollup** | **int64** | Set to 1 to return rolled-up audit log entries, which group related changes into one entry. By default, entries aren&#39;t rolled up. | 
  **statementPost** | [**[]StatementPost**](StatementPost.md) |  | 
 
 ### Return type

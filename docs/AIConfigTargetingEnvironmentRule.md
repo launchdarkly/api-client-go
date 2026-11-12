@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Id** | **string** | The rule ID. Pass it as ruleId in targeting instructions that change this rule. | 
 **Clauses** | [**[]AIConfigTargetingEnvironmentRuleClause**](AIConfigTargetingEnvironmentRuleClause.md) | The clauses a context must match | 
 **TrackEvents** | **bool** | Whether to send detailed events for evaluations that match this rule | 
 
@@ -11,7 +12,7 @@ Name | Type | Description | Notes
 
 ### NewAIConfigTargetingEnvironmentRule
 
-`func NewAIConfigTargetingEnvironmentRule(clauses []AIConfigTargetingEnvironmentRuleClause, trackEvents bool, ) *AIConfigTargetingEnvironmentRule`
+`func NewAIConfigTargetingEnvironmentRule(id string, clauses []AIConfigTargetingEnvironmentRuleClause, trackEvents bool, ) *AIConfigTargetingEnvironmentRule`
 
 NewAIConfigTargetingEnvironmentRule instantiates a new AIConfigTargetingEnvironmentRule object
 This constructor will assign default values to properties that have it defined,
@@ -25,6 +26,26 @@ will change when the set of required properties is changed
 NewAIConfigTargetingEnvironmentRuleWithDefaults instantiates a new AIConfigTargetingEnvironmentRule object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetId
+
+`func (o *AIConfigTargetingEnvironmentRule) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *AIConfigTargetingEnvironmentRule) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *AIConfigTargetingEnvironmentRule) SetId(v string)`
+
+SetId sets Id field to given value.
+
 
 ### GetClauses
 

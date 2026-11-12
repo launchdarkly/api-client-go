@@ -14,7 +14,6 @@ package ldapi
 import (
 	"encoding/json"
 	"fmt"
-	"gopkg.in/validator.v2"
 )
 
 // ViewLinkRequest - struct for ViewLinkRequest
@@ -51,51 +50,39 @@ func (dst *ViewLinkRequest) UnmarshalJSON(data []byte) error {
 	var err error
 	match := 0
 	// try to unmarshal data into ViewLinkRequestFilter
-	err = newStrictDecoder(data).Decode(&dst.ViewLinkRequestFilter)
+	err = json.Unmarshal(data, &dst.ViewLinkRequestFilter)
 	if err == nil {
 		jsonViewLinkRequestFilter, _ := json.Marshal(dst.ViewLinkRequestFilter)
 		if string(jsonViewLinkRequestFilter) == "{}" { // empty struct
 			dst.ViewLinkRequestFilter = nil
 		} else {
-			if err = validator.Validate(dst.ViewLinkRequestFilter); err != nil {
-				dst.ViewLinkRequestFilter = nil
-			} else {
-				match++
-			}
+			match++
 		}
 	} else {
 		dst.ViewLinkRequestFilter = nil
 	}
 
 	// try to unmarshal data into ViewLinkRequestKeys
-	err = newStrictDecoder(data).Decode(&dst.ViewLinkRequestKeys)
+	err = json.Unmarshal(data, &dst.ViewLinkRequestKeys)
 	if err == nil {
 		jsonViewLinkRequestKeys, _ := json.Marshal(dst.ViewLinkRequestKeys)
 		if string(jsonViewLinkRequestKeys) == "{}" { // empty struct
 			dst.ViewLinkRequestKeys = nil
 		} else {
-			if err = validator.Validate(dst.ViewLinkRequestKeys); err != nil {
-				dst.ViewLinkRequestKeys = nil
-			} else {
-				match++
-			}
+			match++
 		}
 	} else {
 		dst.ViewLinkRequestKeys = nil
 	}
 
 	// try to unmarshal data into ViewLinkRequestSegmentIdentifiers
-	err = newStrictDecoder(data).Decode(&dst.ViewLinkRequestSegmentIdentifiers)
+	err = json.Unmarshal(data, &dst.ViewLinkRequestSegmentIdentifiers)
 	if err == nil {
 		jsonViewLinkRequestSegmentIdentifiers, _ := json.Marshal(dst.ViewLinkRequestSegmentIdentifiers)
 		if string(jsonViewLinkRequestSegmentIdentifiers) == "{}" { // empty struct
 			dst.ViewLinkRequestSegmentIdentifiers = nil
 		} else {
-			if err = validator.Validate(dst.ViewLinkRequestSegmentIdentifiers); err != nil {
-				dst.ViewLinkRequestSegmentIdentifiers = nil
-			} else {
-				match++
-			}
+			match++
 		}
 	} else {
 		dst.ViewLinkRequestSegmentIdentifiers = nil

@@ -275,6 +275,44 @@ Here's an example:
 }
 ```
 
+##### Custom assignment source fields
+
+If your experiment reads its assignment data from your data warehouse, two additional fields control the assignment source it uses.
+
+Use `assignmentDataSource` to attach an assignment source to an iteration, change which source it points at, or detach it. Its value is an object with the following properties:
+
+- `key`: (Required) The key of the assignment data source.
+- `experimentId`: The experiment identifier in the assignment data source. You can omit this while the experiment is a draft, but you must set it before you start the experiment.
+- `startTime`: (Optional) The start of the assignment data window, in Unix milliseconds.
+- `endTime`: (Optional) The end of the assignment data window, in Unix milliseconds. This must be later than `startTime`.
+
+To detach the assignment source, send `null` as the value. You can only change this field while the iteration is still a draft.
+
+Use `assignmentDataSourceWindow` to change only the dates on an assignment source that is already attached. Its value is an object with the same `startTime` and `endTime` properties. The iteration must already have an assignment source. This is how you adjust the dates after an iteration has run, because the source itself is fixed at that point.
+
+Multi-armed bandits use flags for assignment, so they support neither field.
+
+Here's an example:
+
+```json
+{
+  "instructions": [{
+    "kind": "updateExperimentFields",
+    "value": {
+      "assignmentDataSource": {
+        "operation": "update",
+        "value": {
+          "key": "my-assignment-data-source",
+          "experimentId": "experiment-123",
+          "startTime": 1690000000000,
+          "endTime": 1690600000000
+        }
+      }
+    }
+  }]
+}
+```
+
 #### saveAndStartNewIteration
 
 Stops the current running iteration, creates a new iteration from it, optionally applies field updates, and starts the new iteration. This is a convenience instruction that combines stopping, updating, and starting in a single operation.
@@ -1797,6 +1835,44 @@ Here's an example:
       "tags": {
         "operation": "add",
         "value": ["tag1", "tag2"]
+      }
+    }
+  }]
+}
+```
+
+##### Custom assignment source fields
+
+If your experiment reads its assignment data from your data warehouse, two additional fields control the assignment source it uses.
+
+Use `assignmentDataSource` to attach an assignment source to an iteration, change which source it points at, or detach it. Its value is an object with the following properties:
+
+- `key`: (Required) The key of the assignment data source.
+- `experimentId`: The experiment identifier in the assignment data source. You can omit this while the experiment is a draft, but you must set it before you start the experiment.
+- `startTime`: (Optional) The start of the assignment data window, in Unix milliseconds.
+- `endTime`: (Optional) The end of the assignment data window, in Unix milliseconds. This must be later than `startTime`.
+
+To detach the assignment source, send `null` as the value. You can only change this field while the iteration is still a draft.
+
+Use `assignmentDataSourceWindow` to change only the dates on an assignment source that is already attached. Its value is an object with the same `startTime` and `endTime` properties. The iteration must already have an assignment source. This is how you adjust the dates after an iteration has run, because the source itself is fixed at that point.
+
+Multi-armed bandits use flags for assignment, so they support neither field.
+
+Here's an example:
+
+```json
+{
+  "instructions": [{
+    "kind": "updateExperimentFields",
+    "value": {
+      "assignmentDataSource": {
+        "operation": "update",
+        "value": {
+          "key": "my-assignment-data-source",
+          "experimentId": "experiment-123",
+          "startTime": 1690000000000,
+          "endTime": 1690600000000
+        }
       }
     }
   }]

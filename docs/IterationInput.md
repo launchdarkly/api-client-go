@@ -11,10 +11,11 @@ Name | Type | Description | Notes
 **PrimaryFunnelKey** | Pointer to **string** | The key of the primary funnel group for this experiment. Either &lt;code&gt;primarySingleMetricKey&lt;/code&gt; or &lt;code&gt;primaryFunnelKey&lt;/code&gt; must be present. | [optional] 
 **Treatments** | [**[]TreatmentInput**](TreatmentInput.md) |  | 
 **Flags** | [**map[string]FlagInput**](FlagInput.md) |  | 
+**AssignmentDataSource** | Pointer to [**AssignmentDataSourceInput**](AssignmentDataSourceInput.md) |  | [optional] 
 **RandomizationUnit** | Pointer to **string** | The unit of randomization for this iteration. Defaults to user. | [optional] 
 **ReallocationFrequencyMillis** | Pointer to **int32** | The cadence (in milliseconds) to update the allocation. | [optional] 
 **CovariateId** | Pointer to **string** | The ID of the covariate CSV | [optional] 
-**Attributes** | Pointer to **[]string** | The attributes that this iteration&#39;s results can be sliced by | [optional] 
+**Attributes** | Pointer to **[]string** | The attributes that this iteration&#39;s results can be sliced by, whose values come from flag evaluation events | [optional] 
 
 ## Methods
 
@@ -189,6 +190,31 @@ and a boolean to check if the value has been set.
 
 SetFlags sets Flags field to given value.
 
+
+### GetAssignmentDataSource
+
+`func (o *IterationInput) GetAssignmentDataSource() AssignmentDataSourceInput`
+
+GetAssignmentDataSource returns the AssignmentDataSource field if non-nil, zero value otherwise.
+
+### GetAssignmentDataSourceOk
+
+`func (o *IterationInput) GetAssignmentDataSourceOk() (*AssignmentDataSourceInput, bool)`
+
+GetAssignmentDataSourceOk returns a tuple with the AssignmentDataSource field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAssignmentDataSource
+
+`func (o *IterationInput) SetAssignmentDataSource(v AssignmentDataSourceInput)`
+
+SetAssignmentDataSource sets AssignmentDataSource field to given value.
+
+### HasAssignmentDataSource
+
+`func (o *IterationInput) HasAssignmentDataSource() bool`
+
+HasAssignmentDataSource returns a boolean if a field has been set.
 
 ### GetRandomizationUnit
 

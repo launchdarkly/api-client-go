@@ -21,6 +21,8 @@ var _ MappedNullable = &AIConfigTargetingEnvironmentRule{}
 
 // AIConfigTargetingEnvironmentRule struct for AIConfigTargetingEnvironmentRule
 type AIConfigTargetingEnvironmentRule struct {
+	// The rule ID. Pass it as ruleId in targeting instructions that change this rule.
+	Id string `json:"_id"`
 	// The clauses a context must match
 	Clauses []AIConfigTargetingEnvironmentRuleClause `json:"clauses"`
 	// Whether to send detailed events for evaluations that match this rule
@@ -34,8 +36,9 @@ type _AIConfigTargetingEnvironmentRule AIConfigTargetingEnvironmentRule
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAIConfigTargetingEnvironmentRule(clauses []AIConfigTargetingEnvironmentRuleClause, trackEvents bool) *AIConfigTargetingEnvironmentRule {
+func NewAIConfigTargetingEnvironmentRule(id string, clauses []AIConfigTargetingEnvironmentRuleClause, trackEvents bool) *AIConfigTargetingEnvironmentRule {
 	this := AIConfigTargetingEnvironmentRule{}
+	this.Id = id
 	this.Clauses = clauses
 	this.TrackEvents = trackEvents
 	return &this
@@ -47,6 +50,30 @@ func NewAIConfigTargetingEnvironmentRule(clauses []AIConfigTargetingEnvironmentR
 func NewAIConfigTargetingEnvironmentRuleWithDefaults() *AIConfigTargetingEnvironmentRule {
 	this := AIConfigTargetingEnvironmentRule{}
 	return &this
+}
+
+// GetId returns the Id field value
+func (o *AIConfigTargetingEnvironmentRule) GetId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value
+// and a boolean to check if the value has been set.
+func (o *AIConfigTargetingEnvironmentRule) GetIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Id, true
+}
+
+// SetId sets field value
+func (o *AIConfigTargetingEnvironmentRule) SetId(v string) {
+	o.Id = v
 }
 
 // GetClauses returns the Clauses field value
@@ -107,6 +134,7 @@ func (o AIConfigTargetingEnvironmentRule) MarshalJSON() ([]byte, error) {
 
 func (o AIConfigTargetingEnvironmentRule) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["_id"] = o.Id
 	toSerialize["clauses"] = o.Clauses
 	toSerialize["trackEvents"] = o.TrackEvents
 
@@ -122,6 +150,7 @@ func (o *AIConfigTargetingEnvironmentRule) UnmarshalJSON(data []byte) (err error
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
+		"_id",
 		"clauses",
 		"trackEvents",
 	}
@@ -153,6 +182,7 @@ func (o *AIConfigTargetingEnvironmentRule) UnmarshalJSON(data []byte) (err error
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "_id")
 		delete(additionalProperties, "clauses")
 		delete(additionalProperties, "trackEvents")
 		o.AdditionalProperties = additionalProperties

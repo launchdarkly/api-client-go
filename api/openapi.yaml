@@ -758,7 +758,7 @@ tags:
     >
     > Resources that are in beta are still undergoing testing and development. They may change without notice, including becoming backwards incompatible.
 
-    Environment releases progressively or guardedly roll out a flag targeting change in one environment. Use the environment releases API to list and retrieve releases, start a release, or stop an active release.
+    An environment release [progressively](https://launchdarkly.com/docs/home/releases/progressive-rollouts) rolls out a new flag variation in one environment. On select plans, you can [guard](https://launchdarkly.com/docs/home/releases/guarded-rollouts) one or more metrics, monitoring them for regressions. Use the environment releases API to list releases, get a release, start a release, or stop an active release.
   name: Environment releases (beta)
 - description: |
     Environments allow you to maintain separate rollout rules in different contexts, from local development to QA, staging, and production. With the LaunchDarkly Environments API, you can programmatically list, create, and manage environments. To learn more, read [Environments](https://launchdarkly.com/docs/home/account/environment).
@@ -1559,6 +1559,8 @@ tags:
     To learn more, read [Segments](https://launchdarkly.com/docs/home/flags/segments).
 
     The segments API allows you to list, create, modify, and delete segments programmatically.
+
+    You can also schedule segment changes that take effect at a later time. Scheduled changes use the same semantic patch instructions as updating a segment. You can list, edit, and delete scheduled changes for each segment. Use the `scheduled-changes` endpoints to manage them.
 
     You can find other APIs for working with big segments under [Persistent store integrations (beta)](https://launchdarkly.com/docs/api/persistent-store-integrations-beta).
   name: Segments
@@ -3384,6 +3386,18 @@ paths:
             tokens.
           format: string
           type: string
+        style: form
+      - description: "Set to 1 to return rolled-up audit log entries, which group\
+          \ related changes into one entry. By default, entries aren't rolled up."
+        explode: true
+        in: query
+        name: rollup
+        required: false
+        schema:
+          description: "Set to 1 to return rolled-up audit log entries, which group\
+            \ related changes into one entry. By default, entries aren't rolled up."
+          format: int64
+          type: integer
         style: form
       requestBody:
         content:
@@ -9464,8 +9478,10 @@ paths:
   /api/v2/integration-configurations/keys/{integrationKey}:
     get:
       description: "Get all integration configurations with the specified integration\
-        \ key. (Excludes [persistent store](https://launchdarkly.com/docs/api/persistent-store-integrations-beta)\
-        \ and [flag import configurations](https://launchdarkly.com/docs/api/flag-import-configurations-beta).)."
+        \ key. This endpoint does not include persistent store integrations or flag\
+        \ import configurations. To manage those, use the [persistent store](https://launchdarkly.com/docs/api/persistent-store-integrations-beta)\
+        \ and [flag import configuration](https://launchdarkly.com/docs/api/flag-import-configurations-beta)\
+        \ endpoints."
       operationId: getAllIntegrationConfigurations
       parameters:
       - description: "A key that corresponds to the third-party integration you are\
@@ -9534,9 +9550,11 @@ paths:
       tags:
       - Integrations (beta)
     post:
-      description: "Create a new integration configuration. (Excludes [persistent\
-        \ store](https://launchdarkly.com/docs/api/persistent-store-integrations-beta)\
-        \ and [flag import configurations](https://launchdarkly.com/docs/api/flag-import-configurations-beta).)"
+      description: "Create a new integration configuration. This endpoint does not\
+        \ include persistent store integrations or flag import configurations. To\
+        \ manage those, use the [persistent store](https://launchdarkly.com/docs/api/persistent-store-integrations-beta)\
+        \ and [flag import configuration](https://launchdarkly.com/docs/api/flag-import-configurations-beta)\
+        \ endpoints."
       operationId: createIntegrationConfiguration
       parameters:
       - description: The integration key
@@ -9603,9 +9621,11 @@ paths:
       - Integrations (beta)
   /api/v2/integration-configurations/{integrationConfigurationId}:
     delete:
-      description: "Delete an integration configuration by ID. (Excludes [persistent\
-        \ store](https://launchdarkly.com/docs/api/persistent-store-integrations-beta)\
-        \ and [flag import configurations](https://launchdarkly.com/docs/api/flag-import-configurations-beta).)"
+      description: "Delete an integration configuration by ID. This endpoint does\
+        \ not include persistent store integrations or flag import configurations.\
+        \ To manage those, use the [persistent store](https://launchdarkly.com/docs/api/persistent-store-integrations-beta)\
+        \ and [flag import configuration](https://launchdarkly.com/docs/api/flag-import-configurations-beta)\
+        \ endpoints."
       operationId: deleteIntegrationConfiguration
       parameters:
       - description: The ID of the integration configuration to be deleted
@@ -9655,9 +9675,11 @@ paths:
       tags:
       - Integrations (beta)
     get:
-      description: "Get integration configuration with the specified ID. (Excludes\
-        \ [persistent store](https://launchdarkly.com/docs/api/persistent-store-integrations-beta)\
-        \ and [flag import configurations](https://launchdarkly.com/docs/api/flag-import-configurations-beta).)"
+      description: "Get integration configuration with the specified ID. This endpoint\
+        \ does not include persistent store integrations or flag import configurations.\
+        \ To manage those, use the [persistent store](https://launchdarkly.com/docs/api/persistent-store-integrations-beta)\
+        \ and [flag import configuration](https://launchdarkly.com/docs/api/flag-import-configurations-beta)\
+        \ endpoints."
       operationId: getIntegrationConfiguration
       parameters:
       - description: Integration configuration ID
@@ -13510,6 +13532,44 @@ paths:
               "tags": {
                 "operation": "add",
                 "value": ["tag1", "tag2"]
+              }
+            }
+          }]
+        }
+        ```
+
+        ##### Custom assignment source fields
+
+        If your experiment reads its assignment data from your data warehouse, two additional fields control the assignment source it uses.
+
+        Use `assignmentDataSource` to attach an assignment source to an iteration, change which source it points at, or detach it. Its value is an object with the following properties:
+
+        - `key`: (Required) The key of the assignment data source.
+        - `experimentId`: The experiment identifier in the assignment data source. You can omit this while the experiment is a draft, but you must set it before you start the experiment.
+        - `startTime`: (Optional) The start of the assignment data window, in Unix milliseconds.
+        - `endTime`: (Optional) The end of the assignment data window, in Unix milliseconds. This must be later than `startTime`.
+
+        To detach the assignment source, send `null` as the value. You can only change this field while the iteration is still a draft.
+
+        Use `assignmentDataSourceWindow` to change only the dates on an assignment source that is already attached. Its value is an object with the same `startTime` and `endTime` properties. The iteration must already have an assignment source. This is how you adjust the dates after an iteration has run, because the source itself is fixed at that point.
+
+        Multi-armed bandits use flags for assignment, so they support neither field.
+
+        Here's an example:
+
+        ```json
+        {
+          "instructions": [{
+            "kind": "updateExperimentFields",
+            "value": {
+              "assignmentDataSource": {
+                "operation": "update",
+                "value": {
+                  "key": "my-assignment-data-source",
+                  "experimentId": "experiment-123",
+                  "startTime": 1690000000000,
+                  "endTime": 1690600000000
+                }
               }
             }
           }]
@@ -30201,6 +30261,17 @@ paths:
         schema:
           type: string
         style: form
+      - description: "A sort to apply to the list of agent skills. Use `usedIn` to\
+          \ sort by the number of AgentControl configs that use each skill, fewest\
+          \ first, or `-usedIn` for most first. Without a sort, skills are ordered\
+          \ by creation date, newest first."
+        explode: true
+        in: query
+        name: sort
+        required: false
+        schema:
+          type: string
+        style: form
       responses:
         "200":
           content:
@@ -34000,6 +34071,432 @@ paths:
       summary: Stop an environment release
       tags:
       - Environment releases (beta)
+  /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/scheduled-changes:
+    get:
+      description: |
+        Get every scheduled change for a segment that has not been applied yet, plus any that failed to apply, soonest first. Use the `status` of each change to tell them apart.
+
+        The caller must be allowed to view the segment's project.
+      operationId: getSegmentScheduledChanges
+      parameters:
+      - explode: false
+        in: path
+        name: projectKey
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: environmentKey
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: segmentKey
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SegmentScheduledChanges"
+          description: Scheduled changes for the segment
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Invalid request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Invalid access token
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Invalid resource identifier
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Rate limited
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Internal server error
+      summary: List scheduled changes for a segment
+      tags:
+      - Segments
+    post:
+      description: |
+        Schedule semantic patch instructions to be applied to a segment at a future time.
+
+        Each instruction uses the same format as an instruction in a semantic patch request to update a segment. Send between 1 and 100 instructions. LaunchDarkly rejects the request with a 400 if an instruction has an unknown `kind` or is malformed.
+
+        The caller must be allowed to update scheduled changes on the segment, and must also be allowed to make each instruction's change directly. If the segment requires approvals for an instruction, the caller must also be allowed to bypass them. Otherwise, request the change through an approval request instead. To learn more about semantic patches, read [Updates](/reference#updates-using-semantic-patch).
+      operationId: postSegmentScheduledChange
+      parameters:
+      - explode: false
+        in: path
+        name: projectKey
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: environmentKey
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: segmentKey
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostSegmentScheduledChangeInput"
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SegmentScheduledChange"
+          description: Scheduled change created
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Invalid request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Invalid access token
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Invalid resource identifier
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Rate limited
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Internal server error
+      summary: Create a scheduled change for a segment
+      tags:
+      - Segments
+  /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/scheduled-changes/{id}:
+    delete:
+      description: |
+        Delete a scheduled change before its execution date, so that its instructions are never applied to the segment.
+
+        Deleting a change with a `failed` status removes it from the segment's scheduled changes. Its instructions were not applied.
+
+        The caller must be allowed to update scheduled changes on the segment.
+
+        If an approval request scheduled the change, deleting the change also terminates that request, so it cannot be applied again. Declining the request is only an option while it is still awaiting review. Once it is applied, its instructions belong to a scheduled change, and this endpoint is how to stop them.
+
+        Returns 409 if the scheduled change is already being applied or has already run.
+      operationId: deleteSegmentScheduledChange
+      parameters:
+      - explode: false
+        in: path
+        name: projectKey
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: environmentKey
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: segmentKey
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The ID of the scheduled change
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: Scheduled change deleted
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Invalid request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Invalid access token
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Invalid resource identifier
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Conflict
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Rate limited
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Internal server error
+      summary: Delete a scheduled change for a segment
+      tags:
+      - Segments
+    get:
+      description: |
+        Get one scheduled change that has not been applied yet, or that failed to apply. Returns 404 if the ID is not a scheduled change for the segment in the path.
+
+        The caller must be allowed to view the segment's project.
+      operationId: getSegmentScheduledChange
+      parameters:
+      - explode: false
+        in: path
+        name: projectKey
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: environmentKey
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: segmentKey
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The ID of the scheduled change
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SegmentScheduledChange"
+          description: The scheduled change
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Invalid request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Invalid access token
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Invalid resource identifier
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Rate limited
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Internal server error
+      summary: Get a scheduled change for a segment
+      tags:
+      - Segments
+    patch:
+      description: |
+        Edit the execution date and/or the comment of a scheduled change that has not been applied yet. A field you leave out is unchanged, and an empty comment clears the comment.
+
+        The caller must be allowed to update scheduled changes on the segment, and must also be allowed to make the change's instructions directly. If the segment requires approvals, the caller must also be allowed to bypass them.
+
+        Returns 409 if the scheduled change is already being applied or was changed by someone else in the meantime.
+      operationId: patchSegmentScheduledChange
+      parameters:
+      - explode: false
+        in: path
+        name: projectKey
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: environmentKey
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: segmentKey
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The ID of the scheduled change
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PatchSegmentScheduledChangeInput"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SegmentScheduledChange"
+          description: The updated scheduled change
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Invalid request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Invalid access token
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Invalid resource identifier
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Conflict
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Rate limited
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Internal server error
+      summary: Update a scheduled change for a segment
+      tags:
+      - Segments
   /api/v2/account/ip-allowlist:
     get:
       description: Get the current IP allowlist configuration and entries.
@@ -38929,6 +39426,32 @@ components:
         teamsCount:
           description: The number of teams this role is assigned to
           type: integer
+      type: object
+    AssignmentDataSourceInput:
+      example:
+        experimentId: experiment-123
+        startTime: 0
+        endTime: 6
+        key: my-assignment-data-source
+      properties:
+        key:
+          description: The key of the assignment data source to use for this iteration
+          example: my-assignment-data-source
+          type: string
+        experimentId:
+          description: "The experiment identifier in the assignment data source. You\
+            \ can omit this while the experiment is a draft, but it must be set before\
+            \ you start the experiment."
+          example: experiment-123
+          type: string
+        startTime:
+          format: int64
+          type: integer
+        endTime:
+          format: int64
+          type: integer
+      required:
+      - key
       type: object
     Audience:
       example:
@@ -48420,7 +48943,8 @@ components:
             key: metric-key-123abc
           version: 0
           treatments:
-          - name: Treatment 1
+          - assignmentVariantId: treatment_a
+            name: Treatment 1
             _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
             baseline: true
             parameters:
@@ -48429,7 +48953,8 @@ components:
             - variationId: variationId
               flagKey: flagKey
             allocationPercent: "10"
-          - name: Treatment 1
+          - assignmentVariantId: treatment_a
+            name: Treatment 1
             _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
             baseline: true
             parameters:
@@ -48552,6 +49077,12 @@ components:
             isGroup: true
             analysisType: mean
             key: metric-key-123abc
+          assignmentDataSource:
+            name: Snowflake production assignments
+            experimentId: experiment-123
+            startTime: 7
+            endTime: 9
+            key: my-assignment-data-source
           randomizationUnit: user
           hypothesis: The new button placement will increase conversion
           status: running
@@ -48727,7 +49258,8 @@ components:
             key: metric-key-123abc
           version: 0
           treatments:
-          - name: Treatment 1
+          - assignmentVariantId: treatment_a
+            name: Treatment 1
             _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
             baseline: true
             parameters:
@@ -48736,7 +49268,8 @@ components:
             - variationId: variationId
               flagKey: flagKey
             allocationPercent: "10"
-          - name: Treatment 1
+          - assignmentVariantId: treatment_a
+            name: Treatment 1
             _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
             baseline: true
             parameters:
@@ -48859,6 +49392,12 @@ components:
             isGroup: true
             analysisType: mean
             key: metric-key-123abc
+          assignmentDataSource:
+            name: Snowflake production assignments
+            experimentId: experiment-123
+            startTime: 7
+            endTime: 9
+            key: my-assignment-data-source
           randomizationUnit: user
           hypothesis: The new button placement will increase conversion
           status: running
@@ -49025,7 +49564,8 @@ components:
             key: metric-key-123abc
           version: 0
           treatments:
-          - name: Treatment 1
+          - assignmentVariantId: treatment_a
+            name: Treatment 1
             _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
             baseline: true
             parameters:
@@ -49034,7 +49574,8 @@ components:
             - variationId: variationId
               flagKey: flagKey
             allocationPercent: "10"
-          - name: Treatment 1
+          - assignmentVariantId: treatment_a
+            name: Treatment 1
             _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
             baseline: true
             parameters:
@@ -49157,6 +49698,12 @@ components:
             isGroup: true
             analysisType: mean
             key: metric-key-123abc
+          assignmentDataSource:
+            name: Snowflake production assignments
+            experimentId: experiment-123
+            startTime: 7
+            endTime: 9
+            key: my-assignment-data-source
           randomizationUnit: user
           hypothesis: The new button placement will increase conversion
           status: running
@@ -49167,6 +49714,7 @@ components:
         - experiment
         - feature
         _maintainerId: 12ab3c45de678910fgh12345
+        assignmentSourceType: snowflake
         _access:
           allowed:
           - reason:
@@ -49390,7 +49938,8 @@ components:
             key: metric-key-123abc
           version: 0
           treatments:
-          - name: Treatment 1
+          - assignmentVariantId: treatment_a
+            name: Treatment 1
             _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
             baseline: true
             parameters:
@@ -49399,7 +49948,8 @@ components:
             - variationId: variationId
               flagKey: flagKey
             allocationPercent: "10"
-          - name: Treatment 1
+          - assignmentVariantId: treatment_a
+            name: Treatment 1
             _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
             baseline: true
             parameters:
@@ -49522,6 +50072,12 @@ components:
             isGroup: true
             analysisType: mean
             key: metric-key-123abc
+          assignmentDataSource:
+            name: Snowflake production assignments
+            experimentId: experiment-123
+            startTime: 7
+            endTime: 9
+            key: my-assignment-data-source
           randomizationUnit: user
           hypothesis: The new button placement will increase conversion
           status: running
@@ -49577,6 +50133,18 @@ components:
           enum:
           - launchdarkly
           - snowflake
+          example: snowflake
+          type: string
+        assignmentSourceType:
+          description: The source of assignment data for this experiment. Defaults
+            to "launchdarkly" when not provided.
+          enum:
+          - launchdarkly
+          - snowflake
+          - databricks
+          - redshift
+          - bigquery
+          - clickhouse
           example: snowflake
           type: string
         archivedDate:
@@ -49649,7 +50217,7 @@ components:
           key:
             href: href
             type: type
-        total_count: 7
+        total_count: 3
         items:
         - archivedDate: 6
           mutableFieldsByStatus:
@@ -49830,7 +50398,8 @@ components:
               key: metric-key-123abc
             version: 0
             treatments:
-            - name: Treatment 1
+            - assignmentVariantId: treatment_a
+              name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
               baseline: true
               parameters:
@@ -49839,7 +50408,8 @@ components:
               - variationId: variationId
                 flagKey: flagKey
               allocationPercent: "10"
-            - name: Treatment 1
+            - assignmentVariantId: treatment_a
+              name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
               baseline: true
               parameters:
@@ -49962,6 +50532,12 @@ components:
               isGroup: true
               analysisType: mean
               key: metric-key-123abc
+            assignmentDataSource:
+              name: Snowflake production assignments
+              experimentId: experiment-123
+              startTime: 7
+              endTime: 9
+              key: my-assignment-data-source
             randomizationUnit: user
             hypothesis: The new button placement will increase conversion
             status: running
@@ -50137,7 +50713,8 @@ components:
               key: metric-key-123abc
             version: 0
             treatments:
-            - name: Treatment 1
+            - assignmentVariantId: treatment_a
+              name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
               baseline: true
               parameters:
@@ -50146,7 +50723,8 @@ components:
               - variationId: variationId
                 flagKey: flagKey
               allocationPercent: "10"
-            - name: Treatment 1
+            - assignmentVariantId: treatment_a
+              name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
               baseline: true
               parameters:
@@ -50269,6 +50847,12 @@ components:
               isGroup: true
               analysisType: mean
               key: metric-key-123abc
+            assignmentDataSource:
+              name: Snowflake production assignments
+              experimentId: experiment-123
+              startTime: 7
+              endTime: 9
+              key: my-assignment-data-source
             randomizationUnit: user
             hypothesis: The new button placement will increase conversion
             status: running
@@ -50435,7 +51019,8 @@ components:
               key: metric-key-123abc
             version: 0
             treatments:
-            - name: Treatment 1
+            - assignmentVariantId: treatment_a
+              name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
               baseline: true
               parameters:
@@ -50444,7 +51029,8 @@ components:
               - variationId: variationId
                 flagKey: flagKey
               allocationPercent: "10"
-            - name: Treatment 1
+            - assignmentVariantId: treatment_a
+              name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
               baseline: true
               parameters:
@@ -50567,6 +51153,12 @@ components:
               isGroup: true
               analysisType: mean
               key: metric-key-123abc
+            assignmentDataSource:
+              name: Snowflake production assignments
+              experimentId: experiment-123
+              startTime: 7
+              endTime: 9
+              key: my-assignment-data-source
             randomizationUnit: user
             hypothesis: The new button placement will increase conversion
             status: running
@@ -50577,6 +51169,7 @@ components:
           - experiment
           - feature
           _maintainerId: 12ab3c45de678910fgh12345
+          assignmentSourceType: snowflake
           _access:
             allowed:
             - reason:
@@ -50800,7 +51393,8 @@ components:
               key: metric-key-123abc
             version: 0
             treatments:
-            - name: Treatment 1
+            - assignmentVariantId: treatment_a
+              name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
               baseline: true
               parameters:
@@ -50809,7 +51403,8 @@ components:
               - variationId: variationId
                 flagKey: flagKey
               allocationPercent: "10"
-            - name: Treatment 1
+            - assignmentVariantId: treatment_a
+              name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
               baseline: true
               parameters:
@@ -50932,6 +51527,12 @@ components:
               isGroup: true
               analysisType: mean
               key: metric-key-123abc
+            assignmentDataSource:
+              name: Snowflake production assignments
+              experimentId: experiment-123
+              startTime: 7
+              endTime: 9
+              key: my-assignment-data-source
             randomizationUnit: user
             hypothesis: The new button placement will increase conversion
             status: running
@@ -51126,7 +51727,8 @@ components:
               key: metric-key-123abc
             version: 0
             treatments:
-            - name: Treatment 1
+            - assignmentVariantId: treatment_a
+              name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
               baseline: true
               parameters:
@@ -51135,7 +51737,8 @@ components:
               - variationId: variationId
                 flagKey: flagKey
               allocationPercent: "10"
-            - name: Treatment 1
+            - assignmentVariantId: treatment_a
+              name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
               baseline: true
               parameters:
@@ -51258,6 +51861,12 @@ components:
               isGroup: true
               analysisType: mean
               key: metric-key-123abc
+            assignmentDataSource:
+              name: Snowflake production assignments
+              experimentId: experiment-123
+              startTime: 7
+              endTime: 9
+              key: my-assignment-data-source
             randomizationUnit: user
             hypothesis: The new button placement will increase conversion
             status: running
@@ -51433,7 +52042,8 @@ components:
               key: metric-key-123abc
             version: 0
             treatments:
-            - name: Treatment 1
+            - assignmentVariantId: treatment_a
+              name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
               baseline: true
               parameters:
@@ -51442,7 +52052,8 @@ components:
               - variationId: variationId
                 flagKey: flagKey
               allocationPercent: "10"
-            - name: Treatment 1
+            - assignmentVariantId: treatment_a
+              name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
               baseline: true
               parameters:
@@ -51565,6 +52176,12 @@ components:
               isGroup: true
               analysisType: mean
               key: metric-key-123abc
+            assignmentDataSource:
+              name: Snowflake production assignments
+              experimentId: experiment-123
+              startTime: 7
+              endTime: 9
+              key: my-assignment-data-source
             randomizationUnit: user
             hypothesis: The new button placement will increase conversion
             status: running
@@ -51731,7 +52348,8 @@ components:
               key: metric-key-123abc
             version: 0
             treatments:
-            - name: Treatment 1
+            - assignmentVariantId: treatment_a
+              name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
               baseline: true
               parameters:
@@ -51740,7 +52358,8 @@ components:
               - variationId: variationId
                 flagKey: flagKey
               allocationPercent: "10"
-            - name: Treatment 1
+            - assignmentVariantId: treatment_a
+              name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
               baseline: true
               parameters:
@@ -51863,6 +52482,12 @@ components:
               isGroup: true
               analysisType: mean
               key: metric-key-123abc
+            assignmentDataSource:
+              name: Snowflake production assignments
+              experimentId: experiment-123
+              startTime: 7
+              endTime: 9
+              key: my-assignment-data-source
             randomizationUnit: user
             hypothesis: The new button placement will increase conversion
             status: running
@@ -51873,6 +52498,7 @@ components:
           - experiment
           - feature
           _maintainerId: 12ab3c45de678910fgh12345
+          assignmentSourceType: snowflake
           _access:
             allowed:
             - reason:
@@ -52096,7 +52722,8 @@ components:
               key: metric-key-123abc
             version: 0
             treatments:
-            - name: Treatment 1
+            - assignmentVariantId: treatment_a
+              name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
               baseline: true
               parameters:
@@ -52105,7 +52732,8 @@ components:
               - variationId: variationId
                 flagKey: flagKey
               allocationPercent: "10"
-            - name: Treatment 1
+            - assignmentVariantId: treatment_a
+              name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
               baseline: true
               parameters:
@@ -52228,6 +52856,12 @@ components:
               isGroup: true
               analysisType: mean
               key: metric-key-123abc
+            assignmentDataSource:
+              name: Snowflake production assignments
+              experimentId: experiment-123
+              startTime: 7
+              endTime: 9
+              key: my-assignment-data-source
             randomizationUnit: user
             hypothesis: The new button placement will increase conversion
             status: running
@@ -52712,12 +53346,18 @@ components:
             isGroup: true
             key: metric-key-123abc
             primary: true
+          assignmentDataSource:
+            experimentId: experiment-123
+            startTime: 0
+            endTime: 6
+            key: my-assignment-data-source
           randomizationUnit: user
           hypothesis: "Example hypothesis, the new button placement will increase\
             \ conversion"
           primaryFunnelKey: metric-group-key-123abc
           treatments:
-          - name: Treatment 1
+          - assignmentVariantId: treatment-1
+            name: Treatment 1
             baseline: true
             parameters:
             - variationId: e432f62b-55f6-49dd-a02f-eb24acf39d05
@@ -52725,7 +53365,8 @@ components:
             - variationId: e432f62b-55f6-49dd-a02f-eb24acf39d05
               flagKey: example-flag-for-experiment
             allocationPercent: "10"
-          - name: Treatment 1
+          - assignmentVariantId: treatment-1
+            name: Treatment 1
             baseline: true
             parameters:
             - variationId: e432f62b-55f6-49dd-a02f-eb24acf39d05
@@ -57089,7 +57730,8 @@ components:
               key: metric-key-123abc
             version: 0
             treatments:
-            - name: Treatment 1
+            - assignmentVariantId: treatment_a
+              name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
               baseline: true
               parameters:
@@ -57098,7 +57740,8 @@ components:
               - variationId: variationId
                 flagKey: flagKey
               allocationPercent: "10"
-            - name: Treatment 1
+            - assignmentVariantId: treatment_a
+              name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
               baseline: true
               parameters:
@@ -57221,6 +57864,12 @@ components:
               isGroup: true
               analysisType: mean
               key: metric-key-123abc
+            assignmentDataSource:
+              name: Snowflake production assignments
+              experimentId: experiment-123
+              startTime: 7
+              endTime: 9
+              key: my-assignment-data-source
             randomizationUnit: user
             hypothesis: The new button placement will increase conversion
             status: running
@@ -57396,7 +58045,8 @@ components:
               key: metric-key-123abc
             version: 0
             treatments:
-            - name: Treatment 1
+            - assignmentVariantId: treatment_a
+              name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
               baseline: true
               parameters:
@@ -57405,7 +58055,8 @@ components:
               - variationId: variationId
                 flagKey: flagKey
               allocationPercent: "10"
-            - name: Treatment 1
+            - assignmentVariantId: treatment_a
+              name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
               baseline: true
               parameters:
@@ -57528,6 +58179,12 @@ components:
               isGroup: true
               analysisType: mean
               key: metric-key-123abc
+            assignmentDataSource:
+              name: Snowflake production assignments
+              experimentId: experiment-123
+              startTime: 7
+              endTime: 9
+              key: my-assignment-data-source
             randomizationUnit: user
             hypothesis: The new button placement will increase conversion
             status: running
@@ -57694,7 +58351,8 @@ components:
               key: metric-key-123abc
             version: 0
             treatments:
-            - name: Treatment 1
+            - assignmentVariantId: treatment_a
+              name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
               baseline: true
               parameters:
@@ -57703,7 +58361,8 @@ components:
               - variationId: variationId
                 flagKey: flagKey
               allocationPercent: "10"
-            - name: Treatment 1
+            - assignmentVariantId: treatment_a
+              name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
               baseline: true
               parameters:
@@ -57826,6 +58485,12 @@ components:
               isGroup: true
               analysisType: mean
               key: metric-key-123abc
+            assignmentDataSource:
+              name: Snowflake production assignments
+              experimentId: experiment-123
+              startTime: 7
+              endTime: 9
+              key: my-assignment-data-source
             randomizationUnit: user
             hypothesis: The new button placement will increase conversion
             status: running
@@ -57836,6 +58501,7 @@ components:
           - experiment
           - feature
           _maintainerId: 12ab3c45de678910fgh12345
+          assignmentSourceType: snowflake
           _access:
             allowed:
             - reason:
@@ -58059,7 +58725,8 @@ components:
               key: metric-key-123abc
             version: 0
             treatments:
-            - name: Treatment 1
+            - assignmentVariantId: treatment_a
+              name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
               baseline: true
               parameters:
@@ -58068,7 +58735,8 @@ components:
               - variationId: variationId
                 flagKey: flagKey
               allocationPercent: "10"
-            - name: Treatment 1
+            - assignmentVariantId: treatment_a
+              name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
               baseline: true
               parameters:
@@ -58191,6 +58859,12 @@ components:
               isGroup: true
               analysisType: mean
               key: metric-key-123abc
+            assignmentDataSource:
+              name: Snowflake production assignments
+              experimentId: experiment-123
+              startTime: 7
+              endTime: 9
+              key: my-assignment-data-source
             randomizationUnit: user
             hypothesis: The new button placement will increase conversion
             status: running
@@ -58385,7 +59059,8 @@ components:
               key: metric-key-123abc
             version: 0
             treatments:
-            - name: Treatment 1
+            - assignmentVariantId: treatment_a
+              name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
               baseline: true
               parameters:
@@ -58394,7 +59069,8 @@ components:
               - variationId: variationId
                 flagKey: flagKey
               allocationPercent: "10"
-            - name: Treatment 1
+            - assignmentVariantId: treatment_a
+              name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
               baseline: true
               parameters:
@@ -58517,6 +59193,12 @@ components:
               isGroup: true
               analysisType: mean
               key: metric-key-123abc
+            assignmentDataSource:
+              name: Snowflake production assignments
+              experimentId: experiment-123
+              startTime: 7
+              endTime: 9
+              key: my-assignment-data-source
             randomizationUnit: user
             hypothesis: The new button placement will increase conversion
             status: running
@@ -58692,7 +59374,8 @@ components:
               key: metric-key-123abc
             version: 0
             treatments:
-            - name: Treatment 1
+            - assignmentVariantId: treatment_a
+              name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
               baseline: true
               parameters:
@@ -58701,7 +59384,8 @@ components:
               - variationId: variationId
                 flagKey: flagKey
               allocationPercent: "10"
-            - name: Treatment 1
+            - assignmentVariantId: treatment_a
+              name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
               baseline: true
               parameters:
@@ -58824,6 +59508,12 @@ components:
               isGroup: true
               analysisType: mean
               key: metric-key-123abc
+            assignmentDataSource:
+              name: Snowflake production assignments
+              experimentId: experiment-123
+              startTime: 7
+              endTime: 9
+              key: my-assignment-data-source
             randomizationUnit: user
             hypothesis: The new button placement will increase conversion
             status: running
@@ -58990,7 +59680,8 @@ components:
               key: metric-key-123abc
             version: 0
             treatments:
-            - name: Treatment 1
+            - assignmentVariantId: treatment_a
+              name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
               baseline: true
               parameters:
@@ -58999,7 +59690,8 @@ components:
               - variationId: variationId
                 flagKey: flagKey
               allocationPercent: "10"
-            - name: Treatment 1
+            - assignmentVariantId: treatment_a
+              name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
               baseline: true
               parameters:
@@ -59122,6 +59814,12 @@ components:
               isGroup: true
               analysisType: mean
               key: metric-key-123abc
+            assignmentDataSource:
+              name: Snowflake production assignments
+              experimentId: experiment-123
+              startTime: 7
+              endTime: 9
+              key: my-assignment-data-source
             randomizationUnit: user
             hypothesis: The new button placement will increase conversion
             status: running
@@ -59132,6 +59830,7 @@ components:
           - experiment
           - feature
           _maintainerId: 12ab3c45de678910fgh12345
+          assignmentSourceType: snowflake
           _access:
             allowed:
             - reason:
@@ -59355,7 +60054,8 @@ components:
               key: metric-key-123abc
             version: 0
             treatments:
-            - name: Treatment 1
+            - assignmentVariantId: treatment_a
+              name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
               baseline: true
               parameters:
@@ -59364,7 +60064,8 @@ components:
               - variationId: variationId
                 flagKey: flagKey
               allocationPercent: "10"
-            - name: Treatment 1
+            - assignmentVariantId: treatment_a
+              name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
               baseline: true
               parameters:
@@ -59487,6 +60188,12 @@ components:
               isGroup: true
               analysisType: mean
               key: metric-key-123abc
+            assignmentDataSource:
+              name: Snowflake production assignments
+              experimentId: experiment-123
+              startTime: 7
+              endTime: 9
+              key: my-assignment-data-source
             randomizationUnit: user
             hypothesis: The new button placement will increase conversion
             status: running
@@ -59684,7 +60391,8 @@ components:
               key: metric-key-123abc
             version: 0
             treatments:
-            - name: Treatment 1
+            - assignmentVariantId: treatment_a
+              name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
               baseline: true
               parameters:
@@ -59693,7 +60401,8 @@ components:
               - variationId: variationId
                 flagKey: flagKey
               allocationPercent: "10"
-            - name: Treatment 1
+            - assignmentVariantId: treatment_a
+              name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
               baseline: true
               parameters:
@@ -59816,6 +60525,12 @@ components:
               isGroup: true
               analysisType: mean
               key: metric-key-123abc
+            assignmentDataSource:
+              name: Snowflake production assignments
+              experimentId: experiment-123
+              startTime: 7
+              endTime: 9
+              key: my-assignment-data-source
             randomizationUnit: user
             hypothesis: The new button placement will increase conversion
             status: running
@@ -59991,7 +60706,8 @@ components:
               key: metric-key-123abc
             version: 0
             treatments:
-            - name: Treatment 1
+            - assignmentVariantId: treatment_a
+              name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
               baseline: true
               parameters:
@@ -60000,7 +60716,8 @@ components:
               - variationId: variationId
                 flagKey: flagKey
               allocationPercent: "10"
-            - name: Treatment 1
+            - assignmentVariantId: treatment_a
+              name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
               baseline: true
               parameters:
@@ -60123,6 +60840,12 @@ components:
               isGroup: true
               analysisType: mean
               key: metric-key-123abc
+            assignmentDataSource:
+              name: Snowflake production assignments
+              experimentId: experiment-123
+              startTime: 7
+              endTime: 9
+              key: my-assignment-data-source
             randomizationUnit: user
             hypothesis: The new button placement will increase conversion
             status: running
@@ -60289,7 +61012,8 @@ components:
               key: metric-key-123abc
             version: 0
             treatments:
-            - name: Treatment 1
+            - assignmentVariantId: treatment_a
+              name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
               baseline: true
               parameters:
@@ -60298,7 +61022,8 @@ components:
               - variationId: variationId
                 flagKey: flagKey
               allocationPercent: "10"
-            - name: Treatment 1
+            - assignmentVariantId: treatment_a
+              name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
               baseline: true
               parameters:
@@ -60421,6 +61146,12 @@ components:
               isGroup: true
               analysisType: mean
               key: metric-key-123abc
+            assignmentDataSource:
+              name: Snowflake production assignments
+              experimentId: experiment-123
+              startTime: 7
+              endTime: 9
+              key: my-assignment-data-source
             randomizationUnit: user
             hypothesis: The new button placement will increase conversion
             status: running
@@ -60431,6 +61162,7 @@ components:
           - experiment
           - feature
           _maintainerId: 12ab3c45de678910fgh12345
+          assignmentSourceType: snowflake
           _access:
             allowed:
             - reason:
@@ -60654,7 +61386,8 @@ components:
               key: metric-key-123abc
             version: 0
             treatments:
-            - name: Treatment 1
+            - assignmentVariantId: treatment_a
+              name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
               baseline: true
               parameters:
@@ -60663,7 +61396,8 @@ components:
               - variationId: variationId
                 flagKey: flagKey
               allocationPercent: "10"
-            - name: Treatment 1
+            - assignmentVariantId: treatment_a
+              name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
               baseline: true
               parameters:
@@ -60786,6 +61520,12 @@ components:
               isGroup: true
               analysisType: mean
               key: metric-key-123abc
+            assignmentDataSource:
+              name: Snowflake production assignments
+              experimentId: experiment-123
+              startTime: 7
+              endTime: 9
+              key: my-assignment-data-source
             randomizationUnit: user
             hypothesis: The new button placement will increase conversion
             status: running
@@ -61124,7 +61864,8 @@ components:
               key: metric-key-123abc
             version: 0
             treatments:
-            - name: Treatment 1
+            - assignmentVariantId: treatment_a
+              name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
               baseline: true
               parameters:
@@ -61133,7 +61874,8 @@ components:
               - variationId: variationId
                 flagKey: flagKey
               allocationPercent: "10"
-            - name: Treatment 1
+            - assignmentVariantId: treatment_a
+              name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
               baseline: true
               parameters:
@@ -61256,6 +61998,12 @@ components:
               isGroup: true
               analysisType: mean
               key: metric-key-123abc
+            assignmentDataSource:
+              name: Snowflake production assignments
+              experimentId: experiment-123
+              startTime: 7
+              endTime: 9
+              key: my-assignment-data-source
             randomizationUnit: user
             hypothesis: The new button placement will increase conversion
             status: running
@@ -61431,7 +62179,8 @@ components:
               key: metric-key-123abc
             version: 0
             treatments:
-            - name: Treatment 1
+            - assignmentVariantId: treatment_a
+              name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
               baseline: true
               parameters:
@@ -61440,7 +62189,8 @@ components:
               - variationId: variationId
                 flagKey: flagKey
               allocationPercent: "10"
-            - name: Treatment 1
+            - assignmentVariantId: treatment_a
+              name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
               baseline: true
               parameters:
@@ -61563,6 +62313,12 @@ components:
               isGroup: true
               analysisType: mean
               key: metric-key-123abc
+            assignmentDataSource:
+              name: Snowflake production assignments
+              experimentId: experiment-123
+              startTime: 7
+              endTime: 9
+              key: my-assignment-data-source
             randomizationUnit: user
             hypothesis: The new button placement will increase conversion
             status: running
@@ -61729,7 +62485,8 @@ components:
               key: metric-key-123abc
             version: 0
             treatments:
-            - name: Treatment 1
+            - assignmentVariantId: treatment_a
+              name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
               baseline: true
               parameters:
@@ -61738,7 +62495,8 @@ components:
               - variationId: variationId
                 flagKey: flagKey
               allocationPercent: "10"
-            - name: Treatment 1
+            - assignmentVariantId: treatment_a
+              name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
               baseline: true
               parameters:
@@ -61861,6 +62619,12 @@ components:
               isGroup: true
               analysisType: mean
               key: metric-key-123abc
+            assignmentDataSource:
+              name: Snowflake production assignments
+              experimentId: experiment-123
+              startTime: 7
+              endTime: 9
+              key: my-assignment-data-source
             randomizationUnit: user
             hypothesis: The new button placement will increase conversion
             status: running
@@ -61871,6 +62635,7 @@ components:
           - experiment
           - feature
           _maintainerId: 12ab3c45de678910fgh12345
+          assignmentSourceType: snowflake
           _access:
             allowed:
             - reason:
@@ -62094,7 +62859,8 @@ components:
               key: metric-key-123abc
             version: 0
             treatments:
-            - name: Treatment 1
+            - assignmentVariantId: treatment_a
+              name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
               baseline: true
               parameters:
@@ -62103,7 +62869,8 @@ components:
               - variationId: variationId
                 flagKey: flagKey
               allocationPercent: "10"
-            - name: Treatment 1
+            - assignmentVariantId: treatment_a
+              name: Treatment 1
               _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
               baseline: true
               parameters:
@@ -62226,6 +62993,12 @@ components:
               isGroup: true
               analysisType: mean
               key: metric-key-123abc
+            assignmentDataSource:
+              name: Snowflake production assignments
+              experimentId: experiment-123
+              startTime: 7
+              endTime: 9
+              key: my-assignment-data-source
             randomizationUnit: user
             hypothesis: The new button placement will increase conversion
             status: running
@@ -63183,6 +63956,18 @@ components:
             type: type
         name: Development environment configuration
         _id: 12ab3c4d5ef1a2345bcde67f
+        _status:
+          lastSync: 0
+          lastError: 6
+          potentiallyStale: true
+          available: false
+          errors:
+          - message: message
+            statusCode: 1
+            timestamp: 5
+          - message: message
+            statusCode: 1
+            timestamp: 5
         config:
           key: ""
         version: 1
@@ -63232,6 +64017,8 @@ components:
           type: integer
         _access:
           $ref: "#/components/schemas/Access"
+        _status:
+          $ref: "#/components/schemas/IntegrationDeliveryConfigurationStatus"
       required:
       - _id
       - _links
@@ -63329,6 +64116,18 @@ components:
               type: type
           name: Development environment configuration
           _id: 12ab3c4d5ef1a2345bcde67f
+          _status:
+            lastSync: 0
+            lastError: 6
+            potentiallyStale: true
+            available: false
+            errors:
+            - message: message
+              statusCode: 1
+              timestamp: 5
+            - message: message
+              statusCode: 1
+              timestamp: 5
           config:
             key: ""
           version: 1
@@ -63411,6 +64210,18 @@ components:
               type: type
           name: Development environment configuration
           _id: 12ab3c4d5ef1a2345bcde67f
+          _status:
+            lastSync: 0
+            lastError: 6
+            potentiallyStale: true
+            available: false
+            errors:
+            - message: message
+              statusCode: 1
+              timestamp: 5
+            - message: message
+              statusCode: 1
+              timestamp: 5
           config:
             key: ""
           version: 1
@@ -63525,6 +64336,46 @@ components:
         responseBody:
           description: JSON response to the validation request
           type: string
+      type: object
+    IntegrationDeliveryConfigurationStatus:
+      example:
+        lastSync: 0
+        lastError: 6
+        potentiallyStale: true
+        available: false
+        errors:
+        - message: message
+          statusCode: 1
+          timestamp: 5
+        - message: message
+          statusCode: 1
+          timestamp: 5
+      properties:
+        available:
+          description: Whether the latest sync succeeded
+          example: false
+          type: boolean
+        potentiallyStale:
+          description: Whether the feature store may be missing flag data from a failed
+            or in-progress sync
+          example: true
+          type: boolean
+        lastSync:
+          format: int64
+          type: integer
+        lastError:
+          format: int64
+          type: integer
+        errors:
+          description: Recent failed sync responses. Successful (200) and in-progress
+            (202) responses are omitted. Included only when fetching a single configuration
+            by ID.
+          items:
+            $ref: "#/components/schemas/StoreIntegrationError"
+          type: array
+      required:
+      - available
+      - potentiallyStale
       type: object
     IntegrationMetadata:
       example:
@@ -63859,6 +64710,37 @@ components:
       - code
       - message
       type: object
+    IterationAssignmentDataSourceRep:
+      example:
+        name: Snowflake production assignments
+        experimentId: experiment-123
+        startTime: 7
+        endTime: 9
+        key: my-assignment-data-source
+      properties:
+        key:
+          description: The key of the assignment data source used for this iteration
+          example: my-assignment-data-source
+          type: string
+        name:
+          description: The display name of the assignment data source
+          example: Snowflake production assignments
+          type: string
+        experimentId:
+          description: The experiment identifier in the assignment data source
+          example: experiment-123
+          type: string
+        startTime:
+          format: int64
+          type: integer
+        endTime:
+          format: int64
+          type: integer
+      required:
+      - experimentId
+      - key
+      - name
+      type: object
     IterationInput:
       example:
         canReshuffleTraffic: true
@@ -63883,11 +64765,17 @@ components:
           isGroup: true
           key: metric-key-123abc
           primary: true
+        assignmentDataSource:
+          experimentId: experiment-123
+          startTime: 0
+          endTime: 6
+          key: my-assignment-data-source
         randomizationUnit: user
         hypothesis: "Example hypothesis, the new button placement will increase conversion"
         primaryFunnelKey: metric-group-key-123abc
         treatments:
-        - name: Treatment 1
+        - assignmentVariantId: treatment-1
+          name: Treatment 1
           baseline: true
           parameters:
           - variationId: e432f62b-55f6-49dd-a02f-eb24acf39d05
@@ -63895,7 +64783,8 @@ components:
           - variationId: e432f62b-55f6-49dd-a02f-eb24acf39d05
             flagKey: example-flag-for-experiment
           allocationPercent: "10"
-        - name: Treatment 1
+        - assignmentVariantId: treatment-1
+          name: Treatment 1
           baseline: true
           parameters:
           - variationId: e432f62b-55f6-49dd-a02f-eb24acf39d05
@@ -63938,6 +64827,8 @@ components:
           additionalProperties:
             $ref: "#/components/schemas/FlagInput"
           type: object
+        assignmentDataSource:
+          $ref: "#/components/schemas/AssignmentDataSourceInput"
         randomizationUnit:
           description: The unit of randomization for this iteration. Defaults to user.
           example: user
@@ -63950,8 +64841,8 @@ components:
           description: The ID of the covariate CSV
           type: string
         attributes:
-          description: The attributes that this iteration's results can be sliced
-            by
+          description: "The attributes that this iteration's results can be sliced\
+            \ by, whose values come from flag evaluation events"
           example:
           - country
           - device
@@ -64130,7 +65021,8 @@ components:
           key: metric-key-123abc
         version: 0
         treatments:
-        - name: Treatment 1
+        - assignmentVariantId: treatment_a
+          name: Treatment 1
           _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
           baseline: true
           parameters:
@@ -64139,7 +65031,8 @@ components:
           - variationId: variationId
             flagKey: flagKey
           allocationPercent: "10"
-        - name: Treatment 1
+        - assignmentVariantId: treatment_a
+          name: Treatment 1
           _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
           baseline: true
           parameters:
@@ -64262,6 +65155,12 @@ components:
           isGroup: true
           analysisType: mean
           key: metric-key-123abc
+        assignmentDataSource:
+          name: Snowflake production assignments
+          experimentId: experiment-123
+          startTime: 7
+          endTime: 9
+          key: my-assignment-data-source
         randomizationUnit: user
         hypothesis: The new button placement will increase conversion
         status: running
@@ -64332,7 +65231,8 @@ components:
           example: user
           type: string
         attributes:
-          description: The available attribute filters for this iteration
+          description: "The attributes this iteration slices results by, whose values\
+            \ come from flag evaluation events."
           items:
             type: string
           type: array
@@ -64357,6 +65257,8 @@ components:
           $ref: "#/components/schemas/LayerSnapshotRep"
         covariateInfo:
           $ref: "#/components/schemas/CovariateInfoRep"
+        assignmentDataSource:
+          $ref: "#/components/schemas/IterationAssignmentDataSourceRep"
       required:
       - createdAt
       - hypothesis
@@ -74394,6 +75296,7 @@ components:
       type: object
     TreatmentInput:
       example:
+        assignmentVariantId: treatment-1
         name: Treatment 1
         baseline: true
         parameters:
@@ -74422,6 +75325,11 @@ components:
           items:
             $ref: "#/components/schemas/TreatmentParameterInput"
           type: array
+        assignmentVariantId:
+          description: The variant identifier in the warehouse-native assignment source
+            that maps to this treatment
+          example: treatment-1
+          type: string
       required:
       - allocationPercent
       - baseline
@@ -74447,6 +75355,7 @@ components:
       type: object
     TreatmentRep:
       example:
+        assignmentVariantId: treatment_a
         name: Treatment 1
         _id: 122c9f3e-da26-4321-ba68-e0fc02eced58
         baseline: true
@@ -74480,6 +75389,11 @@ components:
           items:
             $ref: "#/components/schemas/ParameterRep"
           type: array
+        assignmentVariantId:
+          description: The variant identifier in the warehouse-native assignment source
+            that maps to this treatment
+          example: treatment_a
+          type: string
       required:
       - allocationPercent
       - name
@@ -76561,6 +77475,7 @@ components:
           - '*'
         _id: 57be1db38b75bf0772d11384
         secret: frobozz
+        hasBearerToken: true
         url: http://www.example.com
         "on": true
         tags:
@@ -76588,6 +77503,11 @@ components:
           description: The secret for this webhook
           example: frobozz
           type: string
+        hasBearerToken:
+          description: Whether this webhook sends a bearer token. The token itself
+            is never returned.
+          example: true
+          type: boolean
         statements:
           description: "Represents a Custom role policy, defining a resource kinds\
             \ filter the webhook responds to."
@@ -76710,6 +77630,7 @@ components:
             - '*'
           _id: 57be1db38b75bf0772d11384
           secret: frobozz
+          hasBearerToken: true
           url: http://www.example.com
           "on": true
           tags:
@@ -76803,6 +77724,7 @@ components:
             - '*'
           _id: 57be1db38b75bf0772d11384
           secret: frobozz
+          hasBearerToken: true
           url: http://www.example.com
           "on": true
           tags:
@@ -77974,6 +78896,11 @@ components:
             \ automatically generates a secret for you."
           example: frobozz
           type: string
+        bearerToken:
+          description: "An optional token. If set, LaunchDarkly sends it in an Authorization:\
+            \ Bearer header with each request. It is write-only and is never returned."
+          example: example-token
+          type: string
         statements:
           items:
             $ref: "#/components/schemas/StatementPost"
@@ -78967,8 +79894,14 @@ components:
             type: string
           type: array
         isInverted:
-          description: "Whether the evaluation metric is inverted, meaning a lower\
-            \ value is better if set as true"
+          description: |
+            The success direction of a judge. Offline evaluations use it to decide whether a score passes.
+
+            - `true`: A lower score is better. Use this for a judge that scores bad output, such as a toxicity or hallucination judge.
+            - `false`: A higher score is better. Use this for a judge that scores good output, such as an accuracy or relevance judge.
+
+            The response includes this field only when `mode` is `judge`. For a built-in judge key, the value is always the built-in direction. Built-in judge keys are `ld-ai-judge-accuracy`, `ld-ai-judge-relevance`, and `ld-ai-judge-toxicity`, with or without a `-<timestamp>` suffix such as `ld-ai-judge-accuracy-1760000000000`. A custom judge with no stored direction omits this field.
+          example: true
           type: boolean
         dependencies:
           description: "Resources that depend on this config, grouped by type"
@@ -79088,8 +80021,23 @@ components:
           description: Evaluation metric key for this config
           type: string
         isInverted:
-          description: "Whether the evaluation metric is inverted, meaning a lower\
-            \ value is better if set as true"
+          description: |
+            The success direction of a judge. Offline evaluations use it to decide whether a score passes.
+
+            - `true`: A lower score is better. Use this for a judge that scores bad output, such as a toxicity or hallucination judge.
+            - `false`: A higher score is better. Use this for a judge that scores good output, such as an accuracy or relevance judge.
+
+            **Required for a custom judge.** A custom judge has `mode` set to `judge` and a `key` that is not a built-in judge key. Built-in judge keys are `ld-ai-judge-accuracy`, `ld-ai-judge-relevance`, and `ld-ai-judge-toxicity`, with or without a `-<timestamp>` suffix such as `ld-ai-judge-accuracy-1760000000000`. For a built-in judge key, this field is optional, and the API always uses the built-in direction.
+
+            Do not send this field when `mode` is `agent` or `completion`.
+
+            This field is not in the schema's `required` list, because only custom judges need it.
+
+            The API returns a `400` error in these cases:
+            - `isInverted is required for a custom judge: ...`: You create a custom judge without this field. Send `true` or `false`.
+            - `isInverted is only supported for judge mode`: You send this field and `mode` is `agent` or `completion`. Remove the field, or set `mode` to `judge`.
+            - `isInverted is not supported`: Custom judges are not available for your account. Remove the field from the request.
+          example: true
           type: boolean
       required:
       - key
@@ -79134,8 +80082,18 @@ components:
           description: Evaluation metric key for this config
           type: string
         isInverted:
-          description: "Whether the evaluation metric is inverted, meaning a lower\
-            \ value is better if set as true"
+          description: |
+            The success direction of a judge. Offline evaluations use it to decide whether a score passes.
+
+            - `true`: A lower score is better. Use this for a judge that scores bad output, such as a toxicity or hallucination judge.
+            - `false`: A higher score is better. Use this for a judge that scores good output, such as an accuracy or relevance judge.
+
+            Send this field only when the AI Config's `mode` is `judge`. If you omit it, the current direction does not change. For a built-in judge key, the API always returns the built-in direction. Built-in judge keys are `ld-ai-judge-accuracy`, `ld-ai-judge-relevance`, and `ld-ai-judge-toxicity`, with or without a `-<timestamp>` suffix such as `ld-ai-judge-accuracy-1760000000000`.
+
+            The API returns a `400` error in these cases:
+            - `isInverted is only supported for judge mode`: You send this field and the AI Config's `mode` is `agent` or `completion`. Remove the field.
+            - `isInverted is not supported`: Custom judges are not available for your account. Remove the field from the request.
+          example: true
           type: boolean
       type: object
     AIConfigVariation:
@@ -80431,6 +81389,7 @@ components:
                 - ""
                 attribute: attribute
                 id: id
+              _id: _id
               trackEvents: true
             - clauses:
               - op: op
@@ -80447,8 +81406,9 @@ components:
                 - ""
                 attribute: attribute
                 id: id
+              _id: _id
               trackEvents: true
-            lastModified: 2
+            lastModified: 7
             trackEvents: true
             fallthrough:
               rollout:
@@ -80467,7 +81427,7 @@ components:
                 contextKind: contextKind
                 bucketBy: bucketBy
               variation: 5
-            offVariation: 4
+            offVariation: 1
             targets:
             - values:
               - values
@@ -80479,7 +81439,7 @@ components:
               - values
               contextKind: contextKind
               variation: 5
-            _version: 7
+            _version: 1
             enabled: true
         variations:
         - name: name
@@ -80500,12 +81460,12 @@ components:
             - my-environment
             _environmentSettings:
               key:
-                startDate: 6
-                stopDate: 8
+                startDate: 9
+                stopDate: 6
                 enabledPeriods:
-                - startDate: 9
+                - startDate: 3
                   stopDate: 6
-                - startDate: 9
+                - startDate: 3
                   stopDate: 6
             _metric:
               _links:
@@ -80516,7 +81476,7 @@ components:
                   href: /api/v2/metrics/my-project/my-metric
                   type: application/json
               activeExperimentCount: 2
-              windowEndOffset: 1
+              windowEndOffset: 5
               randomizationUnits:
               - user
               guardedRolloutCount: 0
@@ -80586,8 +81546,8 @@ components:
               kind: custom
               _attachedFlagCount: 0
               metricGroupCount: 0
-              _creationDate: 1
-              windowStartOffset: 7
+              _creationDate: 6
+              windowStartOffset: 4
               tags: []
               winsorIncludeImputed: false
               denominator:
@@ -80609,14 +81569,14 @@ components:
                   _integrationKey: _integrationKey
                   key: key
                   environmentKey: environmentKey
-                windowStartOffset: 4
-                windowEndOffset: 5
-                winsorLowerPercentile: 9.965781217890562
-                winsorUpperPercentile: 9.369310271410669
+                windowStartOffset: 9
+                windowEndOffset: 9
+                winsorLowerPercentile: 6.683562403749608
+                winsorUpperPercentile: 8.762042012749001
                 winsorIncludeImputed: true
               maintainerId: 569fdeadbeef1644facecafe
               unit: unit
-              lastSeen: 1
+              lastSeen: 7
               isNumeric: true
               experimentCount: 0
               name: My metric
@@ -80665,7 +81625,7 @@ components:
               eventDefault:
                 disabled: true
                 value: 0
-              archivedAt: 6
+              archivedAt: 1
               successCriteria: HigherThanBaseline
               releasePolicyCount: 0
               _versionId: version-id-123abc
@@ -80680,12 +81640,12 @@ components:
             - my-environment
             _environmentSettings:
               key:
-                startDate: 6
-                stopDate: 8
+                startDate: 9
+                stopDate: 6
                 enabledPeriods:
-                - startDate: 9
+                - startDate: 3
                   stopDate: 6
-                - startDate: 9
+                - startDate: 3
                   stopDate: 6
             _metric:
               _links:
@@ -80696,7 +81656,7 @@ components:
                   href: /api/v2/metrics/my-project/my-metric
                   type: application/json
               activeExperimentCount: 2
-              windowEndOffset: 1
+              windowEndOffset: 5
               randomizationUnits:
               - user
               guardedRolloutCount: 0
@@ -80766,8 +81726,8 @@ components:
               kind: custom
               _attachedFlagCount: 0
               metricGroupCount: 0
-              _creationDate: 1
-              windowStartOffset: 7
+              _creationDate: 6
+              windowStartOffset: 4
               tags: []
               winsorIncludeImputed: false
               denominator:
@@ -80789,14 +81749,14 @@ components:
                   _integrationKey: _integrationKey
                   key: key
                   environmentKey: environmentKey
-                windowStartOffset: 4
-                windowEndOffset: 5
-                winsorLowerPercentile: 9.965781217890562
-                winsorUpperPercentile: 9.369310271410669
+                windowStartOffset: 9
+                windowEndOffset: 9
+                winsorLowerPercentile: 6.683562403749608
+                winsorUpperPercentile: 8.762042012749001
                 winsorIncludeImputed: true
               maintainerId: 569fdeadbeef1644facecafe
               unit: unit
-              lastSeen: 1
+              lastSeen: 7
               isNumeric: true
               experimentCount: 0
               name: My metric
@@ -80845,7 +81805,7 @@ components:
               eventDefault:
                 disabled: true
                 value: 0
-              archivedAt: 6
+              archivedAt: 1
               successCriteria: HigherThanBaseline
               releasePolicyCount: 0
               _versionId: version-id-123abc
@@ -80854,7 +81814,7 @@ components:
               category: Error monitoring
               analysisType: mean
         name: name
-        _version: 3
+        _version: 1
         key: key
         tags:
         - tags
@@ -80938,6 +81898,13 @@ components:
         judgeToxicity: 0.6846853
         totalTokens: 1
         judgeAccuracy: 0.10246457
+        judgeScores:
+        - score: 7.4577446
+          metricKey: $ld:ai:judge:helpfulness
+          count: 1
+        - score: 7.4577446
+          metricKey: $ld:ai:judge:helpfulness
+          count: 1
         generationCount: 5
         timeToFirstTokenMs: 2
         outputTokens: 6
@@ -81008,6 +81975,36 @@ components:
           maximum: 1
           minimum: 0
           type: number
+        judgeScores:
+          description: "Average score and sample count for every judge metric recorded\
+            \ in the time range, keyed by the judge's evaluation metric key. Includes\
+            \ custom judges and the built-in accuracy, relevance, and toxicity judges.\
+            \ Omitted when no judge scores were recorded."
+          items:
+            $ref: "#/components/schemas/JudgeScore"
+          type: array
+      type: object
+    JudgeScore:
+      example:
+        score: 7.4577446
+        metricKey: $ld:ai:judge:helpfulness
+        count: 1
+      properties:
+        metricKey:
+          description: The judge's evaluation metric key
+          example: $ld:ai:judge:helpfulness
+          type: string
+        score:
+          description: Average judge score across the recorded samples
+          format: float
+          type: number
+        count:
+          description: Number of judge scores recorded
+          type: integer
+      required:
+      - count
+      - metricKey
+      - score
       type: object
     MetricByVariation:
       example:
@@ -81022,6 +82019,13 @@ components:
           judgeToxicity: 0.6846853
           totalTokens: 1
           judgeAccuracy: 0.10246457
+          judgeScores:
+          - score: 7.4577446
+            metricKey: $ld:ai:judge:helpfulness
+            count: 1
+          - score: 7.4577446
+            metricKey: $ld:ai:judge:helpfulness
+            count: 1
           generationCount: 5
           timeToFirstTokenMs: 2
           outputTokens: 6
@@ -81145,6 +82149,7 @@ components:
             - ""
             attribute: attribute
             id: id
+          _id: _id
           trackEvents: true
         - clauses:
           - op: op
@@ -81161,8 +82166,9 @@ components:
             - ""
             attribute: attribute
             id: id
+          _id: _id
           trackEvents: true
-        lastModified: 2
+        lastModified: 7
         trackEvents: true
         fallthrough:
           rollout:
@@ -81181,7 +82187,7 @@ components:
             contextKind: contextKind
             bucketBy: bucketBy
           variation: 5
-        offVariation: 4
+        offVariation: 1
         targets:
         - values:
           - values
@@ -81193,7 +82199,7 @@ components:
           - values
           contextKind: contextKind
           variation: 5
-        _version: 7
+        _version: 1
         enabled: true
       properties:
         contextTargets:
@@ -81364,8 +82370,13 @@ components:
           - ""
           attribute: attribute
           id: id
+        _id: _id
         trackEvents: true
       properties:
+        _id:
+          description: The rule ID. Pass it as ruleId in targeting instructions that
+            change this rule.
+          type: string
         clauses:
           description: The clauses a context must match
           items:
@@ -81376,6 +82387,7 @@ components:
             this rule
           type: boolean
       required:
+      - _id
       - clauses
       - trackEvents
       type: object
@@ -85027,12 +86039,12 @@ components:
           - my-environment
           _environmentSettings:
             key:
-              startDate: 6
-              stopDate: 8
+              startDate: 9
+              stopDate: 6
               enabledPeriods:
-              - startDate: 9
+              - startDate: 3
                 stopDate: 6
-              - startDate: 9
+              - startDate: 3
                 stopDate: 6
           _metric:
             _links:
@@ -85043,7 +86055,7 @@ components:
                 href: /api/v2/metrics/my-project/my-metric
                 type: application/json
             activeExperimentCount: 2
-            windowEndOffset: 1
+            windowEndOffset: 5
             randomizationUnits:
             - user
             guardedRolloutCount: 0
@@ -85113,8 +86125,8 @@ components:
             kind: custom
             _attachedFlagCount: 0
             metricGroupCount: 0
-            _creationDate: 1
-            windowStartOffset: 7
+            _creationDate: 6
+            windowStartOffset: 4
             tags: []
             winsorIncludeImputed: false
             denominator:
@@ -85136,14 +86148,14 @@ components:
                 _integrationKey: _integrationKey
                 key: key
                 environmentKey: environmentKey
-              windowStartOffset: 4
-              windowEndOffset: 5
-              winsorLowerPercentile: 9.965781217890562
-              winsorUpperPercentile: 9.369310271410669
+              windowStartOffset: 9
+              windowEndOffset: 9
+              winsorLowerPercentile: 6.683562403749608
+              winsorUpperPercentile: 8.762042012749001
               winsorIncludeImputed: true
             maintainerId: 569fdeadbeef1644facecafe
             unit: unit
-            lastSeen: 1
+            lastSeen: 7
             isNumeric: true
             experimentCount: 0
             name: My metric
@@ -85192,7 +86204,7 @@ components:
             eventDefault:
               disabled: true
               value: 0
-            archivedAt: 6
+            archivedAt: 1
             successCriteria: HigherThanBaseline
             releasePolicyCount: 0
             _versionId: version-id-123abc
@@ -85207,12 +86219,12 @@ components:
           - my-environment
           _environmentSettings:
             key:
-              startDate: 6
-              stopDate: 8
+              startDate: 9
+              stopDate: 6
               enabledPeriods:
-              - startDate: 9
+              - startDate: 3
                 stopDate: 6
-              - startDate: 9
+              - startDate: 3
                 stopDate: 6
           _metric:
             _links:
@@ -85223,7 +86235,7 @@ components:
                 href: /api/v2/metrics/my-project/my-metric
                 type: application/json
             activeExperimentCount: 2
-            windowEndOffset: 1
+            windowEndOffset: 5
             randomizationUnits:
             - user
             guardedRolloutCount: 0
@@ -85293,8 +86305,8 @@ components:
             kind: custom
             _attachedFlagCount: 0
             metricGroupCount: 0
-            _creationDate: 1
-            windowStartOffset: 7
+            _creationDate: 6
+            windowStartOffset: 4
             tags: []
             winsorIncludeImputed: false
             denominator:
@@ -85316,14 +86328,14 @@ components:
                 _integrationKey: _integrationKey
                 key: key
                 environmentKey: environmentKey
-              windowStartOffset: 4
-              windowEndOffset: 5
-              winsorLowerPercentile: 9.965781217890562
-              winsorUpperPercentile: 9.369310271410669
+              windowStartOffset: 9
+              windowEndOffset: 9
+              winsorLowerPercentile: 6.683562403749608
+              winsorUpperPercentile: 8.762042012749001
               winsorIncludeImputed: true
             maintainerId: 569fdeadbeef1644facecafe
             unit: unit
-            lastSeen: 1
+            lastSeen: 7
             isNumeric: true
             experimentCount: 0
             name: My metric
@@ -85372,7 +86384,7 @@ components:
             eventDefault:
               disabled: true
               value: 0
-            archivedAt: 6
+            archivedAt: 1
             successCriteria: HigherThanBaseline
             releasePolicyCount: 0
             _versionId: version-id-123abc
@@ -85400,12 +86412,12 @@ components:
         - my-environment
         _environmentSettings:
           key:
-            startDate: 6
-            stopDate: 8
+            startDate: 9
+            stopDate: 6
             enabledPeriods:
-            - startDate: 9
+            - startDate: 3
               stopDate: 6
-            - startDate: 9
+            - startDate: 3
               stopDate: 6
         _metric:
           _links:
@@ -85416,7 +86428,7 @@ components:
               href: /api/v2/metrics/my-project/my-metric
               type: application/json
           activeExperimentCount: 2
-          windowEndOffset: 1
+          windowEndOffset: 5
           randomizationUnits:
           - user
           guardedRolloutCount: 0
@@ -85486,8 +86498,8 @@ components:
           kind: custom
           _attachedFlagCount: 0
           metricGroupCount: 0
-          _creationDate: 1
-          windowStartOffset: 7
+          _creationDate: 6
+          windowStartOffset: 4
           tags: []
           winsorIncludeImputed: false
           denominator:
@@ -85509,14 +86521,14 @@ components:
               _integrationKey: _integrationKey
               key: key
               environmentKey: environmentKey
-            windowStartOffset: 4
-            windowEndOffset: 5
-            winsorLowerPercentile: 9.965781217890562
-            winsorUpperPercentile: 9.369310271410669
+            windowStartOffset: 9
+            windowEndOffset: 9
+            winsorLowerPercentile: 6.683562403749608
+            winsorUpperPercentile: 8.762042012749001
             winsorIncludeImputed: true
           maintainerId: 569fdeadbeef1644facecafe
           unit: unit
-          lastSeen: 1
+          lastSeen: 7
           isNumeric: true
           experimentCount: 0
           name: My metric
@@ -85565,7 +86577,7 @@ components:
           eventDefault:
             disabled: true
             value: 0
-          archivedAt: 6
+          archivedAt: 1
           successCriteria: HigherThanBaseline
           releasePolicyCount: 0
           _versionId: version-id-123abc
@@ -85602,7 +86614,7 @@ components:
             href: /api/v2/metrics/my-project/my-metric
             type: application/json
         activeExperimentCount: 2
-        windowEndOffset: 1
+        windowEndOffset: 5
         randomizationUnits:
         - user
         guardedRolloutCount: 0
@@ -85672,8 +86684,8 @@ components:
         kind: custom
         _attachedFlagCount: 0
         metricGroupCount: 0
-        _creationDate: 1
-        windowStartOffset: 7
+        _creationDate: 6
+        windowStartOffset: 4
         tags: []
         winsorIncludeImputed: false
         denominator:
@@ -85695,14 +86707,14 @@ components:
             _integrationKey: _integrationKey
             key: key
             environmentKey: environmentKey
-          windowStartOffset: 4
-          windowEndOffset: 5
-          winsorLowerPercentile: 9.965781217890562
-          winsorUpperPercentile: 9.369310271410669
+          windowStartOffset: 9
+          windowEndOffset: 9
+          winsorLowerPercentile: 6.683562403749608
+          winsorUpperPercentile: 8.762042012749001
           winsorIncludeImputed: true
         maintainerId: 569fdeadbeef1644facecafe
         unit: unit
-        lastSeen: 1
+        lastSeen: 7
         isNumeric: true
         experimentCount: 0
         name: My metric
@@ -85751,7 +86763,7 @@ components:
         eventDefault:
           disabled: true
           value: 0
-        archivedAt: 6
+        archivedAt: 1
         successCriteria: HigherThanBaseline
         releasePolicyCount: 0
         _versionId: version-id-123abc
@@ -86156,10 +87168,10 @@ components:
           _integrationKey: _integrationKey
           key: key
           environmentKey: environmentKey
-        windowStartOffset: 4
-        windowEndOffset: 5
-        winsorLowerPercentile: 9.965781217890562
-        winsorUpperPercentile: 9.369310271410669
+        windowStartOffset: 9
+        windowEndOffset: 9
+        winsorLowerPercentile: 6.683562403749608
+        winsorUpperPercentile: 8.762042012749001
         winsorIncludeImputed: true
       properties:
         eventName:
@@ -86204,12 +87216,12 @@ components:
       type: object
     AiConfigsExperimentEnvironmentSettingRep:
       example:
-        startDate: 6
-        stopDate: 8
+        startDate: 9
+        stopDate: 6
         enabledPeriods:
-        - startDate: 9
+        - startDate: 3
           stopDate: 6
-        - startDate: 9
+        - startDate: 3
           stopDate: 6
       properties:
         startDate:
@@ -86225,7 +87237,7 @@ components:
       type: object
     AiConfigsExperimentEnabledPeriodRep:
       example:
-        startDate: 9
+        startDate: 3
         stopDate: 6
       properties:
         startDate:
@@ -87296,8 +88308,6 @@ components:
             count: 2
           key: key
           updatedAt: 1
-          payloadSummary:
-            sdkKeyCount: 6
           resourcesExpanded:
             totalCount: 7
             items:
@@ -87384,86 +88394,6 @@ components:
                   tags:
                   - tags
                   - tags
-              aiConfigs:
-                totalCount: 3
-                items:
-                - createdAt: 2
-                  _links:
-                    parent:
-                      href: href
-                      type: type
-                    self:
-                      href: href
-                      type: type
-                  name: name
-                  description: description
-                  version: 1
-                  key: key
-                  flagKey: flagKey
-                  tags:
-                  - tags
-                  - tags
-                  updatedAt: 6
-                - createdAt: 2
-                  _links:
-                    parent:
-                      href: href
-                      type: type
-                    self:
-                      href: href
-                      type: type
-                  name: name
-                  description: description
-                  version: 1
-                  key: key
-                  flagKey: flagKey
-                  tags:
-                  - tags
-                  - tags
-                  updatedAt: 6
-              metrics:
-                totalCount: 3
-                items:
-                - _links:
-                    parent:
-                      href: href
-                      type: type
-                    self:
-                      href: href
-                      type: type
-                  kind: kind
-                  description: description
-                  creationDate: 9
-                  isActive: true
-                  lastSeen: 3
-                  eventKey: eventKey
-                  _versionId: _versionId
-                  isNumeric: true
-                  name: name
-                  lastModified: 6
-                  _id: _id
-                  category: category
-                  key: key
-                - _links:
-                    parent:
-                      href: href
-                      type: type
-                    self:
-                      href: href
-                      type: type
-                  kind: kind
-                  description: description
-                  creationDate: 9
-                  isActive: true
-                  lastSeen: 3
-                  eventKey: eventKey
-                  _versionId: _versionId
-                  isNumeric: true
-                  name: name
-                  lastModified: 6
-                  _id: _id
-                  category: category
-                  key: key
               segments:
                 totalCount: 6
                 items:
@@ -87511,16 +88441,12 @@ components:
                   key: key
           resourceSummary:
             flagCount: 4
-            metricCount: 1
             totalCount: 1
             segmentCount: 7
-            aiConfigCount: 1
           version: 0
           tags:
           - tags
           - tags
-          applicationSummary:
-            applicationKey: applicationKey
           accountId: accountId
           deletedAt: 5
           deleted: false
@@ -87861,8 +88787,6 @@ components:
             count: 2
           key: key
           updatedAt: 1
-          payloadSummary:
-            sdkKeyCount: 6
           resourcesExpanded:
             totalCount: 7
             items:
@@ -87949,86 +88873,6 @@ components:
                   tags:
                   - tags
                   - tags
-              aiConfigs:
-                totalCount: 3
-                items:
-                - createdAt: 2
-                  _links:
-                    parent:
-                      href: href
-                      type: type
-                    self:
-                      href: href
-                      type: type
-                  name: name
-                  description: description
-                  version: 1
-                  key: key
-                  flagKey: flagKey
-                  tags:
-                  - tags
-                  - tags
-                  updatedAt: 6
-                - createdAt: 2
-                  _links:
-                    parent:
-                      href: href
-                      type: type
-                    self:
-                      href: href
-                      type: type
-                  name: name
-                  description: description
-                  version: 1
-                  key: key
-                  flagKey: flagKey
-                  tags:
-                  - tags
-                  - tags
-                  updatedAt: 6
-              metrics:
-                totalCount: 3
-                items:
-                - _links:
-                    parent:
-                      href: href
-                      type: type
-                    self:
-                      href: href
-                      type: type
-                  kind: kind
-                  description: description
-                  creationDate: 9
-                  isActive: true
-                  lastSeen: 3
-                  eventKey: eventKey
-                  _versionId: _versionId
-                  isNumeric: true
-                  name: name
-                  lastModified: 6
-                  _id: _id
-                  category: category
-                  key: key
-                - _links:
-                    parent:
-                      href: href
-                      type: type
-                    self:
-                      href: href
-                      type: type
-                  kind: kind
-                  description: description
-                  creationDate: 9
-                  isActive: true
-                  lastSeen: 3
-                  eventKey: eventKey
-                  _versionId: _versionId
-                  isNumeric: true
-                  name: name
-                  lastModified: 6
-                  _id: _id
-                  category: category
-                  key: key
               segments:
                 totalCount: 6
                 items:
@@ -88076,16 +88920,12 @@ components:
                   key: key
           resourceSummary:
             flagCount: 4
-            metricCount: 1
             totalCount: 1
             segmentCount: 7
-            aiConfigCount: 1
           version: 0
           tags:
           - tags
           - tags
-          applicationSummary:
-            applicationKey: applicationKey
           accountId: accountId
           deletedAt: 5
           deleted: false
@@ -88441,8 +89281,6 @@ components:
           count: 2
         key: key
         updatedAt: 1
-        payloadSummary:
-          sdkKeyCount: 6
         resourcesExpanded:
           totalCount: 7
           items:
@@ -88529,86 +89367,6 @@ components:
                 tags:
                 - tags
                 - tags
-            aiConfigs:
-              totalCount: 3
-              items:
-              - createdAt: 2
-                _links:
-                  parent:
-                    href: href
-                    type: type
-                  self:
-                    href: href
-                    type: type
-                name: name
-                description: description
-                version: 1
-                key: key
-                flagKey: flagKey
-                tags:
-                - tags
-                - tags
-                updatedAt: 6
-              - createdAt: 2
-                _links:
-                  parent:
-                    href: href
-                    type: type
-                  self:
-                    href: href
-                    type: type
-                name: name
-                description: description
-                version: 1
-                key: key
-                flagKey: flagKey
-                tags:
-                - tags
-                - tags
-                updatedAt: 6
-            metrics:
-              totalCount: 3
-              items:
-              - _links:
-                  parent:
-                    href: href
-                    type: type
-                  self:
-                    href: href
-                    type: type
-                kind: kind
-                description: description
-                creationDate: 9
-                isActive: true
-                lastSeen: 3
-                eventKey: eventKey
-                _versionId: _versionId
-                isNumeric: true
-                name: name
-                lastModified: 6
-                _id: _id
-                category: category
-                key: key
-              - _links:
-                  parent:
-                    href: href
-                    type: type
-                  self:
-                    href: href
-                    type: type
-                kind: kind
-                description: description
-                creationDate: 9
-                isActive: true
-                lastSeen: 3
-                eventKey: eventKey
-                _versionId: _versionId
-                isNumeric: true
-                name: name
-                lastModified: 6
-                _id: _id
-                category: category
-                key: key
             segments:
               totalCount: 6
               items:
@@ -88656,16 +89414,12 @@ components:
                 key: key
         resourceSummary:
           flagCount: 4
-          metricCount: 1
           totalCount: 1
           segmentCount: 7
-          aiConfigCount: 1
         version: 0
         tags:
         - tags
         - tags
-        applicationSummary:
-          applicationKey: applicationKey
         accountId: accountId
         deletedAt: 5
         deleted: false
@@ -89268,8 +90022,6 @@ components:
                 count: 2
               key: key
               updatedAt: 1
-              payloadSummary:
-                sdkKeyCount: 6
               resourcesExpanded:
                 totalCount: 7
                 items:
@@ -89356,86 +90108,6 @@ components:
                       tags:
                       - tags
                       - tags
-                  aiConfigs:
-                    totalCount: 3
-                    items:
-                    - createdAt: 2
-                      _links:
-                        parent:
-                          href: href
-                          type: type
-                        self:
-                          href: href
-                          type: type
-                      name: name
-                      description: description
-                      version: 1
-                      key: key
-                      flagKey: flagKey
-                      tags:
-                      - tags
-                      - tags
-                      updatedAt: 6
-                    - createdAt: 2
-                      _links:
-                        parent:
-                          href: href
-                          type: type
-                        self:
-                          href: href
-                          type: type
-                      name: name
-                      description: description
-                      version: 1
-                      key: key
-                      flagKey: flagKey
-                      tags:
-                      - tags
-                      - tags
-                      updatedAt: 6
-                  metrics:
-                    totalCount: 3
-                    items:
-                    - _links:
-                        parent:
-                          href: href
-                          type: type
-                        self:
-                          href: href
-                          type: type
-                      kind: kind
-                      description: description
-                      creationDate: 9
-                      isActive: true
-                      lastSeen: 3
-                      eventKey: eventKey
-                      _versionId: _versionId
-                      isNumeric: true
-                      name: name
-                      lastModified: 6
-                      _id: _id
-                      category: category
-                      key: key
-                    - _links:
-                        parent:
-                          href: href
-                          type: type
-                        self:
-                          href: href
-                          type: type
-                      kind: kind
-                      description: description
-                      creationDate: 9
-                      isActive: true
-                      lastSeen: 3
-                      eventKey: eventKey
-                      _versionId: _versionId
-                      isNumeric: true
-                      name: name
-                      lastModified: 6
-                      _id: _id
-                      category: category
-                      key: key
                   segments:
                     totalCount: 6
                     items:
@@ -89483,16 +90155,12 @@ components:
                       key: key
               resourceSummary:
                 flagCount: 4
-                metricCount: 1
                 totalCount: 1
                 segmentCount: 7
-                aiConfigCount: 1
               version: 0
               tags:
               - tags
               - tags
-              applicationSummary:
-                applicationKey: applicationKey
               accountId: accountId
               deletedAt: 5
               deleted: false
@@ -89949,8 +90617,6 @@ components:
                 count: 2
               key: key
               updatedAt: 1
-              payloadSummary:
-                sdkKeyCount: 6
               resourcesExpanded:
                 totalCount: 7
                 items:
@@ -90037,86 +90703,6 @@ components:
                       tags:
                       - tags
                       - tags
-                  aiConfigs:
-                    totalCount: 3
-                    items:
-                    - createdAt: 2
-                      _links:
-                        parent:
-                          href: href
-                          type: type
-                        self:
-                          href: href
-                          type: type
-                      name: name
-                      description: description
-                      version: 1
-                      key: key
-                      flagKey: flagKey
-                      tags:
-                      - tags
-                      - tags
-                      updatedAt: 6
-                    - createdAt: 2
-                      _links:
-                        parent:
-                          href: href
-                          type: type
-                        self:
-                          href: href
-                          type: type
-                      name: name
-                      description: description
-                      version: 1
-                      key: key
-                      flagKey: flagKey
-                      tags:
-                      - tags
-                      - tags
-                      updatedAt: 6
-                  metrics:
-                    totalCount: 3
-                    items:
-                    - _links:
-                        parent:
-                          href: href
-                          type: type
-                        self:
-                          href: href
-                          type: type
-                      kind: kind
-                      description: description
-                      creationDate: 9
-                      isActive: true
-                      lastSeen: 3
-                      eventKey: eventKey
-                      _versionId: _versionId
-                      isNumeric: true
-                      name: name
-                      lastModified: 6
-                      _id: _id
-                      category: category
-                      key: key
-                    - _links:
-                        parent:
-                          href: href
-                          type: type
-                        self:
-                          href: href
-                          type: type
-                      kind: kind
-                      description: description
-                      creationDate: 9
-                      isActive: true
-                      lastSeen: 3
-                      eventKey: eventKey
-                      _versionId: _versionId
-                      isNumeric: true
-                      name: name
-                      lastModified: 6
-                      _id: _id
-                      category: category
-                      key: key
                   segments:
                     totalCount: 6
                     items:
@@ -90164,16 +90750,12 @@ components:
                       key: key
               resourceSummary:
                 flagCount: 4
-                metricCount: 1
                 totalCount: 1
                 segmentCount: 7
-                aiConfigCount: 1
               version: 0
               tags:
               - tags
               - tags
-              applicationSummary:
-                applicationKey: applicationKey
               accountId: accountId
               deletedAt: 5
               deleted: false
@@ -90645,8 +91227,6 @@ components:
               count: 2
             key: key
             updatedAt: 1
-            payloadSummary:
-              sdkKeyCount: 6
             resourcesExpanded:
               totalCount: 7
               items:
@@ -90733,86 +91313,6 @@ components:
                     tags:
                     - tags
                     - tags
-                aiConfigs:
-                  totalCount: 3
-                  items:
-                  - createdAt: 2
-                    _links:
-                      parent:
-                        href: href
-                        type: type
-                      self:
-                        href: href
-                        type: type
-                    name: name
-                    description: description
-                    version: 1
-                    key: key
-                    flagKey: flagKey
-                    tags:
-                    - tags
-                    - tags
-                    updatedAt: 6
-                  - createdAt: 2
-                    _links:
-                      parent:
-                        href: href
-                        type: type
-                      self:
-                        href: href
-                        type: type
-                    name: name
-                    description: description
-                    version: 1
-                    key: key
-                    flagKey: flagKey
-                    tags:
-                    - tags
-                    - tags
-                    updatedAt: 6
-                metrics:
-                  totalCount: 3
-                  items:
-                  - _links:
-                      parent:
-                        href: href
-                        type: type
-                      self:
-                        href: href
-                        type: type
-                    kind: kind
-                    description: description
-                    creationDate: 9
-                    isActive: true
-                    lastSeen: 3
-                    eventKey: eventKey
-                    _versionId: _versionId
-                    isNumeric: true
-                    name: name
-                    lastModified: 6
-                    _id: _id
-                    category: category
-                    key: key
-                  - _links:
-                      parent:
-                        href: href
-                        type: type
-                      self:
-                        href: href
-                        type: type
-                    kind: kind
-                    description: description
-                    creationDate: 9
-                    isActive: true
-                    lastSeen: 3
-                    eventKey: eventKey
-                    _versionId: _versionId
-                    isNumeric: true
-                    name: name
-                    lastModified: 6
-                    _id: _id
-                    category: category
-                    key: key
                 segments:
                   totalCount: 6
                   items:
@@ -90860,16 +91360,12 @@ components:
                     key: key
             resourceSummary:
               flagCount: 4
-              metricCount: 1
               totalCount: 1
               segmentCount: 7
-              aiConfigCount: 1
             version: 0
             tags:
             - tags
             - tags
-            applicationSummary:
-              applicationKey: applicationKey
             accountId: accountId
             deletedAt: 5
             deleted: false
@@ -91410,8 +91906,6 @@ components:
                   count: 2
                 key: key
                 updatedAt: 1
-                payloadSummary:
-                  sdkKeyCount: 6
                 resourcesExpanded:
                   totalCount: 7
                   items:
@@ -91498,86 +91992,6 @@ components:
                         tags:
                         - tags
                         - tags
-                    aiConfigs:
-                      totalCount: 3
-                      items:
-                      - createdAt: 2
-                        _links:
-                          parent:
-                            href: href
-                            type: type
-                          self:
-                            href: href
-                            type: type
-                        name: name
-                        description: description
-                        version: 1
-                        key: key
-                        flagKey: flagKey
-                        tags:
-                        - tags
-                        - tags
-                        updatedAt: 6
-                      - createdAt: 2
-                        _links:
-                          parent:
-                            href: href
-                            type: type
-                          self:
-                            href: href
-                            type: type
-                        name: name
-                        description: description
-                        version: 1
-                        key: key
-                        flagKey: flagKey
-                        tags:
-                        - tags
-                        - tags
-                        updatedAt: 6
-                    metrics:
-                      totalCount: 3
-                      items:
-                      - _links:
-                          parent:
-                            href: href
-                            type: type
-                          self:
-                            href: href
-                            type: type
-                        kind: kind
-                        description: description
-                        creationDate: 9
-                        isActive: true
-                        lastSeen: 3
-                        eventKey: eventKey
-                        _versionId: _versionId
-                        isNumeric: true
-                        name: name
-                        lastModified: 6
-                        _id: _id
-                        category: category
-                        key: key
-                      - _links:
-                          parent:
-                            href: href
-                            type: type
-                          self:
-                            href: href
-                            type: type
-                        kind: kind
-                        description: description
-                        creationDate: 9
-                        isActive: true
-                        lastSeen: 3
-                        eventKey: eventKey
-                        _versionId: _versionId
-                        isNumeric: true
-                        name: name
-                        lastModified: 6
-                        _id: _id
-                        category: category
-                        key: key
                     segments:
                       totalCount: 6
                       items:
@@ -91625,16 +92039,12 @@ components:
                         key: key
                 resourceSummary:
                   flagCount: 4
-                  metricCount: 1
                   totalCount: 1
                   segmentCount: 7
-                  aiConfigCount: 1
                 version: 0
                 tags:
                 - tags
                 - tags
-                applicationSummary:
-                  applicationKey: applicationKey
                 accountId: accountId
                 deletedAt: 5
                 deleted: false
@@ -92091,8 +92501,6 @@ components:
                   count: 2
                 key: key
                 updatedAt: 1
-                payloadSummary:
-                  sdkKeyCount: 6
                 resourcesExpanded:
                   totalCount: 7
                   items:
@@ -92179,86 +92587,6 @@ components:
                         tags:
                         - tags
                         - tags
-                    aiConfigs:
-                      totalCount: 3
-                      items:
-                      - createdAt: 2
-                        _links:
-                          parent:
-                            href: href
-                            type: type
-                          self:
-                            href: href
-                            type: type
-                        name: name
-                        description: description
-                        version: 1
-                        key: key
-                        flagKey: flagKey
-                        tags:
-                        - tags
-                        - tags
-                        updatedAt: 6
-                      - createdAt: 2
-                        _links:
-                          parent:
-                            href: href
-                            type: type
-                          self:
-                            href: href
-                            type: type
-                        name: name
-                        description: description
-                        version: 1
-                        key: key
-                        flagKey: flagKey
-                        tags:
-                        - tags
-                        - tags
-                        updatedAt: 6
-                    metrics:
-                      totalCount: 3
-                      items:
-                      - _links:
-                          parent:
-                            href: href
-                            type: type
-                          self:
-                            href: href
-                            type: type
-                        kind: kind
-                        description: description
-                        creationDate: 9
-                        isActive: true
-                        lastSeen: 3
-                        eventKey: eventKey
-                        _versionId: _versionId
-                        isNumeric: true
-                        name: name
-                        lastModified: 6
-                        _id: _id
-                        category: category
-                        key: key
-                      - _links:
-                          parent:
-                            href: href
-                            type: type
-                          self:
-                            href: href
-                            type: type
-                        kind: kind
-                        description: description
-                        creationDate: 9
-                        isActive: true
-                        lastSeen: 3
-                        eventKey: eventKey
-                        _versionId: _versionId
-                        isNumeric: true
-                        name: name
-                        lastModified: 6
-                        _id: _id
-                        category: category
-                        key: key
                     segments:
                       totalCount: 6
                       items:
@@ -92306,16 +92634,12 @@ components:
                         key: key
                 resourceSummary:
                   flagCount: 4
-                  metricCount: 1
                   totalCount: 1
                   segmentCount: 7
-                  aiConfigCount: 1
                 version: 0
                 tags:
                 - tags
                 - tags
-                applicationSummary:
-                  applicationKey: applicationKey
                 accountId: accountId
                 deletedAt: 5
                 deleted: false
@@ -92740,10 +93064,8 @@ components:
     ResourceSummary:
       example:
         flagCount: 4
-        metricCount: 1
         totalCount: 1
         segmentCount: 7
-        aiConfigCount: 1
       properties:
         flagCount:
           type: integer
@@ -93206,86 +93528,6 @@ components:
               tags:
               - tags
               - tags
-          aiConfigs:
-            totalCount: 3
-            items:
-            - createdAt: 2
-              _links:
-                parent:
-                  href: href
-                  type: type
-                self:
-                  href: href
-                  type: type
-              name: name
-              description: description
-              version: 1
-              key: key
-              flagKey: flagKey
-              tags:
-              - tags
-              - tags
-              updatedAt: 6
-            - createdAt: 2
-              _links:
-                parent:
-                  href: href
-                  type: type
-                self:
-                  href: href
-                  type: type
-              name: name
-              description: description
-              version: 1
-              key: key
-              flagKey: flagKey
-              tags:
-              - tags
-              - tags
-              updatedAt: 6
-          metrics:
-            totalCount: 3
-            items:
-            - _links:
-                parent:
-                  href: href
-                  type: type
-                self:
-                  href: href
-                  type: type
-              kind: kind
-              description: description
-              creationDate: 9
-              isActive: true
-              lastSeen: 3
-              eventKey: eventKey
-              _versionId: _versionId
-              isNumeric: true
-              name: name
-              lastModified: 6
-              _id: _id
-              category: category
-              key: key
-            - _links:
-                parent:
-                  href: href
-                  type: type
-                self:
-                  href: href
-                  type: type
-              kind: kind
-              description: description
-              creationDate: 9
-              isActive: true
-              lastSeen: 3
-              eventKey: eventKey
-              _versionId: _versionId
-              isNumeric: true
-              name: name
-              lastModified: 6
-              _id: _id
-              category: category
-              key: key
           segments:
             totalCount: 6
             items:
@@ -94197,8 +94439,6 @@ components:
             count: 2
           key: key
           updatedAt: 1
-          payloadSummary:
-            sdkKeyCount: 6
           resourcesExpanded:
             totalCount: 7
             items:
@@ -94285,86 +94525,6 @@ components:
                   tags:
                   - tags
                   - tags
-              aiConfigs:
-                totalCount: 3
-                items:
-                - createdAt: 2
-                  _links:
-                    parent:
-                      href: href
-                      type: type
-                    self:
-                      href: href
-                      type: type
-                  name: name
-                  description: description
-                  version: 1
-                  key: key
-                  flagKey: flagKey
-                  tags:
-                  - tags
-                  - tags
-                  updatedAt: 6
-                - createdAt: 2
-                  _links:
-                    parent:
-                      href: href
-                      type: type
-                    self:
-                      href: href
-                      type: type
-                  name: name
-                  description: description
-                  version: 1
-                  key: key
-                  flagKey: flagKey
-                  tags:
-                  - tags
-                  - tags
-                  updatedAt: 6
-              metrics:
-                totalCount: 3
-                items:
-                - _links:
-                    parent:
-                      href: href
-                      type: type
-                    self:
-                      href: href
-                      type: type
-                  kind: kind
-                  description: description
-                  creationDate: 9
-                  isActive: true
-                  lastSeen: 3
-                  eventKey: eventKey
-                  _versionId: _versionId
-                  isNumeric: true
-                  name: name
-                  lastModified: 6
-                  _id: _id
-                  category: category
-                  key: key
-                - _links:
-                    parent:
-                      href: href
-                      type: type
-                    self:
-                      href: href
-                      type: type
-                  kind: kind
-                  description: description
-                  creationDate: 9
-                  isActive: true
-                  lastSeen: 3
-                  eventKey: eventKey
-                  _versionId: _versionId
-                  isNumeric: true
-                  name: name
-                  lastModified: 6
-                  _id: _id
-                  category: category
-                  key: key
               segments:
                 totalCount: 6
                 items:
@@ -94412,16 +94572,12 @@ components:
                   key: key
           resourceSummary:
             flagCount: 4
-            metricCount: 1
             totalCount: 1
             segmentCount: 7
-            aiConfigCount: 1
           version: 0
           tags:
           - tags
           - tags
-          applicationSummary:
-            applicationKey: applicationKey
           accountId: accountId
           deletedAt: 5
           deleted: false
@@ -95069,86 +95225,6 @@ components:
             tags:
             - tags
             - tags
-        aiConfigs:
-          totalCount: 3
-          items:
-          - createdAt: 2
-            _links:
-              parent:
-                href: href
-                type: type
-              self:
-                href: href
-                type: type
-            name: name
-            description: description
-            version: 1
-            key: key
-            flagKey: flagKey
-            tags:
-            - tags
-            - tags
-            updatedAt: 6
-          - createdAt: 2
-            _links:
-              parent:
-                href: href
-                type: type
-              self:
-                href: href
-                type: type
-            name: name
-            description: description
-            version: 1
-            key: key
-            flagKey: flagKey
-            tags:
-            - tags
-            - tags
-            updatedAt: 6
-        metrics:
-          totalCount: 3
-          items:
-          - _links:
-              parent:
-                href: href
-                type: type
-              self:
-                href: href
-                type: type
-            kind: kind
-            description: description
-            creationDate: 9
-            isActive: true
-            lastSeen: 3
-            eventKey: eventKey
-            _versionId: _versionId
-            isNumeric: true
-            name: name
-            lastModified: 6
-            _id: _id
-            category: category
-            key: key
-          - _links:
-              parent:
-                href: href
-                type: type
-              self:
-                href: href
-                type: type
-            kind: kind
-            description: description
-            creationDate: 9
-            isActive: true
-            lastSeen: 3
-            eventKey: eventKey
-            _versionId: _versionId
-            isNumeric: true
-            name: name
-            lastModified: 6
-            _id: _id
-            category: category
-            key: key
         segments:
           totalCount: 6
           items:
@@ -95213,9 +95289,6 @@ components:
           flagTagKeys:
           - frontend
           - backend
-          viewKeys:
-          - feature-a
-          - team-a
         progressiveReleaseConfig:
           rolloutContextKindKey: user
           stages:
@@ -95273,9 +95346,6 @@ components:
           flagTagKeys:
           - frontend
           - backend
-          viewKeys:
-          - feature-a
-          - team-a
         progressiveReleaseConfig:
           rolloutContextKindKey: user
           stages:
@@ -95386,9 +95456,6 @@ components:
           flagTagKeys:
           - frontend
           - backend
-          viewKeys:
-          - feature-a
-          - team-a
         progressiveReleaseConfig:
           rolloutContextKindKey: user
           stages:
@@ -95458,9 +95525,6 @@ components:
         flagTagKeys:
         - frontend
         - backend
-        viewKeys:
-        - feature-a
-        - team-a
       properties:
         environmentKeys:
           description: List of environment keys this policy applies to
@@ -95641,9 +95705,6 @@ components:
             flagTagKeys:
             - frontend
             - backend
-            viewKeys:
-            - feature-a
-            - team-a
           progressiveReleaseConfig:
             rolloutContextKindKey: user
             stages:
@@ -95737,9 +95798,6 @@ components:
             flagTagKeys:
             - frontend
             - backend
-            viewKeys:
-            - feature-a
-            - team-a
           progressiveReleaseConfig:
             rolloutContextKindKey: user
             stages:
@@ -96324,6 +96382,7 @@ components:
         metricKey: metricKey
         definition: ""
         autoRollback: true
+        analysisUnit: analysisUnit
         metricVersionId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
       properties:
         metricKey:
@@ -96335,6 +96394,14 @@ components:
         autoRollback:
           description: Whether a regression automatically reverts the release.
           type: boolean
+        analysisUnit:
+          description: |
+            Key of the context kind this metric is analyzed on. It is the release's
+            randomization unit unless the metric uses a decoupled unit of analysis.
+            Omitted on releases started before analysis units were recorded. Those
+            metrics are analyzed on the randomization unit.
+          readOnly: true
+          type: string
         definition:
           allOf:
           - $ref: "#/components/schemas/EnvironmentReleasesMetricListingRep"
@@ -96386,10 +96453,12 @@ components:
         - metricKey: metricKey
           definition: ""
           autoRollback: true
+          analysisUnit: analysisUnit
           metricVersionId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         - metricKey: metricKey
           definition: ""
           autoRollback: true
+          analysisUnit: analysisUnit
           metricVersionId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         randomizationUnit: randomizationUnit
         currentPhaseIndex: 0
@@ -96606,6 +96675,7 @@ components:
       example:
         metricKey: metricKey
         autoRollback: false
+        analysisUnit: analysisUnit
       properties:
         metricKey:
           type: string
@@ -96618,6 +96688,14 @@ components:
             `waiting_regression_detected` and does not advance until the
             regression is dismissed or the release is stopped.
           type: boolean
+        analysisUnit:
+          description: |
+            Key of the context kind to analyze this metric on. Omit it to analyze
+            on the randomization unit. A value must differ from the randomization
+            unit and be one of the metric's units. Percentile metrics, ratio
+            metrics, and metrics in a group cannot set it. The value cannot be
+            changed after the release starts.
+          type: string
       required:
       - metricKey
       type: object
@@ -96700,8 +96778,10 @@ components:
         metrics:
         - metricKey: metricKey
           autoRollback: false
+          analysisUnit: analysisUnit
         - metricKey: metricKey
           autoRollback: false
+          analysisUnit: analysisUnit
         randomizationUnit: randomizationUnit
         releasePlanKey: releasePlanKey
         cleanupBehavior: ""
@@ -96883,10 +96963,12 @@ components:
           - metricKey: metricKey
             definition: ""
             autoRollback: true
+            analysisUnit: analysisUnit
             metricVersionId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           - metricKey: metricKey
             definition: ""
             autoRollback: true
+            analysisUnit: analysisUnit
             metricVersionId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           randomizationUnit: randomizationUnit
           currentPhaseIndex: 0
@@ -96959,10 +97041,12 @@ components:
           - metricKey: metricKey
             definition: ""
             autoRollback: true
+            analysisUnit: analysisUnit
             metricVersionId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           - metricKey: metricKey
             definition: ""
             autoRollback: true
+            analysisUnit: analysisUnit
             metricVersionId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           randomizationUnit: randomizationUnit
           currentPhaseIndex: 0
@@ -97435,6 +97519,181 @@ components:
           description: "When true, the percentile bound calculation includes imputed\
             \ zeros"
           type: boolean
+      type: object
+    SegmentInstruction:
+      additionalProperties: true
+      description: "A segment semantic patch instruction, such as <code>{\"kind\"\
+        : \"addIncludedTargets\", \"contextKind\": \"user\", \"values\": [\"user-key\"\
+        ]}</code>. The <code>kind</code> and the other fields follow the instructions\
+        \ for updating a segment with a semantic patch."
+      type: object
+      x-go-type: json.RawMessage
+    PostSegmentScheduledChangeInput:
+      example:
+        instructions:
+        - null
+        - null
+        executionDate: 0
+        comment: comment
+      properties:
+        executionDate:
+          format: int64
+          type: integer
+        comment:
+          description: Optional comment describing the scheduled change
+          type: string
+        instructions:
+          description: The segment semantic patch instructions to apply on the execution
+            date
+          items:
+            $ref: "#/components/schemas/SegmentInstruction"
+          type: array
+      required:
+      - executionDate
+      - instructions
+      type: object
+    PatchSegmentScheduledChangeInput:
+      example:
+        executionDate: 0
+        comment: comment
+      minProperties: 1
+      properties:
+        executionDate:
+          format: int64
+          type: integer
+        comment:
+          description: "The new comment describing the scheduled change. Leave out\
+            \ to keep the current comment, or send an empty string to clear it."
+          type: string
+      type: object
+    SegmentScheduledChangesLink:
+      example:
+        href: href
+        type: type
+      properties:
+        href:
+          type: string
+        type:
+          type: string
+      type: object
+    SegmentScheduledChangeStatus:
+      description: |
+        Where the scheduled change is in its lifecycle. `pending` means the execution date is still in the future; `inFlight` means the change is being applied; `failed` means the change could not be applied on its execution date. More values may be added, so treat an unrecognized value as a change that has not been applied yet.
+      enum:
+      - pending
+      - inFlight
+      - failed
+      type: string
+      x-enum-varnames:
+      - SegmentScheduledChangeStatusPending
+      - SegmentScheduledChangeStatusInFlight
+      - SegmentScheduledChangeStatusFailed
+    SegmentScheduledChange:
+      example:
+        instructions:
+        - null
+        - null
+        _maintainerId: _maintainerId
+        _links:
+          key:
+            href: href
+            type: type
+        _maintainerServiceTokenId: _maintainerServiceTokenId
+        executionDate: 6
+        comment: comment
+        _id: _id
+        _creationDate: 0
+        status: pending
+      properties:
+        _links:
+          additionalProperties:
+            $ref: "#/components/schemas/SegmentScheduledChangesLink"
+          description: The location and content type of related resources
+          type: object
+        status:
+          $ref: "#/components/schemas/SegmentScheduledChangeStatus"
+        _id:
+          description: The ID of this scheduled change
+          type: string
+        _creationDate:
+          format: int64
+          type: integer
+        _maintainerId:
+          description: The ID of the member who scheduled the change
+          type: string
+        _maintainerServiceTokenId:
+          description: The ID of the service token that scheduled the change
+          type: string
+        executionDate:
+          format: int64
+          type: integer
+        comment:
+          description: The comment describing the scheduled change
+          type: string
+        instructions:
+          description: The segment semantic patch instructions to apply on the execution
+            date
+          items:
+            $ref: "#/components/schemas/SegmentInstruction"
+          type: array
+      required:
+      - _creationDate
+      - _id
+      - _links
+      - executionDate
+      - instructions
+      - status
+      type: object
+    SegmentScheduledChanges:
+      example:
+        _links:
+          key:
+            href: href
+            type: type
+        items:
+        - instructions:
+          - null
+          - null
+          _maintainerId: _maintainerId
+          _links:
+            key:
+              href: href
+              type: type
+          _maintainerServiceTokenId: _maintainerServiceTokenId
+          executionDate: 6
+          comment: comment
+          _id: _id
+          _creationDate: 0
+          status: pending
+        - instructions:
+          - null
+          - null
+          _maintainerId: _maintainerId
+          _links:
+            key:
+              href: href
+              type: type
+          _maintainerServiceTokenId: _maintainerServiceTokenId
+          executionDate: 6
+          comment: comment
+          _id: _id
+          _creationDate: 0
+          status: pending
+      properties:
+        _links:
+          additionalProperties:
+            $ref: "#/components/schemas/SegmentScheduledChangesLink"
+          description: The location and content type of related resources
+          type: object
+        items:
+          description: "The segment's scheduled changes that have not been applied\
+            \ yet, plus any that failed to apply, soonest first"
+          items:
+            $ref: "#/components/schemas/SegmentScheduledChange"
+          type: array
+      required:
+      - _links
+      - items
       type: object
     CreateIpAllowlistEntryRequest:
       example:

@@ -2540,7 +2540,7 @@ Name | Type | Description  | Notes
 
 ## ListAgentSkills
 
-> AgentSkills ListAgentSkills(ctx, projectKey).Limit(limit).Offset(offset).Filter(filter).Execute()
+> AgentSkills ListAgentSkills(ctx, projectKey).Limit(limit).Offset(offset).Filter(filter).Sort(sort).Execute()
 
 List agent skills
 
@@ -2563,10 +2563,11 @@ func main() {
 	limit := int32(56) // int32 | The number of resources to return. (optional)
 	offset := int32(56) // int32 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
 	filter := "filter_example" // string | A filter to apply to the list. (optional)
+	sort := "sort_example" // string | A sort to apply to the list of agent skills. Use `usedIn` to sort by the number of AgentControl configs that use each skill, fewest first, or `-usedIn` for most first. Without a sort, skills are ordered by creation date, newest first. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentControlApi.ListAgentSkills(context.Background(), projectKey).Limit(limit).Offset(offset).Filter(filter).Execute()
+	resp, r, err := apiClient.AgentControlApi.ListAgentSkills(context.Background(), projectKey).Limit(limit).Offset(offset).Filter(filter).Sort(sort).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AgentControlApi.ListAgentSkills``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -2595,6 +2596,7 @@ Name | Type | Description  | Notes
  **limit** | **int32** | The number of resources to return. | 
  **offset** | **int32** | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | 
  **filter** | **string** | A filter to apply to the list. | 
+ **sort** | **string** | A sort to apply to the list of agent skills. Use &#x60;usedIn&#x60; to sort by the number of AgentControl configs that use each skill, fewest first, or &#x60;-usedIn&#x60; for most first. Without a sort, skills are ordered by creation date, newest first. | 
 
 ### Return type
 

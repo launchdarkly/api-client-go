@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Name** | Pointer to **string** | A human-readable name for your webhook | [optional] 
 **Url** | **string** | The URL of the remote webhook | 
 **Secret** | Pointer to **string** | If sign is true, and the secret attribute is omitted, LaunchDarkly automatically generates a secret for you. | [optional] 
+**BearerToken** | Pointer to **string** | An optional token. If set, LaunchDarkly sends it in an Authorization: Bearer header with each request. It is write-only and is never returned. | [optional] 
 **Statements** | Pointer to [**[]StatementPost**](StatementPost.md) |  | [optional] 
 **Sign** | **bool** | If sign is false, the webhook does not include a signature header, and the secret can be omitted. | 
 **On** | **bool** | Whether or not this webhook is enabled. | 
@@ -100,6 +101,31 @@ SetSecret sets Secret field to given value.
 `func (o *WebhookPost) HasSecret() bool`
 
 HasSecret returns a boolean if a field has been set.
+
+### GetBearerToken
+
+`func (o *WebhookPost) GetBearerToken() string`
+
+GetBearerToken returns the BearerToken field if non-nil, zero value otherwise.
+
+### GetBearerTokenOk
+
+`func (o *WebhookPost) GetBearerTokenOk() (*string, bool)`
+
+GetBearerTokenOk returns a tuple with the BearerToken field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBearerToken
+
+`func (o *WebhookPost) SetBearerToken(v string)`
+
+SetBearerToken sets BearerToken field to given value.
+
+### HasBearerToken
+
+`func (o *WebhookPost) HasBearerToken() bool`
+
+HasBearerToken returns a boolean if a field has been set.
 
 ### GetStatements
 

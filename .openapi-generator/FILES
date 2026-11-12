@@ -186,6 +186,7 @@ docs/ApprovalsApi.md
 docs/ApprovalsBetaApi.md
 docs/ApprovalsCapabilityConfig.md
 docs/AssignedToRep.md
+docs/AssignmentDataSourceInput.md
 docs/Audience.md
 docs/AudienceConfiguration.md
 docs/AudiencePost.md
@@ -494,6 +495,7 @@ docs/IntegrationDeliveryConfigurationCollectionLinks.md
 docs/IntegrationDeliveryConfigurationLinks.md
 docs/IntegrationDeliveryConfigurationPost.md
 docs/IntegrationDeliveryConfigurationResponse.md
+docs/IntegrationDeliveryConfigurationStatus.md
 docs/IntegrationDeliveryConfigurationsBetaApi.md
 docs/IntegrationMetadata.md
 docs/IntegrationStatus.md
@@ -505,10 +507,12 @@ docs/InvalidRequestErrorRep.md
 docs/IpAllowlistEntryResponse.md
 docs/IpAllowlistResponse.md
 docs/IpList.md
+docs/IterationAssignmentDataSourceRep.md
 docs/IterationInput.md
 docs/IterationRep.md
 docs/JudgeAttachment.md
 docs/JudgeConfiguration.md
+docs/JudgeScore.md
 docs/LastSeenMetadata.md
 docs/LayerCollectionRep.md
 docs/LayerConfigurationRep.md
@@ -589,6 +593,7 @@ docs/PatchSegmentExpiringTargetInputRep.md
 docs/PatchSegmentExpiringTargetInstruction.md
 docs/PatchSegmentInstruction.md
 docs/PatchSegmentRequest.md
+docs/PatchSegmentScheduledChangeInput.md
 docs/PatchUsersRequest.md
 docs/PatchWithComment.md
 docs/PermissionGrantInput.md
@@ -609,6 +614,7 @@ docs/PostDeploymentEventInput.md
 docs/PostFlagScheduledChangesInput.md
 docs/PostInsightGroupParams.md
 docs/PostReleasePolicyRequest.md
+docs/PostSegmentScheduledChangeInput.md
 docs/Prerequisite.md
 docs/ProgressiveReleaseConfig.md
 docs/Project.md
@@ -702,6 +708,10 @@ docs/SdkVersionListRep.md
 docs/SdkVersionRep.md
 docs/SegmentBody.md
 docs/SegmentMetadata.md
+docs/SegmentScheduledChange.md
+docs/SegmentScheduledChangeStatus.md
+docs/SegmentScheduledChanges.md
+docs/SegmentScheduledChangesLink.md
 docs/SegmentTarget.md
 docs/SegmentUserList.md
 docs/SegmentUserState.md
@@ -954,6 +964,7 @@ model_approval_request_settings_patch.go
 model_approval_settings.go
 model_approvals_capability_config.go
 model_assigned_to_rep.go
+model_assignment_data_source_input.go
 model_audience.go
 model_audience_configuration.go
 model_audience_post.go
@@ -1237,6 +1248,7 @@ model_integration_delivery_configuration_collection_links.go
 model_integration_delivery_configuration_links.go
 model_integration_delivery_configuration_post.go
 model_integration_delivery_configuration_response.go
+model_integration_delivery_configuration_status.go
 model_integration_metadata.go
 model_integration_status.go
 model_integration_status_rep.go
@@ -1247,10 +1259,12 @@ model_ip_allowlist_entry_response.go
 model_ip_allowlist_response.go
 model_ip_allowlist_self_link.go
 model_ip_list.go
+model_iteration_assignment_data_source_rep.go
 model_iteration_input.go
 model_iteration_rep.go
 model_judge_attachment.go
 model_judge_configuration.go
+model_judge_score.go
 model_last_seen_metadata.go
 model_layer_collection_rep.go
 model_layer_configuration_rep.go
@@ -1326,6 +1340,7 @@ model_patch_segment_expiring_target_input_rep.go
 model_patch_segment_expiring_target_instruction.go
 model_patch_segment_instruction.go
 model_patch_segment_request.go
+model_patch_segment_scheduled_change_input.go
 model_patch_users_request.go
 model_patch_with_comment.go
 model_permission_grant_input.go
@@ -1345,6 +1360,7 @@ model_post_deployment_event_input.go
 model_post_flag_scheduled_changes_input.go
 model_post_insight_group_params.go
 model_post_release_policy_request.go
+model_post_segment_scheduled_change_input.go
 model_prerequisite.go
 model_progressive_release_config.go
 model_project.go
@@ -1432,6 +1448,10 @@ model_sdk_version_list_rep.go
 model_sdk_version_rep.go
 model_segment_body.go
 model_segment_metadata.go
+model_segment_scheduled_change.go
+model_segment_scheduled_change_status.go
+model_segment_scheduled_changes.go
+model_segment_scheduled_changes_link.go
 model_segment_target.go
 model_segment_user_list.go
 model_segment_user_state.go

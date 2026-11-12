@@ -32,13 +32,14 @@ type IterationInput struct {
 	PrimaryFunnelKey *string `json:"primaryFunnelKey,omitempty"`
 	Treatments []TreatmentInput `json:"treatments"`
 	Flags map[string]FlagInput `json:"flags"`
+	AssignmentDataSource *AssignmentDataSourceInput `json:"assignmentDataSource,omitempty"`
 	// The unit of randomization for this iteration. Defaults to user.
 	RandomizationUnit *string `json:"randomizationUnit,omitempty"`
 	// The cadence (in milliseconds) to update the allocation.
 	ReallocationFrequencyMillis *int32 `json:"reallocationFrequencyMillis,omitempty"`
 	// The ID of the covariate CSV
 	CovariateId *string `json:"covariateId,omitempty"`
-	// The attributes that this iteration's results can be sliced by
+	// The attributes that this iteration's results can be sliced by, whose values come from flag evaluation events
 	Attributes []string `json:"attributes,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -258,6 +259,38 @@ func (o *IterationInput) SetFlags(v map[string]FlagInput) {
 	o.Flags = v
 }
 
+// GetAssignmentDataSource returns the AssignmentDataSource field value if set, zero value otherwise.
+func (o *IterationInput) GetAssignmentDataSource() AssignmentDataSourceInput {
+	if o == nil || IsNil(o.AssignmentDataSource) {
+		var ret AssignmentDataSourceInput
+		return ret
+	}
+	return *o.AssignmentDataSource
+}
+
+// GetAssignmentDataSourceOk returns a tuple with the AssignmentDataSource field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IterationInput) GetAssignmentDataSourceOk() (*AssignmentDataSourceInput, bool) {
+	if o == nil || IsNil(o.AssignmentDataSource) {
+		return nil, false
+	}
+	return o.AssignmentDataSource, true
+}
+
+// HasAssignmentDataSource returns a boolean if a field has been set.
+func (o *IterationInput) HasAssignmentDataSource() bool {
+	if o != nil && !IsNil(o.AssignmentDataSource) {
+		return true
+	}
+
+	return false
+}
+
+// SetAssignmentDataSource gets a reference to the given AssignmentDataSourceInput and assigns it to the AssignmentDataSource field.
+func (o *IterationInput) SetAssignmentDataSource(v AssignmentDataSourceInput) {
+	o.AssignmentDataSource = &v
+}
+
 // GetRandomizationUnit returns the RandomizationUnit field value if set, zero value otherwise.
 func (o *IterationInput) GetRandomizationUnit() string {
 	if o == nil || IsNil(o.RandomizationUnit) {
@@ -409,6 +442,9 @@ func (o IterationInput) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["treatments"] = o.Treatments
 	toSerialize["flags"] = o.Flags
+	if !IsNil(o.AssignmentDataSource) {
+		toSerialize["assignmentDataSource"] = o.AssignmentDataSource
+	}
 	if !IsNil(o.RandomizationUnit) {
 		toSerialize["randomizationUnit"] = o.RandomizationUnit
 	}
@@ -474,6 +510,7 @@ func (o *IterationInput) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "primaryFunnelKey")
 		delete(additionalProperties, "treatments")
 		delete(additionalProperties, "flags")
+		delete(additionalProperties, "assignmentDataSource")
 		delete(additionalProperties, "randomizationUnit")
 		delete(additionalProperties, "reallocationFrequencyMillis")
 		delete(additionalProperties, "covariateId")

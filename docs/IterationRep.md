@@ -20,12 +20,13 @@ Name | Type | Description | Notes
 **PrimarySingleMetric** | Pointer to [**MetricV2Rep**](MetricV2Rep.md) |  | [optional] 
 **PrimaryFunnel** | Pointer to [**DependentMetricGroupRepWithMetrics**](DependentMetricGroupRepWithMetrics.md) |  | [optional] 
 **RandomizationUnit** | Pointer to **string** | The unit of randomization for this iteration | [optional] 
-**Attributes** | Pointer to **[]string** | The available attribute filters for this iteration | [optional] 
+**Attributes** | Pointer to **[]string** | The attributes this iteration slices results by, whose values come from flag evaluation events. | [optional] 
 **Treatments** | Pointer to [**[]TreatmentRep**](TreatmentRep.md) | Details on the variations you are testing in the experiment | [optional] 
 **SecondaryMetrics** | Pointer to [**[]MetricV2Rep**](MetricV2Rep.md) | Deprecated, use &lt;code&gt;metrics&lt;/code&gt; instead. Details on the secondary metrics for this experiment. | [optional] 
 **Metrics** | Pointer to [**[]DependentMetricOrMetricGroupRep**](DependentMetricOrMetricGroupRep.md) | Details on the metrics for this experiment | [optional] 
 **LayerSnapshot** | Pointer to [**LayerSnapshotRep**](LayerSnapshotRep.md) |  | [optional] 
 **CovariateInfo** | Pointer to [**CovariateInfoRep**](CovariateInfoRep.md) |  | [optional] 
+**AssignmentDataSource** | Pointer to [**IterationAssignmentDataSourceRep**](IterationAssignmentDataSourceRep.md) |  | [optional] 
 
 ## Methods
 
@@ -580,6 +581,31 @@ SetCovariateInfo sets CovariateInfo field to given value.
 `func (o *IterationRep) HasCovariateInfo() bool`
 
 HasCovariateInfo returns a boolean if a field has been set.
+
+### GetAssignmentDataSource
+
+`func (o *IterationRep) GetAssignmentDataSource() IterationAssignmentDataSourceRep`
+
+GetAssignmentDataSource returns the AssignmentDataSource field if non-nil, zero value otherwise.
+
+### GetAssignmentDataSourceOk
+
+`func (o *IterationRep) GetAssignmentDataSourceOk() (*IterationAssignmentDataSourceRep, bool)`
+
+GetAssignmentDataSourceOk returns a tuple with the AssignmentDataSource field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAssignmentDataSource
+
+`func (o *IterationRep) SetAssignmentDataSource(v IterationAssignmentDataSourceRep)`
+
+SetAssignmentDataSource sets AssignmentDataSource field to given value.
+
+### HasAssignmentDataSource
+
+`func (o *IterationRep) HasAssignmentDataSource() bool`
+
+HasAssignmentDataSource returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

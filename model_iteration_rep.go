@@ -47,7 +47,7 @@ type IterationRep struct {
 	PrimaryFunnel *DependentMetricGroupRepWithMetrics `json:"primaryFunnel,omitempty"`
 	// The unit of randomization for this iteration
 	RandomizationUnit *string `json:"randomizationUnit,omitempty"`
-	// The available attribute filters for this iteration
+	// The attributes this iteration slices results by, whose values come from flag evaluation events.
 	Attributes []string `json:"attributes,omitempty"`
 	// Details on the variations you are testing in the experiment
 	Treatments []TreatmentRep `json:"treatments,omitempty"`
@@ -58,6 +58,7 @@ type IterationRep struct {
 	Metrics []DependentMetricOrMetricGroupRep `json:"metrics,omitempty"`
 	LayerSnapshot *LayerSnapshotRep `json:"layerSnapshot,omitempty"`
 	CovariateInfo *CovariateInfoRep `json:"covariateInfo,omitempty"`
+	AssignmentDataSource *IterationAssignmentDataSourceRep `json:"assignmentDataSource,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -766,6 +767,38 @@ func (o *IterationRep) SetCovariateInfo(v CovariateInfoRep) {
 	o.CovariateInfo = &v
 }
 
+// GetAssignmentDataSource returns the AssignmentDataSource field value if set, zero value otherwise.
+func (o *IterationRep) GetAssignmentDataSource() IterationAssignmentDataSourceRep {
+	if o == nil || IsNil(o.AssignmentDataSource) {
+		var ret IterationAssignmentDataSourceRep
+		return ret
+	}
+	return *o.AssignmentDataSource
+}
+
+// GetAssignmentDataSourceOk returns a tuple with the AssignmentDataSource field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IterationRep) GetAssignmentDataSourceOk() (*IterationAssignmentDataSourceRep, bool) {
+	if o == nil || IsNil(o.AssignmentDataSource) {
+		return nil, false
+	}
+	return o.AssignmentDataSource, true
+}
+
+// HasAssignmentDataSource returns a boolean if a field has been set.
+func (o *IterationRep) HasAssignmentDataSource() bool {
+	if o != nil && !IsNil(o.AssignmentDataSource) {
+		return true
+	}
+
+	return false
+}
+
+// SetAssignmentDataSource gets a reference to the given IterationAssignmentDataSourceRep and assigns it to the AssignmentDataSource field.
+func (o *IterationRep) SetAssignmentDataSource(v IterationAssignmentDataSourceRep) {
+	o.AssignmentDataSource = &v
+}
+
 func (o IterationRep) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -836,6 +869,9 @@ func (o IterationRep) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CovariateInfo) {
 		toSerialize["covariateInfo"] = o.CovariateInfo
 	}
+	if !IsNil(o.AssignmentDataSource) {
+		toSerialize["assignmentDataSource"] = o.AssignmentDataSource
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -903,6 +939,7 @@ func (o *IterationRep) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "metrics")
 		delete(additionalProperties, "layerSnapshot")
 		delete(additionalProperties, "covariateInfo")
+		delete(additionalProperties, "assignmentDataSource")
 		o.AdditionalProperties = additionalProperties
 	}
 

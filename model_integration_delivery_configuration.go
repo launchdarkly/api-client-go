@@ -40,6 +40,7 @@ type IntegrationDeliveryConfiguration struct {
 	// Version of the current configuration
 	Version int32 `json:"version"`
 	Access *Access `json:"_access,omitempty"`
+	Status *IntegrationDeliveryConfigurationStatus `json:"_status,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -344,6 +345,38 @@ func (o *IntegrationDeliveryConfiguration) SetAccess(v Access) {
 	o.Access = &v
 }
 
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *IntegrationDeliveryConfiguration) GetStatus() IntegrationDeliveryConfigurationStatus {
+	if o == nil || IsNil(o.Status) {
+		var ret IntegrationDeliveryConfigurationStatus
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IntegrationDeliveryConfiguration) GetStatusOk() (*IntegrationDeliveryConfigurationStatus, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *IntegrationDeliveryConfiguration) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given IntegrationDeliveryConfigurationStatus and assigns it to the Status field.
+func (o *IntegrationDeliveryConfiguration) SetStatus(v IntegrationDeliveryConfigurationStatus) {
+	o.Status = &v
+}
+
 func (o IntegrationDeliveryConfiguration) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -366,6 +399,9 @@ func (o IntegrationDeliveryConfiguration) ToMap() (map[string]interface{}, error
 	toSerialize["version"] = o.Version
 	if !IsNil(o.Access) {
 		toSerialize["_access"] = o.Access
+	}
+	if !IsNil(o.Status) {
+		toSerialize["_status"] = o.Status
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -430,6 +466,7 @@ func (o *IntegrationDeliveryConfiguration) UnmarshalJSON(data []byte) (err error
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "version")
 		delete(additionalProperties, "_access")
+		delete(additionalProperties, "_status")
 		o.AdditionalProperties = additionalProperties
 	}
 

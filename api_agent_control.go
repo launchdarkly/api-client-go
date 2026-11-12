@@ -7180,6 +7180,7 @@ type ApiListAgentSkillsRequest struct {
 	limit *int32
 	offset *int32
 	filter *string
+	sort *string
 }
 
 // The number of resources to return.
@@ -7197,6 +7198,12 @@ func (r ApiListAgentSkillsRequest) Offset(offset int32) ApiListAgentSkillsReques
 // A filter to apply to the list.
 func (r ApiListAgentSkillsRequest) Filter(filter string) ApiListAgentSkillsRequest {
 	r.filter = &filter
+	return r
+}
+
+// A sort to apply to the list of agent skills. Use &#x60;usedIn&#x60; to sort by the number of AgentControl configs that use each skill, fewest first, or &#x60;-usedIn&#x60; for most first. Without a sort, skills are ordered by creation date, newest first.
+func (r ApiListAgentSkillsRequest) Sort(sort string) ApiListAgentSkillsRequest {
+	r.sort = &sort
 	return r
 }
 
@@ -7251,6 +7258,9 @@ func (a *AgentControlApiService) ListAgentSkillsExecute(r ApiListAgentSkillsRequ
 	}
 	if r.filter != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "filter", r.filter, "form", "")
+	}
+	if r.sort != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

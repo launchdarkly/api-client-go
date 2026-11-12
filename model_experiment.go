@@ -37,6 +37,8 @@ type Experiment struct {
 	Methodology *string `json:"methodology,omitempty"`
 	// The source of metric data in order to analyze results. Defaults to \"launchdarkly\" when not provided.
 	DataSource *string `json:"dataSource,omitempty"`
+	// The source of assignment data for this experiment. Defaults to \"launchdarkly\" when not provided.
+	AssignmentSourceType *string `json:"assignmentSourceType,omitempty"`
 	ArchivedDate *int64 `json:"archivedDate,omitempty"`
 	// Tags for the experiment
 	Tags []string `json:"tags,omitempty"`
@@ -327,6 +329,38 @@ func (o *Experiment) HasDataSource() bool {
 // SetDataSource gets a reference to the given string and assigns it to the DataSource field.
 func (o *Experiment) SetDataSource(v string) {
 	o.DataSource = &v
+}
+
+// GetAssignmentSourceType returns the AssignmentSourceType field value if set, zero value otherwise.
+func (o *Experiment) GetAssignmentSourceType() string {
+	if o == nil || IsNil(o.AssignmentSourceType) {
+		var ret string
+		return ret
+	}
+	return *o.AssignmentSourceType
+}
+
+// GetAssignmentSourceTypeOk returns a tuple with the AssignmentSourceType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Experiment) GetAssignmentSourceTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.AssignmentSourceType) {
+		return nil, false
+	}
+	return o.AssignmentSourceType, true
+}
+
+// HasAssignmentSourceType returns a boolean if a field has been set.
+func (o *Experiment) HasAssignmentSourceType() bool {
+	if o != nil && !IsNil(o.AssignmentSourceType) {
+		return true
+	}
+
+	return false
+}
+
+// SetAssignmentSourceType gets a reference to the given string and assigns it to the AssignmentSourceType field.
+func (o *Experiment) SetAssignmentSourceType(v string) {
+	o.AssignmentSourceType = &v
 }
 
 // GetArchivedDate returns the ArchivedDate field value if set, zero value otherwise.
@@ -700,6 +734,9 @@ func (o Experiment) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.DataSource) {
 		toSerialize["dataSource"] = o.DataSource
 	}
+	if !IsNil(o.AssignmentSourceType) {
+		toSerialize["assignmentSourceType"] = o.AssignmentSourceType
+	}
 	if !IsNil(o.ArchivedDate) {
 		toSerialize["archivedDate"] = o.ArchivedDate
 	}
@@ -788,6 +825,7 @@ func (o *Experiment) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "environmentKey")
 		delete(additionalProperties, "methodology")
 		delete(additionalProperties, "dataSource")
+		delete(additionalProperties, "assignmentSourceType")
 		delete(additionalProperties, "archivedDate")
 		delete(additionalProperties, "tags")
 		delete(additionalProperties, "_links")
