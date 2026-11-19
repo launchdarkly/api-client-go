@@ -18,7 +18,7 @@ import (
 // checks if the ExpandedAIConfig type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ExpandedAIConfig{}
 
-// ExpandedAIConfig AI Config representation for Views API - contains only fields actually used by the Views service
+// ExpandedAIConfig Agent config representation for Views API - contains only fields actually used by the Views service
 type ExpandedAIConfig struct {
 	// A unique key used to reference the AI config
 	Key *string `json:"key,omitempty"`

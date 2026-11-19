@@ -35,6 +35,8 @@ type AgentSkillPost struct {
 	MaintainerTeamKey *string `json:"maintainerTeamKey,omitempty"`
 	// Tags for the agent skill. Tags can be used in custom role policies.
 	Tags []string `json:"tags,omitempty"`
+	// AI tools in the same project to pin to the agent skill, in the order they reach the agent. Each tool key can appear once, and a skill can pin up to 20 tools by default. You need read access to each tool.
+	Tools []SkillToolRef `json:"tools,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -260,6 +262,38 @@ func (o *AgentSkillPost) SetTags(v []string) {
 	o.Tags = v
 }
 
+// GetTools returns the Tools field value if set, zero value otherwise.
+func (o *AgentSkillPost) GetTools() []SkillToolRef {
+	if o == nil || IsNil(o.Tools) {
+		var ret []SkillToolRef
+		return ret
+	}
+	return o.Tools
+}
+
+// GetToolsOk returns a tuple with the Tools field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AgentSkillPost) GetToolsOk() ([]SkillToolRef, bool) {
+	if o == nil || IsNil(o.Tools) {
+		return nil, false
+	}
+	return o.Tools, true
+}
+
+// HasTools returns a boolean if a field has been set.
+func (o *AgentSkillPost) HasTools() bool {
+	if o != nil && !IsNil(o.Tools) {
+		return true
+	}
+
+	return false
+}
+
+// SetTools gets a reference to the given []SkillToolRef and assigns it to the Tools field.
+func (o *AgentSkillPost) SetTools(v []SkillToolRef) {
+	o.Tools = v
+}
+
 func (o AgentSkillPost) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -284,6 +318,9 @@ func (o AgentSkillPost) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Tags) {
 		toSerialize["tags"] = o.Tags
+	}
+	if !IsNil(o.Tools) {
+		toSerialize["tools"] = o.Tools
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -337,6 +374,7 @@ func (o *AgentSkillPost) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "maintainerId")
 		delete(additionalProperties, "maintainerTeamKey")
 		delete(additionalProperties, "tags")
+		delete(additionalProperties, "tools")
 		o.AdditionalProperties = additionalProperties
 	}
 

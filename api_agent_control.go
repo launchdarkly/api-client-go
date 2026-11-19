@@ -24,13 +24,13 @@ import (
 type AgentControlApi interface {
 
 	/*
-	DeleteAIConfig Delete AI Config
+	DeleteAIConfig Delete agent config
 
-	Delete an existing AI Config.
+	Delete an existing agent config.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectKey The project key
-	@param configKey The AI Config key
+	@param configKey The agent config key
 	@return ApiDeleteAIConfigRequest
 	*/
 	DeleteAIConfig(ctx context.Context, projectKey string, configKey string) ApiDeleteAIConfigRequest
@@ -39,14 +39,14 @@ type AgentControlApi interface {
 	DeleteAIConfigExecute(r ApiDeleteAIConfigRequest) (*http.Response, error)
 
 	/*
-	DeleteAIConfigVariation Delete AI Config variation
+	DeleteAIConfigVariation Delete agent config variation
 
-	Delete a specific variation of an AI Config by config key and variation key.
+	Delete a specific variation of an agent config by config key and variation key.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectKey The project key
-	@param configKey The AI Config key
-	@param variationKey The AI Config variation key
+	@param configKey The agent config key
+	@param variationKey The agent config variation key
 	@return ApiDeleteAIConfigVariationRequest
 	*/
 	DeleteAIConfigVariation(ctx context.Context, projectKey string, configKey string, variationKey string) ApiDeleteAIConfigVariationRequest
@@ -175,13 +175,13 @@ type AgentControlApi interface {
 	DeleteRestrictedModelsExecute(r ApiDeleteRestrictedModelsRequest) (*http.Response, error)
 
 	/*
-	GetAIConfig Get AI Config
+	GetAIConfig Get agent config
 
-	Retrieve a specific AI Config by its key.
+	Retrieve a specific agent config by its key.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectKey The project key
-	@param configKey The AI Config key
+	@param configKey The agent config key
 	@return ApiGetAIConfigRequest
 	*/
 	GetAIConfig(ctx context.Context, projectKey string, configKey string) ApiGetAIConfigRequest
@@ -191,13 +191,13 @@ type AgentControlApi interface {
 	GetAIConfigExecute(r ApiGetAIConfigRequest) (*AIConfig, *http.Response, error)
 
 	/*
-	GetAIConfigMetrics Get AI Config metrics
+	GetAIConfigMetrics Get agent config metrics
 
-	Retrieve usage metrics for an AI Config by config key.
+	Retrieve usage metrics for an agent config by config key.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectKey The project key
-	@param configKey The AI Config key
+	@param configKey The agent config key
 	@return ApiGetAIConfigMetricsRequest
 	*/
 	GetAIConfigMetrics(ctx context.Context, projectKey string, configKey string) ApiGetAIConfigMetricsRequest
@@ -207,13 +207,13 @@ type AgentControlApi interface {
 	GetAIConfigMetricsExecute(r ApiGetAIConfigMetricsRequest) (*Metrics, *http.Response, error)
 
 	/*
-	GetAIConfigMetricsByVariation Get AI Config metrics by variation
+	GetAIConfigMetricsByVariation Get agent config metrics by variation
 
-	Retrieve usage metrics for an AI Config by config key, with results split by variation.
+	Retrieve usage metrics for an agent config by config key, with results split by variation.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectKey The project key
-	@param configKey The AI Config key
+	@param configKey The agent config key
 	@return ApiGetAIConfigMetricsByVariationRequest
 	*/
 	GetAIConfigMetricsByVariation(ctx context.Context, projectKey string, configKey string) ApiGetAIConfigMetricsByVariationRequest
@@ -223,9 +223,9 @@ type AgentControlApi interface {
 	GetAIConfigMetricsByVariationExecute(r ApiGetAIConfigMetricsByVariationRequest) ([]MetricByVariation, *http.Response, error)
 
 	/*
-	GetAIConfigQuickStats Get AI Config quick stats
+	GetAIConfigQuickStats Get agent config quick stats
 
-	Retrieve aggregate quick stats for AI Configs in a project.
+	Retrieve aggregate quick stats for agent configs in a project.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectKey The project key
@@ -238,13 +238,13 @@ type AgentControlApi interface {
 	GetAIConfigQuickStatsExecute(r ApiGetAIConfigQuickStatsRequest) (*QuickStats, *http.Response, error)
 
 	/*
-	GetAIConfigTargeting Show an AI Config's targeting
+	GetAIConfigTargeting Show an agent config's targeting
 
-	Retrieves a specific AI Config's targeting by its key
+	Retrieves a specific agent config's targeting by its key
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectKey The project key
-	@param configKey The AI Config key
+	@param configKey The agent config key
 	@return ApiGetAIConfigTargetingRequest
 	*/
 	GetAIConfigTargeting(ctx context.Context, projectKey string, configKey string) ApiGetAIConfigTargetingRequest
@@ -254,14 +254,14 @@ type AgentControlApi interface {
 	GetAIConfigTargetingExecute(r ApiGetAIConfigTargetingRequest) (*AIConfigTargeting, *http.Response, error)
 
 	/*
-	GetAIConfigVariation Get AI Config variation
+	GetAIConfigVariation Get agent config variation
 
-	Get an AI Config variation by key. The response includes all variation versions for the given variation key.
+	Get an agent config variation by key. The response includes all variation versions for the given variation key.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectKey The project key
-	@param configKey The AI Config key
-	@param variationKey The AI Config variation key
+	@param configKey The agent config key
+	@param variationKey The agent config variation key
 	@return ApiGetAIConfigVariationRequest
 	*/
 	GetAIConfigVariation(ctx context.Context, projectKey string, configKey string, variationKey string) ApiGetAIConfigVariationRequest
@@ -271,9 +271,9 @@ type AgentControlApi interface {
 	GetAIConfigVariationExecute(r ApiGetAIConfigVariationRequest) (*AIConfigVariationsResponse, *http.Response, error)
 
 	/*
-	GetAIConfigs List AI Configs
+	GetAIConfigs List agent configs
 
-	Get a list of all AI Configs in the given project.
+	Get a list of all agent configs in the given project.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectKey The project key
@@ -384,7 +384,7 @@ type AgentControlApi interface {
 	/*
 	ListAIToolReferences List AI tool references
 
-	Get all AgentControl config variations that currently reference this tool.
+	Get all AgentControl config variations that currently reference this tool, and every agent skill version that pins it. The same `limit` and `offset` apply to `items` and to `skills`, and each list is paged on its own. The pagination links follow whichever list has more entries, so keep requesting `next` until both lists are complete, or use `totalCount` and `skillsTotalCount`.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectKey The project key
@@ -496,6 +496,16 @@ type AgentControlApi interface {
 	ListAgentOptimizations List agent optimizations
 
 	Get a list of all agent optimizations in the given project.
+
+### Filtering optimizations
+
+The `filter` parameter supports the following fields and operators:
+
+- `query` with the `equals` operator: case-insensitive substring match on the optimization key, label, or AgentControl config key.
+- `aiConfigKey` with the `equals` operator: exact match on the key of the AgentControl config being optimized.
+
+Separate multiple fields with a comma, for example `filter=aiConfigKey equals "my-agent",query equals "tone"`.
+
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectKey The project key
@@ -649,9 +659,9 @@ type AgentControlApi interface {
 	ListPromptSnippetsExecute(r ApiListPromptSnippetsRequest) (*PromptSnippets, *http.Response, error)
 
 	/*
-	PatchAIConfig Update AI Config
+	PatchAIConfig Update agent config
 
-	Edit an existing AI Config.
+	Edit an existing agent config.
 
 The request body must be a JSON object of the fields to update. The values you include replace the existing values for the fields.
 
@@ -666,7 +676,7 @@ Here's an example:
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectKey The project key
-	@param configKey The AI Config key
+	@param configKey The agent config key
 	@return ApiPatchAIConfigRequest
 	*/
 	PatchAIConfig(ctx context.Context, projectKey string, configKey string) ApiPatchAIConfigRequest
@@ -676,15 +686,15 @@ Here's an example:
 	PatchAIConfigExecute(r ApiPatchAIConfigRequest) (*AIConfig, *http.Response, error)
 
 	/*
-	PatchAIConfigTargeting Update AI Config targeting
+	PatchAIConfigTargeting Update agent config targeting
 
-	Perform a partial update to an AI Config's targeting. The request body must be a valid semantic patch.
+	Perform a partial update to an agent config's targeting. The request body must be a valid semantic patch.
 
-### Using semantic patches on an AI Config
+### Using semantic patches on an agent config
 
 To make a semantic patch request, you must append `domain-model=launchdarkly.semanticpatch` to your `Content-Type` header. To learn more, read [Updates using semantic patch](https://launchdarkly.com/docs/api#updates-using-semantic-patch).
 
-The body of a semantic patch request for updating an AI Config's targeting takes the following properties:
+The body of a semantic patch request for updating an agent config's targeting takes the following properties:
 
 * `comment` (string): (Optional) A description of the update.
 * `environmentKey` (string): The key of the LaunchDarkly environment.
@@ -692,10 +702,10 @@ The body of a semantic patch request for updating an AI Config's targeting takes
 
 ### Instructions
 
-Semantic patch requests support the following `kind` instructions for updating AI Configs.
+Semantic patch requests support the following `kind` instructions for updating agent configs.
 
 <details>
-<summary>Click to expand instructions for <strong>working with targeting and variations</strong> for AI Configs</summary>
+<summary>Click to expand instructions for <strong>working with targeting and variations</strong> for agent configs</summary>
 
 #### addClauses
 
@@ -703,7 +713,7 @@ Adds the given clauses to the rule indicated by `ruleId`.
 
 ##### Parameters
 
-- `ruleId`: ID of a rule in the AI Config.
+- `ruleId`: ID of a rule in the agent config.
 - `clauses`: Array of clause objects, with `contextKind` (string), `attribute` (string), `op` (string), `negate` (boolean), and `values` (array of strings, numbers, or dates) properties. The `contextKind`, `attribute`, and `values` are case sensitive. The `op` must be lower-case.
 
 Here's an example:
@@ -727,7 +737,7 @@ Here's an example:
 
 #### addRule
 
-Adds a new targeting rule to the AI Config. The rule may contain `clauses` and serve the variation that `variationId` indicates, or serve a percentage rollout that `rolloutWeights`, `rolloutBucketBy`, and `rolloutContextKind` indicate.
+Adds a new targeting rule to the agent config. The rule may contain `clauses` and serve the variation that `variationId` indicates, or serve a percentage rollout that `rolloutWeights`, `rolloutBucketBy`, and `rolloutContextKind` indicate.
 
 If you set `beforeRuleId`, this adds the new rule before the indicated rule. Otherwise, adds the new rule to the end of the list.
 
@@ -788,7 +798,7 @@ Here's an example that uses a percentage rollout:
 
 #### addTargets
 
-Adds context keys to the individual context targets for the context kind that `contextKind` specifies and the variation that `variationId` specifies. Returns an error if this causes the AI Config to target the same context key in multiple variations.
+Adds context keys to the individual context targets for the context kind that `contextKind` specifies and the variation that `variationId` specifies. Returns an error if this causes the agent config to target the same context key in multiple variations.
 
 ##### Parameters
 
@@ -815,7 +825,7 @@ Adds `values` to the values of the clause that `ruleId` and `clauseId` indicate.
 
 ##### Parameters
 
-- `ruleId`: ID of a rule in the AI Config.
+- `ruleId`: ID of a rule in the agent config.
 - `clauseId`: ID of a clause in that rule.
 - `values`: Array of strings, case sensitive.
 
@@ -938,7 +948,7 @@ Here's an example:
 
 #### reorderRules
 
-Rearranges the rules to match the order given in `ruleIds`. Returns an error if `ruleIds` does not match the current set of rules on the AI Config.
+Rearranges the rules to match the order given in `ruleIds`. Returns an error if `ruleIds` does not match the current set of rules on the agent config.
 
 ##### Parameters
 
@@ -958,7 +968,7 @@ Here's an example:
 
 #### replaceRules
 
-Removes all targeting rules for the AI Config and replaces them with the list you provide.
+Removes all targeting rules for the agent config and replaces them with the list you provide.
 
 ##### Parameters
 
@@ -1056,7 +1066,7 @@ Here's an example:
 
 #### updateDefaultVariation
 
-Updates the default on or off variation of the AI Config.
+Updates the default on or off variation of the agent config.
 
 ##### Parameters
 
@@ -1073,7 +1083,7 @@ Here's an example:
 
 #### updateFallthroughVariationOrRollout
 
-Updates the default or "fallthrough" rule for the AI Config, which the AI Config serves when a context matches none of the targeting rules. The rule can serve either the variation that `variationId` indicates, or a percentage rollout that `rolloutWeights` and `rolloutBucketBy` indicate.
+Updates the default or "fallthrough" rule for the agent config, which the agent config serves when a context matches none of the targeting rules. The rule can serve either the variation that `variationId` indicates, or a percentage rollout that `rolloutWeights` and `rolloutBucketBy` indicate.
 
 ##### Parameters
 
@@ -1115,7 +1125,7 @@ Here's an example that uses a percentage rollout:
 
 #### updateOffVariation
 
-Updates the default off variation to `variationId`. The AI Config serves the default off variation when the AI Config's targeting is **Off**.
+Updates the default off variation to `variationId`. The agent config serves the default off variation when the agent config's targeting is **Off**.
 
 ##### Parameters
 
@@ -1137,7 +1147,7 @@ Updates the description of the targeting rule.
 ##### Parameters
 
 - `description`: The new human-readable description for this rule.
-- `ruleId`: The ID of the rule. You can retrieve this by making a GET request for the AI Config.
+- `ruleId`: The ID of the rule. You can retrieve this by making a GET request for the agent config.
 
 Here's an example:
 
@@ -1154,11 +1164,11 @@ Here's an example:
 
 #### updateRuleTrackEvents
 
-Updates whether or not LaunchDarkly tracks events for the AI Config associated with this rule.
+Updates whether or not LaunchDarkly tracks events for the agent config associated with this rule.
 
 ##### Parameters
 
-- `ruleId`: The ID of the rule. You can retrieve this by making a GET request for the AI Config.
+- `ruleId`: The ID of the rule. You can retrieve this by making a GET request for the agent config.
 - `trackEvents`: Whether or not events are tracked.
 
 Here's an example:
@@ -1204,7 +1214,7 @@ Here's an example:
 
 #### updateTrackEvents
 
-Updates whether or not LaunchDarkly tracks events for the AI Config, for all rules.
+Updates whether or not LaunchDarkly tracks events for the agent config, for all rules.
 
 ##### Parameters
 
@@ -1221,7 +1231,7 @@ Here's an example:
 
 #### updateTrackEventsFallthrough
 
-Updates whether or not LaunchDarkly tracks events for the AI Config, for the default rule.
+Updates whether or not LaunchDarkly tracks events for the agent config, for the default rule.
 
 ##### Parameters
 
@@ -1240,7 +1250,7 @@ Here's an example:
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectKey The project key
-	@param configKey The AI Config key
+	@param configKey The agent config key
 	@return ApiPatchAIConfigTargetingRequest
 	*/
 	PatchAIConfigTargeting(ctx context.Context, projectKey string, configKey string) ApiPatchAIConfigTargetingRequest
@@ -1250,13 +1260,13 @@ Here's an example:
 	PatchAIConfigTargetingExecute(r ApiPatchAIConfigTargetingRequest) (*AIConfigTargeting, *http.Response, error)
 
 	/*
-	PatchAIConfigVariation Update AI Config variation
+	PatchAIConfigVariation Update agent config variation
 
-	Edit an existing variation of an AI Config. This creates a new version of the variation.
+	Edit an existing variation of an agent config. This creates a new version of the variation.
 
 The request body must be a JSON object of the fields to update. The values you include replace the existing values for the fields.
 
-If the variation is in use in a project environment where approval settings require review for this AI Config, this endpoint returns 403 and the change must be submitted through an approval request.
+If the variation is in use in a project environment where approval settings require review for this agent config, this endpoint returns 403 and the change must be submitted through an approval request.
 
 Here's an example:
 ```
@@ -1273,8 +1283,8 @@ Here's an example:
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectKey The project key
-	@param configKey The AI Config key
-	@param variationKey The AI Config variation key
+	@param configKey The agent config key
+	@param variationKey The agent config variation key
 	@return ApiPatchAIConfigVariationRequest
 	*/
 	PatchAIConfigVariation(ctx context.Context, projectKey string, configKey string, variationKey string) ApiPatchAIConfigVariationRequest
@@ -1402,9 +1412,9 @@ If the update includes `rootConfigKey` or `edges`, both must be present and will
 	PatchPromptSnippetExecute(r ApiPatchPromptSnippetRequest) (*PromptSnippet, *http.Response, error)
 
 	/*
-	PostAIConfig Create new AI Config
+	PostAIConfig Create new agent config
 
-	Create a new AI Config within the given project.
+	Create a new agent config within the given project.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectKey The project key
@@ -1417,9 +1427,9 @@ If the update includes `rootConfigKey` or `edges`, both must be present and will
 	PostAIConfigExecute(r ApiPostAIConfigRequest) (*AIConfig, *http.Response, error)
 
 	/*
-	PostAIConfigVariation Create AI Config variation
+	PostAIConfigVariation Create agent config variation
 
-	Create a new variation for a given AI Config.
+	Create a new variation for a given agent config.
 
 The <code>model</code> in the request body requires a <code>modelName</code> and <code>parameters</code>, for example:
 
@@ -1435,7 +1445,7 @@ The <code>model</code> in the request body requires a <code>modelName</code> and
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param projectKey The project key
-	@param configKey The AI Config key
+	@param configKey The agent config key
 	@return ApiPostAIConfigVariationRequest
 	*/
 	PostAIConfigVariation(ctx context.Context, projectKey string, configKey string) ApiPostAIConfigVariationRequest
@@ -1581,13 +1591,13 @@ func (r ApiDeleteAIConfigRequest) Execute() (*http.Response, error) {
 }
 
 /*
-DeleteAIConfig Delete AI Config
+DeleteAIConfig Delete agent config
 
-Delete an existing AI Config.
+Delete an existing agent config.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param projectKey The project key
- @param configKey The AI Config key
+ @param configKey The agent config key
  @return ApiDeleteAIConfigRequest
 */
 func (a *AgentControlApiService) DeleteAIConfig(ctx context.Context, projectKey string, configKey string) ApiDeleteAIConfigRequest {
@@ -1735,14 +1745,14 @@ func (r ApiDeleteAIConfigVariationRequest) Execute() (*http.Response, error) {
 }
 
 /*
-DeleteAIConfigVariation Delete AI Config variation
+DeleteAIConfigVariation Delete agent config variation
 
-Delete a specific variation of an AI Config by config key and variation key.
+Delete a specific variation of an agent config by config key and variation key.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param projectKey The project key
- @param configKey The AI Config key
- @param variationKey The AI Config variation key
+ @param configKey The agent config key
+ @param variationKey The agent config variation key
  @return ApiDeleteAIConfigVariationRequest
 */
 func (a *AgentControlApiService) DeleteAIConfigVariation(ctx context.Context, projectKey string, configKey string, variationKey string) ApiDeleteAIConfigVariationRequest {
@@ -2006,6 +2016,17 @@ func (a *AgentControlApiService) DeleteAIToolExecute(r ApiDeleteAIToolRequest) (
 			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 409 {
 			var v Error
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
@@ -3116,13 +3137,13 @@ func (r ApiGetAIConfigRequest) Execute() (*AIConfig, *http.Response, error) {
 }
 
 /*
-GetAIConfig Get AI Config
+GetAIConfig Get agent config
 
-Retrieve a specific AI Config by its key.
+Retrieve a specific agent config by its key.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param projectKey The project key
- @param configKey The AI Config key
+ @param configKey The agent config key
  @return ApiGetAIConfigRequest
 */
 func (a *AgentControlApiService) GetAIConfig(ctx context.Context, projectKey string, configKey string) ApiGetAIConfigRequest {
@@ -3315,13 +3336,13 @@ func (r ApiGetAIConfigMetricsRequest) Execute() (*Metrics, *http.Response, error
 }
 
 /*
-GetAIConfigMetrics Get AI Config metrics
+GetAIConfigMetrics Get agent config metrics
 
-Retrieve usage metrics for an AI Config by config key.
+Retrieve usage metrics for an agent config by config key.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param projectKey The project key
- @param configKey The AI Config key
+ @param configKey The agent config key
  @return ApiGetAIConfigMetricsRequest
 */
 func (a *AgentControlApiService) GetAIConfigMetrics(ctx context.Context, projectKey string, configKey string) ApiGetAIConfigMetricsRequest {
@@ -3532,13 +3553,13 @@ func (r ApiGetAIConfigMetricsByVariationRequest) Execute() ([]MetricByVariation,
 }
 
 /*
-GetAIConfigMetricsByVariation Get AI Config metrics by variation
+GetAIConfigMetricsByVariation Get agent config metrics by variation
 
-Retrieve usage metrics for an AI Config by config key, with results split by variation.
+Retrieve usage metrics for an agent config by config key, with results split by variation.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param projectKey The project key
- @param configKey The AI Config key
+ @param configKey The agent config key
  @return ApiGetAIConfigMetricsByVariationRequest
 */
 func (a *AgentControlApiService) GetAIConfigMetricsByVariation(ctx context.Context, projectKey string, configKey string) ApiGetAIConfigMetricsByVariationRequest {
@@ -3720,9 +3741,9 @@ func (r ApiGetAIConfigQuickStatsRequest) Execute() (*QuickStats, *http.Response,
 }
 
 /*
-GetAIConfigQuickStats Get AI Config quick stats
+GetAIConfigQuickStats Get agent config quick stats
 
-Retrieve aggregate quick stats for AI Configs in a project.
+Retrieve aggregate quick stats for agent configs in a project.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param projectKey The project key
@@ -3885,13 +3906,13 @@ func (r ApiGetAIConfigTargetingRequest) Execute() (*AIConfigTargeting, *http.Res
 }
 
 /*
-GetAIConfigTargeting Show an AI Config's targeting
+GetAIConfigTargeting Show an agent config's targeting
 
-Retrieves a specific AI Config's targeting by its key
+Retrieves a specific agent config's targeting by its key
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param projectKey The project key
- @param configKey The AI Config key
+ @param configKey The agent config key
  @return ApiGetAIConfigTargetingRequest
 */
 func (a *AgentControlApiService) GetAIConfigTargeting(ctx context.Context, projectKey string, configKey string) ApiGetAIConfigTargetingRequest {
@@ -4039,14 +4060,14 @@ func (r ApiGetAIConfigVariationRequest) Execute() (*AIConfigVariationsResponse, 
 }
 
 /*
-GetAIConfigVariation Get AI Config variation
+GetAIConfigVariation Get agent config variation
 
-Get an AI Config variation by key. The response includes all variation versions for the given variation key.
+Get an agent config variation by key. The response includes all variation versions for the given variation key.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param projectKey The project key
- @param configKey The AI Config key
- @param variationKey The AI Config variation key
+ @param configKey The agent config key
+ @param variationKey The agent config variation key
  @return ApiGetAIConfigVariationRequest
 */
 func (a *AgentControlApiService) GetAIConfigVariation(ctx context.Context, projectKey string, configKey string, variationKey string) ApiGetAIConfigVariationRequest {
@@ -4233,9 +4254,9 @@ func (r ApiGetAIConfigsRequest) Execute() (*AIConfigs, *http.Response, error) {
 }
 
 /*
-GetAIConfigs List AI Configs
+GetAIConfigs List agent configs
 
-Get a list of all AI Configs in the given project.
+Get a list of all agent configs in the given project.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param projectKey The project key
@@ -5394,7 +5415,7 @@ func (r ApiListAIToolReferencesRequest) Execute() (*ToolReferences, *http.Respon
 /*
 ListAIToolReferences List AI tool references
 
-Get all AgentControl config variations that currently reference this tool.
+Get all AgentControl config variations that currently reference this tool, and every agent skill version that pins it. The same `limit` and `offset` apply to `items` and to `skills`, and each list is paged on its own. The pagination links follow whichever list has more entries, so keep requesting `next` until both lists are complete, or use `totalCount` and `skillsTotalCount`.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param projectKey The project key
@@ -6662,6 +6683,16 @@ ListAgentOptimizations List agent optimizations
 
 Get a list of all agent optimizations in the given project.
 
+### Filtering optimizations
+
+The `filter` parameter supports the following fields and operators:
+
+- `query` with the `equals` operator: case-insensitive substring match on the optimization key, label, or AgentControl config key.
+- `aiConfigKey` with the `equals` operator: exact match on the key of the AgentControl config being optimized.
+
+Separate multiple fields with a comma, for example `filter=aiConfigKey equals "my-agent",query equals "tone"`.
+
+
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param projectKey The project key
  @return ApiListAgentOptimizationsRequest
@@ -7180,6 +7211,7 @@ type ApiListAgentSkillsRequest struct {
 	limit *int32
 	offset *int32
 	filter *string
+	sort *string
 }
 
 // The number of resources to return.
@@ -7197,6 +7229,12 @@ func (r ApiListAgentSkillsRequest) Offset(offset int32) ApiListAgentSkillsReques
 // A filter to apply to the list.
 func (r ApiListAgentSkillsRequest) Filter(filter string) ApiListAgentSkillsRequest {
 	r.filter = &filter
+	return r
+}
+
+// A sort to apply to the list of agent skills. Use &#x60;usedIn&#x60; to sort by the number of AgentControl configs that use each skill, fewest first, or &#x60;-usedIn&#x60; for most first. Without a sort, skills are ordered by creation date, newest first.
+func (r ApiListAgentSkillsRequest) Sort(sort string) ApiListAgentSkillsRequest {
+	r.sort = &sort
 	return r
 }
 
@@ -7251,6 +7289,9 @@ func (a *AgentControlApiService) ListAgentSkillsExecute(r ApiListAgentSkillsRequ
 	}
 	if r.filter != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "filter", r.filter, "form", "")
+	}
+	if r.sort != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sort", r.sort, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -8465,7 +8506,7 @@ type ApiPatchAIConfigRequest struct {
 	aIConfigPatch *AIConfigPatch
 }
 
-// AI Config object to update
+// Agent config object to update
 func (r ApiPatchAIConfigRequest) AIConfigPatch(aIConfigPatch AIConfigPatch) ApiPatchAIConfigRequest {
 	r.aIConfigPatch = &aIConfigPatch
 	return r
@@ -8476,9 +8517,9 @@ func (r ApiPatchAIConfigRequest) Execute() (*AIConfig, *http.Response, error) {
 }
 
 /*
-PatchAIConfig Update AI Config
+PatchAIConfig Update agent config
 
-Edit an existing AI Config.
+Edit an existing agent config.
 
 The request body must be a JSON object of the fields to update. The values you include replace the existing values for the fields.
 
@@ -8493,7 +8534,7 @@ Here's an example:
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param projectKey The project key
- @param configKey The AI Config key
+ @param configKey The agent config key
  @return ApiPatchAIConfigRequest
 */
 func (a *AgentControlApiService) PatchAIConfig(ctx context.Context, projectKey string, configKey string) ApiPatchAIConfigRequest {
@@ -8649,7 +8690,7 @@ type ApiPatchAIConfigTargetingRequest struct {
 	aIConfigTargetingPatch *AIConfigTargetingPatch
 }
 
-// AI Config targeting semantic patch instructions
+// Agent config targeting semantic patch instructions
 func (r ApiPatchAIConfigTargetingRequest) AIConfigTargetingPatch(aIConfigTargetingPatch AIConfigTargetingPatch) ApiPatchAIConfigTargetingRequest {
 	r.aIConfigTargetingPatch = &aIConfigTargetingPatch
 	return r
@@ -8660,15 +8701,15 @@ func (r ApiPatchAIConfigTargetingRequest) Execute() (*AIConfigTargeting, *http.R
 }
 
 /*
-PatchAIConfigTargeting Update AI Config targeting
+PatchAIConfigTargeting Update agent config targeting
 
-Perform a partial update to an AI Config's targeting. The request body must be a valid semantic patch.
+Perform a partial update to an agent config's targeting. The request body must be a valid semantic patch.
 
-### Using semantic patches on an AI Config
+### Using semantic patches on an agent config
 
 To make a semantic patch request, you must append `domain-model=launchdarkly.semanticpatch` to your `Content-Type` header. To learn more, read [Updates using semantic patch](https://launchdarkly.com/docs/api#updates-using-semantic-patch).
 
-The body of a semantic patch request for updating an AI Config's targeting takes the following properties:
+The body of a semantic patch request for updating an agent config's targeting takes the following properties:
 
 * `comment` (string): (Optional) A description of the update.
 * `environmentKey` (string): The key of the LaunchDarkly environment.
@@ -8676,10 +8717,10 @@ The body of a semantic patch request for updating an AI Config's targeting takes
 
 ### Instructions
 
-Semantic patch requests support the following `kind` instructions for updating AI Configs.
+Semantic patch requests support the following `kind` instructions for updating agent configs.
 
 <details>
-<summary>Click to expand instructions for <strong>working with targeting and variations</strong> for AI Configs</summary>
+<summary>Click to expand instructions for <strong>working with targeting and variations</strong> for agent configs</summary>
 
 #### addClauses
 
@@ -8687,7 +8728,7 @@ Adds the given clauses to the rule indicated by `ruleId`.
 
 ##### Parameters
 
-- `ruleId`: ID of a rule in the AI Config.
+- `ruleId`: ID of a rule in the agent config.
 - `clauses`: Array of clause objects, with `contextKind` (string), `attribute` (string), `op` (string), `negate` (boolean), and `values` (array of strings, numbers, or dates) properties. The `contextKind`, `attribute`, and `values` are case sensitive. The `op` must be lower-case.
 
 Here's an example:
@@ -8711,7 +8752,7 @@ Here's an example:
 
 #### addRule
 
-Adds a new targeting rule to the AI Config. The rule may contain `clauses` and serve the variation that `variationId` indicates, or serve a percentage rollout that `rolloutWeights`, `rolloutBucketBy`, and `rolloutContextKind` indicate.
+Adds a new targeting rule to the agent config. The rule may contain `clauses` and serve the variation that `variationId` indicates, or serve a percentage rollout that `rolloutWeights`, `rolloutBucketBy`, and `rolloutContextKind` indicate.
 
 If you set `beforeRuleId`, this adds the new rule before the indicated rule. Otherwise, adds the new rule to the end of the list.
 
@@ -8772,7 +8813,7 @@ Here's an example that uses a percentage rollout:
 
 #### addTargets
 
-Adds context keys to the individual context targets for the context kind that `contextKind` specifies and the variation that `variationId` specifies. Returns an error if this causes the AI Config to target the same context key in multiple variations.
+Adds context keys to the individual context targets for the context kind that `contextKind` specifies and the variation that `variationId` specifies. Returns an error if this causes the agent config to target the same context key in multiple variations.
 
 ##### Parameters
 
@@ -8799,7 +8840,7 @@ Adds `values` to the values of the clause that `ruleId` and `clauseId` indicate.
 
 ##### Parameters
 
-- `ruleId`: ID of a rule in the AI Config.
+- `ruleId`: ID of a rule in the agent config.
 - `clauseId`: ID of a clause in that rule.
 - `values`: Array of strings, case sensitive.
 
@@ -8922,7 +8963,7 @@ Here's an example:
 
 #### reorderRules
 
-Rearranges the rules to match the order given in `ruleIds`. Returns an error if `ruleIds` does not match the current set of rules on the AI Config.
+Rearranges the rules to match the order given in `ruleIds`. Returns an error if `ruleIds` does not match the current set of rules on the agent config.
 
 ##### Parameters
 
@@ -8942,7 +8983,7 @@ Here's an example:
 
 #### replaceRules
 
-Removes all targeting rules for the AI Config and replaces them with the list you provide.
+Removes all targeting rules for the agent config and replaces them with the list you provide.
 
 ##### Parameters
 
@@ -9040,7 +9081,7 @@ Here's an example:
 
 #### updateDefaultVariation
 
-Updates the default on or off variation of the AI Config.
+Updates the default on or off variation of the agent config.
 
 ##### Parameters
 
@@ -9057,7 +9098,7 @@ Here's an example:
 
 #### updateFallthroughVariationOrRollout
 
-Updates the default or "fallthrough" rule for the AI Config, which the AI Config serves when a context matches none of the targeting rules. The rule can serve either the variation that `variationId` indicates, or a percentage rollout that `rolloutWeights` and `rolloutBucketBy` indicate.
+Updates the default or "fallthrough" rule for the agent config, which the agent config serves when a context matches none of the targeting rules. The rule can serve either the variation that `variationId` indicates, or a percentage rollout that `rolloutWeights` and `rolloutBucketBy` indicate.
 
 ##### Parameters
 
@@ -9099,7 +9140,7 @@ Here's an example that uses a percentage rollout:
 
 #### updateOffVariation
 
-Updates the default off variation to `variationId`. The AI Config serves the default off variation when the AI Config's targeting is **Off**.
+Updates the default off variation to `variationId`. The agent config serves the default off variation when the agent config's targeting is **Off**.
 
 ##### Parameters
 
@@ -9121,7 +9162,7 @@ Updates the description of the targeting rule.
 ##### Parameters
 
 - `description`: The new human-readable description for this rule.
-- `ruleId`: The ID of the rule. You can retrieve this by making a GET request for the AI Config.
+- `ruleId`: The ID of the rule. You can retrieve this by making a GET request for the agent config.
 
 Here's an example:
 
@@ -9138,11 +9179,11 @@ Here's an example:
 
 #### updateRuleTrackEvents
 
-Updates whether or not LaunchDarkly tracks events for the AI Config associated with this rule.
+Updates whether or not LaunchDarkly tracks events for the agent config associated with this rule.
 
 ##### Parameters
 
-- `ruleId`: The ID of the rule. You can retrieve this by making a GET request for the AI Config.
+- `ruleId`: The ID of the rule. You can retrieve this by making a GET request for the agent config.
 - `trackEvents`: Whether or not events are tracked.
 
 Here's an example:
@@ -9188,7 +9229,7 @@ Here's an example:
 
 #### updateTrackEvents
 
-Updates whether or not LaunchDarkly tracks events for the AI Config, for all rules.
+Updates whether or not LaunchDarkly tracks events for the agent config, for all rules.
 
 ##### Parameters
 
@@ -9205,7 +9246,7 @@ Here's an example:
 
 #### updateTrackEventsFallthrough
 
-Updates whether or not LaunchDarkly tracks events for the AI Config, for the default rule.
+Updates whether or not LaunchDarkly tracks events for the agent config, for the default rule.
 
 ##### Parameters
 
@@ -9224,7 +9265,7 @@ Here's an example:
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param projectKey The project key
- @param configKey The AI Config key
+ @param configKey The agent config key
  @return ApiPatchAIConfigTargetingRequest
 */
 func (a *AgentControlApiService) PatchAIConfigTargeting(ctx context.Context, projectKey string, configKey string) ApiPatchAIConfigTargetingRequest {
@@ -9381,7 +9422,7 @@ type ApiPatchAIConfigVariationRequest struct {
 	aIConfigVariationPatch *AIConfigVariationPatch
 }
 
-// AI Config variation object to update
+// Agent config variation object to update
 func (r ApiPatchAIConfigVariationRequest) AIConfigVariationPatch(aIConfigVariationPatch AIConfigVariationPatch) ApiPatchAIConfigVariationRequest {
 	r.aIConfigVariationPatch = &aIConfigVariationPatch
 	return r
@@ -9392,13 +9433,13 @@ func (r ApiPatchAIConfigVariationRequest) Execute() (*AIConfigVariation, *http.R
 }
 
 /*
-PatchAIConfigVariation Update AI Config variation
+PatchAIConfigVariation Update agent config variation
 
-Edit an existing variation of an AI Config. This creates a new version of the variation.
+Edit an existing variation of an agent config. This creates a new version of the variation.
 
 The request body must be a JSON object of the fields to update. The values you include replace the existing values for the fields.
 
-If the variation is in use in a project environment where approval settings require review for this AI Config, this endpoint returns 403 and the change must be submitted through an approval request.
+If the variation is in use in a project environment where approval settings require review for this agent config, this endpoint returns 403 and the change must be submitted through an approval request.
 
 Here's an example:
 ```
@@ -9415,8 +9456,8 @@ Here's an example:
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param projectKey The project key
- @param configKey The AI Config key
- @param variationKey The AI Config variation key
+ @param configKey The agent config key
+ @param variationKey The agent config variation key
  @return ApiPatchAIConfigVariationRequest
 */
 func (a *AgentControlApiService) PatchAIConfigVariation(ctx context.Context, projectKey string, configKey string, variationKey string) ApiPatchAIConfigVariationRequest {
@@ -10852,7 +10893,7 @@ type ApiPostAIConfigRequest struct {
 	aIConfigPost *AIConfigPost
 }
 
-// AI Config object to create
+// Agent config object to create
 func (r ApiPostAIConfigRequest) AIConfigPost(aIConfigPost AIConfigPost) ApiPostAIConfigRequest {
 	r.aIConfigPost = &aIConfigPost
 	return r
@@ -10863,9 +10904,9 @@ func (r ApiPostAIConfigRequest) Execute() (*AIConfig, *http.Response, error) {
 }
 
 /*
-PostAIConfig Create new AI Config
+PostAIConfig Create new agent config
 
-Create a new AI Config within the given project.
+Create a new agent config within the given project.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param projectKey The project key
@@ -11025,7 +11066,7 @@ type ApiPostAIConfigVariationRequest struct {
 	aIConfigVariationPost *AIConfigVariationPost
 }
 
-// AI Config variation object to create
+// Agent config variation object to create
 func (r ApiPostAIConfigVariationRequest) AIConfigVariationPost(aIConfigVariationPost AIConfigVariationPost) ApiPostAIConfigVariationRequest {
 	r.aIConfigVariationPost = &aIConfigVariationPost
 	return r
@@ -11036,9 +11077,9 @@ func (r ApiPostAIConfigVariationRequest) Execute() (*AIConfigVariation, *http.Re
 }
 
 /*
-PostAIConfigVariation Create AI Config variation
+PostAIConfigVariation Create agent config variation
 
-Create a new variation for a given AI Config.
+Create a new variation for a given agent config.
 
 The <code>model</code> in the request body requires a <code>modelName</code> and <code>parameters</code>, for example:
 
@@ -11054,7 +11095,7 @@ The <code>model</code> in the request body requires a <code>modelName</code> and
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param projectKey The project key
- @param configKey The AI Config key
+ @param configKey The agent config key
  @return ApiPostAIConfigVariationRequest
 */
 func (a *AgentControlApiService) PostAIConfigVariation(ctx context.Context, projectKey string, configKey string) ApiPostAIConfigVariationRequest {

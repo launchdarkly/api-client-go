@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Key** | **string** | The key of the judge AI Config | 
+**Key** | **string** | The key of the judge agent config | 
 **Threshold** | **float64** | The minimum score needed to pass | 
 
 ## Methods

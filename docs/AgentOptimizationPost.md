@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Key** | **string** | A unique key for the agent optimization | 
-**AiConfigKey** | **string** | The key of the AI Config to optimize | 
+**AiConfigKey** | **string** | The key of the agent config to optimize | 
 **MaxAttempts** | **int32** | The maximum number of attempts | 
 **ModelChoices** | Pointer to **[]string** | The models to try | [optional] 
 **JudgeModel** | **string** | The model used to judge responses | 

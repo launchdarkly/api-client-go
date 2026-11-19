@@ -12,7 +12,8 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** | Human-readable description of what the agent skill does. | [optional] 
 **Markdown** | **string** | The verbatim SKILL.md content of the agent skill | 
 **Tags** | **[]string** | Tags for the agent skill. Tags can be used in custom role policies. | 
-**Version** | **int32** | Version of the agent skill. Starts at 1, and each update that changes the name, description, or markdown creates a new version. Pass this value with &#x60;key&#x60; in a variation&#39;s &#x60;skills: [{key, version}]&#x60;. | 
+**Version** | **int32** | Version of the agent skill. Starts at 1, and each update that changes the name, description, markdown, or tools creates a new version. Pass this value with &#x60;key&#x60; in a variation&#39;s &#x60;skills: [{key, version}]&#x60;. | 
+**Tools** | Pointer to [**[]PinnedSkillToolRef**](PinnedSkillToolRef.md) | The AI tool versions this version of the agent skill pins, in the order they reach the agent. | [optional] 
 **CreatedAt** | **int64** |  | 
 
 ## Methods
@@ -233,6 +234,31 @@ and a boolean to check if the value has been set.
 
 SetVersion sets Version field to given value.
 
+
+### GetTools
+
+`func (o *AgentSkill) GetTools() []PinnedSkillToolRef`
+
+GetTools returns the Tools field if non-nil, zero value otherwise.
+
+### GetToolsOk
+
+`func (o *AgentSkill) GetToolsOk() (*[]PinnedSkillToolRef, bool)`
+
+GetToolsOk returns a tuple with the Tools field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTools
+
+`func (o *AgentSkill) SetTools(v []PinnedSkillToolRef)`
+
+SetTools sets Tools field to given value.
+
+### HasTools
+
+`func (o *AgentSkill) HasTools() bool`
+
+HasTools returns a boolean if a field has been set.
 
 ### GetCreatedAt
 

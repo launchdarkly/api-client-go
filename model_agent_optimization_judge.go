@@ -21,7 +21,7 @@ var _ MappedNullable = &AgentOptimizationJudge{}
 
 // AgentOptimizationJudge struct for AgentOptimizationJudge
 type AgentOptimizationJudge struct {
-	// The key of the judge AI Config
+	// The key of the judge agent config
 	Key string `json:"key"`
 	// The minimum score needed to pass
 	Threshold float64 `json:"threshold"`

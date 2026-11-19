@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **MetricKey** | **string** |  | 
 **MetricVersionId** | Pointer to **string** |  | [optional] [readonly] 
 **AutoRollback** | **bool** | Whether a regression automatically reverts the release. | 
+**AnalysisUnit** | Pointer to **string** | Key of the context kind this metric is analyzed on. It is the release&#39;s randomization unit unless the metric uses a decoupled unit of analysis. Omitted on releases started before analysis units were recorded. Those metrics are analyzed on the randomization unit.  | [optional] [readonly] 
 **Definition** | Pointer to [**EnvironmentReleasesMetricListingRep**](EnvironmentReleasesMetricListingRep.md) | Present only when the caller requests &#x60;expand&#x3D;metrics&#x60; and the pinned metric version still exists. A metric whose pinned version has been deleted keeps its &#x60;metricKey&#x60; and &#x60;metricVersionId&#x60; but has no definition.  | [optional] [readonly] 
 
 ## Methods
@@ -92,6 +93,31 @@ and a boolean to check if the value has been set.
 
 SetAutoRollback sets AutoRollback field to given value.
 
+
+### GetAnalysisUnit
+
+`func (o *ReleaseMetric) GetAnalysisUnit() string`
+
+GetAnalysisUnit returns the AnalysisUnit field if non-nil, zero value otherwise.
+
+### GetAnalysisUnitOk
+
+`func (o *ReleaseMetric) GetAnalysisUnitOk() (*string, bool)`
+
+GetAnalysisUnitOk returns a tuple with the AnalysisUnit field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAnalysisUnit
+
+`func (o *ReleaseMetric) SetAnalysisUnit(v string)`
+
+SetAnalysisUnit sets AnalysisUnit field to given value.
+
+### HasAnalysisUnit
+
+`func (o *ReleaseMetric) HasAnalysisUnit() bool`
+
+HasAnalysisUnit returns a boolean if a field has been set.
 
 ### GetDefinition
 

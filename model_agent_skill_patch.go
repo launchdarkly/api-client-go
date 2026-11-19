@@ -32,6 +32,8 @@ type AgentSkillPatch struct {
 	MaintainerTeamKey *string `json:"maintainerTeamKey,omitempty"`
 	// Replaces the tags on the agent skill. Tags can be used in custom role policies. Changing only the tags does not create a new version.
 	Tags []string `json:"tags,omitempty"`
+	// Replaces the AI tools pinned to the agent skill, in the order they reach the agent. Leave it out to keep the current tools, or send an empty array to remove them all. A change to the tools or their order creates a new version. Each tool key can appear once, and a skill can pin up to 20 tools by default. You need read access to each tool.
+	Tools []SkillToolRef `json:"tools,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -246,6 +248,38 @@ func (o *AgentSkillPatch) SetTags(v []string) {
 	o.Tags = v
 }
 
+// GetTools returns the Tools field value if set, zero value otherwise.
+func (o *AgentSkillPatch) GetTools() []SkillToolRef {
+	if o == nil || IsNil(o.Tools) {
+		var ret []SkillToolRef
+		return ret
+	}
+	return o.Tools
+}
+
+// GetToolsOk returns a tuple with the Tools field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AgentSkillPatch) GetToolsOk() ([]SkillToolRef, bool) {
+	if o == nil || IsNil(o.Tools) {
+		return nil, false
+	}
+	return o.Tools, true
+}
+
+// HasTools returns a boolean if a field has been set.
+func (o *AgentSkillPatch) HasTools() bool {
+	if o != nil && !IsNil(o.Tools) {
+		return true
+	}
+
+	return false
+}
+
+// SetTools gets a reference to the given []SkillToolRef and assigns it to the Tools field.
+func (o *AgentSkillPatch) SetTools(v []SkillToolRef) {
+	o.Tools = v
+}
+
 func (o AgentSkillPatch) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -273,6 +307,9 @@ func (o AgentSkillPatch) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Tags) {
 		toSerialize["tags"] = o.Tags
+	}
+	if !IsNil(o.Tools) {
+		toSerialize["tools"] = o.Tools
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -302,6 +339,7 @@ func (o *AgentSkillPatch) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "maintainerId")
 		delete(additionalProperties, "maintainerTeamKey")
 		delete(additionalProperties, "tags")
+		delete(additionalProperties, "tools")
 		o.AdditionalProperties = additionalProperties
 	}
 

@@ -30,6 +30,10 @@ type ToolReferences struct {
 	Items []ToolReference `json:"items"`
 	// The total number of references.
 	TotalCount int32 `json:"totalCount"`
+	// One page of the agent skill versions that pin a version of this tool, ordered by skill key then skill version, newest first. It is paged by `limit` and `offset` like `items`. A tool cannot be deleted while any skill version pins it.
+	Skills []ToolSkillReference `json:"skills,omitempty"`
+	// The total number of agent skill versions that pin this tool, across all pages.
+	SkillsTotalCount *int32 `json:"skillsTotalCount,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -184,6 +188,70 @@ func (o *ToolReferences) SetTotalCount(v int32) {
 	o.TotalCount = v
 }
 
+// GetSkills returns the Skills field value if set, zero value otherwise.
+func (o *ToolReferences) GetSkills() []ToolSkillReference {
+	if o == nil || IsNil(o.Skills) {
+		var ret []ToolSkillReference
+		return ret
+	}
+	return o.Skills
+}
+
+// GetSkillsOk returns a tuple with the Skills field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ToolReferences) GetSkillsOk() ([]ToolSkillReference, bool) {
+	if o == nil || IsNil(o.Skills) {
+		return nil, false
+	}
+	return o.Skills, true
+}
+
+// HasSkills returns a boolean if a field has been set.
+func (o *ToolReferences) HasSkills() bool {
+	if o != nil && !IsNil(o.Skills) {
+		return true
+	}
+
+	return false
+}
+
+// SetSkills gets a reference to the given []ToolSkillReference and assigns it to the Skills field.
+func (o *ToolReferences) SetSkills(v []ToolSkillReference) {
+	o.Skills = v
+}
+
+// GetSkillsTotalCount returns the SkillsTotalCount field value if set, zero value otherwise.
+func (o *ToolReferences) GetSkillsTotalCount() int32 {
+	if o == nil || IsNil(o.SkillsTotalCount) {
+		var ret int32
+		return ret
+	}
+	return *o.SkillsTotalCount
+}
+
+// GetSkillsTotalCountOk returns a tuple with the SkillsTotalCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ToolReferences) GetSkillsTotalCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.SkillsTotalCount) {
+		return nil, false
+	}
+	return o.SkillsTotalCount, true
+}
+
+// HasSkillsTotalCount returns a boolean if a field has been set.
+func (o *ToolReferences) HasSkillsTotalCount() bool {
+	if o != nil && !IsNil(o.SkillsTotalCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetSkillsTotalCount gets a reference to the given int32 and assigns it to the SkillsTotalCount field.
+func (o *ToolReferences) SetSkillsTotalCount(v int32) {
+	o.SkillsTotalCount = &v
+}
+
 func (o ToolReferences) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -201,6 +269,12 @@ func (o ToolReferences) ToMap() (map[string]interface{}, error) {
 	toSerialize["resourceType"] = o.ResourceType
 	toSerialize["items"] = o.Items
 	toSerialize["totalCount"] = o.TotalCount
+	if !IsNil(o.Skills) {
+		toSerialize["skills"] = o.Skills
+	}
+	if !IsNil(o.SkillsTotalCount) {
+		toSerialize["skillsTotalCount"] = o.SkillsTotalCount
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -252,6 +326,8 @@ func (o *ToolReferences) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "resourceType")
 		delete(additionalProperties, "items")
 		delete(additionalProperties, "totalCount")
+		delete(additionalProperties, "skills")
+		delete(additionalProperties, "skillsTotalCount")
 		o.AdditionalProperties = additionalProperties
 	}
 

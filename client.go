@@ -80,6 +80,8 @@ type APIClient struct {
 
 	DataExportDestinationsApi DataExportDestinationsApi
 
+	EnvironmentReleasePlansBetaApi EnvironmentReleasePlansBetaApi
+
 	EnvironmentReleasesBetaApi EnvironmentReleasesBetaApi
 
 	EnvironmentsApi EnvironmentsApi
@@ -93,6 +95,8 @@ type APIClient struct {
 	FlagImportConfigurationsBetaApi FlagImportConfigurationsBetaApi
 
 	FlagLinksBetaApi FlagLinksBetaApi
+
+	FlagReleasePlansBetaApi FlagReleasePlansBetaApi
 
 	FlagTriggersApi FlagTriggersApi
 
@@ -137,8 +141,6 @@ type APIClient struct {
 	RelayProxyConfigurationsApi RelayProxyConfigurationsApi
 
 	ReleasePipelinesDeprecatedApi ReleasePipelinesDeprecatedApi
-
-	ReleasePoliciesBetaApi ReleasePoliciesBetaApi
 
 	SDKKeysBetaApi SDKKeysBetaApi
 
@@ -196,6 +198,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.ContextsApi = (*ContextsApiService)(&c.common)
 	c.CustomRolesApi = (*CustomRolesApiService)(&c.common)
 	c.DataExportDestinationsApi = (*DataExportDestinationsApiService)(&c.common)
+	c.EnvironmentReleasePlansBetaApi = (*EnvironmentReleasePlansBetaApiService)(&c.common)
 	c.EnvironmentReleasesBetaApi = (*EnvironmentReleasesBetaApiService)(&c.common)
 	c.EnvironmentsApi = (*EnvironmentsApiService)(&c.common)
 	c.ExperimentsApi = (*ExperimentsApiService)(&c.common)
@@ -203,6 +206,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.FeatureFlagsBetaApi = (*FeatureFlagsBetaApiService)(&c.common)
 	c.FlagImportConfigurationsBetaApi = (*FlagImportConfigurationsBetaApiService)(&c.common)
 	c.FlagLinksBetaApi = (*FlagLinksBetaApiService)(&c.common)
+	c.FlagReleasePlansBetaApi = (*FlagReleasePlansBetaApiService)(&c.common)
 	c.FlagTriggersApi = (*FlagTriggersApiService)(&c.common)
 	c.FollowFlagsApi = (*FollowFlagsApiService)(&c.common)
 	c.HoldoutsApi = (*HoldoutsApiService)(&c.common)
@@ -225,7 +229,6 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.ProjectsApi = (*ProjectsApiService)(&c.common)
 	c.RelayProxyConfigurationsApi = (*RelayProxyConfigurationsApiService)(&c.common)
 	c.ReleasePipelinesDeprecatedApi = (*ReleasePipelinesDeprecatedApiService)(&c.common)
-	c.ReleasePoliciesBetaApi = (*ReleasePoliciesBetaApiService)(&c.common)
 	c.SDKKeysBetaApi = (*SDKKeysBetaApiService)(&c.common)
 	c.ScheduledChangesApi = (*ScheduledChangesApiService)(&c.common)
 	c.SegmentsApi = (*SegmentsApiService)(&c.common)

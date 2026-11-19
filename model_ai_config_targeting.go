@@ -27,13 +27,13 @@ type AIConfigTargeting struct {
 	// Targeting for each environment, keyed by environment key
 	Environments map[string]AIConfigTargetingEnvironment `json:"environments"`
 	Experiments AiConfigsExperimentInfoRep `json:"experiments"`
-	// The AI Config key
+	// The agent config key
 	Key string `json:"key"`
-	// The AI Config name
+	// The agent config name
 	Name string `json:"name"`
 	// Tags for this resource
 	Tags []string `json:"tags"`
-	// The variations of this AI Config
+	// The variations of this agent config
 	Variations []AIConfigTargetingVariation `json:"variations"`
 	// The version number of this resource
 	Version int32 `json:"_version"`

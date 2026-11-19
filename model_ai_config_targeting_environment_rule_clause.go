@@ -23,6 +23,8 @@ var _ MappedNullable = &AIConfigTargetingEnvironmentRuleClause{}
 type AIConfigTargetingEnvironmentRuleClause struct {
 	// The context attribute to match
 	Attribute string `json:"attribute"`
+	// The context kind of the attribute to match. Omitted for clauses on the kind attribute, which match the context kind itself.
+	ContextKind *string `json:"contextKind,omitempty"`
 	// The clause ID
 	Id string `json:"id"`
 	// Whether to negate the match
@@ -80,6 +82,38 @@ func (o *AIConfigTargetingEnvironmentRuleClause) GetAttributeOk() (*string, bool
 // SetAttribute sets field value
 func (o *AIConfigTargetingEnvironmentRuleClause) SetAttribute(v string) {
 	o.Attribute = v
+}
+
+// GetContextKind returns the ContextKind field value if set, zero value otherwise.
+func (o *AIConfigTargetingEnvironmentRuleClause) GetContextKind() string {
+	if o == nil || IsNil(o.ContextKind) {
+		var ret string
+		return ret
+	}
+	return *o.ContextKind
+}
+
+// GetContextKindOk returns a tuple with the ContextKind field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AIConfigTargetingEnvironmentRuleClause) GetContextKindOk() (*string, bool) {
+	if o == nil || IsNil(o.ContextKind) {
+		return nil, false
+	}
+	return o.ContextKind, true
+}
+
+// HasContextKind returns a boolean if a field has been set.
+func (o *AIConfigTargetingEnvironmentRuleClause) HasContextKind() bool {
+	if o != nil && !IsNil(o.ContextKind) {
+		return true
+	}
+
+	return false
+}
+
+// SetContextKind gets a reference to the given string and assigns it to the ContextKind field.
+func (o *AIConfigTargetingEnvironmentRuleClause) SetContextKind(v string) {
+	o.ContextKind = &v
 }
 
 // GetId returns the Id field value
@@ -189,6 +223,9 @@ func (o AIConfigTargetingEnvironmentRuleClause) MarshalJSON() ([]byte, error) {
 func (o AIConfigTargetingEnvironmentRuleClause) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["attribute"] = o.Attribute
+	if !IsNil(o.ContextKind) {
+		toSerialize["contextKind"] = o.ContextKind
+	}
 	toSerialize["id"] = o.Id
 	toSerialize["negate"] = o.Negate
 	toSerialize["op"] = o.Op
@@ -241,6 +278,7 @@ func (o *AIConfigTargetingEnvironmentRuleClause) UnmarshalJSON(data []byte) (err
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "attribute")
+		delete(additionalProperties, "contextKind")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "negate")
 		delete(additionalProperties, "op")

@@ -14,7 +14,6 @@ package ldapi
 import (
 	"encoding/json"
 	"fmt"
-	"gopkg.in/validator.v2"
 )
 
 // AIConfigMaintainer - The member or team that maintains this resource
@@ -43,34 +42,26 @@ func (dst *AIConfigMaintainer) UnmarshalJSON(data []byte) error {
 	var err error
 	match := 0
 	// try to unmarshal data into AiConfigsMaintainerTeam
-	err = newStrictDecoder(data).Decode(&dst.AiConfigsMaintainerTeam)
+	err = json.Unmarshal(data, &dst.AiConfigsMaintainerTeam)
 	if err == nil {
 		jsonAiConfigsMaintainerTeam, _ := json.Marshal(dst.AiConfigsMaintainerTeam)
 		if string(jsonAiConfigsMaintainerTeam) == "{}" { // empty struct
 			dst.AiConfigsMaintainerTeam = nil
 		} else {
-			if err = validator.Validate(dst.AiConfigsMaintainerTeam); err != nil {
-				dst.AiConfigsMaintainerTeam = nil
-			} else {
-				match++
-			}
+			match++
 		}
 	} else {
 		dst.AiConfigsMaintainerTeam = nil
 	}
 
 	// try to unmarshal data into MaintainerMember
-	err = newStrictDecoder(data).Decode(&dst.MaintainerMember)
+	err = json.Unmarshal(data, &dst.MaintainerMember)
 	if err == nil {
 		jsonMaintainerMember, _ := json.Marshal(dst.MaintainerMember)
 		if string(jsonMaintainerMember) == "{}" { // empty struct
 			dst.MaintainerMember = nil
 		} else {
-			if err = validator.Validate(dst.MaintainerMember); err != nil {
-				dst.MaintainerMember = nil
-			} else {
-				match++
-			}
+			match++
 		}
 	} else {
 		dst.MaintainerMember = nil

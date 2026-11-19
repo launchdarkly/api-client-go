@@ -4,17 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Description** | Pointer to **string** | A description of the AI Config | [optional] [default to ""]
-**Key** | **string** | A unique key for the AI Config | 
+**Description** | Pointer to **string** | A description of the agent config | [optional] [default to ""]
+**Key** | **string** | A unique key for the agent config | 
 **MaintainerId** | Pointer to **string** | The ID of the member who maintains this resource | [optional] 
 **MaintainerTeamKey** | Pointer to **string** | The key of the team that maintains this resource | [optional] 
-**Mode** | Pointer to **string** | The AI Config mode | [optional] [default to "completion"]
-**Name** | **string** | A human-readable name for the AI Config | 
+**Mode** | Pointer to **string** | The agent config mode | [optional] [default to "completion"]
+**Name** | **string** | A human-readable name for the agent config | 
 **Tags** | Pointer to **[]string** | Tags for this resource | [optional] 
-**ViewKeys** | Pointer to **[]string** | Keys of the views to add the AI Config to | [optional] 
+**ViewKeys** | Pointer to **[]string** | Keys of the views to add the agent config to | [optional] 
 **DefaultVariation** | Pointer to [**AIConfigVariationPost**](AIConfigVariationPost.md) |  | [optional] 
 **EvaluationMetricKey** | Pointer to **string** | Evaluation metric key for this config | [optional] 
-**IsInverted** | Pointer to **bool** | Whether the evaluation metric is inverted, meaning a lower value is better if set as true | [optional] 
+**IsInverted** | Pointer to **bool** | The success direction of a judge. Offline evaluations use it to decide whether a score passes.  - &#x60;true&#x60;: A lower score is better. Use this for a judge that scores bad output, such as a toxicity or hallucination judge. - &#x60;false&#x60;: A higher score is better. Use this for a judge that scores good output, such as an accuracy or relevance judge.  **Required for a custom judge.** A custom judge has &#x60;mode&#x60; set to &#x60;judge&#x60; and a &#x60;key&#x60; that is not a built-in judge key. Built-in judge keys are &#x60;ld-ai-judge-accuracy&#x60;, &#x60;ld-ai-judge-relevance&#x60;, and &#x60;ld-ai-judge-toxicity&#x60;, with or without a &#x60;-&lt;timestamp&gt;&#x60; suffix such as &#x60;ld-ai-judge-accuracy-1760000000000&#x60;. For a built-in judge key, this field is optional, and the API always uses the built-in direction.  Do not send this field when &#x60;mode&#x60; is &#x60;agent&#x60; or &#x60;completion&#x60;.  This field is not in the schema&#39;s &#x60;required&#x60; list, because only custom judges need it.  The API returns a &#x60;400&#x60; error in these cases: - &#x60;isInverted is required for a custom judge: ...&#x60;: You create a custom judge without this field. Send &#x60;true&#x60; or &#x60;false&#x60;. - &#x60;isInverted is only supported for judge mode&#x60;: You send this field and &#x60;mode&#x60; is &#x60;agent&#x60; or &#x60;completion&#x60;. Remove the field, or set &#x60;mode&#x60; to &#x60;judge&#x60;. - &#x60;isInverted is not supported&#x60;: Custom judges are not available for your account. Remove the field from the request.  | [optional] 
+**DefaultThreshold** | Pointer to **float64** | The judge&#39;s threshold: the pass line for its main score, from 0 to 1. It applies wherever the judge is used. Omit it to create the judge with no threshold.  Send this field only when &#x60;mode&#x60; is &#x60;judge&#x60;.  The API returns a &#x60;400&#x60; error in these cases: - &#x60;Threshold is only supported for judges&#x60;: You send this field and &#x60;mode&#x60; is &#x60;agent&#x60; or &#x60;completion&#x60;. - &#x60;Threshold must be from 0 to 1&#x60;: The value is below 0 or above 1. - &#x60;Thresholds don&#39;t support classifier rules yet&#x60;: The default variation uses classifier rules. - &#x60;Threshold is not supported&#x60;: Thresholds are not available for your account. Remove the field from the request.  | [optional] 
 
 ## Methods
 
@@ -299,6 +300,31 @@ SetIsInverted sets IsInverted field to given value.
 `func (o *AIConfigPost) HasIsInverted() bool`
 
 HasIsInverted returns a boolean if a field has been set.
+
+### GetDefaultThreshold
+
+`func (o *AIConfigPost) GetDefaultThreshold() float64`
+
+GetDefaultThreshold returns the DefaultThreshold field if non-nil, zero value otherwise.
+
+### GetDefaultThresholdOk
+
+`func (o *AIConfigPost) GetDefaultThresholdOk() (*float64, bool)`
+
+GetDefaultThresholdOk returns a tuple with the DefaultThreshold field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDefaultThreshold
+
+`func (o *AIConfigPost) SetDefaultThreshold(v float64)`
+
+SetDefaultThreshold sets DefaultThreshold field to given value.
+
+### HasDefaultThreshold
+
+`func (o *AIConfigPost) HasDefaultThreshold() bool`
+
+HasDefaultThreshold returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

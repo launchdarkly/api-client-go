@@ -42,7 +42,7 @@ type AIConfigVariationPatch struct {
 	OutputFormat map[string]interface{} `json:"outputFormat,omitempty"`
 	// Whether to publish this version of the variation
 	Published *bool `json:"published,omitempty"`
-	// The state to move the variation to. Omit this field to keep the current state. - `archived`: Archive a published variation. You cannot archive a variation that is already archived. You also cannot archive the only variation of an AI Config. An AI Config itself cannot be archived. - `published`: Restore an archived variation. You cannot publish a variation that is already published. 
+	// The state to move the variation to. Omit this field to keep the current state. - `archived`: Archive a published variation. You cannot archive a variation that is already archived. You also cannot archive the only variation of an agent config. An agent config itself cannot be archived. - `published`: Restore an archived variation. You cannot publish a variation that is already published. 
 	State *string `json:"state,omitempty"`
 	// List of tools to use for this variation. The latest version of the tool will be used.
 	Tools []VariationToolPost `json:"tools,omitempty"`

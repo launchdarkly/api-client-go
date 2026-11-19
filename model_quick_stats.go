@@ -21,9 +21,9 @@ var _ MappedNullable = &QuickStats{}
 
 // QuickStats struct for QuickStats
 type QuickStats struct {
-	// Number of active AI Configs
+	// Number of active agent configs
 	ActiveConfigs int32 `json:"activeConfigs"`
-	// Number of active experiments on AI Configs
+	// Number of active experiments on agent configs
 	ActiveExperiments int32 `json:"activeExperiments"`
 	// Average satisfaction rating over the last 7 days
 	AverageSatisfaction7D NullableFloat32 `json:"averageSatisfaction7D,omitempty"`

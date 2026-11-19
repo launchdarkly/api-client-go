@@ -21,8 +21,17 @@ var _ MappedNullable = &AIConfigTargetingEnvironmentRule{}
 
 // AIConfigTargetingEnvironmentRule struct for AIConfigTargetingEnvironmentRule
 type AIConfigTargetingEnvironmentRule struct {
+	// The rule ID. Pass it as ruleId in targeting instructions that change this rule.
+	Id string `json:"_id"`
+	// Whether the rule is disabled. A disabled rule doesn't match any contexts.
+	Disabled *bool `json:"disabled,omitempty"`
+	// The rule description
+	Description *string `json:"description,omitempty"`
 	// The clauses a context must match
 	Clauses []AIConfigTargetingEnvironmentRuleClause `json:"clauses"`
+	// Index of the variation served by this rule
+	Variation *int32 `json:"variation,omitempty"`
+	Rollout *AIConfigTargetingEnvironmentFallthroughRollout `json:"rollout,omitempty"`
 	// Whether to send detailed events for evaluations that match this rule
 	TrackEvents bool `json:"trackEvents"`
 	AdditionalProperties map[string]interface{}
@@ -34,8 +43,9 @@ type _AIConfigTargetingEnvironmentRule AIConfigTargetingEnvironmentRule
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAIConfigTargetingEnvironmentRule(clauses []AIConfigTargetingEnvironmentRuleClause, trackEvents bool) *AIConfigTargetingEnvironmentRule {
+func NewAIConfigTargetingEnvironmentRule(id string, clauses []AIConfigTargetingEnvironmentRuleClause, trackEvents bool) *AIConfigTargetingEnvironmentRule {
 	this := AIConfigTargetingEnvironmentRule{}
+	this.Id = id
 	this.Clauses = clauses
 	this.TrackEvents = trackEvents
 	return &this
@@ -47,6 +57,94 @@ func NewAIConfigTargetingEnvironmentRule(clauses []AIConfigTargetingEnvironmentR
 func NewAIConfigTargetingEnvironmentRuleWithDefaults() *AIConfigTargetingEnvironmentRule {
 	this := AIConfigTargetingEnvironmentRule{}
 	return &this
+}
+
+// GetId returns the Id field value
+func (o *AIConfigTargetingEnvironmentRule) GetId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value
+// and a boolean to check if the value has been set.
+func (o *AIConfigTargetingEnvironmentRule) GetIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Id, true
+}
+
+// SetId sets field value
+func (o *AIConfigTargetingEnvironmentRule) SetId(v string) {
+	o.Id = v
+}
+
+// GetDisabled returns the Disabled field value if set, zero value otherwise.
+func (o *AIConfigTargetingEnvironmentRule) GetDisabled() bool {
+	if o == nil || IsNil(o.Disabled) {
+		var ret bool
+		return ret
+	}
+	return *o.Disabled
+}
+
+// GetDisabledOk returns a tuple with the Disabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AIConfigTargetingEnvironmentRule) GetDisabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.Disabled) {
+		return nil, false
+	}
+	return o.Disabled, true
+}
+
+// HasDisabled returns a boolean if a field has been set.
+func (o *AIConfigTargetingEnvironmentRule) HasDisabled() bool {
+	if o != nil && !IsNil(o.Disabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetDisabled gets a reference to the given bool and assigns it to the Disabled field.
+func (o *AIConfigTargetingEnvironmentRule) SetDisabled(v bool) {
+	o.Disabled = &v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *AIConfigTargetingEnvironmentRule) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AIConfigTargetingEnvironmentRule) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *AIConfigTargetingEnvironmentRule) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *AIConfigTargetingEnvironmentRule) SetDescription(v string) {
+	o.Description = &v
 }
 
 // GetClauses returns the Clauses field value
@@ -71,6 +169,70 @@ func (o *AIConfigTargetingEnvironmentRule) GetClausesOk() ([]AIConfigTargetingEn
 // SetClauses sets field value
 func (o *AIConfigTargetingEnvironmentRule) SetClauses(v []AIConfigTargetingEnvironmentRuleClause) {
 	o.Clauses = v
+}
+
+// GetVariation returns the Variation field value if set, zero value otherwise.
+func (o *AIConfigTargetingEnvironmentRule) GetVariation() int32 {
+	if o == nil || IsNil(o.Variation) {
+		var ret int32
+		return ret
+	}
+	return *o.Variation
+}
+
+// GetVariationOk returns a tuple with the Variation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AIConfigTargetingEnvironmentRule) GetVariationOk() (*int32, bool) {
+	if o == nil || IsNil(o.Variation) {
+		return nil, false
+	}
+	return o.Variation, true
+}
+
+// HasVariation returns a boolean if a field has been set.
+func (o *AIConfigTargetingEnvironmentRule) HasVariation() bool {
+	if o != nil && !IsNil(o.Variation) {
+		return true
+	}
+
+	return false
+}
+
+// SetVariation gets a reference to the given int32 and assigns it to the Variation field.
+func (o *AIConfigTargetingEnvironmentRule) SetVariation(v int32) {
+	o.Variation = &v
+}
+
+// GetRollout returns the Rollout field value if set, zero value otherwise.
+func (o *AIConfigTargetingEnvironmentRule) GetRollout() AIConfigTargetingEnvironmentFallthroughRollout {
+	if o == nil || IsNil(o.Rollout) {
+		var ret AIConfigTargetingEnvironmentFallthroughRollout
+		return ret
+	}
+	return *o.Rollout
+}
+
+// GetRolloutOk returns a tuple with the Rollout field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AIConfigTargetingEnvironmentRule) GetRolloutOk() (*AIConfigTargetingEnvironmentFallthroughRollout, bool) {
+	if o == nil || IsNil(o.Rollout) {
+		return nil, false
+	}
+	return o.Rollout, true
+}
+
+// HasRollout returns a boolean if a field has been set.
+func (o *AIConfigTargetingEnvironmentRule) HasRollout() bool {
+	if o != nil && !IsNil(o.Rollout) {
+		return true
+	}
+
+	return false
+}
+
+// SetRollout gets a reference to the given AIConfigTargetingEnvironmentFallthroughRollout and assigns it to the Rollout field.
+func (o *AIConfigTargetingEnvironmentRule) SetRollout(v AIConfigTargetingEnvironmentFallthroughRollout) {
+	o.Rollout = &v
 }
 
 // GetTrackEvents returns the TrackEvents field value
@@ -107,7 +269,20 @@ func (o AIConfigTargetingEnvironmentRule) MarshalJSON() ([]byte, error) {
 
 func (o AIConfigTargetingEnvironmentRule) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["_id"] = o.Id
+	if !IsNil(o.Disabled) {
+		toSerialize["disabled"] = o.Disabled
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
 	toSerialize["clauses"] = o.Clauses
+	if !IsNil(o.Variation) {
+		toSerialize["variation"] = o.Variation
+	}
+	if !IsNil(o.Rollout) {
+		toSerialize["rollout"] = o.Rollout
+	}
 	toSerialize["trackEvents"] = o.TrackEvents
 
 	for key, value := range o.AdditionalProperties {
@@ -122,6 +297,7 @@ func (o *AIConfigTargetingEnvironmentRule) UnmarshalJSON(data []byte) (err error
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
+		"_id",
 		"clauses",
 		"trackEvents",
 	}
@@ -153,7 +329,12 @@ func (o *AIConfigTargetingEnvironmentRule) UnmarshalJSON(data []byte) (err error
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "_id")
+		delete(additionalProperties, "disabled")
+		delete(additionalProperties, "description")
 		delete(additionalProperties, "clauses")
+		delete(additionalProperties, "variation")
+		delete(additionalProperties, "rollout")
 		delete(additionalProperties, "trackEvents")
 		o.AdditionalProperties = additionalProperties
 	}
