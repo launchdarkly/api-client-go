@@ -29,6 +29,8 @@ type EnvironmentReleasesMetricListingRep struct {
 	GuardedRolloutCount *int32 `json:"guardedRolloutCount,omitempty"`
 	// The number of release policies using this metric
 	ReleasePolicyCount *int32 `json:"releasePolicyCount,omitempty"`
+	// The number of environment release plans using this metric
+	EnvironmentReleasePlanCount *int32 `json:"environmentReleasePlanCount,omitempty"`
 	// The number of active experiments using this metric
 	ActiveExperimentCount *int32 `json:"activeExperimentCount,omitempty"`
 	// The number of active guarded rollouts using this metric
@@ -265,6 +267,38 @@ func (o *EnvironmentReleasesMetricListingRep) HasReleasePolicyCount() bool {
 // SetReleasePolicyCount gets a reference to the given int32 and assigns it to the ReleasePolicyCount field.
 func (o *EnvironmentReleasesMetricListingRep) SetReleasePolicyCount(v int32) {
 	o.ReleasePolicyCount = &v
+}
+
+// GetEnvironmentReleasePlanCount returns the EnvironmentReleasePlanCount field value if set, zero value otherwise.
+func (o *EnvironmentReleasesMetricListingRep) GetEnvironmentReleasePlanCount() int32 {
+	if o == nil || IsNil(o.EnvironmentReleasePlanCount) {
+		var ret int32
+		return ret
+	}
+	return *o.EnvironmentReleasePlanCount
+}
+
+// GetEnvironmentReleasePlanCountOk returns a tuple with the EnvironmentReleasePlanCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EnvironmentReleasesMetricListingRep) GetEnvironmentReleasePlanCountOk() (*int32, bool) {
+	if o == nil || IsNil(o.EnvironmentReleasePlanCount) {
+		return nil, false
+	}
+	return o.EnvironmentReleasePlanCount, true
+}
+
+// HasEnvironmentReleasePlanCount returns a boolean if a field has been set.
+func (o *EnvironmentReleasesMetricListingRep) HasEnvironmentReleasePlanCount() bool {
+	if o != nil && !IsNil(o.EnvironmentReleasePlanCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetEnvironmentReleasePlanCount gets a reference to the given int32 and assigns it to the EnvironmentReleasePlanCount field.
+func (o *EnvironmentReleasesMetricListingRep) SetEnvironmentReleasePlanCount(v int32) {
+	o.EnvironmentReleasePlanCount = &v
 }
 
 // GetActiveExperimentCount returns the ActiveExperimentCount field value if set, zero value otherwise.
@@ -1660,6 +1694,9 @@ func (o EnvironmentReleasesMetricListingRep) ToMap() (map[string]interface{}, er
 	if !IsNil(o.ReleasePolicyCount) {
 		toSerialize["releasePolicyCount"] = o.ReleasePolicyCount
 	}
+	if !IsNil(o.EnvironmentReleasePlanCount) {
+		toSerialize["environmentReleasePlanCount"] = o.EnvironmentReleasePlanCount
+	}
 	if !IsNil(o.ActiveExperimentCount) {
 		toSerialize["activeExperimentCount"] = o.ActiveExperimentCount
 	}
@@ -1832,6 +1869,7 @@ func (o *EnvironmentReleasesMetricListingRep) UnmarshalJSON(data []byte) (err er
 		delete(additionalProperties, "metricGroupCount")
 		delete(additionalProperties, "guardedRolloutCount")
 		delete(additionalProperties, "releasePolicyCount")
+		delete(additionalProperties, "environmentReleasePlanCount")
 		delete(additionalProperties, "activeExperimentCount")
 		delete(additionalProperties, "activeGuardedRolloutCount")
 		delete(additionalProperties, "_id")

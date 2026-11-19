@@ -60,7 +60,7 @@ type AIConfigVariation struct {
 	// The agent skills this variation can use
 	Skills []VariationSkill `json:"skills,omitempty"`
 	JudgeConfiguration *JudgeConfiguration `json:"judgeConfiguration,omitempty"`
-	// Keys of the judge AI Configs attached to this variation
+	// Keys of the judge agent configs attached to this variation
 	JudgingConfigKeys []string `json:"judgingConfigKeys,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

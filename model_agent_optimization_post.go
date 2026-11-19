@@ -23,7 +23,7 @@ var _ MappedNullable = &AgentOptimizationPost{}
 type AgentOptimizationPost struct {
 	// A unique key for the agent optimization
 	Key string `json:"key"`
-	// The key of the AI Config to optimize
+	// The key of the agent config to optimize
 	AiConfigKey string `json:"aiConfigKey"`
 	// The maximum number of attempts
 	MaxAttempts int32 `json:"maxAttempts"`

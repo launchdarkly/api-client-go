@@ -67,6 +67,22 @@ func Test_ldapi_SegmentsApiService(t *testing.T) {
 
 	})
 
+	t.Run("Test SegmentsApiService DeleteSegmentScheduledChange", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var projectKey string
+		var environmentKey string
+		var segmentKey string
+		var id string
+
+		httpRes, err := apiClient.SegmentsApi.DeleteSegmentScheduledChange(context.Background(), projectKey, environmentKey, segmentKey, id).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test SegmentsApiService GetBigSegmentExport", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
@@ -198,6 +214,39 @@ func Test_ldapi_SegmentsApiService(t *testing.T) {
 
 	})
 
+	t.Run("Test SegmentsApiService GetSegmentScheduledChange", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var projectKey string
+		var environmentKey string
+		var segmentKey string
+		var id string
+
+		resp, httpRes, err := apiClient.SegmentsApi.GetSegmentScheduledChange(context.Background(), projectKey, environmentKey, segmentKey, id).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test SegmentsApiService GetSegmentScheduledChanges", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var projectKey string
+		var environmentKey string
+		var segmentKey string
+
+		resp, httpRes, err := apiClient.SegmentsApi.GetSegmentScheduledChanges(context.Background(), projectKey, environmentKey, segmentKey).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test SegmentsApiService GetSegments", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
@@ -261,6 +310,23 @@ func Test_ldapi_SegmentsApiService(t *testing.T) {
 
 	})
 
+	t.Run("Test SegmentsApiService PatchSegmentScheduledChange", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var projectKey string
+		var environmentKey string
+		var segmentKey string
+		var id string
+
+		resp, httpRes, err := apiClient.SegmentsApi.PatchSegmentScheduledChange(context.Background(), projectKey, environmentKey, segmentKey, id).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test SegmentsApiService PostSegment", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
@@ -269,6 +335,22 @@ func Test_ldapi_SegmentsApiService(t *testing.T) {
 		var environmentKey string
 
 		resp, httpRes, err := apiClient.SegmentsApi.PostSegment(context.Background(), projectKey, environmentKey).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test SegmentsApiService PostSegmentScheduledChange", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var projectKey string
+		var environmentKey string
+		var segmentKey string
+
+		resp, httpRes, err := apiClient.SegmentsApi.PostSegmentScheduledChange(context.Background(), projectKey, environmentKey, segmentKey).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

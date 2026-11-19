@@ -1542,7 +1542,7 @@ Here's an example:
 
 #### deprecateFlag
 
-Deprecates the feature flag. This hides it from the live flags list without archiving or deleting it.
+Deprecates the feature flag. This hides it from the live flags list without archiving or deleting it. You cannot deprecate an archived flag. If the flag is archived, this instruction fails with a `409` status code and makes no changes. To deprecate an archived flag, restore it with `restoreFlag` first.
 
 Here's an example:
 
@@ -1554,7 +1554,7 @@ Here's an example:
 
 #### restoreDeprecatedFlag
 
-Restores the feature flag if it was previously deprecated.
+Restores the feature flag if it was previously deprecated. If the flag is archived, this instruction fails with a `409` status code and makes no changes. To restore an archived flag, use `restoreFlag`.
 
 Here's an example:
 
@@ -5097,7 +5097,7 @@ Here's an example:
 
 #### deprecateFlag
 
-Deprecates the feature flag. This hides it from the live flags list without archiving or deleting it.
+Deprecates the feature flag. This hides it from the live flags list without archiving or deleting it. You cannot deprecate an archived flag. If the flag is archived, this instruction fails with a `409` status code and makes no changes. To deprecate an archived flag, restore it with `restoreFlag` first.
 
 Here's an example:
 
@@ -5109,7 +5109,7 @@ Here's an example:
 
 #### restoreDeprecatedFlag
 
-Restores the feature flag if it was previously deprecated.
+Restores the feature flag if it was previously deprecated. If the flag is archived, this instruction fails with a `409` status code and makes no changes. To restore an archived flag, use `restoreFlag`.
 
 Here's an example:
 

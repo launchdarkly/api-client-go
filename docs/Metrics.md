@@ -20,6 +20,7 @@ Name | Type | Description | Notes
 **JudgeAccuracy** | Pointer to **float32** | Average accuracy judge score (0.0-1.0) | [optional] 
 **JudgeRelevance** | Pointer to **float32** | Average relevance judge score (0.0-1.0) | [optional] 
 **JudgeToxicity** | Pointer to **float32** | Average toxicity judge score (0.0-1.0) | [optional] 
+**JudgeScores** | Pointer to [**[]JudgeScore**](JudgeScore.md) | Average score and sample count for every judge metric recorded in the time range, keyed by the judge&#39;s evaluation metric key. Includes custom judges and the built-in accuracy, relevance, and toxicity judges. Omitted when no judge scores were recorded. | [optional] 
 
 ## Methods
 
@@ -439,6 +440,31 @@ SetJudgeToxicity sets JudgeToxicity field to given value.
 `func (o *Metrics) HasJudgeToxicity() bool`
 
 HasJudgeToxicity returns a boolean if a field has been set.
+
+### GetJudgeScores
+
+`func (o *Metrics) GetJudgeScores() []JudgeScore`
+
+GetJudgeScores returns the JudgeScores field if non-nil, zero value otherwise.
+
+### GetJudgeScoresOk
+
+`func (o *Metrics) GetJudgeScoresOk() (*[]JudgeScore, bool)`
+
+GetJudgeScoresOk returns a tuple with the JudgeScores field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetJudgeScores
+
+`func (o *Metrics) SetJudgeScores(v []JudgeScore)`
+
+SetJudgeScores sets JudgeScores field to given value.
+
+### HasJudgeScores
+
+`func (o *Metrics) HasJudgeScores() bool`
+
+HasJudgeScores returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

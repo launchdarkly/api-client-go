@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**CreateBigSegmentExport**](SegmentsApi.md#CreateBigSegmentExport) | **Post** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/exports | Create big segment export
 [**CreateBigSegmentImport**](SegmentsApi.md#CreateBigSegmentImport) | **Post** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/imports | Create big segment import
 [**DeleteSegment**](SegmentsApi.md#DeleteSegment) | **Delete** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey} | Delete segment
+[**DeleteSegmentScheduledChange**](SegmentsApi.md#DeleteSegmentScheduledChange) | **Delete** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/scheduled-changes/{id} | Delete a scheduled change for a segment
 [**GetBigSegmentExport**](SegmentsApi.md#GetBigSegmentExport) | **Get** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/exports/{exportID} | Get big segment export
 [**GetBigSegmentImport**](SegmentsApi.md#GetBigSegmentImport) | **Get** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/imports/{importID} | Get big segment import
 [**GetContextInstanceSegmentsMembershipByEnv**](SegmentsApi.md#GetContextInstanceSegmentsMembershipByEnv) | **Post** /api/v2/projects/{projectKey}/environments/{environmentKey}/segments/evaluate | List segment memberships for context instance
@@ -15,11 +16,15 @@ Method | HTTP request | Description
 [**GetSegment**](SegmentsApi.md#GetSegment) | **Get** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey} | Get segment
 [**GetSegmentMembershipForContext**](SegmentsApi.md#GetSegmentMembershipForContext) | **Get** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/contexts/{contextKey} | Get big segment membership for context
 [**GetSegmentMembershipForUser**](SegmentsApi.md#GetSegmentMembershipForUser) | **Get** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/users/{userKey} | Get big segment membership for user
+[**GetSegmentScheduledChange**](SegmentsApi.md#GetSegmentScheduledChange) | **Get** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/scheduled-changes/{id} | Get a scheduled change for a segment
+[**GetSegmentScheduledChanges**](SegmentsApi.md#GetSegmentScheduledChanges) | **Get** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/scheduled-changes | List scheduled changes for a segment
 [**GetSegments**](SegmentsApi.md#GetSegments) | **Get** /api/v2/segments/{projectKey}/{environmentKey} | List segments
 [**PatchExpiringTargetsForSegment**](SegmentsApi.md#PatchExpiringTargetsForSegment) | **Patch** /api/v2/segments/{projectKey}/{segmentKey}/expiring-targets/{environmentKey} | Update expiring targets for segment
 [**PatchExpiringUserTargetsForSegment**](SegmentsApi.md#PatchExpiringUserTargetsForSegment) | **Patch** /api/v2/segments/{projectKey}/{segmentKey}/expiring-user-targets/{environmentKey} | Update expiring user targets for segment
 [**PatchSegment**](SegmentsApi.md#PatchSegment) | **Patch** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey} | Patch segment
+[**PatchSegmentScheduledChange**](SegmentsApi.md#PatchSegmentScheduledChange) | **Patch** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/scheduled-changes/{id} | Update a scheduled change for a segment
 [**PostSegment**](SegmentsApi.md#PostSegment) | **Post** /api/v2/segments/{projectKey}/{environmentKey} | Create segment
+[**PostSegmentScheduledChange**](SegmentsApi.md#PostSegmentScheduledChange) | **Post** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/scheduled-changes | Create a scheduled change for a segment
 [**UpdateBigSegmentContextTargets**](SegmentsApi.md#UpdateBigSegmentContextTargets) | **Post** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/contexts | Update context targets on a big segment
 [**UpdateBigSegmentTargets**](SegmentsApi.md#UpdateBigSegmentTargets) | **Post** /api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/users | Update user context targets on a big segment
 
@@ -231,6 +236,83 @@ Other parameters are passed through a pointer to a apiDeleteSegmentRequest struc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+
+
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeleteSegmentScheduledChange
+
+> DeleteSegmentScheduledChange(ctx, projectKey, environmentKey, segmentKey, id).Execute()
+
+Delete a scheduled change for a segment
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
+)
+
+func main() {
+	projectKey := "projectKey_example" // string | 
+	environmentKey := "environmentKey_example" // string | 
+	segmentKey := "segmentKey_example" // string | 
+	id := "id_example" // string | The ID of the scheduled change
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.SegmentsApi.DeleteSegmentScheduledChange(context.Background(), projectKey, environmentKey, segmentKey, id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.DeleteSegmentScheduledChange``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projectKey** | **string** |  | 
+**environmentKey** | **string** |  | 
+**segmentKey** | **string** |  | 
+**id** | **string** | The ID of the scheduled change | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteSegmentScheduledChangeRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 
 
@@ -872,6 +954,161 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## GetSegmentScheduledChange
+
+> SegmentScheduledChange GetSegmentScheduledChange(ctx, projectKey, environmentKey, segmentKey, id).Execute()
+
+Get a scheduled change for a segment
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
+)
+
+func main() {
+	projectKey := "projectKey_example" // string | 
+	environmentKey := "environmentKey_example" // string | 
+	segmentKey := "segmentKey_example" // string | 
+	id := "id_example" // string | The ID of the scheduled change
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SegmentsApi.GetSegmentScheduledChange(context.Background(), projectKey, environmentKey, segmentKey, id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.GetSegmentScheduledChange``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetSegmentScheduledChange`: SegmentScheduledChange
+	fmt.Fprintf(os.Stdout, "Response from `SegmentsApi.GetSegmentScheduledChange`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projectKey** | **string** |  | 
+**environmentKey** | **string** |  | 
+**segmentKey** | **string** |  | 
+**id** | **string** | The ID of the scheduled change | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetSegmentScheduledChangeRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+
+
+### Return type
+
+[**SegmentScheduledChange**](SegmentScheduledChange.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetSegmentScheduledChanges
+
+> SegmentScheduledChanges GetSegmentScheduledChanges(ctx, projectKey, environmentKey, segmentKey).Execute()
+
+List scheduled changes for a segment
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
+)
+
+func main() {
+	projectKey := "projectKey_example" // string | 
+	environmentKey := "environmentKey_example" // string | 
+	segmentKey := "segmentKey_example" // string | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SegmentsApi.GetSegmentScheduledChanges(context.Background(), projectKey, environmentKey, segmentKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.GetSegmentScheduledChanges``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetSegmentScheduledChanges`: SegmentScheduledChanges
+	fmt.Fprintf(os.Stdout, "Response from `SegmentsApi.GetSegmentScheduledChanges`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projectKey** | **string** |  | 
+**environmentKey** | **string** |  | 
+**segmentKey** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetSegmentScheduledChangesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+
+### Return type
+
+[**SegmentScheduledChanges**](SegmentScheduledChanges.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetSegments
 
 > UserSegments GetSegments(ctx, projectKey, environmentKey).Limit(limit).Offset(offset).Sort(sort).Filter(filter).Execute()
@@ -1189,6 +1426,87 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## PatchSegmentScheduledChange
+
+> SegmentScheduledChange PatchSegmentScheduledChange(ctx, projectKey, environmentKey, segmentKey, id).PatchSegmentScheduledChangeInput(patchSegmentScheduledChangeInput).Execute()
+
+Update a scheduled change for a segment
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
+)
+
+func main() {
+	projectKey := "projectKey_example" // string | 
+	environmentKey := "environmentKey_example" // string | 
+	segmentKey := "segmentKey_example" // string | 
+	id := "id_example" // string | The ID of the scheduled change
+	patchSegmentScheduledChangeInput := *openapiclient.NewPatchSegmentScheduledChangeInput() // PatchSegmentScheduledChangeInput | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SegmentsApi.PatchSegmentScheduledChange(context.Background(), projectKey, environmentKey, segmentKey, id).PatchSegmentScheduledChangeInput(patchSegmentScheduledChangeInput).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.PatchSegmentScheduledChange``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PatchSegmentScheduledChange`: SegmentScheduledChange
+	fmt.Fprintf(os.Stdout, "Response from `SegmentsApi.PatchSegmentScheduledChange`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projectKey** | **string** |  | 
+**environmentKey** | **string** |  | 
+**segmentKey** | **string** |  | 
+**id** | **string** | The ID of the scheduled change | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPatchSegmentScheduledChangeRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+
+ **patchSegmentScheduledChangeInput** | [**PatchSegmentScheduledChangeInput**](PatchSegmentScheduledChangeInput.md) |  | 
+
+### Return type
+
+[**SegmentScheduledChange**](SegmentScheduledChange.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## PostSegment
 
 > UserSegment PostSegment(ctx, projectKey, environmentKey).SegmentBody(segmentBody).Execute()
@@ -1249,6 +1567,84 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**UserSegment**](UserSegment.md)
+
+### Authorization
+
+[ApiKey](../README.md#ApiKey)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostSegmentScheduledChange
+
+> SegmentScheduledChange PostSegmentScheduledChange(ctx, projectKey, environmentKey, segmentKey).PostSegmentScheduledChangeInput(postSegmentScheduledChangeInput).Execute()
+
+Create a scheduled change for a segment
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/launchdarkly/api-client-go"
+)
+
+func main() {
+	projectKey := "projectKey_example" // string | 
+	environmentKey := "environmentKey_example" // string | 
+	segmentKey := "segmentKey_example" // string | 
+	postSegmentScheduledChangeInput := *openapiclient.NewPostSegmentScheduledChangeInput(int64(123), []map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}) // PostSegmentScheduledChangeInput | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SegmentsApi.PostSegmentScheduledChange(context.Background(), projectKey, environmentKey, segmentKey).PostSegmentScheduledChangeInput(postSegmentScheduledChangeInput).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SegmentsApi.PostSegmentScheduledChange``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostSegmentScheduledChange`: SegmentScheduledChange
+	fmt.Fprintf(os.Stdout, "Response from `SegmentsApi.PostSegmentScheduledChange`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**projectKey** | **string** |  | 
+**environmentKey** | **string** |  | 
+**segmentKey** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostSegmentScheduledChangeRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+ **postSegmentScheduledChangeInput** | [**PostSegmentScheduledChangeInput**](PostSegmentScheduledChangeInput.md) |  | 
+
+### Return type
+
+[**SegmentScheduledChange**](SegmentScheduledChange.md)
 
 ### Authorization
 

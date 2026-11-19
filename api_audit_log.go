@@ -498,6 +498,7 @@ type ApiPostAuditLogEntriesRequest struct {
 	limit *int64
 	member *string
 	token *string
+	rollup *int64
 	statementPost *[]StatementPost
 }
 
@@ -534,6 +535,12 @@ func (r ApiPostAuditLogEntriesRequest) Member(member string) ApiPostAuditLogEntr
 // An access token ID that lets you filter audit log listings by the token that made the change. Repeat the parameter to filter by multiple tokens.
 func (r ApiPostAuditLogEntriesRequest) Token(token string) ApiPostAuditLogEntriesRequest {
 	r.token = &token
+	return r
+}
+
+// Set to 1 to return rolled-up audit log entries, which group related changes into one entry. By default, entries aren&#39;t rolled up.
+func (r ApiPostAuditLogEntriesRequest) Rollup(rollup int64) ApiPostAuditLogEntriesRequest {
+	r.rollup = &rollup
 	return r
 }
 
@@ -602,6 +609,9 @@ func (a *AuditLogApiService) PostAuditLogEntriesExecute(r ApiPostAuditLogEntries
 	}
 	if r.token != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "token", r.token, "form", "")
+	}
+	if r.rollup != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "rollup", r.rollup, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}

@@ -21,27 +21,29 @@ var _ MappedNullable = &AIConfigPost{}
 
 // AIConfigPost struct for AIConfigPost
 type AIConfigPost struct {
-	// A description of the AI Config
+	// A description of the agent config
 	Description *string `json:"description,omitempty"`
-	// A unique key for the AI Config
+	// A unique key for the agent config
 	Key string `json:"key"`
 	// The ID of the member who maintains this resource
 	MaintainerId *string `json:"maintainerId,omitempty"`
 	// The key of the team that maintains this resource
 	MaintainerTeamKey *string `json:"maintainerTeamKey,omitempty"`
-	// The AI Config mode
+	// The agent config mode
 	Mode *string `json:"mode,omitempty"`
-	// A human-readable name for the AI Config
+	// A human-readable name for the agent config
 	Name string `json:"name"`
 	// Tags for this resource
 	Tags []string `json:"tags,omitempty"`
-	// Keys of the views to add the AI Config to
+	// Keys of the views to add the agent config to
 	ViewKeys []string `json:"viewKeys,omitempty"`
 	DefaultVariation *AIConfigVariationPost `json:"defaultVariation,omitempty"`
 	// Evaluation metric key for this config
 	EvaluationMetricKey *string `json:"evaluationMetricKey,omitempty"`
-	// Whether the evaluation metric is inverted, meaning a lower value is better if set as true
+	// The success direction of a judge. Offline evaluations use it to decide whether a score passes.  - `true`: A lower score is better. Use this for a judge that scores bad output, such as a toxicity or hallucination judge. - `false`: A higher score is better. Use this for a judge that scores good output, such as an accuracy or relevance judge.  **Required for a custom judge.** A custom judge has `mode` set to `judge` and a `key` that is not a built-in judge key. Built-in judge keys are `ld-ai-judge-accuracy`, `ld-ai-judge-relevance`, and `ld-ai-judge-toxicity`, with or without a `-<timestamp>` suffix such as `ld-ai-judge-accuracy-1760000000000`. For a built-in judge key, this field is optional, and the API always uses the built-in direction.  Do not send this field when `mode` is `agent` or `completion`.  This field is not in the schema's `required` list, because only custom judges need it.  The API returns a `400` error in these cases: - `isInverted is required for a custom judge: ...`: You create a custom judge without this field. Send `true` or `false`. - `isInverted is only supported for judge mode`: You send this field and `mode` is `agent` or `completion`. Remove the field, or set `mode` to `judge`. - `isInverted is not supported`: Custom judges are not available for your account. Remove the field from the request. 
 	IsInverted *bool `json:"isInverted,omitempty"`
+	// The judge's threshold: the pass line for its main score, from 0 to 1. It applies wherever the judge is used. Omit it to create the judge with no threshold.  Send this field only when `mode` is `judge`.  The API returns a `400` error in these cases: - `Threshold is only supported for judges`: You send this field and `mode` is `agent` or `completion`. - `Threshold must be from 0 to 1`: The value is below 0 or above 1. - `Thresholds don't support classifier rules yet`: The default variation uses classifier rules. - `Threshold is not supported`: Thresholds are not available for your account. Remove the field from the request. 
+	DefaultThreshold *float64 `json:"defaultThreshold,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -410,6 +412,38 @@ func (o *AIConfigPost) SetIsInverted(v bool) {
 	o.IsInverted = &v
 }
 
+// GetDefaultThreshold returns the DefaultThreshold field value if set, zero value otherwise.
+func (o *AIConfigPost) GetDefaultThreshold() float64 {
+	if o == nil || IsNil(o.DefaultThreshold) {
+		var ret float64
+		return ret
+	}
+	return *o.DefaultThreshold
+}
+
+// GetDefaultThresholdOk returns a tuple with the DefaultThreshold field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AIConfigPost) GetDefaultThresholdOk() (*float64, bool) {
+	if o == nil || IsNil(o.DefaultThreshold) {
+		return nil, false
+	}
+	return o.DefaultThreshold, true
+}
+
+// HasDefaultThreshold returns a boolean if a field has been set.
+func (o *AIConfigPost) HasDefaultThreshold() bool {
+	if o != nil && !IsNil(o.DefaultThreshold) {
+		return true
+	}
+
+	return false
+}
+
+// SetDefaultThreshold gets a reference to the given float64 and assigns it to the DefaultThreshold field.
+func (o *AIConfigPost) SetDefaultThreshold(v float64) {
+	o.DefaultThreshold = &v
+}
+
 func (o AIConfigPost) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -448,6 +482,9 @@ func (o AIConfigPost) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.IsInverted) {
 		toSerialize["isInverted"] = o.IsInverted
+	}
+	if !IsNil(o.DefaultThreshold) {
+		toSerialize["defaultThreshold"] = o.DefaultThreshold
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -504,6 +541,7 @@ func (o *AIConfigPost) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "defaultVariation")
 		delete(additionalProperties, "evaluationMetricKey")
 		delete(additionalProperties, "isInverted")
+		delete(additionalProperties, "defaultThreshold")
 		o.AdditionalProperties = additionalProperties
 	}
 

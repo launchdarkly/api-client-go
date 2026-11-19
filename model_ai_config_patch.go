@@ -22,20 +22,24 @@ var _ MappedNullable = &AIConfigPatch{}
 type AIConfigPatch struct {
 	// Key of the variation this config serves by default
 	DefaultVariationKey *string `json:"defaultVariationKey,omitempty"`
-	// A description of the AI Config
+	// A description of the agent config
 	Description *string `json:"description,omitempty"`
 	// The ID of the member who maintains this resource
 	MaintainerId *string `json:"maintainerId,omitempty"`
 	// The key of the team that maintains this resource
 	MaintainerTeamKey *string `json:"maintainerTeamKey,omitempty"`
-	// A human-readable name for the AI Config
+	// A human-readable name for the agent config
 	Name *string `json:"name,omitempty"`
 	// Tags for this resource
 	Tags []string `json:"tags,omitempty"`
 	// Evaluation metric key for this config
 	EvaluationMetricKey *string `json:"evaluationMetricKey,omitempty"`
-	// Whether the evaluation metric is inverted, meaning a lower value is better if set as true
+	// The success direction of a judge. Offline evaluations use it to decide whether a score passes.  - `true`: A lower score is better. Use this for a judge that scores bad output, such as a toxicity or hallucination judge. - `false`: A higher score is better. Use this for a judge that scores good output, such as an accuracy or relevance judge.  Send this field only when the agent config's `mode` is `judge`. If you omit it, the current direction does not change. For a built-in judge key, the API always returns the built-in direction. Built-in judge keys are `ld-ai-judge-accuracy`, `ld-ai-judge-relevance`, and `ld-ai-judge-toxicity`, with or without a `-<timestamp>` suffix such as `ld-ai-judge-accuracy-1760000000000`.  The API returns a `400` error in these cases: - `isInverted is only supported for judge mode`: You send this field and the agent config's `mode` is `agent` or `completion`. Remove the field. - `isInverted is not supported`: Custom judges are not available for your account. Remove the field from the request. 
 	IsInverted *bool `json:"isInverted,omitempty"`
+	// The judge's threshold: the pass line for its main score, from 0 to 1. It applies wherever the judge is used. If you omit it, the current threshold does not change. To remove the threshold, send `clearDefaultThreshold` instead.  The API returns a `400` error in these cases: - `Threshold is only supported for judges`: You send this field and the agent config's `mode` is `agent` or `completion`. - `Threshold must be from 0 to 1`: The value is below 0 or above 1. - `Thresholds don't support classifier rules yet`: Every active variation of the judge uses classifier rules. Archived variations don't count. - `Threshold can't be set and cleared in the same request`: You send this field and `clearDefaultThreshold: true`. - `Threshold is not supported`: Thresholds are not available for your account. Remove the field from the request. 
+	DefaultThreshold *float64 `json:"defaultThreshold,omitempty"`
+	// Set to `true` to remove the judge's threshold. Don't send it with `defaultThreshold`.  The API returns a `400` error with `Threshold is not supported` when thresholds are not available for your account. 
+	ClearDefaultThreshold *bool `json:"clearDefaultThreshold,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -314,6 +318,70 @@ func (o *AIConfigPatch) SetIsInverted(v bool) {
 	o.IsInverted = &v
 }
 
+// GetDefaultThreshold returns the DefaultThreshold field value if set, zero value otherwise.
+func (o *AIConfigPatch) GetDefaultThreshold() float64 {
+	if o == nil || IsNil(o.DefaultThreshold) {
+		var ret float64
+		return ret
+	}
+	return *o.DefaultThreshold
+}
+
+// GetDefaultThresholdOk returns a tuple with the DefaultThreshold field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AIConfigPatch) GetDefaultThresholdOk() (*float64, bool) {
+	if o == nil || IsNil(o.DefaultThreshold) {
+		return nil, false
+	}
+	return o.DefaultThreshold, true
+}
+
+// HasDefaultThreshold returns a boolean if a field has been set.
+func (o *AIConfigPatch) HasDefaultThreshold() bool {
+	if o != nil && !IsNil(o.DefaultThreshold) {
+		return true
+	}
+
+	return false
+}
+
+// SetDefaultThreshold gets a reference to the given float64 and assigns it to the DefaultThreshold field.
+func (o *AIConfigPatch) SetDefaultThreshold(v float64) {
+	o.DefaultThreshold = &v
+}
+
+// GetClearDefaultThreshold returns the ClearDefaultThreshold field value if set, zero value otherwise.
+func (o *AIConfigPatch) GetClearDefaultThreshold() bool {
+	if o == nil || IsNil(o.ClearDefaultThreshold) {
+		var ret bool
+		return ret
+	}
+	return *o.ClearDefaultThreshold
+}
+
+// GetClearDefaultThresholdOk returns a tuple with the ClearDefaultThreshold field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AIConfigPatch) GetClearDefaultThresholdOk() (*bool, bool) {
+	if o == nil || IsNil(o.ClearDefaultThreshold) {
+		return nil, false
+	}
+	return o.ClearDefaultThreshold, true
+}
+
+// HasClearDefaultThreshold returns a boolean if a field has been set.
+func (o *AIConfigPatch) HasClearDefaultThreshold() bool {
+	if o != nil && !IsNil(o.ClearDefaultThreshold) {
+		return true
+	}
+
+	return false
+}
+
+// SetClearDefaultThreshold gets a reference to the given bool and assigns it to the ClearDefaultThreshold field.
+func (o *AIConfigPatch) SetClearDefaultThreshold(v bool) {
+	o.ClearDefaultThreshold = &v
+}
+
 func (o AIConfigPatch) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -348,6 +416,12 @@ func (o AIConfigPatch) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.IsInverted) {
 		toSerialize["isInverted"] = o.IsInverted
 	}
+	if !IsNil(o.DefaultThreshold) {
+		toSerialize["defaultThreshold"] = o.DefaultThreshold
+	}
+	if !IsNil(o.ClearDefaultThreshold) {
+		toSerialize["clearDefaultThreshold"] = o.ClearDefaultThreshold
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -378,6 +452,8 @@ func (o *AIConfigPatch) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "tags")
 		delete(additionalProperties, "evaluationMetricKey")
 		delete(additionalProperties, "isInverted")
+		delete(additionalProperties, "defaultThreshold")
+		delete(additionalProperties, "clearDefaultThreshold")
 		o.AdditionalProperties = additionalProperties
 	}
 

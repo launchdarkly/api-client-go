@@ -25,6 +25,8 @@ type ReleaseMetric struct {
 	MetricVersionId *string `json:"metricVersionId,omitempty"`
 	// Whether a regression automatically reverts the release.
 	AutoRollback bool `json:"autoRollback"`
+	// Key of the context kind this metric is analyzed on. It is the release's randomization unit unless the metric uses a decoupled unit of analysis. Omitted on releases started before analysis units were recorded. Those metrics are analyzed on the randomization unit. 
+	AnalysisUnit *string `json:"analysisUnit,omitempty"`
 	// Present only when the caller requests `expand=metrics` and the pinned metric version still exists. A metric whose pinned version has been deleted keeps its `metricKey` and `metricVersionId` but has no definition. 
 	Definition *EnvironmentReleasesMetricListingRep `json:"definition,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -131,6 +133,38 @@ func (o *ReleaseMetric) SetAutoRollback(v bool) {
 	o.AutoRollback = v
 }
 
+// GetAnalysisUnit returns the AnalysisUnit field value if set, zero value otherwise.
+func (o *ReleaseMetric) GetAnalysisUnit() string {
+	if o == nil || IsNil(o.AnalysisUnit) {
+		var ret string
+		return ret
+	}
+	return *o.AnalysisUnit
+}
+
+// GetAnalysisUnitOk returns a tuple with the AnalysisUnit field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ReleaseMetric) GetAnalysisUnitOk() (*string, bool) {
+	if o == nil || IsNil(o.AnalysisUnit) {
+		return nil, false
+	}
+	return o.AnalysisUnit, true
+}
+
+// HasAnalysisUnit returns a boolean if a field has been set.
+func (o *ReleaseMetric) HasAnalysisUnit() bool {
+	if o != nil && !IsNil(o.AnalysisUnit) {
+		return true
+	}
+
+	return false
+}
+
+// SetAnalysisUnit gets a reference to the given string and assigns it to the AnalysisUnit field.
+func (o *ReleaseMetric) SetAnalysisUnit(v string) {
+	o.AnalysisUnit = &v
+}
+
 // GetDefinition returns the Definition field value if set, zero value otherwise.
 func (o *ReleaseMetric) GetDefinition() EnvironmentReleasesMetricListingRep {
 	if o == nil || IsNil(o.Definition) {
@@ -178,6 +212,9 @@ func (o ReleaseMetric) ToMap() (map[string]interface{}, error) {
 		toSerialize["metricVersionId"] = o.MetricVersionId
 	}
 	toSerialize["autoRollback"] = o.AutoRollback
+	if !IsNil(o.AnalysisUnit) {
+		toSerialize["analysisUnit"] = o.AnalysisUnit
+	}
 	if !IsNil(o.Definition) {
 		toSerialize["definition"] = o.Definition
 	}
@@ -228,6 +265,7 @@ func (o *ReleaseMetric) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "metricKey")
 		delete(additionalProperties, "metricVersionId")
 		delete(additionalProperties, "autoRollback")
+		delete(additionalProperties, "analysisUnit")
 		delete(additionalProperties, "definition")
 		o.AdditionalProperties = additionalProperties
 	}

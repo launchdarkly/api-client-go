@@ -27,7 +27,7 @@ type AgentOptimization struct {
 	Id string `json:"id"`
 	// The agent optimization key
 	Key string `json:"key"`
-	// The key of the AI Config to optimize
+	// The key of the agent config to optimize
 	AiConfigKey string `json:"aiConfigKey"`
 	// The maximum number of attempts
 	MaxAttempts int32 `json:"maxAttempts"`

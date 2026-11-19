@@ -9,6 +9,8 @@ Name | Type | Description | Notes
 **ResourceType** | **string** | The type of the resource being referenced. | 
 **Items** | [**[]ToolReference**](ToolReference.md) | The resources that reference this tool | 
 **TotalCount** | **int32** | The total number of references. | 
+**Skills** | Pointer to [**[]ToolSkillReference**](ToolSkillReference.md) | One page of the agent skill versions that pin a version of this tool, ordered by skill key then skill version, newest first. It is paged by &#x60;limit&#x60; and &#x60;offset&#x60; like &#x60;items&#x60;. A tool cannot be deleted while any skill version pins it. | [optional] 
+**SkillsTotalCount** | Pointer to **int32** | The total number of agent skill versions that pin this tool, across all pages. | [optional] 
 
 ## Methods
 
@@ -133,6 +135,56 @@ and a boolean to check if the value has been set.
 
 SetTotalCount sets TotalCount field to given value.
 
+
+### GetSkills
+
+`func (o *ToolReferences) GetSkills() []ToolSkillReference`
+
+GetSkills returns the Skills field if non-nil, zero value otherwise.
+
+### GetSkillsOk
+
+`func (o *ToolReferences) GetSkillsOk() (*[]ToolSkillReference, bool)`
+
+GetSkillsOk returns a tuple with the Skills field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSkills
+
+`func (o *ToolReferences) SetSkills(v []ToolSkillReference)`
+
+SetSkills sets Skills field to given value.
+
+### HasSkills
+
+`func (o *ToolReferences) HasSkills() bool`
+
+HasSkills returns a boolean if a field has been set.
+
+### GetSkillsTotalCount
+
+`func (o *ToolReferences) GetSkillsTotalCount() int32`
+
+GetSkillsTotalCount returns the SkillsTotalCount field if non-nil, zero value otherwise.
+
+### GetSkillsTotalCountOk
+
+`func (o *ToolReferences) GetSkillsTotalCountOk() (*int32, bool)`
+
+GetSkillsTotalCountOk returns a tuple with the SkillsTotalCount field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSkillsTotalCount
+
+`func (o *ToolReferences) SetSkillsTotalCount(v int32)`
+
+SetSkillsTotalCount sets SkillsTotalCount field to given value.
+
+### HasSkillsTotalCount
+
+`func (o *ToolReferences) HasSkillsTotalCount() bool`
+
+HasSkillsTotalCount returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

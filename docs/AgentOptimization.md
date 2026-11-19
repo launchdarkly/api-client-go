@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Links** | Pointer to [**ParentAndSelfLinks**](ParentAndSelfLinks.md) |  | [optional] 
 **Id** | **string** | The agent optimization ID | 
 **Key** | **string** | The agent optimization key | 
-**AiConfigKey** | **string** | The key of the AI Config to optimize | 
+**AiConfigKey** | **string** | The key of the agent config to optimize | 
 **MaxAttempts** | **int32** | The maximum number of attempts | 
 **ModelChoices** | **[]string** | The models to try | 
 **JudgeModel** | **string** | The model used to judge responses | 

@@ -73,6 +73,32 @@ type SegmentsApi interface {
 	DeleteSegmentExecute(r ApiDeleteSegmentRequest) (*http.Response, error)
 
 	/*
+	DeleteSegmentScheduledChange Delete a scheduled change for a segment
+
+	Delete a scheduled change before its execution date, so that its instructions are never applied to the segment.
+
+Deleting a change with a `failed` status removes it from the segment's scheduled changes. Its instructions were not applied.
+
+The caller must be allowed to update scheduled changes on the segment.
+
+If an approval request scheduled the change, deleting the change also terminates that request, so it cannot be applied again. Declining the request is only an option while it is still awaiting review. Once it is applied, its instructions belong to a scheduled change, and this endpoint is how to stop them.
+
+Returns 409 if the scheduled change is already being applied or has already run.
+
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param projectKey
+	@param environmentKey
+	@param segmentKey
+	@param id The ID of the scheduled change
+	@return ApiDeleteSegmentScheduledChangeRequest
+	*/
+	DeleteSegmentScheduledChange(ctx context.Context, projectKey string, environmentKey string, segmentKey string, id string) ApiDeleteSegmentScheduledChangeRequest
+
+	// DeleteSegmentScheduledChangeExecute executes the request
+	DeleteSegmentScheduledChangeExecute(r ApiDeleteSegmentScheduledChangeRequest) (*http.Response, error)
+
+	/*
 	GetBigSegmentExport Get big segment export
 
 	Returns information about a big segment export process. This is an export for a synced segment or a list-based segment that can include more than 15,000 entries.
@@ -220,6 +246,47 @@ Get the membership status (included/excluded) for a given user in this big segme
 	// GetSegmentMembershipForUserExecute executes the request
 	//  @return BigSegmentTarget
 	GetSegmentMembershipForUserExecute(r ApiGetSegmentMembershipForUserRequest) (*BigSegmentTarget, *http.Response, error)
+
+	/*
+	GetSegmentScheduledChange Get a scheduled change for a segment
+
+	Get one scheduled change that has not been applied yet, or that failed to apply. Returns 404 if the ID is not a scheduled change for the segment in the path.
+
+The caller must be allowed to view the segment's project.
+
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param projectKey
+	@param environmentKey
+	@param segmentKey
+	@param id The ID of the scheduled change
+	@return ApiGetSegmentScheduledChangeRequest
+	*/
+	GetSegmentScheduledChange(ctx context.Context, projectKey string, environmentKey string, segmentKey string, id string) ApiGetSegmentScheduledChangeRequest
+
+	// GetSegmentScheduledChangeExecute executes the request
+	//  @return SegmentScheduledChange
+	GetSegmentScheduledChangeExecute(r ApiGetSegmentScheduledChangeRequest) (*SegmentScheduledChange, *http.Response, error)
+
+	/*
+	GetSegmentScheduledChanges List scheduled changes for a segment
+
+	Get every scheduled change for a segment that has not been applied yet, plus any that failed to apply, soonest first. Use the `status` of each change to tell them apart.
+
+The caller must be allowed to view the segment's project.
+
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param projectKey
+	@param environmentKey
+	@param segmentKey
+	@return ApiGetSegmentScheduledChangesRequest
+	*/
+	GetSegmentScheduledChanges(ctx context.Context, projectKey string, environmentKey string, segmentKey string) ApiGetSegmentScheduledChangesRequest
+
+	// GetSegmentScheduledChangesExecute executes the request
+	//  @return SegmentScheduledChanges
+	GetSegmentScheduledChangesExecute(r ApiGetSegmentScheduledChangesRequest) (*SegmentScheduledChanges, *http.Response, error)
 
 	/*
 	GetSegments List segments
@@ -1087,6 +1154,29 @@ To add or remove targets from segments, we recommend using semantic patch. Seman
 	PatchSegmentExecute(r ApiPatchSegmentRequest) (*UserSegment, *http.Response, error)
 
 	/*
+	PatchSegmentScheduledChange Update a scheduled change for a segment
+
+	Edit the execution date and/or the comment of a scheduled change that has not been applied yet. A field you leave out is unchanged, and an empty comment clears the comment.
+
+The caller must be allowed to update scheduled changes on the segment, and must also be allowed to make the change's instructions directly. If the segment requires approvals, the caller must also be allowed to bypass them.
+
+Returns 409 if the scheduled change is already being applied or was changed by someone else in the meantime.
+
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param projectKey
+	@param environmentKey
+	@param segmentKey
+	@param id The ID of the scheduled change
+	@return ApiPatchSegmentScheduledChangeRequest
+	*/
+	PatchSegmentScheduledChange(ctx context.Context, projectKey string, environmentKey string, segmentKey string, id string) ApiPatchSegmentScheduledChangeRequest
+
+	// PatchSegmentScheduledChangeExecute executes the request
+	//  @return SegmentScheduledChange
+	PatchSegmentScheduledChangeExecute(r ApiPatchSegmentScheduledChangeRequest) (*SegmentScheduledChange, *http.Response, error)
+
+	/*
 	PostSegment Create segment
 
 	Create a new segment. The new segment has no individual targets or rules.
@@ -1106,6 +1196,28 @@ To add individual targets or rules after you create the segment, use [Update seg
 	// PostSegmentExecute executes the request
 	//  @return UserSegment
 	PostSegmentExecute(r ApiPostSegmentRequest) (*UserSegment, *http.Response, error)
+
+	/*
+	PostSegmentScheduledChange Create a scheduled change for a segment
+
+	Schedule semantic patch instructions to be applied to a segment at a future time.
+
+Each instruction uses the same format as an instruction in a semantic patch request to update a segment. Send between 1 and 100 instructions. LaunchDarkly rejects the request with a 400 if an instruction has an unknown `kind` or is malformed.
+
+The caller must be allowed to update scheduled changes on the segment, and must also be allowed to make each instruction's change directly. If the segment requires approvals for an instruction, the caller must also be allowed to bypass them. Otherwise, request the change through an approval request instead. To learn more about semantic patches, read [Updates](/reference#updates-using-semantic-patch).
+
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param projectKey
+	@param environmentKey
+	@param segmentKey
+	@return ApiPostSegmentScheduledChangeRequest
+	*/
+	PostSegmentScheduledChange(ctx context.Context, projectKey string, environmentKey string, segmentKey string) ApiPostSegmentScheduledChangeRequest
+
+	// PostSegmentScheduledChangeExecute executes the request
+	//  @return SegmentScheduledChange
+	PostSegmentScheduledChangeExecute(r ApiPostSegmentScheduledChangeRequest) (*SegmentScheduledChange, *http.Response, error)
 
 	/*
 	UpdateBigSegmentContextTargets Update context targets on a big segment
@@ -1664,6 +1776,209 @@ func (a *SegmentsApiService) DeleteSegmentExecute(r ApiDeleteSegmentRequest) (*h
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
 			var v RateLimitedErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type ApiDeleteSegmentScheduledChangeRequest struct {
+	ctx context.Context
+	ApiService SegmentsApi
+	projectKey string
+	environmentKey string
+	segmentKey string
+	id string
+}
+
+func (r ApiDeleteSegmentScheduledChangeRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteSegmentScheduledChangeExecute(r)
+}
+
+/*
+DeleteSegmentScheduledChange Delete a scheduled change for a segment
+
+Delete a scheduled change before its execution date, so that its instructions are never applied to the segment.
+
+Deleting a change with a `failed` status removes it from the segment's scheduled changes. Its instructions were not applied.
+
+The caller must be allowed to update scheduled changes on the segment.
+
+If an approval request scheduled the change, deleting the change also terminates that request, so it cannot be applied again. Declining the request is only an option while it is still awaiting review. Once it is applied, its instructions belong to a scheduled change, and this endpoint is how to stop them.
+
+Returns 409 if the scheduled change is already being applied or has already run.
+
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param projectKey
+ @param environmentKey
+ @param segmentKey
+ @param id The ID of the scheduled change
+ @return ApiDeleteSegmentScheduledChangeRequest
+*/
+func (a *SegmentsApiService) DeleteSegmentScheduledChange(ctx context.Context, projectKey string, environmentKey string, segmentKey string, id string) ApiDeleteSegmentScheduledChangeRequest {
+	return ApiDeleteSegmentScheduledChangeRequest{
+		ApiService: a,
+		ctx: ctx,
+		projectKey: projectKey,
+		environmentKey: environmentKey,
+		segmentKey: segmentKey,
+		id: id,
+	}
+}
+
+// Execute executes the request
+func (a *SegmentsApiService) DeleteSegmentScheduledChangeExecute(r ApiDeleteSegmentScheduledChangeRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodDelete
+		localVarPostBody     interface{}
+		formFiles            []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SegmentsApiService.DeleteSegmentScheduledChange")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/scheduled-changes/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", url.PathEscape(parameterValueToString(r.projectKey, "projectKey")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"environmentKey"+"}", url.PathEscape(parameterValueToString(r.environmentKey, "environmentKey")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"segmentKey"+"}", url.PathEscape(parameterValueToString(r.segmentKey, "segmentKey")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["ApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 409 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v Error
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -2966,6 +3281,396 @@ func (a *SegmentsApiService) GetSegmentMembershipForUserExecute(r ApiGetSegmentM
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
 			var v RateLimitedErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetSegmentScheduledChangeRequest struct {
+	ctx context.Context
+	ApiService SegmentsApi
+	projectKey string
+	environmentKey string
+	segmentKey string
+	id string
+}
+
+func (r ApiGetSegmentScheduledChangeRequest) Execute() (*SegmentScheduledChange, *http.Response, error) {
+	return r.ApiService.GetSegmentScheduledChangeExecute(r)
+}
+
+/*
+GetSegmentScheduledChange Get a scheduled change for a segment
+
+Get one scheduled change that has not been applied yet, or that failed to apply. Returns 404 if the ID is not a scheduled change for the segment in the path.
+
+The caller must be allowed to view the segment's project.
+
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param projectKey
+ @param environmentKey
+ @param segmentKey
+ @param id The ID of the scheduled change
+ @return ApiGetSegmentScheduledChangeRequest
+*/
+func (a *SegmentsApiService) GetSegmentScheduledChange(ctx context.Context, projectKey string, environmentKey string, segmentKey string, id string) ApiGetSegmentScheduledChangeRequest {
+	return ApiGetSegmentScheduledChangeRequest{
+		ApiService: a,
+		ctx: ctx,
+		projectKey: projectKey,
+		environmentKey: environmentKey,
+		segmentKey: segmentKey,
+		id: id,
+	}
+}
+
+// Execute executes the request
+//  @return SegmentScheduledChange
+func (a *SegmentsApiService) GetSegmentScheduledChangeExecute(r ApiGetSegmentScheduledChangeRequest) (*SegmentScheduledChange, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *SegmentScheduledChange
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SegmentsApiService.GetSegmentScheduledChange")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/scheduled-changes/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", url.PathEscape(parameterValueToString(r.projectKey, "projectKey")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"environmentKey"+"}", url.PathEscape(parameterValueToString(r.environmentKey, "environmentKey")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"segmentKey"+"}", url.PathEscape(parameterValueToString(r.segmentKey, "segmentKey")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["ApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetSegmentScheduledChangesRequest struct {
+	ctx context.Context
+	ApiService SegmentsApi
+	projectKey string
+	environmentKey string
+	segmentKey string
+}
+
+func (r ApiGetSegmentScheduledChangesRequest) Execute() (*SegmentScheduledChanges, *http.Response, error) {
+	return r.ApiService.GetSegmentScheduledChangesExecute(r)
+}
+
+/*
+GetSegmentScheduledChanges List scheduled changes for a segment
+
+Get every scheduled change for a segment that has not been applied yet, plus any that failed to apply, soonest first. Use the `status` of each change to tell them apart.
+
+The caller must be allowed to view the segment's project.
+
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param projectKey
+ @param environmentKey
+ @param segmentKey
+ @return ApiGetSegmentScheduledChangesRequest
+*/
+func (a *SegmentsApiService) GetSegmentScheduledChanges(ctx context.Context, projectKey string, environmentKey string, segmentKey string) ApiGetSegmentScheduledChangesRequest {
+	return ApiGetSegmentScheduledChangesRequest{
+		ApiService: a,
+		ctx: ctx,
+		projectKey: projectKey,
+		environmentKey: environmentKey,
+		segmentKey: segmentKey,
+	}
+}
+
+// Execute executes the request
+//  @return SegmentScheduledChanges
+func (a *SegmentsApiService) GetSegmentScheduledChangesExecute(r ApiGetSegmentScheduledChangesRequest) (*SegmentScheduledChanges, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *SegmentScheduledChanges
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SegmentsApiService.GetSegmentScheduledChanges")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/scheduled-changes"
+	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", url.PathEscape(parameterValueToString(r.projectKey, "projectKey")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"environmentKey"+"}", url.PathEscape(parameterValueToString(r.environmentKey, "environmentKey")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"segmentKey"+"}", url.PathEscape(parameterValueToString(r.segmentKey, "segmentKey")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["ApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v Error
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -4582,6 +5287,227 @@ func (a *SegmentsApiService) PatchSegmentExecute(r ApiPatchSegmentRequest) (*Use
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiPatchSegmentScheduledChangeRequest struct {
+	ctx context.Context
+	ApiService SegmentsApi
+	projectKey string
+	environmentKey string
+	segmentKey string
+	id string
+	patchSegmentScheduledChangeInput *PatchSegmentScheduledChangeInput
+}
+
+func (r ApiPatchSegmentScheduledChangeRequest) PatchSegmentScheduledChangeInput(patchSegmentScheduledChangeInput PatchSegmentScheduledChangeInput) ApiPatchSegmentScheduledChangeRequest {
+	r.patchSegmentScheduledChangeInput = &patchSegmentScheduledChangeInput
+	return r
+}
+
+func (r ApiPatchSegmentScheduledChangeRequest) Execute() (*SegmentScheduledChange, *http.Response, error) {
+	return r.ApiService.PatchSegmentScheduledChangeExecute(r)
+}
+
+/*
+PatchSegmentScheduledChange Update a scheduled change for a segment
+
+Edit the execution date and/or the comment of a scheduled change that has not been applied yet. A field you leave out is unchanged, and an empty comment clears the comment.
+
+The caller must be allowed to update scheduled changes on the segment, and must also be allowed to make the change's instructions directly. If the segment requires approvals, the caller must also be allowed to bypass them.
+
+Returns 409 if the scheduled change is already being applied or was changed by someone else in the meantime.
+
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param projectKey
+ @param environmentKey
+ @param segmentKey
+ @param id The ID of the scheduled change
+ @return ApiPatchSegmentScheduledChangeRequest
+*/
+func (a *SegmentsApiService) PatchSegmentScheduledChange(ctx context.Context, projectKey string, environmentKey string, segmentKey string, id string) ApiPatchSegmentScheduledChangeRequest {
+	return ApiPatchSegmentScheduledChangeRequest{
+		ApiService: a,
+		ctx: ctx,
+		projectKey: projectKey,
+		environmentKey: environmentKey,
+		segmentKey: segmentKey,
+		id: id,
+	}
+}
+
+// Execute executes the request
+//  @return SegmentScheduledChange
+func (a *SegmentsApiService) PatchSegmentScheduledChangeExecute(r ApiPatchSegmentScheduledChangeRequest) (*SegmentScheduledChange, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPatch
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *SegmentScheduledChange
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SegmentsApiService.PatchSegmentScheduledChange")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/scheduled-changes/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", url.PathEscape(parameterValueToString(r.projectKey, "projectKey")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"environmentKey"+"}", url.PathEscape(parameterValueToString(r.environmentKey, "environmentKey")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"segmentKey"+"}", url.PathEscape(parameterValueToString(r.segmentKey, "segmentKey")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.patchSegmentScheduledChangeInput == nil {
+		return localVarReturnValue, nil, reportError("patchSegmentScheduledChangeInput is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.patchSegmentScheduledChangeInput
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["ApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 409 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiPostSegmentRequest struct {
 	ctx context.Context
 	ApiService SegmentsApi
@@ -4750,6 +5676,212 @@ func (a *SegmentsApiService) PostSegmentExecute(r ApiPostSegmentRequest) (*UserS
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
 			var v RateLimitedErrorRep
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiPostSegmentScheduledChangeRequest struct {
+	ctx context.Context
+	ApiService SegmentsApi
+	projectKey string
+	environmentKey string
+	segmentKey string
+	postSegmentScheduledChangeInput *PostSegmentScheduledChangeInput
+}
+
+func (r ApiPostSegmentScheduledChangeRequest) PostSegmentScheduledChangeInput(postSegmentScheduledChangeInput PostSegmentScheduledChangeInput) ApiPostSegmentScheduledChangeRequest {
+	r.postSegmentScheduledChangeInput = &postSegmentScheduledChangeInput
+	return r
+}
+
+func (r ApiPostSegmentScheduledChangeRequest) Execute() (*SegmentScheduledChange, *http.Response, error) {
+	return r.ApiService.PostSegmentScheduledChangeExecute(r)
+}
+
+/*
+PostSegmentScheduledChange Create a scheduled change for a segment
+
+Schedule semantic patch instructions to be applied to a segment at a future time.
+
+Each instruction uses the same format as an instruction in a semantic patch request to update a segment. Send between 1 and 100 instructions. LaunchDarkly rejects the request with a 400 if an instruction has an unknown `kind` or is malformed.
+
+The caller must be allowed to update scheduled changes on the segment, and must also be allowed to make each instruction's change directly. If the segment requires approvals for an instruction, the caller must also be allowed to bypass them. Otherwise, request the change through an approval request instead. To learn more about semantic patches, read [Updates](/reference#updates-using-semantic-patch).
+
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param projectKey
+ @param environmentKey
+ @param segmentKey
+ @return ApiPostSegmentScheduledChangeRequest
+*/
+func (a *SegmentsApiService) PostSegmentScheduledChange(ctx context.Context, projectKey string, environmentKey string, segmentKey string) ApiPostSegmentScheduledChangeRequest {
+	return ApiPostSegmentScheduledChangeRequest{
+		ApiService: a,
+		ctx: ctx,
+		projectKey: projectKey,
+		environmentKey: environmentKey,
+		segmentKey: segmentKey,
+	}
+}
+
+// Execute executes the request
+//  @return SegmentScheduledChange
+func (a *SegmentsApiService) PostSegmentScheduledChangeExecute(r ApiPostSegmentScheduledChangeRequest) (*SegmentScheduledChange, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *SegmentScheduledChange
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SegmentsApiService.PostSegmentScheduledChange")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v2/segments/{projectKey}/{environmentKey}/{segmentKey}/scheduled-changes"
+	localVarPath = strings.Replace(localVarPath, "{"+"projectKey"+"}", url.PathEscape(parameterValueToString(r.projectKey, "projectKey")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"environmentKey"+"}", url.PathEscape(parameterValueToString(r.environmentKey, "environmentKey")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"segmentKey"+"}", url.PathEscape(parameterValueToString(r.segmentKey, "segmentKey")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.postSegmentScheduledChangeInput == nil {
+		return localVarReturnValue, nil, reportError("postSegmentScheduledChangeInput is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.postSegmentScheduledChangeInput
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["ApiKey"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v Error
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

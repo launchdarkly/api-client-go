@@ -31,6 +31,8 @@ type Webhook struct {
 	Url string `json:"url"`
 	// The secret for this webhook
 	Secret *string `json:"secret,omitempty"`
+	// Whether this webhook sends a bearer token. The token itself is never returned.
+	HasBearerToken *bool `json:"hasBearerToken,omitempty"`
 	// Represents a Custom role policy, defining a resource kinds filter the webhook responds to.
 	Statements []Statement `json:"statements,omitempty"`
 	// Whether or not this webhook is enabled
@@ -201,6 +203,38 @@ func (o *Webhook) SetSecret(v string) {
 	o.Secret = &v
 }
 
+// GetHasBearerToken returns the HasBearerToken field value if set, zero value otherwise.
+func (o *Webhook) GetHasBearerToken() bool {
+	if o == nil || IsNil(o.HasBearerToken) {
+		var ret bool
+		return ret
+	}
+	return *o.HasBearerToken
+}
+
+// GetHasBearerTokenOk returns a tuple with the HasBearerToken field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Webhook) GetHasBearerTokenOk() (*bool, bool) {
+	if o == nil || IsNil(o.HasBearerToken) {
+		return nil, false
+	}
+	return o.HasBearerToken, true
+}
+
+// HasHasBearerToken returns a boolean if a field has been set.
+func (o *Webhook) HasHasBearerToken() bool {
+	if o != nil && !IsNil(o.HasBearerToken) {
+		return true
+	}
+
+	return false
+}
+
+// SetHasBearerToken gets a reference to the given bool and assigns it to the HasBearerToken field.
+func (o *Webhook) SetHasBearerToken(v bool) {
+	o.HasBearerToken = &v
+}
+
 // GetStatements returns the Statements field value if set, zero value otherwise.
 func (o *Webhook) GetStatements() []Statement {
 	if o == nil || IsNil(o.Statements) {
@@ -332,6 +366,9 @@ func (o Webhook) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Secret) {
 		toSerialize["secret"] = o.Secret
 	}
+	if !IsNil(o.HasBearerToken) {
+		toSerialize["hasBearerToken"] = o.HasBearerToken
+	}
 	if !IsNil(o.Statements) {
 		toSerialize["statements"] = o.Statements
 	}
@@ -392,6 +429,7 @@ func (o *Webhook) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "url")
 		delete(additionalProperties, "secret")
+		delete(additionalProperties, "hasBearerToken")
 		delete(additionalProperties, "statements")
 		delete(additionalProperties, "on")
 		delete(additionalProperties, "tags")

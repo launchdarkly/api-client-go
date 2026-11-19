@@ -27,6 +27,8 @@ type WebhookPost struct {
 	Url string `json:"url"`
 	// If sign is true, and the secret attribute is omitted, LaunchDarkly automatically generates a secret for you.
 	Secret *string `json:"secret,omitempty"`
+	// An optional token. If set, LaunchDarkly sends it in an Authorization: Bearer header with each request. It is write-only and is never returned.
+	BearerToken *string `json:"bearerToken,omitempty"`
 	Statements []StatementPost `json:"statements,omitempty"`
 	// If sign is false, the webhook does not include a signature header, and the secret can be omitted.
 	Sign bool `json:"sign"`
@@ -145,6 +147,38 @@ func (o *WebhookPost) HasSecret() bool {
 // SetSecret gets a reference to the given string and assigns it to the Secret field.
 func (o *WebhookPost) SetSecret(v string) {
 	o.Secret = &v
+}
+
+// GetBearerToken returns the BearerToken field value if set, zero value otherwise.
+func (o *WebhookPost) GetBearerToken() string {
+	if o == nil || IsNil(o.BearerToken) {
+		var ret string
+		return ret
+	}
+	return *o.BearerToken
+}
+
+// GetBearerTokenOk returns a tuple with the BearerToken field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *WebhookPost) GetBearerTokenOk() (*string, bool) {
+	if o == nil || IsNil(o.BearerToken) {
+		return nil, false
+	}
+	return o.BearerToken, true
+}
+
+// HasBearerToken returns a boolean if a field has been set.
+func (o *WebhookPost) HasBearerToken() bool {
+	if o != nil && !IsNil(o.BearerToken) {
+		return true
+	}
+
+	return false
+}
+
+// SetBearerToken gets a reference to the given string and assigns it to the BearerToken field.
+func (o *WebhookPost) SetBearerToken(v string) {
+	o.BearerToken = &v
 }
 
 // GetStatements returns the Statements field value if set, zero value otherwise.
@@ -276,6 +310,9 @@ func (o WebhookPost) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Secret) {
 		toSerialize["secret"] = o.Secret
 	}
+	if !IsNil(o.BearerToken) {
+		toSerialize["bearerToken"] = o.BearerToken
+	}
 	if !IsNil(o.Statements) {
 		toSerialize["statements"] = o.Statements
 	}
@@ -332,6 +369,7 @@ func (o *WebhookPost) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "url")
 		delete(additionalProperties, "secret")
+		delete(additionalProperties, "bearerToken")
 		delete(additionalProperties, "statements")
 		delete(additionalProperties, "sign")
 		delete(additionalProperties, "on")

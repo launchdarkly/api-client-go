@@ -26,7 +26,7 @@ Name | Type | Description | Notes
 **Tools** | Pointer to [**[]VariationTool**](VariationTool.md) | The tools this variation can use | [optional] 
 **Skills** | Pointer to [**[]VariationSkill**](VariationSkill.md) | The agent skills this variation can use | [optional] 
 **JudgeConfiguration** | Pointer to [**JudgeConfiguration**](JudgeConfiguration.md) |  | [optional] 
-**JudgingConfigKeys** | Pointer to **[]string** | Keys of the judge AI Configs attached to this variation | [optional] 
+**JudgingConfigKeys** | Pointer to **[]string** | Keys of the judge agent configs attached to this variation | [optional] 
 
 ## Methods
 

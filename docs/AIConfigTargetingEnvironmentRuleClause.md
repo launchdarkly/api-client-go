@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Attribute** | **string** | The context attribute to match | 
+**ContextKind** | Pointer to **string** | The context kind of the attribute to match. Omitted for clauses on the kind attribute, which match the context kind itself. | [optional] 
 **Id** | **string** | The clause ID | 
 **Negate** | **bool** | Whether to negate the match | 
 **Op** | **string** | The operator to use | 
@@ -48,6 +49,31 @@ and a boolean to check if the value has been set.
 
 SetAttribute sets Attribute field to given value.
 
+
+### GetContextKind
+
+`func (o *AIConfigTargetingEnvironmentRuleClause) GetContextKind() string`
+
+GetContextKind returns the ContextKind field if non-nil, zero value otherwise.
+
+### GetContextKindOk
+
+`func (o *AIConfigTargetingEnvironmentRuleClause) GetContextKindOk() (*string, bool)`
+
+GetContextKindOk returns a tuple with the ContextKind field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetContextKind
+
+`func (o *AIConfigTargetingEnvironmentRuleClause) SetContextKind(v string)`
+
+SetContextKind sets ContextKind field to given value.
+
+### HasContextKind
+
+`func (o *AIConfigTargetingEnvironmentRuleClause) HasContextKind() bool`
+
+HasContextKind returns a boolean if a field has been set.
 
 ### GetId
 

@@ -53,6 +53,8 @@ type Metrics struct {
 	JudgeRelevance *float32 `json:"judgeRelevance,omitempty"`
 	// Average toxicity judge score (0.0-1.0)
 	JudgeToxicity *float32 `json:"judgeToxicity,omitempty"`
+	// Average score and sample count for every judge metric recorded in the time range, keyed by the judge's evaluation metric key. Includes custom judges and the built-in accuracy, relevance, and toxicity judges. Omitted when no judge scores were recorded.
+	JudgeScores []JudgeScore `json:"judgeScores,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -590,6 +592,38 @@ func (o *Metrics) SetJudgeToxicity(v float32) {
 	o.JudgeToxicity = &v
 }
 
+// GetJudgeScores returns the JudgeScores field value if set, zero value otherwise.
+func (o *Metrics) GetJudgeScores() []JudgeScore {
+	if o == nil || IsNil(o.JudgeScores) {
+		var ret []JudgeScore
+		return ret
+	}
+	return o.JudgeScores
+}
+
+// GetJudgeScoresOk returns a tuple with the JudgeScores field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Metrics) GetJudgeScoresOk() ([]JudgeScore, bool) {
+	if o == nil || IsNil(o.JudgeScores) {
+		return nil, false
+	}
+	return o.JudgeScores, true
+}
+
+// HasJudgeScores returns a boolean if a field has been set.
+func (o *Metrics) HasJudgeScores() bool {
+	if o != nil && !IsNil(o.JudgeScores) {
+		return true
+	}
+
+	return false
+}
+
+// SetJudgeScores gets a reference to the given []JudgeScore and assigns it to the JudgeScores field.
+func (o *Metrics) SetJudgeScores(v []JudgeScore) {
+	o.JudgeScores = v
+}
+
 func (o Metrics) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -648,6 +682,9 @@ func (o Metrics) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.JudgeToxicity) {
 		toSerialize["judgeToxicity"] = o.JudgeToxicity
 	}
+	if !IsNil(o.JudgeScores) {
+		toSerialize["judgeScores"] = o.JudgeScores
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -686,6 +723,7 @@ func (o *Metrics) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "judgeAccuracy")
 		delete(additionalProperties, "judgeRelevance")
 		delete(additionalProperties, "judgeToxicity")
+		delete(additionalProperties, "judgeScores")
 		o.AdditionalProperties = additionalProperties
 	}
 

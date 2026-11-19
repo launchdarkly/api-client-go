@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **MetricGroupCount** | Pointer to **int32** | The number of metric groups using this metric | [optional] 
 **GuardedRolloutCount** | Pointer to **int32** | The number of guarded rollouts using this metric | [optional] 
 **ReleasePolicyCount** | Pointer to **int32** | The number of release policies using this metric | [optional] 
+**EnvironmentReleasePlanCount** | Pointer to **int32** | The number of environment release plans using this metric | [optional] 
 **ActiveExperimentCount** | Pointer to **int32** | The number of active experiments using this metric | [optional] 
 **ActiveGuardedRolloutCount** | Pointer to **int32** | The number of active guarded rollouts using this metric | [optional] 
 **Id** | **string** | The ID of this metric | 
@@ -172,6 +173,31 @@ SetReleasePolicyCount sets ReleasePolicyCount field to given value.
 `func (o *AiConfigsMetricListingRep) HasReleasePolicyCount() bool`
 
 HasReleasePolicyCount returns a boolean if a field has been set.
+
+### GetEnvironmentReleasePlanCount
+
+`func (o *AiConfigsMetricListingRep) GetEnvironmentReleasePlanCount() int32`
+
+GetEnvironmentReleasePlanCount returns the EnvironmentReleasePlanCount field if non-nil, zero value otherwise.
+
+### GetEnvironmentReleasePlanCountOk
+
+`func (o *AiConfigsMetricListingRep) GetEnvironmentReleasePlanCountOk() (*int32, bool)`
+
+GetEnvironmentReleasePlanCountOk returns a tuple with the EnvironmentReleasePlanCount field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEnvironmentReleasePlanCount
+
+`func (o *AiConfigsMetricListingRep) SetEnvironmentReleasePlanCount(v int32)`
+
+SetEnvironmentReleasePlanCount sets EnvironmentReleasePlanCount field to given value.
+
+### HasEnvironmentReleasePlanCount
+
+`func (o *AiConfigsMetricListingRep) HasEnvironmentReleasePlanCount() bool`
+
+HasEnvironmentReleasePlanCount returns a boolean if a field has been set.
 
 ### GetActiveExperimentCount
 

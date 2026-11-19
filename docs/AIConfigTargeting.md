@@ -8,10 +8,10 @@ Name | Type | Description | Notes
 **Defaults** | Pointer to [**AIConfigTargetingDefaults**](AIConfigTargetingDefaults.md) |  | [optional] 
 **Environments** | [**map[string]AIConfigTargetingEnvironment**](AIConfigTargetingEnvironment.md) | Targeting for each environment, keyed by environment key | 
 **Experiments** | [**AiConfigsExperimentInfoRep**](AiConfigsExperimentInfoRep.md) |  | 
-**Key** | **string** | The AI Config key | 
-**Name** | **string** | The AI Config name | 
+**Key** | **string** | The agent config key | 
+**Name** | **string** | The agent config name | 
 **Tags** | **[]string** | Tags for this resource | 
-**Variations** | [**[]AIConfigTargetingVariation**](AIConfigTargetingVariation.md) | The variations of this AI Config | 
+**Variations** | [**[]AIConfigTargetingVariation**](AIConfigTargetingVariation.md) | The variations of this agent config | 
 **Version** | **int32** | The version number of this resource | 
 
 ## Methods

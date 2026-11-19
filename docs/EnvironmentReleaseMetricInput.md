@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **MetricKey** | **string** |  | 
 **AutoRollback** | Pointer to **bool** | Whether a regression on this metric automatically reverts the release. When &#x60;false&#x60;, a detected regression pauses the release instead: it reports &#x60;waiting&#x60; with reason &#x60;waiting_regression_detected&#x60; and does not advance until the regression is dismissed or the release is stopped.  | [optional] [default to false]
+**AnalysisUnit** | Pointer to **string** | Key of the context kind to analyze this metric on. Omit it to analyze on the randomization unit. A value must differ from the randomization unit and be one of the metric&#39;s units. Percentile metrics, ratio metrics, and metrics in a group cannot set it. The value cannot be changed after the release starts.  | [optional] 
 
 ## Methods
 
@@ -70,6 +71,31 @@ SetAutoRollback sets AutoRollback field to given value.
 `func (o *EnvironmentReleaseMetricInput) HasAutoRollback() bool`
 
 HasAutoRollback returns a boolean if a field has been set.
+
+### GetAnalysisUnit
+
+`func (o *EnvironmentReleaseMetricInput) GetAnalysisUnit() string`
+
+GetAnalysisUnit returns the AnalysisUnit field if non-nil, zero value otherwise.
+
+### GetAnalysisUnitOk
+
+`func (o *EnvironmentReleaseMetricInput) GetAnalysisUnitOk() (*string, bool)`
+
+GetAnalysisUnitOk returns a tuple with the AnalysisUnit field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAnalysisUnit
+
+`func (o *EnvironmentReleaseMetricInput) SetAnalysisUnit(v string)`
+
+SetAnalysisUnit sets AnalysisUnit field to given value.
+
+### HasAnalysisUnit
+
+`func (o *EnvironmentReleaseMetricInput) HasAnalysisUnit() bool`
+
+HasAnalysisUnit returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

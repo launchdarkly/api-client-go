@@ -114,6 +114,7 @@ LaunchDarkly supports the `filter` query param for filtering, with the following
 - `resourceKind` filters for only approvals that correspond to the specified resource kind. For example: `filter=resourceKind equals flag`. Currently, `flag`, `segment`, and `aiConfig` resource kinds are supported.
 - `reviewStatus` filters for only approvals which correspond to the review status in the specified list. The possible values are `approved`, `declined`, and `pending`. For example: `filter=reviewStatus anyOf ["pending", "approved"]`.
 - `status` filters for only approvals which correspond to the status in the specified list. The possible values are `pending`, `scheduled`, `failed`, and `completed`. For example: `filter=status anyOf ["pending", "scheduled"]`.
+- `creationDate` filters for only approvals created before or after a time. Use the `before` or `after` operator with Unix milliseconds or an RFC 3339 timestamp in quotes. Both are exclusive. For example: `filter=creationDate after 1794000000000` or `filter=creationDate after "2026-11-10T00:00:00Z", creationDate before "2026-11-17T00:00:00Z"`. URL-encode a `+` in a timestamp's offset as `%2B`, or use `Z`.
 
 You can also apply multiple filters at once. For example, setting `filter=projectKey equals my-project, reviewStatus anyOf ["pending","approved"]` matches approval requests which correspond to the `my-project` project key, and a review status of either `pending` or `approved`.
 
@@ -1023,6 +1024,7 @@ LaunchDarkly supports the `filter` query param for filtering, with the following
 - `resourceKind` filters for only approvals that correspond to the specified resource kind. For example: `filter=resourceKind equals flag`. Currently, `flag`, `segment`, and `aiConfig` resource kinds are supported.
 - `reviewStatus` filters for only approvals which correspond to the review status in the specified list. The possible values are `approved`, `declined`, and `pending`. For example: `filter=reviewStatus anyOf ["pending", "approved"]`.
 - `status` filters for only approvals which correspond to the status in the specified list. The possible values are `pending`, `scheduled`, `failed`, and `completed`. For example: `filter=status anyOf ["pending", "scheduled"]`.
+- `creationDate` filters for only approvals created before or after a time. Use the `before` or `after` operator with Unix milliseconds or an RFC 3339 timestamp in quotes. Both are exclusive. For example: `filter=creationDate after 1794000000000` or `filter=creationDate after "2026-11-10T00:00:00Z", creationDate before "2026-11-17T00:00:00Z"`. URL-encode a `+` in a timestamp's offset as `%2B`, or use `Z`.
 
 You can also apply multiple filters at once. For example, setting `filter=projectKey equals my-project, reviewStatus anyOf ["pending","approved"]` matches approval requests which correspond to the `my-project` project key, and a review status of either `pending` or `approved`.
 

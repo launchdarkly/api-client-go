@@ -34,8 +34,10 @@ type AgentSkill struct {
 	Markdown string `json:"markdown"`
 	// Tags for the agent skill. Tags can be used in custom role policies.
 	Tags []string `json:"tags"`
-	// Version of the agent skill. Starts at 1, and each update that changes the name, description, or markdown creates a new version. Pass this value with `key` in a variation's `skills: [{key, version}]`.
+	// Version of the agent skill. Starts at 1, and each update that changes the name, description, markdown, or tools creates a new version. Pass this value with `key` in a variation's `skills: [{key, version}]`.
 	Version int32 `json:"version"`
+	// The AI tool versions this version of the agent skill pins, in the order they reach the agent.
+	Tools []PinnedSkillToolRef `json:"tools,omitempty"`
 	CreatedAt int64 `json:"createdAt"`
 	AdditionalProperties map[string]interface{}
 }
@@ -313,6 +315,38 @@ func (o *AgentSkill) SetVersion(v int32) {
 	o.Version = v
 }
 
+// GetTools returns the Tools field value if set, zero value otherwise.
+func (o *AgentSkill) GetTools() []PinnedSkillToolRef {
+	if o == nil || IsNil(o.Tools) {
+		var ret []PinnedSkillToolRef
+		return ret
+	}
+	return o.Tools
+}
+
+// GetToolsOk returns a tuple with the Tools field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AgentSkill) GetToolsOk() ([]PinnedSkillToolRef, bool) {
+	if o == nil || IsNil(o.Tools) {
+		return nil, false
+	}
+	return o.Tools, true
+}
+
+// HasTools returns a boolean if a field has been set.
+func (o *AgentSkill) HasTools() bool {
+	if o != nil && !IsNil(o.Tools) {
+		return true
+	}
+
+	return false
+}
+
+// SetTools gets a reference to the given []PinnedSkillToolRef and assigns it to the Tools field.
+func (o *AgentSkill) SetTools(v []PinnedSkillToolRef) {
+	o.Tools = v
+}
+
 // GetCreatedAt returns the CreatedAt field value
 func (o *AgentSkill) GetCreatedAt() int64 {
 	if o == nil {
@@ -364,6 +398,9 @@ func (o AgentSkill) ToMap() (map[string]interface{}, error) {
 	toSerialize["markdown"] = o.Markdown
 	toSerialize["tags"] = o.Tags
 	toSerialize["version"] = o.Version
+	if !IsNil(o.Tools) {
+		toSerialize["tools"] = o.Tools
+	}
 	toSerialize["createdAt"] = o.CreatedAt
 
 	for key, value := range o.AdditionalProperties {
@@ -422,6 +459,7 @@ func (o *AgentSkill) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "markdown")
 		delete(additionalProperties, "tags")
 		delete(additionalProperties, "version")
+		delete(additionalProperties, "tools")
 		delete(additionalProperties, "createdAt")
 		o.AdditionalProperties = additionalProperties
 	}

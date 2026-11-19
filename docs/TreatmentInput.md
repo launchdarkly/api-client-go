@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **Baseline** | **bool** | Whether this treatment is the baseline to compare other treatments against | 
 **AllocationPercent** | **string** | The percentage of traffic allocated to this treatment during the iteration | 
 **Parameters** | [**[]TreatmentParameterInput**](TreatmentParameterInput.md) | Details on the flag and variation to use for this treatment | 
+**AssignmentVariantId** | Pointer to **string** | The variant identifier in the warehouse-native assignment source that maps to this treatment | [optional] 
 
 ## Methods
 
@@ -107,6 +108,31 @@ and a boolean to check if the value has been set.
 
 SetParameters sets Parameters field to given value.
 
+
+### GetAssignmentVariantId
+
+`func (o *TreatmentInput) GetAssignmentVariantId() string`
+
+GetAssignmentVariantId returns the AssignmentVariantId field if non-nil, zero value otherwise.
+
+### GetAssignmentVariantIdOk
+
+`func (o *TreatmentInput) GetAssignmentVariantIdOk() (*string, bool)`
+
+GetAssignmentVariantIdOk returns a tuple with the AssignmentVariantId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAssignmentVariantId
+
+`func (o *TreatmentInput) SetAssignmentVariantId(v string)`
+
+SetAssignmentVariantId sets AssignmentVariantId field to given value.
+
+### HasAssignmentVariantId
+
+`func (o *TreatmentInput) HasAssignmentVariantId() bool`
+
+HasAssignmentVariantId returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

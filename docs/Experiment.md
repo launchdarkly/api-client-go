@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **EnvironmentKey** | **string** |  | 
 **Methodology** | Pointer to **string** | The results analysis approach. | [optional] 
 **DataSource** | Pointer to **string** | The source of metric data in order to analyze results. Defaults to \&quot;launchdarkly\&quot; when not provided. | [optional] 
+**AssignmentSourceType** | Pointer to **string** | The source of assignment data for this experiment. Defaults to \&quot;launchdarkly\&quot; when not provided. | [optional] 
 **ArchivedDate** | Pointer to **int64** |  | [optional] 
 **Tags** | Pointer to **[]string** | Tags for the experiment | [optional] 
 **Links** | [**map[string]Link**](Link.md) | The location and content type of related resources | 
@@ -243,6 +244,31 @@ SetDataSource sets DataSource field to given value.
 `func (o *Experiment) HasDataSource() bool`
 
 HasDataSource returns a boolean if a field has been set.
+
+### GetAssignmentSourceType
+
+`func (o *Experiment) GetAssignmentSourceType() string`
+
+GetAssignmentSourceType returns the AssignmentSourceType field if non-nil, zero value otherwise.
+
+### GetAssignmentSourceTypeOk
+
+`func (o *Experiment) GetAssignmentSourceTypeOk() (*string, bool)`
+
+GetAssignmentSourceTypeOk returns a tuple with the AssignmentSourceType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAssignmentSourceType
+
+`func (o *Experiment) SetAssignmentSourceType(v string)`
+
+SetAssignmentSourceType sets AssignmentSourceType field to given value.
+
+### HasAssignmentSourceType
+
+`func (o *Experiment) HasAssignmentSourceType() bool`
+
+HasAssignmentSourceType returns a boolean if a field has been set.
 
 ### GetArchivedDate
 

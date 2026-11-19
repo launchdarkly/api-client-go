@@ -24,20 +24,20 @@ type AIConfig struct {
 	Access *AiConfigsAccess `json:"_access,omitempty"`
 	Links *ParentAndSelfLinks `json:"_links,omitempty"`
 	Site *CoreLink `json:"_site,omitempty"`
-	// A description of the AI Config
+	// A description of the agent config
 	Description string `json:"description"`
-	// The AI Config key
+	// The agent config key
 	Key string `json:"key"`
 	Maintainer *AIConfigMaintainer `json:"_maintainer,omitempty"`
-	// The AI Config mode
+	// The agent config mode
 	Mode *string `json:"mode,omitempty"`
-	// The AI Config name
+	// The agent config name
 	Name string `json:"name"`
 	// Tags for this resource
 	Tags []string `json:"tags"`
 	// The version number of this resource
 	Version int32 `json:"version"`
-	// The variations of this AI Config
+	// The variations of this agent config
 	Variations []AIConfigVariation `json:"variations"`
 	CreatedAt int64 `json:"createdAt"`
 	UpdatedAt int64 `json:"updatedAt"`
@@ -46,8 +46,10 @@ type AIConfig struct {
 	// List of evaluation metric keys for this config
 	// Deprecated
 	EvaluationMetricKeys []string `json:"evaluationMetricKeys,omitempty"`
-	// Whether the evaluation metric is inverted, meaning a lower value is better if set as true
+	// The success direction of a judge. Offline evaluations use it to decide whether a score passes.  - `true`: A lower score is better. Use this for a judge that scores bad output, such as a toxicity or hallucination judge. - `false`: A higher score is better. Use this for a judge that scores good output, such as an accuracy or relevance judge.  The response includes this field only when `mode` is `judge`. For a built-in judge key, the value is always the built-in direction. Built-in judge keys are `ld-ai-judge-accuracy`, `ld-ai-judge-relevance`, and `ld-ai-judge-toxicity`, with or without a `-<timestamp>` suffix such as `ld-ai-judge-accuracy-1760000000000`. A custom judge with no stored direction omits this field. 
 	IsInverted *bool `json:"isInverted,omitempty"`
+	// The judge's threshold: the pass line for its main score, from 0 to 1. It applies wherever the judge is used. The average score passes when it is at or above this value, or at or below it when `isInverted` is `true`.  The response includes this field only when `mode` is `judge` and a threshold is set. 
+	DefaultThreshold *float64 `json:"defaultThreshold,omitempty"`
 	// Resources that depend on this config, grouped by type
 	Dependencies []AIConfigDependency `json:"dependencies,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -535,6 +537,38 @@ func (o *AIConfig) SetIsInverted(v bool) {
 	o.IsInverted = &v
 }
 
+// GetDefaultThreshold returns the DefaultThreshold field value if set, zero value otherwise.
+func (o *AIConfig) GetDefaultThreshold() float64 {
+	if o == nil || IsNil(o.DefaultThreshold) {
+		var ret float64
+		return ret
+	}
+	return *o.DefaultThreshold
+}
+
+// GetDefaultThresholdOk returns a tuple with the DefaultThreshold field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AIConfig) GetDefaultThresholdOk() (*float64, bool) {
+	if o == nil || IsNil(o.DefaultThreshold) {
+		return nil, false
+	}
+	return o.DefaultThreshold, true
+}
+
+// HasDefaultThreshold returns a boolean if a field has been set.
+func (o *AIConfig) HasDefaultThreshold() bool {
+	if o != nil && !IsNil(o.DefaultThreshold) {
+		return true
+	}
+
+	return false
+}
+
+// SetDefaultThreshold gets a reference to the given float64 and assigns it to the DefaultThreshold field.
+func (o *AIConfig) SetDefaultThreshold(v float64) {
+	o.DefaultThreshold = &v
+}
+
 // GetDependencies returns the Dependencies field value if set, zero value otherwise.
 func (o *AIConfig) GetDependencies() []AIConfigDependency {
 	if o == nil || IsNil(o.Dependencies) {
@@ -609,6 +643,9 @@ func (o AIConfig) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.IsInverted) {
 		toSerialize["isInverted"] = o.IsInverted
 	}
+	if !IsNil(o.DefaultThreshold) {
+		toSerialize["defaultThreshold"] = o.DefaultThreshold
+	}
 	if !IsNil(o.Dependencies) {
 		toSerialize["dependencies"] = o.Dependencies
 	}
@@ -678,6 +715,7 @@ func (o *AIConfig) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "evaluationMetricKey")
 		delete(additionalProperties, "evaluationMetricKeys")
 		delete(additionalProperties, "isInverted")
+		delete(additionalProperties, "defaultThreshold")
 		delete(additionalProperties, "dependencies")
 		o.AdditionalProperties = additionalProperties
 	}
