@@ -4,8 +4,8 @@ All URIs are relative to *https://app.launchdarkly.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteAIConfig**](AgentControlApi.md#DeleteAIConfig) | **Delete** /api/v2/projects/{projectKey}/ai-configs/{configKey} | Delete AI Config
-[**DeleteAIConfigVariation**](AgentControlApi.md#DeleteAIConfigVariation) | **Delete** /api/v2/projects/{projectKey}/ai-configs/{configKey}/variations/{variationKey} | Delete AI Config variation
+[**DeleteAIConfig**](AgentControlApi.md#DeleteAIConfig) | **Delete** /api/v2/projects/{projectKey}/ai-configs/{configKey} | Delete agent config
+[**DeleteAIConfigVariation**](AgentControlApi.md#DeleteAIConfigVariation) | **Delete** /api/v2/projects/{projectKey}/ai-configs/{configKey}/variations/{variationKey} | Delete agent config variation
 [**DeleteAITool**](AgentControlApi.md#DeleteAITool) | **Delete** /api/v2/projects/{projectKey}/ai-tools/{toolKey} | Delete AI tool
 [**DeleteAgentGraph**](AgentControlApi.md#DeleteAgentGraph) | **Delete** /api/v2/projects/{projectKey}/agent-graphs/{graphKey} | Delete agent graph
 [**DeleteAgentOptimization**](AgentControlApi.md#DeleteAgentOptimization) | **Delete** /api/v2/projects/{projectKey}/agent-optimizations/{optimizationKey} | Delete an agent optimization
@@ -14,13 +14,13 @@ Method | HTTP request | Description
 [**DeleteModelConfig**](AgentControlApi.md#DeleteModelConfig) | **Delete** /api/v2/projects/{projectKey}/ai-configs/model-configs/{modelConfigKey} | Delete an AI model config
 [**DeletePromptSnippet**](AgentControlApi.md#DeletePromptSnippet) | **Delete** /api/v2/projects/{projectKey}/ai-configs/prompt-snippets/{snippetKey} | Delete a prompt snippet
 [**DeleteRestrictedModels**](AgentControlApi.md#DeleteRestrictedModels) | **Delete** /api/v2/projects/{projectKey}/ai-configs/model-configs/restricted | Remove AI models from the restricted list
-[**GetAIConfig**](AgentControlApi.md#GetAIConfig) | **Get** /api/v2/projects/{projectKey}/ai-configs/{configKey} | Get AI Config
-[**GetAIConfigMetrics**](AgentControlApi.md#GetAIConfigMetrics) | **Get** /api/v2/projects/{projectKey}/ai-configs/{configKey}/metrics | Get AI Config metrics
-[**GetAIConfigMetricsByVariation**](AgentControlApi.md#GetAIConfigMetricsByVariation) | **Get** /api/v2/projects/{projectKey}/ai-configs/{configKey}/metrics-by-variation | Get AI Config metrics by variation
-[**GetAIConfigQuickStats**](AgentControlApi.md#GetAIConfigQuickStats) | **Get** /api/v2/projects/{projectKey}/ai-configs/quick-stats | Get AI Config quick stats
-[**GetAIConfigTargeting**](AgentControlApi.md#GetAIConfigTargeting) | **Get** /api/v2/projects/{projectKey}/ai-configs/{configKey}/targeting | Show an AI Config&#39;s targeting
-[**GetAIConfigVariation**](AgentControlApi.md#GetAIConfigVariation) | **Get** /api/v2/projects/{projectKey}/ai-configs/{configKey}/variations/{variationKey} | Get AI Config variation
-[**GetAIConfigs**](AgentControlApi.md#GetAIConfigs) | **Get** /api/v2/projects/{projectKey}/ai-configs | List AI Configs
+[**GetAIConfig**](AgentControlApi.md#GetAIConfig) | **Get** /api/v2/projects/{projectKey}/ai-configs/{configKey} | Get agent config
+[**GetAIConfigMetrics**](AgentControlApi.md#GetAIConfigMetrics) | **Get** /api/v2/projects/{projectKey}/ai-configs/{configKey}/metrics | Get agent config metrics
+[**GetAIConfigMetricsByVariation**](AgentControlApi.md#GetAIConfigMetricsByVariation) | **Get** /api/v2/projects/{projectKey}/ai-configs/{configKey}/metrics-by-variation | Get agent config metrics by variation
+[**GetAIConfigQuickStats**](AgentControlApi.md#GetAIConfigQuickStats) | **Get** /api/v2/projects/{projectKey}/ai-configs/quick-stats | Get agent config quick stats
+[**GetAIConfigTargeting**](AgentControlApi.md#GetAIConfigTargeting) | **Get** /api/v2/projects/{projectKey}/ai-configs/{configKey}/targeting | Show an agent config&#39;s targeting
+[**GetAIConfigVariation**](AgentControlApi.md#GetAIConfigVariation) | **Get** /api/v2/projects/{projectKey}/ai-configs/{configKey}/variations/{variationKey} | Get agent config variation
+[**GetAIConfigs**](AgentControlApi.md#GetAIConfigs) | **Get** /api/v2/projects/{projectKey}/ai-configs | List agent configs
 [**GetAITool**](AgentControlApi.md#GetAITool) | **Get** /api/v2/projects/{projectKey}/ai-tools/{toolKey} | Get AI tool
 [**GetAgentGraph**](AgentControlApi.md#GetAgentGraph) | **Get** /api/v2/projects/{projectKey}/agent-graphs/{graphKey} | Get agent graph
 [**GetAgentOptimization**](AgentControlApi.md#GetAgentOptimization) | **Get** /api/v2/projects/{projectKey}/agent-optimizations/{optimizationKey} | Get an agent optimization
@@ -44,9 +44,9 @@ Method | HTTP request | Description
 [**ListPromptSnippetReferences**](AgentControlApi.md#ListPromptSnippetReferences) | **Get** /api/v2/projects/{projectKey}/ai-configs/prompt-snippets/{snippetKey}/references | List prompt snippet references
 [**ListPromptSnippetVersions**](AgentControlApi.md#ListPromptSnippetVersions) | **Get** /api/v2/projects/{projectKey}/ai-configs/prompt-snippets/{snippetKey}/versions | List prompt snippet versions
 [**ListPromptSnippets**](AgentControlApi.md#ListPromptSnippets) | **Get** /api/v2/projects/{projectKey}/ai-configs/prompt-snippets | List prompt snippets
-[**PatchAIConfig**](AgentControlApi.md#PatchAIConfig) | **Patch** /api/v2/projects/{projectKey}/ai-configs/{configKey} | Update AI Config
-[**PatchAIConfigTargeting**](AgentControlApi.md#PatchAIConfigTargeting) | **Patch** /api/v2/projects/{projectKey}/ai-configs/{configKey}/targeting | Update AI Config targeting
-[**PatchAIConfigVariation**](AgentControlApi.md#PatchAIConfigVariation) | **Patch** /api/v2/projects/{projectKey}/ai-configs/{configKey}/variations/{variationKey} | Update AI Config variation
+[**PatchAIConfig**](AgentControlApi.md#PatchAIConfig) | **Patch** /api/v2/projects/{projectKey}/ai-configs/{configKey} | Update agent config
+[**PatchAIConfigTargeting**](AgentControlApi.md#PatchAIConfigTargeting) | **Patch** /api/v2/projects/{projectKey}/ai-configs/{configKey}/targeting | Update agent config targeting
+[**PatchAIConfigVariation**](AgentControlApi.md#PatchAIConfigVariation) | **Patch** /api/v2/projects/{projectKey}/ai-configs/{configKey}/variations/{variationKey} | Update agent config variation
 [**PatchAITool**](AgentControlApi.md#PatchAITool) | **Patch** /api/v2/projects/{projectKey}/ai-tools/{toolKey} | Update AI tool
 [**PatchAgentGraph**](AgentControlApi.md#PatchAgentGraph) | **Patch** /api/v2/projects/{projectKey}/agent-graphs/{graphKey} | Update agent graph
 [**PatchAgentOptimization**](AgentControlApi.md#PatchAgentOptimization) | **Patch** /api/v2/projects/{projectKey}/agent-optimizations/{optimizationKey} | Update an agent optimization
@@ -54,8 +54,8 @@ Method | HTTP request | Description
 [**PatchAgentSkill**](AgentControlApi.md#PatchAgentSkill) | **Patch** /api/v2/projects/{projectKey}/ai-configs/skills/{skillKey} | Update an agent skill
 [**PatchModelConfig**](AgentControlApi.md#PatchModelConfig) | **Patch** /api/v2/projects/{projectKey}/ai-configs/model-configs/{modelConfigKey} | Update an AI model config
 [**PatchPromptSnippet**](AgentControlApi.md#PatchPromptSnippet) | **Patch** /api/v2/projects/{projectKey}/ai-configs/prompt-snippets/{snippetKey} | Update a prompt snippet
-[**PostAIConfig**](AgentControlApi.md#PostAIConfig) | **Post** /api/v2/projects/{projectKey}/ai-configs | Create new AI Config
-[**PostAIConfigVariation**](AgentControlApi.md#PostAIConfigVariation) | **Post** /api/v2/projects/{projectKey}/ai-configs/{configKey}/variations | Create AI Config variation
+[**PostAIConfig**](AgentControlApi.md#PostAIConfig) | **Post** /api/v2/projects/{projectKey}/ai-configs | Create new agent config
+[**PostAIConfigVariation**](AgentControlApi.md#PostAIConfigVariation) | **Post** /api/v2/projects/{projectKey}/ai-configs/{configKey}/variations | Create agent config variation
 [**PostAITool**](AgentControlApi.md#PostAITool) | **Post** /api/v2/projects/{projectKey}/ai-tools | Create an AI tool
 [**PostAgentGraph**](AgentControlApi.md#PostAgentGraph) | **Post** /api/v2/projects/{projectKey}/agent-graphs | Create new agent graph
 [**PostAgentOptimization**](AgentControlApi.md#PostAgentOptimization) | **Post** /api/v2/projects/{projectKey}/agent-optimizations | Create agent optimization
@@ -71,7 +71,7 @@ Method | HTTP request | Description
 
 > DeleteAIConfig(ctx, projectKey, configKey).Execute()
 
-Delete AI Config
+Delete agent config
 
 
 
@@ -89,7 +89,7 @@ import (
 
 func main() {
 	projectKey := "default" // string | The project key
-	configKey := "configKey_example" // string | The AI Config key
+	configKey := "configKey_example" // string | The agent config key
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -108,7 +108,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **projectKey** | **string** | The project key | 
-**configKey** | **string** | The AI Config key | 
+**configKey** | **string** | The agent config key | 
 
 ### Other Parameters
 
@@ -142,7 +142,7 @@ Name | Type | Description  | Notes
 
 > DeleteAIConfigVariation(ctx, projectKey, configKey, variationKey).Execute()
 
-Delete AI Config variation
+Delete agent config variation
 
 
 
@@ -160,8 +160,8 @@ import (
 
 func main() {
 	projectKey := "projectKey_example" // string | The project key
-	configKey := "configKey_example" // string | The AI Config key
-	variationKey := "variationKey_example" // string | The AI Config variation key
+	configKey := "configKey_example" // string | The agent config key
+	variationKey := "variationKey_example" // string | The agent config variation key
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -180,8 +180,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **projectKey** | **string** | The project key | 
-**configKey** | **string** | The AI Config key | 
-**variationKey** | **string** | The AI Config variation key | 
+**configKey** | **string** | The agent config key | 
+**variationKey** | **string** | The agent config variation key | 
 
 ### Other Parameters
 
@@ -790,7 +790,7 @@ Name | Type | Description  | Notes
 
 > AIConfig GetAIConfig(ctx, projectKey, configKey).Execute()
 
-Get AI Config
+Get agent config
 
 
 
@@ -808,7 +808,7 @@ import (
 
 func main() {
 	projectKey := "projectKey_example" // string | The project key
-	configKey := "configKey_example" // string | The AI Config key
+	configKey := "configKey_example" // string | The agent config key
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -829,7 +829,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **projectKey** | **string** | The project key | 
-**configKey** | **string** | The AI Config key | 
+**configKey** | **string** | The agent config key | 
 
 ### Other Parameters
 
@@ -861,9 +861,9 @@ Name | Type | Description  | Notes
 
 ## GetAIConfigMetrics
 
-> Metrics GetAIConfigMetrics(ctx, projectKey, configKey).From(from).To(to).Env(env).ContextKind(contextKind).ContextKey(contextKey).Execute()
+> Metrics GetAIConfigMetrics(ctx, projectKey, configKey).From(from).To(to).Env(env).ContextKind(contextKind).ContextKey(contextKey).IncludeShadow(includeShadow).Execute()
 
-Get AI Config metrics
+Get agent config metrics
 
 
 
@@ -881,16 +881,17 @@ import (
 
 func main() {
 	projectKey := "projectKey_example" // string | The project key
-	configKey := "configKey_example" // string | The AI Config key
+	configKey := "configKey_example" // string | The agent config key
 	from := int32(56) // int32 | The starting time, as milliseconds since epoch (inclusive).
 	to := int32(56) // int32 | The ending time, as milliseconds since epoch (exclusive). May not be more than 100 days after `from`.
 	env := "env_example" // string | An environment key. Only metrics from this environment will be included.
 	contextKind := "contextKind_example" // string | A context kind. Only metrics from events that include a context of this kind are included. Required if `contextKey` is provided. (optional)
 	contextKey := "contextKey_example" // string | A context key. Only metrics from events whose context of the `contextKind` kind has this key are included. Requires `contextKind`. (optional)
+	includeShadow := true // bool | Whether to include Shadow Test events. When `true`, each metric also counts the matching `$ld:ai-shadow:*` events, under the variation the Shadow Test ran. Defaults to `false`. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentControlApi.GetAIConfigMetrics(context.Background(), projectKey, configKey).From(from).To(to).Env(env).ContextKind(contextKind).ContextKey(contextKey).Execute()
+	resp, r, err := apiClient.AgentControlApi.GetAIConfigMetrics(context.Background(), projectKey, configKey).From(from).To(to).Env(env).ContextKind(contextKind).ContextKey(contextKey).IncludeShadow(includeShadow).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AgentControlApi.GetAIConfigMetrics``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -907,7 +908,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **projectKey** | **string** | The project key | 
-**configKey** | **string** | The AI Config key | 
+**configKey** | **string** | The agent config key | 
 
 ### Other Parameters
 
@@ -923,6 +924,7 @@ Name | Type | Description  | Notes
  **env** | **string** | An environment key. Only metrics from this environment will be included. | 
  **contextKind** | **string** | A context kind. Only metrics from events that include a context of this kind are included. Required if &#x60;contextKey&#x60; is provided. | 
  **contextKey** | **string** | A context key. Only metrics from events whose context of the &#x60;contextKind&#x60; kind has this key are included. Requires &#x60;contextKind&#x60;. | 
+ **includeShadow** | **bool** | Whether to include Shadow Test events. When &#x60;true&#x60;, each metric also counts the matching &#x60;$ld:ai-shadow:*&#x60; events, under the variation the Shadow Test ran. Defaults to &#x60;false&#x60;. | 
 
 ### Return type
 
@@ -944,9 +946,9 @@ Name | Type | Description  | Notes
 
 ## GetAIConfigMetricsByVariation
 
-> []MetricByVariation GetAIConfigMetricsByVariation(ctx, projectKey, configKey).From(from).To(to).Env(env).ContextKind(contextKind).ContextKey(contextKey).Execute()
+> []MetricByVariation GetAIConfigMetricsByVariation(ctx, projectKey, configKey).From(from).To(to).Env(env).ContextKind(contextKind).ContextKey(contextKey).IncludeShadow(includeShadow).Execute()
 
-Get AI Config metrics by variation
+Get agent config metrics by variation
 
 
 
@@ -964,16 +966,17 @@ import (
 
 func main() {
 	projectKey := "projectKey_example" // string | The project key
-	configKey := "configKey_example" // string | The AI Config key
+	configKey := "configKey_example" // string | The agent config key
 	from := int32(56) // int32 | The starting time, as milliseconds since epoch (inclusive).
 	to := int32(56) // int32 | The ending time, as milliseconds since epoch (exclusive). May not be more than 100 days after `from`.
 	env := "env_example" // string | An environment key. Only metrics from this environment will be included.
 	contextKind := "contextKind_example" // string | A context kind. Only metrics from events that include a context of this kind are included. Required if `contextKey` is provided. (optional)
 	contextKey := "contextKey_example" // string | A context key. Only metrics from events whose context of the `contextKind` kind has this key are included. Requires `contextKind`. (optional)
+	includeShadow := true // bool | Whether to include Shadow Test events. When `true`, each metric also counts the matching `$ld:ai-shadow:*` events, under the variation the Shadow Test ran. Defaults to `false`. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentControlApi.GetAIConfigMetricsByVariation(context.Background(), projectKey, configKey).From(from).To(to).Env(env).ContextKind(contextKind).ContextKey(contextKey).Execute()
+	resp, r, err := apiClient.AgentControlApi.GetAIConfigMetricsByVariation(context.Background(), projectKey, configKey).From(from).To(to).Env(env).ContextKind(contextKind).ContextKey(contextKey).IncludeShadow(includeShadow).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AgentControlApi.GetAIConfigMetricsByVariation``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -990,7 +993,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **projectKey** | **string** | The project key | 
-**configKey** | **string** | The AI Config key | 
+**configKey** | **string** | The agent config key | 
 
 ### Other Parameters
 
@@ -1006,6 +1009,7 @@ Name | Type | Description  | Notes
  **env** | **string** | An environment key. Only metrics from this environment will be included. | 
  **contextKind** | **string** | A context kind. Only metrics from events that include a context of this kind are included. Required if &#x60;contextKey&#x60; is provided. | 
  **contextKey** | **string** | A context key. Only metrics from events whose context of the &#x60;contextKind&#x60; kind has this key are included. Requires &#x60;contextKind&#x60;. | 
+ **includeShadow** | **bool** | Whether to include Shadow Test events. When &#x60;true&#x60;, each metric also counts the matching &#x60;$ld:ai-shadow:*&#x60; events, under the variation the Shadow Test ran. Defaults to &#x60;false&#x60;. | 
 
 ### Return type
 
@@ -1029,7 +1033,7 @@ Name | Type | Description  | Notes
 
 > QuickStats GetAIConfigQuickStats(ctx, projectKey).Env(env).Execute()
 
-Get AI Config quick stats
+Get agent config quick stats
 
 
 
@@ -1101,7 +1105,7 @@ Name | Type | Description  | Notes
 
 > AIConfigTargeting GetAIConfigTargeting(ctx, projectKey, configKey).Execute()
 
-Show an AI Config's targeting
+Show an agent config's targeting
 
 
 
@@ -1119,7 +1123,7 @@ import (
 
 func main() {
 	projectKey := "projectKey_example" // string | The project key
-	configKey := "configKey_example" // string | The AI Config key
+	configKey := "configKey_example" // string | The agent config key
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1140,7 +1144,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **projectKey** | **string** | The project key | 
-**configKey** | **string** | The AI Config key | 
+**configKey** | **string** | The agent config key | 
 
 ### Other Parameters
 
@@ -1174,7 +1178,7 @@ Name | Type | Description  | Notes
 
 > AIConfigVariationsResponse GetAIConfigVariation(ctx, projectKey, configKey, variationKey).Execute()
 
-Get AI Config variation
+Get agent config variation
 
 
 
@@ -1192,8 +1196,8 @@ import (
 
 func main() {
 	projectKey := "default" // string | The project key
-	configKey := "default" // string | The AI Config key
-	variationKey := "default" // string | The AI Config variation key
+	configKey := "default" // string | The agent config key
+	variationKey := "default" // string | The agent config variation key
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1214,8 +1218,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **projectKey** | **string** | The project key | 
-**configKey** | **string** | The AI Config key | 
-**variationKey** | **string** | The AI Config variation key | 
+**configKey** | **string** | The agent config key | 
+**variationKey** | **string** | The agent config variation key | 
 
 ### Other Parameters
 
@@ -1250,7 +1254,7 @@ Name | Type | Description  | Notes
 
 > AIConfigs GetAIConfigs(ctx, projectKey).Sort(sort).Limit(limit).Offset(offset).Filter(filter).Execute()
 
-List AI Configs
+List agent configs
 
 
 
@@ -2540,7 +2544,7 @@ Name | Type | Description  | Notes
 
 ## ListAgentSkills
 
-> AgentSkills ListAgentSkills(ctx, projectKey).Limit(limit).Offset(offset).Filter(filter).Execute()
+> AgentSkills ListAgentSkills(ctx, projectKey).Limit(limit).Offset(offset).Filter(filter).Sort(sort).Execute()
 
 List agent skills
 
@@ -2563,10 +2567,11 @@ func main() {
 	limit := int32(56) // int32 | The number of resources to return. (optional)
 	offset := int32(56) // int32 | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query `limit`. (optional)
 	filter := "filter_example" // string | A filter to apply to the list. (optional)
+	sort := "sort_example" // string | A sort to apply to the list of agent skills. Use `usedIn` to sort by the number of AgentControl configs that use each skill, fewest first, or `-usedIn` for most first. Without a sort, skills are ordered by creation date, newest first. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentControlApi.ListAgentSkills(context.Background(), projectKey).Limit(limit).Offset(offset).Filter(filter).Execute()
+	resp, r, err := apiClient.AgentControlApi.ListAgentSkills(context.Background(), projectKey).Limit(limit).Offset(offset).Filter(filter).Sort(sort).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AgentControlApi.ListAgentSkills``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -2595,6 +2600,7 @@ Name | Type | Description  | Notes
  **limit** | **int32** | The number of resources to return. | 
  **offset** | **int32** | Where to start in the list. Use this with pagination. For example, an offset of 10 skips the first ten items and then returns the next items in the list, up to the query &#x60;limit&#x60;. | 
  **filter** | **string** | A filter to apply to the list. | 
+ **sort** | **string** | A sort to apply to the list of agent skills. Use &#x60;usedIn&#x60; to sort by the number of AgentControl configs that use each skill, fewest first, or &#x60;-usedIn&#x60; for most first. Without a sort, skills are ordered by creation date, newest first. | 
 
 ### Return type
 
@@ -3078,7 +3084,7 @@ Name | Type | Description  | Notes
 
 > AIConfig PatchAIConfig(ctx, projectKey, configKey).AIConfigPatch(aIConfigPatch).Execute()
 
-Update AI Config
+Update agent config
 
 
 
@@ -3096,8 +3102,8 @@ import (
 
 func main() {
 	projectKey := "projectKey_example" // string | The project key
-	configKey := "configKey_example" // string | The AI Config key
-	aIConfigPatch := *openapiclient.NewAIConfigPatch() // AIConfigPatch | AI Config object to update (optional)
+	configKey := "configKey_example" // string | The agent config key
+	aIConfigPatch := *openapiclient.NewAIConfigPatch() // AIConfigPatch | Agent config object to update (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -3118,7 +3124,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **projectKey** | **string** | The project key | 
-**configKey** | **string** | The AI Config key | 
+**configKey** | **string** | The agent config key | 
 
 ### Other Parameters
 
@@ -3129,7 +3135,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **aIConfigPatch** | [**AIConfigPatch**](AIConfigPatch.md) | AI Config object to update | 
+ **aIConfigPatch** | [**AIConfigPatch**](AIConfigPatch.md) | Agent config object to update | 
 
 ### Return type
 
@@ -3153,7 +3159,7 @@ Name | Type | Description  | Notes
 
 > AIConfigTargeting PatchAIConfigTargeting(ctx, projectKey, configKey).AIConfigTargetingPatch(aIConfigTargetingPatch).Execute()
 
-Update AI Config targeting
+Update agent config targeting
 
 
 
@@ -3171,8 +3177,8 @@ import (
 
 func main() {
 	projectKey := "projectKey_example" // string | The project key
-	configKey := "configKey_example" // string | The AI Config key
-	aIConfigTargetingPatch := *openapiclient.NewAIConfigTargetingPatch("EnvironmentKey_example", []map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}) // AIConfigTargetingPatch | AI Config targeting semantic patch instructions (optional)
+	configKey := "configKey_example" // string | The agent config key
+	aIConfigTargetingPatch := *openapiclient.NewAIConfigTargetingPatch("EnvironmentKey_example", []map[string]interface{}{map[string]interface{}{"key": interface{}(123)}}) // AIConfigTargetingPatch | Agent config targeting semantic patch instructions (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -3193,7 +3199,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **projectKey** | **string** | The project key | 
-**configKey** | **string** | The AI Config key | 
+**configKey** | **string** | The agent config key | 
 
 ### Other Parameters
 
@@ -3204,7 +3210,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **aIConfigTargetingPatch** | [**AIConfigTargetingPatch**](AIConfigTargetingPatch.md) | AI Config targeting semantic patch instructions | 
+ **aIConfigTargetingPatch** | [**AIConfigTargetingPatch**](AIConfigTargetingPatch.md) | Agent config targeting semantic patch instructions | 
 
 ### Return type
 
@@ -3228,7 +3234,7 @@ Name | Type | Description  | Notes
 
 > AIConfigVariation PatchAIConfigVariation(ctx, projectKey, configKey, variationKey).AIConfigVariationPatch(aIConfigVariationPatch).Execute()
 
-Update AI Config variation
+Update agent config variation
 
 
 
@@ -3246,9 +3252,9 @@ import (
 
 func main() {
 	projectKey := "projectKey_example" // string | The project key
-	configKey := "configKey_example" // string | The AI Config key
-	variationKey := "variationKey_example" // string | The AI Config variation key
-	aIConfigVariationPatch := *openapiclient.NewAIConfigVariationPatch() // AIConfigVariationPatch | AI Config variation object to update (optional)
+	configKey := "configKey_example" // string | The agent config key
+	variationKey := "variationKey_example" // string | The agent config variation key
+	aIConfigVariationPatch := *openapiclient.NewAIConfigVariationPatch() // AIConfigVariationPatch | Agent config variation object to update (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -3269,8 +3275,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **projectKey** | **string** | The project key | 
-**configKey** | **string** | The AI Config key | 
-**variationKey** | **string** | The AI Config variation key | 
+**configKey** | **string** | The agent config key | 
+**variationKey** | **string** | The agent config variation key | 
 
 ### Other Parameters
 
@@ -3282,7 +3288,7 @@ Name | Type | Description  | Notes
 
 
 
- **aIConfigVariationPatch** | [**AIConfigVariationPatch**](AIConfigVariationPatch.md) | AI Config variation object to update | 
+ **aIConfigVariationPatch** | [**AIConfigVariationPatch**](AIConfigVariationPatch.md) | Agent config variation object to update | 
 
 ### Return type
 
@@ -3836,7 +3842,7 @@ Name | Type | Description  | Notes
 
 > AIConfig PostAIConfig(ctx, projectKey).AIConfigPost(aIConfigPost).Execute()
 
-Create new AI Config
+Create new agent config
 
 
 
@@ -3854,7 +3860,7 @@ import (
 
 func main() {
 	projectKey := "projectKey_example" // string | The project key
-	aIConfigPost := *openapiclient.NewAIConfigPost("Key_example", "Name_example") // AIConfigPost | AI Config object to create
+	aIConfigPost := *openapiclient.NewAIConfigPost("Key_example", "Name_example") // AIConfigPost | Agent config object to create
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -3884,7 +3890,7 @@ Other parameters are passed through a pointer to a apiPostAIConfigRequest struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **aIConfigPost** | [**AIConfigPost**](AIConfigPost.md) | AI Config object to create | 
+ **aIConfigPost** | [**AIConfigPost**](AIConfigPost.md) | Agent config object to create | 
 
 ### Return type
 
@@ -3908,7 +3914,7 @@ Name | Type | Description  | Notes
 
 > AIConfigVariation PostAIConfigVariation(ctx, projectKey, configKey).AIConfigVariationPost(aIConfigVariationPost).Execute()
 
-Create AI Config variation
+Create agent config variation
 
 
 
@@ -3926,8 +3932,8 @@ import (
 
 func main() {
 	projectKey := "projectKey_example" // string | The project key
-	configKey := "configKey_example" // string | The AI Config key
-	aIConfigVariationPost := *openapiclient.NewAIConfigVariationPost("Key_example", "Name_example") // AIConfigVariationPost | AI Config variation object to create
+	configKey := "configKey_example" // string | The agent config key
+	aIConfigVariationPost := *openapiclient.NewAIConfigVariationPost("Key_example", "Name_example") // AIConfigVariationPost | Agent config variation object to create
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -3948,7 +3954,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **projectKey** | **string** | The project key | 
-**configKey** | **string** | The AI Config key | 
+**configKey** | **string** | The agent config key | 
 
 ### Other Parameters
 
@@ -3959,7 +3965,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **aIConfigVariationPost** | [**AIConfigVariationPost**](AIConfigVariationPost.md) | AI Config variation object to create | 
+ **aIConfigVariationPost** | [**AIConfigVariationPost**](AIConfigVariationPost.md) | Agent config variation object to create | 
 
 ### Return type
 

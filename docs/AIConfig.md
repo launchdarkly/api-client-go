@@ -7,19 +7,20 @@ Name | Type | Description | Notes
 **Access** | Pointer to [**AiConfigsAccess**](AiConfigsAccess.md) |  | [optional] 
 **Links** | Pointer to [**ParentAndSelfLinks**](ParentAndSelfLinks.md) |  | [optional] 
 **Site** | Pointer to [**CoreLink**](CoreLink.md) |  | [optional] 
-**Description** | **string** | A description of the AI Config | 
-**Key** | **string** | The AI Config key | 
+**Description** | **string** | A description of the agent config | 
+**Key** | **string** | The agent config key | 
 **Maintainer** | Pointer to [**AIConfigMaintainer**](AIConfigMaintainer.md) |  | [optional] 
-**Mode** | Pointer to **string** | The AI Config mode | [optional] [default to "completion"]
-**Name** | **string** | The AI Config name | 
+**Mode** | Pointer to **string** | The agent config mode | [optional] [default to "completion"]
+**Name** | **string** | The agent config name | 
 **Tags** | **[]string** | Tags for this resource | 
 **Version** | **int32** | The version number of this resource | 
-**Variations** | [**[]AIConfigVariation**](AIConfigVariation.md) | The variations of this AI Config | 
+**Variations** | [**[]AIConfigVariation**](AIConfigVariation.md) | The variations of this agent config | 
 **CreatedAt** | **int64** |  | 
 **UpdatedAt** | **int64** |  | 
 **EvaluationMetricKey** | Pointer to **string** | Evaluation metric key for this config | [optional] 
 **EvaluationMetricKeys** | Pointer to **[]string** | List of evaluation metric keys for this config | [optional] 
-**IsInverted** | Pointer to **bool** | Whether the evaluation metric is inverted, meaning a lower value is better if set as true | [optional] 
+**IsInverted** | Pointer to **bool** | The success direction of a judge. Offline evaluations use it to decide whether a score passes.  - &#x60;true&#x60;: A lower score is better. Use this for a judge that scores bad output, such as a toxicity or hallucination judge. - &#x60;false&#x60;: A higher score is better. Use this for a judge that scores good output, such as an accuracy or relevance judge.  The response includes this field only when &#x60;mode&#x60; is &#x60;judge&#x60;. For a built-in judge key, the value is always the built-in direction. Built-in judge keys are &#x60;ld-ai-judge-accuracy&#x60;, &#x60;ld-ai-judge-relevance&#x60;, and &#x60;ld-ai-judge-toxicity&#x60;, with or without a &#x60;-&lt;timestamp&gt;&#x60; suffix such as &#x60;ld-ai-judge-accuracy-1760000000000&#x60;. A custom judge with no stored direction omits this field.  | [optional] 
+**DefaultThreshold** | Pointer to **float64** | The judge&#39;s threshold: the pass line for its main score, from 0 to 1. It applies wherever the judge is used. The average score passes when it is at or above this value, or at or below it when &#x60;isInverted&#x60; is &#x60;true&#x60;.  The response includes this field only when &#x60;mode&#x60; is &#x60;judge&#x60; and a threshold is set.  | [optional] 
 **Dependencies** | Pointer to [**[]AIConfigDependency**](AIConfigDependency.md) | Resources that depend on this config, grouped by type | [optional] 
 
 ## Methods
@@ -400,6 +401,31 @@ SetIsInverted sets IsInverted field to given value.
 `func (o *AIConfig) HasIsInverted() bool`
 
 HasIsInverted returns a boolean if a field has been set.
+
+### GetDefaultThreshold
+
+`func (o *AIConfig) GetDefaultThreshold() float64`
+
+GetDefaultThreshold returns the DefaultThreshold field if non-nil, zero value otherwise.
+
+### GetDefaultThresholdOk
+
+`func (o *AIConfig) GetDefaultThresholdOk() (*float64, bool)`
+
+GetDefaultThresholdOk returns a tuple with the DefaultThreshold field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDefaultThreshold
+
+`func (o *AIConfig) SetDefaultThreshold(v float64)`
+
+SetDefaultThreshold sets DefaultThreshold field to given value.
+
+### HasDefaultThreshold
+
+`func (o *AIConfig) HasDefaultThreshold() bool`
+
+HasDefaultThreshold returns a boolean if a field has been set.
 
 ### GetDependencies
 
